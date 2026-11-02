@@ -1394,6 +1394,17 @@ var P46_VOCAB=[];
   });
 })();
 
+/* ===== PHASE54: キルギス語 例文の補充（944語）と、機械的な組み合わせフレーズの整理 =====
+   「мой хлеб」「напишите паспорт」のように名詞と動詞・形容詞を機械的に組み合わせた項目（約920件）は
+   単語としては不自然なものが多いため、単語練習・チャレンジ・集計から外す（学習記録は削除しない）。
+   数詞＋名詞（два документа など）と格変化のチャンクは文法の練習になるので残す。 */
+var P54_EX={};
+var P54_HIDE_CATS=["基本チャンク","形容詞チャンク","副詞チャンク","丁寧依頼チャンク","A2実用チャンク","A2操作チャンク","仕事・手続きチャンク","医療チャンク"];
+if(String(DATA_VERSION).indexOf("ru-")===0){
+  VOCAB.forEach(function(w){var e=P54_EX[w.id];if(e&&!w.exRu){w.exRu=e[0];w.exJa=e[1];}});
+  VOCAB=VOCAB.filter(function(w){return P54_HIDE_CATS.indexOf(w.category)<0;});
+}
+
 /* ===== PHASE46: 文法ノート（A2までの文法早見表）と A2カバー状況 ===== */
 (function(){
   var css='.p46-tbl{width:100%;min-width:520px;border-collapse:collapse;font-size:13px;margin:8px 0 4px}'+
