@@ -4870,14 +4870,14 @@ function renderP48Stats(){
     '<div class="p48-tile"><span class="p48-ill">'+p48Art("cards",26)+'</span><b>'+all.toLocaleString()+'</b><small>これまでの回答</small></div></div>';
   /* この7日間 */
   var days=[],mx=1;for(var i=6;i>=0;i--){var dt=new Date();dt.setDate(dt.getDate()-i);var k=todayKey(dt),v=p48DayCount(k);mx=Math.max(mx,v);days.push({k:k,v:v,wd:["日","月","火","水","木","金","土"][dt.getDay()],today:i===0});}
-  h+='<div class="p48-card"><div class="p48-ch"><b>この7日間</b><span>回答数</span></div><div class="p48-bars">';
+  h+='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("clock",22)+'</span>この7日間</b><span>回答数</span></div><div class="p48-bars">';
   days.forEach(function(x){var hh=x.v?Math.max(6,Math.round(x.v/mx*110)):3;
     h+='<button type="button" class="p48-bar'+(x.today?" today":"")+'" data-act="p48day" data-val="'+x.wd+'曜日 '+x.v+'問" title="'+x.wd+' '+x.v+'問" aria-label="'+x.wd+'曜日 '+x.v+'問">'+
       ((x.today||x.v===mx)&&x.v?'<em>'+x.v+'</em>':'<em></em>')+'<i style="height:'+hh+'px"></i><span>'+x.wd+'</span></button>';});
   h+='</div></div>';
   /* 学習カレンダー（5週間） */
   var today=new Date(),start=new Date();start.setDate(today.getDate()-28-today.getDay());
-  h+='<div class="p48-card"><div class="p48-ch"><b>学習カレンダー</b><span>5週間</span></div><div class="p48-heat">'+
+  h+='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art(P47_LANG==="ky"?"sun":"star",22)+'</span>学習カレンダー</b><span>5週間</span></div><div class="p48-heat">'+
     ["日","月","火","水","木","金","土"].map(function(w){return '<span>'+w+'</span>';}).join("");
   var nCells=28+today.getDay()+1;
   for(var j=0;j<35;j++){var dd=new Date(start);dd.setDate(start.getDate()+j);
@@ -4893,7 +4893,7 @@ var _p48Render2=render;
 render=function(){
   var r=_p48Render2.apply(this,arguments);
   try{
-    var studying=(ui.session||ui.composeSession||ui.mixCheckpoint||ui.mixSummary||ui.chalPick||ui.lapDonePending);
+    var studying=(ui.chalPick||(ui.mixSummary&&ui.mixSummary.stats)||(ui.mixCheckpoint&&ui.mixQueue)||(ui.lapDonePending&&ui.session&&ui.session.origin==="reinforce"));
     if(ui.bnav==="stats"&&!studying){var m=document.getElementById("main");if(m)m.innerHTML=renderP48Stats();}
   }catch(e){}
   return r;
@@ -5123,7 +5123,7 @@ renderSettings=function(embed){
   '.p48-heat i{display:flex;align-items:center;justify-content:center;border-radius:9px}.p48-heat i svg{display:block}'+
   '.p48-heat i.s1 svg{width:46%;height:46%;opacity:.75}.p48-heat i.s2 svg{width:62%;height:62%;opacity:.9}.p48-heat i.s3 svg,.p48-heat i.s4 svg{width:80%;height:80%}'+
   '.p48-heat i.s1,.p48-heat i.s2,.p48-heat i.s3,.p48-heat i.s4{background:color-mix(in srgb,var(--accent) 16%,var(--card2))!important}'+
-  '.p48-heat i.s4{box-shadow:inset 0 0 0 1.5px var(--sub)}';
+  '.p48-heat i.s4{box-shadow:inset 0 0 0 1.5px var(--sub)}'+'.p48-tile{background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 20%,var(--card)) 0%,var(--card) 70%)!important}'+'.p49-cardill{background:radial-gradient(120% 80% at 100% 0%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%),var(--card)!important}'+'.p49-chic{display:inline-flex;width:30px;height:30px;border-radius:10px;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}'+'.p48-ch b{display:flex;align-items:center}'+'.p48-bar i{background:linear-gradient(180deg,var(--sub),var(--accent))!important;opacity:.45;border-radius:8px 8px 3px 3px!important;max-width:28px!important}'+'.p48-bar.today i{opacity:1;box-shadow:0 0 16px var(--accentSoft)}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
 })();
 
