@@ -18,6 +18,14 @@ import { PHRASES } from "../src/lib/phrases.ts";
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const audioDir = path.join(root, "public", "audio");
 const args = new Set(process.argv.slice(2));
+
+// --dump <lang> : 定型文を JSON で出力（GitHub Actions のキルギス語音声生成で使う）
+const dumpIdx = process.argv.indexOf("--dump");
+if (dumpIdx > -1) {
+  const lang = process.argv[dumpIdx + 1] || "ky";
+  process.stdout.write(JSON.stringify(PHRASES.map((p) => ({ id: p.id, text: p[lang] })), null, 2));
+  process.exit(0);
+}
 const dry = args.has("--dry-run");
 const manifestOnly = args.has("--manifest-only");
 const force = args.has("--force");

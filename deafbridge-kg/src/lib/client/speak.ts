@@ -21,7 +21,8 @@ let currentAudio: HTMLAudioElement | null = null;
 /** アプリ起動時に呼んでおく */
 export async function preloadAudioManifest(): Promise<void> {
   try {
-    const res = await fetch("/audio/manifest.json", { cache: "no-cache" });
+    // 相対パス：本番（/）でもお試しページ（claude.ai 上）でも同じ場所を指す
+    const res = await fetch("audio/manifest.json", { cache: "no-cache" });
     if (res.ok) manifest = (await res.json()) as AudioManifest;
   } catch {
     /* オフライン時はキャッシュ（Service Worker）に任せる */
@@ -88,7 +89,7 @@ export function play(req: PlayRequest): { method: PlayMethod; done: Promise<void
   setAudioSession("playback");
 
   if (req.phraseId && hasAudioFile(req.lang, req.phraseId)) {
-    const audio = new Audio(`/audio/${req.lang}/${req.phraseId}.mp3`);
+    const audio = new Audio(`audio/${req.lang}/${req.phraseId}.mp3`);
     currentAudio = audio;
     const done = new Promise<void>((resolve) => {
       audio.onended = () => resolve();
