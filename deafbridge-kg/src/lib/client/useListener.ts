@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Sensitivity } from "../settings";
+import { setAudioSession } from "./audio-session";
 import { Vad, VAD_PRESETS } from "./vad";
 
 export type ListenerOptions = {
@@ -14,6 +15,8 @@ export type ListenerOptions = {
   /** 確定した録音。hadSpeech=false は手動停止で声が検出されなかった場合 */
   onSegment: (blob: Blob, info: { hadSpeech: boolean; durationMs: number }) => void;
   onError?: (e: unknown) => void;
+  /** 相手が話し始めた瞬間（画面フラッシュ等の視覚通知用） */
+  onSpeechStart?: () => void;
 };
 
 export type ListenerState = "idle" | "starting" | "listening";
@@ -141,6 +144,7 @@ export function useListener(opts: ListenerOptions) {
     setElapsedMs(segMs);
 
     const o = optsRef.current;
+    if (ev === "speech_start") o.onSpeechStart?.();
     if (ev === "speech_end" && o.autoStop) {
       finalize("send", o.continuous);
     } else if (segMs >= o.maxSeconds * 1000) {
@@ -163,6 +167,7 @@ export function useListener(opts: ListenerOptions) {
         ctxRef.current = new Ctx();
       }
       const ctx = ctxRef.current;
+      setAudioSession("play-and-record");
       const resumeP = ctx.state === "suspended" ? ctx.resume() : Promise.resolve();
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: {

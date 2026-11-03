@@ -3,15 +3,20 @@
 import { useEffect } from "react";
 import { Icon } from "./ui";
 
-/** 相手（窓口の人・カメラ付きインターフォン）に画面を見せるための全画面表示 */
+/**
+ * 相手（窓口の人・カメラ付きインターフォン）に画面を見せるための全画面表示。
+ * text = 相手の言語。sub = 利用者の画面の言語での意味。ja = 日本語補助（確認用）。
+ */
 export default function ShowTextOverlay({
   text,
   sub,
+  ja,
   closeLabel,
   onClose,
 }: {
   text: string;
   sub?: string;
+  ja?: string;
   closeLabel: string;
   onClose: () => void;
 }) {
@@ -36,7 +41,12 @@ export default function ShowTextOverlay({
           {text}
         </p>
       </div>
-      {sub && <p className="px-6 pb-4 text-center text-xl text-neutral-300">{sub}</p>}
+      {sub && sub !== text && <p className="px-6 pb-2 text-center text-xl text-neutral-300">{sub}</p>}
+      {ja && (
+        <p className="px-6 pb-4 text-center text-base text-neutral-400" lang="ja">
+          🇯🇵 {ja}
+        </p>
+      )}
       <button
         type="button"
         onClick={onClose}

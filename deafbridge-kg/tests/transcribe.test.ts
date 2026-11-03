@@ -14,10 +14,10 @@ function wavBody(seconds: number, rate = 16000) {
   return encodeWav(new Float32Array(Math.round(seconds * rate)).fill(0.1), rate);
 }
 
-function req(body: BodyInit | null, opts: { lang?: string; ui?: string; type?: string; code?: string; ip?: string } = {}) {
+function req(body: BodyInit | null, opts: { lang?: string; tr?: string; type?: string; code?: string; ip?: string } = {}) {
   const url = new URL("http://localhost/api/transcribe");
   if (opts.lang !== "") url.searchParams.set("lang", opts.lang ?? "ru");
-  if (opts.ui) url.searchParams.set("ui", opts.ui);
+  if (opts.tr) url.searchParams.set("tr", opts.tr);
   return new Request(url, {
     method: "POST",
     body,
@@ -33,14 +33,34 @@ const asEnv = (o: Record<string, string>) => o as unknown as NodeJS.ProcessEnv;
 const env = asEnv({});
 
 describe("POST /api/transcribe", () => {
-  it("transcribes with mock provider and translates to ja", async () => {
-    const res = await handleTranscribe(req(wavBody(1), { ui: "ja" }), createMockProvider(), env);
+  it("transcribes Russian and translates to Kyrgyz (UI) and Japanese (assist)", async () => {
+    const res = await handleTranscribe(req(wavBody(1), { tr: "ky,ja" }), createMockProvider(), env);
     const data = await res.json();
     expect(res.status).toBe(200);
     expect(data.ok).toBe(true);
     expect(data.provider).toBe("mock");
     expect(data.text).toBeTruthy();
-    expect(data.translation).toBeTruthy();
+    expect(Object.keys(data.translations).sort()).toEqual(["ja", "ky"]);
+  });
+
+  it("ignores unknown / duplicate / same-language translation targets", async () => {
+    const translate = vi.fn(async (_t: string, _f: string, to: string) => `x-${to}`);
+    const p: SttProvider = { ...createMockProvider(), translate };
+    const res = await handleTranscribe(req(wavBody(1), { tr: "ru,ja,ja,en,<script>" }), p, env);
+    expect((await res.json()).translations).toEqual({ ja: "x-ja" });
+    expect(translate).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps successful translations when one target fails", async () => {
+    const p: SttProvider = {
+      ...createMockProvider(),
+      translate: async (_t, _f, to) => {
+        if (to === "ja") throw new Error("x");
+        return "ok";
+      },
+    };
+    const res = await handleTranscribe(req(wavBody(1), { tr: "ky,ja" }), p, env);
+    expect((await res.json()).translations).toEqual({ ky: "ok" });
   });
 
   it("passes raw PCM and sample rate to provider", async () => {
@@ -53,11 +73,11 @@ describe("POST /api/transcribe", () => {
     expect(lang).toBe("ru");
   });
 
-  it("does not translate when ui language equals conversation language", async () => {
+  it("does not translate when no targets requested", async () => {
     const translate = vi.fn(async () => "x");
     const p: SttProvider = { ...createMockProvider(), translate };
-    const res = await handleTranscribe(req(wavBody(1), { ui: "ru" }), p, env);
-    expect((await res.json()).translation).toBeNull();
+    const res = await handleTranscribe(req(wavBody(1)), p, env);
+    expect((await res.json()).translations).toEqual({});
     expect(translate).not.toHaveBeenCalled();
   });
 

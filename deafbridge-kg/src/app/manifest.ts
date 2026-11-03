@@ -2,15 +2,15 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "DeafBridge KG — インターフォン会話支援",
+    name: "DeafBridge KG",
     short_name: "DeafBridge",
-    description: "インターフォンの声を文字にして、タップで音声返答",
+    description: "Домофондогу сөздү текстке айлантат, баскыч менен үн чыгарып жооп берет",
     start_url: "/",
     display: "standalone",
     orientation: "portrait",
     background_color: "#070b14",
     theme_color: "#070b14",
-    lang: "ja",
+    lang: "ky",
     icons: [
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png" },

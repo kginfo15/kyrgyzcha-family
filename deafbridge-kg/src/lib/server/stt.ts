@@ -1,4 +1,4 @@
-import { STT_LANG_CODE, type ConvLang, type UiLang } from "../types";
+import { STT_LANG_CODE, type ConvLang, type TransLang } from "../types";
 import { googlePost, readGoogleAuth, type GoogleAuth } from "./google-auth";
 import { PHRASE_HINTS } from "./phrase-hints";
 
@@ -8,7 +8,7 @@ export type SttProvider = {
   name: "mock" | "google";
   /** pcm: 16bit little-endian mono PCM */
   transcribe(pcm: Uint8Array, sampleRate: number, lang: ConvLang): Promise<SttOutput>;
-  translate(text: string, from: ConvLang, to: UiLang): Promise<string | null>;
+  translate(text: string, from: ConvLang, to: TransLang): Promise<string | null>;
 };
 
 // ---------------------------------------------------------------- mock
@@ -34,8 +34,7 @@ export function createMockProvider(): SttProvider {
     },
     async translate(text, from, to) {
       const s = MOCK_SAMPLES.find((m) => m[from] === text);
-      if (!s) return null;
-      return to === "ja" ? s.ja : s[to];
+      return s ? s[to] : null;
     },
   };
 }

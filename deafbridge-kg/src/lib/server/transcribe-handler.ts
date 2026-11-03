@@ -1,5 +1,5 @@
 import { timingSafeEqual } from "node:crypto";
-import { CONV_LANGS, UI_LANGS, type ConvLang, type TranscribeError, type TranscribeResult, type UiLang } from "../types";
+import { CONV_LANGS, TRANS_LANGS, type ConvLang, type TranscribeError, type TranscribeResult, type TransLang } from "../types";
 import { parseWav } from "../wav";
 import { createRateLimiter } from "./rate-limit";
 import { getProvider, translationEnabled, type SttProvider } from "./stt";
@@ -32,7 +32,8 @@ export function accessCodeRequired(env: NodeJS.ProcessEnv = process.env): boolea
 }
 
 /**
- * POST /api/transcribe?lang=ru&ui=ja
+ * POST /api/transcribe?lang=ru&tr=ky,ja
+ *   lang: 相手の言語 / tr: 翻訳先（カンマ区切り。ky / ru / ja）
  * body: audio/wav (16bit PCM mono)
  * 録音データはメモリ上でのみ扱い、保存もログ出力もしない。
  */
@@ -62,8 +63,14 @@ export async function handleTranscribe(
   // 3) パラメータ
   const lang = url.searchParams.get("lang") as ConvLang;
   if (!CONV_LANGS.includes(lang)) return err("bad_request", "lang must be ru or ky", 400);
-  const uiParam = url.searchParams.get("ui");
-  const ui: UiLang | null = UI_LANGS.includes(uiParam as UiLang) ? (uiParam as UiLang) : null;
+  const targets = [
+    ...new Set(
+      (url.searchParams.get("tr") ?? "")
+        .split(",")
+        .map((t) => t.trim())
+        .filter((t): t is TransLang => TRANS_LANGS.includes(t as TransLang) && t !== lang),
+    ),
+  ];
 
   // 4) サイズ・形式チェック
   const declared = Number(req.headers.get("content-length") || 0);
@@ -84,7 +91,7 @@ export async function handleTranscribe(
   if (info.durationSec > MAX_SECONDS + 0.5) return err("too_long", "audio too long", 413);
   if (info.durationSec < 0.2) {
     return json({
-      ok: true, text: "", confidence: null, alternatives: [], translation: null,
+      ok: true, text: "", confidence: null, alternatives: [], translations: {},
       provider: provider.name, elapsedMs: Date.now() - started,
     });
   }
@@ -93,16 +100,21 @@ export async function handleTranscribe(
   try {
     const pcm = buf.subarray(info.dataOffset, info.dataOffset + info.dataLength);
     const out = await provider.transcribe(pcm, info.sampleRate, lang);
-    let translation: string | null = null;
-    if (out.text && ui && ui !== lang && translationEnabled(env)) {
-      translation = await provider.translate(out.text, lang, ui).catch(() => null);
+    const translations: Partial<Record<TransLang, string>> = {};
+    if (out.text && targets.length && translationEnabled(env)) {
+      const results = await Promise.all(
+        targets.map((t) => provider.translate(out.text, lang, t).catch(() => null)),
+      );
+      targets.forEach((t, i) => {
+        if (results[i]) translations[t] = results[i]!;
+      });
     }
     return json({
       ok: true,
       text: out.text,
       confidence: out.confidence,
       alternatives: out.alternatives,
-      translation,
+      translations,
       provider: provider.name,
       elapsedMs: Date.now() - started,
     });

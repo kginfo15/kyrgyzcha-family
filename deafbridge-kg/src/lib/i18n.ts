@@ -1,9 +1,10 @@
-import type { ConvLang, UiLang } from "./types";
+import type { ConvLang, TransLang } from "./types";
 import type { PhraseCategory } from "./phrases";
 
 /**
  * UI 文言。ru / ky は draft（ネイティブ確認前）。
  */
+/** 日本語（補助表示用） */
 const ja = {
   appName: "DeafBridge KG",
   tagline: "インターフォン会話支援",
@@ -48,7 +49,7 @@ const ja = {
   fontSize: "文字サイズ",
   fontLarge: "大",
   fontXLarge: "特大",
-  translate: "翻訳を表示",
+  translate: "画面の言語に翻訳",
   on: "オン",
   off: "オフ",
   autoStop: "話し終わりを自動検出",
@@ -76,6 +77,21 @@ const ja = {
   errRateLimited: "利用が集中しています。少し待ってください。",
   errGeneric: "文字化に失敗しました。",
   confidenceLow: "認識の自信が低い",
+  jaAssist: "日本語補助表示",
+  jaAssistHint: "確認用：画面のすべての文字の下に日本語を小さく表示します",
+  visualAlert: "光と振動で知らせる",
+  visualAlertHint: "相手が話し始めた時・文字が出た時に画面が光ります（振動はAndroidのみ）",
+  speakingNow: "相手が話しています",
+  playIntro: "耳が聞こえないことを伝える",
+  playDone: "音声を流しました",
+  silentHint: "マナーモードを解除し、音量を最大にしてください",
+  catMine: "マイ返答",
+  savePhrase: "マイ返答に保存",
+  deletePhrase: "削除",
+  myPhrasesEmpty: "よく使う文（薬の名前など）を下の入力欄から保存できます",
+  stepHold: "スピーカーに近づける",
+  stepRing: "インターフォンを押す",
+  stepRead: "文字を読んで返答",
   offline: "オフラインです。返答ボタンは使えます。",
 };
 
@@ -125,7 +141,7 @@ const ru: Dict = {
   fontSize: "Размер текста",
   fontLarge: "Крупный",
   fontXLarge: "Очень крупный",
-  translate: "Показывать перевод",
+  translate: "Переводить на язык интерфейса",
   on: "Вкл",
   off: "Выкл",
   autoStop: "Определять конец фразы",
@@ -153,6 +169,21 @@ const ru: Dict = {
   errRateLimited: "Слишком много запросов. Подождите немного.",
   errGeneric: "Не удалось распознать.",
   confidenceLow: "Низкая уверенность",
+  jaAssist: "Японские подсказки",
+  jaAssistHint: "Для проверки: под каждым текстом мелко показывается японский перевод",
+  visualAlert: "Оповещать вспышкой и вибрацией",
+  visualAlertHint: "Экран мигает, когда собеседник начал говорить и когда появился текст (вибрация — только Android)",
+  speakingNow: "Собеседник говорит",
+  playIntro: "Сообщить, что я не слышу",
+  playDone: "Голос прозвучал",
+  silentHint: "Выключите беззвучный режим и поставьте громкость на максимум",
+  catMine: "Мои фразы",
+  savePhrase: "Сохранить в мои фразы",
+  deletePhrase: "Удалить",
+  myPhrasesEmpty: "Часто нужные фразы (например, названия лекарств) можно сохранить ниже",
+  stepHold: "Поднесите к динамику",
+  stepRing: "Нажмите на звонок",
+  stepRead: "Читайте и отвечайте",
   offline: "Нет сети. Кнопки ответа работают.",
 };
 
@@ -200,7 +231,7 @@ const ky: Dict = {
   fontSize: "Тамганын өлчөмү",
   fontLarge: "Чоң",
   fontXLarge: "Абдан чоң",
-  translate: "Котормону көрсөтүү",
+  translate: "Интерфейс тилине которуу",
   on: "Күйүк",
   off: "Өчүк",
   autoStop: "Сөздүн аягын аныктоо",
@@ -228,17 +259,41 @@ const ky: Dict = {
   errRateLimited: "Суроо-талап өтө көп. Бир аз күтүңүз.",
   errGeneric: "Текстке айлантуу ишке ашкан жок.",
   confidenceLow: "Ишеними төмөн",
+  jaAssist: "Жапонча жардамчы текст",
+  jaAssistHint: "Текшерүү үчүн: ар бир тексттин астында жапонча котормо майда жазылат",
+  visualAlert: "Жарык жана титирөө менен билдирүү",
+  visualAlertHint: "Маектеш сүйлөй баштаганда жана текст чыкканда экран жаркылдайт (титирөө — Android гана)",
+  speakingNow: "Маектеш сүйлөп жатат",
+  playIntro: "Укпай турганымды билдирүү",
+  playDone: "Үн чыкты",
+  silentHint: "Үнсүз режимди өчүрүп, үндү эң катуу кылыңыз",
+  catMine: "Менин сөздөрүм",
+  savePhrase: "Менин сөздөрүмө сактоо",
+  deletePhrase: "Өчүрүү",
+  myPhrasesEmpty: "Көп керек болгон сөздөрдү (мисалы, дарылардын аттарын) төмөндө сактай аласыз",
+  stepHold: "Динамикке жакындатыңыз",
+  stepRing: "Коңгуроону басыңыз",
+  stepRead: "Окуп, жооп бериңиз",
   offline: "Интернет жок. Жооп баскычтары иштейт.",
 };
 
-export const DICTS: Record<UiLang, Dict> = { ja, ru, ky };
+export const DICTS: Record<TransLang, Dict> = { ja, ru, ky };
+export const JA = ja;
 
-export const LANG_NAMES: Record<UiLang | ConvLang, string> = {
+export const LANG_NAMES: Record<TransLang | ConvLang, string> = {
   ja: "日本語",
   ru: "Русский",
   ky: "Кыргызча",
 };
 
-export function categoryLabel(d: Dict, c: PhraseCategory): string {
-  return c === "basic" ? d.catBasic : c === "pharmacy" ? d.catPharmacy : d.catDoor;
+/** 言語名の日本語（日本語補助用） */
+export const LANG_NAMES_JA: Record<TransLang | ConvLang, string> = {
+  ja: "日本語",
+  ru: "ロシア語",
+  ky: "キルギス語",
+};
+
+/** 返答カテゴリの文言キー（"mine" = 利用者が保存したマイ返答） */
+export function categoryKey(c: PhraseCategory | "mine"): keyof Dict {
+  return c === "basic" ? "catBasic" : c === "pharmacy" ? "catPharmacy" : c === "door" ? "catDoor" : "catMine";
 }

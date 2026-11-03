@@ -15,6 +15,7 @@ describe("phrases", () => {
       expect(p.ky.trim(), p.id).not.toBe("");
       expect(p.ja.trim(), p.id).not.toBe("");
       expect(PHRASE_CATEGORIES).toContain(p.category);
+      expect(p.icon.trim(), p.id).not.toBe("");
     }
   });
   it("every category has phrases", () => {
@@ -24,8 +25,8 @@ describe("phrases", () => {
 
 describe("i18n", () => {
   it("all UI languages define every key", () => {
-    const keys = Object.keys(DICTS.ja).sort();
-    for (const lang of ["ru", "ky"] as const) {
+    const keys = Object.keys(DICTS.ky).sort();
+    for (const lang of ["ru", "ja"] as const) {
       expect(Object.keys(DICTS[lang]).sort()).toEqual(keys);
       for (const k of keys) expect(DICTS[lang][k as keyof typeof DICTS.ja], `${lang}.${k}`).not.toBe("");
     }
@@ -36,6 +37,28 @@ describe("settings", () => {
   it("falls back to defaults on garbage", () => {
     expect(sanitizeSettings(null)).toEqual(DEFAULT_SETTINGS);
     expect(sanitizeSettings({ uiLang: "xx", maxSeconds: 999, fontSize: 3 })).toEqual(DEFAULT_SETTINGS);
+  });
+  it("defaults to Kyrgyz UI with Japanese assist on", () => {
+    expect(DEFAULT_SETTINGS.uiLang).toBe("ky");
+    expect(DEFAULT_SETTINGS.jaAssist).toBe(true);
+  });
+  it("migrates old Japanese UI setting to Kyrgyz + Japanese assist", () => {
+    const s = sanitizeSettings({ uiLang: "ja", jaAssist: false });
+    expect(s.uiLang).toBe("ky");
+    expect(s.jaAssist).toBe(true);
+  });
+  it("validates saved my-phrases", () => {
+    const s = sanitizeSettings({
+      myPhrases: [
+        { id: "a", text: "Парацетамол", lang: "ru" },
+        { id: "b", text: "  ", lang: "ru" },
+        { id: "c", text: "x", lang: "en" },
+        "junk",
+        { id: "d", text: "y".repeat(500), lang: "ky" },
+      ],
+    });
+    expect(s.myPhrases.map((m) => m.id)).toEqual(["a", "d"]);
+    expect(s.myPhrases[1].text.length).toBe(200);
   });
   it("keeps valid values", () => {
     const s = sanitizeSettings({ uiLang: "ru", convLang: "ky", fontSize: "xlarge", translate: false, maxSeconds: 30 });

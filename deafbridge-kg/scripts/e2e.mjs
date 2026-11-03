@@ -57,102 +57,119 @@ const check = (name, ok, extra = "") => {
   console.log(`${ok ? "PASS" : "FAIL"}  ${name}${extra ? "  " + extra : ""}`);
 };
 
+const RU_SAMPLES = /Кто там\?|Что вам нужно\?|Какое лекарство\?|Подождите минуту\.|Это стоит триста сом\.|Рецепт есть\?/;
+const KY_SAMPLES = /Ким бул\?|Сизге эмне керек\?|Кайсы дары\?|Бир мүнөт күтө туруңуз\.|Бул үч жүз сом турат\.|Рецепт барбы\?/;
+const wait = (loc, name, timeout = 15000) =>
+  loc.waitFor({ timeout }).then(() => check(name, true), () => check(name, false));
+
 for (const scheme of ["light", "dark"]) {
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 844 },
     deviceScaleFactor: 2,
     colorScheme: scheme,
     permissions: ["microphone"],
-    locale: "ja-JP",
+    locale: "ky-KG",
   });
   const page = await ctx.newPage();
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   const suffix = scheme === "dark" ? "-dark" : "";
+  const startBtn = page.getByRole("button", { name: /Сүйлөшүүнү баштоо/ });
 
   await page.goto(BASE);
-  await page.getByRole("button", { name: "会話を始める" }).waitFor();
+  await startBtn.waitFor();
   await page.waitForTimeout(500);
-  await page.screenshot({ path: path.join(shots, `01-home${suffix}.png`) });
+  await page.screenshot({ path: path.join(shots, `01-home${suffix}.png`), fullPage: true });
   if (scheme === "dark") {
-    // ダークは画面写真だけ
-    await page.getByRole("button", { name: "会話を始める" }).click();
-    await page.getByText(/Кто там\?|Что вам нужно\?|Какое лекарство\?|Подождите минуту\.|Это стоит триста сом\.|Рецепт есть\?/).first().waitFor({ timeout: 15000 });
+    await startBtn.click();
+    await page.getByText(RU_SAMPLES).first().waitFor({ timeout: 15000 });
+    await page.waitForTimeout(1000);
     await page.screenshot({ path: path.join(shots, `02-listen${suffix}.png`) });
     check("dark: no page errors", errors.length === 0, errors.join(" | "));
     await ctx.close();
     continue;
   }
 
+  check("UI defaults to Kyrgyz", await startBtn.isVisible());
+  check("Japanese assist shown by default", await page.getByText("会話を始める").first().isVisible());
+
   const status = await (await page.request.get(BASE + "/api/status")).json();
   check("status endpoint responds (demo mode)", status.provider === "mock");
 
-  await page.getByRole("button", { name: "会話を始める" }).click();
-  await page.getByText("停止して文字にする").waitFor({ timeout: 5000 });
-  check("listening started (mic permission + MediaRecorder)", true);
+  await startBtn.click();
+  await wait(page.getByRole("button", { name: /Токтотуп, текстке айлантуу/ }), "listening started (mic + MediaRecorder)", 5000);
+  await wait(page.getByText("Маектеш сүйлөп жатат").first(), "visual 'someone is talking' banner", 8000);
+  check("screen flash alert fired", (await page.locator(".flash").count()) > 0);
+  await page.screenshot({ path: path.join(shots, "02-listen-speaking.png") });
 
-  await page.getByText("音を検出中").waitFor({ timeout: 8000 }).then(
-    () => check("voice activity detected on level meter", true),
-    () => check("voice activity detected on level meter", false),
-  );
-  await page.getByText("Кто там?").waitFor({ timeout: 15000 }).then(
-    () => check("auto end-of-speech → transcribed text shown", true),
-    () => check("auto end-of-speech → transcribed text shown", false),
-  );
-  check("translation shown", await page.getByText("どなたですか？").first().isVisible());
-  await page.screenshot({ path: path.join(shots, "02-listen.png") });
-
-  // 続けて聞き取り → 2つ目の発話も文字化される
-  await page.getByText("Что вам нужно?").waitFor({ timeout: 15000 }).then(
-    () => check("continuous mode: second utterance transcribed", true),
-    () => check("continuous mode: second utterance transcribed", false),
-  );
-
-  // すぐ使う返答（再生中はマイクを止め、後で再開する）
-  await page.getByRole("button", { name: /Я хочу купить лекарство/ }).click();
+  await wait(page.getByText(RU_SAMPLES).first(), "auto end-of-speech → Russian text shown");
   await page.waitForTimeout(300);
-  check("reply logged in history", await page.getByText("自分").first().isVisible());
-  await page.getByText("停止して文字にする").waitFor({ timeout: 15000 }).then(
-    () => check("listening resumes after reply playback", true),
-    () => check("listening resumes after reply playback", false),
-  );
-  await page.screenshot({ path: path.join(shots, "03-listen-history.png"), fullPage: true });
+  check("Kyrgyz translation shown (UI language)", await page.getByText(KY_SAMPLES).first().isVisible());
+  check("Japanese assist translation shown", (await page.locator(".ja-gloss", { hasText: /？|。/ }).count()) > 0);
+  await page.screenshot({ path: path.join(shots, "03-listen.png") });
 
-  // 手動停止（送らない）
-  await page.getByRole("button", { name: "停止", exact: true }).click();
-  await page.getByText("聞き取り開始").waitFor();
-  check("manual stop returns to idle", true);
+  await wait(page.getByText(RU_SAMPLES).nth(1), "continuous mode: second utterance transcribed");
+
+  // すぐ使う返答 → 再生中表示 → 聞き取り再開
+  await page.getByRole("button", { name: /Я хочу купить лекарство/ }).click();
+  await wait(page.getByText(/Ойнотулууда|Үн чыкты/).first(), "playback status shown (deaf user can't hear it)", 3000);
+  await wait(page.getByRole("button", { name: /Токтотуп, текстке айлантуу/ }), "listening resumes after reply playback");
+  await page.screenshot({ path: path.join(shots, "04-listen-history.png"), fullPage: true });
+
+  // 日本語補助オフ
+  await page.getByRole("button", { name: /日本語補助表示/ }).click();
+  await page.waitForTimeout(200);
+  check("Japanese assist can be turned off", (await page.locator(".ja-gloss").count()) === 0);
+  await page.screenshot({ path: path.join(shots, "05-listen-no-ja.png") });
+  await page.getByRole("button", { name: /日本語補助表示/ }).click();
+
+  await page.getByRole("button", { name: /^Токтотуу/ }).click();
+  await wait(page.getByRole("button", { name: /Угууну баштоо/ }), "manual stop returns to idle", 5000);
 
   // 返答画面
-  await page.getByRole("button", { name: "返答", exact: true }).click();
-  await page.getByText("返答を選ぶ").waitFor();
-  await page.screenshot({ path: path.join(shots, "04-reply.png") });
-  await page.getByRole("tab", { name: "薬局" }).click();
-  await page.screenshot({ path: path.join(shots, "05-reply-pharmacy.png") });
-  await page.getByRole("button", { name: "画面を見せる" }).first().click();
+  const nav = page.locator("nav");
+  await nav.getByRole("button", { name: /Жооп/ }).click();
+  await page.getByText("Жоопту тандаңыз").waitFor();
+  await page.screenshot({ path: path.join(shots, "06-reply.png") });
+  await page.getByRole("tab", { name: /Дарыкана/ }).click();
+  await page.screenshot({ path: path.join(shots, "07-reply-pharmacy.png") });
+  await page.getByRole("button", { name: "Экранды көрсөтүү" }).first().click();
   await page.getByRole("dialog").waitFor();
-  await page.screenshot({ path: path.join(shots, "06-show-text.png") });
+  await page.screenshot({ path: path.join(shots, "08-show-text.png") });
   check("show-to-them overlay opens", true);
-  await page.getByRole("dialog").getByRole("button", { name: "閉じる" }).click();
+  await page.getByRole("dialog").getByRole("button").click();
 
-  // 設定画面
-  await page.getByRole("button", { name: "設定", exact: true }).click();
-  await page.getByRole("button", { name: "特大" }).click();
-  await page.getByRole("button", { name: "Кыргызча" }).first().click();
-  await page.screenshot({ path: path.join(shots, "07-settings.png"), fullPage: true });
+  // マイ返答（薬の名前を保存）
+  await page.locator("textarea").fill("Парацетамол 500 мг");
+  await page.getByRole("button", { name: /Менин сөздөрүмө сактоо/ }).click();
+  await wait(page.getByText("Парацетамол 500 мг").first(), "my phrase saved", 3000);
+  await page.screenshot({ path: path.join(shots, "09-my-phrases.png") });
+
+  // 設定
+  await nav.getByRole("button", { name: /Жөндөөлөр/ }).click();
+  await page.getByRole("button", { name: /Абдан чоң/ }).click();
+  await page.getByRole("button", { name: /^Кыргызча/ }).first().click();
+  await page.screenshot({ path: path.join(shots, "10-settings.png"), fullPage: true });
   await page.reload();
-  await page.getByRole("button", { name: "会話を始める" }).waitFor();
+  await startBtn.waitFor();
   const persisted = await page.evaluate(() => JSON.parse(localStorage.getItem("deafbridge.settings.v1") || "{}"));
-  check("settings persisted", persisted.fontSize === "xlarge" && persisted.convLang === "ky");
+  check("settings + my phrases persisted", persisted.fontSize === "xlarge" && persisted.convLang === "ky" && persisted.myPhrases?.length === 1);
   check("no recordings stored in localStorage", Object.keys(await page.evaluate(() => ({ ...localStorage }))).length === 1);
 
-  // キルギス語で会話
-  await page.getByRole("button", { name: "会話を始める" }).click();
-  await page.getByText(/Ким бул\?|Сизге эмне керек\?|Кайсы дары\?|Бир мүнөт күтө туруңуз\.|Бул үч жүз сом турат\.|Рецепт барбы\?/).first().waitFor({ timeout: 15000 }).then(
-    () => check("kyrgyz conversation language works", true),
-    () => check("kyrgyz conversation language works", false),
-  );
-  await page.screenshot({ path: path.join(shots, "08-listen-ky-xlarge.png") });
+  // 相手もキルギス語
+  await startBtn.click();
+  await wait(page.getByText(KY_SAMPLES).first(), "Kyrgyz conversation language works");
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: path.join(shots, "11-listen-ky-xlarge.png") });
+  await page.getByRole("button", { name: /^Токтотуу/ }).click();
+
+  // ロシア語 UI
+  await page.locator("nav").getByRole("button", { name: /Жөндөөлөр/ }).click();
+  await page.getByRole("button", { name: /Абдан чоң/ }).isVisible();
+  await page.getByRole("button", { name: /^Чоң/ }).click();
+  await page.getByRole("button", { name: /^Русский/ }).nth(1).click();
+  await wait(page.getByText("Настройки").first(), "Russian UI works", 3000);
+  await page.screenshot({ path: path.join(shots, "12-settings-ru.png") });
 
   const swOk = await page.evaluate(async () => !!(await navigator.serviceWorker.getRegistration()));
   check("service worker registered", swOk);

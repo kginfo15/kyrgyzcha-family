@@ -8,9 +8,9 @@ export function Segmented<T extends string | number>({
   options,
   onChange,
 }: {
-  label: string;
+  label: ReactNode;
   value: T;
-  options: { value: T; label: string }[];
+  options: { value: T; label: ReactNode }[];
   onChange: (v: T) => void;
 }) {
   return (
@@ -25,7 +25,7 @@ export function Segmented<T extends string | number>({
               type="button"
               aria-pressed={active}
               onClick={() => onChange(o.value)}
-              className={`min-h-14 rounded-xl border-2 px-2 text-body font-bold transition ${
+              className={`min-h-14 rounded-xl border-2 px-2 py-1 text-body font-bold leading-tight transition ${
                 active
                   ? "border-accent bg-accent text-accent-fg"
                   : "border-line bg-surface text-fg"

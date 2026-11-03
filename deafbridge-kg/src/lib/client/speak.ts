@@ -1,4 +1,5 @@
 import { STT_LANG_CODE, type ConvLang } from "../types";
+import { setAudioSession } from "./audio-session";
 
 /**
  * 返答の音声再生。優先順位:
@@ -84,6 +85,7 @@ export type PlayRequest = {
 
 export function play(req: PlayRequest): { method: PlayMethod; done: Promise<void> } {
   stopPlayback();
+  setAudioSession("playback");
 
   if (req.phraseId && hasAudioFile(req.lang, req.phraseId)) {
     const audio = new Audio(`/audio/${req.lang}/${req.phraseId}.mp3`);

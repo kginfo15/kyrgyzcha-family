@@ -1,4 +1,4 @@
-import type { ConvLang, StatusResponse, TranscribeError, TranscribeResult, UiLang } from "../types";
+import type { ConvLang, StatusResponse, TranscribeError, TranscribeResult, TransLang } from "../types";
 
 export async function fetchStatus(): Promise<StatusResponse | null> {
   try {
@@ -12,11 +12,11 @@ export async function fetchStatus(): Promise<StatusResponse | null> {
 export async function transcribe(
   wav: Blob,
   lang: ConvLang,
-  ui: UiLang | null,
+  targets: TransLang[],
   accessCode: string,
 ): Promise<TranscribeResult | TranscribeError> {
   const params = new URLSearchParams({ lang });
-  if (ui) params.set("ui", ui);
+  if (targets.length) params.set("tr", targets.join(","));
   try {
     const res = await fetch(`/api/transcribe?${params}`, {
       method: "POST",
