@@ -7,7 +7,7 @@
  * （"相手が話す" を数秒ごとに自動で再現し、サンプル文を表示する）。
  */
 import { build } from "esbuild";
-import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -60,4 +60,7 @@ const html = `<title>DeafBridge KG Demo</title>
 const out = path.join(root, "dist-demo");
 mkdirSync(out, { recursive: true });
 writeFileSync(path.join(out, "deafbridge-demo.html"), html);
+// 定型文の音声（キルギス語など）もページの隣に置く（ページからは相対パス audio/... で読む）
+rmSync(path.join(out, "audio"), { recursive: true, force: true });
+cpSync(path.join(root, "public", "audio"), path.join(out, "audio"), { recursive: true });
 console.log(`dist-demo/deafbridge-demo.html  ${(html.length / 1024).toFixed(0)} KB`);
