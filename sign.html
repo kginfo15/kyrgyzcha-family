@@ -90,6 +90,8 @@
   .desc .b{font-size:14px;line-height:1.75;white-space:pre-line}
   .desc .src{font-size:11.5px;color:var(--muted);margin-top:6px}
   .desc .src a{color:var(--teal)}
+  .desc.single{background:#FFF9DB;border-color:#FFE066}
+  .desc.single .h{color:#E67700}
   .desc.none{background:#F6F7FB;border-color:var(--line)}
   .desc.none .h{color:var(--muted)}
   .vids{margin-top:12px;text-align:left}
@@ -179,7 +181,8 @@ window.onerror=function(msg,src,l,c,err){
 
 /* ===== 動画ソース（検索で見つけたもの・中身未確認） ===== */
 var SRC={
-  vog:{label:"ВОГ（全ロシア聴覚障害者協会）「Давайте знакомиться!」より", official:true},
+  vog:{label:"ВОГ（全ロシア聴覚障害者協会）「Давайте знакомиться!」の「ЭТО ВАЖНО（大事な手話）」の回", official:true,
+    hint:"この動画は Я・ТЫ・ГЛУХОЙ・СЛЫШАЩИЙ・ПЕРЕВОДИТЬ・ПОМОГАТЬ・ЛЮБИТЬ・ДА・НЕТ・МОЖНО・НЕЛЬЗЯ・ЗДРАВСТВУЙТЕ・ДО СВИДАНИЯ・СПАСИБО の順に入っているとされる（順番は未確認）。"},
   gorod:{label:"「Город жестов」", official:false},
   yt:{label:"YouTube", official:false},
   rutube:{label:"Rutube", official:false},
@@ -205,24 +208,38 @@ var ALPHA_V=[YT("jtbwEalS0CE","alpha")];
 var CARDS=[
   // --- 挨拶 ---
   {id:"g01",cat:"greet",ja:"こんにちは（丁寧）",ru:"Здравствуйте",kana:"ズドラーストヴィチェ",ky:"Саламатсызбы",
-    vids:[YT("2u6V28grcXc","gorod"),YT("x78RQeWwwvQ","vog")],note:"初対面・目上の人にはまずこれ。"},
+    vids:[YT("2u6V28grcXc","gorod"),YT("x78RQeWwwvQ","vog"),LINK("https://surdo.media/topics/obshheupotrebitelnye-slova/zdravstvuiy/","surdo.media「Здравствуй」")],
+    desc:{level:"single",text:"両手の手のひらを胸の高さまで上げ、向かい合うように1回、なめらかに円を描く（丁寧な形）。",src:[{label:"Baby.ru",url:"https://www.baby.ru/articles/obuchenie/yazyk-zhestov-dlya-nachinayushchih-frazy-vezhlivosti/"}]},
+    note:"初対面・目上の人にはまずこれ。解説は1つの記事にしか載っていないので、必ず動画で確認しよう。"},
   {id:"g02",cat:"greet",ja:"やあ（親しい人に）",ru:"Привет",kana:"プリヴェート",ky:"Салам",
-    vids:[YT("yGs0HfQTRss","yt"),LINK("https://rutube.ru/video/c60c90bc006b8316026c219534c8173d/","Rutube「Привет - пока」")]},
+    vids:[YT("yGs0HfQTRss","yt"),LINK("https://rutube.ru/video/c60c90bc006b8316026c219534c8173d/","Rutube「Привет - пока」")],
+    desc:{level:"multi",text:"肘を曲げて右手を上げ、開いた手のひらを左右に振る。友だち向けのくだけた挨拶。",src:[{label:"5-tv.ru（ロシア手話の講師への取材記事）",url:"https://www.5-tv.ru/tabloid/5086792/skazat-lublu-rukami-ucim-bazovye-zesty-dla-obsenia-sgluhonemymi/"},{label:"Голос Казахстана",url:"https://voice-kazakhstan.com/personalno/item/33663-must-know-slovar-prostyh-fraz-na-zhestovom-yazyke"}]}},
   {id:"g03",cat:"greet",ja:"おはよう",ru:"Доброе утро",kana:"ドーブラエ ウートラ",ky:"Кутман таң"},
   {id:"g04",cat:"greet",ja:"こんにちは（日中）",ru:"Добрый день",kana:"ドーブルイ ジェーニ",ky:"Кутман күн"},
   {id:"g05",cat:"greet",ja:"こんばんは",ru:"Добрый вечер",kana:"ドーブルイ ヴェーチェル",ky:"Кутман кеч"},
   {id:"g06",cat:"greet",ja:"さようなら",ru:"До свидания",kana:"ダ スヴィダーニヤ",ky:"Кош болуңуз",
-    vids:[YT("x78RQeWwwvQ","vog")]},
+    vids:[YT("nv1dSdOm_7I","yt"),YT("x78RQeWwwvQ","vog"),LINK("https://signflow.ru/do-svidaniya","signflow.ru「До свидания」（2方向・スロー再生あり）")],
+    desc:{level:"multi",text:"右手を上げて、去っていく相手の方へ向ける。手のひらを左右に振るのではなく、ゴムボールを握るように指を閉じたり開いたりする。",src:[{label:"thegirl.ru",url:"https://thegirl.ru/articles/bez-slov-8-fraz-na-yazyike-jestov-kotoryie-tyi-smojesh-povtorit/"},{label:"5-tv.ru（ロシア手話の講師への取材記事）",url:"https://www.5-tv.ru/tabloid/5086792/skazat-lublu-rukami-ucim-bazovye-zesty-dla-obsenia-sgluhonemymi/"}]},
+    note:"日本の「バイバイ」のように手を左右に振るのとは違うので注意。"},
   {id:"g07",cat:"greet",ja:"じゃあね",ru:"Пока",kana:"パカー",ky:"Жакшы кал / Кош",
-    vids:[YT("yGs0HfQTRss","yt"),LINK("https://rutube.ru/video/c60c90bc006b8316026c219534c8173d/","Rutube「Привет - пока」")]},
+    vids:[YT("yGs0HfQTRss","yt"),LINK("https://rutube.ru/video/c60c90bc006b8316026c219534c8173d/","Rutube「Привет - пока」")],
+    desc:{level:"single",text:"手を上げ、ゴムボールを握るように指を動かす（ロシア手話の典型的な「じゃあね」）。",src:[{label:"5-tv.ru（ロシア手話の講師への取材記事）",url:"https://www.5-tv.ru/tabloid/5086792/skazat-lublu-rukami-ucim-bazovye-zesty-dla-obsenia-sgluhonemymi/"}]},
+    note:"資料によっては「До свидания」と同じ動きとして紹介されている。"},
   {id:"g08",cat:"greet",ja:"また会いましょう",ru:"До встречи",kana:"ダ フストレーチ",ky:"Көрүшкөнчө"},
   {id:"g09",cat:"greet",ja:"ありがとう",ru:"Спасибо",kana:"スパシーバ",ky:"Рахмат",
-    vids:[YT("x78RQeWwwvQ","vog"),LINK("https://rutube.ru/video/c94b2d8d3fce3649a5fb468155ad1294/","Rutube「Спасибо」")]},
-  {id:"g10",cat:"greet",ja:"お願いします／どういたしまして",ru:"Пожалуйста",kana:"パジャールスタ",ky:"Сураныч / Эчтеке эмес"},
-  {id:"g11",cat:"greet",ja:"すみません／ごめんなさい",ru:"Извините",kana:"イズヴィニーチェ",ky:"Кечиресиз"},
+    vids:[YT("x78RQeWwwvQ","vog"),LINK("https://rutube.ru/video/c94b2d8d3fce3649a5fb468155ad1294/","Rutube「Спасибо」")],
+    desc:{level:"multi",text:"右手を握りこぶしにして、指の関節（こぶしの背）でおでこに触れる →「スパ」\nそのまま下ろして、指の関節であごに触れる →「シーバ」\n口で「спасибо」と言いながら、2つの動きを音節に合わせる。ぎくしゃくさせず、なめらかに。",src:[{label:"Baby.ru",url:"https://www.baby.ru/articles/obuchenie/yazyk-zhestov-dlya-nachinayushchih-frazy-vezhlivosti/"},{label:"thegirl.ru",url:"https://thegirl.ru/articles/bez-slov-8-fraz-na-yazyike-jestov-kotoryie-tyi-smojesh-povtorit/"},{label:"superbossclub.ru",url:"https://www.superbossclub.ru/obrazovanie/yazyk-zhestov-slova-i-frazy.html"}]},
+    note:"「あご → おでこ」の逆順で紹介している記事もある（カザフスタンの記事）。3つの資料は「おでこ → あご」で一致。"},
+  {id:"g10",cat:"greet",ja:"お願いします／どういたしまして",ru:"Пожалуйста",kana:"パジャールスタ",ky:"Сураныч / Эчтеке эмес",
+    vids:[YT("z0iPDF8hpu8","yt"),LINK("https://surdo.media/topics/obshheupotrebitelnye-slova/pozhaluiysta/","surdo.media「Пожалуйста」")],
+    note:"ロシア語では1語でも、手話では「お願い（依頼）」と「どういたしまして」で別の形になる可能性がある（動画辞書では「ПОЖАЛУЙСТА（依頼）」として別に載っている）。"},
+  {id:"g11",cat:"greet",ja:"すみません／ごめんなさい",ru:"Извините",kana:"イズヴィニーチェ",ky:"Кечиресиз",
+    desc:{level:"single",text:"片手の手のひらで、もう片方の手のひらをこする。見えない何かを拭き取るように。申し訳なさは自然に顔に出ればよい。",src:[{label:"Baby.ru",url:"https://www.baby.ru/articles/obuchenie/yazyk-zhestov-dlya-nachinayushchih-frazy-vezhlivosti/"}]}},
   {id:"g12",cat:"greet",ja:"元気？",ru:"Как дела?",kana:"カーク ジラー",ky:"Кандайсыз? / Иштер кандай?",
-    note:"疑問文は表情（眉など）も一緒に使うのが手話の基本。動画で顔もよく見よう。"},
-  {id:"g13",cat:"greet",ja:"元気です／よい",ru:"Хорошо",kana:"ハラショー",ky:"Жакшы"},
+    note:"ロシア手話では語順が「дела как?（調子・どう？）」と、疑問詞が最後に来る。疑問文は表情（眉など）も一緒に使う。",
+    desc:{level:"grammar",text:"語順：ДЕЛА（調子）→ КАК（どう？）。疑問詞を文の最後に置く。",src:[{label:"ЧТИВО",url:"https://chtv.ru/kak-razgovarivat-na-zhestovom-yazyke"}]}},
+  {id:"g13",cat:"greet",ja:"元気です／よい",ru:"Хорошо",kana:"ハラショー",ky:"Жакшы",
+    note:"親指を立てる「いいね」は手話でも通じるが、手話の単語ではなく誰でも使う身振りで、ロシア手話の会話ではあまり使われない（ЧТИВО）。正式な形は動画で確認しよう。"},
   {id:"g14",cat:"greet",ja:"まあまあ",ru:"Нормально",kana:"ナルマーリナ",ky:"Жаман эмес"},
   {id:"g15",cat:"greet",ja:"はじめまして（会えてうれしい）",ru:"Приятно познакомиться",kana:"プリヤートナ パズナコーミッツァ",ky:"Таанышканыма кубанычтамын"},
 
@@ -235,15 +252,15 @@ var CARDS=[
     note:"名前は指文字で綴るので、「指文字」カテゴリも一緒に練習しよう。"},
   {id:"i02",cat:"intro",ja:"あなたの名前は？",ru:"Как тебя зовут?",kana:"カーク チビャー ザヴート",ky:"Атыңыз ким?",
     vids:[YT("rKEe2-vqg9k","phrase100")]},
-  {id:"i03",cat:"intro",ja:"私",ru:"Я",kana:"ヤー",ky:"Мен"},
-  {id:"i04",cat:"intro",ja:"あなた",ru:"Ты / Вы",kana:"トゥイ／ヴィ",ky:"Сен / Сиз"},
+  {id:"i03",cat:"intro",ja:"私",ru:"Я",kana:"ヤー",ky:"Мен",vids:[YT("x78RQeWwwvQ","vog")]},
+  {id:"i04",cat:"intro",ja:"あなた",ru:"Ты / Вы",kana:"トゥイ／ヴィ",ky:"Сен / Сиз",vids:[YT("x78RQeWwwvQ","vog")]},
   {id:"i05",cat:"intro",ja:"名前",ru:"Имя",kana:"イーミャ",ky:"Ат"},
   {id:"i06",cat:"intro",ja:"日本",ru:"Япония",kana:"イポーニヤ",ky:"Япония",note:"国名の手話は国ごとに違うことがある。現地で使われている形を確認しよう。"},
   {id:"i07",cat:"intro",ja:"キルギス",ru:"Кыргызстан",kana:"クィルグィスタン",ky:"Кыргызстан",note:"キルギスのろう者が使う形を、ぜひ録画して残そう。"},
   {id:"i08",cat:"intro",ja:"私は日本から来ました",ru:"Я из Японии",kana:"ヤー イズ イポーニイ",ky:"Мен Япониядан келдим"},
-  {id:"i09",cat:"intro",ja:"聴者（聞こえる人）",ru:"Слышащий",kana:"スルィシャシイ",ky:"Уга алган адам",
+  {id:"i09",cat:"intro",ja:"聴者（聞こえる人）",ru:"Слышащий",kana:"スルィシャシイ",ky:"Уга алган адам",vids:[YT("x78RQeWwwvQ","vog")],
     note:"「私は聴者で、手話を勉強中です」と最初に伝えると、相手がゆっくり話してくれやすい。"},
-  {id:"i10",cat:"intro",ja:"ろう者",ru:"Глухой",kana:"グルホーイ",ky:"Дүлөй",
+  {id:"i10",cat:"intro",ja:"ろう者",ru:"Глухой",kana:"グルホーイ",ky:"Дүлөй",vids:[YT("x78RQeWwwvQ","vog")],
     note:"ろう者自身が使う呼び方。「глухонемой（聾唖）」は古い言い方で失礼に感じる人が多いので使わない。"},
   {id:"i11",cat:"intro",ja:"手話",ru:"Жестовый язык",kana:"ジェーストヴイ イズィーク",ky:"Ымдоо тили"},
   {id:"i12",cat:"intro",ja:"私は手話を勉強中です",ru:"Я учу жестовый язык",kana:"ヤー ウチュー ジェーストヴイ イズィーク",ky:"Мен ымдоо тилин үйрөнүп жатам"},
@@ -254,15 +271,15 @@ var CARDS=[
   // --- 会話のたすけ ---
   {id:"h01",cat:"help",ja:"はい",ru:"Да",kana:"ダー",ky:"Ооба",vids:[YT("x78RQeWwwvQ","vog")]},
   {id:"h02",cat:"help",ja:"いいえ",ru:"Нет",kana:"ニェート",ky:"Жок",vids:[YT("x78RQeWwwvQ","vog")]},
-  {id:"h03",cat:"help",ja:"分かります",ru:"Понимаю",kana:"パニマーユ",ky:"Түшүнөм"},
-  {id:"h04",cat:"help",ja:"分かりません",ru:"Не понимаю",kana:"ニ パニマーユ",ky:"Түшүнбөйм",note:"いちばん大事な表現のひとつ。遠慮せず使おう。"},
+  {id:"h03",cat:"help",ja:"分かります",ru:"Понимаю",kana:"パニマーユ",ky:"Түшүнөм",vids:[LINK("https://voginfo.ru/zhestovyj-jazyk/obuchajushhie-videomaterialy/","ВОГ 学習動画ページ")],note:"ВОГの学習動画の「ЧТО ДЕЛАЕМ?（何をする？）」の回に入っている。"},
+  {id:"h04",cat:"help",ja:"分かりません",ru:"Не понимаю",kana:"ニ パニマーユ",ky:"Түшүнбөйм",vids:[LINK("https://voginfo.ru/zhestovyj-jazyk/obuchajushhie-videomaterialy/","ВОГ 学習動画ページ")],note:"いちばん大事な表現のひとつ。ВОГの学習動画の「ЧТО ДЕЛАЕМ?」の回に入っている。"},
   {id:"h05",cat:"help",ja:"もう一度お願いします",ru:"Повторите, пожалуйста",kana:"パフタリーチェ パジャールスタ",ky:"Кайталап коюңузчу"},
   {id:"h06",cat:"help",ja:"ゆっくりお願いします",ru:"Медленнее, пожалуйста",kana:"メードレンニェエ パジャールスタ",ky:"Акырыныраак, сураныч"},
   {id:"h07",cat:"help",ja:"書いてください",ru:"Напишите, пожалуйста",kana:"ナピシーチェ パジャールスタ",ky:"Жазып бериңизчи",
     note:"スマホのメモに打って見せ合うのも立派なコミュニケーション。"},
-  {id:"h08",cat:"help",ja:"助けてください",ru:"Помогите",kana:"パマギーチェ",ky:"Жардам бериңизчи"},
-  {id:"h09",cat:"help",ja:"いいですよ／できる",ru:"Можно",kana:"モージナ",ky:"Болот"},
-  {id:"h10",cat:"help",ja:"だめ",ru:"Нельзя",kana:"ニリジャー",ky:"Болбойт"},
+  {id:"h08",cat:"help",ja:"助けてください",ru:"Помогите",kana:"パマギーチェ",ky:"Жардам бериңизчи",vids:[YT("x78RQeWwwvQ","vog")]},
+  {id:"h09",cat:"help",ja:"いいですよ／できる",ru:"Можно",kana:"モージナ",ky:"Болот",vids:[YT("x78RQeWwwvQ","vog")]},
+  {id:"h10",cat:"help",ja:"だめ",ru:"Нельзя",kana:"ニリジャー",ky:"Болбойт",vids:[YT("x78RQeWwwvQ","vog")]},
   {id:"h11",cat:"help",ja:"何？",ru:"Что?",kana:"シトー",ky:"Эмне?"},
   {id:"h12",cat:"help",ja:"どこ？",ru:"Где?",kana:"グジェー",ky:"Кайда?"},
 
@@ -281,7 +298,7 @@ var CMAP={}; CARDS.forEach(function(c){CMAP[c.id]=c;});
 
 /* ===== 保存 ===== */
 var K={prog:"signApp_v1_progress",notes:"signApp_v1_notes",set:"signApp_v1_settings",hist:"signApp_v1_history",sess:"signApp_v1_session"};
-var APP_VERSION="0.1";
+var APP_VERSION="0.2";
 var LADDER_DAYS=[1,3,7,14,30,60];
 var memStore={};
 function lget(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return (k in memStore)?memStore[k]:d;}}
@@ -415,7 +432,7 @@ function videoBlock(c,opts){
     if(v.type==="yt"){
       var s=SRC[v.src]||SRC.yt;
       h+='<div class="vid"><div class="lab"><span class="tag yt">YouTube</span>'+esc(s.label)+(s.official?' <span class="tag ok">公式</span>':'')+'</div>'+
-         ytEmbed(v, settings.autoVideo && i===0 && !opts.noAuto)+
+         ytEmbed(v, settings.autoVideo && i===0 && !opts.noAuto)+(s.hint?'<div class="small muted" style="margin-top:3px">'+esc(s.hint)+'</div>':'')+
          '<div class="small muted" style="margin-top:3px">再生できない時は <a href="https://www.youtube.com/watch?v='+encodeURIComponent(v.id)+(v.start?'&t='+v.start+'s':'')+'" target="_blank" rel="noopener">YouTubeで開く</a></div></div>';
     }
   });
@@ -431,7 +448,8 @@ function videoBlock(c,opts){
 }
 function descBlock(c){
   if(c.desc){
-    return '<div class="desc"><div class="h">動きの解説（出典あり）</div><div class="b">'+esc(c.desc.text)+'</div>'+
+    var lv={multi:"複数の資料で一致",single:"1つの資料のみ・要注意",grammar:"文法メモ"}[c.desc.level]||"出典あり";
+    return '<div class="desc'+(c.desc.level==="single"?' single':'')+'"><div class="h">動きの解説（'+lv+'）</div><div class="b">'+esc(c.desc.text)+'</div>'+
       '<div class="src">出典：'+c.desc.src.map(function(s){return '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.label)+'</a>';}).join("・")+
       '（動画と違ったら動画を優先）</div></div>';
   }
@@ -519,8 +537,8 @@ function renderStudy(){
   }else{
     h+='<div class="jp" style="font-size:20px;margin-top:4px">'+esc(c.ja)+'</div>';
     h+='<div style="margin-top:6px">'+wordBlock(c,true)+'</div>';
-    if(dir==="ja2sign") h+=videoBlock(c,{});
     h+=descBlock(c)+memoPreview(c);
+    if(dir==="ja2sign") h+=videoBlock(c,{});
     if(c.note) h+='<div class="note">'+esc(c.note)+'</div>';
     h+='<div style="display:flex;gap:8px;margin-top:12px"><button class="btn sm" style="flex:1" data-act="opencard" data-val="'+id+'">メモ・録画・確認状態</button></div>';
     h+='</div>';
@@ -596,7 +614,7 @@ function cardSheet(id){
   var sh=document.querySelector(".sheet"),keepScroll=sh?sh.scrollTop:0;
   var h='<div class="small" style="font-weight:800;color:'+cat.color+'">'+cat.icon+' '+esc(cat.name)+'</div>';
   h+='<h3 style="margin-bottom:4px">'+esc(c.ja)+'</h3>'+wordBlock(c,true);
-  h+=videoBlock(c,{noAuto:!settings.autoVideo})+descBlock(c);
+  h+=descBlock(c)+videoBlock(c,{noAuto:!settings.autoVideo});
   if(c.note) h+='<div class="note">'+esc(c.note)+'</div>';
   h+='<div class="setrow" style="margin-top:16px"><div class="lab">自分の動画（端末内にだけ保存）</div>'+
      '<div style="display:flex;gap:8px"><button class="btn sm" style="flex:1" data-act="rec" data-val="'+id+'">'+(n.hasVideo?"撮り直す／差し替え":"録画する／動画を選ぶ")+'</button>'+
@@ -644,7 +662,9 @@ function aboutSheet(){
     '<li>ロシア語手話はロシア語を手で表したものではなく、<b>独自の文法を持つ言語</b>です。表情（特に疑問文の眉）や、手話と一緒に口でロシア語の単語の形を作ることも大切です。</li>'+
     '<li>自分の動画・メモ・進捗は端末内にだけ保存されます。YouTube の動画を表示する時だけ YouTube に接続します。</li>'+
     '</ul>'+
-    '<p class="muted">主な参考：ВОГ「Давайте знакомиться!」、Spreadthesign、signflow.ru、Город жестов。</p></div>'+
+    '<p><b>解説の信頼度</b>：「複数の資料で一致」＝2つ以上の記事で同じ説明。「1つの資料のみ」＝記事1本だけの説明なので特に動画で確認を。いずれも一般向けの記事で、辞書ではありません。</p>'+
+    '<p><b>もっと詳しく学ぶための本</b>（手の形・動きの文章解説つき）：<br>・Р.Н. Фрадкина『Говорящие руки』（2001）1480語・テーマ「Знакомство（知り合う）」あり<br>・Д.А. Заварицкий『100 фраз на русском жестовом языке』（2015）矢印つき写真・表情の説明あり<br>・И.Ф. Гейльман『Специфические средства общения глухих』（1975–79）</p>'+
+    '<p class="muted">主な参考：ВОГ「Давайте знакомиться!」、Spreadthesign、signflow.ru、Город жестов、surdo.media。</p></div>'+
     '<button class="btn full" data-act="closesheet" style="margin-top:8px;background:var(--ink);color:#fff;border-color:var(--ink)">閉じる</button>';
   openSheet(h);
 }
