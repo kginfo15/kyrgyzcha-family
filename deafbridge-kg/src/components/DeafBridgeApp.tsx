@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { fetchStatus, transcribe } from "@/lib/client/api";
+import { fetchStatus, transcribe, translateText } from "@/lib/client/api";
 import { blobToWav16k } from "@/lib/client/audio-convert";
 import { play, preloadAudioManifest } from "@/lib/client/speak";
 import { useListener } from "@/lib/client/useListener";
@@ -13,11 +13,12 @@ import HistorySheet from "./HistorySheet";
 import { I18nProvider, Tx } from "./i18n-context";
 import ReplySheet from "./ReplySheet";
 import SettingsSheet from "./SettingsSheet";
+import StaffTypeSheet from "./StaffTypeSheet";
 import ShowTextOverlay from "./ShowTextOverlay";
 import type { LogEntry, ShowText, SpeakFn } from "./types";
 import { Icon, OrnamentBand, TundukMark } from "./icons";
 
-type SheetName = "replies" | "type" | "settings" | "history" | null;
+type SheetName = "replies" | "type" | "settings" | "history" | "staff" | null;
 
 export default function DeafBridgeApp() {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
@@ -139,6 +140,22 @@ export default function DeafBridgeApp() {
       }
     },
     [patchEntry, alertUser],
+  );
+
+  // ---- 対面モード：相手が手で書いた文 ---------------------------------------
+  const handleStaffText = useCallback(
+    async (text: string) => {
+      const s = settingsRef.current;
+      const id = nextId.current++;
+      setLog((l) => [...l, { id, who: "them", time: Date.now(), lang: s.convLang, status: "done", text, translations: {} }]);
+      alertUser([120, 80, 120]);
+      const targets: TransLang[] = [];
+      if (s.translate && s.uiLang !== s.convLang) targets.push(s.uiLang);
+      if (s.jaAssist) targets.push("ja");
+      const translations = await translateText(text, s.convLang, targets, s.accessCode);
+      patchEntry(id, { translations });
+    },
+    [alertUser, patchEntry],
   );
 
   const listener = useListener({
@@ -278,6 +295,30 @@ export default function DeafBridgeApp() {
 
         <OrnamentBand className="mb-2 opacity-70" />
 
+        {/* 使う場面の切り替え：インターフォン / 対面（窓口） */}
+        <div role="tablist" aria-label={d.convLang} className="mode-tabs mx-3 mb-2.5 grid grid-cols-2 gap-1 rounded-full border border-line bg-surface p-1">
+          {(["intercom", "counter"] as const).map((m) => {
+            const active = settings.mode === m;
+            return (
+              <button
+                key={m}
+                role="tab"
+                type="button"
+                aria-selected={active}
+                onClick={() => updateSettings({ mode: m })}
+                className={`flex min-h-9 items-center justify-center gap-2 rounded-full px-2 text-[0.8rem] font-extrabold leading-tight transition ${
+                  active ? "bg-fg text-bg" : "text-muted"
+                }`}
+              >
+                <Icon name={m === "intercom" ? "bell" : "facing"} className="h-4 w-4 shrink-0" />
+                <span className="mode-label whitespace-nowrap">
+                  <Tx k={m === "intercom" ? "modeIntercom" : "modeCounter"} />
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         <ConversationScreen
           settings={settings}
           log={log}
@@ -290,6 +331,7 @@ export default function DeafBridgeApp() {
           onOpenType={() => setSheet("type")}
           onOpenHistory={() => setSheet("history")}
           onShow={setShowText}
+          onOpenStaffType={() => setSheet("staff")}
         />
 
         {(sheet === "replies" || sheet === "type") && (
@@ -304,6 +346,9 @@ export default function DeafBridgeApp() {
         )}
         {sheet === "settings" && (
           <SettingsSheet settings={settings} status={status} onChange={updateSettings} onSpeak={speak} onClose={closeSheet} />
+        )}
+        {sheet === "staff" && (
+          <StaffTypeSheet lang={settings.convLang} onSubmit={handleStaffText} onClose={closeSheet} />
         )}
         {sheet === "history" && (
           <HistorySheet log={log} onShow={setShowText} onClear={() => setLog([])} onClose={closeSheet} />

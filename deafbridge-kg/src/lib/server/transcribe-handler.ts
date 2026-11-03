@@ -31,6 +31,30 @@ export function accessCodeRequired(env: NodeJS.ProcessEnv = process.env): boolea
   return !!env.APP_ACCESS_CODE;
 }
 
+/** アクセスコードとレート制限の確認（文字化・翻訳の両方で使う）。問題なければ null */
+export function guardRequest(req: Request, env: NodeJS.ProcessEnv): Response | null {
+  if (env.APP_ACCESS_CODE) {
+    const code = req.headers.get("x-access-code") ?? "";
+    if (!safeEqual(code, env.APP_ACCESS_CODE)) return err("unauthorized", "invalid access code", 401);
+  }
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
+  if (!limiter(ip)) return err("rate_limited", "too many requests", 429);
+  return null;
+}
+
+/** "ky,ja" のような翻訳先の指定を検証する */
+export function parseTargets(raw: unknown, from: ConvLang): TransLang[] {
+  const list = Array.isArray(raw) ? raw : typeof raw === "string" ? raw.split(",") : [];
+  return [
+    ...new Set(
+      list
+        .map((t) => String(t).trim())
+        .filter((t): t is TransLang => TRANS_LANGS.includes(t as TransLang) && t !== from),
+    ),
+  ];
+}
+
 /**
  * POST /api/transcribe?lang=ru&tr=ky,ja
  *   lang: 相手の言語 / tr: 翻訳先（カンマ区切り。ky / ru / ja）
@@ -45,32 +69,14 @@ export async function handleTranscribe(
   const started = Date.now();
   const url = new URL(req.url);
 
-  // 1) アクセスコード（設定されている場合のみ）
-  if (env.APP_ACCESS_CODE) {
-    const code = req.headers.get("x-access-code") ?? "";
-    if (!safeEqual(code, env.APP_ACCESS_CODE)) {
-      return err("unauthorized", "invalid access code", 401);
-    }
-  }
-
-  // 2) レート制限
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    req.headers.get("x-real-ip") ||
-    "unknown";
-  if (!limiter(ip)) return err("rate_limited", "too many requests", 429);
+  // 1) アクセスコード（設定されている場合のみ）・2) レート制限
+  const blocked = guardRequest(req, env);
+  if (blocked) return blocked;
 
   // 3) パラメータ
   const lang = url.searchParams.get("lang") as ConvLang;
   if (!CONV_LANGS.includes(lang)) return err("bad_request", "lang must be ru or ky", 400);
-  const targets = [
-    ...new Set(
-      (url.searchParams.get("tr") ?? "")
-        .split(",")
-        .map((t) => t.trim())
-        .filter((t): t is TransLang => TRANS_LANGS.includes(t as TransLang) && t !== lang),
-    ),
-  ];
+  const targets = parseTargets(url.searchParams.get("tr") ?? "", lang);
 
   // 4) サイズ・形式チェック
   const declared = Number(req.headers.get("content-length") || 0);

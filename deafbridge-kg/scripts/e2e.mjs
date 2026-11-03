@@ -188,6 +188,19 @@ for (const scheme of ["dark"]) {
   await page.keyboard.press("Escape");
   await page.screenshot({ path: path.join(shots, "11-ru-ui.png") });
 
+  // 対面（窓口）モード
+  // ここでは画面はロシア語、相手はキルギス語
+  await page.getByRole("tab", { name: /Бетме-бет|Лицом к лицу/ }).click();
+  await wait(page.locator(".staff-panel"), "counter mode: upside-down panel for staff", 3000);
+  check("counter mode: panel is rotated for the person across", await page.locator(".staff-panel").evaluate((el) => getComputedStyle(el).rotate === "180deg" || getComputedStyle(el).transform !== "none"));
+  await page.getByRole("button", { name: /Ушул жерге жазыңыз/ }).click();
+  await page.locator("#staff-text").fill("Ким бул?");
+  await page.getByRole("button", { name: /Жөнөтүү/ }).click();
+  await wait(page.getByText("Кто там?").first(), "counter mode: staff-typed text shown with translation", 4000);
+  await page.screenshot({ path: path.join(shots, "13-counter.png") });
+  check("counter mode: no scroll", (await pageOverflow(page)) <= 0);
+  await page.getByRole("tab", { name: /Домофон/ }).click();
+
   // 小さい iPhone（SE）や claude.ai アプリ内の低い表示枠でも、ページもステージもスクロール不要
   const stageOverflow = () =>
     page.evaluate(() => {

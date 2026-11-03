@@ -22,3 +22,14 @@ export async function transcribe(
   for (const t of targets) if (t !== lang) translations[t] = s[t];
   return { ok: true, text: s[lang], confidence: 0.92, alternatives: [], translations, provider: "mock", elapsedMs: 700 };
 }
+
+export async function translateText(
+  text: string,
+  from: ConvLang,
+  targets: TransLang[],
+): Promise<Partial<Record<TransLang, string>>> {
+  const s = MOCK_SAMPLES.find((m) => m[from] === text);
+  const out: Partial<Record<TransLang, string>> = {};
+  if (s) for (const t of targets) out[t] = s[t];
+  return out;
+}

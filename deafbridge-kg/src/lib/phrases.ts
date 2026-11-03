@@ -3,7 +3,7 @@ import type { ConvLang } from "./types";
 export type PhraseIconName =
   | "ear-off" | "phone-text" | "repeat" | "mic" | "hourglass" | "check" | "cross" | "heart" | "smile"
   | "pill" | "pen" | "doc" | "bandage" | "thermo" | "coins" | "card" | "cash"
-  | "door" | "person" | "come" | "window" | "alert";
+  | "door" | "person" | "come" | "window" | "alert" | "lips" | "facing";
 
 /**
  * 定型返答文。
@@ -54,6 +54,34 @@ export const PHRASES: Phrase[] = [
     ky: "Сураныч, кайталап коюңузчу.",
     ja: "もう一度お願いします。",
     primary: true,
+  },
+  {
+    id: "counter_intro", icon: "facing",
+    category: "basic",
+    ru: "Я не слышу. Говорите, пожалуйста, в сторону телефона — ваши слова появятся текстом.",
+    ky: "Мен укпайм. Сураныч, телефонду карап сүйлөңүз — сөзүңүз текст болуп чыгат.",
+    ja: "耳が聞こえません。スマホに向かって話してください。言葉が文字になります。",
+  },
+  {
+    id: "toward_phone", icon: "phone-text",
+    category: "basic",
+    ru: "Говорите, пожалуйста, в сторону телефона.",
+    ky: "Сураныч, телефонду карап сүйлөңүз.",
+    ja: "スマホに向かって話してください。",
+  },
+  {
+    id: "type_here", icon: "pen",
+    category: "basic",
+    ru: "Напишите, пожалуйста, здесь.",
+    ky: "Сураныч, ушул жерге жазыңыз.",
+    ja: "ここに書いてください。",
+  },
+  {
+    id: "lipread", icon: "lips",
+    category: "basic",
+    ru: "Я читаю по губам. Говорите, пожалуйста, медленно, глядя на меня.",
+    ky: "Мен эриндин кыймылынан окуйм. Сураныч, мени карап, жай сүйлөңүз.",
+    ja: "口の動きを読みます。こちらを見て、ゆっくり話してください。",
   },
   {
     id: "closer", icon: "mic",

@@ -60,6 +60,11 @@ describe("settings", () => {
     expect(s.myPhrases.map((m) => m.id)).toEqual(["a", "d"]);
     expect(s.myPhrases[1].text.length).toBe(200);
   });
+  it("mode defaults to intercom and accepts counter", () => {
+    expect(DEFAULT_SETTINGS.mode).toBe("intercom");
+    expect(sanitizeSettings({ mode: "counter" }).mode).toBe("counter");
+    expect(sanitizeSettings({ mode: "x" }).mode).toBe("intercom");
+  });
   it("default quick replies are real phrases", () => {
     for (const id of DEFAULT_SETTINGS.quickIds) expect(PHRASES.some((p) => p.id === id), id).toBe(true);
   });

@@ -6,7 +6,11 @@ export type Sensitivity = "low" | "mid" | "high";
 /** 利用者が自分で保存する返答（薬の名前など）。端末内にのみ保存。 */
 export type MyPhrase = { id: string; text: string; lang: ConvLang };
 
+/** 使う場面：インターフォン越し / 窓口で対面 */
+export type Mode = "intercom" | "counter";
+
 export type Settings = {
+  mode: Mode;
   /** 画面の言語（キルギスのろう者向け: ky / ru） */
   uiLang: UiLang;
   /** 相手（インターフォンの向こう）の言語 */
@@ -29,6 +33,7 @@ export type Settings = {
 };
 
 export const DEFAULT_SETTINGS: Settings = {
+  mode: "intercom",
   uiLang: "ky",
   convLang: "ru",
   fontSize: "large",
@@ -61,6 +66,7 @@ export function sanitizeSettings(raw: unknown): Settings {
     s.jaAssist = true;
   }
   if (CONV_LANGS.includes(r.convLang as ConvLang)) s.convLang = r.convLang as ConvLang;
+  if (r.mode === "intercom" || r.mode === "counter") s.mode = r.mode;
   if (r.fontSize === "large" || r.fontSize === "xlarge") s.fontSize = r.fontSize;
   for (const k of ["translate", "jaAssist", "visualAlert", "autoStop", "continuous"] as const) {
     if (typeof r[k] === "boolean" && !(k === "jaAssist" && r.uiLang === "ja")) s[k] = r[k] as boolean;

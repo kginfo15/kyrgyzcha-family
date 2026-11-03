@@ -4,7 +4,9 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "re
 import type { useListener } from "@/lib/client/useListener";
 import type { Dict } from "@/lib/i18n";
 import { findPhrase, phraseText } from "@/lib/phrases";
-import type { Settings } from "@/lib/settings";
+import type { Mode, Settings } from "@/lib/settings";
+import { DICTS } from "@/lib/i18n";
+import type { ConvLang } from "@/lib/types";
 import { JaGloss, Tx, useI18n } from "./i18n-context";
 import MicButton from "./MicButton";
 import { sayClass, speakPhrase } from "./speak-phrase";
@@ -31,6 +33,7 @@ export default function ConversationScreen({
   onOpenType,
   onOpenHistory,
   onShow,
+  onOpenStaffType,
 }: {
   settings: Settings;
   log: LogEntry[];
@@ -43,6 +46,7 @@ export default function ConversationScreen({
   onOpenType: () => void;
   onOpenHistory: () => void;
   onShow: (s: ShowText) => void;
+  onOpenStaffType: () => void;
 }) {
   const { d } = useI18n();
   const listening = listener.state === "listening";
@@ -72,7 +76,8 @@ export default function ConversationScreen({
     window.addEventListener("resize", on);
     return () => window.removeEventListener("resize", on);
   }, []);
-  const fitKey = [step, latest?.id, latest?.status, busy, lastMine?.id, settings.fontSize, settings.jaAssist, ui, lang, viewport].join("|");
+  const counter = settings.mode === "counter";
+  const fitKey = [settings.mode, step, latest?.id, latest?.status, busy, lastMine?.id, settings.fontSize, settings.jaAssist, ui, lang, viewport].join("|");
   // 内容や画面サイズが変わったら段階 0（普通の大きさ）からやり直す
   const [fitState, setFitState] = useState({ key: "", level: 0 });
   const fit = fitState.key === fitKey ? fitState.level : 0;
@@ -89,13 +94,13 @@ export default function ConversationScreen({
   }, []);
   useLayoutEffect(() => {
     const el = scRef.current;
-    if (el && fit < 3 && el.scrollHeight > el.clientHeight + 1) {
+    if (el && fit < 4 && el.scrollHeight > el.clientHeight + 1) {
       setFitState({ key: fitKey, level: fit + 1 });
     }
   }, [fitKey, fit, tick]);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-2.5 px-3 pb-safe">
+    <div className={`flex min-h-0 flex-1 flex-col gap-2.5 px-3 pb-safe ${counter ? "mode-counter" : ""}`}>
       {/* ================= ステージ：相手の言葉 ================= */}
       <section
         className={`stage fit-${fit} relative flex min-h-0 flex-1 flex-col overflow-hidden rounded-[30px] border border-line p-4 transition-[background-color,box-shadow] duration-200 ${
@@ -106,8 +111,23 @@ export default function ConversationScreen({
         {/* 透かし：トゥンドゥク */}
         <TundukMark mono className="pointer-events-none absolute -bottom-20 -right-20 h-72 w-72 text-fg opacity-[0.03]" />
 
+        {counter && (
+          <StaffPanel
+            lang={lang}
+            text={lastMine?.text ?? phraseText(findPhrase("counter_intro")!, lang)}
+            onType={onOpenStaffType}
+          />
+        )}
         <div className="relative flex items-start gap-2">
-          <Stepper step={step} />
+          {/* 対面モードはスマホを机に置くので、ステップ表示は省いてシンプルに。状態表示を同じ行に */}
+          {!counter && <Stepper step={step} mode={settings.mode} />}
+          {counter && (
+            <div className="flex min-w-0 flex-1">
+              {busy && (
+                <StatusPill listening={listening} speaking={speaking} playState={playState} processing={latest?.status === "processing"} />
+              )}
+            </div>
+          )}
           {log.length > 0 && (
             <button
               type="button"
@@ -120,7 +140,7 @@ export default function ConversationScreen({
             </button>
           )}
         </div>
-        {busy && (
+        {busy && !counter && (
           <div className="relative mt-2 flex">
             <StatusPill listening={listening} speaking={speaking} playState={playState} processing={latest?.status === "processing"} />
           </div>
@@ -129,7 +149,13 @@ export default function ConversationScreen({
         <div ref={scRef} className="no-scrollbar relative flex min-h-0 flex-1 flex-col overflow-y-auto py-2" aria-live="polite">
           {/* my-auto: 中央寄せしつつ、はみ出した時は上から読めるようにする */}
           <div className="my-auto">
-            {!latest && <Guide step={step === 3 ? 2 : step} onIntro={() => sayId("app_info")} />}
+            {!latest && (
+              <Guide
+                step={step === 3 ? 2 : step}
+                mode={settings.mode}
+                onIntro={() => sayId(counter ? "counter_intro" : "app_info")}
+              />
+            )}
 
             {latest?.status === "processing" && (
               <div className="flex flex-col gap-3" aria-label={d.processing}>
@@ -188,8 +214,8 @@ export default function ConversationScreen({
           </div>
         </div>
 
-        {/* 直前の自分の返答（タップで相手に見せる） */}
-        {lastMine && (
+        {/* 直前の自分の返答（タップで相手に見せる）。対面モードでは上の相手向け表示に出す */}
+        {lastMine && !counter && (
           <button
             type="button"
             onClick={() =>
@@ -279,8 +305,9 @@ export default function ConversationScreen({
 }
 
 function DockButton({ icon, k, onClick }: { icon: "grid" | "keyboard" | "close"; k: keyof Dict; onClick: () => void }) {
+  const { d } = useI18n();
   return (
-    <button type="button" onClick={onClick} className="group flex flex-col items-center gap-1 text-center">
+    <button type="button" onClick={onClick} aria-label={d[k]} className="group flex flex-col items-center gap-1 text-center">
       <span className="dock-btn flex items-center justify-center rounded-full border border-line bg-surface-2 transition group-active:scale-95">
         <Icon name={icon} className="h-6 w-6" />
       </span>
@@ -306,6 +333,7 @@ function StatusPill({
   let dot = "bg-muted";
   let k: keyof Dict = "ready";
   let sub: ReactNode = null;
+  let plainListening = false;
   if (playState?.phase === "playing") {
     cls = "border-ok bg-ok text-bg";
     dot = "bg-bg pulse-dot";
@@ -327,11 +355,14 @@ function StatusPill({
     cls = "border-rec/50 bg-rec/10 text-rec";
     dot = "bg-rec pulse-dot";
     k = "nowListening";
+    plainListening = true;
   }
   return (
     <div
       role="status"
-      className={`flex min-w-0 items-start gap-2 rounded-2xl border px-3 py-1.5 text-[0.8rem] font-extrabold leading-tight ${cls}`}
+      className={`flex min-w-0 items-start gap-2 rounded-2xl border px-3 py-1.5 text-[0.8rem] font-extrabold leading-tight ${cls} ${
+        plainListening ? "status-plain" : ""
+      }`}
     >
       <span className={`mt-1 h-2 w-2 shrink-0 rounded-full ${dot}`} />
       <span className="min-w-0">
@@ -342,23 +373,31 @@ function StatusPill({
   );
 }
 
-const STEPS: { icon: IconName; k: keyof Dict }[] = [
-  { icon: "phone-text", k: "stepShort1" },
-  { icon: "bell", k: "stepShort2" },
-  { icon: "eye", k: "stepShort3" },
-];
+const STEPS: Record<Mode, { icon: IconName; k: keyof Dict }[]> = {
+  intercom: [
+    { icon: "phone-text", k: "stepShort1" },
+    { icon: "bell", k: "stepShort2" },
+    { icon: "eye", k: "stepShort3" },
+  ],
+  counter: [
+    { icon: "facing", k: "stepShortC1" },
+    { icon: "chat", k: "stepShortC2" },
+    { icon: "eye", k: "stepShort3" },
+  ],
+};
 
 /** 進行ステップ：今どこにいるかを常に表示（音が聞こえない利用者が流れを見失わないように） */
-function Stepper({ step }: { step: 1 | 2 | 3 }) {
+function Stepper({ step, mode }: { step: 1 | 2 | 3; mode: Mode }) {
+  const steps = STEPS[mode];
   return (
     <ol className="stepper flex min-w-0 flex-1 items-start" aria-label="steps">
-      {STEPS.map((s, i) => {
+      {steps.map((s, i) => {
         const n = i + 1;
         const done = n < step;
         const active = n === step;
         return (
           <li key={s.k} className="relative flex min-w-0 flex-1 flex-col items-center gap-1 text-center" aria-current={active ? "step" : undefined}>
-            {i < STEPS.length - 1 && (
+            {i < steps.length - 1 && (
               <span
                 aria-hidden="true"
                 className={`absolute left-[calc(50%+18px)] right-[calc(-50%+18px)] top-[15px] h-[2px] rounded-full ${
@@ -392,7 +431,10 @@ function Stepper({ step }: { step: 1 | 2 | 3 }) {
 }
 
 /** 相手が話す前の案内（ステップ1・2）と「耳が聞こえない」と伝えるボタン */
-function Guide({ step, onIntro }: { step: 1 | 2; onIntro: () => void }) {
+function Guide({ step, mode, onIntro }: { step: 1 | 2; mode: Mode; onIntro: () => void }) {
+  const counter = mode === "counter";
+  const title: keyof Dict = counter ? (step === 1 ? "counterStep1" : "counterStep2") : step === 1 ? "stepHold" : "step2Title";
+  const sub: keyof Dict = counter ? (step === 1 ? "counterStep1Sub" : "counterStep2Sub") : step === 1 ? "step1Sub" : "step2Sub";
   return (
     <div className="flex flex-col gap-4">
       <div className="min-w-0">
@@ -401,10 +443,10 @@ function Guide({ step, onIntro }: { step: 1 | 2; onIntro: () => void }) {
           {step} / 3
         </p>
         <p className="guide-title font-extrabold leading-tight">
-          <Tx k={step === 1 ? "stepHold" : "step2Title"} />
+          <Tx k={title} />
         </p>
         <p className="guide-sub mt-1.5 text-sm leading-snug text-muted">
-          <Tx k={step === 1 ? "step1Sub" : "step2Sub"} />
+          <Tx k={sub} />
         </p>
       </div>
       <button
@@ -419,6 +461,32 @@ function Guide({ step, onIntro }: { step: 1 | 2; onIntro: () => void }) {
           <Tx k="playIntro" />
         </span>
         <Icon name="speaker" className="h-5 w-5 shrink-0 text-them" />
+      </button>
+    </div>
+  );
+}
+
+/**
+ * 対面モード：画面の上部を 180° 回転し、机をはさんだ相手（窓口の人）が読めるようにする。
+ * 相手の言語で、利用者の直前の返答（まだなければ「耳が聞こえません…」）と「ここに書く」ボタンを出す。
+ */
+function StaffPanel({ lang, text, onType }: { lang: ConvLang; text: string; onType: () => void }) {
+  const staff = DICTS[lang];
+  const label = staff.staffPlaceholder.replace("…", "");
+  return (
+    <div
+      className="staff-panel relative mb-3 flex rotate-180 items-center gap-3 rounded-2xl border border-them/35 bg-bg/70 p-2.5 pl-3"
+      lang={lang}
+    >
+      <p className="staff-text min-w-0 flex-1 font-bold leading-snug">{text}</p>
+      <button
+        type="button"
+        onClick={onType}
+        aria-label={label}
+        className="flex shrink-0 items-center gap-1.5 rounded-full bg-them px-3 py-2 text-xs font-extrabold leading-tight text-them-ink"
+      >
+        <Icon name="pen" className="h-4 w-4 shrink-0" />
+        <span className="staff-btn-label max-w-[6.5rem]">{label}</span>
       </button>
     </div>
   );

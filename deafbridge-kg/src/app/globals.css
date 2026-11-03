@@ -182,6 +182,67 @@ body {
   display: none;
 }
 
+/* 対面モード：相手側から読む部分 */
+.staff-text {
+  font-size: calc(1.15rem * var(--fs-scale) * var(--say-k, 1));
+}
+.fit-2 .staff-btn-label,
+.fit-2 [role="status"] .ja-gloss {
+  display: none;
+}
+.fit-3 .staff-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* 切り替えタブ：日本語補助は1行に収める */
+.mode-label .ja-gloss {
+  display: inline;
+  margin-left: 0.35em;
+  font-size: 0.68rem;
+}
+@media (max-width: 380px) {
+  .mode-label .ja-gloss {
+    display: none;
+  }
+}
+@media (max-height: 700px) {
+  .mode-tabs {
+    margin-bottom: 0.4rem;
+  }
+  .mode-tabs button {
+    min-height: 1.85rem;
+  }
+  .mode-label .ja-gloss {
+    display: none;
+  }
+}
+.fit-3 .stepper {
+  display: none;
+}
+.fit-4 {
+  --say-k: 0.55;
+}
+.fit-4 .eyebrow,
+.fit-4 .status-plain {
+  display: none;
+}
+
+/* 対面モード：相手向け表示の分、すぐ使う返答は2つに */
+.mode-counter .tile:nth-child(n + 3) {
+  display: none;
+}
+/* とても低い画面の対面モードでは、相手の言葉と相手向け表示を優先（返答は「返答一覧」から） */
+@media (max-height: 640px) {
+  .mode-counter .tile {
+    display: none;
+  }
+}
+.mode-label .ja-gloss::before {
+  content: "";
+}
+
 .eyebrow {
   font-size: 0.68rem;
   font-weight: 800;
