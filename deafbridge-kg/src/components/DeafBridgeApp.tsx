@@ -15,7 +15,7 @@ import ReplySheet from "./ReplySheet";
 import SettingsSheet from "./SettingsSheet";
 import ShowTextOverlay from "./ShowTextOverlay";
 import type { LogEntry, ShowText, SpeakFn } from "./types";
-import { Icon } from "./ui";
+import { Icon, OrnamentBand, TundukMark } from "./icons";
 
 type SheetName = "replies" | "type" | "settings" | "history" | null;
 
@@ -233,13 +233,14 @@ export default function DeafBridgeApp() {
       <div className={`${fsClass} mx-auto flex h-dvh max-w-xl flex-col overflow-hidden`}>
         {/* ---------------- ヘッダー ---------------- */}
         <header className="pt-safe flex items-center gap-2 px-4 pb-2">
-          <div className="flex min-w-0 flex-1 flex-col leading-none">
-            <span className="brand text-[1.05rem]">
-              DeafBridge<span className="text-them">.</span>
-            </span>
-            <span className="mt-1 text-[0.62rem] font-extrabold tracking-[0.14em] text-muted">
-              KG{demo && <span className="text-warn"> · DEMO</span>}
-            </span>
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <TundukMark className="h-8 w-8 shrink-0" />
+            <div className="flex min-w-0 flex-col leading-none">
+              <span className="brand text-[1rem]">DeafBridge</span>
+              <span className="mt-1 text-[0.6rem] font-extrabold tracking-[0.18em] text-muted">
+                KYRGYZSTAN{demo && <span className="text-warn"> · DEMO</span>}
+              </span>
+            </div>
           </div>
           {/* 相手の言語のクイック切替 */}
           <button
@@ -273,6 +274,8 @@ export default function DeafBridgeApp() {
           </button>
         </header>
 
+        <OrnamentBand className="mb-2 opacity-60" />
+
         <ConversationScreen
           settings={settings}
           log={log}
@@ -284,6 +287,7 @@ export default function DeafBridgeApp() {
           onOpenReplies={() => setSheet("replies")}
           onOpenType={() => setSheet("type")}
           onOpenHistory={() => setSheet("history")}
+          onShow={setShowText}
         />
 
         {(sheet === "replies" || sheet === "type") && (

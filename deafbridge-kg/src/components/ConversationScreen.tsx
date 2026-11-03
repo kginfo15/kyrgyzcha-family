@@ -8,13 +8,11 @@ import type { Settings } from "@/lib/settings";
 import { JaGloss, Tx, useI18n } from "./i18n-context";
 import MicButton from "./MicButton";
 import { sayClass, speakPhrase } from "./speak-phrase";
-import type { LogEntry, SpeakFn } from "./types";
-import { Icon } from "./ui";
+import type { LogEntry, ShowText, SpeakFn } from "./types";
+import { Icon, type IconName } from "./icons";
 
 type Listener = ReturnType<typeof useListener>;
 export type PlayState = { phase: "playing" | "done"; text: string } | null;
-
-const QUICK_IDS = ["repeat", "deaf", "buy_medicine", "open_door"];
 
 /** RMS（小さい値）を見やすい 0〜1 に */
 function levelToUnit(v: number) {
@@ -32,6 +30,7 @@ export default function ConversationScreen({
   onOpenReplies,
   onOpenType,
   onOpenHistory,
+  onShow,
 }: {
   settings: Settings;
   log: LogEntry[];
@@ -43,6 +42,7 @@ export default function ConversationScreen({
   onOpenReplies: () => void;
   onOpenType: () => void;
   onOpenHistory: () => void;
+  onShow: (s: ShowText) => void;
 }) {
   const { d } = useI18n();
   const listening = listener.state === "listening";
@@ -145,7 +145,15 @@ export default function ConversationScreen({
 
         {/* 直前の自分の返答 */}
         {lastMine && (
-          <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-me px-3 py-2 text-right">
+          <button
+            type="button"
+            onClick={() =>
+              onShow({ text: lastMine.text, sub: lastMine.translations?.[ui], ja: lastMine.translations?.ja })
+            }
+            title={d.showToThem}
+            className="ml-auto flex max-w-[88%] items-end gap-2 rounded-2xl rounded-br-md bg-me px-3 py-2 text-right"
+          >
+            <span className="min-w-0">
             <p className="text-sm font-bold" lang={lastMine.lang}>
               {lastMine.text}
             </p>
@@ -154,37 +162,44 @@ export default function ConversationScreen({
                 <JaGloss>{lastMine.translations.ja}</JaGloss>
               </p>
             )}
-          </div>
+            </span>
+            <Icon name="screen" className="mb-0.5 h-4 w-4 shrink-0 text-muted" />
+          </button>
         )}
         {toast}
       </section>
 
-      {/* ================= すぐ使う返答 ================= */}
+      {/* ================= すぐ使う返答（返答一覧でピン留めしたもの） ================= */}
       <div className="grid grid-cols-2 gap-2">
-        {QUICK_IDS.map((id) => {
-          const p = findPhrase(id)!;
+        {settings.quickIds.slice(0, 4).map((id) => {
+          const p = findPhrase(id);
+          const mine = p ? undefined : settings.myPhrases.find((m) => m.id === id);
+          if (!p && !mine) return null;
+          const text = p ? phraseText(p, lang) : mine!.text;
           return (
             <button
               key={id}
               type="button"
-              onClick={() => speakPhrase(onSpeak, p, settings)}
-              className="flex min-w-0 items-start gap-2 rounded-2xl border border-line bg-surface p-2.5 text-left active:scale-[0.98]"
+              onClick={() => (p ? speakPhrase(onSpeak, p, settings) : onSpeak({ text: mine!.text, lang: mine!.lang }))}
+              className="group flex min-w-0 items-start gap-2.5 rounded-2xl border border-line bg-surface p-2.5 text-left transition active:scale-[0.98] active:border-fg/40"
             >
-              <span className="text-2xl leading-none" aria-hidden="true">
-                {p.icon}
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-them">
+                <Icon name={(p?.icon ?? "star") as IconName} className="h-5 w-5" />
               </span>
               <span className="flex min-w-0 flex-col">
-                <span className="text-[0.95rem] font-bold leading-tight [overflow-wrap:break-word]" lang={lang}>
-                  {phraseText(p, lang)}
+                <span className="text-[0.95rem] font-bold leading-tight [overflow-wrap:break-word]" lang={p ? lang : mine!.lang}>
+                  {text}
                 </span>
-                {ui !== lang && (
+                {p && ui !== lang && (
                   <span className="tile-sub line-clamp-1 text-xs text-muted" lang={ui}>
                     {phraseText(p, ui)}
                   </span>
                 )}
-                <span className="tile-sub line-clamp-1 text-xs text-muted">
-                  <JaGloss>{p.ja}</JaGloss>
-                </span>
+                {p && (
+                  <span className="tile-sub line-clamp-1 text-xs text-muted">
+                    <JaGloss>{p.ja}</JaGloss>
+                  </span>
+                )}
               </span>
             </button>
           );
@@ -279,18 +294,18 @@ function StatusPill({
 }
 
 function EmptyStage({ onIntro }: { onIntro: () => void }) {
-  const steps: { icon: string; k: keyof Dict }[] = [
-    { icon: "📱", k: "stepHold" },
-    { icon: "🔔", k: "stepRing" },
-    { icon: "👀", k: "stepRead" },
+  const steps: { icon: IconName; k: keyof Dict }[] = [
+    { icon: "phone-text", k: "stepHold" },
+    { icon: "bell", k: "stepRing" },
+    { icon: "eye", k: "stepRead" },
   ];
   return (
     <div className="flex flex-col gap-5">
       <ol className="flex flex-col gap-3">
         {steps.map((s, i) => (
           <li key={s.k} className="flex items-center gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-surface-2 text-xl">
-              {s.icon}
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-them">
+              <Icon name={s.icon} className="h-5 w-5" />
             </span>
             <span className="text-reply font-bold">
               <span className="mr-1.5 text-muted tabular-nums">{i + 1}.</span>
@@ -302,15 +317,15 @@ function EmptyStage({ onIntro }: { onIntro: () => void }) {
       <button
         type="button"
         onClick={onIntro}
-        className="flex items-center gap-3 rounded-2xl border border-accent/50 bg-accent/10 p-3 text-left"
+        className="flex items-center gap-3 rounded-2xl border border-fg/25 bg-fg/[0.06] p-3 text-left"
       >
-        <span className="text-3xl" aria-hidden="true">
-          🧏
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-fg text-bg">
+          <Icon name="ear-off" className="h-6 w-6" />
         </span>
         <span className="flex-1 text-body font-extrabold">
           <Tx k="playIntro" />
         </span>
-        <Icon name="speaker" className="h-6 w-6 shrink-0 text-accent" />
+        <Icon name="speaker" className="h-6 w-6 shrink-0 text-them" />
       </button>
     </div>
   );

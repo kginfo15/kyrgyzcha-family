@@ -63,7 +63,7 @@ const wait = (loc, name, timeout = 15000) =>
   loc.waitFor({ timeout }).then(() => check(name, true), () => check(name, false));
 const pageOverflow = (page) => page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight);
 
-for (const scheme of ["dark", "light"]) {
+for (const scheme of ["dark"]) {
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 844 },
     deviceScaleFactor: 2,
@@ -151,8 +151,12 @@ for (const scheme of ["dark", "light"]) {
   await page.locator("#custom-text").fill("Парацетамол 500 мг");
   await page.getByRole("button", { name: "Менин сөздөрүмө сактоо" }).click();
   await wait(page.getByText("Парацетамол 500 мг").first(), "my phrase saved", 3000);
+  // マイ返答をメイン画面にピン留め
+  await page.getByRole("button", { name: "Башкы экранга коюу" }).first().click();
   await page.screenshot({ path: path.join(shots, "08-my-phrases.png") });
   await page.keyboard.press("Escape");
+  await wait(page.getByRole("button", { name: /Парацетамол 500 мг/ }), "pinned my phrase appears on main screen", 3000);
+  check("main screen keeps max 4 quick replies", (await page.locator("main, body").getByRole("button", { name: /Повторите, пожалуйста/ }).count()) === 0);
 
   // 設定
   await page.getByRole("button", { name: "Жөндөөлөр" }).click();

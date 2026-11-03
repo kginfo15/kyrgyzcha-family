@@ -1,5 +1,10 @@
 import type { ConvLang } from "./types";
 
+export type PhraseIconName =
+  | "ear-off" | "phone-text" | "repeat" | "mic" | "hourglass" | "check" | "cross" | "heart" | "smile"
+  | "pill" | "pen" | "doc" | "bandage" | "thermo" | "coins" | "card" | "cash"
+  | "door" | "person" | "come" | "window" | "alert";
+
 /**
  * 定型返答文。
  *
@@ -16,8 +21,8 @@ export type Phrase = {
   ru: string;
   ky: string;
   ja: string;
-  /** 文字が苦手な人にも分かるよう、ボタンに大きく出す絵文字 */
-  icon: string;
+  /** 文字が苦手な人にも分かるよう、ボタンに出すアイコン（components/icons.tsx） */
+  icon: PhraseIconName;
   /** 目立たせたい重要な返答 */
   primary?: boolean;
 };
@@ -27,7 +32,7 @@ export const PHRASE_CATEGORIES: PhraseCategory[] = ["basic", "pharmacy", "door"]
 export const PHRASES: Phrase[] = [
   // ---- 基本 ----
   {
-    id: "deaf", icon: "🧏",
+    id: "deaf", icon: "ear-off",
     category: "basic",
     ru: "Я не слышу. Напишите, пожалуйста.",
     ky: "Мен уга албайм. Сураныч, жазып бериңиз.",
@@ -35,7 +40,7 @@ export const PHRASES: Phrase[] = [
     primary: true,
   },
   {
-    id: "app_info", icon: "📱",
+    id: "app_info", icon: "phone-text",
     category: "basic",
     ru: "Я плохо слышу. Телефон переводит вашу речь в текст. Говорите, пожалуйста, медленно и чётко.",
     ky: "Мен начар угам. Телефон сиздин сөзүңүздү текстке айлантат. Сураныч, жай жана так сүйлөңүз.",
@@ -43,7 +48,7 @@ export const PHRASES: Phrase[] = [
     primary: true,
   },
   {
-    id: "repeat", icon: "🔁",
+    id: "repeat", icon: "repeat",
     category: "basic",
     ru: "Повторите, пожалуйста.",
     ky: "Сураныч, кайталап коюңузчу.",
@@ -51,27 +56,27 @@ export const PHRASES: Phrase[] = [
     primary: true,
   },
   {
-    id: "closer", icon: "🎤",
+    id: "closer", icon: "mic",
     category: "basic",
     ru: "Говорите, пожалуйста, ближе к микрофону.",
     ky: "Сураныч, микрофонго жакыныраак сүйлөңүз.",
     ja: "マイクに近づいて話してください。",
   },
   {
-    id: "wait", icon: "⏳",
+    id: "wait", icon: "hourglass",
     category: "basic",
     ru: "Подождите, пожалуйста.",
     ky: "Сураныч, күтө туруңуз.",
     ja: "少し待ってください。",
   },
-  { id: "yes", icon: "✅", category: "basic", ru: "Да.", ky: "Ооба.", ja: "はい。" },
-  { id: "no", icon: "❌", category: "basic", ru: "Нет.", ky: "Жок.", ja: "いいえ。" },
-  { id: "thanks", icon: "🙏", category: "basic", ru: "Спасибо.", ky: "Рахмат.", ja: "ありがとうございます。" },
-  { id: "hello", icon: "👋", category: "basic", ru: "Здравствуйте.", ky: "Саламатсызбы.", ja: "こんにちは。" },
+  { id: "yes", icon: "check", category: "basic", ru: "Да.", ky: "Ооба.", ja: "はい。" },
+  { id: "no", icon: "cross", category: "basic", ru: "Нет.", ky: "Жок.", ja: "いいえ。" },
+  { id: "thanks", icon: "heart", category: "basic", ru: "Спасибо.", ky: "Рахмат.", ja: "ありがとうございます。" },
+  { id: "hello", icon: "smile", category: "basic", ru: "Здравствуйте.", ky: "Саламатсызбы.", ja: "こんにちは。" },
 
   // ---- 薬局 ----
   {
-    id: "buy_medicine", icon: "💊",
+    id: "buy_medicine", icon: "pill",
     category: "pharmacy",
     ru: "Я хочу купить лекарство.",
     ky: "Мен дары сатып алгым келет.",
@@ -79,49 +84,49 @@ export const PHRASES: Phrase[] = [
     primary: true,
   },
   {
-    id: "show_name", icon: "📝",
+    id: "show_name", icon: "pen",
     category: "pharmacy",
     ru: "Я покажу название лекарства на экране.",
     ky: "Дарынын атын экрандан көрсөтөм.",
     ja: "薬の名前を画面で見せます。",
   },
   {
-    id: "prescription", icon: "📄",
+    id: "prescription", icon: "doc",
     category: "pharmacy",
     ru: "У меня есть рецепт.",
     ky: "Менде рецепт бар.",
     ja: "処方箋があります。",
   },
   {
-    id: "painkiller", icon: "🤕",
+    id: "painkiller", icon: "bandage",
     category: "pharmacy",
     ru: "Мне нужно обезболивающее.",
     ky: "Мага ооруну басуучу дары керек.",
     ja: "痛み止めが必要です。",
   },
   {
-    id: "fever", icon: "🌡️",
+    id: "fever", icon: "thermo",
     category: "pharmacy",
     ru: "Мне нужно лекарство от температуры.",
     ky: "Мага температурага каршы дары керек.",
     ja: "熱の薬が必要です。",
   },
   {
-    id: "price", icon: "💰",
+    id: "price", icon: "coins",
     category: "pharmacy",
     ru: "Сколько это стоит?",
     ky: "Бул канча турат?",
     ja: "いくらですか？",
   },
   {
-    id: "card", icon: "💳",
+    id: "card", icon: "card",
     category: "pharmacy",
     ru: "Можно оплатить картой?",
     ky: "Карта менен төлөсөм болобу?",
     ja: "カードで払えますか？",
   },
   {
-    id: "cash", icon: "💵",
+    id: "cash", icon: "cash",
     category: "pharmacy",
     ru: "Я заплачу наличными.",
     ky: "Накталай акча менен төлөйм.",
@@ -130,7 +135,7 @@ export const PHRASES: Phrase[] = [
 
   // ---- 玄関・インターフォン ----
   {
-    id: "open_door", icon: "🚪",
+    id: "open_door", icon: "door",
     category: "door",
     ru: "Откройте, пожалуйста, дверь.",
     ky: "Сураныч, эшикти ачыңызчы.",
@@ -138,28 +143,28 @@ export const PHRASES: Phrase[] = [
     primary: true,
   },
   {
-    id: "at_door", icon: "🧍",
+    id: "at_door", icon: "person",
     category: "door",
     ru: "Я стою у двери.",
     ky: "Мен эшиктин алдында турам.",
     ja: "ドアの前にいます。",
   },
   {
-    id: "come_out", icon: "🙋",
+    id: "come_out", icon: "come",
     category: "door",
     ru: "Подойдите, пожалуйста, к двери.",
     ky: "Сураныч, эшикке чыгып коюңузчу.",
     ja: "ドアのところまで来てください。",
   },
   {
-    id: "window", icon: "🪟",
+    id: "window", icon: "window",
     category: "door",
     ru: "Покажите, пожалуйста, в окошке.",
     ky: "Сураныч, терезеден көрсөтүңүзчү.",
     ja: "窓口で見せてください。",
   },
   {
-    id: "urgent", icon: "🚨",
+    id: "urgent", icon: "alert",
     category: "door",
     ru: "Это срочно. Мне нужна помощь.",
     ky: "Бул шашылыш. Мага жардам керек.",

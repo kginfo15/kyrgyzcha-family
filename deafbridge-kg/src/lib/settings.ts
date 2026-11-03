@@ -24,6 +24,8 @@ export type Settings = {
   maxSeconds: 8 | 15 | 30;
   accessCode: string;
   myPhrases: MyPhrase[];
+  /** メイン画面に置く返答（定型文 id またはマイ返答 id、最大4つ） */
+  quickIds: string[];
 };
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -39,14 +41,17 @@ export const DEFAULT_SETTINGS: Settings = {
   maxSeconds: 15,
   accessCode: "",
   myPhrases: [],
+  quickIds: ["repeat", "deaf", "buy_medicine", "open_door"],
 };
+
+export const MAX_QUICK = 4;
 
 export const MAX_MY_PHRASES = 30;
 const KEY = "deafbridge.settings.v1";
 
 /** 保存値を検証しつつ既定値とマージする（壊れた値・古い値に強くする） */
 export function sanitizeSettings(raw: unknown): Settings {
-  const s: Settings = { ...DEFAULT_SETTINGS, myPhrases: [] };
+  const s: Settings = { ...DEFAULT_SETTINGS, myPhrases: [], quickIds: [...DEFAULT_SETTINGS.quickIds] };
   if (!raw || typeof raw !== "object") return s;
   const r = raw as Record<string, unknown>;
   if (UI_LANGS.includes(r.uiLang as UiLang)) s.uiLang = r.uiLang as UiLang;
@@ -78,7 +83,18 @@ export function sanitizeSettings(raw: unknown): Settings {
       .slice(0, MAX_MY_PHRASES)
       .map((p) => ({ id: p.id.slice(0, 40), text: p.text.slice(0, 200), lang: p.lang }));
   }
+  if (Array.isArray(r.quickIds)) {
+    s.quickIds = [
+      ...new Set(r.quickIds.filter((x): x is string => typeof x === "string" && /^[a-z0-9_]{1,40}$/i.test(x))),
+    ].slice(0, MAX_QUICK);
+  }
   return s;
+}
+
+/** メイン画面の返答をピン留め／解除する（4つを超えたら古いものから外す） */
+export function toggleQuick(ids: string[], id: string): string[] {
+  if (ids.includes(id)) return ids.filter((x) => x !== id);
+  return [...ids, id].slice(-MAX_QUICK);
 }
 
 export function loadSettings(): Settings {
@@ -86,7 +102,7 @@ export function loadSettings(): Settings {
     const raw = window.localStorage.getItem(KEY);
     return sanitizeSettings(raw ? JSON.parse(raw) : null);
   } catch {
-    return { ...DEFAULT_SETTINGS, myPhrases: [] };
+    return { ...DEFAULT_SETTINGS, myPhrases: [], quickIds: [...DEFAULT_SETTINGS.quickIds] };
   }
 }
 

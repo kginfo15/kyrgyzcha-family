@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Icon } from "./ui";
+import { Icon, OrnamentBand } from "./icons";
 
 /**
  * 相手（窓口の人・カメラ付きインターフォン）に画面を見せるための全画面表示。
@@ -33,9 +33,10 @@ export default function ShowTextOverlay({
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex flex-col bg-black text-white"
+      className="pt-safe fixed inset-0 z-50 flex flex-col bg-black text-white"
       onClick={onClose}
     >
+      <OrnamentBand className="mt-2 opacity-80" />
       <div className="flex flex-1 items-center justify-center p-6">
         <p className="text-center font-black leading-tight" style={{ fontSize: `min(${size}, 5rem)` }}>
           {text}
@@ -44,9 +45,11 @@ export default function ShowTextOverlay({
       {sub && sub !== text && <p className="px-6 pb-2 text-center text-xl text-neutral-300">{sub}</p>}
       {ja && (
         <p className="px-6 pb-4 text-center text-base text-neutral-400" lang="ja">
-          🇯🇵 {ja}
+          <span className="mr-1.5 text-xs font-extrabold tracking-widest opacity-70">JA</span>
+          {ja}
         </p>
       )}
+      <OrnamentBand className="mb-4 opacity-80" color="var(--them)" />
       <button
         type="button"
         onClick={onClose}

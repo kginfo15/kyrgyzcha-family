@@ -3,15 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { categoryKey } from "@/lib/i18n";
 import { PHRASE_CATEGORIES, PHRASES, phraseText, type Phrase, type PhraseCategory } from "@/lib/phrases";
-import { MAX_MY_PHRASES, type MyPhrase, type Settings } from "@/lib/settings";
+import { MAX_MY_PHRASES, toggleQuick, type MyPhrase, type Settings } from "@/lib/settings";
 import { JaGloss, Tx, useI18n } from "./i18n-context";
 import { speakPhrase } from "./speak-phrase";
 import type { ShowText, SpeakFn } from "./types";
-import { Icon, Sheet } from "./ui";
+import { Icon, type IconName } from "./icons";
+import { Sheet } from "./ui";
 
 type Cat = PhraseCategory | "mine";
 const CATS: Cat[] = [...PHRASE_CATEGORIES, "mine"];
-const CAT_ICONS: Record<Cat, string> = { basic: "💬", pharmacy: "💊", door: "🚪", mine: "⭐" };
+const CAT_ICONS: Record<Cat, IconName> = { basic: "chat", pharmacy: "pill", door: "door", mine: "star" };
 
 export default function ReplySheet({
   settings,
@@ -62,6 +63,7 @@ export default function ReplySheet({
   };
 
   const list = cat === "mine" ? [] : PHRASES.filter((p) => p.category === cat);
+  const pin = (id: string) => onChange({ quickIds: toggleQuick(settings.quickIds, id) });
 
   const composer = (
     <form
@@ -111,9 +113,9 @@ export default function ReplySheet({
           onClick={saveCustom}
           aria-label={d.savePhrase}
           title={d.savePhrase}
-          className="flex min-h-12 w-12 items-center justify-center rounded-xl bg-surface-2 text-xl disabled:opacity-40"
+          className="flex min-h-12 w-12 items-center justify-center rounded-xl bg-surface-2 text-them disabled:opacity-40"
         >
-          ⭐
+          <Icon name="star" className="h-5 w-5" />
         </button>
       </div>
     </form>
@@ -133,12 +135,16 @@ export default function ReplySheet({
               cat === c ? "bg-fg text-bg" : "bg-surface-2 text-fg"
             }`}
           >
-            <span aria-hidden="true">{CAT_ICONS[c]}</span>
+            <Icon name={CAT_ICONS[c]} className="h-4 w-4" />
             <Tx k={categoryKey(c)} />
           </button>
         ))}
       </div>
 
+      <p className="mb-2 flex items-center gap-1.5 text-xs text-muted">
+        <Icon name="pin" className="h-3.5 w-3.5 shrink-0" />
+        <Tx k="quickHint" />
+      </p>
       <ul className="flex flex-col gap-2">
         {list.map((p) => (
           <PhraseRow
@@ -148,6 +154,8 @@ export default function ReplySheet({
             textLang={lang}
             meaning={ui !== lang ? phraseText(p, ui) : undefined}
             ja={p.ja}
+            pinned={settings.quickIds.includes(p.id)}
+            onPin={() => pin(p.id)}
             onPlay={() => sayPhrase(p)}
             onShow={() =>
               onShow({ text: phraseText(p, lang), sub: ui !== lang ? phraseText(p, ui) : undefined, ja: p.ja })
@@ -163,12 +171,19 @@ export default function ReplySheet({
           settings.myPhrases.map((m) => (
             <PhraseRow
               key={m.id}
-              icon="⭐"
+              icon="star"
               text={m.text}
               textLang={m.lang}
+              pinned={settings.quickIds.includes(m.id)}
+              onPin={() => pin(m.id)}
               onPlay={() => sayMine(m)}
               onShow={() => onShow({ text: m.text })}
-              onDelete={() => onChange({ myPhrases: settings.myPhrases.filter((x) => x.id !== m.id) })}
+              onDelete={() =>
+                onChange({
+                  myPhrases: settings.myPhrases.filter((x) => x.id !== m.id),
+                  quickIds: settings.quickIds.filter((x) => x !== m.id),
+                })
+              }
             />
           ))}
       </ul>
@@ -182,11 +197,15 @@ function PhraseRow({
   textLang,
   meaning,
   ja,
+  pinned,
+  onPin,
   onPlay,
   onShow,
   onDelete,
 }: {
-  icon: string;
+  icon: IconName;
+  pinned: boolean;
+  onPin: () => void;
   text: string;
   textLang: string;
   meaning?: string;
@@ -199,8 +218,8 @@ function PhraseRow({
   return (
     <li className="flex items-stretch overflow-hidden rounded-2xl border border-line bg-surface">
       <button type="button" onClick={onPlay} className="flex min-w-0 flex-1 items-center gap-3 p-3 text-left active:bg-surface-2">
-        <span className="w-9 shrink-0 text-center text-3xl leading-none" aria-hidden="true">
-          {icon}
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-them">
+          <Icon name={icon} className="h-5 w-5" />
         </span>
         <span className="flex min-w-0 flex-col [overflow-wrap:break-word]">
           <span className="text-reply font-bold" lang={textLang}>
@@ -219,6 +238,18 @@ function PhraseRow({
         </span>
       </button>
       <div className="flex shrink-0 flex-col border-l border-line">
+        <button
+          type="button"
+          aria-pressed={pinned}
+          aria-label={pinned ? d.unpinQuick : d.pinQuick}
+          title={pinned ? d.unpinQuick : d.pinQuick}
+          onClick={onPin}
+          className={`flex flex-1 items-center justify-center border-b border-line px-3.5 active:bg-surface-2 ${
+            pinned ? "text-them" : "text-muted/60"
+          }`}
+        >
+          <Icon name="pin" className="h-5 w-5" strokeWidth={pinned ? 2.4 : 1.8} />
+        </button>
         <button
           type="button"
           aria-label={d.showToThem}

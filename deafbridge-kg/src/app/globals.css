@@ -2,72 +2,31 @@
 
 /*
  * Layout: one screen, no page scroll — header / stage (the other person's words) / control dock.
- * Dark-first ink palette. Kyrgyz flag colors carry meaning:
- *   sun yellow = the other person is speaking, flag red = recording, periwinkle = my actions.
+ * 黒を基調にした単一テーマ。色はキルギスのものから取り、意味を持たせる:
+ *   フェルトの生成り = 文字と自分の操作 / 国旗の太陽の黄 = 相手が話している
+ *   国旗の赤 = 録音中・装飾 / シルダクの藍 = 自分の返答
  */
 :root {
-  --bg: #0a0d13;
-  --surface: #131924;
-  --surface-2: #1b2331;
-  --border: #273246;
-  --fg: #f3f6fa;
-  --muted: #8d98ab;
-  --accent: #8ea6ff;
-  --accent-fg: #0a0d13;
-  --rec: #ff5148;
+  --bg: #060607;
+  --surface: #0f0f12;
+  --surface-2: #19191e;
+  --border: #26262d;
+  --fg: #f3eee3;
+  --muted: #8e887c;
+  --accent: #f3eee3;
+  --accent-fg: #060607;
+  --rec: #e8112d;
   --rec-fg: #ffffff;
-  --them: #ffc93c;
-  --them-ink: #1a1300;
-  --them-soft: #2a2208;
-  --me: #1d2948;
-  --ok: #3ddc97;
+  --them: #ffd23f;
+  --them-ink: #171200;
+  --them-soft: #1c1705;
+  --me: #16213d;
+  --ok: #46d39a;
   --warn: #ffb547;
   --font-ui: "Onest", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI",
     Roboto, sans-serif;
   --font-brand: "Unbounded", var(--font-ui);
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #f3f5f9;
-    --surface: #ffffff;
-    --surface-2: #e9edf4;
-    --border: #d5dbe6;
-    --fg: #0b1018;
-    --muted: #586477;
-    --accent: #3352e0;
-    --accent-fg: #ffffff;
-    --rec: #d92d20;
-    --rec-fg: #ffffff;
-    --them: #f5b400;
-    --them-ink: #1a1300;
-    --them-soft: #fff4d1;
-    --me: #e3e9ff;
-    --ok: #0f8a55;
-    --warn: #b26a00;
-    color-scheme: light;
-  }
-}
-
-:root[data-theme="light"] {
-  --bg: #f3f5f9;
-  --surface: #ffffff;
-  --surface-2: #e9edf4;
-  --border: #d5dbe6;
-  --fg: #0b1018;
-  --muted: #586477;
-  --accent: #3352e0;
-  --accent-fg: #ffffff;
-  --rec: #d92d20;
-  --rec-fg: #ffffff;
-  --them: #f5b400;
-  --them-ink: #1a1300;
-  --them-soft: #fff4d1;
-  --me: #e3e9ff;
-  --ok: #0f8a55;
-  --warn: #b26a00;
-  color-scheme: light;
 }
 
 @theme inline {

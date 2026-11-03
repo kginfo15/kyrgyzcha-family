@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { DICTS } from "@/lib/i18n";
 import { PHRASES, PHRASE_CATEGORIES } from "@/lib/phrases";
-import { sanitizeSettings, DEFAULT_SETTINGS } from "@/lib/settings";
+import { sanitizeSettings, DEFAULT_SETTINGS, toggleQuick } from "@/lib/settings";
 
 describe("phrases", () => {
   it("have unique, file-safe ids", () => {
@@ -59,6 +59,18 @@ describe("settings", () => {
     });
     expect(s.myPhrases.map((m) => m.id)).toEqual(["a", "d"]);
     expect(s.myPhrases[1].text.length).toBe(200);
+  });
+  it("default quick replies are real phrases", () => {
+    for (const id of DEFAULT_SETTINGS.quickIds) expect(PHRASES.some((p) => p.id === id), id).toBe(true);
+  });
+  it("sanitizes pinned quick replies (max 4, unique, safe ids)", () => {
+    const s = sanitizeSettings({ quickIds: ["yes", "yes", "no", "<x>", 3, "thanks", "hello", "card"] });
+    expect(s.quickIds).toEqual(["yes", "no", "thanks", "hello"]);
+  });
+  it("pinning a 5th quick reply drops the oldest; pinning again unpins", () => {
+    const four = ["a", "b", "c", "d"];
+    expect(toggleQuick(four, "e")).toEqual(["b", "c", "d", "e"]);
+    expect(toggleQuick(four, "b")).toEqual(["a", "c", "d"]);
   });
   it("keeps valid values", () => {
     const s = sanitizeSettings({ uiLang: "ru", convLang: "ky", fontSize: "xlarge", translate: false, maxSeconds: 30 });
