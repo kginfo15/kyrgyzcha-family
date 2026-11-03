@@ -60,6 +60,11 @@ describe("settings", () => {
     expect(s.myPhrases.map((m) => m.id)).toEqual(["a", "d"]);
     expect(s.myPhrases[1].text.length).toBe(200);
   });
+  it("idle auto-stop defaults to 60s and validates values", () => {
+    expect(DEFAULT_SETTINGS.idleStopSec).toBe(60);
+    expect(sanitizeSettings({ idleStopSec: 0 }).idleStopSec).toBe(0);
+    expect(sanitizeSettings({ idleStopSec: 5 }).idleStopSec).toBe(60);
+  });
   it("mode defaults to intercom and accepts counter", () => {
     expect(DEFAULT_SETTINGS.mode).toBe("intercom");
     expect(sanitizeSettings({ mode: "counter" }).mode).toBe("counter");

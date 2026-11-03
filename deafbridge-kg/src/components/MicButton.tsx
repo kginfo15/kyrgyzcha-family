@@ -28,8 +28,8 @@ export default function MicButton({
 }) {
   const spokes = 16;
   const lit = listening ? Math.round(level * spokes) : 0;
-  const color = speaking ? "var(--them)" : listening ? "var(--rec)" : "var(--fg)";
-  const glow = speaking ? "mic-glow-them" : listening ? "mic-glow-rec" : "";
+  const color = speaking ? "var(--them)" : listening ? "var(--rec)" : "var(--accent)";
+  const glow = speaking ? "mic-glow-them" : listening ? "mic-glow-rec" : "mic-glow-idle";
   return (
     <button
       type="button"
@@ -61,7 +61,7 @@ export default function MicButton({
       </svg>
       <span
         className={`mic-core flex items-center justify-center rounded-full transition-[background-color,box-shadow] duration-200 ${glow} ${
-          listening ? "bg-rec text-rec-fg" : "bg-fg text-bg"
+          listening ? "bg-rec text-rec-fg" : "bg-accent text-accent-fg"
         }`}
       >
         <Icon name={listening ? "stop" : "mic"} className="h-[42%] w-[42%]" strokeWidth={2} />

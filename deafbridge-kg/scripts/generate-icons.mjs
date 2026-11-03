@@ -8,7 +8,7 @@ import path from "node:path";
 const out = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "public");
 const svg = (size) => `
 <svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#060607"/>
+  <rect width="512" height="512" fill="#04070c"/>
   <line x1="406.0" y1="256.0" x2="461.0" y2="256.0" stroke="#ffd23f" stroke-width="20" stroke-linecap="round"/>
   <line x1="398.7" y1="302.4" x2="451.0" y2="319.3" stroke="#ffd23f" stroke-width="20" stroke-linecap="round"/>
   <line x1="377.4" y1="344.2" x2="421.8" y2="376.5" stroke="#ffd23f" stroke-width="20" stroke-linecap="round"/>

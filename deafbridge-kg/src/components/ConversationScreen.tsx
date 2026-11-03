@@ -16,6 +16,11 @@ import { Icon, TundukMark, type IconName } from "./icons";
 type Listener = ReturnType<typeof useListener>;
 export type PlayState = { phase: "playing" | "done"; text: string } | null;
 
+/** 詰める段階は積み重ね（段階2なら fit-1 と fit-2 の両方を付ける） */
+function fitClasses(level: number) {
+  return Array.from({ length: level }, (_, i) => `fit-${i + 1}`).join(" ");
+}
+
 /** RMS（小さい値）を見やすい 0〜1 に */
 function levelToUnit(v: number) {
   return Math.min(1, Math.max(0, (Math.log10(v + 1e-4) + 4) / 3.3));
@@ -56,6 +61,8 @@ export default function ConversationScreen({
   const lastMine = [...log].reverse().find((e, i) => e.who === "me" && log.length - 1 - i > latestIdx);
   const lang = settings.convLang;
   const ui = settings.uiLang;
+  // 会話の流れ：最新の相手の発言より前のやりとり（直近3つ）を小さく残す
+  const thread = latestIdx > 0 ? log.slice(0, latestIdx).filter((e) => e.status === "done").slice(-3) : [];
 
   const sayId = (id: string) => {
     const p = findPhrase(id);
@@ -77,7 +84,7 @@ export default function ConversationScreen({
     return () => window.removeEventListener("resize", on);
   }, []);
   const counter = settings.mode === "counter";
-  const fitKey = [settings.mode, step, latest?.id, latest?.status, busy, lastMine?.id, settings.fontSize, settings.jaAssist, ui, lang, viewport].join("|");
+  const fitKey = [settings.mode, log.length, step, latest?.id, latest?.status, busy, lastMine?.id, settings.fontSize, settings.jaAssist, ui, lang, viewport].join("|");
   // 内容や画面サイズが変わったら段階 0（普通の大きさ）からやり直す
   const [fitState, setFitState] = useState({ key: "", level: 0 });
   const fit = fitState.key === fitKey ? fitState.level : 0;
@@ -94,16 +101,16 @@ export default function ConversationScreen({
   }, []);
   useLayoutEffect(() => {
     const el = scRef.current;
-    if (el && fit < 4 && el.scrollHeight > el.clientHeight + 1) {
+    if (el && fit < 4 && el.scrollHeight > el.clientHeight) {
       setFitState({ key: fitKey, level: fit + 1 });
     }
   }, [fitKey, fit, tick]);
 
   return (
-    <div className={`flex min-h-0 flex-1 flex-col gap-2.5 px-3 pb-safe ${counter ? "mode-counter" : ""}`}>
+    <div className={`${fitClasses(fit)} flex min-h-0 flex-1 flex-col gap-2.5 px-3 pb-safe ${counter ? "mode-counter" : ""}`}>
       {/* ================= ステージ：相手の言葉 ================= */}
       <section
-        className={`stage fit-${fit} relative flex min-h-0 flex-1 flex-col overflow-hidden rounded-[30px] border border-line p-4 transition-[background-color,box-shadow] duration-200 ${
+        className={`stage relative flex min-h-0 flex-1 flex-col overflow-hidden rounded-[30px] border border-line p-4 transition-[background-color,box-shadow] duration-200 ${
           speaking ? "stage-speaking" : ""
         }`}
         aria-label={d.them}
@@ -164,6 +171,29 @@ export default function ConversationScreen({
               </div>
             )}
 
+            {/* 会話の流れ（直前のやりとり）。画面が狭い時は自動で減らす */}
+            {latest && thread.length > 0 && (
+              <ol className="thread mb-4 flex flex-col gap-1.5" aria-label={d.history}>
+                {thread.map((e) => (
+                  <li
+                    key={e.id}
+                    className={`thread-item flex ${e.who === "me" ? "justify-end" : "justify-start"}`}
+                  >
+                    <span
+                      lang={e.lang}
+                      className={`line-clamp-2 max-w-[85%] rounded-2xl px-3 py-1.5 text-[0.82rem] leading-snug ${
+                        e.who === "me"
+                          ? "rounded-br-md border border-accent/25 bg-me text-fg/80"
+                          : "rounded-bl-md border border-line bg-bg/40 text-fg/70"
+                      }`}
+                    >
+                      {e.text}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            )}
+
             {latest?.status === "done" && (
               <div className="flex flex-col gap-2.5">
                 <p className="eyebrow text-them">
@@ -204,7 +234,7 @@ export default function ConversationScreen({
                 <button
                   type="button"
                   onClick={() => sayId("repeat")}
-                  className="flex min-h-12 items-center gap-2 rounded-full bg-fg px-5 font-bold text-bg"
+                  className="flex min-h-12 items-center gap-2 rounded-full bg-accent px-5 font-bold text-accent-fg"
                 >
                   <Icon name="repeat" className="h-5 w-5" />
                   <Tx k="askRepeat" />
@@ -222,7 +252,7 @@ export default function ConversationScreen({
               onShow({ text: lastMine.text, sub: lastMine.translations?.[ui], ja: lastMine.translations?.ja })
             }
             title={d.showToThem}
-            className="relative ml-auto flex max-w-[88%] items-end gap-2 rounded-2xl rounded-br-md border border-[#2a3b66] bg-me px-3 py-2 text-right"
+            className="relative ml-auto flex max-w-[88%] items-end gap-2 rounded-2xl rounded-br-md border border-accent/30 bg-me px-3 py-2 text-right"
           >
             <span className="min-w-0">
               <span className="block text-sm font-bold" lang={lastMine.lang}>
@@ -252,9 +282,9 @@ export default function ConversationScreen({
               key={id}
               type="button"
               onClick={() => (p ? speakPhrase(onSpeak, p, settings) : onSpeak({ text: mine!.text, lang: mine!.lang }))}
-              className="tile flex min-w-0 items-start gap-2.5 rounded-2xl border border-line p-2.5 text-left transition active:scale-[0.98]"
+              className="tile flex min-w-0 items-start gap-2.5 rounded-2xl border border-line p-2.5 text-left transition active:scale-[0.98] active:border-accent/50"
             >
-              <span className="tile-icon flex shrink-0 items-center justify-center rounded-xl border border-them/25 bg-them/[0.08] text-them">
+              <span className="tile-icon flex shrink-0 items-center justify-center rounded-xl border border-accent/25 bg-accent/[0.08] text-accent">
                 <Icon name={(p?.icon ?? "star") as IconName} className="h-[55%] w-[55%]" />
               </span>
               <span className="flex min-w-0 flex-col">
@@ -401,16 +431,16 @@ function Stepper({ step, mode }: { step: 1 | 2 | 3; mode: Mode }) {
               <span
                 aria-hidden="true"
                 className={`absolute left-[calc(50%+18px)] right-[calc(-50%+18px)] top-[15px] h-[2px] rounded-full ${
-                  done ? "bg-them" : "bg-line"
+                  done ? "bg-accent" : "bg-line"
                 }`}
               />
             )}
             <span
               className={`relative flex h-[30px] w-[30px] items-center justify-center rounded-full border transition ${
                 done
-                  ? "border-them bg-them text-them-ink"
+                  ? "border-accent bg-accent text-accent-fg"
                   : active
-                    ? "step-active border-them bg-them/10 text-them"
+                    ? "step-active border-accent bg-accent/10 text-accent"
                     : "border-line text-muted"
               }`}
             >
@@ -438,8 +468,8 @@ function Guide({ step, mode, onIntro }: { step: 1 | 2; mode: Mode; onIntro: () =
   return (
     <div className="flex flex-col gap-4">
       <div className="min-w-0">
-        <p className="eyebrow mb-1.5 text-them">
-          <span className="mr-2 inline-block h-[3px] w-5 rounded-full bg-them align-middle" />
+        <p className="eyebrow mb-1.5 text-accent">
+          <span className="mr-2 inline-block h-[3px] w-5 rounded-full bg-accent align-middle" />
           {step} / 3
         </p>
         <p className="guide-title font-extrabold leading-tight">
@@ -452,15 +482,15 @@ function Guide({ step, mode, onIntro }: { step: 1 | 2; mode: Mode; onIntro: () =
       <button
         type="button"
         onClick={onIntro}
-        className="intro flex items-center gap-3 rounded-2xl border border-fg/20 bg-fg/[0.05] p-2.5 text-left"
+        className="intro flex items-center gap-3 rounded-2xl border border-accent/30 bg-accent/[0.07] p-2.5 text-left"
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-fg text-bg">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-fg">
           <Icon name="ear-off" className="h-5 w-5" />
         </span>
         <span className="flex-1 text-[0.95rem] font-extrabold leading-snug">
           <Tx k="playIntro" />
         </span>
-        <Icon name="speaker" className="h-5 w-5 shrink-0 text-them" />
+        <Icon name="speaker" className="h-5 w-5 shrink-0 text-accent" />
       </button>
     </div>
   );

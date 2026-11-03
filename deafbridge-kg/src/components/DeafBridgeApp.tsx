@@ -32,6 +32,11 @@ export default function DeafBridgeApp() {
   const [playState, setPlayState] = useState<PlayState>(null);
   const [flashKey, setFlashKey] = useState(0);
   const nextId = useRef(1);
+  /** 最後に会話が動いた時刻（自動停止の判定用） */
+  const lastActivity = useRef(0);
+  const touch = useCallback(() => {
+    lastActivity.current = Date.now();
+  }, []);
   const resumeAfterPlay = useRef(false);
 
   const d = DICTS[settings.uiLang];
@@ -100,6 +105,7 @@ export default function DeafBridgeApp() {
   // ---- 録音セグメント → 文字化 -------------------------------------------
   const handleSegment = useCallback(
     async (blob: Blob) => {
+      touch();
       const s = settingsRef.current;
       const id = nextId.current++;
       setLog((l) => [
@@ -139,12 +145,13 @@ export default function DeafBridgeApp() {
         patchEntry(id, { status: "error", error: key });
       }
     },
-    [patchEntry, alertUser],
+    [patchEntry, alertUser, touch],
   );
 
   // ---- 対面モード：相手が手で書いた文 ---------------------------------------
   const handleStaffText = useCallback(
     async (text: string) => {
+      touch();
       const s = settingsRef.current;
       const id = nextId.current++;
       setLog((l) => [...l, { id, who: "them", time: Date.now(), lang: s.convLang, status: "done", text, translations: {} }]);
@@ -155,7 +162,7 @@ export default function DeafBridgeApp() {
       const translations = await translateText(text, s.convLang, targets, s.accessCode);
       patchEntry(id, { translations });
     },
-    [alertUser, patchEntry],
+    [alertUser, patchEntry, touch],
   );
 
   const listener = useListener({
@@ -165,7 +172,10 @@ export default function DeafBridgeApp() {
     maxSeconds: settings.maxSeconds,
     onSegment: handleSegment,
     onError: () => setToastKey("errMic"),
-    onSpeechStart: () => alertUser(60),
+    onSpeechStart: () => {
+      touch();
+      alertUser(60);
+    },
   });
 
   // 聞き取り中は画面が消えないようにする（対応ブラウザのみ）
@@ -180,13 +190,36 @@ export default function DeafBridgeApp() {
 
   const startListening = useCallback(() => {
     setToastKey(null);
+    touch();
     listener.start();
-  }, [listener]);
+  }, [listener, touch]);
+
+  // ---- だれも話さない時間が続いたら自動で止める（電池・費用・プライバシー） ----
+  // listener オブジェクトは音量の更新ごとに作り直されるので、停止関数は ref 経由で呼ぶ
+  // （依存に入れるとタイマーが毎回作り直され、判定が一度も走らない）
+  const stopRef = useRef(listener.stop);
+  useEffect(() => {
+    stopRef.current = listener.stop;
+  });
+  const listeningNow = listener.state === "listening";
+  useEffect(() => {
+    const limit = settings.idleStopSec;
+    if (!listeningNow || !limit) return;
+    if (!lastActivity.current) touch();
+    const t = window.setInterval(() => {
+      if (Date.now() - lastActivity.current > limit * 1000) {
+        stopRef.current(false);
+        setToastKey("idleStopped");
+      }
+    }, 2000);
+    return () => window.clearInterval(t);
+  }, [listeningNow, settings.idleStopSec, touch]);
 
   // ---- 返答の再生 ---------------------------------------------------------
   const speak: SpeakFn = useCallback(
     (req) => {
       setToastKey(null);
+      touch();
       // iPhone ではマイク使用中に再生すると受話口から小さく鳴ることがあるため、
       // 再生の間はマイクを止め、終わったら聞き取りを再開する。
       const wasListening = listener.state === "listening";
@@ -218,7 +251,7 @@ export default function DeafBridgeApp() {
       });
       return method;
     },
-    [listener],
+    [listener, touch],
   );
 
   const demo = status?.provider === "mock";
@@ -293,7 +326,7 @@ export default function DeafBridgeApp() {
           </button>
         </header>
 
-        <OrnamentBand className="mb-2 opacity-70" />
+        <OrnamentBand className="mb-2 opacity-45" />
 
         {/* 使う場面の切り替え：インターフォン / 対面（窓口） */}
         <div role="tablist" aria-label={d.convLang} className="mode-tabs mx-3 mb-2.5 grid grid-cols-2 gap-1 rounded-full border border-line bg-surface p-1">

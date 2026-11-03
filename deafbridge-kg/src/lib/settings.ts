@@ -26,6 +26,8 @@ export type Settings = {
   continuous: boolean;
   sensitivity: Sensitivity;
   maxSeconds: 8 | 15 | 30;
+  /** だれも話さない時間がこれを超えたら聞き取りを自動で止める（秒。0 = 止めない） */
+  idleStopSec: 0 | 60 | 180;
   accessCode: string;
   myPhrases: MyPhrase[];
   /** メイン画面に置く返答（定型文 id またはマイ返答 id、最大4つ） */
@@ -44,6 +46,7 @@ export const DEFAULT_SETTINGS: Settings = {
   continuous: true,
   sensitivity: "mid",
   maxSeconds: 15,
+  idleStopSec: 60,
   accessCode: "",
   myPhrases: [],
   quickIds: ["repeat", "deaf", "buy_medicine", "open_door"],
@@ -74,6 +77,7 @@ export function sanitizeSettings(raw: unknown): Settings {
   if (r.sensitivity === "low" || r.sensitivity === "mid" || r.sensitivity === "high")
     s.sensitivity = r.sensitivity;
   if (r.maxSeconds === 8 || r.maxSeconds === 15 || r.maxSeconds === 30) s.maxSeconds = r.maxSeconds;
+  if (r.idleStopSec === 0 || r.idleStopSec === 60 || r.idleStopSec === 180) s.idleStopSec = r.idleStopSec;
   if (typeof r.accessCode === "string") s.accessCode = r.accessCode.slice(0, 100);
   if (Array.isArray(r.myPhrases)) {
     s.myPhrases = r.myPhrases

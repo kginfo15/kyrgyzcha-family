@@ -36,7 +36,7 @@ export default function ShowTextOverlay({
       className="pt-safe fixed inset-0 z-50 flex flex-col bg-black text-white"
       onClick={onClose}
     >
-      <OrnamentBand className="mt-2 opacity-80" />
+      <OrnamentBand className="mt-2 opacity-80" color="var(--accent)" />
       <div className="flex flex-1 items-center justify-center p-6">
         <p className="text-center font-black leading-tight" style={{ fontSize: `min(${size}, 5rem)` }}>
           {text}

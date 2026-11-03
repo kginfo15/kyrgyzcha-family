@@ -284,7 +284,7 @@ export function TundukMark({ className = "h-7 w-7", mono = false }: { className?
 /**
  * 帯模様：シルダク（フェルト絨毯）の「кочкор мүйүз（羊の角）」文様を繰り返す。
  */
-export function OrnamentBand({ className = "", color = "var(--rec)" }: { className?: string; color?: string }) {
+export function OrnamentBand({ className = "", color = "var(--them)" }: { className?: string; color?: string }) {
   // 同じページに複数置くと pattern の id が衝突するため、毎回固有の id にする
   const id = `kochkor-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   return (

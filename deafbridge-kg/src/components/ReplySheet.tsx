@@ -113,7 +113,7 @@ export default function ReplySheet({
           onClick={saveCustom}
           aria-label={d.savePhrase}
           title={d.savePhrase}
-          className="flex min-h-12 w-12 items-center justify-center rounded-xl bg-surface-2 text-them disabled:opacity-40"
+          className="flex min-h-12 w-12 items-center justify-center rounded-xl bg-surface-2 text-accent disabled:opacity-40"
         >
           <Icon name="star" className="h-5 w-5" />
         </button>
@@ -218,7 +218,7 @@ function PhraseRow({
   return (
     <li className="flex items-stretch overflow-hidden rounded-2xl border border-line bg-surface">
       <button type="button" onClick={onPlay} className="flex min-w-0 flex-1 items-center gap-3 p-3 text-left active:bg-surface-2">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-them">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/[0.08] text-accent">
           <Icon name={icon} className="h-5 w-5" />
         </span>
         <span className="flex min-w-0 flex-col [overflow-wrap:break-word]">
@@ -245,7 +245,7 @@ function PhraseRow({
           title={pinned ? d.unpinQuick : d.pinQuick}
           onClick={onPin}
           className={`flex flex-1 items-center justify-center border-b border-line px-3.5 active:bg-surface-2 ${
-            pinned ? "text-them" : "text-muted/60"
+            pinned ? "text-accent" : "text-muted/60"
           }`}
         >
           <Icon name="pin" className="h-5 w-5" strokeWidth={pinned ? 2.4 : 1.8} />

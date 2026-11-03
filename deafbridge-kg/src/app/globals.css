@@ -2,26 +2,26 @@
 
 /*
  * Layout: one screen, no page scroll — header / stage (the other person's words) / control dock.
- * 黒を基調にした単一テーマ。色はキルギスのものから取り、意味を持たせる:
- *   フェルトの生成り = 文字と自分の操作 / 国旗の太陽の黄 = 相手が話している
- *   国旗の赤 = 録音中・装飾 / シルダクの藍 = 自分の返答
+ * 夜のイシク・クル湖とアラ・トー山脈をイメージした、青みのある黒の単一テーマ。色に意味を持たせる:
+ *   湖のターコイズ = 自分・自分の操作 / 国旗の太陽の金 = 相手（話している・相手の言葉）
+ *   国旗の赤 = 録音中
  */
 :root {
-  --bg: #060607;
-  --surface: #0f0f12;
-  --surface-2: #19191e;
-  --border: #26262d;
-  --fg: #f3eee3;
-  --muted: #8e887c;
-  --accent: #f3eee3;
-  --accent-fg: #060607;
-  --rec: #e8112d;
+  --bg: #04070c;
+  --surface: #0b1119;
+  --surface-2: #131b26;
+  --border: #1e2939;
+  --fg: #e8eff7;
+  --muted: #7f91a7;
+  --accent: #4fd6c8;
+  --accent-fg: #021d1b;
+  --rec: #ff3d52;
   --rec-fg: #ffffff;
-  --them: #ffd23f;
-  --them-ink: #171200;
-  --them-soft: #1c1705;
-  --me: #16213d;
-  --ok: #46d39a;
+  --them: #ffc940;
+  --them-ink: #1a1300;
+  --them-soft: #161205;
+  --me: #0a2326;
+  --ok: #7be3a2;
   --warn: #ffb547;
   --font-ui: "Onest", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI",
     Roboto, sans-serif;
@@ -64,9 +64,10 @@
 html,
 body {
   height: 100%;
-  /* 上からうっすら国旗の赤が差す */
+  /* 山の夜空：上からうっすら湖の青緑と星明かり */
   background:
-    radial-gradient(110% 42% at 50% -6%, color-mix(in srgb, var(--rec) 17%, transparent), transparent 72%),
+    radial-gradient(90% 38% at 15% -8%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(80% 32% at 95% -6%, color-mix(in srgb, #5b7cff 14%, transparent), transparent 70%),
     var(--bg);
   background-attachment: fixed;
   color: var(--fg);
@@ -125,6 +126,11 @@ body {
     0 0 0 6px color-mix(in srgb, var(--rec) 14%, transparent),
     0 0 40px color-mix(in srgb, var(--rec) 55%, transparent);
 }
+.mic-glow-idle {
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--accent) 10%, transparent),
+    0 10px 36px color-mix(in srgb, var(--accent) 35%, transparent);
+}
 .mic-glow-them {
   box-shadow:
     0 0 0 6px color-mix(in srgb, var(--them) 16%, transparent),
@@ -142,12 +148,13 @@ body {
   height: var(--tile-icon);
 }
 .tile-text {
-  font-size: calc(var(--tile-text) * var(--fs-scale) * var(--say-k, 1));
+  font-size: calc(var(--tile-text) * var(--fs-scale));
 }
 .stage {
   background:
-    linear-gradient(180deg, color-mix(in srgb, var(--fg) 5%, transparent), transparent 38%),
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent 40%),
     var(--surface);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--fg) 7%, transparent);
 }
 .guide-title {
   font-size: calc(1.4rem * var(--fs-scale) * var(--say-k, 1));
@@ -167,8 +174,20 @@ body {
 .fit-3 {
   --say-k: 0.62;
 }
+/* 1段目：まず下の返答ボタンの補足行を消して、ステージ（会話の流れ）に場所を譲る */
 .fit-1 .guide-sub,
-.fit-1 .status-sub {
+.fit-1 .status-sub,
+.fit-1 .tile-sub {
+  display: none;
+}
+/* 会話の流れ：収まらない時は古いものから減らす */
+.fit-2 .thread-item:nth-last-child(n + 3) {
+  display: none;
+}
+.fit-3 .thread-item:nth-last-child(n + 2) {
+  display: none;
+}
+.fit-4 .thread {
   display: none;
 }
 .fit-2 .stepper-label {
@@ -391,7 +410,7 @@ select:focus-visible {
 @keyframes step-glow {
   0%,
   100% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--them) 45%, transparent);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
   }
   50% {
     box-shadow: 0 0 0 6px transparent;
@@ -413,7 +432,7 @@ select:focus-visible {
   }
 }
 .mic-cta {
-  border: 2px solid var(--fg);
+  border: 2px solid var(--accent);
   animation: mic-cta 2.2s ease-out infinite;
 }
 

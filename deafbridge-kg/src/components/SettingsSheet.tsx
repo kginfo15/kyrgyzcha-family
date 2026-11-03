@@ -139,6 +139,19 @@ export default function SettingsSheet({
             ]}
             onChange={(v) => onChange({ sensitivity: v })}
           />
+          <div>
+            <Segmented
+              label={<Tx k="idleStop" />}
+              value={settings.idleStopSec}
+              options={[
+                { value: 60 as const, label: <>1 {d.minutes}</> },
+                { value: 180 as const, label: <>3 {d.minutes}</> },
+                { value: 0 as const, label: <Tx k="off" /> },
+              ]}
+              onChange={(v) => onChange({ idleStopSec: v })}
+            />
+            <Hint k="idleStopHint" />
+          </div>
           <Segmented
             label={<Tx k="maxSeconds" />}
             value={settings.maxSeconds}

@@ -118,6 +118,8 @@ for (const scheme of ["dark"]) {
     const b = [...document.querySelectorAll("button")].find((x) => x.getAttribute("aria-label") === "Тарых");
     return b && Number(b.textContent.trim()) >= 2;
   }, null, { timeout: 15000 }).then(() => check("continuous mode: second utterance transcribed", true), () => check("continuous mode: second utterance transcribed", false));
+  await page.waitForTimeout(1500);
+  check("conversation flow: earlier message stays visible above the latest", (await page.locator(".thread-item").count()) >= 1);
 
   // すぐ使う返答 → 再生表示 → 聞き取り再開
   await page.getByRole("button", { name: /Я хочу купить лекарство/ }).click();
