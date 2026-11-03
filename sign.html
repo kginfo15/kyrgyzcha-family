@@ -90,6 +90,15 @@
   .desc .b{font-size:14px;line-height:1.75;white-space:pre-line}
   .desc .src{font-size:11.5px;color:var(--muted);margin-top:6px}
   .desc .src a{color:var(--teal)}
+  .stbtn{display:block;text-decoration:none;background:var(--accent);color:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;text-align:left}
+  .stbtn .big{display:block;font-size:16px;font-weight:800}
+  .stbtn .sm{display:block;font-size:12px;opacity:.9;margin-top:2px}
+  details.longv{margin-top:6px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+  details.longv>summary{cursor:pointer;padding:10px 12px;font-size:12.5px;font-weight:800;color:var(--muted)}
+  details.longv .inner{padding:4px 12px 10px}
+  .fig{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 8px 6px;text-align:center}
+  .fig svg{width:100%;max-width:340px;height:auto;display:block;margin:0 auto}
+  .fig .cap{font-size:11.5px;color:var(--muted);margin-top:4px;line-height:1.5;text-align:left}
   .desc.single{background:#FFF9DB;border-color:#FFE066}
   .desc.single .h{color:#E67700}
   .desc.none{background:#F6F7FB;border-color:var(--line)}
@@ -298,7 +307,7 @@ var CMAP={}; CARDS.forEach(function(c){CMAP[c.id]=c;});
 
 /* ===== 保存 ===== */
 var K={prog:"signApp_v1_progress",notes:"signApp_v1_notes",set:"signApp_v1_settings",hist:"signApp_v1_history",sess:"signApp_v1_session"};
-var APP_VERSION="0.2";
+var APP_VERSION="0.3";
 var LADDER_DAYS=[1,3,7,14,30,60];
 var memStore={};
 function lget(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return (k in memStore)?memStore[k]:d;}}
@@ -421,30 +430,140 @@ function searchLinks(c){
     '<a href="https://www.youtube.com/results?search_query='+encodeURIComponent("жест "+q+" РЖЯ")+'" target="_blank" rel="noopener">YouTube で探す</a>'+
     '<a href="https://signflow.ru/" target="_blank" rel="noopener">signflow.ru</a>';
 }
+/* ===== 長い動画（該当箇所が分からないもの） ===== */
+var LONG_YT={"x78RQeWwwvQ":1,"rKEe2-vqg9k":1,"jtbwEalS0CE":1};
+function isLong(v){return v.type==="yt"&&!!LONG_YT[v.id];}
+
+/* ===== Spreadthesign の1語ページ（短い動画1本） ===== */
+var STB="https://www.spreadthesign.com/en.us-to-ru.ru/";
+var ST={
+  g01:{p:"sentence/410/privet/",l:"「Привет!／Hello」（挨拶の基本形）"},
+  g02:{p:"sentence/410/privet/",l:"「Привет!」"},
+  g03:{p:"sentence/1298/dobroe-utro/",l:"「Доброе утро!」"},
+  g05:{p:"sentence/23093/dobryi-vecher/",l:"「Добрый вечер!」"},
+  g06:{p:"sentence/1297/do-svidania/",l:"「До свидания」"},
+  g09:{p:"word/423/spasibo/",l:"「спасибо」"},
+  i02:{p:"sentence/10047/kak-tebia-zovut/",l:"「Как тебя зовут?」"},
+  i05:{p:"word/8269/imia/",l:"「имя」"},
+  i11:{p:"word/624/zhestovyi-iazyk/",l:"「жестовый язык」"},
+  i14:{p:"word/419/drug/",l:"「друг」"},
+  h08:{p:"word/214/pomoshch/",l:"「помощь」"}
+};
+
+function ytBox(v,s,auto){
+  return '<div class="vid"><div class="lab"><span class="tag yt">YouTube</span>'+esc(s.label)+(s.official?' <span class="tag ok">公式</span>':'')+'</div>'+
+    ytEmbed(v,auto)+(s.hint?'<div class="small muted" style="margin-top:3px">'+esc(s.hint)+'</div>':'')+
+    '<div class="small muted" style="margin-top:3px">再生できない時は <a href="https://www.youtube.com/watch?v='+encodeURIComponent(v.id)+(v.start?'&t='+v.start+'s':'')+'" target="_blank" rel="noopener">YouTubeで開く</a></div></div>';
+}
 function videoBlock(c,opts){
   opts=opts||{}; var n=N(c.id), h='<div class="vids">';
   if(n.hasVideo){
     h+='<div class="vid"><div class="lab"><span class="tag own">自分の動画</span>'+(n.verified?'<span class="tag ok">確認済み</span>':'')+'</div>'+
        '<div class="frame"><video data-own="'+c.id+'" controls playsinline loop preload="metadata"></video></div></div>';
   }
-  var vids=(c.vids||[]);
-  vids.forEach(function(v,i){
-    if(v.type==="yt"){
-      var s=SRC[v.src]||SRC.yt;
-      h+='<div class="vid"><div class="lab"><span class="tag yt">YouTube</span>'+esc(s.label)+(s.official?' <span class="tag ok">公式</span>':'')+'</div>'+
-         ytEmbed(v, settings.autoVideo && i===0 && !opts.noAuto)+(s.hint?'<div class="small muted" style="margin-top:3px">'+esc(s.hint)+'</div>':'')+
-         '<div class="small muted" style="margin-top:3px">再生できない時は <a href="https://www.youtube.com/watch?v='+encodeURIComponent(v.id)+(v.start?'&t='+v.start+'s':'')+'" target="_blank" rel="noopener">YouTubeで開く</a></div></div>';
-    }
+  var vids=c.vids||[];
+  var shortV=vids.filter(function(v){return v.type==="yt"&&!isLong(v);});
+  var longV=vids.filter(isLong);
+  var st=ST[c.id];
+  if(st){
+    h+='<a class="stbtn" href="'+STB+st.p+'" target="_blank" rel="noopener"><span class="big">▶ 短い動画で見る</span>'+
+       '<span class="sm">Spreadthesign '+esc(st.l)+'・この表現だけの数秒の動画</span></a>';
+  }
+  shortV.forEach(function(v,i){
+    h+=ytBox(v,{label:"1語だけの動画："+((SRC[v.src]||SRC.yt).label)},settings.autoVideo&&i===0&&!opts.noAuto);
   });
   var links=vids.filter(function(v){return v.type==="link";});
   if(links.length){h+='<div class="links">'+links.map(function(v){return '<a href="'+esc(v.url)+'" target="_blank" rel="noopener">'+esc(v.label)+'</a>';}).join("")+'</div>';}
-  if(!vids.some(function(v){return v.type==="yt";})&&!n.hasVideo){
-    h+='<div class="warnbox">このカードにはまだ動画が登録されていません。下のリンクから探して、見つけたらメモ欄にURLを書いておこう。</div>';
+  if(!st&&!shortV.length&&!n.hasVideo){
+    h+='<div class="warnbox">このカードにはまだ<b>短い動画</b>が見つかっていません。下の「Spreadthesign で探す」で検索すると、1語だけの短い動画が出てくることが多いです。見つけたらメモ欄にURLを貼っておこう。</div>';
+  }
+  if(longV.length){
+    h+='<details class="longv"><summary>長い動画（'+longV.length+'本）：どこに出てくるか分からない動画</summary><div class="inner">'+
+       '<div class="small muted" style="margin-bottom:6px">いくつもの単語をまとめた動画です。この単語が何秒目に出てくるかは確認できていません。</div>'+
+       longV.map(function(v){return ytBox(v,SRC[v.src]||SRC.yt,false);}).join("")+'</div></details>';
   }
   h+='<div class="links">'+searchLinks(c)+'</div>';
-  if(vids.length) h+='<div class="small muted" style="margin-top:6px">※ 動画は検索で見つけたもので、中身（何秒目に出るか・正確さ）は未確認です。</div>';
   h+='</div>';
   return h;
+}
+/* ===== 動きの模式図（文章解説を図にしたもの） ===== */
+var FC={skin:"#F1F3F5",line:"#ADB5BD",hand:"#3B5BDB",hand2:"#91A7FF",arrow:"#E8590C",txt:"#1E2230"};
+function svgWrap(id,inner){
+  return '<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="動きの模式図">'+
+    '<defs><marker id="ah_'+id+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'+
+    '<path d="M0 0L10 5L0 10z" fill="'+FC.arrow+'"/></marker></defs>'+
+    '<path d="M70 220Q78 128 160 122Q242 128 250 220Z" fill="'+FC.skin+'" stroke="'+FC.line+'" stroke-width="1.5"/>'+
+    '<rect x="150" y="98" width="20" height="26" fill="'+FC.skin+'"/>'+
+    '<ellipse cx="160" cy="62" rx="34" ry="42" fill="'+FC.skin+'" stroke="'+FC.line+'" stroke-width="1.5"/>'+
+    '<circle cx="148" cy="58" r="2.5" fill="'+FC.line+'"/><circle cx="172" cy="58" r="2.5" fill="'+FC.line+'"/>'+
+    '<path d="M151 84Q160 89 169 84" stroke="'+FC.line+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
+    inner+'</svg>';
+}
+function palm(x,y,rot,fill,dash){
+  var st=dash?' stroke-dasharray="3 3"':'', f=fill||FC.hand, g='<g transform="translate('+x+' '+y+') rotate('+(rot||0)+')">';
+  [[-10,-21,15],[-4.6,-25,19],[0.8,-24,18],[6.2,-20,14]].forEach(function(a){
+    g+='<rect x="'+a[0]+'" y="'+a[1]+'" width="4.6" height="'+a[2]+'" rx="2.3" fill="'+f+'" stroke="#fff" stroke-width=".8"'+st+'/>';});
+  g+='<rect x="-11" y="-8" width="22" height="22" rx="7" fill="'+f+'" stroke="#fff" stroke-width=".8"'+st+'/>';
+  g+='<rect x="-19" y="-3" width="5" height="13" rx="2.5" fill="'+f+'" stroke="#fff" stroke-width=".8" transform="rotate(-35 -16 3)"'+st+'/>';
+  return g+'</g>';
+}
+function fist(x,y,fill,dash){
+  var st=dash?' stroke-dasharray="3 3"':'', f=fill||FC.hand;
+  return '<g transform="translate('+x+' '+y+')"><rect x="-13" y="-11" width="26" height="22" rx="8" fill="'+f+'" stroke="#fff" stroke-width="1"'+st+'/>'+
+    '<path d="M-6 -11v5M0 -11v5M6 -11v5" stroke="#fff" stroke-width="1.4"/></g>';
+}
+function arr(d,id,both){return '<path d="'+d+'" fill="none" stroke="'+FC.arrow+'" stroke-width="3" stroke-linecap="round" marker-end="url(#ah_'+id+')"'+(both?' marker-start="url(#ah_'+id+')"':'')+'/>';}
+function lab(x,y,t,anchor,col,size){return '<text x="'+x+'" y="'+y+'" font-size="'+(size||13)+'" font-weight="700" fill="'+(col||FC.txt)+'" text-anchor="'+(anchor||"start")+'" font-family="system-ui,sans-serif">'+esc(t)+'</text>';}
+function arm(x1,y1,x2,y2){return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+FC.hand2+'" stroke-width="12" stroke-linecap="round"/>';}
+
+var FIGS={
+  g09:function(id){ // спасибо
+    return svgWrap(id, fist(160,26)+fist(160,104,FC.hand2,true)+
+      arr("M128 32Q104 66 128 100",id)+
+      lab(204,22,"① こぶしの背で")+lab(204,38,"おでこ「スパ」")+
+      lab(204,104,"② 下ろして")+lab(204,120,"あご「シーバ」"));
+  },
+  g02:function(id){ // привет
+    return svgWrap(id, arm(92,210,92,140)+palm(92,128,0)+
+      arr("M62 92Q92 76 122 92",id,true)+lab(92,72,"左右に振る","middle")+
+      lab(16,200,"肘を曲げて","start",FC.txt,12)+lab(16,215,"右手を上げる","start",FC.txt,12));
+  },
+  g06:function(id){ // до свидания
+    return svgWrap(id, arm(52,212,52,162)+palm(52,140,0)+fist(108,150,FC.hand2)+
+      arr("M66 118Q88 106 102 132",id)+arr("M100 168Q82 184 64 166",id)+
+      lab(16,96,"開く・握るを","start",FC.txt,12)+lab(16,111,"くり返す","start",FC.txt,12)+
+      lab(204,150,"ゴムボールを","start",FC.txt,12)+lab(204,165,"握るように","start",FC.txt,12)+
+      lab(204,195,"× 左右に振らない","start","#C92A2A",12));
+  },
+  g01:function(id){ // здравствуйте
+    return svgWrap(id, palm(118,168,30)+palm(202,168,-30)+
+      arr("M96 196Q84 150 132 140",id)+arr("M224 196Q236 150 188 140",id)+
+      lab(16,30,"胸の高さで","start",FC.txt,12)+lab(16,45,"両手で1回","start",FC.txt,12)+lab(16,60,"内側へ円を描く","start",FC.txt,12));
+  },
+  g11:function(id){ // извините
+    return svgWrap(id, '<rect x="122" y="172" width="76" height="16" rx="8" fill="'+FC.hand2+'"/>'+
+      '<rect x="130" y="156" width="60" height="14" rx="7" fill="'+FC.hand+'"/>'+
+      arr("M120 140H200",id,true)+lab(160,130,"手のひら同士をこする","middle")+
+      lab(16,30,"見えない何かを","start",FC.txt,12)+lab(16,45,"拭き取るように","start",FC.txt,12));
+  }
+};
+FIGS.g07=FIGS.g06; // пока（同じ動きと紹介されている）
+FIGS.i01=function(id){ // меня зовут
+  var box='<rect x="218" y="22" width="96" height="140" rx="10" fill="#fff" stroke="'+FC.line+'" stroke-dasharray="4 3"/>'+
+    '<rect x="254" y="44" width="10" height="56" rx="5" fill="'+FC.hand2+'"/>'+
+    '<rect x="230" y="96" width="44" height="10" rx="5" fill="'+FC.hand2+'"/>'+
+    '<circle cx="260" cy="101" r="9" fill="none" stroke="'+FC.arrow+'" stroke-width="2"/>'+
+    '<rect x="268" y="112" width="38" height="12" rx="6" fill="'+FC.hand+'"/>'+
+    arr("M300 140Q276 132 262 116",id)+lab(266,40,"② 親指と人差し指の","middle",FC.txt,9.5)+lab(266,154,"付け根をなでる","middle",FC.txt,10);
+  return svgWrap(id, '<g transform="translate(112 168)"><rect x="-12" y="-9" width="24" height="20" rx="7" fill="'+FC.hand+'"/>'+
+    '<rect x="10" y="-6" width="22" height="6" rx="3" fill="'+FC.hand+'"/></g>'+
+    arr("M140 165H156",id)+lab(16,150,"① 自分を指す","start")+box+
+    lab(16,30,"③ 名前は","start",FC.txt,12)+lab(16,45,"指文字で綴る","start",FC.txt,12));
+};
+function figBlock(c){
+  var f=FIGS[c.id]; if(!f) return "";
+  return '<div class="fig">'+f(c.id)+'<div class="cap">模式図：下の文章解説を図にしたものです（向かい合った相手から見た形。相手の右手は図の左側）。'+
+    (c.desc&&c.desc.level==="single"?'<b>解説が1つの資料だけなので、特に動画で確認を。</b>':'細かい手の形・向きは動画で確認してください。')+'</div></div>';
 }
 function descBlock(c){
   if(c.desc){
@@ -465,7 +584,8 @@ function wordBlock(c,showKy){
   if(showKy&&c.ky) h+='<div class="ky">キルギス語（参考）：<b>'+esc(c.ky)+'</b></div>';
   return h;
 }
-function cardHasVideo(c){return N(c.id).hasVideo||(c.vids||[]).some(function(v){return v.type==="yt";});}
+function cardHasVideo(c){return N(c.id).hasVideo||(c.vids||[]).some(function(v){return v.type==="yt"&&!isLong(v);});}
+function cardHasAnyVideo(c){return cardHasVideo(c)||!!ST[c.id];}
 function statusTags(c){
   var n=N(c.id),p=progress[c.id],t="";
   t+= n.verified?'<span class="tag ok">確認済み</span>':'<span class="tag unv">未確認</span>';
@@ -537,7 +657,7 @@ function renderStudy(){
   }else{
     h+='<div class="jp" style="font-size:20px;margin-top:4px">'+esc(c.ja)+'</div>';
     h+='<div style="margin-top:6px">'+wordBlock(c,true)+'</div>';
-    h+=descBlock(c)+memoPreview(c);
+    h+=figBlock(c)+descBlock(c)+memoPreview(c);
     if(dir==="ja2sign") h+=videoBlock(c,{});
     if(c.note) h+='<div class="note">'+esc(c.note)+'</div>';
     h+='<div style="display:flex;gap:8px;margin-top:12px"><button class="btn sm" style="flex:1" data-act="opencard" data-val="'+id+'">メモ・録画・確認状態</button></div>';
@@ -570,7 +690,7 @@ function renderList(){
     h+='<div class="h2">'+cat.icon+' '+esc(cat.name)+'</div>';
     CARDS.filter(function(c){return c.cat===cat.id;}).forEach(function(c){
       h+='<div class="lrow" data-act="opencard" data-val="'+c.id+'"><div class="m"><div class="a">'+esc(c.ja)+'</div><div class="b">'+esc(c.ru)+'</div></div>'+
-         '<div class="st">'+(cardHasVideo(c)?'<span class="tag yt">動画</span>':'')+(c.desc?'<span class="tag ok">解説</span>':'')+statusTags(c)+'</div></div>';
+         '<div class="st">'+(cardHasAnyVideo(c)?'<span class="tag yt">短い動画</span>':'')+(FIGS[c.id]?'<span class="tag ok">図</span>':'')+(c.desc?'<span class="tag ok">解説</span>':'')+statusTags(c)+'</div></div>';
     });
   });
   return h;
@@ -614,7 +734,7 @@ function cardSheet(id){
   var sh=document.querySelector(".sheet"),keepScroll=sh?sh.scrollTop:0;
   var h='<div class="small" style="font-weight:800;color:'+cat.color+'">'+cat.icon+' '+esc(cat.name)+'</div>';
   h+='<h3 style="margin-bottom:4px">'+esc(c.ja)+'</h3>'+wordBlock(c,true);
-  h+=descBlock(c)+videoBlock(c,{noAuto:!settings.autoVideo});
+  h+=figBlock(c)+descBlock(c)+videoBlock(c,{noAuto:!settings.autoVideo});
   if(c.note) h+='<div class="note">'+esc(c.note)+'</div>';
   h+='<div class="setrow" style="margin-top:16px"><div class="lab">自分の動画（端末内にだけ保存）</div>'+
      '<div style="display:flex;gap:8px"><button class="btn sm" style="flex:1" data-act="rec" data-val="'+id+'">'+(n.hasVideo?"撮り直す／差し替え":"録画する／動画を選ぶ")+'</button>'+
