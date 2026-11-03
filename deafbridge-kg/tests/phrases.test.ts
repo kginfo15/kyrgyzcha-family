@@ -1,0 +1,44 @@
+import { describe, expect, it } from "vitest";
+import { DICTS } from "@/lib/i18n";
+import { PHRASES, PHRASE_CATEGORIES } from "@/lib/phrases";
+import { sanitizeSettings, DEFAULT_SETTINGS } from "@/lib/settings";
+
+describe("phrases", () => {
+  it("have unique, file-safe ids", () => {
+    const ids = PHRASES.map((p) => p.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) expect(id).toMatch(/^[a-z0-9_]+$/);
+  });
+  it("have text in every language", () => {
+    for (const p of PHRASES) {
+      expect(p.ru.trim(), p.id).not.toBe("");
+      expect(p.ky.trim(), p.id).not.toBe("");
+      expect(p.ja.trim(), p.id).not.toBe("");
+      expect(PHRASE_CATEGORIES).toContain(p.category);
+    }
+  });
+  it("every category has phrases", () => {
+    for (const c of PHRASE_CATEGORIES) expect(PHRASES.some((p) => p.category === c)).toBe(true);
+  });
+});
+
+describe("i18n", () => {
+  it("all UI languages define every key", () => {
+    const keys = Object.keys(DICTS.ja).sort();
+    for (const lang of ["ru", "ky"] as const) {
+      expect(Object.keys(DICTS[lang]).sort()).toEqual(keys);
+      for (const k of keys) expect(DICTS[lang][k as keyof typeof DICTS.ja], `${lang}.${k}`).not.toBe("");
+    }
+  });
+});
+
+describe("settings", () => {
+  it("falls back to defaults on garbage", () => {
+    expect(sanitizeSettings(null)).toEqual(DEFAULT_SETTINGS);
+    expect(sanitizeSettings({ uiLang: "xx", maxSeconds: 999, fontSize: 3 })).toEqual(DEFAULT_SETTINGS);
+  });
+  it("keeps valid values", () => {
+    const s = sanitizeSettings({ uiLang: "ru", convLang: "ky", fontSize: "xlarge", translate: false, maxSeconds: 30 });
+    expect(s).toMatchObject({ uiLang: "ru", convLang: "ky", fontSize: "xlarge", translate: false, maxSeconds: 30 });
+  });
+});

@@ -1,0 +1,164 @@
+import { describe, expect, it, vi } from "vitest";
+import { handleTranscribe } from "@/lib/server/transcribe-handler";
+import {
+  buildGoogleSttRequest,
+  createMockProvider,
+  getProvider,
+  parseGoogleSttResponse,
+  type SttProvider,
+} from "@/lib/server/stt";
+import { createRateLimiter } from "@/lib/server/rate-limit";
+import { encodeWav } from "@/lib/wav";
+
+function wavBody(seconds: number, rate = 16000) {
+  return encodeWav(new Float32Array(Math.round(seconds * rate)).fill(0.1), rate);
+}
+
+function req(body: BodyInit | null, opts: { lang?: string; ui?: string; type?: string; code?: string; ip?: string } = {}) {
+  const url = new URL("http://localhost/api/transcribe");
+  if (opts.lang !== "") url.searchParams.set("lang", opts.lang ?? "ru");
+  if (opts.ui) url.searchParams.set("ui", opts.ui);
+  return new Request(url, {
+    method: "POST",
+    body,
+    headers: {
+      "content-type": opts.type ?? "audio/wav",
+      "x-forwarded-for": opts.ip ?? `10.0.0.${Math.floor(Math.random() * 250)}`,
+      ...(opts.code ? { "x-access-code": opts.code } : {}),
+    },
+  });
+}
+
+const asEnv = (o: Record<string, string>) => o as unknown as NodeJS.ProcessEnv;
+const env = asEnv({});
+
+describe("POST /api/transcribe", () => {
+  it("transcribes with mock provider and translates to ja", async () => {
+    const res = await handleTranscribe(req(wavBody(1), { ui: "ja" }), createMockProvider(), env);
+    const data = await res.json();
+    expect(res.status).toBe(200);
+    expect(data.ok).toBe(true);
+    expect(data.provider).toBe("mock");
+    expect(data.text).toBeTruthy();
+    expect(data.translation).toBeTruthy();
+  });
+
+  it("passes raw PCM and sample rate to provider", async () => {
+    const transcribe = vi.fn(async () => ({ text: "Привет", confidence: 0.9, alternatives: [] }));
+    const p: SttProvider = { name: "google", transcribe, translate: async () => null };
+    await handleTranscribe(req(wavBody(0.5, 8000)), p, env);
+    const [pcm, rate, lang] = transcribe.mock.calls[0] as unknown as [Uint8Array, number, string];
+    expect(pcm.length).toBe(8000); // 0.5s * 8000Hz * 2 bytes
+    expect(rate).toBe(8000);
+    expect(lang).toBe("ru");
+  });
+
+  it("does not translate when ui language equals conversation language", async () => {
+    const translate = vi.fn(async () => "x");
+    const p: SttProvider = { ...createMockProvider(), translate };
+    const res = await handleTranscribe(req(wavBody(1), { ui: "ru" }), p, env);
+    expect((await res.json()).translation).toBeNull();
+    expect(translate).not.toHaveBeenCalled();
+  });
+
+  it("rejects bad language", async () => {
+    const res = await handleTranscribe(req(wavBody(1), { lang: "en" }), createMockProvider(), env);
+    expect(res.status).toBe(400);
+  });
+
+  it("rejects non-wav content", async () => {
+    const res = await handleTranscribe(req("hello", { type: "audio/webm" }), createMockProvider(), env);
+    expect(res.status).toBe(415);
+    const res2 = await handleTranscribe(req("not a wav file at all, definitely not.......................", {}), createMockProvider(), env);
+    expect(res2.status).toBe(415);
+  });
+
+  it("rejects too long audio", async () => {
+    const res = await handleTranscribe(req(wavBody(35, 8000)), createMockProvider(), env);
+    expect(res.status).toBe(413);
+  });
+
+  it("returns empty text for very short audio without calling provider", async () => {
+    const transcribe = vi.fn();
+    const p: SttProvider = { name: "mock", transcribe, translate: async () => null };
+    const res = await handleTranscribe(req(wavBody(0.1)), p, env);
+    expect((await res.json()).text).toBe("");
+    expect(transcribe).not.toHaveBeenCalled();
+  });
+
+  it("enforces access code when configured", async () => {
+    const e = asEnv({ APP_ACCESS_CODE: "secret" });
+    expect((await handleTranscribe(req(wavBody(1)), createMockProvider(), e)).status).toBe(401);
+    expect((await handleTranscribe(req(wavBody(1), { code: "wrong!" }), createMockProvider(), e)).status).toBe(401);
+    expect((await handleTranscribe(req(wavBody(1), { code: "secret" }), createMockProvider(), e)).status).toBe(200);
+  });
+
+  it("maps provider failures to 502 without leaking details", async () => {
+    const p: SttProvider = {
+      name: "google",
+      transcribe: async () => {
+        throw new Error("boom");
+      },
+      translate: async () => null,
+    };
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const res = await handleTranscribe(req(wavBody(1)), p, env);
+    spy.mockRestore();
+    expect(res.status).toBe(502);
+    expect(JSON.stringify(await res.json())).not.toContain("boom");
+  });
+
+  it("rate limits per IP", async () => {
+    let last = 200;
+    for (let i = 0; i < 35; i++) {
+      last = (await handleTranscribe(req(wavBody(0.3), { ip: "1.2.3.4" }), createMockProvider(), env)).status;
+    }
+    expect(last).toBe(429);
+  });
+});
+
+describe("rate limiter", () => {
+  it("resets after window", () => {
+    const check = createRateLimiter(2, 1000);
+    expect(check("a", 0)).toBe(true);
+    expect(check("a", 1)).toBe(true);
+    expect(check("a", 2)).toBe(false);
+    expect(check("a", 1001)).toBe(true);
+  });
+});
+
+describe("google provider helpers", () => {
+  it("builds request with language and hints", () => {
+    const r = buildGoogleSttRequest("AAAA", 16000, "ky");
+    expect(r.config.languageCode).toBe("ky-KG");
+    expect(r.config.encoding).toBe("LINEAR16");
+    expect(r.config.enableAutomaticPunctuation).toBe(false);
+    expect(r.config.speechContexts[0].phrases).toContain("дары");
+    expect(buildGoogleSttRequest("AAAA", 16000, "ru").config.enableAutomaticPunctuation).toBe(true);
+  });
+
+  it("parses multi-result responses", () => {
+    const out = parseGoogleSttResponse({
+      results: [
+        { alternatives: [{ transcript: "Что вам", confidence: 0.8 }] },
+        { alternatives: [{ transcript: " нужно?", confidence: 0.6 }] },
+      ],
+    });
+    expect(out.text).toBe("Что вам нужно?");
+    expect(out.confidence).toBeCloseTo(0.7);
+  });
+
+  it("parses alternatives and empty responses", () => {
+    expect(parseGoogleSttResponse({}).text).toBe("");
+    const out = parseGoogleSttResponse({
+      results: [{ alternatives: [{ transcript: "Кто там", confidence: 0.9 }, { transcript: "Кот там" }] }],
+    });
+    expect(out.alternatives).toEqual(["Кот там"]);
+  });
+
+  it("selects provider from env", () => {
+    expect(getProvider(asEnv({})).name).toBe("mock");
+    expect(getProvider(asEnv({ GOOGLE_API_KEY: "k" })).name).toBe("google");
+    expect(getProvider(asEnv({ GOOGLE_API_KEY: "k", STT_PROVIDER: "mock" })).name).toBe("mock");
+  });
+});
