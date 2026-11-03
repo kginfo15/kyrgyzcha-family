@@ -22,7 +22,8 @@ export type UiIconName =
   | "bell"
   | "eye"
   | "star"
-  | "pin";
+  | "pin"
+  | "check-mark";
 
 export type IconName = UiIconName | PhraseIconName;
 
@@ -86,6 +87,7 @@ const P: Record<IconName, ReactNode> = {
     </>
   ),
   star: <path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" />,
+  "check-mark": <path d="M5 12.5l4.5 4.5L19 7.5" />,
   pin: <path d="M9 3.5h6l-1 5.5 3.5 3v2h-11v-2l3.5-3zM12 14v6.5" />,
 
   // ---------- 定型返答 ----------

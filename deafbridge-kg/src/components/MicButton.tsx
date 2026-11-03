@@ -8,6 +8,7 @@ import { Icon } from "./icons";
  * 大きさは画面の高さに応じて CSS 変数 --mic で変わる（globals.css）。
  */
 export default function MicButton({
+  cta = false,
   listening,
   starting,
   level,
@@ -15,6 +16,8 @@ export default function MicButton({
   label,
   onClick,
 }: {
+  /** まだ何もしていない時に「ここを押す」と分かるよう、ゆっくり脈打たせる */
+  cta?: boolean;
   listening: boolean;
   starting: boolean;
   /** 0〜1 に正規化した音量 */
@@ -35,6 +38,7 @@ export default function MicButton({
       aria-label={label}
       className="mic relative flex shrink-0 items-center justify-center rounded-full disabled:opacity-60"
     >
+      {cta && !listening && <span aria-hidden="true" className="mic-cta absolute inset-0 rounded-full" />}
       <svg viewBox="0 0 104 104" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <circle cx="52" cy="52" r="50" fill="none" stroke="var(--border)" strokeWidth="1.5" />
         {Array.from({ length: spokes }, (_, i) => {

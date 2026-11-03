@@ -96,12 +96,14 @@ for (const scheme of ["dark"]) {
   check("UI defaults to Kyrgyz", await micStart.isVisible());
   check("Japanese assist shown by default", (await page.locator(".ja-gloss").count()) > 5);
   check("one screen: no page scroll (390x844)", (await pageOverflow(page)) <= 0);
+  check("step guide shown before starting (1/3)", await page.getByText("1 / 3").isVisible());
 
   const status = await (await page.request.get(BASE + "/api/status")).json();
   check("status endpoint responds (demo mode)", status.provider === "mock");
 
   await micStart.click();
   await wait(micStop, "listening started (mic + MediaRecorder)", 5000);
+  check("step guide moves to 'press the intercom' (2/3)", await page.getByText("2 / 3").isVisible());
   await wait(page.getByText("Маектеш сүйлөп жатат").first(), "visual 'someone is talking' status", 8000);
   check("screen flash alert fired", (await page.locator(".flash").count()) > 0);
   await page.screenshot({ path: path.join(shots, "02-speaking.png") });

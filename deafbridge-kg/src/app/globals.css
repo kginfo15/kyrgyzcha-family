@@ -93,16 +93,16 @@ body {
   overflow-wrap: break-word;
 }
 .say-xl {
-  font-size: calc(3.1rem * var(--fs-scale));
+  font-size: calc(3.1rem * var(--fs-scale) * var(--say-k, 1));
 }
 .say-l {
-  font-size: calc(2.4rem * var(--fs-scale));
+  font-size: calc(2.4rem * var(--fs-scale) * var(--say-k, 1));
 }
 .say-m {
-  font-size: calc(1.85rem * var(--fs-scale));
+  font-size: calc(1.85rem * var(--fs-scale) * var(--say-k, 1));
 }
 .say-s {
-  font-size: calc(1.45rem * var(--fs-scale));
+  font-size: calc(1.45rem * var(--fs-scale) * var(--say-k, 1));
 }
 
 /* ---- メイン画面の部品（大きさは画面の高さで変える） ---- */
@@ -142,13 +142,46 @@ body {
   height: var(--tile-icon);
 }
 .tile-text {
-  font-size: calc(var(--tile-text) * var(--fs-scale));
+  font-size: calc(var(--tile-text) * var(--fs-scale) * var(--say-k, 1));
 }
 .stage {
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--fg) 5%, transparent), transparent 38%),
     var(--surface);
 }
+.guide-title {
+  font-size: calc(1.4rem * var(--fs-scale) * var(--say-k, 1));
+}
+@media (max-height: 700px) {
+  .guide-title {
+    font-size: calc(1.25rem * var(--fs-scale) * var(--say-k, 1));
+  }
+}
+/* ステージが収まらない時の自動調整（ConversationScreen が段階 fit-1〜3 を付ける） */
+.fit-1 {
+  --say-k: 0.86;
+}
+.fit-2 {
+  --say-k: 0.74;
+}
+.fit-3 {
+  --say-k: 0.62;
+}
+.fit-1 .guide-sub,
+.fit-1 .status-sub {
+  display: none;
+}
+.fit-2 .stepper-label {
+  display: none;
+}
+.fit-2 .stage-trans {
+  font-size: 0.95rem;
+}
+.fit-3 .stage-ja,
+.fit-3 .intro .ja-gloss {
+  display: none;
+}
+
 .eyebrow {
   font-size: 0.68rem;
   font-weight: 800;
@@ -161,6 +194,9 @@ body {
 }
 
 @media (max-height: 760px) {
+  .tile-sub {
+    display: none;
+  }
   :root {
     --mic: 88px;
     --dock-btn: 48px;
@@ -172,13 +208,13 @@ body {
 /* 背の低い画面（iPhone SE、claude.ai アプリ内の表示など）でも1画面に収める */
 @media (max-height: 720px) {
   .say-xl {
-    font-size: calc(2.4rem * var(--fs-scale));
+    font-size: calc(2.4rem * var(--fs-scale) * var(--say-k, 1));
   }
   .say-l {
-    font-size: calc(1.9rem * var(--fs-scale));
+    font-size: calc(1.9rem * var(--fs-scale) * var(--say-k, 1));
   }
   .say-m {
-    font-size: calc(1.5rem * var(--fs-scale));
+    font-size: calc(1.5rem * var(--fs-scale) * var(--say-k, 1));
   }
   .tile-sub {
     display: none;
@@ -193,14 +229,14 @@ body {
     --tile-text: 0.85rem;
   }
   .say-xl {
-    font-size: calc(2rem * var(--fs-scale));
+    font-size: calc(2rem * var(--fs-scale) * var(--say-k, 1));
   }
   .say-l {
-    font-size: calc(1.6rem * var(--fs-scale));
+    font-size: calc(1.6rem * var(--fs-scale) * var(--say-k, 1));
   }
   .say-m,
   .say-s {
-    font-size: calc(1.3rem * var(--fs-scale));
+    font-size: calc(1.3rem * var(--fs-scale) * var(--say-k, 1));
   }
   /* とても低い画面では、すぐ使う返答を2つに（残りは「返答一覧」から） */
   .tile:nth-child(n + 3) {
@@ -209,7 +245,13 @@ body {
 }
 
 @media (max-height: 700px) {
-  .steps {
+  .stepper .ja-gloss {
+    display: none;
+  }
+}
+
+@media (max-height: 700px) {
+  .guide-sub {
     display: none;
   }
 }
@@ -284,6 +326,61 @@ select:focus-visible {
   animation: flash-fade 0.9s ease-out forwards;
 }
 
+/* ステップ：今の段階の丸 */
+@keyframes step-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--them) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+.step-active {
+  animation: step-glow 1.8s ease-in-out infinite;
+}
+
+/* 録音ボタン：最初に押す場所を知らせる波紋 */
+@keyframes mic-cta {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+.mic-cta {
+  border: 2px solid var(--fg);
+  animation: mic-cta 2.2s ease-out infinite;
+}
+
+/* ステップ2：ベルが揺れる */
+@keyframes bell-ring {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  10% {
+    transform: rotate(-12deg);
+  }
+  20% {
+    transform: rotate(10deg);
+  }
+  30% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(5deg);
+  }
+}
+.bell-ring svg {
+  transform-origin: 50% 15%;
+  animation: bell-ring 2s ease-in-out infinite;
+}
+
 @keyframes pulse-dot {
   0%,
   100% {
@@ -336,7 +433,10 @@ select:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .pulse-dot,
   .sheet-in,
-  .shimmer {
+  .shimmer,
+  .step-active,
+  .mic-cta,
+  .bell-ring svg {
     animation: none;
   }
 }

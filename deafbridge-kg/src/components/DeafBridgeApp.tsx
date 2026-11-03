@@ -237,8 +237,10 @@ export default function DeafBridgeApp() {
             <TundukMark className="h-8 w-8 shrink-0" />
             <div className="flex min-w-0 flex-col leading-none">
               <span className="brand text-[1rem]">DeafBridge</span>
-              <span className="mt-1 text-[0.6rem] font-extrabold tracking-[0.18em] text-muted">
-                KYRGYZSTAN{demo && <span className="text-warn"> · DEMO</span>}
+              <span className="mt-1 whitespace-nowrap text-[0.6rem] font-extrabold tracking-[0.18em] text-muted">
+                <span className="hidden min-[390px]:inline">KYRGYZSTAN</span>
+                <span className="min-[390px]:hidden">KG</span>
+                {demo && <span className="text-warn"> · DEMO</span>}
               </span>
             </div>
           </div>
