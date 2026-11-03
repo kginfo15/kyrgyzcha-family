@@ -17,21 +17,24 @@
 
 > ⚠️ これは試作版（MVP）です。医療・緊急時の唯一の連絡手段として使わないでください。
 
-| ホーム | 相手が話している | 文字化（ロシア語→キルギス語＋日本語） | 返答（薬局） |
+**1画面で完結**するデザインです（スクロール不要）。上に相手の言葉を大きく表示する「ステージ」、下に返答ボタンと録音ボタン。返答一覧・設定・履歴は下から出るパネルで開きます。
+録音ボタンのリングはユルトの天窓「トゥンドゥク」をかたどり、音量に合わせて光ります。
+
+| 待機 | 相手が話している | 文字化（ロシア語→キルギス語＋日本語） | 返答後 |
 |---|---|---|---|
-| ![](docs/screenshots/01-home.png) | ![](docs/screenshots/02-listen-speaking.png) | ![](docs/screenshots/03-listen.png) | ![](docs/screenshots/07-reply-pharmacy.png) |
+| ![](docs/screenshots/01-start.png) | ![](docs/screenshots/02-speaking.png) | ![](docs/screenshots/03-text.png) | ![](docs/screenshots/04-replied.png) |
 
-| 画面を見せる | マイ返答 | 日本語補助オフ | ロシア語画面 | ダーク |
+| 返答一覧 | 画面を見せる | 設定 | ライトテーマ | iPhone SE |
 |---|---|---|---|---|
-| ![](docs/screenshots/08-show-text.png) | ![](docs/screenshots/09-my-phrases.png) | ![](docs/screenshots/05-listen-no-ja.png) | ![](docs/screenshots/12-settings-ru.png) | ![](docs/screenshots/02-listen-dark.png) |
+| ![](docs/screenshots/06-replies.png) | ![](docs/screenshots/07-show-text.png) | ![](docs/screenshots/09-settings.png) | ![](docs/screenshots/03-text-light.png) | ![](docs/screenshots/12-iphone-se.png) |
 
-（スクリーンショットは API 未接続の**デモモード**で撮影。表示文はサンプルです。画面が黄色っぽいものはフラッシュ通知の瞬間）
+（スクリーンショットは API 未接続の**デモモード**で撮影。表示文はサンプルです）
 
 ---
 
 ## 1. 利用者の操作の流れ
 
-1. アプリを開き「**Сүйлөшүүнү баштоо**（会話を始める）」をタップ（→ すぐに聞き取りが始まる）
+1. アプリを開き、下の丸い**録音ボタン**「**Угууну баштоо**（聞き取り開始）」をタップ
 2. スマホをインターフォンのスピーカーに近づけてから、**インターフォンを押す**
 3. 必要なら「**Укпай турганымды билдирүү**（耳が聞こえないことを伝える）」をタップ → 「耳が不自由です。スマホが声を文字にします。ゆっくり話してください」とロシア語/キルギス語で流れる
 4. 相手が話し始めると、**画面が光り**、黄色い「**Маектеш сүйлөп жатат**（相手が話しています）」が出る
@@ -106,7 +109,9 @@ iPhone Safari (PWA)                       Vercel (Next.js Route Handler)        
 src/
   app/api/transcribe/route.ts   文字化 API
   app/api/status/route.ts       接続状態（デモ/本番）
-  components/                   画面（Home / Listen / Reply / Settings / 画面を見せる）
+  components/ConversationScreen.tsx  メイン画面（ステージ＋返答ボタン＋録音ボタン）
+  components/ReplySheet.tsx     返答一覧・自由入力・マイ返答（下から出るパネル）
+  components/SettingsSheet.tsx  設定 / HistorySheet.tsx 履歴 / MicButton.tsx 録音ボタン
   lib/phrases.ts                定型返答文（ru / ky / ja）← 文言の追加・修正はここ
   lib/i18n.ts                   画面の文言（ky / ru、ja は日本語補助用）
   components/i18n-context.tsx   日本語補助の表示（<Tx> コンポーネント）
@@ -189,9 +194,10 @@ npm run typecheck
 npm run lint
 npm run build && npx next start -p 3100 &   # 別ターミナルで
 npm run e2e          # Chromium の偽マイクで「聞き取り→自動区切り→文字化→返答→再開」を通し確認
+npm run demo         # お試し用の単一 HTML（マイクの代わりに疑似動作）を dist-demo/ に作成
 ```
 
-開発時点の結果: ユニット 37/37、E2E 23/23 合格（いずれもデモモード。実際の Google API・iPhone 実機では未検証）。
+開発時点の結果: ユニット 37/37、E2E 27/27 合格（1画面に収まるかの確認を含む）（いずれもデモモード。実際の Google API・iPhone 実機では未検証）。
 
 ## 10. プライバシーと倫理
 

@@ -5,29 +5,27 @@ import { fetchStatus, transcribe } from "@/lib/client/api";
 import { blobToWav16k } from "@/lib/client/audio-convert";
 import { play, preloadAudioManifest } from "@/lib/client/speak";
 import { useListener } from "@/lib/client/useListener";
-import { DICTS, JA, LANG_NAMES } from "@/lib/i18n";
+import { DICTS, JA, type Dict } from "@/lib/i18n";
 import { DEFAULT_SETTINGS, loadSettings, saveSettings, type Settings } from "@/lib/settings";
 import type { StatusResponse, TransLang } from "@/lib/types";
-import HomeScreen from "./HomeScreen";
+import ConversationScreen, { type PlayState } from "./ConversationScreen";
+import HistorySheet from "./HistorySheet";
 import { I18nProvider, Tx } from "./i18n-context";
-import ListenScreen from "./ListenScreen";
-import ReplyScreen from "./ReplyScreen";
-import SettingsScreen from "./SettingsScreen";
+import ReplySheet from "./ReplySheet";
+import SettingsSheet from "./SettingsSheet";
 import ShowTextOverlay from "./ShowTextOverlay";
-import type { LogEntry, Screen, ShowText, SpeakFn } from "./types";
-import { Icon, type IconName } from "./ui";
+import type { LogEntry, ShowText, SpeakFn } from "./types";
+import { Icon } from "./ui";
 
-type PlayState = { phase: "playing" | "done"; text: string } | null;
-type Notice = { k: "noVoiceFallback" | "noVoiceAtAll" } | null;
+type SheetName = "replies" | "type" | "settings" | "history" | null;
 
 export default function DeafBridgeApp() {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [loaded, setLoaded] = useState(false);
-  const [screen, setScreen] = useState<Screen>("home");
+  const [sheet, setSheet] = useState<SheetName>(null);
   const [status, setStatus] = useState<StatusResponse | null>(null);
   const [log, setLog] = useState<LogEntry[]>([]);
-  const [micError, setMicError] = useState(false);
-  const [notice, setNotice] = useState<Notice>(null);
+  const [toastKey, setToastKey] = useState<keyof Dict | null>(null);
   const [showText, setShowText] = useState<ShowText>(null);
   const [online, setOnline] = useState(true);
   const [playState, setPlayState] = useState<PlayState>(null);
@@ -71,6 +69,13 @@ export default function DeafBridgeApp() {
     if (loaded) saveSettings(settings);
     document.documentElement.lang = settings.uiLang;
   }, [settings, loaded]);
+
+  // お知らせは数秒で消す
+  useEffect(() => {
+    if (!toastKey || toastKey === "errMic") return;
+    const t = window.setTimeout(() => setToastKey(null), 5000);
+    return () => window.clearTimeout(t);
+  }, [toastKey]);
 
   const updateSettings = useCallback((patch: Partial<Settings>) => {
     setSettings((s) => ({ ...s, ...patch }));
@@ -142,7 +147,7 @@ export default function DeafBridgeApp() {
     continuous: settings.continuous,
     maxSeconds: settings.maxSeconds,
     onSegment: handleSegment,
-    onError: () => setMicError(true),
+    onError: () => setToastKey("errMic"),
     onSpeechStart: () => alertUser(60),
   });
 
@@ -157,14 +162,14 @@ export default function DeafBridgeApp() {
   }, [listener.state]);
 
   const startListening = useCallback(() => {
-    setMicError(false);
+    setToastKey(null);
     listener.start();
   }, [listener]);
 
   // ---- 返答の再生 ---------------------------------------------------------
   const speak: SpeakFn = useCallback(
     (req) => {
-      setNotice(null);
+      setToastKey(null);
       // iPhone ではマイク使用中に再生すると受話口から小さく鳴ることがあるため、
       // 再生の間はマイクを止め、終わったら聞き取りを再開する。
       const wasListening = listener.state === "listening";
@@ -176,22 +181,13 @@ export default function DeafBridgeApp() {
       const id = nextId.current++;
       setLog((l) => [
         ...l,
-        {
-          id,
-          who: "me",
-          time: Date.now(),
-          lang: req.lang,
-          status: "done",
-          text: req.text,
-          translations: req.meaning,
-          method,
-        },
+        { id, who: "me", time: Date.now(), lang: req.lang, status: "done", text: req.text, translations: req.meaning, method },
       ]);
       if (method === "none") {
-        setNotice({ k: "noVoiceAtAll" });
+        setToastKey("noVoiceAtAll");
         setShowText({ text: req.text, sub: req.meaning?.[settingsRef.current.uiLang], ja: req.meaning?.ja });
       } else {
-        if (method === "tts-ru-fallback") setNotice({ k: "noVoiceFallback" });
+        if (method === "tts-ru-fallback") setToastKey("noVoiceFallback");
         // ろう者は音が出たか耳で確認できないため、再生中・再生完了を画面に出す
         setPlayState({ phase: "playing", text: req.text });
       }
@@ -208,151 +204,103 @@ export default function DeafBridgeApp() {
     [listener],
   );
 
-  const clearLog = useCallback(() => setLog([]), []);
-
   const demo = status?.provider === "mock";
   const fsClass = settings.fontSize === "xlarge" ? "fs-xlarge" : "fs-large";
+  const closeSheet = useCallback(() => setSheet(null), []);
 
-  const tabs: { id: Screen; k: "tabListen" | "tabReply" | "tabSettings"; icon: IconName }[] = [
-    { id: "listen", k: "tabListen", icon: "ear" },
-    { id: "reply", k: "tabReply", icon: "chat" },
-    { id: "settings", k: "tabSettings", icon: "gear" },
-  ];
+  const toast = (
+    <>
+      {!online && (
+        <p role="status" className="mt-2 rounded-xl bg-warn/15 px-3 py-2 text-sm font-bold text-warn">
+          <Tx k="offline" />
+        </p>
+      )}
+      {toastKey && (
+        <p
+          role={toastKey === "errMic" ? "alert" : "status"}
+          className={`mt-2 rounded-xl px-3 py-2 text-sm font-bold ${
+            toastKey === "errMic" ? "bg-rec text-rec-fg" : "bg-warn/15 text-warn"
+          }`}
+        >
+          <Tx k={toastKey} />
+        </p>
+      )}
+    </>
+  );
 
   return (
     <I18nProvider uiLang={settings.uiLang} ja={settings.jaAssist}>
-      <div className={`${fsClass} mx-auto flex min-h-dvh max-w-xl flex-col`}>
-        <header className="pt-safe sticky top-0 z-20 flex items-center justify-between gap-2 border-b border-line bg-bg/95 px-4 pb-2 backdrop-blur">
+      <div className={`${fsClass} mx-auto flex h-dvh max-w-xl flex-col overflow-hidden`}>
+        {/* ---------------- ヘッダー ---------------- */}
+        <header className="pt-safe flex items-center gap-2 px-4 pb-2">
+          <div className="flex min-w-0 flex-1 flex-col leading-none">
+            <span className="brand text-[1.05rem]">
+              DeafBridge<span className="text-them">.</span>
+            </span>
+            <span className="mt-1 text-[0.62rem] font-extrabold tracking-[0.14em] text-muted">
+              KG{demo && <span className="text-warn"> · DEMO</span>}
+            </span>
+          </div>
+          {/* 相手の言語のクイック切替 */}
           <button
             type="button"
-            onClick={() => setScreen("home")}
-            className="text-lg font-black tracking-wide"
+            onClick={() => updateSettings({ convLang: settings.convLang === "ru" ? "ky" : "ru" })}
+            aria-label={`${d.convLang}: ${settings.convLang === "ru" ? "Русский" : "Кыргызча"}`}
+            className="flex h-9 items-center gap-1 rounded-full bg-surface-2 px-2.5 text-sm font-extrabold"
           >
-            DeafBridge <span className="text-accent">KG</span>
+            <Icon name="swap" className="h-4 w-4 text-muted" />
+            {settings.convLang === "ru" ? "RU" : "KY"}
           </button>
-          <div className="flex items-center gap-2 text-sm font-bold">
-            {demo && <span className="rounded-full bg-warn px-2 py-0.5 text-bg">{d.demo}</span>}
-            <span className="rounded-full border border-line px-2 py-0.5">
-              {LANG_NAMES[settings.convLang]}
-            </span>
-            {/* 日本語補助のクイック切替（確認用） */}
-            <button
-              type="button"
-              aria-pressed={settings.jaAssist}
-              aria-label={`${JA.jaAssist}: ${settings.jaAssist ? JA.on : JA.off}`}
-              onClick={() => updateSettings({ jaAssist: !settings.jaAssist })}
-              className={`rounded-full border-2 px-2 py-0.5 ${
-                settings.jaAssist ? "border-accent bg-accent text-accent-fg" : "border-line text-muted"
-              }`}
-            >
-              日本語
-            </button>
-          </div>
-        </header>
-
-        {/* 再生中・再生完了の表示（耳で確認できない代わり） */}
-        {playState && (
-          <div
-            role="status"
-            className={`sticky top-[calc(env(safe-area-inset-top)+3rem)] z-10 mx-4 mt-2 flex items-center gap-3 rounded-xl p-3 text-body font-bold ${
-              playState.phase === "playing" ? "bg-ok text-bg" : "border-2 border-ok bg-surface"
+          {/* 日本語補助のクイック切替（確認用） */}
+          <button
+            type="button"
+            aria-pressed={settings.jaAssist}
+            aria-label={`${JA.jaAssist}: ${settings.jaAssist ? JA.on : JA.off}`}
+            onClick={() => updateSettings({ jaAssist: !settings.jaAssist })}
+            className={`h-9 rounded-full px-2.5 text-sm font-extrabold ${
+              settings.jaAssist ? "bg-fg text-bg" : "bg-surface-2 text-muted"
             }`}
           >
-            <Icon name="speaker" className={`h-7 w-7 shrink-0 ${playState.phase === "playing" ? "animate-pulse" : ""}`} />
-            <span>
-              <Tx k={playState.phase === "playing" ? "playing" : "playDone"} />
-              {playState.phase === "playing" && (
-                <span className="block text-sm font-normal">
-                  <Tx k="silentHint" />
-                </span>
-              )}
-            </span>
-          </div>
-        )}
+            日本語
+          </button>
+          <button
+            type="button"
+            onClick={() => setSheet("settings")}
+            aria-label={d.settingsTitle}
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-2"
+          >
+            <Icon name="gear" className="h-5 w-5" />
+          </button>
+        </header>
 
-        {!online && (
-          <div role="status" className="bg-warn px-4 py-2 text-center font-bold text-bg">
-            <Tx k="offline" />
-          </div>
-        )}
-        {demo && screen !== "home" && (
-          <div className="px-4 pt-2 text-sm text-muted">
-            <Tx k="demoMode" />
-          </div>
-        )}
-        {micError && (
-          <div role="alert" className="mx-4 mt-3 rounded-xl bg-rec p-3 text-body font-bold text-rec-fg">
-            <Tx k="errMic" />
-          </div>
-        )}
-        {notice && (
-          <div role="status" className="mx-4 mt-3 rounded-xl border-2 border-warn p-3 text-body font-bold">
-            <Tx k={notice.k} />
-          </div>
-        )}
+        <ConversationScreen
+          settings={settings}
+          log={log}
+          listener={listener}
+          playState={playState}
+          toast={toast}
+          onStart={startListening}
+          onSpeak={speak}
+          onOpenReplies={() => setSheet("replies")}
+          onOpenType={() => setSheet("type")}
+          onOpenHistory={() => setSheet("history")}
+        />
 
-        <main className="flex-1 px-4 pb-32 pt-3">
-          {screen === "home" && (
-            <HomeScreen
-              settings={settings}
-              demo={demo}
-              onChange={updateSettings}
-              onStart={() => {
-                setScreen("listen");
-                startListening();
-              }}
-            />
-          )}
-          {screen === "listen" && (
-            <ListenScreen
-              settings={settings}
-              log={log}
-              listener={listener}
-              onStart={startListening}
-              onSpeak={speak}
-              onShow={setShowText}
-              onClear={clearLog}
-              onGoReply={() => setScreen("reply")}
-            />
-          )}
-          {screen === "reply" && (
-            <ReplyScreen
-              settings={settings}
-              onChange={updateSettings}
-              onSpeak={speak}
-              onShow={setShowText}
-              onGoListen={() => setScreen("listen")}
-            />
-          )}
-          {screen === "settings" && (
-            <SettingsScreen settings={settings} status={status} onChange={updateSettings} onSpeak={speak} />
-          )}
-        </main>
-
-        {screen !== "home" && (
-          <nav className="pb-safe fixed inset-x-0 bottom-0 z-20 border-t border-line bg-surface">
-            <div className="mx-auto grid max-w-xl grid-cols-3">
-              {tabs.map((t) => {
-                const active = screen === t.id;
-                return (
-                  <button
-                    key={t.id}
-                    type="button"
-                    onClick={() => setScreen(t.id)}
-                    aria-current={active ? "page" : undefined}
-                    className={`flex flex-col items-center gap-0.5 py-2 text-sm font-bold ${
-                      active ? "text-accent" : "text-muted"
-                    }`}
-                  >
-                    <Icon name={t.icon} className="h-7 w-7" />
-                    <span className="text-center">
-                      <Tx k={t.k} />
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </nav>
+        {(sheet === "replies" || sheet === "type") && (
+          <ReplySheet
+            settings={settings}
+            focusType={sheet === "type"}
+            onChange={updateSettings}
+            onSpeak={speak}
+            onShow={setShowText}
+            onClose={closeSheet}
+          />
+        )}
+        {sheet === "settings" && (
+          <SettingsSheet settings={settings} status={status} onChange={updateSettings} onSpeak={speak} onClose={closeSheet} />
+        )}
+        {sheet === "history" && (
+          <HistorySheet log={log} onShow={setShowText} onClear={() => setLog([])} onClose={closeSheet} />
         )}
 
         {/* 画面フラッシュ（視覚通知） */}
@@ -360,7 +308,7 @@ export default function DeafBridgeApp() {
           <div
             key={flashKey}
             aria-hidden="true"
-            className="flash pointer-events-none fixed inset-0 z-40 border-[14px] border-them-line bg-them-line/30"
+            className="flash pointer-events-none fixed inset-0 z-[60] border-[10px] border-them bg-them/20"
           />
         )}
 
@@ -377,4 +325,3 @@ export default function DeafBridgeApp() {
     </I18nProvider>
   );
 }
-

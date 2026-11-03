@@ -1,62 +1,73 @@
 @import "tailwindcss";
 
-/* 高コントラスト配色。夜間の利用を想定してダークモードにも対応 */
+/*
+ * Layout: one screen, no page scroll — header / stage (the other person's words) / control dock.
+ * Dark-first ink palette. Kyrgyz flag colors carry meaning:
+ *   sun yellow = the other person is speaking, flag red = recording, periwinkle = my actions.
+ */
 :root {
-  --bg: #eef1f5;
-  --surface: #ffffff;
-  --surface-2: #e3e8ef;
-  --fg: #0b1220;
-  --muted: #4a5568;
-  --border: #c5cdd8;
-  --accent: #1747c8;
-  --accent-fg: #ffffff;
-  --rec: #c81e1e;
+  --bg: #0a0d13;
+  --surface: #131924;
+  --surface-2: #1b2331;
+  --border: #273246;
+  --fg: #f3f6fa;
+  --muted: #8d98ab;
+  --accent: #8ea6ff;
+  --accent-fg: #0a0d13;
+  --rec: #ff5148;
   --rec-fg: #ffffff;
-  --them: #fff7d6;
-  --them-border: #e0b400;
-  --me: #dbe8ff;
-  --ok: #157a3c;
-  --warn: #9a5b00;
+  --them: #ffc93c;
+  --them-ink: #1a1300;
+  --them-soft: #2a2208;
+  --me: #1d2948;
+  --ok: #3ddc97;
+  --warn: #ffb547;
+  --font-ui: "Onest", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI",
+    Roboto, sans-serif;
+  --font-brand: "Unbounded", var(--font-ui);
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #070b14;
-    --surface: #121a2a;
-    --surface-2: #1d2740;
-    --fg: #f5f7fb;
-    --muted: #a9b4c7;
-    --border: #2c3a57;
-    --accent: #5b8cff;
-    --accent-fg: #06102a;
-    --rec: #ff5a5a;
-    --rec-fg: #1a0000;
-    --them: #2a2306;
-    --them-border: #f5c400;
-    --me: #142a55;
-    --ok: #4ade80;
-    --warn: #fbbf24;
-    color-scheme: dark;
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f3f5f9;
+    --surface: #ffffff;
+    --surface-2: #e9edf4;
+    --border: #d5dbe6;
+    --fg: #0b1018;
+    --muted: #586477;
+    --accent: #3352e0;
+    --accent-fg: #ffffff;
+    --rec: #d92d20;
+    --rec-fg: #ffffff;
+    --them: #f5b400;
+    --them-ink: #1a1300;
+    --them-soft: #fff4d1;
+    --me: #e3e9ff;
+    --ok: #0f8a55;
+    --warn: #b26a00;
+    color-scheme: light;
   }
 }
 
-:root[data-theme="dark"] {
-  --bg: #070b14;
-  --surface: #121a2a;
-  --surface-2: #1d2740;
-  --fg: #f5f7fb;
-  --muted: #a9b4c7;
-  --border: #2c3a57;
-  --accent: #5b8cff;
-  --accent-fg: #06102a;
-  --rec: #ff5a5a;
-  --rec-fg: #1a0000;
-  --them: #2a2306;
-  --them-border: #f5c400;
-  --me: #142a55;
-  --ok: #4ade80;
-  --warn: #fbbf24;
-  color-scheme: dark;
+:root[data-theme="light"] {
+  --bg: #f3f5f9;
+  --surface: #ffffff;
+  --surface-2: #e9edf4;
+  --border: #d5dbe6;
+  --fg: #0b1018;
+  --muted: #586477;
+  --accent: #3352e0;
+  --accent-fg: #ffffff;
+  --rec: #d92d20;
+  --rec-fg: #ffffff;
+  --them: #f5b400;
+  --them-ink: #1a1300;
+  --them-soft: #fff4d1;
+  --me: #e3e9ff;
+  --ok: #0f8a55;
+  --warn: #b26a00;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -71,57 +82,98 @@
   --color-rec: var(--rec);
   --color-rec-fg: var(--rec-fg);
   --color-them: var(--them);
-  --color-them-line: var(--them-border);
+  --color-them-ink: var(--them-ink);
+  --color-them-soft: var(--them-soft);
   --color-me: var(--me);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
+  --font-brand: var(--font-brand);
 }
 
 /* 文字サイズ設定（大 / 特大） */
 .fs-large {
-  --fs-big: 2rem;
-  --fs-reply: 1.375rem;
-  --fs-body: 1.125rem;
+  --fs-scale: 1;
+  --fs-reply: 1.125rem;
+  --fs-body: 1rem;
 }
 .fs-xlarge {
-  --fs-big: 2.75rem;
-  --fs-reply: 1.75rem;
-  --fs-body: 1.3rem;
+  --fs-scale: 1.22;
+  --fs-reply: 1.375rem;
+  --fs-body: 1.2rem;
 }
 
 html,
 body {
+  height: 100%;
   background: var(--bg);
   color: var(--fg);
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-ui);
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
 }
 
-.text-big {
-  font-size: var(--fs-big);
-  line-height: 1.2;
-}
 .text-reply {
   font-size: var(--fs-reply);
   line-height: 1.3;
 }
 .text-body {
   font-size: var(--fs-body);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-.pb-safe {
-  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+/* 相手の言葉：文字数に応じて最大限大きく */
+.say {
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
+.say-xl {
+  font-size: calc(3.1rem * var(--fs-scale));
+}
+.say-l {
+  font-size: calc(2.4rem * var(--fs-scale));
+}
+.say-m {
+  font-size: calc(1.85rem * var(--fs-scale));
+}
+.say-s {
+  font-size: calc(1.45rem * var(--fs-scale));
+}
+
+/* 背の低い画面（iPhone SE など）でも1画面に収める */
+@media (max-height: 720px) {
+  .say-xl {
+    font-size: calc(2.4rem * var(--fs-scale));
+  }
+  .say-l {
+    font-size: calc(1.9rem * var(--fs-scale));
+  }
+  .say-m {
+    font-size: calc(1.5rem * var(--fs-scale));
+  }
+  .tile-sub {
+    display: none;
+  }
+}
+
+.brand {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
 .pt-safe {
   padding-top: max(0.5rem, env(safe-area-inset-top));
+}
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
 }
 
 button:focus-visible,
 input:focus-visible,
+textarea:focus-visible,
 select:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
@@ -133,21 +185,31 @@ select:focus-visible {
 }
 .ja-gloss {
   display: block;
-  font-size: max(0.72em, 0.8rem);
+  font-size: max(0.7em, 0.72rem);
   font-weight: 500;
   line-height: 1.3;
-  opacity: 0.8;
+  opacity: 0.72;
   letter-spacing: 0;
 }
 .ja-gloss::before {
-  content: "🇯🇵 ";
-  font-size: 0.85em;
+  content: "JA ";
+  font-size: 0.78em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
 }
 
-/* 視覚通知：相手が話し始めた時・文字が出た時に画面全体を光らせる */
+/* 相手が話している間、ステージを太陽色で光らせる */
+.stage-speaking {
+  box-shadow:
+    inset 0 0 0 2px var(--them),
+    0 0 48px -8px color-mix(in srgb, var(--them) 55%, transparent);
+}
+
+/* 視覚通知：画面全体を一瞬光らせる */
 @keyframes flash-fade {
   0% {
-    opacity: 0.75;
+    opacity: 0.8;
   }
   100% {
     opacity: 0;
@@ -157,20 +219,59 @@ select:focus-visible {
   animation: flash-fade 0.9s ease-out forwards;
 }
 
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--rec) 60%, transparent);
-  }
+@keyframes pulse-dot {
+  0%,
   100% {
-    box-shadow: 0 0 0 18px transparent;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
   }
 }
-.rec-pulse {
-  animation: pulse-ring 1.2s ease-out infinite;
+.pulse-dot {
+  animation: pulse-dot 1s ease-in-out infinite;
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.sheet-in {
+  animation: sheet-up 0.22s ease-out;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+.shimmer {
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rec-pulse {
+  .pulse-dot,
+  .sheet-in,
+  .shimmer {
     animation: none;
   }
 }

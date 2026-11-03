@@ -49,6 +49,9 @@ if (!cssFile) throw new Error("先に npm run build を実行してください�
 const css = readFileSync(path.join(cssDir, cssFile), "utf8").replace(/<\/style/gi, "<\\/style");
 
 const html = `<title>DeafBridge KG Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;800&family=Unbounded:wght@700&display=swap">
 <style>${css}</style>
 <div id="root"></div>
 <script>${js}</script>
