@@ -35,6 +35,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install ffmpeg (MP3 encoding)
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+
       - name: Install TTS dependencies (CPU)
         run: |
           pip install --index-url https://download.pytorch.org/whl/cpu torch
@@ -58,5 +61,6 @@ jobs:
             echo "No changes"
           else
             git commit -m "Generate Kyrgyz phrase audio (Meta MMS-TTS, CC BY-NC 4.0)"
-            git push
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
           fi
