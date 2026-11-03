@@ -228,9 +228,18 @@ GOOGLE_API_KEY=xxxx npm run audio            # public/audio/ru/*.mp3 と manifes
 npm run audio -- --dry-run                   # 対象の文だけ表示
 ```
 
-**キルギス語**は Google TTS が対応していない可能性が高く、その場合はスキップされます。
-ネイティブ話者に録音してもらい `public/audio/ky/{id}.mp3`（id は `src/lib/phrases.ts` 参照）として置き、
-`npm run audio -- --manifest-only` を実行してください。キルギス語の音声がない間は、同じ意味の**ロシア語で読み上げ**、その旨を画面に表示します。
+### キルギス語の音声
+
+iPhone / Android には**キルギス語の音声合成が入っていない**ため、端末の読み上げではキルギス語を話せません。
+そこで、定型文のキルギス語音声を **Meta の MMS-TTS（`facebook/mms-tts-kir`）** で事前に MP3 にしています。
+
+- 生成は **GitHub Actions**（`.github/workflows/generate-kyrgyz-audio.yml`）が自動で行い、`public/audio/ky/` に保存します
+  - `src/lib/phrases.ts` を変更して push すると自動で作り直されます。Actions タブから手動実行（Run workflow）も可能
+- 再生の優先順位：**キルギス語の音声ファイル → 端末のキルギス語音声（あれば） → 同じ意味のロシア語（画面に案内を表示）**
+- 自由入力・マイ返答のキルギス語は事前生成できないため、端末に音声がなければ「画面を見せる」に切り替わります
+
+> ⚠️ **ライセンス**：MMS-TTS のモデルは **CC BY-NC 4.0（非商用）** です。研究・試作には使えますが、**事業化（有料提供）の前に**、ネイティブ話者の録音か商用利用できる音声合成に置き換えてください。録音は `public/audio/ky/{id}.mp3` に置き、`npm run audio -- --manifest-only` を実行するだけで差し替えられます。
+> 音声の自然さ・発音は、必ずキルギス語のネイティブ話者に確認してもらってください。
 
 ## 9. テスト
 
