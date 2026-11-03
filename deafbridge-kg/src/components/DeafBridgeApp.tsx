@@ -230,7 +230,7 @@ export default function DeafBridgeApp() {
 
   return (
     <I18nProvider uiLang={settings.uiLang} ja={settings.jaAssist}>
-      <div className={`${fsClass} mx-auto flex h-dvh max-w-xl flex-col overflow-hidden`}>
+      <div className={`${fsClass} mx-auto flex h-full max-w-xl flex-col overflow-hidden`}>
         {/* ---------------- ヘッダー ---------------- */}
         <header className="pt-safe flex items-center gap-2 px-4 pb-2">
           <div className="flex min-w-0 flex-1 items-center gap-2">
@@ -274,7 +274,7 @@ export default function DeafBridgeApp() {
           </button>
         </header>
 
-        <OrnamentBand className="mb-2 opacity-60" />
+        <OrnamentBand className="mb-2 opacity-70" />
 
         <ConversationScreen
           settings={settings}

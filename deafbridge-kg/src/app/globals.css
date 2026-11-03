@@ -64,7 +64,11 @@
 html,
 body {
   height: 100%;
-  background: var(--bg);
+  /* 上からうっすら国旗の赤が差す */
+  background:
+    radial-gradient(110% 42% at 50% -6%, color-mix(in srgb, var(--rec) 17%, transparent), transparent 72%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--fg);
   font-family: var(--font-ui);
   -webkit-tap-highlight-color: transparent;
@@ -101,7 +105,71 @@ body {
   font-size: calc(1.45rem * var(--fs-scale));
 }
 
-/* 背の低い画面（iPhone SE など）でも1画面に収める */
+/* ---- メイン画面の部品（大きさは画面の高さで変える） ---- */
+:root {
+  --mic: 100px;
+  --dock-btn: 54px;
+  --tile-icon: 36px;
+  --tile-text: 0.95rem;
+}
+.mic {
+  width: var(--mic);
+  height: var(--mic);
+}
+.mic-core {
+  width: calc(var(--mic) * 0.72);
+  height: calc(var(--mic) * 0.72);
+}
+.mic-glow-rec {
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--rec) 14%, transparent),
+    0 0 40px color-mix(in srgb, var(--rec) 55%, transparent);
+}
+.mic-glow-them {
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--them) 16%, transparent),
+    0 0 40px color-mix(in srgb, var(--them) 55%, transparent);
+}
+.dock-btn {
+  width: var(--dock-btn);
+  height: var(--dock-btn);
+}
+.tile {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--fg) 4%, var(--surface)), var(--surface));
+}
+.tile-icon {
+  width: var(--tile-icon);
+  height: var(--tile-icon);
+}
+.tile-text {
+  font-size: calc(var(--tile-text) * var(--fs-scale));
+}
+.stage {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--fg) 5%, transparent), transparent 38%),
+    var(--surface);
+}
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ornament {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+@media (max-height: 760px) {
+  :root {
+    --mic: 88px;
+    --dock-btn: 48px;
+    --tile-icon: 32px;
+    --tile-text: 0.9rem;
+  }
+}
+
+/* 背の低い画面（iPhone SE、claude.ai アプリ内の表示など）でも1画面に収める */
 @media (max-height: 720px) {
   .say-xl {
     font-size: calc(2.4rem * var(--fs-scale));
@@ -113,6 +181,41 @@ body {
     font-size: calc(1.5rem * var(--fs-scale));
   }
   .tile-sub {
+    display: none;
+  }
+}
+
+@media (max-height: 640px) {
+  :root {
+    --mic: 76px;
+    --dock-btn: 44px;
+    --tile-icon: 28px;
+    --tile-text: 0.85rem;
+  }
+  .say-xl {
+    font-size: calc(2rem * var(--fs-scale));
+  }
+  .say-l {
+    font-size: calc(1.6rem * var(--fs-scale));
+  }
+  .say-m,
+  .say-s {
+    font-size: calc(1.3rem * var(--fs-scale));
+  }
+  /* とても低い画面では、すぐ使う返答を2つに（残りは「返答一覧」から） */
+  .tile:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (max-height: 700px) {
+  .steps {
+    display: none;
+  }
+}
+
+@media (max-height: 560px) {
+  .dock-label {
     display: none;
   }
 }
@@ -160,6 +263,9 @@ select:focus-visible {
 
 /* 相手が話している間、ステージを太陽色で光らせる */
 .stage-speaking {
+  background:
+    radial-gradient(120% 70% at 50% 0%, color-mix(in srgb, var(--them) 16%, transparent), transparent 70%),
+    var(--them-soft);
   box-shadow:
     inset 0 0 0 2px var(--them),
     0 0 48px -8px color-mix(in srgb, var(--them) 55%, transparent);

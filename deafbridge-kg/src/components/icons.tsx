@@ -233,8 +233,10 @@ export function Icon({
 /**
  * ロゴ：キルギス国旗の太陽とトゥンドゥク（ユルトの天窓）。
  */
-export function TundukMark({ className = "h-7 w-7" }: { className?: string }) {
+export function TundukMark({ className = "h-7 w-7", mono = false }: { className?: string; mono?: boolean }) {
   const rays = 20;
+  const sun = mono ? "currentColor" : "var(--them)";
+  const lines = mono ? "var(--bg)" : "var(--rec)";
   return (
     <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
       {Array.from({ length: rays }, (_, i) => {
@@ -246,14 +248,14 @@ export function TundukMark({ className = "h-7 w-7" }: { className?: string }) {
             y1={24 + Math.sin(a) * 15.5}
             x2={24 + Math.cos(a) * 22}
             y2={24 + Math.sin(a) * 22}
-            stroke="var(--them)"
+            stroke={sun}
             strokeWidth="2.2"
             strokeLinecap="round"
           />
         );
       })}
-      <circle cx="24" cy="24" r="12" fill="var(--them)" />
-      <g fill="none" stroke="var(--rec)" strokeWidth="1.8" strokeLinecap="round">
+      <circle cx="24" cy="24" r="12" fill={sun} />
+      <g fill="none" stroke={lines} strokeWidth="1.8" strokeLinecap="round">
         <circle cx="24" cy="24" r="9" />
         <path d="M19.5 16.5c2 4.5 2 10.5 0 15M24 15v18M28.5 16.5c-2 4.5-2 10.5 0 15" />
         <path d="M16.5 19.5c4.5 2 10.5 2 15 0M16.5 28.5c4.5-2 10.5-2 15 0" />
@@ -269,7 +271,7 @@ export function OrnamentBand({ className = "", color = "var(--rec)" }: { classNa
   // 同じページに複数置くと pattern の id が衝突するため、毎回固有の id にする
   const id = `kochkor-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   return (
-    <svg className={`block h-3 w-full ${className}`} aria-hidden="true" preserveAspectRatio="none">
+    <svg className={`ornament block h-3 w-full ${className}`} aria-hidden="true" preserveAspectRatio="none">
       <defs>
         <pattern id={id} width="28" height="12" patternUnits="userSpaceOnUse">
           <path

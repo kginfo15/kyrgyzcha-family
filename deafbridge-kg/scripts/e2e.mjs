@@ -186,11 +186,18 @@ for (const scheme of ["dark"]) {
   await page.keyboard.press("Escape");
   await page.screenshot({ path: path.join(shots, "11-ru-ui.png") });
 
-  // 小さい iPhone（SE）でも1画面
-  await page.setViewportSize({ width: 375, height: 667 });
-  await page.waitForTimeout(300);
-  check("one screen on iPhone SE size (375x667)", (await pageOverflow(page)) <= 0);
-  await page.screenshot({ path: path.join(shots, "12-iphone-se.png") });
+  // 小さい iPhone（SE）や claude.ai アプリ内の低い表示枠でも、ページもステージもスクロール不要
+  const stageOverflow = () =>
+    page.evaluate(() => {
+      const sc = document.querySelector(".stage .no-scrollbar");
+      return sc ? sc.scrollHeight - sc.clientHeight : 0;
+    });
+  for (const [w, h] of [[375, 667], [390, 600], [360, 540]]) {
+    await page.setViewportSize({ width: w, height: h });
+    await page.waitForTimeout(300);
+    check(`one screen, no scroll at ${w}x${h}`, (await pageOverflow(page)) <= 0 && (await stageOverflow()) <= 0);
+    if (w === 375) await page.screenshot({ path: path.join(shots, "12-iphone-se.png") });
+  }
 
   const swOk = await page.evaluate(async () => !!(await navigator.serviceWorker.getRegistration()));
   check("service worker registered", swOk);

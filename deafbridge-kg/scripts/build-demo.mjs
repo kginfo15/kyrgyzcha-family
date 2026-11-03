@@ -53,6 +53,7 @@ const html = `<title>DeafBridge KG Demo</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700;800&family=Unbounded:wght@700&display=swap">
 <style>${css}</style>
+<style>#root{height:100%}</style>
 <div id="root"></div>
 <script>${js}</script>
 `;
