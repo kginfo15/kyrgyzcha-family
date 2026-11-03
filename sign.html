@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<!--
+  Жесты — ロシア語手話（РЖЯ）入門 学習アプリ（試作 v0.1）
+  ============================================================
+  方針メモ:
+  - キルギス語アプリ（index.html）とは別アプリ。仕組み（カード・3段階評価・
+    間隔反復・進捗・バックアップ）だけを流用し、保存キーも別（signApp_v1_*）。
+  - 手話の動き自体は「既存の動画」で確認する設計。動画はダウンロードせず、
+    YouTube 公式埋め込み（youtube-nocookie）と外部リンクのみで表示する。
+  - 動きの文章解説は「出典のあるもの」だけを掲載。AIが推測で書いた解説は載せない。
+    出典のないカードは、学習者が動画を見て自分でメモを書く。
+  - 動画リンクは検索で見つけたもので、中身（どの秒に出るか・正確さ）は未確認。
+  - 自分で撮った動画は端末内（IndexedDB）にだけ保存。外部送信しない。
+  - キルギス語訳は参考。キルギスのろう者に確認できたカードは「確認済み」にする。
+  ============================================================
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3B5BDB">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Жесты">
+<title>Жесты — ロシア語手話入門</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%233B5BDB'/%3E%3Cpath d='M38 72V40a5 5 0 0 1 10 0v-8a5 5 0 0 1 10 0v6a5 5 0 0 1 10 0v24c0 8-6 14-14 14h-4c-6 0-9-3-12-8L30 56a5 5 0 0 1 8-6z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --accent:#3B5BDB; --accentDeep:#2B44A8; --gold:#F2B705; --goldSoft:#F7D26B;
+    --ink:#1E2230; --paper:#F6F7FB; --card:#FFFFFF; --teal:#168F8B;
+    --muted:#737A8C; --line:#DDE1EC; --good:#2F9E44; --warn:#E8590C; --yellow:#E6A700; --red:#C92A2A;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0}
+  body{background:var(--paper);color:var(--ink);padding-bottom:calc(20px + env(safe-area-inset-bottom));
+    font-family:system-ui,-apple-system,"Helvetica Neue","Hiragino Sans","Noto Sans JP",sans-serif;
+    -webkit-text-size-adjust:100%;line-height:1.5}
+  header.app{background:linear-gradient(135deg,var(--accent),var(--accentDeep));color:#fff;
+    padding:calc(14px + env(safe-area-inset-top)) 16px 12px}
+  header.app .row{display:flex;align-items:center;gap:12px;max-width:600px;margin:0 auto}
+  header.app h1{margin:0;font-size:22px;font-weight:800;letter-spacing:.5px}
+  header.app p{margin:1px 0 0;font-size:11.5px;opacity:.9}
+  .gear{margin-left:auto;background:rgba(255,255,255,.16);border:none;color:#fff;padding:8px 13px;
+    border-radius:10px;font-size:13px;font-weight:800;cursor:pointer}
+  nav.tabs{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
+  nav.tabs .inner{max-width:600px;margin:0 auto;display:flex}
+  nav.tabs button{flex:1;padding:14px 2px;background:transparent;border:none;border-bottom:3px solid transparent;
+    cursor:pointer;color:var(--muted);min-height:50px;font-size:15px;font-weight:800;font-family:inherit}
+  nav.tabs button.on{color:var(--ink);border-bottom-color:var(--accent)}
+  main{max-width:600px;margin:0 auto;padding:16px 14px 0}
+  .btn{appearance:none;border:1.5px solid var(--line);background:#fff;color:var(--ink);text-decoration:none;display:inline-block;text-align:center;
+    padding:12px 14px;border-radius:13px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;min-height:46px}
+  .btn:active{transform:translateY(1px)}
+  .btn.sm{padding:7px 12px;min-height:0;font-size:13px;border-radius:10px}
+  .btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .full{width:100%}
+  .ghost{background:transparent;color:var(--muted)}
+  .seg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .seg button{flex:1;min-width:62px;padding:9px 6px;border-radius:99px;font-size:13.5px;font-weight:800;font-family:inherit;
+    cursor:pointer;white-space:nowrap;border:1.5px solid var(--line);background:#fff;color:var(--muted);min-height:42px}
+  .seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+  .bar>i{display:block;height:100%;background:var(--accent);border-radius:99px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 22px rgba(30,34,48,.06)}
+  .muted{color:var(--muted)} .small{font-size:12px}
+  .h2{font-size:13px;font-weight:800;color:var(--muted);margin:18px 2px 8px}
+  .catrow{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid var(--line);
+    border-radius:14px;background:#fff;margin-bottom:10px;cursor:pointer}
+  .catrow .ic{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+  .catrow .meta{flex:1;min-width:0}
+  .catrow .nm{font-weight:800;font-size:15px}
+  .catrow .ct{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .catrow .rt{text-align:right;font-size:12px;color:var(--muted);min-width:56px}
+  .catrow .rt b{font-size:16px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .notice{background:#EEF2FF;border:1px solid #C9D3F7;border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.7;margin-bottom:14px}
+  .warnbox{background:#FFF4E6;border:1px solid #FFD8A8;border-radius:12px;padding:10px 12px;font-size:12.5px;line-height:1.7}
+  /* study */
+  .study .top{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .qcard{padding:22px 18px;text-align:center;position:relative}
+  .jp{font-size:26px;font-weight:800;line-height:1.4}
+  .ru{font-size:30px;font-weight:800;color:var(--accentDeep);line-height:1.35;word-break:break-word}
+  .ru.sm{font-size:19px}
+  .kana{font-size:15px;color:var(--teal);font-weight:800;margin-top:4px}
+  .ky{font-size:13px;color:var(--muted);margin-top:6px}
+  .ky b{color:#B3261E}
+  .note{margin-top:12px;padding:11px 14px;background:#FFF7E8;border:1px solid var(--goldSoft);border-radius:12px;font-size:13.5px;line-height:1.7;text-align:left}
+  .desc{margin-top:12px;padding:12px 14px;background:#F0FAF7;border:1px solid #BFE5DC;border-radius:12px;text-align:left}
+  .desc .h{font-size:12.5px;font-weight:800;color:var(--teal);margin-bottom:4px}
+  .desc .b{font-size:14px;line-height:1.75;white-space:pre-line}
+  .desc .src{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .desc .src a{color:var(--teal)}
+  .desc.none{background:#F6F7FB;border-color:var(--line)}
+  .desc.none .h{color:var(--muted)}
+  .vids{margin-top:12px;text-align:left}
+  .vid{margin-bottom:10px}
+  .vid .lab{font-size:12px;font-weight:800;color:var(--muted);margin-bottom:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .frame{position:relative;width:100%;padding-top:56.25%;background:#111;border-radius:12px;overflow:hidden}
+  .frame iframe,.frame video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#111}
+  .vidph{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:18px 10px;background:#1E2230;color:#fff;
+    border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit}
+  .links{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .links a{font-size:12.5px;font-weight:800;color:var(--accentDeep);background:#EEF2FF;border:1px solid #C9D3F7;border-radius:99px;
+    padding:6px 12px;text-decoration:none}
+  .tag{font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:99px;display:inline-block}
+  .tag.unv{background:#F1F3F5;color:#868E96}
+  .tag.ok{background:#EBFBEE;color:var(--good)}
+  .tag.own{background:#FFF0F6;color:#C2255C}
+  .tag.yt{background:#FFF5F5;color:#E03131}
+  .ans3{display:flex;gap:8px;margin-top:14px}
+  .ans3 button{flex:1;border:none;color:#fff;border-radius:13px;font-size:14px;font-weight:800;padding:14px 4px;
+    cursor:pointer;min-height:54px;font-family:inherit}
+  .a-no{background:var(--warn)} .a-mb{background:var(--yellow)} .a-ok{background:var(--good)}
+  .star{position:absolute;top:12px;right:12px;background:none;border:none;font-size:22px;cursor:pointer;color:#C8CEDB}
+  .star.on{color:var(--gold)}
+  .cattag{position:absolute;top:15px;left:14px;font-size:11.5px;font-weight:800;color:#fff;padding:2px 9px;border-radius:99px}
+  .empty{margin-top:22px;padding:30px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);
+    border-radius:16px;background:#fff;font-size:14.5px;line-height:1.7;white-space:pre-line}
+  /* list */
+  .lrow{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;margin-bottom:7px;cursor:pointer}
+  .lrow .m{flex:1;min-width:0}
+  .lrow .a{font-weight:800;font-size:14.5px}
+  .lrow .b{font-size:12.5px;color:var(--accentDeep);font-weight:700}
+  .lrow .st{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:45%}
+  /* progress */
+  .stat{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .stat .b{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .stat .n{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+  .stat .l{font-size:12px;color:var(--muted)}
+  .reviewcat{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border:1px solid var(--line);
+    border-radius:13px;background:#fff;margin-bottom:8px}
+  .reviewcat[data-act]{cursor:pointer}
+  .reviewcat .n{font-weight:800;font-size:18px;font-variant-numeric:tabular-nums}
+  /* sheet */
+  .ovl{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+  .sheet{background:var(--paper);width:100%;max-width:600px;border-radius:20px 20px 0 0;max-height:90vh;overflow:auto;
+    padding:18px 16px calc(24px + env(safe-area-inset-bottom))}
+  .sheet h3{margin:2px 0 14px;font-size:18px}
+  .setrow{margin-bottom:16px}
+  .setrow .lab{font-size:13.5px;font-weight:800;margin-bottom:7px}
+  textarea.memo{width:100%;min-height:96px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14.5px;
+    font-family:inherit;line-height:1.6;resize:vertical;background:#fff;color:var(--ink)}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom));
+    background:#1E2230;color:#fff;padding:10px 16px;border-radius:99px;font-size:13px;z-index:80;opacity:0;
+    transition:opacity .2s;pointer-events:none}
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header class="app">
+  <div class="row">
+    <svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="44" fill="none" stroke="#fff" stroke-width="2.6" opacity=".55"/>
+      <path d="M38 72V40a5 5 0 0 1 10 0v-8a5 5 0 0 1 10 0v6a5 5 0 0 1 10 0v24c0 8-6 14-14 14h-4c-6 0-9-3-12-8L30 56a5 5 0 0 1 8-6z" fill="#fff"/>
+    </svg>
+    <div>
+      <h1>Жесты</h1>
+      <p>ロシア語手話（РЖЯ）入門・挨拶と自己紹介</p>
+    </div>
+    <button class="gear" data-act="settings" aria-label="設定">設定</button>
+  </div>
+</header>
+<nav class="tabs"><div class="inner">
+  <button data-act="tab" data-val="learn" id="tab-learn">学習</button>
+  <button data-act="tab" data-val="review" id="tab-review">復習</button>
+  <button data-act="tab" data-val="list" id="tab-list">一覧</button>
+  <button data-act="tab" data-val="progress" id="tab-progress">進捗</button>
+</div></nav>
+<main id="main"></main>
+<div id="modal"></div>
+<div id="toast" class="toast"></div>
+
+<script>
+"use strict";
+window.onerror=function(msg,src,l,c,err){
+  var m=document.getElementById("main");
+  if(m)m.innerHTML='<div class="empty" style="color:#C92A2A">エラーが発生しました\n'+String((err&&err.stack)||msg).replace(/</g,"&lt;")+'</div>';
+};
+
+/* ===== 動画ソース（検索で見つけたもの・中身未確認） ===== */
+var SRC={
+  vog:{label:"ВОГ（全ロシア聴覚障害者協会）「Давайте знакомиться!」より", official:true},
+  gorod:{label:"「Город жестов」", official:false},
+  yt:{label:"YouTube", official:false},
+  rutube:{label:"Rutube", official:false},
+  phrase100:{label:"「100 фраз на жестовом языке」第1回（知り合う）※長い動画", official:false},
+  alpha:{label:"「Словарь РЖЯ: Алфавит」", official:false}
+};
+function YT(id,src,start){return {type:"yt",id:id,src:src,start:start||0};}
+function LINK(url,label){return {type:"link",url:url,label:label};}
+
+/* ===== カテゴリ ===== */
+var CATS=[
+  {id:"greet", name:"挨拶",          icon:"👋", color:"#3B5BDB", sub:"こんにちは・ありがとう・さようなら"},
+  {id:"intro", name:"自己紹介",      icon:"🙋", color:"#0C8599", sub:"名前・出身・聴者です・勉強中です"},
+  {id:"help",  name:"会話のたすけ",  icon:"💬", color:"#E8590C", sub:"分かりません・もう一度・書いてください"},
+  {id:"abc",   name:"指文字",        icon:"🔤", color:"#7048E8", sub:"ロシア語アルファベット33文字"}
+];
+var CATMAP={}; CATS.forEach(function(c){CATMAP[c.id]=c;});
+
+/* ===== カードデータ =====
+   ja: 日本語 / ru: ロシア語（手話の見出し語）/ kana: 読み / ky: キルギス語（参考）
+   vids: 動画（yt=埋め込み, link=外部リンク）/ desc: 出典つきの動き解説（あるものだけ）/ note: 使い方メモ */
+var ALPHA_V=[YT("jtbwEalS0CE","alpha")];
+var CARDS=[
+  // --- 挨拶 ---
+  {id:"g01",cat:"greet",ja:"こんにちは（丁寧）",ru:"Здравствуйте",kana:"ズドラーストヴィチェ",ky:"Саламатсызбы",
+    vids:[YT("2u6V28grcXc","gorod"),YT("x78RQeWwwvQ","vog")],note:"初対面・目上の人にはまずこれ。"},
+  {id:"g02",cat:"greet",ja:"やあ（親しい人に）",ru:"Привет",kana:"プリヴェート",ky:"Салам",
+    vids:[YT("yGs0HfQTRss","yt"),LINK("https://rutube.ru/video/c60c90bc006b8316026c219534c8173d/","Rutube「Привет - пока」")]},
+  {id:"g03",cat:"greet",ja:"おはよう",ru:"Доброе утро",kana:"ドーブラエ ウートラ",ky:"Кутман таң"},
+  {id:"g04",cat:"greet",ja:"こんにちは（日中）",ru:"Добрый день",kana:"ドーブルイ ジェーニ",ky:"Кутман күн"},
+  {id:"g05",cat:"greet",ja:"こんばんは",ru:"Добрый вечер",kana:"ドーブルイ ヴェーチェル",ky:"Кутман кеч"},
+  {id:"g06",cat:"greet",ja:"さようなら",ru:"До свидания",kana:"ダ スヴィダーニヤ",ky:"Кош болуңуз",
+    vids:[YT("x78RQeWwwvQ","vog")]},
+  {id:"g07",cat:"greet",ja:"じゃあね",ru:"Пока",kana:"パカー",ky:"Жакшы кал / Кош",
+    vids:[YT("yGs0HfQTRss","yt"),LINK("https://rutube.ru/video/c60c90bc006b8316026c219534c8173d/","Rutube「Привет - пока」")]},
+  {id:"g08",cat:"greet",ja:"また会いましょう",ru:"До встречи",kana:"ダ フストレーチ",ky:"Көрүшкөнчө"},
+  {id:"g09",cat:"greet",ja:"ありがとう",ru:"Спасибо",kana:"スパシーバ",ky:"Рахмат",
+    vids:[YT("x78RQeWwwvQ","vog"),LINK("https://rutube.ru/video/c94b2d8d3fce3649a5fb468155ad1294/","Rutube「Спасибо」")]},
+  {id:"g10",cat:"greet",ja:"お願いします／どういたしまして",ru:"Пожалуйста",kana:"パジャールスタ",ky:"Сураныч / Эчтеке эмес"},
+  {id:"g11",cat:"greet",ja:"すみません／ごめんなさい",ru:"Извините",kana:"イズヴィニーチェ",ky:"Кечиресиз"},
+  {id:"g12",cat:"greet",ja:"元気？",ru:"Как дела?",kana:"カーク ジラー",ky:"Кандайсыз? / Иштер кандай?",
+    note:"疑問文は表情（眉など）も一緒に使うのが手話の基本。動画で顔もよく見よう。"},
+  {id:"g13",cat:"greet",ja:"元気です／よい",ru:"Хорошо",kana:"ハラショー",ky:"Жакшы"},
+  {id:"g14",cat:"greet",ja:"まあまあ",ru:"Нормально",kana:"ナルマーリナ",ky:"Жаман эмес"},
+  {id:"g15",cat:"greet",ja:"はじめまして（会えてうれしい）",ru:"Приятно познакомиться",kana:"プリヤートナ パズナコーミッツァ",ky:"Таанышканыма кубанычтамын"},
+
+  // --- 自己紹介 ---
+  {id:"i01",cat:"intro",ja:"私の名前は〜です",ru:"Меня зовут …",kana:"ミニャー ザヴート",ky:"Менин атым …",
+    vids:[YT("rKEe2-vqg9k","phrase100")],
+    desc:{text:"自分を指す → まっすぐにした手のひらで、もう一方の手の親指と人差し指の付け根あたりをなでる。\n名前そのものは手話ではなく、指文字で1文字ずつ綴る。",
+      src:[{label:"Baby.ru",url:"https://www.baby.ru/articles/obuchenie/yazyk-zhestov-dlya-nachinayushchih-frazy-vezhlivosti/"},
+           {label:"thegirl.ru",url:"https://thegirl.ru/articles/bez-slov-8-fraz-na-yazyike-jestov-kotoryie-tyi-smojesh-povtorit/"}]},
+    note:"名前は指文字で綴るので、「指文字」カテゴリも一緒に練習しよう。"},
+  {id:"i02",cat:"intro",ja:"あなたの名前は？",ru:"Как тебя зовут?",kana:"カーク チビャー ザヴート",ky:"Атыңыз ким?",
+    vids:[YT("rKEe2-vqg9k","phrase100")]},
+  {id:"i03",cat:"intro",ja:"私",ru:"Я",kana:"ヤー",ky:"Мен"},
+  {id:"i04",cat:"intro",ja:"あなた",ru:"Ты / Вы",kana:"トゥイ／ヴィ",ky:"Сен / Сиз"},
+  {id:"i05",cat:"intro",ja:"名前",ru:"Имя",kana:"イーミャ",ky:"Ат"},
+  {id:"i06",cat:"intro",ja:"日本",ru:"Япония",kana:"イポーニヤ",ky:"Япония",note:"国名の手話は国ごとに違うことがある。現地で使われている形を確認しよう。"},
+  {id:"i07",cat:"intro",ja:"キルギス",ru:"Кыргызстан",kana:"クィルグィスタン",ky:"Кыргызстан",note:"キルギスのろう者が使う形を、ぜひ録画して残そう。"},
+  {id:"i08",cat:"intro",ja:"私は日本から来ました",ru:"Я из Японии",kana:"ヤー イズ イポーニイ",ky:"Мен Япониядан келдим"},
+  {id:"i09",cat:"intro",ja:"聴者（聞こえる人）",ru:"Слышащий",kana:"スルィシャシイ",ky:"Уга алган адам",
+    note:"「私は聴者で、手話を勉強中です」と最初に伝えると、相手がゆっくり話してくれやすい。"},
+  {id:"i10",cat:"intro",ja:"ろう者",ru:"Глухой",kana:"グルホーイ",ky:"Дүлөй",
+    note:"ろう者自身が使う呼び方。「глухонемой（聾唖）」は古い言い方で失礼に感じる人が多いので使わない。"},
+  {id:"i11",cat:"intro",ja:"手話",ru:"Жестовый язык",kana:"ジェーストヴイ イズィーク",ky:"Ымдоо тили"},
+  {id:"i12",cat:"intro",ja:"私は手話を勉強中です",ru:"Я учу жестовый язык",kana:"ヤー ウチュー ジェーストヴイ イズィーク",ky:"Мен ымдоо тилин үйрөнүп жатам"},
+  {id:"i13",cat:"intro",ja:"家族",ru:"Семья",kana:"シミヤー",ky:"Үй-бүлө"},
+  {id:"i14",cat:"intro",ja:"友だち",ru:"Друг",kana:"ドルーク",ky:"Дос"},
+  {id:"i15",cat:"intro",ja:"仕事",ru:"Работа",kana:"ラボータ",ky:"Иш"},
+
+  // --- 会話のたすけ ---
+  {id:"h01",cat:"help",ja:"はい",ru:"Да",kana:"ダー",ky:"Ооба",vids:[YT("x78RQeWwwvQ","vog")]},
+  {id:"h02",cat:"help",ja:"いいえ",ru:"Нет",kana:"ニェート",ky:"Жок",vids:[YT("x78RQeWwwvQ","vog")]},
+  {id:"h03",cat:"help",ja:"分かります",ru:"Понимаю",kana:"パニマーユ",ky:"Түшүнөм"},
+  {id:"h04",cat:"help",ja:"分かりません",ru:"Не понимаю",kana:"ニ パニマーユ",ky:"Түшүнбөйм",note:"いちばん大事な表現のひとつ。遠慮せず使おう。"},
+  {id:"h05",cat:"help",ja:"もう一度お願いします",ru:"Повторите, пожалуйста",kana:"パフタリーチェ パジャールスタ",ky:"Кайталап коюңузчу"},
+  {id:"h06",cat:"help",ja:"ゆっくりお願いします",ru:"Медленнее, пожалуйста",kana:"メードレンニェエ パジャールスタ",ky:"Акырыныраак, сураныч"},
+  {id:"h07",cat:"help",ja:"書いてください",ru:"Напишите, пожалуйста",kana:"ナピシーチェ パジャールスタ",ky:"Жазып бериңизчи",
+    note:"スマホのメモに打って見せ合うのも立派なコミュニケーション。"},
+  {id:"h08",cat:"help",ja:"助けてください",ru:"Помогите",kana:"パマギーチェ",ky:"Жардам бериңизчи"},
+  {id:"h09",cat:"help",ja:"いいですよ／できる",ru:"Можно",kana:"モージナ",ky:"Болот"},
+  {id:"h10",cat:"help",ja:"だめ",ru:"Нельзя",kana:"ニリジャー",ky:"Болбойт"},
+  {id:"h11",cat:"help",ja:"何？",ru:"Что?",kana:"シトー",ky:"Эмне?"},
+  {id:"h12",cat:"help",ja:"どこ？",ru:"Где?",kana:"グジェー",ky:"Кайда?"},
+
+  // --- 指文字 ---
+  {id:"a01",cat:"abc",ja:"指文字 1",ru:"А Б В Г Д Е",kana:"アー ベー ヴェー ゲー デー イェー",vids:ALPHA_V},
+  {id:"a02",cat:"abc",ja:"指文字 2",ru:"Ё Ж З И Й К",kana:"ヨー ジェー ゼー イー イークラートカエ カー",vids:ALPHA_V},
+  {id:"a03",cat:"abc",ja:"指文字 3",ru:"Л М Н О П Р",kana:"エル エム エヌ オー ペー エル",vids:ALPHA_V},
+  {id:"a04",cat:"abc",ja:"指文字 4",ru:"С Т У Ф Х Ц",kana:"エス テー ウー エフ ハー ツェー",vids:ALPHA_V},
+  {id:"a05",cat:"abc",ja:"指文字 5",ru:"Ч Ш Щ Ъ Ы Ь",kana:"チェー シャー シシャー 硬音記号 ウィ 軟音記号",vids:ALPHA_V},
+  {id:"a06",cat:"abc",ja:"指文字 6",ru:"Э Ю Я",kana:"エー ユー ヤー",vids:ALPHA_V,
+    note:"キルギス語の Ң Ө Ү の指文字は資料が見つかっていない。現地のろう者に聞けたら録画しよう。"},
+  {id:"a07",cat:"abc",ja:"自分の名前を指文字で綴る",ru:"Моё имя",kana:"マヨー イーミャ",
+    vids:ALPHA_V,note:"自分の名前をキリル文字で書いてから、1文字ずつ綴る練習をしよう。メモ欄に綴りを書いておくと便利。"}
+];
+var CMAP={}; CARDS.forEach(function(c){CMAP[c.id]=c;});
+
+/* ===== 保存 ===== */
+var K={prog:"signApp_v1_progress",notes:"signApp_v1_notes",set:"signApp_v1_settings",hist:"signApp_v1_history",sess:"signApp_v1_session"};
+var APP_VERSION="0.1";
+var LADDER_DAYS=[1,3,7,14,30,60];
+var memStore={};
+function lget(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return (k in memStore)?memStore[k]:d;}}
+function lset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){memStore[k]=v;}}
+
+var settings=Object.assign({dailyNew:10,direction:"ja2sign",autoVideo:true,showKana:true},lget(K.set,{}));
+var progress=lget(K.prog,{});
+var notes=lget(K.notes,{});     // {id:{memo, verified, hasVideo}}
+var hist=lget(K.hist,{streak:{count:0,last:null},days:{}});
+var ui=lget(K.sess,{view:"learn",session:null,listCat:"all"});
+
+function saveAll(){lset(K.prog,progress);lset(K.notes,notes);lset(K.set,settings);lset(K.hist,hist);lset(K.sess,ui);}
+function saveUI(){lset(K.sess,ui);}
+
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function now(){return Date.now();}
+function todayKey(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function N(id){if(!notes[id])notes[id]={memo:"",verified:false,hasVideo:false};return notes[id];}
+
+/* ===== 進捗・SRS（index.html と同じ仕組み） ===== */
+function P(id){
+  if(!progress[id])progress[id]={status:"new",correctCount:0,wrongCount:0,uncertainCount:0,lastReviewed:null,
+    nextReview:null,intervalDays:0,intervalStep:0,favorite:false,correctDays:[]};
+  return progress[id];
+}
+function hasProg(id){return !!progress[id]&&progress[id].status!=="new";}
+function dayRec(k){k=k||todayKey();if(!hist.days[k])hist.days[k]={learned:0,reviewed:0,newIntro:0};return hist.days[k];}
+function bumpStreak(){var t=todayKey();if(hist.streak.last===t)return;var y=new Date();y.setDate(y.getDate()-1);
+  hist.streak.count=(hist.streak.last===todayKey(y))?hist.streak.count+1:1;hist.streak.last=t;}
+function schedule(p,step){p.intervalStep=step;
+  if(step<=0){p.intervalDays=0;p.nextReview=now()+10*60*1000;}
+  else{var d=LADDER_DAYS[Math.min(step-1,LADDER_DAYS.length-1)];p.intervalDays=d;p.nextReview=now()+d*86400000;}}
+function answer(id,kind){
+  var p=P(id),wasNew=(p.status==="new"),t=todayKey();bumpStreak();
+  if(wasNew){dayRec().newIntro++;dayRec().learned++;}else dayRec().reviewed++;
+  p.lastReviewed=now();
+  if(kind==="no"){p.wrongCount++;p.status="learning";schedule(p,0);}
+  else if(kind==="maybe"){p.uncertainCount++;if(p.status==="new")p.status="learning";p.nextReview=now()+86400000;p.intervalDays=1;}
+  else{p.correctCount++;if(p.correctDays.indexOf(t)<0)p.correctDays.push(t);schedule(p,(p.intervalStep||0)+1);
+    p.status=(p.correctDays.length>=3)?"mastered":"reviewing";}
+  saveAll();
+}
+function isDue(id){var p=progress[id];return p&&p.nextReview&&p.nextReview<=now();}
+function isWeak(id){var p=progress[id];if(!p)return false;var tot=p.correctCount+p.wrongCount;return p.wrongCount>=2||(tot>=3&&p.correctCount/tot<0.5);}
+function dailyRemaining(){var r=settings.dailyNew-(dayRec().newIntro||0);return r>0?r:0;}
+
+function buildQueue(scope){
+  var ids;
+  if(scope.type==="cat") ids=CARDS.filter(function(c){return c.cat===scope.cat;}).map(function(c){return c.id;});
+  else if(scope.type==="new"){ids=CARDS.filter(function(c){return !hasProg(c.id);}).map(function(c){return c.id;}).slice(0,dailyRemaining());}
+  else if(scope.type==="review") ids=CARDS.map(function(c){return c.id;}).filter(isDue)
+    .sort(function(a,b){return progress[a].nextReview-progress[b].nextReview;});
+  else if(scope.type==="weak") ids=CARDS.map(function(c){return c.id;}).filter(isWeak);
+  else if(scope.type==="fav") ids=CARDS.map(function(c){return c.id;}).filter(function(id){return progress[id]&&progress[id].favorite;});
+  else if(scope.type==="one") ids=[scope.id];
+  else ids=[];
+  return ids;
+}
+function startSession(scope,label){
+  var list=buildQueue(scope);
+  if(!list.length){toast(scope.type==="new"?"今日の新しいカードは上限に達しました":"対象のカードがありません");return;}
+  ui.session={list:list,pos:0,revealed:false,label:label||"",back:ui.view};
+  saveUI();render();window.scrollTo(0,0);
+}
+function endSession(){ui.session=null;saveUI();render();}
+
+/* ===== 自分の動画（IndexedDB・端末内のみ） ===== */
+var dbP=null, urlCache={};
+function db(){
+  if(!dbP)dbP=new Promise(function(res,rej){
+    try{var r=indexedDB.open("signApp_videos",1);
+      r.onupgradeneeded=function(){r.result.createObjectStore("v");};
+      r.onsuccess=function(){res(r.result);}; r.onerror=function(){rej(r.error);};
+    }catch(e){rej(e);}
+  });
+  return dbP;
+}
+function vidOp(mode,fn){return db().then(function(d){return new Promise(function(res,rej){
+  var tx=d.transaction("v",mode),st=tx.objectStore("v"),q=fn(st);
+  tx.oncomplete=function(){res(q&&q.result);}; tx.onerror=function(){rej(tx.error);};
+});});}
+function vidPut(id,blob){return vidOp("readwrite",function(s){return s.put(blob,id);});}
+function vidGet(id){return vidOp("readonly",function(s){return s.get(id);});}
+function vidDel(id){return vidOp("readwrite",function(s){return s.delete(id);});}
+function fillOwnVideos(root){
+  (root||document).querySelectorAll("video[data-own]").forEach(function(v){
+    var id=v.getAttribute("data-own");
+    if(urlCache[id]){v.src=urlCache[id];return;}
+    vidGet(id).then(function(b){if(b){urlCache[id]=URL.createObjectURL(b);v.src=urlCache[id];}})
+      .catch(function(){});
+  });
+}
+function recordVideo(id){
+  var inp=document.createElement("input");inp.type="file";inp.accept="video/*";
+  inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;
+    if(f.size>80*1024*1024&&!confirm("動画が大きめです（"+Math.round(f.size/1048576)+"MB）。保存しますか？"))return;
+    vidPut(id,f).then(function(){
+      if(urlCache[id]){URL.revokeObjectURL(urlCache[id]);delete urlCache[id];}
+      N(id).hasVideo=true;saveAll();toast("動画を保存しました");refresh();
+    }).catch(function(){toast("保存できませんでした（容量不足の可能性）");});
+  };
+  inp.click();
+}
+function deleteVideo(id){
+  if(!confirm("このカードの自分の動画を削除しますか？"))return;
+  vidDel(id).then(function(){if(urlCache[id]){URL.revokeObjectURL(urlCache[id]);delete urlCache[id];}
+    N(id).hasVideo=false;saveAll();toast("削除しました");refresh();});
+}
+
+/* ===== 表示パーツ ===== */
+function ytEmbed(v,auto){
+  if(!auto) return '<button class="vidph" data-act="loadyt" data-id="'+esc(v.id)+'" data-start="'+(v.start||0)+'">▶ 動画を表示</button>';
+  return '<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(v.id)+
+    '?rel=0&playsinline=1'+(v.start?'&start='+v.start:'')+'" title="手話動画" loading="lazy" '+
+    'allow="encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
+}
+function searchLinks(c){
+  var q=c.ru.replace(/[…?,.]/g,"").replace(/\s*\/\s*/g," ").trim();
+  return '<a href="https://www.spreadthesign.com/ru.ru/search/?q='+encodeURIComponent(q)+'" target="_blank" rel="noopener">Spreadthesign で探す</a>'+
+    '<a href="https://www.youtube.com/results?search_query='+encodeURIComponent("жест "+q+" РЖЯ")+'" target="_blank" rel="noopener">YouTube で探す</a>'+
+    '<a href="https://signflow.ru/" target="_blank" rel="noopener">signflow.ru</a>';
+}
+function videoBlock(c,opts){
+  opts=opts||{}; var n=N(c.id), h='<div class="vids">';
+  if(n.hasVideo){
+    h+='<div class="vid"><div class="lab"><span class="tag own">自分の動画</span>'+(n.verified?'<span class="tag ok">確認済み</span>':'')+'</div>'+
+       '<div class="frame"><video data-own="'+c.id+'" controls playsinline loop preload="metadata"></video></div></div>';
+  }
+  var vids=(c.vids||[]);
+  vids.forEach(function(v,i){
+    if(v.type==="yt"){
+      var s=SRC[v.src]||SRC.yt;
+      h+='<div class="vid"><div class="lab"><span class="tag yt">YouTube</span>'+esc(s.label)+(s.official?' <span class="tag ok">公式</span>':'')+'</div>'+
+         ytEmbed(v, settings.autoVideo && i===0 && !opts.noAuto)+
+         '<div class="small muted" style="margin-top:3px">再生できない時は <a href="https://www.youtube.com/watch?v='+encodeURIComponent(v.id)+(v.start?'&t='+v.start+'s':'')+'" target="_blank" rel="noopener">YouTubeで開く</a></div></div>';
+    }
+  });
+  var links=vids.filter(function(v){return v.type==="link";});
+  if(links.length){h+='<div class="links">'+links.map(function(v){return '<a href="'+esc(v.url)+'" target="_blank" rel="noopener">'+esc(v.label)+'</a>';}).join("")+'</div>';}
+  if(!vids.some(function(v){return v.type==="yt";})&&!n.hasVideo){
+    h+='<div class="warnbox">このカードにはまだ動画が登録されていません。下のリンクから探して、見つけたらメモ欄にURLを書いておこう。</div>';
+  }
+  h+='<div class="links">'+searchLinks(c)+'</div>';
+  if(vids.length) h+='<div class="small muted" style="margin-top:6px">※ 動画は検索で見つけたもので、中身（何秒目に出るか・正確さ）は未確認です。</div>';
+  h+='</div>';
+  return h;
+}
+function descBlock(c){
+  if(c.desc){
+    return '<div class="desc"><div class="h">動きの解説（出典あり）</div><div class="b">'+esc(c.desc.text)+'</div>'+
+      '<div class="src">出典：'+c.desc.src.map(function(s){return '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.label)+'</a>';}).join("・")+
+      '（動画と違ったら動画を優先）</div></div>';
+  }
+  return '<div class="desc none"><div class="h">動きの解説</div><div class="b small">出典のある解説はまだありません。動画を見て、自分の言葉でメモしよう（自分で書くと記憶に残りやすい）。</div></div>';
+}
+function memoPreview(c){
+  var n=N(c.id); if(!n.memo) return "";
+  return '<div class="desc" style="background:#FFF0F6;border-color:#FCC2D7"><div class="h" style="color:#C2255C">自分のメモ</div><div class="b">'+esc(n.memo)+'</div></div>';
+}
+function wordBlock(c,showKy){
+  var h='<div class="ru">'+esc(c.ru)+'</div>';
+  if(settings.showKana) h+='<div class="kana">'+esc(c.kana)+'</div>';
+  if(showKy&&c.ky) h+='<div class="ky">キルギス語（参考）：<b>'+esc(c.ky)+'</b></div>';
+  return h;
+}
+function cardHasVideo(c){return N(c.id).hasVideo||(c.vids||[]).some(function(v){return v.type==="yt";});}
+function statusTags(c){
+  var n=N(c.id),p=progress[c.id],t="";
+  t+= n.verified?'<span class="tag ok">確認済み</span>':'<span class="tag unv">未確認</span>';
+  if(n.hasVideo) t+='<span class="tag own">自分の動画</span>';
+  if(p&&p.status==="mastered") t+='<span class="tag ok">定着</span>';
+  return t;
+}
+
+/* ===== 画面 ===== */
+function render(){
+  ["learn","review","list","progress"].forEach(function(v){var el=document.getElementById("tab-"+v);if(el)el.className=(ui.view===v&&!ui.session?"on":"");});
+  var m=document.getElementById("main"),h;
+  if(ui.session) h=renderStudy();
+  else if(ui.view==="learn") h=renderLearn();
+  else if(ui.view==="review") h=renderReview();
+  else if(ui.view==="list") h=renderList();
+  else h=renderProgress();
+  m.innerHTML=h; fillOwnVideos(m);
+}
+function refresh(){render();var sh=document.querySelector(".sheet");if(sh&&sh.getAttribute("data-card"))cardSheet(sh.getAttribute("data-card"));}
+
+function renderLearn(){
+  var h='<div class="notice"><b>このアプリの使い方</b><br>カードの日本語を見て手話を思い浮かべる → 「答えを見る」で動画を確認 → 自分で手を動かしてから評価。<br>'+
+    '動きの文章解説は出典のあるものだけ。基本は<b>動画が正解</b>です。キルギスのろう者に確認できたら「確認済み」にしよう。</div>';
+  var newRem=Math.min(dailyRemaining(),CARDS.filter(function(c){return !hasProg(c.id);}).length);
+  var due=CARDS.filter(function(c){return isDue(c.id);}).length;
+  h+='<div style="display:flex;gap:8px;margin-bottom:6px">'+
+     '<button class="btn pri" style="flex:1" data-act="startnew">新しいカード（'+newRem+'）</button>'+
+     '<button class="btn" style="flex:1;border-color:var(--teal);color:var(--teal)" data-act="startreview">復習（'+due+'）</button></div>';
+  h+='<div class="h2">カテゴリから学ぶ</div>';
+  CATS.forEach(function(cat){
+    var ids=CARDS.filter(function(c){return c.cat===cat.id;});
+    var done=ids.filter(function(c){return hasProg(c.id);}).length;
+    var withV=ids.filter(cardHasVideo).length;
+    h+='<div class="catrow" data-act="startcat" data-val="'+cat.id+'"><div class="ic" style="background:'+cat.color+'1A">'+cat.icon+'</div>'+
+       '<div class="meta"><div class="nm">'+esc(cat.name)+'</div><div class="ct">'+esc(cat.sub)+'</div>'+
+       '<div class="ct">動画あり '+withV+' / '+ids.length+'</div></div>'+
+       '<div class="rt"><b>'+done+'</b>/'+ids.length+'</div></div>';
+  });
+  return h;
+}
+
+function renderStudy(){
+  var s=ui.session;
+  if(s.pos>=s.list.length){
+    return '<div class="empty">セッション完了！\n'+esc(s.label)+' / '+s.list.length+'枚\n\n実際に手を動かして練習できましたか？\n'+
+      '<button class="btn full" data-act="endsession" style="margin-top:14px">戻る</button></div>';
+  }
+  var id=s.list[s.pos],c=CMAP[id],p=P(id),cat=CATMAP[c.cat];
+  var dir=settings.direction;
+  if(dir==="random") dir=(s.pos%2)?"sign2ja":"ja2sign";
+  if(dir==="sign2ja"&&!cardHasVideo(c)) dir="ja2sign"; // 動画がないカードは日本語から出題
+  var h='<div class="study"><div class="top"><button class="btn ghost sm" data-act="endsession">‹ 戻る</button>'+
+    '<div class="bar" style="flex:1"><i style="width:'+Math.round(s.pos/s.list.length*100)+'%"></i></div>'+
+    '<span class="small muted">'+(s.pos+1)+'/'+s.list.length+'</span></div>';
+  h+='<div class="card qcard"><span class="cattag" style="background:'+cat.color+'">'+esc(cat.name)+'</span>'+
+     '<button class="star '+(p.favorite?"on":"")+'" data-act="fav" data-val="'+id+'">'+(p.favorite?"★":"☆")+'</button>'+
+     '<div style="height:26px"></div>';
+  if(!s.revealed){
+    if(dir==="ja2sign"){
+      h+='<div class="jp" style="margin-top:6px">'+esc(c.ja)+'</div>';
+      h+='<div style="margin-top:8px">'+'<div class="ru sm">'+esc(c.ru)+'</div>'+(settings.showKana?'<div class="kana">'+esc(c.kana)+'</div>':'')+'</div>';
+      h+='<div class="small muted" style="margin-top:14px">手話でやってみよう（実際に手を動かす）</div>';
+    }else{
+      h+='<div class="small muted" style="margin-top:4px">この手話の意味は？（読み取り練習）</div>';
+      h+=videoBlock(c,{});
+    }
+    h+='</div><button class="btn full" data-act="reveal" style="margin-top:14px;background:var(--gold);border-color:var(--gold);color:var(--ink)">答えを見る</button>';
+  }else{
+    h+='<div class="jp" style="font-size:20px;margin-top:4px">'+esc(c.ja)+'</div>';
+    h+='<div style="margin-top:6px">'+wordBlock(c,true)+'</div>';
+    if(dir==="ja2sign") h+=videoBlock(c,{});
+    h+=descBlock(c)+memoPreview(c);
+    if(c.note) h+='<div class="note">'+esc(c.note)+'</div>';
+    h+='<div style="display:flex;gap:8px;margin-top:12px"><button class="btn sm" style="flex:1" data-act="opencard" data-val="'+id+'">メモ・録画・確認状態</button></div>';
+    h+='</div>';
+    h+='<div class="ans3"><button class="a-no" data-act="grade" data-val="no">できない</button>'+
+       '<button class="a-mb" data-act="grade" data-val="maybe">迷った</button>'+
+       '<button class="a-ok" data-act="grade" data-val="ok">できた</button></div>';
+  }
+  return h+'</div>';
+}
+
+function renderReview(){
+  var all=CARDS.map(function(c){return c.id;});
+  var due=all.filter(isDue),weak=all.filter(isWeak);
+  var fav=all.filter(function(id){return progress[id]&&progress[id].favorite;});
+  var mastered=all.filter(function(id){return progress[id]&&progress[id].status==="mastered";});
+  var h='<button class="btn full" data-act="startreview" style="background:var(--teal);color:#fff;border-color:var(--teal);margin-bottom:14px">今日の復習を開始（'+due.length+'枚）</button>';
+  function row(l,n,t){return '<div class="reviewcat" '+(n&&t?'data-act="reviewscope" data-type="'+t+'"':'')+'><b>'+l+'</b><div class="n">'+n+'</div></div>';}
+  h+=row("今日復習するカード",due.length,"review")+row("苦手なカード",weak.length,"weak")+row("お気に入り",fav.length,"fav")+row("定着済み",mastered.length,"");
+  if(!due.length) h+='<div class="empty">今日の復習はありません。\n学習タブで新しいカードに進もう。</div>';
+  return h;
+}
+
+function renderList(){
+  var cur=ui.listCat||"all";
+  var h='<div class="seg">'+[["all","すべて"]].concat(CATS.map(function(c){return [c.id,c.name];})).map(function(o){
+    return '<button class="'+(cur===o[0]?"on":"")+'" data-act="listcat" data-val="'+o[0]+'">'+esc(o[1])+'</button>';}).join("")+'</div>';
+  CATS.forEach(function(cat){
+    if(cur!=="all"&&cur!==cat.id)return;
+    h+='<div class="h2">'+cat.icon+' '+esc(cat.name)+'</div>';
+    CARDS.filter(function(c){return c.cat===cat.id;}).forEach(function(c){
+      h+='<div class="lrow" data-act="opencard" data-val="'+c.id+'"><div class="m"><div class="a">'+esc(c.ja)+'</div><div class="b">'+esc(c.ru)+'</div></div>'+
+         '<div class="st">'+(cardHasVideo(c)?'<span class="tag yt">動画</span>':'')+(c.desc?'<span class="tag ok">解説</span>':'')+statusTags(c)+'</div></div>';
+    });
+  });
+  return h;
+}
+
+function renderProgress(){
+  var all=CARDS.length;
+  var learned=CARDS.filter(function(c){return hasProg(c.id);}).length;
+  var mastered=CARDS.filter(function(c){var p=progress[c.id];return p&&p.status==="mastered";}).length;
+  var verified=CARDS.filter(function(c){return N(c.id).verified;}).length;
+  var own=CARDS.filter(function(c){return N(c.id).hasVideo;}).length;
+  var memo=CARDS.filter(function(c){return !!N(c.id).memo;}).length;
+  var t=dayRec();
+  var h='';
+  CATS.forEach(function(cat){
+    var ids=CARDS.filter(function(c){return c.cat===cat.id;});
+    var l=ids.filter(function(c){return hasProg(c.id);}).length;
+    var m=ids.filter(function(c){var p=progress[c.id];return p&&p.status==="mastered";}).length;
+    h+='<div class="card" style="padding:13px 14px;margin-bottom:9px"><div style="display:flex;justify-content:space-between"><b>'+cat.icon+' '+esc(cat.name)+'</b>'+
+       '<span class="small muted">学習 '+l+' / '+ids.length+'（定着 '+m+'）</span></div>'+
+       '<div class="bar" style="margin-top:8px"><i style="width:'+Math.round(l/ids.length*100)+'%;background:'+cat.color+'"></i></div>'+
+       '<div class="bar" style="margin-top:5px"><i style="width:'+Math.round(m/ids.length*100)+'%;background:var(--good)"></i></div></div>';
+  });
+  h+='<div class="small muted" style="margin:-2px 2px 10px">上=学習済み / 下（緑）=定着</div>';
+  function sb(n,l){return '<div class="b"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
+  h+='<div class="stat">'+sb(learned+"/"+all,"学習済み")+sb(mastered,"定着")+sb(verified,"ろう者に確認済み")+sb(own,"自分の動画")+
+     sb(memo,"メモあり")+sb(hist.streak.count||0,"連続日数")+sb(t.learned||0,"今日の新規")+sb(t.reviewed||0,"今日の復習")+'</div>';
+  h+='<div class="notice" style="margin-top:14px">目安：挨拶は3〜5時間、自己紹介（指文字を含む）は合計10〜20時間。読み取りは実際の会話で伸びるので、ろう者と話す機会もつくろう。</div>';
+  h+='<button class="btn full ghost" data-act="settings" style="margin:4px 0 8px">設定・バックアップ・このアプリについて</button>';
+  return h;
+}
+
+/* ===== シート ===== */
+function openSheet(inner,cardId){document.getElementById("modal").innerHTML='<div class="ovl" data-act="ovl"><div class="sheet"'+(cardId?' data-card="'+cardId+'"':'')+'>'+inner+'</div></div>';
+  fillOwnVideos(document.getElementById("modal"));}
+function closeSheet(){document.getElementById("modal").innerHTML="";}
+function toast(msg){var t=document.getElementById("toast");t.textContent=msg;t.className="toast show";setTimeout(function(){t.className="toast";},1700);}
+
+function cardSheet(id){
+  var c=CMAP[id],n=N(id),cat=CATMAP[c.cat];
+  var sh=document.querySelector(".sheet"),keepScroll=sh?sh.scrollTop:0;
+  var h='<div class="small" style="font-weight:800;color:'+cat.color+'">'+cat.icon+' '+esc(cat.name)+'</div>';
+  h+='<h3 style="margin-bottom:4px">'+esc(c.ja)+'</h3>'+wordBlock(c,true);
+  h+=videoBlock(c,{noAuto:!settings.autoVideo})+descBlock(c);
+  if(c.note) h+='<div class="note">'+esc(c.note)+'</div>';
+  h+='<div class="setrow" style="margin-top:16px"><div class="lab">自分の動画（端末内にだけ保存）</div>'+
+     '<div style="display:flex;gap:8px"><button class="btn sm" style="flex:1" data-act="rec" data-val="'+id+'">'+(n.hasVideo?"撮り直す／差し替え":"録画する／動画を選ぶ")+'</button>'+
+     (n.hasVideo?'<button class="btn sm" style="color:var(--red);border-color:#f0c2c2" data-act="delvid" data-val="'+id+'">削除</button>':'')+'</div>'+
+     '<div class="small muted" style="margin-top:5px">キルギスのろう者にやってもらった動画や、自分の練習動画を保存できます。</div></div>';
+  h+='<div class="setrow"><div class="lab">メモ（動きの説明・キルギスでの違い・見つけた動画URLなど）</div>'+
+     '<textarea class="memo" data-memo="'+id+'" placeholder="例）右手を…。キルギスでは○○さんは少し違う形を使っていた。">'+esc(n.memo)+'</textarea></div>';
+  h+='<div class="setrow"><div class="lab">確認状態</div><div class="seg">'+
+     '<button class="'+(!n.verified?"on":"")+'" data-act="verify" data-id="'+id+'" data-val="0">未確認</button>'+
+     '<button class="'+(n.verified?"on":"")+'" data-act="verify" data-id="'+id+'" data-val="1">ろう者に確認済み</button></div></div>';
+  h+='<div style="display:flex;gap:8px"><button class="btn pri" style="flex:1" data-act="studyone" data-val="'+id+'">このカードを練習</button>'+
+     '<button class="btn" style="flex:1;background:var(--ink);color:#fff;border-color:var(--ink)" data-act="closesheet">閉じる</button></div>';
+  openSheet(h,id);
+  var ns=document.querySelector(".sheet"); if(ns&&keepScroll) ns.scrollTop=keepScroll;
+}
+
+function settingsSheet(){
+  function seg(act,opts,cur){return '<div class="seg">'+opts.map(function(o){
+    return '<button class="'+(String(cur)===String(o[0])?"on":"")+'" data-act="'+act+'" data-val="'+o[0]+'">'+o[1]+'</button>';}).join("")+'</div>';}
+  var h='<h3>設定</h3>';
+  h+='<div class="setrow"><div class="lab">出題方向</div>'+seg("dir",[["ja2sign","日本語→手話"],["sign2ja","手話→意味"],["random","ミックス"]],settings.direction)+
+     '<div class="small muted" style="margin-top:-6px">「手話→意味」は動画を見て意味を当てる読み取り練習（動画のないカードは日本語から出題）。</div></div>';
+  h+='<div class="setrow"><div class="lab">1日の新しいカード数</div>'+seg("daily",[[5,"5"],[10,"10"],[15,"15"],[20,"20"]],settings.dailyNew)+'</div>';
+  h+='<div class="setrow"><div class="lab">YouTube動画を自動で表示</div>'+seg("auto",[["true","ON"],["false","OFF（タップで表示）"]],settings.autoVideo)+
+     '<div class="small muted" style="margin-top:-6px">OFFにすると、タップするまで YouTube に接続しません（通信量の節約にも）。</div></div>';
+  h+='<div class="setrow"><div class="lab">ロシア語の読み（カタカナ）</div>'+seg("kana",[["true","表示"],["false","非表示"]],settings.showKana)+'</div>';
+  h+='<div class="setrow"><div class="lab">データ管理</div>'+
+     '<button class="btn full" data-act="export" style="margin-bottom:8px">進捗とメモを書き出す（バックアップ）</button>'+
+     '<button class="btn full" data-act="import" style="margin-bottom:8px">バックアップを読み込む</button>'+
+     '<button class="btn full" data-act="reset" style="color:var(--red);border-color:#f0c2c2">学習進捗を初期化（メモと動画は残す）</button>'+
+     '<div class="small muted" style="margin-top:6px">※ 自分の動画はバックアップに含まれません（端末内にのみ保存）。</div></div>';
+  h+='<button class="btn full" data-act="about" style="margin-bottom:8px">このアプリについて（方針・注意）</button>';
+  h+='<div class="small muted">v'+APP_VERSION+'（試作）/ '+CARDS.length+'枚</div>';
+  h+='<button class="btn full" data-act="closesheet" style="margin-top:14px;background:var(--ink);color:#fff;border-color:var(--ink)">閉じる</button>';
+  openSheet(h);
+}
+function aboutSheet(){
+  var h='<h3>このアプリについて</h3><div class="small" style="line-height:1.9">'+
+    '<p><b>ロシア語手話（РЖЯ）</b>の入門用です。キルギスのろう者の多くはロシア語手話を使っていますが、キルギス独自の単語や地域差もあると言われています。</p>'+
+    '<ul style="padding-left:18px;margin:6px 0">'+
+    '<li><b>動画が正解</b>：手話の動きは既存の動画（YouTube埋め込み・外部リンク）で確認します。動画はこのアプリに含まれていません。</li>'+
+    '<li><b>文章の解説は出典のあるものだけ</b>：推測で書いた解説は載せていません。</li>'+
+    '<li><b>動画は検索で見つけたもの</b>で、中身や正確さは未確認です。おかしいと思ったら別の動画で確かめてください。</li>'+
+    '<li><b>確認済み</b>：キルギスのろう者に見てもらえたカードは「確認済み」にし、違いはメモ・録画しておきましょう。</li>'+
+    '<li>ロシア語手話はロシア語を手で表したものではなく、<b>独自の文法を持つ言語</b>です。表情（特に疑問文の眉）や、手話と一緒に口でロシア語の単語の形を作ることも大切です。</li>'+
+    '<li>自分の動画・メモ・進捗は端末内にだけ保存されます。YouTube の動画を表示する時だけ YouTube に接続します。</li>'+
+    '</ul>'+
+    '<p class="muted">主な参考：ВОГ「Давайте знакомиться!」、Spreadthesign、signflow.ru、Город жестов。</p></div>'+
+    '<button class="btn full" data-act="closesheet" style="margin-top:8px;background:var(--ink);color:#fff;border-color:var(--ink)">閉じる</button>';
+  openSheet(h);
+}
+
+/* ===== バックアップ ===== */
+function exportData(){
+  var data={app:"sign",appVersion:APP_VERSION,exportedAt:new Date().toISOString(),settings:settings,progress:progress,notes:notes,hist:hist};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  var url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="zhesty_backup_"+todayKey()+".json";document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);a.remove();},100);toast("書き出しました");
+}
+function importData(){
+  var inp=document.createElement("input");inp.type="file";inp.accept="application/json,.json";
+  inp.onchange=function(){var f=inp.files[0];if(!f)return;var r=new FileReader();
+    r.onload=function(){try{var d=JSON.parse(r.result);if(d.app!=="sign")throw 0;
+      progress=d.progress||{};hist=d.hist||hist;if(d.settings)settings=Object.assign(settings,d.settings);
+      if(d.notes){Object.keys(d.notes).forEach(function(id){var keep=N(id).hasVideo;notes[id]=d.notes[id];notes[id].hasVideo=keep;});}
+      saveAll();closeSheet();render();toast("復元しました");
+    }catch(e){toast("このアプリのバックアップではないようです");}};
+    r.readAsText(f);};
+  inp.click();
+}
+function resetData(){
+  if(!confirm("学習進捗を初期化します（メモ・確認状態・自分の動画は残ります）。よろしいですか？"))return;
+  progress={};hist={streak:{count:0,last:null},days:{}};ui.session=null;saveAll();closeSheet();render();toast("初期化しました");
+}
+
+/* ===== イベント ===== */
+document.body.addEventListener("click",function(e){
+  var t=e.target.closest("[data-act]");if(!t)return;
+  var a=t.getAttribute("data-act"),V=function(n){return t.getAttribute(n);};
+  if(a==="tab"){ui.view=V("data-val");ui.session=null;saveUI();render();return;}
+  if(a==="settings"){settingsSheet();return;}
+  if(a==="about"){aboutSheet();return;}
+  if(a==="closesheet"){closeSheet();render();return;}
+  if(a==="ovl"){if(e.target.classList.contains("ovl")){closeSheet();render();}return;}
+
+  if(a==="dir"){settings.direction=V("data-val");saveAll();settingsSheet();return;}
+  if(a==="daily"){settings.dailyNew=+V("data-val");saveAll();settingsSheet();return;}
+  if(a==="auto"){settings.autoVideo=(V("data-val")==="true");saveAll();settingsSheet();return;}
+  if(a==="kana"){settings.showKana=(V("data-val")==="true");saveAll();settingsSheet();return;}
+  if(a==="export"){exportData();return;}
+  if(a==="import"){importData();return;}
+  if(a==="reset"){resetData();return;}
+
+  if(a==="startnew"){startSession({type:"new"},"新しいカード");return;}
+  if(a==="startreview"){startSession({type:"review"},"今日の復習");return;}
+  if(a==="startcat"){startSession({type:"cat",cat:V("data-val")},CATMAP[V("data-val")].name);return;}
+  if(a==="reviewscope"){var ty=V("data-type");startSession({type:ty},{review:"今日の復習",weak:"苦手",fav:"お気に入り"}[ty]);return;}
+  if(a==="studyone"){closeSheet();startSession({type:"one",id:V("data-val")},CMAP[V("data-val")].ja);return;}
+  if(a==="endsession"){endSession();return;}
+  if(a==="reveal"){ui.session.revealed=true;saveUI();render();return;}
+  if(a==="fav"){var p=P(V("data-val"));p.favorite=!p.favorite;saveAll();render();return;}
+  if(a==="grade"){var s=ui.session,id=s.list[s.pos],k=V("data-val");answer(id,k);
+    if(k==="no"&&s.list.length<200)s.list.push(id);
+    s.pos++;s.revealed=false;saveUI();render();window.scrollTo(0,0);return;}
+
+  if(a==="listcat"){ui.listCat=V("data-val");saveUI();render();return;}
+  if(a==="opencard"){cardSheet(V("data-val"));return;}
+  if(a==="verify"){N(V("data-id")).verified=(V("data-val")==="1");saveAll();cardSheet(V("data-id"));return;}
+  if(a==="rec"){recordVideo(V("data-val"));return;}
+  if(a==="delvid"){deleteVideo(V("data-val"));return;}
+  if(a==="loadyt"){var wrap=document.createElement("div");
+    wrap.innerHTML=ytEmbed({id:V("data-id"),start:+V("data-start")},true);t.replaceWith(wrap.firstChild);return;}
+});
+document.body.addEventListener("input",function(e){
+  var id=e.target.getAttribute&&e.target.getAttribute("data-memo");
+  if(id){N(id).memo=e.target.value;lset(K.notes,notes);}
+});
+
+/* ===== 起動 ===== */
+if(ui.session&&!(ui.session.list||[]).every(function(id){return CMAP[id];}))ui.session=null;
+render();
+</script>
+</body>
+</html>
