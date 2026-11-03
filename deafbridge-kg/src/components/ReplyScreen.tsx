@@ -228,7 +228,7 @@ function PhraseRow({
         <span className="w-12 shrink-0 text-center text-4xl leading-none" aria-hidden="true">
           {icon}
         </span>
-        <span className="flex min-w-0 flex-col [overflow-wrap:anywhere] hyphens-auto">
+        <span className="flex min-w-0 flex-col [overflow-wrap:break-word]">
           <span className="text-reply font-black" lang={textLang}>
             {text}
           </span>

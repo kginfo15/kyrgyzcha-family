@@ -42,3 +42,4 @@ next-env.d.ts
 
 # 設定例はコミットする
 !.env.example
+/dist-demo

@@ -196,7 +196,7 @@ export default function ListenScreen({
       )}
 
       {/* ---- すぐ使う返答 ---- */}
-      <div className={`grid gap-2 ${settings.fontSize === "xlarge" ? "grid-cols-1" : "grid-cols-2"}`}>
+      <div className={`grid gap-2 ${settings.fontSize === "xlarge" ? "grid-cols-1" : "grid-cols-1 min-[440px]:grid-cols-2"}`}>
         {QUICK_IDS.map((id) => {
           const p = findPhrase(id)!;
           return (
@@ -209,7 +209,7 @@ export default function ListenScreen({
               <span className="text-3xl leading-none" aria-hidden="true">
                 {p.icon}
               </span>
-              <span className="flex min-w-0 flex-col [overflow-wrap:anywhere] hyphens-auto">
+              <span className="flex min-w-0 flex-col [overflow-wrap:break-word]">
                 <span className="text-body font-black leading-tight" lang={lang}>
                   {phraseText(p, lang)}
                 </span>

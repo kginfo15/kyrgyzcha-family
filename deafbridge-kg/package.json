@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "icons": "node scripts/generate-icons.mjs",
     "e2e": "node scripts/e2e.mjs",
-    "audio": "node scripts/generate-audio.mjs"
+    "audio": "node scripts/generate-audio.mjs",
+    "demo": "node scripts/build-demo.mjs"
   },
   "dependencies": {
     "next": "16.4.4",

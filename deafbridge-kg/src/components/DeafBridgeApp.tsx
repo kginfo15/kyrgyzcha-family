@@ -50,7 +50,11 @@ export default function DeafBridgeApp() {
     setOnline(navigator.onLine);
     fetchStatus().then(setStatus);
     preloadAudioManifest();
-    if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {
+    if (
+      "serviceWorker" in navigator &&
+      process.env.NODE_ENV === "production" &&
+      process.env.NEXT_PUBLIC_STATIC_DEMO !== "1"
+    ) {
       navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {});
     }
     const on = () => setOnline(true);
