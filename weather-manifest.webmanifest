@@ -1,0 +1,14 @@
+{
+  "name": "キルギスの天気",
+  "short_name": "キルギス天気",
+  "start_url": "weather.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#EEF3F8",
+  "theme_color": "#0E6BA8",
+  "lang": "ja",
+  "icons": [
+    {"src": "weather-icon-180.png", "sizes": "180x180", "type": "image/png"},
+    {"src": "weather-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
