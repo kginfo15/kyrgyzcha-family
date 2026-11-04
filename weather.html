@@ -339,11 +339,11 @@ let openIdx = null;
 function openSheet(i){
   openIdx = i; renderSheet(i);
   const s = document.getElementById("sheet"); s.scrollTop = 0; s.classList.add("open");
-  history.pushState({sheet:i}, "");
+  try{ history.pushState({sheet:i}, ""); }catch(e){}
 }
 function closeSheet(fromPop){
   document.getElementById("sheet").classList.remove("open"); openIdx = null;
-  if(!fromPop && history.state && history.state.sheet!=null) history.back();
+  try{ if(!fromPop && history.state && history.state.sheet!=null) history.back(); }catch(e){}
 }
 window.addEventListener("popstate", ()=>{ if(openIdx!=null) closeSheet(true); });
 
