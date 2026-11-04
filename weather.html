@@ -132,6 +132,30 @@ h2.sect .grow{flex:1}
 .nitem .ns{font-size:11px;color:var(--ink-3);margin-top:3px}
 .nmore{display:block;width:100%;font-size:13px;font-weight:700;color:var(--brand);padding:8px 0;border-top:1px solid var(--line)}
 .nempty{font-size:13px;color:var(--ink-3);padding:12px 0}
+.tabs.wide{display:flex;margin-bottom:8px}
+.tabs.wide button{flex:1;padding:8px 4px;font-size:13px}
+.cats{display:flex;gap:6px;padding:10px 0 4px;overflow-x:auto;scrollbar-width:none}
+.cats button{font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--card-2);color:var(--ink-2);white-space:nowrap}
+.cats button.on{background:var(--ink);color:var(--bg)}
+.cat{display:inline-block;font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:5px;vertical-align:2px}
+.cat-politics{background:color-mix(in srgb,#5B6CF0 18%,transparent);color:#5B6CF0}
+.cat-economy{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.cat-safety{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.cat-major{background:var(--brand-soft);color:var(--brand)}
+.nitem .nl{font-size:13px;color:var(--ink-2);margin-top:3px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nitem .no{font-size:11px;color:var(--ink-3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nnote{font-size:11px;color:var(--ink-3);padding:6px 0 4px;border-top:1px solid var(--line)}
+.risk{margin:10px 0 6px;padding:12px;border-radius:12px;background:var(--card-2)}
+.risk .lv{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.lvchip{font-size:12px;font-weight:800;padding:3px 8px;border-radius:8px;color:#fff}
+.lv1{background:#E0A81C;color:#1d1d1d}.lv2{background:#E2701F}.lv3{background:#D9483B}.lv4{background:#8E1F1F}.lv0{background:var(--good)}
+.risk .rt{font-size:14px;font-weight:700}
+.risk .rl{font-size:12px;color:var(--ink-2);margin-top:4px;line-height:1.6}
+.risk a{font-size:12px;font-weight:700;color:var(--brand);display:inline-block;margin-top:6px;text-decoration:none}
+.alert{display:flex;gap:8px;align-items:flex-start;width:100%;text-align:left;margin:6px 0 4px;padding:10px 12px;border-radius:14px;
+  background:color-mix(in srgb,var(--bad) 12%,var(--card));border:1px solid color-mix(in srgb,var(--bad) 35%,transparent);font-size:13px;line-height:1.5}
+.alert[hidden]{display:none}
+.alert b{color:var(--bad)}
 
 /* city list */
 .list{display:flex;flex-direction:column;gap:8px}
@@ -218,11 +242,11 @@ h2.sect .grow{flex:1}
     <div class="banner" id="banner"></div>
   </header>
 
+  <button class="alert" id="alert" hidden></button>
   <section class="favs" id="favs"><div class="skel big"></div></section>
 
-  <h2 class="sect"><span class="grow">📰 今日のニュース</span>
-    <span class="tabs" id="newsTabs"><button data-k="ja" class="on">日本語</button><button data-k="local">現地（ロシア語）</button></span>
-  </h2>
+  <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span></h2>
+  <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地ニュース</button><button data-k="japan">日本の報道</button><button data-k="safety">安全情報</button></div>
   <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
 
   <h2 class="sect"><span class="grow">🗺️ すべての地域</span></h2>
@@ -244,7 +268,7 @@ h2.sect .grow{flex:1}
     予報の確かさ＝ヨーロッパ（ECMWF）・ドイツ（ICON）・アメリカ（GFS）の3つの気象モデルの予報がどれだけ一致しているか。一致しているほど当たりやすい予報です。<br>
     標高を都市ごとに指定して計算しています（山の多いキルギスでは標高のずれが誤差の大きな原因になるため）。<br>
     大気汚染＝米国AQI（0〜50 良い／51〜100 普通／101〜150 敏感な人は注意／151〜200 悪い／201〜 非常に悪い）。<br>
-    データ：天気・大気 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>（CC BY 4.0）／ニュース Google ニュース（約2時間ごとに自動更新）／時刻はビシュケク時間
+    データ：天気・大気 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>（CC BY 4.0）／ニュース 現地各紙・Google ニュース・外務省 海外安全ホームページ（約2時間ごとに自動更新、現地記事は機械翻訳）／時刻はビシュケク時間
   </div>
 </div>
 
@@ -301,7 +325,8 @@ function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){
 let state = lsGet(CACHE_KEY);
 let news = lsGet("kg-news-v1");
 let favs = lsGet(FAV_KEY); if(!Array.isArray(favs)) favs = ["bishkek"];
-const prefs = Object.assign({sort:"def", newsTab:"ja"}, lsGet(PREF_KEY)||{});
+const prefs = Object.assign({sort:"def", newsTab:"local", newsCat:"all"}, lsGet(PREF_KEY)||{});
+if(!["local","japan","safety"].includes(prefs.newsTab)) prefs.newsTab = "local";
 let loading = false, newsShowAll = false;
 
 const idx = id => CITIES.findIndex(c=>c.id===id);
@@ -369,7 +394,7 @@ async function refresh(){
 async function loadNews(){
   try{
     const j = await getJSON(NEWS_URL + "?t=" + Math.floor(Date.now()/600000));
-    if(j && j.feeds){ news = j; lsSet("kg-news-v1", j); }
+    if(j && (j.version>=2 || j.feeds)){ news = j; lsSet("kg-news-v1", j); }
   }catch(e){ /* keep cached news */ }
   renderNews();
 }
@@ -505,19 +530,76 @@ function renderList(){
   document.querySelectorAll("#sortbar button").forEach(b=>b.classList.toggle("on", b.dataset.s===prefs.sort));
 }
 
+const CAT = {politics:"政治", economy:"経済", safety:"安全"};
+const LV_TXT = {l4:"レベル4：退避してください", l3:"レベル3：渡航は止めてください", l2:"レベル2：不要不急の渡航は止めてください", l1:"レベル1：十分注意してください"};
+// accept the older {feeds:{ja,local}} format too
+function newsData(){
+  if(!news) return null;
+  if(news.version>=2) return news;
+  return {local:(news.feeds&&news.feeds.local||[]).map(x=>({...x, title_ja:x.title, cat:null})), japan:news.feeds&&news.feeds.ja||[], safety:null};
+}
+const fmtDate = iso => new Date(iso).toLocaleDateString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric"});
+
 function renderNews(){
   document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", b.dataset.k===prefs.newsTab));
-  const el = document.getElementById("news");
-  const items = news && news.feeds && news.feeds[prefs.newsTab];
-  if(!items || !items.length){
-    el.innerHTML = `<div class="nempty">${news ? "このタブのニュースはまだありません。" : "ニュースを読み込めませんでした。しばらくしてから更新してください。"}</div>`;
+  const el = document.getElementById("news"), nd = newsData();
+  renderAlert(nd);
+  if(!nd){ el.innerHTML = `<div class="nempty">ニュースを読み込めませんでした。しばらくしてから更新してください。</div>`; return; }
+  const more = (n)=> n>5 ? `<button class="nmore" id="nmore">${newsShowAll?"閉じる":"もっと見る（"+n+"件）"}</button>` : "";
+  const when = iso => iso ? "・"+ago(Date.parse(iso)) : "";
+
+  if(prefs.newsTab==="local"){
+    const all = nd.local||[];
+    const items = prefs.newsCat==="all" ? all : all.filter(x=>x.cat===prefs.newsCat);
+    const count = k => all.filter(x=>x.cat===k).length;
+    const shown = newsShowAll ? items : items.slice(0,5);
+    el.innerHTML = `<div class="cats">${[["all","すべて "+all.length],["politics","🏛 政治 "+count("politics")],["economy","💰 経済 "+count("economy")],["safety","🚨 安全 "+count("safety")]]
+        .map(([k,l])=>`<button data-cat="${k}" class="${prefs.newsCat===k?"on":""}">${l}</button>`).join("")}</div>`
+      + (shown.length ? shown.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
+          <div class="nt">${n.cat?`<span class="cat cat-${n.cat}">${CAT[n.cat]}</span>`:""}${esc(n.title_ja||n.title)}</div>
+          ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}
+          ${n.title_ja&&n.title_ja!==n.title?`<div class="no">原文：${esc(n.title)}</div>`:""}
+          <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">この分類のニュースは今はありません。</div>`)
+      + more(items.length)
+      + `<div class="nnote">キルギスの現地メディア（24.kg・Kaktus・AKIpress・Kloop・Azattyk ほか）の記事を自動翻訳しています。翻訳は機械翻訳なので、大事な内容は原文で確認してください。</div>`;
     return;
   }
-  const shown = newsShowAll ? items : items.slice(0,4);
-  el.innerHTML = shown.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
-      <div class="nt">${esc(n.title)}</div>
-      <div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}</div></a>`).join("")
-    + (items.length>4 ? `<button class="nmore" id="nmore">${newsShowAll?"閉じる":"もっと見る（"+items.length+"件）"}</button>` : "");
+  if(prefs.newsTab==="japan"){
+    const items = nd.japan||[], shown = newsShowAll ? items : items.slice(0,5);
+    el.innerHTML = (shown.length ? shown.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
+        <div class="nt">${n.major?`<span class="cat cat-major">${esc(n.major)}</span>`:""}${esc(n.title)}</div>
+        <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">最近のキルギス関連の記事はありません。</div>`)
+      + more(items.length)
+      + `<div class="nnote">日本の新聞・通信社・ネットニュースからキルギスに関する記事を集めています（青いラベル＝大手メディア）。</div>`;
+    return;
+  }
+  // safety
+  const sf = nd.safety;
+  if(!sf){ el.innerHTML = `<div class="nempty">安全情報を読み込めませんでした。<a href="https://www.anzen.mofa.go.jp/" target="_blank" rel="noopener">外務省 海外安全ホームページ</a>をご確認ください。</div>`; return; }
+  const lvs = ["l4","l3","l2","l1"].filter(k=>sf.levels && sf.levels[k]>0);
+  const mails = sf.mails||[], shown = newsShowAll ? mails : mails.slice(0,5);
+  el.innerHTML = `<div class="risk">
+      <div class="lv">${lvs.length ? lvs.map(k=>`<span class="lvchip lv${k.slice(1)}">${LV_TXT[k]}</span>`).join("") : `<span class="lvchip lv0">危険情報は出ていません</span>`}</div>
+      ${lvs.length?`<div class="rl" style="margin-top:0">※ 国内の一部地域に出ている危険レベルです（国全体ではありません）。</div>`:""}
+      ${sf.riskTitle?`<div class="rt" style="margin-top:6px">${esc(sf.riskTitle)}</div>`:""}
+      ${sf.riskLead?`<div class="rl">${esc(sf.riskLead)}</div>`:""}
+      <a href="${esc(sf.riskUrl)}" target="_blank" rel="noopener">危険レベルの地図・詳細（外務省）›</a>
+    </div>
+    <div class="ns" style="padding:6px 0 2px;font-weight:700">在キルギス日本国大使館からのお知らせ</div>`
+    + (shown.length ? shown.map(m=>`<a class="nitem" href="${esc(m.link)}" target="_blank" rel="noopener">
+        <div class="nt">${isRecent(m.published)?`<span class="cat cat-safety">NEW</span>`:""}${esc(m.title)}</div>
+        ${m.lead?`<div class="nl">${esc(m.lead)}</div>`:""}
+        <div class="ns">${esc(m.type)}${m.published?"・"+fmtDate(m.published):""}</div></a>`).join("") : `<div class="nempty">お知らせはありません。</div>`)
+    + more(mails.length)
+    + `<div class="nnote">出典：外務省 海外安全ホームページ（オープンデータ）。<a href="${esc(sf.infoUrl||"https://www.anzen.mofa.go.jp/")}" target="_blank" rel="noopener">お知らせ一覧</a>／<a href="https://www.ezairyu.mofa.go.jp/tabireg/" target="_blank" rel="noopener">たびレジ登録</a>でメールも受け取れます。</div>`;
+}
+const isRecent = iso => iso && Date.now()-Date.parse(iso) < 72*3600*1000;
+function renderAlert(nd){
+  const a = document.getElementById("alert");
+  const m = nd && nd.safety && (nd.safety.mails||[]).find(x=>isRecent(x.published));
+  if(!m){ a.hidden = true; return; }
+  a.hidden = false;
+  a.innerHTML = `<span>⚠️</span><span><b>大使館から新しい安全情報（${fmtDate(m.published)}）</b><br>${esc(m.title)}</span>`;
 }
 
 /* ---------- detail sheet ---------- */
@@ -634,6 +716,10 @@ document.addEventListener("click", e=>{
   if(sb){ prefs.sort = sb.dataset.s; lsSet(PREF_KEY, prefs); renderList(); return; }
   const nt = e.target.closest("#newsTabs button");
   if(nt){ prefs.newsTab = nt.dataset.k; newsShowAll = false; lsSet(PREF_KEY, prefs); renderNews(); return; }
+  const ct = e.target.closest("[data-cat]");
+  if(ct){ prefs.newsCat = ct.dataset.cat; newsShowAll = false; lsSet(PREF_KEY, prefs); renderNews(); return; }
+  if(e.target.closest("#alert")){ prefs.newsTab = "safety"; newsShowAll = false; renderNews();
+    document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
   if(e.target.closest("#nmore")){ newsShowAll = !newsShowAll; renderNews(); return; }
 });
 document.addEventListener("keydown", e=>{
