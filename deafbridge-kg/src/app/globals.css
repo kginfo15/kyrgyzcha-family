@@ -203,7 +203,10 @@ body {
 
 /* 対面モード：相手側から読む部分 */
 .staff-text {
-  font-size: calc(1.15rem * var(--fs-scale) * var(--say-k, 1));
+  font-size: calc(1.35rem * var(--fs-scale) * var(--say-k, 1));
+}
+.stage-trans {
+  font-size: calc(1.4rem * var(--fs-scale) * var(--say-k, 1));
 }
 .fit-2 .staff-btn-label,
 .fit-2 [role="status"] .ja-gloss {
@@ -237,7 +240,8 @@ body {
     display: none;
   }
 }
-.fit-3 .stepper {
+.fit-3 .stepper,
+.fit-3 .tile-spoken {
   display: none;
 }
 .fit-4 {

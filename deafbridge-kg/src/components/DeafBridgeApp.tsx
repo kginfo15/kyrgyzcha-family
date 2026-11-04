@@ -17,8 +17,9 @@ import StaffTypeSheet from "./StaffTypeSheet";
 import ShowTextOverlay from "./ShowTextOverlay";
 import type { LogEntry, ShowText, SpeakFn } from "./types";
 import { Icon, OrnamentBand, TundukMark } from "./icons";
+import { Sheet } from "./ui";
 
-type SheetName = "replies" | "type" | "settings" | "history" | "staff" | null;
+type SheetName = "replies" | "type" | "settings" | "history" | "staff" | "consent" | null;
 
 export default function DeafBridgeApp() {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
@@ -190,6 +191,11 @@ export default function DeafBridgeApp() {
 
   const startListening = useCallback(() => {
     setToastKey(null);
+    // 初めての時は、音声の扱い（Google に送ること）を説明して同意をもらう
+    if (!settingsRef.current.consent) {
+      setSheet("consent");
+      return;
+    }
     touch();
     listener.start();
   }, [listener, touch]);
@@ -304,7 +310,8 @@ export default function DeafBridgeApp() {
             <Icon name="swap" className="h-4 w-4 text-muted" />
             {settings.convLang === "ru" ? "RU" : "KY"}
           </button>
-          {/* 日本語補助のクイック切替（確認用） */}
+          {/* 日本語補助のクイック切替（確認用）。オンの時だけ表示（オンにするのは設定から） */}
+          {settings.jaAssist && (
           <button
             type="button"
             aria-pressed={settings.jaAssist}
@@ -316,6 +323,7 @@ export default function DeafBridgeApp() {
           >
             日本語
           </button>
+          )}
           <button
             type="button"
             onClick={() => setSheet("settings")}
@@ -379,6 +387,42 @@ export default function DeafBridgeApp() {
         )}
         {sheet === "settings" && (
           <SettingsSheet settings={settings} status={status} onChange={updateSettings} onSpeak={speak} onClose={closeSheet} />
+        )}
+        {sheet === "consent" && (
+          <Sheet title={<Tx k="consentTitle" />} onClose={closeSheet} closeLabel={d.close}>
+            <div className="flex flex-col gap-4 pb-2">
+              <div className="flex items-start gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-accent/30 bg-accent/10 text-accent">
+                  <Icon name="mic" className="h-6 w-6" />
+                </span>
+                <p className="text-body leading-relaxed">
+                  <Tx k="consentBody" />
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  // ボタンを押した操作の中で録音を始める（iPhone ではタップ内でないとマイクが使えない）
+                  settingsRef.current = { ...settingsRef.current, consent: true };
+                  updateSettings({ consent: true });
+                  setSheet(null);
+                  touch();
+                  listener.start();
+                }}
+                className="flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-accent text-lg font-extrabold text-accent-fg"
+              >
+                <Icon name="check-mark" className="h-5 w-5" strokeWidth={2.6} />
+                <Tx k="consentAgree" />
+              </button>
+              <button
+                type="button"
+                onClick={closeSheet}
+                className="min-h-12 rounded-2xl bg-surface-2 font-bold text-muted"
+              >
+                <Tx k="consentDecline" />
+              </button>
+            </div>
+          </Sheet>
         )}
         {sheet === "staff" && (
           <StaffTypeSheet lang={settings.convLang} onSubmit={handleStaffText} onClose={closeSheet} />

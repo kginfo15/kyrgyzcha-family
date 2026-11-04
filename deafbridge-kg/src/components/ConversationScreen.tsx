@@ -69,7 +69,7 @@ export default function ConversationScreen({
     if (p) speakPhrase(onSpeak, p, settings);
   };
 
-  const time = latest ? new Date(latest.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
+  const time = latest ? new Date(latest.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false }) : "";
   // 今どの段階か：1 スピーカーに近づける → 2 インターフォンを押す → 3 読んで返答
   const step: 1 | 2 | 3 = latest || speaking ? 3 : listening ? 2 : 1;
   // 状態表示は「何か起きている時」だけ（案内中は案内と赤い録音ボタンで分かる）
@@ -121,7 +121,9 @@ export default function ConversationScreen({
         {counter && (
           <StaffPanel
             lang={lang}
-            text={lastMine?.text ?? phraseText(findPhrase("counter_intro")!, lang)}
+            reply={lastMine?.text ?? null}
+            heard={!lastMine && latest?.status === "done" ? latest.text : null}
+            intro={phraseText(findPhrase("counter_intro")!, lang)}
             onType={onOpenStaffType}
           />
         )}
@@ -204,7 +206,7 @@ export default function ConversationScreen({
                   {latest.text}
                 </p>
                 {latest.translations?.[ui] && (
-                  <p className="stage-trans text-reply font-semibold text-fg/80" lang={ui}>
+                  <p className="stage-trans font-bold leading-snug text-fg/90" lang={ui}>
                     {latest.translations[ui]}
                   </p>
                 )}
@@ -276,24 +278,32 @@ export default function ConversationScreen({
           const p = findPhrase(id);
           const mine = p ? undefined : settings.myPhrases.find((m) => m.id === id);
           if (!p && !mine) return null;
-          const text = p ? phraseText(p, lang) : mine!.text;
+          const spoken = p ? phraseText(p, lang) : mine!.text;
+          const spokenLang = p ? lang : mine!.lang;
+          // 利用者が読んで分かる言葉（画面の言語）を大きく、実際に読み上げる相手の言語を小さく
+          const meaning = p && ui !== lang ? phraseText(p, ui) : null;
           return (
             <button
               key={id}
               type="button"
               onClick={() => (p ? speakPhrase(onSpeak, p, settings) : onSpeak({ text: mine!.text, lang: mine!.lang }))}
+              aria-label={meaning ? `${meaning} — ${spoken}` : spoken}
               className="tile flex min-w-0 items-start gap-2.5 rounded-2xl border border-line p-2.5 text-left transition active:scale-[0.98] active:border-accent/50"
             >
               <span className="tile-icon flex shrink-0 items-center justify-center rounded-xl border border-accent/25 bg-accent/[0.08] text-accent">
                 <Icon name={(p?.icon ?? "star") as IconName} className="h-[55%] w-[55%]" />
               </span>
-              <span className="flex min-w-0 flex-col">
-                <span className="tile-text font-bold leading-tight [overflow-wrap:break-word]" lang={p ? lang : mine!.lang}>
-                  {text}
+              <span className="flex min-w-0 flex-col gap-0.5">
+                <span
+                  className="tile-text font-bold leading-tight [overflow-wrap:break-word]"
+                  lang={meaning ? ui : spokenLang}
+                >
+                  {meaning ?? spoken}
                 </span>
-                {p && ui !== lang && (
-                  <span className="tile-sub line-clamp-1 text-xs text-muted" lang={ui}>
-                    {phraseText(p, ui)}
+                {meaning && (
+                  <span className="tile-spoken flex min-w-0 items-start gap-1 text-xs leading-snug text-muted" lang={spokenLang}>
+                    <Icon name="speaker" className="mt-px h-3 w-3 shrink-0 text-accent/80" />
+                    <span className="line-clamp-2">{spoken}</span>
                   </span>
                 )}
                 {p && (
@@ -500,23 +510,46 @@ function Guide({ step, mode, onIntro }: { step: 1 | 2; mode: Mode; onIntro: () =
  * 対面モード：画面の上部を 180° 回転し、机をはさんだ相手（窓口の人）が読めるようにする。
  * 相手の言語で、利用者の直前の返答（まだなければ「耳が聞こえません…」）と「ここに書く」ボタンを出す。
  */
-function StaffPanel({ lang, text, onType }: { lang: ConvLang; text: string; onType: () => void }) {
+function StaffPanel({
+  lang,
+  reply,
+  heard,
+  intro,
+  onType,
+}: {
+  lang: ConvLang;
+  /** 利用者の直前の返答（あれば一番大きく見せる） */
+  reply: string | null;
+  /** 相手（窓口の人）の言葉がどう聞き取られたか。相手が自分で確かめられるように */
+  heard: string | null;
+  intro: string;
+  onType: () => void;
+}) {
   const staff = DICTS[lang];
   const label = staff.staffPlaceholder.replace("…", "");
   return (
-    <div
-      className="staff-panel relative mb-3 flex rotate-180 items-center gap-3 rounded-2xl border border-them/35 bg-bg/70 p-2.5 pl-3"
-      lang={lang}
-    >
-      <p className="staff-text min-w-0 flex-1 font-bold leading-snug">{text}</p>
+    <div className="staff-panel relative mb-3 flex rotate-180 flex-col gap-2 rounded-2xl border border-them/35 bg-bg/70 p-3" lang={lang}>
+      {heard ? (
+        <>
+          <p className="text-xs font-bold text-them">
+            ✓ {staff.staffYouSaid}: <span className="font-extrabold text-fg">«{heard}»</span>
+          </p>
+          <p className="staff-text flex items-center gap-2 font-bold leading-snug text-fg/80">
+            <span className="pulse-dot inline-block h-2 w-2 shrink-0 rounded-full bg-them" />
+            {staff.staffWaitReply}
+          </p>
+        </>
+      ) : (
+        <p className="staff-text font-bold leading-snug">{reply ?? intro}</p>
+      )}
       <button
         type="button"
         onClick={onType}
         aria-label={label}
-        className="flex shrink-0 items-center gap-1.5 rounded-full bg-them px-3 py-2 text-xs font-extrabold leading-tight text-them-ink"
+        className="flex w-fit items-center gap-1.5 rounded-full bg-them px-3 py-1.5 text-xs font-extrabold leading-tight text-them-ink"
       >
         <Icon name="pen" className="h-4 w-4 shrink-0" />
-        <span className="staff-btn-label max-w-[6.5rem]">{label}</span>
+        <span className="staff-btn-label">{label}</span>
       </button>
     </div>
   );

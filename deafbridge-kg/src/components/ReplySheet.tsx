@@ -221,13 +221,15 @@ function PhraseRow({
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/[0.08] text-accent">
           <Icon name={icon} className="h-5 w-5" />
         </span>
-        <span className="flex min-w-0 flex-col [overflow-wrap:break-word]">
-          <span className="text-reply font-bold" lang={textLang}>
-            {text}
+        <span className="flex min-w-0 flex-col gap-0.5 [overflow-wrap:break-word]">
+          {/* 利用者が読んで分かる言葉を大きく、読み上げる相手の言語を小さく */}
+          <span className="text-reply font-bold" lang={meaning ? uiLang : textLang}>
+            {meaning ?? text}
           </span>
           {meaning && (
-            <span className="text-sm text-muted" lang={uiLang}>
-              {meaning}
+            <span className="flex items-start gap-1 text-sm text-muted" lang={textLang}>
+              <Icon name="speaker" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent/80" />
+              <span>{text}</span>
             </span>
           )}
           {ja && (

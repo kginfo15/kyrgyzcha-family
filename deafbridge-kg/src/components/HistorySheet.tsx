@@ -40,7 +40,7 @@ export default function HistorySheet({
       <ol className="flex flex-col gap-2">
         {log.map((e) => {
           const mine = e.who === "me";
-          const time = new Date(e.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+          const time = new Date(e.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
           return (
             <li key={e.id} className={mine ? "ml-10" : "mr-10"}>
               <button

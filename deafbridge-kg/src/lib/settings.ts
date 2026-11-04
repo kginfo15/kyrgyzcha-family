@@ -30,6 +30,8 @@ export type Settings = {
   idleStopSec: 0 | 60 | 180;
   accessCode: string;
   myPhrases: MyPhrase[];
+  /** 音声の扱い（Google に送ること）に同意済みか */
+  consent: boolean;
   /** メイン画面に置く返答（定型文 id またはマイ返答 id、最大4つ） */
   quickIds: string[];
 };
@@ -40,7 +42,7 @@ export const DEFAULT_SETTINGS: Settings = {
   convLang: "ru",
   fontSize: "large",
   translate: true,
-  jaAssist: true,
+  jaAssist: false,
   visualAlert: true,
   autoStop: true,
   continuous: true,
@@ -49,6 +51,7 @@ export const DEFAULT_SETTINGS: Settings = {
   idleStopSec: 60,
   accessCode: "",
   myPhrases: [],
+  consent: false,
   quickIds: ["repeat", "deaf", "buy_medicine", "open_door"],
 };
 
@@ -71,7 +74,7 @@ export function sanitizeSettings(raw: unknown): Settings {
   if (CONV_LANGS.includes(r.convLang as ConvLang)) s.convLang = r.convLang as ConvLang;
   if (r.mode === "intercom" || r.mode === "counter") s.mode = r.mode;
   if (r.fontSize === "large" || r.fontSize === "xlarge") s.fontSize = r.fontSize;
-  for (const k of ["translate", "jaAssist", "visualAlert", "autoStop", "continuous"] as const) {
+  for (const k of ["translate", "jaAssist", "visualAlert", "autoStop", "continuous", "consent"] as const) {
     if (typeof r[k] === "boolean" && !(k === "jaAssist" && r.uiLang === "ja")) s[k] = r[k] as boolean;
   }
   if (r.sensitivity === "low" || r.sensitivity === "mid" || r.sensitivity === "high")

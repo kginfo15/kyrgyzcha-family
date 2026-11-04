@@ -94,7 +94,13 @@ for (const scheme of ["dark"]) {
   }
 
   check("UI defaults to Kyrgyz", await micStart.isVisible());
-  check("Japanese assist shown by default", (await page.locator(".ja-gloss").count()) > 5);
+  check("Japanese assist off by default (no Japanese for Kyrgyz users)", (await page.locator(".ja-gloss").count()) === 0);
+  check("'日本語' header chip hidden while assist is off", (await page.getByRole("button", { name: /日本語補助表示/ }).count()) === 0);
+  // 以降の確認は日本語補助オンで行う（設定から切り替え）
+  await page.getByRole("button", { name: "Жөндөөлөр" }).click();
+  await page.locator("fieldset", { hasText: "Жапонча жардамчы текст" }).getByRole("button", { name: /Күйүк/ }).click();
+  await page.keyboard.press("Escape");
+  check("Japanese assist can be turned on from settings", (await page.locator(".ja-gloss").count()) > 5);
   check("one screen: no page scroll (390x844)", (await pageOverflow(page)) <= 0);
   check("step guide shown before starting (1/3)", await page.getByText("1 / 3").isVisible());
 
@@ -102,6 +108,8 @@ for (const scheme of ["dark"]) {
   check("status endpoint responds (demo mode)", status.provider === "mock");
 
   await micStart.click();
+  await wait(page.getByText("Баштоодон мурун: үн жөнүндө").first(), "consent explained before first recording", 3000);
+  await page.getByRole("button", { name: /Макулмун, баштоо/ }).click();
   await wait(micStop, "listening started (mic + MediaRecorder)", 5000);
   check("step guide moves to 'press the intercom' (2/3)", await page.getByText("2 / 3").isVisible());
   await wait(page.getByText("Маектеш сүйлөп жатат").first(), "visual 'someone is talking' status", 8000);
@@ -125,6 +133,7 @@ for (const scheme of ["dark"]) {
   await page.getByRole("button", { name: /Я хочу купить лекарство/ }).click();
   await wait(page.getByText(/Ойнотулууда|Үн чыкты/).first(), "playback status shown (deaf user can't hear it)", 3000);
   check("my reply shown on stage", await page.locator(".bg-me").first().isVisible());
+  check("quick replies show the Kyrgyz meaning as the main text", (await page.locator(".tile-text", { hasText: "Мен дары сатып алгым келет." }).count()) === 1);
   await wait(micStop, "listening resumes after reply playback");
   await page.screenshot({ path: path.join(shots, "04-replied.png") });
 
@@ -133,7 +142,9 @@ for (const scheme of ["dark"]) {
   await page.waitForTimeout(200);
   check("Japanese assist can be turned off", (await page.locator(".ja-gloss").count()) === 0);
   await page.screenshot({ path: path.join(shots, "05-no-ja.png") });
-  await page.getByRole("button", { name: /日本語補助表示/ }).click();
+  await page.getByRole("button", { name: "Жөндөөлөр" }).click();
+  await page.locator("fieldset", { hasText: "Жапонча жардамчы текст" }).getByRole("button", { name: /Күйүк/ }).click();
+  await page.keyboard.press("Escape");
 
   await page.getByRole("button", { name: /Жокко чыгаруу/ }).click();
   await wait(micStart, "cancel returns to idle", 5000);
@@ -199,6 +210,7 @@ for (const scheme of ["dark"]) {
   await page.locator("#staff-text").fill("Ким бул?");
   await page.getByRole("button", { name: /Жөнөтүү/ }).click();
   await wait(page.getByText("Кто там?").first(), "counter mode: staff-typed text shown with translation", 4000);
+  check("counter mode: staff sees what was understood ('You said')", (await page.locator(".staff-panel", { hasText: "Сиз айттыңыз" }).count()) === 1);
   await page.screenshot({ path: path.join(shots, "13-counter.png") });
   check("counter mode: no scroll", (await pageOverflow(page)) <= 0);
   await page.getByRole("tab", { name: /Домофон/ }).click();

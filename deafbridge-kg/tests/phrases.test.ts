@@ -38,9 +38,11 @@ describe("settings", () => {
     expect(sanitizeSettings(null)).toEqual(DEFAULT_SETTINGS);
     expect(sanitizeSettings({ uiLang: "xx", maxSeconds: 999, fontSize: 3 })).toEqual(DEFAULT_SETTINGS);
   });
-  it("defaults to Kyrgyz UI with Japanese assist on", () => {
+  it("defaults to Kyrgyz UI, Japanese assist off, consent not yet given", () => {
     expect(DEFAULT_SETTINGS.uiLang).toBe("ky");
-    expect(DEFAULT_SETTINGS.jaAssist).toBe(true);
+    expect(DEFAULT_SETTINGS.jaAssist).toBe(false);
+    expect(DEFAULT_SETTINGS.consent).toBe(false);
+    expect(sanitizeSettings({ consent: true }).consent).toBe(true);
   });
   it("migrates old Japanese UI setting to Kyrgyz + Japanese assist", () => {
     const s = sanitizeSettings({ uiLang: "ja", jaAssist: false });
