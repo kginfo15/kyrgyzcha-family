@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { handleTranscribe } from "@/lib/server/transcribe-handler";
 import {
   buildGoogleSttRequest,
+  createGoogleProvider,
   createMockProvider,
   getProvider,
   parseGoogleSttResponse,
@@ -174,6 +175,40 @@ describe("google provider helpers", () => {
       results: [{ alternatives: [{ transcript: "Кто там", confidence: 0.9 }, { transcript: "Кот там" }] }],
     });
     expect(out.alternatives).toEqual(["Кот там"]);
+  });
+
+  it("retries with a minimal config when Google rejects options (400)", async () => {
+    const bodies: Record<string, unknown>[] = [];
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockImplementation(async (_url, init) => {
+      const body = JSON.parse(String(init?.body));
+      bodies.push(body);
+      if (body.config.speechContexts) {
+        return new Response(JSON.stringify({ error: { message: "Invalid recognition 'config': bad speech context" } }), { status: 400 });
+      }
+      return new Response(JSON.stringify({ results: [{ alternatives: [{ transcript: "Ким бул?", confidence: 0.8 }] }] }), { status: 200 });
+    });
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const p = createGoogleProvider({ kind: "apiKey", key: "k" });
+    const out = await p.transcribe(new Uint8Array(3200), 16000, "ky");
+    fetchMock.mockRestore();
+    warn.mockRestore();
+    expect(out.text).toBe("Ким бул?");
+    expect(bodies).toHaveLength(2);
+    expect((bodies[1] as { config: Record<string, unknown> }).config).toEqual({
+      encoding: "LINEAR16",
+      sampleRateHertz: 16000,
+      languageCode: "ky-KG",
+    });
+  });
+
+  it("does not retry on auth errors (403)", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
+      new Response(JSON.stringify({ error: { message: "API not enabled" } }), { status: 403 }),
+    );
+    const p = createGoogleProvider({ kind: "apiKey", key: "k" });
+    await expect(p.transcribe(new Uint8Array(3200), 16000, "ru")).rejects.toThrow(/403/);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    fetchMock.mockRestore();
   });
 
   it("selects provider from env", () => {

@@ -60,6 +60,14 @@ export function buildGoogleSttRequest(wavBase64: string, sampleRate: number, lan
   };
 }
 
+/** 必須項目だけの設定（オプションが未対応の言語でも通るように） */
+export function buildMinimalSttRequest(wavBase64: string, sampleRate: number, lang: ConvLang) {
+  return {
+    config: { encoding: "LINEAR16", sampleRateHertz: sampleRate, languageCode: STT_LANG_CODE[lang] },
+    audio: { content: wavBase64 },
+  };
+}
+
 export function parseGoogleSttResponse(data: GoogleSttResponse): SttOutput {
   const results = data.results ?? [];
   // 長めの発話は複数 result に分割されるので、各 result の第1候補を連結する
@@ -88,9 +96,19 @@ export function createGoogleProvider(auth: GoogleAuth): SttProvider {
   return {
     name: "google",
     async transcribe(pcm, sampleRate, lang) {
-      const body = buildGoogleSttRequest(Buffer.from(pcm).toString("base64"), sampleRate, lang);
-      const res = await googlePost(auth, sttUrl, body, AbortSignal.timeout(20000));
-      const data = (await res.json().catch(() => ({}))) as GoogleSttResponse;
+      const audio = Buffer.from(pcm).toString("base64");
+      const send = async (body: unknown) => {
+        const res = await googlePost(auth, sttUrl, body, AbortSignal.timeout(20000));
+        const data = (await res.json().catch(() => ({}))) as GoogleSttResponse;
+        return { res, data };
+      };
+      let { res, data } = await send(buildGoogleSttRequest(audio, sampleRate, lang));
+      // 言語によってはヒント語・句読点・モデル指定が未対応で 400 になることがあるため、
+      // 400 の時だけ最小限の設定でもう一度試す（キルギス語での接続失敗を防ぐ）
+      if (res.status === 400) {
+        console.warn("[stt] retrying with minimal config:", data.error?.message ?? "400");
+        ({ res, data } = await send(buildMinimalSttRequest(audio, sampleRate, lang)));
+      }
       if (!res.ok) {
         throw new Error(`google stt ${res.status}: ${data.error?.message ?? "unknown"}`);
       }
