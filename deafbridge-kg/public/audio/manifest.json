@@ -1,0 +1,31 @@
+{
+  "ru": [],
+  "ky": [
+    "app_info",
+    "at_door",
+    "buy_medicine",
+    "card",
+    "cash",
+    "closer",
+    "come_out",
+    "counter_intro",
+    "deaf",
+    "fever",
+    "hello",
+    "lipread",
+    "no",
+    "open_door",
+    "painkiller",
+    "prescription",
+    "price",
+    "repeat",
+    "show_name",
+    "thanks",
+    "toward_phone",
+    "type_here",
+    "urgent",
+    "wait",
+    "window",
+    "yes"
+  ]
+}
