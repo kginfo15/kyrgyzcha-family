@@ -1,0 +1,34 @@
+name: Update Kyrgyz news
+
+# Fetches headlines every 2 hours and publishes news.json on the `news-data`
+# branch (a single force-pushed commit, so main's history stays clean).
+on:
+  schedule:
+    - cron: "23 */2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-news
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch headlines
+        run: python3 scripts/fetch_news.py > "$RUNNER_TEMP/news.json"
+      - name: Publish to news-data branch
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          mkdir "$RUNNER_TEMP/out" && cd "$RUNNER_TEMP/out"
+          git init -q
+          git checkout -q --orphan news-data
+          cp "$RUNNER_TEMP/news.json" news.json
+          git add news.json
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update news"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" news-data
