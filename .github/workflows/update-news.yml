@@ -1,10 +1,12 @@
 name: Update Kyrgyz news
 
-# Fetches headlines every 2 hours and publishes news.json on the `news-data`
-# branch (a single force-pushed commit, so main's history stays clean).
+# Fetches headlines and exchange rates and publishes news.json on the
+# `news-data` branch (a single force-pushed commit, so main's history stays
+# clean). GitHub skips scheduled runs when it is busy, so this asks for one
+# every 30 minutes to keep the data reasonably fresh.
 on:
   schedule:
-    - cron: "23 */2 * * *"
+    - cron: "17,47 * * * *"
   workflow_dispatch:
 
 permissions:

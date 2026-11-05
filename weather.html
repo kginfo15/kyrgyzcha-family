@@ -132,6 +132,21 @@ h2.sect .grow{flex:1}
 .nitem .ns{font-size:11px;color:var(--ink-3);margin-top:3px}
 .nmore{display:block;width:100%;font-size:13px;font-weight:700;color:var(--brand);padding:8px 0;border-top:1px solid var(--line)}
 .nempty{font-size:13px;color:var(--ink-3);padding:12px 0}
+.sectsub{font-size:11px;font-weight:500;letter-spacing:0;color:var(--ink-3)}
+.sectsub.stale{color:var(--bad);font-weight:700}
+.rates{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 14px 12px;box-shadow:var(--shadow)}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 8px}
+.rcell{padding:8px 0;border-bottom:1px solid var(--line)}
+.rcell .rk{font-size:11px;color:var(--ink-3);font-weight:700}
+.rcell .rv{font-size:17px;font-weight:700;margin-top:1px}
+.rcell .rv small{font-size:11px;font-weight:500;color:var(--ink-2)}
+.rcell .rd{font-size:11px;font-weight:700}
+.up{color:var(--bad)}.down{color:var(--good)}.flat{color:var(--ink-3)}
+.conv{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap;font-size:14px}
+.conv input,.conv select{font:inherit;font-size:16px;padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card-2);color:var(--ink)}
+.conv input{width:110px}
+.conv .res{font-weight:800;font-size:16px}
+.rnote{font-size:11px;color:var(--ink-3);margin-top:8px;line-height:1.5}
 .tabs.wide{display:flex;margin-bottom:8px}
 .tabs.wide button{flex:1;padding:8px 4px;font-size:13px}
 .cats{display:flex;gap:6px;padding:10px 0 4px;overflow-x:auto;scrollbar-width:none}
@@ -245,7 +260,10 @@ h2.sect .grow{flex:1}
   <button class="alert" id="alert" hidden></button>
   <section class="favs" id="favs"><div class="skel big"></div></section>
 
-  <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span></h2>
+  <h2 class="sect"><span class="grow">💱 今日の為替レート</span><span class="sectsub num" id="ratesDate"></span></h2>
+  <div class="rates" id="rates"><div class="nempty">読み込み中…</div></div>
+
+  <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span></h2>
   <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地ニュース</button><button data-k="japan">日本の報道</button><button data-k="safety">安全情報</button></div>
   <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
 
@@ -543,7 +561,13 @@ const fmtDate = iso => new Date(iso).toLocaleDateString("ja-JP",{timeZone:TZ,mon
 function renderNews(){
   document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", b.dataset.k===prefs.newsTab));
   const el = document.getElementById("news"), nd = newsData();
-  renderAlert(nd);
+  renderAlert(nd); renderRates();
+  const nu = document.getElementById("newsUpdated");
+  if(news && news.updated){
+    const age = Date.now()-Date.parse(news.updated);
+    nu.textContent = "更新 " + ago(Date.parse(news.updated));
+    nu.classList.toggle("stale", age > 3*3600*1000);
+  } else nu.textContent = "";
   if(!nd){ el.innerHTML = `<div class="nempty">ニュースを読み込めませんでした。しばらくしてから更新してください。</div>`; return; }
   const more = (n)=> n>5 ? `<button class="nmore" id="nmore">${newsShowAll?"閉じる":"もっと見る（"+n+"件）"}</button>` : "";
   const when = iso => iso ? "・"+ago(Date.parse(iso)) : "";
@@ -570,7 +594,7 @@ function renderNews(){
         <div class="nt">${n.major?`<span class="cat cat-major">${esc(n.major)}</span>`:""}${esc(n.title)}</div>
         <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">最近のキルギス関連の記事はありません。</div>`)
       + more(items.length)
-      + `<div class="nnote">日本の新聞・通信社・ネットニュースからキルギスに関する記事を集めています（青いラベル＝大手メディア）。</div>`;
+      + `<div class="nnote">日本の新聞・テレビ・通信社・ネットメディアのキルギスに関する記事だけを集めています（青いラベル＝大手メディア）。</div>`;
     return;
   }
   // safety
@@ -594,6 +618,46 @@ function renderNews(){
     + `<div class="nnote">出典：外務省 海外安全ホームページ（オープンデータ）。<a href="${esc(sf.infoUrl||"https://www.anzen.mofa.go.jp/")}" target="_blank" rel="noopener">お知らせ一覧</a>／<a href="https://www.ezairyu.mofa.go.jp/tabireg/" target="_blank" rel="noopener">たびレジ登録</a>でメールも受け取れます。</div>`;
 }
 const isRecent = iso => iso && Date.now()-Date.parse(iso) < 72*3600*1000;
+
+/* ---------- exchange rates ---------- */
+const CUR = [
+  {c:"USD", ja:"米ドル", unit:1, flag:"🇺🇸"}, {c:"EUR", ja:"ユーロ", unit:1, flag:"🇪🇺"}, {c:"JPY", ja:"日本円", unit:100, flag:"🇯🇵"},
+  {c:"RUB", ja:"ルーブル", unit:1, flag:"🇷🇺"}, {c:"CNY", ja:"人民元", unit:1, flag:"🇨🇳"}, {c:"KZT", ja:"テンゲ", unit:100, flag:"🇰🇿"},
+];
+const fmtNum = (v, d=2) => v==null ? "–" : v.toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d});
+function renderRates(){
+  const el = document.getElementById("rates");
+  const rt = news && news.rates;
+  if(!rt || !rt.values){ el.innerHTML = `<div class="nempty">為替レートを読み込めませんでした。</div>`; document.getElementById("ratesDate").textContent=""; return; }
+  document.getElementById("ratesDate").textContent = rt.date ? rt.date.replace(/^(\d+)\.(\d+)\.(\d+)$/,"$3/$2/$1")+" 公式" : "";
+  const v = rt.values, b = rt.before||{};
+  const cells = CUR.filter(x=>v[x.c]).map(x=>{
+    const now = v[x.c]*x.unit, prev = b[x.c]!=null ? b[x.c]*x.unit : null;
+    const diff = prev!=null ? now-prev : null, dec = now>=10 ? 2 : 3;
+    const cls = diff==null||Math.abs(diff)<now*0.0005 ? "flat" : diff>0 ? "up" : "down";
+    return `<div class="rcell num"><div class="rk">${x.flag} ${x.unit>1?x.unit+" ":"1 "}${x.ja}</div>
+      <div class="rv">${fmtNum(now,dec)} <small>ソム</small></div>
+      <div class="rd ${cls}">${diff==null?"&nbsp;":(cls==="flat"?"→ 前日と同じ":(diff>0?"▲ ":"▼ ")+fmtNum(Math.abs(diff),dec))}</div></div>`;
+  }).join("");
+  const opts = [{c:"KGS",ja:"ソム"},...CUR].filter(x=>x.c==="KGS"||v[x.c]).map(x=>`<option value="${x.c}" ${x.c===(prefs.convCur||"JPY")?"selected":""}>${x.ja}</option>`).join("");
+  el.innerHTML = `<div class="rgrid">${cells}</div>
+    <div class="conv num"><input id="convAmt" type="number" inputmode="decimal" min="0" value="${prefs.convAmt||10000}" aria-label="金額">
+      <select id="convCur" aria-label="通貨">${opts}</select><span>＝</span><span class="res" id="convRes"></span></div>
+    <div class="rnote">キルギス国立銀行の公式レート（1単位あたりのソム）。▲はソム安（その通貨が値上がり）、▼はソム高。両替所のレートとは少し違います。</div>`;
+  updateConv();
+}
+function updateConv(){
+  const v = news && news.rates && news.rates.values; if(!v) return;
+  const amt = parseFloat(document.getElementById("convAmt").value)||0, cur = document.getElementById("convCur").value;
+  prefs.convAmt = amt; prefs.convCur = cur; lsSet(PREF_KEY, prefs);
+  const out = document.getElementById("convRes");
+  if(cur==="KGS"){
+    out.textContent = `${fmtNum(amt/v.JPY,0)} 円 / ${fmtNum(amt/v.USD,2)} ドル`;
+  } else {
+    out.textContent = `${fmtNum(amt*v[cur],cur==="JPY"||cur==="KZT"?0:2)} ソム`;
+  }
+}
+document.addEventListener("input", e=>{ if(e.target.id==="convAmt"||e.target.id==="convCur") updateConv(); });
 function renderAlert(nd){
   const a = document.getElementById("alert");
   const m = nd && nd.safety && (nd.safety.mails||[]).find(x=>isRecent(x.published));

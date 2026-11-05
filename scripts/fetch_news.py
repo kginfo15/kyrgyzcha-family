@@ -57,6 +57,7 @@ def rss_items(url):
             "desc": clean(it.findtext("description")),
             "date": parse_date(it.findtext("pubDate")),
             "source_el": (it.findtext("source") or "").strip(),
+            "source_url": (it.find("source").get("url", "") if it.find("source") is not None else ""),
         }
 
 
@@ -225,8 +226,27 @@ def gnews(query, hl="ja", gl="JP", ceid="JP:ja"):
         title, src = it["title"], it["source_el"]
         if src and title.endswith(" - " + src):
             title = title[: -len(" - " + src)].strip()
-        yield {"title": title, "link": it["link"], "source": src,
+        yield {"title": title, "link": it["link"], "source": src, "source_url": it["source_url"],
                "published": it["date"].isoformat() if it["date"] else None}
+
+
+# Japanese outlets on non-.jp domains; other .jp news sites are accepted by domain
+JP_MEDIA_DOMAINS = (
+    "nikkei.com", "asahi.com", "sankei.com", "jiji.com", "nippon.com", "toyokeizai.net",
+    "newsweekjapan.jp", "forbesjapan.com", "president.jp", "bunshun.jp", "itmedia.co.jp",
+    "47news.jp", "kyodonews.jp", "nna.jp", "jetro.go.jp", "tbs.co.jp", "fnn.jp", "ntv.co.jp",
+    "tv-asahi.co.jp", "nhk.or.jp", "yomiuri.co.jp", "mainichi.jp", "tokyo-np.co.jp",
+    "sponichi.co.jp", "nikkansports.com", "hochi.news", "sanspo.com", "daily.co.jp",
+    "huffingtonpost.jp", "news.yahoo.co.jp", "gendai.media", "diamond.jp", "aera-style.com",
+)
+NON_MEDIA_JP = (".go.jp", ".ac.jp", ".lg.jp", ".ed.jp")
+
+
+def is_japanese_media(source_url):
+    host = urllib.parse.urlparse(source_url).hostname or ""
+    if any(host == d or host.endswith("." + d) for d in JP_MEDIA_DOMAINS):
+        return True
+    return host.endswith(".jp") and not host.endswith(NON_MEDIA_JP)
 
 
 def major_of(source):
@@ -253,6 +273,8 @@ def collect_japan():
             if key in seen or not any(k in it["title"] for k in JA_KEYWORDS):
                 continue
             if any(s.lower() in it["source"].lower() for s in SKIP_SOURCES):
+                continue
+            if not is_japanese_media(it["source_url"]):
                 continue
             seen.add(key)
             it["major"] = major_of(it["source"])
@@ -312,10 +334,58 @@ def collect_safety():
     return out
 
 
+# ---------------------------------------------------------------- exchange rates
+
+RATE_CODES = ("USD", "EUR", "JPY", "RUB", "CNY", "KZT")
+
+
+def collect_rates(prev):
+    """Official National Bank of the Kyrgyz Republic rates (som per 1 unit)."""
+    rates, date = {}, None
+    for url in ("https://www.nbkr.kg/XML/daily.xml", "https://www.nbkr.kg/XML/weekly.xml"):
+        try:
+            root = ET.fromstring(get(url))
+        except Exception as e:
+            log(f"rates {url}: failed: {e}")
+            continue
+        if url.endswith("daily.xml"):
+            date = root.get("Date")
+        for c in root.iter("Currency"):
+            code = c.get("ISOCode")
+            if code in RATE_CODES and code not in rates:
+                try:
+                    nominal = float((c.findtext("Nominal") or "1").replace(",", "."))
+                    value = float((c.findtext("Value") or "").replace(",", "."))
+                    rates[code] = round(value / nominal, 6)
+                except ValueError:
+                    pass
+    source = "nbkr"
+    missing = [c for c in RATE_CODES if c not in rates]
+    if missing:  # fill gaps (e.g. JPY) from a market feed
+        try:
+            j = json.loads(get("https://open.er-api.com/v6/latest/KGS"))
+            for c in missing:
+                if j.get("rates", {}).get(c):
+                    rates[c] = round(1 / j["rates"][c], 6)
+            log(f"rates: filled {missing} from open.er-api")
+        except Exception as e:
+            log(f"rates fallback failed: {e}")
+    if not rates:
+        return None
+    # remember the previous day's rates to show the change
+    prev_rates = (prev or {}).get("rates") or {}
+    if prev_rates.get("date") and prev_rates.get("date") != date:
+        before = prev_rates.get("values", {})
+    else:
+        before = prev_rates.get("before", {})
+    log(f"rates {date}: {rates}")
+    return {"date": date, "values": rates, "before": before, "source": source}
+
+
 # ---------------------------------------------------------------- main
 
 def main():
-    prev_tr = {}
+    prev_tr, prev = {}, None
     try:
         prev = json.loads(get(PREV_URL))
         for x in prev.get("local", []):
@@ -325,7 +395,8 @@ def main():
         log(f"no previous data: {e}")
 
     out = {"version": 2, "updated": NOW.isoformat()}
-    for key, fn in (("local", lambda: collect_local(prev_tr)), ("japan", collect_japan), ("safety", collect_safety)):
+    for key, fn in (("local", lambda: collect_local(prev_tr)), ("japan", collect_japan), ("safety", collect_safety),
+                    ("rates", lambda: collect_rates(prev))):
         try:
             out[key] = fn()
         except Exception as e:
