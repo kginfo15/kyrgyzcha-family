@@ -236,6 +236,11 @@ INFRA_KINDS = [
              r"|перевал\w*[^.!?]{0,30}закрыт|сход\w* (сел|лавин)|гололед"),
 ]
 INFRA_RES = [(k, re.compile(rx)) for k, rx in INFRA_KINDS]
+# the story must actually be about an interruption or closure
+OUTAGE_RE = re.compile(
+    r"отключ|не будет|остан\w* без|без (воды|света|электроэнерг|электричеств|газа|отоплен|тепла)|нет (воды|света|газа)"
+    r"|перекро|перекрыт|ограничен\w* (движени|подач)|прекращ|авари|перебо|порыв|закрыт|"
+    r"измен\w*[^.!?]{0,30}(схем|маршрут)|схем\w* движени|сход\w* (сел|лавин)|гололед")
 # city id (as in weather.html) -> Russian word starts
 CITY_WORDS = {
     "bishkek": ["бишкек", "столиц"], "osh": ["ош", "оше", "оша", "ошск"], "jalalabad": ["жалал-абад"],
@@ -247,6 +252,8 @@ CITY_RES = {cid: word_re(ws) for cid, ws in CITY_WORDS.items()}
 
 def infra_kinds(text):
     t = text.lower()
+    if not OUTAGE_RE.search(t):
+        return []
     return [k for k, rx in INFRA_RES if rx.search(t)]
 
 
