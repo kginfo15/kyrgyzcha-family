@@ -3,11 +3,12 @@
 Run by .github/workflows/update-news.yml; the output is published to the
 `news-data` branch.
 
-Three parts:
+Four parts:
   local  - Kyrgyz media (Russian) filtered to politics / economy / safety,
            with title and lead machine-translated into Japanese
   japan  - Japanese press coverage of Kyrgyzstan (major papers flagged)
   safety - Japan MOFA travel-safety level and embassy (consular) e-mails
+  infra  - water / power / gas / heating outages and road closures
 """
 import html
 import json
@@ -151,14 +152,42 @@ def categorize(text):
     return None
 
 
+_FEED_CACHE = {}
+
+
+def local_feed(source, url):
+    if url not in _FEED_CACHE:
+        try:
+            _FEED_CACHE[url] = list(rss_items(url))
+        except Exception as e:
+            log(f"local {source}: failed: {e}")
+            _FEED_CACHE[url] = None
+    return _FEED_CACHE[url]
+
+
+def translate_items(items, prev_tr):
+    for x in items:
+        cached = prev_tr.get(x["link"])
+        if cached:
+            x["title_ja"], x["lead_ja"] = cached
+            continue
+        try:
+            texts = [x["title"]] + ([x["lead"]] if x.get("lead") else [])
+            tr = translate_batch(texts)
+            x["title_ja"] = tr[0]
+            x["lead_ja"] = tr[1] if len(tr) > 1 else ""
+            time.sleep(0.4)
+        except Exception as e:
+            log(f"translate failed: {e}")
+            x["title_ja"], x["lead_ja"] = "", ""
+
+
 def collect_local(prev_tr):
     items, seen = [], set()
     cutoff = NOW - timedelta(hours=36)
     for source, url in LOCAL_FEEDS:
-        try:
-            got = list(rss_items(url))
-        except Exception as e:
-            log(f"local {source}: failed: {e}")
+        got = local_feed(source, url)
+        if got is None:
             continue
         n = 0
         for it in got:
@@ -189,21 +218,77 @@ def collect_local(prev_tr):
         if per[x["cat"]] <= 12:
             out.append(x)
 
-    for x in out:
-        cached = prev_tr.get(x["link"])
-        if cached:
-            x["title_ja"], x["lead_ja"] = cached
-            continue
-        try:
-            texts = [x["title"]] + ([x["lead"]] if x["lead"] else [])
-            tr = translate_batch(texts)
-            x["title_ja"] = tr[0]
-            x["lead_ja"] = tr[1] if len(tr) > 1 else ""
-            time.sleep(0.4)
-        except Exception as e:
-            log(f"translate failed: {e}")
-            x["title_ja"], x["lead_ja"] = "", ""
+    translate_items(out, prev_tr)
     return out
+
+
+# ---------------------------------------------------------------- infrastructure
+
+# (kind, regex) - checked against the lower-cased title + lead
+INFRA_KINDS = [
+    ("water", r"(отключ\w*|без|не будет|нет|подач\w*|перебо\w*|ограничен\w*|прекращ\w*)[^.!?]{0,50}(вод[аыуе]|водоснабж)"
+              r"|водоканал|водоснабжен|питьев\w* вод|холодн\w* вод|горяч\w* вод"),
+    ("power", r"(отключ\w*|без|не будет|нет|перебо\w*|прекращ\w*)[^.!?]{0,50}(электр|свет[аы]?\b)|электроснабжен|нэск|"
+              r"северэлектро|востокэлектро|ошэлектро|джалалабадэлектро|блэкаут"),
+    ("gas", r"(отключ\w*|без|не будет|нет|подач\w*|прекращ\w*)[^.!?]{0,40}газ|газоснабжен|газпром кыргызстан"),
+    ("heat", r"отоплен|теплоснабжен|теплосет|отопительн|тэц"),
+    ("road", r"перекро|перекрыт|ограничен\w* движени|схем\w* движени|закрыт\w*[^.!?]{0,30}(перевал|трасс|дорог|мост)"
+             r"|перевал\w*[^.!?]{0,30}закрыт|сход\w* (сел|лавин)|гололед"),
+]
+INFRA_RES = [(k, re.compile(rx)) for k, rx in INFRA_KINDS]
+# city id (as in weather.html) -> Russian word starts
+CITY_WORDS = {
+    "bishkek": ["бишкек", "столиц"], "osh": ["ош", "оше", "оша", "ошск"], "jalalabad": ["жалал-абад"],
+    "karakol": ["каракол"], "cholponata": ["чолпон-ат"], "balykchy": ["балыкч"], "naryn": ["нарын"],
+    "talas": ["талас"], "batken": ["баткен"], "tokmok": ["токмок"], "karabalta": ["кара-балт"],
+}
+CITY_RES = {cid: word_re(ws) for cid, ws in CITY_WORDS.items()}
+
+
+def infra_kinds(text):
+    t = text.lower()
+    return [k for k, rx in INFRA_RES if rx.search(t)]
+
+
+def collect_infra(prev_tr):
+    cutoff = NOW - timedelta(hours=48)
+    cands = []
+    for source, url in LOCAL_FEEDS:
+        for it in local_feed(source, url) or []:
+            cands.append((source, it))
+    gq = "(отключение OR отключат OR перекроют OR без) (воды OR электроэнергии OR электричества OR газа OR отопления OR движения) (Бишкек OR Ош OR Кыргызстан) when:2d"
+    try:
+        for it in rss_items("https://news.google.com/rss/search?" + urllib.parse.urlencode(
+                {"q": gq, "hl": "ru", "gl": "KG", "ceid": "KG:ru"})):
+            src = it["source_el"]
+            if src and it["title"].endswith(" - " + src):
+                it["title"] = it["title"][: -len(" - " + src)].strip()
+            it["desc"] = ""  # Google News descriptions only repeat the title
+            cands.append((src or "Google News", it))
+    except Exception as e:
+        log(f"infra google: failed: {e}")
+    items, seen = [], set()
+    for source, it in cands:
+        if not it["title"] or (it["date"] and it["date"] < cutoff):
+            continue
+        key = it["title"].lower()[:60]
+        if key in seen:
+            continue
+        desc = it["desc"][len("kloop.kg"):].strip() if it["desc"].startswith("kloop.kg") else it["desc"]
+        text = it["title"] + " " + desc
+        kinds = infra_kinds(text)
+        if not kinds or not KG_RE.search(text.lower()):
+            continue
+        seen.add(key)
+        cities = [cid for cid, rx in CITY_RES.items() if rx.search(text.lower())]
+        items.append({"title": it["title"], "lead": first_sentences(desc), "link": it["link"], "source": source,
+                      "published": it["date"].isoformat() if it["date"] else None,
+                      "kinds": kinds, "cities": cities})
+    items.sort(key=lambda x: x["published"] or "", reverse=True)
+    items = items[:15]
+    log(f"infra: {len(items)} items")
+    translate_items(items, prev_tr)
+    return items
 
 
 # ---------------------------------------------------------------- Japanese press
@@ -336,61 +421,13 @@ def collect_safety():
     return out
 
 
-# ---------------------------------------------------------------- exchange rates
-
-RATE_CODES = ("USD", "EUR", "JPY", "RUB", "CNY", "KZT")
-
-
-def collect_rates(prev):
-    """Official National Bank of the Kyrgyz Republic rates (som per 1 unit)."""
-    rates, date = {}, None
-    for url in ("https://www.nbkr.kg/XML/daily.xml", "https://www.nbkr.kg/XML/weekly.xml"):
-        try:
-            root = ET.fromstring(get(url))
-        except Exception as e:
-            log(f"rates {url}: failed: {e}")
-            continue
-        if url.endswith("daily.xml"):
-            date = root.get("Date")
-        for c in root.iter("Currency"):
-            code = c.get("ISOCode")
-            if code in RATE_CODES and code not in rates:
-                try:
-                    nominal = float((c.findtext("Nominal") or "1").replace(",", "."))
-                    value = float((c.findtext("Value") or "").replace(",", "."))
-                    rates[code] = round(value / nominal, 6)
-                except ValueError:
-                    pass
-    source = "nbkr"
-    missing = [c for c in RATE_CODES if c not in rates]
-    if missing:  # fill gaps (e.g. JPY) from a market feed
-        try:
-            j = json.loads(get("https://open.er-api.com/v6/latest/KGS"))
-            for c in missing:
-                if j.get("rates", {}).get(c):
-                    rates[c] = round(1 / j["rates"][c], 6)
-            log(f"rates: filled {missing} from open.er-api")
-        except Exception as e:
-            log(f"rates fallback failed: {e}")
-    if not rates:
-        return None
-    # remember the previous day's rates to show the change
-    prev_rates = (prev or {}).get("rates") or {}
-    if prev_rates.get("date") and prev_rates.get("date") != date:
-        before = prev_rates.get("values", {})
-    else:
-        before = prev_rates.get("before", {})
-    log(f"rates {date}: {rates}")
-    return {"date": date, "values": rates, "before": before, "source": source}
-
-
 # ---------------------------------------------------------------- main
 
 def main():
-    prev_tr, prev = {}, None
+    prev_tr = {}
     try:
         prev = json.loads(get(PREV_URL))
-        for x in prev.get("local", []):
+        for x in (prev.get("local") or []) + (prev.get("infra") or []):
             if x.get("title_ja"):
                 prev_tr[x["link"]] = (x["title_ja"], x.get("lead_ja", ""))
     except Exception as e:
@@ -398,7 +435,7 @@ def main():
 
     out = {"version": 2, "updated": NOW.isoformat()}
     for key, fn in (("local", lambda: collect_local(prev_tr)), ("japan", collect_japan), ("safety", collect_safety),
-                    ("rates", lambda: collect_rates(prev))):
+                    ("infra", lambda: collect_infra(prev_tr))):
         try:
             out[key] = fn()
         except Exception as e:

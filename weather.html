@@ -132,21 +132,24 @@ h2.sect .grow{flex:1}
 .nitem .ns{font-size:11px;color:var(--ink-3);margin-top:3px}
 .nmore{display:block;width:100%;font-size:13px;font-weight:700;color:var(--brand);padding:8px 0;border-top:1px solid var(--line)}
 .nempty{font-size:13px;color:var(--ink-3);padding:12px 0}
+.infra{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:16px;padding:10px 14px 4px;margin:6px 0 4px;box-shadow:var(--shadow)}
+.infra[hidden]{display:none}
+.infra h3{margin:0;font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px}
+.infra h3 small{font-weight:500;font-size:11px;color:var(--ink-3);margin-left:auto}
+.ikind{display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:800;padding:1px 6px;border-radius:6px;margin-right:4px;vertical-align:1px;white-space:nowrap}
+.k-water{background:color-mix(in srgb,var(--rain) 16%,transparent);color:var(--rain)}
+.k-power{background:color-mix(in srgb,var(--mid) 20%,transparent);color:var(--mid)}
+.k-gas{background:color-mix(in srgb,var(--orange) 18%,transparent);color:var(--orange)}
+.k-heat{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.k-road{background:var(--card-2);color:var(--ink-2)}
+.icity{font-size:11px;font-weight:700;color:var(--ink-2)}
+.icity.isfav{color:var(--star)}
+.infra .nitem .nt{font-size:13.5px}
+.infra .nempty{padding:6px 0 8px}
+.warns{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.warn{font-size:12px;font-weight:700;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);padding:3px 8px;border-radius:99px}
 .sectsub{font-size:11px;font-weight:500;letter-spacing:0;color:var(--ink-3)}
 .sectsub.stale{color:var(--bad);font-weight:700}
-.rates{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 14px 12px;box-shadow:var(--shadow)}
-.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px 8px}
-.rcell{padding:8px 0;border-bottom:1px solid var(--line)}
-.rcell .rk{font-size:11px;color:var(--ink-3);font-weight:700}
-.rcell .rv{font-size:17px;font-weight:700;margin-top:1px}
-.rcell .rv small{font-size:11px;font-weight:500;color:var(--ink-2)}
-.rcell .rd{font-size:11px;font-weight:700}
-.up{color:var(--bad)}.down{color:var(--good)}.flat{color:var(--ink-3)}
-.conv{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap;font-size:14px}
-.conv input,.conv select{font:inherit;font-size:16px;padding:7px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card-2);color:var(--ink)}
-.conv input{width:110px}
-.conv .res{font-weight:800;font-size:16px}
-.rnote{font-size:11px;color:var(--ink-3);margin-top:8px;line-height:1.5}
 .tabs.wide{display:flex;margin-bottom:8px}
 .tabs.wide button{flex:1;padding:8px 4px;font-size:13px}
 .cats{display:flex;gap:6px;padding:10px 0 4px;overflow-x:auto;scrollbar-width:none}
@@ -258,10 +261,8 @@ h2.sect .grow{flex:1}
   </header>
 
   <button class="alert" id="alert" hidden></button>
+  <section class="infra" id="infra" hidden></section>
   <section class="favs" id="favs"><div class="skel big"></div></section>
-
-  <h2 class="sect"><span class="grow">💱 今日の為替レート</span><span class="sectsub num" id="ratesDate"></span></h2>
-  <div class="rates" id="rates"><div class="nempty">読み込み中…</div></div>
 
   <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span></h2>
   <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地ニュース</button><button data-k="japan">日本の報道</button><button data-k="safety">安全情報</button></div>
@@ -286,7 +287,7 @@ h2.sect .grow{flex:1}
     予報の確かさ＝ヨーロッパ（ECMWF）・ドイツ（ICON）・アメリカ（GFS）の3つの気象モデルの予報がどれだけ一致しているか。一致しているほど当たりやすい予報です。<br>
     標高を都市ごとに指定して計算しています（山の多いキルギスでは標高のずれが誤差の大きな原因になるため）。<br>
     大気汚染＝米国AQI（0〜50 良い／51〜100 普通／101〜150 敏感な人は注意／151〜200 悪い／201〜 非常に悪い）。<br>
-    データ：天気・大気 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>（CC BY 4.0）／ニュース 現地各紙・Google ニュース・外務省 海外安全ホームページ（約2時間ごとに自動更新、現地記事は機械翻訳）／時刻はビシュケク時間
+    データ：天気・大気 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>（CC BY 4.0）／ニュース・ライフライン情報 現地各紙・Google ニュース・外務省 海外安全ホームページ（30分ごとに自動更新、現地記事は機械翻訳）／時刻はビシュケク時間
   </div>
 </div>
 
@@ -351,7 +352,7 @@ const idx = id => CITIES.findIndex(c=>c.id===id);
 const isFav = id => favs.includes(id);
 function toggleFav(id){
   favs = isFav(id) ? favs.filter(f=>f!==id) : [...favs, id];
-  lsSet(FAV_KEY, favs); render();
+  lsSet(FAV_KEY, favs); render(); renderInfra(newsData());
 }
 
 /* ---------- air quality helpers ---------- */
@@ -378,7 +379,7 @@ async function refresh(){
   const main = base + qs({
     latitude:lats, longitude:lons, elevation:els, timezone:TZ, forecast_days:7, wind_speed_unit:"ms",
     current:"temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation",
-    hourly:"temperature_2m,weather_code,precipitation_probability,is_day",
+    hourly:"temperature_2m,weather_code,precipitation_probability,is_day,precipitation,snowfall,wind_gusts_10m",
     daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,sunrise,sunset,uv_index_max,wind_speed_10m_max",
   });
   const multi = base + qs({
@@ -462,6 +463,29 @@ function hoursHTML(d){
     </div>`).join("");
 }
 
+// Automatic heads-ups for the next 24 hours, from the hourly forecast
+function weatherWarnings(d){
+  const nowHour = d.cur.time.slice(0,13);
+  let st = d.hr.time.findIndex(t=>t.slice(0,13)>=nowHour); if(st<0) st = 0;
+  const end = Math.min(st+24, d.hr.time.length);
+  const pick = k => (d.hr[k]||[]).slice(st,end).filter(v=>v!=null);
+  const sum = a => a.reduce((x,y)=>x+y,0);
+  const gust = Math.max(0,...pick("wind_gusts_10m")), snow = sum(pick("snowfall")), rain = sum(pick("precipitation"));
+  const temps = pick("temperature_2m"), tmin = Math.min(...temps), tmax = Math.max(...temps);
+  const codes = pick("weather_code");
+  const aqi = d.aqHr && d.aqHr.us_aqi ? Math.max(0,...d.aqHr.us_aqi.filter(v=>v!=null).slice(0,30)) : 0;
+  const w = [];
+  if(codes.some(c=>c>=95)) w.push("⛈️ 雷雨のおそれ");
+  if(snow>=5) w.push(`❄️ 大雪 ${r(snow)}cm`); else if(snow>=1) w.push(`🌨️ 積雪 ${r(snow)}cm`);
+  else if(rain>=15) w.push(`☔ 大雨 ${r(rain)}mm`);
+  if(gust>=15) w.push(`💨 強風 突風${r(gust)}m/s`);
+  if(tmin<=-15) w.push(`🥶 厳しい冷え込み ${r(tmin)}°`);
+  else if(tmin<=-1 && (snow>0 || rain>=0.5)) w.push("🧊 路面凍結に注意");
+  if(tmax>=35) w.push(`🥵 猛暑 ${r(tmax)}°`);
+  if(aqi>150) w.push(`😷 大気汚染 最大${r(aqi)}`);
+  return w;
+}
+
 // Agreement between models for a given city/day → "hi" | "mid" | "lo" | null
 function confidence(i, d){
   const mm = state && state.multi && state.multi[i];
@@ -511,6 +535,7 @@ function renderFavs(){
         <div class="fdesc">${wName(cur.weather_code)}<span>体感 ${r(cur.apparent_temperature)}°・↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°</span>
           <span>☔ ${dl.precipitation_probability_max[0]??"–"}%・風 ${r(cur.wind_speed_10m)}m/s</span></div>
       </div>
+      ${(()=>{ const ws = weatherWarnings(d); return ws.length ? `<div class="warns">${ws.map(x=>`<span class="warn">${x}</span>`).join("")}</div>` : ""; })()}
       ${lv?`<div class="air num"><i class="aqdot" style="background:${AQ_COLOR[lv]}"></i>
         <div>大気汚染 <b>${r(aqNow.us_aqi)}・${AQ_LABEL[lv]}</b>　PM2.5 ${r(aqNow.pm2_5)}µg/m³<br><span style="opacity:.85">${AQ_ADVICE[lv]}</span></div></div>`:""}
       <div class="hours">${hoursHTML(d)}</div>
@@ -561,7 +586,7 @@ const fmtDate = iso => new Date(iso).toLocaleDateString("ja-JP",{timeZone:TZ,mon
 function renderNews(){
   document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", b.dataset.k===prefs.newsTab));
   const el = document.getElementById("news"), nd = newsData();
-  renderAlert(nd); renderRates();
+  renderAlert(nd); renderInfra(nd);
   const nu = document.getElementById("newsUpdated");
   if(news && news.updated){
     const age = Date.now()-Date.parse(news.updated);
@@ -617,47 +642,32 @@ function renderNews(){
     + more(mails.length)
     + `<div class="nnote">出典：外務省 海外安全ホームページ（オープンデータ）。<a href="${esc(sf.infoUrl||"https://www.anzen.mofa.go.jp/")}" target="_blank" rel="noopener">お知らせ一覧</a>／<a href="https://www.ezairyu.mofa.go.jp/tabireg/" target="_blank" rel="noopener">たびレジ登録</a>でメールも受け取れます。</div>`;
 }
+const KIND = {water:"🚰 断水", power:"⚡ 停電", gas:"🔥 ガス", heat:"♨️ 暖房", road:"🚧 交通"};
+let infraShowAll = false;
+function renderInfra(nd){
+  const el = document.getElementById("infra");
+  const items = nd && nd.infra;
+  if(!items){ el.hidden = true; return; }
+  el.hidden = false;
+  const favSet = new Set(favs);
+  // favourite cities first, then newest
+  const sorted = [...items].sort((a,b)=>{
+    const fa = (a.cities||[]).some(c=>favSet.has(c)), fb = (b.cities||[]).some(c=>favSet.has(c));
+    return fa!==fb ? (fa?-1:1) : (b.published||"").localeCompare(a.published||"");
+  });
+  const shown = infraShowAll ? sorted : sorted.slice(0,3);
+  const cityName = id => { const c = CITIES.find(x=>x.id===id); return c ? c.ja : id; };
+  el.innerHTML = `<h3>🚧 ライフライン・交通情報<small>直近48時間</small></h3>`
+    + (shown.length ? shown.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
+        <div class="nt">${(n.kinds||[]).map(k=>`<span class="ikind k-${k}">${KIND[k]||k}</span>`).join("")}${esc(n.title_ja||n.title)}</div>
+        ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}
+        <div class="ns">${(n.cities||[]).map(c=>`<span class="icity ${favSet.has(c)?"isfav":""}">${favSet.has(c)?"★":""}${cityName(c)}</span>`).join("・")}${(n.cities||[]).length?"　":""}${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}</div></a>`).join("")
+      : `<div class="nempty">断水・停電・ガス・暖房・通行止めの情報は今のところありません。</div>`)
+    + (sorted.length>3 ? `<button class="nmore" id="imore">${infraShowAll?"閉じる":"すべて見る（"+sorted.length+"件）"}</button>` : "");
+}
 const isRecent = iso => iso && Date.now()-Date.parse(iso) < 72*3600*1000;
 
-/* ---------- exchange rates ---------- */
-const CUR = [
-  {c:"USD", ja:"米ドル", unit:1, flag:"🇺🇸"}, {c:"EUR", ja:"ユーロ", unit:1, flag:"🇪🇺"}, {c:"JPY", ja:"日本円", unit:100, flag:"🇯🇵"},
-  {c:"RUB", ja:"ルーブル", unit:1, flag:"🇷🇺"}, {c:"CNY", ja:"人民元", unit:1, flag:"🇨🇳"}, {c:"KZT", ja:"テンゲ", unit:100, flag:"🇰🇿"},
-];
-const fmtNum = (v, d=2) => v==null ? "–" : v.toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d});
-function renderRates(){
-  const el = document.getElementById("rates");
-  const rt = news && news.rates;
-  if(!rt || !rt.values){ el.innerHTML = `<div class="nempty">為替レートを読み込めませんでした。</div>`; document.getElementById("ratesDate").textContent=""; return; }
-  document.getElementById("ratesDate").textContent = rt.date ? rt.date.replace(/^(\d+)\.(\d+)\.(\d+)$/,"$3/$2/$1")+" 公式" : "";
-  const v = rt.values, b = rt.before||{};
-  const cells = CUR.filter(x=>v[x.c]).map(x=>{
-    const now = v[x.c]*x.unit, prev = b[x.c]!=null ? b[x.c]*x.unit : null;
-    const diff = prev!=null ? now-prev : null, dec = now>=10 ? 2 : 3;
-    const cls = diff==null||Math.abs(diff)<now*0.0005 ? "flat" : diff>0 ? "up" : "down";
-    return `<div class="rcell num"><div class="rk">${x.flag} ${x.unit>1?x.unit+" ":"1 "}${x.ja}</div>
-      <div class="rv">${fmtNum(now,dec)} <small>ソム</small></div>
-      <div class="rd ${cls}">${diff==null?"&nbsp;":(cls==="flat"?"→ 前日と同じ":(diff>0?"▲ ":"▼ ")+fmtNum(Math.abs(diff),dec))}</div></div>`;
-  }).join("");
-  const opts = [{c:"KGS",ja:"ソム"},...CUR].filter(x=>x.c==="KGS"||v[x.c]).map(x=>`<option value="${x.c}" ${x.c===(prefs.convCur||"JPY")?"selected":""}>${x.ja}</option>`).join("");
-  el.innerHTML = `<div class="rgrid">${cells}</div>
-    <div class="conv num"><input id="convAmt" type="number" inputmode="decimal" min="0" value="${prefs.convAmt||10000}" aria-label="金額">
-      <select id="convCur" aria-label="通貨">${opts}</select><span>＝</span><span class="res" id="convRes"></span></div>
-    <div class="rnote">キルギス国立銀行の公式レート（1単位あたりのソム）。▲はソム安（その通貨が値上がり）、▼はソム高。両替所のレートとは少し違います。</div>`;
-  updateConv();
-}
-function updateConv(){
-  const v = news && news.rates && news.rates.values; if(!v) return;
-  const amt = parseFloat(document.getElementById("convAmt").value)||0, cur = document.getElementById("convCur").value;
-  prefs.convAmt = amt; prefs.convCur = cur; lsSet(PREF_KEY, prefs);
-  const out = document.getElementById("convRes");
-  if(cur==="KGS"){
-    out.textContent = `${fmtNum(amt/v.JPY,0)} 円 / ${fmtNum(amt/v.USD,2)} ドル`;
-  } else {
-    out.textContent = `${fmtNum(amt*v[cur],cur==="JPY"||cur==="KZT"?0:2)} ソム`;
-  }
-}
-document.addEventListener("input", e=>{ if(e.target.id==="convAmt"||e.target.id==="convCur") updateConv(); });
+
 function renderAlert(nd){
   const a = document.getElementById("alert");
   const m = nd && nd.safety && (nd.safety.mails||[]).find(x=>isRecent(x.published));
@@ -746,6 +756,7 @@ function renderSheet(i){
         <div>体感 ${r(cur.apparent_temperature)}°</div>
         <div>↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°</div></div>
     </div>
+    ${(()=>{ const ws = weatherWarnings(d); return ws.length ? `<div class="sec"><h3>これから24時間の注意</h3><div class="warns" style="margin:0">${ws.map(x=>`<span class="chip" style="font-size:12px;padding:4px 9px">${x}</span>`).join("")}</div></div>` : ""; })()}
     <div class="sec"><h3>24時間（下の色つき数字は大気汚染 AQI）</h3><div class="hours">${hoursHTML(d)}</div></div>
     <div class="sec"><h3>7日間</h3>${days}
       <div class="legend"><span>予報の確かさ：</span><span><i class="dot c-hi"></i>高い</span><span><i class="dot c-mid"></i>ふつう</span><span><i class="dot c-lo"></i>低い</span></div></div>
@@ -784,6 +795,7 @@ document.addEventListener("click", e=>{
   if(ct){ prefs.newsCat = ct.dataset.cat; newsShowAll = false; lsSet(PREF_KEY, prefs); renderNews(); return; }
   if(e.target.closest("#alert")){ prefs.newsTab = "safety"; newsShowAll = false; renderNews();
     document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
+  if(e.target.closest("#imore")){ infraShowAll = !infraShowAll; renderInfra(newsData()); return; }
   if(e.target.closest("#nmore")){ newsShowAll = !newsShowAll; renderNews(); return; }
 });
 document.addEventListener("keydown", e=>{
