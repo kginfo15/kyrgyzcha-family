@@ -1,36 +1,67 @@
 name: Update Kyrgyz news
 
-# Fetches headlines and exchange rates and publishes news.json on the
-# `news-data` branch (a single force-pushed commit, so main's history stays
-# clean). GitHub skips scheduled runs when it is busy, so this asks for one
-# every 30 minutes to keep the data reasonably fresh.
+# Fetches news, lifeline (outage) info and MOFA safety info, and publishes
+# news.json on the `news-data` branch (a single force-pushed commit, so main's
+# history stays clean).
+#
+# GitHub often skips scheduled runs, so each run keeps going for about 5.5
+# hours, refreshing every 30 minutes, and then starts the next run itself.
+# The schedule is only a backup that restarts the chain if it ever breaks.
 on:
   schedule:
-    - cron: "17,47 * * * *"
+    - cron: "17 */3 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: update-news
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch headlines
-        run: python3 scripts/fetch_news.py > "$RUNNER_TEMP/news.json"
-      - name: Publish to news-data branch
+      - name: Refresh every 30 minutes
         env:
           TOKEN: ${{ github.token }}
         run: |
-          mkdir "$RUNNER_TEMP/out" && cd "$RUNNER_TEMP/out"
-          git init -q
-          git checkout -q --orphan news-data
-          cp "$RUNNER_TEMP/news.json" news.json
-          git add news.json
-          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update news"
-          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" news-data
+          start=$(date +%s)
+          echo "START=$start" >> "$GITHUB_ENV"
+          end=$(( start + 5*3600 + 30*60 ))
+          publish() {
+            rm -rf "$RUNNER_TEMP/out" && mkdir "$RUNNER_TEMP/out" && cd "$RUNNER_TEMP/out"
+            git init -q
+            git checkout -q --orphan news-data
+            cp "$RUNNER_TEMP/news.json" news.json
+            git add news.json
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update news"
+            git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" news-data
+            cd "$GITHUB_WORKSPACE"
+          }
+          while :; do
+            # pick up script changes pushed to main since this run started
+            git fetch -q --depth 1 origin main && git checkout -q FETCH_HEAD -- scripts || true
+            if python3 scripts/fetch_news.py > "$RUNNER_TEMP/news.json"; then
+              publish || echo "publish failed"
+            else
+              echo "fetch failed"
+            fi
+            [ $(( $(date +%s) + 1800 )) -lt "$end" ] || break
+            sleep 1800
+          done
+      - name: Start the next run
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # only chain after a long run, so an early failure can't loop quickly
+          if [ $(( $(date +%s) - ${START:-$(date +%s)} )) -gt 3000 ]; then
+            gh workflow run update-news.yml --ref main -R "$GITHUB_REPOSITORY"
+          else
+            echo "run ended early; leaving the restart to the schedule"
+          fi
