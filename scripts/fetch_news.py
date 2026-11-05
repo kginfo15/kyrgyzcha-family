@@ -276,6 +276,8 @@ def collect_japan():
                 continue
             if not is_japanese_media(it["source_url"]):
                 continue
+            if not it["published"] or it["published"] < (NOW - timedelta(days=60)).isoformat():
+                continue  # Google ignores when: for some site queries
             seen.add(key)
             it["major"] = major_of(it["source"])
             items.append(it)
