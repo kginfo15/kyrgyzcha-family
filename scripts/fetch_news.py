@@ -9,6 +9,7 @@ Four parts:
   japan  - Japanese press coverage of Kyrgyzstan (major papers flagged)
   safety - Japan MOFA travel-safety level and embassy (consular) e-mails
   infra  - water / power / gas / heating outages and road closures
+  mystreet - outage notices that mention the family's own streets in Bishkek
 """
 import html
 import json
@@ -292,10 +293,100 @@ def collect_infra(prev_tr):
                       "published": it["date"].isoformat() if it["date"] else None,
                       "kinds": kinds, "cities": cities})
     items.sort(key=lambda x: x["published"] or "", reverse=True)
-    items = items[:15]
+    items = items[:25]
     log(f"infra: {len(items)} items")
     translate_items(items, prev_tr)
     return items
+
+
+# ---------------------------------------------------------------- my streets
+
+# Streets to watch in Bishkek: (Japanese label, Russian word start; Kyrgyz forms share it)
+WATCH_STREETS = [
+    ("ラザコバ通り", "раззаков"),
+    ("オロズベコバ通り", "орозбеков"),
+    ("パンフィロバ通り", r"панфилов(?!ск)"),
+    ("キエフスカヤ通り", "киевск"),
+]
+STREET_RES = [(ja, re.compile(r"(?<![а-яё])" + rx)) for ja, rx in WATCH_STREETS]
+TIME_RE = re.compile(r"(с\s*)?\d{1,2}[:.]\d{2}\s*(до|-|–|—)\s*\d{1,2}[:.]\d{2}")
+RU_MONTHS = ["январ", "феврал", "март", "апрел", "ма", "июн", "июл", "август", "сентябр", "октябр", "ноябр", "декабр"]
+DATE_RE = re.compile(r"(\d{1,2})\s+(январ|феврал|март|апрел|ма[яй]|июн|июл|август|сентябр|октябр|ноябр|декабр)")
+
+
+def article_lines(url):
+    """Fetch an article and return its visible text split into lines."""
+    raw = get(url, timeout=25).decode("utf-8", "replace")
+    raw = re.sub(r"(?is)<(script|style|noscript|header|footer|nav)[^>]*>.*?</\1>", " ", raw)
+    raw = re.sub(r"(?i)<br\s*/?>|</(p|li|div|h\d|tr)>", "\n", raw)
+    text = html.unescape(re.sub(r"<[^>]+>", " ", raw))
+    return [re.sub(r"[ \t\xa0]+", " ", ln).strip() for ln in text.split("\n") if ln.strip()]
+
+
+def outage_date(text):
+    m = DATE_RE.search(text.lower())
+    if not m:
+        return None
+    day = int(m.group(1))
+    mon = next(i for i, w in enumerate(RU_MONTHS) if m.group(2).startswith(w)) + 1
+    year = NOW.year + (1 if mon < NOW.month - 6 else 0)
+    try:
+        return datetime(year, mon, day).date().isoformat()
+    except ValueError:
+        return None
+
+
+def collect_mystreet(infra, prev_tr):
+    """Open the Bishkek outage articles and keep the lines naming our streets."""
+    out, checked, failed = [], 0, 0
+    for x in infra:
+        if "bishkek" not in x["cities"] or "news.google.com" in x["link"]:
+            continue
+        if checked >= 20:
+            break
+        checked += 1
+        try:
+            lines = article_lines(x["link"])
+        except Exception as e:
+            failed += 1
+            log(f"mystreet {x['link'][:60]}: {e}")
+            continue
+        hits, last_time = [], None
+        for ln in lines:
+            low = ln.lower()
+            tm = TIME_RE.search(low)
+            if tm:
+                last_time = ln[tm.start():tm.end()]
+            if len(ln) > 1200:  # skip page-wide junk
+                continue
+            streets = [ja for ja, rx in STREET_RES if rx.search(low)]
+            if not streets:
+                continue
+            # keep the part of the line around the first street mention
+            first = min(rx.search(low).start() for ja, rx in STREET_RES if rx.search(low))
+            snippet = ln[max(0, first - 120): first + 220].strip()
+            when = None if tm else last_time
+            hits.append({"streets": streets, "text": snippet, "time": when})
+            if len(hits) >= 4:
+                break
+        if not hits:
+            continue
+        for h in hits:
+            key = "hit:" + h["text"]
+            if key in prev_tr:
+                h["text_ja"] = prev_tr[key][0]
+                continue
+            try:
+                h["text_ja"] = translate_batch([((h["time"] + " ") if h["time"] else "") + h["text"]])[0]
+                time.sleep(0.3)
+            except Exception as e:
+                log(f"translate failed: {e}")
+                h["text_ja"] = ""
+        out.append({"kinds": x["kinds"], "title": x["title"], "title_ja": x.get("title_ja", ""),
+                    "link": x["link"], "source": x["source"], "published": x["published"],
+                    "date": outage_date(x["title"] + " " + x.get("lead", "")), "hits": hits})
+    log(f"mystreet: checked {checked} articles ({failed} failed), {len(out)} with our streets")
+    return {"streets": [ja for ja, _ in WATCH_STREETS], "checked": checked, "failed": failed, "items": out}
 
 
 # ---------------------------------------------------------------- Japanese press
@@ -437,6 +528,10 @@ def main():
         for x in (prev.get("local") or []) + (prev.get("infra") or []):
             if x.get("title_ja"):
                 prev_tr[x["link"]] = (x["title_ja"], x.get("lead_ja", ""))
+        for x in (prev.get("mystreet") or {}).get("items", []):
+            for h in x.get("hits", []):
+                if h.get("text_ja"):
+                    prev_tr["hit:" + h["text"]] = (h["text_ja"], "")
     except Exception as e:
         log(f"no previous data: {e}")
 
@@ -448,6 +543,11 @@ def main():
         except Exception as e:
             log(f"{key}: failed: {e}")
             out[key] = None
+    try:
+        out["mystreet"] = collect_mystreet(out.get("infra") or [], prev_tr)
+    except Exception as e:
+        log(f"mystreet: failed: {e}")
+        out["mystreet"] = None
     if not out["local"] and not out["japan"]:
         sys.exit("no news fetched")
     # older app versions read feeds.ja / feeds.local

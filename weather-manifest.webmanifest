@@ -4,8 +4,8 @@
   "start_url": "weather.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#EEF3F8",
-  "theme_color": "#0E6BA8",
+  "background_color": "#07080A",
+  "theme_color": "#07080A",
   "lang": "ja",
   "icons": [
     {"src": "weather-icon-180.png", "sizes": "180x180", "type": "image/png"},
