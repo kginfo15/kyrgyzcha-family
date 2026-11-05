@@ -309,6 +309,7 @@ WATCH_STREETS = [
     ("キエフスカヤ通り", "киевск"),
 ]
 STREET_RES = [(ja, re.compile(r"(?<![а-яё])" + rx)) for ja, rx in WATCH_STREETS]
+VILLAGE_RE = re.compile(r"(?<![а-яё])(сел[оа]|с\.|поселк|пос\.|айыл|ала-арч|арча-бешик|кок-жар|ак-жол|чуй\w* област)")
 TIME_RE = re.compile(r"(с\s*)?\d{1,2}[:.]\d{2}\s*(до|-|–|—)\s*\d{1,2}[:.]\d{2}")
 RU_MONTHS = ["январ", "феврал", "март", "апрел", "ма", "июн", "июл", "август", "сентябр", "октябр", "ноябр", "декабр"]
 DATE_RE = re.compile(r"(\d{1,2})\s+(январ|феврал|март|апрел|ма[яй]|июн|июл|август|сентябр|октябр|ноябр|декабр)")
@@ -351,22 +352,35 @@ def collect_mystreet(infra, prev_tr):
             failed += 1
             log(f"mystreet {x['link'][:60]}: {e}")
             continue
-        hits, last_time = [], None
-        for ln in lines:
+        hits, last_time, last_time_at = [], None, -99
+        for n, ln in enumerate(lines):
             low = ln.lower()
             tm = TIME_RE.search(low)
             if tm:
-                last_time = ln[tm.start():tm.end()]
+                last_time, last_time_at = ln[tm.start():tm.end()], n
             if len(ln) > 1200:  # skip page-wide junk
                 continue
-            streets = [ja for ja, rx in STREET_RES if rx.search(low)]
+            # outage notices list many streets; headlines of other articles on the page don't
+            if low.count(",") < 2 and not tm:
+                continue
+            streets = []
+            first = None
+            for ja, rx in STREET_RES:
+                for m in rx.finditer(low):
+                    before = low[max(0, m.start() - 100):m.start()]
+                    before = re.split(r"[;\n]", before)[-1]
+                    if VILLAGE_RE.search(before):
+                        continue  # same street name in a village outside the city
+                    streets.append(ja)
+                    first = m.start() if first is None else min(first, m.start())
+                    break
             if not streets:
                 continue
-            # keep the part of the line around the first street mention
-            first = min(rx.search(low).start() for ja, rx in STREET_RES if rx.search(low))
             snippet = ln[max(0, first - 120): first + 220].strip()
-            when = None if tm else last_time
-            hits.append({"streets": streets, "text": snippet, "time": when})
+            when = ln[tm.start():tm.end()] if tm else (last_time if n - last_time_at <= 6 else None)
+            snippet = TIME_RE.sub(" ", snippet).strip(" -–—:,")
+            hits.append({"streets": streets, "text": snippet,
+                         "time": re.sub(r"^с\s*", "", when).replace(" до ", "–").replace("-", "–") if when else None})
             if len(hits) >= 4:
                 break
         if not hits:
@@ -377,7 +391,7 @@ def collect_mystreet(infra, prev_tr):
                 h["text_ja"] = prev_tr[key][0]
                 continue
             try:
-                h["text_ja"] = translate_batch([((h["time"] + " ") if h["time"] else "") + h["text"]])[0]
+                h["text_ja"] = translate_batch([h["text"]])[0]
                 time.sleep(0.3)
             except Exception as e:
                 log(f"translate failed: {e}")
