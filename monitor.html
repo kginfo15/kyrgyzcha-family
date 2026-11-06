@@ -893,6 +893,28 @@ function coverageHTML(){
     <button class="linkbtn" data-cover style="margin-top:6px">閉じる ×</button></div>`;
 }
 let SHOW_COVER = false;
+// the government's own spending beside donor commitments (World Bank estimates; education and health so far)
+const GOV_KEY = {education:"education", health:"health", "":"total"};
+function govHTML(sid){
+  const key = GOV_KEY[sid], g = INDEX && INDEX.gov && INDEX.gov[key];
+  if(!g || !Object.keys(g).length) return "";
+  const ys = Object.keys(g).map(Number).filter(y=>y>=2010).sort((a,b)=>a-b);
+  if(!ys.length) return "";
+  const don = {}; for(const p of sectorProjects(sid)) if(hasAmt(p)){ const y = startYear(p); if(y) don[y] = (don[y]||0) + valAmt(p, sid); }
+  const W = 720, H = 170, top = 14, base = 140, bw = W/ys.length;
+  const max = Math.max(1, ...ys.map(y=>Math.max(g[y]||0, don[y]||0)));
+  let svg = `<line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)"/><text x="0" y="${top-4}">${money(max)}</text>`;
+  ys.forEach((y,i)=>{
+    const x = i*bw, w = (bw-6)/2, hg = (g[y]||0)/max*(base-top), hd = (don[y]||0)/max*(base-top);
+    svg += `<g><title>${y}年\n政府支出 ${money(g[y])||"—"}\nドナー新規 ${money(don[y]||0)||"0"}</title><rect x="${x+2}" y="${base-hg}" width="${w}" height="${hg}" fill="var(--gov)"/><rect x="${x+2+w+1}" y="${base-hd}" width="${w}" height="${hd}" fill="var(--coop)"/>${(y%2===0||i===ys.length-1)?`<text x="${x+bw/2}" y="${base+14}" text-anchor="middle">${String(y).slice(2)}</text>`:""}</g>`;
+  });
+  const last = ys[ys.length-1], ratio = g[last] ? (don[last]||0)/g[last]*100 : 0;
+  const name = {education:"教育", health:"保健", total:"政府全体"}[key];
+  return `<div class="panel chart ych"><div class="phk">Government spending</div><h3 class="ph">政府の${name}支出とドナーの新規支援</h3>
+    <div class="ctrls"><span class="note"><span style="color:var(--gov)">■</span> 政府の${name}支出（年間） <span style="color:var(--coop)">■</span> ドナーの新規支援（その年に決まった額）</span></div>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="政府支出とドナー支援">${svg}</svg>
+    <p class="note" style="margin:6px 0 0">${last}年：政府支出 <b>${money(g[last])}</b>・ドナー新規 <b>${money(don[last]||0)||"0"}</b>（政府支出の約${ratio.toFixed(0)}%）。政府支出は世界銀行の推計（対GDP比×GDP）で、最新年はまだ出ていないことがあります。政府支出は「その年に使った額」、ドナーは「その年に決まった複数年分の額」なので、比率は目安です。</p></div>`;
+}
 // headline figures: running now, everything so far (each project once), this year's new, unknown amounts
 function overviewKPIs(sid){
   const pj = sectorProjects(sid), act = pj.filter(p=>p.st==="active"), yr = pj.filter(p=>startYear(p)===YNOW);
@@ -950,7 +972,7 @@ function viewHome(){
       :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと「マイ分野」としてこの上に並びます。</p>`}
     ${secHead("Jump","分野へ移動")}${jump}
     ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary>${secHead("Overview","協力の全体像",'<span class="note">全分野・全援助機関の推移と割合 <span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></span>')}</summary>
-      <div class="cols">${yearHTML("")}${shareHTML("")}</div></details>`:""}
+      <div class="cols">${yearHTML("")}${shareHTML("")}</div>${govHTML("")?`<div style="margin-top:12px">${govHTML("")}</div>`:""}</details>`:""}
     ${secHead("Sectors","分野別の協力",'<span class="note">実施中案件の支援額と件数・上位3機関の割合・☆でマイ分野に追加</span>')}
     <div class="matrix">${tiles}</div>
     <p class="note" style="margin:8px 0 0">分野別の支援額は、複数分野にまたがる案件を分野数で按分。下段は直近30日の政府の動きと協力ニュースの件数。</p>
@@ -988,7 +1010,7 @@ function viewSector(){
     <div class="shead2"><div><div class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)">SECTOR ${s.no} / 20</div>
       <h2>${esc(s.ja)} ${favStar(s.id)}</h2></div>${jica}</div>
     ${ready?overviewKPIs(s.id):""}
-    ${ready?`${secHead("Overview","この分野の協力の全体像")}<div class="cols">${yearHTML(s.id)}${shareHTML(s.id)}</div>`:'<div class="panel chart"><div class="empty">案件データを読み込み中…</div></div>'}
+    ${ready?`${secHead("Overview","この分野の協力の全体像")}<div class="cols">${yearHTML(s.id)}${shareHTML(s.id)}</div>${govHTML(s.id)?`<div style="margin-top:12px">${govHTML(s.id)}</div>`:""}`:'<div class="panel chart"><div class="empty">案件データを読み込み中…</div></div>'}
     <div class="subtabs">${[["pa","実施中・計画中の案件",ready?cnt.pa:"…"],["pc","過去の案件",ready?cnt.pc:"…"]].map(([k,l,n])=>`<button data-sub="${k}" class="${S.sub===k?"on":""}">${l}<span>${n}</span></button>`).join("")}</div>
     <div class="filters">${donorSelect(S.d)} ${kindSelect(base)} ${uaBtn()} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>${projectListHTML(list)}
   </div>${sideNews(all, "この分野のニュース")}
