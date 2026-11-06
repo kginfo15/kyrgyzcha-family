@@ -353,6 +353,7 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
       </form>
       <div class="status">
         <i class="live" id="live"></i><span class="ut" id="upd">—</span>
+        <button class="tbtn" id="cur" type="button" title="金額の通貨を切り替え（ドル／円／ソム）">$</button>
         <button class="tbtn" id="jica" type="button" aria-pressed="true" title="JICA・日本の協力を表示">JP</button>
         <button class="tbtn" id="theme" type="button" title="表示テーマ">◐</button>
       </div>
@@ -392,6 +393,8 @@ const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&
 const $ = s => document.querySelector(s);
 function lsGet(k,d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v==null?d:v; }catch(e){ return d; } }
 function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+const CURS = ["USD","JPY","KGS"];
+let CUR = CURS.includes(lsGet("km-cur","USD")) ? lsGet("km-cur","USD") : "USD";
 function toast(msg){ const t = document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
 
 /* ---------- theme / JICA switch ---------- */
@@ -405,6 +408,11 @@ function toggleFav(id){ FAV.has(id) ? FAV.delete(id) : FAV.add(id); lsSet("km-fa
 const favStar = id => `<button class="fav ${FAV.has(id)?"on":""}" data-fav="${id}" title="${FAV.has(id)?"マイ分野から外す":"マイ分野に追加"}" aria-label="マイ分野">${FAV.has(id)?"★":"☆"}</button>`;
 function syncJP(){ $("#jica").setAttribute("aria-pressed", String(SHOW_JP)); $("#jica").title = SHOW_JP ? "JICA・日本の協力を表示中（押すと隠す）" : "JICA・日本の協力を隠しています（押すと表示）"; }
 syncJP();
+const CUR_LABEL = {USD:"$", JPY:"¥", KGS:"сом"};
+function syncCur(){ $("#cur").textContent = CUR_LABEL[CUR]; $("#cur").title = `金額の通貨：${{USD:"米ドル",JPY:"日本円",KGS:"キルギス・ソム"}[CUR]}（押すと切り替え）`; }
+syncCur();
+$("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("km-cur", CUR); syncCur();
+  toast(CUR==="USD" ? "米ドルで表示" : `${CUR==="JPY"?"日本円":"ソム"}で表示（1ドル=${fx(CUR)}${CUR==="JPY"?"円":"ソム"}${INDEX&&INDEX.fx&&INDEX.fx.date?`・${INDEX.fx.date}のレート`:"・目安のレート"}）`); render(); };
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
@@ -507,8 +515,19 @@ const fmtDay = ts => dtfDay.format(new Date(ts));
 const fmtDT = s => { try{ return dtfT.format(new Date(s)); }catch(e){ return ""; } };
 const fmtHM = ts => dtfHM.format(new Date(ts));
 const ymd = s => s ? s.slice(0,7).replace("-","/") : "";
-function money(v){
+// amounts are held in US dollars; the viewer picks dollars, yen or som (latest rate from the collector)
+const FX_DEFAULT = {JPY:150, KGS:87.4};
+const fx = c => (INDEX && INDEX.fx && INDEX.fx[c]) || FX_DEFAULT[c];
+function jpUnits(v, unit){   // 1.2兆 / 350億 / 12億 / 4,500万
+  if(v>=1e12) return (v/1e12).toFixed(v>=1e13?1:2)+"兆"+unit;
+  if(v>=1e8) return (v>=1e10?Math.round(v/1e8).toLocaleString():(v/1e8).toFixed(1))+"億"+unit;
+  if(v>=1e4) return Math.round(v/1e4).toLocaleString()+"万"+unit;
+  return Math.round(v).toLocaleString()+unit;
+}
+function money(v, cur=CUR){
   if(v==null||!v) return "";
+  if(cur==="JPY") return jpUnits(v*fx("JPY"), "円");
+  if(cur==="KGS") return jpUnits(v*fx("KGS"), "ソム");
   if(v>=1e9) return "$"+(v/1e9).toFixed(2)+"B";
   if(v>=1e6) return "$"+(v/1e6).toFixed(v>=1e8?0:1)+"M";
   if(v>=1e3) return "$"+Math.round(v/1e3)+"K";
@@ -623,12 +642,12 @@ function projectHTML(p){
     ${isOpen(p)?tl:""}
   </article>`;
 }
-function yen(v){ return v>=1e8 ? "¥"+(v/1e8).toFixed(v>=1e10?0:1)+"億" : v>=1e4 ? "¥"+Math.round(v/1e4).toLocaleString()+"万" : "¥"+Math.round(v); }
+function yen(v){ return jpUnits(v, "円"); }
 // amounts: a project whose public data gives no amount is counted as "金額不明", never as zero
 const hasAmt = p => (p.amt||0) > 0;
 const unk = list => list.filter(p=>!hasAmt(p)).length;
 const unkNote = (n, all) => n ? `金額不明 ${n}件${all!=null?` / ${all}件`:""}` : "";
-const amtHTML = p => !hasAmt(p) ? `<span class="unk" title="公開情報に金額の記載がありません">金額不明</span>` : p.amtx ? `<span class="amt" title="金額の項目がなく、案件説明に書かれた額（ユーロはドル換算）">${money(p.amt)}</span><span class="note">（説明文の額）</span>` : p.jpy ? `<span class="amt">${yen(p.jpy)}</span><span class="note">（約${money(p.amt)}）</span>` : p.amt ? `<span class="amt">${money(p.amt)}</span>` : "";
+const amtHTML = p => !hasAmt(p) ? `<span class="unk" title="公開情報に金額の記載がありません">金額不明</span>` : p.amtx ? `<span class="amt" title="金額の項目がなく、案件説明に書かれた額（ユーロはドル換算）">${money(p.amt)}</span><span class="note">（説明文の額）</span>` : p.jpy ? (CUR==="JPY" ? `<span class="amt" title="JICAの公表額">${yen(p.jpy)}</span>` : `<span class="amt">${money(p.amt)}</span><span class="note">（${yen(p.jpy)}）</span>`) : p.amt ? `<span class="amt">${money(p.amt)}</span>` : "";
 // one set of cooperation forms for every donor (the collector sets p.sch; older records are mapped here)
 const SCHEMES = ["融資（事業）","無償資金（事業・機材）","技術協力","財政・政策支援","緊急・復興支援","その他・不明"];
 function sch(p){
@@ -825,7 +844,7 @@ function yearData(sid){
 function yearHTML(sid){
   const {map, series, years, nodate, amtMode} = yearData(sid);
   const max = Math.max(1,...years.map(o=>o.tot)), W = 720, H = 190, top = 16, base = 160, bw = W/years.length;
-  const fmt = v => amtMode ? (money(v)||"$0") : Math.round(v)+"件";
+  const fmt = v => amtMode ? (money(v)||"0") : Math.round(v)+"件";
   const col = k => k==="_other" ? "var(--dother)" : map[k];
   const nm = k => k==="_other" ? "その他" : donorName(k);
   const sel = CH.ysel || null;
@@ -856,7 +875,7 @@ function yearDetail(sid, y){
   const known = list.filter(hasAmt).sort((a,b)=>valAmt(b,sid)-valAmt(a,sid)), unknown = list.filter(p=>!hasAmt(p));
   const row = p => `<li><span class="yt"><a href="${esc(p.u)}" target="_blank" rel="noopener">${esc(p.tj||p.t)}</a><span class="ym"><span class="don ${JP_IDS.has(p.donor)?"jp":""}">${esc(p.donor&&p.donor!=="ngo"?donorName(p.donor):p.org||"")}</span> · ${esc(sch(p))}${p.a?` · ${esc(ymd(p.a))}–${esc(ymd(p.e)||"")}`:""}</span></span><span class="ya">${hasAmt(p)?money(valAmt(p,sid)):'<span class="unk">金額不明</span>'}</span></li>`;
   const total = known.reduce((a,p)=>a+valAmt(p,sid),0);
-  return `<div class="ydet"><div class="ydh"><b>${esc(rangeLabel(r))}案件</b><span>${list.length}件・${money(total)||"$0"}（金額判明 ${known.length}件）</span>${unknown.length?`<span class="unk">金額不明 ${unknown.length}件</span>`:""}<span class="sp"></span><button class="linkbtn" data-ysel="0">閉じる ×</button></div>
+  return `<div class="ydet"><div class="ydh"><b>${esc(rangeLabel(r))}案件</b><span>${list.length}件・${money(total)||"0"}（金額判明 ${known.length}件）</span>${unknown.length?`<span class="unk">金額不明 ${unknown.length}件</span>`:""}<span class="sp"></span><button class="linkbtn" data-ysel="0">閉じる ×</button></div>
     <ol class="ylist">${known.slice(0,25).map(row).join("")}</ol>${known.length>25?`<p class="note">ほか ${known.length-25}件（金額判明）</p>`:""}
     ${unknown.length?`<div class="ydh" style="margin-top:8px"><b>金額不明の案件</b><span>${unknown.length}件 — 公開情報に金額の記載がないもの</span></div><ol class="ylist">${unknown.slice(0,40).map(row).join("")}</ol>${unknown.length>40?`<p class="note">ほか ${unknown.length-40}件</p>`:""}`:""}</div>`;
 }
@@ -993,7 +1012,7 @@ function viewProjects(){
       <section>${projectListHTML(list)}</section>
       <section><div class="count"><span>関連する協力ニュース（1年）</span><span class="sp"></span><button class="linkbtn" data-gofeed="coop">すべて見る →</button></div>${listHTML(news,false)}</section>
     </div>
-    ${src?`<p class="foot">案件データ更新 ${esc(fmtDT(src.updated))}${srcs?"・"+esc(srcs):""}。出典: World Bank Projects API、IATI（d-portal.org 経由）、JICA ODA見える化サイト。金額は各機関の報告値（米ドル。JICAは円を1ドル=140円で概算換算）。分野はタイトル・説明・分野コードから自動判定。</p>`:""}`;
+    ${src?`<p class="foot">案件データ更新 ${esc(fmtDT(src.updated))}${srcs?"・"+esc(srcs):""}。出典: World Bank Projects API、IATI（d-portal.org 経由）、JICA ODA見える化サイト。金額は各機関の報告値（米ドルにそろえて表示。JICAの円建て額は1ドル=140円でドル換算し、円表示では公表額をそのまま表示）。右上のボタンで円・ソム表示に切り替えられます。分野はタイトル・説明・分野コードから自動判定。</p>`:""}`;
 }
 function viewDonors(){
   setTitle("援助機関");
@@ -1055,6 +1074,7 @@ function footer(){
   const bf = Math.min(INDEX.backfill_cursor||0, INDEX.backfill_months||36);
   return `<p class="foot">収集元: キルギスの主要メディア（24.kg、Kaktus.media、AKIpress、Kloop、Кабар、Азаттык ほか）、政府・議会サイト、Google ニュース検索（ロシア語・英語・日本語）、国際機関の発表、World Bank Projects API、IATI。
     見出しは${INDEX.ai?"AIによる日本語見出し、または":""}機械翻訳で、タイトルを押すと記事全体を Google 翻訳で開きます。${INDEX.ai?`分野・政府の動き・協力の判定は AI（${esc(INDEX.ai.model)}）による自動判定です（判定済み ${(INDEX.ai.items_done||0).toLocaleString()}件・関係の薄い記事 ${(INDEX.ai.hidden||0).toLocaleString()}件を非表示。未判定の記事はキーワードで仮分類）。`:"分野・機関・政府の判定はキーワードによる自動判定です。"}
+    金額は各機関の報告額を米ドルにそろえ、円・ソム表示は${INDEX.fx&&INDEX.fx.date?`${esc(INDEX.fx.date)}の`:"目安の"}レート（1ドル=${fx("JPY")}円・${fx("KGS")}ソム）で換算しています（過去の案件も同じレート）。
     蓄積 ${(INDEX.total||0).toLocaleString()} 件${bf?`・過去 ${bf} か月分をさかのぼって収集済み`:""}${INDEX.untranslated?`・翻訳待ち ${INDEX.untranslated} 件`:""}${EMBED?"":"・3時間ごとに自動更新"}。</p>`;
 }
 function render(){

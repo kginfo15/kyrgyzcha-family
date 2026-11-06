@@ -1281,6 +1281,19 @@ def probe_budget_sources(out_dir):
             log(f"budget probe {name}: {e}")
 
 
+def fx_rates():
+    """US dollar in yen and som, for the page's currency switch."""
+    try:
+        d = json.loads(get("https://open.er-api.com/v6/latest/USD", timeout=30))
+        r = d.get("rates") or {}
+        if r.get("JPY") and r.get("KGS"):
+            return {"JPY": round(r["JPY"], 2), "KGS": round(r["KGS"], 2),
+                    "date": datetime.fromtimestamp(d.get("time_last_update_unix", time.time()), timezone.utc).strftime("%Y-%m-%d")}
+    except Exception as e:
+        log(f"fx: {e}")
+    return None
+
+
 def main():
     out_dir = sys.argv[1] if len(sys.argv) > 1 else "."
     os.makedirs(out_dir, exist_ok=True)
@@ -1337,7 +1350,7 @@ def main():
         "stats": stats(store, projects),
         "sectors": [{"id": sid, "ja": ja} for sid, ja, *_ in SECTORS],
         "donors": [{"id": did, "ja": ja, "g": grp} for did, ja, grp, _ in DONORS],
-        "backfill_cursor": cursor, "backfill_months": BACKFILL_MONTHS,
+        "backfill_cursor": cursor, "backfill_months": BACKFILL_MONTHS, "fx": fx_rates(),
         "untranslated": sum(1 for x in store.values() if "tj" not in x),
         "ai": {"model": ai_classify.MODEL, "version": ai_classify.AI_VERSION,
                "items_done": sum(1 for x in store.values() if x.get("ai") == ai_classify.AI_VERSION),
