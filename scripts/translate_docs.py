@@ -14,6 +14,9 @@ import re
 import subprocess
 import sys
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fetch_news as fn  # noqa: E402  (translate_batch)
@@ -44,6 +47,23 @@ TRANSLATE = {
 HEADING = re.compile(r"^(?:[IVX]+\.\s+\S|\d{1,2}(?:\.\d{1,2}){0,2}\.?\s+[А-ЯЁA-Z]|Глава\s+\d|Раздел\s+\d|Задача\s+\d|"
                      r"Компонент\s+\d|Подпрограмма|Приложение|Chapter\s+\d|CHAPTER|[А-ЯЁ\s,\-–]{8,}$)")
 MAX_CHARS = 260000
+TIME_BUDGET = int(os.environ.get("TRANSLATE_BUDGET", 50 * 60))
+START = time.time()
+PREV = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/strategy-docs/"
+
+
+def gtx(texts, sl):
+    """Google's free translation endpoint, with the text in a POST body (a long GET URL is refused with 400)."""
+    body = urllib.parse.urlencode({"q": "\n".join(t.replace("\n", " ") for t in texts)}).encode()
+    url = "https://translate.googleapis.com/translate_a/single?" + urllib.parse.urlencode(
+        {"client": "gtx", "sl": sl, "tl": "ja", "dt": "t"})
+    req = urllib.request.Request(url, data=body, headers={**fn.UA, "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"})
+    with urllib.request.urlopen(req, timeout=40) as res:
+        data = json.loads(res.read())
+    parts = [p.strip() for p in "".join(seg[0] for seg in data[0] if seg and seg[0]).split("\n")]
+    if len(parts) != len(texts):
+        raise ValueError("paragraph count changed")
+    return parts
 
 
 def text_of(path):
@@ -96,26 +116,36 @@ def paragraphs(text):
 def translate(paras, sl):
     res, batch, size = [], [], 0
 
+    def one(chunk):
+        """Translate a chunk; on refusal split it, and keep the original text when nothing works."""
+        for attempt in range(2):
+            try:
+                return gtx(chunk, sl)
+            except urllib.error.HTTPError as e:
+                if e.code == 400 or len(chunk) > 1:
+                    break  # too long or the paragraph count changed: split below
+                time.sleep(4)
+            except Exception as e:
+                print(f"  translate: {e}", file=sys.stderr)
+                time.sleep(4 * (attempt + 1))
+        if len(chunk) > 1:
+            mid = len(chunk) // 2
+            return one(chunk[:mid]) + one(chunk[mid:])
+        return chunk
+
     def flush():
         nonlocal batch, size
-        if not batch:
-            return
-        for attempt in range(3):
-            try:
-                res.extend(fn.translate_batch(batch, sl=sl, tl="ja"))
-                break
-            except Exception as e:  # rate limit or network: wait and retry, then keep the original
-                print(f"  translate retry {attempt}: {e}", file=sys.stderr)
-                time.sleep(5 * (attempt + 1))
-        else:
-            res.extend(batch)
+        if batch:
+            res.extend(one(batch))
+            time.sleep(0.5)
         batch, size = [], 0
-        time.sleep(0.6)
 
     for p in paras:
-        if size + len(p) > 3800:
+        if time.time() - START > TIME_BUDGET:
+            break
+        if size + len(p) > 2500:
             flush()
-        batch.append(p[:3800]); size += len(p)
+        batch.append(p[:2500]); size += len(p)
     flush()
     return res
 
@@ -129,14 +159,34 @@ def main():
         parts = line.rstrip("\n").split("\t")
         if len(parts) >= 2:
             src[parts[0]] = parts[1]
+    os.makedirs(os.path.join(d, "txt"), exist_ok=True)
+    try:  # translations from earlier runs: keep them, translate only what is new
+        prev = json.loads(urllib.request.urlopen(PREV + "ja/index.json", timeout=30).read())
+    except Exception:
+        prev = {}
     for name, (title, sl) in TRANSLATE.items():
         files = [f for f in os.listdir(d) if f.startswith(name + ".")]
         if not files:
             continue
         text = text_of(os.path.join(d, files[0]))[:MAX_CHARS]
         paras = paragraphs(text)
-        if sum(len(p) for p in paras) < 1500:
+        open(os.path.join(d, "txt", name + ".txt"), "w", encoding="utf-8").write("\n\n".join(paras))
+        chars = sum(len(p) for p in paras)
+        if chars < 1500:
             print(f"{name}: too little text, skipped", file=sys.stderr)
+            continue
+        old = prev.get(name)
+        if old and old.get("chars") == chars and old.get("complete"):
+            try:
+                md = urllib.request.urlopen(PREV + "ja/" + urllib.parse.quote(name) + ".md", timeout=60).read()
+                open(os.path.join(d, "ja", name + ".md"), "wb").write(md)
+                index[name] = old
+                print(f"{name}: kept earlier translation", file=sys.stderr)
+                continue
+            except Exception:
+                pass
+        if time.time() - START > TIME_BUDGET:
+            print(f"{name}: out of time, next run", file=sys.stderr)
             continue
         t0 = time.time()
         ja = translate(paras, sl)
@@ -145,9 +195,11 @@ def main():
         for o, j in zip(paras, ja):
             md.append(("## " + j) if HEADING.match(o) and len(o) < 160 else j)
             md.append("")
+        if len(ja) < len(paras):
+            md.append(f"> ここまで（全{len(paras)}段落のうち{len(ja)}段落）。続きは次回の更新で訳します。")
         open(os.path.join(d, "ja", name + ".md"), "w", encoding="utf-8").write("\n".join(md))
         index[name] = {"title": title, "source": src.get(name, ""), "paragraphs": len(paras),
-                       "chars": sum(len(p) for p in paras)}
+                       "chars": chars, "complete": len(ja) >= len(paras)}
         print(f"{name}: {len(paras)} paragraphs in {int(time.time() - t0)}s", file=sys.stderr)
     json.dump(index, open(os.path.join(d, "ja", "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
