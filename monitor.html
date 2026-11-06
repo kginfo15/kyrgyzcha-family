@@ -862,14 +862,15 @@ function yearDetail(sid, y){
 }
 // how far back each donor's public data goes: older cooperation is mostly missing from it
 function coverageHTML(){
-  const first = {}, cnt = {}, amt = {};
-  for(const p of projects()){ const y = startYear(p); if(!y) continue; first[p.donor] = Math.min(first[p.donor]||9999, y); cnt[p.donor]=(cnt[p.donor]||0)+1; amt[p.donor]=(amt[p.donor]||0)+(p.amt||0); }
-  const band = {}; for(const p of projects()){ const y = startYear(p); if(!y) continue; const b = y<2000?"〜1999":y<2010?"2000–09":y<2020?"2010–19":"2020–"; band[b]=(band[b]||0)+(p.amt||0); }
+  const first = {}, cnt = {}, recent = {};
+  for(const p of projects()){ const y = startYear(p); if(!y) continue; first[p.donor] = Math.min(first[p.donor]||9999, y); cnt[p.donor]=(cnt[p.donor]||0)+1; if(y>=2011) recent[p.donor]=(recent[p.donor]||0)+1; }
+  const BANDS = ["〜1999","2000–09","2010–19","2020–"], band = {};
+  for(const p of projects()){ const y = startYear(p); if(!y) continue; const b = BANDS[y<2000?0:y<2010?1:y<2020?2:3]; band[b]=(band[b]||0)+(p.amt||0); }
   const rows = Object.entries(first).filter(([d])=>DONORS[d]).sort((a,b)=>a[1]-b[1]);
   return `<div class="panel chart cover"><div class="phk">Data coverage</div><h3 class="ph">公開データでさかのぼれる範囲</h3>
     <p class="note">援助データの国際的な公開（IATI）が始まったのは2011年ごろで、多くの機関はそれ以降の案件しか公開していません。そのため「これまでの総額」は実際の協力の歴史より小さく、最近の案件に偏ります（世界銀行は1992年から全件あり）。</p>
-    <div class="cband">${Object.entries(band).sort().map(([b,v])=>`<span><b>${money(v)}</b>${b}開始</span>`).join("")}</div>
-    <ul class="lg" style="margin-top:8px">${rows.map(([d,y])=>`<li data-donor="${d}"><i style="background:var(--dother)"></i><span class="nm">${esc(donorName(d))}</span><span class="pc">${y}年〜</span><span class="vv">${cnt[d]}件</span></li>`).join("")}</ul>
+    <div class="cband">${BANDS.map(b=>`<span><b>${money(band[b]||0)}</b>${b}に開始</span>`).join("")}</div>
+    <ul class="lg" style="margin-top:8px">${rows.map(([d,y])=>`<li data-donor="${d}"><i style="background:var(--dother)"></i><span class="nm">${esc(donorName(d))}</span><span class="pc">最古 ${y}年</span><span class="vv" style="min-width:150px">${cnt[d]}件・うち2011年以降 ${Math.round((recent[d]||0)/cnt[d]*100)}%</span></li>`).join("")}</ul>
     <button class="linkbtn" data-cover style="margin-top:6px">閉じる ×</button></div>`;
 }
 let SHOW_COVER = false;
