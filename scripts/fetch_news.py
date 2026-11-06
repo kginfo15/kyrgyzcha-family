@@ -604,6 +604,107 @@ def collect_safety():
 
 # ---------------------------------------------------------------- main
 
+# ---------------------------------------------------------------- weekly digest
+
+ARCHIVE_DAYS = 8
+STOP_STEMS = {"кыргыз", "киргиз", "бишкек", "казахс", "астана", "алматы", "ноября", "декабр", "октябр",
+              "январ", "феврал", "сентяб", "сообщи", "заявил", "рассказ", "которы", "будет", "стране",
+              "страны", "президе", "области", "районе", "города", "городе", "жители", "году", "сегодня"}
+
+
+def stems(title):
+    """Rough word stems of a Russian headline, for grouping stories about the same event."""
+    out = set()
+    for w in re.findall(r"[а-яёәіңғүұқөһa-z0-9]+", title.lower()):
+        if len(w) >= 5:
+            st = w[:6]
+            if st not in STOP_STEMS and w[:5] not in STOP_STEMS:
+                out.add(st)
+    return out
+
+
+def update_archive(archive, out):
+    """Keep about a week of items so the app can show a weekly digest."""
+    items = {x["link"]: x for x in (archive or {}).get("items", [])}
+    now = NOW.isoformat()
+    for x in out.get("local") or []:
+        if not x.get("title_ja"):
+            continue
+        it = items.setdefault(x["link"], {"first_seen": now})
+        it.update({"kind": "news", "title": x["title"], "title_ja": x["title_ja"], "lead_ja": x.get("lead_ja", ""),
+                   "link": x["link"], "source": x["source"], "published": x["published"] or it["first_seen"],
+                   "cat": x["cat"]})
+    for x in out.get("infra") or []:
+        if not x.get("title_ja"):
+            continue
+        it = items.setdefault(x["link"], {"first_seen": now})
+        it.update({"kind": "infra", "title": x["title"], "title_ja": x["title_ja"], "link": x["link"],
+                   "source": x["source"], "published": x["published"] or it["first_seen"],
+                   "kinds": x["kinds"], "cities": x["cities"]})
+    cutoff = (NOW - timedelta(days=ARCHIVE_DAYS)).isoformat()
+    kept = [x for x in items.values() if (x.get("published") or "") >= cutoff]
+    kept.sort(key=lambda x: x.get("published") or "", reverse=True)
+    since = (archive or {}).get("since") or now
+    return {"country": COUNTRY, "since": since, "updated": now, "items": kept}
+
+
+def build_weekly(archive, out):
+    """Group the last 7 days of headlines into stories and rank them by how widely they were covered."""
+    week_ago = (NOW - timedelta(days=7)).isoformat()
+    news = [x for x in archive["items"] if x.get("kind") == "news" and (x.get("published") or "") >= week_ago]
+    news.sort(key=lambda x: x.get("published") or "")
+    clusters = []
+    for x in news:
+        st = stems(x["title"])
+        best, best_score = None, 0
+        for c in clusters:
+            common = len(st & c["stems"])
+            score = common / max(1, min(len(st), len(c["stems"])))
+            if common >= 2 and score >= 0.34 and score > best_score:
+                best, best_score = c, score
+        if best:
+            best["items"].append(x)
+            best["stems"] |= st
+        else:
+            clusters.append({"stems": set(st), "items": [x]})
+
+    def story(c):
+        items = c["items"]
+        rep_item = max(items, key=lambda i: (len(i.get("lead_ja") or ""), i.get("published") or ""))
+        cats = [i["cat"] for i in items]
+        return {"title_ja": rep_item["title_ja"], "lead_ja": rep_item.get("lead_ja", ""), "link": rep_item["link"],
+                "source": rep_item["source"], "cat": max(set(cats), key=cats.count),
+                "count": len(items), "sources": len({i["source"] for i in items}),
+                "first": min(i.get("published") or "" for i in items),
+                "last": max(i.get("published") or "" for i in items)}
+
+    stories = [story(c) for c in clusters]
+    stories.sort(key=lambda s: (s["sources"] * 2 + s["count"], s["last"]), reverse=True)
+    by_cat = {}
+    for s_ in stories:
+        lst = by_cat.setdefault(s_["cat"], [])
+        if len(lst) < 4 and s_ not in stories[:6]:
+            lst.append(s_)
+    infra = [x for x in archive["items"] if x.get("kind") == "infra" and (x.get("published") or "") >= week_ago]
+    counts, by_city = {}, {}
+    for x in infra:
+        for k in x.get("kinds") or []:
+            counts[k] = counts.get(k, 0) + 1
+            for c in x.get("cities") or []:
+                by_city.setdefault(c, {})
+                by_city[c][k] = by_city[c].get(k, 0) + 1
+    safety = out.get("safety") or {}
+    mails = [m for m in safety.get("mails") or [] if (m.get("published") or "") >= week_ago]
+    japan = [j for j in out.get("japan") or [] if (j.get("published") or "") >= week_ago][:6]
+    return {"from": max(week_ago, archive["since"]), "to": NOW.isoformat(), "since": archive["since"],
+            "articles": len(news), "top": stories[:6], "by_cat": by_cat,
+            "infra": {"total": len(infra), "counts": counts, "by_city": by_city,
+                      "recent": [{"title_ja": x["title_ja"], "link": x["link"], "source": x["source"],
+                                  "published": x["published"], "kinds": x.get("kinds"), "cities": x.get("cities")}
+                                 for x in infra[:8]]},
+            "mofa": mails, "japan": japan}
+
+
 # ---------------------------------------------------------------- countries
 
 KZ_STREETS = {
@@ -717,6 +818,22 @@ def main():
         "local": [{"title": x.get("title_ja") or x["title"], "link": x["link"], "source": x["source"],
                    "published": x["published"]} for x in (out["local"] or [])],
     }
+    # weekly digest: keep a week of items in a separate archive file
+    archive_out = sys.argv[2] if len(sys.argv) > 2 else None
+    try:
+        try:
+            archive = json.loads(get(PREV_URL.replace(".json", "-archive.json").replace("news-kz-archive", "news-archive-kz")))
+        except Exception as e:
+            log(f"no previous archive: {e}")
+            archive = None
+        archive = update_archive(archive, out)
+        out["weekly"] = build_weekly(archive, out)
+        log(f"weekly: {out['weekly']['articles']} articles, {len(out['weekly']['top'])} top stories, archive {len(archive['items'])}")
+        if archive_out:
+            with open(archive_out, "w") as fh:
+                json.dump(archive, fh, ensure_ascii=False)
+    except Exception as e:
+        log(f"weekly: failed: {e}")
     json.dump(out, sys.stdout, ensure_ascii=False, indent=1)
 
 

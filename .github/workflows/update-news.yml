@@ -50,12 +50,20 @@ jobs:
             ok=0
             # one file per country; keep the last good file if a country fails this round
             for c in kg kz; do
-              f="news.json"; [ "$c" = kg ] || f="news-$c.json"
-              if python3 scripts/fetch_news.py "$c" > "$RUNNER_TEMP/new.json"; then
+              f="news.json"; a="news-archive.json"
+              [ "$c" = kg ] || { f="news-$c.json"; a="news-archive-$c.json"; }
+              rm -f "$RUNNER_TEMP/new-archive.json"
+              if python3 scripts/fetch_news.py "$c" "$RUNNER_TEMP/new-archive.json" > "$RUNNER_TEMP/new.json"; then
                 mv "$RUNNER_TEMP/new.json" "$RUNNER_TEMP/$f"; ok=1
               else
                 echo "fetch $c failed"
                 curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$f" -o "$RUNNER_TEMP/$f" || rm -f "$RUNNER_TEMP/$f"
+              fi
+              # the week of stored items behind the weekly digest
+              if [ -s "$RUNNER_TEMP/new-archive.json" ]; then
+                mv "$RUNNER_TEMP/new-archive.json" "$RUNNER_TEMP/$a"
+              else
+                curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$a" -o "$RUNNER_TEMP/$a" || rm -f "$RUNNER_TEMP/$a"
               fi
             done
             [ "$ok" = 1 ] && { publish || echo "publish failed"; }
