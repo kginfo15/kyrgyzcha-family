@@ -63,7 +63,7 @@ try{ var k = localStorage.getItem("kg-skin"); if(k && k!=="midnight") document.d
   --rain:#1E78D2; --cold:#2F7FD0; --warm:#E2621B; --good:#11936A; --mid:#A87A00; --orange:#D2601A; --bad:#D3352A; --vbad:#8E3FB0; --star:#E8A400;
   --on-ink:#fff; --fav-ink:#0E1726; --fav-sub:#4A5568; --glass:rgba(14,23,38,.04); --hair:rgba(14,23,38,.08);
   --warn-bg:rgba(232,164,0,.12); --warn-fg:#7A5600; --banner-fg:#A3261D; --pol-fg:#4650D0; --evt-fg:#B8327F;
-  color-scheme:light; --accent-text:#fff; --led-bg:#0E1726; --led-ink:#EAF2FF;
+  color-scheme:light; --accent-text:#fff; --led-bg:#EAF0F7; --led-ink:#0E1726; --led-glow:0; --led-inset:inset 0 1px 2px rgba(14,23,38,.08);
 }
 /* LINEN: warm off-white with terracotta */
 :root[data-skin="linen"]{
@@ -75,7 +75,7 @@ try{ var k = localStorage.getItem("kg-skin"); if(k && k!=="midnight") document.d
   --rain:#3471B0; --cold:#3E7DB8; --warm:#C8571F; --good:#2E8A5E; --mid:#9A6B00; --orange:#C15A1C; --bad:#C2392D; --vbad:#7E3F9E; --star:#D99400;
   --on-ink:#FFFDF8; --fav-ink:#29241F; --fav-sub:#675D52; --glass:rgba(41,36,31,.04); --hair:rgba(41,36,31,.08);
   --warn-bg:rgba(217,148,0,.12); --warn-fg:#6E4B00; --banner-fg:#9C2A1F; --pol-fg:#4A54B8; --evt-fg:#A8336F;
-  color-scheme:light; --accent-text:#fff; --led-bg:#0E1726; --led-ink:#EAF2FF;
+  color-scheme:light; --accent-text:#fff; --led-bg:#EFE7DA; --led-ink:#29241F; --led-glow:0; --led-inset:inset 0 1px 2px rgba(41,36,31,.08);
 }
 /* TERMINAL: digital green-on-black, monospace numbers */
 :root[data-skin="terminal"]{
@@ -194,7 +194,7 @@ h2.sect .grow{flex:1}
 .news{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 14px 6px;box-shadow:var(--shadow)}
 .tabs{display:inline-flex;background:var(--card-2);border-radius:10px;padding:2px}
 .tabs button{font-size:12px;font-weight:700;padding:5px 10px;border-radius:8px;color:var(--ink-3)}
-.tabs button.on{background:var(--raised);color:var(--ink);box-shadow:var(--shadow)}
+.tabs button.on{background:var(--raised);color:var(--ink);box-shadow:var(--shadow),inset 0 -2px 0 var(--accent)}
 .nitem{display:block;text-decoration:none;padding:10px 0;border-top:1px solid var(--line)}
 .nitem:first-child{border-top:0}
 .nitem .nmain{display:block;text-decoration:none;color:inherit}
@@ -204,19 +204,26 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .nitem .ns{font-size:11px;color:var(--ink-3);margin-top:3px}
 .nmore{display:block;width:100%;font-size:13px;font-weight:700;color:var(--brand);padding:8px 0;border-top:1px solid var(--line)}
 .nempty{font-size:13px;color:var(--ink-3);padding:12px 0}
-.haz{margin:10px 0 4px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);padding:10px 14px 4px;box-shadow:var(--shadow)}
+.haz{margin:8px 0 4px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
 .haz[hidden]{display:none}
-.haz .mh{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink-3)}
-.haz .mh b{color:var(--bad)}
-.haz .mh .grow{flex:1}
-.haz .hz{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:9px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
-.haz .hz:first-of-type{border-top:0}
-.haz .hz .hi{font-size:20px;line-height:1.2}
+.hzbar{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:9px 12px;font-size:12.5px;min-height:38px}
+.hzbar .sv{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--good)}
+.hzbar .sv.s2{background:var(--mid)}.hzbar .sv.s3{background:var(--orange)}.hzbar .sv.s4,.hzbar .sv.s5{background:var(--bad);box-shadow:0 0 8px var(--bad)}
+.hzbar .lb{flex:0 0 auto;font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--ink-3)}
+.hzbar .tx{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.hzbar.ok .tx{color:var(--ink-3);font-weight:500}
+.hzbar .ct{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--ink-3)}
+.hzbar .cv{flex:0 0 auto;color:var(--ink-3);transition:transform .2s}
+.hzbar[aria-expanded="true"] .cv{transform:rotate(90deg)}
+.hzlist{padding:0 12px 4px;border-top:1px solid var(--line)}
+.haz .hz{display:grid;grid-template-columns:20px 1fr;gap:2px 8px;padding:8px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.haz .hz:first-child{border-top:0}
+.haz .hz .hi{font-size:15px;line-height:1.3}
 .haz a.nmain{text-decoration:none;color:inherit}
-.haz .hz .ht{font-size:13.5px;font-weight:700;line-height:1.45}
-.haz .hz .hs{font-size:11px;color:var(--ink-3);margin-top:2px}
-.haz .mag{display:inline-block;font-family:var(--num-font);font-weight:700;font-size:12px;padding:0 6px;border-radius:5px;margin-right:6px;color:#fff;background:var(--orange)}
-.haz .ok{font-size:13px;color:var(--ink-2);padding:6px 0 10px}
+.haz .hz .ht{font-size:12.5px;font-weight:600;line-height:1.45}
+.haz .hz .hs{font-size:10.5px;color:var(--ink-3);margin-top:1px}
+.haz .mag{display:inline-block;font-family:var(--num-font);font-weight:700;font-size:11px;padding:0 5px;border-radius:4px;margin-right:5px;color:#fff;background:var(--orange)}
+.haz .ikind{font-size:10px;padding:0 5px}
 .myst{margin:10px 0 4px;border-radius:var(--radius);background:linear-gradient(180deg,var(--card),var(--bg));border:1px solid var(--line);overflow:hidden}
 .myst .mh{display:flex;align-items:center;gap:8px;padding:10px 14px 0;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink-3)}
 .myst .mh b{color:var(--accent);letter-spacing:.12em}
@@ -228,13 +235,13 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 @keyframes blink{50%{opacity:.35}}
 .tview{flex:1;overflow:hidden;white-space:nowrap;padding:7px 0;border-radius:8px;border:1px solid var(--line);
   background:repeating-linear-gradient(0deg,rgba(var(--accent-rgb),.05) 0 1px,transparent 1px 3px),var(--led-bg,#030405);
-  box-shadow:inset 0 0 14px rgba(0,0,0,.55);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent)}
+  box-shadow:var(--led-inset,inset 0 0 14px rgba(0,0,0,.55));mask-image:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent)}
 .ttrack{display:inline-block;padding-left:4%;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;font-weight:500;
-  letter-spacing:.03em;color:var(--led-ink,#E8F6FF);text-shadow:0 0 6px rgba(var(--accent-rgb),.45);animation:marquee var(--dur,20s) linear infinite}
+  letter-spacing:.03em;color:var(--led-ink,#E8F6FF);text-shadow:0 0 6px rgba(var(--accent-rgb),calc(.45 * var(--led-glow,1)));animation:marquee var(--dur,20s) linear infinite}
 .ttrack .seg{margin-right:10px}
 .ttrack .seg::after{content:"◆";color:rgba(var(--accent-rgb),.55);margin-left:10px;text-shadow:none}
 .ttrack .seg b{color:var(--orange);font-weight:700;margin-right:6px;text-shadow:0 0 6px rgba(255,145,71,.5)}
-.ttrack .seg i{font-style:normal;color:var(--accent);margin-right:6px;text-shadow:0 0 8px rgba(var(--accent-rgb),.7)}
+.ttrack .seg i{font-style:normal;color:var(--accent);margin-right:6px;text-shadow:0 0 8px rgba(var(--accent-rgb),calc(.7 * var(--led-glow,1)))}
 .ttrack .seg.ok b{color:var(--good);text-shadow:0 0 6px rgba(61,220,151,.5)}
 .ticker:hover .ttrack{animation-play-state:paused}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -302,7 +309,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .kcount .ikind{font-size:12px;padding:3px 9px}
 .ctry{display:flex;gap:4px;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px}
 .ctry button{flex:1;font-size:12.5px;font-weight:700;padding:7px 4px;border-radius:9px;color:var(--ink-3)}
-.ctry button.on{background:var(--raised);color:var(--ink)}
+.ctry button.on{background:rgba(var(--accent-rgb),.14);color:var(--accent);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),.6)}
 .skins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .skin{text-align:left;border-radius:18px;overflow:hidden;border:1.5px solid var(--line);background:var(--card)}
 .skin.on{border-color:var(--accent)}
@@ -332,8 +339,8 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .sectsub.stale{color:var(--bad);font-weight:700}
 .tabs.wide{display:flex;margin-bottom:8px}
 .tabs.wide button{flex:1;padding:8px 4px;font-size:13px}
-.cats{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0 4px}
-.cats button{font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--card-2);color:var(--ink-2);white-space:nowrap}
+.cats{display:flex;gap:3px;padding:10px 0 4px}
+.cats button{flex:1 1 0;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:11px;font-weight:700;padding:6px 2px;border-radius:8px;background:var(--card-2);color:var(--ink-2);white-space:nowrap}
 .cats button.on{background:var(--ink);color:var(--on-ink)}
 .cat{display:inline-block;font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:5px;vertical-align:2px}
 .cat-politics{background:rgba(140,150,255,.16);color:var(--pol-fg)}
@@ -423,6 +430,16 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .mtn svg{flex:0 0 auto}
 .mtn .txt{font-size:13px;color:var(--ink-2);line-height:1.6}
 .mtn .txt b{color:var(--ink);font-size:20px}
+
+@media (max-width:1023px){ header{position:relative} }
+.tip{position:relative;padding-right:36px}
+.tipx{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;color:var(--ink-3);font-size:15px}
+details.about{margin-top:18px}
+details.about summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--ink-3);list-style:none}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"▸ ";}
+details.about[open] summary::before{content:"▾ ";}
+details.about .foot{margin-top:8px}
 
 /* ================= layout styles (shape, density, size) ================= */
 :root[data-layout="compact"] .fav{padding:12px 14px 8px}
@@ -551,11 +568,13 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   </main>
 
   <div class="tip" id="tip">
+    <button class="tipx" id="tipClose" aria-label="閉じる">✕</button>
     📱 <b>ホーム画面に追加</b>するとアプリのように1タップで開けます。<br>
     iPhone：Safariの共有ボタン → 「ホーム画面に追加」<br>
     Android：Chromeのメニュー（⋮）→「ホーム画面に追加」
   </div>
 
+  <details class="about"><summary>このアプリについて・データの出典</summary>
   <div class="foot">
     ☆をタップするとお気に入りになり、一番上に1時間ごとの天気と大気汚染が出ます（お気に入りはこの端末に保存されます）。<br>
     予報の確かさ＝ヨーロッパ（ECMWF）・ドイツ（ICON）・アメリカ（GFS）の3つの気象モデルの予報がどれだけ一致しているか。一致しているほど当たりやすい予報です。<br>
@@ -563,6 +582,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
     大気汚染＝米国AQI（0〜50 良い／51〜100 普通／101〜150 敏感な人は注意／151〜200 悪い／201〜 非常に悪い）。<br>
     データ：天気・大気 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>（CC BY 4.0）／ニュース・ライフライン情報 現地各紙・Google ニュース・外務省 海外安全ホームページ（30分ごとに自動更新、現地記事は機械翻訳）／時刻は<span id="tzNote">ビシュケク</span>時間
   </div>
+  </details>
   </div>
   </div>
 </div>
@@ -952,7 +972,7 @@ function renderNews(){
     const items = prefs.newsCat==="all" ? all : all.filter(x=>x.cat===prefs.newsCat);
     const count = k => all.filter(x=>x.cat===k).length;
     const shown = newsShowAll ? items : items.slice(0,5);
-    el.innerHTML = `<div class="cats">${[["all","すべて "+all.length],["politics","🏛 政治 "+count("politics")],["economy","💰 経済 "+count("economy")],["safety","🚨 安全 "+count("safety")],["event","🎪 イベント "+count("event")]]
+    el.innerHTML = `<div class="cats">${[["all","すべて "+all.length],["politics","政治 "+count("politics")],["economy","経済 "+count("economy")],["safety","安全 "+count("safety")],["event","イベント "+count("event")]]
         .map(([k,l])=>`<button data-cat="${k}" class="${prefs.newsCat===k?"on":""}">${l}</button>`).join("")}</div>`
       + (shown.length ? shown.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
           <div class="nt">${n.cat?`<span class="cat cat-${n.cat}">${CAT[n.cat]}</span>`:""}${esc(n.title_ja||n.title)}</div>
@@ -1179,19 +1199,25 @@ function renderHazards(nd){
   const news_ = ((nd && nd.infra)||[]).filter(x=>x.title_ja && (x.kinds||[]).some(k=>HAZ_KINDS.includes(k) || (k==="road" && closure(x))))
     .filter(x=>!x.published || Date.now()-Date.parse(x.published) < 72*3600*1000);
   const qs_ = (quakes||[]).slice(0,3);
+  // how serious an item is: decides the one shown on the collapsed line
+  const SEV = {emergency:5, slide:4, avalanche:4, flood:4, wind:3, storm:3, road:2};
   const rows = [
-    ...qs_.map(q=>({t:q.time, html:`<a class="hz" href="${esc(q.url)}" target="_blank" rel="noopener"><span class="hi">🌍</span><span><span class="ht"><span class="mag">M${q.mag.toFixed(1)}</span>地震　${esc(placeJa(q.place))}</span>
+    ...qs_.map(q=>({t:q.time, sev:q.mag>=5?5:q.mag>=4?4:2, line:`M${q.mag.toFixed(1)} 地震・${placeJa(q.place)}`, html:`<a class="hz" href="${esc(q.url)}" target="_blank" rel="noopener"><span class="hi">🌍</span><span><span class="ht"><span class="mag">M${q.mag.toFixed(1)}</span>地震　${esc(placeJa(q.place))}</span>
       <span class="hs" style="display:block">${new Date(q.time).toLocaleString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・深さ${r(q.depth)}km・USGS</span></span></a>`})),
     ...news_.map(x=>{ const ks = kindLabels(x.kinds).filter(k=>HAZ_KINDS.includes(k)||(k==="road" && closure(x)));
-      return {t:Date.parse(x.published||0)||0, html:`<div class="hz"><span class="hi">${(KIND[ks[0]]||"⚠️").split(" ")[0]}</span><span>
+      return {t:Date.parse(x.published||0)||0, sev:Math.max(...ks.map(k=>SEV[k]||1)), line:`${KIND[ks[0]].split(" ")[1]}・${x.title_ja}`, html:`<div class="hz"><span class="hi">${(KIND[ks[0]]||"⚠️").split(" ")[0]}</span><span>
       <a class="nmain" href="${esc(jaLink(x.link))}" target="_blank" rel="noopener"><span class="ht">${ks.map(k=>`<span class="ikind k-${HAZ_KINDS.includes(k)?"heat":"road"}" style="margin-right:4px">${KIND[k].split(" ")[1]}</span>`).join("")}${esc(x.title_ja)}</span></a>
       <span class="hs" style="display:block">${esc(x.source)}${x.published?"・"+ago(Date.parse(x.published)):""}・${origLink(x.link)}</span></span></div>`}; }),
   ].sort((a,b)=>b.t-a.t);
   el.hidden = false;
-  const shown = hazAll ? rows : rows.slice(0,3);
-  el.innerHTML = `<div class="mh"><span class="grow">⚠️ <b>ALERTS</b>　災害・通行止め</span><span>直近3日</span></div>`
-    + (rows.length ? shown.map(x=>x.html).join("") : `<div class="ok">✓ 地震（M3以上）・土砂崩れ・雪崩・洪水・強風・通行止めの報道は今のところありません。</div>`)
-    + (rows.length>3 ? `<button class="mall" id="hazMore">${hazAll?"▲ 閉じる":"▼ すべて見る（"+rows.length+"件）"}</button>` : "");
+  if(!rows.length){
+    el.innerHTML = `<div class="hzbar ok"><span class="sv"></span><span class="lb">ALERTS</span><span class="tx">災害・通行止めの報道なし（直近3日）</span></div>`;
+    return;
+  }
+  const top = [...rows].sort((a,b)=>b.sev-a.sev || b.t-a.t)[0];
+  el.innerHTML = `<button class="hzbar" id="hazToggle" aria-expanded="${hazAll}"><span class="sv s${top.sev}"></span><span class="lb">ALERTS</span>
+      <span class="tx">${esc(top.line)}</span>${rows.length>1?`<span class="ct">他${rows.length-1}件</span>`:""}<span class="cv">›</span></button>`
+    + (hazAll ? `<div class="hzlist">${rows.map(x=>x.html).join("")}</div>` : "");
 }
 
 function renderInfra(nd){
@@ -1458,7 +1484,8 @@ document.addEventListener("click", e=>{
     document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
   if(e.target.closest("#openPicker")){ openPicker(); return; }
   if(e.target.closest("#openWeekly")){ openWeekly(); return; }
-  if(e.target.closest("#hazMore")){ hazAll = !hazAll; renderHazards(newsData()); return; }
+  if(e.target.closest("#tipClose")){ lsSet("kg-tip-hidden", true); document.getElementById("tip").style.display="none"; return; }
+  if(e.target.closest("#hazToggle")){ hazAll = !hazAll; renderHazards(newsData()); return; }
   if(e.target.closest("#wkBack")){ closeWeekly(false); return; }
   const wk = e.target.closest("[data-week]");
   if(wk){ weekSel = wk.dataset.week; renderWeekly(); document.getElementById("weekly").scrollTop = 0; return; }
@@ -1498,7 +1525,7 @@ function maybeRefresh(){
 }
 document.addEventListener("visibilitychange", maybeRefresh);
 setInterval(maybeRefresh, 60*1000);
-if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone) document.getElementById("tip").style.display="none";
+if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone || lsGet("kg-tip-hidden")) document.getElementById("tip").style.display="none";
 
 applySkin(skin);
 document.title = `${CFG.name} 統合情報`;
