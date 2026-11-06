@@ -35,3 +35,4 @@ ndc-2021-en	https://unfccc.int/sites/default/files/NDC/2022-06/%D0%9E%D0%9D%D0%A
 ndc-3-2035	https://daryo.uz/en/2025/10/13/kyrgyzstan-targets-up-to-39-emission-cut-by-2035/
 poverty-employment-2030	https://inbusiness.kz/ru/last/kyrgyzstan-nameren-sushestvenno-sokratit-bednost
 vnr-2025	https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf
+cbd-bundle	https://cbd.minjust.gov.kg/static/js/main.68daf282.js
