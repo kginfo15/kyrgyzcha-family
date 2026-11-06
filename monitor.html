@@ -281,6 +281,40 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .tile .amt small{display:block;font-size:11px;color:var(--faint);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .unk{font-size:10.5px;color:var(--faint);border:1px dashed var(--faint);border-radius:3px;padding:0 5px;line-height:1.6}
 .kind{font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:3px;padding:0 5px;line-height:1.6}
+/* ---- national strategy map ---- */
+.stree{display:flex;flex-direction:column;align-items:stretch}
+.snode{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;text-align:center;max-width:720px;margin:0 auto;width:100%}
+.snode .k,.pilh .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.snode h3{margin:2px 0;font-size:16px}
+.snode h3 a,.scard h4 a{color:var(--ink);text-decoration:none}
+.snode h3 a:hover,.scard h4 a:hover{color:var(--accent)}
+.snode.top{border-color:var(--gov)}
+.goals{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;list-style:none;padding:0;margin:6px 0 0;font-size:12px;color:var(--sub)}
+.goals li::before{content:"▸ ";color:var(--gov)}
+.sper{font-size:11.5px;color:var(--faint)}
+.sline{width:2px;height:18px;background:var(--line);margin:0 auto}
+.pils{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));border-top:2px solid var(--line);padding-top:14px}
+.pil{display:flex;flex-direction:column;gap:8px;min-width:0}
+@media (min-width:1100px){.pils{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px}}
+.pilh{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.pilh h3{margin:2px 0;font-size:15px}
+.pilh .note{margin:2px 0 6px}
+.cards{display:flex;flex-direction:column;gap:6px;border-left:2px solid var(--line);margin-left:12px;padding-left:10px}
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;position:relative}
+.scard::before{content:"";position:absolute;left:-12px;top:16px;width:10px;height:2px;background:var(--line)}
+.scard.draft{border-style:dashed}
+.scard h4{margin:0;font-size:13px;line-height:1.45}
+.smarks{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.smark{border:1px solid var(--line);background:var(--panel2);border-radius:4px;padding:0 5px 0 0;font-size:10.5px;cursor:pointer;color:var(--sub);display:inline-flex;align-items:center;gap:4px;line-height:1.7}
+.smark b{background:var(--coop);color:var(--panel);font-family:var(--mono);font-weight:600;padding:0 4px;border-radius:3px 0 0 3px}
+.smark:hover{border-color:var(--accent);color:var(--accent)}
+.sfund{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;margin-top:6px;font-size:11.5px}
+.sfund .sa{font-family:var(--mono);font-size:15px;font-weight:600}
+.sfund .stop{flex-basis:100%;color:var(--sub)}
+.sfund .sj{font-family:var(--mono);color:var(--d7);font-size:11px}
+.stab td{font-family:var(--sans)}
+.stab td.stl{text-align:left;white-space:normal;font-size:12px;color:var(--sub);min-width:180px}
+.sno{font-family:var(--mono);color:var(--faint);font-weight:500}
 /* ---- sector jump bar and the foldable overview ---- */
 .jump{display:flex;flex-wrap:wrap;gap:5px}
 .jchip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--sub)}
@@ -363,6 +397,7 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
       <button data-v="feed">ニュース</button>
       <button data-v="projects">協力案件</button>
       <button data-v="donors">援助機関</button>
+      <button data-v="strategy">国家戦略</button>
       <button data-v="saved">保存</button>
     </nav>
   </div>
@@ -970,7 +1005,7 @@ function viewHome(){
     ${ready&&SHOW_COVER?coverageHTML():""}
     ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>`
       :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと「マイ分野」としてこの上に並びます。</p>`}
-    ${secHead("Jump","分野へ移動")}${jump}
+    ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
     ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary>${secHead("Overview","協力の全体像",'<span class="note">全分野・全援助機関の推移と割合 <span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></span>')}</summary>
       <div class="cols">${yearHTML("")}${shareHTML("")}</div>${govHTML("")?`<div style="margin-top:12px">${govHTML("")}</div>`:""}</details>`:""}
     ${secHead("Sectors","分野別の協力",'<span class="note">実施中案件の支援額と件数・上位3機関の割合・☆でマイ分野に追加</span>')}
@@ -1084,6 +1119,92 @@ function viewDonor(){
       <section>${secHead("News","関連ニュース")}${listHTML(list)}</section>
     </div>`;
 }
+
+/* ---------- national strategies: what Kyrgyzstan has decided, and where the donor money sits ----------
+   Checked against the legal database and official announcements (sources linked in each card). */
+const NDS = {name:"国家開発戦略 2018–2040", ru:"Национальная стратегия развития Кыргызской Республики на 2018–2040 годы",
+  basis:"大統領令 2018年10月31日 No.221", url:"https://climate-laws.org/document/national-development-strategy-of-the-kyrgyz-republic-for-2018-2040_ca05"};
+const NDP = {name:"国家開発プログラム 2030年まで", ru:"Национальная программа развития Кыргызской Республики до 2030 года",
+  basis:"大統領令 2025年6月5日 No.178（2026年までのプログラムを継承）", url:"https://mineconom.gov.kg/ru/post/11033",
+  goals:["1人当たりGDP 4,500ドル・GDP 300億ドル以上","年平均成長率 8%","失業率 5%以下・政府債務 GDP比60%以下","人間開発指数の順位を10位上げる"]};
+const PILLARS = [
+  {id:"ind", name:"工業化", note:"製造業の近代化・クラスター（工業のシェアを2030年に50%へ）", sectors:["private","energy","digital"]},
+  {id:"agt", name:"農業・観光", note:"農業の生産性向上と観光（GDPに占める観光の比率7%へ）", sectors:["agri","nutrition","private","nature"]},
+  {id:"grn", name:"グリーンエネルギー", note:"再生可能エネルギー・水力でエネルギー自立", sectors:["energy","climate","envmgmt"]},
+  {id:"hub", name:"地域ハブ（物流・通過・金融）", note:"中国・EAEU・南アジアを結ぶ物流と通過輸送", sectors:["transport","digital","finance"]},
+  {id:"hum", name:"人的資本・社会", note:"教育・保健・社会保障・ジェンダー（人間開発指数の向上）", sectors:["education","health","social","gender","sports"]},
+  {id:"gov", name:"ガバナンス・地域・安全", note:"地方自治・地域開発・水と防災", sectors:["governance","urban","water","drr","peace"]},
+];
+const STRATS = [
+  {p:"grn", name:"国家エネルギー・プログラム 2035年まで", period:"第1期 2024–2027", basis:"内閣決定 2024年4月12日 No.172", sectors:["energy","climate"], url:"https://www.gov.kg/ru/npa/s/4468"},
+  {p:"grn", name:"省エネ・エネルギー効率政策プログラム", period:"2023–2027", basis:"内閣決定 2023年6月29日 No.328", sectors:["energy","climate"], url:"https://cbd.minjust.gov.kg/160277/edition/1264523/ru"},
+  {p:"grn", name:"再生可能エネルギー開発（分散型・マイクロ発電）", period:"2026–2030", basis:"内閣承認", sectors:["energy","climate"], url:"https://24.kg/ekonomika/374354_kabmin_utverdil_pyatiletnyuyu_programmu_zelenoy_energetiki_inbspmikrogeneratsii/"},
+  {p:"grn", name:"グリーン経済発展プログラム", period:"2019–2023（後継の2024–2028は案の段階）", basis:"政府決定", sectors:["climate","envmgmt","nature"], url:"https://mineconom.gov.kg/froala/uploads/file/3bd5db922cf87fc28a0f3cbeced8e2bbe286956c.pdf", draft:true},
+  {p:"agt", name:"持続可能な観光発展プログラム 2030年まで", period:"2025–2030", basis:"内閣決定 2024年12月18日 No.765", sectors:["private","nature"], url:"https://cbd.minjust.gov.kg/44-149/edition/23883/ru"},
+  {p:"agt", name:"牧草地発展プログラム", period:"2024–2029", basis:"内閣決定 2024年8月9日 No.462", sectors:["agri","nature"], url:"https://cbd.minjust.gov.kg/53-357/edition/14287/ru"},
+  {p:"hub", name:"デジタル・トランスフォーメーション構想", period:"2024–2028", basis:"大統領令 2024年4月5日 No.90", sectors:["digital","governance"], url:"https://cbd.minjust.gov.kg/30-164/edition/6414/ru"},
+  {p:"hum", name:"教育発展プログラム", period:"2021–2040", basis:"政府決定 2021年5月4日", sectors:["education"], url:"https://cbd.minjust.gov.kg/158227/edition/1070465/ru"},
+  {p:"hum", name:"保健プログラム「健康な人 ― 繁栄する国」", period:"2019–2030", basis:"政府決定", sectors:["health","nutrition"], url:"https://www.who.int/europe/news-room/23-01-2019-kyrgyzstan-adopts-new-health-strategy-for-2019-2030"},
+  {p:"hum", name:"ジェンダー平等達成国家戦略", period:"2030年まで", basis:"政府決定", sectors:["gender","social"], url:"https://www.unwomen.org/sites/default/files/2025-04/b30_report_kyrgyzstan_ru.pdf"},
+  {p:"gov", name:"地方自治発展プログラム", period:"2024–2028", basis:"内閣決定 2024年2月22日 No.80", sectors:["governance","urban"], url:"https://base.spinform.ru/show_doc.fwx?rgn=158417"},
+  {p:"gov", name:"地域の総合的社会経済発展プログラム", period:"2025–2030", basis:"内閣決定 2025年3月25日", sectors:["urban","private","agri"], url:"https://economist.kg/novosti/2025/03/25/kabmin-utvierdil-proghrammu-razvitiia-rieghionov-kyrghyzstana-do-2030-ghoda/"},
+  {p:"gov", name:"飲料水供給・排水システム発展プログラム", period:"2026年まで", basis:"政府決定 2020年6月12日 No.330", sectors:["water"], url:"http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf"},
+  {p:"gov", name:"水法典", period:"2025年〜", basis:"法律 2025年6月27日 No.128", sectors:["water","agri"], url:"https://faolex.fao.org/docs/pdf/kyr237135.pdf"},
+];
+// active donor funding behind a set of sectors: each project counts once, with its share in those sectors
+function fundFor(sectors){
+  const set = new Set(sectors), by = {}; let amt = 0, n = 0, u = 0, jn = 0, ja = 0;
+  for(const p of projects()){
+    if(p.st!=="active") continue;
+    const hit = p.c.filter(c=>set.has(c)).length; if(!hit) continue;
+    n++; if(p.donor==="jica") jn++;
+    if(!hasAmt(p)){ u++; continue; }
+    const v = (p.amt||0) * hit / Math.max(1, p.c.length);
+    amt += v; by[p.donor] = (by[p.donor]||0) + v; if(p.donor==="jica") ja += v;
+  }
+  const top = Object.entries(by).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  return {amt, n, u, top, jn, ja};
+}
+const secMark = id => `<button class="smark" data-sec="${id}" title="${esc(SEC[id].ja)}"><b>${SEC[id].no}</b>${esc(SEC[id].ja)}</button>`;
+function fundLine(f){
+  if(!projReady()) return "";
+  return `<div class="sfund"><span class="sa">${money(f.amt)||"—"}</span><span class="note">実施中 ${f.n}件${f.u?`・金額不明 ${f.u}`:""}</span>
+    ${f.top.length?`<span class="stop">${f.top.map(([d,v])=>`${esc(donorName(d).replace(/（.*?）/,""))} ${Math.round(v/f.amt*100)}%`).join("・")}</span>`:""}
+    ${SHOW_JP?`<span class="sj">JICA ${f.jn?`${f.jn}件${f.ja?" "+money(f.ja):""}`:"なし"}</span>`:""}</div>`;
+}
+function viewStrategy(){
+  setTitle("国家戦略マップ");
+  const covered = new Set(STRATS.flatMap(x=>x.sectors));
+  const gaps = SECTORS.filter(([id])=>!covered.has(id));
+  const pillar = P => {
+    const st = STRATS.filter(x=>x.p===P.id), f = fundFor(P.sectors);
+    return `<section class="pil"><div class="pilh"><div class="k">PILLAR</div><h3>${esc(P.name)}</h3><p class="note">${esc(P.note)}</p>
+      <div class="smarks">${P.sectors.map(secMark).join("")}</div>${fundLine(f)}</div>
+      <div class="cards">${st.length?st.map(x=>{ const g = fundFor(x.sectors); return `<article class="scard ${x.draft?"draft":""}">
+        <h4><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a></h4>
+        <div class="sper">${esc(x.period)}・${esc(x.basis)}${x.draft?"・後継は案":""}</div>
+        <div class="smarks">${x.sectors.map(secMark).join("")}</div>${fundLine(g)}</article>`; }).join("")
+        :'<p class="note" style="padding:8px">個別の分野戦略を確認中</p>'}</div></section>`;
+  };
+  // sector view: which strategy covers each sector, and the money in it
+  const rows = SECTORS.map(([id,ja])=>{
+    const st = STRATS.filter(x=>x.sectors.includes(id)), f = fundFor([id]);
+    return `<tr data-sec="${id}" class="click"><td><b class="sno">${SEC[id].no}</b> ${esc(ja)}</td><td class="stl">${st.length?st.map(x=>esc(x.name)).join("<br>"):'<span class="unk">確認中</span>'}</td>
+      <td>${projReady()?money(f.amt)||"—":"…"}</td><td>${projReady()?f.n:"…"}</td><td>${projReady()&&f.u?f.u:"—"}</td><td class="stl">${f.top.map(([d,v])=>esc(donorName(d).replace(/（.*?）/,""))+" "+Math.round(v/f.amt*100)+"%").join("<br>")}</td>${SHOW_JP?`<td>${f.jn?f.jn+"件"+(f.ja?"<br>"+money(f.ja):""):"—"}</td>`:""}</tr>`;
+  }).join("");
+  return `${secHead("National strategy","国家戦略マップ",'<span class="note">キルギスの国家戦略・プログラムと分野別の戦略、その分野に入っている援助機関の実施中の支援</span>')}
+    <div class="stree">
+      <div class="snode top"><div class="k">NATIONAL DEVELOPMENT STRATEGY</div><h3><a href="${NDS.url}" target="_blank" rel="noopener">${NDS.name}</a></h3><div class="sper">${NDS.basis}</div></div>
+      <div class="sline"></div>
+      <div class="snode mid"><div class="k">NATIONAL DEVELOPMENT PROGRAM</div><h3><a href="${NDP.url}" target="_blank" rel="noopener">${NDP.name}</a></h3><div class="sper">${NDP.basis}</div>
+        <ul class="goals">${NDP.goals.map(g=>`<li>${esc(g)}</li>`).join("")}</ul></div>
+      <div class="sline"></div>
+      <div class="pils">${PILLARS.map(pillar).join("")}</div>
+    </div>
+    ${secHead("By sector","分野ごとの戦略と支援額",'<span class="note">行を押すと分野ページへ</span>')}
+    <div class="tablewrap"><table class="dtab stab"><thead><tr><th>分野</th><th>関連する戦略・プログラム</th><th>実施中の支援額</th><th>実施中</th><th>金額不明</th><th>主な援助機関</th>${SHOW_JP?"<th>JICA</th>":""}</tr></thead><tbody>${rows}</tbody></table></div>
+    <p class="foot">柱（ピラー）の分け方は「国家開発プログラム 2030年まで」の4つの戦略ベクトル（工業化・農業と観光・グリーンエネルギー・地域ハブ）に、人的資本と統治・地域の2つを加えて整理したものです。分野との対応づけと支援額（実施中の案件、複数分野の案件は按分）はこのページによる整理です。${gaps.length?`個別の戦略を確認できていない分野：${gaps.map(([,ja])=>ja).join("・")}。`:""}戦略名は各リンク先（法令データベース・公式発表）で確認しています。</p>`;
+}
 function viewSaved(){
   setTitle("保存");
   const list = Object.values(saved).map(prep).sort((a,b)=>b.ts-a.ts);
@@ -1108,7 +1229,7 @@ function render(){
   }
   if(S.v==="gov"||S.v==="coop"){ S.t = S.v; S.v = "feed"; }
   const f = {home:viewHome, feed:viewFeed, sector:viewSector,
-             projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved}[S.v] || viewHome;
+             projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved, strategy:viewStrategy}[S.v] || viewHome;
   m.innerHTML = f() + footer();
 }
 
@@ -1151,6 +1272,7 @@ $("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); 
 const main = $("#main");
 main.addEventListener("click", e=>{
   const t = e.target;
+  if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
   const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
