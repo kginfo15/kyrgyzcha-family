@@ -1,0 +1,38 @@
+name: Update sector monitor
+
+# Collects Kyrgyz government moves, press coverage, donor / NGO news and donor
+# projects for sectors.html (scripts/fetch_sectors.py) and publishes them on
+# the `sector-data` branch as a single force-pushed commit.
+# Every run adds to the stored archive and fills in one more past month.
+on:
+  schedule:
+    - cron: "41 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-sectors
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect
+        env:
+          TIME_BUDGET: "5400"
+        run: python3 scripts/fetch_sectors.py "$RUNNER_TEMP/out"
+      - name: Publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/out"
+          git init -q
+          git checkout -q --orphan sector-data
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update sector data"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" sector-data

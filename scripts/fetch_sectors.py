@@ -1,0 +1,956 @@
+"""Collect Kyrgyzstan development-sector information for sectors.html.
+
+Run by .github/workflows/update-sectors.yml; the output directory is published
+to the `sector-data` branch.
+
+  index.json        - update time, years held, per-sector statistics
+  items-YYYY.json   - government moves, press coverage and donor / NGO news,
+                      sorted into 20 sectors, translated into Japanese.
+                      Accumulates run after run; a backfill pass walks back
+                      month by month so past coverage is filled in too.
+  projects.json     - donor projects (current and past) from the World Bank
+                      projects API and IATI (via d-portal), refreshed daily.
+
+Anything about JICA is left out on purpose.
+
+usage: fetch_sectors.py OUT_DIR
+"""
+import hashlib
+import json
+import os
+import re
+import sys
+import time
+import urllib.parse
+from datetime import date, datetime, timedelta, timezone
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import fetch_news as fn  # noqa: E402  (shared helpers: get, rss_items, translate_batch, ...)
+
+log, get, clean = fn.log, fn.get, fn.clean
+
+
+def stem_re(words):
+    """Like fn.word_re, but in a phrase every word but the last is a stem too:
+    "всемирн банк" matches "всемирный банк" and "всемирного банка"."""
+    parts = []
+    for w in words:
+        w = w.strip().lower()
+        if " " not in w:
+            parts.append(fn.word_re([w]).pattern)
+            continue
+        ws = w.split()
+        body = r"[\w-]*\s+".join(re.escape(x) for x in ws)
+        parts.append(r"(?<![а-яёa-z])" + body)
+    return re.compile("|".join(parts))
+NOW = datetime.now(timezone.utc)
+START = time.time()
+TIME_BUDGET = int(os.environ.get("TIME_BUDGET", 80 * 60))  # seconds for the whole run
+BASE = os.environ.get("PREV_BASE", "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/sector-data/")
+KEEP_YEARS = 4
+BACKFILL_MONTHS = 36
+
+
+def time_left():
+    return TIME_BUDGET - (time.time() - START)
+
+
+# ---------------------------------------------------------------- sectors
+# id, Japanese label, Russian/English matching stems (see fn.word_re),
+# Russian search terms, English search terms
+SECTORS = [
+    ("urban", "都市・地域開発",
+     ["градостро", "генплан", "урбаниз", "жилищн", "жиль", "жкх", "благоустр", "застройк", "многоэтаж", "новостро",
+      "регионального развития", "развития регион", "умный город", "городск инфраструкт", "микрорайон", "новострой",
+      "urban", "housing", "municipal", "regional development", "city development", "smart city"],
+     ["градостроительство", "генплан", "жилье", "благоустройство", "ЖКХ", "\"развитие регионов\""],
+     ["urban", "housing", "municipal", "\"regional development\""]),
+    ("transport", "運輸交通",
+     ["дорог", "автодорог", "трасс", "мост", "железн", "ж/д", "аэропорт", "авиа", "транспорт", "автобус", "троллейбус",
+      "электробус", "логист", "перевал", "тоннел", "туннел", "китай-кыргызстан-узбекистан", "кку",
+      "road", "highway", "railway", "railroad", "airport", "transport", "bridge", "logistic", "aviation", "transit"],
+     ["дорога", "трасса", "\"железная дорога\"", "аэропорт", "транспорт", "логистика"],
+     ["road", "railway", "airport", "transport", "logistics", "corridor"]),
+    ("energy", "資源・エネルギー",
+     ["энерг", "электроэнерг", "электростанц", "гэс", "тэц", "гидро", "камбар-ат", "газ", "газа", "газо", "нефт", "уголь",
+      "угля", "угольн", "недр", "месторожд", "золот", "горнодоб", "рудник", "кумтор", "солнечн", "сэс", "ветров", "вэс",
+      "возобновля", "casa-1000", "каса-1000", "энергосбер", "электросет", "нэск", "минэнерго",
+      "energy", "electricity", "power plant", "hydropower", "hpp", "solar", "wind farm", "mining", "gold", "coal",
+      "renewable", "kambarata", "casa-1000"],
+     ["энергетика", "ГЭС", "электроэнергия", "\"солнечная электростанция\"", "месторождение", "горнодобывающ"],
+     ["energy", "hydropower", "electricity", "mining", "solar", "Kambarata"]),
+    ("private", "民間セクター開発",
+     ["бизнес", "предприним", "мсб", "малого и среднего", "инвест", "экспорт", "торговл", "туризм", "туристическ",
+      "промышлен", "производств", "швейн", "вто", "свободн экономическ", "сэз", "стартап", "делового климат",
+      "инвестиционн климат", "кластер", "ремесл",
+      "business", "sme", "entrepreneur", "investment", "investor", "export", "trade", "tourism", "industry",
+      "private sector", "manufactur", "startup"],
+     ["бизнес", "предприниматели", "инвестиции", "экспорт", "туризм", "промышленность"],
+     ["business", "SME", "investment", "export", "tourism", "\"private sector\""]),
+    ("agri", "農業・農村開発",
+     ["сельск хозяйств", "сельского хозяйства", "сельхоз", "аграр", "фермер", "животновод", "скот", "пастбищ", "урожа",
+      "посев", "зерн", "пшениц", "хлопок", "ирригац", "орошен", "ветеринар", "сельск местност", "пчел", "садовод",
+      "рыбовод", "минсельхоз", "агро", "теплиц", "мелиорац",
+      "agricultur", "farm", "livestock", "pasture", "irrigation", "crop", "rural", "agri", "veterinar", "harvest"],
+     ["\"сельское хозяйство\"", "фермеры", "животноводство", "урожай", "агро", "пастбища"],
+     ["agriculture", "farmers", "livestock", "rural", "irrigation"]),
+    ("health", "保健医療",
+     ["здравоохр", "больниц", "медицин", "минздрав", "вакцин", "привив", "туберкул", "вич", "эпидем", "корь", "кори",
+      "врач", "поликлин", "фап", "лекарств", "аптек", "омс", "онколог", "роддом", "материнск", "пациент", "минздрав",
+      "health", "hospital", "medical", "vaccin", "tuberculosis", "hiv", "clinic", "maternal", "patient", "immuniz"],
+     ["здравоохранение", "больница", "Минздрав", "вакцинация", "туберкулез", "медицина"],
+     ["health", "hospital", "vaccination", "tuberculosis", "healthcare"]),
+    ("nutrition", "栄養改善",
+     ["питани", "недоедан", "анеми", "истощен", "задержк роста", "обогащ", "йодир", "продовольственн безопасн",
+      "продовольствен", "голод",
+      "nutrition", "malnutrition", "stunting", "anemia", "anaemia", "food security", "school feeding", "school meal"],
+     ["питание", "\"школьное питание\"", "\"продовольственная безопасность\"", "анемия"],
+     ["nutrition", "\"food security\"", "\"school feeding\"", "malnutrition"]),
+    ("education", "教育",
+     ["образован", "школ", "учител", "вуз", "университет", "студент", "детск сад", "детсад", "дошкольн", "орт",
+      "абитуриент", "учебник", "минобразован", "профтех", "колледж", "лицей", "гимнази", "выпускник", "педагог",
+      "education", "school", "teacher", "universit", "student", "kindergarten", "vocational", "tvet", "pupil"],
+     ["образование", "школа", "учителя", "вуз", "\"детский сад\"", "Минобразования"],
+     ["education", "school", "teachers", "university", "vocational"]),
+    ("social", "社会保障・障害と開発",
+     ["социальн защит", "социальной защиты", "пособи", "пенси", "инвалид", "овз", "ограниченными возможност",
+      "малоимущ", "бедност", "соцфонд", "социального фонда", "сирот", "опек", "трудов мигра", "мигрант", "миграц",
+      "занятост", "безработ", "особыми потребност", "минтруд", "соцработ",
+      "social protection", "pension", "disabilit", "poverty", "migrant", "migration", "employment", "orphan",
+      "social assistance", "unemploy"],
+     ["\"социальная защита\"", "пособия", "пенсии", "инвалидность", "мигранты", "бедность"],
+     ["\"social protection\"", "disability", "poverty", "migrants", "pensions"]),
+    ("sports", "スポーツと開発",
+     ["спорт", "олимпи", "атлет", "игры кочевник", "игр кочевник", "футбол", "борьб", "борец", "физкульт", "стадион",
+      "тренер", "паралимп", "сборн",
+      "sport", "olympic", "athlet", "stadium", "football", "nomad games", "paralymp"],
+     ["спорт", "\"Игры кочевников\"", "спортсмены", "олимпиада", "стадион"],
+     ["sport", "\"World Nomad Games\"", "athletes", "Olympic"]),
+    ("peace", "平和構築",
+     ["границ", "пограничн", "делимитац", "демаркац", "конфликт", "беженц", "экстремизм", "радикализ", "межэтническ",
+      "примирен", "миротвор", "одкб", "вооружен", "приграничн", "мирн соглашен", "добрососедств",
+      "border", "conflict", "peacebuild", "extremis", "refugee", "interethnic", "reconciliation", "radicali"],
+     ["граница", "делимитация", "приграничье", "конфликт", "экстремизм", "Баткен"],
+     ["border", "conflict", "peacebuilding", "extremism", "Batken"]),
+    ("governance", "ガバナンス",
+     ["коррупц", "госслужб", "государственн служб", "госуправлен", "правосуд", "судебн", "верховенств", "выбор", "цик",
+      "местн самоуправлен", "местного самоуправления", "айыл окмот", "жогорку кенеш", "парламент", "депутат",
+      "конституц", "генпрокурат", "антикорруп", "сми", "свобод слов", "прав человек", "права человека", "омбудсмен",
+      "акыйкатчы", "госуслуг", "государственных услуг", "законопроект", "административн реформ",
+      "governance", "corruption", "election", "parliament", "judicia", "rule of law", "human rights", "civil service",
+      "local self-government", "ombudsman", "transparen", "accountab", "civil society", "media freedom"],
+     ["коррупция", "госслужба", "\"местное самоуправление\"", "выборы", "\"Жогорку Кенеш\"", "законопроект"],
+     ["governance", "corruption", "election", "parliament", "\"human rights\"", "\"civil society\""]),
+    ("finance", "公共財政・金融システム",
+     ["бюджет", "налог", "минфин", "госдолг", "внешн долг", "внешнего долга", "нацбанк", "нбкр", "инфляц", "курс сом",
+      "банк", "кредит", "микрофинанс", "ипотек", "облигац", "гнс", "таможн", "страхован", "исламск финанс",
+      "финансов грамотн", "казначейств", "госзакуп",
+      "budget", "tax", "public debt", "external debt", "central bank", "national bank", "inflation", "banking",
+      "public finance", "microfinance", "bond", "fiscal", "procurement", "remittance"],
+     ["бюджет", "налоги", "госдолг", "Нацбанк", "инфляция", "Минфин"],
+     ["budget", "tax", "debt", "\"National Bank\"", "inflation", "fiscal"]),
+    ("gender", "ジェンダー平等",
+     ["женщин", "гендер", "девочек", "девушк", "насили в семье", "семейн насил", "домашн насил", "ала качуу",
+      "похищени невест", "кража невест", "ранн брак", "равноправ", "женск", "многодетн мат",
+      "women", "gender", "girls", "domestic violence", "bride kidnapping", "early marriage", "gbv", "empowerment"],
+     ["женщины", "гендер", "\"семейное насилие\"", "\"ала качуу\"", "девочки"],
+     ["women", "gender", "\"domestic violence\"", "\"bride kidnapping\"", "girls"]),
+    ("digital", "デジタル化",
+     ["цифров", "цифровиз", "ит", "айти", "интернет", "электронн правительств", "тундук", "онлайн", "5g", "связ",
+      "телеком", "кибер", "искусственн интеллект", "ии", "блокчейн", "майнинг", "парк высоких технолог", "пвт",
+      "минцифр", "электронн подпис", "цифровое",
+      "digital", "ict", "internet", "e-government", "cyber", "artificial intelligence", "telecom", "tunduk",
+      "broadband", "fintech", "high technology park"],
+     ["цифровизация", "\"цифровое\"", "интернет", "\"Парк высоких технологий\"", "Тундук", "кибербезопасность"],
+     ["digital", "ICT", "internet", "e-government", "\"High Technology Park\""]),
+    ("climate", "気候変動",
+     ["климат", "парников", "углерод", "декарбониз", "ледник", "таяни", "зелен экономик", "зеленой экономики",
+      "зеленая экономика", "cop2", "cop3", "кс-2", "адаптац", "углеродн",
+      "climate", "glacier", "emission", "carbon", "cop29", "cop30", "cop31", "green economy", "adaptation",
+      "net zero", "greenhouse"],
+     ["климат", "\"изменение климата\"", "ледники", "\"зеленая экономика\"", "выбросы"],
+     ["climate", "glaciers", "\"green economy\"", "emissions", "adaptation"]),
+    ("nature", "自然環境保全",
+     ["биоразнообраз", "заповедн", "нацпарк", "национальн парк", "лес", "леса", "лесн", "лесов", "барс", "охот",
+      "браконь", "флор", "фаун", "экосистем", "особо охраняем", "ооpt", "оопт", "редк вид", "красн книг",
+      "лесовосстан", "озеленен", "посадк деревьев",
+      "biodiversity", "forest", "snow leopard", "protected area", "wildlife", "ecosystem", "nature reserve",
+      "national park", "reforestation"],
+     ["биоразнообразие", "заповедник", "лес", "\"снежный барс\"", "браконьерство", "\"национальный парк\""],
+     ["biodiversity", "forest", "\"snow leopard\"", "\"protected area\"", "wildlife"]),
+    ("envmgmt", "環境管理",
+     ["эколог", "загрязн", "смог", "качеств воздух", "качества воздуха", "отход", "мусор", "свалк", "полигон тбо",
+      "тбо", "переработк", "утилизац", "хвостохранил", "уранов", "сточн", "выброс", "мусоросжиг", "пластик",
+      "pollution", "air quality", "waste", "landfill", "recycl", "tailings", "uranium", "smog", "plastic",
+      "wastewater"],
+     ["экология", "загрязнение", "смог", "мусор", "отходы", "хвостохранилища"],
+     ["pollution", "\"air quality\"", "waste", "landfill", "tailings", "uranium"]),
+    ("water", "水資源・水供給",
+     ["питьев вод", "питьевой воды", "питьевая вода", "водоснабж", "водоотвед", "канализац", "водоканал",
+      "водн ресурс", "водных ресурсов", "ирригац", "оросит", "водохранил", "токтогул", "водопровод", "арык",
+      "водосбер", "вододел", "водопольз", "очистн сооружен",
+      "water supply", "drinking water", "sanitation", "irrigation", "wastewater", "water resource", "reservoir",
+      "toktogul"],
+     ["\"питьевая вода\"", "водоснабжение", "ирригация", "канализация", "\"водные ресурсы\"", "водохранилище"],
+     ["\"drinking water\"", "\"water supply\"", "irrigation", "sanitation", "\"water resources\""]),
+    ("drr", "防災・災害リスク削減",
+     ["мчс", "землетряс", "сель$", "селя$", "сели$", "селев", "оползн", "лавин", "паводк", "наводнен", "стихийн",
+      "чс", "чрезвычайн", "спасател", "сейсм", "эвакуац", "пострадавш", "ликвидац последств", "камнепад",
+      "disaster", "earthquake", "mudflow", "landslide", "avalanche", "flood", "emergency", "seismic", "drr",
+      "resilien"],
+     ["МЧС", "землетрясение", "сель", "оползень", "лавина", "паводок"],
+     ["disaster", "earthquake", "mudflow", "landslide", "flood", "avalanche"]),
+]
+SECTOR_RES = [(sid, stem_re(words)) for sid, _, words, _, _ in SECTORS]
+SECTOR_IDS = [s[0] for s in SECTORS]
+
+# ---------------------------------------------------------------- actors
+# id, Japanese label, group, stems (Russian / English / Kyrgyz)
+DONORS = [
+    ("wb", "世界銀行", "mdb", ["всемирн банк", "всемирного банка", "всемирным банком", "world bank", "ifc", "мфк", "ida "]),
+    ("adb", "アジア開発銀行", "mdb", ["азиатск банк развития", "азиатского банка развития", "азиатский банк развития",
+                                    "абр", "asian development bank", "adb"]),
+    ("ebrd", "欧州復興開発銀行", "mdb", ["ебрр", "европейск банк реконструкц", "ebrd"]),
+    ("imf", "IMF", "mdb", ["мвф", "международн валютн фонд", "imf", "international monetary fund"]),
+    ("aiib", "アジアインフラ投資銀行", "mdb", ["абии", "азиатск банк инфраструктурн", "aiib"]),
+    ("isdb", "イスラム開発銀行", "mdb", ["исламск банк развития", "isdb", "islamic development bank"]),
+    ("edb", "ユーラシア開発銀行", "mdb", ["еабр", "евразийск банк развития", "евразийского банка развития",
+                                       "eurasian development bank", "eabr"]),
+    ("eu", "EU", "bilateral", ["евросоюз", "европейск союз", "европейского союза", "представительство ес", "ес выдел",
+                              "european union", "eu delegation", "eu-funded", "team europe"]),
+    ("us", "米国（USAID等）", "bilateral", ["usaid", "юсаид", "агентство сша по международному развитию",
+                                         "посольство сша", "us embassy", "u.s. embassy"]),
+    ("de", "ドイツ（GIZ/KfW）", "bilateral", ["giz", "гиз", "kfw", "кфв", "германск", "германии", "germany", "german"]),
+    ("ch", "スイス（SDC等）", "bilateral", ["швейцар", "sdc", "switzerland", "swiss", "helvetas", "хелветас"]),
+    ("uk", "英国", "bilateral", ["великобритан", "британск", "fcdo", "united kingdom", "british embassy"]),
+    ("kr", "韓国（KOICA等）", "bilateral", ["koica", "койка", "южная корея", "южной кореи", "республики корея", "korea"]),
+    ("tr", "トルコ（TIKA等）", "bilateral", ["tika", "тика", "турци", "turkey", "türkiye", "turkiye"]),
+    ("cn", "中国", "bilateral", ["китай", "китая", "кнр", "china", "chinese"]),
+    ("ru", "ロシア（RKDF等）", "bilateral", ["рфкр", "российско-кыргызск фонд развития", "ркфр", "россотрудничеств",
+                                          "russian-kyrgyz development fund"]),
+    ("gulf", "湾岸・アラブ諸国基金", "bilateral", ["саудовск фонд", "кувейтск фонд", "абу-даби", "фонд опек", "opec fund",
+                                              "saudi fund", "kuwait fund", "abu dhabi fund", "qatar fund"]),
+    ("undp", "UNDP", "un", ["проон", "программа развития оон", "undp"]),
+    ("unicef", "UNICEF", "un", ["юнисеф", "unicef"]),
+    ("who", "WHO", "un", ["воз", "всемирн организац здравоохран", "world health organization"]),
+    ("fao", "FAO", "un", ["фао", "fao"]),
+    ("wfp", "WFP", "un", ["впп", "всемирн продовольствен программ", "wfp", "world food programme"]),
+    ("unfpa", "UNFPA", "un", ["юнфпа", "фонд оон в области народонаселения", "unfpa"]),
+    ("unwomen", "UN Women", "un", ["оон-женщины", "структура оон-женщины", "un women"]),
+    ("unhcr", "UNHCR", "un", ["увкб", "unhcr"]),
+    ("iom", "IOM", "un", ["мом", "международн организац по миграц", "iom"]),
+    ("unesco", "UNESCO", "un", ["юнеско", "unesco"]),
+    ("ilo", "ILO", "un", ["мот", "международн организац труда", "ilo"]),
+    ("unep", "UNEP", "un", ["юнеп", "unep"]),
+    ("un", "国連（その他）", "un", ["оон", "united nations", "un resident coordinator", "unodc", "уннп", "ifad", "мфср",
+                                 "unido", "юнидо", "unops", "юнопс", "unaids", "юнэйдс"]),
+    ("gcf", "気候基金（GCF/GEF等）", "fund", ["зелен климатическ фонд", "зеленого климатического фонда", "гэф",
+                                          "глобальн экологическ фонд", "green climate fund", "gcf", "gef",
+                                          "adaptation fund", "фонд адаптации"]),
+    ("gf", "保健基金（GF/Gavi）", "fund", ["глобальн фонд", "глобального фонда", "gavi", "гави", "global fund"]),
+    ("akdn", "アガ・ハーン財団", "ngo", ["ага хан", "ага-хан", "aga khan", "akdn", "уца", "университет центральной азии"]),
+    ("osce", "OSCE", "un", ["обсе", "osce"]),
+    ("ngo", "NGO・市民団体", "ngo", ["нко", "нпо", "общественн фонд", "общественного фонда", "общественн объединен",
+                                  "неправительствен", "гражданск обществ", "mercy corps", "мерси корпс",
+                                  "save the children", "world vision", "ворлд вижн", "care international",
+                                  "caritas", "каритас", "красн полумесяц", "красного полумесяца", "red crescent",
+                                  "сорос", "soros", "ngo", "non-governmental", "civil society organi", "habitat for humanity",
+                                  "plan international", "oxfam", "оксфам", "hivos", "camp alatoo", "кэмп алатоо"]),
+]
+DONOR_RES = [(did, stem_re(words)) for did, _, _, words in DONORS]
+# loans or grants and the like: words that make a donor mention "cooperation" news
+COOP_RE = stem_re(["грант", "кредит", "заём", "заем", "займ", "проект", "программ", "финансир", "соглашен",
+                      "меморандум", "техническ помощ", "содейств", "поддержк", "выдел", "партнер", "сотруднич",
+                      "grant", "loan", "project", "programme", "program", "financ", "agreement", "memorandum",
+                      "support", "partnership", "assistance", "cooperation", "fund"])
+NOT_DEV_RE = stem_re(["матч", "футболист", "чемпионат мира по футболу"])
+
+# JICA - excluded from everything on purpose
+JICA_RE = re.compile(r"jica|джайка|жайка|джика|японск\w* агентств\w* международн\w* сотруднич|国際協力機構|"
+                     r"japan international cooperation agency|xm-dac-701-8", re.I)
+
+# government actors / documents
+GOV_DOMAINS = ("gov.kg", "president.kg", "kenesh.kg", "nbkr.kg", "stat.kg", "med.kg", "minfin.kg", "mfa.kg",
+               "kabar.kg", "edu.gov.kg", "mchs.gov.kg", "stat.gov.kg", "sti.gov.kg", "mz.gov.kg")
+GOV_RE = stem_re(["кабмин", "кабинет министров", "кабинета министров", "министерств", "министр", "минфин",
+                     "минздрав", "минобразован", "минэконом", "минсельхоз", "минтранс", "минэнерго", "минприроды",
+                     "минцифр", "минтруд", "минкульт", "мчс", "нацбанк", "нбкр", "жогорку кенеш", "жапаров",
+                     "президент", "постановлен", "указ$", "указа$", "указом", "указе$", "законопроект", "распоряжен", "касымалиев",
+                     "госагентств", "государственн агентств", "госкомитет", "государственн комитет", "полпред",
+                     "правительств", "национальн программ", "концепц", "стратеги", "нпа", "подписал закон",
+                     "одобрил", "утвердил", "кабинет", "вице-премьер", "заместитель председателя кабинета",
+                     "cabinet of ministers", "ministry", "minister", "president japarov", "government of kyrgyz",
+                     "kyrgyz government", "jogorku kenesh", "parliament approved", "decree"])
+
+# ---------------------------------------------------------------- sources
+LOCAL_FEEDS = list(fn.LOCAL_FEEDS) + [
+    ("Кабар", "https://kabar.kg/rss/"),
+    ("Акипресс", "https://akipress.org/rss/news.rss"),
+    ("Vesti.kg", "https://vesti.kg/index.php?format=feed&type=rss"),
+    ("Sputnik Кыргызстан", "https://ru.sputnik.kg/export/rss2/archive/index.xml"),
+    ("Times of Central Asia", "https://timesca.com/feed/"),
+    ("Eurasianet", "https://eurasianet.org/region/kyrgyzstan/feed"),
+]
+# official sites that may offer RSS; failures are logged and ignored
+GOV_FEEDS = [
+    ("Кабинет Министров", "https://www.gov.kg/ru/rss"),
+    ("Президент КР", "https://www.president.kg/ru/rss"),
+    ("Жогорку Кенеш", "http://www.kenesh.kg/ru/rss"),
+    ("Нацбанк", "https://www.nbkr.kg/rss.jsp?lang=RUS"),
+]
+GN_RU = dict(hl="ru", gl="KG", ceid="KG:ru")
+GN_EN = dict(hl="en-US", gl="US", ceid="US:en")
+GOV_QUERIES = [
+    ("site:gov.kg", 7), ("site:president.kg", 7), ("site:kenesh.kg", 14), ("site:kabar.kg Кабмин OR министерство", 3),
+    ("Кабинет Министров Кыргызстан постановление", 7), ("Кыргызстан министерство утвердил", 7),
+    ("Жогорку Кенеш законопроект", 7), ("Жапаров подписал закон", 14), ("Кыргызстан национальная программа развития", 30),
+]
+DONOR_QUERIES_RU = [
+    "Кыргызстан (\"Всемирный банк\" OR АБР OR ЕБРР OR МВФ OR ЕАБР OR АБИИ)",
+    "Кыргызстан (ПРООН OR ЮНИСЕФ OR ВОЗ OR ФАО OR ВПП OR ЮНФПА OR МОМ OR ЮНЕСКО OR ОБСЕ)",
+    "Кыргызстан (USAID OR GIZ OR KfW OR KOICA OR TIKA OR Евросоюз OR Швейцария)",
+    "Кыргызстан (грант OR \"техническая помощь\" OR \"соглашение о финансировании\") донор",
+    "Кыргызстан (НКО OR \"общественный фонд\" OR \"гражданское общество\") проект",
+    "Кыргызстан (\"Ага Хан\" OR \"Красный Полумесяц\" OR \"Mercy Corps\" OR Helvetas OR \"Save the Children\")",
+    "Кыргызстан (\"Зеленый климатический фонд\" OR \"Глобальный фонд\" OR \"Фонд ОПЕК\" OR \"Саудовский фонд\" OR ИБР)",
+]
+DONOR_QUERIES_EN = [
+    "Kyrgyzstan (\"World Bank\" OR ADB OR EBRD OR IMF OR AIIB OR \"Eurasian Development Bank\")",
+    "Kyrgyz Republic (UNDP OR UNICEF OR WHO OR FAO OR WFP OR UNFPA OR IOM OR UNESCO)",
+    "Kyrgyzstan (USAID OR GIZ OR KfW OR KOICA OR TIKA OR \"European Union\" OR Switzerland)",
+    "Kyrgyzstan (grant OR loan OR \"technical assistance\") project",
+    "Kyrgyzstan (NGO OR \"civil society\" OR \"Aga Khan\" OR \"Mercy Corps\" OR Helvetas)",
+    "Kyrgyzstan (site:worldbank.org OR site:adb.org OR site:undp.org OR site:unicef.org OR site:ebrd.com)",
+    "Kyrgyzstan (site:eeas.europa.eu OR site:un.org OR site:who.int OR site:fao.org OR site:wfp.org)",
+]
+
+
+def gn_url(query, region):
+    return "https://news.google.com/rss/search?" + urllib.parse.urlencode({"q": query, **region})
+
+
+def item_id(title, source):
+    return hashlib.sha1((norm_title(title) + "|" + (source or "")).encode()).hexdigest()[:12]
+
+
+def norm_title(t):
+    return re.sub(r"[^\w]+", " ", (t or "").lower()).strip()
+
+
+def host_of(url):
+    try:
+        return urllib.parse.urlparse(url).hostname or ""
+    except Exception:
+        return ""
+
+
+def is_gov_host(h):
+    return any(h == d or h.endswith("." + d) for d in GOV_DOMAINS)
+
+
+# donor names that would otherwise read as sector words ("банк" -> finance)
+ORG_NAME_RE = re.compile(r"(всемирн|азиатск|европейск|евразийск|исламск|германск)\w*\s+банк\w*( развития| реконструкции и развития)?"
+                         r"|world bank|development bank|investment bank|bank for reconstruction|national bank of"
+                         r"|monetary fund|валютн\w* фонд\w*|(глобальн|климатическ|экологическ)\w* фонд\w*", re.I)
+
+
+def sector_ids(text):
+    text = ORG_NAME_RE.sub(" ", text.lower())
+    return [sid for sid, rx in SECTOR_RES if rx.search(text)]
+
+
+def classify(title, lead, link, source, query_gov=False):
+    """Return (sectors, donors, gov) or None when the item is out of scope."""
+    text = (title + " " + lead).lower()
+    if JICA_RE.search(text) or JICA_RE.search(link or ""):
+        return None
+    sectors = sector_ids(text)
+    donors = [did for did, rx in DONOR_RES if rx.search(text)]
+    # a donor named in passing (e.g. "China" in a trade story) counts only with a cooperation word
+    if donors and not COOP_RE.search(text):
+        donors = [d for d in donors if d not in ("cn", "tr", "kr", "de", "uk", "ru", "eu", "us", "ch")]
+    if NOT_DEV_RE.search(text):
+        donors = []
+    h = host_of(link)
+    gov = is_gov_host(h) and h not in ("kabar.kg",) or bool(GOV_RE.search(text)) or (query_gov and bool(sectors))
+    if not sectors and not donors and not gov:
+        return None
+    return sectors, donors, gov
+
+
+# ---------------------------------------------------------------- collecting
+
+def strip_source(title, source):
+    if source and title.endswith(" - " + source):
+        return title[: -len(source) - 3].strip()
+    return re.sub(r"\s+[-–—|]\s+[^-–—|]{2,40}$", "", title).strip() if " - " in title else title
+
+
+KG_HOSTS = ("timesca.com", "eurasianet.org", "akipress.com", "azattyk.org", "rus.azattyk.org", "kloop.kg",
+            "vb.kg", "sputnik.kg", "economist.kg", "tazabek.kg", "knews.kg", "kaktus.media", "kabar.kg")
+
+
+def kg_host(h):
+    return h.endswith(".kg") or any(h == d or h.endswith("." + d) for d in KG_HOSTS)
+
+
+def kg_related(text):
+    return bool(fn.KG_RE.search(text.lower())) or bool(re.search(r"kyrgyz|bishkek|кыргыз|киргиз", text, re.I))
+
+
+def collect(archive_empty):
+    """Fetch every live source; returns a list of raw items."""
+    out = []
+
+    def add(title, lead, link, source, published, lang, query_gov=False, need_kg=True):
+        title = clean(title)
+        lead = clean(lead)
+        if not title or not link:
+            return
+        if need_kg and not kg_related(title + " " + lead):
+            return
+        c = classify(title, lead, link, source, query_gov)
+        if not c:
+            return
+        sectors, donors, gov = c
+        out.append({"i": item_id(title, source), "t": title, "l": fn.first_sentences(lead, 300) if lead else "",
+                    "u": link, "s": source, "p": published.isoformat() if published else NOW.isoformat(),
+                    "c": sectors, "d": donors, "g": 1 if gov else 0, "lang": lang})
+
+    for source, url in LOCAL_FEEDS + GOV_FEEDS:
+        try:
+            got = list(fn.rss_items(url))
+        except Exception as e:
+            log(f"feed {source}: failed: {e}")
+            continue
+        is_gov_feed = (source, url) in GOV_FEEDS
+        n0 = len(out)
+        for it in got:
+            desc = it["desc"]
+            if desc.startswith("kloop.kg"):
+                desc = desc[len("kloop.kg"):].strip()
+            lang = "en" if re.search(r"[a-z]{4}", it["title"]) and not re.search(r"[а-яё]", it["title"], re.I) else "ru"
+            add(it["title"], desc, it["link"], source, it["date"], lang, query_gov=is_gov_feed,
+                need_kg=not is_gov_feed and source not in ("Кабар",))
+        log(f"feed {source}: {len(got)} fetched, {len(out) - n0} kept")
+
+    ru_days = 60 if archive_empty else 7
+    en_days = 60 if archive_empty else 14
+    queries = []
+    for q, d in GOV_QUERIES:
+        queries.append((f"{q} when:{max(d, ru_days if archive_empty else d)}d", GN_RU, "ru", True))
+    for sid, _, _, ru_terms, en_terms in SECTORS:
+        queries.append((f"(Кыргызстан OR Бишкек OR Кыргызской) ({' OR '.join(ru_terms)}) when:{ru_days}d", GN_RU, "ru", False))
+        queries.append((f"(Kyrgyzstan OR \"Kyrgyz Republic\") ({' OR '.join(en_terms)}) when:{en_days}d", GN_EN, "en", False))
+    for q in DONOR_QUERIES_RU:
+        queries.append((f"{q} when:{ru_days}d", GN_RU, "ru", False))
+    for q in DONOR_QUERIES_EN:
+        queries.append((f"{q} when:{en_days}d", GN_EN, "en", False))
+    out.extend(run_gnews(queries))
+    return out
+
+
+def run_gnews(queries):
+    out = []
+    for q, region, lang, qgov in queries:
+        if time_left() < 30 * 60:
+            log("gnews: out of time")
+            break
+        try:
+            got = list(fn.rss_items(gn_url(q, region)))
+        except Exception as e:
+            log(f"gnews {q!r}: failed: {e}")
+            time.sleep(2)
+            continue
+        n = 0
+        for it in got:
+            source = it["source_el"] or host_of(it["source_url"])
+            if any(s in source for s in fn.SKIP_SOURCES):
+                continue
+            title = strip_source(it["title"], source)
+            text = title.lower()
+            if JICA_RE.search(text):
+                continue
+            if not kg_related(title) and "site:" not in q and not kg_host(host_of(it["source_url"])):
+                continue
+            c = classify(title, "", it["link"], source, qgov or is_gov_host(host_of(it["source_url"])))
+            if not c:
+                continue
+            sectors, donors, gov = c
+            if is_gov_host(host_of(it["source_url"])) and host_of(it["source_url"]) != "kabar.kg":
+                gov = True
+            out.append({"i": item_id(title, source), "t": title, "l": "", "u": it["link"], "s": source,
+                        "p": (it["date"] or NOW).isoformat(), "c": sectors, "d": donors, "g": 1 if gov else 0,
+                        "lang": lang, "src_host": host_of(it["source_url"])})
+            n += 1
+        log(f"gnews {q[:70]!r}: {len(got)} fetched, {n} kept")
+        time.sleep(1.0)
+    return out
+
+
+def backfill_queries(cursor):
+    """One past month per run: every sector, Russian and English, plus donors."""
+    first = date(NOW.year, NOW.month, 1)
+    m = cursor % BACKFILL_MONTHS + 1  # months back
+    y, mo = first.year, first.month - m
+    while mo <= 0:
+        mo += 12
+        y -= 1
+    start = date(y, mo, 1)
+    end = date(y + (mo == 12), mo % 12 + 1, 1)
+    rng = f"after:{start.isoformat()} before:{end.isoformat()}"
+    qs = []
+    for sid, _, _, ru_terms, en_terms in SECTORS:
+        qs.append((f"Кыргызстан ({' OR '.join(ru_terms)}) {rng}", GN_RU, "ru", False))
+        qs.append((f"Kyrgyzstan ({' OR '.join(en_terms)}) {rng}", GN_EN, "en", False))
+    for q in DONOR_QUERIES_RU[:5]:
+        qs.append((f"{q} {rng}", GN_RU, "ru", False))
+    for q in DONOR_QUERIES_EN[:5]:
+        qs.append((f"{q} {rng}", GN_EN, "en", False))
+    for q, _ in GOV_QUERIES[:5]:
+        qs.append((f"{q} {rng}", GN_RU, "ru", True))
+    return start, qs
+
+
+# ---------------------------------------------------------------- archive
+
+def load_prev():
+    items, meta = {}, {}
+    try:
+        meta = json.loads(get(BASE + "index.json"))
+    except Exception as e:
+        log(f"no previous index: {e}")
+        return items, meta
+    for y in meta.get("years", []):
+        try:
+            for x in json.loads(get(BASE + f"items-{y}.json")).get("items", []):
+                items[x["i"]] = x
+        except Exception as e:
+            log(f"items-{y}: failed: {e}")
+    log(f"previous: {len(items)} items")
+    return items, meta
+
+
+def merge(store, new):
+    added = 0
+    by_title = {norm_title(x["t"]): k for k, x in store.items()}
+    for x in new:
+        k = x["i"]
+        dup = by_title.get(norm_title(x["t"]))
+        if k not in store and dup:
+            k = dup
+        if k in store:
+            old = store[k]
+            # keep translations and the resolved link; widen tags
+            old["c"] = sorted(set(old.get("c", [])) | set(x["c"]), key=SECTOR_IDS.index)
+            old["d"] = sorted(set(old.get("d", [])) | set(x["d"]))
+            old["g"] = 1 if (old.get("g") or x["g"]) else 0
+            if not old.get("l") and x.get("l"):
+                old["l"] = x["l"]
+                old.pop("lj", None)
+            if "news.google.com" in old.get("u", "") and "news.google.com" not in x["u"]:
+                old["u"] = x["u"]
+            continue
+        x.pop("src_host", None)
+        x["c"] = sorted(set(x["c"]), key=SECTOR_IDS.index)
+        x["d"] = sorted(set(x["d"]))
+        store[k] = x
+        by_title[norm_title(x["t"])] = k
+        added += 1
+    return added
+
+
+def reclassify(store):
+    """Apply the current keyword lists to stored items (lists improve over time)."""
+    for k in list(store):
+        x = store[k]
+        if JICA_RE.search(x["t"] + " " + x.get("l", "") + " " + x.get("u", "")):
+            del store[k]
+            continue
+        c = classify(x["t"], x.get("l", ""), x.get("u", ""), x.get("s", ""))
+        if c:
+            x["c"] = sorted(set(c[0]) | set(x.get("c", [])), key=SECTOR_IDS.index)
+            x["d"] = sorted(set(c[1]) | set(x.get("d", [])))
+            x["g"] = 1 if (c[2] or x.get("g")) else 0
+
+
+def translate_store(store, budget):
+    todo = [x for x in store.values() if "tj" not in x]
+    todo.sort(key=lambda x: x["p"], reverse=True)
+    done = 0
+    for x in todo:
+        if done >= budget or time_left() < 12 * 60:
+            break
+        try:
+            texts = [x["t"]] + ([x["l"]] if x.get("l") else [])
+            tr = fn.translate_batch(texts)
+            x["tj"] = tr[0]
+            if x.get("l"):
+                x["lj"] = tr[1] if len(tr) > 1 else ""
+            done += 1
+            time.sleep(0.35)
+        except Exception as e:
+            log(f"translate failed: {e}")
+            time.sleep(3)
+    log(f"translated {done}, {len(todo) - done} left")
+
+
+def resolve_links(store, budget):
+    todo = [x for x in store.values() if "news.google.com" in x.get("u", "")]
+    todo.sort(key=lambda x: x["p"], reverse=True)
+    done = 0
+    for x in todo[:budget]:
+        if time_left() < 8 * 60:
+            break
+        real = fn.resolve_gnews(x["u"])
+        if real != x["u"]:
+            x["u"] = real
+            if JICA_RE.search(real):
+                x["_drop"] = 1
+            done += 1
+    for k in [k for k, x in store.items() if x.get("_drop")]:
+        del store[k]
+    log(f"resolved {done} Google News links")
+
+
+# ---------------------------------------------------------------- projects
+
+def to_date(s):
+    """'2023-05-31T00:00:00Z', '2023-05-31' or '6/30/2028 12:00:00 AM' -> '2023-05-31'."""
+    if not s:
+        return None
+    s = str(s).strip()
+    m = re.match(r"(\d{4})-(\d{2})-(\d{2})", s)
+    if m:
+        return m.group(0)
+    m = re.match(r"(\d{1,2})/(\d{1,2})/(\d{4})", s)
+    if m:
+        return f"{m.group(3)}-{int(m.group(1)):02d}-{int(m.group(2)):02d}"
+    return None
+
+
+def strings_in(v):
+    if isinstance(v, str):
+        yield v
+    elif isinstance(v, dict):
+        for x in v.values():
+            yield from strings_in(x)
+    elif isinstance(v, list):
+        for x in v:
+            yield from strings_in(x)
+
+
+def num(v):
+    try:
+        return float(str(v).replace(",", "")) if v not in (None, "") else None
+    except Exception:
+        return None
+
+
+def wb_projects():
+    out, os_ = [], 0
+    while True:
+        url = ("https://search.worldbank.org/api/v2/projects?format=json&countrycode_exact=KG&rows=200&os="
+               + str(os_))
+        data = json.loads(get(url, timeout=60))
+        projs = data.get("projects") or {}
+        rows = list(projs.values()) if isinstance(projs, dict) else list(projs)
+        for p in rows:
+            pid = p.get("id")
+            if not pid:
+                continue
+            st = (p.get("status") or "").lower()
+            status = "active" if st == "active" else "pipeline" if st == "pipeline" else \
+                "dropped" if st == "dropped" else "closed"
+            sect_text = " ".join(s for k, v in p.items() if k.startswith(("sector", "theme", "mjsector", "mjtheme"))
+                                 for s in strings_in(v))
+            abstract = p.get("project_abstract")
+            if isinstance(abstract, dict):
+                abstract = abstract.get("cdata") or ""
+            out.append({
+                "id": "WB-" + pid, "src": "wb", "donor": "wb", "org": "World Bank",
+                "t": clean(p.get("project_name") or ""), "x": fn.first_sentences(clean(abstract or ""), 300),
+                "st": status, "a": to_date(p.get("boardapprovaldate")), "e": to_date(p.get("closingdate")),
+                "amt": num(p.get("totalcommamt")) or num(p.get("totalamt")), "cur": "USD",
+                "impl": clean(p.get("impagency") or ""), "kind": clean(p.get("lendinginstr") or ""),
+                "u": f"https://projects.worldbank.org/en/projects-operations/project-detail/{pid}",
+                "_sect": sect_text,
+            })
+        total = int(data.get("total") or 0)
+        os_ += 200
+        if not rows or os_ >= total or os_ > 3000:
+            break
+        time.sleep(1)
+    log(f"world bank: {len(out)} projects")
+    return out
+
+
+IATI_STATUS = {"1": "pipeline", "2": "active", "3": "active", "4": "closed", "5": "dropped", "6": "suspended"}
+# DAC 5-digit purpose codes -> sector ids (by prefix; first match wins)
+DAC_MAP = [
+    ("12240", "nutrition"), ("52010", "nutrition"), ("15170", "gender"), ("15180", "gender"), ("1511", "finance"),
+    ("15142", "finance"), ("152", "peace"), ("151", "governance"), ("16010", "social"), ("16011", "social"),
+    ("16020", "social"), ("16015", "social"), ("1606", "sports"), ("16050", "social"), ("16030", "urban"),
+    ("16040", "urban"), ("111", "education"), ("112", "education"), ("113", "education"), ("114", "education"),
+    ("121", "health"), ("122", "health"), ("123", "health"), ("130", "health"), ("140", "water"), ("210", "transport"),
+    ("220", "digital"), ("23", "energy"), ("240", "finance"), ("250", "private"), ("311", "agri"), ("31220", "nature"),
+    ("312", "nature"), ("313", "agri"), ("321", "private"), ("322", "energy"), ("323", "private"), ("331", "private"),
+    ("332", "private"), ("41010", "envmgmt"), ("41020", "envmgmt"), ("41030", "nature"), ("41040", "nature"),
+    ("41050", "drr"), ("410", "envmgmt"), ("43030", "urban"), ("43040", "agri"), ("43060", "drr"), ("430", "governance"),
+    ("720", "drr"), ("730", "drr"), ("740", "drr"),
+]
+
+
+def dac_sector(code):
+    code = str(code or "")
+    for pre, sid in DAC_MAP:
+        if code.startswith(pre):
+            return sid
+    return None
+
+
+def day_to_date(v):
+    try:
+        v = float(v)
+        if v <= 0:
+            return None
+        return (date(1970, 1, 1) + timedelta(days=int(v))).isoformat()
+    except Exception:
+        return to_date(v)
+
+
+def iati_projects():
+    base = "https://d-portal.org/q?"
+    fields = "aid,title,reporting,reporting_ref,funder_ref,status_code,day_start,day_end,commitment,spend,description"
+    rows = []
+    try:
+        data = json.loads(get(base + urllib.parse.urlencode(
+            {"from": "act,country", "country_code": "KG", "limit": 20000, "select": fields}), timeout=180))
+        rows = data.get("rows") or []
+    except Exception as e:
+        log(f"d-portal select failed ({e}), trying without select")
+        data = json.loads(get(base + urllib.parse.urlencode(
+            {"from": "act,country", "country_code": "KG", "limit": 20000}), timeout=180))
+        rows = data.get("rows") or []
+    sectors = {}
+    try:
+        data = json.loads(get(base + urllib.parse.urlencode(
+            {"from": "act,country,sector", "country_code": "KG", "limit": 20000,
+             "select": "aid,sector_code,sector_percent"}), timeout=180))
+        for r in data.get("rows") or []:
+            sid = dac_sector(r.get("sector_code"))
+            if sid and r.get("aid"):
+                sectors.setdefault(r["aid"], set()).add(sid)
+    except Exception as e:
+        log(f"d-portal sectors failed: {e}")
+    out, seen = [], set()
+    today = NOW.date().isoformat()
+    for r in rows:
+        aid = r.get("aid")
+        if not aid or aid in seen:
+            continue
+        seen.add(aid)
+        org = clean(r.get("reporting") or "")
+        ref = (r.get("reporting_ref") or "").strip()
+        title = clean(r.get("title") or "")
+        desc = clean(r.get("description") or "")
+        if JICA_RE.search(" ".join([org, ref, aid, title, desc])):
+            continue
+        if ref in ("44000", "XM-DAC-44000") or aid.startswith("44000-"):
+            continue  # covered by the World Bank API
+        start, end = day_to_date(r.get("day_start")), day_to_date(r.get("day_end"))
+        st = IATI_STATUS.get(str(r.get("status_code") or "").split(".")[0])
+        if not st:
+            st = "closed" if end and end < today else "active"
+        if st == "active" and end and end < str(int(today[:4]) - 1):
+            st = "closed"  # stale reporting
+        if not title:
+            continue
+        out.append({"id": aid, "src": "iati", "donor": donor_of(org + " " + ref), "org": org, "t": title,
+                    "x": fn.first_sentences(desc, 300), "st": st, "a": start, "e": end,
+                    "amt": num(r.get("commitment")) or num(r.get("spend")), "cur": "USD", "ref": ref,
+                    "u": "https://d-portal.org/ctrack.html#view=act&aid=" + urllib.parse.quote(aid),
+                    "_sect": "", "_dac": sorted(sectors.get(aid, []))})
+    log(f"iati: {len(rows)} rows, {len(out)} projects")
+    return out
+
+
+ORG_DONOR = [
+    ("adb", r"asian development bank|xm-dac-46004"), ("ebrd", r"european bank for reconstruction|xm-dac-46015|ebrd"),
+    ("imf", r"international monetary fund"), ("aiib", r"asian infrastructure"), ("isdb", r"islamic development"),
+    ("edb", r"eurasian development"), ("eu", r"european (commission|union)|xi-iati-ec|dg near|dg intpa|xm-dac-918"),
+    ("us", r"united states|usaid|us-gov|millennium challenge|xm-dac-302"), ("de", r"germany|giz|kfw|de-|bmz|xm-dac-5-"),
+    ("ch", r"switzerland|swiss|sdc|ch-|xm-dac-11-"), ("uk", r"united kingdom|fcdo|gb-gov|dfid"),
+    ("kr", r"korea|koica"), ("tr", r"türkiye|turkey|tika"), ("undp", r"undp|united nations development programme"),
+    ("unicef", r"unicef"), ("who", r"world health organi"), ("fao", r"food and agriculture organi|\bfao\b"),
+    ("wfp", r"world food programme|\bwfp\b"), ("unfpa", r"unfpa|population fund"), ("unwomen", r"un women|un-women"),
+    ("unhcr", r"unhcr|refugees"), ("iom", r"migration|\biom\b"), ("unesco", r"unesco"), ("ilo", r"labour organi|\bilo\b"),
+    ("unep", r"environment programme|unep"), ("gcf", r"green climate|global environment facility|adaptation fund"),
+    ("gf", r"global fund|gavi"), ("akdn", r"aga khan"), ("osce", r"osce"),
+    ("un", r"united nations|unops|unodc|ifad|unido|unaids|\bun-"),
+]
+ORG_DONOR_RES = [(d, re.compile(rx, re.I)) for d, rx in ORG_DONOR]
+
+
+def donor_of(text):
+    for d, rx in ORG_DONOR_RES:
+        if rx.search(text):
+            return d
+    return "ngo"
+
+
+def finish_projects(projs, prev):
+    prev_by = {p["id"]: p for p in (prev or {}).get("projects", [])}
+    for p in projs:
+        text = (p["t"] + " " + p.get("x", "") + " " + p.pop("_sect", "")).lower()
+        sect = set(sector_ids(text)) | set(p.pop("_dac", []))
+        p["c"] = sorted(sect, key=SECTOR_IDS.index)
+        old = prev_by.get(p["id"])
+        if old:
+            p["c"] = sorted(set(p["c"]) | set(old.get("c", [])), key=SECTOR_IDS.index)
+            if old.get("t") == p["t"] and old.get("tj"):
+                p["tj"] = old["tj"]
+    translate_projects(projs)
+    for p in projs:
+        for k in [k for k, v in p.items() if v in (None, "", [])]:
+            del p[k]
+    projs.sort(key=lambda p: (p.get("a") or ""), reverse=True)
+    return projs
+
+
+def translate_projects(projs):
+    budget = int(os.environ.get("PROJECT_TR_BUDGET", 700))
+    todo = [p for p in projs if not p.get("tj")]
+    todo.sort(key=lambda p: (p["st"] != "active", p["st"] != "pipeline", -(int((p.get("a") or "0")[:4] or 0))))
+    done = 0
+    for i in range(0, min(len(todo), budget), 25):
+        if time_left() < 15 * 60:
+            break
+        chunk = todo[i:i + 25]
+        try:
+            tr = fn.translate_batch([p["t"] for p in chunk], sl="auto")
+            for p, t in zip(chunk, tr):
+                p["tj"] = t
+            done += len(chunk)
+            time.sleep(0.5)
+        except Exception as e:
+            log(f"project translate failed: {e}")
+            time.sleep(3)
+    log(f"projects translated {done}, {len(todo) - done} left")
+
+
+def collect_projects(out_dir):
+    prev = None
+    try:
+        prev = json.loads(get(BASE + "projects.json"))
+    except Exception as e:
+        log(f"no previous projects: {e}")
+    fresh = prev and prev.get("updated") and \
+        NOW - datetime.fromisoformat(prev["updated"]) < timedelta(hours=20)
+    if fresh and not os.environ.get("FORCE_PROJECTS"):
+        log("projects: still fresh, keeping (translating any left)")
+        translate_projects(prev.get("projects", []))
+        result = prev
+    else:
+        projs, sources = [], {}
+        prev_projs = (prev or {}).get("projects", [])
+        for key, fn_ in (("wb", wb_projects), ("iati", iati_projects)):
+            try:
+                got = fn_()
+                projs += got
+                sources[key] = {"ok": True, "count": len(got)}
+            except Exception as e:
+                log(f"projects {key}: failed: {e}")
+                kept = [p for p in prev_projs if p.get("src") == key]
+                projs += kept
+                sources[key] = {"ok": False, "count": len(kept), "error": str(e)[:200]}
+        if not projs and prev:
+            result = prev
+        else:
+            result = {"updated": NOW.isoformat(), "sources": sources, "projects": finish_projects(projs, prev)}
+    with open(os.path.join(out_dir, "projects.json"), "w") as fh:
+        json.dump(result, fh, ensure_ascii=False, separators=(",", ":"))
+    return result
+
+
+# ---------------------------------------------------------------- main
+
+def stats(store, projects):
+    cutoff30 = (NOW - timedelta(days=30)).isoformat()
+    cutoff7 = (NOW - timedelta(days=7)).isoformat()
+    s = {sid: {"n30": 0, "n7": 0, "gov30": 0, "donor30": 0, "all": 0, "pa": 0, "pt": 0} for sid in SECTOR_IDS}
+    for x in store.values():
+        for c in x.get("c", []):
+            if c not in s:
+                continue
+            s[c]["all"] += 1
+            if x["p"] >= cutoff30:
+                s[c]["n30"] += 1
+                s[c]["gov30"] += x.get("g", 0)
+                s[c]["donor30"] += 1 if x.get("d") else 0
+            if x["p"] >= cutoff7:
+                s[c]["n7"] += 1
+    for p in projects or []:
+        for c in p.get("c", []):
+            if c in s:
+                s[c]["pt"] += 1
+                s[c]["pa"] += 1 if p.get("st") == "active" else 0
+    return s
+
+
+def main():
+    out_dir = sys.argv[1] if len(sys.argv) > 1 else "."
+    os.makedirs(out_dir, exist_ok=True)
+    fn.use_country("kg")
+    store, meta = load_prev()
+
+    new = collect(archive_empty=not store)
+    log(f"live: {len(new)} items, {merge(store, new)} new")
+
+    cursor = int(meta.get("backfill_cursor") or 0)
+    if time_left() > 45 * 60 and cursor < BACKFILL_MONTHS * 2:
+        month, qs = backfill_queries(cursor)
+        got = run_gnews(qs)
+        log(f"backfill {month:%Y-%m}: {len(got)} items, {merge(store, got)} new")
+        cursor += 1
+    reclassify(store)
+
+    # keep a few years
+    oldest = f"{NOW.year - KEEP_YEARS + 1}-01-01"
+    for k in [k for k, x in store.items() if x["p"] < oldest]:
+        del store[k]
+
+    resolve_links(store, int(os.environ.get("RESOLVE_BUDGET", 250)))
+    translate_store(store, int(os.environ.get("TR_BUDGET", 900)))
+
+    try:
+        projects = collect_projects(out_dir).get("projects", [])
+    except Exception as e:
+        log(f"projects failed: {e}")
+        projects = []
+
+    years = {}
+    for x in store.values():
+        years.setdefault(x["p"][:4], []).append(x)
+    for y, xs in years.items():
+        xs.sort(key=lambda x: x["p"], reverse=True)
+        with open(os.path.join(out_dir, f"items-{y}.json"), "w") as fh:
+            json.dump({"year": y, "items": xs}, fh, ensure_ascii=False, separators=(",", ":"))
+    index = {
+        "version": 1, "updated": NOW.isoformat(), "years": sorted(years, reverse=True),
+        "counts": {y: len(xs) for y, xs in years.items()}, "total": len(store),
+        "stats": stats(store, projects),
+        "sectors": [{"id": sid, "ja": ja} for sid, ja, *_ in SECTORS],
+        "donors": [{"id": did, "ja": ja, "g": grp} for did, ja, grp, _ in DONORS],
+        "backfill_cursor": cursor, "backfill_months": BACKFILL_MONTHS,
+        "untranslated": sum(1 for x in store.values() if "tj" not in x),
+    }
+    with open(os.path.join(out_dir, "index.json"), "w") as fh:
+        json.dump(index, fh, ensure_ascii=False, separators=(",", ":"))
+    log(f"done: {len(store)} items in {len(years)} years, {len(projects)} projects, {int(time.time() - START)}s")
+    if not store:
+        sys.exit("nothing collected")
+
+
+if __name__ == "__main__":
+    main()

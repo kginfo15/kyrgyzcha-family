@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f3a5f">
+<meta name="robots" content="noindex">
+<title>Kyrgyz Monitor</title>
+<meta name="description" content="キルギスの政策・報道・開発協力を分野別にまとめる情報収集ページ">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%231f3a5f'/%3E%3Cpath d='M22 70 L40 42 L54 58 L66 36 L80 70Z' fill='%23f4c95d'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f5f6f8; --card:#ffffff; --ink:#1b2230; --sub:#5b6577; --faint:#8a93a3; --line:#e3e6eb;
+  --accent:#1f5fa8; --accent-soft:#e6eef8; --head:#1f3a5f; --head-ink:#fff;
+  --gov:#8a4b08; --gov-soft:#fbefdc; --don:#1d6b4f; --don-soft:#e0f2ea; --press:#4b5568; --press-soft:#eceef2;
+  --act:#1d6b4f; --pipe:#7a5a00; --closed:#6b7280; --star:#e0a000; --bar:#9db7d9;
+  --shadow:0 1px 2px rgba(20,30,50,.06),0 1px 1px rgba(20,30,50,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11151c; --card:#1a2029; --ink:#e6e9ef; --sub:#a4adbd; --faint:#7d8697; --line:#2a313d;
+    --accent:#7fb0ef; --accent-soft:#1d2b3f; --head:#16263c; --head-ink:#e6e9ef;
+    --gov:#f0b56a; --gov-soft:#3a2a14; --don:#73cfa8; --don-soft:#15322a; --press:#b8c0cf; --press-soft:#262d38;
+    --act:#73cfa8; --pipe:#e8c45a; --closed:#9aa3b2; --bar:#3e5f8a; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11151c; --card:#1a2029; --ink:#e6e9ef; --sub:#a4adbd; --faint:#7d8697; --line:#2a313d;
+  --accent:#7fb0ef; --accent-soft:#1d2b3f; --head:#16263c; --head-ink:#e6e9ef;
+  --gov:#f0b56a; --gov-soft:#3a2a14; --don:#73cfa8; --don-soft:#15322a; --press:#b8c0cf; --press-soft:#262d38;
+  --act:#73cfa8; --pipe:#e8c45a; --closed:#9aa3b2; --bar:#3e5f8a; --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP","Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%;padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+a{color:var(--accent)}
+button,select,input{font:inherit;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+header.top{background:var(--head);color:var(--head-ink);padding:calc(12px + env(safe-area-inset-top)) 0 0;position:sticky;top:0;z-index:20}
+.brand{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand h1{margin:0;font-size:19px;letter-spacing:.3px;cursor:pointer}
+.brand .tag{font-size:12px;opacity:.75}
+.brand .upd{margin-left:auto;font-size:12px;opacity:.8;white-space:nowrap}
+.searchrow{display:flex;gap:8px;margin:10px 0 0}
+.searchrow input{flex:1;min-width:0;border:0;border-radius:8px;padding:8px 12px;background:rgba(255,255,255,.14);color:var(--head-ink)}
+.searchrow input::placeholder{color:rgba(255,255,255,.6)}
+.iconbtn{border:0;border-radius:8px;background:rgba(255,255,255,.14);color:var(--head-ink);padding:0 12px;cursor:pointer}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;margin-top:8px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{background:none;border:0;color:var(--head-ink);opacity:.72;padding:9px 12px 10px;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;font-size:14px}
+nav.tabs button.on{opacity:1;border-bottom-color:#f4c95d;font-weight:600}
+main{padding-top:14px}
+h2{font-size:17px;margin:20px 0 10px}
+h2 small{font-weight:400;color:var(--sub);font-size:12.5px;margin-left:6px}
+.note{color:var(--sub);font-size:12.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+/* sector grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.tile{padding:12px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:104px}
+.tile:hover{border-color:var(--accent)}
+.tile .nm{font-weight:600;font-size:14px;line-height:1.3;display:flex;gap:6px;align-items:flex-start}
+.tile .nm .no{color:var(--faint);font-size:11px;font-weight:500;margin-top:2px}
+.tile .nums{display:flex;gap:10px;font-size:12px;color:var(--sub);margin-top:auto;flex-wrap:wrap}
+.tile .nums b{color:var(--ink);font-size:15px;margin-right:2px}
+.tile .new{font-size:11px;color:var(--accent);font-weight:600}
+.spark{display:flex;align-items:flex-end;gap:2px;height:22px}
+.spark i{flex:1;background:var(--bar);border-radius:2px 2px 0 0;min-height:1px}
+/* two columns */
+.cols{display:grid;gap:16px}
+@media (min-width:900px){.cols{grid-template-columns:1fr 1fr}}
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;margin-bottom:10px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--card);padding:5px 10px;cursor:pointer;font-size:13px;color:var(--sub)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+select,.filters input{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 8px;font-size:13px;max-width:100%}
+.filters input{flex:1;min-width:140px}
+.btn{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer;color:var(--ink)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.count{font-size:12.5px;color:var(--sub);margin:4px 2px 8px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.count .sp{flex:1}
+/* items */
+.list{display:flex;flex-direction:column;gap:8px}
+.day{font-size:12px;font-weight:600;color:var(--sub);margin:10px 2px 0}
+.it{padding:10px 12px;position:relative}
+.it .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px;color:var(--sub);padding-right:28px}
+.badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;font-weight:600;line-height:1.6}
+.b-gov{background:var(--gov-soft);color:var(--gov)}
+.b-don{background:var(--don-soft);color:var(--don)}
+.b-press{background:var(--press-soft);color:var(--press)}
+.b-lang{border:1px solid var(--line);color:var(--faint);font-weight:500}
+.it h3{font-size:15px;margin:4px 0 2px;line-height:1.45;font-weight:600}
+.it h3 a{color:var(--ink);text-decoration:none}
+.it h3 a:hover{text-decoration:underline}
+.it .orig{font-size:12px;color:var(--faint);margin:0}
+.it .lead{font-size:13px;color:var(--sub);margin:4px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:0 7px;color:var(--sub);background:none;cursor:pointer;line-height:1.7}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.star{position:absolute;top:8px;right:8px;border:0;background:none;cursor:pointer;padding:2px;color:var(--faint);font-size:17px;line-height:1}
+.star.on{color:var(--star)}
+.links{font-size:12px;margin-left:auto}
+.more{display:block;margin:12px auto;padding:8px 18px}
+/* projects */
+.pj{padding:10px 12px}
+.pj .row1{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--sub)}
+.st{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;border:1px solid currentColor}
+.st-active{color:var(--act)} .st-pipeline{color:var(--pipe)} .st-closed,.st-dropped,.st-suspended{color:var(--closed)}
+.pj h3{font-size:14.5px;margin:4px 0 2px;line-height:1.45}
+.pj h3 a{color:var(--ink);text-decoration:none}
+.pj .amt{font-weight:600;color:var(--ink)}
+.pj .desc{font-size:12.5px;color:var(--sub);margin:4px 0 0}
+/* sector page */
+.shead{margin-top:6px;padding:14px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.shead h2{margin:0;font-size:19px}
+.kpis{display:flex;gap:16px;flex-wrap:wrap}
+.kpi{font-size:12px;color:var(--sub)}
+.kpi b{display:block;font-size:19px;color:var(--ink)}
+.months{padding:12px 14px}
+.months .bars{display:flex;align-items:flex-end;gap:4px;height:64px}
+.months .bars div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.months .bars i{display:block;background:var(--bar);border-radius:3px 3px 0 0;min-height:1px}
+.months .lbl{display:flex;gap:4px;font-size:10px;color:var(--faint);margin-top:3px}
+.months .lbl span{flex:1;text-align:center}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 10px}
+.subtabs button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;font-size:13px;cursor:pointer;color:var(--sub)}
+.subtabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.subtabs button span{opacity:.75;margin-left:4px;font-size:11.5px}
+.dons{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+/* donors page */
+.dgroup{margin-bottom:14px;overflow-x:auto}
+.dtab td,.dtab th{white-space:nowrap}
+.dtab{width:100%;border-collapse:collapse;font-size:13.5px}
+.dtab th,.dtab td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:right}
+.dtab th:first-child,.dtab td:first-child{text-align:left}
+.dtab th{font-size:12px;color:var(--sub);font-weight:500}
+.dtab tr.click{cursor:pointer}
+.dtab tr.click:hover td{background:var(--accent-soft)}
+.empty{padding:28px 16px;text-align:center;color:var(--sub)}
+.foot{margin:28px 0 0;font-size:12px;color:var(--faint);line-height:1.7}
+.hl{background:rgba(244,201,93,.4);border-radius:2px}
+@media (max-width:520px){
+  .brand .tag{display:none}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .tile{min-height:96px;padding:10px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1 id="home">Kyrgyz Monitor</h1>
+      <span class="tag">政策・報道・開発協力を分野別に</span>
+      <span class="upd" id="upd"></span>
+    </div>
+    <form class="searchrow" id="sform">
+      <input id="q" type="search" placeholder="キーワード検索（日本語・ロシア語・英語）" autocomplete="off">
+      <button class="iconbtn" id="theme" type="button" title="表示テーマ">◐</button>
+    </form>
+    <nav class="tabs" id="tabs">
+      <button data-v="home">ホーム</button>
+      <button data-v="feed">最新</button>
+      <button data-v="gov">政府の動き</button>
+      <button data-v="coop">協力・NGO</button>
+      <button data-v="projects">案件</button>
+      <button data-v="donors">援助機関</button>
+      <button data-v="saved">保存</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="main"><div class="empty">読み込み中…</div></main>
+
+<script>
+"use strict";
+const BASE = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/sector-data/";
+const TZ = "Asia/Bishkek";
+const SECTORS = [
+  ["urban","都市・地域開発","🏙️"],["transport","運輸交通","🚆"],["energy","資源・エネルギー","⚡"],
+  ["private","民間セクター開発","🏭"],["agri","農業・農村開発","🌾"],["health","保健医療","🏥"],
+  ["nutrition","栄養改善","🥗"],["education","教育","🎓"],["social","社会保障・障害と開発","🤝"],
+  ["sports","スポーツと開発","⚽"],["peace","平和構築","🕊️"],["governance","ガバナンス","🏛️"],
+  ["finance","公共財政・金融システム","💰"],["gender","ジェンダー平等","⚖️"],["digital","デジタル化","💻"],
+  ["climate","気候変動","🌡️"],["nature","自然環境保全","🌲"],["envmgmt","環境管理","♻️"],
+  ["water","水資源・水供給","💧"],["drr","防災・災害リスク削減","⛑️"],
+];
+const SEC = Object.fromEntries(SECTORS.map(([id,ja,ic],i)=>[id,{id,ja,ic,no:i+1}]));
+const DGROUP = {mdb:"国際開発金融機関",un:"国連・国際機関",bilateral:"二国間",fund:"基金",ngo:"財団・NGO"};
+let DONORS = {};  // filled from index.json
+const ST_JA = {active:"実施中",pipeline:"計画中",closed:"終了",dropped:"中止",suspended:"中断"};
+const PERIODS = [[7,"7日"],[30,"30日"],[90,"90日"],[365,"1年"],[0,"全期間"]];
+
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = s => document.querySelector(s);
+function lsGet(k,d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v==null?d:v; }catch(e){ return d; } }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+/* ---------- theme ---------- */
+function applyTheme(t){ if(t) document.documentElement.setAttribute("data-theme",t); else document.documentElement.removeAttribute("data-theme"); }
+applyTheme(lsGet("km-theme",null));
+$("#theme").onclick = ()=>{
+  const cur = lsGet("km-theme",null), next = cur==null ? "dark" : cur==="dark" ? "light" : null;
+  lsSet("km-theme",next); applyTheme(next);
+};
+
+/* ---------- state & routing ---------- */
+const S = Object.assign({v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"gov"}, {});
+const PAGE = 60;
+let shown = PAGE;
+function readHash(){
+  const h = new URLSearchParams(location.hash.slice(1));
+  for(const k of ["v","s","t","d","q","ps","psort","sub"]) S[k] = h.get(k) ?? ({v:"home",t:"all",ps:"active",psort:"start",sub:"gov"}[k] ?? "");
+  S.p = h.has("p") ? +h.get("p") : 90;
+}
+function go(patch, push=true){
+  Object.assign(S, patch); shown = PAGE;
+  const h = new URLSearchParams();
+  if(S.v!=="home") h.set("v",S.v);
+  for(const k of ["s","d","q"]) if(S[k]) h.set(k,S[k]);
+  if(S.t!=="all") h.set("t",S.t);
+  if(S.p!==90) h.set("p",S.p);
+  if(S.v==="projects"||S.v==="sector"||S.v==="donor"){ if(S.ps!=="active") h.set("ps",S.ps); if(S.psort!=="start") h.set("psort",S.psort); }
+  if(S.v==="sector"&&S.sub!=="gov") h.set("sub",S.sub);
+  const str = h.toString();
+  if(push) history.pushState(null,"",str?"#"+str:location.pathname+location.search);
+  else history.replaceState(null,"",str?"#"+str:location.pathname+location.search);
+  render(); if(push) window.scrollTo(0,0);
+}
+window.addEventListener("popstate", ()=>{ readHash(); shown=PAGE; render(); });
+
+/* ---------- data ---------- */
+let INDEX = null, ITEMS = [], PROJECTS = null, loadedYears = new Set(), loadErr = "";
+let saved = lsGet("km-saved", {});
+async function getJSON(url){
+  const r = await fetch(url, {cache:"no-cache"});
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  return r.json();
+}
+function prep(x){
+  x.ts = Date.parse(x.p) || 0;
+  x.c = x.c||[]; x.d = x.d||[];
+  x.k = ((x.t||"")+" "+(x.tj||"")+" "+(x.l||"")+" "+(x.lj||"")+" "+(x.s||"")).toLowerCase();
+  return x;
+}
+async function loadYear(y){
+  if(loadedYears.has(y)) return;
+  loadedYears.add(y);
+  const d = await getJSON(BASE+"items-"+y+".json");
+  const have = new Set(ITEMS.map(x=>x.i));
+  for(const x of d.items||[]) if(!have.has(x.i)) ITEMS.push(prep(x));
+  ITEMS.sort((a,b)=>b.ts-a.ts);
+}
+async function loadProjects(){
+  if(PROJECTS) return PROJECTS;
+  try{
+    const d = await getJSON(BASE+"projects.json");
+    PROJECTS = (d.projects||[]).map(p=>{ p.c=p.c||[]; p.k=((p.t||"")+" "+(p.tj||"")+" "+(p.x||"")+" "+(p.org||"")+" "+(p.impl||"")).toLowerCase(); return p; });
+    PROJECTS.meta = d;
+  }catch(e){ PROJECTS = []; PROJECTS.err = String(e.message||e); }
+  return PROJECTS;
+}
+async function boot(){
+  readHash();
+  $("#q").value = S.q;
+  try{
+    INDEX = await getJSON(BASE+"index.json");
+    for(const d of INDEX.donors||[]) DONORS[d.id] = d;
+    const ys = (INDEX.years||[]).slice(0,2);  // this year and last: covers a 1-year window
+    await Promise.all(ys.map(loadYear));
+    $("#upd").textContent = "更新 " + fmtDT(INDEX.updated);
+  }catch(e){ loadErr = String(e.message||e); }
+  render();
+  if(["projects","sector","donor","donors","home"].includes(S.v)) loadProjects().then(render);
+}
+
+/* ---------- formatting ---------- */
+const dtf = new Intl.DateTimeFormat("ja-JP",{timeZone:TZ,year:"numeric",month:"numeric",day:"numeric",weekday:"short"});
+const dtt = new Intl.DateTimeFormat("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"});
+const fmtDay = ts => dtf.format(new Date(ts));
+const fmtDT = s => { try{ return dtt.format(new Date(s)); }catch(e){ return ""; } };
+const ymd = s => s ? s.slice(0,10).replace(/-/g,"/") : "";
+function money(v){
+  if(v==null) return "";
+  if(v>=1e9) return "$"+(v/1e9).toFixed(2)+"B";
+  if(v>=1e6) return "$"+(v/1e6).toFixed(v>=1e8?0:1)+"M";
+  if(v>=1e3) return "$"+Math.round(v/1e3)+"K";
+  return "$"+Math.round(v);
+}
+function jaLink(url){
+  try{
+    const u = new URL(url);
+    if(!/^https?:$/.test(u.protocol) || /(^|\.)news\.google\.com$/.test(u.hostname) || /\.translate\.goog$/.test(u.hostname)) return url;
+    const host = u.hostname.replace(/-/g,"--").replace(/\./g,"-") + ".translate.goog";
+    const q = new URLSearchParams(u.search);
+    q.set("_x_tr_sl","auto"); q.set("_x_tr_tl","ja"); q.set("_x_tr_hl","ja"); q.set("_x_tr_pto","wapp");
+    return `https://${host}${u.pathname}?${q}${u.hash}`;
+  }catch(e){ return url; }
+}
+function hl(text){
+  const s = esc(text);
+  if(!S.q) return s;
+  const terms = S.q.trim().split(/\s+/).filter(t=>t.length>1).map(t=>esc(t).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+  if(!terms.length) return s;
+  return s.replace(new RegExp("("+terms.join("|")+")","gi"),'<mark class="hl">$1</mark>');
+}
+const donorName = id => (DONORS[id]&&DONORS[id].ja) || id;
+
+/* ---------- filtering ---------- */
+function filterItems(o){
+  const now = Date.now();
+  const min = o.p ? now - o.p*864e5 : 0;
+  const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
+  return ITEMS.filter(x=>{
+    if(x.ts < min) return false;
+    if(o.s && !x.c.includes(o.s)) return false;
+    if(o.d && !x.d.includes(o.d)) return false;
+    if(o.t==="gov" && !x.g) return false;
+    if(o.t==="coop" && !x.d.length) return false;
+    if(o.t==="press" && (x.g || x.d.length)) return false;
+    for(const t of terms) if(!x.k.includes(t)) return false;
+    return true;
+  });
+}
+function filterProjects(o){
+  if(!PROJECTS) return [];
+  const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
+  let r = PROJECTS.filter(p=>{
+    if(o.s && !p.c.includes(o.s)) return false;
+    if(o.d && p.donor!==o.d) return false;
+    if(o.ps && o.ps!=="all"){
+      if(o.ps==="closed" ? !["closed","dropped","suspended"].includes(p.st) : p.st!==o.ps) return false;
+    }
+    for(const t of terms) if(!p.k.includes(t)) return false;
+    return true;
+  });
+  const by = {start:(a,b)=>(b.a||"").localeCompare(a.a||""), amount:(a,b)=>(b.amt||0)-(a.amt||0),
+              end:(a,b)=>(a.e||"9999").localeCompare(b.e||"9999")}[o.psort||"start"];
+  return r.sort(by);
+}
+
+/* ---------- rendering pieces ---------- */
+function itemHTML(x){
+  const kind = [];
+  if(x.g) kind.push('<span class="badge b-gov">政府</span>');
+  for(const d of x.d) kind.push(`<span class="badge b-don">${esc(donorName(d))}</span>`);
+  if(!x.g && !x.d.length) kind.push('<span class="badge b-press">報道</span>');
+  const title = x.tj || x.t;
+  const lead = x.lj || x.l;
+  const star = saved[x.i] ? "on" : "";
+  return `<article class="card it">
+    <div class="meta"><span>${esc(fmtDT(x.p))}</span><span>${esc(x.s||"")}</span>${kind.join("")}${x.lang==="en"?'<span class="badge b-lang">EN</span>':""}</div>
+    <h3><a href="${esc(jaLink(x.u))}" target="_blank" rel="noopener">${hl(title)}</a></h3>
+    ${x.tj ? `<p class="orig">${hl(x.t)} · <a href="${esc(x.u)}" target="_blank" rel="noopener">原文</a></p>` : `<p class="orig"><a href="${esc(x.u)}" target="_blank" rel="noopener">原文</a></p>`}
+    ${lead ? `<p class="lead">${hl(lead)}</p>` : ""}
+    ${x.c.length ? `<div class="chips">${x.c.map(c=>SEC[c]?`<button class="chip" data-sec="${c}">${SEC[c].ic} ${esc(SEC[c].ja)}</button>`:"").join("")}</div>` : ""}
+    <button class="star ${star}" data-star="${esc(x.i)}" title="保存">${star?"★":"☆"}</button>
+  </article>`;
+}
+function listHTML(items, withDays=true){
+  if(!items.length) return `<div class="card empty">該当する情報はありません</div>`;
+  let out = "", last = "";
+  for(const x of items.slice(0, shown)){
+    const d = fmtDay(x.ts);
+    if(withDays && d!==last){ out += `<div class="day">${esc(d)}</div>`; last = d; }
+    out += itemHTML(x);
+  }
+  if(items.length > shown) out += `<button class="btn more" data-more>さらに表示（残り ${items.length-shown} 件）</button>`;
+  return `<div class="list">${out}</div>`;
+}
+function projectHTML(p){
+  const sec = p.c.map(c=>SEC[c]?`<button class="chip" data-sec="${c}">${SEC[c].ic} ${esc(SEC[c].ja)}</button>`:"").join("");
+  const per = (p.a||p.e) ? `${ymd(p.a)||"?"} 〜 ${ymd(p.e)||"?"}` : "";
+  return `<article class="card pj">
+    <div class="row1"><span class="st st-${esc(p.st)}">${esc(ST_JA[p.st]||p.st)}</span>
+      <span>${esc(p.donor && DONORS[p.donor] && p.donor!=="ngo" ? donorName(p.donor) : "")}</span>
+      <span>${esc(p.org||"")}</span>${per?`<span>${esc(per)}</span>`:""}${p.amt?`<span class="amt">${money(p.amt)}</span>`:""}</div>
+    <h3><a href="${esc(p.u)}" target="_blank" rel="noopener">${hl(p.tj||p.t)}</a></h3>
+    ${p.tj ? `<p class="orig" style="font-size:12px;color:var(--faint);margin:0">${hl(p.t)}</p>` : ""}
+    ${p.impl ? `<p class="desc">実施機関: ${esc(p.impl)}${p.kind?` ／ ${esc(p.kind)}`:""}</p>` : ""}
+    ${p.x ? `<p class="desc">${hl(p.x)}</p>` : ""}
+    ${sec?`<div class="chips">${sec}</div>`:""}
+  </article>`;
+}
+function projectListHTML(list){
+  if(!PROJECTS) return `<div class="card empty">案件データを読み込み中…</div>`;
+  if(PROJECTS.err) return `<div class="card empty">案件データを読み込めませんでした（${esc(PROJECTS.err)}）</div>`;
+  if(!list.length) return `<div class="card empty">該当する案件はありません</div>`;
+  const total = list.reduce((s,p)=>s+(p.amt||0),0);
+  let out = `<div class="count"><span>${list.length} 件</span>${total?`<span>金額合計 ${money(total)}（判明分）</span>`:""}<span class="sp"></span><button class="btn" data-csv="projects">CSV</button></div><div class="list">`;
+  out += list.slice(0, shown).map(projectHTML).join("");
+  if(list.length > shown) out += `<button class="btn more" data-more>さらに表示（残り ${list.length-shown} 件）</button>`;
+  return out + "</div>";
+}
+function seg(name, opts, cur){
+  return `<span class="seg">${opts.map(([v,l])=>`<button data-set="${name}" data-val="${v}" class="${String(v)===String(cur)?"on":""}">${esc(l)}</button>`).join("")}</span>`;
+}
+function sectorSelect(cur){
+  return `<select data-sel="s"><option value="">すべての分野</option>${SECTORS.map(([id,ja],i)=>`<option value="${id}" ${id===cur?"selected":""}>${i+1}. ${esc(ja)}</option>`).join("")}</select>`;
+}
+function donorSelect(cur){
+  const groups = {};
+  for(const d of Object.values(DONORS)) (groups[d.g] = groups[d.g]||[]).push(d);
+  return `<select data-sel="d"><option value="">すべての機関</option>${Object.entries(DGROUP).map(([g,gl])=>groups[g]?`<optgroup label="${esc(gl)}">${groups[g].map(d=>`<option value="${d.id}" ${d.id===cur?"selected":""}>${esc(d.ja)}</option>`).join("")}</optgroup>`:"").join("")}</select>`;
+}
+function periodSelect(cur){
+  return `<select data-sel="p">${PERIODS.map(([v,l])=>`<option value="${v}" ${v===cur?"selected":""}>${l}</option>`).join("")}</select>`;
+}
+function monthBars(items){
+  const now = new Date(), months = [];
+  for(let i=11;i>=0;i--){ const d = new Date(now.getFullYear(), now.getMonth()-i, 1); months.push([d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"), d.getMonth()+1]); }
+  const cnt = Object.fromEntries(months.map(([k])=>[k,0]));
+  for(const x of items){ const k = (x.p||"").slice(0,7); if(k in cnt) cnt[k]++; }
+  const max = Math.max(1,...Object.values(cnt));
+  return `<div class="card months"><div class="note" style="margin-bottom:6px">月別の件数（過去12か月）</div>
+    <div class="bars">${months.map(([k])=>`<div title="${k}: ${cnt[k]}件"><i style="height:${Math.round(cnt[k]/max*100)}%"></i></div>`).join("")}</div>
+    <div class="lbl">${months.map(([,m])=>`<span>${m}</span>`).join("")}</div></div>`;
+}
+function sparkline(items){
+  // weekly counts for the last 12 weeks
+  const now = Date.now(), w = new Array(12).fill(0);
+  for(const x of items){ const i = Math.floor((now-x.ts)/(7*864e5)); if(i>=0&&i<12) w[11-i]++; }
+  const max = Math.max(1,...w);
+  return `<div class="spark">${w.map(v=>`<i style="height:${Math.round(v/max*100)}%"></i>`).join("")}</div>`;
+}
+function setTitle(t){ document.title = t ? t+" — Kyrgyz Monitor" : "Kyrgyz Monitor"; }
+
+/* ---------- views ---------- */
+function viewHome(){
+  setTitle("");
+  const now = Date.now(), d30 = now-30*864e5, d7 = now-7*864e5;
+  const by = {};
+  for(const [id] of SECTORS) by[id] = [];
+  for(const x of ITEMS) for(const c of x.c) if(by[c]) by[c].push(x);
+  const pa = {};
+  if(PROJECTS && !PROJECTS.err) for(const p of PROJECTS) if(p.st==="active") for(const c of p.c) pa[c]=(pa[c]||0)+1;
+  const tiles = SECTORS.map(([id,ja,ic],i)=>{
+    const xs = by[id], n30 = xs.filter(x=>x.ts>=d30).length, n7 = xs.filter(x=>x.ts>=d7).length;
+    const g30 = xs.filter(x=>x.ts>=d30&&x.g).length, c30 = xs.filter(x=>x.ts>=d30&&x.d.length).length;
+    const st = (INDEX&&INDEX.stats&&INDEX.stats[id])||{};
+    const act = PROJECTS && !PROJECTS.err ? (pa[id]||0) : (st.pa||0);
+    return `<button class="card tile" data-sec="${id}">
+      <span class="nm"><span>${ic}</span><span>${esc(ja)}</span></span>
+      ${sparkline(xs)}
+      <span class="nums"><span><b>${n30}</b>件/30日</span><span title="政府">政 ${g30}</span><span title="協力">協 ${c30}</span><span title="実施中案件">案 ${act}</span></span>
+      ${n7?`<span class="new">今週 +${n7}</span>`:""}
+    </button>`;
+  }).join("");
+  const gov = ITEMS.filter(x=>x.g).slice(0,8), coop = ITEMS.filter(x=>x.d.length).slice(0,8);
+  return `
+    <h2>分野別の動き <small>件数は過去30日・グラフは12週間の推移（政=政府 協=援助機関・NGO 案=実施中案件）</small></h2>
+    <div class="grid">${tiles}</div>
+    <div class="cols">
+      <section><h2>最新の政府の動き <small><a href="#v=gov">すべて見る</a></small></h2>${listHTML(gov,false)}</section>
+      <section><h2>最新の協力・NGO情報 <small><a href="#v=coop">すべて見る</a></small></h2>${listHTML(coop,false)}</section>
+    </div>`;
+}
+function feedFilters(fixedType){
+  return `<div class="card filters">
+    ${fixedType?"":seg("t",[["all","すべて"],["gov","政府"],["coop","協力・NGO"],["press","報道"]],S.t)}
+    ${periodSelect(S.p)} ${sectorSelect(S.s)} ${donorSelect(S.d)}
+    <input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}">
+  </div>`;
+}
+function viewFeed(type){
+  const t = type || S.t;
+  const titles = {gov:"政府の動き", coop:"援助機関・NGOの協力情報", all:"最新情報", press:"報道"};
+  setTitle(titles[t]);
+  const items = filterItems({...S, t});
+  const lead = {gov:"大統領・内閣・各省庁・議会の決定や発表、政府系メディアの報道。", coop:"国際機関・各国援助機関・財団・NGOが関わるニュース（融資・無償資金・技術協力・共同事業など）。"}[t] || "";
+  return `<h2>${titles[t]} ${lead?`<small>${lead}</small>`:""}</h2>${feedFilters(!!type)}
+    <div class="count"><span>${items.length} 件</span><span class="sp"></span>${moreYearsBtn()}<button class="btn" data-csv="items">CSV</button></div>
+    ${listHTML(items)}`;
+}
+function moreYearsBtn(){
+  if(!INDEX || S.p && S.p<=365) return "";
+  const rest = (INDEX.years||[]).filter(y=>!loadedYears.has(y));
+  return rest.length ? `<button class="btn" data-years>${rest.join("・")}年も読み込む</button>` : "";
+}
+function viewSector(){
+  const s = SEC[S.s];
+  if(!s) return viewHome();
+  setTitle(s.ja);
+  const all = ITEMS.filter(x=>x.c.includes(s.id));
+  const items = filterItems({...S, t:"all"});
+  const d30 = Date.now()-30*864e5;
+  const projs = PROJECTS && !PROJECTS.err ? PROJECTS.filter(p=>p.c.includes(s.id)) : [];
+  const nAct = projs.filter(p=>p.st==="active").length;
+  const cnt = {gov:items.filter(x=>x.g).length, coop:items.filter(x=>x.d.length).length, press:items.length,
+               pa:projs.filter(p=>p.st==="active"||p.st==="pipeline").length, pc:projs.filter(p=>!["active","pipeline"].includes(p.st)).length};
+  // who is active in this sector: donor mentions (news) + projects
+  const dc = {};
+  for(const x of items) for(const d of x.d) dc[d]=(dc[d]||0)+1;
+  for(const p of projs) if(p.st==="active" && p.donor && p.donor!=="ngo") dc[p.donor]=(dc[p.donor]||0)+1;
+  const dons = Object.entries(dc).sort((a,b)=>b[1]-a[1]).slice(0,14);
+  const subs = [["gov","政府の動き",cnt.gov],["coop","協力・NGO",cnt.coop],["press","すべての報道",cnt.press],["pa","案件（実施中・計画中）",cnt.pa],["pc","案件（過去）",cnt.pc]];
+  let body;
+  if(S.sub==="pa"||S.sub==="pc"){
+    const list = filterProjects({s:s.id, d:S.d, q:S.q, ps:"all", psort:S.sub==="pc"?"start":S.psort})
+      .filter(p=>S.sub==="pa" ? (p.st==="active"||p.st==="pipeline") : !["active","pipeline"].includes(p.st));
+    body = `<div class="card filters">${donorSelect(S.d)}
+      ${seg("psort",[["start","開始日順"],["amount","金額順"],["end","終了日順"]],S.psort)}
+      <input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}"></div>${projectListHTML(list)}`;
+  }else{
+    const t = S.sub==="press" ? "all" : S.sub;
+    const list = filterItems({...S, t});
+    body = `<div class="card filters">${periodSelect(S.p)} ${donorSelect(S.d)}
+      <input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}"></div>
+      <div class="count"><span>${list.length} 件</span><span class="sp"></span>${moreYearsBtn()}<button class="btn" data-csv="items">CSV</button></div>${listHTML(list)}`;
+  }
+  return `<div class="card shead"><h2>${s.ic} ${s.no}. ${esc(s.ja)}</h2>
+      <div class="kpis"><div class="kpi"><b>${all.filter(x=>x.ts>=d30).length}</b>30日の件数</div>
+      <div class="kpi"><b>${all.filter(x=>x.ts>=d30&&x.g).length}</b>うち政府</div>
+      <div class="kpi"><b>${all.filter(x=>x.ts>=d30&&x.d.length).length}</b>うち協力</div>
+      <div class="kpi"><b>${PROJECTS?nAct:"…"}</b>実施中案件</div><div class="kpi"><b>${PROJECTS?projs.length:"…"}</b>案件総数</div></div></div>
+    <div class="cols" style="margin-top:10px">${monthBars(all)}
+      <div class="card months"><div class="note">この分野で名前が多く出る援助機関（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}の報道＋実施中案件）</div>
+      <div class="dons">${dons.length?dons.map(([d,n])=>`<button class="chip" data-donor="${d}">${esc(donorName(d))} ${n}</button>`).join(""):'<span class="note">まだありません</span>'}</div></div></div>
+    <div class="subtabs">${subs.map(([k,l,n])=>`<button data-sub="${k}" class="${S.sub===k?"on":""}">${l}<span>${n}</span></button>`).join("")}</div>
+    ${body}`;
+}
+function viewProjects(){
+  setTitle("案件");
+  const list = filterProjects(S);
+  const src = PROJECTS && PROJECTS.meta ? PROJECTS.meta : null;
+  return `<h2>援助機関の案件 <small>実施中・計画中・過去の案件（世界銀行／IATI公開データ）</small></h2>
+    <div class="card filters">${seg("ps",[["active","実施中"],["pipeline","計画中"],["closed","終了"],["all","すべて"]],S.ps)}
+      ${sectorSelect(S.s)} ${donorSelect(S.d)}
+      ${seg("psort",[["start","開始日順"],["amount","金額順"],["end","終了日順"]],S.psort)}
+      <input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}"></div>
+    ${projectListHTML(list)}
+    ${src?`<p class="foot">案件データ更新: ${esc(fmtDT(src.updated))}。出典: World Bank Projects API、IATI（d-portal.org 経由。各機関が公開する援助活動データ）。金額は機関の報告値（米ドル換算）で、報告のない案件もあります。分野はタイトル・説明・分野コードから自動で振り分けています。</p>`:""}`;
+}
+function viewDonors(){
+  setTitle("援助機関");
+  const d90 = Date.now()-90*864e5;
+  const rows = {};
+  for(const id in DONORS) rows[id] = {n90:0, n:0, pa:0, pt:0, amt:0};
+  for(const x of ITEMS) for(const d of x.d) if(rows[d]){ rows[d].n++; if(x.ts>=d90) rows[d].n90++; }
+  if(PROJECTS && !PROJECTS.err) for(const p of PROJECTS){ const r = rows[p.donor]; if(!r) continue; r.pt++; if(p.st==="active"){ r.pa++; r.amt += p.amt||0; } }
+  const groups = {};
+  for(const d of Object.values(DONORS)) (groups[d.g]=groups[d.g]||[]).push(d);
+  return `<h2>援助機関・NGO <small>報道での登場件数と、公開データ上の案件数</small></h2>
+    ${Object.entries(DGROUP).map(([g,gl])=>groups[g]?`<section class="card dgroup"><table class="dtab">
+      <thead><tr><th>${esc(gl)}</th><th>報道 90日</th><th>報道 累計</th><th>実施中案件</th><th>実施中金額</th><th>案件総数</th></tr></thead>
+      <tbody>${groups[g].sort((a,b)=>(rows[b.id].n90+rows[b.id].pa)-(rows[a.id].n90+rows[a.id].pa)).map(d=>{const r=rows[d.id];return `<tr class="click" data-donor="${d.id}"><td>${esc(d.ja)}</td><td>${r.n90}</td><td>${r.n}</td><td>${PROJECTS?r.pa:"…"}</td><td>${r.amt?money(r.amt):"—"}</td><td>${PROJECTS?r.pt:"…"}</td></tr>`}).join("")}</tbody>
+    </table></section>`:"").join("")}
+    <p class="foot">「NGO・市民団体」の案件数には、上の一覧に当てはまらない報告機関（各国NGO・財団など）の案件も含みます。</p>`;
+}
+function viewDonor(){
+  const d = DONORS[S.d];
+  if(!d) return viewDonors();
+  setTitle(d.ja);
+  const items = filterItems({...S, t:"all"});
+  const projs = filterProjects({d:S.d, s:S.s, q:S.q, ps:S.ps, psort:S.psort});
+  return `<div class="card shead"><h2>${esc(d.ja)}</h2><span class="note">${esc(DGROUP[d.g]||"")}</span></div>
+    <div class="card filters" style="margin-top:10px">${periodSelect(S.p)} ${sectorSelect(S.s)}
+      <input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}"></div>
+    <div class="cols">
+      <section><h2>案件</h2><div class="card filters">${seg("ps",[["active","実施中"],["pipeline","計画中"],["closed","終了"],["all","すべて"]],S.ps)}
+        ${seg("psort",[["start","開始日順"],["amount","金額順"]],S.psort)}</div>${projectListHTML(projs)}</section>
+      <section><h2>関連ニュース <small>${items.length} 件</small></h2>${listHTML(items)}</section>
+    </div>`;
+}
+function viewSaved(){
+  setTitle("保存");
+  const items = Object.values(saved).map(prep).sort((a,b)=>b.ts-a.ts);
+  return `<h2>保存した記事 <small>この端末のブラウザに保存されます</small></h2>
+    <div class="count"><span>${items.length} 件</span><span class="sp"></span>${items.length?'<button class="btn" data-csv="saved">CSV</button>':""}</div>
+    ${items.length?listHTML(items):'<div class="card empty">記事の ☆ を押すとここに保存されます</div>'}`;
+}
+function render(){
+  document.querySelectorAll("#tabs button").forEach(b=>{
+    const v = b.dataset.v;
+    b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor"));
+  });
+  const m = $("#main");
+  if(!INDEX){
+    m.innerHTML = loadErr ? `<div class="card empty">データをまだ読み込めません（${esc(loadErr)}）。<br>初回の収集が終わると表示されます。しばらくしてから再読み込みしてください。</div>` : `<div class="empty">読み込み中…</div>`;
+    return;
+  }
+  const html = {home:viewHome, feed:()=>viewFeed(null), gov:()=>viewFeed("gov"), coop:()=>viewFeed("coop"), sector:viewSector,
+                projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved}[S.v] || viewHome;
+  m.innerHTML = html() + footer();
+}
+function footer(){
+  const n = INDEX ? INDEX.total : 0;
+  const bf = INDEX && INDEX.backfill_cursor!=null ? Math.min(INDEX.backfill_cursor, INDEX.backfill_months||36) : 0;
+  return `<p class="foot">収集元: キルギスの主要メディア（24.kg、Kaktus.media、AKIpress、Kloop、Кабар、Азаттык ほか）、政府・議会サイト、Google ニュース検索（ロシア語・英語）、国際機関の発表。見出しと要旨は機械翻訳です。タイトルを押すと記事全体を Google 翻訳で開きます。
+    保存件数 ${n.toLocaleString()} 件${bf?`・過去 ${bf} か月分をさかのぼって収集済み`:""}${INDEX&&INDEX.untranslated?`・翻訳待ち ${INDEX.untranslated} 件`:""}。分野・機関の振り分けはキーワードによる自動判定です。</p>`;
+}
+
+/* ---------- CSV ---------- */
+function csvDownload(kind){
+  let rows, name;
+  const q = v => '"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+  if(kind==="projects"){
+    const list = S.v==="sector" ? filterProjects({s:S.s,d:S.d,q:S.q,ps:"all",psort:S.psort}).filter(p=>S.sub==="pa"?(p.st==="active"||p.st==="pipeline"):S.sub==="pc"?!["active","pipeline"].includes(p.st):true)
+                               : filterProjects(S.v==="donor"?{d:S.d,s:S.s,q:S.q,ps:S.ps,psort:S.psort}:S);
+    rows = [["状態","機関","報告機関","案件名（日本語）","案件名（原文）","開始","終了","金額USD","分野","URL"]].concat(
+      list.map(p=>[ST_JA[p.st]||p.st, donorName(p.donor), p.org, p.tj, p.t, p.a, p.e, p.amt, p.c.map(c=>SEC[c]?.ja).join("／"), p.u]));
+    name = "projects";
+  }else{
+    let list;
+    if(kind==="saved") list = Object.values(saved).map(prep).sort((a,b)=>b.ts-a.ts);
+    else if(S.v==="sector") list = filterItems({...S, t:S.sub==="press"?"all":S.sub});
+    else list = filterItems({...S, t:{gov:"gov",coop:"coop"}[S.v]||S.t});
+    rows = [["日時","媒体","種別","機関","見出し（日本語）","見出し（原文）","要旨（日本語）","分野","URL"]].concat(
+      list.map(x=>[fmtDT(x.p), x.s, x.g?"政府":x.d.length?"協力":"報道", x.d.map(donorName).join("／"), x.tj, x.t, x.lj||x.l, x.c.map(c=>SEC[c]?.ja).join("／"), x.u]));
+    name = kind==="saved" ? "saved" : "news";
+  }
+  const blob = new Blob(["﻿"+rows.map(r=>r.map(q).join(",")).join("\r\n")], {type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `kyrgyz-${name}${S.s?"-"+S.s:""}-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+}
+
+/* ---------- events ---------- */
+$("#tabs").addEventListener("click", e=>{
+  const b = e.target.closest("button"); if(!b) return;
+  const v = b.dataset.v;
+  go({v, s:"", d:"", t:"all", sub:"gov", ps:"active"});
+  if(["projects","donors"].includes(v)) loadProjects().then(render);
+});
+$("#home").onclick = ()=>go({v:"home", s:"", d:"", q:""});
+$("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); go({v:"feed", q:$("#q").value.trim(), t:"all", p:0, s:"", d:""}); });
+const main = $("#main");
+main.addEventListener("click", e=>{
+  const t = e.target;
+  const sec = t.closest("[data-sec]");
+  if(sec){ e.preventDefault(); go({v:"sector", s:sec.dataset.sec, sub:"gov", d:"", q:""}); loadProjects().then(render); return; }
+  const don = t.closest("[data-donor]");
+  if(don){ go({v:"donor", d:don.dataset.donor, s:"", q:"", ps:"active"}); loadProjects().then(render); return; }
+  const st = t.closest("[data-star]");
+  if(st){
+    const id = st.dataset.star;
+    if(saved[id]) delete saved[id];
+    else { const x = ITEMS.find(x=>x.i===id) || saved[id]; if(x){ const {ts,k,...rest} = x; saved[id] = rest; } }
+    lsSet("km-saved", saved);
+    st.classList.toggle("on", !!saved[id]); st.textContent = saved[id] ? "★" : "☆";
+    if(S.v==="saved") render();
+    return;
+  }
+  const set = t.closest("[data-set]");
+  if(set){ const k = set.dataset.set; let v = set.dataset.val; go({[k]: v}, false); return; }
+  const sub = t.closest("[data-sub]");
+  if(sub){ go({sub:sub.dataset.sub}, false); if(sub.dataset.sub[0]==="p") loadProjects().then(render); return; }
+  if(t.closest("[data-more]")){ shown += PAGE*2; render(); return; }
+  const csv = t.closest("[data-csv]");
+  if(csv){ csvDownload(csv.dataset.csv); return; }
+  if(t.closest("[data-years]")){
+    t.disabled = true; t.textContent = "読み込み中…";
+    Promise.all((INDEX.years||[]).filter(y=>!loadedYears.has(y)).map(y=>loadYear(y).catch(()=>{}))).then(render);
+  }
+});
+main.addEventListener("change", e=>{
+  const s = e.target.closest("[data-sel]"); if(!s) return;
+  const k = s.dataset.sel;
+  go({[k]: k==="p" ? +s.value : s.value}, false);
+});
+let qTimer = 0;
+main.addEventListener("input", e=>{
+  const i = e.target.closest("[data-inp]"); if(!i) return;
+  clearTimeout(qTimer);
+  qTimer = setTimeout(()=>{
+    const pos = i.selectionStart;
+    go({q:i.value}, false); $("#q").value = S.q;
+    const n = document.querySelector('[data-inp="q"]');
+    if(n){ n.focus(); try{ n.setSelectionRange(pos,pos); }catch(e){} }
+  }, 250);
+});
+
+boot();
+</script>
+</body>
+</html>
