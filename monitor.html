@@ -1508,7 +1508,7 @@ function sheetHTML(id){
       <div class="blk"><h3>${esc(pt.name)}：主な課題</h3>${pt.tasks.map(t=>sub({name:t})).join("")}</div>`).join("")}
     ${isCh&&x.tasks.length?`<div class="blk"><h3>主な課題</h3>${x.tasks.map(t=>sub({name:t})).join("")}</div>`:""}
     ${(x.subs||[]).length?`<div class="blk"><h3>${id==="nds"?"構成":"サブプログラム・構成"}</h3>${x.subs.map((u,i)=>sub(u, subLabel(u.name, i, id==="nds"))).join("")}</div>`:""}
-    ${(()=>{ const t = TREES[x.id] || (isCh && Object.values(TREES).find(t=>t.chapter===x.id)); return t ? treeHTML(t) : ""; })()}
+    ${(()=>{ const t = TREES[x.id] || (isCh && Object.values(TREES).find(t=>t.chapter===x.id)); if(!t) return ""; try{ return treeHTML(t); }catch(e){ return `<div class="blk"><p class="note">樹形図を表示できませんでした（${esc(e.message)}）。</p></div>`; } })()}
     ${kids.length?`<div class="blk"><h3>${x.parent?"この節":"この章"}につながる分野別戦略</h3>${kids.map(k=>`<button class="srow" data-st="${k.id}"><span>${k.part?`<small class="orig">${esc(k.part)}</small> `:""}${esc(k.name)}</span><span class="note">${esc(k.period)}</span></button>`).join("")}</div>`:""}
   </div>`;
 }
