@@ -457,7 +457,14 @@ details.about .foot{margin-top:8px}
 .pass a.pnews{grid-column:1/-1;font-size:12px;color:var(--ink-2);text-decoration:none;margin-top:2px}
 .pass a.pnews b{color:var(--bad)}
 /* calendar */
-.cal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 14px;box-shadow:var(--shadow)}
+.calbox{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.calbox summary{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;list-style:none;font-size:13px}
+.calbox summary::-webkit-details-marker{display:none}
+.calbox .cs-t{font-weight:700;flex:0 0 auto}
+.calbox .cs-n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-3);font-size:12px}
+.calbox .cs-c{color:var(--ink-3);transition:transform .2s}
+.calbox[open] .cs-c{transform:rotate(90deg)}
+.cal{padding:0 14px 4px;border-top:1px solid var(--line)}
 .hday{display:grid;grid-template-columns:54px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
 .hday:first-child{border-top:0}
 .hday .hd{font-family:var(--num-font);font-size:15px;font-weight:700;line-height:1.1}
@@ -600,11 +607,12 @@ details.about .foot{margin-top:8px}
   <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span><button class="wkpill" id="openWeekly">📅 先週のまとめ</button></h2>
   <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地報道</button><button data-k="japan">日本の報道</button><button data-k="world">世界の報道</button><button data-k="safety">安全情報</button></div>
   <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
-  <h2 class="sect"><span class="grow">📅 祝日・行事</span></h2>
-  <div class="cal" id="cal"></div>
   </aside>
 
   <div class="col-wide">
+  <details class="calbox" id="calbox"><summary><span class="cs-t">📅 祝日・行事</span><span class="cs-n" id="calSum"></span><span class="cs-c">›</span></summary>
+    <div class="cal" id="cal"></div></details>
+
   <h2 class="sect"><span class="grow">⛰️ 峠・山道</span><span class="sectsub">峠の高さでの予報</span></h2>
   <div class="passes" id="passes"><div class="nempty">読み込み中…</div></div>
 
@@ -1418,6 +1426,8 @@ function renderCalendar(){
   const md = d => { const dt = new Date(d+"T12:00:00Z"); return `${dt.getUTCMonth()+1}/${dt.getUTCDate()}`; };
   const wd = d => WD[new Date(d+"T12:00:00Z").getUTCDay()];
   const evs = ((newsData()||{}).local||[]).filter(x=>x.cat==="event" && x.title_ja).slice(0,3);
+  const nx = groups[0];
+  document.getElementById("calSum").textContent = nx ? `次の祝日：${md(nx.from)} ${nx.name.split("（")[0]}（${dl(nx.from)}）` : "";
   el.innerHTML = groups.slice(0,4).map(g=>`<div class="hday"><div class="hd">${md(g.from)}<small>${wd(g.from)}曜${g.to!==g.from?"〜"+md(g.to):""}</small></div>
       <div class="hn">${g.name}<small>祝日${g.moon?"・日付は月の見え方で前後することがあります":""}</small></div><div class="hc">${dl(g.from)}</div></div>`).join("")
     + (evs.length ? `<div class="evh">ニュースに出た行事・イベント</div>` + evs.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt">${esc(n.title_ja)}</div></a><div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}</div></div>`).join("") : "")
@@ -1447,12 +1457,24 @@ function airWinHTML(d){
 
 /* ---------- map ---------- */
 let mapObj = null, mapLayers = {}, mapShow = {cities:true, alerts:true, passes:true, quakes:true};
-function loadLeaflet(){
-  if(window.L) return Promise.resolve();
+// Leaflet 1.9.4 from cdnjs, falling back to unpkg if that fails
+const LEAFLET_SRC = [
+  ["https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js", "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"],
+  ["https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"],
+];
+function loadLeafletFrom([jsUrl, cssUrl]){
   return new Promise((ok, fail)=>{
-    const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"; document.head.appendChild(css);
-    const js = document.createElement("script"); js.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"; js.onload = ok; js.onerror = fail; document.head.appendChild(js);
+    const css = document.createElement("link"); css.rel = "stylesheet"; css.crossOrigin = "anonymous"; css.href = cssUrl; document.head.appendChild(css);
+    const js = document.createElement("script"); js.crossOrigin = "anonymous"; js.src = jsUrl;
+    js.onload = ()=> window.L ? ok() : fail(new Error("no L")); js.onerror = ()=>{ js.remove(); css.remove(); fail(new Error("load failed")); };
+    document.head.appendChild(js);
   });
+}
+async function loadLeaflet(){
+  if(window.L) return;
+  let err;
+  for(const src of LEAFLET_SRC){ try{ await loadLeafletFrom(src); return; }catch(e){ err = e; } }
+  throw err;
 }
 async function openMap(){
   const sh = document.getElementById("mapSheet"); sh.classList.add("open");

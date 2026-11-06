@@ -2,7 +2,7 @@
 // The page itself is fetched network-first (so updates show up right away);
 // icons, fonts and the map library are cache-first (map tiles are not kept). Live data (weather, news)
 // is not cached here: the page keeps its own copy of the last data.
-const VERSION = "kg-info-v1";
+const VERSION = "kg-info-v2";
 const SHELL = ["weather.html", "weather-manifest.webmanifest", "weather-icon-180.png", "weather-icon-512.png"];
 
 self.addEventListener("install", e => {
@@ -27,7 +27,8 @@ self.addEventListener("fetch", e => {
     /fonts\.(googleapis|gstatic)\.com$|cdnjs\.cloudflare\.com$/.test(url.hostname);
   if (staticAsset) {
     e.respondWith(caches.match(req).then(hit => hit || fetch(req).then(res => {
-      if (res.ok || res.type === "opaque") { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
+      // only keep real successes: an opaque response could be a hidden error
+      if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
       return res;
     })));
   }
