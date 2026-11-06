@@ -56,16 +56,21 @@ def pick(x, *keys):
     return ""
 
 
+def name_of(v):
+    """A classifier value comes as {"code", "nameRus", ...} in a document card and as text in search results."""
+    return v.get("nameRus") or v.get("nameRu") or "" if isinstance(v, dict) else v
+
+
 def row(x):
     """The fields people need from one act, whatever the database calls them."""
     return {
         "code": pick(x, "documentCode", "code", "id", "refId"),
-        "title": pick(x, "nameRu", "nameRus", "name", "title", "nameKg"),
-        "type": pick(x, "refTypeName", "typeName", "type", "refType"),
-        "number": pick(x, "number", "docNumber", "aktNumber"),
-        "date": str(pick(x, "dateAdopted", "adoptedDate", "date", "dateAdoption"))[:10],
-        "status": pick(x, "refStatusName", "statusName", "status", "refStatus"),
-        "organ": pick(x, "authoritiesName", "organName", "authorities"),
+        "title": " ".join(str(pick(x, "nameRu", "nameRus", "name", "title", "nameKg")).split()),
+        "type": name_of(pick(x, "vid", "refTypeId", "refTypeName", "type")),
+        "number": pick(x, "number", "docNumber"),
+        "date": str(pick(x, "dateAdopted", "adoptedDate", "date"))[:10],
+        "status": name_of(pick(x, "status", "refStatusId", "statusName")),
+        "organ": name_of(pick(x, "organ", "authoritiesId", "organName")),
     }
 
 
@@ -110,15 +115,15 @@ def main():
                 items = items_of(answer)
             elif kind == "doc":
                 answer = call("/GetDocument?DocumentCode=" + urllib.parse.quote(value))
-                items = [answer] if isinstance(answer, dict) else items_of(answer)
+                items = [answer] + list(answer.get("documentReferences") or []) if isinstance(answer, dict) else items_of(answer)
             elif kind == "chain":
                 answer, items = search(value, "nameRus")
                 answer = {"search": answer, "refs": {}}
                 for x in items[:5]:
                     code = str(row(x)["code"])
                     if code:
-                        try:
-                            answer["refs"][code] = call("/References?id=" + urllib.parse.quote(code))
+                        try:  # the card lists the acts this one is linked to (documentReferences)
+                            answer["refs"][code] = call("/GetDocument?DocumentCode=" + urllib.parse.quote(code))
                         except Exception as e:
                             answer["refs"][code] = {"error": str(e)}
                         time.sleep(1)
@@ -133,7 +138,7 @@ def main():
                    f"{len(rows)} 件" + (f"（全 {entry['total']} 件）" if entry["total"] != "" else ""), ""]
             md += [f"- {r['date']} {r['type']} {r['number']} — {r['title']} [{r['status']}] (code {r['code']})" for r in rows]
             for code, ref in (answer.get("refs", {}) if kind == "chain" else {}).items():
-                linked = [row(x) for x in items_of(ref)] if isinstance(ref, (dict, list)) else []
+                linked = [row(x) for x in (ref.get("documentReferences") or [])] if isinstance(ref, dict) else []
                 md += ["", f"### code {code} とつながる文書: {len(linked)} 件"]
                 md += [f"- {r['date']} {r['type']} {r['number']} — {r['title']} [{r['status']}] (code {r['code']})" for r in linked]
                 if isinstance(ref, dict) and ref.get("error"):
