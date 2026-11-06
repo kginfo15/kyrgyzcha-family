@@ -444,6 +444,8 @@ def collect_mystreet(infra, prev_tr):
             snippet = ln[max(0, first - 120): first + 220].strip()
             when = ln[tm.start():tm.end()] if tm else (last_time if n - last_time_at <= 6 else None)
             snippet = TIME_RE.sub(" ", snippet).strip(" -–—:,")
+            if any(h["text"] == snippet for h in hits):
+                continue  # the same line repeated on the page (e.g. lead + body)
             hits.append({"streets": streets, "text": snippet,
                          "time": re.sub(r"^с\s*", "", when).replace(" до ", "–").replace("-", "–") if when else None})
             if len(hits) >= 4:
