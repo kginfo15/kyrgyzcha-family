@@ -50,6 +50,46 @@ def parse_date(s):
         return None
 
 
+def post(url, data, timeout=30):
+    req = urllib.request.Request(url, data=data.encode(), headers={
+        **UA, "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"})
+    with urllib.request.urlopen(req, timeout=timeout) as res:
+        return res.read()
+
+
+GNEWS_CACHE = {}
+
+
+def resolve_gnews(url):
+    """Turn a news.google.com/rss/articles/... link into the publisher's own URL.
+
+    Google News links only redirect via JavaScript, which translation proxies
+    can't follow. Returns the original link if anything fails."""
+    if "news.google.com" not in url:
+        return url
+    if url in GNEWS_CACHE:
+        return GNEWS_CACHE[url]
+    try:
+        gid = re.search(r"/articles/([^?/]+)", url).group(1)
+        page = get("https://news.google.com/rss/articles/" + gid, timeout=20).decode("utf-8", "replace")
+        sig = re.search(r'data-n-a-sg="([^"]+)"', page).group(1)
+        ts = re.search(r'data-n-a-ts="([^"]+)"', page).group(1)
+        req = ["Fbv4je", json.dumps(["garturlreq", [["X", "X", ["X", "X"], None, None, 1, 1, "US:en", None, 1,
+                                                     None, None, None, None, None, 0, 1], "X", "X", 1, [1, 1, 1],
+                                                    1, 1, None, 0, 0, None, 0], gid, int(ts), sig])]
+        body = "f.req=" + urllib.parse.quote(json.dumps([[req]]))
+        raw = post("https://news.google.com/_/DotsSplashUi/data/batchexecute", body).decode("utf-8", "replace")
+        real = json.loads(json.loads(raw.split("\n\n")[1])[0][2])[1]
+        if real.startswith("http"):
+            GNEWS_CACHE[url] = real
+            time.sleep(0.3)
+            return real
+    except Exception as e:
+        log(f"gnews resolve failed: {e}")
+    GNEWS_CACHE[url] = url
+    return url
+
+
 def rss_items(url):
     root = ET.fromstring(get(url))
     for it in root.iter("item"):
@@ -302,7 +342,9 @@ def collect_infra(prev_tr):
                       "kinds": kinds, "cities": cities})
     items.sort(key=lambda x: x["published"] or "", reverse=True)
     items = items[:25]
-    log(f"infra: {len(items)} items")
+    for x in items:
+        x["link"] = resolve_gnews(x["link"])
+    log(f"infra: {len(items)} items, {sum('news.google.com' in x['link'] for x in items)} unresolved Google links")
     translate_items(items, prev_tr)
     return items
 
@@ -563,6 +605,7 @@ def main():
         for x in (prev.get("local") or []) + (prev.get("infra") or []):
             if x.get("title_ja"):
                 prev_tr[x["link"]] = (x["title_ja"], x.get("lead_ja", ""))
+        GNEWS_CACHE.update(prev.get("gnews_links") or {})
         for x in (prev.get("mystreet") or {}).get("items", []):
             for h in x.get("hits", []):
                 if h.get("text_ja"):
@@ -585,6 +628,7 @@ def main():
         out["mystreet"] = None
     if not out["local"] and not out["japan"]:
         sys.exit("no news fetched")
+    out["gnews_links"] = {k: v for k, v in GNEWS_CACHE.items() if v != k}
     # older app versions read feeds.ja / feeds.local
     out["feeds"] = {
         "ja": [{"title": x["title"], "link": x["link"], "source": x["source"], "published": x["published"]}

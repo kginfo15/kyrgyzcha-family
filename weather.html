@@ -699,8 +699,8 @@ function jaLink(url){
   try{
     const u = new URL(url);
     if(!/^https?:$/.test(u.protocol)) return url;
-    if(/(^|\.)news\.google\.com$/.test(u.hostname) || /\.translate\.goog$/.test(u.hostname))
-      return "https://translate.google.com/translate?sl=auto&tl=ja&hl=ja&u=" + encodeURIComponent(url);
+    // Google News redirect links can't be translated (they redirect with JavaScript): open as-is
+    if(/(^|\.)news\.google\.com$/.test(u.hostname) || /\.translate\.goog$/.test(u.hostname)) return url;
     const host = u.hostname.replace(/-/g,"--").replace(/\./g,"-") + ".translate.goog";
     const q = new URLSearchParams(u.search);
     q.set("_x_tr_sl","auto"); q.set("_x_tr_tl","ja"); q.set("_x_tr_hl","ja"); q.set("_x_tr_pto","wapp");
