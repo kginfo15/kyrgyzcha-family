@@ -63,7 +63,7 @@ button,select,input{font:inherit;color:inherit}
 
 /* ---- top band ---- */
 header.top{background:var(--band);color:var(--band-ink);position:sticky;top:env(safe-area-inset-top,0px);z-index:20;border-bottom:1px solid var(--band2)}
-.bar1{display:flex;align-items:center;gap:12px;padding-block:10px 8px}
+.bar1{display:flex;align-items:center;gap:14px;padding-block:10px 6px;flex-wrap:wrap}
 .logo{display:flex;align-items:center;gap:9px;cursor:pointer;border:0;background:none;color:inherit;padding:0}
 .logo svg{width:26px;height:26px;flex:none}
 .logo b{font-family:var(--mono);font-weight:600;letter-spacing:.18em;font-size:13.5px}
@@ -73,7 +73,9 @@ header.top{background:var(--band);color:var(--band-ink);position:sticky;top:env(
 .live.stale{background:#f0b84a;box-shadow:0 0 0 3px rgba(240,184,74,.18)}
 .tbtn{border:1px solid var(--band2);background:var(--band2);color:var(--band-ink);border-radius:6px;padding:3px 9px;font-size:11.5px;cursor:pointer;font-family:var(--mono);letter-spacing:.04em}
 .tbtn[aria-pressed="false"]{opacity:.55;text-decoration:line-through}
-.bar2{display:flex;gap:10px;align-items:center;padding-bottom:8px}
+.bar2{flex:1;min-width:0;display:flex;margin:0;max-width:560px}
+@media (max-width:760px){.bar2{order:3;flex-basis:100%;max-width:none}}
+.snap{font-size:10px;border:1px solid var(--band2);border-radius:3px;padding:0 4px;margin-right:4px;cursor:help}
 .search{flex:1;min-width:0;position:relative}
 .search input{width:100%;border:1px solid var(--band2);border-radius:7px;padding:7px 12px 7px 32px;background:var(--band2);color:var(--band-ink);font-size:13.5px}
 .search input::placeholder{color:var(--band-sub)}
@@ -106,7 +108,9 @@ main{padding-top:18px}
 /* ---- sector matrix ---- */
 .matrix{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
 .tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:11px 12px 10px;cursor:pointer;text-align:left;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto auto 1fr;align-content:start;gap:7px;min-width:0;line-height:1.4;transition:border-color .15s,transform .15s}
-.tile:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tile:hover,.tile:focus-visible{border-color:var(--accent);transform:translateY(-1px)}
+.fav{margin-left:auto;border:0;background:none;cursor:pointer;color:var(--faint);font-size:15px;line-height:1;padding:0 2px;flex:none}
+.fav:hover{color:var(--gov)} .fav.on{color:var(--gov)}
 .tile .top{display:flex;align-items:baseline;gap:7px;min-width:0}
 .tile .no{font-family:var(--mono);font-size:10.5px;color:var(--faint);flex:none}
 .tile .nm{font-weight:600;font-size:13.5px;line-height:1.35;flex:1;min-width:0}
@@ -148,6 +152,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .filters input{flex:1;min-width:130px}
 .btn{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--ink);font-family:var(--mono);letter-spacing:.04em}
 .btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.on{border-color:var(--gov);color:var(--gov)}
 .count{font-family:var(--mono);font-size:11.5px;color:var(--sub);margin:6px 2px 8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .count .sp{flex:1}
 
@@ -278,7 +283,6 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .kind{font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:3px;padding:0 5px;line-height:1.6}
 .foot{margin:34px 0 0;font-size:12px;color:var(--faint);line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
 mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px}
-.banner{background:var(--gov-soft);color:var(--gov);font-size:12.5px;padding-block:7px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:7px 14px;border-radius:6px;font-size:12.5px;z-index:40}
 @media (max-width:560px){
   .logo span{display:none}
@@ -296,30 +300,27 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
     <div class="bar1">
       <button class="logo" id="home" type="button" aria-label="ホーム">
         <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#162231"/><path d="M5 23l7-10 5 6 4-5 6 9z" fill="#66d1dd"/><circle cx="23" cy="9" r="2.5" fill="#f0b84a"/></svg>
-        <b>KYRGYZ MONITOR</b><span>政策・報道・開発協力</span>
+        <b>KYRGYZ MONITOR</b>
       </button>
+      <form class="bar2" id="sform" role="search">
+        <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input id="q" type="search" placeholder="キーワード検索（日本語・ロシア語・英語）" autocomplete="off"></label>
+      </form>
       <div class="status">
         <i class="live" id="live"></i><span class="ut" id="upd">—</span>
         <button class="tbtn" id="jica" type="button" aria-pressed="true" title="JICA・日本の協力を表示">JP</button>
         <button class="tbtn" id="theme" type="button" title="表示テーマ">◐</button>
       </div>
     </div>
-    <form class="bar2" id="sform" role="search">
-      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-        <input id="q" type="search" placeholder="キーワード検索（日本語・ロシア語・英語）" autocomplete="off"></label>
-    </form>
     <nav class="tabs" id="tabs">
       <button data-v="home">概況</button>
-      <button data-v="feed">最新</button>
-      <button data-v="gov">政府の動き</button>
-      <button data-v="coop">協力・NGO</button>
-      <button data-v="projects">案件</button>
+      <button data-v="feed">ニュース</button>
+      <button data-v="projects">協力案件</button>
       <button data-v="donors">援助機関</button>
       <button data-v="saved">保存</button>
     </nav>
   </div>
 </header>
-<div id="banner"></div>
 <main class="wrap" id="main"><div class="empty">読み込み中…</div></main>
 
 <script>
@@ -353,12 +354,16 @@ function applyTheme(t){ if(t) document.documentElement.setAttribute("data-theme"
 applyTheme(lsGet("km-theme",null));
 $("#theme").onclick = ()=>{ const c = lsGet("km-theme",null), n = c==null?"dark":c==="dark"?"light":null; lsSet("km-theme",n); applyTheme(n); };
 let SHOW_JP = lsGet("km-jp", true);
+// favourite sectors ("マイ分野"): pinned to the top of the overview and usable as a news filter
+let FAV = new Set(lsGet("km-fav", []));
+function toggleFav(id){ FAV.has(id) ? FAV.delete(id) : FAV.add(id); lsSet("km-fav", [...FAV]); }
+const favStar = id => `<button class="fav ${FAV.has(id)?"on":""}" data-fav="${id}" title="${FAV.has(id)?"マイ分野から外す":"マイ分野に追加"}" aria-label="マイ分野">${FAV.has(id)?"★":"☆"}</button>`;
 function syncJP(){ $("#jica").setAttribute("aria-pressed", String(SHOW_JP)); $("#jica").title = SHOW_JP ? "JICA・日本の協力を表示中（押すと隠す）" : "JICA・日本の協力を隠しています（押すと表示）"; }
 syncJP();
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"amt"}, lsGet("km-charts", {}));
 if(CH.ym!=="amt" && CH.ym!=="n") CH.ym = "amt";
@@ -435,13 +440,12 @@ const projReady = () => PROJECTS && !PROJECTS.err;
 
 async function boot(){
   readHash(); $("#q").value = S.q;
-  if(EMBED) $("#banner").innerHTML = `<div class="banner"><div class="wrap">${esc(EMBED.note||"スナップショット版")}</div></div>`;
   try{
     INDEX = await getJSON("index.json");
     for(const d of INDEX.donors||[]) DONORS[d.id] = d;
     await Promise.all((INDEX.years||[]).slice(0,2).map(loadYear));
     const age = Date.now() - Date.parse(INDEX.updated);
-    $("#upd").textContent = (EMBED?"SNAPSHOT ":"UPDATED ") + fmtDT(INDEX.updated);
+    $("#upd").innerHTML = (EMBED?`<span class="snap" title="${esc(EMBED.note||"")}">SNAPSHOT</span>`:"UPDATED ") + esc(fmtDT(INDEX.updated));
     $("#live").classList.toggle("stale", age > 12*3600e3);
   }catch(e){ loadErr = String(e.message||e); }
   render();
@@ -488,6 +492,7 @@ function filterItems(o){
   return items().filter(x=>{
     if(x.ts < min) return false;
     if(o.s && !x.c.includes(o.s)) return false;
+    if(o.my && FAV.size && !x.c.some(c=>FAV.has(c))) return false;
     if(o.d && !x.d.includes(o.d)) return false;
     if(o.t==="gov" && !x.g) return false;
     if(o.t==="coop" && !x.d.length) return false;
@@ -575,7 +580,7 @@ function yen(v){ return v>=1e8 ? "¥"+(v/1e8).toFixed(v>=1e10?0:1)+"億" : v>=1e
 const hasAmt = p => (p.amt||0) > 0;
 const unk = list => list.filter(p=>!hasAmt(p)).length;
 const unkNote = (n, all) => n ? `金額不明 ${n}件${all!=null?` / ${all}件`:""}` : "";
-const amtHTML = p => !hasAmt(p) ? `<span class="unk" title="公開情報に金額の記載がありません">金額不明</span>` : p.jpy ? `<span class="amt">${yen(p.jpy)}</span><span class="note">（約${money(p.amt)}）</span>` : p.amt ? `<span class="amt">${money(p.amt)}</span>` : "";
+const amtHTML = p => !hasAmt(p) ? `<span class="unk" title="公開情報に金額の記載がありません">金額不明</span>` : p.amtx ? `<span class="amt" title="金額の項目がなく、案件説明に書かれた額（ユーロはドル換算）">${money(p.amt)}</span><span class="note">（説明文の額）</span>` : p.jpy ? `<span class="amt">${yen(p.jpy)}</span><span class="note">（約${money(p.amt)}）</span>` : p.amt ? `<span class="amt">${money(p.amt)}</span>` : "";
 // one set of cooperation forms for every donor (the collector sets p.sch; older records are mapped here)
 const SCHEMES = ["融資（事業）","無償資金（事業・機材）","技術協力","財政・政策支援","緊急・復興支援","その他・不明"];
 function sch(p){
@@ -604,7 +609,11 @@ function projectListHTML(list){
 function seg(name, opts, cur){
   return `<span class="seg">${opts.map(([v,l])=>`<button data-set="${name}" data-val="${v}" class="${String(v)===String(cur)?"on":""}">${esc(l)}</button>`).join("")}</span>`;
 }
-const sectorSelect = cur => `<select data-sel="s" aria-label="分野"><option value="">すべての分野</option>${SECTORS.map(([id,ja],i)=>`<option value="${id}" ${id===cur?"selected":""}>${String(i+1).padStart(2,"0")} ${esc(ja)}</option>`).join("")}</select>`;
+const sectorSelect = cur => {
+  const opt = ([id,ja]) => `<option value="${id}" ${id===cur?"selected":""}>${SEC[id].no} ${esc(ja)}</option>`;
+  const favs = SECTORS.filter(([id])=>FAV.has(id));
+  return `<select data-sel="s" aria-label="分野"><option value="">すべての分野</option>${favs.length?`<optgroup label="★ マイ分野">${favs.map(opt).join("")}</optgroup><optgroup label="すべて">`:""}${SECTORS.map(opt).join("")}${favs.length?"</optgroup>":""}</select>`;
+};
 function donorSelect(cur){
   const g = {};
   for(const d of Object.values(DONORS)) if(SHOW_JP || d.g!=="japan") (g[d.g] = g[d.g]||[]).push(d);
@@ -782,7 +791,7 @@ function viewHome(){
   const act = pj.filter(p=>p.st==="active"), pipe = pj.filter(p=>p.st==="pipeline");
   const actAmt = act.reduce((s,p)=>s+(p.amt||0),0);
   const ready = projReady();
-  const tiles = SECTORS.map(([id,ja])=>{
+  const tile = ([id,ja])=>{
     const sp = pj.filter(p=>p.c.includes(id) && p.st==="active");
     const amt = sp.reduce((a,p)=>a+shareAmt(p),0);
     const by = {}; for(const p of sp) by[p.donor] = (by[p.donor]||0) + shareAmt(p);
@@ -792,17 +801,21 @@ function viewHome(){
     const m = its.filter(x=>x.ts>=d30 && x.c.includes(id));
     const jAll = pj.filter(p=>p.donor==="jica" && p.c.includes(id)), jAct = jAll.filter(p=>p.st==="active");
     const jicaLine = SHOW_JP && ready ? `<span class="jline" title="JICA：実施中 ${jAct.length}件・累計 ${jAll.length}件">JICA ${jAll.length?`累計 <b>${jAll.length}</b>件・実施中 <b>${jAct.length}</b>件${jAct.some(hasAmt)?" "+money(jAct.reduce((a,p)=>a+shareAmt(p),0)):""}`:"案件なし"}</span>` : "";
-    return `<button class="tile" data-sec="${id}">
-      <span class="top"><span class="no">${SEC[id].no}</span><span class="nm">${esc(ja)}</span></span>
+    return `<div class="tile" data-sec="${id}" role="link" tabindex="0">
+      <span class="top"><span class="no">${SEC[id].no}</span><span class="nm">${esc(ja)}</span>${favStar(id)}</span>
       <span class="amt">${ready?(money(amt)||"—"):"…"}<small>実施中 ${ready?sp.length:"…"}件${ready&&unk(sp)?`・金額不明 ${unk(sp)}`:""}</small></span>
       <span class="drs">${top3 || '<span class="note">金額の分かる実施中案件なし</span>'}</span>
       ${jicaLine}
       <span class="tf"><span>政府の動き <b>${m.filter(x=>x.g).length}</b></span><span>協力ニュース <b>${m.filter(x=>x.d.length).length}</b></span></span>
-    </button>`;
-  }).join("");
+    </div>`;
+  };
+  const favTiles = SECTORS.filter(([id])=>FAV.has(id)).map(tile).join("");
+  const tiles = SECTORS.filter(([id])=>!FAV.has(id)).map(tile).join("");
   const counts = {}; for(const x of its) if(x.ts>=d7) for(const c of x.c) counts[c]=(counts[c]||0)+1;
   const ranked = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
-  const gov = its.filter(x=>x.g).slice(0,8), coop = its.filter(x=>x.d.length).slice(0,8);
+  const mine = FAV.size ? its.filter(x=>x.c.some(c=>FAV.has(c))) : its;
+  const gov = mine.filter(x=>x.g).slice(0,8), coop = mine.filter(x=>x.d.length).slice(0,8);
+  const myNote = FAV.size ? "（マイ分野）" : "";
   return `
     <div class="kpis">
       <div class="kpi"><div class="l">Active projects</div><div class="v">${ready?act.length:"…"}</div><div class="s">実施中の案件</div></div>
@@ -810,27 +823,27 @@ function viewHome(){
       <div class="kpi"><div class="l">Government · 7d</div><div class="v" style="color:var(--gov)">${n7.filter(x=>x.g).length}</div><div class="s">政府の動き（7日）</div></div>
       <div class="kpi"><div class="l">Cooperation news · 7d</div><div class="v" style="color:var(--coop)">${n7.filter(x=>x.d.length).length}</div><div class="s">協力ニュース（7日）${SHOW_JP?`・うち日本 ${n7.filter(x=>x.jp).length}`:""}</div></div>
     </div>
-    ${secHead("Sectors","分野別の協力",'<span class="note">実施中案件の支援額と件数・上位3機関の割合</span>')}
+    ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">☆で追加・★で外す（この端末に保存）</span>')}<div class="matrix">${favTiles}</div>`:""}
+    ${secHead("Sectors",favTiles?"その他の分野":"分野別の協力",`<span class="note">実施中案件の支援額と件数・上位3機関の割合${favTiles?"":"・☆でマイ分野に追加"}</span>`)}
     <div class="matrix">${tiles}</div>
     <p class="note" style="margin:8px 0 0">支援額は World Bank・IATI・JICA の公開データで、複数分野にまたがる案件は分野数で按分。下段は直近30日の政府の動きと協力ニュースの件数。</p>
     ${ready?`${secHead("Funding over time","全分野の新規支援の推移")}<div class="cols c3">${yearHTML("")}${shareHTML("")}</div>`:""}
     <div class="cols c3">
-      <section>${secHead("Government","最新の政府の動き",'<button class="linkbtn" data-go="gov">すべて見る →</button>')}${listHTML(gov,false)}</section>
+      <section>${secHead("Government","最新の政府の動き"+myNote,`<button class="linkbtn" data-go="gov">すべて見る →</button>`)}${listHTML(gov,false)}</section>
       <section>${secHead("This week","今週ニュースが多い分野",'<span class="note">政府・報道・協力の記事数</span>')}
         <div class="panel"><ol class="rank">${ranked.length?ranked.map(([id,n],i)=>`<li data-sec="${id}"><span class="i">${i+1}</span><span class="n">${esc(SEC[id].ja)}</span><span class="c">${n}件</span><span class="d down"></span></li>`).join(""):'<li><span></span><span class="note">まだデータがありません</span></li>'}</ol></div>
-        ${secHead("Cooperation","最新の協力・NGO情報",'<button class="linkbtn" data-go="coop">すべて見る →</button>')}${listHTML(coop,false)}
+        ${secHead("Cooperation","最新の協力ニュース"+myNote,`<button class="linkbtn" data-go="coop">すべて見る →</button>`)}${listHTML(coop,false)}
       </section>
     </div>`;
 }
-function viewFeed(type){
-  const t = type || S.t;
-  const T = {gov:["Government","政府の動き","大統領・内閣・各省庁・議会の決定や発表、政府系メディアの報道"],
-             coop:["Cooperation","援助機関・NGOの協力情報","国際機関・各国援助機関・財団・NGOが関わる融資・無償資金・技術協力・共同事業"],
-             all:["Latest","最新情報",""], press:["Press","報道",""]}[t];
-  setTitle(T[1]);
-  const list = filterItems({...S, t});
-  return `${secHead(T[0],T[1],T[2]?`<span class="note">${T[2]}</span>`:"")}
-    <div class="filters">${type?"":seg("t",[["all","すべて"],["gov","政府"],["coop","協力・NGO"],["press","報道"]],S.t)}
+function viewFeed(){
+  const t = S.t;
+  setTitle("ニュース");
+  const list = filterItems(S);
+  const lead = {gov:"大統領・内閣・各省庁・議会の決定や発表", coop:"援助機関・NGOによる融資・無償資金・技術協力・署名・事業の開始など", press:"政府の動き・協力以外の報道"}[t] || "政府の動き・協力・報道をまとめて新しい順に";
+  return `${secHead("News","ニュース",`<span class="note">${lead}</span>`)}
+    <div class="filters">${seg("t",[["all","すべて"],["gov","政府の動き"],["coop","協力"],["press","その他の報道"]],t)}
+      ${FAV.size?`<button class="btn ${S.my?"on":""}" data-set="my" data-val="${S.my?"":"1"}">${S.my?"★ マイ分野のみ":"☆ マイ分野のみ"}</button>`:""}
       ${periodSelect(S.p)} ${sectorSelect(S.s)} ${donorSelect(S.d)} ${qInput()}</div>
     <div class="count"><span>${list.length} 件</span><span class="sp"></span>${moreYearsBtn()}<button class="btn" data-csv="items">CSV</button></div>
     ${listHTML(list)}`;
@@ -863,7 +876,7 @@ function viewSector(){
       <div class="count"><span>${list.length} 件</span><span class="sp"></span>${moreYearsBtn()}<button class="btn" data-csv="items">CSV</button></div>${listHTML(list)}`;
   }
   return `<div class="panel shead">
-      <div><div class="k">Sector ${s.no} / 20</div><h2>${esc(s.ja)}</h2></div>
+      <div><div class="k">Sector ${s.no} / 20</div><h2 style="display:flex;gap:8px;align-items:center">${esc(s.ja)} ${favStar(s.id)}</h2></div>
       <div class="minis">
         <div class="mini"><div class="v">${ready?money(act.reduce((a,p)=>a+shareAmt(p),0))||"—":"…"}</div><div class="l">実施中の支援額${ready&&unk(act)?`<br><span class="unk">金額不明 ${unk(act)}件</span>`:""}</div></div>
         <div class="mini"><div class="v">${ready?act.length:"…"}</div><div class="l">実施中案件</div></div>
@@ -885,10 +898,14 @@ function viewProjects(){
   const src = PROJECTS && PROJECTS.meta;
   const NAMES = {wb:"世界銀行", iati:"IATI", jica:"JICA"};
   const srcs = src && src.sources ? Object.entries(src.sources).map(([k,v])=>`${NAMES[k]||k} ${v.count}件${v.ok?"":"（前回分）"}`).join("・") : "";
-  return `${secHead("Projects","援助機関の案件",'<span class="note">実施中・計画中・過去（世界銀行／IATI／JICA 公開データ）</span>')}
+  const news = filterItems({t:"coop", s:S.s, d:S.d, p:365, q:""}).slice(0,12);
+  return `${secHead("Projects","協力案件",'<span class="note">援助機関の案件（実施中・計画中・過去）と、同じ条件の協力ニュース</span>')}
     <div class="filters">${seg("ps",[["active","実施中"],["pipeline","計画中"],["closed","終了"],["all","すべて"]],S.ps)}
       ${sectorSelect(S.s)} ${donorSelect(S.d)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>
-    ${projectListHTML(list)}
+    <div class="cols c3">
+      <section>${projectListHTML(list)}</section>
+      <section><div class="count"><span>関連する協力ニュース（1年）</span><span class="sp"></span><button class="linkbtn" data-gofeed="coop">すべて見る →</button></div>${listHTML(news,false)}</section>
+    </div>
     ${src?`<p class="foot">案件データ更新 ${esc(fmtDT(src.updated))}${srcs?"・"+esc(srcs):""}。出典: World Bank Projects API、IATI（d-portal.org 経由）、JICA ODA見える化サイト。金額は各機関の報告値（米ドル。JICAは円を1ドル=140円で概算換算）。分野はタイトル・説明・分野コードから自動判定。</p>`:""}`;
 }
 function viewDonors(){
@@ -954,13 +971,14 @@ function footer(){
     蓄積 ${(INDEX.total||0).toLocaleString()} 件${bf?`・過去 ${bf} か月分をさかのぼって収集済み`:""}${INDEX.untranslated?`・翻訳待ち ${INDEX.untranslated} 件`:""}${EMBED?"":"・3時間ごとに自動更新"}。</p>`;
 }
 function render(){
-  document.querySelectorAll("#tabs button").forEach(b=>{ const v = b.dataset.v; b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor")); });
+  document.querySelectorAll("#tabs button").forEach(b=>{ const v = b.dataset.v; b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor") || (v==="feed"&&(S.v==="gov"||S.v==="coop"))); });
   const m = $("#main");
   if(!INDEX){
     m.innerHTML = loadErr ? `<div class="feed"><div class="empty">データをまだ読み込めません（${esc(loadErr)}）。<br>初回の収集が終わると表示されます。</div></div>` : `<div class="empty">読み込み中…</div>`;
     return;
   }
-  const f = {home:viewHome, feed:()=>viewFeed(null), gov:()=>viewFeed("gov"), coop:()=>viewFeed("coop"), sector:viewSector,
+  if(S.v==="gov"||S.v==="coop"){ S.t = S.v; S.v = "feed"; }
+  const f = {home:viewHome, feed:viewFeed, sector:viewSector,
              projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved}[S.v] || viewHome;
   m.innerHTML = f() + footer();
 }
@@ -1004,7 +1022,9 @@ $("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); 
 const main = $("#main");
 main.addEventListener("click", e=>{
   const t = e.target;
-  const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:goBtn.dataset.go, s:"", d:"", t:"all"}); return; }
+  const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
+  const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
+  const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
   const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:""}); return; }
   const ch = t.closest("[data-ch]"); if(ch){ CH[ch.dataset.ch] = ch.dataset.val; lsSet("km-charts", CH); render(); return; }
   const ybar = t.closest("[data-year]"); if(ybar){ CH.range = "y"+ybar.dataset.year; CH.scope = "donor"; lsSet("km-charts", CH); render(); return; }
@@ -1025,6 +1045,10 @@ main.addEventListener("click", e=>{
   const csv = t.closest("[data-csv]"); if(csv){ csvDownload(csv.dataset.csv); return; }
   const yb = t.closest("[data-years]");
   if(yb){ yb.disabled = true; yb.textContent = "読み込み中…"; Promise.all((INDEX.years||[]).filter(y=>!loadedYears.has(y)).map(y=>loadYear(y).catch(()=>{}))).then(render); }
+});
+main.addEventListener("keydown", e=>{
+  const tile = e.target.closest(".tile[data-sec]");
+  if(tile && e.target===tile && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go({v:"sector", s:tile.dataset.sec, sub:"pa", d:"", q:"", k:""}); }
 });
 main.addEventListener("change", e=>{
   const c = e.target.closest("[data-chsel]"); if(c){ CH[c.dataset.chsel] = c.value; lsSet("km-charts", CH); render(); return; }

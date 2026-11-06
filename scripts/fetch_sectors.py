@@ -522,7 +522,7 @@ def run_gnews(queries):
             text = title.lower()
             if lang == "ja" and not kg_related(title):
                 continue  # e.g. JICA's domestic pages found by site:jica.go.jp
-            if not kg_related(title) and "site:" not in q and not kg_host(host_of(it["source_url"])):
+            if not kg_related(title) and not kg_host(host_of(it["source_url"])):
                 continue
             c = classify(title, "", it["link"], source, qgov or is_gov_host(host_of(it["source_url"])))
             if not c:
@@ -622,6 +622,10 @@ def reclassify(store):
             del store[k]
             continue
         if x.get("ai"):
+            continue
+        if not AI_ON and not kg_related(x["t"] + " " + x.get("l", "")) and not kg_host(host_of(x.get("u", ""))) \
+                and "news.google.com" not in x.get("u", ""):
+            del store[k]  # e.g. a UNDP story about Tanzania found through site:undp.org
             continue
         c = classify(x["t"], x.get("l", ""), x.get("u", ""), x.get("s", ""))
         if c is None and not AI_ON:
@@ -776,6 +780,23 @@ def wb_projects():
     return out
 
 
+DESC_AMT = re.compile(r"(?:up to|of|totall?ing|amounting to)\s+(EUR|€|USD|US\$|\$)\s?([\d.,]+)\s*(million|mln|m\b|billion|bn)", re.I)
+FX_USD = {"EUR": 1.08, "€": 1.08, "USD": 1.0, "US$": 1.0, "$": 1.0}
+
+
+def desc_amount(text):
+    """'providing a loan of up to EUR 2 million' -> USD amount of the first stated sum."""
+    m = DESC_AMT.search(text or "")
+    if not m:
+        return None
+    try:
+        v = float(m.group(2).replace(",", ""))
+    except ValueError:
+        return None
+    v *= 1e9 if m.group(3).lower() in ("billion", "bn") else 1e6
+    return round(v * FX_USD.get(m.group(1).upper() if m.group(1) != "€" else "€", 1.0))
+
+
 # redacted titles and agency running costs say nothing about cooperation in Kyrgyzstan
 IATI_JUNK = re.compile(r"redacted|pay and benefits|program support|programme support costs|operating expense|"
                        r"administrative cost|^ope?x?$|^usaid pio$", re.I)
@@ -852,6 +873,17 @@ def iati_projects():
         data = json.loads(get(base + urllib.parse.urlencode(
             {"from": "act,country", "country_code": "KG", "limit": 20000}), timeout=180))
         rows = data.get("rows") or []
+    forms = {}
+    try:
+        data = json.loads(get(base + urllib.parse.urlencode(
+            {"from": "trans,country", "country_code": "KG", "limit": 60000,
+             "select": "aid,trans_aid_code,trans_finance_code"}), timeout=240))
+        for r in data.get("rows") or []:
+            if r.get("aid") and (r.get("trans_aid_code") or r.get("trans_finance_code")) and r["aid"] not in forms:
+                forms[r["aid"]] = (r.get("trans_aid_code") or "", str(r.get("trans_finance_code") or ""))
+        log(f"d-portal forms: {len(forms)} activities")
+    except Exception as e:
+        log(f"d-portal forms failed: {e}")
     sectors = {}
     try:
         data = json.loads(get(base + urllib.parse.urlencode(
@@ -885,6 +917,10 @@ def iati_projects():
         if not title or IATI_JUNK.search(title):
             continue
         amt = num(r.get("commitment")) or num(r.get("spend"))
+        amt_from_text = False
+        if not amt:  # e.g. EBRD reports no transactions, but its descriptions state the financing
+            amt = desc_amount(desc)
+            amt_from_text = bool(amt)
         pct = num(r.get("country_percent"))
         if amt and pct and 0 < pct < 100:
             amt = amt * pct / 100  # multi-country activity: Kyrgyzstan's share only
@@ -892,9 +928,8 @@ def iati_projects():
             amt = None  # share unknown for a large programme: don't count a global total against one country
         out.append({"id": aid, "src": "iati", "donor": donor_of(org + " " + ref), "org": org, "t": title,
                     "x": fn.first_sentences(desc, 300), "st": st, "a": start, "e": end,
-                    "amt": amt, "cur": "USD", "ref": ref,
-                    "sch": scheme_of("iati", "", r.get("aid_type") or r.get("default_aid_type"),
-                                     r.get("finance_type") or r.get("default_finance_type")),
+                    "amt": amt, "cur": "USD", "ref": ref, "amtx": 1 if amt_from_text else None,
+                    "sch": scheme_of("iati", "", *forms.get(aid, ("", ""))),
                     "u": "https://d-portal.org/ctrack.html#view=act&aid=" + urllib.parse.quote(aid),
                     "_sect": "", "_dac": sorted(sectors.get(aid, []))})
     log(f"iati: {len(rows)} rows, {len(out)} projects")
@@ -945,6 +980,8 @@ def finish_projects(projs, prev):
         # reports lag: anything past its end date has finished, whatever the status code says
         if p.get("st") == "active" and p.get("e") and p["e"] < today:
             p["st"] = "closed"
+        elif p.get("st") == "active" and p.get("a") and p["a"] > today:
+            p["st"] = "pipeline"
         text = (p["t"] + " " + p.get("x", "") + " " + p.pop("_sect", "")).lower()
         sect = set(sector_ids(text)) | set(p.pop("_dac", []))
         p["c"] = sorted(sect, key=SECTOR_IDS.index)
@@ -995,7 +1032,7 @@ JICA_PAGE = "https://www.jica.go.jp/oda/project/{}/index.html"
 JICA_SCHEMES = ["技術協力プロジェクト", "無償資金協力", "有償資金協力", "円借款", "草の根技術協力", "海外協力隊",
                 "開発計画調査型技術協力", "開発調査", "科学技術協力", "SATREPS", "個別専門家", "専門家派遣",
                 "課題別研修", "国別研修", "研修", "民間連携", "中小企業", "技術協力", "ボランティア", "協力準備調査"]
-JICA_PV = 4  # parser version: pages read by an older parser are fetched again
+JICA_PV = 5  # parser version: pages read by an older parser are fetched again
 JP_DATE = re.compile(r"(\d{4})\s*[年./／-]\s*(\d{1,2})(?:\s*[月./／-]\s*(\d{1,2})\s*日?)?")
 YEN = re.compile(r"([\d,]+(?:\.\d+)?)\s*(億円|百万円|千円|万円|円)")
 
@@ -1115,7 +1152,7 @@ def jica_record(pid, title, pairs, text, today, fetched=None):
     start = min(ds) if ds else None
     end = max(ds) if len(ds) > 1 else None
     field = pick(pairs, "分野課題", "課題", "分野")
-    amt = yen_amount(pick(pairs, "金額", "限度額", "協力額", "承諾額", "供与額", "協力費"))
+    amt = yen_amount(pick(pairs, "金額", "限度額", "協力額", "承諾額", "供与額", "協力費", "契約額"))
     status_txt = pick(pairs, "状況", "ステータス", "進捗")
     m = re.search(r"(実施中|終了)案件", head)
     if m:
