@@ -1649,23 +1649,23 @@ main.addEventListener("keydown", e=>{
 main.addEventListener("change", e=>{
   const c = e.target.closest("[data-chsel]"); if(c){ CH[c.dataset.chsel] = c.value; lsSet("km-charts", CH); render(); return; }
   const s = e.target.closest("[data-sel]"); if(s) go({[s.dataset.sel]: s.dataset.sel==="p" ? +s.value : s.value}, false); });
-let qTimer = 0, composing = false;
+let qTimer = 0, composing = null;  // the filter box a Japanese word is being composed in
 function filterLater(i){
   clearTimeout(qTimer);
   qTimer = setTimeout(()=>{
-    if(composing || !document.body.contains(i)) return;
+    if(composing === i || !document.body.contains(i)) return;
     go({q:i.value}, false, i); $("#q").value = S.q;
   }, 250);
 }
 main.addEventListener("input", e=>{
   const i = e.target.closest("[data-inp]"); if(!i) return;
-  if(e.isComposing || composing) return;  // Japanese input: wait until the word is chosen
+  if(e.isComposing || composing === i) return;  // Japanese input: wait until the word is chosen
   filterLater(i);
 });
-main.addEventListener("compositionstart", e=>{ if(e.target.closest("[data-inp]")) composing = true; });
+main.addEventListener("compositionstart", e=>{ const i = e.target.closest("[data-inp]"); if(i) composing = i; });
 main.addEventListener("compositionend", e=>{
   const i = e.target.closest("[data-inp]"); if(!i) return;
-  composing = false; filterLater(i);
+  composing = null; filterLater(i);
 });
 boot();
 </script>
