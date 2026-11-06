@@ -903,6 +903,7 @@ JICA_PAGE = "https://www.jica.go.jp/oda/project/{}/index.html"
 JICA_SCHEMES = ["技術協力プロジェクト", "無償資金協力", "有償資金協力", "円借款", "草の根技術協力", "海外協力隊",
                 "開発計画調査型技術協力", "開発調査", "科学技術協力", "SATREPS", "個別専門家", "専門家派遣",
                 "課題別研修", "国別研修", "研修", "民間連携", "中小企業", "技術協力", "ボランティア", "協力準備調査"]
+JICA_PV = 2  # parser version: pages read by an older parser are fetched again
 JP_DATE = re.compile(r"(\d{4})\s*[年./／-]\s*(\d{1,2})(?:\s*[月./／-]\s*(\d{1,2})\s*日?)?")
 YEN = re.compile(r"([\d,]+(?:\.\d+)?)\s*(億円|百万円|千円|万円|円)")
 
@@ -977,7 +978,7 @@ def jica_projects(out_dir, prev_projs):
     for pid in order:
         old = prev_by.get("JICA-" + pid)
         # project pages change little: refresh new ones, and running ones once a week
-        stale = not old or (old.get("st") in ("active", "pipeline") and old.get("fetched", "") < (NOW - timedelta(days=7)).date().isoformat())
+        stale = not old or old.get("pv") != JICA_PV or (old.get("st") in ("active", "pipeline") and old.get("fetched", "") < (NOW - timedelta(days=7)).date().isoformat())
         if not stale or fetched >= 220 or time_left() < 20 * 60:
             if old:
                 out.append(old)
@@ -1006,31 +1007,39 @@ def jica_projects(out_dir, prev_projs):
 
 
 def jica_record(pid, title, pairs, text, today, fetched=None):
-    scheme = pick(pairs, "スキーム", "事業形態", "協力形態", "案件種別", "援助形態")
-    if not scheme:
-        scheme = next((w for w in JICA_SCHEMES if w in text[:3000]), "")
-    period = pick(pairs, "協力期間", "事業期間", "実施期間", "派遣期間", "協力年度", "期間")
-    ds = jp_dates(period) or jp_dates(text[:4000])
+    raw = pairs.get("事業") or pick(pairs, "スキーム", "事業形態", "協力形態", "案件種別", "援助形態")
+    # "無償資金協力（贈与契約（G/A））" -> "無償資金協力"; without the field, look before the description
+    scheme = next((w for w in JICA_SCHEMES if w in raw), raw) if raw else \
+        next((w for w in JICA_SCHEMES if w in text.split("プロジェクト紹介")[0]), "")
+    period = pick(pairs, "協力期間", "事業期間", "実施期間", "派遣期間", "協力年度", "期間", "期限", "締結", "調印", "L/A", "G/A")
+    # only fall back to the page text before the project description, which quotes unrelated dates
+    head = text.split("プロジェクト紹介")[0][:4000]
+    ds = jp_dates(period) or jp_dates(head)
     start = min(ds) if ds else None
     end = max(ds) if len(ds) > 1 else None
     field = pick(pairs, "分野課題", "課題", "分野")
     amt = yen_amount(pick(pairs, "金額", "限度額", "協力額", "承諾額", "供与額", "協力費"))
     status_txt = pick(pairs, "状況", "ステータス", "進捗")
+    m = re.search(r"(実施中|終了)案件", head)
+    if m:
+        status_txt += m.group(0)
     if end and end < today:
         st = "closed"
     elif start and start > today:
         st = "pipeline"
     elif "終了" in status_txt:
         st = "closed"
-    elif start:
+    elif "実施中" in status_txt:
+        st = "active"
+    elif start and start > (NOW - timedelta(days=5 * 365)).date().isoformat():
         st = "active"
     else:
-        st = "closed" if "終了" in text[:3000] else "active"
+        st = "closed"  # no end date and started long ago
     summary = pick(pairs, "概要", "目標", "上位目標", "プロジェクト目標")
     rec = {"id": "JICA-" + pid, "src": "jica", "donor": "jica", "org": "JICA", "t": title, "tj": title,
            "x": fn.first_sentences(" ".join(filter(None, [field, summary])), 220), "st": st, "a": start, "e": end,
            "kind": scheme, "cur": "JPY" if amt else None, "jpy": amt, "amt": round(amt / 140) if amt else None,
-           "u": JICA_PAGE.format(pid), "_sect": field, "fetched": today if fetched is None else fetched}
+           "u": JICA_PAGE.format(pid), "_sect": field, "fetched": today if fetched is None else fetched, "pv": JICA_PV}
     return rec
 
 
