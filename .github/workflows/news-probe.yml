@@ -8,12 +8,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          python3 scripts/fetch_news.py > out.json
-          python3 - <<'PY'
-          import json
-          d=json.load(open("out.json"))
-          for x in d["local"] or []: print("L",x["cat"],x["source"],"|",x["title_ja"][:60],"|",x["lead_ja"][:80])
-          for x in d["japan"] or []: print("J",x["major"],x["source"],"|",x["title"][:60])
-          s=d["safety"]; print("S",s and s["levels"],s and s["riskTitle"])
-          for m in (s or {}).get("mails",[]): print("M",m["published"],m["type"],"|",m["title"][:60],"|",m["link"])
-          PY
+          cd probe && npm init -y >/dev/null && npm i -s playwright@1.48.2 >/dev/null && npx playwright install --with-deps chromium >/dev/null 2>&1
+          node translate.js
