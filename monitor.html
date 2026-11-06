@@ -242,7 +242,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .dtab tr.jp .hbar i{background:var(--jp)}
 
 /* ---- cooperation charts ---- */
-.dn{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:16px;align-items:center;margin-top:10px}
+.dn{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:14px;align-items:center;margin-top:10px}
 @media (max-width:520px){.dn{grid-template-columns:minmax(0,1fr)}.dn svg{max-width:200px;margin:0 auto}}
 .dn svg{width:100%;height:auto;display:block}
 .dn svg path{stroke:var(--panel);stroke-width:2;cursor:pointer}
@@ -281,6 +281,36 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .tile .amt small{display:block;font-size:11px;color:var(--faint);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .unk{font-size:10.5px;color:var(--faint);border:1px dashed var(--faint);border-radius:3px;padding:0 5px;line-height:1.6}
 .kind{font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:3px;padding:0 5px;line-height:1.6}
+/* ---- PC: main column + news column that scrolls on its own ---- */
+.layout{display:block}
+.sidec{margin-top:22px}
+.sideh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 8px}
+.sideh h2{margin:0;font-size:15px;flex:1}
+.shead2{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.shead2 h2{margin:2px 0 0;font-size:22px;display:flex;align-items:center;gap:8px}
+.jbadge{margin-left:auto;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--sub);font-family:var(--mono)}
+.jbadge b{color:var(--d7)}
+.kpi .v small{font-size:13px;color:var(--sub);margin-left:3px}
+.ydet{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.ydh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--sub)}
+.ydh b{color:var(--ink)}
+.ydh .sp{flex:1}
+.ylist{list-style:decimal;margin:6px 0 0;padding-left:22px;font-size:12.5px;max-height:320px;overflow-y:auto}
+.ylist li{padding:4px 0;border-bottom:1px dashed var(--line)}
+.ylist li>*{vertical-align:top}
+.ylist .yt{display:inline-block;width:calc(100% - 92px)}
+.ylist .yt a{color:var(--ink);text-decoration:none}
+.ylist .yt a:hover{color:var(--accent)}
+.ylist .ym{display:block;font-size:11px;color:var(--faint)}
+.ylist .ya{display:inline-block;width:88px;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+@media (min-width:1100px){
+  .wrap{max-width:1500px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:26px;align-items:start}
+  .sidec{position:sticky;top:96px;max-height:calc(100vh - 110px);display:flex;flex-direction:column;margin-top:0}
+  .sidel{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;border-radius:8px}
+  .matrix{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+}
+@media (min-width:1500px){ .layout{grid-template-columns:minmax(0,1fr) 420px} }
 .foot{margin:34px 0 0;font-size:12px;color:var(--faint);line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
 mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:7px 14px;border-radius:6px;font-size:12.5px;z-index:40}
@@ -363,11 +393,13 @@ syncJP();
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
-const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"amt"}, lsGet("km-charts", {}));
-if(CH.ym!=="amt" && CH.ym!=="n") CH.ym = "amt";
-if(CH.range[0]==="y" && +CH.range.slice(1) > new Date().getFullYear()) CH.range = "active";
+// ym: new = started that year, ongoing = running that year, cum = everything started up to that year
+const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov"}, lsGet("km-charts", {}));
+if(CH.ym==="amt"||CH.ym==="n"){ CH.ymet = CH.ym; CH.ym = "new"; }
+if(!["new","ongoing","cum"].includes(CH.ym)) CH.ym = "new";
+if(!/^(active|all|[yoc]\d{4})$/.test(CH.range) || +CH.range.slice(1) > new Date().getFullYear()) CH.range = "active";
 const S = {...DEF};
 const PAGE = 50;
 let shown = PAGE;
@@ -508,6 +540,7 @@ function filterProjects(o){
     if(o.s && !p.c.includes(o.s)) return false;
     if(o.d && p.donor!==o.d) return false;
     if(o.k && sch(p)!==o.k) return false;
+    if(o.ua && hasAmt(p)) return false;
     if(o.ps==="open" && !isOpen(p)) return false;
     if(o.ps==="past" && isOpen(p)) return false;
     if(["active","pipeline"].includes(o.ps) && p.st!==o.ps) return false;
@@ -528,7 +561,7 @@ function kindTags(x){
   if(!x.g && !x.d.length) out.push('<span class="tag press">PRESS</span>');
   return out.join("");
 }
-function itemHTML(x){
+function itemHTML(x, compact){
   const title = x.tj || x.t, lead = x.lj || x.l, on = saved[x.i] ? "on" : "";
   const dons = x.d.map(d=>`<span class="don ${JP_IDS.has(d)?"jp":""}">${esc(donorName(d))}</span>`).join(" ");
   const showOrig = x.tj && x.tj!==x.t;
@@ -536,19 +569,19 @@ function itemHTML(x){
     <div class="meta"><span class="t">${esc(fmtHM(x.ts))}</span>${kindTags(x)}<span class="src">${esc(x.s||"")}</span>${dons}${x.lang&&x.lang!=="ru"?`<span class="tag lang">${esc(x.lang)}</span>`:""}</div>
     <h3><a href="${esc(jaLink(x.u))}" target="_blank" rel="noopener">${hl(title)}</a></h3>
     <p class="orig">${showOrig?hl(x.t)+" · ":""}<a href="${esc(x.u)}" target="_blank" rel="noopener">原文</a></p>
-    ${lead && lead!==title ? `<p class="lead">${hl(lead)}</p>` : ""}
+    ${lead && lead!==title && !compact ? `<p class="lead">${hl(lead)}</p>` : ""}
     ${REPEATS[x.i] ? `<p class="also">同じニュース：他 ${REPEATS[x.i].length} 媒体 ${REPEATS[x.i].slice(0,5).map(r=>`<a href="${esc(jaLink(r.u))}" target="_blank" rel="noopener">${esc(r.s||"")}</a>`).join("・")}</p>` : ""}
-    ${x.c.length ? `<div class="chips">${x.c.map(c=>SEC[c]?`<button class="chip" data-sec="${c}">${esc(SEC[c].ja)}</button>`:"").join("")}</div>` : ""}
+    ${x.c.length && !compact ? `<div class="chips">${x.c.map(c=>SEC[c]?`<button class="chip" data-sec="${c}">${esc(SEC[c].ja)}</button>`:"").join("")}</div>` : ""}
     <button class="star ${on}" data-star="${esc(x.i)}" title="保存" aria-label="保存">${STAR}</button>
   </article>`;
 }
-function listHTML(list, more=true){
+function listHTML(list, more=true, compact=false){
   if(!list.length) return `<div class="feed"><div class="empty">該当する情報はありません</div></div>`;
   let out = "", last = "";
   for(const x of list.slice(0, more?shown:list.length)){
     const d = fmtDay(x.ts);
     if(d!==last){ out += `<div class="day">${esc(d)}</div>`; last = d; }
-    out += itemHTML(x);
+    out += itemHTML(x, compact);
   }
   out = `<div class="feed">${out}</div>`;
   if(more && list.length > shown) out += `<button class="btn more" data-more>さらに表示 · 残り ${list.length-shown}</button>`;
@@ -672,8 +705,16 @@ function donorColors(sid){
    in several years, so new commitments per year are the figure that adds up. ----- */
 const Y0 = 2000, YNOW = new Date().getFullYear();
 const startYear = p => +((p.a||"").slice(0,4)) || 0;
-const rangeLabel = r => r==="active" ? "実施中" : r==="all" ? "全期間" : r.slice(1)+"年に開始・承認された";
-function inRange(p, r){ return r==="active" ? p.st==="active" : r==="all" ? true : startYear(p) === +r.slice(1); }
+const endYear = p => +((p.e||"").slice(0,4)) || (isOpen(p) ? 9999 : startYear(p) + 3);   // no end date: open ones run on, closed ones ~3 years
+const runningIn = (p, y) => { const a = startYear(p); return !!a && a <= y && endYear(p) >= y; };
+const ML = () => ({new:"y", ongoing:"o", cum:"c"})[CH.ym];
+const rangeLabel = r => r==="active" ? "実施中の" : r==="all" ? "全期間の" : r[0]==="y" ? r.slice(1)+"年に始まった" : r[0]==="o" ? r.slice(1)+"年に実施中だった" : r.slice(1)+"年までに始まった（累計）";
+function inRange(p, r){
+  if(r==="active") return p.st==="active";
+  if(r==="all") return true;
+  const y = +r.slice(1), a = startYear(p);
+  return r[0]==="y" ? a===y : r[0]==="o" ? runningIn(p, y) : !!a && a<=y;
+}
 function rangeAmt(p, r, sid){ return valAmt(p, sid); }
 function shareData(sid){
   const map = donorColors(sid), val = {}, cnt = {};
@@ -726,8 +767,10 @@ function donutSVG(rows, total, center, sub){
 }
 const segCH = (k, opts) => `<span class="seg">${opts.map(([v,l])=>`<button data-ch="${k}" data-val="${v}" class="${CH[k]===v?"on":""}">${esc(l)}</button>`).join("")}</span>`;
 function rangeSelect(){
+  const m = ML(), lab = {y:"年に始まった", o:"年に実施中", c:"年までの累計"}[m];
   const opts = [["active","実施中（現在）"],["all","全期間"]];
-  for(let y=YNOW; y>=Y0; y--) opts.push(["y"+y, y+"年に開始"]);
+  for(let y=YNOW; y>=Y0; y--) opts.push([m+y, y+lab]);
+  if(!opts.some(o=>o[0]===CH.range)) opts.splice(2, 0, [CH.range, rangeLabel(CH.range).replace(/の$/,"")]);
   return `<select data-chsel="range" aria-label="期間">${opts.map(([v,l])=>`<option value="${v}" ${CH.range===v?"selected":""}>${l}</option>`).join("")}</select>`;
 }
 function shareHTML(sid){
@@ -743,42 +786,83 @@ function shareHTML(sid){
     <div class="ctrls">${segCH("scope",[["donor","ドナーのみ"],["gov","政府を含む"]])}
       ${dis?"":segCH("metric",[["amt","支援額"],["n","案件数"]])} ${dis?"":rangeSelect()}</div>
     <div class="dn">${donutSVG(rows,total,center,unit==="amt"?"合計":"合計件数")}<ul class="lg">${legend||'<li class="nolink"><span></span><span class="note">データがありません</span></li>'}</ul></div>
-    <p class="note" style="margin:8px 0 0">${esc(note)}${CH.range[0]==="y"?"。年は下の棒グラフの棒を押しても切り替わります":""}</p>${unkLine}</div>`;
+    <p class="note" style="margin:8px 0 0">${esc(note)}。年は推移グラフの棒を押しても切り替わります。</p>${unkLine}</div>`;
 }
-function yearHTML(sid){
-  const map = donorColors(sid), mode = CH.ym==="n" || CH.ym==="new" ? "n" : "amt";   // new commitments: amount or count
+function yearData(sid){
+  const map = donorColors(sid), amtMode = CH.ymet!=="n";
   const series = [...Object.keys(map).filter(d=>d!=="jica"), ...(map.jica?["jica"]:[]), "_other"];
   const years = []; for(let y=Y0; y<=YNOW; y++) years.push({y, v:{}, tot:0, unk:0, n:0});
+  const pj = sectorProjects(sid);
   let nodate = 0;
-  for(const p of sectorProjects(sid)){
-    const y = startYear(p); if(!y){ nodate++; continue; } if(y<Y0 || y>YNOW) continue;
-    const o = years[y-Y0], key = map[p.donor] ? p.donor : "_other";
-    o.n++;
-    let v = 1;
-    if(mode==="amt"){ if(!hasAmt(p)){ o.unk++; continue; } v = valAmt(p, sid); }
-    o.v[key] = (o.v[key]||0)+v; o.tot += v;
+  for(const p of pj){
+    if(!startYear(p)){ nodate++; continue; }
+    const key = map[p.donor] ? p.donor : "_other";
+    for(const o of years){
+      if(!inRange(p, ML()+o.y)) continue;
+      o.n++;
+      if(amtMode && !hasAmt(p)){ o.unk++; continue; }
+      const v = amtMode ? valAmt(p, sid) : 1;
+      o.v[key] = (o.v[key]||0)+v; o.tot += v;
+    }
   }
+  return {map, series, years, nodate, amtMode};
+}
+function yearHTML(sid){
+  const {map, series, years, nodate, amtMode} = yearData(sid);
   const max = Math.max(1,...years.map(o=>o.tot)), W = 720, H = 190, top = 16, base = 160, bw = W/years.length;
-  const fmt = v => mode==="amt" ? (money(v)||"$0") : Math.round(v)+"件";
+  const fmt = v => amtMode ? (money(v)||"$0") : Math.round(v)+"件";
   const col = k => k==="_other" ? "var(--dother)" : map[k];
   const nm = k => k==="_other" ? "その他" : donorName(k);
-  const sel = CH.range[0]==="y" ? +CH.range.slice(1) : null;
+  const sel = CH.ysel || null;
+  const lab = {new:"に始まった案件", ongoing:"に実施中だった案件", cum:"までに始まった案件の累計"}[CH.ym];
   let g = `<line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)"/><line x1="0" y1="${top}" x2="${W}" y2="${top}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="0" y="${top-5}">${fmt(max)}</text>`;
   years.forEach((o,i)=>{
     const x = i*bw+2, w = bw-4; let y = base, rects = "";
     for(const k of series){ const v = o.v[k]||0; if(!v) continue; const h = v/max*(base-top); y -= h; rects += `<rect x="${x}" y="${y}" width="${w}" height="${Math.max(0,h-1)}" fill="${col(k)}"/>`; }
-    const tip = `${o.y}年に開始・承認: ${o.n}件${mode==="amt"?`・${fmt(o.tot)}${o.unk?`（金額不明 ${o.unk}件を除く）`:""}`:""}\n` + series.filter(k=>o.v[k]).sort((a,b)=>o.v[b]-o.v[a]).map(k=>`${nm(k)} ${fmt(o.v[k])}`).join("\n");
-    g += `<g class="yb" data-year="${o.y}" style="cursor:pointer"><title>${esc(tip)}</title><rect class="hit" x="${i*bw}" y="${top}" width="${bw}" height="${base-top+18}" fill="transparent"/>${rects}${o.y===sel?`<rect x="${x}" y="${base+3}" width="${w}" height="2" fill="var(--ink)"/>`:""}${(o.y%2===0||o.y===YNOW)?`<text x="${x+w/2}" y="${base+16}" text-anchor="middle">${String(o.y).slice(2)}</text>`:""}</g>`;
+    const tip = `${o.y}年${lab}: ${o.n}件${amtMode?`・${fmt(o.tot)}${o.unk?`（金額不明 ${o.unk}件）`:""}`:""}\n` + series.filter(k=>o.v[k]).sort((a,b)=>o.v[b]-o.v[a]).map(k=>`${nm(k)} ${fmt(o.v[k])}`).join("\n");
+    g += `<g class="yb" data-year="${o.y}" style="cursor:pointer;${sel&&o.y!==sel?"opacity:.55":""}"><title>${esc(tip)}</title><rect class="hit" x="${i*bw}" y="${top}" width="${bw}" height="${base-top+18}" fill="transparent"/>${rects}${o.y===sel?`<rect x="${x}" y="${base+3}" width="${w}" height="2" fill="var(--ink)"/>`:""}${(o.y%2===0||o.y===YNOW||o.y===sel)?`<text x="${x+w/2}" y="${base+16}" text-anchor="middle" ${o.y===sel?'style="fill:var(--ink);font-weight:600"':""}>${String(o.y).slice(2)}</text>`:""}</g>`;
   });
-  const sum = k => years.reduce((a,o)=>a+(o.v[k]||0),0);
-  const legend = series.filter(k=>sum(k)||k==="jica").sort((a,b)=>(a==="_other")-(b==="_other") || sum(b)-sum(a)).map(k=>`<li ${k!=="_other"?`data-donor="${k}"`:'class="nolink"'}><i style="background:${col(k)}"></i><span class="nm">${esc(nm(k))}</span><span class="pc">${fmt(sum(k))}</span><span class="vv">${Y0}–${YNOW}</span></li>`).join("");
-  const unkAll = years.reduce((a,o)=>a+o.unk,0);
-  const title = mode==="amt" ? "年別の新規支援額（開始・承認年）" : "年別の新規案件数（開始・承認年）";
-  return `<div class="panel chart ych"><div class="phk">New commitments by year</div><h3 class="ph">${title}</h3>
-    <div class="ctrls">${segCH("ym",[["amt","金額"],["n","件数"]])}${mode==="amt"&&unkAll?`<span class="unk">金額不明 ${unkAll}件は金額に含まず</span>`:""}</div>
+  const last = CH.ym==="new" ? (k=>years.reduce((a,o)=>a+(o.v[k]||0),0)) : (k=>years[years.length-1].v[k]||0);
+  const legend = series.filter(k=>last(k)||k==="jica").sort((a,b)=>(a==="_other")-(b==="_other") || last(b)-last(a)).map(k=>`<li ${k!=="_other"?`data-donor="${k}"`:'class="nolink"'}><i style="background:${col(k)}"></i><span class="nm">${esc(nm(k))}</span><span class="pc">${fmt(last(k))}</span><span class="vv">${CH.ym==="new"?`${Y0}–${YNOW}計`:YNOW+"年"}</span></li>`).join("");
+  const title = {new:"その年に決まった新規の支援", ongoing:"その年に実施中だった支援の総額", cum:"これまでの支援の累計（重複なし）"}[CH.ym];
+  const expl = {new:"各案件を開始・承認した年に全額で1回だけ数えます。年ごとの合計を足すと全期間の総額になります。",
+    ongoing:"その年に動いていた案件の総額（ストック）です。複数年の案件は各年に全額で入るため、年どうしを足し合わせることはできません。",
+    cum:"その年までに始まった案件の総額です。各案件は1回だけ数えるので重複はありません（3年で3億の案件は3億として1回）。"}[CH.ym];
+  return `<div class="panel chart ych"><div class="phk">Cooperation over time</div><h3 class="ph">${title}</h3>
+    <div class="ctrls">${segCH("ym",[["new","新規（その年）"],["ongoing","実施中（その年）"],["cum","累計"]])} ${segCH("ymet",[["amt","金額"],["n","件数"]])}</div>
     <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}">${g}</svg>
     <ul class="lg" style="margin-top:6px">${legend}</ul>
-    <p class="note" style="margin:6px 0 0">各案件を開始・承認した年に全額で1回だけ数えています（複数年にまたがっても重複しません）。年ごとの実際の支出額は公開されていないため扱っていません。${nodate?`開始年不明 ${nodate}件は表示外。`:""}棒を押すとその年に始まった案件の割合を円グラフで表示。</p></div>`;
+    <p class="note" style="margin:6px 0 0">${expl}${amtMode?"金額不明の案件は件数だけ数え、金額には入れていません。":""}${nodate?`開始年不明 ${nodate}件は表示外。`:""}年の棒を押すと、その年の案件一覧（金額不明を含む）が下に出ます。</p>
+    ${sel ? yearDetail(sid, sel) : ""}</div>`;
+}
+// the projects behind one bar, amount-unknown ones listed by name
+function yearDetail(sid, y){
+  const r = ML()+y, list = sectorProjects(sid).filter(p=>inRange(p, r));
+  const known = list.filter(hasAmt).sort((a,b)=>valAmt(b,sid)-valAmt(a,sid)), unknown = list.filter(p=>!hasAmt(p));
+  const row = p => `<li><span class="yt"><a href="${esc(p.u)}" target="_blank" rel="noopener">${esc(p.tj||p.t)}</a><span class="ym"><span class="don ${JP_IDS.has(p.donor)?"jp":""}">${esc(p.donor&&p.donor!=="ngo"?donorName(p.donor):p.org||"")}</span> · ${esc(sch(p))}${p.a?` · ${esc(ymd(p.a))}–${esc(ymd(p.e)||"")}`:""}</span></span><span class="ya">${hasAmt(p)?money(valAmt(p,sid)):'<span class="unk">金額不明</span>'}</span></li>`;
+  const total = known.reduce((a,p)=>a+valAmt(p,sid),0);
+  return `<div class="ydet"><div class="ydh"><b>${esc(rangeLabel(r))}案件</b><span>${list.length}件・${money(total)||"$0"}（金額判明 ${known.length}件）</span>${unknown.length?`<span class="unk">金額不明 ${unknown.length}件</span>`:""}<span class="sp"></span><button class="linkbtn" data-ysel="0">閉じる ×</button></div>
+    <ol class="ylist">${known.slice(0,25).map(row).join("")}</ol>${known.length>25?`<p class="note">ほか ${known.length-25}件（金額判明）</p>`:""}
+    ${unknown.length?`<div class="ydh" style="margin-top:8px"><b>金額不明の案件</b><span>${unknown.length}件 — 公開情報に金額の記載がないもの</span></div><ol class="ylist">${unknown.slice(0,40).map(row).join("")}</ol>${unknown.length>40?`<p class="note">ほか ${unknown.length-40}件</p>`:""}`:""}</div>`;
+}
+// headline figures: running now, everything so far (each project once), this year's new, unknown amounts
+function overviewKPIs(sid){
+  const pj = sectorProjects(sid), act = pj.filter(p=>p.st==="active"), yr = pj.filter(p=>startYear(p)===YNOW);
+  const sum = l => l.reduce((a,p)=>a+(hasAmt(p)?valAmt(p,sid):0),0);
+  const k = (l, v, n, list, extra="") => `<div class="kpi"><div class="l">${l}</div><div class="v">${money(v)||"—"}</div><div class="s">${n}件${unk(list)?`・<span class="unk">金額不明 ${unk(list)}件</span>`:""}${extra}</div></div>`;
+  return `<div class="kpis">
+    ${k("Running now · 実施中の総額", sum(act), act.length, act)}
+    ${k("All so far · これまでの総額", sum(pj), pj.length, pj, "（重複なし）")}
+    ${k(`New in ${YNOW} · 今年の新規`, sum(yr), yr.length, yr)}
+    <div class="kpi" data-unknown="${sid||""}" style="cursor:pointer" title="金額不明の案件を一覧"><div class="l">Amount unknown · 金額不明</div><div class="v">${unk(pj)}<small>件</small></div><div class="s">うち実施中 ${unk(act)}件・一覧を見る →</div></div>
+  </div>`;
+}
+// news column: scrolls on its own beside the main column on a PC
+function sideNews(list, title, more){
+  const t = CH.side, l = list.filter(x=>t==="gov" ? x.g : t==="coop" ? x.d.length : true).slice(0,60);
+  return `<aside class="sidec"><div class="sideh"><h2>${title}</h2>${segCH("side",[["gov","政府の動き"],["coop","協力"],["all","すべて"]])}</div>
+    <div class="sidel">${listHTML(l,false,true)}</div>
+    <button class="linkbtn" style="margin:8px 2px" data-gofeed="${t==="all"?"all":t}" ${more||""}>ニュースページで見る →</button></aside>`;
 }
 function setTitle(t){ document.title = t ? t+" · Kyrgyz Monitor" : "Kyrgyz Monitor"; }
 const secHead = (k,h,right="") => `<div class="sec-h"><span class="k">${k}</span><h2>${h}</h2><span class="sp"></span>${right}</div>`;
@@ -786,10 +870,7 @@ const secHead = (k,h,right="") => `<div class="sec-h"><span class="k">${k}</span
 /* ---------- views ---------- */
 function viewHome(){
   setTitle("");
-  const now = Date.now(), d7 = now-7*DAY, d30 = now-30*DAY, its = items(), pj = projects();
-  const n7 = its.filter(x=>x.ts>=d7);
-  const act = pj.filter(p=>p.st==="active"), pipe = pj.filter(p=>p.st==="pipeline");
-  const actAmt = act.reduce((s,p)=>s+(p.amt||0),0);
+  const now = Date.now(), d30 = now-30*DAY, its = items(), pj = projects();
   const ready = projReady();
   const tile = ([id,ja])=>{
     const sp = pj.filter(p=>p.c.includes(id) && p.st==="active");
@@ -811,30 +892,15 @@ function viewHome(){
   };
   const favTiles = SECTORS.filter(([id])=>FAV.has(id)).map(tile).join("");
   const tiles = SECTORS.filter(([id])=>!FAV.has(id)).map(tile).join("");
-  const counts = {}; for(const x of its) if(x.ts>=d7) for(const c of x.c) counts[c]=(counts[c]||0)+1;
-  const ranked = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
   const mine = FAV.size ? its.filter(x=>x.c.some(c=>FAV.has(c))) : its;
-  const gov = mine.filter(x=>x.g).slice(0,8), coop = mine.filter(x=>x.d.length).slice(0,8);
-  const myNote = FAV.size ? "（マイ分野）" : "";
-  return `
-    <div class="kpis">
-      <div class="kpi"><div class="l">Active projects</div><div class="v">${ready?act.length:"…"}</div><div class="s">実施中の案件</div></div>
-      <div class="kpi"><div class="l">Active funding</div><div class="v">${ready?money(actAmt)||"—":"…"}</div><div class="s">実施中案件の支援額${ready&&unk(act)?`（金額不明 ${unk(act)}件を除く）`:""}</div></div>
-      <div class="kpi"><div class="l">Government · 7d</div><div class="v" style="color:var(--gov)">${n7.filter(x=>x.g).length}</div><div class="s">政府の動き（7日）</div></div>
-      <div class="kpi"><div class="l">Cooperation news · 7d</div><div class="v" style="color:var(--coop)">${n7.filter(x=>x.d.length).length}</div><div class="s">協力ニュース（7日）${SHOW_JP?`・うち日本 ${n7.filter(x=>x.jp).length}`:""}</div></div>
-    </div>
+  return `<div class="layout"><div class="mainc">
+    ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
+    ${ready?`${secHead("Overview","協力の全体像",'<span class="note">全分野・全援助機関（世界銀行・IATI・JICA の公開データ）</span>')}<div class="cols">${yearHTML("")}${shareHTML("")}</div>`:""}
     ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">☆で追加・★で外す（この端末に保存）</span>')}<div class="matrix">${favTiles}</div>`:""}
     ${secHead("Sectors",favTiles?"その他の分野":"分野別の協力",`<span class="note">実施中案件の支援額と件数・上位3機関の割合${favTiles?"":"・☆でマイ分野に追加"}</span>`)}
     <div class="matrix">${tiles}</div>
-    <p class="note" style="margin:8px 0 0">支援額は World Bank・IATI・JICA の公開データで、複数分野にまたがる案件は分野数で按分。下段は直近30日の政府の動きと協力ニュースの件数。</p>
-    ${ready?`${secHead("Funding over time","全分野の新規支援の推移")}<div class="cols c3">${yearHTML("")}${shareHTML("")}</div>`:""}
-    <div class="cols c3">
-      <section>${secHead("Government","最新の政府の動き"+myNote,`<button class="linkbtn" data-go="gov">すべて見る →</button>`)}${listHTML(gov,false)}</section>
-      <section>${secHead("This week","今週ニュースが多い分野",'<span class="note">政府・報道・協力の記事数</span>')}
-        <div class="panel"><ol class="rank">${ranked.length?ranked.map(([id,n],i)=>`<li data-sec="${id}"><span class="i">${i+1}</span><span class="n">${esc(SEC[id].ja)}</span><span class="c">${n}件</span><span class="d down"></span></li>`).join(""):'<li><span></span><span class="note">まだデータがありません</span></li>'}</ol></div>
-        ${secHead("Cooperation","最新の協力ニュース"+myNote,`<button class="linkbtn" data-go="coop">すべて見る →</button>`)}${listHTML(coop,false)}
-      </section>
-    </div>`;
+    <p class="note" style="margin:8px 0 0">分野別の支援額は、複数分野にまたがる案件を分野数で按分。下段は直近30日の政府の動きと協力ニュースの件数。</p>
+  </div>${sideNews(mine, FAV.size?"マイ分野のニュース":"最新ニュース")}</div>`;
 }
 function viewFeed(){
   const t = S.t;
@@ -858,40 +924,23 @@ function viewSector(){
   if(!s) return viewHome();
   setTitle(s.ja);
   const all = items().filter(x=>x.c.includes(s.id));
-  const d30 = Date.now()-30*DAY, m30 = all.filter(x=>x.ts>=d30);
-  const per = filterItems({...S, t:"all", d:""});
   const pj = sectorProjects(s.id), ready = projReady();
-  const act = pj.filter(p=>p.st==="active");
-  const cnt = {gov:per.filter(x=>x.g).length, coop:per.filter(x=>x.d.length).length, press:per.length,
-               pa:pj.filter(isOpen).length, pc:pj.filter(p=>!isOpen(p)).length};
-  const subs = [["pa","案件 実施中・計画中",ready?cnt.pa:"…"],["pc","案件 過去",ready?cnt.pc:"…"],["gov","政府の動き",cnt.gov],["coop","協力ニュース",cnt.coop],["press","報道すべて",cnt.press]];
-  let body;
-  if(S.sub==="pa"||S.sub==="pc"){
-    const base = filterProjects({s:s.id, d:S.d, q:S.q, ps:S.sub==="pa"?"open":"past", psort:S.psort});
-    const list = filterProjects({s:s.id, d:S.d, q:S.q, k:S.k, ps:S.sub==="pa"?"open":"past", psort:S.psort});
-    body = `<div class="filters">${donorSelect(S.d)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>${projectListHTML(list)}`;
-  }else{
-    const list = filterItems({...S, t:S.sub==="press"?"all":S.sub});
-    body = `<div class="filters">${periodSelect(S.p)} ${donorSelect(S.d)} ${qInput()}</div>
-      <div class="count"><span>${list.length} 件</span><span class="sp"></span>${moreYearsBtn()}<button class="btn" data-csv="items">CSV</button></div>${listHTML(list)}`;
-  }
-  return `<div class="panel shead">
-      <div><div class="k">Sector ${s.no} / 20</div><h2 style="display:flex;gap:8px;align-items:center">${esc(s.ja)} ${favStar(s.id)}</h2></div>
-      <div class="minis">
-        <div class="mini"><div class="v">${ready?money(act.reduce((a,p)=>a+shareAmt(p),0))||"—":"…"}</div><div class="l">実施中の支援額${ready&&unk(act)?`<br><span class="unk">金額不明 ${unk(act)}件</span>`:""}</div></div>
-        <div class="mini"><div class="v">${ready?act.length:"…"}</div><div class="l">実施中案件</div></div>
-        <div class="mini"><div class="v">${ready?pj.filter(p=>p.st==="pipeline").length:"…"}</div><div class="l">計画中</div></div>
-        <div class="mini"><div class="v">${ready?cnt.pc:"…"}</div><div class="l">過去の案件</div></div>
-        <div class="mini"><div class="v" style="color:var(--gov)">${m30.filter(x=>x.g).length}</div><div class="l">政府の動き 30日</div></div>
-        ${SHOW_JP&&ready?(()=>{const j=pj.filter(p=>p.donor==="jica"), ja=j.filter(p=>p.st==="active"); return `<div class="mini" data-donor="jica" style="cursor:pointer"><div class="v" style="color:${JICA_COL}">${ja.length}<small style="font-size:12px">/${j.length}件</small></div><div class="l">JICA 実施中/累計${ja.some(hasAmt)?`<br>${money(ja.reduce((a,p)=>a+shareAmt(p),0))}`:""}</div></div>`;})():""}
-      </div></div>
-    ${secHead("Cooperation","援助機関の協力")}
-    <div class="cols">${ready?shareHTML(s.id):'<div class="panel chart"><div class="empty">案件データを読み込み中…</div></div>'}${ready?yearHTML(s.id):""}</div>
-    ${secHead("News","政府の動き・報道")}
-    <div class="panel chart"><div class="note">月別の記事数（12か月）<span style="color:var(--gov)">■</span>政府の動き <span style="color:var(--bar)">■</span>その他の報道・協力ニュース</div>${monthChart(all)}</div>
-    <div class="subtabs">${subs.map(([k,l,n])=>`<button data-sub="${k}" class="${S.sub===k?"on":""}">${l}<span>${n}</span></button>`).join("")}</div>
-    ${body}`;
+  if(S.sub!=="pc") S.sub = "pa";
+  const cnt = {pa:pj.filter(isOpen).length, pc:pj.filter(p=>!isOpen(p)).length};
+  const base = filterProjects({s:s.id, d:S.d, q:S.q, ps:S.sub==="pa"?"open":"past", psort:S.psort, ua:S.ua});
+  const list = filterProjects({s:s.id, d:S.d, q:S.q, k:S.k, ps:S.sub==="pa"?"open":"past", psort:S.psort, ua:S.ua});
+  const jica = SHOW_JP&&ready ? (()=>{const j=pj.filter(p=>p.donor==="jica"), ja=j.filter(p=>p.st==="active"); return `<button class="jbadge" data-donor="jica">JICA 実施中 <b>${ja.length}</b>件${ja.some(hasAmt)?" "+money(ja.reduce((a,p)=>a+shareAmt(p),0)):""}・累計 <b>${j.length}</b>件 →</button>`;})() : "";
+  return `<div class="layout"><div class="mainc">
+    <div class="shead2"><div><div class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)">SECTOR ${s.no} / 20</div>
+      <h2>${esc(s.ja)} ${favStar(s.id)}</h2></div>${jica}</div>
+    ${ready?overviewKPIs(s.id):""}
+    ${ready?`${secHead("Overview","この分野の協力の全体像")}<div class="cols">${yearHTML(s.id)}${shareHTML(s.id)}</div>`:'<div class="panel chart"><div class="empty">案件データを読み込み中…</div></div>'}
+    <div class="subtabs">${[["pa","実施中・計画中の案件",ready?cnt.pa:"…"],["pc","過去の案件",ready?cnt.pc:"…"]].map(([k,l,n])=>`<button data-sub="${k}" class="${S.sub===k?"on":""}">${l}<span>${n}</span></button>`).join("")}</div>
+    <div class="filters">${donorSelect(S.d)} ${kindSelect(base)} ${uaBtn()} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>${projectListHTML(list)}
+  </div>${sideNews(all, "この分野のニュース")}
+  </div>`;
 }
+const uaBtn = () => `<button class="btn ${S.ua?"on":""}" data-set="ua" data-val="${S.ua?"":"1"}">${S.ua?"✓ ":""}金額不明のみ</button>`;
 function viewProjects(){
   setTitle("案件");
   const base = filterProjects({...S, k:""}), list = filterProjects(S);
@@ -901,7 +950,7 @@ function viewProjects(){
   const news = filterItems({t:"coop", s:S.s, d:S.d, p:365, q:""}).slice(0,12);
   return `${secHead("Projects","協力案件",'<span class="note">援助機関の案件（実施中・計画中・過去）と、同じ条件の協力ニュース</span>')}
     <div class="filters">${seg("ps",[["active","実施中"],["pipeline","計画中"],["closed","終了"],["all","すべて"]],S.ps)}
-      ${sectorSelect(S.s)} ${donorSelect(S.d)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>
+      ${sectorSelect(S.s)} ${donorSelect(S.d)} ${kindSelect(base)} ${uaBtn()} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>
     <div class="cols c3">
       <section>${projectListHTML(list)}</section>
       <section><div class="count"><span>関連する協力ニュース（1年）</span><span class="sp"></span><button class="linkbtn" data-gofeed="coop">すべて見る →</button></div>${listHTML(news,false)}</section>
@@ -1026,8 +1075,13 @@ main.addEventListener("click", e=>{
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
   const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
   const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:""}); return; }
-  const ch = t.closest("[data-ch]"); if(ch){ CH[ch.dataset.ch] = ch.dataset.val; lsSet("km-charts", CH); render(); return; }
-  const ybar = t.closest("[data-year]"); if(ybar){ CH.range = "y"+ybar.dataset.year; CH.scope = "donor"; lsSet("km-charts", CH); render(); return; }
+  const ch = t.closest("[data-ch]"); if(ch){
+    CH[ch.dataset.ch] = ch.dataset.val;
+    if(ch.dataset.ch==="ym" && CH.range[0].match(/[yoc]/) && CH.range!=="active") CH.range = CH.ysel ? ML()+CH.ysel : "active";
+    lsSet("km-charts", CH); render(); return; }
+  const ybar = t.closest("[data-year]"); if(ybar){ const y = +ybar.dataset.year; CH.ysel = CH.ysel===y ? 0 : y; if(CH.ysel){ CH.range = ML()+y; CH.scope = "donor"; } lsSet("km-charts", CH); render(); return; }
+  const ys = t.closest("[data-ysel]"); if(ys){ CH.ysel = 0; lsSet("km-charts", CH); render(); return; }
+  const uk = t.closest("[data-unknown]"); if(uk){ go({v:"projects", s:uk.dataset.unknown, ua:"1", ps:"all", d:"", k:""}); return; }
   const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:"", q:"", ps:"all", k:""}); return; }
   const st = t.closest("[data-star]");
   if(st){
