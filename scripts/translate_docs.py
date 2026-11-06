@@ -125,8 +125,18 @@ def paragraphs(text):
     return [p for p in res if len(p) > 1]
 
 
-def translate(paras, sl):
+def untranslated(line):
+    """True for a line of a Japanese .md that is still mostly Cyrillic (a paragraph the translator refused)."""
+    letters = [c for c in line if c.isalpha()]
+    return len(letters) >= 20 and sum("\u0400" <= c <= "\u04ff" for c in letters) > len(letters) / 2
+
+
+def translate(paras, sl, stats=None):
+    """Returns the translations in order. A paragraph that could not be translated
+    is returned unchanged and counted in stats["failed"]."""
     res, batch, size = [], [], 0
+    if stats is not None:
+        stats["failed"] = 0
 
     def one(chunk):
         """Translate a chunk; on refusal or a changed paragraph count split it at once,
@@ -151,6 +161,8 @@ def translate(paras, sl):
             mid = len(chunk) // 2
             return one(chunk[:mid]) + one(chunk[mid:])
         STATS["kept"] += 1
+        if stats is not None:
+            stats["failed"] += 1
         return chunk
 
     def flush():
@@ -199,17 +211,21 @@ def main():
         if old and old.get("chars") == chars and old.get("complete"):
             try:
                 md = urllib.request.urlopen(PREV + "ja/" + urllib.parse.quote(name) + ".md", timeout=60).read()
+                left = sum(untranslated(ln) for ln in md.decode("utf-8", "replace").splitlines()[4:])
+                if left:
+                    raise ValueError(f"{left} paragraphs still in the original language")
                 open(os.path.join(d, "ja", name + ".md"), "wb").write(md)
                 index[name] = old
                 print(f"{name}: kept earlier translation", file=sys.stderr)
                 continue
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"{name}: translating again ({e})", file=sys.stderr)
         if time.time() - START > TIME_BUDGET:
             print(f"{name}: out of time, next run", file=sys.stderr)
             continue
         t0 = time.time()
-        ja = translate(paras, sl)
+        st = {}
+        ja = translate(paras, sl, st)
         md = [f"# {title}", "", f"原文: {src.get(name, '')}", "",
               "> この文書は原文を機械翻訳したものです。正確な内容は原文で確認してください。", ""]
         for o, j in zip(paras, ja):
@@ -219,8 +235,11 @@ def main():
             md.append(f"> ここまで（全{len(paras)}段落のうち{len(ja)}段落）。続きは次回の更新で訳します。")
         open(os.path.join(d, "ja", name + ".md"), "w", encoding="utf-8").write("\n".join(md))
         index[name] = {"title": title, "source": src.get(name, ""), "paragraphs": len(paras),
-                       "chars": chars, "complete": len(ja) >= len(paras)}
-        print(f"{name}: {len(paras)} paragraphs in {int(time.time() - t0)}s {dict(STATS)}", file=sys.stderr)
+                       "chars": chars, "untranslated": st["failed"],
+                       # a refused paragraph stays in the original language; leave the document
+                       # incomplete so the next run translates it again
+                       "complete": len(ja) >= len(paras) and not st["failed"]}
+        print(f"{name}: {len(paras)} paragraphs in {int(time.time() - t0)}s, {st['failed']} not translated {dict(STATS)}", file=sys.stderr)
         STATS.clear()
     json.dump(index, open(os.path.join(d, "ja", "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
