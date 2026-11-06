@@ -1,6 +1,7 @@
 name: Fetch strategy documents
 
-# Downloads the strategy texts listed in scripts/strategy_docs.txt and
+# Downloads the strategy texts listed in scripts/strategy_docs.txt, adds
+# Japanese machine translations (ja/*.md, scripts/translate_docs.py) and
 # publishes them on the `strategy-docs` branch (one force-pushed commit),
 # so the strategy map can be built from the documents themselves.
 on:
@@ -8,6 +9,7 @@ on:
   push:
     paths:
       - scripts/strategy_docs.txt
+      - scripts/translate_docs.py
       - .github/workflows/fetch-strategy-docs.yml
 
 permissions:
@@ -20,7 +22,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - name: Download
@@ -42,6 +44,10 @@ jobs:
             fi
           done
           cat "$RUNNER_TEMP/docs/index.tsv"
+      - name: Translate into Japanese
+        run: |
+          command -v pdftotext >/dev/null || sudo apt-get install -y -qq poppler-utils >/dev/null
+          python3 scripts/translate_docs.py "$RUNNER_TEMP/docs" || echo "translation failed"
       - name: Publish
         env:
           TOKEN: ${{ github.token }}
