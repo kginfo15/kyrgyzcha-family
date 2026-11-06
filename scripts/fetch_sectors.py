@@ -968,7 +968,7 @@ JICA_PAGE = "https://www.jica.go.jp/oda/project/{}/index.html"
 JICA_SCHEMES = ["技術協力プロジェクト", "無償資金協力", "有償資金協力", "円借款", "草の根技術協力", "海外協力隊",
                 "開発計画調査型技術協力", "開発調査", "科学技術協力", "SATREPS", "個別専門家", "専門家派遣",
                 "課題別研修", "国別研修", "研修", "民間連携", "中小企業", "技術協力", "ボランティア", "協力準備調査"]
-JICA_PV = 3  # parser version: pages read by an older parser are fetched again
+JICA_PV = 4  # parser version: pages read by an older parser are fetched again
 JP_DATE = re.compile(r"(\d{4})\s*[年./／-]\s*(\d{1,2})(?:\s*[月./／-]\s*(\d{1,2})\s*日?)?")
 YEN = re.compile(r"([\d,]+(?:\.\d+)?)\s*(億円|百万円|千円|万円|円)")
 
@@ -1064,7 +1064,8 @@ def jica_projects(out_dir, prev_projs):
                 title = re.split(r"\s*[|｜]\s*", clean(tt.group(1)))[0] if tt else ""
             rec = jica_record(pid, title or listed[pid]["title"], label_pairs(html_), page_text(html_), today)
             out.append(rec)
-            if not rec.get("jpy") and nodbg < 4:  # keep a few pages whose amount wasn't found, to check the parsing
+            # keep loan pages whose amount wasn't found (technical cooperation pages publish none), to check the parsing
+            if not rec.get("jpy") and rec.get("kind") != "技術協力" and nodbg < 4:
                 nodbg += 1
                 open(os.path.join(dbg, f"jica-noamount-{pid}.html"), "w").write(html_)
             time.sleep(0.4)
