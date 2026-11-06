@@ -1,7 +1,8 @@
 name: Update Kyrgyz news
 
-# Fetches news, lifeline (outage) info and MOFA safety info, and publishes
-# news.json on the `news-data` branch (a single force-pushed commit, so main's
+# Fetches news, lifeline (outage) info and MOFA safety info for Kyrgyzstan
+# (news.json) and Kazakhstan (news-kz.json) and publishes them on the
+# `news-data` branch (a single force-pushed commit, so main's
 # history stays clean).
 #
 # GitHub often skips scheduled runs, so each run keeps going for about 5.5
@@ -37,8 +38,8 @@ jobs:
             rm -rf "$RUNNER_TEMP/out" && mkdir "$RUNNER_TEMP/out" && cd "$RUNNER_TEMP/out"
             git init -q
             git checkout -q --orphan news-data
-            cp "$RUNNER_TEMP/news.json" news.json
-            git add news.json
+            cp "$RUNNER_TEMP"/news*.json .
+            git add news*.json
             git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update news"
             git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" news-data
             cd "$GITHUB_WORKSPACE"
@@ -46,11 +47,18 @@ jobs:
           while :; do
             # pick up script changes pushed to main since this run started
             git fetch -q --depth 1 origin main && git checkout -q FETCH_HEAD -- scripts || true
-            if python3 scripts/fetch_news.py > "$RUNNER_TEMP/news.json"; then
-              publish || echo "publish failed"
-            else
-              echo "fetch failed"
-            fi
+            ok=0
+            # one file per country; keep the last good file if a country fails this round
+            for c in kg kz; do
+              f="news.json"; [ "$c" = kg ] || f="news-$c.json"
+              if python3 scripts/fetch_news.py "$c" > "$RUNNER_TEMP/new.json"; then
+                mv "$RUNNER_TEMP/new.json" "$RUNNER_TEMP/$f"; ok=1
+              else
+                echo "fetch $c failed"
+                curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$f" -o "$RUNNER_TEMP/$f" || rm -f "$RUNNER_TEMP/$f"
+              fi
+            done
+            [ "$ok" = 1 ] && { publish || echo "publish failed"; }
             [ $(( $(date +%s) + 1800 )) -lt "$end" ] || break
             sleep 1800
           done

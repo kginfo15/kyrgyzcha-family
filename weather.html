@@ -81,6 +81,7 @@ header{position:sticky;top:0;z-index:5;background:rgba(var(--hdr-rgb),.82);-webk
 .hrow{display:flex;align-items:center;gap:10px}
 h1{font-size:23px;margin:0;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
 h1 .h1b{color:var(--accent)}
+:root[data-country="kz"] h1{font-size:19.5px}
 .sub{font-size:12px;color:var(--ink-3);margin-top:2px}
 .iconbtn{width:40px;height:40px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);
   display:grid;place-items:center;border:1px solid var(--line);flex:0 0 auto}
@@ -201,10 +202,10 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .plead{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin:8px 0 4px}
 .pgroup{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--ink-3);margin:16px 2px 8px;display:flex;align-items:center;gap:8px}
 .pgroup b{color:var(--accent);font-weight:800}
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .sbtn{position:relative;text-align:left;padding:11px 36px 11px 12px;border-radius:16px;background:var(--card);border:1px solid var(--line);transition:background .15s,border-color .15s}
 .sbtn .sj{display:block;font-size:15px;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sbtn .sr{display:block;font-size:11px;color:var(--ink-3);margin-top:2px}
+.sbtn .sr{display:block;font-size:11px;color:var(--ink-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sbtn .ck{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ring);display:grid;place-items:center}
 .sbtn .ck svg{width:12px;height:12px;stroke:#000;stroke-width:3;fill:none;opacity:0}
 .sbtn.on{background:rgba(var(--accent-rgb),.10);border-color:rgba(var(--accent-rgb),.55)}
@@ -216,6 +217,9 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .pdone{flex:1;font-size:15px;font-weight:800;color:#000;background:var(--ink);border-radius:14px;padding:13px}
 .iconbtn{color:var(--ink-2)}
 .hrow .iconbtn+.iconbtn{margin-left:-2px}
+.ctry{display:flex;gap:4px;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px}
+.ctry button{flex:1;font-size:12.5px;font-weight:700;padding:7px 4px;border-radius:9px;color:var(--ink-3)}
+.ctry button.on{background:var(--raised);color:var(--ink)}
 .skins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .skin{text-align:left;border-radius:18px;overflow:hidden;border:1.5px solid var(--line);background:var(--card)}
 .skin.on{border-color:var(--accent)}
@@ -343,8 +347,8 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   <header>
     <div class="hrow">
       <div style="flex:1;min-width:0">
-        <div class="over">Kyrgyz Republic · Info Hub</div>
-        <h1>キルギス共和国 <span class="h1b">統合情報</span></h1>
+        <div class="over" id="overline">Kyrgyz Republic · Info Hub</div>
+        <h1><span id="cname">キルギス共和国</span> <span class="h1b">統合情報</span></h1>
         <div class="sub num" id="updated">読み込み中…</div>
       </div>
       <button class="iconbtn" id="openSkin" aria-label="テーマ">
@@ -353,6 +357,9 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
       <button class="iconbtn" id="refresh" aria-label="更新">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
       </button>
+    </div>
+    <div class="ctry" id="ctry" role="tablist" aria-label="国の切り替え">
+      <button data-country="kg" role="tab">🇰🇬 キルギス</button><button data-country="kz" role="tab">🇰🇿 カザフスタン</button>
     </div>
     <div class="banner" id="banner"></div>
   </header>
@@ -382,7 +389,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   <div class="foot">
     ☆をタップするとお気に入りになり、一番上に1時間ごとの天気と大気汚染が出ます（お気に入りはこのスマホに保存されます）。<br>
     予報の確かさ＝ヨーロッパ（ECMWF）・ドイツ（ICON）・アメリカ（GFS）の3つの気象モデルの予報がどれだけ一致しているか。一致しているほど当たりやすい予報です。<br>
-    標高を都市ごとに指定して計算しています（山の多いキルギスでは標高のずれが誤差の大きな原因になるため）。<br>
+    標高を都市ごとに指定して計算しています（<span id="mtnNote">山の多いキルギスでは</span>標高のずれが誤差の大きな原因になるため）。<br>
     大気汚染＝米国AQI（0〜50 良い／51〜100 普通／101〜150 敏感な人は注意／151〜200 悪い／201〜 非常に悪い）。<br>
     データ：天気・大気 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>（CC BY 4.0）／ニュース・ライフライン情報 現地各紙・Google ニュース・外務省 海外安全ホームページ（30分ごとに自動更新、現地記事は機械翻訳）／時刻はビシュケク時間
   </div>
@@ -416,27 +423,57 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 </section>
 
 <script>
-const CITIES = [
-  {id:"bishkek",   ja:"ビシュケク",     ru:"Бишкек",      lat:42.8746, lon:74.5698, el:800},
-  {id:"osh",       ja:"オシュ",         ru:"Ош",          lat:40.5283, lon:72.7985, el:1000},
-  {id:"jalalabad", ja:"ジャララバード", ru:"Жалал-Абад",  lat:40.9333, lon:73.0017, el:770},
-  {id:"karakol",   ja:"カラコル",       ru:"Каракол",     lat:42.4907, lon:78.3936, el:1770},
-  {id:"cholponata",ja:"チョルポン・アタ",ru:"Чолпон-Ата", lat:42.6491, lon:77.0818, el:1610},
-  {id:"balykchy",  ja:"バリクチ",       ru:"Балыкчы",     lat:42.4603, lon:76.1871, el:1660},
-  {id:"naryn",     ja:"ナリン",         ru:"Нарын",       lat:41.4287, lon:75.9911, el:2040},
-  {id:"talas",     ja:"タラス",         ru:"Талас",       lat:42.5228, lon:72.2427, el:1260},
-  {id:"batken",    ja:"バトケン",       ru:"Баткен",      lat:40.0628, lon:70.8194, el:1050},
-  {id:"tokmok",    ja:"トクモク",       ru:"Токмок",      lat:42.8421, lon:75.3015, el:816},
-  {id:"karabalta", ja:"カラ・バルタ",   ru:"Кара-Балта",  lat:42.8142, lon:73.8481, el:750},
-];
+const COUNTRY_CFG = {
+  kg:{name:"キルギス共和国", short:"キルギス", flag:"🇰🇬", over:"Kyrgyz Republic · Info Hub", tz:"Asia/Bishkek",
+      news:"news.json", suffix:"", embassy:"在キルギス日本国大使館", capital:"bishkek", favs:["bishkek"],
+      media:"24.kg・Kaktus・AKIpress・Kloop・Azattyk", mountainNote:"山の多いキルギスでは",
+      streetCities:{bishkek:"ビシュケク"}, streets:["razzakova","orozbekova","panfilova","kievskaya"],
+      cities:[
+        {id:"bishkek",   ja:"ビシュケク",     ru:"Бишкек",      lat:42.8746, lon:74.5698, el:800},
+        {id:"osh",       ja:"オシュ",         ru:"Ош",          lat:40.5283, lon:72.7985, el:1000},
+        {id:"jalalabad", ja:"ジャララバード", ru:"Жалал-Абад",  lat:40.9333, lon:73.0017, el:770},
+        {id:"karakol",   ja:"カラコル",       ru:"Каракол",     lat:42.4907, lon:78.3936, el:1770},
+        {id:"cholponata",ja:"チョルポン・アタ",ru:"Чолпон-Ата", lat:42.6491, lon:77.0818, el:1610},
+        {id:"balykchy",  ja:"バリクチ",       ru:"Балыкчы",     lat:42.4603, lon:76.1871, el:1660},
+        {id:"naryn",     ja:"ナリン",         ru:"Нарын",       lat:41.4287, lon:75.9911, el:2040},
+        {id:"talas",     ja:"タラス",         ru:"Талас",       lat:42.5228, lon:72.2427, el:1260},
+        {id:"batken",    ja:"バトケン",       ru:"Баткен",      lat:40.0628, lon:70.8194, el:1050},
+        {id:"tokmok",    ja:"トクモク",       ru:"Токмок",      lat:42.8421, lon:75.3015, el:816},
+        {id:"karabalta", ja:"カラ・バルタ",   ru:"Кара-Балта",  lat:42.8142, lon:73.8481, el:750},
+      ]},
+  kz:{name:"カザフスタン共和国", short:"カザフスタン", flag:"🇰🇿", over:"Kazakhstan · Info Hub", tz:"Asia/Almaty",
+      news:"news-kz.json", suffix:"-kz", embassy:"在カザフスタン日本国大使館", capital:"astana", favs:["almaty","astana"],
+      media:"Tengrinews・Kazinform・Kursiv・Sputnik・Orda", mountainNote:"高低差の大きいカザフスタンでは",
+      streetCities:{almaty:"アルマトイ", astana:"アスタナ"}, streets:[],
+      cities:[
+        {id:"astana",    ja:"アスタナ",       ru:"Астана",      lat:51.1694, lon:71.4491, el:347},
+        {id:"almaty",    ja:"アルマトイ",     ru:"Алматы",      lat:43.2389, lon:76.8897, el:800},
+        {id:"shymkent",  ja:"シムケント",     ru:"Шымкент",     lat:42.3417, lon:69.5901, el:500},
+        {id:"karaganda", ja:"カラガンダ",     ru:"Караганда",   lat:49.8047, lon:73.1094, el:550},
+        {id:"aktobe",    ja:"アクトベ",       ru:"Актобе",      lat:50.2839, lon:57.1670, el:220},
+        {id:"atyrau",    ja:"アティラウ",     ru:"Атырау",      lat:47.0945, lon:51.9238, el:-20},
+        {id:"aktau",     ja:"アクタウ",       ru:"Актау",       lat:43.6532, lon:51.1975, el:10},
+        {id:"pavlodar",  ja:"パブロダル",     ru:"Павлодар",    lat:52.2873, lon:76.9674, el:125},
+        {id:"oskemen",   ja:"ウスチ・カメノゴルスク", ru:"Усть-Каменогорск", lat:49.9483, lon:82.6275, el:290},
+        {id:"turkistan", ja:"トルキスタン",   ru:"Туркестан",   lat:43.2973, lon:68.2517, el:210},
+        {id:"taraz",     ja:"タラズ",         ru:"Тараз",       lat:42.9000, lon:71.3667, el:630},
+        {id:"kostanay",  ja:"コスタナイ",     ru:"Костанай",    lat:53.2198, lon:63.6354, el:170},
+      ]},
+};
+const COUNTRY = (()=>{ try{ const c = localStorage.getItem("kg-country"); return COUNTRY_CFG[c] ? c : "kg"; }catch(e){ return "kg"; } })();
+const CFG = COUNTRY_CFG[COUNTRY];
+const CITIES = CFG.cities;
+const CAPITAL = CITIES.find(c=>c.id===CFG.capital);
 const MODELS = [
   {key:"ecmwf_ifs025", name:"ECMWF（欧州）"},
   {key:"icon_seamless", name:"ICON（ドイツ）"},
   {key:"gfs_seamless", name:"GFS（米国）"},
 ];
-const TZ = "Asia/Bishkek";
-const NEWS_URL = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/news-data/news.json";
-const CACHE_KEY = "kg-weather-v2", FAV_KEY = "kg-weather-favs", PREF_KEY = "kg-weather-prefs";
+const TZ = CFG.tz;
+const NEWS_URL = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/news-data/" + CFG.news;
+// settings are kept per country (Kyrgyzstan keeps its original keys)
+const CACHE_KEY = "kg-weather-v2"+CFG.suffix, FAV_KEY = "kg-weather-favs"+CFG.suffix, PREF_KEY = "kg-weather-prefs";
+const NEWS_KEY = "kg-news-v1"+CFG.suffix;
 const STALE_MS = 15*60*1000;
 
 const WMO = {
@@ -462,8 +499,8 @@ function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ r
 function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 
 let state = lsGet(CACHE_KEY);
-let news = lsGet("kg-news-v1");
-let favs = lsGet(FAV_KEY); if(!Array.isArray(favs)) favs = ["bishkek"];
+let news = lsGet(NEWS_KEY);
+let favs = lsGet(FAV_KEY); if(!Array.isArray(favs)) favs = [...CFG.favs];
 const prefs = Object.assign({sort:"def", newsTab:"local", newsCat:"all"}, lsGet(PREF_KEY)||{});
 if(!["local","japan","safety"].includes(prefs.newsTab)) prefs.newsTab = "local";
 let loading = false, newsShowAll = false;
@@ -533,7 +570,7 @@ async function refresh(){
 async function loadNews(){
   try{
     const j = await getJSON(NEWS_URL + "?t=" + Math.floor(Date.now()/600000));
-    if(j && (j.version>=2 || j.feeds)){ news = j; lsSet("kg-news-v1", j); }
+    if(j && (j.version>=2 || j.feeds)){ news = j; lsSet(NEWS_KEY, j); }
   }catch(e){ /* keep cached news */ }
   renderNews();
 }
@@ -744,16 +781,16 @@ function renderNews(){
           ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}</a>
           <div class="ns">${esc(n.source)}${when(n.published)}・${origLink(n.link)}</div></div>`).join("") : `<div class="nempty">この分類のニュースは今はありません。</div>`)
       + more(items.length)
-      + `<div class="nnote">キルギスの現地メディア（24.kg・Kaktus・AKIpress・Kloop・Azattyk ほか）の記事を日本語に自動翻訳しています。タップすると記事全体が Google 翻訳で日本語になって開きます（「原文」で元のページ）。</div>`;
+      + `<div class="nnote">${CFG.short}の現地メディア（${CFG.media} ほか）の記事を日本語に自動翻訳しています。タップすると記事全体が Google 翻訳で日本語になって開きます（「原文」で元のページ）。</div>`;
     return;
   }
   if(prefs.newsTab==="japan"){
     const items = nd.japan||[], shown = newsShowAll ? items : items.slice(0,5);
     el.innerHTML = (shown.length ? shown.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
         <div class="nt">${n.major?`<span class="cat cat-major">${esc(n.major)}</span>`:""}${esc(n.title)}</div>
-        <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">最近のキルギス関連の記事はありません。</div>`)
+        <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">最近の${CFG.short}関連の記事はありません。</div>`)
       + more(items.length)
-      + `<div class="nnote">日本の新聞・テレビ・通信社・ネットメディアのキルギスに関する記事だけを集めています（青いラベル＝大手メディア）。</div>`;
+      + `<div class="nnote">日本の新聞・テレビ・通信社・ネットメディアの${CFG.short}に関する記事だけを集めています（青いラベル＝大手メディア）。</div>`;
     return;
   }
   // safety
@@ -768,7 +805,7 @@ function renderNews(){
       ${sf.riskLead?`<div class="rl">${esc(sf.riskLead)}</div>`:""}
       <a href="${esc(sf.riskUrl)}" target="_blank" rel="noopener">危険レベルの地図・詳細（外務省）›</a>
     </div>
-    <div class="ns" style="padding:6px 0 2px;font-weight:700">在キルギス日本国大使館からのお知らせ</div>`
+    <div class="ns" style="padding:6px 0 2px;font-weight:700">${CFG.embassy}からのお知らせ</div>`
     + (shown.length ? shown.map(m=>`<a class="nitem" href="${esc(m.link)}" target="_blank" rel="noopener">
         <div class="nt">${isRecent(m.published)?`<span class="cat cat-safety">NEW</span>`:""}${esc(m.title)}</div>
         ${m.lead?`<div class="nl">${esc(m.lead)}</div>`:""}
@@ -777,7 +814,7 @@ function renderNews(){
     + `<div class="nnote">出典：外務省 海外安全ホームページ（オープンデータ）。<a href="${esc(sf.infoUrl||"https://www.anzen.mofa.go.jp/")}" target="_blank" rel="noopener">お知らせ一覧</a>／<a href="https://www.ezairyu.mofa.go.jp/tabireg/" target="_blank" rel="noopener">たびレジ登録</a>でメールも受け取れます。</div>`;
 }
 const KIND = {water:"🚰 断水", power:"⚡ 停電", gas:"🔥 ガス", heat:"♨️ 暖房", road:"🚧 交通"};
-const STREETS = [
+const STREETS_BY_COUNTRY = {kg:[
   // JICA office: Orion 2 Building, Panfilov St. 178
   {id:"panfilova", ja:"パンフィロバ通り", ru:"ул. Панфилова", g:"jica", jica:true},
   {id:"razzakova", ja:"ラザコバ通り", ru:"ул. Раззакова", g:"jica"},
@@ -797,12 +834,59 @@ const STREETS = [
   {id:"bokonbaeva", ja:"ボコンバエバ通り", ru:"ул. Боконбаева", g:"center"},
   {id:"frunze", ja:"フルンゼ通り", ru:"ул. Фрунзе", g:"center"},
   {id:"jumabek", ja:"ジュマベク通り", ru:"ул. Жумабека", g:"center"},
-];
-const STREET_KEY = "kg-mystreets";
+], kz:[
+  {id:"al_abaya", ja:"アバイ大通り", ru:"пр. Абая", g:"almaty"},
+  {id:"al_alfarabi", ja:"アル・ファラビ大通り", ru:"пр. аль-Фараби", g:"almaty"},
+  {id:"al_dostyk", ja:"ドスティク大通り", ru:"пр. Достык", g:"almaty"},
+  {id:"al_nazarbaeva", ja:"ナザルバエフ大通り", ru:"пр. Назарбаева (Фурманова)", g:"almaty"},
+  {id:"al_tolebi", ja:"トレビ通り", ru:"ул. Толе би", g:"almaty"},
+  {id:"al_zhibekzholy", ja:"ジベク・ジョリ通り", ru:"ул. Жибек жолы", g:"almaty"},
+  {id:"al_zheltoksan", ja:"ジェルトクサン通り", ru:"ул. Желтоксан", g:"almaty"},
+  {id:"al_seifullina", ja:"セイフリン大通り", ru:"пр. Сейфуллина", g:"almaty"},
+  {id:"al_baitursynova", ja:"バイトゥルスノフ通り", ru:"ул. Байтурсынова", g:"almaty"},
+  {id:"al_auezova", ja:"アウエゾフ通り", ru:"ул. Ауэзова", g:"almaty"},
+  {id:"al_rozybakieva", ja:"ロズィバキエフ通り", ru:"ул. Розыбакиева", g:"almaty"},
+  {id:"al_raiymbeka", ja:"ライムベク大通り", ru:"пр. Райымбека", g:"almaty"},
+  {id:"al_gogolya", ja:"ゴーゴリ通り", ru:"ул. Гоголя", g:"almaty"},
+  {id:"al_kabanbay", ja:"カバンバイ・バトゥル通り", ru:"ул. Кабанбай батыра", g:"almaty"},
+  {id:"al_bogenbay", ja:"ボゲンバイ・バトゥル通り", ru:"ул. Богенбай батыра", g:"almaty"},
+  {id:"al_satpaeva", ja:"サトパエフ通り", ru:"ул. Сатпаева", g:"almaty"},
+  {id:"al_timiryazeva", ja:"ティミリャゼフ通り", ru:"ул. Тимирязева", g:"almaty"},
+  {id:"al_abylaykhana", ja:"アブライ・ハン大通り", ru:"пр. Абылай хана", g:"almaty"},
+  {id:"as_mangilikel", ja:"マンギリク・エル大通り", ru:"пр. Мангилик Ел", g:"astana"},
+  {id:"as_turan", ja:"トゥラン大通り", ru:"пр. Туран", g:"astana"},
+  {id:"as_kabanbay", ja:"カバンバイ・バトゥル大通り", ru:"пр. Кабанбай батыра", g:"astana"},
+  {id:"as_respubliki", ja:"レスプブリカ大通り", ru:"пр. Республики", g:"astana"},
+  {id:"as_abaya", ja:"アバイ大通り", ru:"пр. Абая", g:"astana"},
+  {id:"as_saryarka", ja:"サリアルカ大通り", ru:"пр. Сарыарка", g:"astana"},
+  {id:"as_kenesary", ja:"ケネサリ通り", ru:"ул. Кенесары", g:"astana"},
+  {id:"as_beibitshilik", ja:"ベイビトシリク通り", ru:"ул. Бейбитшилик", g:"astana"},
+  {id:"as_seifullina", ja:"セイフリン通り", ru:"ул. Сейфуллина", g:"astana"},
+  {id:"as_imanova", ja:"イマノフ通り", ru:"ул. Иманова", g:"astana"},
+  {id:"as_auezova", ja:"アウエゾフ通り", ru:"ул. Ауэзова", g:"astana"},
+  {id:"as_zhenis", ja:"ジェニス大通り", ru:"пр. Жеңіс (Победы)", g:"astana"},
+  {id:"as_momyshuly", ja:"モムィシュル大通り", ru:"пр. Момышулы", g:"astana"},
+  {id:"as_syganak", ja:"スィガナク通り", ru:"ул. Сыганак", g:"astana"},
+  {id:"as_ulydala", ja:"ウルィ・ダラ大通り", ru:"пр. Улы Дала", g:"astana"},
+  {id:"as_kunaeva", ja:"クナエフ通り", ru:"ул. Кунаева", g:"astana"},
+  {id:"as_tauelsizdik", ja:"タウエルシズディク大通り", ru:"пр. Тауелсиздик", g:"astana"},
+  {id:"as_dostyk", ja:"ドスティク通り", ru:"ул. Достык", g:"astana"},
+]};
+const STREETS = STREETS_BY_COUNTRY[COUNTRY];
+const STREET_KEY = "kg-mystreets"+CFG.suffix;
 let myStreets = lsGet(STREET_KEY);
-if(!Array.isArray(myStreets)) myStreets = ["razzakova","orozbekova","panfilova","kievskaya"];
-const streetJa = id => (STREETS.find(x=>x.id===id)||{}).ja || id;
-const shortSt = id => streetJa(id).replace(/(通り|大通り|並木道)$/,"");
+if(!Array.isArray(myStreets)) myStreets = [...CFG.streets];
+let pickerCity = Object.keys(CFG.streetCities)[0];
+const streetJa = id => { const x = STREETS.find(x=>x.id===id); if(!x) return id;
+  return COUNTRY==="kz" ? `${CFG.streetCities[x.g]}・${x.ja}` : x.ja; };
+const shortSt = id => ((STREETS.find(x=>x.id===id)||{}).ja || id).replace(/(通り|大通り|並木道)$/,"");
+// "アルマトイ｜アバイ・ドスティク" (Kazakhstan) or "ラザコバ通り・キエフスカヤ通り" (Kyrgyzstan)
+function hitLabel(x, h){
+  const ids = h.streets||[];
+  if(COUNTRY!=="kz") return ids.map(streetJa).join("・");
+  const city = CFG.streetCities[x.city] || "";
+  return (city?city+"｜":"") + ids.map(shortSt).join("・");
+}
 let mystOpen = false, mallOpen = false;
 
 const CHECK_SVG = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -812,8 +896,16 @@ function renderPicker(){
       <button class="sbtn ${sel.has(x.id)?"on":""}" data-st="${x.id}" aria-pressed="${sel.has(x.id)}">
         <span class="sj">${shortSt(x.id)}${x.jica?'<span class="jica">JICA</span>':""}</span><span class="sr">${x.ru}</span>
         <span class="ck">${CHECK_SVG}</span></button>`).join("")}</div>`;
-  document.getElementById("pbody").innerHTML =
-    group("jica", "<b>JICA事務所のまわり</b>パンフィロバ通り178") + group("center", "中心部のほかの通り");
+  if(COUNTRY==="kz"){
+    const cities = Object.entries(CFG.streetCities);
+    const countIn = g => STREETS.filter(x=>x.g===g && sel.has(x.id)).length;
+    document.getElementById("pbody").innerHTML =
+      `<div class="tabs wide" style="margin-top:12px">${cities.map(([g,n])=>`<button data-pcity="${g}" class="${pickerCity===g?"on":""}">${n}${countIn(g)?`（${countIn(g)}）`:""}</button>`).join("")}</div>`
+      + group(pickerCity, `<b>${CFG.streetCities[pickerCity]}</b>中心部の主な通り`);
+  } else {
+    document.getElementById("pbody").innerHTML =
+      group("jica", "<b>JICA事務所のまわり</b>パンフィロバ通り178") + group("center", "中心部のほかの通り");
+  }
   document.getElementById("pdone").textContent = sel.size ? `決定（${sel.size}本）` : "決定";
 }
 function openPicker(){ renderPicker(); document.getElementById("picker").hidden = false; document.body.style.overflow="hidden"; }
@@ -864,10 +956,12 @@ function renderInfra(nd){
       .filter(h=>h.streets.length);
     return {...x, hits};
   }).filter(x=>x.hits.length).sort((a,b)=>(a.date||"9").localeCompare(b.date||"9"));
-  const others = ((nd.infra)||[]).filter(x=>(x.cities||[]).includes("bishkek") && x.title_ja);
+  const watched = Object.keys(CFG.streetCities);
+  const others = ((nd.infra)||[]).filter(x=>(x.cities||[]).some(c=>watched.includes(c)) && x.title_ja);
+  const wname = Object.values(CFG.streetCities).join("・");
   const segs = items.map(x=>{
     const k = (x.kinds||[])[0], h = (x.hits||[])[0]||{};
-    return `<span class="seg"><b>${KIND[k]||"⚠️"}</b><i>${dayLabel(x.date)||""}${h.time?" "+esc(h.time):""}</i>${esc((h.streets||[]).map(streetJa).join("・"))}：${esc(h.text_ja||x.title_ja)}</span>`;
+    return `<span class="seg"><b>${KIND[k]||"⚠️"}</b><i>${dayLabel(x.date)||""}${h.time?" "+esc(h.time):""}</i>${esc(hitLabel(x,h))}：${esc(h.text_ja||x.title_ja)}</span>`;
   }).join("");
   const line = items.length ? segs
     : `<span class="seg">${sel.size ? "選んだ通りの断水・停電・ガス・暖房の予定はありません" : "「通りを選ぶ」から、気になる通りを選んでください"}</span>`;
@@ -881,10 +975,10 @@ function renderInfra(nd){
     <div class="mdet" id="mdet" ${mystOpen?"":"hidden"}>
       ${items.map(x=>`<div class="mitem">
         <div class="mt">${(x.kinds||[]).map(k=>`<span class="ikind k-${k}">${KIND[k]||k}</span>`).join("")}${x.date?`<span class="dlabel">${dayLabel(x.date)}</span>`:""}<span>${esc(x.title_ja||"")}</span></div>
-        ${(x.hits||[]).map(h=>`<div class="mhit"><span class="st">${esc((h.streets||[]).map(streetJa).join("・"))}</span>${h.time?`<span class="tm num">${esc(h.time)}</span>`:""}${esc(h.text_ja||"")}</div>`).join("")}
+        ${(x.hits||[]).map(h=>`<div class="mhit"><span class="st">${esc(hitLabel(x,h))}</span>${h.time?`<span class="tm num">${esc(h.time)}</span>`:""}${esc(h.text_ja||"")}</div>`).join("")}
         <a href="${esc(jaLink(x.link))}" target="_blank" rel="noopener">記事を日本語で開く（${esc(x.source)}）›</a>　${origLink(x.link)}</div>`).join("")}
-      ${items.length?"":`<div class="nempty">ビシュケクの停電・断水のお知らせを${ms.checked||0}件確認しましたが、選んだ${sel.size}本の通りの名前は出ていませんでした。</div>`}
-      <button class="mall" id="mall">${mallOpen?"▲":"▼"} ビシュケク全体のライフライン情報（${others.length}件）</button>
+      ${items.length?"":`<div class="nempty">${wname}の停電・断水のお知らせを${ms.checked||0}件確認しましたが、選んだ${sel.size}本の通りの名前は出ていませんでした。</div>`}
+      <button class="mall" id="mall">${mallOpen?"▲":"▼"} ${wname}全体のライフライン情報（${others.length}件）</button>
       ${mallOpen?others.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
         <div class="nt">${(n.kinds||[]).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]||k}</span>`).join("")}${esc(n.title_ja)}</div></a>
         <div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}・${origLink(n.link)}</div></div>`).join(""):""}
@@ -920,15 +1014,17 @@ function mountainSVG(el){
   return `<svg width="64" height="50" viewBox="0 0 64 50" aria-hidden="true">
     <path d="M2 48 L22 ${48-h} L32 ${48-h*0.6} L40 ${48-h*0.85} L62 48Z" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="1.5" stroke-linejoin="round"/>
     <path d="M22 ${48-h} l-4 ${Math.min(8,h/3)} h8z" fill="#fff" opacity=".9"/>
-    <line x1="0" y1="${48-800/2500*44}" x2="64" y2="${48-800/2500*44}" stroke="var(--ink-3)" stroke-dasharray="2 3"/>
+    <line x1="0" y1="${48-Math.max(0,CAPITAL.el)/2500*44}" x2="64" y2="${48-Math.max(0,CAPITAL.el)/2500*44}" stroke="var(--ink-3)" stroke-dasharray="2 3"/>
   </svg>`;
 }
 function elevNote(c){
-  if(c.id==="bishkek") return "キルギスの首都。点線がビシュケクの高さ（800m）です。";
-  const diff = c.el - 800;
-  if(Math.abs(diff) < 60) return "ビシュケクとほぼ同じ高さです。";
-  if(diff < 0) return `ビシュケクより${-diff}m低い土地です。`;
-  return `ビシュケクより<b style="font-size:13px">${diff.toLocaleString()}m高い</b>ので、気温はおよそ${(diff*0.6/100).toFixed(1)}°低くなりがち（100mで約0.6°下がる）。`;
+  const cap = CAPITAL.ja;
+  if(c.id===CAPITAL.id) return `${CFG.short}の首都。点線が${cap}の高さ（${CAPITAL.el}m）です。`;
+  if(c.el < 0) return `海面より${-c.el}m低い土地です（カスピ海沿岸の低地）。`;
+  const diff = c.el - CAPITAL.el;
+  if(Math.abs(diff) < 60) return `${cap}とほぼ同じ高さです。`;
+  if(diff < 0) return `${cap}より${-diff}m低い土地です。`;
+  return `${cap}より<b style="font-size:13px">${diff.toLocaleString()}m高い</b>ので、気温はおよそ${(diff*0.6/100).toFixed(1)}°低くなりがち（100mで約0.6°下がる）。`;
 }
 
 function renderSheet(i){
@@ -1021,6 +1117,11 @@ document.addEventListener("click", e=>{
   if(e.target.closest("#alert")){ prefs.newsTab = "safety"; newsShowAll = false; renderNews();
     document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
   if(e.target.closest("#openPicker")){ openPicker(); return; }
+  const cb = e.target.closest("#ctry button[data-country]");
+  if(cb){ if(cb.dataset.country!==COUNTRY){ try{ localStorage.setItem("kg-country", cb.dataset.country); }catch(_){}
+    location.reload(); } return; }
+  const pc = e.target.closest("[data-pcity]");
+  if(pc){ pickerCity = pc.dataset.pcity; renderPicker(); return; }
   if(e.target.closest("#openSkin")){ renderSkins(); document.getElementById("skinPicker").hidden = false; document.body.style.overflow="hidden"; return; }
   const skb = e.target.closest("[data-skin-id]");
   if(skb){ applySkin(skb.dataset.skinId); renderSkins(); return; }
@@ -1051,6 +1152,12 @@ setInterval(maybeRefresh, 60*1000);
 if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone) document.getElementById("tip").style.display="none";
 
 applySkin(skin);
+document.title = `${CFG.name} 統合情報`;
+document.documentElement.setAttribute("data-country", COUNTRY);
+document.getElementById("cname").textContent = CFG.name;
+document.getElementById("overline").textContent = CFG.over;
+document.getElementById("mtnNote").textContent = CFG.mountainNote;
+document.querySelectorAll("#ctry button[data-country]").forEach(b=>{ b.classList.toggle("on", b.dataset.country===COUNTRY); b.setAttribute("aria-selected", b.dataset.country===COUNTRY); });
 if(state) render();
 renderNews();
 if(!state || Date.now()-state.t > 60*1000) refresh(); else loadNews();

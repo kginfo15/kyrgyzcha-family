@@ -105,7 +105,7 @@ def rss_items(url):
 
 # ---------------------------------------------------------------- translation
 
-def translate_batch(texts, sl="ru", tl="ja"):
+def translate_batch(texts, sl="auto", tl="ja"):
     """Translate a list of short strings with Google's free endpoint.
 
     Strings are joined with newlines so one request handles a title + lead."""
@@ -312,17 +312,17 @@ def collect_infra(prev_tr):
     for source, url in LOCAL_FEEDS:
         for it in local_feed(source, url) or []:
             cands.append((source, it))
-    gq = "(отключение OR отключат OR перекроют OR без) (воды OR электроэнергии OR электричества OR газа OR отопления OR движения) (Бишкек OR Ош OR Кыргызстан) when:2d"
-    try:
-        for it in rss_items("https://news.google.com/rss/search?" + urllib.parse.urlencode(
-                {"q": gq, "hl": "ru", "gl": "KG", "ceid": "KG:ru"})):
-            src = it["source_el"]
-            if src and it["title"].endswith(" - " + src):
-                it["title"] = it["title"][: -len(" - " + src)].strip()
-            it["desc"] = ""  # Google News descriptions only repeat the title
-            cands.append((src or "Google News", it))
-    except Exception as e:
-        log(f"infra google: failed: {e}")
+    for gq in INFRA_QUERIES:
+        try:
+            for it in rss_items("https://news.google.com/rss/search?" + urllib.parse.urlencode(
+                    {"q": gq, "hl": "ru", "gl": GN_REGION, "ceid": GN_REGION + ":ru"})):
+                src = it["source_el"]
+                if src and it["title"].endswith(" - " + src):
+                    it["title"] = it["title"][: -len(" - " + src)].strip()
+                it["desc"] = ""  # Google News descriptions only repeat the title
+                cands.append((src or "Google News", it))
+        except Exception as e:
+            log(f"infra google: failed: {e}")
     items, seen = [], set()
     for source, it in cands:
         if not it["title"] or (it["date"] and it["date"] < cutoff):
@@ -393,11 +393,13 @@ def outage_date(text):
 
 
 def collect_mystreet(infra, prev_tr):
-    """Open the Bishkek outage articles and keep the lines naming our streets."""
+    """Open the outage articles for the watched cities and keep the lines naming watched streets."""
     out, checked, failed = [], 0, 0
     for x in infra:
-        if "bishkek" not in x["cities"] or "news.google.com" in x["link"]:
+        city = next((c for c in x["cities"] if c in WATCH_CITIES), None)
+        if not city or "news.google.com" in x["link"]:
             continue
+        street_res = STREET_RES_BY_CITY[city]
         if checked >= 20:
             break
         checked += 1
@@ -423,7 +425,7 @@ def collect_mystreet(infra, prev_tr):
 
             streets = []
             first = None
-            for ja, rx in STREET_RES:
+            for ja, rx in street_res:
                 for m in rx.finditer(low):
                     before = low[max(0, m.start() - 100):m.start()]
                     before = re.split(r"[;\n]", before)[-1]
@@ -459,11 +461,13 @@ def collect_mystreet(infra, prev_tr):
             except Exception as e:
                 log(f"translate failed: {e}")
                 h["text_ja"] = ""
-        out.append({"kinds": x["kinds"], "title": x["title"], "title_ja": x.get("title_ja", ""),
+        out.append({"city": city, "kinds": x["kinds"], "title": x["title"], "title_ja": x.get("title_ja", ""),
                     "link": x["link"], "source": x["source"], "published": x["published"],
                     "date": outage_date(x["title"] + " " + x.get("lead", "")), "hits": hits})
     log(f"mystreet: checked {checked} articles ({failed} failed), {len(out)} with our streets")
-    return {"streets": [sid for sid, _ in WATCH_STREETS], "checked": checked, "failed": failed, "items": out}
+    return {"cities": {c: [sid for sid, _ in ws] for c, ws in WATCH_CITIES.items()},
+            "streets": [sid for ws in WATCH_CITIES.values() for sid, _ in ws],
+            "checked": checked, "failed": failed, "items": out}
 
 
 # ---------------------------------------------------------------- Japanese press
@@ -520,7 +524,7 @@ def collect_japan():
     sites = " OR ".join("site:" + s for s in [
         "nikkei.com", "asahi.com", "yomiuri.co.jp", "mainichi.jp", "sankei.com", "nhk.or.jp",
         "jiji.com", "kyodonews.jp", "47news.jp", "tokyo-np.co.jp", "nna.jp", "jetro.go.jp", "nippon.com"])
-    queries = [f"キルギス ({sites}) when:90d", "キルギス when:14d", "ビシュケク when:30d"]
+    queries = [q.format(sites=sites) for q in JA_QUERIES]
     items, seen = [], set()
     for q in queries:
         try:
@@ -561,14 +565,14 @@ def mofa_date(s):
 
 
 def collect_safety():
-    root = ET.fromstring(get("https://www.ezairyu.mofa.go.jp/opendata/country/0996A.xml"))
+    root = ET.fromstring(get(f"https://www.ezairyu.mofa.go.jp/opendata/country/{MOFA_CODE}A.xml"))
     txt = lambda tag: (root.findtext(tag) or "").strip()
     out = {
         "levels": {f"l{n}": int(txt(f"riskLevel{n}") or 0) for n in (1, 2, 3, 4)},
         "riskTitle": txt("riskTitle"),
         "riskLead": clean(txt("riskLead"))[:400],
         "riskDate": mofa_date(txt("riskLeaveDate")),
-        "riskUrl": txt("riskMapUrl") or "https://www.anzen.mofa.go.jp/info/pcinfectionspothazardinfo_265.html",
+        "riskUrl": txt("riskMapUrl") or "https://www.anzen.mofa.go.jp/",
         "infoUrl": txt("infoUrl"),
         "mails": [],
     }
@@ -598,7 +602,82 @@ def collect_safety():
 
 # ---------------------------------------------------------------- main
 
+# ---------------------------------------------------------------- countries
+
+KZ_STREETS = {
+    # Almaty, central grid
+    "almaty": [
+        ("al_abaya", "абая"), ("al_alfarabi", "аль-фараби"), ("al_dostyk", "достык"),
+        ("al_nazarbaeva", r"назарбаев|фурманов"), ("al_tolebi", "толе би"), ("al_zhibekzholy", "жибек жолы"),
+        ("al_zheltoksan", "желтоксан"), ("al_seifullina", "сейфуллин"), ("al_baitursynova", "байтурсынов"),
+        ("al_auezova", "ауэзов"), ("al_rozybakieva", "розыбакиев"), ("al_raiymbeka", "райымбек"),
+        ("al_gogolya", "гогол"), ("al_kabanbay", "кабанбай батыр"), ("al_bogenbay", "богенбай батыр"),
+        ("al_satpaeva", "сатпаев"), ("al_timiryazeva", "тимирязев"), ("al_abylaykhana", "абылай хан"),
+    ],
+    # Astana, left and right bank
+    "astana": [
+        ("as_mangilikel", "мангилик ел|мәңгілік ел"), ("as_turan", "туран"), ("as_kabanbay", "кабанбай батыр"),
+        ("as_respubliki", "республики"), ("as_abaya", "абая"), ("as_saryarka", "сарыарк"),
+        ("as_kenesary", "кенесары"), ("as_beibitshilik", "бейбітшілік|бейбитшилик"), ("as_seifullina", "сейфуллин"),
+        ("as_imanova", "иманов"), ("as_auezova", "ауэзов"), ("as_zhenis", "жеңіс|женис|победы"),
+        ("as_momyshuly", "момышулы|момышұлы"), ("as_syganak", "сыганак|сығанақ"), ("as_ulydala", "улы дала|ұлы дала"),
+        ("as_kunaeva", "кунаев|қонаев"), ("as_tauelsizdik", "тауелсиздик|тәуелсіздік"), ("as_dostyk", "достык"),
+    ],
+}
+
+COUNTRIES = {
+    "kg": dict(
+        feeds=LOCAL_FEEDS, national=KG_WORDS, city_words=CITY_WORDS, region="KG",
+        infra_queries=["(отключение OR отключат OR перекроют OR без) (воды OR электроэнергии OR электричества OR газа OR отопления OR движения) (Бишкек OR Ош OR Кыргызстан) when:2d"],
+        watch={"bishkek": WATCH_STREETS}, village=VILLAGE_RE.pattern, postcode=r"(?<!\d)72\d{4}(?!\d)",
+        ja_keywords=("キルギス", "ビシュケク", "イシク", "オシュ", "ジャパロフ"),
+        ja_queries=["キルギス ({sites}) when:90d", "キルギス when:14d", "ビシュケク when:30d"],
+        mofa="0996", prev="news.json"),
+    "kz": dict(
+        feeds=[("Tengrinews", "https://tengrinews.kz/news.rss"), ("Kazinform", "https://www.inform.kz/rss/rus.xml"),
+               ("Kursiv", "https://kz.kursiv.media/feed/"), ("Sputnik Казахстан", "https://ru.sputnik.kz/export/rss2/archive/index.xml"),
+               ("Orda.kz", "https://orda.kz/feed/"), ("Caravan", "https://www.caravan.kz/feed/"),
+               ("LS", "https://lsm.kz/rss"), ("Азаттык", "https://rus.azattyq.org/api/epiqq")],
+        national=["казахстан", "казахст", "астан", "алмат", "шымкент", "караганд", "актоб", "атырау", "актау",
+                  "павлодар", "усть-каменогорск", "семе", "костана", "петропавловск", "кызылорд", "туркестан",
+                  "тараз", "уральск", "токаев", "мажилис", "сенат", "акимат", "аким", "тенге", "рк", "курултай"],
+        city_words={"astana": ["астан", "столиц"], "almaty": ["алмат"], "shymkent": ["шымкент"],
+                    "karaganda": ["караганд"], "aktobe": ["актоб"], "atyrau": ["атырау"], "aktau": ["актау"],
+                    "pavlodar": ["павлодар"], "oskemen": ["усть-каменогорск", "өскемен"],
+                    "turkistan": ["туркестан"], "taraz": ["тараз"], "kostanay": ["костана"]},
+        region="KZ",
+        infra_queries=["(отключение OR отключат OR без) (света OR электричества OR электроэнергии) (Алматы OR Астана) when:2d",
+                       "(отключение OR отключат OR без) (воды OR газа OR отопления) (Алматы OR Астана) when:2d",
+                       "(перекроют OR ограничат движение) (Алматы OR Астана) when:2d"],
+        watch=KZ_STREETS,
+        village=r"(?<![а-яё])(сел[оа]|с\.|поселк|пос\.|ауыл|аул\b|снт|дачн|садовод|алматинск\w* област|акмолинск\w* област)",
+        postcode=r"(?<!\d)0[01]\d{4}(?!\d)",
+        ja_keywords=("カザフ", "アスタナ", "アルマトイ", "アルマティ", "トカエフ"),
+        ja_queries=["カザフスタン ({sites}) when:90d", "カザフスタン when:14d", "アスタナ OR アルマトイ when:30d"],
+        mofa="0007", prev="news-kz.json"),
+}
+
+
+def use_country(code):
+    """Point the module-level settings used by the collectors at one country."""
+    global COUNTRY, LOCAL_FEEDS, KG_RE, CITY_RES, INFRA_QUERIES, GN_REGION, WATCH_CITIES, STREET_RES_BY_CITY
+    global VILLAGE_RE, POSTCODE_RE, JA_KEYWORDS, JA_QUERIES, MOFA_CODE, PREV_URL
+    c = COUNTRIES[code]
+    COUNTRY = code
+    LOCAL_FEEDS = c["feeds"]
+    KG_RE = word_re(c["national"])
+    CITY_RES = {cid: word_re(ws) for cid, ws in c["city_words"].items()}
+    INFRA_QUERIES, GN_REGION = c["infra_queries"], c["region"]
+    WATCH_CITIES = {city: ws for city, ws in c["watch"].items()}
+    STREET_RES_BY_CITY = {city: [(sid, re.compile(r"(?<![а-яёәіңғүұқөһ])(?:" + rx + ")")) for sid, rx in ws]
+                          for city, ws in WATCH_CITIES.items()}
+    VILLAGE_RE, POSTCODE_RE = re.compile(c["village"]), re.compile(c["postcode"])
+    JA_KEYWORDS, JA_QUERIES, MOFA_CODE = c["ja_keywords"], c["ja_queries"], c["mofa"]
+    PREV_URL = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/news-data/" + c["prev"]
+
+
 def main():
+    use_country(sys.argv[1] if len(sys.argv) > 1 else "kg")
     prev_tr = {}
     try:
         prev = json.loads(get(PREV_URL))
@@ -613,7 +692,7 @@ def main():
     except Exception as e:
         log(f"no previous data: {e}")
 
-    out = {"version": 2, "updated": NOW.isoformat()}
+    out = {"version": 2, "country": COUNTRY, "updated": NOW.isoformat()}
     for key, fn in (("local", lambda: collect_local(prev_tr)), ("japan", collect_japan), ("safety", collect_safety),
                     ("infra", lambda: collect_infra(prev_tr))):
         try:
