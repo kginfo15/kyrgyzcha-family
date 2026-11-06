@@ -763,6 +763,7 @@ def wb_projects():
                 "st": status, "a": to_date(p.get("boardapprovaldate")), "e": to_date(p.get("closingdate")),
                 "amt": num(p.get("totalcommamt")) or num(p.get("totalamt")), "cur": "USD",
                 "impl": clean(p.get("impagency") or ""), "kind": clean(p.get("lendinginstr") or ""),
+                "sch": scheme_of("wb", p.get("lendinginstr") or ""),
                 "u": f"https://projects.worldbank.org/en/projects-operations/project-detail/{pid}",
                 "_sect": sect_text,
             })
@@ -779,6 +780,30 @@ def wb_projects():
 IATI_JUNK = re.compile(r"redacted|pay and benefits|program support|programme support costs|operating expense|"
                        r"administrative cost|^ope?x?$|^usaid pio$", re.I)
 BIG_LENDERS = {"wb", "adb", "ebrd", "isdb", "aiib", "edb", "imf"}
+# One set of cooperation forms for every donor (after the OECD DAC aid types); each source's own
+# label stays in "kind".
+SCH_LOAN, SCH_GRANT, SCH_TA, SCH_BUDGET, SCH_EMERG, SCH_OTHER = (
+    "融資（事業）", "無償資金（事業・機材）", "技術協力", "財政・政策支援", "緊急・復興支援", "その他・不明")
+WB_SCHEME = [(r"development policy|structural adjustment|sector adjustment|program-for-results|programmatic", SCH_BUDGET),
+             (r"technical assistance", SCH_TA), (r"emergency|rehabilitation", SCH_EMERG), (r".", SCH_LOAN)]
+
+
+def scheme_of(src, kind="", aid_type="", finance_type=""):
+    k = (kind or "").lower()
+    if src == "jica":
+        return SCH_LOAN if "有償" in k or "円借款" in k else SCH_GRANT if "無償" in k else SCH_TA if k else SCH_OTHER
+    if src == "wb":
+        return next(sch for rx, sch in WB_SCHEME if re.search(rx, k))
+    at, ft = str(aid_type or "").upper(), str(finance_type or "")
+    if at.startswith("A"):
+        return SCH_BUDGET
+    if at.startswith(("D", "E")):
+        return SCH_TA
+    if at.startswith("C") or ft:
+        return SCH_LOAN if ft.startswith("4") else SCH_GRANT if ft.startswith(("1", "110")) or at.startswith("C") else SCH_OTHER
+    return SCH_OTHER
+
+
 IATI_STATUS = {"1": "pipeline", "2": "active", "3": "active", "4": "closed", "5": "dropped", "6": "suspended"}
 # DAC 5-digit purpose codes -> sector ids (by prefix; first match wins)
 DAC_MAP = [
@@ -868,6 +893,8 @@ def iati_projects():
         out.append({"id": aid, "src": "iati", "donor": donor_of(org + " " + ref), "org": org, "t": title,
                     "x": fn.first_sentences(desc, 300), "st": st, "a": start, "e": end,
                     "amt": amt, "cur": "USD", "ref": ref,
+                    "sch": scheme_of("iati", "", r.get("aid_type") or r.get("default_aid_type"),
+                                     r.get("finance_type") or r.get("default_finance_type")),
                     "u": "https://d-portal.org/ctrack.html#view=act&aid=" + urllib.parse.quote(aid),
                     "_sect": "", "_dac": sorted(sectors.get(aid, []))})
     log(f"iati: {len(rows)} rows, {len(out)} projects")
@@ -1108,7 +1135,7 @@ def jica_record(pid, title, pairs, text, today, fetched=None):
     summary = pick(pairs, "概要", "目標", "上位目標", "プロジェクト目標")
     rec = {"id": "JICA-" + pid, "src": "jica", "donor": "jica", "org": "JICA", "t": title, "tj": title,
            "x": fn.first_sentences(" ".join(filter(None, [field, summary])), 220), "st": st, "a": start, "e": end,
-           "kind": scheme, "cur": "JPY" if amt else None, "jpy": amt, "amt": round(amt / 140) if amt else None,
+           "kind": scheme, "sch": scheme_of("jica", scheme), "cur": "JPY" if amt else None, "jpy": amt, "amt": round(amt / 140) if amt else None,
            "u": JICA_PAGE.format(pid), "_sect": field, "fetched": today if fetched is None else fetched, "pv": JICA_PV}
     return rec
 
