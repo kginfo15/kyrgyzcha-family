@@ -263,7 +263,13 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .ych rect.hit:hover+rect.b,.ych g:hover rect.b{opacity:.75}
 .sharebar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--press-soft);gap:1px}
 .sharebar i{display:block;height:100%}
-.tile .jline{font-size:11px;color:var(--sub);font-family:var(--mono)}
+.tile .drs{display:flex;flex-direction:column;gap:3px;min-height:54px}
+.tile .dr{display:grid;grid-template-columns:minmax(0,1fr) 46px 34px;gap:6px;align-items:center;font-size:11.5px}
+.tile .dn2{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub)}
+.tile .db{height:5px;background:var(--press-soft);border-radius:3px;overflow:hidden}
+.tile .db i{display:block;height:100%;background:var(--coop)}
+.tile .dp{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}
+.tile .jline{font-size:11px;color:var(--sub);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .jline b{color:var(--d7)}
 .tile .cap{font-size:11px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:500;line-height:1.1}
@@ -776,16 +782,16 @@ function viewHome(){
     const sp = pj.filter(p=>p.c.includes(id) && p.st==="active");
     const amt = sp.reduce((a,p)=>a+shareAmt(p),0);
     const by = {}; for(const p of sp) by[p.donor] = (by[p.donor]||0) + shareAmt(p);
-    const cols = donorColors(id), rows = Object.entries(by).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
-    const top2 = rows.slice(0,2).map(([d,v])=>`${donorName(d).replace(/（.*?）/,"")} ${Math.round(v/amt*100)}%`).join("・");
+    const rows = Object.entries(by).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+    // top three donors by name, share and a one-colour bar (no colour legend to decode)
+    const top3 = rows.slice(0,3).map(([d,v])=>`<span class="dr"><span class="dn2">${esc(donorName(d).replace(/（.*?）/,""))}</span><span class="db"><i style="width:${v/amt*100}%"></i></span><span class="dp">${Math.round(v/amt*100)}%</span></span>`).join("");
     const m = its.filter(x=>x.ts>=d30 && x.c.includes(id));
     const jAll = pj.filter(p=>p.donor==="jica" && p.c.includes(id)), jAct = jAll.filter(p=>p.st==="active");
-    const jicaLine = SHOW_JP && ready ? `<span class="jline">JICA ${jAll.length?`実施中 <b>${jAct.length}</b>件${jAct.some(hasAmt)?" "+money(jAct.reduce((a,p)=>a+shareAmt(p),0)):""}・累計 <b>${jAll.length}</b>件`:"案件なし"}</span>` : "";
+    const jicaLine = SHOW_JP && ready ? `<span class="jline" title="JICA：実施中 ${jAct.length}件・累計 ${jAll.length}件">JICA ${jAll.length?`累計 <b>${jAll.length}</b>件・実施中 <b>${jAct.length}</b>件${jAct.some(hasAmt)?" "+money(jAct.reduce((a,p)=>a+shareAmt(p),0)):""}`:"案件なし"}</span>` : "";
     return `<button class="tile" data-sec="${id}">
       <span class="top"><span class="no">${SEC[id].no}</span><span class="nm">${esc(ja)}</span></span>
       <span class="amt">${ready?(money(amt)||"—"):"…"}<small>実施中 ${ready?sp.length:"…"}件${ready&&unk(sp)?`・金額不明 ${unk(sp)}`:""}</small></span>
-      <span class="sharebar">${amt?rows.map(([d,v])=>`<i style="width:${v/amt*100}%;background:${cols[d]||"var(--dother)"}"></i>`).join(""):""}</span>
-      <span class="cap">${top2?esc(top2):"&nbsp;"}</span>
+      <span class="drs">${top3 || '<span class="note">金額の分かる実施中案件なし</span>'}</span>
       ${jicaLine}
       <span class="tf"><span>政府の動き <b>${m.filter(x=>x.g).length}</b></span><span>協力ニュース <b>${m.filter(x=>x.d.length).length}</b></span></span>
     </button>`;
@@ -800,7 +806,7 @@ function viewHome(){
       <div class="kpi"><div class="l">Government · 7d</div><div class="v" style="color:var(--gov)">${n7.filter(x=>x.g).length}</div><div class="s">政府の動き（7日）</div></div>
       <div class="kpi"><div class="l">Cooperation news · 7d</div><div class="v" style="color:var(--coop)">${n7.filter(x=>x.d.length).length}</div><div class="s">協力ニュース（7日）${SHOW_JP?`・うち日本 ${n7.filter(x=>x.jp).length}`:""}</div></div>
     </div>
-    ${secHead("Sectors","分野別の協力",'<span class="note">実施中案件の支援額と件数・色の帯は援助機関の割合</span>')}
+    ${secHead("Sectors","分野別の協力",'<span class="note">実施中案件の支援額と件数・上位3機関の割合</span>')}
     <div class="matrix">${tiles}</div>
     <p class="note" style="margin:8px 0 0">支援額は World Bank・IATI・JICA の公開データで、複数分野にまたがる案件は分野数で按分。下段は直近30日の政府の動きと協力ニュースの件数。</p>
     ${ready?`${secHead("Funding over time","全分野の支援額の推移")}<div class="cols c3">${yearHTML("")}${shareHTML("")}</div>`:""}
