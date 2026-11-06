@@ -1049,8 +1049,10 @@ def collect_projects(out_dir):
         prev = json.loads(get(BASE + "projects.json"))
     except Exception as e:
         log(f"no previous projects: {e}")
+    # refresh daily, and at once when the JICA parser has changed since the last crawl
     fresh = prev and prev.get("updated") and "jica" in (prev.get("sources") or {}) and \
-        NOW - datetime.fromisoformat(prev["updated"]) < timedelta(hours=20)
+        NOW - datetime.fromisoformat(prev["updated"]) < timedelta(hours=20) and \
+        all(p.get("pv") == JICA_PV for p in prev.get("projects", []) if p.get("src") == "jica")
     if fresh and not os.environ.get("FORCE_PROJECTS"):
         log("projects: still fresh, keeping (translating any left)")
         translate_projects(prev.get("projects", []))
