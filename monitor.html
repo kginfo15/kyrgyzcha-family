@@ -315,6 +315,90 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .stab td{font-family:var(--sans)}
 .stab td.stl{text-align:left;white-space:normal;font-size:12px;color:var(--sub);min-width:180px}
 .sno{font-family:var(--mono);color:var(--faint);font-weight:500}
+/* ---- strategy map v2 ---- */
+.shero{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.hcard{flex:1;min-width:240px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column;gap:3px;color:var(--ink)}
+.hcard b{font-size:16px}
+.hcard .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.hcard.main{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-soft),var(--panel) 60%)}
+.hcard:hover{border-color:var(--accent)}
+.harrow{align-self:center;color:var(--faint);font-size:18px}
+@media (max-width:620px){.harrow{display:none}}
+.sfilter{display:flex;flex-wrap:wrap;gap:5px}
+.sfilter .jchip b{font-family:var(--mono);color:var(--faint);font-weight:500}
+@media (max-width:720px){.sfilter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.sfilter::-webkit-scrollbar{display:none}.sfilter .jchip{white-space:nowrap}}
+.sfocus{margin-top:12px;padding:14px 16px;border-color:var(--accent)}
+.sfocus .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.sfocus h3{margin:2px 0 8px;font-size:15px}
+.sfrow{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:12.5px;align-items:start}
+.sfrow>b{color:var(--sub);font-weight:600}
+.sfrow>span{display:flex;flex-wrap:wrap;gap:5px}
+@media (max-width:560px){.sfrow{grid-template-columns:minmax(0,1fr)}}
+.chref{border:1px solid var(--line);background:var(--panel2);border-radius:6px;padding:3px 9px;font-size:12px;cursor:pointer;color:var(--ink);text-align:left}
+.chref b{font-family:var(--mono);color:var(--accent);margin-right:3px}
+.chref small{color:var(--faint);margin-left:4px}
+.chref:hover{border-color:var(--accent)}
+.pils2{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;align-items:start}
+@media (max-width:720px){.pils2{grid-template-columns:minmax(0,1fr);gap:6px}}
+details.pil2{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+details.pil2>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 14px}
+details.pil2>summary::-webkit-details-marker{display:none}
+details.pil2[open]>summary{border-bottom:1px solid var(--line);background:var(--panel2)}
+.pno{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:6px;text-align:center;padding:4px 0}
+.pnm{font-weight:700;font-size:14px;line-height:1.35}
+.pnm small{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);font-weight:400;letter-spacing:.08em;text-transform:uppercase}
+.smini{display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+.smini i{font-style:normal;font-family:var(--mono);font-size:10px;font-weight:600;background:var(--coop-soft);color:var(--coop);border-radius:3px;padding:0 4px;line-height:1.7}
+.smini i.on{background:var(--gov);color:var(--panel)}
+.pbody{padding:10px 14px 12px;display:flex;flex-direction:column;gap:8px}
+.chlink{align-self:flex-start;border:0;background:none;color:var(--accent);cursor:pointer;padding:0;font-size:12.5px}
+.scards{display:flex;flex-direction:column;gap:6px}
+.scard2{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;text-align:left;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:8px 10px;cursor:pointer;color:var(--ink)}
+.scard2:hover{border-color:var(--accent)}
+.scard2 .sc-n{font-weight:600;font-size:13px;line-height:1.4}
+.scard2 .sc-p{grid-column:1;font-size:11px;color:var(--faint);font-family:var(--mono)}
+.scard2 .smini{grid-row:1/3;grid-column:2;align-self:center;max-width:92px}
+.scard2.dim{opacity:.38}
+.smark.on{border-color:var(--gov)}
+/* detail panel: slides in from the right on a PC, full screen on a phone */
+body.noscroll{overflow:hidden}
+.sheet{position:fixed;inset:0;z-index:50}
+.sh-bg{position:absolute;inset:0;background:rgba(5,10,18,.55)}
+.sh-panel{position:absolute;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--bg);border-left:1px solid var(--line);overflow-y:auto;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) 20px;animation:shin .2s ease-out}
+@keyframes shin{from{transform:translateX(40px);opacity:.6}}
+@media (prefers-reduced-motion:reduce){.sh-panel{animation:none}}
+@media (max-width:640px){.sh-panel{border-left:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+.sh-top{display:flex;align-items:center;justify-content:space-between;position:sticky;top:-14px;background:var(--bg);padding:4px 0;z-index:1}
+.sh-top .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint)}
+.sh-x{border:1px solid var(--line);background:var(--panel);border-radius:8px;width:34px;height:34px;font-size:18px;cursor:pointer;color:var(--ink)}
+.sheet-in h2{margin:4px 0 2px;font-size:19px;line-height:1.4}
+.sheet-in .ru{margin:0;color:var(--faint);font-size:12px}
+.meta2{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;font-size:12px;color:var(--sub)}
+.stag{font-size:10.5px;font-weight:700;border-radius:3px;padding:0 6px;line-height:1.8}
+.stag.ok{background:var(--don-soft,var(--coop-soft));color:var(--act)}
+.stag.old{background:var(--press-soft);color:var(--closed)}
+.sheet-in .sum{font-size:13.5px;line-height:1.75;margin:10px 0}
+.dlinks{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.dlinks .btn{text-decoration:none;font-family:var(--sans);font-size:12.5px;padding:6px 12px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.btn.primary:hover{color:var(--panel);opacity:.9}
+.blk{margin-top:16px}
+.blk h3{font-size:12px;font-family:var(--mono);letter-spacing:.1em;color:var(--faint);margin:0 0 6px;font-weight:500}
+.tg{margin:0;padding-left:18px;font-size:13px;line-height:1.7}
+details.sub{border:1px solid var(--line);border-radius:6px;background:var(--panel);margin-bottom:5px}
+details.sub>summary{cursor:pointer;padding:7px 10px;display:flex;gap:8px;justify-content:space-between;align-items:center;font-size:13px;list-style:none}
+details.sub>summary::-webkit-details-marker{display:none}
+details.sub>summary::before{content:"▸";color:var(--faint);margin-right:2px}
+details.sub[open]>summary::before{content:"▾"}
+details.sub>summary>span:first-child{flex:1}
+details.sub>p,details.sub>ul,details.sub>.smarks{margin:0 10px 8px;font-size:12.5px;color:var(--sub)}
+.srow{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:8px 10px;margin-bottom:5px;cursor:pointer;color:var(--ink);font-size:13px}
+.srow:hover{border-color:var(--accent)}
+.docv{max-width:780px;margin:0 auto}
+.docbox{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-top:10px;line-height:1.85;font-size:14.5px}
+.docbox h2{font-size:19px} .docbox h3{font-size:15px;margin-top:22px;border-left:3px solid var(--accent);padding-left:8px}
+@media (max-width:560px){.docbox{padding:14px}}
 /* ---- sector jump bar and the foldable overview ---- */
 .jump{display:flex;flex-wrap:wrap;gap:5px}
 .jchip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--sub)}
@@ -451,7 +535,7 @@ $("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 // ym: new = started that year, ongoing = running that year, cum = everything started up to that year
 const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov"}, lsGet("km-charts", {}));
@@ -1121,36 +1205,133 @@ function viewDonor(){
 }
 
 /* ---------- national strategies: what Kyrgyzstan has decided, and where the donor money sits ----------
-   Checked against the legal database and official announcements (sources linked in each card). */
-const NDS = {name:"国家開発戦略 2018–2040", ru:"Национальная стратегия развития Кыргызской Республики на 2018–2040 годы",
-  basis:"大統領令 2018年10月31日 No.221", url:"https://climate-laws.org/document/national-development-strategy-of-the-kyrgyz-republic-for-2018-2040_ca05"};
-const NDP = {name:"国家開発プログラム 2030年まで", ru:"Национальная программа развития Кыргызской Республики до 2030 года",
-  basis:"大統領令 2025年6月5日 No.178（2026年までのプログラムを継承）", url:"https://mineconom.gov.kg/ru/post/11033",
-  goals:["1人当たりGDP 4,500ドル・GDP 300億ドル以上","年平均成長率 8%","失業率 5%以下・政府債務 GDP比60%以下","人間開発指数の順位を10位上げる"]};
-const PILLARS = [
-  {id:"ind", name:"工業化", note:"製造業の近代化・クラスター（工業のシェアを2030年に50%へ）", sectors:["private","energy","digital"]},
-  {id:"agt", name:"農業・観光", note:"農業の生産性向上と観光（GDPに占める観光の比率7%へ）", sectors:["agri","nutrition","private","nature"]},
-  {id:"grn", name:"グリーンエネルギー", note:"再生可能エネルギー・水力でエネルギー自立", sectors:["energy","climate","envmgmt"]},
-  {id:"hub", name:"地域ハブ（物流・通過・金融）", note:"中国・EAEU・南アジアを結ぶ物流と通過輸送", sectors:["transport","digital","finance"]},
-  {id:"hum", name:"人的資本・社会", note:"教育・保健・社会保障・ジェンダー（人間開発指数の向上）", sectors:["education","health","social","gender","sports"]},
-  {id:"gov", name:"ガバナンス・地域・安全", note:"地方自治・地域開発・水と防災", sectors:["governance","urban","water","drr","peace"]},
+   Built from the documents themselves (fetched to the strategy-docs branch, machine-translated there);
+   chapter numbers follow the National Development Program to 2030. */
+const DOCS_BASE = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/strategy-docs/";
+const DOCS_VIEW = "https://github.com/yuuuta21/kyrgyzcha-family/blob/strategy-docs/";
+const SDB = {
+  nds: {kind:"国家戦略", name:"国家開発戦略 2018–2040", ru:"Национальная стратегия развития Кыргызской Республики на 2018–2040 годы",
+    period:"2018–2040", basis:"大統領令 2018年10月31日 No.221", status:"有効", doc:"nds-2040-en-adam",
+    url:"https://adam.edu.kg/media/uploads/2022/04/15/national-strategy-of-kyrgyz-republic-2018-2040.pdf",
+    summary:"2040年に向けた国の長期ビジョン。「人間・家族・社会」「経済的豊かさと発展の環境」「行政」の3本柱で、保健・教育から交通・エネルギー・清潔な水・環境と防災、法の支配・地方自治・デジタル変革（Taza Koom）までを方向づけ、中期の実行計画（国家開発プログラム）の土台になっています。",
+    subs:[
+      {name:"II 人間・家族・社会", desc:"保健（一次医療・保険）、質の高い教育と科学、若者、機会均等、働きがいのある雇用と老後、家族、市民統合、文化、民主国家における宗教", sectors:["health","education","social","gender","sports","peace"]},
+      {name:"III 経済的豊かさと発展の環境", desc:"マクロ経済の安定、ビジネス環境（中小企業・税制）、質の高いインフラ（エネルギー・交通・清潔な水）、環境・気候変動適応・防災、地域開発（国境地域を含む）、優先産業（工業・アグリビジネス・軽工業クラスター・観光）", sectors:["finance","private","energy","transport","water","envmgmt","climate","drr","urban","agri","nature"]},
+      {name:"IV 行政", desc:"効果的で公正な国家、均衡ある統治、法の支配、地方自治、安全な国、実利的な外交、デジタル変革「Taza Koom」、市民社会", sectors:["governance","peace","digital","urban"]},
+      {name:"VI 中期の優先ステップ", desc:"一次医療の強化、母子保健、非感染性疾患の早期死亡の削減、感染症対策、救急医療、就学前教育の全員就学、学校教育と高等教育の質、学校のインターネット接続、職業教育、労働移民の支援 など", sectors:["health","education","social","digital"]},
+    ]},
+  ndp: {kind:"国家プログラム", name:"国家開発プログラム 2030年まで", ru:"Национальная программа развития Кыргызской Республики до 2030 года",
+    period:"2025–2030", basis:"大統領令 2025年6月5日 No.178", status:"有効", doc:"ndp-2030-stat",
+    url:"https://mineconom.gov.kg/ru/post/11033",
+    summary:"国家開発戦略2040の中期の実行計画。前身の「国家開発プログラム2026年まで」を引き継ぎ、工業化・地域ハブ・農業と観光・グリーンエネルギーの4つの「発展ベクトル」を中心に、中小企業・金融・デジタル化・社会開発・行政改革・法制度・外交と安全保障・気候変動への強さまで14章で目標値と課題を定めています。すべての分野別戦略はこのプログラムに従属させると定めています（10.2）。",
+    goals:["1人当たりGDP 4,500ドル","GDP 300億ドル以上","実質成長率 年平均8%","SDGs達成度で上位30か国","人間開発指数の順位を10位上げる","失業率 5%以下","固定資本投資 GDP比20%以上","政府対外債務 GDP比60%以内"]},
+};
+// chapters of the National Development Program to 2030: the pillars of the map
+const NDP_CH = [
+  {id:"II", no:"II", name:"精神・道徳的発展", en:"Spiritual & civic", sectors:["peace","education"],
+    targets:["国民の85%が「キルギス・ジャラヌ（キルギス市民）」であることを誇りに思う","国民の95%が信教の自由が保障されていると考える","国連の世界幸福度ランキングで上位50か国"],
+    tasks:["市民アイデンティティ「キルギス・ジャラヌ」の育成と市民文化の向上","文化を人道的近代化の戦略的手段に（文化のデジタル化・創造産業・文化センター・国産映画の再興）"]},
+  {id:"5.1", no:"5.1", name:"工業化", en:"Industrialization", sectors:["private","energy","digital"],
+    targets:["工業生産を2倍に（2024年比）","工業の固定資本投資シェア 34% → 50%","地方に工業団地・テクノパークを5か所以上"],
+    tasks:["生産性を高める技術の導入","国内外の生産チェーンの構築","産業クラスター（重要鉱物・軽工業・製薬など）と工業団地・経済特区","工業の省エネ・再エネ利用","輸出・国際市場での地位強化"]},
+  {id:"5.2", no:"5.2", name:"地域ハブ（物流・通過輸送）", en:"Regional hub", sectors:["transport","private","urban"],
+    targets:["鉄道貨物 年1,500万トン","倉庫・物流施設 100万㎡以上","国道の50%以上を建設・改修","運輸業の付加価値 15億ドル","航空旅客 年700万人・貨物4.5万トン"],
+    tasks:["道路網（南北幹線道路など）","鉄道（中国・キルギス・ウズベキスタン鉄道、電化）","都市交通（電気バス・自転車道・充電網）","民間航空・空港の近代化","物流センター・マルチモーダル輸送","国際港・輸送回廊、通関の簡素化"]},
+  {id:"5.3a", no:"5.3", name:"農業", en:"Agriculture", sectors:["agri","water","nutrition","climate"],
+    targets:["農業生産 +30%","農産物加工 2倍","水の損失を15%まで削減","灌漑面積 +1.5万ha","水供給の改善 9.3万ha"],
+    tasks:["加工と輸出","生産性の向上","灌漑システムの拡大・近代化","水資源の効率利用","人材育成","気候変動への適応"]},
+  {id:"5.3b", no:"5.3", name:"観光", en:"Tourism", sectors:["private","nature"],
+    targets:["観光のGDP比 7%","旅行・観光競争力指数で上位50か国","山岳観光の安全性の国際評価70点以上"],
+    tasks:["ホテルなど宿泊インフラ","観光ルート・観光ゾーン","自然・文化資源の持続的管理","人材育成","国内・訪日（インバウンド）観光","国際競争力とマーケティング"]},
+  {id:"5.4", no:"5.4", name:"グリーンエネルギー", en:"Green energy", sectors:["energy","climate"],
+    targets:["発電に占める再生可能エネルギー 92%","再エネ発電 年75億kWh","保証容量 550–700MW","送電損失 10%以下","温室効果ガス 16%削減（国際資金があれば44%）"],
+    tasks:["発電能力の拡大・多様化","省エネと需要管理","エネルギー基盤の近代化・デジタル化","地域統合（CASA-1000 など）","環境の持続性と気候適応","資金と透明な管理"]},
+  {id:"VI", no:"VI", name:"中小企業支援", en:"SMEs", sectors:["private","finance","gender"],
+    targets:["中小企業の付加価値 3倍（2024年比）","GDPに占める中小企業の比率 50%以上"],
+    tasks:["資金へのアクセス","行政の障壁の削減","起業相談・教育（女性起業家を含む）","土地とインフラへのアクセス"]},
+  {id:"VII", no:"VII", name:"金融市場", en:"Financial market", sectors:["finance","private"],
+    targets:[], tasks:["工業・輸出・物流・グリーンエネルギー・観光・農業・地方・中小企業への資金の拡大","信用保証の拡充","ファクタリング・保険など代替的な資金調達","株式市場の発展とデジタル化"]},
+  {id:"VIII", no:"VIII", name:"デジタル化", en:"Digitalization", sectors:["digital","governance","gender"],
+    targets:[], tasks:["国家情報システムの統合（単一インテグレーター）","IT人材（サイバーセキュリティ・AI・デュアル教育）","IT輸出・データセンター・クラウド","IT分野での女性の経済的機会","フィンテック（デジタル決済・暗号資産基盤）","電子商取引・マーケットプレイス"]},
+  {id:"9.1", no:"9.1", name:"人的資源と働きがいのある雇用", en:"Decent work", sectors:["social","gender","private"],
+    targets:["インフォーマル就業 58%まで削減","貧困率 20%","就業率 60%","障害のある有資格者の就業率 60%以上"],
+    tasks:["完全雇用と労働生産性","移民の効果的な管理"]},
+  {id:"9.2", no:"9.2", name:"公正な社会保障", en:"Social protection", sectors:["social","gender","nutrition"],
+    targets:["子どもの貧困 25%","貧困家庭の子どもへの手当の受給率 30%","親のいない子の家庭型養育 55%","社会パスポートのデジタル化 98%以上","高齢者センター 3か所以上"],
+    tasks:["全ての層への最低保障","社会サービスの拡充と効率化","社会保障のデジタル化"]},
+  {id:"9.3", no:"9.3", name:"教育", en:"Education", sectors:["education","digital","nutrition"],
+    targets:["3–5歳の就学前教育 80%","6–17歳の就学 98.8%","障害児用スロープのある学校 100%","小学生の基礎学力（算数40%・読解55%）","全国統一試験の平均130点・合格70%超","高速インターネットのある学校 98%","教員へのノートPC 85%","研究費 GDP比0.5–1.0%"],
+    tasks:["教員の研修と処遇","新しい教科書・カリキュラム・実践的な授業","デジタル教材","労働市場に合わせた教育","学校での子どもの健康（給食を含む）","インクルーシブ教育","教育インフラ","財政の透明性","技術・高速インターネットへのアクセス","応用研究"]},
+  {id:"9.4", no:"9.4", name:"保健", en:"Health", sectors:["health","nutrition","sports","water"],
+    targets:["強制医療保険の加入率 85%","平均寿命 75歳","妊産婦死亡 出生10万あたり22","5歳未満児死亡 出生1,000あたり14","非感染性疾患による早期死亡 30%減","予防・一次医療の利用 70%"],
+    tasks:["医療へのアクセスと質","医薬品の安全","保健システムの管理","健康リスクの管理（飲料水など）","健康的な生活と体育・スポーツ"]},
+  {id:"X", no:"X", name:"行政改革・地域開発", en:"Public administration & regions", sectors:["governance","urban","finance","digital"],
+    targets:[], tasks:["10.1 公務員・地方公務員制度（成果志向・人事のデジタル化）","10.2 戦略計画システム（全ての分野別戦略を国家プログラムに従属・統一モニタリング・予算との連動）","10.3 マクロ経済の安定（財政の持続性・予算のオープンデータ・投資管理・財政改革）","10.4 地域開発（地域総合発展プログラム2025–2030・成長拠点・都市圏の形成・空間データ基盤）","10.5 脱官僚化（手続きの簡素化・デジタル化）"]},
+  {id:"XI", no:"XI", name:"法制度・治安・汚職対策", en:"Rule of law", sectors:["governance","peace","gender"],
+    targets:[], tasks:["11.1 法の支配と司法へのアクセス（法教育・司法の独立）","11.2 治安（犯罪・麻薬・家庭内暴力・国境地域の越境犯罪・テロ対策・サイバー犯罪）","11.3 汚職対策（行政の透明化・デジタル化・法執行機関）"]},
+  {id:"XII", no:"XII", name:"外交と国家安全保障", en:"Foreign policy & security", sectors:["peace"],
+    targets:[], tasks:["12.1 伝統的・戦略的パートナーとの外交","12.2 主権と領土保全、軍の近代化、民間防衛の強化"]},
+  {id:"XIII", no:"XIII", name:"気候変動への強さ（防災・環境）", en:"Climate resilience", sectors:["drr","climate","nature","envmgmt","water"],
+    targets:["全国の災害早期警報システム","地方自治体の100%が地方防災戦略を実施","旧ウラン鉱滓・廃石たい積場16か所の安全化","仙台防災枠組の目標達成","自然保護区を国土の10%に","温室効果ガス16%削減","気候適応指数ND-GAINを3ポイント改善","ビシュケクの有害排出を16%削減（改良炭・ガス化）"],
+    tasks:["13.1 災害リスクの低減","13.2 生態系と生物多様性の保全・回復","気候変動対策と適応","廃棄物管理","環境安全"]},
 ];
-const STRATS = [
-  {p:"grn", name:"国家エネルギー・プログラム 2035年まで", period:"第1期 2024–2027", basis:"内閣決定 2024年4月12日 No.172", sectors:["energy","climate"], url:"https://www.gov.kg/ru/npa/s/4468"},
-  {p:"grn", name:"省エネ・エネルギー効率政策プログラム", period:"2023–2027", basis:"内閣決定 2023年6月29日 No.328", sectors:["energy","climate"], url:"https://cbd.minjust.gov.kg/160277/edition/1264523/ru"},
-  {p:"grn", name:"再生可能エネルギー開発（分散型・マイクロ発電）", period:"2026–2030", basis:"内閣承認", sectors:["energy","climate"], url:"https://24.kg/ekonomika/374354_kabmin_utverdil_pyatiletnyuyu_programmu_zelenoy_energetiki_inbspmikrogeneratsii/"},
-  {p:"grn", name:"グリーン経済発展プログラム", period:"2019–2023（後継の2024–2028は案の段階）", basis:"政府決定", sectors:["climate","envmgmt","nature"], url:"https://mineconom.gov.kg/froala/uploads/file/3bd5db922cf87fc28a0f3cbeced8e2bbe286956c.pdf", draft:true},
-  {p:"agt", name:"持続可能な観光発展プログラム 2030年まで", period:"2025–2030", basis:"内閣決定 2024年12月18日 No.765", sectors:["private","nature"], url:"https://cbd.minjust.gov.kg/44-149/edition/23883/ru"},
-  {p:"agt", name:"牧草地発展プログラム", period:"2024–2029", basis:"内閣決定 2024年8月9日 No.462", sectors:["agri","nature"], url:"https://cbd.minjust.gov.kg/53-357/edition/14287/ru"},
-  {p:"hub", name:"デジタル・トランスフォーメーション構想", period:"2024–2028", basis:"大統領令 2024年4月5日 No.90", sectors:["digital","governance"], url:"https://cbd.minjust.gov.kg/30-164/edition/6414/ru"},
-  {p:"hum", name:"教育発展プログラム", period:"2021–2040", basis:"政府決定 2021年5月4日", sectors:["education"], url:"https://cbd.minjust.gov.kg/158227/edition/1070465/ru"},
-  {p:"hum", name:"保健プログラム「健康な人 ― 繁栄する国」", period:"2019–2030", basis:"政府決定", sectors:["health","nutrition"], url:"https://www.who.int/europe/news-room/23-01-2019-kyrgyzstan-adopts-new-health-strategy-for-2019-2030"},
-  {p:"hum", name:"ジェンダー平等達成国家戦略", period:"2030年まで", basis:"政府決定", sectors:["gender","social"], url:"https://www.unwomen.org/sites/default/files/2025-04/b30_report_kyrgyzstan_ru.pdf"},
-  {p:"gov", name:"地方自治発展プログラム", period:"2024–2028", basis:"内閣決定 2024年2月22日 No.80", sectors:["governance","urban"], url:"https://base.spinform.ru/show_doc.fwx?rgn=158417"},
-  {p:"gov", name:"地域の総合的社会経済発展プログラム", period:"2025–2030", basis:"内閣決定 2025年3月25日", sectors:["urban","private","agri"], url:"https://economist.kg/novosti/2025/03/25/kabmin-utvierdil-proghrammu-razvitiia-rieghionov-kyrghyzstana-do-2030-ghoda/"},
-  {p:"gov", name:"飲料水供給・排水システム発展プログラム", period:"2026年まで", basis:"政府決定 2020年6月12日 No.330", sectors:["water"], url:"http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf"},
-  {p:"gov", name:"水法典", period:"2025年〜", basis:"法律 2025年6月27日 No.128", sectors:["water","agri"], url:"https://faolex.fao.org/docs/pdf/kyr237135.pdf"},
+// sector strategies and programmes, placed under the chapter of the National Programme they serve
+const STRATS2 = [
+  {id:"edu", ch:"9.3", name:"教育発展プログラム 2021–2040", ru:"Программа развития образования в Кыргызской Республике на 2021-2040 годы", period:"2021–2040", basis:"政府決定 2021年5月4日", status:"有効", sectors:["education","digital","gender"], doc:"cbd-education-2040", url:"https://cbd.minjust.gov.kg/158227/edition/1070465/ru"},
+  {id:"health", ch:"9.4", name:"保健プログラム「健康な人 ― 繁栄する国」", ru:"Программа «Здоровый человек – процветающая страна» на 2019–2030 годы", period:"2019–2030", basis:"政府決定 2018年12月20日 No.600", status:"有効", sectors:["health","nutrition","sports"], doc:"health-2030", url:"https://base.spinform.ru/show_doc.fwx?rgn=114530",
+    summary:"2030年までの保健政策。全国民への医療保障（UHC）をめざし、一次医療の強化、医療保険と戦略的購入、非感染性疾患・感染症対策、母子保健を柱とし、2019–2023年を第1期の行動計画としています。"},
+  {id:"sports", ch:"9.4", name:"体育・スポーツ発展プログラム 2030年まで", ru:"Программа развития физической культуры и спорта до 2030 года", period:"〜2030", basis:"内閣決定", status:"有効", sectors:["sports","health","education"], doc:"cbd-sports-2030", url:"https://cbd.minjust.gov.kg/230045338/edition/52205/ru",
+    summary:"定期的に運動する国民を15%から30%に倍増させることをめざすプログラム。調整役は国家体育スポーツ庁で、関係機関は半年ごとに報告します。"},
+  {id:"water", ch:"9.4", name:"飲料水供給・排水システム発展プログラム", ru:"Программа развития систем питьевого водоснабжения и водоотведения населенных пунктов до 2026 года", period:"〜2026", basis:"政府決定 2020年6月12日 No.330", status:"有効", sectors:["water","health","urban"], doc:"drinking-water-2026", url:"http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf",
+    summary:"村と都市の飲料水供給・排水システムを整備するプログラム。水源と施設の状態、水質と衛生基準、料金と財源、事業者の持続性、制度づくりを課題とし、3つのコンポーネントで進めます。",
+    subs:[{name:"コンポーネント1 政策の実施と制度面の改革", sectors:["water","governance"], desc:"国の政策の実施、規制と制度の整備、料金・財源の仕組み"},
+          {name:"コンポーネント2 資金協力事業の質の高い実施", sectors:["water","urban"], desc:"外部資金（援助機関）による給水事業の準備と実施の質の向上"},
+          {name:"コンポーネント3 投資の魅力と運営能力の向上", sectors:["water","private","finance"], desc:"給水事業者の持続性と投資の呼び込み、運営能力の強化"}]},
+  {id:"gender", ch:"9.2", name:"ジェンダー平等達成国家戦略 2030年まで", ru:"Национальная стратегия Кыргызской Республики по достижению гендерного равенства до 2030 года", period:"2022–2030（行動計画 2022–2024）", basis:"内閣決定 2022年9月16日 No.513", status:"有効", sectors:["gender","social","governance"], doc:"cbd-gender-2030", url:"http://cbd.minjust.gov.kg/act/view/ru-ru/159450?cl=ru-ru",
+    summary:"2030年までに、女性と男性、少女と少年が固定観念や差別のない平等な機会を得られる社会をめざす国家戦略。5つの優先分野と2022–2024年の国家行動計画からなります。",
+    subs:[{name:"女性の経済的機会の拡大", sectors:["gender","private","social"]},{name:"文化政策と機能的な教育", sectors:["gender","education"]},{name:"ジェンダー差別からの保護（家庭内暴力を含む）", sectors:["gender","peace","governance"]},{name:"意思決定へのジェンダー均等な参加", sectors:["gender","governance"]},{name:"規制・法制度の整備", sectors:["gender","governance"]}]},
+  {id:"migration", ch:"9.1", name:"移民政策構想 2021–2030", ru:"Концепция миграционной политики Кыргызской Республики на 2021–2030 годы", period:"2021–2030", basis:"政府決定", status:"有効", sectors:["social","peace"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"労働移民の保護と帰国者の再統合、移民の管理を定める構想（SDGs国別報告書2025で確認）。"},
+  {id:"digital", ch:"VIII", name:"デジタル・トランスフォーメーション構想", ru:"Концепция цифровой трансформации Кыргызской Республики на 2024–2028 годы", period:"2024–2028", basis:"大統領令 2024年4月5日 No.90", status:"有効", sectors:["digital","governance","education"], doc:"cbd-digital-2028", url:"https://cbd.minjust.gov.kg/30-164/edition/6414/ru"},
+  {id:"roads", ch:"5.2", name:"道路部門発展の基本方針 2023–2030", ru:"Основные направления развития дорожной отрасли на 2023-2030 годы", period:"2023–2030", basis:"内閣決定 2023年2月10日 No.71", status:"有効", sectors:["transport","drr"], doc:"roads-2030", url:"https://base.spinform.ru/show_doc.fwx?rgn=148158",
+    summary:"道路網の整備と道路部門の管理の改善を定める方針（2016–2025年版を置き換え）。国際道路・国道・地方道の現状評価、維持管理と安全、資金を扱い、運輸省の中期予算の基礎になっています。"},
+  {id:"tourism", ch:"5.3b", name:"持続可能な観光発展プログラム 2030年まで", ru:"Программа устойчивого развития туризма на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2024年12月18日 No.765", status:"有効", sectors:["private","nature","digital"], doc:"cbd-tourism-2030", url:"https://cbd.minjust.gov.kg/44-149/edition/23883/ru",
+    summary:"観光をGDPの7%に、旅行・観光競争力指数で上位50か国に、観光客を毎年10%増やすことをめざすプログラム。国の政策・デジタル化・安全・地域開発など9つの方向で進めます。"},
+  {id:"pasture", ch:"5.3a", name:"牧草地発展プログラム 2024–2029", ru:"Программа развития пастбищ Кыргызской Республики на 2024–2029 годы", period:"2024–2029", basis:"内閣決定 2024年8月9日 No.462", status:"有効", sectors:["agri","nature","climate"], doc:"cbd-pasture-2029", url:"https://cbd.minjust.gov.kg/53-357/edition/14287/ru"},
+  {id:"food", ch:"5.3a", name:"食料安全保障・栄養プログラム", ru:"Программа продовольственной безопасности и питания", period:"2025–2030（前期 2019–2023）", basis:"前期：政府決定 2019年6月27日 No.320", status:"有効", sectors:["nutrition","agri","health"], doc:"food-security-2023", url:"https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf",
+    summary:"食料の確保と栄養改善のプログラム。現在は2025–2030年版で、WFPなどとの学校給食の協力もこの枠組みで行われています（本文は2019–2023年版）。"},
+  {id:"watercode", ch:"5.3a", name:"水法典", ru:"Водный кодекс Кыргызской Республики", period:"2025年〜", basis:"法律 2025年6月27日 No.128", status:"有効", sectors:["water","agri","envmgmt"], doc:"water-code-2025", url:"https://faolex.fao.org/docs/pdf/kyr237135.pdf",
+    summary:"水資源の管理・利用・保護の基本法（2025年の新法典）。灌漑・飲料水・水質保全の制度の基礎になります。"},
+  {id:"energy", ch:"5.4", name:"国家エネルギー・プログラム 2035年まで", ru:"Национальная энергетическая программа Кыргызской Республики до 2035 года", period:"〜2035（第1期 2024–2027）", basis:"内閣決定 2024年4月12日 No.172", status:"有効", sectors:["energy","climate"], doc:"", url:"https://www.gov.kg/ru/npa/s/4468",
+    summary:"2035年までのエネルギー部門の計画。発電能力の拡大（大型水力・再エネ）、送配電の近代化、料金と財務の健全化を扱います。"},
+  {id:"eneff", ch:"5.4", name:"省エネ・エネルギー効率政策プログラム", ru:"Программа «Внедрение политики энергосбережения и энергоэффективности в Кыргызской Республике на 2023-2027 годы»", period:"2023–2027", basis:"内閣決定 2023年6月29日 No.328", status:"有効", sectors:["energy","climate","urban"], doc:"cbd-energy-efficiency-2027", url:"https://cbd.minjust.gov.kg/160277/edition/1264523/ru"},
+  {id:"renew", ch:"5.4", name:"再生可能エネルギー開発（分散型・マイクロ発電）", ru:"Развитие возобновляемых источников энергии в Кыргызской Республике на 2026–2030 годы", period:"2026–2030", basis:"内閣承認", status:"有効", sectors:["energy","climate"], doc:"", url:"https://24.kg/ekonomika/374354_kabmin_utverdil_pyatiletnyuyu_programmu_zelenoy_energetiki_inbspmikrogeneratsii/",
+    summary:"家庭や企業による小規模な再エネ発電（分散型・マイクロ発電）を広げる5か年のプログラム。"},
+  {id:"green", ch:"XIII", name:"グリーン経済発展プログラム 2025–2029", ru:"Программа развития зеленой экономики в Кыргызской Республике на 2025–2029 годы", period:"2025–2029", basis:"内閣決定 2025年9月1日", status:"有効", sectors:["climate","envmgmt","energy","agri"], doc:"", url:"https://www.un-page.org/news/green-leap-forward-kyrgyz-republic-adopts-new-green-economy-programme-2025-2029/",
+    summary:"2019–2023年版に続くグリーン経済の5か年プログラム。エネルギー、農業、産業、廃棄物などの分野でグリーン化を進めます。"},
+  {id:"ndc", ch:"XIII", name:"国が決定する貢献（NDC 3.0）", ru:"Определяемый на национальном уровне вклад", period:"〜2035（前版 2021年更新）", basis:"2025年10月提出", status:"有効", sectors:["climate","energy","agri","envmgmt"], doc:"ndc-2021-en", url:"https://daryo.uz/en/2025/10/13/kyrgyzstan-targets-up-to-39-emission-cut-by-2035/",
+    summary:"パリ協定のもとでの温室効果ガス削減と適応の目標。2035年までに最大39%の削減を掲げ、国家開発プログラム2030と整合させています（本文は2021年更新版）。"},
+  {id:"drrplan", ch:"XIII", name:"緊急事態リスク低減の行動計画 2025–2030", ru:"План мероприятий по снижению рисков возникновения чрезвычайных ситуаций на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2025年9月23日 No.601（大統領令 2025年2月27日 No.68）", status:"有効", sectors:["drr","nature","envmgmt"], doc:"drr-plan-2030", url:"https://www.cawater-info.net/bk/dam-safety/files/kg-601-2025.pdf",
+    summary:"災害リスクを減らすための具体的な行動計画。危険箇所の棚卸しから予防工事、技術災害の防止、植林、制度と能力の強化、資金の確保までを6章で定めています。",
+    subs:[{name:"第1章 危険箇所・施設の棚卸し", sectors:["drr"]},{name:"第2章 予防措置（土石流・地すべり対策など）", sectors:["drr","water"]},{name:"第3章 技術圏の安全（ダム・鉱滓など）", sectors:["drr","envmgmt","energy"]},{name:"第4章 森林への投資", sectors:["drr","nature","climate"]},{name:"第5章 規制・能力の向上", sectors:["drr","governance"]},{name:"第6章 資金調達（地方自治体の予算を含む）", sectors:["drr","finance"]}]},
+  {id:"drrconcept", ch:"XIII", name:"住民と国土の緊急事態からの総合的保護構想 2018–2030", ru:"Концепция комплексной защиты населения и территории Кыргызской Республики от чрезвычайных ситуаций на 2018–2030 годы", period:"2018–2030（第2期 2023–2026）", basis:"政府決定 2018年1月29日 No.58", status:"有効", sectors:["drr"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"防災の基本構想。仙台防災枠組に沿って、予防・早期警報・対応・復旧の体制を整えます。"},
+  {id:"drrfin", ch:"XIII", name:"災害リスク・ファイナンス戦略 2026–2030", ru:"Стратегия финансирования рисков стихийных бедствий на 2026–2030 годы", period:"2026–2030", basis:"内閣承認 2026年6月", status:"有効", sectors:["drr","finance"], doc:"", url:"https://economist.kg/vlast/2026/06/06/disaster-risk-financing-strategy-2030/",
+    summary:"災害の被害に備える資金（予備費・保険など）の戦略。財務省が報告を取りまとめます。"},
+  {id:"lsg", ch:"X", name:"地方自治発展プログラム 2024–2028", ru:"Программа развития местного самоуправления Кыргызской Республики на 2024–2028 годы", period:"2024–2028", basis:"内閣決定 2024年2月22日 No.80", status:"有効", sectors:["governance","urban","finance"], doc:"local-self-gov-2028", url:"https://base.spinform.ru/show_doc.fwx?rgn=158417"},
+  {id:"regions", ch:"X", name:"地域の総合的社会経済発展プログラム 2025–2030", ru:"Государственная программа комплексного социально-экономического развития регионов на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2025年3月25日", status:"有効", sectors:["urban","private","agri","digital","envmgmt"], doc:"", url:"https://economist.kg/novosti/2025/03/25/kabmin-utvierdil-proghrammu-razvitiia-rieghionov-kyrghyzstana-do-2030-ghoda/",
+    summary:"各州の総合的な発展計画。工業、農業、観光、デジタル化、環境、国土計画など14の方向で地域ごとに進めます（国家開発プログラム10.4）。"},
+  {id:"bishkek", ch:"X", name:"「スマートで持続可能な都市ビシュケク」構想 2033年まで", ru:"Концепция «Умный устойчивый город Бишкек» до 2033 года", period:"〜2033", basis:"—", status:"有効", sectors:["urban","transport","envmgmt","digital"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"首都ビシュケクの都市開発の構想（SDGs国別報告書2025で確認）。交通・環境・デジタル化を含みます。"},
+  {id:"legal", ch:"XI", name:"法政策構想 2023–2026", ru:"Концепция правовой политики Кыргызской Республики на 2023–2026 годы", period:"2023–2026", basis:"—", status:"有効", sectors:["governance"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"法制度づくりの方針（SDGs国別報告書2025で確認）。"},
+  {id:"trafficking", ch:"XI", name:"人身取引対策プログラム 2022–2025", ru:"Программа по противодействию торговле людьми на 2022–2025 годы", period:"2022–2025", basis:"内閣決定", status:"期間終了", sectors:["peace","gender","social"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"人身取引の防止と被害者保護のプログラム（SDGs国別報告書2025で確認）。"},
+  {id:"religion", ch:"II", name:"宗教分野の国家政策構想 2021–2026", ru:"Концепция государственной политики Кыргызской Республики в религиозной сфере на 2021–2026 годы", period:"2021–2026（行動計画 2022–2026）", basis:"大統領令 2021年", status:"有効", sectors:["peace","education","governance"], doc:"cbd-religion-2026", url:"https://cbd.minjust.gov.kg/30-117/edition/594259/ru",
+    summary:"世俗国家の原則のもとで信教の自由と宗教間の調和を保ち、過激主義を防ぐための構想。市民アイデンティティ「キルギス・ジャラヌ」と結びついています。"},
 ];
+const SEC_NDS = {health:"II 2.1", education:"II 2.1", social:"II 2.1", gender:"II 2.1–2.2", sports:"II 2.1", peace:"II 2.3・2.5 / IV 4.5", finance:"III 3.2", private:"III 3.2–3.3", energy:"III 3.2", transport:"III 3.2", water:"III 3.2", envmgmt:"III 3.2", climate:"III 3.2", drr:"III 3.2", urban:"III 3.2 / IV 4.4", agri:"III 3.3", nature:"III 3.2–3.3", governance:"IV", digital:"IV 4.7", nutrition:"II 2.1 / III 3.3"};
+
 // active donor funding behind a set of sectors: each project counts once, with its share in those sectors
 function fundFor(sectors){
   const set = new Set(sectors), by = {}; let amt = 0, n = 0, u = 0, jn = 0, ja = 0;
@@ -1165,46 +1346,118 @@ function fundFor(sectors){
   const top = Object.entries(by).sort((a,b)=>b[1]-a[1]).slice(0,3);
   return {amt, n, u, top, jn, ja};
 }
-const secMark = id => `<button class="smark" data-sec="${id}" title="${esc(SEC[id].ja)}"><b>${SEC[id].no}</b>${esc(SEC[id].ja)}</button>`;
-function fundLine(f){
+const secMark = (id, on) => `<button class="smark ${on?"on":""}" data-sec="${id}" title="${esc(SEC[id].ja)}"><b>${SEC[id].no}</b>${esc(SEC[id].ja)}</button>`;
+const secMarks = (ids, hi) => `<div class="smarks">${ids.map(id=>secMark(id, hi===id)).join("")}</div>`;
+function fundLine(f, compact){
   if(!projReady()) return "";
   return `<div class="sfund"><span class="sa">${money(f.amt)||"—"}</span><span class="note">実施中 ${f.n}件${f.u?`・金額不明 ${f.u}`:""}</span>
-    ${f.top.length?`<span class="stop">${f.top.map(([d,v])=>`${esc(donorName(d).replace(/（.*?）/,""))} ${Math.round(v/f.amt*100)}%`).join("・")}</span>`:""}
-    ${SHOW_JP?`<span class="sj">JICA ${f.jn?`${f.jn}件${f.ja?" "+money(f.ja):""}`:"なし"}</span>`:""}</div>`;
+    ${!compact&&f.top.length?`<span class="stop">${f.top.map(([d,v])=>`${esc(donorName(d).replace(/（.*?）/,""))} ${Math.round(v/f.amt*100)}%`).join("・")}</span>`:""}
+    ${SHOW_JP?`<span class="sj">JICA ${f.jn?`${f.jn}件${f.ja?" "+money(f.ja):""}`:"—"}</span>`:""}</div>`;
 }
+const docLinks = x => `<div class="dlinks">${x.doc?(EMBED?`<a class="btn primary" href="${DOCS_VIEW}ja/${encodeURIComponent(x.doc)}.md" target="_blank" rel="noopener">日本語訳で読む</a>`:`<button class="btn primary" data-doc="${x.doc}">日本語訳で読む</button>`):""}<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">原文・出典</a>${x.url&&!/\.pdf($|\?)/i.test(x.url)?`<a class="btn" href="${esc(jaLink(x.url))}" target="_blank" rel="noopener">出典をGoogle翻訳で</a>`:""}</div>`;
+const statusTag = s => `<span class="stag ${s==="有効"?"ok":"old"}">${esc(s||"")}</span>`;
+
+/* the detail panel: one strategy, chapter or the two national documents */
+function sheetHTML(id){
+  const x = SDB[id] || STRATS2.find(s=>s.id===id) || NDP_CH.find(c=>"ch-"+c.id===id);
+  if(!x) return "";
+  const isCh = !!x.tasks, sectors = x.sectors || [...new Set((x.subs||[]).flatMap(s=>s.sectors||[]))];
+  const ch = x.ch ? NDP_CH.find(c=>c.id===x.ch) : null;
+  const f = sectors.length ? fundFor(sectors) : null;
+  const kids = isCh ? STRATS2.filter(s=>s.ch===x.id) : [];
+  const sub = s => `<details class="sub"><summary><span>${esc(s.name)}</span>${s.sectors?`<span class="smini">${s.sectors.map(c=>`<i title="${esc(SEC[c].ja)}">${SEC[c].no}</i>`).join("")}</span>`:""}</summary>
+      ${s.desc?`<p>${esc(s.desc)}</p>`:""}${s.items?`<ul>${s.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}${s.sectors?secMarks(s.sectors):""}</details>`;
+  return `<div class="sheet-in">
+    <div class="sh-top"><span class="k">${isCh?"国家開発プログラム2030 第"+esc(x.no)+"章":esc(x.kind||"分野別戦略・プログラム")}</span><button class="sh-x" data-close aria-label="閉じる">×</button></div>
+    <h2>${esc(x.name)}</h2>${x.ru?`<p class="ru">${esc(x.ru)}</p>`:""}
+    ${!isCh?`<div class="meta2">${statusTag(x.status)}<span>${esc(x.period||"")}</span><span>${esc(x.basis||"")}</span></div>`:""}
+    ${x.summary?`<p class="sum">${esc(x.summary)}</p>`:""}
+    ${!isCh?docLinks(x):""}
+    ${ch?`<div class="blk"><h3>国家開発プログラム2030での位置づけ</h3><button class="chref" data-st="ch-${ch.id}"><b>${esc(ch.no)}</b> ${esc(ch.name)} →</button></div>`:""}
+    ${(x.goals||x.targets||[]).length?`<div class="blk"><h3>目標</h3><ul class="tg">${(x.goals||x.targets).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:""}
+    ${sectors.length?`<div class="blk"><h3>関わる分野</h3>${secMarks(sectors)}${f?fundLine(f):""}<p class="note">援助機関の実施中の案件のうち、これらの分野に入るもの（複数分野の案件は按分）。分野を押すと分野ページへ。</p></div>`:""}
+    ${isCh&&x.tasks.length?`<div class="blk"><h3>主な課題</h3>${x.tasks.map(t=>sub({name:t})).join("")}</div>`:""}
+    ${(x.subs||[]).length?`<div class="blk"><h3>${id==="nds"?"構成":"サブプログラム・構成"}</h3>${x.subs.map(sub).join("")}</div>`:""}
+    ${kids.length?`<div class="blk"><h3>この章につながる分野別戦略</h3>${kids.map(k=>`<button class="srow" data-st="${k.id}"><span>${esc(k.name)}</span><span class="note">${esc(k.period)}</span></button>`).join("")}</div>`:""}
+  </div>`;
+}
+function renderSheet(){
+  let el = document.getElementById("sheet");
+  if(!S.st){ if(el) el.remove(); document.body.classList.remove("noscroll"); return; }
+  if(!el){ el = document.createElement("div"); el.id = "sheet"; el.className = "sheet"; document.body.appendChild(el); }
+  el.innerHTML = `<div class="sh-bg" data-close></div><aside class="sh-panel" role="dialog" aria-modal="true">${sheetHTML(S.st)}</aside>`;
+  document.body.classList.add("noscroll");
+}
+
 function viewStrategy(){
   setTitle("国家戦略マップ");
-  const covered = new Set(STRATS.flatMap(x=>x.sectors));
-  const gaps = SECTORS.filter(([id])=>!covered.has(id));
-  const pillar = P => {
-    const st = STRATS.filter(x=>x.p===P.id), f = fundFor(P.sectors);
-    return `<section class="pil"><div class="pilh"><div class="k">PILLAR</div><h3>${esc(P.name)}</h3><p class="note">${esc(P.note)}</p>
-      <div class="smarks">${P.sectors.map(secMark).join("")}</div>${fundLine(f)}</div>
-      <div class="cards">${st.length?st.map(x=>{ const g = fundFor(x.sectors); return `<article class="scard ${x.draft?"draft":""}">
-        <h4><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a></h4>
-        <div class="sper">${esc(x.period)}・${esc(x.basis)}${x.draft?"・後継は案":""}</div>
-        <div class="smarks">${x.sectors.map(secMark).join("")}</div>${fundLine(g)}</article>`; }).join("")
-        :'<p class="note" style="padding:8px">個別の分野戦略を確認中</p>'}</div></section>`;
+  const hi = S.s;   // sector filter
+  const has = arr => !hi || arr.includes(hi);
+  const chFund = c => fundFor(c.sectors);
+  const strat = s => `<button class="scard2 ${has(s.sectors)?"":"dim"}" data-st="${s.id}"><span class="sc-n">${esc(s.name)}</span><span class="sc-p">${esc(s.period)}${s.status!=="有効"?" · "+esc(s.status):""}</span><span class="smini">${s.sectors.map(c=>`<i class="${c===hi?"on":""}" title="${esc(SEC[c].ja)}">${SEC[c].no}</i>`).join("")}</span></button>`;
+  const chapter = c => {
+    const kids = STRATS2.filter(s=>s.ch===c.id), show = has(c.sectors) || kids.some(k=>has(k.sectors));
+    if(!show) return "";
+    return `<details class="pil2" ${hi||matchMedia("(min-width:900px)").matches?"open":""}><summary>
+        <span class="pno">${esc(c.no)}</span><span class="pnm">${esc(c.name)}<small>${esc(c.en)}</small></span>
+        <span class="smini">${c.sectors.map(s=>`<i class="${s===hi?"on":""}" title="${esc(SEC[s].ja)}">${SEC[s].no}</i>`).join("")}</span></summary>
+      <div class="pbody"><button class="chlink" data-st="ch-${c.id}">目標と課題を見る →</button>${fundLine(chFund(c), true)}
+        ${kids.length?`<div class="scards">${kids.map(strat).join("")}</div>`:`<p class="note">この章に直接つながる個別の戦略は今回の調査では見つかっていません（章の中で直接定められています）。</p>`}</div></details>`;
   };
-  // sector view: which strategy covers each sector, and the money in it
-  const rows = SECTORS.map(([id,ja])=>{
-    const st = STRATS.filter(x=>x.sectors.includes(id)), f = fundFor([id]);
-    return `<tr data-sec="${id}" class="click"><td><b class="sno">${SEC[id].no}</b> ${esc(ja)}</td><td class="stl">${st.length?st.map(x=>esc(x.name)).join("<br>"):'<span class="unk">確認中</span>'}</td>
-      <td>${projReady()?money(f.amt)||"—":"…"}</td><td>${projReady()?f.n:"…"}</td><td>${projReady()&&f.u?f.u:"—"}</td><td class="stl">${f.top.map(([d,v])=>esc(donorName(d).replace(/（.*?）/,""))+" "+Math.round(v/f.amt*100)+"%").join("<br>")}</td>${SHOW_JP?`<td>${f.jn?f.jn+"件"+(f.ja?"<br>"+money(f.ja):""):"—"}</td>`:""}</tr>`;
-  }).join("");
-  return `${secHead("National strategy","国家戦略マップ",'<span class="note">キルギスの国家戦略・プログラムと分野別の戦略、その分野に入っている援助機関の実施中の支援</span>')}
-    <div class="stree">
-      <div class="snode top"><div class="k">NATIONAL DEVELOPMENT STRATEGY</div><h3><a href="${NDS.url}" target="_blank" rel="noopener">${NDS.name}</a></h3><div class="sper">${NDS.basis}</div></div>
-      <div class="sline"></div>
-      <div class="snode mid"><div class="k">NATIONAL DEVELOPMENT PROGRAM</div><h3><a href="${NDP.url}" target="_blank" rel="noopener">${NDP.name}</a></h3><div class="sper">${NDP.basis}</div>
-        <ul class="goals">${NDP.goals.map(g=>`<li>${esc(g)}</li>`).join("")}</ul></div>
-      <div class="sline"></div>
-      <div class="pils">${PILLARS.map(pillar).join("")}</div>
+  const chips = `<div class="sfilter"><button class="jchip ${hi?"":"on"}" data-sfil="">すべての分野</button>${SECTORS.map(([id,ja])=>`<button class="jchip ${hi===id?"on":""}" data-sfil="${id}"><b>${SEC[id].no}</b> ${esc(ja)}</button>`).join("")}</div>`;
+  // where each sector appears: chapters, strategies, sub-programmes
+  const where = id => {
+    const chs = NDP_CH.filter(c=>c.sectors.includes(id)), st = STRATS2.filter(s=>s.sectors.includes(id)),
+          subs = STRATS2.flatMap(s=>(s.subs||[]).filter(u=>(u.sectors||[]).includes(id)).map(u=>({s,u})));
+    return {chs, st, subs};
+  };
+  let focus = "";
+  if(hi){
+    const w = where(hi), f = fundFor([hi]);
+    focus = `<div class="panel sfocus"><div class="k">SECTOR ${SEC[hi].no}</div><h3>${esc(SEC[hi].ja)} はどこに位置づけられているか</h3>
+      <div class="sfrow"><b>国家開発戦略2040</b><span>${esc(SEC_NDS[hi]||"—")}</span></div>
+      <div class="sfrow"><b>国家開発プログラム2030</b><span>${w.chs.map(c=>`<button class="chref" data-st="ch-${c.id}"><b>${esc(c.no)}</b> ${esc(c.name)}</button>`).join("")}</span></div>
+      <div class="sfrow"><b>分野別の戦略</b><span>${w.st.length?w.st.map(s=>`<button class="chref" data-st="${s.id}">${esc(s.name)}</button>`).join(""):"—"}</span></div>
+      ${w.subs.length?`<div class="sfrow"><b>サブプログラム</b><span>${w.subs.map(({s,u})=>`<button class="chref" data-st="${s.id}">${esc(u.name)}<small>（${esc(s.name)}）</small></button>`).join("")}</span></div>`:""}
+      <div class="sfrow"><b>援助機関の支援</b><span>${fundLine(f)}</span></div>
+      <button class="linkbtn" data-sec="${hi}">この分野のページへ →</button></div>`;
+  }
+  return `${secHead("National strategy","国家戦略マップ",'<span class="note">国の戦略・プログラムの構成と、各分野の位置づけ・援助機関の支援</span>')}
+    <div class="shero">
+      <button class="hcard" data-st="nds"><span class="k">NATIONAL DEVELOPMENT STRATEGY</span><b>${SDB.nds.name}</b><span class="note">${SDB.nds.basis}</span></button>
+      <span class="harrow" aria-hidden="true">→</span>
+      <button class="hcard main" data-st="ndp"><span class="k">NATIONAL DEVELOPMENT PROGRAM</span><b>${SDB.ndp.name}</b><span class="note">${SDB.ndp.basis}・14章</span></button>
     </div>
-    ${secHead("By sector","分野ごとの戦略と支援額",'<span class="note">行を押すと分野ページへ</span>')}
-    <div class="tablewrap"><table class="dtab stab"><thead><tr><th>分野</th><th>関連する戦略・プログラム</th><th>実施中の支援額</th><th>実施中</th><th>金額不明</th><th>主な援助機関</th>${SHOW_JP?"<th>JICA</th>":""}</tr></thead><tbody>${rows}</tbody></table></div>
-    <p class="foot">柱（ピラー）の分け方は「国家開発プログラム 2030年まで」の4つの戦略ベクトル（工業化・農業と観光・グリーンエネルギー・地域ハブ）に、人的資本と統治・地域の2つを加えて整理したものです。分野との対応づけと支援額（実施中の案件、複数分野の案件は按分）はこのページによる整理です。${gaps.length?`個別の戦略を確認できていない分野：${gaps.map(([,ja])=>ja).join("・")}。`:""}戦略名は各リンク先（法令データベース・公式発表）で確認しています。</p>`;
+    <div class="note" style="margin:8px 0 4px">分野で絞り込む：</div>${chips}
+    ${focus}
+    ${secHead("Chapters","国家開発プログラム2030の章と、そこにつながる分野別戦略",'<span class="note">章・戦略を押すと詳細（目標・サブプログラム・日本語訳の本文）</span>')}
+    <div class="pils2">${NDP_CH.map(chapter).join("")}</div>
+    <p class="foot">章の構成と目標値は「国家開発プログラム2030年まで」（大統領令 2025年 No.178）の本文から、分野別戦略は法令データベース・政府発表・SDGs国別報告書2025から確認したものです。分野（番号）の対応づけと援助機関の支援額（実施中の案件、複数分野の案件は按分）はこのページによる整理です。本文の日本語訳は機械翻訳です。</p>`;
 }
+
+/* the Japanese reading view of a strategy text (machine translation kept on the strategy-docs branch) */
+async function viewDocLoad(){
+  const box = document.getElementById("docbox"); if(!box) return;
+  try{
+    const r = await fetch(DOCS_BASE + "ja/" + encodeURIComponent(S.doc) + ".md", {cache:"no-cache"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const md = await r.text();
+    box.innerHTML = md.split(/\n{2,}/).map(b=>{
+      b = b.trim(); if(!b) return "";
+      if(b.startsWith("## ")) return `<h3>${esc(b.slice(3))}</h3>`;
+      if(b.startsWith("# ")) return `<h2>${esc(b.slice(2))}</h2>`;
+      if(b.startsWith("> ")) return `<p class="note">${esc(b.slice(2))}</p>`;
+      if(b.startsWith("原文: ")) return `<p class="note">原文: <a href="${esc(b.slice(4))}" target="_blank" rel="noopener">${esc(b.slice(4))}</a></p>`;
+      return `<p>${esc(b)}</p>`;
+    }).join("");
+  }catch(e){ box.innerHTML = `<div class="empty">日本語訳をまだ読み込めません（${esc(e.message)}）。翻訳の作成中かもしれません。</div>`; }
+}
+function viewDoc(){
+  setTitle("日本語訳");
+  setTimeout(viewDocLoad, 0);
+  return `<div class="docv"><button class="linkbtn" data-back>← 戻る</button><div id="docbox" class="docbox"><div class="empty">読み込み中…</div></div></div>`;
+}
+
 function viewSaved(){
   setTitle("保存");
   const list = Object.values(saved).map(prep).sort((a,b)=>b.ts-a.ts);
@@ -1221,7 +1474,7 @@ function footer(){
     蓄積 ${(INDEX.total||0).toLocaleString()} 件${bf?`・過去 ${bf} か月分をさかのぼって収集済み`:""}${INDEX.untranslated?`・翻訳待ち ${INDEX.untranslated} 件`:""}${EMBED?"":"・3時間ごとに自動更新"}。</p>`;
 }
 function render(){
-  document.querySelectorAll("#tabs button").forEach(b=>{ const v = b.dataset.v; b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor") || (v==="feed"&&(S.v==="gov"||S.v==="coop"))); });
+  document.querySelectorAll("#tabs button").forEach(b=>{ const v = b.dataset.v; b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor") || (v==="feed"&&(S.v==="gov"||S.v==="coop")) || (v==="strategy"&&S.v==="doc")); });
   const m = $("#main");
   if(!INDEX){
     m.innerHTML = loadErr ? `<div class="feed"><div class="empty">データをまだ読み込めません（${esc(loadErr)}）。<br>初回の収集が終わると表示されます。</div></div>` : `<div class="empty">読み込み中…</div>`;
@@ -1229,8 +1482,9 @@ function render(){
   }
   if(S.v==="gov"||S.v==="coop"){ S.t = S.v; S.v = "feed"; }
   const f = {home:viewHome, feed:viewFeed, sector:viewSector,
-             projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved, strategy:viewStrategy}[S.v] || viewHome;
-  m.innerHTML = f() + footer();
+             projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved, strategy:viewStrategy, doc:viewDoc}[S.v] || viewHome;
+  m.innerHTML = f() + (S.v==="doc" ? "" : footer());
+  renderSheet();
 }
 
 /* ---------- CSV ---------- */
@@ -1273,6 +1527,9 @@ const main = $("#main");
 main.addEventListener("click", e=>{
   const t = e.target;
   if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
+  const stb = t.closest("[data-st]"); if(stb){ e.preventDefault(); go({st:stb.dataset.st}, false); return; }
+  const sf = t.closest("[data-sfil]"); if(sf){ go({s:sf.dataset.sfil}, false); return; }
+  if(t.closest("[data-back]")){ if(EMBED) go({v:"strategy", doc:""}); else history.back(); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
   const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
@@ -1303,6 +1560,16 @@ main.addEventListener("click", e=>{
   const yb = t.closest("[data-years]");
   if(yb){ yb.disabled = true; yb.textContent = "読み込み中…"; Promise.all((INDEX.years||[]).filter(y=>!loadedYears.has(y)).map(y=>loadYear(y).catch(()=>{}))).then(render); }
 });
+// the strategy detail panel lives outside <main>
+document.addEventListener("click", e=>{
+  const sh = e.target.closest("#sheet"); if(!sh) return;
+  const t = e.target;
+  if(t.closest("[data-close]")){ go({st:""}, false); return; }
+  const st = t.closest("[data-st]"); if(st){ go({st:st.dataset.st}, false); sh.querySelector(".sh-panel").scrollTop = 0; return; }
+  const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", st:""}); return; }
+  const doc = t.closest("[data-doc]"); if(doc){ go({v:"doc", doc:doc.dataset.doc, st:""}); return; }
+});
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.st) go({st:""}, false); });
 main.addEventListener("keydown", e=>{
   const tile = e.target.closest(".tile[data-sec]");
   if(tile && e.target===tile && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go({v:"sector", s:tile.dataset.sec, sub:"pa", d:"", q:"", k:""}); }
