@@ -1255,17 +1255,35 @@ def stats(store, projects):
     return s
 
 
-BUDGET_PROBES = [  # candidate sources for government spending by sector / ministry; saved to look at their format
-    ("stat-opendata-38-en", "https://stat.gov.kg/en/opendata/category/38/"),
-    ("stat-opendata-38-ru", "https://stat.gov.kg/ru/opendata/category/38/"),
-    ("okmot-budget", "https://budget.okmot.kg/"),
-    ("okmot-budget-ru", "https://budget.okmot.kg/ru/"),
-    ("okmot-old-instructions", "https://oldbudget.okmot.kg/en/instructions/index.html"),
-    ("minfin-home", "https://www.minfin.kg/"),
-    ("wdi-education", "https://api.worldbank.org/v2/country/KGZ/indicator/SE.XPD.TOTL.GD.ZS?format=json&per_page=60"),
-    ("wdi-health", "https://api.worldbank.org/v2/country/KGZ/indicator/SH.XPD.GHED.GD.ZS?format=json&per_page=60"),
-    ("wdi-gdp-usd", "https://api.worldbank.org/v2/country/KGZ/indicator/NY.GDP.MKTP.CD?format=json&per_page=60"),
+BUDGET_PROBES = [  # candidate sources for spending by function and by ministry; saved to look at their format
+    ("okmot-old-func", "https://oldbudget.okmot.kg/ru/exp_func/index.html"),
+    ("okmot-old-vedom", "https://oldbudget.okmot.kg/ru/exp_vedom/index.html"),
+    ("okmot-new-bundle", "https://budget.okmot.kg/assets/index-ee26b5c7.js"),
+    ("stat-opendata-index", "https://stat.gov.kg/ru/opendata/"),
+    ("stat-38-json", "https://stat.gov.kg/ru/opendata/category/38/json"),
 ]
+
+# Government spending per year from World Bank indicators (% of GDP x GDP in US$)
+WDI = {"gdp": "NY.GDP.MKTP.CD", "education": "SE.XPD.TOTL.GD.ZS", "health": "SH.XPD.GHED.GD.ZS",
+       "total": "GC.XPN.TOTL.GD.ZS", "military": "MS.MIL.XPND.GD.ZS"}
+
+
+def gov_spending():
+    vals = {}
+    for key, ind in WDI.items():
+        try:
+            d = json.loads(get(f"https://api.worldbank.org/v2/country/KGZ/indicator/{ind}?format=json&per_page=80", timeout=40))
+            vals[key] = {int(r["date"]): r["value"] for r in (d[1] or []) if r.get("value") is not None}
+        except Exception as e:
+            log(f"wdi {key}: {e}")
+            vals[key] = {}
+    gdp = vals.get("gdp") or {}
+    out = {}
+    for key in ("education", "health", "total"):
+        out[key] = {str(y): round(pct / 100 * gdp[y]) for y, pct in sorted(vals.get(key, {}).items()) if y in gdp}
+    out["source"] = "World Bank WDI (" + ", ".join(f"{k} {v}" for k, v in WDI.items() if k != "military") + ")"
+    log("gov spending: " + ", ".join(f"{k} {len(v)} years" for k, v in out.items() if isinstance(v, dict)))
+    return out
 
 
 def probe_budget_sources(out_dir):
@@ -1350,7 +1368,7 @@ def main():
         "stats": stats(store, projects),
         "sectors": [{"id": sid, "ja": ja} for sid, ja, *_ in SECTORS],
         "donors": [{"id": did, "ja": ja, "g": grp} for did, ja, grp, _ in DONORS],
-        "backfill_cursor": cursor, "backfill_months": BACKFILL_MONTHS, "fx": fx_rates(),
+        "backfill_cursor": cursor, "backfill_months": BACKFILL_MONTHS, "fx": fx_rates(), "gov": gov_spending(),
         "untranslated": sum(1 for x in store.values() if "tj" not in x),
         "ai": {"model": ai_classify.MODEL, "version": ai_classify.AI_VERSION,
                "items_done": sum(1 for x in store.values() if x.get("ai") == ai_classify.AI_VERSION),
