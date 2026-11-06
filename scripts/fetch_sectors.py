@@ -23,6 +23,7 @@ import re
 import sys
 import time
 import unicodedata
+import urllib.error
 import urllib.parse
 from datetime import date, datetime, timedelta, timezone
 
@@ -567,20 +568,41 @@ def backfill_queries(cursor):
 
 # ---------------------------------------------------------------- archive
 
+def get_prev(url, tries=4):
+    """Fetch one file of the stored archive, retrying passing network trouble.
+    Returns None only when the file does not exist (HTTP 404)."""
+    for n in range(tries):
+        try:
+            return get(url)
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                return None
+            err = e
+        except Exception as e:
+            err = e
+        log(f"{url}: attempt {n + 1} failed: {err}")
+        time.sleep(5 * (n + 1))
+    # stop here: publishing without the old archive would overwrite it with only the new items
+    sys.exit(f"could not read the previous archive ({url}): {err}; not publishing")
+
+
 def load_prev():
     items, meta = {}, {}
-    try:
-        meta = json.loads(get(BASE + "index.json"))
-    except Exception as e:
-        log(f"no previous index: {e}")
+    raw = get_prev(BASE + "index.json")
+    if raw is None:
+        log("no previous index: starting a new archive")
         return items, meta
+    meta = json.loads(raw)
     for y in meta.get("years", []):
-        try:
-            for x in json.loads(get(BASE + f"items-{y}.json")).get("items", []):
-                items[x["i"]] = x
-        except Exception as e:
-            log(f"items-{y}: failed: {e}")
+        raw = get_prev(BASE + f"items-{y}.json")
+        if raw is None:
+            sys.exit(f"items-{y}.json is listed in index.json but missing; not publishing")
+        for x in json.loads(raw).get("items", []):
+            items[x["i"]] = x
     log(f"previous: {len(items)} items")
+    expected = int(meta.get("total") or 0)
+    if expected and len(items) < expected * 0.9:
+        sys.exit(f"previous archive read only {len(items)} of {expected} items; not publishing")
     return items, meta
 
 
