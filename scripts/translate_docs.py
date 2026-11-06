@@ -139,6 +139,10 @@ class Stop(Exception):
 
 
 BLOCKED = {"run": 0}  # refusals (429) in a row, across documents
+# run 11: once refused, waiting 30-90 s never helped; three refusals in a row end the run
+BLOCK_LIMIT = int(os.environ.get("TRANSLATE_BLOCK_LIMIT", 3))
+# translations made elsewhere (same layout as ja/<name>.md, from txt/<name>.txt), kept in the repository
+SEED = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "strategy-ja")
 
 
 def translate(paras, sl, stats=None):
@@ -167,7 +171,7 @@ def translate(paras, sl, stats=None):
                 print(f"  translate: HTTP {e.code} ({len(chunk)} paragraphs)", file=sys.stderr)
                 if e.code == 429:
                     BLOCKED["run"] += 1
-                    if BLOCKED["run"] >= 8:
+                    if BLOCKED["run"] >= BLOCK_LIMIT:
                         raise Stop("the service keeps refusing (429)")
                 if e.code == 429 or e.code >= 500:
                     # run 10 was refused after about 1,400 paragraphs in 5 minutes: give the service time
@@ -209,6 +213,22 @@ def translate(paras, sl, stats=None):
 
 
 HEADER_LINES = 6  # title, source and the machine-translation note, each followed by a blank line
+
+
+def md_paragraphs(md, n):
+    """The translated paragraphs of a ja/<name>.md, in order (at most n)."""
+    body = md.split("\n")[HEADER_LINES:]
+    out = [ln[3:] if ln.startswith("## ") else ln for ln in body[0::2]][:n]
+    while out and (out[-1].startswith("> ここまで") or not out[-1].strip()):
+        out.pop()
+    return out
+
+
+def read_md(path, n):
+    try:
+        return md_paragraphs(open(path, encoding="utf-8").read(), n)
+    except OSError:
+        return []
 
 
 def write_md(d, name, title, source, paras, ja):
@@ -254,12 +274,18 @@ def main():
         if old and old.get("chars") == chars:
             try:
                 md = urllib.request.urlopen(PREV + "ja/" + urllib.parse.quote(name) + ".md", timeout=60).read().decode("utf-8")
-                body = md.split("\n")[HEADER_LINES:]
-                old_ja = [ln[3:] if ln.startswith("## ") else ln for ln in body[0::2]][:len(paras)]
-                if old_ja and old_ja[-1].startswith("> ここまで"):
-                    old_ja.pop()
+                old_ja = md_paragraphs(md, len(paras))
             except Exception as e:
                 print(f"{name}: earlier translation not read ({e})", file=sys.stderr)
+        seed_ja = read_md(os.path.join(SEED, name + ".md"), len(paras))
+        if seed_ja:  # paragraph by paragraph, a translated paragraph beats a missing or Cyrillic one
+            merged = []
+            for i in range(max(len(old_ja), len(seed_ja))):
+                a = old_ja[i] if i < len(old_ja) else None
+                b = seed_ja[i] if i < len(seed_ja) else None
+                merged.append(a if a is not None and not untranslated(a) or b is None else b)
+            print(f"{name}: {sum(1 for x in seed_ja if not untranslated(x))} paragraphs from strategy-ja/", file=sys.stderr)
+            old_ja = merged
         tries = int(old.get("retries", 0)) if old and old_ja else 0
         # paragraphs still in Cyrillic after two retries (e.g. Kyrgyz text in a Russian document, which the
         # service returns unchanged) are accepted as they are, so a document can be finished
@@ -270,7 +296,7 @@ def main():
             index[name] = {**old, "complete": True}
             print(f"{name}: kept earlier translation", file=sys.stderr)
             continue
-        if time.time() - START > TIME_BUDGET or BLOCKED["run"] >= 8:
+        if time.time() - START > TIME_BUDGET or BLOCKED["run"] >= BLOCK_LIMIT:
             print(f"{name}: out of time (or refused), next run", file=sys.stderr)
             if old_ja:
                 write_md(d, name, title, src.get(name, ""), paras, old_ja)
@@ -300,7 +326,7 @@ def main():
                        # incomplete so the next run translates that paragraph again
                        "complete": len(ja) >= len(paras) and (not left or give_up)}
         print(f"{name}: {len(need)} of {len(paras)} paragraphs sent in {int(time.time() - t0)}s, "
-              f"{len(got)} translated, {left} still untranslated"
+              f"{len(got)} translated, {len(need) - len(got)} not reached, {left} still untranslated"
               f"{', stopped: ' + st['stopped'] if st.get('stopped') else ''} {dict(STATS)}", file=sys.stderr)
         STATS.clear()
     json.dump(index, open(os.path.join(d, "ja", "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)

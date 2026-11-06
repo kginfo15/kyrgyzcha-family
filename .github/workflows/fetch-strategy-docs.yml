@@ -6,10 +6,14 @@ name: Fetch strategy documents
 # so the strategy map can be built from the documents themselves.
 on:
   workflow_dispatch:
+  # once a day, to finish the documents a run had no time for (runs only from the default branch)
+  schedule:
+    - cron: "23 3 * * *"
   push:
     paths:
       - scripts/strategy_docs.txt
       - scripts/translate_docs.py
+      - strategy-ja/**
       - .github/workflows/fetch-strategy-docs.yml
 
 permissions:
