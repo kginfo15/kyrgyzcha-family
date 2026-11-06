@@ -36,3 +36,14 @@ ndc-3-2035	https://daryo.uz/en/2025/10/13/kyrgyzstan-targets-up-to-39-emission-c
 poverty-employment-2030	https://inbusiness.kz/ru/last/kyrgyzstan-nameren-sushestvenno-sokratit-bednost
 vnr-2025	https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf
 cbd-bundle	https://cbd.minjust.gov.kg/static/js/main.68daf282.js
+nds-2040-en-unesco	https://planipolis.iiep.unesco.org/sites/default/files/ressources/Kyrgyz%20Republic%20national%20development%20strategy%202018-2040%20%28EN%29.pdf
+nds-2040-en-adam	https://adam.edu.kg/media/uploads/2022/04/15/national-strategy-of-kyrgyz-republic-2018-2040.pdf
+cbd-education-2040	https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1070465
+cbd-digital-2028	https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=6414
+cbd-gender-doc	https://cbd.minjust.gov.kg/api/v1/GetDocument?DocumentCode=159450
+cbd-tourism-2030	https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=23883
+cbd-pasture-2029	https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=14287
+cbd-sports-2030	https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=52205
+cbd-religion-2026	https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=594259
+cbd-energy-efficiency-2027	https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1264523
+cbd-education-doc	https://cbd.minjust.gov.kg/api/v1/GetDocument?DocumentCode=158227
