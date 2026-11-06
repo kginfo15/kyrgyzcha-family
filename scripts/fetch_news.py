@@ -314,6 +314,7 @@ WATCH_STREETS = [
 ]
 STREET_RES = [(sid, re.compile(r"(?<![а-яё])" + rx)) for sid, rx in WATCH_STREETS]
 VILLAGE_RE = re.compile(r"(?<![а-яё])(сел[оа]|с\.|поселк|пос\.|айыл|ала-арч|арча-бешик|кок-жар|ак-жол|чуй\w* област)")
+POSTCODE_RE = re.compile(r"(?<!\d)72\d{4}(?!\d)")
 TIME_RE = re.compile(r"(с\s*)?\d{1,2}[:.]\d{2}\s*(до|-|–|—)\s*\d{1,2}[:.]\d{2}")
 RU_MONTHS = ["январ", "феврал", "март", "апрел", "ма", "июн", "июл", "август", "сентябр", "октябр", "ноябр", "декабр"]
 DATE_RE = re.compile(r"(\d{1,2})\s+(январ|феврал|март|апрел|ма[яй]|июн|июл|август|сентябр|октябр|ноябр|декабр)")
@@ -365,8 +366,11 @@ def collect_mystreet(infra, prev_tr):
             if len(ln) > 1200:  # skip page-wide junk
                 continue
             # outage notices list many streets; headlines of other articles on the page don't
-            if low.count(",") < 2 and not tm:
+            if low.count(",") < 2 and not tm and not re.search(r"\d+\s*[-–]\s*\d+", low):
                 continue
+            if "адрес" in low or "address" in low or POSTCODE_RE.search(low):
+                continue  # the site's own contact address
+
             streets = []
             first = None
             for ja, rx in STREET_RES:
@@ -375,6 +379,11 @@ def collect_mystreet(infra, prev_tr):
                     before = re.split(r"[;\n]", before)[-1]
                     if VILLAGE_RE.search(before):
                         continue  # same street name in a village outside the city
+                    # "Шарта (Ленина, Шопокова, ...)": streets listed in brackets after a village name
+                    head = low[:m.start()]
+                    opened = head.rfind("(")
+                    if opened > head.rfind(")") and not re.search(r"(ул|улиц|пр|просп|мкр|ж/м)[^,;]{0,12}$", head[max(0, opened - 25):opened]):
+                        continue
                     streets.append(ja)
                     first = m.start() if first is None else min(first, m.start())
                     break
