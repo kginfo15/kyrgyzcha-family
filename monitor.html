@@ -303,6 +303,9 @@ details.ov[open] .ovs{display:inline}
 .jbadge{margin-left:auto;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--sub);font-family:var(--mono)}
 .jbadge b{color:var(--d7)}
 .kpi .v small{font-size:13px;color:var(--sub);margin-left:3px}
+.cover{margin-top:10px}
+.cband{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--sub)}
+.cband b{display:block;font-family:var(--mono);font-size:16px;color:var(--ink)}
 .ydet{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
 .ydh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--sub)}
 .ydh b{color:var(--ink)}
@@ -839,7 +842,7 @@ function yearHTML(sid){
   const title = {new:"その年に決まった新規の支援", ongoing:"その年に実施中だった支援の総額", cum:"これまでの支援の累計（重複なし）"}[CH.ym];
   const expl = {new:"各案件を開始・承認した年に全額で1回だけ数えます。年ごとの合計を足すと全期間の総額になります。",
     ongoing:"その年に動いていた案件の総額（ストック）です。複数年の案件は各年に全額で入るため、年どうしを足し合わせることはできません。",
-    cum:"その年までに始まった案件の総額です。各案件は1回だけ数えるので重複はありません（3年で3億の案件は3億として1回）。"}[CH.ym];
+    cum:"その年までに始まった案件の総額です。各案件は1回だけ数えるので重複はありません（3年で3億の案件は3億として1回）。多くの機関は2010年ごろ以降のデータしか公開していないため、それ以前は実際より少なく出ます。"}[CH.ym];
   return `<div class="panel chart ych"><div class="phk">Cooperation over time</div><h3 class="ph">${title}</h3>
     <div class="ctrls">${segCH("ym",[["new","新規（その年）"],["ongoing","実施中（その年）"],["cum","累計"]])} ${segCH("ymet",[["amt","金額"],["n","件数"]])}</div>
     <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}">${g}</svg>
@@ -857,6 +860,19 @@ function yearDetail(sid, y){
     <ol class="ylist">${known.slice(0,25).map(row).join("")}</ol>${known.length>25?`<p class="note">ほか ${known.length-25}件（金額判明）</p>`:""}
     ${unknown.length?`<div class="ydh" style="margin-top:8px"><b>金額不明の案件</b><span>${unknown.length}件 — 公開情報に金額の記載がないもの</span></div><ol class="ylist">${unknown.slice(0,40).map(row).join("")}</ol>${unknown.length>40?`<p class="note">ほか ${unknown.length-40}件</p>`:""}`:""}</div>`;
 }
+// how far back each donor's public data goes: older cooperation is mostly missing from it
+function coverageHTML(){
+  const first = {}, cnt = {}, amt = {};
+  for(const p of projects()){ const y = startYear(p); if(!y) continue; first[p.donor] = Math.min(first[p.donor]||9999, y); cnt[p.donor]=(cnt[p.donor]||0)+1; amt[p.donor]=(amt[p.donor]||0)+(p.amt||0); }
+  const band = {}; for(const p of projects()){ const y = startYear(p); if(!y) continue; const b = y<2000?"〜1999":y<2010?"2000–09":y<2020?"2010–19":"2020–"; band[b]=(band[b]||0)+(p.amt||0); }
+  const rows = Object.entries(first).filter(([d])=>DONORS[d]).sort((a,b)=>a[1]-b[1]);
+  return `<div class="panel chart cover"><div class="phk">Data coverage</div><h3 class="ph">公開データでさかのぼれる範囲</h3>
+    <p class="note">援助データの国際的な公開（IATI）が始まったのは2011年ごろで、多くの機関はそれ以降の案件しか公開していません。そのため「これまでの総額」は実際の協力の歴史より小さく、最近の案件に偏ります（世界銀行は1992年から全件あり）。</p>
+    <div class="cband">${Object.entries(band).sort().map(([b,v])=>`<span><b>${money(v)}</b>${b}開始</span>`).join("")}</div>
+    <ul class="lg" style="margin-top:8px">${rows.map(([d,y])=>`<li data-donor="${d}"><i style="background:var(--dother)"></i><span class="nm">${esc(donorName(d))}</span><span class="pc">${y}年〜</span><span class="vv">${cnt[d]}件</span></li>`).join("")}</ul>
+    <button class="linkbtn" data-cover style="margin-top:6px">閉じる ×</button></div>`;
+}
+let SHOW_COVER = false;
 // headline figures: running now, everything so far (each project once), this year's new, unknown amounts
 function overviewKPIs(sid){
   const pj = sectorProjects(sid), act = pj.filter(p=>p.st==="active"), yr = pj.filter(p=>startYear(p)===YNOW);
@@ -864,7 +880,7 @@ function overviewKPIs(sid){
   const k = (l, v, n, list, extra="") => `<div class="kpi"><div class="l">${l}</div><div class="v">${money(v)||"—"}</div><div class="s">${n}件${unk(list)?`・<span class="unk">金額不明 ${unk(list)}件</span>`:""}${extra}</div></div>`;
   return `<div class="kpis">
     ${k('<span class="en">Running now · </span>実施中の総額', sum(act), act.length, act)}
-    ${k('<span class="en">All so far · </span>これまでの総額', sum(pj), pj.length, pj, "（重複なし）")}
+    ${k('<span class="en">All so far · </span>これまでの総額', sum(pj), pj.length, pj, '（重複なし・<button class="linkbtn" data-cover>公開データの範囲</button>）')}
     ${k(`<span class="en">New in ${YNOW} · </span>今年の新規`, sum(yr), yr.length, yr)}
     <div class="kpi" data-unknown="${sid||""}" style="cursor:pointer" title="金額不明の案件を一覧"><div class="l"><span class="en">Amount unknown · </span>金額不明</div><div class="v">${unk(pj)}<small>件</small></div><div class="s">うち実施中 ${unk(act)}件・一覧を見る →</div></div>
   </div>`;
@@ -909,6 +925,7 @@ function viewHome(){
   const jump = `<nav class="jump" aria-label="分野へ移動">${SECTORS.map(([id,ja])=>`<button class="jchip ${FAV.has(id)?"on":""}" data-sec="${id}">${FAV.has(id)?"★ ":""}${esc(ja)}</button>`).join("")}</nav>`;
   return `<div class="layout"><div class="mainc">
     ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
+    ${ready&&SHOW_COVER?coverageHTML():""}
     ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>`
       :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと「マイ分野」としてこの上に並びます。</p>`}
     ${secHead("Jump","分野へ移動")}${jump}
@@ -1101,6 +1118,7 @@ main.addEventListener("click", e=>{
     lsSet("km-charts", CH); render(); return; }
   const ybar = t.closest("[data-year]"); if(ybar){ const y = +ybar.dataset.year; CH.ysel = CH.ysel===y ? 0 : y; if(CH.ysel){ CH.range = ML()+y; CH.scope = "donor"; } lsSet("km-charts", CH); render(); return; }
   const ys = t.closest("[data-ysel]"); if(ys){ CH.ysel = 0; lsSet("km-charts", CH); render(); return; }
+  if(t.closest("[data-cover]")){ e.stopPropagation(); SHOW_COVER = !SHOW_COVER; if(S.v!=="home") go({v:"home"}); else render(); return; }
   const uk = t.closest("[data-unknown]"); if(uk){ go({v:"projects", s:uk.dataset.unknown, ua:"1", ps:"all", d:"", k:""}); return; }
   const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:"", q:"", ps:"all", k:""}); return; }
   const st = t.closest("[data-star]");

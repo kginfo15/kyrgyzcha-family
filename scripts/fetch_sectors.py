@@ -1255,6 +1255,32 @@ def stats(store, projects):
     return s
 
 
+BUDGET_PROBES = [  # candidate sources for government spending by sector / ministry; saved to look at their format
+    ("stat-opendata-38-en", "https://stat.gov.kg/en/opendata/category/38/"),
+    ("stat-opendata-38-ru", "https://stat.gov.kg/ru/opendata/category/38/"),
+    ("okmot-budget", "https://budget.okmot.kg/"),
+    ("okmot-budget-ru", "https://budget.okmot.kg/ru/"),
+    ("okmot-old-instructions", "https://oldbudget.okmot.kg/en/instructions/index.html"),
+    ("minfin-home", "https://www.minfin.kg/"),
+    ("wdi-education", "https://api.worldbank.org/v2/country/KGZ/indicator/SE.XPD.TOTL.GD.ZS?format=json&per_page=60"),
+    ("wdi-health", "https://api.worldbank.org/v2/country/KGZ/indicator/SH.XPD.GHED.GD.ZS?format=json&per_page=60"),
+    ("wdi-gdp-usd", "https://api.worldbank.org/v2/country/KGZ/indicator/NY.GDP.MKTP.CD?format=json&per_page=60"),
+]
+
+
+def probe_budget_sources(out_dir):
+    dbg = os.path.join(out_dir, "debug")
+    os.makedirs(dbg, exist_ok=True)
+    for name, url in BUDGET_PROBES:
+        try:
+            raw = get(url, timeout=40)
+            open(os.path.join(dbg, f"budget-{name}.txt"), "wb").write(raw[:400000])
+            log(f"budget probe {name}: {len(raw)} bytes")
+        except Exception as e:
+            open(os.path.join(dbg, f"budget-{name}.txt"), "w").write(f"ERROR {e}")
+            log(f"budget probe {name}: {e}")
+
+
 def main():
     out_dir = sys.argv[1] if len(sys.argv) > 1 else "."
     os.makedirs(out_dir, exist_ok=True)
@@ -1295,6 +1321,8 @@ def main():
     except Exception as e:
         log(f"projects failed: {e}")
         projects = []
+
+    probe_budget_sources(out_dir)
 
     years = {}
     for x in store.values():
