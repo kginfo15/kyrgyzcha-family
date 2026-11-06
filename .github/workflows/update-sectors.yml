@@ -3,11 +3,17 @@ name: Update sector monitor
 # Collects Kyrgyz government moves, press coverage, donor / NGO news and donor
 # projects for sectors.html (scripts/fetch_sectors.py) and publishes them on
 # the `sector-data` branch as a single force-pushed commit.
-# Every run adds to the stored archive and fills in one more past month.
+# Runs every 3 hours; every run adds to the stored archive and fills in one
+# more past month.
 on:
   schedule:
-    - cron: "41 */6 * * *"
+    - cron: "41 */3 * * *"
   workflow_dispatch:
+  # also run when the collector changes, so a change can be tried before it reaches main
+  push:
+    paths:
+      - scripts/fetch_sectors.py
+      - .github/workflows/update-sectors.yml
 
 permissions:
   contents: write

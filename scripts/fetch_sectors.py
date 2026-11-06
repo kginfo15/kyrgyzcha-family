@@ -11,7 +11,8 @@ to the `sector-data` branch.
   projects.json     - donor projects (current and past) from the World Bank
                       projects API and IATI (via d-portal), refreshed daily.
 
-Anything about JICA is left out on purpose.
+JICA and other Japanese cooperation is included (donor ids "jica" / "jp"),
+with Japanese-language sources as well; the page can hide it.
 
 usage: fetch_sectors.py OUT_DIR
 """
@@ -201,7 +202,21 @@ SECTORS = [
      ["МЧС", "землетрясение", "сель", "оползень", "лавина", "паводок"],
      ["disaster", "earthquake", "mudflow", "landslide", "flood", "avalanche"]),
 ]
-SECTOR_RES = [(sid, stem_re(words)) for sid, _, words, _, _ in SECTORS]
+# Japanese words for Japanese-language articles (matched as plain substrings)
+JA_SECTOR = {
+    "urban": ["都市", "住宅", "地域開発"], "transport": ["道路", "鉄道", "空港", "交通", "橋梁", "物流"],
+    "energy": ["エネルギー", "電力", "発電", "水力", "鉱業", "鉱山"], "private": ["中小企業", "投資", "輸出", "観光", "産業", "ビジネス"],
+    "agri": ["農業", "農村", "畜産", "灌漑", "農家"], "health": ["保健", "医療", "病院", "ワクチン", "感染症"],
+    "nutrition": ["栄養", "給食", "食料安全"], "education": ["教育", "学校", "大学", "教員", "留学"],
+    "social": ["社会保障", "障害", "移民", "貧困", "雇用"], "sports": ["スポーツ", "柔道", "五輪", "オリンピック"],
+    "peace": ["国境", "平和", "紛争"], "governance": ["行政", "ガバナンス", "汚職", "議会", "選挙", "法整備"],
+    "finance": ["財政", "予算", "税", "金融", "中央銀行"], "gender": ["ジェンダー", "女性"],
+    "digital": ["デジタル", "ICT", "IT人材", "電子政府"], "climate": ["気候変動", "氷河", "脱炭素"],
+    "nature": ["生物多様性", "森林", "自然保護", "ユキヒョウ"], "envmgmt": ["廃棄物", "ごみ", "大気汚染", "環境管理"],
+    "water": ["上水道", "水供給", "給水", "下水", "水資源"], "drr": ["防災", "地震", "災害", "土石流", "洪水"],
+}
+SECTOR_RES = [(sid, re.compile(stem_re(words).pattern + "|" + "|".join(re.escape(w.lower()) for w in JA_SECTOR.get(sid, []))))
+              for sid, _, words, _, _ in SECTORS]
 SECTOR_IDS = [s[0] for s in SECTORS]
 
 # ---------------------------------------------------------------- actors
@@ -250,6 +265,11 @@ DONORS = [
     ("gf", "保健基金（GF/Gavi）", "fund", ["глобальн фонд", "глобального фонда", "gavi", "гави", "global fund"]),
     ("akdn", "アガ・ハーン財団", "ngo", ["ага хан", "ага-хан", "aga khan", "akdn", "уца", "университет центральной азии"]),
     ("osce", "OSCE", "un", ["обсе", "osce"]),
+    ("jica", "JICA", "japan", ["jica", "джайка", "жайка", "джика", "японск агентств международн сотрудничеств",
+                               "japan international cooperation agency", "国際協力機構", "ジャイカ", "協力隊"]),
+    ("jp", "日本（大使館・その他）", "japan", ["посольство японии", "правительство японии", "япония", "японии",
+                                         "японск", "japan", "japanese", "日本政府", "日本大使館", "草の根",
+                                         "無償資金協力", "円借款", "日本センター", "日本人材開発センター"]),
     ("ngo", "NGO・市民団体", "ngo", ["нко", "нпо", "общественн фонд", "общественного фонда", "общественн объединен",
                                   "неправительствен", "гражданск обществ", "mercy corps", "мерси корпс",
                                   "save the children", "world vision", "ворлд вижн", "care international",
@@ -259,15 +279,13 @@ DONORS = [
 ]
 DONOR_RES = [(did, stem_re(words)) for did, _, _, words in DONORS]
 # loans or grants and the like: words that make a donor mention "cooperation" news
-COOP_RE = stem_re(["грант", "кредит", "заём", "заем", "займ", "проект", "программ", "финансир", "соглашен",
+COOP_RE = re.compile(stem_re(["грант", "кредит", "заём", "заем", "займ", "проект", "программ", "финансир", "соглашен",
                       "меморандум", "техническ помощ", "содейств", "поддержк", "выдел", "партнер", "сотруднич",
                       "grant", "loan", "project", "programme", "program", "financ", "agreement", "memorandum",
-                      "support", "partnership", "assistance", "cooperation", "fund"])
+                      "support", "partnership", "assistance", "cooperation", "fund"]
+                     ).pattern + "|協力|支援|無償|借款|事業|プロジェクト|研修|寄贈|署名|贈与|調査")
 NOT_DEV_RE = stem_re(["матч", "футболист", "чемпионат мира по футболу"])
 
-# JICA - excluded from everything on purpose
-JICA_RE = re.compile(r"jica|джайка|жайка|джика|японск\w* агентств\w* международн\w* сотруднич|国際協力機構|"
-                     r"japan international cooperation agency|xm-dac-701-8", re.I)
 
 # government actors / documents
 GOV_DOMAINS = ("gov.kg", "president.kg", "kenesh.kg", "nbkr.kg", "stat.kg", "med.kg", "minfin.kg", "mfa.kg",
@@ -300,6 +318,9 @@ GOV_FEEDS = [
 ]
 GN_RU = dict(hl="ru", gl="KG", ceid="KG:ru")
 GN_EN = dict(hl="en-US", gl="US", ceid="US:en")
+GN_JA = dict(hl="ja", gl="JP", ceid="JP:ja")
+JA_QUERIES = ["キルギス JICA", "キルギス (無償資金協力 OR 円借款 OR 技術協力)", "キルギス 協力隊",
+              "キルギス (草の根 OR 日本大使館)", "キルギス site:jica.go.jp", "キルギス (政府 OR 大統領 OR 開発)"]
 GOV_QUERIES = [
     ("site:gov.kg", 7), ("site:president.kg", 7), ("site:kenesh.kg", 14), ("site:kabar.kg Кабмин OR министерство", 3),
     ("Кабинет Министров Кыргызстан постановление", 7), ("Кыргызстан министерство утвердил", 7),
@@ -362,13 +383,13 @@ def sector_ids(text):
 def classify(title, lead, link, source, query_gov=False):
     """Return (sectors, donors, gov) or None when the item is out of scope."""
     text = (title + " " + lead).lower()
-    if JICA_RE.search(text) or JICA_RE.search(link or ""):
-        return None
     sectors = sector_ids(text)
     donors = [did for did, rx in DONOR_RES if rx.search(text)]
     # a donor named in passing (e.g. "China" in a trade story) counts only with a cooperation word
     if donors and not COOP_RE.search(text):
-        donors = [d for d in donors if d not in ("cn", "tr", "kr", "de", "uk", "ru", "eu", "us", "ch")]
+        donors = [d for d in donors if d not in ("cn", "tr", "kr", "de", "uk", "ru", "eu", "us", "ch", "jp")]
+    if "jica" in donors and "jp" in donors:
+        donors.remove("jp")
     if NOT_DEV_RE.search(text):
         donors = []
     h = host_of(link)
@@ -395,7 +416,7 @@ def kg_host(h):
 
 
 def kg_related(text):
-    return bool(fn.KG_RE.search(text.lower())) or bool(re.search(r"kyrgyz|bishkek|кыргыз|киргиз", text, re.I))
+    return bool(fn.KG_RE.search(text.lower())) or bool(re.search(r"kyrgyz|bishkek|кыргыз|киргиз|キルギス|ビシュケク", text, re.I))
 
 
 def collect(archive_empty):
@@ -446,6 +467,11 @@ def collect(archive_empty):
         queries.append((f"{q} when:{ru_days}d", GN_RU, "ru", False))
     for q in DONOR_QUERIES_EN:
         queries.append((f"{q} when:{en_days}d", GN_EN, "en", False))
+    for q in ["Кыргызстан (JICA OR Япония OR японский) (грант OR проект OR помощь)",
+              "Kyrgyzstan (JICA OR Japan) (grant OR project OR assistance)"]:
+        queries.append((f"{q} when:{ru_days}d", GN_RU if "Кыр" in q else GN_EN, "ru" if "Кыр" in q else "en", False))
+    for q in JA_QUERIES:
+        queries.append((f"{q} when:{max(ru_days, 30)}d", GN_JA, "ja", False))
     out.extend(run_gnews(queries))
     return out
 
@@ -469,8 +495,6 @@ def run_gnews(queries):
                 continue
             title = strip_source(it["title"], source)
             text = title.lower()
-            if JICA_RE.search(text):
-                continue
             if not kg_related(title) and "site:" not in q and not kg_host(host_of(it["source_url"])):
                 continue
             c = classify(title, "", it["link"], source, qgov or is_gov_host(host_of(it["source_url"])))
@@ -509,6 +533,8 @@ def backfill_queries(cursor):
         qs.append((f"{q} {rng}", GN_EN, "en", False))
     for q, _ in GOV_QUERIES[:5]:
         qs.append((f"{q} {rng}", GN_RU, "ru", True))
+    for q in JA_QUERIES[:4]:
+        qs.append((f"{q} {rng}", GN_JA, "ja", False))
     return start, qs
 
 
@@ -564,9 +590,6 @@ def reclassify(store):
     """Apply the current keyword lists to stored items (lists improve over time)."""
     for k in list(store):
         x = store[k]
-        if JICA_RE.search(x["t"] + " " + x.get("l", "") + " " + x.get("u", "")):
-            del store[k]
-            continue
         c = classify(x["t"], x.get("l", ""), x.get("u", ""), x.get("s", ""))
         if c:
             x["c"] = sorted(set(c[0]) | set(x.get("c", [])), key=SECTOR_IDS.index)
@@ -575,6 +598,11 @@ def reclassify(store):
 
 
 def translate_store(store, budget):
+    for x in store.values():
+        if x.get("lang") == "ja" and "tj" not in x:
+            x["tj"] = x["t"]
+            if x.get("l"):
+                x["lj"] = x["l"]
     todo = [x for x in store.values() if "tj" not in x]
     todo.sort(key=lambda x: x["p"], reverse=True)
     done = 0
@@ -605,8 +633,6 @@ def resolve_links(store, budget):
         real = fn.resolve_gnews(x["u"])
         if real != x["u"]:
             x["u"] = real
-            if JICA_RE.search(real):
-                x["_drop"] = 1
             done += 1
     for k in [k for k, x in store.items() if x.get("_drop")]:
         del store[k]
@@ -754,8 +780,6 @@ def iati_projects():
         ref = (r.get("reporting_ref") or "").strip()
         title = clean(r.get("title") or "")
         desc = clean(r.get("description") or "")
-        if JICA_RE.search(" ".join([org, ref, aid, title, desc])):
-            continue
         if ref in ("44000", "XM-DAC-44000") or aid.startswith("44000-"):
             continue  # covered by the World Bank API
         start, end = day_to_date(r.get("day_start")), day_to_date(r.get("day_end"))
@@ -776,6 +800,7 @@ def iati_projects():
 
 
 ORG_DONOR = [
+    ("jica", r"japan international cooperation|xm-dac-701-8|\bjica\b"), ("jp", r"\bjapan|xm-dac-701-"),
     ("adb", r"asian development bank|xm-dac-46004"), ("ebrd", r"european bank for reconstruction|xm-dac-46015|ebrd"),
     ("imf", r"international monetary fund"), ("aiib", r"asian infrastructure"), ("isdb", r"islamic development"),
     ("edb", r"eurasian development"), ("eu", r"european (commission|union)|xi-iati-ec|dg near|dg intpa|xm-dac-918"),
