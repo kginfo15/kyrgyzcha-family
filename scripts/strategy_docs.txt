@@ -1,0 +1,25 @@
+# Full texts of Kyrgyz national and sector strategies, fetched by
+# .github/workflows/fetch-strategy-docs.yml into the `strategy-docs` branch
+# so their structure (chapters, sub-programmes) can be read for the strategy map.
+# name<TAB>url
+nds-2040-ru	https://faolex.fao.org/docs/pdf/kyr208595.pdf
+nds-2040-ru-invest	https://invest.gov.kg/wp-content/uploads/2019/07/12-National-Development-Program-of-KR-2018-2040.pdf
+nds-2040-en	https://sdgs.un.org/system/files/webform/sdg_national_commitments_form/21799/national_development_strategy_of_kr_2018-2040_final_eng.pdf
+ndp-2030-doc	https://mkk.gov.kg/ru/wp-content/uploads/2026/03/Национальная-программа-развития-Кыргызской-Республики-до-2030-года.doc
+ndp-2030-stat	https://stat.gov.kg/media/files/be95e086-a299-4be2-8e38-8cc8b90c15d0.pdf
+ndp-2030-gov	https://www.gov.kg/files/news/froala/dd08061311362a4faa610d681b49a92ae4f73a55.pdf
+ndp-2030-faolex	https://faolex.fao.org/docs/pdf/kyr241859.pdf
+education-2040	https://cbd.minjust.gov.kg/158227/edition/1070465/ru
+health-2030	https://base.spinform.ru/show_doc.fwx?rgn=114530
+digital-2028	https://cbd.minjust.gov.kg/30-164/edition/6414/ru
+gender-2030	http://cbd.minjust.gov.kg/act/view/ru-ru/159450?cl=ru-ru
+energy-2035	https://www.gov.kg/ru/npa/s/4468
+energy-efficiency-2027	https://cbd.minjust.gov.kg/160277/edition/1264523/ru
+renewables-2030	https://24.kg/ekonomika/374354_kabmin_utverdil_pyatiletnyuyu_programmu_zelenoy_energetiki_inbspmikrogeneratsii/
+green-economy-draft	https://mineconom.gov.kg/froala/uploads/file/3bd5db922cf87fc28a0f3cbeced8e2bbe286956c.pdf
+tourism-2030	https://cbd.minjust.gov.kg/44-149/edition/23883/ru
+pasture-2029	https://cbd.minjust.gov.kg/53-357/edition/14287/ru
+local-self-gov-2028	https://base.spinform.ru/show_doc.fwx?rgn=158417
+regions-2030	https://economist.kg/novosti/2025/03/25/kabmin-utvierdil-proghrammu-razvitiia-rieghionov-kyrghyzstana-do-2030-ghoda/
+drinking-water-2026	http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf
+water-code-2025	https://faolex.fao.org/docs/pdf/kyr237135.pdf
