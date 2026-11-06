@@ -571,9 +571,12 @@ function viewHome(){
   for(const x of its) for(const c of x.c) if(by[c]) by[c].push(x);
   const pa = {}; for(const p of act) for(const c of p.c) pa[c]=(pa[c]||0)+1;
   // this week vs the average of the previous 4 weeks
+  // trends need 5 weeks of history; the archive starts empty
+  const oldest = its.length ? its[its.length-1].ts : now;
+  const enough = now - oldest > 35*DAY && (INDEX.backfill_cursor||0) >= 2;
   const hot = SECTORS.map(([id,ja])=>{
     const w = weekly(by[id], 5), prev = (w[0]+w[1]+w[2]+w[3])/4, cur = w[4];
-    return {id, ja, cur, prev, d: prev ? (cur-prev)/prev : (cur?1:0)};
+    return {id, ja, cur, prev, d: enough && prev>=2 ? (cur-prev)/prev : 0};
   });
   const tiles = SECTORS.map(([id,ja])=>{
     const xs = by[id], m = xs.filter(x=>x.ts>=d30);
@@ -586,7 +589,7 @@ function viewHome(){
       <span class="tf"><span>政 <b>${g}</b></span><span>協 <b>${c+jp}</b></span><span>案 <b>${projReady()?(pa[id]||0):"…"}</b></span></span>
     </button>`;
   }).join("");
-  const ranked = hot.filter(h=>h.cur>0).sort((a,b)=>b.d-a.d || b.cur-a.cur).slice(0,6);
+  const ranked = hot.filter(h=>h.cur>0).sort((a,b)=>enough ? (b.d-a.d || b.cur-a.cur) : b.cur-a.cur).slice(0,6);
   const gov = its.filter(x=>x.g).slice(0,8), coop = its.filter(x=>x.d.length).slice(0,8);
   return `
     <div class="kpis">
@@ -600,8 +603,8 @@ function viewHome(){
     <div class="legend"><span><i style="background:var(--gov)"></i>政府</span><span><i style="background:var(--coop)"></i>援助機関・NGO</span>${SHOW_JP?'<span><i style="background:var(--jp)"></i>日本</span>':""}<span><i style="background:var(--press-soft)"></i>報道</span><span class="note">政＝政府 協＝協力 案＝実施中案件 ▲＝前4週平均より増加</span></div>
     <div class="cols c3">
       <section>${secHead("Government","最新の政府の動き",'<button class="linkbtn" data-go="gov">すべて見る →</button>')}${listHTML(gov,false)}</section>
-      <section>${secHead("Trending","今週動きが多い分野")}
-        <div class="panel"><ol class="rank">${ranked.length?ranked.map((h,i)=>`<li data-sec="${h.id}"><span class="i">${i+1}</span><span class="n">${esc(h.ja)}</span><span class="c">${h.cur}件</span><span class="d ${h.d<=0?"down":""}">${h.d>0?"▲"+Math.round(h.d*100)+"%":h.d<0?"▼"+Math.round(-h.d*100)+"%":"±0"}</span></li>`).join(""):'<li><span></span><span class="note">まだデータがありません</span></li>'}</ol></div>
+      <section>${secHead("Trending","今週動きが多い分野", enough?"":'<span class="note">今週の件数順（増減は過去データが5週分たまると表示）</span>')}
+        <div class="panel"><ol class="rank">${ranked.length?ranked.map((h,i)=>`<li data-sec="${h.id}"><span class="i">${i+1}</span><span class="n">${esc(h.ja)}</span><span class="c">${h.cur}件</span><span class="d ${h.d<=0?"down":""}">${!enough?"":h.d>0?"▲"+Math.round(h.d*100)+"%":h.d<0?"▼"+Math.round(-h.d*100)+"%":"±0"}</span></li>`).join(""):'<li><span></span><span class="note">まだデータがありません</span></li>'}</ol></div>
         ${secHead("Cooperation","最新の協力・NGO情報",'<button class="linkbtn" data-go="coop">すべて見る →</button>')}${listHTML(coop,false)}
       </section>
     </div>`;
