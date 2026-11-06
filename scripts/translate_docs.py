@@ -8,6 +8,7 @@ paragraphs into Japanese and writes ja/<name>.md, plus ja/index.json.
 usage: translate_docs.py DOCS_DIR
 """
 import html
+import collections
 import json
 import os
 import re
@@ -23,10 +24,6 @@ import fetch_news as fn  # noqa: E402  (translate_batch)
 
 # document file name -> (Japanese title, source language)
 TRANSLATE = {
-    "ndp-2030-stat": ("国家開発プログラム 2030年まで（大統領令 2025年 No.178）", "ru"),
-    "nds-2040-ru": ("国家開発プログラム 2026年まで（前身のプログラム）", "ru"),
-    "nds-2040-en-unesco": ("国家開発戦略 2018–2040", "en"),
-    "nds-2040-en-adam": ("国家開発戦略 2018–2040", "en"),
     "cbd-education-2040": ("教育発展プログラム 2021–2040", "ru"),
     "cbd-digital-2028": ("デジタル・トランスフォーメーション構想 2024–2028", "ru"),
     "cbd-tourism-2030": ("持続可能な観光発展プログラム 2030年まで", "ru"),
@@ -43,12 +40,17 @@ TRANSLATE = {
     "food-security-2023": ("食料安全保障・栄養プログラム 2019–2023", "ru"),
     "water-code-2025": ("水法典 2025", "ru"),
     "ndc-2021-en": ("国が決定する貢献（NDC）2021年更新版", "en"),
+    "ndp-2030-stat": ("国家開発プログラム 2030年まで（大統領令 2025年 No.178）", "ru"),
+    "nds-2040-en-unesco": ("国家開発戦略 2018–2040", "en"),
+    "nds-2040-en-adam": ("国家開発戦略 2018–2040", "en"),
+    "nds-2040-ru": ("国家開発プログラム 2026年まで（前身のプログラム）", "ru"),
 }
 HEADING = re.compile(r"^(?:[IVX]+\.\s+\S|\d{1,2}(?:\.\d{1,2}){0,2}\.?\s+[А-ЯЁA-Z]|Глава\s+\d|Раздел\s+\d|Задача\s+\d|"
                      r"Компонент\s+\d|Подпрограмма|Приложение|Chapter\s+\d|CHAPTER|[А-ЯЁ\s,\-–]{8,}$)")
 MAX_CHARS = 260000
 TIME_BUDGET = int(os.environ.get("TRANSLATE_BUDGET", 50 * 60))
 START = time.time()
+STATS = collections.Counter()
 PREV = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/strategy-docs/"
 
 
@@ -61,6 +63,8 @@ def gtx(texts, sl):
     with urllib.request.urlopen(req, timeout=40) as res:
         data = json.loads(res.read())
     parts = [p.strip() for p in "".join(seg[0] for seg in data[0] if seg and seg[0]).split("\n")]
+    if len(texts) == 1:
+        return [" ".join(x for x in parts if x)]
     if len(parts) != len(texts):
         raise ValueError("paragraph count changed")
     return parts
@@ -117,27 +121,35 @@ def translate(paras, sl):
     res, batch, size = [], [], 0
 
     def one(chunk):
-        """Translate a chunk; on refusal split it, and keep the original text when nothing works."""
-        for attempt in range(2):
+        """Translate a chunk; on refusal or a changed paragraph count split it at once,
+        wait only when the service asks us to slow down, and keep the original when nothing works."""
+        for attempt in range(3):
             try:
                 return gtx(chunk, sl)
+            except ValueError:
+                STATS["split"] += 1
+                break
             except urllib.error.HTTPError as e:
-                if e.code == 400 or len(chunk) > 1:
-                    break  # too long or the paragraph count changed: split below
-                time.sleep(4)
+                STATS[f"http{e.code}"] += 1
+                if e.code == 429 or e.code >= 500:
+                    time.sleep(10 * (attempt + 1))
+                    continue
+                break
             except Exception as e:
-                print(f"  translate: {e}", file=sys.stderr)
-                time.sleep(4 * (attempt + 1))
+                STATS["error"] += 1
+                print(f"  translate: {e!r}", file=sys.stderr)
+                time.sleep(3 * (attempt + 1))
         if len(chunk) > 1:
             mid = len(chunk) // 2
             return one(chunk[:mid]) + one(chunk[mid:])
+        STATS["kept"] += 1
         return chunk
 
     def flush():
         nonlocal batch, size
         if batch:
             res.extend(one(batch))
-            time.sleep(0.5)
+            time.sleep(0.3)
         batch, size = [], 0
 
     for p in paras:
@@ -200,7 +212,8 @@ def main():
         open(os.path.join(d, "ja", name + ".md"), "w", encoding="utf-8").write("\n".join(md))
         index[name] = {"title": title, "source": src.get(name, ""), "paragraphs": len(paras),
                        "chars": chars, "complete": len(ja) >= len(paras)}
-        print(f"{name}: {len(paras)} paragraphs in {int(time.time() - t0)}s", file=sys.stderr)
+        print(f"{name}: {len(paras)} paragraphs in {int(time.time() - t0)}s {dict(STATS)}", file=sys.stderr)
+        STATS.clear()
     json.dump(index, open(os.path.join(d, "ja", "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
