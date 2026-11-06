@@ -222,6 +222,13 @@ def main():
                 print(f"{name}: translating again ({e})", file=sys.stderr)
         if time.time() - START > TIME_BUDGET:
             print(f"{name}: out of time, next run", file=sys.stderr)
+            if old:  # keep what earlier runs translated (even a partial one) instead of publishing nothing
+                try:
+                    md = urllib.request.urlopen(PREV + "ja/" + urllib.parse.quote(name) + ".md", timeout=60).read()
+                    open(os.path.join(d, "ja", name + ".md"), "wb").write(md)
+                    index[name] = {**old, "complete": False} if old.get("chars") != chars else old
+                except Exception as e:
+                    print(f"{name}: earlier translation not kept ({e})", file=sys.stderr)
             continue
         t0 = time.time()
         st = {}
