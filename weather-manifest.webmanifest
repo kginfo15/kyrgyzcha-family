@@ -1,6 +1,6 @@
 {
-  "name": "ビシュケク・デイリー",
-  "short_name": "Bishkek Daily",
+  "name": "キルギス共和国 統合情報",
+  "short_name": "KG統合情報",
   "start_url": "weather.html",
   "scope": "./",
   "display": "standalone",
