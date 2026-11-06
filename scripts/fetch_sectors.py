@@ -22,6 +22,7 @@ import os
 import re
 import sys
 import time
+import unicodedata
 import urllib.parse
 from datetime import date, datetime, timedelta, timezone
 
@@ -243,6 +244,10 @@ DONORS = [
     ("cn", "中国", "bilateral", ["китай", "китая", "кнр", "china", "chinese"]),
     ("ru", "ロシア（RKDF等）", "bilateral", ["рфкр", "российско-кыргызск фонд развития", "ркфр", "россотрудничеств",
                                           "russian-kyrgyz development fund"]),
+    ("obi", "その他の二国間（北欧・欧州・カナダ等）", "bilateral",
+     ["швеци", "финлянд", "дани", "норвеги", "нидерланд", "канад", "франци", "австри", "sweden", "swedish", "sida",
+      "finland", "denmark", "danish", "norway", "netherlands", "canada", "canadian", "france", "french", "afd",
+      "austria"]),
     ("gulf", "湾岸・アラブ諸国基金", "bilateral", ["саудовск фонд", "кувейтск фонд", "абу-даби", "фонд опек", "opec fund",
                                               "saudi fund", "kuwait fund", "abu dhabi fund", "qatar fund"]),
     ("undp", "UNDP", "un", ["проон", "программа развития оон", "undp"]),
@@ -288,7 +293,7 @@ NOT_DEV_RE = stem_re(["матч", "футболист", "чемпионат ми
 
 
 # government actors / documents
-GOV_DOMAINS = ("gov.kg", "president.kg", "kenesh.kg", "nbkr.kg", "stat.kg", "med.kg", "minfin.kg", "mfa.kg",
+GOV_DOMAINS = ("gov.kg", "egov.kg", "president.kg", "kenesh.kg", "nbkr.kg", "stat.kg", "med.kg", "minfin.kg", "mfa.kg",
                "kabar.kg", "edu.gov.kg", "mchs.gov.kg", "stat.gov.kg", "sti.gov.kg", "mz.gov.kg")
 GOV_RE = stem_re(["кабмин", "кабинет министров", "кабинета министров", "министерств", "министр", "минфин",
                      "минздрав", "минобразован", "минэконом", "минсельхоз", "минтранс", "минэнерго", "минприроды",
@@ -382,7 +387,7 @@ def sector_ids(text):
 
 def classify(title, lead, link, source, query_gov=False):
     """Return (sectors, donors, gov) or None when the item is out of scope."""
-    text = (title + " " + lead).lower()
+    text = unicodedata.normalize("NFKC", title + " " + lead).lower()  # ＪＩＣＡ -> jica
     sectors = sector_ids(text)
     donors = [did for did, rx in DONOR_RES if rx.search(text)]
     # a donor named in passing (e.g. "China" in a trade story) counts only with a cooperation word
@@ -495,6 +500,8 @@ def run_gnews(queries):
                 continue
             title = strip_source(it["title"], source)
             text = title.lower()
+            if lang == "ja" and not kg_related(title):
+                continue  # e.g. JICA's domestic pages found by site:jica.go.jp
             if not kg_related(title) and "site:" not in q and not kg_host(host_of(it["source_url"])):
                 continue
             c = classify(title, "", it["link"], source, qgov or is_gov_host(host_of(it["source_url"])))
@@ -590,6 +597,9 @@ def reclassify(store):
     """Apply the current keyword lists to stored items (lists improve over time)."""
     for k in list(store):
         x = store[k]
+        if x.get("lang") == "ja" and not kg_related(x["t"]):
+            del store[k]
+            continue
         c = classify(x["t"], x.get("l", ""), x.get("u", ""), x.get("s", ""))
         if c:
             x["c"] = sorted(set(c[0]) | set(x.get("c", [])), key=SECTOR_IDS.index)
@@ -800,19 +810,23 @@ def iati_projects():
 
 
 ORG_DONOR = [
+    ("wb", r"world bank"),
     ("jica", r"japan international cooperation|xm-dac-701-8|\bjica\b"), ("jp", r"\bjapan|xm-dac-701-"),
     ("adb", r"asian development bank|xm-dac-46004"), ("ebrd", r"european bank for reconstruction|xm-dac-46015|ebrd"),
     ("imf", r"international monetary fund"), ("aiib", r"asian infrastructure"), ("isdb", r"islamic development"),
     ("edb", r"eurasian development"), ("eu", r"european (commission|union)|xi-iati-ec|dg near|dg intpa|xm-dac-918"),
     ("us", r"united states|usaid|us-gov|millennium challenge|xm-dac-302"), ("de", r"germany|giz|kfw|de-|bmz|xm-dac-5-"),
     ("ch", r"switzerland|swiss|sdc|ch-|xm-dac-11-"), ("uk", r"united kingdom|fcdo|gb-gov|dfid"),
-    ("kr", r"korea|koica"), ("tr", r"türkiye|turkey|tika"), ("undp", r"undp|united nations development programme"),
+    ("kr", r"korea|koica|office for government policy coordination"),
+    ("obi", r"sweden|finland|denmark|norway|netherlands|canada|dfatd|global affairs canada|\bafd\b|agence fran|"
+            r"france|austria|slovak|czech|belgium|ireland|luxembourg|iceland|new zealand|australia|poland"),
+    ("cn", r"aiddata|china"), ("tr", r"türkiye|turkey|tika"), ("undp", r"undp|united nations development programme"),
     ("unicef", r"unicef"), ("who", r"world health organi"), ("fao", r"food and agriculture organi|\bfao\b"),
     ("wfp", r"world food programme|\bwfp\b"), ("unfpa", r"unfpa|population fund"), ("unwomen", r"un women|un-women"),
     ("unhcr", r"unhcr|refugees"), ("iom", r"migration|\biom\b"), ("unesco", r"unesco"), ("ilo", r"labour organi|\bilo\b"),
     ("unep", r"environment programme|unep"), ("gcf", r"green climate|global environment facility|adaptation fund"),
     ("gf", r"global fund|gavi"), ("akdn", r"aga khan"), ("osce", r"osce"),
-    ("un", r"united nations|unops|unodc|ifad|unido|unaids|\bun-"),
+    ("un", r"united nations|unops|unodc|ifad|unido|unaids|\bun-|un pooled|unocha|cerf"),
 ]
 ORG_DONOR_RES = [(d, re.compile(rx, re.I)) for d, rx in ORG_DONOR]
 
