@@ -1,6 +1,6 @@
 {
-  "name": "キルギスの天気",
-  "short_name": "キルギス天気",
+  "name": "ビシュケク・デイリー",
+  "short_name": "Bishkek Daily",
   "start_url": "weather.html",
   "scope": "./",
   "display": "standalone",

@@ -301,14 +301,18 @@ def collect_infra(prev_tr):
 
 # ---------------------------------------------------------------- my streets
 
-# Streets to watch in Bishkek: (Japanese label, Russian word start; Kyrgyz forms share it)
+# Central Bishkek streets around the JICA office (Panfilov St. 178) that the app
+# lets people pick from: (id used by weather.html, Russian word start).
+# Kyrgyz forms share the same start.
 WATCH_STREETS = [
-    ("ラザコバ通り", "раззаков"),
-    ("オロズベコバ通り", "орозбеков"),
-    ("パンフィロバ通り", r"панфилов(?!ск)"),
-    ("キエフスカヤ通り", "киевск"),
+    ("panfilova", r"панфилов(?!ск)"), ("razzakova", "раззаков"), ("kievskaya", "киевск"),
+    ("orozbekova", "орозбеков"), ("toktogula", "токтогул"), ("moskovskaya", "московск"),
+    ("chui", r"чуй(?![а-яё])"), ("erkindik", "эркиндик"), ("abdrakhmanova", "абдрахманов"),
+    ("tynystanova", "тыныстанов"), ("isanova", "исанов"), ("logvinenko", "логвиненко"),
+    ("togolok", "тоголок молдо"), ("shopokova", "шопоков"), ("manasa", "манаса"),
+    ("bokonbaeva", "боконбаев"), ("frunze", "фрунзе"), ("jumabek", "жумабек"),
 ]
-STREET_RES = [(ja, re.compile(r"(?<![а-яё])" + rx)) for ja, rx in WATCH_STREETS]
+STREET_RES = [(sid, re.compile(r"(?<![а-яё])" + rx)) for sid, rx in WATCH_STREETS]
 VILLAGE_RE = re.compile(r"(?<![а-яё])(сел[оа]|с\.|поселк|пос\.|айыл|ала-арч|арча-бешик|кок-жар|ак-жол|чуй\w* област)")
 TIME_RE = re.compile(r"(с\s*)?\d{1,2}[:.]\d{2}\s*(до|-|–|—)\s*\d{1,2}[:.]\d{2}")
 RU_MONTHS = ["январ", "феврал", "март", "апрел", "ма", "июн", "июл", "август", "сентябр", "октябр", "ноябр", "декабр"]
@@ -400,7 +404,7 @@ def collect_mystreet(infra, prev_tr):
                     "link": x["link"], "source": x["source"], "published": x["published"],
                     "date": outage_date(x["title"] + " " + x.get("lead", "")), "hits": hits})
     log(f"mystreet: checked {checked} articles ({failed} failed), {len(out)} with our streets")
-    return {"streets": [ja for ja, _ in WATCH_STREETS], "checked": checked, "failed": failed, "items": out}
+    return {"streets": [sid for sid, _ in WATCH_STREETS], "checked": checked, "failed": failed, "items": out}
 
 
 # ---------------------------------------------------------------- Japanese press
