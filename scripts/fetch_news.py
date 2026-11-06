@@ -282,7 +282,7 @@ INFRA_KINDS = [
     ("gas", r"(отключ\w*|без|не будет|нет|подач\w*|прекращ\w*)[^.!?]{0,40}газ|газоснабжен|газпром кыргызстан"),
     ("heat", r"отоплен|теплоснабжен|теплосет|отопительн|тэц"),
     ("road", r"перекро|перекрыт|ограничен\w* движени|схем\w* движени|закрыт\w*[^.!?]{0,30}(перевал|трасс|дорог|мост)"
-             r"|перевал\w*[^.!?]{0,30}закрыт|сход\w* (сел|лавин)|гололед"),
+             r"|(перевал|трасс|дорог|автодорог)\w*[^.!?]{0,40}закрыт|сход\w* (сел|лавин)|гололед"),
 ]
 INFRA_RES = [(k, re.compile(rx)) for k, rx in INFRA_KINDS]
 # the story must actually be about an interruption or closure
@@ -299,11 +299,31 @@ CITY_WORDS = {
 CITY_RES = {cid: word_re(ws) for cid, ws in CITY_WORDS.items()}
 
 
+# natural hazards and weather warnings: (kind, regex); reported whether or not anything was cut off
+HAZARD_KINDS = [
+    ("quake", r"землетрясен|подземн\w* толч|сейсмич|магнитуд"),
+    ("slide", r"оползн|оползен|(?<![а-яё])сел(ь|я|и|ем|евой|евые|евого|еопасн)(?![а-яё])|сход\w* сел|камнепад|обвал"),
+    ("avalanche", r"лавин"),
+    ("flood", r"наводнен|паводк|подтоплен|разлив\w* рек|затопл"),
+    ("wind", r"смерч|торнадо|ураган|шквал|сильн\w* ветер|штормов\w* ветер|порыв\w* ветра"),
+    ("storm", r"штормов\w* предупрежд|гроз[аыу]|(?<![а-яё])град(?![а-яё])|снегопад|метел|буран|ливн|аномальн\w* (холод|жар|мороз)|сильн\w* мороз"),
+    ("emergency", r"режим\w* чс|чрезвычайн\w* ситуац|мчс (предупрежда|предупредил|призыва)|эвакуац"),
+]
+HAZARD_RES = [(k, re.compile(rx)) for k, rx in HAZARD_KINDS]
+# things that use hazard words without being one (sports "Лавина", price "обвал", ...)
+HAZARD_NOT = re.compile(r"обвал\w* (курс|цен|рынк|акци|тенге|сома|рубл)|хоккей|(?<![а-яё])хк(?![а-яё])|матч|футбол|клуб|фильм|сериал|концерт|учени")
+
+
 def infra_kinds(text):
     t = text.lower()
-    if not OUTAGE_RE.search(t):
-        return []
-    return [k for k, rx in INFRA_RES if rx.search(t)]
+    kinds = []
+    if OUTAGE_RE.search(t):
+        kinds = [k for k, rx in INFRA_RES if rx.search(t)]
+    if not HAZARD_NOT.search(t):
+        hz = [k for k, rx in HAZARD_RES if rx.search(t)]
+        if hz:
+            kinds = kinds + ["hazard"] + hz
+    return kinds
 
 
 def collect_infra(prev_tr):
@@ -803,7 +823,8 @@ KZ_STREETS = {
 COUNTRIES = {
     "kg": dict(
         feeds=LOCAL_FEEDS, national=KG_WORDS, city_words=CITY_WORDS, region="KG",
-        infra_queries=["(отключение OR отключат OR перекроют OR без) (воды OR электроэнергии OR электричества OR газа OR отопления OR движения) (Бишкек OR Ош OR Кыргызстан) when:2d"],
+        infra_queries=["(отключение OR отключат OR перекроют OR без) (воды OR электроэнергии OR электричества OR газа OR отопления OR движения) (Бишкек OR Ош OR Кыргызстан) when:2d",
+                       "(МЧС OR сель OR оползень OR лавина OR землетрясение OR паводок OR штормовое предупреждение OR перевал закрыт) Кыргызстан when:3d"],
         watch={"bishkek": WATCH_STREETS}, village=VILLAGE_RE.pattern, postcode=r"(?<!\d)72\d{4}(?!\d)",
         ja_keywords=("キルギス", "ビシュケク", "イシク", "オシュ", "ジャパロフ"),
         ja_queries=["キルギス ({sites}) when:90d", "キルギス when:14d", "ビシュケク when:30d"],
@@ -823,7 +844,8 @@ COUNTRIES = {
         region="KZ",
         infra_queries=["(отключение OR отключат OR без) (света OR электричества OR электроэнергии) (Алматы OR Астана) when:2d",
                        "(отключение OR отключат OR без) (воды OR газа OR отопления) (Алматы OR Астана) when:2d",
-                       "(перекроют OR ограничат движение) (Алматы OR Астана) when:2d"],
+                       "(перекроют OR ограничат движение) (Алматы OR Астана) when:2d",
+                       "(МЧС OR сель OR оползень OR лавина OR землетрясение OR паводок OR штормовое предупреждение OR трасса закрыта) Казахстан when:3d"],
         watch=KZ_STREETS,
         village=r"(?<![а-яё])(сел[оа]|с\.|поселк|пос\.|ауыл|аул\b|снт|дачн|садовод|алматинск\w* област|акмолинск\w* област)",
         postcode=r"(?<!\d)0[01]\d{4}(?!\d)",

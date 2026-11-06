@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#07080A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;800&family=JetBrains+Mono:wght@300;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;800&family=JetBrains+Mono:wght@300;500;700&family=Oswald:wght@400;500;700&display=swap">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,8 @@
 <link rel="apple-touch-icon" href="weather-icon-180.png">
 <link rel="icon" type="image/png" href="weather-icon-180.png">
 <script>
-try{ var k = localStorage.getItem("kg-skin"); if(k && k!=="midnight") document.documentElement.setAttribute("data-skin", k); }catch(e){}
+try{ var k = localStorage.getItem("kg-skin"); if(k && k!=="midnight") document.documentElement.setAttribute("data-skin", k);
+  var l = localStorage.getItem("kg-layout"); if(l && l!=="standard") document.documentElement.setAttribute("data-layout", l); }catch(e){}
 </script>
 <style>
 :root{
@@ -35,6 +36,23 @@ try{ var k = localStorage.getItem("kg-skin"); if(k && k!=="midnight") document.d
   --on-ink:#000; --fav-ink:#fff; --fav-sub:rgba(255,255,255,.85); --glass:rgba(255,255,255,.06); --hair:rgba(255,255,255,.08);
   --warn-bg:rgba(255,204,51,.10); --warn-fg:#FFE08A; --banner-fg:#FFB3B3; --pol-fg:#A9B1FF; --evt-fg:#FF8FD0;
 }
+/* HAZARD: deep purple, neon green and warning orange, condensed type, warning stripes */
+:root[data-skin="hazard"]{
+  --bg:#0A0612; --card:#140C20; --card-2:#1E1430; --line:#32204A;
+  --ink:#F3EEFF; --ink-2:#BBA9D9; --ink-3:#7D6B9B;
+  --accent-rgb:150,255,60; --night-rgb:150,80,255; --glow-a:.26;
+  --panel:#100A1A; --hdr-rgb:10,6,18; --fav-a:#2B1452; --fav-b:#0A0612; --raised:#2E1C48; --ring:#4C3468;
+  --num-font:"Oswald","Inter",sans-serif; --radius:10px;
+  --warm:#FF7A1A; --cold:#8A7CFF; --rain:#6FD3FF; --star:#FF8A00; --mid:#FFB000; --orange:#FF6A00; --bad:#FF3B3B; --good:#96FF3C;
+  --pol-fg:#C9B8FF; --evt-fg:#FF9AE0;
+}
+:root[data-skin="hazard"] .over,:root[data-skin="hazard"] h2.sect,:root[data-skin="hazard"] .sec h3,:root[data-skin="hazard"] .myst .mh,:root[data-skin="hazard"] .haz .mh{font-family:"Oswald","Inter",sans-serif;letter-spacing:.18em}
+:root[data-skin="hazard"] .over{color:var(--orange)}
+:root[data-skin="hazard"] header{border-bottom:0;box-shadow:inset 0 -5px 0 0 transparent;background-image:repeating-linear-gradient(135deg,var(--orange) 0 10px,#0A0612 10px 20px);background-size:100% 5px;background-repeat:no-repeat;background-position:bottom}
+:root[data-skin="hazard"] .fav{border-color:rgba(255,106,0,.35)}
+:root[data-skin="hazard"] .ftemp,:root[data-skin="hazard"] .ctemp,:root[data-skin="hazard"] .now .big{font-weight:500;letter-spacing:-.02em}
+:root[data-skin="hazard"] h1{font-family:"Oswald","Hiragino Sans","Noto Sans JP",sans-serif;font-weight:700;letter-spacing:.02em}
+
 /* PAPER: clean white with blue */
 :root[data-skin="paper"]{
   --bg:#F3F5F8; --card:#FFFFFF; --card-2:#EEF1F5; --line:#E1E6ED;
@@ -186,6 +204,19 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .nitem .ns{font-size:11px;color:var(--ink-3);margin-top:3px}
 .nmore{display:block;width:100%;font-size:13px;font-weight:700;color:var(--brand);padding:8px 0;border-top:1px solid var(--line)}
 .nempty{font-size:13px;color:var(--ink-3);padding:12px 0}
+.haz{margin:10px 0 4px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);padding:10px 14px 4px;box-shadow:var(--shadow)}
+.haz[hidden]{display:none}
+.haz .mh{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink-3)}
+.haz .mh b{color:var(--bad)}
+.haz .mh .grow{flex:1}
+.haz .hz{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;padding:9px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.haz .hz:first-of-type{border-top:0}
+.haz .hz .hi{font-size:20px;line-height:1.2}
+.haz a.nmain{text-decoration:none;color:inherit}
+.haz .hz .ht{font-size:13.5px;font-weight:700;line-height:1.45}
+.haz .hz .hs{font-size:11px;color:var(--ink-3);margin-top:2px}
+.haz .mag{display:inline-block;font-family:var(--num-font);font-weight:700;font-size:12px;padding:0 6px;border-radius:5px;margin-right:6px;color:#fff;background:var(--orange)}
+.haz .ok{font-size:13px;color:var(--ink-2);padding:6px 0 10px}
 .myst{margin:10px 0 4px;border-radius:var(--radius);background:linear-gradient(180deg,var(--card),var(--bg));border:1px solid var(--line);overflow:hidden}
 .myst .mh{display:flex;align-items:center;gap:8px;padding:10px 14px 0;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink-3)}
 .myst .mh b{color:var(--accent);letter-spacing:.12em}
@@ -296,7 +327,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .sectsub.stale{color:var(--bad);font-weight:700}
 .tabs.wide{display:flex;margin-bottom:8px}
 .tabs.wide button{flex:1;padding:8px 4px;font-size:13px}
-.cats{display:flex;gap:6px;padding:10px 0 4px;overflow-x:auto;scrollbar-width:none}
+.cats{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0 4px}
 .cats button{font-size:12px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--card-2);color:var(--ink-2);white-space:nowrap}
 .cats button.on{background:var(--ink);color:var(--on-ink)}
 .cat{display:inline-block;font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:5px;vertical-align:2px}
@@ -388,6 +419,35 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .mtn .txt{font-size:13px;color:var(--ink-2);line-height:1.6}
 .mtn .txt b{color:var(--ink);font-size:20px}
 
+/* ================= layout styles (shape, density, size) ================= */
+:root[data-layout="compact"] .fav{padding:12px 14px 8px}
+:root[data-layout="compact"] .fav .ftemp{font-size:46px}
+:root[data-layout="compact"] .fav .ficon{font-size:34px}
+:root[data-layout="compact"] .fav .nowrow{margin:2px 0 6px}
+:root[data-layout="compact"] .fav .air{padding:5px 8px;font-size:12px}
+:root[data-layout="compact"] .hr{flex-basis:44px;padding:4px 0}
+:root[data-layout="compact"] .hr .i{font-size:18px;margin:1px 0}
+:root[data-layout="compact"] .hlabel{display:none}
+:root[data-layout="compact"] .city{padding:7px 4px 7px 10px}
+:root[data-layout="compact"] .ctemp{font-size:24px}
+:root[data-layout="compact"] .cicon{font-size:24px}
+:root[data-layout="compact"] .nitem{padding:7px 0}
+:root[data-layout="compact"] .nitem .nl{-webkit-line-clamp:1}
+:root[data-layout="compact"] h2.sect{margin:16px 2px 6px}
+:root[data-layout="large"] body{zoom:1.14}
+:root[data-layout="sharp"]{--radius:3px}
+:root[data-layout="sharp"] .city,:root[data-layout="sharp"] .sec,:root[data-layout="sharp"] .news,:root[data-layout="sharp"] .myst,:root[data-layout="sharp"] .haz,
+:root[data-layout="sharp"] .fav,:root[data-layout="sharp"] .sbtn,:root[data-layout="sharp"] .skin,:root[data-layout="sharp"] .tabs,:root[data-layout="sharp"] .tabs button,
+:root[data-layout="sharp"] .ctry,:root[data-layout="sharp"] .ctry button,:root[data-layout="sharp"] .iconbtn,:root[data-layout="sharp"] .wkstat,:root[data-layout="sharp"] .chip,
+:root[data-layout="sharp"] .fav .air,:root[data-layout="sharp"] .hr,:root[data-layout="sharp"] .sortbar button,:root[data-layout="sharp"] .cats button,:root[data-layout="sharp"] .pick,
+:root[data-layout="sharp"] .stag,:root[data-layout="sharp"] .wkpill,:root[data-layout="sharp"] .warn,:root[data-layout="sharp"] .alert,:root[data-layout="sharp"] .ppanel{border-radius:3px}
+.lays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.lay{padding:10px 6px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);text-align:center}
+.lay.on{border-color:var(--accent)}
+.lay .lic{font-size:20px;display:block}
+.lay b{display:block;font-size:12px;margin-top:4px}
+.lay small{display:block;font-size:10px;color:var(--ink-3);margin-top:1px}
+
 /* ================= PC / wide screens ================= */
 @media (min-width:1024px){
   .wrap{max-width:1320px;padding:0 32px 40px}
@@ -466,6 +526,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   <div class="col-main">
   <button class="alert" id="alert" hidden></button>
   <section class="myst" id="myst" hidden></section>
+  <section class="haz" id="haz" hidden></section>
   <section class="favs" id="favs"><div class="skel big"></div></section>
   </div>
 
@@ -517,9 +578,9 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   <div class="pback" data-sclose></div>
   <div class="ppanel" role="dialog" aria-modal="true" aria-labelledby="stitle">
     <div class="pgrip"></div>
-    <div class="phead"><div><div class="over">Theme</div><h2 id="stitle">配色を選ぶ</h2></div>
+    <div class="phead"><div><div class="over">Theme</div><h2 id="stitle">デザインと配色</h2></div>
       <button class="iconbtn" data-sclose aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <p class="plead">タップするとすぐに切り替わります。このスマホに保存されます。</p>
+    <p class="plead">タップするとすぐに切り替わります。この端末に保存されます。</p>
     <div class="skins" id="skins"></div>
   </div>
 </div>
@@ -678,6 +739,7 @@ async function refresh(){
 }
 
 async function loadNews(){
+  loadQuakes();
   try{
     const j = await getJSON(NEWS_URL + "?t=" + Math.floor(Date.now()/600000));
     if(j && (j.version>=2 || j.feeds)){ news = j; lsSet(NEWS_KEY, j); }
@@ -868,7 +930,7 @@ const fmtDate = iso => new Date(iso).toLocaleDateString("ja-JP",{timeZone:TZ,mon
 function renderNews(){
   document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", b.dataset.k===prefs.newsTab));
   const el = document.getElementById("news"), nd = newsData();
-  renderAlert(nd); renderInfra(nd);
+  renderAlert(nd); renderInfra(nd); renderHazards(nd);
   if(weeklyOpen) renderWeekly();
   const nu = document.getElementById("newsUpdated");
   if(news && news.updated){
@@ -933,7 +995,10 @@ function renderNews(){
     + more(mails.length)
     + `<div class="nnote">出典：外務省 海外安全ホームページ（オープンデータ）。<a href="${esc(sf.infoUrl||"https://www.anzen.mofa.go.jp/")}" target="_blank" rel="noopener">お知らせ一覧</a>／<a href="https://www.ezairyu.mofa.go.jp/tabireg/" target="_blank" rel="noopener">たびレジ登録</a>でメールも受け取れます。</div>`;
 }
-const KIND = {water:"🚰 断水", power:"⚡ 停電", gas:"🔥 ガス", heat:"♨️ 暖房", road:"🚧 交通"};
+const KIND = {water:"🚰 断水", power:"⚡ 停電", gas:"🔥 ガス", heat:"♨️ 暖房", road:"🚧 通行止め・交通",
+  quake:"🌍 地震", slide:"⛰️ 土砂崩れ・土石流", avalanche:"🏔️ 雪崩", flood:"🌊 洪水", wind:"🌪️ 強風・竜巻", storm:"⛈️ 荒天警報", emergency:"🚨 緊急事態"};
+const HAZ_KINDS = ["quake","slide","avalanche","flood","wind","storm","emergency"];
+const kindLabels = ks => (ks||[]).filter(k=>KIND[k]);
 const STREETS_BY_COUNTRY = {kg:[
   // JICA office: Orion 2 Building, Panfilov St. 178
   {id:"panfilova", ja:"パンフィロバ通り", ru:"ул. Панфилова", g:"jica", jica:true},
@@ -1034,9 +1099,16 @@ const SKINS = [
   {id:"terminal", name:"ターミナル", note:"デジタル感。等幅数字とグリッド", bg:"#030504", card:"#0B1D13", accent:"#39FF88", ink:"#DAFFE7", dots:["#39FF88","#5FE3FF","#FFD15F"], mono:true},
   {id:"slate", name:"スレート", note:"落ち着いた炭色 × サンド", bg:"#101317", card:"#1F242B", accent:"#D6B88A", ink:"#ECE8E1", dots:["#D6B88A","#9DBBD6","#8CC9A1"]},
   {id:"aurora", name:"オーロラ", note:"よりクール。深い紺 × バイオレット", bg:"#05060F", card:"#1A1640", accent:"#9280FF", ink:"#EFF0FF", dots:["#9280FF","#7CC8FF","#FF8FB1"]},
+  {id:"hazard", name:"ハザード", note:"紫 × 蛍光グリーン × 警告オレンジ", bg:"#0A0612", card:"#2B1452", accent:"#96FF3C", ink:"#F3EEFF", dots:["#96FF3C","#FF6A00","#9650FF"], cond:true},
   {id:"paper", name:"ペーパー", note:"白基調 × ブルー。明るく清潔", bg:"#F3F5F8", card:"#FFFFFF", accent:"#0071E3", ink:"#0E1726", dots:["#0071E3","#11936A","#D2601A"], light:true},
   {id:"linen", name:"リネン", note:"あたたかい白 × テラコッタ", bg:"#F4F0E8", card:"#FFFDF8", accent:"#B7652E", ink:"#29241F", dots:["#B7652E","#3471B0","#2E8A5E"], light:true},
 ];
+let layout = (()=>{ try{ return localStorage.getItem("kg-layout") || "standard"; }catch(e){ return "standard"; } })();
+function applyLayout(id){
+  layout = id;
+  if(id==="standard") document.documentElement.removeAttribute("data-layout"); else document.documentElement.setAttribute("data-layout", id);
+  try{ localStorage.setItem("kg-layout", id); }catch(e){}
+}
 let skin = (()=>{ try{ return localStorage.getItem("kg-skin") || "midnight"; }catch(e){ return "midnight"; } })();
 function applySkin(id){
   skin = id;
@@ -1048,12 +1120,15 @@ function renderSkins(){
   const card = x=>`
     <button class="skin ${x.id===skin?"on":""}" data-skin-id="${x.id}" aria-pressed="${x.id===skin}">
       <div class="sw" style="background:radial-gradient(120% 90% at 100% 0%,${x.accent}55,transparent 60%),linear-gradient(160deg,${x.card},${x.bg} 75%);color:${x.ink}">
-        <span class="t" style="${x.mono?'font-family:"JetBrains Mono",monospace;font-weight:300':''}">11°</span>
+        <span class="t" style="${x.mono?'font-family:"JetBrains Mono",monospace;font-weight:300':x.cond?'font-family:Oswald,sans-serif;font-weight:500':''}">11°</span>
         <span class="dots">${x.dots.map(c=>`<i style="background:${c}"></i>`).join("")}</span></div>
       <div class="meta"><span><b>${x.name}</b><small>${x.note}</small></span><span class="ck">${CHECK_SVG}</span></div>
     </button>`;
+  const LAYS = [["standard","▢","標準","バランス"],["compact","☰","コンパクト","情報を多く"],["large","Aa","大きな文字","読みやすく"],["sharp","◇","シャープ","角ばった形"]];
   document.getElementById("skins").innerHTML =
-    `<div class="pgroup" style="grid-column:1/-1;margin-top:4px">🌙 ダーク（黒基調）</div>` + SKINS.filter(x=>!x.light).map(card).join("")
+    `<div class="pgroup" style="grid-column:1/-1;margin-top:4px">📐 デザイン（形・大きさ）</div>
+     <div class="lays" style="grid-column:1/-1">${LAYS.map(([id,ic,n,d])=>`<button class="lay ${layout===id?"on":""}" data-layout-id="${id}"><span class="lic">${ic}</span><b>${n}</b><small>${d}</small></button>`).join("")}</div>`
+    + `<div class="pgroup" style="grid-column:1/-1">🌙 ダーク（黒基調）</div>` + SKINS.filter(x=>!x.light).map(card).join("")
     + `<div class="pgroup" style="grid-column:1/-1">☀️ ライト（白基調）</div>` + SKINS.filter(x=>x.light).map(card).join("");
 }
 function closePicker(){ document.getElementById("picker").hidden = true; document.body.style.overflow=""; renderInfra(newsData()); }
@@ -1069,6 +1144,51 @@ function stillRelevant(x){
   if(x.date) return x.date >= todayBishkek();
   return x.published && Date.now()-Date.parse(x.published) < 24*3600*1000;
 }
+/* ---------- disasters & road closures ---------- */
+const QUAKE_BOX = {kg:{minlatitude:39.1,maxlatitude:43.4,minlongitude:69.2,maxlongitude:80.4,name:"Kyrgyzstan"},
+                   kz:{minlatitude:40.5,maxlatitude:55.5,minlongitude:46.4,maxlongitude:87.4,name:"Kazakhstan"}}[COUNTRY];
+let quakes = null, hazAll = false;
+// recent earthquakes from the USGS catalogue (magnitude 3+, last 7 days, inside the country)
+async function loadQuakes(){
+  try{
+    const since = new Date(Date.now()-7*864e5).toISOString().slice(0,19);
+    const j = await getJSON("https://earthquake.usgs.gov/fdsnws/event/1/query?" + qs({format:"geojson", starttime:since, minmagnitude:3,
+      orderby:"time", minlatitude:QUAKE_BOX.minlatitude, maxlatitude:QUAKE_BOX.maxlatitude, minlongitude:QUAKE_BOX.minlongitude, maxlongitude:QUAKE_BOX.maxlongitude}));
+    quakes = (j.features||[]).filter(f=>(f.properties.place||"").includes(QUAKE_BOX.name)).map(f=>({
+      mag:f.properties.mag, place:f.properties.place, time:f.properties.time, url:f.properties.url, depth:f.geometry && f.geometry.coordinates[2]}));
+  }catch(e){ quakes = quakes || []; }
+  renderHazards(newsData());
+}
+// "45 km SSW of Karakol, Kyrgyzstan" -> "カラコルの南南西45km"
+const DIR_JA = {N:"北",NNE:"北北東",NE:"北東",ENE:"東北東",E:"東",ESE:"東南東",SE:"南東",SSE:"南南東",S:"南",SSW:"南南西",SW:"南西",WSW:"西南西",W:"西",WNW:"西北西",NW:"北西",NNW:"北北西"};
+function placeJa(p){
+  const m = /^(\d+) km ([NSEW]+) of (.+?), (Kyrgyzstan|Kazakhstan)$/.exec(p||"");
+  if(!m) return (p||"").replace(", Kyrgyzstan","（キルギス）").replace(", Kazakhstan","（カザフスタン）");
+  const city = CITIES.find(c=>m[3].toLowerCase().startsWith(c.ru.toLowerCase().slice(0,4)) || c.id===m[3].toLowerCase().replace(/[^a-z]/g,""));
+  return `${city?city.ja:m[3]}の${DIR_JA[m[2]]||m[2]}${m[1]}km`;
+}
+function renderHazards(nd){
+  const el = document.getElementById("haz");
+  // natural hazards, plus road items only when they are actual closures (not bus route changes)
+  const closure = x => /通行止|閉鎖|封鎖|規制|通行禁止|通行できな|峠/.test(x.title_ja||"");
+  const news_ = ((nd && nd.infra)||[]).filter(x=>x.title_ja && (x.kinds||[]).some(k=>HAZ_KINDS.includes(k) || (k==="road" && closure(x))))
+    .filter(x=>!x.published || Date.now()-Date.parse(x.published) < 72*3600*1000);
+  const qs_ = (quakes||[]).slice(0,3);
+  const rows = [
+    ...qs_.map(q=>({t:q.time, html:`<a class="hz" href="${esc(q.url)}" target="_blank" rel="noopener"><span class="hi">🌍</span><span><span class="ht"><span class="mag">M${q.mag.toFixed(1)}</span>地震　${esc(placeJa(q.place))}</span>
+      <span class="hs" style="display:block">${new Date(q.time).toLocaleString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・深さ${r(q.depth)}km・USGS</span></span></a>`})),
+    ...news_.map(x=>{ const ks = kindLabels(x.kinds).filter(k=>HAZ_KINDS.includes(k)||(k==="road" && closure(x)));
+      return {t:Date.parse(x.published||0)||0, html:`<div class="hz"><span class="hi">${(KIND[ks[0]]||"⚠️").split(" ")[0]}</span><span>
+      <a class="nmain" href="${esc(jaLink(x.link))}" target="_blank" rel="noopener"><span class="ht">${ks.map(k=>`<span class="ikind k-${HAZ_KINDS.includes(k)?"heat":"road"}" style="margin-right:4px">${KIND[k].split(" ")[1]}</span>`).join("")}${esc(x.title_ja)}</span></a>
+      <span class="hs" style="display:block">${esc(x.source)}${x.published?"・"+ago(Date.parse(x.published)):""}・${origLink(x.link)}</span></span></div>`}; }),
+  ].sort((a,b)=>b.t-a.t);
+  el.hidden = false;
+  const shown = hazAll ? rows : rows.slice(0,3);
+  el.innerHTML = `<div class="mh"><span class="grow">⚠️ <b>ALERTS</b>　災害・通行止め</span><span>直近3日</span></div>`
+    + (rows.length ? shown.map(x=>x.html).join("") : `<div class="ok">✓ 地震（M3以上）・土砂崩れ・雪崩・洪水・強風・通行止めの報道は今のところありません。</div>`)
+    + (rows.length>3 ? `<button class="mall" id="hazMore">${hazAll?"▲ 閉じる":"▼ すべて見る（"+rows.length+"件）"}</button>` : "");
+}
+
 function renderInfra(nd){
   const el = document.getElementById("myst");
   const ms = nd && nd.mystreet;
@@ -1099,13 +1219,13 @@ function renderInfra(nd){
     </button>
     <div class="mdet" id="mdet" ${mystOpen?"":"hidden"}>
       ${items.map(x=>`<div class="mitem">
-        <div class="mt">${(x.kinds||[]).map(k=>`<span class="ikind k-${k}">${KIND[k]||k}</span>`).join("")}${x.date?`<span class="dlabel">${dayLabel(x.date)}</span>`:""}<span>${esc(x.title_ja||"")}</span></div>
+        <div class="mt">${kindLabels(x.kinds).map(k=>`<span class="ikind k-${k}">${KIND[k]}</span>`).join("")}${x.date?`<span class="dlabel">${dayLabel(x.date)}</span>`:""}<span>${esc(x.title_ja||"")}</span></div>
         ${(x.hits||[]).map(h=>`<div class="mhit"><span class="st">${esc(hitLabel(x,h))}</span>${h.time?`<span class="tm num">${esc(h.time)}</span>`:""}${esc(h.text_ja||"")}</div>`).join("")}
         <a href="${esc(jaLink(x.link))}" target="_blank" rel="noopener">記事を日本語で開く（${esc(x.source)}）›</a>　${origLink(x.link)}</div>`).join("")}
       ${items.length?"":`<div class="nempty">${wname}の停電・断水のお知らせを${ms.checked||0}件確認しましたが、選んだ${sel.size}本の通りの名前は出ていませんでした。</div>`}
       <button class="mall" id="mall">${mallOpen?"▲":"▼"} ${wname}全体のライフライン情報（${others.length}件）</button>
       ${mallOpen?others.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
-        <div class="nt">${(n.kinds||[]).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]||k}</span>`).join("")}${esc(n.title_ja)}</div></a>
+        <div class="nt">${kindLabels(n.kinds).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]}</span>`).join("")}${esc(n.title_ja)}</div></a>
         <div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}・${origLink(n.link)}</div></div>`).join(""):""}
     </div>`;
 }
@@ -1195,8 +1315,8 @@ function renderWeekly(){
     ${catOrder.filter(c=>(w.by_cat||{})[c]&&w.by_cat[c].length).map(c=>`<div class="sec"><h3>${CAT[c]}のそのほかの出来事</h3>${w.by_cat[c].map(s_=>storyHTML(s_,null)).join("")}</div>`).join("")}
     <div class="sec"><h3>ライフライン（停電・断水・ガス・暖房・交通）</h3>
       <div class="kcount">${Object.keys(KIND).filter(k=>ic[k]).map(k=>`<span class="ikind k-${k}">${KIND[k]} ${ic[k]}件</span>`).join("") || `<span class="nempty">報道はありませんでした</span>`}</div>
-      ${Object.entries((w.infra||{}).by_city||{}).length?`<div class="note">${Object.entries(w.infra.by_city).map(([c,ks])=>`${esc(cityName(c))}：${Object.entries(ks).map(([k,n])=>`${(KIND[k]||k).split(" ")[1]||k}${n}`).join("・")}`).join("　")}</div>`:""}
-      ${((w.infra||{}).recent||[]).slice(0,5).map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt">${(n.kinds||[]).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]||k}</span>`).join("")}${esc(n.title_ja)}</div></a>
+      ${Object.entries((w.infra||{}).by_city||{}).length?`<div class="note">${Object.entries(w.infra.by_city).map(([c,ks])=>`${esc(cityName(c))}：${Object.entries(ks).filter(([k])=>KIND[k]).map(([k,n])=>`${(KIND[k]||k).split(" ")[1]||k}${n}`).join("・")}`).join("　")}</div>`:""}
+      ${((w.infra||{}).recent||[]).slice(0,5).map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt">${kindLabels(n.kinds).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]}</span>`).join("")}${esc(n.title_ja)}</div></a>
         <div class="ns">${esc(n.source)}${n.published?"・"+mdShort(n.published):""}・${origLink(n.link)}</div></div>`).join("")}
     </div>
     ${(w.mofa||[]).length?`<div class="sec"><h3>${CFG.embassy}・外務省のお知らせ</h3>${w.mofa.map(m=>`<a class="nitem" href="${esc(m.link)}" target="_blank" rel="noopener"><div class="nt">${esc(m.title)}</div><div class="ns">${esc(m.type)}${m.published?"・"+mdShort(m.published):""}</div></a>`).join("")}</div>`:""}
@@ -1330,6 +1450,7 @@ document.addEventListener("click", e=>{
     document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
   if(e.target.closest("#openPicker")){ openPicker(); return; }
   if(e.target.closest("#openWeekly")){ openWeekly(); return; }
+  if(e.target.closest("#hazMore")){ hazAll = !hazAll; renderHazards(newsData()); return; }
   if(e.target.closest("#wkBack")){ closeWeekly(false); return; }
   const wk = e.target.closest("[data-week]");
   if(wk){ weekSel = wk.dataset.week; renderWeekly(); document.getElementById("weekly").scrollTop = 0; return; }
@@ -1339,6 +1460,8 @@ document.addEventListener("click", e=>{
   const pc = e.target.closest("[data-pcity]");
   if(pc){ pickerCity = pc.dataset.pcity; renderPicker(); return; }
   if(e.target.closest("#openSkin")){ renderSkins(); document.getElementById("skinPicker").hidden = false; document.body.style.overflow="hidden"; return; }
+  const lyb = e.target.closest("[data-layout-id]");
+  if(lyb){ applyLayout(lyb.dataset.layoutId); renderSkins(); return; }
   const skb = e.target.closest("[data-skin-id]");
   if(skb){ applySkin(skb.dataset.skinId); renderSkins(); return; }
   if(e.target.closest("[data-sclose]")){ document.getElementById("skinPicker").hidden = true; document.body.style.overflow=""; return; }
