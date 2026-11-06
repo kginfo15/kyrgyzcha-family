@@ -81,7 +81,8 @@ def text_of(path):
         except ValueError:
             pass
     raw = re.sub(r"(?is)<(script|style|nav|header|footer).*?</\1>", " ", raw)
-    raw = re.sub(r"(?i)<br\s*/?>|</(p|div|li|tr|h\d|table)>", "\n", raw)
+    # Word's filtered HTML (the legal database) leaves <p> unclosed, so opening tags break lines too
+    raw = re.sub(r"(?i)<br\s*/?>|</?(p|div|li|tr|h\d|table)\b[^>]*>", "\n", raw)
     txt = html.unescape(re.sub(r"<[^>]+>", " ", raw))
     # legal-database mirrors carry site navigation before the act itself
     m = re.search(r"(ПОСТАНОВЛЕНИЕ|УКАЗ|ПРОГРАММА|КОНЦЕПЦИЯ|СТРАТЕГИЯ)\s", txt)
@@ -114,7 +115,14 @@ def paragraphs(text):
             out.append(" ".join(cur)); cur = []
     if cur:
         out.append(" ".join(cur))
-    return [p for p in out if len(p) > 1]
+    res = []
+    for p in out:  # an overlong paragraph is split at sentence ends so nothing is cut off
+        while len(p) > 2000:
+            cut = max(p.rfind(". ", 0, 2000), p.rfind("; ", 0, 2000))
+            cut = cut + 1 if cut > 500 else 2000
+            res.append(p[:cut].strip()); p = p[cut:].strip()
+        res.append(p)
+    return [p for p in res if len(p) > 1]
 
 
 def translate(paras, sl):
