@@ -264,6 +264,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .tile .cap{font-size:11px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:500;line-height:1.1}
 .tile .amt small{font-size:11px;color:var(--faint);margin-left:5px;font-weight:400}
+.unk{font-size:10.5px;color:var(--faint);border:1px dashed var(--faint);border-radius:3px;padding:0 5px;line-height:1.6}
 .kind{font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:3px;padding:0 5px;line-height:1.6}
 .foot{margin:34px 0 0;font-size:12px;color:var(--faint);line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
 mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px}
@@ -548,7 +549,11 @@ function projectHTML(p){
   </article>`;
 }
 function yen(v){ return v>=1e8 ? "¥"+(v/1e8).toFixed(v>=1e10?0:1)+"億" : v>=1e4 ? "¥"+Math.round(v/1e4).toLocaleString()+"万" : "¥"+Math.round(v); }
-const amtHTML = p => p.jpy ? `<span class="amt">${yen(p.jpy)}</span><span class="note">（約${money(p.amt)}）</span>` : p.amt ? `<span class="amt">${money(p.amt)}</span>` : "";
+// amounts: a project whose public data gives no amount is counted as "金額不明", never as zero
+const hasAmt = p => (p.amt||0) > 0;
+const unk = list => list.filter(p=>!hasAmt(p)).length;
+const unkNote = (n, all) => n ? `金額不明 ${n}件${all!=null?` / ${all}件`:""}` : "";
+const amtHTML = p => !hasAmt(p) ? `<span class="unk" title="公開情報に金額の記載がありません">金額不明</span>` : p.jpy ? `<span class="amt">${yen(p.jpy)}</span><span class="note">（約${money(p.amt)}）</span>` : p.amt ? `<span class="amt">${money(p.amt)}</span>` : "";
 function kindSelect(list){
   const kinds = [...new Set(list.map(p=>p.kind).filter(Boolean))].sort();
   if(kinds.length<2 && !S.k) return "";
@@ -558,8 +563,8 @@ function projectListHTML(list){
   if(!PROJECTS) return `<div class="feed"><div class="empty">案件データを読み込み中…</div></div>`;
   if(PROJECTS.err) return `<div class="feed"><div class="empty">案件データを読み込めませんでした（${esc(PROJECTS.err)}）</div></div>`;
   if(!list.length) return `<div class="feed"><div class="empty">該当する案件はありません</div></div>`;
-  const total = list.reduce((s,p)=>s+(p.amt||0),0);
-  let out = `<div class="count"><span>${list.length} 件</span>${total?`<span>合計 ${money(total)}（金額判明分）</span>`:""}<span class="sp"></span><button class="btn" data-csv="projects">CSV</button></div>`;
+  const total = list.reduce((s,p)=>s+(p.amt||0),0), u = unk(list);
+  let out = `<div class="count"><span>${list.length} 件</span>${total?`<span>合計 ${money(total)}（金額判明 ${list.length-u}件）</span>`:""}${u?`<span class="unk">金額不明 ${u}件</span>`:""}<span class="sp"></span><button class="btn" data-csv="projects">CSV</button></div>`;
   out += `<div class="feed">${list.slice(0, shown).map(projectHTML).join("")}</div>`;
   if(list.length > shown) out += `<button class="btn more" data-more>さらに表示 · 残り ${list.length-shown}</button>`;
   return out;
@@ -619,7 +624,7 @@ function donorColors(sid){
 }
 function shareData(sid){
   const map = donorColors(sid), val = {};
-  let unit = CH.metric==="amt" ? "amt" : "n", note;
+  let unit = CH.metric==="amt" ? "amt" : "n", note, unknown = [];
   if(CH.scope==="gov"){
     // government has no project data: compare how often each side appears in a year of announcements and news
     const min = Date.now()-365*DAY;
@@ -631,6 +636,7 @@ function shareData(sid){
   }else{
     for(const p of sectorProjects(sid)){
       if(CH.range==="active" && p.st!=="active") continue;
+      if(unit==="amt" && !hasAmt(p)){ unknown.push(p); continue; }
       const v = unit==="amt" ? shareAmt(p) : 1;
       if(v) val[p.donor] = (val[p.donor]||0)+v;
     }
@@ -645,7 +651,7 @@ function shareData(sid){
     else other += v;
   }
   if(other) rows.push({id:"", name:"その他", v:other, col:"var(--dother)"});
-  return {rows, total, unit, note};
+  return {rows, total, unit, note, unknown};
 }
 function donutSVG(rows, total, center, sub){
   const R = 70, r = 46, cx = 90, cy = 90;
@@ -668,7 +674,9 @@ function donutSVG(rows, total, center, sub){
 }
 const segCH = (k, opts) => `<span class="seg">${opts.map(([v,l])=>`<button data-ch="${k}" data-val="${v}" class="${CH[k]===v?"on":""}">${esc(l)}</button>`).join("")}</span>`;
 function shareHTML(sid){
-  const {rows, total, unit, note} = shareData(sid);
+  const {rows, total, unit, note, unknown} = shareData(sid);
+  const ub = {}; for(const p of unknown) ub[p.donor] = (ub[p.donor]||0)+1;
+  const unkLine = unknown.length ? `<p class="note" style="margin:6px 0 0"><span class="unk">金額不明 ${unknown.length}件</span> 割合に含めていません（${Object.entries(ub).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([d,n])=>esc(donorName(d))+" "+n+"件").join("・")}${Object.keys(ub).length>4?" ほか":""}）。件数で見ると全案件を比べられます。</p>` : "";
   const fmt = v => unit==="amt" ? money(v) : Math.round(v)+"件";
   const center = unit==="amt" ? money(total) : Math.round(total)+"件";
   const legend = rows.map(r=>`<li class="${r.id&&r.id!=="gov"?"":"nolink"}" ${r.id&&r.id!=="gov"?`data-donor="${r.id}"`:""}><i style="background:${r.col}"></i><span class="nm">${esc(r.name)}</span><span class="pc">${(r.v/total*100).toFixed(r.v/total<.1?1:0)}%</span><span class="vv">${fmt(r.v)}</span></li>`).join("");
@@ -677,25 +685,26 @@ function shareHTML(sid){
     <div class="ctrls">${segCH("scope",[["donor","ドナーのみ"],["gov","政府を含む"]])}
       ${dis?"":segCH("metric",[["amt","支援額"],["n","案件数"]])} ${dis?"":segCH("range",[["active","実施中"],["all","全期間"]])}</div>
     <div class="dn">${donutSVG(rows,total,center,unit==="amt"?"合計":"合計件数")}<ul class="lg">${legend||'<li class="nolink"><span></span><span class="note">データがありません</span></li>'}</ul></div>
-    <p class="note" style="margin:8px 0 0">${esc(note)}</p></div>`;
+    <p class="note" style="margin:8px 0 0">${esc(note)}</p>${unkLine}</div>`;
 }
 function yearHTML(sid){
   const y1 = new Date().getFullYear(), y0 = y1-15, ys = [];
   for(let y=y0;y<=y1;y++) ys.push({y, amt:0, n:0});
-  for(const p of sectorProjects(sid)){ const y = +((p.a||"").slice(0,4)); if(y>=y0&&y<=y1){ const o = ys[y-y0]; o.n++; o.amt += shareAmt(p); } }
+  let nounk = 0, nodate = 0;
+  for(const p of sectorProjects(sid)){ const y = +((p.a||"").slice(0,4)); if(!y) nodate++; if(y>=y0&&y<=y1){ const o = ys[y-y0]; o.n++; o.amt += shareAmt(p); if(!hasAmt(p)){ o.u=(o.u||0)+1; nounk++; } } }
   const key = CH.ym==="amt" ? "amt" : "n", max = Math.max(1,...ys.map(o=>o[key]));
   const W = 640, H = 150, top = 14, base = 124, bw = W/ys.length;
   const fmt = v => key==="amt" ? money(v)||"$0" : Math.round(v)+"件";
   let g = `<line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)"/><line x1="0" y1="${top}" x2="${W}" y2="${top}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="0" y="${top-4}">${fmt(max)}</text>`;
   ys.forEach((o,i)=>{
     const h = o[key]/max*(base-top), x = i*bw+3, w = bw-6;
-    g += `<g><title>${o.y}年 開始: ${o.n}件・${money(o.amt)||"$0"}</title><rect class="hit" x="${i*bw}" y="${top}" width="${bw}" height="${base-top}"/>${h>0?`<rect class="b ${o.y===y1?"now":""}" x="${x}" y="${base-h}" width="${w}" height="${h}" rx="2"/>`:""}${i%3===0||o.y===y1?`<text x="${x+w/2}" y="${base+14}" text-anchor="middle">${o.y}</text>`:""}</g>`;
+    g += `<g><title>${o.y}年 開始: ${o.n}件・${money(o.amt)||"$0"}${o.u?`（金額不明 ${o.u}件を除く）`:""}</title><rect class="hit" x="${i*bw}" y="${top}" width="${bw}" height="${base-top}"/>${h>0?`<rect class="b ${o.y===y1?"now":""}" x="${x}" y="${base-h}" width="${w}" height="${h}" rx="2"/>`:""}${i%3===0||o.y===y1?`<text x="${x+w/2}" y="${base+14}" text-anchor="middle">${o.y}</text>`:""}</g>`;
   });
   const total = ys.reduce((a,o)=>a+o[key],0);
   return `<div class="panel chart ych"><div class="phk">New projects by year</div><h3 class="ph">年別の新規案件（開始・承認年）</h3>
-    <div class="ctrls">${segCH("ym",[["amt","金額"],["n","件数"]])}<span class="note">過去16年の合計 ${fmt(total)}</span></div>
+    <div class="ctrls">${segCH("ym",[["amt","金額"],["n","件数"]])}<span class="note">過去16年の合計 ${fmt(total)}</span>${key==="amt"&&nounk?`<span class="unk">金額不明 ${nounk}件は金額に含まず</span>`:""}</div>
     <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="年別の新規案件">${g}</svg>
-    <p class="note" style="margin:6px 0 0">棒にカーソルを合わせると件数と金額。金額は報告のある案件のみ（JICAは円を概算でドル換算）。</p></div>`;
+    <p class="note" style="margin:6px 0 0">棒にカーソルを合わせると件数と金額。金額は報告のある案件のみ（JICAは円を概算でドル換算）${nodate?`。開始年不明の ${nodate}件は表示外`:""}。</p></div>`;
 }
 function setTitle(t){ document.title = t ? t+" · Kyrgyz Monitor" : "Kyrgyz Monitor"; }
 const secHead = (k,h,right="") => `<div class="sec-h"><span class="k">${k}</span><h2>${h}</h2><span class="sp"></span>${right}</div>`;
@@ -717,7 +726,7 @@ function viewHome(){
     const m = its.filter(x=>x.ts>=d30 && x.c.includes(id));
     return `<button class="tile" data-sec="${id}">
       <span class="top"><span class="no">${SEC[id].no}</span><span class="nm">${esc(ja)}</span></span>
-      <span class="amt">${ready?(money(amt)||"—"):"…"}<small>実施中 ${ready?sp.length:"…"}件</small></span>
+      <span class="amt">${ready?(money(amt)||"—"):"…"}<small>実施中 ${ready?sp.length:"…"}件${ready&&unk(sp)?`・金額不明 ${unk(sp)}`:""}</small></span>
       <span class="sharebar">${amt?rows.map(([d,v])=>`<i style="width:${v/amt*100}%;background:${cols[d]||"var(--dother)"}"></i>`).join(""):""}</span>
       <span class="cap">${top2?esc(top2):"&nbsp;"}</span>
       <span class="tf"><span>政府の動き <b>${m.filter(x=>x.g).length}</b></span><span>協力ニュース <b>${m.filter(x=>x.d.length).length}</b></span></span>
@@ -729,7 +738,7 @@ function viewHome(){
   return `
     <div class="kpis">
       <div class="kpi"><div class="l">Active projects</div><div class="v">${ready?act.length:"…"}</div><div class="s">実施中の案件</div></div>
-      <div class="kpi"><div class="l">Active funding</div><div class="v">${ready?money(actAmt)||"—":"…"}</div><div class="s">実施中案件の支援額（報告分）</div></div>
+      <div class="kpi"><div class="l">Active funding</div><div class="v">${ready?money(actAmt)||"—":"…"}</div><div class="s">実施中案件の支援額${ready&&unk(act)?`（金額不明 ${unk(act)}件を除く）`:""}</div></div>
       <div class="kpi"><div class="l">Government · 7d</div><div class="v" style="color:var(--gov)">${n7.filter(x=>x.g).length}</div><div class="s">政府の動き（7日）</div></div>
       <div class="kpi"><div class="l">Cooperation news · 7d</div><div class="v" style="color:var(--coop)">${n7.filter(x=>x.d.length).length}</div><div class="s">協力ニュース（7日）${SHOW_JP?`・うち日本 ${n7.filter(x=>x.jp).length}`:""}</div></div>
     </div>
@@ -787,7 +796,7 @@ function viewSector(){
   return `<div class="panel shead">
       <div><div class="k">Sector ${s.no} / 20</div><h2>${esc(s.ja)}</h2></div>
       <div class="minis">
-        <div class="mini"><div class="v">${ready?money(act.reduce((a,p)=>a+shareAmt(p),0))||"—":"…"}</div><div class="l">実施中の支援額</div></div>
+        <div class="mini"><div class="v">${ready?money(act.reduce((a,p)=>a+shareAmt(p),0))||"—":"…"}</div><div class="l">実施中の支援額${ready&&unk(act)?`<br><span class="unk">金額不明 ${unk(act)}件</span>`:""}</div></div>
         <div class="mini"><div class="v">${ready?act.length:"…"}</div><div class="l">実施中案件</div></div>
         <div class="mini"><div class="v">${ready?pj.filter(p=>p.st==="pipeline").length:"…"}</div><div class="l">計画中</div></div>
         <div class="mini"><div class="v">${ready?cnt.pc:"…"}</div><div class="l">過去の案件</div></div>
@@ -815,16 +824,16 @@ function viewProjects(){
 function viewDonors(){
   setTitle("援助機関");
   const d90 = Date.now()-90*DAY, rows = {};
-  for(const id in DONORS) rows[id] = {n90:0, n:0, pa:0, pt:0, amt:0};
+  for(const id in DONORS) rows[id] = {n90:0, n:0, pa:0, pt:0, amt:0, u:0};
   for(const x of items()) for(const d of x.d) if(rows[d]){ rows[d].n++; if(x.ts>=d90) rows[d].n90++; }
-  for(const p of projects()){ const r = rows[p.donor]; if(!r) continue; r.pt++; if(p.st==="active"){ r.pa++; r.amt += p.amt||0; } }
+  for(const p of projects()){ const r = rows[p.donor]; if(!r) continue; r.pt++; if(p.st==="active"){ r.pa++; r.amt += p.amt||0; if(!hasAmt(p)) r.u++; } }
   const maxAmt = Math.max(1,...Object.values(rows).map(r=>r.amt));
   const g = {};
   for(const d of Object.values(DONORS)) if(SHOW_JP || d.g!=="japan") (g[d.g]=g[d.g]||[]).push(d);
   return `${secHead("Donors","援助機関・NGO",'<span class="note">報道での登場件数と公開データ上の案件</span>')}
     ${Object.entries(DGROUP).map(([k,l])=>g[k]?`<div class="tablewrap"><table class="dtab">
-      <thead><tr><th>${esc(l)}</th><th>報道 90日</th><th>報道 累計</th><th>実施中</th><th>実施中金額</th><th class="barcell"></th><th>案件総数</th></tr></thead>
-      <tbody>${g[k].sort((a,b)=>(rows[b.id].amt-rows[a.id].amt)||(rows[b.id].n90-rows[a.id].n90)).map(d=>{const r=rows[d.id];return `<tr class="click ${k==="japan"?"jp":""}" data-donor="${d.id}"><td>${esc(d.ja)}</td><td>${r.n90}</td><td>${r.n}</td><td>${projReady()?r.pa:"…"}</td><td>${r.amt?money(r.amt):"—"}</td><td class="barcell"><div class="hbar"><i style="width:${r.amt/maxAmt*100}%"></i></div></td><td>${projReady()?r.pt:"…"}</td></tr>`}).join("")}</tbody>
+      <thead><tr><th>${esc(l)}</th><th>報道 90日</th><th>報道 累計</th><th>実施中</th><th>実施中金額</th><th>金額不明</th><th class="barcell"></th><th>案件総数</th></tr></thead>
+      <tbody>${g[k].sort((a,b)=>(rows[b.id].amt-rows[a.id].amt)||(rows[b.id].n90-rows[a.id].n90)).map(d=>{const r=rows[d.id];return `<tr class="click ${k==="japan"?"jp":""}" data-donor="${d.id}"><td>${esc(d.ja)}</td><td>${r.n90}</td><td>${r.n}</td><td>${projReady()?r.pa:"…"}</td><td>${r.amt?money(r.amt):"—"}</td><td>${projReady()&&r.u?r.u+"件":"—"}</td><td class="barcell"><div class="hbar"><i style="width:${r.amt/maxAmt*100}%"></i></div></td><td>${projReady()?r.pt:"…"}</td></tr>`}).join("")}</tbody>
     </table></div>`:"").join("")}
     <p class="note">JICAの金額は円を1ドル=140円で概算換算。「NGO・市民団体」の案件数には、上の一覧に当てはまらない報告機関（各国NGO・財団など）の案件も含みます。</p>`;
 }
@@ -844,7 +853,7 @@ function viewDonor(){
   const actAmt = all.filter(p=>p.st==="active").reduce((a,p)=>a+(p.amt||0),0);
   return `<div class="panel shead"><div><div class="k">${esc(DGROUP[d.g]||"")}</div><h2>${esc(d.ja)}</h2></div>
       <div class="minis"><div class="mini"><div class="v">${projReady()?all.filter(p=>p.st==="active").length:"…"}</div><div class="l">実施中案件</div></div>
-      <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額</div></div>
+      <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額${unk(all.filter(p=>p.st==="active"))?`<br><span class="unk">金額不明 ${unk(all.filter(p=>p.st==="active"))}件</span>`:""}</div></div>
       <div class="mini"><div class="v">${projReady()?all.filter(p=>!isOpen(p)).length:"…"}</div><div class="l">過去の案件</div></div>
       <div class="mini"><div class="v">${list.length}</div><div class="l">関連ニュース（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}）</div></div></div></div>
     ${secRows.length?`<div class="cols" style="margin-top:10px">
@@ -893,7 +902,7 @@ async function csvDownload(kind){
     const list = S.v==="sector" ? filterProjects({s:S.s,d:S.d,q:S.q,k:S.k,ps:S.sub==="pa"?"open":"past",psort:S.psort})
                : S.v==="donor" ? filterProjects({d:S.d,s:S.s,q:S.q,k:S.k,ps:S.ps,psort:S.psort}) : filterProjects(S);
     rows = [["状態","機関","報告機関","種別","案件名（日本語）","案件名（原文）","開始","終了","金額USD","金額JPY","分野","URL"]].concat(
-      list.map(p=>[ST_JA[p.st]||p.st, donorName(p.donor), p.org, p.kind, p.tj, p.t, p.a, p.e, p.amt, p.jpy, p.c.map(c=>SEC[c]?.ja).join("／"), p.u]));
+      list.map(p=>[ST_JA[p.st]||p.st, donorName(p.donor), p.org, p.kind, p.tj, p.t, p.a, p.e, hasAmt(p)?p.amt:"金額不明", p.jpy, p.c.map(c=>SEC[c]?.ja).join("／"), p.u]));
     name = "projects";
   }else{
     const list = kind==="saved" ? Object.values(saved).map(prep).sort((a,b)=>b.ts-a.ts)
