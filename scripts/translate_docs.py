@@ -131,6 +131,13 @@ def untranslated(line):
     return len(letters) >= 20 and sum("\u0400" <= c <= "\u04ff" for c in letters) > len(letters) / 2
 
 
+class Stop(Exception):
+    """The time budget is used up, or the service keeps refusing: stop and publish what is done."""
+
+
+BLOCKED = {"run": 0}  # refusals (429) in a row, across documents
+
+
 def translate(paras, sl, stats=None):
     """Returns the translations in order. A paragraph that could not be translated
     is returned unchanged and counted in stats["failed"]."""
@@ -142,13 +149,23 @@ def translate(paras, sl, stats=None):
         """Translate a chunk; on refusal or a changed paragraph count split it at once,
         wait only when the service asks us to slow down, and keep the original when nothing works."""
         for attempt in range(3):
+            # checked before every request: a run of refusals with waits could otherwise outlast the step's time limit
+            if time.time() - START > TIME_BUDGET:
+                raise Stop("out of time")
             try:
-                return gtx(chunk, sl)
+                out = gtx(chunk, sl)
+                BLOCKED["run"] = 0
+                return out
             except ValueError:
                 STATS["split"] += 1
                 break
             except urllib.error.HTTPError as e:
                 STATS[f"http{e.code}"] += 1
+                print(f"  translate: HTTP {e.code} ({len(chunk)} paragraphs)", file=sys.stderr)
+                if e.code == 429:
+                    BLOCKED["run"] += 1
+                    if BLOCKED["run"] >= 8:
+                        raise Stop("the service keeps refusing (429)")
                 if e.code == 429 or e.code >= 500:
                     time.sleep(10 * (attempt + 1))
                     continue
@@ -172,13 +189,18 @@ def translate(paras, sl, stats=None):
             time.sleep(0.3)
         batch, size = [], 0
 
-    for p in paras:
-        if time.time() - START > TIME_BUDGET:
-            break
-        if size + len(p) > 2500:
-            flush()
-        batch.append(p[:2500]); size += len(p)
-    flush()
+    try:
+        for p in paras:
+            if time.time() - START > TIME_BUDGET:
+                break
+            if size + len(p) > 2500:
+                flush()
+            batch.append(p[:2500]); size += len(p)
+        flush()
+    except Stop as e:  # keep what is translated; the rest waits for the next run
+        print(f"  translate: stopped, {e}", file=sys.stderr)
+        if stats is not None:
+            stats["stopped"] = str(e)
     return res
 
 
@@ -220,19 +242,25 @@ def main():
                 continue
             except Exception as e:
                 print(f"{name}: translating again ({e})", file=sys.stderr)
-        if time.time() - START > TIME_BUDGET:
-            print(f"{name}: out of time, next run", file=sys.stderr)
-            if old:  # keep what earlier runs translated (even a partial one) instead of publishing nothing
-                try:
-                    md = urllib.request.urlopen(PREV + "ja/" + urllib.parse.quote(name) + ".md", timeout=60).read()
-                    open(os.path.join(d, "ja", name + ".md"), "wb").write(md)
-                    index[name] = {**old, "complete": False} if old.get("chars") != chars else old
-                except Exception as e:
-                    print(f"{name}: earlier translation not kept ({e})", file=sys.stderr)
+        def keep_old():  # keep what earlier runs translated (even a partial one) instead of publishing nothing
+            if not old:
+                return
+            try:
+                md = urllib.request.urlopen(PREV + "ja/" + urllib.parse.quote(name) + ".md", timeout=60).read()
+                open(os.path.join(d, "ja", name + ".md"), "wb").write(md)
+                index[name] = {**old, "complete": False} if old.get("chars") != chars else old
+            except Exception as e:
+                print(f"{name}: earlier translation not kept ({e})", file=sys.stderr)
+        if time.time() - START > TIME_BUDGET or BLOCKED["run"] >= 8:
+            print(f"{name}: out of time (or refused), next run", file=sys.stderr)
+            keep_old()
             continue
         t0 = time.time()
         st = {}
         ja = translate(paras, sl, st)
+        if st.get("stopped") and not ja and old:
+            keep_old()
+            continue
         md = [f"# {title}", "", f"原文: {src.get(name, '')}", "",
               "> この文書は原文を機械翻訳したものです。正確な内容は原文で確認してください。", ""]
         for o, j in zip(paras, ja):
