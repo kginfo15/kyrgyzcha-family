@@ -850,8 +850,8 @@ function viewDonor(){
     ${secRows.length?`<div class="cols" style="margin-top:10px">
       <div class="panel chart"><div class="phk">By sector · all periods</div><h3 class="ph">分野別の${useAmt?"支援額":"案件数"}</h3>
         <ul class="lg" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-sec="${c}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?money(v):Math.round(v)+"件"}</span><span class="vv"><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></span></li>`).join("")}</ul></div>
-      <div class="panel chart"><div class="phk">By scheme</div><h3 class="ph">種別ごとの案件数</h3>
-        <ul class="lg" style="margin-top:8px">${Object.keys(kinds).length?Object.entries(kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<li data-kind="${esc(k)}"><i style="background:var(--dother)"></i><span class="nm">${esc(k)}</span><span class="pc">${n}件</span><span class="vv"></span></li>`).join(""):'<li class="nolink"><span></span><span class="note">種別の情報はありません</span></li>'}</ul></div>
+      ${Object.keys(kinds).length?`<div class="panel chart"><div class="phk">By scheme</div><h3 class="ph">種別ごとの案件数</h3>
+        <ul class="lg" style="margin-top:8px">${Object.entries(kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<li data-kind="${esc(k)}"><i style="background:var(--dother)"></i><span class="nm">${esc(k)}</span><span class="pc">${n}件</span><span class="vv"></span></li>`).join("")}</ul></div>`:""}
     </div>`:""}
     <div class="filters" style="margin-top:10px">${periodSelect(S.p)} ${sectorSelect(S.s)} ${qInput()}</div>
     <div class="cols">
