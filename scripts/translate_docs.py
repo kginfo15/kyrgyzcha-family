@@ -131,6 +131,9 @@ def untranslated(line):
     return len(letters) >= 20 and sum("\u0400" <= c <= "\u04ff" for c in letters) > len(letters) / 2
 
 
+PACE = float(os.environ.get("TRANSLATE_PACE", 1.5))  # seconds between requests, to stay under the service's limit
+
+
 class Stop(Exception):
     """The time budget is used up, or the service keeps refusing: stop and publish what is done."""
 
@@ -167,7 +170,8 @@ def translate(paras, sl, stats=None):
                     if BLOCKED["run"] >= 8:
                         raise Stop("the service keeps refusing (429)")
                 if e.code == 429 or e.code >= 500:
-                    time.sleep(10 * (attempt + 1))
+                    # run 10 was refused after about 1,400 paragraphs in 5 minutes: give the service time
+                    time.sleep(30 * (attempt + 1))
                     continue
                 break
             except Exception as e:
@@ -186,7 +190,7 @@ def translate(paras, sl, stats=None):
         nonlocal batch, size
         if batch:
             res.extend(one(batch))
-            time.sleep(0.3)
+            time.sleep(PACE)
         batch, size = [], 0
 
     try:
@@ -275,6 +279,10 @@ def main():
         t0 = time.time()
         st = {}
         got = translate([paras[i] for i in need], sl, st)
+        if not got and not old_ja:  # stopped before anything: publish no empty page, try next run
+            print(f"{name}: nothing translated ({st.get('stopped', 'no answer')}), next run", file=sys.stderr)
+            STATS.clear()
+            continue
         new = dict(zip(need, got))  # a stop leaves the rest of `need` out; the earlier text stays for those
         ja = []
         for i in range(len(paras)):
@@ -292,7 +300,8 @@ def main():
                        # incomplete so the next run translates that paragraph again
                        "complete": len(ja) >= len(paras) and (not left or give_up)}
         print(f"{name}: {len(need)} of {len(paras)} paragraphs sent in {int(time.time() - t0)}s, "
-              f"{left} still untranslated {dict(STATS)}", file=sys.stderr)
+              f"{len(got)} translated, {left} still untranslated"
+              f"{', stopped: ' + st['stopped'] if st.get('stopped') else ''} {dict(STATS)}", file=sys.stderr)
         STATS.clear()
     json.dump(index, open(os.path.join(d, "ja", "index.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
