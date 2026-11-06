@@ -307,6 +307,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .covered{display:inline-block;font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;background:var(--ink);color:var(--on-ink);margin-left:4px;vertical-align:1px}
 .kcount{display:flex;flex-wrap:wrap;gap:6px}
 .kcount .ikind{font-size:12px;padding:3px 9px}
+.mapbtn{display:none}
 .ctry{display:flex;gap:4px;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px}
 .ctry button{flex:1;font-size:12.5px;font-weight:700;padding:7px 4px;border-radius:9px;color:var(--ink-3)}
 .ctry button.on{background:rgba(var(--accent-rgb),.14);color:var(--accent);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),.6)}
@@ -531,9 +532,12 @@ details.about .foot{margin-top:8px}
   :root[data-country="kz"] h1{font-size:26px}
   .ctry{order:1;width:340px;margin-top:0}
   header .iconbtn{order:2}
+  .mapbtn{display:inline-flex;align-items:center;gap:4px;order:2;height:40px;padding:0 16px;border-radius:99px;font-size:13px;font-weight:800;
+    color:var(--accent-text,#000);background:var(--accent);box-shadow:0 4px 14px rgba(var(--accent-rgb),.3)}
+  .mapbtn:hover{filter:brightness(1.08)}
   .banner{order:3;flex-basis:100%}
-  .layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0 28px;align-items:start;margin-top:14px}
-  .col-wide{grid-column:1 / -1}
+  .layout{margin-top:14px}
+  .topgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0 28px;align-items:start}
   /* news column follows the page and scrolls on its own */
   .col-side{position:sticky;top:92px;max-height:calc(100vh - 108px);display:flex;flex-direction:column}
   .col-side h2.sect{margin-top:10px}
@@ -582,6 +586,7 @@ details.about .foot{margin-top:8px}
         <h1><span id="cname">キルギス共和国</span> <span class="h1b">統合情報</span></h1>
         <div class="sub num" id="updated">読み込み中…</div>
       </div>
+      <button class="mapbtn" id="openMap2" aria-label="地図">🗺 地図</button>
       <button class="iconbtn" id="openSkin" aria-label="テーマ">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none" opacity=".35"/></svg>
       </button>
@@ -596,6 +601,7 @@ details.about .foot{margin-top:8px}
   </header>
 
   <div class="layout">
+  <div class="topgrid">
   <div class="col-main">
   <button class="alert" id="alert" hidden></button>
   <section class="myst" id="myst" hidden></section>
@@ -608,6 +614,7 @@ details.about .foot{margin-top:8px}
   <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地報道</button><button data-k="japan">日本の報道</button><button data-k="world">世界の報道</button><button data-k="safety">安全情報</button></div>
   <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
   </aside>
+  </div>
 
   <div class="col-wide">
   <details class="calbox" id="calbox"><summary><span class="cs-t">📅 祝日・行事</span><span class="cs-n" id="calSum"></span><span class="cs-c">›</span></summary>
@@ -1753,7 +1760,7 @@ document.addEventListener("click", e=>{
     document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
   if(e.target.closest("#openPicker")){ openPicker(); return; }
   if(e.target.closest("#openWeekly")){ openWeekly(); return; }
-  if(e.target.closest("#openMap")){ openMap(); return; }
+  if(e.target.closest("#openMap") || e.target.closest("#openMap2")){ openMap(); return; }
   if(e.target.closest("#mapBack")){ closeMap(false); return; }
   const ml = e.target.closest("[data-maplayer]");
   if(ml){ const k = ml.dataset.maplayer; mapShow[k] = !mapShow[k]; if(mapShow[k]) mapLayers[k].addTo(mapObj); else mapLayers[k].remove(); ml.classList.toggle("on", mapShow[k]); return; }
