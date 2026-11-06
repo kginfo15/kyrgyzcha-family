@@ -224,11 +224,24 @@ def md_paragraphs(md, n):
     return out
 
 
-def read_md(path, n):
+def read_md(path, paras):
+    """A translation made elsewhere, used only if its headings fall on the same paragraphs as ours
+    (a translation of an older or differently split text would otherwise slip silently)."""
     try:
-        return md_paragraphs(open(path, encoding="utf-8").read(), n)
+        md = open(path, encoding="utf-8").read()
     except OSError:
         return []
+    raw = md.split("\n")[HEADER_LINES:][0::2]
+    out = md_paragraphs(md, len(paras) + 1)
+    if len(out) > len(paras):
+        print(f"{os.path.basename(path)}: more paragraphs than the text, not used", file=sys.stderr)
+        return []
+    ours = {i for i, o in enumerate(paras[:len(out)]) if HEADING.match(o) and len(o) < 160}
+    theirs = {i for i, ln in enumerate(raw[:len(out)]) if ln.startswith("## ")}
+    if ours != theirs:
+        print(f"{os.path.basename(path)}: headings do not line up with the text, not used", file=sys.stderr)
+        return []
+    return out
 
 
 def write_md(d, name, title, source, paras, ja):
@@ -277,7 +290,7 @@ def main():
                 old_ja = md_paragraphs(md, len(paras))
             except Exception as e:
                 print(f"{name}: earlier translation not read ({e})", file=sys.stderr)
-        seed_ja = read_md(os.path.join(SEED, name + ".md"), len(paras))
+        seed_ja = read_md(os.path.join(SEED, name + ".md"), paras)
         if seed_ja:  # paragraph by paragraph, a translated paragraph beats a missing or Cyrillic one
             merged = []
             for i in range(max(len(old_ja), len(seed_ja))):
@@ -293,7 +306,9 @@ def main():
         need = [i for i in range(len(paras)) if i >= len(old_ja) or (untranslated(old_ja[i]) and not give_up)]
         if not need:
             write_md(d, name, title, src.get(name, ""), paras, old_ja)
-            index[name] = {**old, "complete": True}
+            index[name] = {"title": title, "source": src.get(name, ""), "paragraphs": len(paras), "chars": chars,
+                           "untranslated": sum(1 for j in old_ja if untranslated(j)) if sl == "ru" else 0,
+                           "retries": tries, "complete": True}
             print(f"{name}: kept earlier translation", file=sys.stderr)
             continue
         if time.time() - START > TIME_BUDGET or BLOCKED["run"] >= BLOCK_LIMIT:
