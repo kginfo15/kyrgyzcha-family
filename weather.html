@@ -152,6 +152,9 @@ h2.sect .grow{flex:1}
 .tabs button.on{background:var(--raised);color:var(--ink)}
 .nitem{display:block;text-decoration:none;padding:10px 0;border-top:1px solid var(--line)}
 .nitem:first-child{border-top:0}
+.nitem .nmain{display:block;text-decoration:none;color:inherit}
+a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
+.mitem a.orig{font-size:11px;font-weight:600;color:var(--ink-3)}
 .nitem .nt{font-size:14px;font-weight:600;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .nitem .ns{font-size:11px;color:var(--ink-3);margin-top:3px}
 .nmore{display:block;width:100%;font-size:13px;font-weight:700;color:var(--brand);padding:8px 0;border-top:1px solid var(--line)}
@@ -690,6 +693,21 @@ function renderList(){
   document.querySelectorAll("#sortbar button").forEach(b=>b.classList.toggle("on", b.dataset.s===prefs.sort));
 }
 
+// Open a foreign-language article through Google Translate's page proxy, in Japanese.
+// 24.kg/path -> https://24-kg.translate.goog/path?_x_tr_sl=auto&_x_tr_tl=ja...
+function jaLink(url){
+  try{
+    const u = new URL(url);
+    if(!/^https?:$/.test(u.protocol)) return url;
+    if(/(^|\.)news\.google\.com$/.test(u.hostname) || /\.translate\.goog$/.test(u.hostname))
+      return "https://translate.google.com/translate?sl=auto&tl=ja&hl=ja&u=" + encodeURIComponent(url);
+    const host = u.hostname.replace(/-/g,"--").replace(/\./g,"-") + ".translate.goog";
+    const q = new URLSearchParams(u.search);
+    q.set("_x_tr_sl","auto"); q.set("_x_tr_tl","ja"); q.set("_x_tr_hl","ja"); q.set("_x_tr_pto","wapp");
+    return `https://${host}${u.pathname}?${q.toString()}${u.hash}`;
+  }catch(e){ return url; }
+}
+const origLink = url => `<a class="orig" href="${esc(url)}" target="_blank" rel="noopener">原文</a>`;
 const CAT = {politics:"政治", economy:"経済", safety:"安全", event:"イベント"};
 const LV_TXT = {l4:"レベル4：退避してください", l3:"レベル3：渡航は止めてください", l2:"レベル2：不要不急の渡航は止めてください", l1:"レベル1：十分注意してください"};
 // accept the older {feeds:{ja,local}} format too
@@ -721,12 +739,12 @@ function renderNews(){
     const shown = newsShowAll ? items : items.slice(0,5);
     el.innerHTML = `<div class="cats">${[["all","すべて "+all.length],["politics","🏛 政治 "+count("politics")],["economy","💰 経済 "+count("economy")],["safety","🚨 安全 "+count("safety")],["event","🎪 イベント "+count("event")]]
         .map(([k,l])=>`<button data-cat="${k}" class="${prefs.newsCat===k?"on":""}">${l}</button>`).join("")}</div>`
-      + (shown.length ? shown.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
+      + (shown.length ? shown.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
           <div class="nt">${n.cat?`<span class="cat cat-${n.cat}">${CAT[n.cat]}</span>`:""}${esc(n.title_ja||n.title)}</div>
-          ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}
-          <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">この分類のニュースは今はありません。</div>`)
+          ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}</a>
+          <div class="ns">${esc(n.source)}${when(n.published)}・${origLink(n.link)}</div></div>`).join("") : `<div class="nempty">この分類のニュースは今はありません。</div>`)
       + more(items.length)
-      + `<div class="nnote">キルギスの現地メディア（24.kg・Kaktus・AKIpress・Kloop・Azattyk ほか）の記事を日本語に自動翻訳しています。タップすると元の記事が開きます。</div>`;
+      + `<div class="nnote">キルギスの現地メディア（24.kg・Kaktus・AKIpress・Kloop・Azattyk ほか）の記事を日本語に自動翻訳しています。タップすると記事全体が Google 翻訳で日本語になって開きます（「原文」で元のページ）。</div>`;
     return;
   }
   if(prefs.newsTab==="japan"){
@@ -864,12 +882,12 @@ function renderInfra(nd){
       ${items.map(x=>`<div class="mitem">
         <div class="mt">${(x.kinds||[]).map(k=>`<span class="ikind k-${k}">${KIND[k]||k}</span>`).join("")}${x.date?`<span class="dlabel">${dayLabel(x.date)}</span>`:""}<span>${esc(x.title_ja||"")}</span></div>
         ${(x.hits||[]).map(h=>`<div class="mhit"><span class="st">${esc((h.streets||[]).map(streetJa).join("・"))}</span>${h.time?`<span class="tm num">${esc(h.time)}</span>`:""}${esc(h.text_ja||"")}</div>`).join("")}
-        <a href="${esc(x.link)}" target="_blank" rel="noopener">記事を開く（${esc(x.source)}）›</a></div>`).join("")}
+        <a href="${esc(jaLink(x.link))}" target="_blank" rel="noopener">記事を日本語で開く（${esc(x.source)}）›</a>　${origLink(x.link)}</div>`).join("")}
       ${items.length?"":`<div class="nempty">ビシュケクの停電・断水のお知らせを${ms.checked||0}件確認しましたが、選んだ${sel.size}本の通りの名前は出ていませんでした。</div>`}
       <button class="mall" id="mall">${mallOpen?"▲":"▼"} ビシュケク全体のライフライン情報（${others.length}件）</button>
-      ${mallOpen?others.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
-        <div class="nt">${(n.kinds||[]).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]||k}</span>`).join("")}${esc(n.title_ja)}</div>
-        <div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}</div></a>`).join(""):""}
+      ${mallOpen?others.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
+        <div class="nt">${(n.kinds||[]).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]||k}</span>`).join("")}${esc(n.title_ja)}</div></a>
+        <div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}・${origLink(n.link)}</div></div>`).join(""):""}
     </div>`;
 }
 const isRecent = iso => iso && Date.now()-Date.parse(iso) < 72*3600*1000;
