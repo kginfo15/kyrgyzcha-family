@@ -446,6 +446,7 @@ details.ov[open] .ovs{display:inline}
 @media (min-width:1500px){ .layout{grid-template-columns:minmax(0,1fr) 420px} }
 .foot{margin:34px 0 0;font-size:12px;color:var(--faint);line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
 mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px}
+@media (pointer:coarse){input,select,textarea{font-size:16px!important}}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:7px 14px;border-radius:6px;font-size:12.5px;z-index:40}
 @media (max-width:560px){
   .logo span{display:none}
@@ -550,7 +551,7 @@ function readHash(){
   for(const k of Object.keys(DEF)) S[k] = h.has(k) ? h.get(k) : DEF[k];
   S.p = +S.p || (h.get("p")==="0" ? 0 : DEF.p);
 }
-function go(patch, push=true){
+function go(patch, push=true, keep=null){
   Object.assign(S, patch); shown = PAGE;
   if(!EMBED){
     const h = new URLSearchParams();
@@ -558,7 +559,7 @@ function go(patch, push=true){
     const str = h.toString(), url = str ? "#"+str : location.pathname+location.search;
     push ? history.pushState(null,"",url) : history.replaceState(null,"",url);
   }
-  render(); if(push) window.scrollTo(0,0);
+  render(keep); if(push) window.scrollTo(0,0);
 }
 window.addEventListener("popstate", ()=>{ if(EMBED) return; readHash(); shown=PAGE; render(); });
 
@@ -1517,7 +1518,7 @@ function footer(){
     金額は各機関の報告額を米ドルにそろえ、円・ソム表示は${INDEX.fx&&INDEX.fx.date?`${esc(INDEX.fx.date)}の`:"目安の"}レート（1ドル=${fx("JPY")}円・${fx("KGS")}ソム）で換算しています（過去の案件も同じレート）。
     蓄積 ${(INDEX.total||0).toLocaleString()} 件${bf?`・過去 ${bf} か月分をさかのぼって収集済み`:""}${INDEX.untranslated?`・翻訳待ち ${INDEX.untranslated} 件`:""}${EMBED?"":"・3時間ごとに自動更新"}。</p>`;
 }
-function render(){
+function render(keep=null){
   document.querySelectorAll("#tabs button").forEach(b=>{ const v = b.dataset.v; b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor") || (v==="feed"&&(S.v==="gov"||S.v==="coop")) || (v==="strategy"&&S.v==="doc")); });
   const m = $("#main");
   if(!INDEX){
@@ -1527,8 +1528,35 @@ function render(){
   if(S.v==="gov"||S.v==="coop"){ S.t = S.v; S.v = "feed"; }
   const f = {home:viewHome, feed:viewFeed, sector:viewSector,
              projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved, strategy:viewStrategy, doc:viewDoc}[S.v] || viewHome;
-  m.innerHTML = f() + (S.v==="doc" ? "" : footer());
+  const html = f() + (S.v==="doc" ? "" : footer());
+  if(!(keep && m.contains(keep) && renderAround(m, html, keep))) m.innerHTML = html;
   renderSheet();
+}
+// Redraw `m` but leave the element `keep` (the filter box being typed in) where it is.
+// Replacing it would close the iPhone keyboard, and Safari does not let a page reopen it.
+function renderAround(m, html, keep){
+  const fresh = document.createElement("div"); fresh.innerHTML = html;
+  const twin = fresh.querySelector(`[data-inp="${keep.dataset.inp}"]`);
+  if(!twin) return false;
+  const oldChain = [], newChain = [];
+  for(let n = keep; n !== m; n = n.parentNode) oldChain.push(n);
+  for(let n = twin; n !== fresh; n = n.parentNode) newChain.push(n);
+  if(oldChain.length !== newChain.length) return false;
+  oldChain.push(m); newChain.push(fresh);
+  for(let k = oldChain.length - 1; k > 0; k--){
+    const box = oldChain[k], stay = oldChain[k-1], nbox = newChain[k], nstay = newChain[k-1];
+    if(k < oldChain.length - 1){  // match the box's own attributes (class, style) to the new drawing
+      for(const a of [...box.attributes]) if(!nbox.hasAttribute(a.name)) box.removeAttribute(a.name);
+      for(const a of [...nbox.attributes]) box.setAttribute(a.name, a.value);
+    }
+    for(const c of [...box.childNodes]) if(c !== stay) box.removeChild(c);
+    let before = true;
+    for(const c of [...nbox.childNodes]){
+      if(c === nstay){ before = false; continue; }
+      before ? box.insertBefore(c, stay) : box.appendChild(c);
+    }
+  }
+  return true;
 }
 
 /* ---------- CSV ---------- */
@@ -1621,16 +1649,23 @@ main.addEventListener("keydown", e=>{
 main.addEventListener("change", e=>{
   const c = e.target.closest("[data-chsel]"); if(c){ CH[c.dataset.chsel] = c.value; lsSet("km-charts", CH); render(); return; }
   const s = e.target.closest("[data-sel]"); if(s) go({[s.dataset.sel]: s.dataset.sel==="p" ? +s.value : s.value}, false); });
-let qTimer = 0;
-main.addEventListener("input", e=>{
-  const i = e.target.closest("[data-inp]"); if(!i) return;
+let qTimer = 0, composing = false;
+function filterLater(i){
   clearTimeout(qTimer);
   qTimer = setTimeout(()=>{
-    const pos = i.selectionStart;
-    go({q:i.value}, false); $("#q").value = S.q;
-    const n = document.querySelector('[data-inp="q"]');
-    if(n){ n.focus(); try{ n.setSelectionRange(pos,pos); }catch(e){} }
+    if(composing || !document.body.contains(i)) return;
+    go({q:i.value}, false, i); $("#q").value = S.q;
   }, 250);
+}
+main.addEventListener("input", e=>{
+  const i = e.target.closest("[data-inp]"); if(!i) return;
+  if(e.isComposing || composing) return;  // Japanese input: wait until the word is chosen
+  filterLater(i);
+});
+main.addEventListener("compositionstart", e=>{ if(e.target.closest("[data-inp]")) composing = true; });
+main.addEventListener("compositionend", e=>{
+  const i = e.target.closest("[data-inp]"); if(!i) return;
+  composing = false; filterLater(i);
 });
 boot();
 </script>
