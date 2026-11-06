@@ -604,6 +604,8 @@ def collect_world(prev_tr):
     items = items[:15]
     for x in items:
         x["link"] = resolve_gnews(x["link"])
+    # paid placements on news sites (e.g. BBC StoryWorks) are not reporting
+    items = [x for x in items if not re.search(r"advertiser-content|storyworks|sponsored|/partner-content/|/paid-content/", x["link"])]
     translate_items(items, prev_tr)
     return items
 
