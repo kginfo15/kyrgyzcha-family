@@ -350,6 +350,36 @@ details.pil2[open]>summary{border-bottom:1px solid var(--line);background:var(--
 .smini{display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
 .smini i{font-style:normal;font-family:var(--mono);font-size:10px;font-weight:600;background:var(--coop-soft);color:var(--coop);border-radius:3px;padding:0 4px;line-height:1.7}
 .smini i.on{background:var(--gov);color:var(--panel)}
+.smini i{font-family:var(--sans);white-space:nowrap}
+.pgrp{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 0;grid-column:1/-1}
+.pgrp .pno{min-width:42px;padding:4px 8px}
+.ppart{margin:8px 0}.ppart>b{font-size:12.5px;color:var(--sub)}
+.subno{font-family:var(--mono);color:var(--accent);margin-right:8px}
+small.orig{color:var(--faint);font-size:11px;margin-left:4px}
+.tree details.tnode{border-left:2px solid var(--line);margin:4px 0 4px 2px;padding-left:10px}
+.tree details.tnode>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;padding:4px 0;font-size:13px}
+.tree details.tnode>summary::-webkit-details-marker{display:none}
+.tree details.tnode>summary::before{content:"▸";color:var(--faint);font-size:11px}
+.tree details.tnode[open]>summary::before{content:"▾"}
+.tree .tn{font-weight:600;flex:1 1 60%;min-width:0}
+.tree .tc{font-family:var(--mono);font-size:11px;color:var(--sub)}
+.tree .tm,.tree .td{margin:0 0 4px;font-size:12.5px;color:var(--sub)}
+.tree .tm{color:var(--faint)}
+.tpj{list-style:none;margin:2px 0 6px;padding:0;font-size:12.5px}
+.tpj li{display:flex;flex-direction:column;padding:4px 0;border-top:1px dashed var(--line)}
+.ctag{display:inline-block;font-size:10.5px;border-radius:3px;padding:0 5px;line-height:1.7;margin-right:2px;white-space:nowrap}
+.c-law{background:var(--accent);color:var(--panel)}
+.c-doc{background:var(--coop-soft);color:var(--coop)}
+.c-news{background:var(--gov-soft);color:var(--gov)}
+.c-draft,.c-guess{background:var(--panel2);color:var(--sub);border:1px dashed var(--line)}
+details.pil2.insec{margin-left:16px;border-left:3px solid var(--accent-soft)}
+/* phones: the sector tags go under the chapter name so long names are not squeezed */
+@media (max-width:720px){
+  details.pil2>summary{grid-template-columns:44px minmax(0,1fr)}
+  details.pil2>summary .smini{grid-column:2;justify-content:flex-start}
+  .scard2{grid-template-columns:minmax(0,1fr)}
+  .scard2 .smini{grid-row:auto;grid-column:1;max-width:none;justify-content:flex-start}
+}
 .pbody{padding:10px 14px 12px;display:flex;flex-direction:column;gap:8px}
 .chlink{align-self:flex-start;border:0;background:none;color:var(--accent);cursor:pointer;padding:0;font-size:12.5px}
 .scards{display:flex;flex-direction:column;gap:6px}
@@ -489,6 +519,8 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
 </header>
 <main class="wrap" id="main"><div class="empty">読み込み中…</div></main>
 
+<!-- strategy trees: programme structure and the rules that place donor projects on it -->
+<script type="application/json" id="tree-health">{"sector": "health", "strategy": "health", "chapter": "9.4", "nodes": [{"id": "hp", "n": "保健プログラム「健康な人 ― 繁栄する国」2019–2030", "m": "政府決定 2018年12月20日 No.600（行動計画2019–2023・指標表つき）", "conf": "本文一部", "d": "病気ごとの対策から保健システム全体の土台づくりへ切り替えるプログラム。3つの優先分野で進める。", "kids": [{"id": "A", "n": "1 一次医療（PHC）と公衆衛生の強化", "conf": "資料", "d": "世界銀行の技術評価（2019）にプログラムの構成として記載。", "kids": [{"id": "A1", "n": "1.1 効率的な一次医療のモデル（予防・早期発見・慢性疾患の管理）", "conf": "資料", "d": "看護師による慢性疾患の管理、巡回チーム、オンライン相談、成果に応じた支払い。"}, {"id": "A2", "n": "1.2 一次医療と病院の連携（紹介の流れ・継続した診療）", "conf": "資料"}, {"id": "A3", "n": "1.3 一次医療の質と、全住民の公平なアクセス", "conf": "資料", "d": "運営主体を問わない質の管理の仕組み。"}, {"id": "A4", "n": "1.4 一次医療の人材の能力強化", "conf": "資料", "d": "一次医療の教育・研修センターでの継続研修。"}, {"id": "A5", "n": "1.5 公衆衛生・健康づくり（非感染性疾患の予防）", "conf": "資料", "d": "死亡の約8割を占める非感染性疾患の予防、都市計画・スポーツ・教育など他分野との連携、地方自治体の役割。"}, {"id": "A6", "n": "1.6 母子保健", "conf": "推定", "d": "国家開発プログラム9.4の目標（妊産婦・5歳未満児の死亡）に対応。保健プログラム本文での位置は未確認。"}]}, {"id": "B", "n": "2 病院・救急医療の合理化", "conf": "資料", "kids": [{"id": "B1", "n": "2.1 病院の再編と近代化（施設・医療機材）", "conf": "資料", "d": "使われていない病院の見直し、建物ではなくサービスに資金をつける。"}, {"id": "B2", "n": "2.2 救急医療", "conf": "資料"}, {"id": "B3", "n": "2.3 病院の経営と感染管理", "conf": "資料", "d": "院長の公募と成果契約、経営能力をつけてから独立採算へ。医療廃棄物・院内感染の管理。"}]}, {"id": "C", "n": "3 保健システムの土台の強化", "conf": "資料", "kids": [{"id": "C1", "n": "3.1 財政とUHC（国の医療保障・強制医療保険・成果払い）", "conf": "資料", "d": "国が保障する医療サービス（SGBP）の見直し、一次医療への成果払い、サービスの原価計算と戦略的購入、医療保険の改革。"}, {"id": "C2", "n": "3.2 人材と医学教育", "conf": "資料"}, {"id": "C3", "n": "3.3 医薬品・医療機器", "conf": "推定", "d": "必須医薬品・医療機器リスト 2026–2028（内閣 2026年10月）が関連。"}, {"id": "C4", "n": "3.4 デジタル保健（電子カルテ・診療ガイドラインの電子化）", "conf": "資料"}, {"id": "C5", "n": "3.5 保健行政・情報・モニタリング", "conf": "推定"}]}]}, {"id": "rel", "n": "同じ分野の関連プログラム（内閣などが別に決定）", "conf": "", "d": "保健プログラムの「子ども」と法令で決まっているわけではなく、同じ分野で並んで動くプログラム。", "kids": [{"id": "imm", "n": "予防接種（免疫予防）プログラム 2025–2030", "m": "内閣承認 2025年4月", "conf": "報道"}, {"id": "tb", "n": "結核対策プログラム（内閣）", "m": "法令データベースに現行版あり。名前・期間は未確認", "conf": "要確認"}, {"id": "hiv", "n": "HIVと血液で感染するウイルス性肝炎の対策 2026–2030", "m": "2025年9月にパブリックコメント", "conf": "案"}, {"id": "mh", "n": "精神保健プログラム 2018–2030", "m": "政府決定 2018年3月1日 No.119（3期に分かれる）", "conf": "法令"}, {"id": "heart", "n": "「健康な心臓」国家プログラム", "m": "大統領令（2026年4月より前）。期間は未確認", "conf": "報道"}, {"id": "ckd", "n": "慢性腎臓病の予防・診断・治療 2026–2030", "m": "内閣承認 2026年9月14日", "conf": "報道"}, {"id": "epi", "n": "感染症対策・健康危機への備えの総合計画 2026–2030", "m": "2026年2月にパブリックコメント", "conf": "案"}]}, {"id": "oth", "n": "保健につながる、ほかの分野の戦略（マップに掲載済み）", "conf": "", "kids": [{"id": "water", "n": "飲料水供給・排水システム発展プログラム 〜2026", "conf": "法令"}, {"id": "food", "n": "食料安全保障・栄養プログラム", "conf": "本文旧版"}, {"id": "clim", "n": "気候変動への強さ（国家開発プログラム13）", "conf": "本文"}]}], "rules": [["imm", "vaccin|immuniz|pentavalent|pneumococcal|polio|rotavirus|papilloma|gavi|targeted country assistance|country foundations"], ["tb", "tubercul|\\bTB\\b"], ["hiv", "\\bHIV\\b|AIDS|PEPFAR|hepatitis|epidemic control|stigma|community led monitoring"], ["epi", "health security|one health|zoonotic|surveillance and alert|acute public health threats|health emergenc|preparedness|AMR|antimicrobial|COVID|pandemic|infectious"], ["A6", "empowerment for women, girls|mother.?child|maternal|newborn|reproductive|sexual, reproductive"], ["A2", "referral|早期発見"], ["clim", "vulnerability and adaptation"], ["A5", "non-?communicable|best buys|risk factors|promotion and preventive"], ["mh", "mental health"], ["A4", "PHC educational|nursing"], ["A1", "primary health care|primary care|primary healthcare|community action for health"], ["B1", "医療機材|hospital infrastructure|equipment"], ["B3", "waste management|facilities autonomy|hospital"], ["C1", "sector program health|budget support to the health|SWAp|health financing|Health Policy and Financing"], ["C2", "medical education|workforce"], ["C4", "digital health|health information system"], ["C5", "health governance|health leadership|evidence-informed|Ext\\.eval|Precedent-setting|health system strengthening"], ["water", "water|wastewater|WASH"], ["food", "nutrition|food|feeding"], ["clim", "climate|air quality|air pollution|大気"]], "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned", "note": "プログラム本文の構成（世界銀行の技術評価2019など）とブルクトの調査による。案件の当てはめは題名・説明のキーワードによる自動判定。"}</script>
 <script>
 "use strict";
 const BASE = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/sector-data/";
@@ -502,6 +534,11 @@ const SECTORS = [
   ["nature","自然環境保全"],["envmgmt","環境管理"],["water","水資源・水供給"],["drr","防災・災害リスク削減"],
 ];
 const SEC = Object.fromEntries(SECTORS.map(([id,ja],i)=>[id,{id,ja,no:String(i+1).padStart(2,"0")}]));
+// short sector names for the small tags of the strategy map (sector numbers there were mistaken for chapter numbers)
+const SEC_SHORT = {urban:"都市",transport:"運輸",energy:"エネルギー",private:"民間",agri:"農業",health:"保健",nutrition:"栄養",education:"教育",
+  social:"社会保障",sports:"スポーツ",peace:"平和",governance:"ガバナンス",finance:"財政・金融",gender:"ジェンダー",digital:"デジタル",
+  climate:"気候",nature:"自然",envmgmt:"環境管理",water:"水",drr:"防災"};
+const secTag = (id, on) => `<i class="${on?"on":""}" title="${esc(SEC[id].ja)}">${esc(SEC_SHORT[id]||SEC[id].ja)}</i>`;
 const DGROUP = {japan:"日本",mdb:"国際開発金融機関",un:"国連・国際機関",bilateral:"二国間",fund:"基金",ngo:"財団・NGO"};
 const JP_IDS = new Set(["jica","jp"]);
 let DONORS = {};
@@ -1227,52 +1264,54 @@ const SDB = {
     summary:"国家開発戦略2040の中期の実行計画。前身の「国家開発プログラム2026年まで」を引き継ぎ、工業化・地域ハブ・農業と観光・グリーンエネルギーの4つの「発展ベクトル」を中心に、中小企業・金融・デジタル化・社会開発・行政改革・法制度・外交と安全保障・気候変動への強さまで14章で目標値と課題を定めています。すべての分野別戦略はこのプログラムに従属させると定めています（10.2）。",
     goals:["1人当たりGDP 4,500ドル","GDP 300億ドル以上","実質成長率 年平均8%","SDGs達成度で上位30か国","人間開発指数の順位を10位上げる","失業率 5%以下","固定資本投資 GDP比20%以上","政府対外債務 GDP比60%以内"]},
 };
-// chapters of the National Development Program to 2030: the pillars of the map
+// chapters of the National Development Program to 2030: the pillars of the map.
+// Numbers as in the original, in Arabic figures; 5.x and 9.x are sections of chapters 5 and 9.
+const NDP_PARENT = {"5":"発展ベクトル", "9":"社会開発"};
 const NDP_CH = [
-  {id:"II", no:"II", name:"精神・道徳的発展", en:"Spiritual & civic", sectors:["peace","education"],
+  {id:"II", no:"2", name:"精神・道徳的発展", en:"Spiritual & civic", sectors:["peace","education"],
     targets:["国民の85%が「キルギス・ジャラヌ（キルギス市民）」であることを誇りに思う","国民の95%が信教の自由が保障されていると考える","国連の世界幸福度ランキングで上位50か国"],
     tasks:["市民アイデンティティ「キルギス・ジャラヌ」の育成と市民文化の向上","文化を人道的近代化の戦略的手段に（文化のデジタル化・創造産業・文化センター・国産映画の再興）"]},
-  {id:"5.1", no:"5.1", name:"工業化", en:"Industrialization", sectors:["private","energy","digital"],
+  {id:"5.1", no:"5.1", parent:"5", name:"工業化", en:"Industrialization", sectors:["private","energy","digital"],
     targets:["工業生産を2倍に（2024年比）","工業の固定資本投資シェア 34% → 50%","地方に工業団地・テクノパークを5か所以上"],
     tasks:["生産性を高める技術の導入","国内外の生産チェーンの構築","産業クラスター（重要鉱物・軽工業・製薬など）と工業団地・経済特区","工業の省エネ・再エネ利用","輸出・国際市場での地位強化"]},
-  {id:"5.2", no:"5.2", name:"地域ハブ（物流・通過輸送）", en:"Regional hub", sectors:["transport","private","urban"],
+  {id:"5.2", no:"5.2", parent:"5", name:"地域ハブ（物流・通過輸送）", en:"Regional hub", sectors:["transport","private","urban"],
     targets:["鉄道貨物 年1,500万トン","倉庫・物流施設 100万㎡以上","国道の50%以上を建設・改修","運輸業の付加価値 15億ドル","航空旅客 年700万人・貨物4.5万トン"],
     tasks:["道路網（南北幹線道路など）","鉄道（中国・キルギス・ウズベキスタン鉄道、電化）","都市交通（電気バス・自転車道・充電網）","民間航空・空港の近代化","物流センター・マルチモーダル輸送","国際港・輸送回廊、通関の簡素化"]},
-  {id:"5.3a", no:"5.3", name:"農業", en:"Agriculture", sectors:["agri","water","nutrition","climate"],
-    targets:["農業生産 +30%","農産物加工 2倍","水の損失を15%まで削減","灌漑面積 +1.5万ha","水供給の改善 9.3万ha"],
-    tasks:["加工と輸出","生産性の向上","灌漑システムの拡大・近代化","水資源の効率利用","人材育成","気候変動への適応"]},
-  {id:"5.3b", no:"5.3", name:"観光", en:"Tourism", sectors:["private","nature"],
-    targets:["観光のGDP比 7%","旅行・観光競争力指数で上位50か国","山岳観光の安全性の国際評価70点以上"],
-    tasks:["ホテルなど宿泊インフラ","観光ルート・観光ゾーン","自然・文化資源の持続的管理","人材育成","国内・訪日（インバウンド）観光","国際競争力とマーケティング"]},
-  {id:"5.4", no:"5.4", name:"グリーンエネルギー", en:"Green energy", sectors:["energy","climate"],
+  {id:"5.3", no:"5.3", parent:"5", name:"農業・観光", en:"Agriculture & tourism", sectors:["agri","water","nutrition","climate","private","nature"],
+    parts:[{name:"農業", targets:["農業生産 +30%","農産物加工 2倍","水の損失を15%まで削減","灌漑面積 +1.5万ha","水供給の改善 9.3万ha"],
+      tasks:["加工と輸出","生産性の向上","灌漑システムの拡大・近代化","水資源の効率利用","人材育成","気候変動への適応"]},
+     {name:"観光", targets:["観光のGDP比 7%","旅行・観光競争力指数で上位50か国","山岳観光の安全性の国際評価70点以上"],
+      tasks:["ホテルなど宿泊インフラ","観光ルート・観光ゾーン","自然・文化資源の持続的管理","人材育成","国内観光・海外からの観光（インバウンド）","国際競争力とマーケティング"]}],
+    targets:[], tasks:[]},
+  {id:"5.4", no:"5.4", parent:"5", name:"グリーンエネルギー", en:"Green energy", sectors:["energy","climate"],
     targets:["発電に占める再生可能エネルギー 92%","再エネ発電 年75億kWh","保証容量 550–700MW","送電損失 10%以下","温室効果ガス 16%削減（国際資金があれば44%）"],
     tasks:["発電能力の拡大・多様化","省エネと需要管理","エネルギー基盤の近代化・デジタル化","地域統合（CASA-1000 など）","環境の持続性と気候適応","資金と透明な管理"]},
-  {id:"VI", no:"VI", name:"中小企業支援", en:"SMEs", sectors:["private","finance","gender"],
+  {id:"VI", no:"6", name:"中小企業支援", en:"SMEs", sectors:["private","finance","gender"],
     targets:["中小企業の付加価値 3倍（2024年比）","GDPに占める中小企業の比率 50%以上"],
     tasks:["資金へのアクセス","行政の障壁の削減","起業相談・教育（女性起業家を含む）","土地とインフラへのアクセス"]},
-  {id:"VII", no:"VII", name:"金融市場", en:"Financial market", sectors:["finance","private"],
+  {id:"VII", no:"7", name:"金融市場", en:"Financial market", sectors:["finance","private"],
     targets:[], tasks:["工業・輸出・物流・グリーンエネルギー・観光・農業・地方・中小企業への資金の拡大","信用保証の拡充","ファクタリング・保険など代替的な資金調達","株式市場の発展とデジタル化"]},
-  {id:"VIII", no:"VIII", name:"デジタル化", en:"Digitalization", sectors:["digital","governance","gender"],
+  {id:"VIII", no:"8", name:"デジタル化", en:"Digitalization", sectors:["digital","governance","gender"],
     targets:[], tasks:["国家情報システムの統合（単一インテグレーター）","IT人材（サイバーセキュリティ・AI・デュアル教育）","IT輸出・データセンター・クラウド","IT分野での女性の経済的機会","フィンテック（デジタル決済・暗号資産基盤）","電子商取引・マーケットプレイス"]},
-  {id:"9.1", no:"9.1", name:"人的資源と働きがいのある雇用", en:"Decent work", sectors:["social","gender","private"],
+  {id:"9.1", no:"9.1", parent:"9", name:"人的資源と働きがいのある雇用", en:"Decent work", sectors:["social","gender","private"],
     targets:["インフォーマル就業 58%まで削減","貧困率 20%","就業率 60%","障害のある有資格者の就業率 60%以上"],
     tasks:["完全雇用と労働生産性","移民の効果的な管理"]},
-  {id:"9.2", no:"9.2", name:"公正な社会保障", en:"Social protection", sectors:["social","gender","nutrition"],
+  {id:"9.2", no:"9.2", parent:"9", name:"公正な社会保障", en:"Social protection", sectors:["social","gender","nutrition"],
     targets:["子どもの貧困 25%","貧困家庭の子どもへの手当の受給率 30%","親のいない子の家庭型養育 55%","社会パスポートのデジタル化 98%以上","高齢者センター 3か所以上"],
     tasks:["全ての層への最低保障","社会サービスの拡充と効率化","社会保障のデジタル化"]},
-  {id:"9.3", no:"9.3", name:"教育", en:"Education", sectors:["education","digital","nutrition"],
+  {id:"9.3", no:"9.3", parent:"9", name:"教育", en:"Education", sectors:["education","digital","nutrition"],
     targets:["3–5歳の就学前教育 80%","6–17歳の就学 98.8%","障害児用スロープのある学校 100%","小学生の基礎学力（算数40%・読解55%）","全国統一試験の平均130点・合格70%超","高速インターネットのある学校 98%","教員へのノートPC 85%","研究費 GDP比0.5–1.0%"],
     tasks:["教員の研修と処遇","新しい教科書・カリキュラム・実践的な授業","デジタル教材","労働市場に合わせた教育","学校での子どもの健康（給食を含む）","インクルーシブ教育","教育インフラ","財政の透明性","技術・高速インターネットへのアクセス","応用研究"]},
-  {id:"9.4", no:"9.4", name:"保健", en:"Health", sectors:["health","nutrition","sports","water"],
+  {id:"9.4", no:"9.4", parent:"9", name:"保健", en:"Health", sectors:["health","nutrition","sports","water"],
     targets:["強制医療保険の加入率 85%","平均寿命 75歳","妊産婦死亡 出生10万あたり22","5歳未満児死亡 出生1,000あたり14","非感染性疾患による早期死亡 30%減","予防・一次医療の利用 70%"],
     tasks:["医療へのアクセスと質","医薬品の安全","保健システムの管理","健康リスクの管理（飲料水など）","健康的な生活と体育・スポーツ"]},
-  {id:"X", no:"X", name:"行政改革・地域開発", en:"Public administration & regions", sectors:["governance","urban","finance","digital"],
+  {id:"X", no:"10", name:"行政改革・地域開発", en:"Public administration & regions", sectors:["governance","urban","finance","digital"],
     targets:[], tasks:["10.1 公務員・地方公務員制度（成果志向・人事のデジタル化）","10.2 戦略計画システム（全ての分野別戦略を国家プログラムに従属・統一モニタリング・予算との連動）","10.3 マクロ経済の安定（財政の持続性・予算のオープンデータ・投資管理・財政改革）","10.4 地域開発（地域総合発展プログラム2025–2030・成長拠点・都市圏の形成・空間データ基盤）","10.5 脱官僚化（手続きの簡素化・デジタル化）"]},
-  {id:"XI", no:"XI", name:"法制度・治安・汚職対策", en:"Rule of law", sectors:["governance","peace","gender"],
+  {id:"XI", no:"11", name:"法制度・治安・汚職対策", en:"Rule of law", sectors:["governance","peace","gender"],
     targets:[], tasks:["11.1 法の支配と司法へのアクセス（法教育・司法の独立）","11.2 治安（犯罪・麻薬・家庭内暴力・国境地域の越境犯罪・テロ対策・サイバー犯罪）","11.3 汚職対策（行政の透明化・デジタル化・法執行機関）"]},
-  {id:"XII", no:"XII", name:"外交と国家安全保障", en:"Foreign policy & security", sectors:["peace"],
+  {id:"XII", no:"12", name:"外交と国家安全保障", en:"Foreign policy & security", sectors:["peace"],
     targets:[], tasks:["12.1 伝統的・戦略的パートナーとの外交","12.2 主権と領土保全、軍の近代化、民間防衛の強化"]},
-  {id:"XIII", no:"XIII", name:"気候変動への強さ（防災・環境）", en:"Climate resilience", sectors:["drr","climate","nature","envmgmt","water"],
+  {id:"XIII", no:"13", name:"気候変動への強さ（防災・環境）", en:"Climate resilience", sectors:["drr","climate","nature","envmgmt","water"],
     targets:["全国の災害早期警報システム","地方自治体の100%が地方防災戦略を実施","旧ウラン鉱滓・廃石たい積場16か所の安全化","仙台防災枠組の目標達成","自然保護区を国土の10%に","温室効果ガス16%削減","気候適応指数ND-GAINを3ポイント改善","ビシュケクの有害排出を16%削減（改良炭・ガス化）"],
     tasks:["13.1 災害リスクの低減","13.2 生態系と生物多様性の保全・回復","気候変動対策と適応","廃棄物管理","環境安全"]},
 ];
@@ -1316,7 +1355,7 @@ const STRATS2 = [
           {name:"第4章 分野別：スポーツ", sectors:["digital","sports"], desc:"体育・スポーツのデジタル化"}]},
   {id:"roads", ch:"5.2", name:"道路部門発展の基本方針 2023–2030", ru:"Основные направления развития дорожной отрасли на 2023-2030 годы", period:"2023–2030", basis:"内閣決定 2023年2月10日 No.71", status:"有効", sectors:["transport","drr"], doc:"roads-2030", url:"https://base.spinform.ru/show_doc.fwx?rgn=148158",
     summary:"道路網の整備と道路部門の管理の改善を定める方針（2016–2025年版を置き換え）。国際道路・国道・地方道の現状評価、維持管理と安全、資金を扱い、運輸省の中期予算の基礎になっています。"},
-  {id:"tourism", ch:"5.3b", name:"持続可能な観光発展プログラム 2030年まで", ru:"Программа устойчивого развития туризма на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2024年12月18日 No.765", status:"有効", sectors:["private","nature","digital"], doc:"cbd-tourism-2030", url:"https://cbd.minjust.gov.kg/44-149/edition/23883/ru",
+  {id:"tourism", ch:"5.3", part:"観光", name:"持続可能な観光発展プログラム 2030年まで", ru:"Программа устойчивого развития туризма на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2024年12月18日 No.765", status:"有効", sectors:["private","nature","digital"], doc:"cbd-tourism-2030", url:"https://cbd.minjust.gov.kg/44-149/edition/23883/ru",
     summary:"観光をGDPの7%に、旅行・観光競争力指数で上位50か国に、観光客を毎年10%増やすことをめざすプログラム。国の政策・デジタル化・安全・地域開発など9つの方向で進めます。",
     subs:[{name:"優先1 観光政策の最適化", sectors:["private","governance"]},
           {name:"優先2 消費者市場の形成", sectors:["private"]},
@@ -1327,14 +1366,14 @@ const STRATS2 = [
           {name:"優先7 観光インフラの整備", sectors:["urban","transport"]},
           {name:"優先8 観光のグリーン技術", sectors:["climate","envmgmt"]},
           {name:"優先9 医療・スポーツ・保養観光", sectors:["private","health","sports"]}]},
-  {id:"pasture", ch:"5.3a", name:"牧草地発展プログラム 2024–2029", ru:"Программа развития пастбищ Кыргызской Республики на 2024–2029 годы", period:"2024–2029", basis:"内閣決定 2024年8月9日 No.462", status:"有効", sectors:["agri","nature","climate"], doc:"cbd-pasture-2029", url:"https://cbd.minjust.gov.kg/53-357/edition/14287/ru",
+  {id:"pasture", ch:"5.3", part:"農業", name:"牧草地発展プログラム 2024–2029", ru:"Программа развития пастбищ Кыргызской Республики на 2024–2029 годы", period:"2024–2029", basis:"内閣決定 2024年8月9日 No.462", status:"有効", sectors:["agri","nature","climate"], doc:"cbd-pasture-2029", url:"https://cbd.minjust.gov.kg/53-357/edition/14287/ru",
     summary:"気候変動のもとで牧草地を守り改善し、牧草地の効果的な管理を通じて農村住民の生活水準を高めることを目的とするプログラム。牧草地の劣化（過放牧・利用の偏り・インフラの荒廃）を課題とし、3つの優先分野と9つの課題で進めます。担当は水資源・農業・加工産業省と牧草地局で、地方自治体と牧草地利用者組合が実施の担い手です。",
     subs:[{name:"優先1 牧草地の持続的な管理と利用の改善", sectors:["agri","nature","governance"], desc:"法令の整備、国・地方自治体・地域社会の連携と投資の呼び込み、状態のモニタリング、牧草地インフラ（道路・橋・水場）の復旧、播種と輪換放牧による収量の向上"},
           {name:"優先2 牧草地の気候変動への適応", sectors:["climate","agri","drr"], desc:"適応の戦略文書と情報基盤、気候変動下の新しい管理手法、土石流・地すべりなど危険な気象現象の影響の軽減"},
           {name:"優先3 人材育成と知識・技能の向上", sectors:["agri","education","digital"], desc:"管理人材の育成、研究機関と若手研究者の支援、普及・相談支援、牧草地の情報システムと広報"}]},
-  {id:"food", ch:"5.3a", name:"食料安全保障・栄養プログラム", ru:"Программа продовольственной безопасности и питания", period:"2025–2030（前期 2019–2023）", basis:"前期：政府決定 2019年6月27日 No.320", status:"有効", sectors:["nutrition","agri","health"], doc:"food-security-2023", url:"https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf",
+  {id:"food", ch:"5.3", part:"農業", name:"食料安全保障・栄養プログラム", ru:"Программа продовольственной безопасности и питания", period:"2025–2030（前期 2019–2023）", basis:"前期：政府決定 2019年6月27日 No.320", status:"有効", sectors:["nutrition","agri","health"], doc:"food-security-2023", url:"https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf",
     summary:"食料の確保と栄養改善のプログラム。現在は2025–2030年版で、WFPなどとの学校給食の協力もこの枠組みで行われています（本文は2019–2023年版）。"},
-  {id:"watercode", ch:"5.3a", name:"水法典", ru:"Водный кодекс Кыргызской Республики", period:"2025年〜", basis:"法律 2025年6月27日 No.128", status:"有効", sectors:["water","agri","envmgmt"], doc:"water-code-2025", url:"https://faolex.fao.org/docs/pdf/kyr237135.pdf",
+  {id:"watercode", ch:"5.3", part:"農業", name:"水法典", ru:"Водный кодекс Кыргызской Республики", period:"2025年〜", basis:"法律 2025年6月27日 No.128", status:"有効", sectors:["water","agri","envmgmt"], doc:"water-code-2025", url:"https://faolex.fao.org/docs/pdf/kyr237135.pdf",
     summary:"水資源の管理・利用・保護の基本法（2025年の新法典）。灌漑・飲料水・水質保全の制度の基礎になります。"},
   {id:"energy", ch:"5.4", name:"国家エネルギー・プログラム 2035年まで", ru:"Национальная энергетическая программа Кыргызской Республики до 2035 года", period:"〜2035（第1期 2024–2027）", basis:"内閣決定 2024年4月12日 No.172", status:"有効", sectors:["energy","climate"], doc:"", url:"https://www.gov.kg/ru/npa/s/4468",
     summary:"2035年までのエネルギー部門の計画。発電能力の拡大（大型水力・再エネ）、送配電の近代化、料金と財務の健全化を扱います。"},
@@ -1375,7 +1414,7 @@ const STRATS2 = [
           {name:"2.2 宗教教育・宗教学教育", sectors:["education","peace"], desc:"宗教教育機関の規制と、学校での宗教学（世俗的な宗教理解）の教育"},
           {name:"2.3 宗教的急進主義・過激主義の予防", sectors:["peace"], desc:"破壊的な勧誘の禁止、過激主義の扇動の取り締まり"}]},
 ];
-const SEC_NDS = {health:"II 2.1", education:"II 2.1", social:"II 2.1", gender:"II 2.1–2.2", sports:"II 2.1", peace:"II 2.3・2.5 / IV 4.5", finance:"III 3.2", private:"III 3.2–3.3", energy:"III 3.2", transport:"III 3.2", water:"III 3.2", envmgmt:"III 3.2", climate:"III 3.2", drr:"III 3.2", urban:"III 3.2 / IV 4.4", agri:"III 3.3", nature:"III 3.2–3.3", governance:"IV", digital:"IV 4.7", nutrition:"II 2.1 / III 3.3"};
+const SEC_NDS = {health:"2.1", education:"2.1", social:"2.1", gender:"2.1–2.2", sports:"2.1", peace:"2.3・2.5 / 4.5", finance:"3.2", private:"3.2–3.3", energy:"3.2", transport:"3.2", water:"3.2", envmgmt:"3.2", climate:"3.2", drr:"3.2", urban:"3.2 / 4.4", agri:"3.3", nature:"3.2–3.3", governance:"4", digital:"4.7", nutrition:"2.1 / 3.3"};
 
 // active donor funding behind a set of sectors: each project counts once, with its share in those sectors
 function fundFor(sectors){
@@ -1391,7 +1430,7 @@ function fundFor(sectors){
   const top = Object.entries(by).sort((a,b)=>b[1]-a[1]).slice(0,3);
   return {amt, n, u, top, jn, ja};
 }
-const secMark = (id, on) => `<button class="smark ${on?"on":""}" data-sec="${id}" title="${esc(SEC[id].ja)}"><b>${SEC[id].no}</b>${esc(SEC[id].ja)}</button>`;
+const secMark = (id, on) => `<button class="smark ${on?"on":""}" data-sec="${id}" title="分野${SEC[id].no}">${esc(SEC[id].ja)}</button>`;
 const secMarks = (ids, hi) => `<div class="smarks">${ids.map(id=>secMark(id, hi===id)).join("")}</div>`;
 function fundLine(f, compact){
   if(!projReady()) return "";
@@ -1403,27 +1442,74 @@ const docLinks = x => `<div class="dlinks">${x.doc?(EMBED?`<a class="btn primary
 const statusTag = s => `<span class="stag ${s==="有効"?"ok":"old"}">${esc(s||"")}</span>`;
 
 /* the detail panel: one strategy, chapter or the two national documents */
+/* strategy trees (script tags "tree-<strategy id>"): how a programme branches, and which donor projects sit on each branch */
+const TREES = {};
+for(const el of document.querySelectorAll('script[type="application/json"][id^="tree-"]')){
+  try{ const t = JSON.parse(el.textContent); TREES[t.strategy] = t; }catch(e){}
+}
+// active projects of the tree's sector, each placed on the first branch whose words match its title (then its description)
+function treePlace(t){
+  const rules = t.rules.map(([n, rx])=>[n, new RegExp(rx, "i")]), skip = t.exclude ? new RegExp(t.exclude) : null;
+  const by = {}, un = []; let n = 0;
+  for(const p of projects()){
+    if(p.st!=="active" || !p.c.includes(t.sector)) continue;
+    if(skip && skip.test((p.t||"")+" "+(p.x||""))) continue;  // an agency's running costs, not a programme
+    n++;
+    const hit = (rules.find(([, r])=>r.test(p.t||"")) || rules.find(([, r])=>r.test(p.x||"")) || [])[0];
+    (hit ? (by[hit] = by[hit] || []) : un).push(p);
+  }
+  return {by, un, n};
+}
+const CONF_CLS = {"法令":"c-law","本文":"c-law","本文一部":"c-doc","本文旧版":"c-doc","資料":"c-doc","報道":"c-news","案":"c-draft","要確認":"c-guess","推定":"c-guess"};
+function treeHTML(t){
+  const pl = treePlace(t);
+  const all = n => (pl.by[n.id] || []).concat(...(n.kids || []).map(all));
+  const pj = p => `<li><span>${esc(p.tj || p.t)}</span><span class="note">${esc(donorName(p.donor))}${hasAmt(p) ? " · " + money(p.amt) : ""}</span></li>`;
+  const node = (n, depth) => {
+    const a = all(n), own = (pl.by[n.id] || []).slice().sort((x, y)=>(y.amt||0)-(x.amt||0)), sum = a.reduce((v, p)=>v + (hasAmt(p) ? p.amt : 0), 0);
+    return `<details class="tnode" ${depth===0?"open":""}><summary><span class="tn">${esc(n.n)}</span>${n.conf?`<span class="ctag ${CONF_CLS[n.conf]||"c-guess"}">${esc(n.conf)}</span>`:""}<span class="tc">${a.length ? a.length + "件" + (sum ? " · " + money(sum) : "") : "案件なし"}</span></summary>
+      ${n.m?`<p class="tm">${esc(n.m)}</p>`:""}${n.d?`<p class="td">${esc(n.d)}</p>`:""}
+      ${own.length?`<ul class="tpj">${own.map(pj).join("")}</ul>`:""}${(n.kids || []).map(k=>node(k, depth + 1)).join("")}</details>`;
+  };
+  return `<div class="blk tree"><h3>樹形図：構成と援助機関の案件</h3>
+    <p class="note">${esc(t.note)} 実施中の案件 ${pl.n}件のうち ${pl.n - pl.un.length}件を当てはめています。<br>確かさ：<span class="ctag c-law">法令・本文</span>原文で確認 <span class="ctag c-doc">資料</span>公的な資料 <span class="ctag c-news">報道</span>報道のみ <span class="ctag c-draft">案</span>まだ承認されていない <span class="ctag c-guess">推定・要確認</span>調べ中</p>
+    ${t.nodes.map(n=>node(n, 0)).join("")}
+    ${pl.un.length?`<details class="tnode"><summary><span class="tn">どの枝にも当てはまらなかった案件</span><span class="tc">${pl.un.length}件</span></summary><ul class="tpj">${pl.un.map(pj).join("")}</ul></details>`:""}</div>`;
+}
+// "優先3 観光…" -> number 3 and the original's word for it; every list is numbered 1, 2, 3…
+// (the National Development Strategy keeps its own chapter numbers: II -> 2)
+const ROMAN = {I:1,II:2,III:3,IV:4,V:5,VI:6,VII:7,VIII:8,IX:9,X:10};
+function subLabel(name, i, own){
+  const r = name.match(/^(I|II|III|IV|V|VI|VII|VIII|IX|X)\s+(.*)$/);
+  if(own && r) return {no:String(ROMAN[r[1]]), name:r[2], orig:""};
+  const m = name.match(/^(第\d+章|課題\s*\d+|優先\s*\d+|コンポーネント\s*\d+|\d+(?:\.\d+)+)\s*(.*)$/);
+  return m ? {no:String(i+1), name:m[2], orig:m[1]} : {no:String(i+1), name, orig:""};
+}
 function sheetHTML(id){
+  if(/^ch-5\.3[ab]$/.test(id)) id = "ch-5.3";  // links from before 5.3 was one section
   const x = SDB[id] || STRATS2.find(s=>s.id===id) || NDP_CH.find(c=>"ch-"+c.id===id);
   if(!x) return "";
   const isCh = !!x.tasks, sectors = x.sectors || [...new Set((x.subs||[]).flatMap(s=>s.sectors||[]))];
   const ch = x.ch ? NDP_CH.find(c=>c.id===x.ch) : null;
   const f = sectors.length ? fundFor(sectors) : null;
   const kids = isCh ? STRATS2.filter(s=>s.ch===x.id) : [];
-  const sub = s => `<details class="sub"><summary><span>${esc(s.name)}</span>${s.sectors?`<span class="smini">${s.sectors.map(c=>`<i title="${esc(SEC[c].ja)}">${SEC[c].no}</i>`).join("")}</span>`:""}</summary>
+  const sub = (s, l) => `<details class="sub"><summary><span>${l?`<b class="subno">${esc(l.no)}</b>${esc(l.name)}${l.orig?`<small class="orig">（原文 ${esc(l.orig)}）</small>`:""}`:esc(s.name)}</span>${s.sectors?`<span class="smini">${s.sectors.map(c=>secTag(c)).join("")}</span>`:""}</summary>
       ${s.desc?`<p>${esc(s.desc)}</p>`:""}${s.items?`<ul>${s.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}${s.sectors?secMarks(s.sectors):""}</details>`;
   return `<div class="sheet-in">
-    <div class="sh-top"><span class="k">${isCh?"国家開発プログラム2030 第"+esc(x.no)+"章":esc(x.kind||"分野別戦略・プログラム")}</span><button class="sh-x" data-close aria-label="閉じる">×</button></div>
+    <div class="sh-top"><span class="k">${isCh?"国家開発プログラム2030 "+(x.parent?`第${x.parent}章「${NDP_PARENT[x.parent]}」 ${esc(x.no)}`:`第${esc(x.no)}章`):esc(x.kind||"分野別戦略・プログラム")}</span><button class="sh-x" data-close aria-label="閉じる">×</button></div>
     <h2>${esc(x.name)}</h2>${x.ru?`<p class="ru">${esc(x.ru)}</p>`:""}
     ${!isCh?`<div class="meta2">${statusTag(x.status)}<span>${esc(x.period||"")}</span><span>${esc(x.basis||"")}</span></div>`:""}
     ${x.summary?`<p class="sum">${esc(x.summary)}</p>`:""}
     ${!isCh?docLinks(x):""}
-    ${ch?`<div class="blk"><h3>国家開発プログラム2030での位置づけ</h3><button class="chref" data-st="ch-${ch.id}"><b>${esc(ch.no)}</b> ${esc(ch.name)} →</button></div>`:""}
+    ${ch?`<div class="blk"><h3>国家開発プログラム2030での位置づけ</h3><button class="chref" data-st="ch-${ch.id}"><b>${esc(ch.no)}</b> ${esc(ch.name)}${x.part?"（"+esc(x.part)+"）":""} →</button></div>`:""}
     ${(x.goals||x.targets||[]).length?`<div class="blk"><h3>目標</h3><ul class="tg">${(x.goals||x.targets).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:""}
     ${sectors.length?`<div class="blk"><h3>関わる分野</h3>${secMarks(sectors)}${f?fundLine(f):""}<p class="note">援助機関の実施中の案件のうち、これらの分野に入るもの（複数分野の案件は按分）。分野を押すと分野ページへ。</p></div>`:""}
+    ${(x.parts||[]).map(pt=>`<div class="blk"><h3>${esc(pt.name)}：目標</h3><ul class="tg">${pt.targets.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
+      <div class="blk"><h3>${esc(pt.name)}：主な課題</h3>${pt.tasks.map(t=>sub({name:t})).join("")}</div>`).join("")}
     ${isCh&&x.tasks.length?`<div class="blk"><h3>主な課題</h3>${x.tasks.map(t=>sub({name:t})).join("")}</div>`:""}
-    ${(x.subs||[]).length?`<div class="blk"><h3>${id==="nds"?"構成":"サブプログラム・構成"}</h3>${x.subs.map(sub).join("")}</div>`:""}
-    ${kids.length?`<div class="blk"><h3>この章につながる分野別戦略</h3>${kids.map(k=>`<button class="srow" data-st="${k.id}"><span>${esc(k.name)}</span><span class="note">${esc(k.period)}</span></button>`).join("")}</div>`:""}
+    ${(x.subs||[]).length?`<div class="blk"><h3>${id==="nds"?"構成":"サブプログラム・構成"}</h3>${x.subs.map((u,i)=>sub(u, subLabel(u.name, i, id==="nds"))).join("")}</div>`:""}
+    ${(()=>{ const t = TREES[x.id] || (isCh && Object.values(TREES).find(t=>t.chapter===x.id)); return t ? treeHTML(t) : ""; })()}
+    ${kids.length?`<div class="blk"><h3>${x.parent?"この節":"この章"}につながる分野別戦略</h3>${kids.map(k=>`<button class="srow" data-st="${k.id}"><span>${k.part?`<small class="orig">${esc(k.part)}</small> `:""}${esc(k.name)}</span><span class="note">${esc(k.period)}</span></button>`).join("")}</div>`:""}
   </div>`;
 }
 function renderSheet(){
@@ -1439,17 +1525,23 @@ function viewStrategy(){
   const hi = S.s;   // sector filter
   const has = arr => !hi || arr.includes(hi);
   const chFund = c => fundFor(c.sectors);
-  const strat = s => `<button class="scard2 ${has(s.sectors)?"":"dim"}" data-st="${s.id}"><span class="sc-n">${esc(s.name)}</span><span class="sc-p">${esc(s.period)}${s.status!=="有効"?" · "+esc(s.status):""}</span><span class="smini">${s.sectors.map(c=>`<i class="${c===hi?"on":""}" title="${esc(SEC[c].ja)}">${SEC[c].no}</i>`).join("")}</span></button>`;
+  const strat = s => `<button class="scard2 ${has(s.sectors)?"":"dim"}" data-st="${s.id}"><span class="sc-n">${esc(s.name)}</span><span class="sc-p">${esc(s.period)}${s.status!=="有効"?" · "+esc(s.status):""}</span><span class="smini">${s.sectors.map(c=>secTag(c, c===hi)).join("")}</span></button>`;
+  let lastParent = "";
   const chapter = c => {
     const kids = STRATS2.filter(s=>s.ch===c.id), show = has(c.sectors) || kids.some(k=>has(k.sectors));
     if(!show) return "";
-    return `<details class="pil2" ${hi||matchMedia("(min-width:900px)").matches?"open":""}><summary>
+    const cards = list => `<div class="scards">${list.map(strat).join("")}</div>`;
+    const parts = c.parts ? c.parts.map(pt=>{ const ks = kids.filter(k=>k.part===pt.name);
+      return `<div class="ppart"><b>${esc(pt.name)}</b>${ks.length?cards(ks):`<p class="note">個別の戦略は見つかっていません。</p>`}</div>`; }).join("") : "";
+    const head = c.parent && c.parent!==lastParent ? `<div class="pgrp"><span class="pno">${c.parent}</span><b>${esc(NDP_PARENT[c.parent])}</b><span class="note">第${c.parent}章（${c.parent}.1〜 はその節）</span></div>` : "";
+    lastParent = c.parent || "";
+    return head + `<details class="pil2 ${c.parent?"insec":""}" ${hi||matchMedia("(min-width:900px)").matches?"open":""}><summary>
         <span class="pno">${esc(c.no)}</span><span class="pnm">${esc(c.name)}<small>${esc(c.en)}</small></span>
-        <span class="smini">${c.sectors.map(s=>`<i class="${s===hi?"on":""}" title="${esc(SEC[s].ja)}">${SEC[s].no}</i>`).join("")}</span></summary>
+        <span class="smini">${c.sectors.map(s=>secTag(s, s===hi)).join("")}</span></summary>
       <div class="pbody"><button class="chlink" data-st="ch-${c.id}">目標と課題を見る →</button>${fundLine(chFund(c), true)}
-        ${kids.length?`<div class="scards">${kids.map(strat).join("")}</div>`:`<p class="note">この章に直接つながる個別の戦略は今回の調査では見つかっていません（章の中で直接定められています）。</p>`}</div></details>`;
+        ${parts||(kids.length?cards(kids):`<p class="note">この章に直接つながる個別の戦略は今回の調査では見つかっていません（章の中で直接定められています）。</p>`)}</div></details>`;
   };
-  const chips = `<div class="sfilter"><button class="jchip ${hi?"":"on"}" data-sfil="">すべての分野</button>${SECTORS.map(([id,ja])=>`<button class="jchip ${hi===id?"on":""}" data-sfil="${id}"><b>${SEC[id].no}</b> ${esc(ja)}</button>`).join("")}</div>`;
+  const chips = `<div class="sfilter"><button class="jchip ${hi?"":"on"}" data-sfil="">すべての分野</button>${SECTORS.map(([id,ja])=>`<button class="jchip ${hi===id?"on":""}" data-sfil="${id}"><b>分野${SEC[id].no}</b> ${esc(ja)}</button>`).join("")}</div>`;
   // where each sector appears: chapters, strategies, sub-programmes
   const where = id => {
     const chs = NDP_CH.filter(c=>c.sectors.includes(id)), st = STRATS2.filter(s=>s.sectors.includes(id)),
@@ -1459,7 +1551,7 @@ function viewStrategy(){
   let focus = "";
   if(hi){
     const w = where(hi), f = fundFor([hi]);
-    focus = `<div class="panel sfocus"><div class="k">SECTOR ${SEC[hi].no}</div><h3>${esc(SEC[hi].ja)} はどこに位置づけられているか</h3>
+    focus = `<div class="panel sfocus"><div class="k">分野${SEC[hi].no}</div><h3>${esc(SEC[hi].ja)} はどこに位置づけられているか</h3>
       <div class="sfrow"><b>国家開発戦略2040</b><span>${esc(SEC_NDS[hi]||"—")}</span></div>
       <div class="sfrow"><b>国家開発プログラム2030</b><span>${w.chs.map(c=>`<button class="chref" data-st="ch-${c.id}"><b>${esc(c.no)}</b> ${esc(c.name)}</button>`).join("")}</span></div>
       <div class="sfrow"><b>分野別の戦略</b><span>${w.st.length?w.st.map(s=>`<button class="chref" data-st="${s.id}">${esc(s.name)}</button>`).join(""):"—"}</span></div>
@@ -1477,6 +1569,7 @@ function viewStrategy(){
     ${focus}
     ${secHead("Chapters","国家開発プログラム2030の章と、そこにつながる分野別戦略",'<span class="note">章・戦略を押すと詳細（目標・サブプログラム・日本語訳の本文）</span>')}
     <div class="pils2">${NDP_CH.map(chapter).join("")}</div>
+    <p class="note">番号は国家開発プログラム2030の原文どおりです。第1・3・4・14章（はじめに・現状・目標・実施の管理）は分野の中身がないため載せていません。目標は上の「国家開発プログラム」のカードで見られます。</p>
     <p class="foot">章の構成と目標値は「国家開発プログラム2030年まで」（大統領令 2025年 No.178）の本文から、分野別戦略は法令データベース・政府発表・SDGs国別報告書2025から確認したものです。分野（番号）の対応づけと援助機関の支援額（実施中の案件、複数分野の案件は按分）はこのページによる整理です。本文の日本語訳は機械翻訳です。</p>`;
 }
 
