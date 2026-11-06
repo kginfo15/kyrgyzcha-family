@@ -52,7 +52,7 @@ jobs:
           command -v pdftotext >/dev/null || sudo apt-get install -y -qq poppler-utils >/dev/null
           python3 scripts/translate_docs.py "$RUNNER_TEMP/docs" || echo "translation failed"
       - name: Publish
-        if: always()
+        if: ${{ !cancelled() }}  # a cancelled run must not replace what is published
         env:
           TOKEN: ${{ github.token }}
         run: |
