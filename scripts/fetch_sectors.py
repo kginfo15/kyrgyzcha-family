@@ -205,15 +205,15 @@ SECTORS = [
 ]
 # Japanese words for Japanese-language articles (matched as plain substrings)
 JA_SECTOR = {
-    "urban": ["都市", "住宅", "地域開発"], "transport": ["道路", "鉄道", "空港", "交通", "橋梁", "物流"],
-    "energy": ["エネルギー", "電力", "発電", "水力", "鉱業", "鉱山"], "private": ["中小企業", "投資", "輸出", "観光", "産業", "ビジネス"],
-    "agri": ["農業", "農村", "畜産", "灌漑", "農家"], "health": ["保健", "医療", "病院", "ワクチン", "感染症"],
+    "urban": ["都市", "住宅", "地域開発"], "transport": ["道路", "鉄道", "空港", "交通", "橋梁", "物流", "トンネル"],
+    "energy": ["エネルギー", "電力", "発電", "水力", "鉱業", "鉱山"], "private": ["中小企業", "投資", "輸出", "観光", "産業", "ビジネス", "民間セクター", "一村一品", "人材開発センター"],
+    "agri": ["農業", "農村", "畜産", "灌漑", "農家", "生乳", "酪農", "獣医"], "health": ["保健", "医療", "病院", "ワクチン", "感染症"],
     "nutrition": ["栄養", "給食", "食料安全"], "education": ["教育", "学校", "大学", "教員", "留学"],
     "social": ["社会保障", "障害", "移民", "貧困", "雇用"], "sports": ["スポーツ", "柔道", "五輪", "オリンピック"],
-    "peace": ["国境", "平和", "紛争"], "governance": ["行政", "ガバナンス", "汚職", "議会", "選挙", "法整備"],
-    "finance": ["財政", "予算", "税", "金融", "中央銀行"], "gender": ["ジェンダー", "女性"],
-    "digital": ["デジタル", "ICT", "IT人材", "電子政府"], "climate": ["気候変動", "氷河", "脱炭素"],
-    "nature": ["生物多様性", "森林", "自然保護", "ユキヒョウ"], "envmgmt": ["廃棄物", "ごみ", "大気汚染", "環境管理"],
+    "peace": ["国境", "平和構築", "紛争"], "governance": ["行政", "ガバナンス", "汚職", "議会", "選挙", "法整備"],
+    "finance": ["財政", "予算", "税関", "徴税", "金融", "中央銀行", "公共財政"], "gender": ["ジェンダー", "女性"],
+    "digital": ["デジタル", "ict", "it人材", "電子政府", "情報通信", "放送"], "climate": ["気候変動", "氷河", "脱炭素"],
+    "nature": ["生物多様性", "森林", "自然保護", "自然環境", "ユキヒョウ", "林産"], "envmgmt": ["廃棄物", "ごみ", "大気汚染", "環境管理"],
     "water": ["上水道", "水供給", "給水", "下水", "水資源"], "drr": ["防災", "地震", "災害", "土石流", "洪水"],
 }
 SECTOR_RES = [(sid, re.compile(stem_re(words).pattern + "|" + "|".join(re.escape(w.lower()) for w in JA_SECTOR.get(sid, []))))
@@ -721,6 +721,10 @@ def wb_projects():
     return out
 
 
+# redacted titles and agency running costs say nothing about cooperation in Kyrgyzstan
+IATI_JUNK = re.compile(r"redacted|pay and benefits|program support|programme support costs|operating expense|"
+                       r"administrative cost|^ope?x?$|^usaid pio$", re.I)
+BIG_LENDERS = {"wb", "adb", "ebrd", "isdb", "aiib", "edb", "imf"}
 IATI_STATUS = {"1": "pipeline", "2": "active", "3": "active", "4": "closed", "5": "dropped", "6": "suspended"}
 # DAC 5-digit purpose codes -> sector ids (by prefix; first match wins)
 DAC_MAP = [
@@ -757,7 +761,8 @@ def day_to_date(v):
 
 def iati_projects():
     base = "https://d-portal.org/q?"
-    fields = "aid,title,reporting,reporting_ref,funder_ref,status_code,day_start,day_end,commitment,spend,description"
+    fields = ("aid,title,reporting,reporting_ref,funder_ref,status_code,day_start,day_end,commitment,spend,description,"
+              "country_percent")
     rows = []
     try:
         data = json.loads(get(base + urllib.parse.urlencode(
@@ -798,11 +803,17 @@ def iati_projects():
             st = "closed" if end and end < today else "active"
         if st == "active" and end and end < str(int(today[:4]) - 1):
             st = "closed"  # stale reporting
-        if not title:
+        if not title or IATI_JUNK.search(title):
             continue
+        amt = num(r.get("commitment")) or num(r.get("spend"))
+        pct = num(r.get("country_percent"))
+        if amt and pct and 0 < pct < 100:
+            amt = amt * pct / 100  # multi-country activity: Kyrgyzstan's share only
+        elif amt and pct is None and amt > 1e8 and donor_of(org + " " + ref) not in BIG_LENDERS:
+            amt = None  # share unknown for a large programme: don't count a global total against one country
         out.append({"id": aid, "src": "iati", "donor": donor_of(org + " " + ref), "org": org, "t": title,
                     "x": fn.first_sentences(desc, 300), "st": st, "a": start, "e": end,
-                    "amt": num(r.get("commitment")) or num(r.get("spend")), "cur": "USD", "ref": ref,
+                    "amt": amt, "cur": "USD", "ref": ref,
                     "u": "https://d-portal.org/ctrack.html#view=act&aid=" + urllib.parse.quote(aid),
                     "_sect": "", "_dac": sorted(sectors.get(aid, []))})
     log(f"iati: {len(rows)} rows, {len(out)} projects")
@@ -840,7 +851,11 @@ def donor_of(text):
 
 def finish_projects(projs, prev):
     prev_by = {p["id"]: p for p in (prev or {}).get("projects", [])}
+    today = NOW.date().isoformat()
     for p in projs:
+        # reports lag: anything past its end date has finished, whatever the status code says
+        if p.get("st") == "active" and p.get("e") and p["e"] < today:
+            p["st"] = "closed"
         text = (p["t"] + " " + p.get("x", "") + " " + p.pop("_sect", "")).lower()
         sect = set(sector_ids(text)) | set(p.pop("_dac", []))
         p["c"] = sorted(sect, key=SECTOR_IDS.index)
@@ -878,13 +893,154 @@ def translate_projects(projs):
     log(f"projects translated {done}, {len(todo) - done} left")
 
 
+
+# ---------------------------------------------------------------- JICA project database
+# IATI carries only a handful of JICA activities, so the full history (technical
+# cooperation, grant aid, loans, volunteers ...) comes from JICA's public project
+# search ("ODA見える化サイト"): the Kyrgyz result list, then each project page.
+JICA_LIST = "https://www2.jica.go.jp/ja/oda/index.php?"
+JICA_PAGE = "https://www.jica.go.jp/oda/project/{}/index.html"
+JICA_SCHEMES = ["技術協力プロジェクト", "無償資金協力", "有償資金協力", "円借款", "草の根技術協力", "海外協力隊",
+                "開発計画調査型技術協力", "開発調査", "科学技術協力", "SATREPS", "個別専門家", "専門家派遣",
+                "課題別研修", "国別研修", "研修", "民間連携", "中小企業", "技術協力", "ボランティア", "協力準備調査"]
+JP_DATE = re.compile(r"(\d{4})\s*[年./／-]\s*(\d{1,2})(?:\s*[月./／-]\s*(\d{1,2})\s*日?)?")
+YEN = re.compile(r"([\d,]+(?:\.\d+)?)\s*(億円|百万円|千円|万円|円)")
+
+
+def page_text(html_):
+    t = re.sub(r"(?is)<(script|style|noscript).*?</\1>", " ", html_)
+    t = re.sub(r"(?i)<br\s*/?>|</(p|div|li|tr|dt|dd|th|td|h\d)>", "\n", t)
+    t = fn.html.unescape(re.sub(r"<[^>]+>", " ", t))
+    return "\n".join(re.sub(r"[ \t　]+", " ", ln).strip() for ln in t.splitlines() if ln.strip())
+
+
+def label_pairs(html_):
+    """<th>label</th><td>value</td> and <dt>label</dt><dd>value</dd> pairs."""
+    out = {}
+    for m in re.finditer(r"(?is)<(th|dt)[^>]*>(.*?)</\1>\s*<(td|dd)[^>]*>(.*?)</\3>", html_):
+        k, v = clean(m.group(2)), clean(m.group(4))
+        if k and v and k not in out:
+            out[k] = v
+    return out
+
+
+def pick(pairs, *words):
+    for k, v in pairs.items():
+        if any(w in k for w in words):
+            return v
+    return ""
+
+
+def jp_dates(text):
+    ds = []
+    for y, m, d in JP_DATE.findall(text or ""):
+        y, m = int(y), int(m)
+        if 1950 < y < 2100 and 1 <= m <= 12:
+            ds.append(f"{y}-{m:02d}-{int(d or 1):02d}")
+    return ds
+
+
+def yen_amount(text):
+    best = None
+    for num_, unit in YEN.findall(text or ""):
+        v = float(num_.replace(",", "")) * {"億円": 1e8, "百万円": 1e6, "千円": 1e3, "万円": 1e4, "円": 1}[unit]
+        best = max(best or 0, v)
+    return best
+
+
+def jica_projects(out_dir, prev_projs):
+    dbg = os.path.join(out_dir, "debug")
+    os.makedirs(dbg, exist_ok=True)
+    listed, order = {}, []
+    for page in range(1, 80):
+        url = JICA_LIST + urllib.parse.urlencode({"area1": "アジア", "country1": "キルギス", "search": "検索", "p": page})
+        html_ = get(url, timeout=60).decode("utf-8", "replace")
+        if page == 1:
+            open(os.path.join(dbg, "jica-list-1.html"), "w").write(html_)
+        links = list(re.finditer(r"(?:https?://www\.jica\.go\.jp)?/oda/project/([0-9A-Za-z_-]+)/index\.html", html_))
+        new = 0
+        for i, m in enumerate(links):
+            pid = m.group(1)
+            seg = html_[m.start(): links[i + 1].start() if i + 1 < len(links) else m.start() + 3000]
+            if pid not in listed:
+                a = re.search(r">([^<]{4,200})</a>", seg)
+                listed[pid] = {"title": clean(a.group(1)) if a else "", "row": page_text(seg)[:600]}
+                order.append(pid)
+                new += 1
+        log(f"jica list p{page}: {len(links)} links, {new} new")
+        if not new:
+            break
+        time.sleep(0.6)
+    prev_by = {p["id"]: p for p in prev_projs if p.get("src") == "jica"}
+    today = NOW.date().isoformat()
+    out, fetched = [], 0
+    for pid in order:
+        old = prev_by.get("JICA-" + pid)
+        # project pages change little: refresh new ones, and running ones once a week
+        stale = not old or (old.get("st") in ("active", "pipeline") and old.get("fetched", "") < (NOW - timedelta(days=7)).date().isoformat())
+        if not stale or fetched >= 220 or time_left() < 20 * 60:
+            if old:
+                out.append(old)
+                continue
+            if fetched >= 220 or time_left() < 20 * 60:
+                info = listed[pid]
+                out.append(jica_record(pid, info["title"], {}, info["row"], today, fetched=""))
+                continue
+        try:
+            html_ = get(JICA_PAGE.format(pid), timeout=40).decode("utf-8", "replace")
+            fetched += 1
+            if fetched <= 3:
+                open(os.path.join(dbg, f"jica-project-{pid}.html"), "w").write(html_)
+            h1 = re.search(r"(?is)<h1[^>]*>(.*?)</h1>", html_)
+            title = clean(h1.group(1)) if h1 else ""
+            if not title or len(title) < 4 or "JICA" == title:
+                tt = re.search(r"(?is)<title>(.*?)</title>", html_)
+                title = re.split(r"\s*[|｜]\s*", clean(tt.group(1)))[0] if tt else ""
+            out.append(jica_record(pid, title or listed[pid]["title"], label_pairs(html_), page_text(html_), today))
+            time.sleep(0.4)
+        except Exception as e:
+            log(f"jica {pid}: {e}")
+            out.append(old or jica_record(pid, listed[pid]["title"], {}, listed[pid]["row"], today, fetched=""))
+    log(f"jica: {len(order)} listed, {fetched} pages fetched")
+    return out
+
+
+def jica_record(pid, title, pairs, text, today, fetched=None):
+    scheme = pick(pairs, "スキーム", "事業形態", "協力形態", "案件種別", "援助形態")
+    if not scheme:
+        scheme = next((w for w in JICA_SCHEMES if w in text[:3000]), "")
+    period = pick(pairs, "協力期間", "事業期間", "実施期間", "派遣期間", "協力年度", "期間")
+    ds = jp_dates(period) or jp_dates(text[:4000])
+    start = min(ds) if ds else None
+    end = max(ds) if len(ds) > 1 else None
+    field = pick(pairs, "分野課題", "課題", "分野")
+    amt = yen_amount(pick(pairs, "金額", "限度額", "協力額", "承諾額", "供与額", "協力費"))
+    status_txt = pick(pairs, "状況", "ステータス", "進捗")
+    if end and end < today:
+        st = "closed"
+    elif start and start > today:
+        st = "pipeline"
+    elif "終了" in status_txt:
+        st = "closed"
+    elif start:
+        st = "active"
+    else:
+        st = "closed" if "終了" in text[:3000] else "active"
+    summary = pick(pairs, "概要", "目標", "上位目標", "プロジェクト目標")
+    rec = {"id": "JICA-" + pid, "src": "jica", "donor": "jica", "org": "JICA", "t": title, "tj": title,
+           "x": fn.first_sentences(" ".join(filter(None, [field, summary])), 220), "st": st, "a": start, "e": end,
+           "kind": scheme, "cur": "JPY" if amt else None, "jpy": amt, "amt": round(amt / 140) if amt else None,
+           "u": JICA_PAGE.format(pid), "_sect": field, "fetched": today if fetched is None else fetched}
+    return rec
+
+
 def collect_projects(out_dir):
     prev = None
     try:
         prev = json.loads(get(BASE + "projects.json"))
     except Exception as e:
         log(f"no previous projects: {e}")
-    fresh = prev and prev.get("updated") and \
+    fresh = prev and prev.get("updated") and "jica" in (prev.get("sources") or {}) and \
         NOW - datetime.fromisoformat(prev["updated"]) < timedelta(hours=20)
     if fresh and not os.environ.get("FORCE_PROJECTS"):
         log("projects: still fresh, keeping (translating any left)")
@@ -893,7 +1049,8 @@ def collect_projects(out_dir):
     else:
         projs, sources = [], {}
         prev_projs = (prev or {}).get("projects", [])
-        for key, fn_ in (("wb", wb_projects), ("iati", iati_projects)):
+        for key, fn_ in (("wb", wb_projects), ("iati", iati_projects),
+                         ("jica", lambda: jica_projects(out_dir, prev_projs))):
             try:
                 got = fn_()
                 projs += got
@@ -903,6 +1060,9 @@ def collect_projects(out_dir):
                 kept = [p for p in prev_projs if p.get("src") == key]
                 projs += kept
                 sources[key] = {"ok": False, "count": len(kept), "error": str(e)[:200]}
+        # JICA's own database supersedes the few JICA activities in IATI
+        if sum(1 for p in projs if p.get("src") == "jica") >= 10:
+            projs = [p for p in projs if not (p.get("src") == "iati" and p.get("donor") == "jica")]
         if not projs and prev:
             result = prev
         else:
