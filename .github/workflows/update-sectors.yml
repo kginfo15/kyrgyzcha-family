@@ -28,9 +28,15 @@ jobs:
     timeout-minutes: 110
     steps:
       - uses: actions/checkout@v4
+      - name: Install the Claude SDK
+        run: python3 -m pip install --quiet "anthropic>=2,<3"
       - name: Collect
         env:
           TIME_BUDGET: "5400"
+          # optional: with this secret set, Claude classifies items (scripts/ai_classify.py)
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # optional repository variable to choose the model (default claude-opus-5-5)
+          MONITOR_MODEL: ${{ vars.MONITOR_MODEL }}
         run: python3 scripts/fetch_sectors.py "$RUNNER_TEMP/out"
       - name: Publish
         env:

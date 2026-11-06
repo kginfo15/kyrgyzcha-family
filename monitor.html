@@ -396,7 +396,8 @@ async function loadYear(y){
   loadedYears.add(y);
   const d = await getJSON("items-"+y+".json");
   const have = new Set(ITEMS.map(x=>x.i));
-  for(const x of d.items||[]) if(!have.has(x.i)) ITEMS.push(prep(x));
+  // items the AI judged off-topic (ads, crime blotter, passing mentions) are kept in the data but not shown
+  for(const x of d.items||[]) if(!have.has(x.i) && !x.hide) ITEMS.push(prep(x));
   ITEMS.sort((a,b)=>b.ts-a.ts);
 }
 let projLoading = null;
@@ -879,7 +880,7 @@ function footer(){
   if(!INDEX) return "";
   const bf = Math.min(INDEX.backfill_cursor||0, INDEX.backfill_months||36);
   return `<p class="foot">収集元: キルギスの主要メディア（24.kg、Kaktus.media、AKIpress、Kloop、Кабар、Азаттык ほか）、政府・議会サイト、Google ニュース検索（ロシア語・英語・日本語）、国際機関の発表、World Bank Projects API、IATI。
-    見出しと要旨は機械翻訳で、タイトルを押すと記事全体を Google 翻訳で開きます。分野・機関・政府の判定はキーワードによる自動判定です。
+    見出しは${INDEX.ai?"AIによる日本語見出し、または":""}機械翻訳で、タイトルを押すと記事全体を Google 翻訳で開きます。${INDEX.ai?`分野・政府の動き・協力の判定は AI（${esc(INDEX.ai.model)}）による自動判定です（判定済み ${(INDEX.ai.items_done||0).toLocaleString()}件・関係の薄い記事 ${(INDEX.ai.hidden||0).toLocaleString()}件を非表示。未判定の記事はキーワードで仮分類）。`:"分野・機関・政府の判定はキーワードによる自動判定です。"}
     蓄積 ${(INDEX.total||0).toLocaleString()} 件${bf?`・過去 ${bf} か月分をさかのぼって収集済み`:""}${INDEX.untranslated?`・翻訳待ち ${INDEX.untranslated} 件`:""}${EMBED?"":"・3時間ごとに自動更新"}。</p>`;
 }
 function render(){

@@ -28,6 +28,12 @@ from datetime import date, datetime, timedelta, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fetch_news as fn  # noqa: E402  (shared helpers: get, rss_items, translate_batch, ...)
+import ai_classify  # noqa: E402
+
+# With an API key, Claude judges relevance, sectors, government moves and real cooperation;
+# keywords then only pre-select. Without one, the keyword classification is final.
+AI_ON = ai_classify.enabled()
+AI = None
 
 log, get, clean = fn.log, fn.get, fn.clean
 
@@ -399,7 +405,7 @@ def classify(title, lead, link, source, query_gov=False):
         donors = []
     h = host_of(link)
     gov = is_gov_host(h) and h not in ("kabar.kg",) or bool(GOV_RE.search(text)) or (query_gov and bool(sectors))
-    if not sectors and not donors and not gov:
+    if not sectors and not donors and not gov and not AI_ON:
         return None
     return sectors, donors, gov
 
@@ -574,10 +580,11 @@ def merge(store, new):
             k = dup
         if k in store:
             old = store[k]
-            # keep translations and the resolved link; widen tags
-            old["c"] = sorted(set(old.get("c", [])) | set(x["c"]), key=SECTOR_IDS.index)
-            old["d"] = sorted(set(old.get("d", [])) | set(x["d"]))
-            old["g"] = 1 if (old.get("g") or x["g"]) else 0
+            # keep translations and the resolved link; widen keyword tags (AI judgements stand)
+            if not old.get("ai"):
+                old["c"] = sorted(set(old.get("c", [])) | set(x["c"]), key=SECTOR_IDS.index)
+                old["d"] = sorted(set(old.get("d", [])) | set(x["d"]))
+                old["g"] = 1 if (old.get("g") or x["g"]) else 0
             if not old.get("l") and x.get("l"):
                 old["l"] = x["l"]
                 old.pop("lj", None)
@@ -599,6 +606,8 @@ def reclassify(store):
         x = store[k]
         if x.get("lang") == "ja" and not kg_related(x["t"]):
             del store[k]
+            continue
+        if x.get("ai"):
             continue
         c = classify(x["t"], x.get("l", ""), x.get("u", ""), x.get("s", ""))
         if c:
@@ -860,8 +869,11 @@ def finish_projects(projs, prev):
         sect = set(sector_ids(text)) | set(p.pop("_dac", []))
         p["c"] = sorted(sect, key=SECTOR_IDS.index)
         old = prev_by.get(p["id"])
-        if old:
+        if old and old.get("ai") and old.get("t") == p["t"]:
+            p["c"], p["ai"] = old.get("c", []), old["ai"]  # keep the AI judgement
+        elif old:
             p["c"] = sorted(set(p["c"]) | set(old.get("c", [])), key=SECTOR_IDS.index)
+        if old:
             if old.get("t") == p["t"] and old.get("tj"):
                 p["tj"] = old["tj"]
     translate_projects(projs)
@@ -1082,6 +1094,11 @@ def collect_projects(out_dir):
             result = prev
         else:
             result = {"updated": NOW.isoformat(), "sources": sources, "projects": finish_projects(projs, prev)}
+    if AI:
+        try:
+            AI.projects(result.get("projects", []), int(os.environ.get("AI_PROJECT_BUDGET", 800)), time_left)
+        except Exception as e:
+            log(f"ai projects: failed: {e}")
     with open(os.path.join(out_dir, "projects.json"), "w") as fh:
         json.dump(result, fh, ensure_ascii=False, separators=(",", ":"))
     return result
@@ -1094,6 +1111,8 @@ def stats(store, projects):
     cutoff7 = (NOW - timedelta(days=7)).isoformat()
     s = {sid: {"n30": 0, "n7": 0, "gov30": 0, "donor30": 0, "all": 0, "pa": 0, "pt": 0} for sid in SECTOR_IDS}
     for x in store.values():
+        if x.get("hide"):
+            continue
         for c in x.get("c", []):
             if c not in s:
                 continue
@@ -1135,7 +1154,16 @@ def main():
         del store[k]
 
     resolve_links(store, int(os.environ.get("RESOLVE_BUDGET", 250)))
-    translate_store(store, int(os.environ.get("TR_BUDGET", 900)))
+    global AI
+    if AI_ON:
+        try:
+            AI = ai_classify.Classifier([(sid, ja) for sid, ja, *_ in SECTORS], [(d, ja) for d, ja, _, _ in DONORS])
+            AI.items(store, int(os.environ.get("AI_ITEM_BUDGET", 800)), time_left)
+        except Exception as e:
+            log(f"ai items: failed: {e}")
+    else:
+        log("ai: no ANTHROPIC_API_KEY, keyword classification only")
+    translate_store(store, int(os.environ.get("TR_BUDGET", 900)))  # Japanese for anything the AI didn't title
 
     try:
         projects = collect_projects(out_dir).get("projects", [])
@@ -1158,6 +1186,10 @@ def main():
         "donors": [{"id": did, "ja": ja, "g": grp} for did, ja, grp, _ in DONORS],
         "backfill_cursor": cursor, "backfill_months": BACKFILL_MONTHS,
         "untranslated": sum(1 for x in store.values() if "tj" not in x),
+        "ai": {"model": ai_classify.MODEL, "version": ai_classify.AI_VERSION,
+               "items_done": sum(1 for x in store.values() if x.get("ai") == ai_classify.AI_VERSION),
+               "hidden": sum(1 for x in store.values() if x.get("hide")),
+               "usage": AI.usage if AI else None} if AI_ON else None,
     }
     with open(os.path.join(out_dir, "index.json"), "w") as fh:
         json.dump(index, fh, ensure_ascii=False, separators=(",", ":"))
