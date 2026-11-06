@@ -243,13 +243,10 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .pdone{flex:1;font-size:15px;font-weight:800;color:var(--on-ink);background:var(--ink);border-radius:14px;padding:13px}
 .iconbtn{color:var(--ink-2)}
 .hrow .iconbtn+.iconbtn{margin-left:-2px}
-.wkbtn{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:16px 0 0;padding:14px 16px;border-radius:var(--radius);
-  background:radial-gradient(120% 140% at 100% 0%,rgba(var(--accent-rgb),.18),transparent 60%),var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
-.wkbtn .wkic{font-size:26px}
-.wkbtn .wkt{flex:1;min-width:0}
-.wkbtn b{display:block;font-size:15px}
-.wkbtn small{display:block;font-size:12px;color:var(--ink-3);margin-top:2px}
-.wkbtn .wkgo{font-size:22px;color:var(--accent)}
+.wkpill{font-size:11.5px;font-weight:700;letter-spacing:0;color:var(--accent);border:1px solid rgba(var(--accent-rgb),.45);border-radius:99px;padding:3px 10px;white-space:nowrap}
+.wkpill:hover{background:rgba(var(--accent-rgb),.10)}
+.tabs.wide button{font-size:12.5px;padding:8px 2px}
+.wktabs{margin:12px 0 2px}
 .wkhero{padding:4px 2px 2px}
 .wkhero .rng{font-size:13px;color:var(--ink-3)}
 .wkstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
@@ -473,9 +470,8 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   </div>
 
   <aside class="col-side">
-  <button class="wkbtn" id="openWeekly"><span class="wkic">📅</span><span class="wkt"><b>この1週間のまとめ</b><small id="wkSub">大きな出来事・ライフライン・天気をふり返る</small></span><span class="wkgo">›</span></button>
-  <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span></h2>
-  <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地ニュース</button><button data-k="japan">日本の報道</button><button data-k="safety">安全情報</button></div>
+  <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span><button class="wkpill" id="openWeekly">📅 先週のまとめ</button></h2>
+  <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地報道</button><button data-k="japan">日本の報道</button><button data-k="world">世界の報道</button><button data-k="safety">安全情報</button></div>
   <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
   </aside>
 
@@ -616,7 +612,7 @@ let state = lsGet(CACHE_KEY);
 let news = lsGet(NEWS_KEY);
 let favs = lsGet(FAV_KEY); if(!Array.isArray(favs)) favs = [...CFG.favs];
 const prefs = Object.assign({sort:"def", newsTab:"local", newsCat:"all"}, lsGet(PREF_KEY)||{});
-if(!["local","japan","safety"].includes(prefs.newsTab)) prefs.newsTab = "local";
+if(!["local","japan","world","safety"].includes(prefs.newsTab)) prefs.newsTab = "local";
 let loading = false, newsShowAll = false;
 
 const idx = id => CITIES.findIndex(c=>c.id===id);
@@ -873,7 +869,6 @@ function renderNews(){
   document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", b.dataset.k===prefs.newsTab));
   const el = document.getElementById("news"), nd = newsData();
   renderAlert(nd); renderInfra(nd);
-  if(news && news.weekly) document.getElementById("wkSub").textContent = `${mdShort(news.weekly.from)}〜${mdShort(news.weekly.to)}・注目の出来事${(news.weekly.top||[]).length}件・停電の報道${((news.weekly.infra||{}).counts||{}).power||0}件`;
   if(weeklyOpen) renderWeekly();
   const nu = document.getElementById("newsUpdated");
   if(news && news.updated){
@@ -907,6 +902,15 @@ function renderNews(){
         <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">最近の${CFG.short}関連の記事はありません。</div>`)
       + more(items.length)
       + `<div class="nnote">日本の新聞・テレビ・通信社・ネットメディアの${CFG.short}に関する記事だけを集めています（青いラベル＝大手メディア）。</div>`;
+    return;
+  }
+  if(prefs.newsTab==="world"){
+    const items = nd.world||[], shown = newsShowAll ? items : items.slice(0,5);
+    el.innerHTML = (shown.length ? shown.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
+        <div class="nt"><span class="cat cat-major">${esc(n.source)}</span>${esc(n.title_ja||n.title)}</div></a>
+        <div class="ns">${esc(n.source)}${when(n.published)}・${origLink(n.link)}</div></div>`).join("") : `<div class="nempty">最近の大手メディアの${CFG.short}関連の記事はありません。</div>`)
+      + more(items.length)
+      + `<div class="nnote">海外の大手メディア（Reuters・AP・BBC・Bloomberg・FT・Guardian・Al Jazeera・DW など）の${CFG.short}に関する記事を日本語に訳しています。有料の記事は全文を読めないことがあります。</div>`;
     return;
   }
   // safety
@@ -1029,9 +1033,9 @@ const SKINS = [
   {id:"midnight", name:"ミッドナイト", note:"黒 × シアン。いまの標準", bg:"#07080A", card:"#13202B", accent:"#4FD1FF", ink:"#F3F5F8", dots:["#4FD1FF","#3DDC97","#FF9147"]},
   {id:"terminal", name:"ターミナル", note:"デジタル感。等幅数字とグリッド", bg:"#030504", card:"#0B1D13", accent:"#39FF88", ink:"#DAFFE7", dots:["#39FF88","#5FE3FF","#FFD15F"], mono:true},
   {id:"slate", name:"スレート", note:"落ち着いた炭色 × サンド", bg:"#101317", card:"#1F242B", accent:"#D6B88A", ink:"#ECE8E1", dots:["#D6B88A","#9DBBD6","#8CC9A1"]},
-  {id:"paper", name:"ペーパー", note:"白基調 × ブルー。明るく清潔", bg:"#F3F5F8", card:"#FFFFFF", accent:"#0071E3", ink:"#0E1726", dots:["#0071E3","#11936A","#D2601A"]},
-  {id:"linen", name:"リネン", note:"あたたかい白 × テラコッタ", bg:"#F4F0E8", card:"#FFFDF8", accent:"#B7652E", ink:"#29241F", dots:["#B7652E","#3471B0","#2E8A5E"]},
   {id:"aurora", name:"オーロラ", note:"よりクール。深い紺 × バイオレット", bg:"#05060F", card:"#1A1640", accent:"#9280FF", ink:"#EFF0FF", dots:["#9280FF","#7CC8FF","#FF8FB1"]},
+  {id:"paper", name:"ペーパー", note:"白基調 × ブルー。明るく清潔", bg:"#F3F5F8", card:"#FFFFFF", accent:"#0071E3", ink:"#0E1726", dots:["#0071E3","#11936A","#D2601A"], light:true},
+  {id:"linen", name:"リネン", note:"あたたかい白 × テラコッタ", bg:"#F4F0E8", card:"#FFFDF8", accent:"#B7652E", ink:"#29241F", dots:["#B7652E","#3471B0","#2E8A5E"], light:true},
 ];
 let skin = (()=>{ try{ return localStorage.getItem("kg-skin") || "midnight"; }catch(e){ return "midnight"; } })();
 function applySkin(id){
@@ -1041,13 +1045,16 @@ function applySkin(id){
   const sk = SKINS.find(x=>x.id===id); const m = document.querySelector('meta[name="theme-color"]'); if(sk && m) m.content = sk.bg;
 }
 function renderSkins(){
-  document.getElementById("skins").innerHTML = SKINS.map(x=>`
+  const card = x=>`
     <button class="skin ${x.id===skin?"on":""}" data-skin-id="${x.id}" aria-pressed="${x.id===skin}">
       <div class="sw" style="background:radial-gradient(120% 90% at 100% 0%,${x.accent}55,transparent 60%),linear-gradient(160deg,${x.card},${x.bg} 75%);color:${x.ink}">
         <span class="t" style="${x.mono?'font-family:"JetBrains Mono",monospace;font-weight:300':''}">11°</span>
         <span class="dots">${x.dots.map(c=>`<i style="background:${c}"></i>`).join("")}</span></div>
       <div class="meta"><span><b>${x.name}</b><small>${x.note}</small></span><span class="ck">${CHECK_SVG}</span></div>
-    </button>`).join("");
+    </button>`;
+  document.getElementById("skins").innerHTML =
+    `<div class="pgroup" style="grid-column:1/-1;margin-top:4px">🌙 ダーク（黒基調）</div>` + SKINS.filter(x=>!x.light).map(card).join("")
+    + `<div class="pgroup" style="grid-column:1/-1">☀️ ライト（白基調）</div>` + SKINS.filter(x=>x.light).map(card).join("");
 }
 function closePicker(){ document.getElementById("picker").hidden = true; document.body.style.overflow=""; renderInfra(newsData()); }
 const todayBishkek = () => new Date().toLocaleDateString("sv-SE",{timeZone:TZ}); // YYYY-MM-DD
@@ -1114,7 +1121,7 @@ function renderAlert(nd){
 }
 
 /* ---------- weekly digest ---------- */
-let weeklyOpen = false, weeklyWx = null;
+let weeklyOpen = false, weeklyWx = null, weekSel = null;
 const mdShort = iso => { const d = new Date(iso); return d.toLocaleDateString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric"}); };
 function openWeekly(){
   weeklyOpen = true; renderWeekly(); loadWeeklyWeather();
@@ -1131,7 +1138,7 @@ async function loadWeeklyWeather(){
   if(weeklyWx) return;
   try{
     const j = await getJSON("https://api.open-meteo.com/v1/forecast?" + qs({latitude:CAPITAL.lat, longitude:CAPITAL.lon, elevation:CAPITAL.el,
-      timezone:TZ, past_days:7, forecast_days:1, daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum"}));
+      timezone:TZ, past_days:14, forecast_days:1, daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum"}));
     weeklyWx = j.daily; if(weeklyOpen) renderWeekly();
   }catch(e){}
 }
@@ -1143,37 +1150,46 @@ function storyHTML(s_, i){
     ${s_.lead_ja?`<div class="nl">${esc(s_.lead_ja)}</div>`:""}</a>
     <div class="ns">${esc(s_.source)}${range?"・"+range:""}・${origLink(s_.link)}</div></div></div>`;
 }
+const ymd = s_ => { const [y,m,d] = s_.split("-"); return `${+m}/${+d}`; };
 function renderWeekly(){
   const el = document.getElementById("weeklyBody");
-  const w = news && news.weekly;
+  const W = news && news.weekly && news.weekly.last ? news.weekly : null;
+  // last full Monday-Sunday week by default; this week (so far) on the second tab
+  if(W && !weekSel) weekSel = (W.last.articles || W.last.complete) ? "last" : "this";
+  const w = W && W[weekSel];
   const head = `<div class="shead"><button class="iconbtn" id="wkBack" aria-label="戻る"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-    <h2>この1週間のまとめ<small>${CFG.short}</small></h2></div>`;
+    <h2>${weekSel==="this"?"今週":"先週"}のまとめ<small>${CFG.short}</small></h2></div>`;
   if(!w){ el.innerHTML = head + `<div class="nempty">まとめを準備中です。ニュースの自動更新（30分ごと）で作られます。</div>`; return; }
   const ic = (w.infra||{}).counts||{};
-  const started = w.since && Date.now()-Date.parse(w.since) < 6.5*864e5;
+  const started = !w.complete;
+  const tabs = `<div class="tabs wide wktabs"><button data-week="last" class="${weekSel==="last"?"on":""}">先週 ${ymd(W.last.from_date)}〜${ymd(W.last.to_date)}</button><button data-week="this" class="${weekSel==="this"?"on":""}">今週 ${ymd(W.this.from_date)}〜（途中）</button></div>`;
   const catOrder = ["politics","economy","safety","event"];
   const cityName = id => (CITIES.find(c=>c.id===id)||{}).ja || id;
   // weather table
   let wx = "";
   if(weeklyWx && weeklyWx.time){
-    const n = weeklyWx.time.length - 1; // exclude today (index n)
-    const lo = Math.min(...weeklyWx.temperature_2m_min.slice(0,n)), hi = Math.max(...weeklyWx.temperature_2m_max.slice(0,n)), span = Math.max(1,hi-lo);
-    wx = `<div class="sec"><h3>${CAPITAL.ja}の1週間の天気（実績）</h3>${weeklyWx.time.slice(0,n).map((t,k)=>{
+    // only the days of the selected week (and not today, which is still a forecast)
+    const today = todayBishkek();
+    const idx = weeklyWx.time.map((t,k)=>k).filter(k=>weeklyWx.time[k]>=w.from_date && weeklyWx.time[k]<=w.to_date && weeklyWx.time[k]<today);
+    const lo = Math.min(...idx.map(k=>weeklyWx.temperature_2m_min[k])), hi = Math.max(...idx.map(k=>weeklyWx.temperature_2m_max[k])), span = Math.max(1,hi-lo);
+    if(idx.length) wx = `<div class="sec"><h3>${CAPITAL.ja}の天気（実績）</h3>${idx.map(k=>{ const t = weeklyWx.time[k];
       const dt = new Date(t+"T12:00:00"), mn = weeklyWx.temperature_2m_min[k], mx = weeklyWx.temperature_2m_max[k], pr = weeklyWx.precipitation_sum[k];
       return `<div class="day num"><div class="dn">${WD[dt.getDay()]}曜<small>${dt.getMonth()+1}/${dt.getDate()}</small></div>
         <div class="di">${wIcon(weeklyWx.weather_code[k])}</div><div class="dp">${pr>=0.5?(Math.round(pr*10)/10)+"mm":""}</div>
         <div class="lo">${r(mn)}°</div><div class="bar"><i style="left:${(mn-lo)/span*100}%;right:${(hi-mx)/span*100}%"></i></div><div class="hi">${r(mx)}°</div><div></div></div>`;
     }).join("")}</div>`;
   }
-  el.innerHTML = head + `
-    <div class="wkhero"><div class="rng num">${mdShort(w.from)}〜${mdShort(w.to)}・${CFG.short}の現地メディア${w.articles}本の記事から</div>
+  el.innerHTML = head + tabs + `
+    <div class="wkhero"><div class="rng num">${ymd(w.from_date)}（月）〜${ymd(w.to_date)}${weekSel==="last"?"（日）":""}・${CFG.short}の現地メディア${w.articles}本の記事から</div>
       <div class="wkstats num">
         <div class="wkstat"><b>${w.articles}</b><small>記事</small></div>
         <div class="wkstat"><b>${ic.power||0}</b><small>⚡停電</small></div>
         <div class="wkstat"><b>${ic.water||0}</b><small>🚰断水</small></div>
         <div class="wkstat"><b>${(w.mofa||[]).length}</b><small>大使館</small></div>
       </div>
-      ${started?`<div class="wknote">記事のたくわえを${mdShort(w.since)}から始めたため、まだ1週間分そろっていません。毎日少しずつ増えて、7日後から1週間分のまとめになります。</div>`:""}
+      ${started?`<div class="wknote">${weekSel==="last" && !w.articles
+        ? `記事のたくわえを${mdShort(w.since)}から始めたため、この週の記録はありません。来週の月曜日から、先週（月〜日）のまとめがここに表示されます。いまは「今週」のタブで途中までのまとめを見られます。`
+        : `記事のたくわえを${mdShort(w.since)}から始めたため、この週は${mdShort(w.since)}以降の分だけです。`}</div>`:""}
     </div>
     <div class="sec"><h3>注目の出来事（多くのメディアが報じた順）</h3>${(w.top||[]).map((s_,i)=>storyHTML(s_,i)).join("") || `<div class="nempty">まだ記事がありません。</div>`}</div>
     ${catOrder.filter(c=>(w.by_cat||{})[c]&&w.by_cat[c].length).map(c=>`<div class="sec"><h3>${CAT[c]}のそのほかの出来事</h3>${w.by_cat[c].map(s_=>storyHTML(s_,null)).join("")}</div>`).join("")}
@@ -1184,6 +1200,7 @@ function renderWeekly(){
         <div class="ns">${esc(n.source)}${n.published?"・"+mdShort(n.published):""}・${origLink(n.link)}</div></div>`).join("")}
     </div>
     ${(w.mofa||[]).length?`<div class="sec"><h3>${CFG.embassy}・外務省のお知らせ</h3>${w.mofa.map(m=>`<a class="nitem" href="${esc(m.link)}" target="_blank" rel="noopener"><div class="nt">${esc(m.title)}</div><div class="ns">${esc(m.type)}${m.published?"・"+mdShort(m.published):""}</div></a>`).join("")}</div>`:""}
+    ${(w.world||[]).length?`<div class="sec"><h3>世界の報道</h3>${w.world.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt"><span class="cat cat-major">${esc(n.source)}</span>${esc(n.title_ja)}</div></a><div class="ns">${n.published?mdShort(n.published)+"・":""}${origLink(n.link)}</div></div>`).join("")}</div>`:""}
     ${(w.japan||[]).length?`<div class="sec"><h3>日本の報道</h3>${w.japan.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="nt">${n.major?`<span class="cat cat-major">${esc(n.major)}</span>`:""}${esc(n.title)}</div><div class="ns">${esc(n.source)}${n.published?"・"+mdShort(n.published):""}</div></a>`).join("")}</div>`:""}
     ${wx}
     <div class="nnote" style="border:0;margin-top:10px">現地の記事は機械翻訳です。「n社が報道」は同じ出来事を報じたメディアの数で、多いほど大きなニュースです。</div>
@@ -1314,6 +1331,8 @@ document.addEventListener("click", e=>{
   if(e.target.closest("#openPicker")){ openPicker(); return; }
   if(e.target.closest("#openWeekly")){ openWeekly(); return; }
   if(e.target.closest("#wkBack")){ closeWeekly(false); return; }
+  const wk = e.target.closest("[data-week]");
+  if(wk){ weekSel = wk.dataset.week; renderWeekly(); document.getElementById("weekly").scrollTop = 0; return; }
   const cb = e.target.closest("#ctry button[data-country]");
   if(cb){ if(cb.dataset.country!==COUNTRY){ try{ localStorage.setItem("kg-country", cb.dataset.country); }catch(_){}
     location.reload(); } return; }

@@ -557,6 +557,57 @@ def collect_japan():
     return out[:25]
 
 
+# ---------------------------------------------------------------- world press (major outlets only)
+
+WORLD_MEDIA = {
+    "reuters.com": "Reuters", "apnews.com": "AP", "bbc.com": "BBC", "bbc.co.uk": "BBC", "bloomberg.com": "Bloomberg",
+    "ft.com": "Financial Times", "theguardian.com": "The Guardian", "nytimes.com": "New York Times",
+    "wsj.com": "Wall Street Journal", "washingtonpost.com": "Washington Post", "economist.com": "The Economist",
+    "aljazeera.com": "Al Jazeera", "dw.com": "DW", "france24.com": "France 24", "cnn.com": "CNN",
+    "asia.nikkei.com": "Nikkei Asia", "rferl.org": "RFE/RL", "euronews.com": "Euronews", "afp.com": "AFP",
+    "scmp.com": "South China Morning Post", "politico.eu": "Politico", "voanews.com": "VOA", "lemonde.fr": "Le Monde",
+}
+
+
+def world_outlet(source_url):
+    host = urllib.parse.urlparse(source_url).hostname or ""
+    for dom, name in WORLD_MEDIA.items():
+        if host == dom or host.endswith("." + dom):
+            return name
+    return None
+
+
+def collect_world(prev_tr):
+    items, seen = [], set()
+    for q in WORLD_QUERIES:
+        try:
+            got = list(rss_items("https://news.google.com/rss/search?" + urllib.parse.urlencode(
+                {"q": q, "hl": "en-US", "gl": "US", "ceid": "US:en"})))
+        except Exception as e:
+            log(f"world {q}: failed: {e}")
+            continue
+        for it in got:
+            outlet = world_outlet(it["source_url"])
+            if not outlet:
+                continue
+            title, src = it["title"], it["source_el"]
+            if src and title.endswith(" - " + src):
+                title = title[: -len(" - " + src)].strip()
+            key = title.lower()[:60]
+            if key in seen or not it["date"] or it["date"] < NOW - timedelta(days=21):
+                continue
+            seen.add(key)
+            items.append({"title": title, "link": it["link"], "source": outlet,
+                          "published": it["date"].isoformat()})
+        log(f"world '{q}': {len(got)} fetched")
+    items.sort(key=lambda x: x["published"], reverse=True)
+    items = items[:15]
+    for x in items:
+        x["link"] = resolve_gnews(x["link"])
+    translate_items(items, prev_tr)
+    return items
+
+
 # ---------------------------------------------------------------- MOFA safety
 
 def mofa_date(s):
@@ -606,7 +657,7 @@ def collect_safety():
 
 # ---------------------------------------------------------------- weekly digest
 
-ARCHIVE_DAYS = 8
+ARCHIVE_DAYS = 15  # enough for last Monday-to-Sunday week plus this week
 STOP_STEMS = {"кыргыз", "киргиз", "бишкек", "казахс", "астана", "алматы", "ноября", "декабр", "октябр",
               "январ", "феврал", "сентяб", "сообщи", "заявил", "рассказ", "которы", "будет", "стране",
               "страны", "президе", "области", "районе", "города", "городе", "жители", "году", "сегодня"}
@@ -641,6 +692,12 @@ def update_archive(archive, out):
         it.update({"kind": "infra", "title": x["title"], "title_ja": x["title_ja"], "link": x["link"],
                    "source": x["source"], "published": x["published"] or it["first_seen"],
                    "kinds": x["kinds"], "cities": x["cities"]})
+    for x in out.get("world") or []:
+        if not x.get("title_ja"):
+            continue
+        it = items.setdefault(x["link"], {"first_seen": now})
+        it.update({"kind": "world", "title": x["title"], "title_ja": x["title_ja"], "link": x["link"],
+                   "source": x["source"], "published": x["published"] or it["first_seen"]})
     cutoff = (NOW - timedelta(days=ARCHIVE_DAYS)).isoformat()
     kept = [x for x in items.values() if (x.get("published") or "") >= cutoff]
     kept.sort(key=lambda x: x.get("published") or "", reverse=True)
@@ -648,10 +705,20 @@ def update_archive(archive, out):
     return {"country": COUNTRY, "since": since, "updated": now, "items": kept}
 
 
-def build_weekly(archive, out):
-    """Group the last 7 days of headlines into stories and rank them by how widely they were covered."""
-    week_ago = (NOW - timedelta(days=7)).isoformat()
-    news = [x for x in archive["items"] if x.get("kind") == "news" and (x.get("published") or "") >= week_ago]
+def week_bounds():
+    """(last Monday 00:00, this Monday 00:00) in the country's local time, as UTC datetimes."""
+    off = timedelta(hours=TZ_HOURS)
+    local = NOW + off
+    this_mon = datetime(local.year, local.month, local.day, tzinfo=timezone.utc) - timedelta(days=local.weekday())
+    this_mon -= off
+    return this_mon - timedelta(days=7), this_mon
+
+
+def build_weekly(archive, out, start, end):
+    """Group one week's headlines into stories and rank them by how widely they were covered."""
+    week_ago, until = start.isoformat(), end.isoformat()
+    inside = lambda x: week_ago <= (x.get("published") or "") < until
+    news = [x for x in archive["items"] if x.get("kind") == "news" and inside(x)]
     news.sort(key=lambda x: x.get("published") or "")
     clusters = []
     for x in news:
@@ -685,7 +752,7 @@ def build_weekly(archive, out):
         lst = by_cat.setdefault(s_["cat"], [])
         if len(lst) < 4 and s_ not in stories[:6]:
             lst.append(s_)
-    infra = [x for x in archive["items"] if x.get("kind") == "infra" and (x.get("published") or "") >= week_ago]
+    infra = [x for x in archive["items"] if x.get("kind") == "infra" and inside(x)]
     counts, by_city = {}, {}
     for x in infra:
         for k in x.get("kinds") or []:
@@ -694,15 +761,18 @@ def build_weekly(archive, out):
                 by_city.setdefault(c, {})
                 by_city[c][k] = by_city[c].get(k, 0) + 1
     safety = out.get("safety") or {}
-    mails = [m for m in safety.get("mails") or [] if (m.get("published") or "") >= week_ago]
-    japan = [j for j in out.get("japan") or [] if (j.get("published") or "") >= week_ago][:6]
-    return {"from": max(week_ago, archive["since"]), "to": NOW.isoformat(), "since": archive["since"],
+    mails = [m for m in safety.get("mails") or [] if inside(m)]
+    japan = [j for j in out.get("japan") or [] if inside(j)][:6]
+    world = [x for x in archive["items"] if x.get("kind") == "world" and inside(x)][:6]
+    local_day = lambda d: (d + timedelta(hours=TZ_HOURS)).date().isoformat()
+    return {"from": week_ago, "to": until, "from_date": local_day(start), "to_date": local_day(end - timedelta(seconds=1)),
+            "since": archive["since"], "complete": archive["since"] <= week_ago,
             "articles": len(news), "top": stories[:6], "by_cat": by_cat,
             "infra": {"total": len(infra), "counts": counts, "by_city": by_city,
                       "recent": [{"title_ja": x["title_ja"], "link": x["link"], "source": x["source"],
                                   "published": x["published"], "kinds": x.get("kinds"), "cities": x.get("cities")}
                                  for x in infra[:8]]},
-            "mofa": mails, "japan": japan}
+            "mofa": mails, "japan": japan, "world": world}
 
 
 # ---------------------------------------------------------------- countries
@@ -735,7 +805,7 @@ COUNTRIES = {
         watch={"bishkek": WATCH_STREETS}, village=VILLAGE_RE.pattern, postcode=r"(?<!\d)72\d{4}(?!\d)",
         ja_keywords=("キルギス", "ビシュケク", "イシク", "オシュ", "ジャパロフ"),
         ja_queries=["キルギス ({sites}) when:90d", "キルギス when:14d", "ビシュケク when:30d"],
-        mofa="0996", prev="news.json"),
+        mofa="0996", prev="news.json", tz_hours=6, world_queries=["Kyrgyzstan when:14d", "Bishkek when:14d"]),
     "kz": dict(
         feeds=[("Tengrinews", "https://tengrinews.kz/news.rss"), ("Kazinform", "https://www.inform.kz/rss/rus.xml"),
                ("Kursiv", "https://kz.kursiv.media/feed/"), ("Sputnik Казахстан", "https://ru.sputnik.kz/export/rss2/archive/index.xml"),
@@ -757,14 +827,15 @@ COUNTRIES = {
         postcode=r"(?<!\d)0[01]\d{4}(?!\d)",
         ja_keywords=("カザフ", "アスタナ", "アルマトイ", "アルマティ", "トカエフ"),
         ja_queries=["カザフスタン ({sites}) when:90d", "カザフスタン when:14d", "アスタナ OR アルマトイ when:30d"],
-        mofa="0007", prev="news-kz.json"),
+        mofa="0007", prev="news-kz.json", tz_hours=5,
+        world_queries=["Kazakhstan when:14d", "Astana OR Almaty when:14d"]),
 }
 
 
 def use_country(code):
     """Point the module-level settings used by the collectors at one country."""
     global COUNTRY, LOCAL_FEEDS, KG_RE, CITY_RES, INFRA_QUERIES, GN_REGION, WATCH_CITIES, STREET_RES_BY_CITY
-    global VILLAGE_RE, POSTCODE_RE, JA_KEYWORDS, JA_QUERIES, MOFA_CODE, PREV_URL
+    global VILLAGE_RE, POSTCODE_RE, JA_KEYWORDS, JA_QUERIES, MOFA_CODE, PREV_URL, TZ_HOURS, WORLD_QUERIES
     c = COUNTRIES[code]
     COUNTRY = code
     LOCAL_FEEDS = c["feeds"]
@@ -776,6 +847,7 @@ def use_country(code):
                           for city, ws in WATCH_CITIES.items()}
     VILLAGE_RE, POSTCODE_RE = re.compile(c["village"]), re.compile(c["postcode"])
     JA_KEYWORDS, JA_QUERIES, MOFA_CODE = c["ja_keywords"], c["ja_queries"], c["mofa"]
+    TZ_HOURS, WORLD_QUERIES = c["tz_hours"], c["world_queries"]
     PREV_URL = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/news-data/" + c["prev"]
 
 
@@ -784,7 +856,7 @@ def main():
     prev_tr = {}
     try:
         prev = json.loads(get(PREV_URL))
-        for x in (prev.get("local") or []) + (prev.get("infra") or []):
+        for x in (prev.get("local") or []) + (prev.get("infra") or []) + (prev.get("world") or []):
             if x.get("title_ja"):
                 prev_tr[x["link"]] = (x["title_ja"], x.get("lead_ja", ""))
         GNEWS_CACHE.update(prev.get("gnews_links") or {})
@@ -796,7 +868,7 @@ def main():
         log(f"no previous data: {e}")
 
     out = {"version": 2, "country": COUNTRY, "updated": NOW.isoformat()}
-    for key, fn in (("local", lambda: collect_local(prev_tr)), ("japan", collect_japan), ("safety", collect_safety),
+    for key, fn in (("local", lambda: collect_local(prev_tr)), ("japan", collect_japan), ("safety", collect_safety), ("world", lambda: collect_world(prev_tr)),
                     ("infra", lambda: collect_infra(prev_tr))):
         try:
             out[key] = fn()
@@ -827,8 +899,11 @@ def main():
             log(f"no previous archive: {e}")
             archive = None
         archive = update_archive(archive, out)
-        out["weekly"] = build_weekly(archive, out)
-        log(f"weekly: {out['weekly']['articles']} articles, {len(out['weekly']['top'])} top stories, archive {len(archive['items'])}")
+        last_mon, this_mon = week_bounds()
+        out["weekly"] = {"last": build_weekly(archive, out, last_mon, this_mon),
+                         "this": build_weekly(archive, out, this_mon, NOW + timedelta(seconds=1)),
+                         "since": archive["since"]}
+        log(f"weekly: last {out['weekly']['last']['articles']} / this {out['weekly']['this']['articles']} articles, archive {len(archive['items'])}")
         if archive_out:
             with open(archive_out, "w") as fh:
                 json.dump(archive, fh, ensure_ascii=False)
