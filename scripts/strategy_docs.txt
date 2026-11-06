@@ -23,3 +23,15 @@ local-self-gov-2028	https://base.spinform.ru/show_doc.fwx?rgn=158417
 regions-2030	https://economist.kg/novosti/2025/03/25/kabmin-utvierdil-proghrammu-razvitiia-rieghionov-kyrghyzstana-do-2030-ghoda/
 drinking-water-2026	http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf
 water-code-2025	https://faolex.fao.org/docs/pdf/kyr237135.pdf
+roads-2030	https://base.spinform.ru/show_doc.fwx?rgn=148158
+sports-2030	https://cbd.minjust.gov.kg/230045338/edition/52205/ru
+religion-ethnic-2026	https://cbd.minjust.gov.kg/30-117/edition/594259/ru
+drr-plan-2030	https://www.cawater-info.net/bk/dam-safety/files/kg-601-2025.pdf
+drr-finance-2030	https://economist.kg/vlast/2026/06/06/disaster-risk-financing-strategy-2030/
+food-security-2023	https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf
+green-economy-2029	https://www.un-page.org/news/green-leap-forward-kyrgyz-republic-adopts-new-green-economy-programme-2025-2029/
+green-economy-2029-24kg	https://24.kg/english/341947_Green_Economy_Development_Program_until_2029_approved_in_Kyrgyzstan/amp
+ndc-2021-en	https://unfccc.int/sites/default/files/NDC/2022-06/%D0%9E%D0%9D%D0%A3%D0%92%20ENG%20%D0%BE%D1%82%2008102021.pdf
+ndc-3-2035	https://daryo.uz/en/2025/10/13/kyrgyzstan-targets-up-to-39-emission-cut-by-2035/
+poverty-employment-2030	https://inbusiness.kz/ru/last/kyrgyzstan-nameren-sushestvenno-sokratit-bednost
+vnr-2025	https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf
