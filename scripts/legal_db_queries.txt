@@ -1,0 +1,13 @@
+# Questions for the legal database (scripts/legal_db.py, .github/workflows/legal-db.yml).
+# kind<TAB>label<TAB>value   kinds: search (title words), text (words in the text),
+# refs (document code), doc (document code), chain (title search + linked acts of the hits)
+# Health first (ブルクト's check, 2026-11-06).
+chain	health-2030	Здоровый человек - процветающая страна
+chain	mental-health	охраны психического здоровья
+chain	immunoprophylaxis	иммунопрофилактики
+chain	healthy-heart	Здоровое сердце
+chain	kidney	хронической болезни почек
+search	tuberculosis	туберкулез
+doc	tuberculosis-53-324	53-324
+search	hiv-hepatitis	ВИЧ-инфекции
+search	health-programs	программы в области здравоохранения
