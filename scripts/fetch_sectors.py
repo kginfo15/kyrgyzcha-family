@@ -164,7 +164,7 @@ SECTORS = [
      ["женщины", "гендер", "\"семейное насилие\"", "\"ала качуу\"", "девочки"],
      ["women", "gender", "\"domestic violence\"", "\"bride kidnapping\"", "girls"]),
     ("digital", "デジタル化",
-     ["цифров", "цифровиз", "ит", "айти", "интернет", "электронн правительств", "тундук", "онлайн", "5g", "связ",
+     ["цифров", "цифровиз", "ит", "айти", "интернет", "электронн правительств", "тундук", "5g", "сотов", "мобильн связ", "оператор связ",
       "телеком", "кибер", "искусственн интеллект", "ии", "блокчейн", "майнинг", "парк высоких технолог", "пвт",
       "минцифр", "электронн подпис", "цифровое",
       "digital", "ict", "internet", "e-government", "cyber", "artificial intelligence", "telecom", "tunduk",
@@ -304,10 +304,10 @@ GOV_DOMAINS = ("gov.kg", "egov.kg", "president.kg", "kenesh.kg", "nbkr.kg", "sta
 GOV_RE = stem_re(["кабмин", "кабинет министров", "кабинета министров", "министерств", "министр", "минфин",
                      "минздрав", "минобразован", "минэконом", "минсельхоз", "минтранс", "минэнерго", "минприроды",
                      "минцифр", "минтруд", "минкульт", "мчс", "нацбанк", "нбкр", "жогорку кенеш", "жапаров",
-                     "президент", "постановлен", "указ$", "указа$", "указом", "указе$", "законопроект", "распоряжен", "касымалиев",
+                     "президент кыргыз", "президента кыргыз", "президент кр", "постановлен", "указ$", "указа$", "указом", "указе$", "законопроект", "распоряжен", "касымалиев",
                      "госагентств", "государственн агентств", "госкомитет", "государственн комитет", "полпред",
-                     "правительств", "национальн программ", "концепц", "стратеги", "нпа", "подписал закон",
-                     "одобрил", "утвердил", "кабинет", "вице-премьер", "заместитель председателя кабинета",
+                     "правительство кыргыз", "правительства кыргыз", "национальн программ", "нпа", "подписал закон",
+                     "вице-премьер", "заместитель председателя кабинета",
                      "cabinet of ministers", "ministry", "minister", "president japarov", "government of kyrgyz",
                      "kyrgyz government", "jogorku kenesh", "parliament approved", "decree"])
 
@@ -391,20 +391,34 @@ def sector_ids(text):
     return [sid for sid, rx in SECTOR_RES if rx.search(text)]
 
 
+# not a policy move even when an official is named; and adverts
+NOT_GOV_RE = stem_re(["помилован", "помиловать", "мошенник", "осторожно", "приговор", "задержан", "суд приговорил",
+                      "pardon", "scam", "sentenced"])
+AD_RE = stem_re(["подписк", "подписаться", "скидк", "реклам", "subscription", "advertis"])
+NEWSPAPER_TAIL = re.compile(r"[|｜][^|｜]*(新聞|ニュース|デジタル|news|online|digital)[^|｜]*", re.I)
+# forecasts and commentary about a donor are not cooperation
+NOT_COOP_RE = stem_re(["прогноз", "прогнозиру", "оценил", "ожидает рост", "forecast", "projects growth", "outlook",
+                       "見通し", "予測"])
+
+
 def classify(title, lead, link, source, query_gov=False):
     """Return (sectors, donors, gov) or None when the item is out of scope."""
+    title = NEWSPAPER_TAIL.sub(" ", title)  # "…｜朝刊・夕刊ニュース｜下野新聞デジタル" is the paper, not the topic
     text = unicodedata.normalize("NFKC", title + " " + lead).lower()  # ＪＩＣＡ -> jica
+    if AD_RE.search(text):
+        return None
     sectors = sector_ids(text)
     donors = [did for did, rx in DONOR_RES if rx.search(text)]
     # a donor named in passing (e.g. "China" in a trade story) counts only with a cooperation word
-    if donors and not COOP_RE.search(text):
-        donors = [d for d in donors if d not in ("cn", "tr", "kr", "de", "uk", "ru", "eu", "us", "ch", "jp")]
+    if donors and (not COOP_RE.search(text) or NOT_COOP_RE.search(text)):
+        donors = [d for d in donors if d in ("jica", "jp")]  # JICA and Japan stay tagged whenever named
     if "jica" in donors and "jp" in donors:
         donors.remove("jp")
     if NOT_DEV_RE.search(text):
         donors = []
     h = host_of(link)
-    gov = is_gov_host(h) and h not in ("kabar.kg",) or bool(GOV_RE.search(text)) or (query_gov and bool(sectors))
+    gov = (is_gov_host(h) and h not in ("kabar.kg",) or bool(GOV_RE.search(text)) or (query_gov and bool(sectors))) \
+        and not NOT_GOV_RE.search(text)
     if not sectors and not donors and not gov and not AI_ON:
         return None
     return sectors, donors, gov
@@ -610,10 +624,41 @@ def reclassify(store):
         if x.get("ai"):
             continue
         c = classify(x["t"], x.get("l", ""), x.get("u", ""), x.get("s", ""))
+        if c is None and not AI_ON:
+            del store[k]
+            continue
         if c:
-            x["c"] = sorted(set(c[0]) | set(x.get("c", [])), key=SECTOR_IDS.index)
-            x["d"] = sorted(set(c[1]) | set(x.get("d", [])))
-            x["g"] = 1 if (c[2] or x.get("g")) else 0
+            x["c"] = sorted(set(c[0]), key=SECTOR_IDS.index)
+            x["d"] = sorted(set(c[1]))
+            x["g"] = 1 if c[2] else 0
+
+
+def title_stems(t):
+    return {w[:6] for w in re.findall(r"[a-zа-яё0-9]{4,}", (t or "").lower())} - fs_stop()
+
+
+def fs_stop():
+    return {"кыргыз", "киргиз", "бишкек", "kyrgyz", "bishkek", "республ", "стране", "будет", "этого", "также"}
+
+
+def group_duplicates(store):
+    """Mark later reports of the same story (mostly the same words, within 2 days) as copies of the first one."""
+    xs = sorted((x for x in store.values() if not x.get("hide")), key=lambda x: x["p"])
+    for x in xs:
+        x.pop("dup", None)
+    recent, groups = [], 0
+    for x in xs:
+        st = title_stems(x["t"])
+        ts = datetime.fromisoformat(x["p"].replace("Z", "+00:00"))
+        recent = [(r, rs, rt) for r, rs, rt in recent if (ts - rt).total_seconds() < 2 * 86400]
+        if len(st) >= 5:
+            for r, rs, rt in recent:
+                if len(st & rs) / len(st | rs) >= 0.62:
+                    x["dup"] = r.get("dup") or r["i"]
+                    groups += 1
+                    break
+        recent.append((x, st, ts))
+    log(f"duplicates: {groups} items marked as repeats")
 
 
 def translate_store(store, budget):
@@ -647,7 +692,7 @@ def resolve_links(store, budget):
     todo.sort(key=lambda x: x["p"], reverse=True)
     done = 0
     for x in todo[:budget]:
-        if time_left() < 8 * 60:
+        if time_left() < 25 * 60:  # leave time for the AI, translation and projects
             break
         real = fn.resolve_gnews(x["u"])
         if real != x["u"]:
@@ -826,6 +871,14 @@ def iati_projects():
                     "u": "https://d-portal.org/ctrack.html#view=act&aid=" + urllib.parse.quote(aid),
                     "_sect": "", "_dac": sorted(sectors.get(aid, []))})
     log(f"iati: {len(rows)} rows, {len(out)} projects")
+    probe = [p for p in out if p["donor"] == "ebrd" and not p.get("amt")][:2]
+    for p in probe:  # EBRD reports no commitment here: keep its raw records to find where the amount is
+        for table in ("act", "budget", "trans"):
+            try:
+                raw = get(base + urllib.parse.urlencode({"from": table, "aid": p["id"], "limit": 50}), timeout=60)
+                open(os.path.join(DEBUG_DIR, f"dportal-{table}-{re.sub(r'[^A-Za-z0-9-]', '_', p['id'])[:40]}.json"), "wb").write(raw)
+            except Exception as e:
+                log(f"probe {table}: {e}")
     return out
 
 
@@ -1059,7 +1112,13 @@ def jica_record(pid, title, pairs, text, today, fetched=None):
     return rec
 
 
+DEBUG_DIR = "."
+
+
 def collect_projects(out_dir):
+    global DEBUG_DIR
+    DEBUG_DIR = os.path.join(out_dir, "debug")
+    os.makedirs(DEBUG_DIR, exist_ok=True)
     prev = None
     try:
         prev = json.loads(get(BASE + "projects.json"))
@@ -1147,13 +1206,14 @@ def main():
         log(f"backfill {month:%Y-%m}: {len(got)} items, {merge(store, got)} new")
         cursor += 1
     reclassify(store)
+    group_duplicates(store)
 
     # keep a few years
     oldest = f"{NOW.year - KEEP_YEARS + 1}-01-01"
     for k in [k for k, x in store.items() if x["p"] < oldest]:
         del store[k]
 
-    resolve_links(store, int(os.environ.get("RESOLVE_BUDGET", 250)))
+    resolve_links(store, int(os.environ.get("RESOLVE_BUDGET", 900)))
     global AI
     if AI_ON:
         try:
