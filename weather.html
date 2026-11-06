@@ -441,6 +441,50 @@ details.about summary::before{content:"▸ ";}
 details.about[open] summary::before{content:"▾ ";}
 details.about .foot{margin-top:8px}
 
+/* passes */
+.passes{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:2px 14px;box-shadow:var(--shadow)}
+.pass{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-top:1px solid var(--line);align-items:center}
+.pass:first-child{border-top:0}
+.pass .pn{font-size:14px;font-weight:700}
+.pass .pn small{font-size:11px;font-weight:500;color:var(--ink-3);margin-left:6px}
+.pass .pr{font-size:12px;color:var(--ink-2);margin-top:2px}
+.pass .pt{font-family:var(--num-font);font-size:22px;font-weight:300;text-align:right;line-height:1}
+.pass .st{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.pst{font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:5px}
+.pst.ok{background:rgba(61,220,151,.14);color:var(--good)}
+.pst.warn{background:rgba(245,196,81,.16);color:var(--mid)}
+.pst.bad{background:rgba(255,92,92,.15);color:var(--bad)}
+.pass a.pnews{grid-column:1/-1;font-size:12px;color:var(--ink-2);text-decoration:none;margin-top:2px}
+.pass a.pnews b{color:var(--bad)}
+/* calendar */
+.cal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 14px;box-shadow:var(--shadow)}
+.hday{display:grid;grid-template-columns:54px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.hday:first-child{border-top:0}
+.hday .hd{font-family:var(--num-font);font-size:15px;font-weight:700;line-height:1.1}
+.hday .hd small{display:block;font-size:10.5px;font-weight:500;color:var(--ink-3)}
+.hday .hn{font-size:13px;font-weight:600}
+.hday .hn small{display:block;font-size:11px;font-weight:500;color:var(--ink-3)}
+.hday .hc{font-size:11px;font-weight:700;color:var(--accent);white-space:nowrap}
+.cal .evh{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);padding:10px 0 2px;border-top:1px solid var(--line)}
+/* air windows */
+.airwin{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;margin-top:4px}
+.airwin b{font-weight:700}
+/* map */
+.mapsheet{display:flex;flex-direction:column;overflow:hidden}
+.mapsheet .shead{flex:0 0 auto}
+.maplegend{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 8px}
+.maplegend button{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink-3)}
+.maplegend button.on{color:var(--ink);border-color:rgba(var(--accent-rgb),.6);background:rgba(var(--accent-rgb),.12)}
+#map{flex:1;min-height:0;background:var(--card-2)}
+.mk-city{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:2px 7px;font:700 12px/1.3 Inter,system-ui,sans-serif;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.mk-city i{font-style:normal;margin-right:3px}
+.mk-pin{font-size:20px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.leaflet-popup-content{font:13px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;margin:10px 12px}
+.leaflet-popup-content b{font-size:13.5px}
+.offline{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;background:var(--ink);color:var(--on-ink);font-size:12px;font-weight:700;padding:7px 14px;border-radius:99px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.offline[hidden]{display:none}
+@media (min-width:1024px){ .mapsheet{width:min(980px,100%)} .passes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 22px} .pass:nth-child(-n+3){border-top:0} }
+
 /* ================= layout styles (shape, density, size) ================= */
 :root[data-layout="compact"] .fav{padding:12px 14px 8px}
 :root[data-layout="compact"] .fav .ftemp{font-size:46px}
@@ -556,10 +600,15 @@ details.about .foot{margin-top:8px}
   <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span><button class="wkpill" id="openWeekly">📅 先週のまとめ</button></h2>
   <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地報道</button><button data-k="japan">日本の報道</button><button data-k="world">世界の報道</button><button data-k="safety">安全情報</button></div>
   <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
+  <h2 class="sect"><span class="grow">📅 祝日・行事</span></h2>
+  <div class="cal" id="cal"></div>
   </aside>
 
   <div class="col-wide">
-  <h2 class="sect"><span class="grow">🗺️ すべての地域</span></h2>
+  <h2 class="sect"><span class="grow">⛰️ 峠・山道</span><span class="sectsub">峠の高さでの予報</span></h2>
+  <div class="passes" id="passes"><div class="nempty">読み込み中…</div></div>
+
+  <h2 class="sect"><span class="grow">🗺️ すべての地域</span><button class="wkpill" id="openMap">🗺 地図で見る</button></h2>
   <div class="sortbar" id="sortbar">
     <button data-s="def" class="on">標準</button><button data-s="warm">暖かい順</button><button data-s="elev">標高が高い順</button><button data-s="air">空気がきれい順</button>
   </div>
@@ -587,6 +636,8 @@ details.about .foot{margin-top:8px}
   </div>
 </div>
 
+<div class="offline" id="offline" hidden>📴 オフラインです。前回の情報を表示しています</div>
+
 <div class="picker" id="picker" hidden>
   <div class="pback" data-pclose></div>
   <div class="ppanel" role="dialog" aria-modal="true" aria-labelledby="ptitle">
@@ -609,6 +660,13 @@ details.about .foot{margin-top:8px}
     <div class="skins" id="skins"></div>
   </div>
 </div>
+
+<section class="sheet mapsheet" id="mapSheet" aria-modal="true" role="dialog" aria-label="地図">
+  <div class="shead" style="padding-left:16px;padding-right:16px;margin:0"><button class="iconbtn" id="mapBack" aria-label="戻る"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2>地図<small id="mapSub"></small></h2></div>
+  <div class="maplegend" id="mapLegend"></div>
+  <div id="map"></div>
+</section>
 
 <section class="sheet" id="weekly" aria-modal="true" role="dialog" aria-label="この1週間のまとめ">
   <div class="wrap" id="weeklyBody"></div>
@@ -744,7 +802,7 @@ async function refresh(){
     latitude:lats, longitude:lons, timezone:TZ, forecast_days:2,
     current:"us_aqi,pm2_5", hourly:"us_aqi,pm2_5",
   });
-  loadNews();
+  loadNews(); loadPasses();
   try{
     const [m, mm, aq] = await Promise.allSettled([getJSON(main), getJSON(multi), getJSON(air)]);
     if(m.status!=="fulfilled") throw m.reason;
@@ -860,6 +918,7 @@ const CONF_TXT = {hi:"高い", mid:"ふつう", lo:"低い"};
 
 /* ---------- rendering ---------- */
 function render(){
+  if(mapObj && document.getElementById("mapSheet").classList.contains("open")) setTimeout(drawMap, 0);
   document.getElementById("updated").textContent = state ? fmtUpdated(state.t) : (loading ? "読み込み中…" : "データなし");
   if(!state){ if(!loading){ document.getElementById("favs").innerHTML=""; document.getElementById("list").innerHTML=""; } return; }
   renderFavs(); renderList();
@@ -891,7 +950,7 @@ function renderFavs(){
       </div>
       ${(()=>{ const ws = weatherWarnings(d); return ws.length ? `<div class="warns">${ws.map(x=>`<span class="warn">${x}</span>`).join("")}</div>` : ""; })()}
       ${lv?`<div class="air num"><i class="aqdot" style="background:${AQ_COLOR[lv]}"></i>
-        <div>大気汚染 <b>${r(aqNow.us_aqi)}・${AQ_LABEL[lv]}</b>　PM2.5 ${r(aqNow.pm2_5)}µg/m³<br><span style="opacity:.85">${AQ_ADVICE[lv]}</span></div></div>`:""}
+        <div>大気汚染 <b>${r(aqNow.us_aqi)}・${AQ_LABEL[lv]}</b>　PM2.5 ${r(aqNow.pm2_5)}µg/m³<br><span style="opacity:.85">${AQ_ADVICE[lv]}</span>${airWinHTML(d)}</div></div>`:""}
       <div class="hours">${hoursHTML(d)}</div>
       <div class="hlabel"><span>上から：時刻・天気・気温・降水確率・大気汚染（AQI）</span></div>
       <button class="more" data-open="${i}">7日間の予報・詳しく見る ›</button>
@@ -955,7 +1014,7 @@ const fmtDate = iso => new Date(iso).toLocaleDateString("ja-JP",{timeZone:TZ,mon
 function renderNews(){
   document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", b.dataset.k===prefs.newsTab));
   const el = document.getElementById("news"), nd = newsData();
-  renderAlert(nd); renderInfra(nd); renderHazards(nd);
+  renderAlert(nd); renderInfra(nd); renderHazards(nd); renderCalendar(); renderPasses();
   if(weeklyOpen) renderWeekly();
   const nu = document.getElementById("newsUpdated");
   if(news && news.updated){
@@ -1180,7 +1239,8 @@ async function loadQuakes(){
     const j = await getJSON("https://earthquake.usgs.gov/fdsnws/event/1/query?" + qs({format:"geojson", starttime:since, minmagnitude:3,
       orderby:"time", minlatitude:QUAKE_BOX.minlatitude, maxlatitude:QUAKE_BOX.maxlatitude, minlongitude:QUAKE_BOX.minlongitude, maxlongitude:QUAKE_BOX.maxlongitude}));
     quakes = (j.features||[]).filter(f=>(f.properties.place||"").includes(QUAKE_BOX.name)).map(f=>({
-      mag:f.properties.mag, place:f.properties.place, time:f.properties.time, url:f.properties.url, depth:f.geometry && f.geometry.coordinates[2]}));
+      mag:f.properties.mag, place:f.properties.place, time:f.properties.time, url:f.properties.url,
+      lon:f.geometry && f.geometry.coordinates[0], lat:f.geometry && f.geometry.coordinates[1], depth:f.geometry && f.geometry.coordinates[2]}));
   }catch(e){ quakes = quakes || []; }
   renderHazards(newsData());
 }
@@ -1272,6 +1332,193 @@ function renderAlert(nd){
   if(!m){ a.hidden = true; return; }
   a.hidden = false;
   a.innerHTML = `<span>⚠️</span><span><b>大使館から新しい安全情報（${fmtDate(m.published)}）</b><br>${esc(m.title)}</span>`;
+}
+
+/* ---------- mountain passes ---------- */
+// approximate road crossing points; the forecast is computed for the given elevation
+const PASSES = {
+  kg:[
+    {id:"tooashuu", ja:"トー・アシュー峠", ru:"Тоо-Ашуу", road:"ビシュケク〜オシュ（トンネル）", lat:42.336, lon:73.814, el:3200, words:["тоо-ашуу","тоо ашуу"]},
+    {id:"alabel", ja:"アラ・ベル峠", ru:"Ала-Бел", road:"ビシュケク〜オシュ（スサミル〜トクトグル）", lat:42.05, lon:73.13, el:3184, words:["ала-бел","ала бел"]},
+    {id:"dolon", ja:"ドロン峠", ru:"Долон", road:"ビシュケク〜ナリン", lat:41.81, lon:75.66, el:3030, words:["долон"]},
+    {id:"taldyk", ja:"タルディク峠", ru:"Талдык", road:"オシュ〜サリタシュ（パミール方面）", lat:39.86, lon:73.13, el:3615, words:["талдык"]},
+    {id:"torugart", ja:"トルガルト峠", ru:"Торугарт", road:"ナリン〜中国国境", lat:40.56, lon:75.39, el:3752, words:["торугарт"]},
+    {id:"chychkan", ja:"チチカン渓谷", ru:"Чычкан", road:"ビシュケク〜オシュ（トクトグル手前）", lat:41.95, lon:72.95, el:2200, words:["чычкан"]},
+  ],
+  kz:[
+    {id:"kordai", ja:"コルダイ峠", ru:"Кордай", road:"アルマトイ〜ビシュケク", lat:43.09, lon:74.73, el:1170, words:["кордай"]},
+    {id:"shymbulak", ja:"シムブラク", ru:"Шымбулак", road:"アルマトイ郊外の山岳リゾート", lat:43.128, lon:77.08, el:2260, words:["шымбулак","медеу"]},
+    {id:"bao", ja:"ビッグ・アルマトイ湖", ru:"БАО", road:"アルマトイ郊外の山道", lat:43.05, lon:76.985, el:2510, words:["бао","большое алматинское"]},
+    {id:"kokpek", ja:"コクペク峠", ru:"Кокпек", road:"アルマトイ〜チャリン・ケゲン", lat:43.47, lon:78.62, el:1550, words:["кокпек"]},
+    {id:"astanakar", ja:"アスタナ〜カラガンダ街道", ru:"трасса Астана — Караганда", road:"草原の幹線道路（吹雪に注意）", lat:50.45, lon:72.6, el:450, words:["астана — караганда","астана-караганда","караганда — астана"]},
+  ],
+}[COUNTRY];
+let passWx = lsGet("kg-passes"+CFG.suffix);
+async function loadPasses(){
+  try{
+    const j = asArr(await getJSON("https://api.open-meteo.com/v1/forecast?" + qs({
+      latitude:PASSES.map(p=>p.lat).join(","), longitude:PASSES.map(p=>p.lon).join(","), elevation:PASSES.map(p=>p.el).join(","),
+      timezone:TZ, forecast_days:2, wind_speed_unit:"ms", current:"temperature_2m,weather_code,wind_gusts_10m",
+      daily:"temperature_2m_min,snowfall_sum,wind_gusts_10m_max"})));
+    passWx = {t:Date.now(), data:j}; lsSet("kg-passes"+CFG.suffix, passWx);
+  }catch(e){}
+  renderPasses();
+}
+// news mentioning a pass in the last 3 days, from the lifeline/hazard collection
+function passNews(p){
+  const nd = newsData(); if(!nd) return null;
+  return ((nd.infra)||[]).find(x=>x.title && p.words.some(w=>x.title.toLowerCase().includes(w))
+    && (!x.published || Date.now()-Date.parse(x.published) < 72*3600*1000));
+}
+function passStatus(p, w){
+  const n = passNews(p), out = [];
+  if(n) out.push(["bad", /закрыт|перекр|огранич/.test((n.title||"").toLowerCase()) ? "通行止め・規制の報道" : "ニュースあり"]);
+  if(!w || !w.daily) return {n, out};
+  const snow = (w.daily.snowfall_sum||[]).reduce((a,b)=>a+(b||0),0), gust = Math.max(...(w.daily.wind_gusts_10m_max||[0])), tmin = Math.min(...(w.daily.temperature_2m_min||[0]));
+  if(snow>=10) out.push(["bad",`大雪 ${r(snow)}cm`]); else if(snow>=2) out.push(["warn",`雪 ${r(snow)}cm`]);
+  if(gust>=20) out.push(["bad",`強風 ${r(gust)}m/s`]); else if(gust>=14) out.push(["warn",`風 ${r(gust)}m/s`]);
+  if(tmin<=-15) out.push(["warn",`最低 ${r(tmin)}°`]);
+  if(!out.length) out.push(["ok","目立った悪条件なし"]);
+  return {n, out, snow, gust, tmin};
+}
+function renderPasses(){
+  const el = document.getElementById("passes");
+  const data = passWx && passWx.data;
+  el.innerHTML = PASSES.map((p,i)=>{
+    const w = data && data[i], cur = w && w.current, st = passStatus(p, w);
+    return `<div class="pass"><div><div class="pn">${p.ja}<small>${p.el.toLocaleString()}m</small></div><div class="pr">${p.road}</div></div>
+      <div class="pt num">${cur?wIcon(cur.weather_code)+" "+r(cur.temperature_2m)+"°":"–"}</div>
+      <div class="st">${st.out.map(([c,t])=>`<span class="pst ${c}">${t}</span>`).join("")}</div>
+      ${st.n?`<a class="pnews" href="${esc(jaLink(st.n.link))}" target="_blank" rel="noopener"><b>●</b> ${esc(st.n.title_ja||st.n.title)}</a>`:""}</div>`;
+  }).join("") + `<div class="pass" style="grid-template-columns:1fr"><div class="pr" style="font-size:11px;color:var(--ink-3)">今日・明日の峠の高さでの予報（雪の量・最大瞬間風速・最低気温）と、直近3日の通行止めニュース。位置と高さは道路が峠を越えるおおよその地点です。出発前は現地の道路情報も確認してください。</div></div>`;
+}
+
+/* ---------- holidays & events ---------- */
+// public holidays; Islamic holidays follow the moon and can shift by a day
+const HOLIDAYS = {
+  kg:[["2026-11-07","歴史と祖先を記念する日"],["2026-11-08","歴史と祖先を記念する日"],["2027-01-01","新年"],["2027-01-07","正教会のクリスマス"],
+      ["2027-02-23","祖国防衛者の日"],["2027-03-08","国際女性デー"],["2027-03-10","オロズ・アイト（断食明け）",1],["2027-03-21","ノールーズ（春分の新年）"],
+      ["2027-04-07","人民四月革命の日"],["2027-05-01","労働者の日"],["2027-05-05","憲法記念日"],["2027-05-09","戦勝記念日"],
+      ["2027-05-16","クルマン・アイト（犠牲祭）",1],["2027-08-31","独立記念日"],["2027-11-07","歴史と祖先を記念する日"],["2027-11-08","歴史と祖先を記念する日"]],
+  kz:[["2026-12-16","独立記念日"],["2027-01-01","新年"],["2027-01-02","新年"],["2027-01-07","正教会のクリスマス"],["2027-03-08","国際女性デー"],
+      ["2027-03-21","ナウルズ（春分の新年）"],["2027-03-22","ナウルズ"],["2027-03-23","ナウルズ"],["2027-05-01","カザフスタン民族統一の日"],
+      ["2027-05-07","祖国防衛者の日"],["2027-05-09","戦勝記念日"],["2027-05-16","クルバン・アイト（犠牲祭）",1],["2027-07-06","首都の日"],
+      ["2027-08-30","憲法記念日"],["2027-10-25","共和国の日"],["2027-12-16","独立記念日"]],
+}[COUNTRY];
+function renderCalendar(){
+  const el = document.getElementById("cal"), today = todayBishkek();
+  // merge consecutive days with the same name
+  const groups = [];
+  HOLIDAYS.filter(h=>h[0]>=today).forEach(h=>{
+    const g = groups[groups.length-1], prev = g && new Date(Date.parse(g.to+"T12:00:00Z")+864e5).toISOString().slice(0,10);
+    if(g && prev===h[0] && h[1].split("（")[0]===g.name.split("（")[0]) g.to = h[0]; else groups.push({from:h[0], to:h[0], name:h[1], moon:!!h[2]});
+  });
+  const days = d => Math.round((Date.parse(d+"T00:00:00Z")-Date.parse(today+"T00:00:00Z"))/864e5);
+  const dl = d => { const n = days(d); return n===0?"今日":n===1?"明日":`あと${n}日`; };
+  const md = d => { const dt = new Date(d+"T12:00:00Z"); return `${dt.getUTCMonth()+1}/${dt.getUTCDate()}`; };
+  const wd = d => WD[new Date(d+"T12:00:00Z").getUTCDay()];
+  const evs = ((newsData()||{}).local||[]).filter(x=>x.cat==="event" && x.title_ja).slice(0,3);
+  el.innerHTML = groups.slice(0,4).map(g=>`<div class="hday"><div class="hd">${md(g.from)}<small>${wd(g.from)}曜${g.to!==g.from?"〜"+md(g.to):""}</small></div>
+      <div class="hn">${g.name}<small>祝日${g.moon?"・日付は月の見え方で前後することがあります":""}</small></div><div class="hc">${dl(g.from)}</div></div>`).join("")
+    + (evs.length ? `<div class="evh">ニュースに出た行事・イベント</div>` + evs.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt">${esc(n.title_ja)}</div></a><div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}</div></div>`).join("") : "")
+    + `<div class="nnote">祝日が週末と重なる場合の振替や、臨時の休日は政府の発表で変わることがあります。</div>`;
+}
+
+/* ---------- best / worst air hours ---------- */
+// 3-hour windows between 7:00 and 22:00 in the next 24 hours, from the hourly AQI forecast
+function airWindows(d){
+  if(!d.aqHr || !d.aqHr.time) return null;
+  const now = d.cur.time.slice(0,13);
+  const pts = d.aqHr.time.map((t,k)=>({t, h:+t.slice(11,13), v:d.aqHr.us_aqi[k]})).filter(x=>x.t.slice(0,13)>=now && x.v!=null).slice(0,24);
+  const wins = [];
+  for(let k=0;k+2<pts.length;k++){
+    const w = pts.slice(k,k+3); if(w.some(x=>x.h<7||x.h>21)) continue;
+    wins.push({from:w[0].h, to:(w[2].h+1)%24, v:w.reduce((a,x)=>a+x.v,0)/3});
+  }
+  if(!wins.length) return null;
+  const best = wins.reduce((a,b)=>b.v<a.v?b:a), worst = wins.reduce((a,b)=>b.v>a.v?b:a);
+  return {best, worst, flat: worst.v-best.v < 25};
+}
+function airWinHTML(d){
+  const w = airWindows(d); if(!w) return "";
+  if(w.flat) return `<div class="airwin"><span>🕒 この先の空気は一日を通してほぼ同じです（AQI ${r(w.best.v)}前後）</span></div>`;
+  return `<div class="airwin"><span>🌿 きれいな時間 <b>${w.best.from}〜${w.best.to}時</b>（AQI ${r(w.best.v)}前後）</span><span>😷 悪い時間 <b>${w.worst.from}〜${w.worst.to}時</b>（${r(w.worst.v)}前後）</span></div>`;
+}
+
+/* ---------- map ---------- */
+let mapObj = null, mapLayers = {}, mapShow = {cities:true, alerts:true, passes:true, quakes:true};
+function loadLeaflet(){
+  if(window.L) return Promise.resolve();
+  return new Promise((ok, fail)=>{
+    const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"; document.head.appendChild(css);
+    const js = document.createElement("script"); js.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"; js.onload = ok; js.onerror = fail; document.head.appendChild(js);
+  });
+}
+async function openMap(){
+  const sh = document.getElementById("mapSheet"); sh.classList.add("open");
+  try{ history.pushState({map:1}, ""); }catch(e){}
+  document.getElementById("mapSub").textContent = CFG.short;
+  try{ await loadLeaflet(); }catch(e){ document.getElementById("map").innerHTML = `<div class="nempty" style="padding:20px">地図を読み込めませんでした。電波を確認してください。</div>`; return; }
+  if(!mapObj){
+    const light = /paper|linen/.test(skin);
+    mapObj = L.map("map", {zoomControl:true, attributionControl:true});
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/${light?"light_all":"dark_all"}/{z}/{x}/{y}{r}.png`,
+      {subdomains:"abcd", maxZoom:18, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(mapObj);
+    const lats_ = CITIES.map(c=>c.lat), lons_ = CITIES.map(c=>c.lon);
+    mapObj.fitBounds([[Math.min(...lats_)-.3, Math.min(...lons_)-.3],[Math.max(...lats_)+.3, Math.max(...lons_)+.3]]);
+  }
+  setTimeout(()=>{ mapObj.invalidateSize(); drawMap(); }, 60);
+}
+function closeMap(fromPop){
+  document.getElementById("mapSheet").classList.remove("open");
+  try{ if(!fromPop && history.state && history.state.map) history.back(); }catch(e){}
+}
+window.addEventListener("popstate", ()=>{ if(document.getElementById("mapSheet").classList.contains("open")) closeMap(true); });
+function drawMap(){
+  if(!mapObj) return;
+  Object.values(mapLayers).forEach(l=>l.remove()); mapLayers = {};
+  const pin = (html, cls="mk-pin") => L.divIcon({className:"", html:`<div class="${cls}">${html}</div>`, iconSize:null});
+  // cities with current temperature and air quality
+  const cg = L.layerGroup();
+  CITIES.forEach((c,i)=>{ const d = cityData(i); if(!d) return;
+    const aqi = d.aqNow && d.aqNow.us_aqi;
+    L.marker([c.lat,c.lon], {icon:pin(`<i>${wIcon(d.cur.weather_code,d.cur.is_day)}</i>${r(d.cur.temperature_2m)}°`, "mk-city")})
+      .bindPopup(`<b>${c.ja}</b>（${c.ru}・${c.el}m）<br>${wName(d.cur.weather_code)} ${r(d.cur.temperature_2m)}°　↑${r(d.dl.temperature_2m_max[0])}° ↓${r(d.dl.temperature_2m_min[0])}°${aqi!=null?`<br>大気汚染 AQI ${r(aqi)}（${AQ_LABEL[aqLevel(aqi)]}）`:""}`).addTo(cg); });
+  mapLayers.cities = cg;
+  // outage / hazard news, placed at the city they mention
+  const ag = L.layerGroup(), nd = newsData();
+  const seen = {};
+  ((nd && nd.infra)||[]).filter(x=>x.title_ja && (!x.published || Date.now()-Date.parse(x.published) < 72*3600*1000)).forEach(x=>{
+    (x.cities||[]).forEach(cid=>{ const c = CITIES.find(z=>z.id===cid); if(!c) return;
+      const n = seen[cid] = (seen[cid]||0)+1, ang = n*1.9, off = .06 + n*.012;
+      const ks = kindLabels(x.kinds);
+      L.marker([c.lat+Math.sin(ang)*off, c.lon+Math.cos(ang)*off*1.4], {icon:pin((KIND[ks[0]]||"⚠️").split(" ")[0])})
+        .bindPopup(`<b>${esc(x.title_ja)}</b><br>${ks.map(k=>KIND[k]).join("・")}<br>${esc(x.source)}${x.published?"・"+ago(Date.parse(x.published)):""}<br><a href="${esc(jaLink(x.link))}" target="_blank" rel="noopener">記事を日本語で開く ›</a>`).addTo(ag); });
+  });
+  mapLayers.alerts = ag;
+  // passes
+  const pg = L.layerGroup(), data = passWx && passWx.data;
+  PASSES.forEach((p,i)=>{ const w = data && data[i], st = passStatus(p, w), lvl = st.out.some(o=>o[0]==="bad")?"bad":st.out.some(o=>o[0]==="warn")?"warn":"ok";
+    L.marker([p.lat,p.lon], {icon:pin(lvl==="bad"?"⛔":lvl==="warn"?"⚠️":"⛰️")})
+      .bindPopup(`<b>${p.ja}</b>（${p.el}m）<br>${p.road}<br>${w&&w.current?`いま ${r(w.current.temperature_2m)}°・`:""}${st.out.map(o=>o[1]).join("・")}`).addTo(pg); });
+  mapLayers.passes = pg;
+  // earthquakes
+  const qg = L.layerGroup();
+  (quakes||[]).forEach(q=>{ if(!q.lat) return;
+    L.circleMarker([q.lat,q.lon], {radius:4+q.mag*2.2, color:"#FF6A00", weight:2, fillColor:"#FF6A00", fillOpacity:.35})
+      .bindPopup(`<b>M${q.mag.toFixed(1)} 地震</b><br>${esc(placeJa(q.place))}<br>${new Date(q.time).toLocaleString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・深さ${r(q.depth)}km`).addTo(qg); });
+  mapLayers.quakes = qg;
+  Object.entries(mapLayers).forEach(([k,l])=>{ if(mapShow[k]) l.addTo(mapObj); });
+  const LG = [["cities","🌡 都市の天気"],["alerts","⚠️ 停電・災害"],["passes","⛰ 峠"],["quakes","🌍 地震"]];
+  document.getElementById("mapLegend").innerHTML = LG.map(([k,n])=>`<button data-maplayer="${k}" class="${mapShow[k]?"on":""}">${n}</button>`).join("");
+}
+
+/* ---------- offline ---------- */
+function updateOnline(){ document.getElementById("offline").hidden = navigator.onLine !== false; }
+window.addEventListener("online", ()=>{ updateOnline(); maybeRefresh(); });
+window.addEventListener("offline", updateOnline);
+if("serviceWorker" in navigator && location.protocol==="https:"){
+  window.addEventListener("load", ()=>{ navigator.serviceWorker.register("weather-sw.js", {scope:"./weather"}).catch(()=>{}); });
 }
 
 /* ---------- weekly digest ---------- */
@@ -1450,7 +1697,7 @@ function renderSheet(i){
     ${lv?`<div class="sec"><h3>大気汚染</h3><div class="num" style="display:flex;align-items:center;gap:10px">
       <span class="chip ${aqCls(aqNow.us_aqi)}" style="font-size:15px;padding:4px 10px">${r(aqNow.us_aqi)}・${AQ_LABEL[lv]}</span>
       <span style="font-size:13px;color:var(--ink-2)">PM2.5 ${r(aqNow.pm2_5)}µg/m³</span></div>
-      <div class="note">${AQ_ADVICE[lv]}</div></div>`:""}
+      <div class="note">${AQ_ADVICE[lv]}</div>${airWinHTML(d)}</div>`:""}
     <div class="sec"><h3>標高</h3><div class="mtn">${mountainSVG(c.el)}
       <div class="txt"><b class="num">${c.el.toLocaleString()}</b> m<br>${elevNote(c)}</div></div></div>
     <div class="sec"><h3>いまの様子</h3><div class="stats num">
@@ -1484,6 +1731,10 @@ document.addEventListener("click", e=>{
     document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
   if(e.target.closest("#openPicker")){ openPicker(); return; }
   if(e.target.closest("#openWeekly")){ openWeekly(); return; }
+  if(e.target.closest("#openMap")){ openMap(); return; }
+  if(e.target.closest("#mapBack")){ closeMap(false); return; }
+  const ml = e.target.closest("[data-maplayer]");
+  if(ml){ const k = ml.dataset.maplayer; mapShow[k] = !mapShow[k]; if(mapShow[k]) mapLayers[k].addTo(mapObj); else mapLayers[k].remove(); ml.classList.toggle("on", mapShow[k]); return; }
   if(e.target.closest("#tipClose")){ lsSet("kg-tip-hidden", true); document.getElementById("tip").style.display="none"; return; }
   if(e.target.closest("#hazToggle")){ hazAll = !hazAll; renderHazards(newsData()); return; }
   if(e.target.closest("#wkBack")){ closeWeekly(false); return; }
@@ -1513,6 +1764,7 @@ document.addEventListener("keydown", e=>{
   if(e.key==="Escape" && !document.getElementById("picker").hidden){ closePicker(); return; }
   if(e.key==="Escape" && openIdx!=null && document.getElementById("skinPicker").hidden){ closeSheet(false); return; }
   if(e.key==="Escape" && weeklyOpen){ closeWeekly(false); return; }
+  if(e.key==="Escape" && document.getElementById("mapSheet").classList.contains("open")){ closeMap(false); return; }
   if(e.key==="Escape" && !document.getElementById("skinPicker").hidden){ document.getElementById("skinPicker").hidden = true; document.body.style.overflow=""; return; }
   const city = e.target.closest && e.target.closest(".city");
   if(city && (e.key==="Enter"||e.key===" ") && !e.target.closest("[data-fav]")){ e.preventDefault(); openSheet(+city.dataset.i); }
@@ -1535,6 +1787,8 @@ document.getElementById("overline").textContent = CFG.over;
 document.getElementById("mtnNote").textContent = CFG.mountainNote;
 document.getElementById("tzNote").textContent = CAPITAL.ja;
 document.querySelectorAll("#ctry button[data-country]").forEach(b=>{ b.classList.toggle("on", b.dataset.country===COUNTRY); b.setAttribute("aria-selected", b.dataset.country===COUNTRY); });
+updateOnline();
+renderPasses(); renderCalendar();
 if(state) render();
 renderNews();
 if(!state || Date.now()-state.t > 60*1000) refresh(); else loadNews();
