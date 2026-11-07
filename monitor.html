@@ -1891,7 +1891,7 @@ const IND_NODE = {health:{all:"hp", uhc:"C1", phc:"A1", ncd:"A5", inf:"A7", mch:
 const IND_OPEN = new Set();   // pillars whose "＋詳しい指標" is open (kept across re-renders)
 const indNum = v => (Math.round(v*10)/10).toLocaleString("ja-JP");
 function indChart(ind){
-  const W=320, H=150, L=34, R=74, T=10, B=22;
+  const W=320, H=150, L=34, R=86, T=10, B=22;
   const pts = ind.s.concat(ind.s2||[]), xs = pts.map(p=>p[0]), ys = pts.map(p=>p[1]);
   for(const t of ind.t||[]){ xs.push(t.y); ys.push(t.v); }
   const x0 = Math.min(...xs), x1 = Math.max(...xs, 2030);
@@ -1941,7 +1941,7 @@ function indicatorsHTML(sec){
       <div class="igrid">${p.inds.map(indCard).join("")}${(p.donor||[]).map(indDonor).join("")}</div>`;
     if(p.detail){
       const c = p.detail.cancer, mx = c ? c.rows[0][1] : 1, open = IND_OPEN.has(p.id);
-      h += `<button class="imore" type="button" aria-expanded="${open}" data-indmore="${esc(p.id)}">${open?"－":"＋"} ${esc(p.detail.title)}（たばこ・お酒・糖尿病・がん）</button>
+      h += `<button class="imore" type="button" aria-expanded="${open}" data-indmore="${esc(p.id)}">${open?"－":"＋"} ${esc(p.detail.title)}</button>
         <div class="igrid idet" id="idet-${esc(p.id)}" ${open?"":"hidden"}>${p.detail.inds.map(indCard).join("")}${c?`<div class="ind"><h4>${esc(c.title)}</h4>${c.rows.map(r=>`<div class="ihb"><span>${esc(r[0])}</span><div class="t" style="width:${r[1]/mx*100}%"></div><span class="v">${r[1].toLocaleString("ja-JP")}</span></div>`).join("")}
           <p class="isrc">出どころ：${esc(c.src)}</p><div class="inote">がんは毎年の推移が無料APIで取れないため、数年に1回の推計を表で見せています。国の目標値は「がん医療の規程」に数値目標がないため、WHOの子宮頸がん目標（2030年までに検診70%・HPVワクチン90%）と比べる案です。</div></div>`:""}</div>`;
     }
@@ -1958,8 +1958,9 @@ function indicatorsHTML(sec){
 }
 // the tooltip for a point on an indicator chart: hover on a PC, a tap on a phone
 (function(){
-  let tip = null;
+  let tip = null, lastTouch = 0;
   const show = e => {
+    if(e.type==="touchstart") lastTouch = Date.now(); else if(Date.now()-lastTouch<500) return;  // the mouseover a tap sends must not hide it
     const t = e.target.closest && e.target.closest(".ihit");
     if(!t){ if(tip) tip.style.display = "none"; return; }
     if(!tip){ tip = document.createElement("div"); tip.id = "itip"; document.body.appendChild(tip); }
