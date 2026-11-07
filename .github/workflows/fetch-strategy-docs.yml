@@ -7,8 +7,10 @@ name: Fetch strategy documents
 on:
   workflow_dispatch:
   # once a day, to finish the documents a run had no time for (runs only from the default branch)
-  schedule:
-    - cron: "23 3 * * *"
+  # schedule paused while the repo is private (free plan has only 2,000 Actions min/month).
+  # To restart, remove the leading '# ' from the next two lines.
+  # schedule:
+  #   - cron: "23 3 * * *"
   push:
     paths:
       - scripts/strategy_docs.txt

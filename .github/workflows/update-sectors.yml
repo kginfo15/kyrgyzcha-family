@@ -6,8 +6,10 @@ name: Update sector monitor
 # Runs every 3 hours; every run adds to the stored archive and fills in one
 # more past month.
 on:
-  schedule:
-    - cron: "41 */3 * * *"
+  # schedule paused while the repo is private (free plan has only 2,000 Actions min/month).
+  # To restart, remove the leading '# ' from the next two lines.
+  # schedule:
+  #   - cron: "41 */3 * * *"
   workflow_dispatch:
   # also run when the collector changes, so a change can be tried before it reaches main
   push:
