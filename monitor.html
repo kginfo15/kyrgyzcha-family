@@ -526,13 +526,6 @@ details.ov[open] .ovs{display:inline}
 .ovh,.ovs{color:var(--accent);margin-left:6px}
 /* ---- PC: main column + news column that scrolls on its own ---- */
 .layout{display:block}
-.myq{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 0 2px}
-.myq-l{font-size:12px;font-weight:700;color:var(--sub);margin-right:2px}
-.myq-i{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
-.myq-i button{font:inherit;border:0;background:none;cursor:pointer;padding:6px 10px;font-size:12.5px;color:var(--ink);white-space:nowrap}
-.myq-n{font-weight:700}
-.myq-b{border-left:1px solid var(--line)!important;color:var(--accent)!important}
-.myq-i button:hover{background:var(--accent-soft)}
 .mnews{margin-top:4px}.mnews .orig,.mnews .also{display:none}
 @media (min-width:1100px){.mnews{display:none}}
 .nsec{margin:2px 0 10px}
@@ -660,6 +653,20 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
   .matrix{grid-template-columns:repeat(2,minmax(0,1fr))}
   .tile .big{font-size:20px}
   .status .ut{display:none}
+}
+.tile .tacts{display:flex;gap:6px;margin-top:2px}
+.tile .tact{flex:1 1 0;min-height:34px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;padding:6px 4px}
+.tile .tact:hover{border-color:var(--accent);color:var(--accent)}
+.mysec{margin-bottom:6px}
+.myrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.myrow-h{display:none}
+@media (max-width:640px){
+  .myrow{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -16px;padding:0 16px 4px;scroll-padding:0 16px;gap:10px}
+  .myrow::-webkit-scrollbar{display:none}
+  .myrow>.tile{flex:0 0 82%;scroll-snap-align:start}
+  .myrow.one>.tile{flex-basis:100%}
+  .myrow-h{display:block;margin:2px 0 0;font-size:11px;color:var(--faint);text-align:right}
+  .mys-n{display:none}
 }
 @media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
 /* ---------- sector summary: full screen report, printable (A4 landscape, 3 pages) ---------- */
@@ -1767,7 +1774,7 @@ function viewHome(){
   setTitle("");
   const now = Date.now(), d30 = now-30*DAY, its = items(), pj = projects();
   const ready = projReady();
-  const tile = ([id,ja])=>{
+  const tile = ([id,ja], acts)=>{
     const sp = pj.filter(p=>p.c.includes(id) && p.st==="active");
     const amt = sp.reduce((a,p)=>a+shareAmt(p),0);
     const by = {}; for(const p of sp) by[p.donor] = (by[p.donor]||0) + shareAmt(p);
@@ -1783,25 +1790,24 @@ function viewHome(){
       <span class="drs">${top3 || '<span class="note">金額の分かる実施中案件なし</span>'}</span>
       ${jicaLine}
       <span class="tf"><span>政府の動き <b>${m.filter(x=>x.g).length}</b></span><span>協力ニュース <b>${m.filter(x=>x.d.length).length}</b></span></span>
+      ${acts?`<span class="tacts">${SUM_SPEC[id]?`<button class="tact" data-sumgo="${id}">ギャップ分析</button>`:""}<button class="tact" data-sectree="${id}">樹形図</button></span>`:""}
     </div>`;
   };
   // my sectors come first (and stay in the full list below); the overview charts can be folded away
-  const favTiles = SECTORS.filter(([id])=>FAV.has(id)).map(tile).join("");
-  const tiles = SECTORS.map(tile).join("");
+  const favTiles = SECTORS.filter(([id])=>FAV.has(id)).map(r=>tile(r,true)).join("");
+  const tiles = SECTORS.map(r=>tile(r)).join("");
   const mine = FAV.size ? its.filter(x=>x.c.some(c=>FAV.has(c))) : its;
   const jump = `<nav class="jump" aria-label="分野へ移動">${SECTORS.map(([id,ja])=>`<button class="jchip ${FAV.has(id)?"on":""}" data-sec="${id}">${FAV.has(id)?"★ ":""}${esc(ja)}</button>`).join("")}</nav>`;
   const favIds = SECTORS.filter(([id])=>FAV.has(id)).map(([id])=>id);
   const wk = weekHTML(favIds.length ? favIds : SECTORS.map(([id])=>id), {n:6, title: favIds.length ? "My分野 今週の重要ニュース" : "全分野 今週の重要ニュース", more: favIds.length ? '<button class="linkbtn" data-gomy>My分野のニュース →</button>' : '<span>☆で分野を選ぶと、その分野だけのまとめになります</span>'});
   const sideAll = CH.sscope==="all" || !FAV.size, side = sideAll ? its : mine;
   const scopeSw = FAV.size ? `<div class="sscope">${segCH("sscope",[["my","My分野"],["all","全分野"]])}<span class="note">新しい順にすべて</span></div>` : '<div class="sscope"><span class="note">新しい順にすべて</span></div>';
-  const quick = favIds.length ? `<nav class="myq" aria-label="My分野へのショートカット"><span class="myq-l">My分野</span>${favIds.map(id=>`<span class="myq-i"><button class="myq-n" data-sec="${id}">${esc(SEC[id].ja)}</button>${SUM_SPEC[id]?`<button class="myq-b" data-sumgo="${id}">ギャップ分析</button>`:""}<button class="myq-b" data-sectree="${id}">樹形図</button></span>`).join("")}</nav>` : "";
   return `<div class="layout"><div class="mainc">
-    ${quick}
+    ${favTiles?`<section class="mysec">${secHead("My sectors","My分野",'<span class="note mys-n">★で外す</span><button class="linkbtn" data-favlink title="★は端末ごとに保存されます。このリンクをMacやスマホで開くと、同じMy分野になります">ほかの端末にも同じ★を</button>')}<div class="myrow ${favIds.length===1?"one":""}">${favTiles}</div>${favIds.length>1?'<p class="myrow-h">左右にスワイプ</p>':""}</section>`:""}
     ${wk}
     <section class="mnews">${secHead("News",(sideAll?"全分野":"My分野")+" 今日のニュース",'<button class="linkbtn" data-tonews>すべて見る ↓</button>')}${listHTML(side.slice(0,4),false,true)}</section>
     ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
-    ${favTiles?`${secHead("My sectors","My分野",'<span class="note">★で外す(下の一覧にも残ります)</span><button class="linkbtn" data-favlink title="★は端末ごとに保存されます。このリンクをMacやスマホで開くと、同じMy分野になります">ほかの端末にも同じ★を</button>')}<div class="matrix">${favTiles}</div>`
-      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと、その分野が「My分野」としてここに並び、上の重要ニュースと右のニュースもその分野に絞られます。★は端末(ブラウザ)ごとに保存されるので、iPhoneで選んだ★はMacには出ません。iPhoneの「ほかの端末にも同じ★を」でリンクを送ると、同じMy分野にできます。</p>`}
+    ${favTiles?"":`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと、その分野が「My分野」としてここに並び、上の重要ニュースと右のニュースもその分野に絞られます。★は端末(ブラウザ)ごとに保存されるので、iPhoneで選んだ★はMacには出ません。iPhoneの「ほかの端末にも同じ★を」でリンクを送ると、同じMy分野にできます。</p>`}
     ${secHead("Overview","協力の全体像",'<span class="note">援助機関の公開データにある、キルギス向けの協力案件の金額</span>')}
     ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
     ${ready&&SHOW_COVER?coverageHTML():""}
