@@ -1,6 +1,7 @@
-import json,re,sys
-sys.path.insert(0,'org'); from spec import MIN
-d=json.load(open('orgdb/index.json'))
+import json,os,re,sys
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__))); from spec import MIN
+ROOT=sys.argv[1] if len(sys.argv)>1 else '.'
+d=json.load(open(os.path.join(ROOT,'orgdb/index.json')))
 def yr(x):
     e=x.get('editionDate') or ''; m=re.search(r'(\d{4})',e); return max(int(m.group(1)) if m else 0, int(x['date'][:4] or 0))
 out={}
@@ -22,4 +23,4 @@ for m in MIN:
     out[m['id']]=list(units.values())
     print('==',m['id'],len(units))
     for u in units.values(): print('  ',u['y'],u['code'],u['kind'],u['name'][:120])
-json.dump(out,open('org/units.json','w'),ensure_ascii=False,indent=1)
+json.dump(out,open(os.path.join(ROOT,'units.json'),'w'),ensure_ascii=False,indent=1)
