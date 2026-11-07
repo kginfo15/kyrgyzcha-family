@@ -760,6 +760,7 @@ async function boot(){
   }catch(e){ loadErr = String(e.message||e); }
   render();
   loadProjects();
+  setTimeout(loadSearchTerms, 1500);  // ready before the first search, so the filter box is not redrawn under the keyboard
 }
 
 /* ---------- formatting ---------- */
@@ -830,7 +831,7 @@ const isOpen = p => p.st==="active"||p.st==="pipeline";
    search-terms.json (made by ブルクト) groups the Japanese, Russian and English words for one idea.
    A search word found in the table matches any word of its group (and of its child groups);
    other words match as plain text. Both sides are normalised first (PET CT = PET-CT = pet/ct). */
-let SEARCH_TERMS = null, termsLoading = false;
+let SEARCH_TERMS = null, termsLoading = false, termsFailed = false;
 const SW = "0-9a-zа-яөүңәіқғұһ";
 const normQ = s => String(s||"").normalize("NFKC").toLowerCase().replace(/ё/g,"е").replace(/[\-‐–—\/・]/g," ").replace(/\s+/g," ");
 const rxEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
@@ -841,29 +842,36 @@ function termRx(t, lang){
   return `(?:^|[^${SW}])` + parts.map(rxEsc).join(`[${SW}]*\\s+`) + (whole ? `(?![${SW}])` : "");
 }
 function loadSearchTerms(){
-  if(SEARCH_TERMS || termsLoading || EMBED) return;
+  if(SEARCH_TERMS || termsLoading || termsFailed || EMBED) return;
   termsLoading = true;
   fetch("search-terms.json", {cache:"no-cache"}).then(r=>r.ok?r.json():null).then(d=>{
-    if(!d || !Array.isArray(d.groups)) return;
+    if(!d || !Array.isArray(d.groups)){ termsFailed = true; return; }
     const byId = {}, kids = {}, keys = [];
     for(const g of d.groups){ byId[g.id] = g; if(g.parent) (kids[g.parent] = kids[g.parent] || []).push(g.id); }
     for(const g of d.groups) for(const lang of ["ja","ru","en"]) for(const t of g[lang]||[]){
       const k = normQ(t.replace(/!$/,"")).trim();
-      if(k) keys.push({k, flat:k.replace(/ /g,""), id:g.id, stem:lang!=="ja" && !t.endsWith("!") && k.length>=4});
+      // a Russian/English stem also matches a longer typed word ("vaccination", "сельское хозяйство")
+      const stem = lang!=="ja" && !t.endsWith("!") && k.length>=4 ? new RegExp("^"+k.split(" ").map(rxEsc).join(`[${SW}]*\\s+`)) : null;
+      if(k) keys.push({k, flat:k.replace(/ /g,""), id:g.id, stem});
     }
     // a group with its child groups, one regular expression
     const rx = {}, family = id => [id, ...(kids[id]||[]).flatMap(family)];
     const groupRx = id => rx[id] || (rx[id] = new RegExp(family(id).flatMap(f=>["ja","ru","en"].flatMap(l=>(byId[f][l]||[]).map(t=>termRx(t,l)))).join("|")));
     SEARCH_TERMS = {byId, keys, groupRx};
-    qCache = {}; render();
-  }).catch(()=>{}).finally(()=>{ termsLoading = false; });
+    qCache = {};
+    // never redraw the filter box being typed in: the keyboard would close (iPhone)
+    if(!S.q) return;
+    const a = document.activeElement;
+    if(a && a.closest && a.closest("[data-inp]")){ if(composing !== a) render(a); }
+    else render();
+  }).catch(()=>{ termsFailed = true; }).finally(()=>{ termsLoading = false; });
 }
 // which groups a search word stands for: the same word, or a longer form of a Russian/English stem
 function termGroups(word){
   if(!SEARCH_TERMS) return [];
   const w = normQ(word).trim(), flat = w.replace(/ /g,"");
   const exact = SEARCH_TERMS.keys.filter(e=>e.k===w || e.flat===flat);
-  const hit = exact.length ? exact : SEARCH_TERMS.keys.filter(e=>e.stem && w.startsWith(e.k));
+  const hit = exact.length ? exact : SEARCH_TERMS.keys.filter(e=>e.stem && e.stem.test(w));
   return [...new Set(hit.map(e=>e.id))];
 }
 let qCache = {};
@@ -2054,7 +2062,7 @@ function filterLater(i){
   clearTimeout(qTimer);
   qTimer = setTimeout(()=>{
     if(composing === i || !document.body.contains(i)) return;
-    go({q:i.value}, false, i); $("#q").value = S.q;
+    go({q:i.value, ...(i.value.trim() ? {} : {qr:""})}, false, i); $("#q").value = S.q;
   }, 250);
 }
 main.addEventListener("input", e=>{
