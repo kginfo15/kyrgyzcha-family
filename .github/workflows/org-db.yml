@@ -27,7 +27,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Collect
+        env:
+          IMG_DIR: ${{ runner.temp }}/org-img
         run: python3 scripts/org_db.py "$RUNNER_TEMP/org"
+      - name: Keep the scheme pictures for reading (1 day, not published)
+        uses: actions/upload-artifact@v4
+        with:
+          name: scheme-pictures
+          path: ${{ runner.temp }}/org-img
+          retention-days: 1
+          if-no-files-found: ignore
       - name: Publish
         env:
           TOKEN: ${{ github.token }}

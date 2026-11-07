@@ -7,9 +7,10 @@ management scheme. This script:
 
   1. searches the legal database for those resolutions (in force only),
   2. downloads the latest edition of each (Russian text),
-  3. cuts out the annex called "Схема управления" as plain text (text only: pictures and
-     drawn charts are never copied; most schemes are drawn, so the site's structures are
-     built from the text of the regulations and the titles of the units' own regulations),
+  3. cuts out the annex called "Схема управления" as plain text. Most schemes are drawn;
+     with IMG_DIR set, their pictures are saved there so the unit names can be read off
+     them - the workflow keeps them as a 1-day private run artifact, never on the branch
+     or the site (the site's structures are our own text),
 
 and writes into OUT_DIR:
 
@@ -141,10 +142,47 @@ def cut_scheme(text):
     return text[ms[-1].start():].strip() if ms else ""
 
 
+IMG_RE = re.compile(r"""(?is)<img\b[^>]*?\bsrc\s*=\s*["']?([^"' >]+)""")
+
+
+def save_images(content, img_dir, safe):
+    """Pictures of the scheme annex, kept only so a person (or Claude) can read the unit names
+    off them. They go to IMG_DIR, which the workflow keeps as a short-lived private run
+    artifact - never on the published branch or the site."""
+    import base64
+    starts = [m.start() for m in re.finditer(r"(?i)с\s*х\s*е\s*м\w*\s+управлени", content)]
+    part = content[starts[-1]:] if starts else content
+    names = []
+    for n, src in enumerate(IMG_RE.findall(part)[:40], 1):
+        try:
+            src = html.unescape(src)
+            if src.startswith("data:"):
+                head, b64 = src.split(",", 1)
+                ext = (re.search(r"image/(\w+)", head) or [None, "png"])[1]
+                blob = base64.b64decode(b64)
+            else:
+                url = src if src.startswith("http") else ("https://cbd.minjust.gov.kg" + (src if src.startswith("/") else "/" + src))
+                req = urllib.request.Request(url, headers={"User-Agent": UA["User-Agent"], "Referer": UA["Referer"]})
+                with urllib.request.urlopen(req, timeout=60) as res:
+                    blob = res.read()
+                    ext = (re.search(r"image/(\w+)", res.headers.get("Content-Type", "")) or [None, "png"])[1]
+            if len(blob) < 1500:   # spacer pixels and bullets
+                continue
+            name = f"{safe}-{n}.{ext.replace('jpeg', 'jpg')}"
+            open(os.path.join(img_dir, name), "wb").write(blob)
+            names.append(name)
+        except Exception as e:
+            names.append(f"ERROR {src[:80]}: {e}")
+    return names
+
+
 def main():
     out = sys.argv[1]
     os.makedirs(os.path.join(out, "schemes"), exist_ok=True)
     os.makedirs(os.path.join(out, "full"), exist_ok=True)
+    img_dir = os.environ.get("IMG_DIR", "")
+    if img_dir:
+        os.makedirs(img_dir, exist_ok=True)
     found, log = {}, []
     for words in TITLE_QUERIES:
         try:
@@ -187,6 +225,8 @@ def main():
             open(os.path.join(out, "full", safe + ".txt"), "w", encoding="utf-8").write(text)
             if scheme:
                 open(os.path.join(out, "schemes", safe + ".txt"), "w", encoding="utf-8").write(scheme)
+                if img_dir and row["date"] >= "2021":
+                    row["pictures"] = save_images(content, img_dir, safe)
             row.update(chars=len(text), scheme=bool(scheme), schemeChars=len(scheme),
                        images=len(re.findall(r"(?i)<img\b", content)), file=safe)
         except Exception as e:
