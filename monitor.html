@@ -257,6 +257,9 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .lg li:hover{background:var(--panel2)}
 .lg li.nolink{cursor:default}
 .lg li.on{background:var(--accent-soft);font-weight:600}
+.fbtns{display:flex;gap:6px;flex-wrap:wrap}
+.rg-d{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
+.rg-d .chip{font-size:12px;line-height:2}
 .fband{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-top:10px;padding:10px 14px;border:1px solid var(--accent);background:var(--accent-soft);border-radius:8px;font-size:13px}
 .lg i{width:10px;height:10px;border-radius:2px;display:block}
 .lg .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -665,7 +668,7 @@ $("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 // ym: new = started that year, ongoing = running that year, cum = everything started up to that year
 const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov"}, lsGet("km-charts", {}));
@@ -1326,7 +1329,8 @@ function viewDonor(){
   const list = filterItems({...S, t:"all"});
   const all = projects().filter(p=>p.donor===d.id);
   const base = filterProjects({d:S.d, s:S.s, q:S.q, ps:S.ps, psort:S.psort});
-  const pj = filterProjects({d:S.d, s:S.s, q:S.q, k:S.k, ps:S.ps, psort:S.psort});
+  const sfp = S.g ? subField(S.g) : null;
+  const pj = filterProjects({d:S.d, s:S.s, q:S.q, k:S.k, ps:S.ps, psort:S.psort}).filter(p=>!sfp || sfp.set.has(p));
   // where this donor works: amount (or count when no amounts) by sector, all periods
   const bySec = {}; let useAmt = all.some(p=>p.amt);
   const nSec = {};
@@ -1335,11 +1339,13 @@ function viewDonor(){
   // keep the narrowed sector in the list even when it is outside the top 12
   const secRows = secAll.filter((r,i)=>i<12 || fs0.includes(r[0])), smax = Math.max(1,...secRows.map(r=>r[1]));
   // narrowed to one or more sectors: the top numbers count that part only (multi-sector projects by their share)
-  const fs = secList(S.s), inS = p => !fs.length || p.c.some(c=>fs.includes(c));
+  const fs = secList(S.s), sf = S.g ? subField(S.g) : null;
+  const inS = p => sf ? sf.set.has(p) : (!fs.length || p.c.some(c=>fs.includes(c)));
   const sub = all.filter(inS), part = p => fs.length ? shareAmt(p)*p.c.filter(c=>fs.includes(c)).length : (p.amt||0);
   const kinds = {}; for(const p of sub) kinds[sch(p)]=(kinds[sch(p)]||0)+1;
   const act = sub.filter(p=>p.st==="active"), actAmt = act.reduce((a,p)=>a+part(p),0);
-  const band = fs.length ? `<div class="fband"><span><b>${esc(fs.map(c=>SEC[c].ja).join("・"))} × ${esc(d.ja)}</b> に絞り込み中</span><button class="btn" data-allsec>全体を見る</button></div>` : "";
+  const band = sf ? `<div class="fband"><span><b>${esc(SEC[sf.sec].ja)} › ${esc(sf.name)} × ${esc(d.ja)}</b> に絞り込み中<br><span class="note">樹形図でこの小分類の枝に当てはめた実施中の案件です（題名からの自動判定）。</span></span><span class="fbtns"><button class="btn" data-allsub>${esc(SEC[sf.sec].ja)}全体</button><button class="btn" data-allsec>全体を見る</button></span></div>`
+    : fs.length ? `<div class="fband"><span><b>${esc(fs.map(c=>SEC[c].ja).join("・"))} × ${esc(d.ja)}</b> に絞り込み中</span><button class="btn" data-allsec>全体を見る</button></div>` : "";
   return `<div class="panel shead"><div><div class="k">${esc(DGROUP[d.g]||"")}</div><h2>${esc(d.ja)}</h2></div>
       <div class="minis"><div class="mini"><div class="v">${projReady()?act.length:"…"}</div><div class="l">実施中案件</div></div>
       <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額${fs.length?"（按分）":""}${unk(act)?`<br><span class="unk">金額不明 ${unk(act)}件</span>`:""}</div></div>
@@ -1578,7 +1584,10 @@ function reportsHTML(sec){
   const total = new Set(R.groups.flatMap(g=>g.reports.map(r=>r.u))).size;
   const rep = r => `<li class="rp"><a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>${r.pdf?'<span class="tag lang">PDF</span>':""}
       <span class="rp-m">${esc(r.by)}・${esc(r.y)}</span>${r.note?`<span class="rp-n">${esc(r.note)}</span>`:""}<span class="rp-o">${esc(r.o)}</span></li>`;
-  const grp = g => {
+  const grp = (g, gi) => {
+    const sf = projReady() ? subField(sec+"."+gi) : null, dn = {};
+    if(sf) for(const p of sf.set) if(p.donor && p.donor!=="gov" && DONORS[p.donor]) dn[p.donor] = (dn[p.donor]||0)+1;
+    const dchips = Object.entries(dn).sort((a,b)=>b[1]-a[1]);
     // Kyrgyz side: branches of the national programme tree; donor side: the reading list
     // "tree:node" points into another sector's tree (e.g. irrigation under the water tree)
     const st = (g.strat || (g.node ? [g.node] : [])).map(ref=>{ const [t, id] = ref.includes(":") ? ref.split(":") : [R.strategy, ref]; return [t, id, treeNode(t, id)]; }).filter(([,,n])=>n);
@@ -1587,12 +1596,13 @@ function reportsHTML(sec){
     return `<details class="rg"><summary><span class="rg-n">${esc(g.n)}</span><span class="rg-c">${st.length+pg.length?`戦略${st.length+pg.length}・`:""}文書${g.reports.length}</span></summary>
       <p class="note">${esc(g.d)}</p>
       ${st.length||pg.length?`<h4 class="rg-h">キルギスの戦略・プログラム</h4><ul class="rpl">${st.map(([t,id,n])=>`<li class="rp"><button class="linkbtn rg-st" data-st="${esc(t)}" data-tnode="${esc(id)}">${n.type?`<span class="ttype t-${TYPE_CLS[n.type]||"x"}">${esc(n.type)}</span> `:""}${esc(n.n)} →</button>${n.m?`<span class="rp-o">${esc(n.m)}</span>`:""}</li>`).join("")}${pg.map(x=>`<li class="rp"><button class="linkbtn rg-st" data-st="${esc(x.id)}"><span class="ttype t-prog">プログラム</span> ${esc(x.name)} →</button><span class="rp-o">${esc([x.basis, x.status].filter(Boolean).join("・"))}</span></li>`).join("")}</ul>`:""}
+      ${dchips.length?`<h4 class="rg-h">この小分類で動いているドナー（実施中の案件）</h4><div class="rg-d">${dchips.map(([d,n])=>`<button class="chip" data-gdonor="${esc(d)}" data-g="${esc(sec+"."+gi)}">${esc(donorName(d))} ${n}件</button>`).join("")}</div>`:""}
       <h4 class="rg-h">ドナー・国際機関の文書</h4>
       ${g.reports.length?`<ul class="rpl">${g.reports.map(rep).join("")}</ul>`:'<p class="note">まだ選んでいません（準備中）。</p>'}
     </details>`;
   };
   return `${secHead("Reports","重要レポート",`<span class="note">小分類ごとのキルギスの戦略と必読文書 ${total}本・${esc(R.updated)}時点</span>`)}
-    <div class="panel rgs">${R.groups.map(grp).join("")}</div>`;
+    <div class="panel rgs">${R.groups.map((g,i)=>grp(g,i)).join("")}</div>`;
 }
 // active projects of the tree's sector, each placed on the first branch whose words match its title (then its description)
 function treePlace(t){
@@ -1608,6 +1618,26 @@ function treePlace(t){
     (hit ? (by[hit] = by[hit] || []) : un).push(p);
   }
   return {by, un, n};
+}
+// one sub-field of a sector's key-report table ("health.1" = REPORTS.health.groups[1]) and the active projects
+// placed on its tree branches (with their sub-branches); null when the sub-field has no tree branch
+const placeCache = new Map();
+function placed(strategy){
+  const key = strategy+"|"+SHOW_JP+"|"+(PROJECTS?PROJECTS.length:0);
+  if(!placeCache.has(key)) placeCache.set(key, treePlace(TREES[strategy]));
+  return placeCache.get(key);
+}
+function subField(ref){
+  const [sec, i] = String(ref||"").split("."), R = REPORTS[sec], g = R && R.groups[+i];
+  if(!g) return null;
+  const refs = (g.strat || (g.node ? [g.node] : [])).map(r=>r.includes(":") ? r.split(":") : [R.strategy, r]).filter(([t, id])=>TREES[t] && treeNode(t, id));
+  if(!refs.length) return null;
+  const set = new Set();
+  for(const [t, id] of refs){
+    const pl = placed(t), walk = n => { for(const p of pl.by[n.id]||[]) set.add(p); (n.kids||[]).forEach(walk); };
+    walk(treeNode(t, id));
+  }
+  return {sec, name:g.n, set};
 }
 const TYPE_CLS = {"プログラム":"prog","分野":"area","戦略":"strat","規則":"rule","制度":"sys","計画":"strat","法律":"rule"};
 const CONF_CLS = {"法令":"c-law","本文":"c-law","本文一部":"c-doc","本文旧版":"c-doc","資料":"c-doc","報道":"c-news","案":"c-draft","要確認":"c-guess","推定":"c-guess"};
@@ -1878,8 +1908,10 @@ main.addEventListener("click", e=>{
   const ys = t.closest("[data-ysel]"); if(ys){ CH.ysel = 0; lsSet("km-charts", CH); render(); return; }
   if(t.closest("[data-cover]")){ e.stopPropagation(); SHOW_COVER = !SHOW_COVER; if(S.v!=="home") go({v:"home"}); else render(); return; }
   const uk = t.closest("[data-unknown]"); if(uk){ go({v:"projects", s:uk.dataset.unknown, ua:"1", ps:"all", d:"", k:""}); return; }
-  const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:S.v==="sector"&&secList(S.s).length?S.s:"", q:"", ps:"all", k:""}); return; }
-  if(t.closest("[data-allsec]")){ go({s:""}); return; }
+  const gd = t.closest("[data-gdonor]"); if(gd){ go({v:"donor", d:gd.dataset.gdonor, s:gd.dataset.g.split(".")[0], g:gd.dataset.g, q:"", ps:"active", k:""}); return; }
+  const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:S.v==="sector"&&secList(S.s).length?S.s:"", g:"", q:"", ps:"all", k:""}); return; }
+  if(t.closest("[data-allsec]")){ go({s:"", g:""}); return; }
+  if(t.closest("[data-allsub]")){ go({g:"", ps:"all"}); return; }
   const st = t.closest("[data-star]");
   if(st){
     const id = st.dataset.star;
