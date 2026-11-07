@@ -204,6 +204,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .pj h3 a:hover{color:var(--accent)}
 .pj .amt{font-family:var(--mono);font-weight:600;color:var(--ink)}
 .pj .per{font-family:var(--mono)}
+@media (min-width:900px){.pj .amtw{margin-left:auto}}
 .pj .desc{font-size:12.5px;color:var(--sub);margin:3px 0 0}
 .timeline{height:4px;background:var(--press-soft);border-radius:2px;margin-top:7px;position:relative;overflow:hidden}
 .timeline i{position:absolute;top:0;bottom:0;background:var(--act);border-radius:2px;opacity:.75}
@@ -216,7 +217,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .minis{display:flex;gap:22px;flex-wrap:wrap}
 .mini .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:500;line-height:1.2}
 .mini .l{font-size:11.5px;color:var(--sub)}
-.chart{padding:14px 16px}
+.chart{padding:14px 16px;container-type:inline-size}
 .chart svg{width:100%;height:120px;display:block}
 .chart text{font-family:var(--mono);font-size:10px;fill:var(--faint)}
 .subtabs{display:flex;gap:4px;flex-wrap:wrap;margin:16px 0 10px;border-bottom:1px solid var(--line)}
@@ -237,6 +238,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .dtab tr.click{cursor:pointer}
 .dtab tr.click:hover td{background:var(--panel2)}
 .dtab .barcell{width:22%;min-width:90px}
+.dtab{table-layout:fixed;min-width:680px}.dtab td:first-child{white-space:normal}
 .hbar{height:6px;background:var(--press-soft);border-radius:3px;overflow:hidden}
 .hbar i{display:block;height:100%;background:var(--coop)}
 .dtab tr.jp .hbar i{background:var(--jp)}
@@ -244,6 +246,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 /* ---- cooperation charts ---- */
 .dn{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:14px;align-items:center;margin-top:10px}
 @media (max-width:520px){.dn{grid-template-columns:minmax(0,1fr)}.dn svg{max-width:200px;margin:0 auto}}
+@container (max-width:460px){.dn{grid-template-columns:minmax(0,1fr)}.dn svg{max-width:200px;margin:0 auto}}
 .dn svg{width:100%;height:auto;display:block}
 .dn svg path{stroke:var(--panel);stroke-width:2;cursor:pointer}
 .dn svg path:hover{opacity:.82}
@@ -255,8 +258,12 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .lg li.nolink{cursor:default}
 .lg i{width:10px;height:10px;border-radius:2px;display:block}
 .lg .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lg .pc{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
-.lg .vv{font-family:var(--mono);color:var(--faint);font-size:11.5px;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+.lg .pc{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums;min-width:3.6em;text-align:right}
+.lg .vv{font-family:var(--mono);color:var(--faint);font-size:11.5px;min-width:5.5em;text-align:right;font-variant-numeric:tabular-nums}
+.lg.l3 li{grid-template-columns:10px minmax(0,1fr) auto}
+.lg.l5 li{grid-template-columns:10px minmax(0,1fr) auto auto 60px}
+.lg .cnt{font-family:var(--mono);color:var(--sub);font-size:11.5px;min-width:3.5em;text-align:right;font-variant-numeric:tabular-nums}
+.lg-h{font-size:11.5px;color:var(--faint);margin:6px 0 0;text-align:right}
 .ctrls{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
 .panel h3.ph{margin:0;font-size:13.5px;font-weight:700}
 .panel .phk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
@@ -377,10 +384,11 @@ small.orig{color:var(--faint);font-size:11px;margin-left:4px}
 .c-news{background:var(--gov-soft);color:var(--gov)}
 .c-draft,.c-guess{background:var(--panel2);color:var(--sub);border:1px dashed var(--line)}
 details.pil2.insec{margin-left:16px;border-left:3px solid var(--accent-soft)}
-/* phones: the sector tags go under the chapter name so long names are not squeezed */
+/* the sector tags go under the chapter name so long names are not squeezed and the money lines line up */
+details.pil2>summary{grid-template-columns:44px minmax(0,1fr)}
+details.pil2>summary .smini{grid-column:2;justify-content:flex-start}
+@media (min-width:721px){details.pil2>summary{min-height:92px;align-content:center}}
 @media (max-width:720px){
-  details.pil2>summary{grid-template-columns:44px minmax(0,1fr)}
-  details.pil2>summary .smini{grid-column:2;justify-content:flex-start}
   .scard2{grid-template-columns:minmax(0,1fr)}
   .scard2 .smini{grid-row:auto;grid-column:1;max-width:none;justify-content:flex-start}
 }
@@ -868,7 +876,7 @@ function projectHTML(p){
   return `<article class="pj">
     <div class="row1"><span class="st st-${esc(p.st)}">${esc(ST_JA[p.st]||p.st)}</span>
       <span class="don ${jp?"jp":""}">${esc(p.donor&&p.donor!=="ngo"?donorName(p.donor):"")}</span>
-      ${p.org && donorName(p.donor)!==p.org ? `<span>${esc(p.org)}</span>` : ""}<span class="kind" ${p.kind?`title="元の区分: ${esc(p.kind)}"`:""}>${esc(sch(p))}</span>${(p.a||p.e)?`<span class="per">${esc(ymd(p.a)||"?")}–${esc(ymd(p.e)||"?")}</span>`:""}${amtHTML(p)}</div>
+      ${p.org && donorName(p.donor)!==p.org ? `<span>${esc(p.org)}</span>` : ""}<span class="kind" ${p.kind?`title="元の区分: ${esc(p.kind)}"`:""}>${esc(sch(p))}</span>${(p.a||p.e)?`<span class="per">${esc(ymd(p.a)||"?")}–${esc(ymd(p.e)||"?")}</span>`:""}<span class="amtw">${amtHTML(p)}</span></div>
     <h3><a href="${esc(p.u)}" target="_blank" rel="noopener">${hl(p.tj||p.t)}</a></h3>
     ${p.tj && p.tj!==p.t ? `<p class="orig" style="font-size:12px;color:var(--faint);margin:0">${hl(p.t)}</p>` : ""}
     ${p.impl ? `<p class="desc">実施機関: ${esc(p.impl)}</p>` : ""}
@@ -1046,7 +1054,7 @@ function shareHTML(sid){
   const {rows, total, unit, note, unknown, jicaEmpty, jicaN} = shareData(sid);
   const fmt = v => unit==="amt" ? money(v) : Math.round(v)+"件";
   const center = unit==="amt" ? money(total) : Math.round(total)+"件";
-  let legend = rows.map(r=>`<li class="${r.id&&r.id!=="gov"?"":"nolink"}" ${r.id&&r.id!=="gov"?`data-donor="${r.id}"`:""}><i style="background:${r.col}"></i><span class="nm">${esc(r.name)}</span><span class="pc">${(r.v/total*100).toFixed(r.v/total<.1?1:0)}%</span><span class="vv">${fmt(r.v)}</span></li>`).join("");
+  let legend = rows.map(r=>`<li class="${r.id&&r.id!=="gov"?"":"nolink"}" ${r.id&&r.id!=="gov"?`data-donor="${r.id}"`:""}><i style="background:${r.col}"></i><span class="nm">${esc(r.name)}</span><span class="pc">${(r.v/total*100).toFixed(1)}%</span><span class="vv">${fmt(r.v)}</span></li>`).join("");
   if(jicaEmpty) legend += `<li data-donor="jica"><i style="background:${JICA_COL}"></i><span class="nm">JICA</span><span class="pc">—</span><span class="vv">${jicaN?`${jicaN}件（金額不明）`:"案件なし"}</span></li>`;
   const ub = {}; for(const p of unknown) ub[p.donor] = (ub[p.donor]||0)+1;
   const unkLine = unknown.length ? `<p class="note" style="margin:6px 0 0"><span class="unk">金額不明 ${unknown.length}件</span> 割合に含めていません（${Object.entries(ub).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([d,n])=>esc(donorName(d))+" "+n+"件").join("・")}${Object.keys(ub).length>4?" ほか":""}）。件数で見ると全案件を比べられます。</p>` : "";
@@ -1092,7 +1100,7 @@ function yearHTML(sid){
     g += `<g class="yb" data-year="${o.y}" style="cursor:pointer;${sel&&o.y!==sel?"opacity:.55":""}"><title>${esc(tip)}</title><rect class="hit" x="${i*bw}" y="${top}" width="${bw}" height="${base-top+18}" fill="transparent"/>${rects}${o.y===sel?`<rect x="${x}" y="${base+3}" width="${w}" height="2" fill="var(--ink)"/>`:""}${(o.y%2===0||o.y===YNOW||o.y===sel)?`<text x="${x+w/2}" y="${base+16}" text-anchor="middle" ${o.y===sel?'style="fill:var(--ink);font-weight:600"':""}>${String(o.y).slice(2)}</text>`:""}</g>`;
   });
   const last = CH.ym==="new" ? (k=>years.reduce((a,o)=>a+(o.v[k]||0),0)) : (k=>years[years.length-1].v[k]||0);
-  const legend = series.filter(k=>last(k)||k==="jica").sort((a,b)=>(a==="_other")-(b==="_other") || last(b)-last(a)).map(k=>`<li ${k!=="_other"?`data-donor="${k}"`:'class="nolink"'}><i style="background:${col(k)}"></i><span class="nm">${esc(nm(k))}</span><span class="pc">${fmt(last(k))}</span><span class="vv">${CH.ym==="new"?`${Y0}–${YNOW}計`:YNOW+"年"}</span></li>`).join("");
+  const legend = series.filter(k=>last(k)||k==="jica").sort((a,b)=>(a==="_other")-(b==="_other") || last(b)-last(a)).map(k=>`<li ${k!=="_other"?`data-donor="${k}"`:'class="nolink"'}><i style="background:${col(k)}"></i><span class="nm">${esc(nm(k))}</span><span class="pc">${fmt(last(k))}</span></li>`).join("");
   const title = {new:"その年に決まった新規の支援", ongoing:"その年に実施中だった支援の総額", cum:"これまでの支援の累計（重複なし）"}[CH.ym];
   const expl = {new:"各案件を開始・承認した年に全額で1回だけ数えます。年ごとの合計を足すと全期間の総額になります。",
     ongoing:"その年に動いていた案件の総額（ストック）です。複数年の案件は各年に全額で入るため、年どうしを足し合わせることはできません。",
@@ -1100,7 +1108,7 @@ function yearHTML(sid){
   return `<div class="panel chart ych"><div class="phk">Cooperation over time</div><h3 class="ph">${title}</h3>
     <div class="ctrls">${segCH("ym",[["new","新規（その年）"],["ongoing","実施中（その年）"],["cum","累計"]])} ${segCH("ymet",[["amt","金額"],["n","件数"]])}</div>
     <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}">${g}</svg>
-    <ul class="lg" style="margin-top:6px">${legend}</ul>
+    <p class="lg-h">${CH.ym==="new"?`${Y0}–${YNOW}年の合計`:`${YNOW}年の値`}</p><ul class="lg l3">${legend}</ul>
     <p class="note" style="margin:6px 0 0">${expl}${amtMode?"金額不明の案件は件数だけ数え、金額には入れていません。":""}${nodate?`開始年不明 ${nodate}件は表示外。`:""}年の棒を押すと、その年の案件一覧（金額不明を含む）が下に出ます。</p>
     ${sel ? yearDetail(sid, sel) : ""}</div>`;
 }
@@ -1297,7 +1305,7 @@ function viewDonors(){
   const g = {};
   for(const d of Object.values(DONORS)) if(SHOW_JP || d.g!=="japan") (g[d.g]=g[d.g]||[]).push(d);
   return `${secHead("Donors","援助機関・NGO",'<span class="note">報道での登場件数と公開データ上の案件</span>')}
-    ${Object.entries(DGROUP).map(([k,l])=>g[k]?`<div class="tablewrap"><table class="dtab">
+    ${Object.entries(DGROUP).map(([k,l])=>g[k]?`<div class="tablewrap"><table class="dtab"><colgroup><col style="width:24%"><col style="width:9%"><col style="width:9%"><col style="width:8%"><col style="width:12%"><col style="width:9%"><col style="width:18%"><col style="width:11%"></colgroup>
       <thead><tr><th>${esc(l)}</th><th>報道 90日</th><th>報道 累計</th><th>実施中</th><th>実施中金額</th><th>金額不明</th><th class="barcell"></th><th>案件総数</th></tr></thead>
       <tbody>${g[k].sort((a,b)=>(rows[b.id].amt-rows[a.id].amt)||(rows[b.id].n90-rows[a.id].n90)).map(d=>{const r=rows[d.id];return `<tr class="click ${k==="japan"?"jp":""}" data-donor="${d.id}"><td>${esc(d.ja)}</td><td>${r.n90}</td><td>${r.n}</td><td>${projReady()?r.pa:"…"}</td><td>${r.amt?money(r.amt):"—"}</td><td>${projReady()&&r.u?r.u+"件":"—"}</td><td class="barcell"><div class="hbar"><i style="width:${r.amt/maxAmt*100}%"></i></div></td><td>${projReady()?r.pt:"…"}</td></tr>`}).join("")}</tbody>
     </table></div>`:"").join("")}
@@ -1325,9 +1333,9 @@ function viewDonor(){
       <div class="mini"><div class="v">${list.length}</div><div class="l">関連ニュース（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}）</div></div></div></div>
     ${secRows.length?`<div class="cols" style="margin-top:10px">
       <div class="panel chart"><div class="phk">By sector · all periods</div><h3 class="ph">分野別の${useAmt?"支援額と件数":"案件数"}</h3>
-        <ul class="lg" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-sec="${c}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?(money(v)||"金額不明")+" · "+nSec[c]+"件":Math.round(v)+"件"}</span><span class="vv"><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></span></li>`).join("")}</ul></div>
+        <ul class="lg l5" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-sec="${c}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?(money(v)||"金額不明"):""}</span><span class="cnt">${nSec[c]}件</span><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></li>`).join("")}</ul></div>
       ${Object.keys(kinds).length?`<div class="panel chart"><div class="phk">By form</div><h3 class="ph">協力形態ごとの案件数</h3>
-        <ul class="lg" style="margin-top:8px">${Object.entries(kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<li data-kind="${esc(k)}"><i style="background:var(--dother)"></i><span class="nm">${esc(k)}</span><span class="pc">${n}件</span><span class="vv"></span></li>`).join("")}</ul></div>`:""}
+        <ul class="lg l3" style="margin-top:8px">${Object.entries(kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<li data-kind="${esc(k)}"><i style="background:var(--dother)"></i><span class="nm">${esc(k)}</span><span class="pc">${n}件</span></li>`).join("")}</ul></div>`:""}
     </div>`:""}
     <div class="filters" style="margin-top:10px">${periodSelect(S.p)} ${sectorSelect(S.s)} ${qInput()}</div>
     <div class="cols">
