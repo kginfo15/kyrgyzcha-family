@@ -8,9 +8,8 @@ management scheme. This script:
   1. searches the legal database for those resolutions (in force only),
   2. downloads the latest edition of each (Russian text),
   3. cuts out the annex called "Схема управления" as plain text. Most schemes are drawn;
-     with IMG_DIR set, their pictures are saved there so the unit names can be read off
-     them - the workflow keeps them as a 1-day private run artifact, never on the branch
-     or the site (the site's structures are our own text),
+     org_ocr.py (org-ocr.yml) reads their text off the pictures afterwards and throws the
+     pictures away - pictures are never published (the site's structures are our own text),
 
 and writes into OUT_DIR:
 
