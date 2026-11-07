@@ -452,6 +452,8 @@ details.ov[open] .ovs{display:inline}
 .nsec-h .sp{flex:1}
 .mynews{margin-top:4px}
 .rgs{padding:4px 14px}
+.tnode.hit{scroll-margin-top:72px}
+.tnode.hit > summary{background:var(--soft,rgba(0,140,160,.08));border-radius:6px}
 .rg{border-bottom:1px solid var(--line)}
 .rg:last-child{border-bottom:0}
 .rg summary{display:flex;align-items:center;gap:10px;padding:12px 0;cursor:pointer;list-style:none;min-height:44px}
@@ -1522,7 +1524,7 @@ function reportsHTML(sec){
     return `<details class="rg"><summary><span class="rg-n">${esc(g.n)}</span><span class="rg-c">${g.reports.length||"—"}</span></summary>
       <p class="note">${esc(g.d)}</p>
       ${g.reports.length?`<ul class="rpl">${g.reports.map(rep).join("")}</ul>`:'<p class="note">まだ選んでいません（準備中）。</p>'}
-      ${node?`<button class="linkbtn rg-st" data-st="${esc(R.strategy)}">国家戦略では：${esc(node.n.replace(/（.*$/,""))} →</button>`:""}
+      ${node?`<button class="linkbtn rg-st" data-st="${esc(R.strategy)}" data-tnode="${esc(g.node)}">国家戦略では：${esc(node.n.replace(/（.*$/,""))} →</button>`:""}
     </details>`;
   };
   return `${secHead("Reports","重要レポート",`<span class="note">分野ごとに選んだ必読レポート ${total}本・${esc(R.updated)}時点</span>`)}
@@ -1551,7 +1553,7 @@ function treeHTML(t, title=""){
   const pj = p => `<li><span>${esc(p.tj || p.t)}</span><span class="note">${esc(donorName(p.donor))}${hasAmt(p) ? " · " + money(p.amt) : ""}</span></li>`;
   const node = (n, depth) => {
     const a = all(n), own = (pl.by[n.id] || []).slice().sort((x, y)=>(y.amt||0)-(x.amt||0)), sum = a.reduce((v, p)=>v + (hasAmt(p) ? p.amt : 0), 0);
-    return `<details class="tnode" ${depth===0?"open":""}><summary><span class="tn">${n.type?`<span class="ttype t-${TYPE_CLS[n.type]||"x"}">${esc(n.type)}</span>`:""}${esc(n.n)}</span>${n.conf?`<span class="ctag ${CONF_CLS[n.conf]||"c-guess"}">${esc(n.conf)}</span>`:""}<span class="tc">${a.length ? a.length + "件" + (sum ? " · " + money(sum) : "") : "案件なし"}</span></summary>
+    return `<details class="tnode" data-tn="${esc(n.id)}" ${depth===0?"open":""}><summary><span class="tn">${n.type?`<span class="ttype t-${TYPE_CLS[n.type]||"x"}">${esc(n.type)}</span>`:""}${esc(n.n)}</span>${n.conf?`<span class="ctag ${CONF_CLS[n.conf]||"c-guess"}">${esc(n.conf)}</span>`:""}<span class="tc">${a.length ? a.length + "件" + (sum ? " · " + money(sum) : "") : "案件なし"}</span></summary>
       ${n.m?`<p class="tm">${esc(n.m)}</p>`:""}${n.d?`<p class="td">${esc(n.d)}</p>`:""}
       ${own.length?`<ul class="tpj">${own.map(pj).join("")}</ul>`:""}${(n.kids || []).map(k=>node(k, depth + 1)).join("")}</details>`;
   };
@@ -1598,6 +1600,14 @@ function sheetHTML(id){
         catch(e){ return `<div class="blk"><p class="note">樹形図を表示できませんでした（${esc(e.message)}）。</p></div>`; } }).join(""); })()}
     ${kids.length?`<div class="blk"><h3>${x.parent?"この節":"この章"}につながる分野別戦略</h3>${kids.map(k=>`<button class="srow" data-st="${k.id}"><span>${k.part?`<small class="orig">${esc(k.part)}</small> `:""}${esc(k.name)}</span><span class="note">${esc(k.period)}</span></button>`).join("")}</div>`:""}
   </div>`;
+}
+// open a branch of the tree in the sheet (and the branches above it) and bring it into view
+function showTreeNode(id){
+  const el = document.querySelector(`#sheet details.tnode[data-tn="${CSS.escape(id)}"]`);
+  if(!el) return;
+  for(let d = el; d; d = d.parentElement && d.parentElement.closest("details")) d.open = true;
+  el.classList.add("hit");
+  requestAnimationFrame(()=>el.scrollIntoView({block:"start"}));
 }
 function renderSheet(){
   let el = document.getElementById("sheet");
@@ -1779,7 +1789,7 @@ const main = $("#main");
 main.addEventListener("click", e=>{
   const t = e.target;
   if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
-  const stb = t.closest("[data-st]"); if(stb){ e.preventDefault(); go({st:stb.dataset.st}, false); return; }
+  const stb = t.closest("[data-st]"); if(stb){ e.preventDefault(); go({st:stb.dataset.st}, false); if(stb.dataset.tnode) showTreeNode(stb.dataset.tnode); return; }
   const sf = t.closest("[data-sfil]"); if(sf){ go({s:sf.dataset.sfil}, false); return; }
   if(t.closest("[data-back]")){ if(EMBED) go({v:"strategy", doc:""}); else history.back(); return; }
   const ns = t.closest("[data-nsec]"); if(ns){
