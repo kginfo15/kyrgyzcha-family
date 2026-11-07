@@ -1,0 +1,20 @@
+{
+ "totalResultsCount": 1,
+ "filteredResultsCount": 1,
+ "recordsTotal": 1,
+ "recordsFiltered": 1,
+ "data": [
+  {
+   "documentCode": "7-464",
+   "nameRu": "Постановление Правительства КР от 23 июля 1998 года N 485 \"О  Концепции развития здравоохранения и медицинской науки в Кыргызской Республике\"",
+   "nameKg": "",
+   "status": "Утратил силу",
+   "dateAdopted": "1998-07-23T00:00:00",
+   "datePublication": "0001-01-01T00:00:00",
+   "vid": "Постановление",
+   "organ": "Правительство Кыргызской Республики",
+   "order": 6,
+   "lastEdition": 752190
+  }
+ ]
+}
