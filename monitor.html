@@ -574,6 +574,10 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
 .sv-top{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;border-bottom:2.5px solid var(--sn);padding-bottom:8px}
 .sv-kick{font-size:11px;letter-spacing:.1em;color:var(--st);font-weight:bold}
 .sv-title{font-size:20px;font-weight:bold;color:var(--sn);line-height:1.35;margin-top:3px}
+.sv-secp{display:none}
+.sv-secsel{font:inherit;font-weight:bold;color:var(--sn);background:#fff;border:1px solid var(--sl);border-radius:6px;padding:3px 22px 3px 8px;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--sn) 50%),linear-gradient(135deg,var(--sn) 50%,transparent 50%);background-position:calc(100% - 11px) 55%,calc(100% - 6px) 55%;background-size:5px 5px;background-repeat:no-repeat;font-size:inherit}
+@media (hover:none){.sv-secsel{font-size:16px}}
+.sv-secsel:hover{border-color:var(--st)}
 .sv-date{flex-shrink:0;font-size:11px;color:var(--sm);text-align:right;line-height:1.5}
 .sv-ex{font-size:11.5px;color:var(--sm);font-weight:bold;margin:14px 0 6px;border-bottom:1px solid var(--sl);padding-bottom:3px}
 .sv-ex b{color:var(--sn)}
@@ -663,6 +667,7 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
   #sumv{position:static;overflow:visible;background:#fff}
   .sv-bar,.sv-swipe,.sv-pop{display:none!important}
   .sv-cell{min-height:0;padding:0}
+  .sv-secsel{display:none!important}.sv-secp{display:inline!important}
   .sv-scr{display:none!important}
   html,body{height:auto!important}
   .sv-sheet{max-width:none;width:275mm;height:186mm;margin:0;padding:0;box-shadow:none;overflow:hidden;page-break-after:always;break-after:page;font-size:8.4pt}
@@ -2358,7 +2363,7 @@ function sumHTML(sid){
   const pil = Object.fromEntries(sp.pil);
   const lvTag = r => `<span class="sv-lv lv-${SUM_LV[r.lv][1]}">${SUM_LV[r.lv][0]}</span>`;
   const head = (k, title) => `<div class="sv-top"><div><div class="sv-kick">${k}</div><div class="sv-title">${esc(title)}</div></div>
-    <div class="sv-date">キルギス ${esc(s.ja)} 概況<br>${esc(fmtDay(Date.now()))}表示${INDEX&&INDEX.updated?`・データ ${esc(fmtDT(INDEX.updated))}`:""}</div></div>`;
+    <div class="sv-date">キルギス <span class="sv-secw"><select class="sv-secsel" data-sumsec aria-label="分野を切り替える">${SECTORS.filter(([id])=>SUM_SPEC[id]).map(([id,ja])=>`<option value="${id}" ${id===s.id?"selected":""}>${esc(ja)}</option>`).join("")}</select><span class="sv-secp">${esc(s.ja)}</span></span> 概況<br>${esc(fmtDay(Date.now()))}表示${INDEX&&INDEX.updated?`・データ ${esc(fmtDT(INDEX.updated))}`:""}</div></div>`;
   const foot = (src, n) => `<div class="sv-foot"><div>${src}</div><div style="white-space:nowrap">${n} / 3</div></div>`;
   const textNote = `文章は${esc(upd)}時点の${esc(by)}。数字・表・ニュースは表示時点のサイトのデータから自動で作成。`;
   const n30 = items().filter(x=>x.c.includes(sid) && x.ts>=Date.now()-30*DAY).length;
@@ -2406,7 +2411,7 @@ function sumHTML(sid){
     <div class="sv-mxw"><table class="sv-mx"><colgroup><col style="width:21%">${cols.map(()=>`<col style="width:${(32/dw).toFixed(2)}%">`).join("")}${rest.size?`<col style="width:${(32/dw).toFixed(2)}%">`:""}<col style="width:6%"><col style="width:22%"><col style="width:19%"></colgroup>
     <thead><tr><th>戦略の分野 / 国の戦略・制度</th>${th}<th class="sv-num">合計</th><th>最近の動き(ニュース)</th><th>評価</th></tr></thead><tbody>${body}</tbody></table></div>
     <div class="sv-legend"><span>色=実施中の案件額(百万ドル、複数分野は按分):</span><span><i class="sv-h1"></i>〜1</span><span><i class="sv-h2"></i>1〜5</span><span><i class="sv-h3"></i>5〜20</span><span><i class="sv-h4"></i>20以上</span>
-      <span class="sv-scr">マスを押すと(PCはカーソルを合わせると)案件と置いた理由が出ます。</span><span>複数の行にまたがる案件は各行に数えます(合計は重複あり)。</span><span>評価の色は金額から自動(要注意は文章で指定)。</span><span class="sv-cf an" style="margin:0">案</span><span>=まだ案・目標のみ</span></div>
+      <span class="sv-scr">マスを押すと案件と置いた理由が出ます。</span><span>複数の行にまたがる案件は各行に数えます(合計は重複あり)。</span><span>評価の色は金額から自動(要注意は文章で指定)。</span><span class="sv-cf an" style="margin:0">案</span><span>=まだ案・目標のみ</span></div>
     ${foot(`出典:協力案件データ(世界銀行・IATI・JICA)を戦略の分野にキーワードで当てはめたもの(分類は目安)、ニュースは直近75日。${textNote}`, 2)}</section>`;
   // ---- page 3: recent moves
   const tagOf = x => { const s2 = (x.tj||"")+" "+(x.t||""); const r = rows.find(r=>new RegExp(r.nk,"i").test(s2) && !(r.nx && new RegExp(r.nx,"i").test(s2))); return r ? r.n.replace(/[(（].*$/,"") : ""; };
@@ -2487,14 +2492,6 @@ document.addEventListener("click", e=>{
 });
 document.addEventListener("change", e=>{ const s = e.target.closest("[data-sumsec]"); if(s){ go({s:s.value, sm:"1"}, false); document.getElementById("sumv").scrollTop = 0; } });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.sm){ if(document.getElementById("svpop")) sumPop(null); else sumClose(); } });
-// on a PC, resting the pointer on a cell shows its projects too
-let svHover = 0;
-document.addEventListener("mouseover", e=>{
-  if(!matchMedia("(hover:hover) and (pointer:fine)").matches) return;
-  const c = e.target.closest && e.target.closest("#sumv [data-svcell]");
-  clearTimeout(svHover);
-  if(c) svHover = setTimeout(()=>{ const el = document.getElementById("svpop"); if(!el || el.dataset.key!==c.dataset.svcell) sumPop(c); }, 250);
-});
 document.addEventListener("scroll", e=>{ if(e.target && e.target.id==="sumv" && !matchMedia("(max-width:760px)").matches) sumPop(null); }, true);
 // opened with the button: the phone's back gesture closes it; opened from a shared address: closing stays on the sector page
 let SUM_PUSHED = false;
