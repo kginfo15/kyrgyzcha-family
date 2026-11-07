@@ -18,8 +18,11 @@ import sys
 import time
 
 AI_VERSION = 1
-MODEL = os.environ.get("MONITOR_MODEL") or "claude-opus-5-5"
+# Haiku: sorting news into sectors is a light task, and it costs a small fraction of Opus
+MODEL = os.environ.get("MONITOR_MODEL") or "claude-haiku-5-5"
 ITEM_BATCH = 25
+REFUSED = "refused"
+REFUSAL_LIMIT = 2  # a record refused on its own this many times keeps its keyword sorting
 PROJECT_BATCH = 40
 
 
@@ -96,8 +99,8 @@ class Classifier:
             resp = self.client.beta.messages.create(
                 model=MODEL,
                 max_tokens=16000,
-                betas=["server-side-fallback-2026-07-01"],
-                fallbacks="default",
+                # server-side fallback on refusals exists for Opus/Sonnet/Fable, not for Haiku
+                **({} if "haiku" in MODEL else {"betas": ["server-side-fallback-2026-07-01"], "fallbacks": "default"}),
                 system=self.system,
                 output_config={"effort": "low", "format": {
                     "type": "json_schema", "schema": _schema(self.sector_ids, self.donor_ids, with_flags)}},
@@ -122,7 +125,7 @@ class Classifier:
         if resp.stop_reason == "refusal":
             self.usage["refused"] += 1
             log(f"ai: refused ({getattr(resp.stop_details, 'category', None)})")
-            return None
+            return REFUSED
         if resp.stop_reason == "max_tokens":
             log("ai: output cut off, batch skipped")
             return None
@@ -133,20 +136,35 @@ class Classifier:
             log(f"ai: unreadable answer: {e}")
             return None
 
+    def _ask_split(self, task, chunk, rec, with_flags):
+        """Ask about a batch; when Claude refuses it, split it in halves until the refused
+        record is found alone. That record is counted (air) and, after REFUSAL_LIMIT
+        refusals, set aside for this AI_VERSION (ai_skip) with its keyword sorting kept."""
+        got = self._ask(task, [rec(x) for x in chunk], with_flags)
+        if got != REFUSED:
+            return got or {}
+        if len(chunk) > 1:
+            half = len(chunk) // 2
+            return {**self._ask_split(task, chunk[:half], rec, with_flags),
+                    **self._ask_split(task, chunk[half:], rec, with_flags)}
+        x = chunk[0]
+        x["air"] = x.get("air", 0) + 1
+        if x["air"] >= REFUSAL_LIMIT:
+            x["ai_skip"] = AI_VERSION
+        return {}
+
     def items(self, store, budget, time_left):
         """Judge stored news items not yet judged by this AI_VERSION, newest first."""
-        todo = [x for x in store.values() if x.get("ai") != AI_VERSION]
+        todo = [x for x in store.values() if x.get("ai") != AI_VERSION and x.get("ai_skip") != AI_VERSION]
         todo.sort(key=lambda x: x["p"], reverse=True)
         done = 0
         for i in range(0, min(len(todo), budget), ITEM_BATCH):
             if time_left() < 10 * 60:
                 break
             chunk = todo[i:i + ITEM_BATCH]
-            recs = [{"id": x["i"], "title": x["t"], "lead": (x.get("l") or "")[:300], "source": x.get("s", ""),
-                     "date": x["p"][:10]} for x in chunk]
-            got = self._ask("Classify each news record.", recs, True)
-            if not got:
-                continue
+            got = self._ask_split("Classify each news record.", chunk, lambda x: {
+                "id": x["i"], "title": x["t"], "lead": (x.get("l") or "")[:300], "source": x.get("s", ""),
+                "date": x["p"][:10]}, True)
             for x in chunk:
                 r = got.get(x["i"])
                 if not r:
@@ -161,6 +179,8 @@ class Classifier:
                 if r.get("title_ja") and x.get("lang") != "ja":
                     x["tj"] = r["title_ja"]
                 x["ai"] = AI_VERSION
+                x.pop("air", None)
+                x.pop("ai_skip", None)
                 done += 1
         log(f"ai items: {done} judged, {len(todo) - done} left; usage {self.usage}")
 
@@ -173,12 +193,9 @@ class Classifier:
             if time_left() < 8 * 60:
                 break
             chunk = todo[i:i + PROJECT_BATCH]
-            recs = [{"id": p["id"], "title": p.get("t", ""), "title_ja": p.get("tj", ""),
-                     "description": (p.get("x") or "")[:300], "donor": p.get("org", ""), "type": p.get("kind", "")}
-                    for p in chunk]
-            got = self._ask("Give the sectors of each donor project record.", recs, False)
-            if not got:
-                continue
+            got = self._ask_split("Give the sectors of each donor project record.", chunk, lambda p: {
+                "id": p["id"], "title": p.get("t", ""), "title_ja": p.get("tj", ""),
+                "description": (p.get("x") or "")[:300], "donor": p.get("org", ""), "type": p.get("kind", "")}, False)
             for p in chunk:
                 r = got.get(p["id"])
                 if r is None:
