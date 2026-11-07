@@ -482,7 +482,7 @@ NOT_COOP_RE = stem_re(["прогноз", "прогнозиру", "оценил",
 # governance, violence against women under gender, grid and water-supply breakdowns under energy and water,
 # and poaching or pollution fines under nature and environment, because those are what those sectors are about.
 INCIDENT_RE = stem_re([
-    "дтп", "авария$", "аварии$", "аварию$", "столкновени", "перевернул", "наезд", "сбил пешеход", "сбила пешеход", "погиб",
+    "дтп", "авария$", "аварии$", "аварию$", "столкновени", "перевернул", "наезд", "сбил", "сбила", "сбит", "погиб",
     "скончал", "смертельн", "обнаружен тел", "нашли тел", "убий", "убил", "убит", "зарезал", "изнасил", "задержан",
     "задержал", "арестова", "уголовн дел", "возбудил дел", "возбуждено дел", "приговор", "осужден", "мошенни",
     "краж", "украл", "похитил", "грабеж", "разбой", "пожар", "загорел", "сгорел", "утонул", "пропал", "пропавш",
@@ -496,7 +496,7 @@ INCIDENT_URL_RE = re.compile(r"svodka\.akipress", re.I)  # the agency's crime an
 POLICY_RE = re.compile(stem_re(["стратеги", "программ", "законопроект", "закон", "постановлени", "реформ", "проект",
                                "грант", "концепци", "смертност", "статистик", "с начала год", "strategy", "programme",
                                "program", "reform", "project", "grant", "bill on", "draft law", "mortality",
-                               "statistic", "since the beginning of", "полугоди", "квартал", "half of the year", "по итогам", "запрет",
+                               "statistic", "since the beginning of", "полугоди", "травматизм", "first half of", "квартал", "half of the year", "по итогам", "запрет",
                                "first half", "ban on"]).pattern
                        + r"|за (\d+|два|три|четыре|пять|шесть|семь|восемь|девять|десять|одиннадцать) месяц"
                        + r"|за \d{4} год|с начала \d{4}|in (the first )?(\d+|\w+) months|early \d{4}|in \d{4}")
@@ -513,7 +513,9 @@ INCIDENT_KEEP = {
     # fines for poaching, burning waste or polluting are how the environment rules are enforced
     "nature": stem_re(["браконь", "охот", "барс", "snow leopard", "заповедн", "лесн пожар", "poach", "wildlife"]),
     "envmgmt": stem_re(["отход", "мусор", "свалк", "выброс", "загрязн", "waste", "landfill", "pollution", "emission"]),
-    "social": stem_re(["мигрант", "миграц", "migrant", "migration"]),
+    "social": stem_re(["мигрант", "миграц", "иностранц", "легализ", "migrant", "migration", "legaliz"]),
+    # a death from measles or an outbreak is public-health news
+    "health": stem_re(["корь", "кори", "эпидеми", "вспышк", "инфекц", "measles", "outbreak", "epidemic"]),
     "peace": stem_re(["граница", "границ", "пограничн", "приграничн", "border"]),
 }
 # a vaccine or an outbreak among animals is agriculture (the veterinary service), not public health
@@ -532,7 +534,8 @@ FOREIGN_RE = stem_re(["казахстан", "узбекистан", "таджи�
                       "almaty", "astana", "dushanbe", "europe"])
 
 # "задержали зарплату", "рейс задержан": a delay, not an arrest
-NOT_INCIDENT_RE = stem_re(["зарплат", "выплат", "пенси", "рейс", "salar", "flight"])
+NOT_INCIDENT_RE = re.compile(stem_re(["зарплат", "выплат", "пенсий", "пенсионн выплат", "salar", "flight"]).pattern
+                             + r"|рейс\w* задерж|задерж\w* рейс")
 KG_PLACE_RE = stem_re(["центральн ази", "central asia", "торугарт", "иркештам", "камбарат", "кумтор", "torugart", "irkeshtam", "kambarata", "kumtor"])
 BILATERAL_RE = stem_re(["встретил", "встреча", "переговор", "соглашени", "меморандум", "визит", "met with", "talks",
                         "agreement", "memorandum", "visit"])
