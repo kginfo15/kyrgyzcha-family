@@ -89,7 +89,8 @@ nav.tabs button.on{color:var(--band-ink);border-bottom-color:var(--accent);font-
 main{padding-top:18px}
 .sec-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:26px 0 10px}
 .sec-h h2{margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-wrap:balance}
-.sec-h .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.sec-h .k,.phk{display:none!important}
+.en{display:none}
 .sec-h .sp{flex:1}
 .sec-h a,.linkbtn{font-size:12.5px;color:var(--accent);background:none;border:0;cursor:pointer;padding:0;text-decoration:none}
 .note{color:var(--sub);font-size:12.5px}
@@ -99,7 +100,7 @@ main{padding-top:18px}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
 .kpi{padding:12px 16px;border-left:1px solid var(--line);min-width:0}
 .kpi:first-child{border-left:0}
-.kpi .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.kpi .l{font-size:12px;color:var(--sub);font-weight:600}
 .kpi .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:500;line-height:1.25;margin-top:2px}
 .kpi .s{font-size:12px;color:var(--sub)}
 .kpi .v small{font-size:13px;color:var(--sub);margin-left:4px}
@@ -167,7 +168,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11.5px;color:var(--faint)}
 .meta .t{font-family:var(--mono)}
 .meta .src{color:var(--sub)}
-.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:1px 6px;border-radius:3px;font-weight:600;line-height:1.6;text-transform:uppercase}
+.tag{display:inline-block;font-size:10.5px;letter-spacing:.02em;padding:1px 6px;border-radius:3px;font-weight:600;line-height:1.6;text-transform:uppercase}
 .tag.gov{background:var(--gov-soft);color:var(--gov)}
 .tag.coop{background:var(--coop-soft);color:var(--coop)}
 .tag.jp{background:var(--jp-soft);color:var(--jp)}
@@ -294,6 +295,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .tile .jline b{color:var(--d7)}
 .tile .cap{font-size:11px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tile .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:500;line-height:1.1}
+.tile .amt .al{display:block;font-family:var(--sans);font-size:10.5px;color:var(--faint);font-weight:400;margin-bottom:2px}
 .tile .amt small{display:block;font-size:11px;color:var(--faint);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .unk{font-size:10.5px;color:var(--faint);border:1px dashed var(--faint);border-radius:3px;padding:0 5px;line-height:1.6}
 .kind{font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:3px;padding:0 5px;line-height:1.6}
@@ -587,6 +589,9 @@ details.ov[open] .ovs{display:inline}
 .sidec{margin-top:22px}
 .sideh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 8px}
 .sideh h2{margin:0;font-size:15px;flex:1}
+.sscope{display:flex;align-items:center;gap:8px;margin:0 0 8px}
+.ovsum{cursor:pointer;font-size:13px;color:var(--sub);padding:10px 2px;list-style:none}
+.ovsum::-webkit-details-marker{display:none}
 .shead2{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .shead2 h2{margin:2px 0 0;font-size:22px;display:flex;align-items:center;gap:8px}
 .jbadge{margin-left:auto;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--sub);font-family:var(--mono)}
@@ -973,10 +978,10 @@ function applyTheme(t){ if(t) document.documentElement.setAttribute("data-theme"
 applyTheme(lsGet("km-theme",null));
 $("#theme").onclick = ()=>{ const c = lsGet("km-theme",null), n = c==null?"dark":c==="dark"?"light":null; lsSet("km-theme",n); applyTheme(n); };
 let SHOW_JP = lsGet("km-jp", true);
-// favourite sectors ("マイ分野"): pinned to the top of the overview and usable as a news filter
+// favourite sectors ("My分野"): pinned to the top of the overview and usable as a news filter
 let FAV = new Set(lsGet("km-fav", []));
 function toggleFav(id){ FAV.has(id) ? FAV.delete(id) : FAV.add(id); lsSet("km-fav", [...FAV]); }
-const favStar = id => `<button class="fav ${FAV.has(id)?"on":""}" data-fav="${id}" title="${FAV.has(id)?"マイ分野から外す":"マイ分野に追加"}" aria-label="マイ分野">${FAV.has(id)?"★":"☆"}</button>`;
+const favStar = id => `<button class="fav ${FAV.has(id)?"on":""}" data-fav="${id}" title="${FAV.has(id)?"My分野から外す":"My分野に追加"}" aria-label="My分野">${FAV.has(id)?"★":"☆"}</button>`;
 function syncJP(){ $("#jica").setAttribute("aria-pressed", String(SHOW_JP)); $("#jica").title = SHOW_JP ? "JICA・日本の協力を表示中（押すと隠す）" : "JICA・日本の協力を隠しています（押すと表示）"; }
 syncJP();
 const CUR_LABEL = {USD:"$", JPY:"¥", KGS:"сом"};
@@ -990,7 +995,7 @@ $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP()
 const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:"", sm:"", bt:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 // ym: new = started that year, ongoing = running that year, cum = everything started up to that year
-const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov"}, lsGet("km-charts", {}));
+const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov", sscope:"my"}, lsGet("km-charts", {}));
 if(CH.ym==="amt"||CH.ym==="n"){ CH.ymet = CH.ym; CH.ym = "new"; }
 if(!["new","ongoing","cum"].includes(CH.ym)) CH.ym = "new";
 if(!/^(active|all|[yoc]\d{4})$/.test(CH.range) || +CH.range.slice(1) > new Date().getFullYear()) CH.range = "active";
@@ -1072,7 +1077,7 @@ async function boot(){
     for(const d of INDEX.donors||[]) DONORS[d.id] = d;
     await Promise.all((INDEX.years||[]).slice(0,2).map(loadYear));
     const age = Date.now() - Date.parse(INDEX.updated);
-    $("#upd").innerHTML = (EMBED?`<span class="snap" title="${esc(EMBED.note||"")}">SNAPSHOT</span>`:"UPDATED ") + esc(fmtDT(INDEX.updated));
+    $("#upd").innerHTML = (EMBED?`<span class="snap" title="${esc(EMBED.note||"")}">保存版</span>`:"更新 ") + esc(fmtDT(INDEX.updated));
     $("#live").classList.toggle("stale", age > 12*3600e3);
   }catch(e){ loadErr = String(e.message||e); }
   render();
@@ -1242,9 +1247,9 @@ function filterProjects(o){
 /* ---------- pieces ---------- */
 function kindTags(x){
   const out = [];
-  if(x.g) out.push('<span class="tag gov">GOV</span>');
-  if(x.d.length) out.push(x.jp ? '<span class="tag jp">JAPAN</span>' : '<span class="tag coop">COOP</span>');
-  if(!x.g && !x.d.length) out.push('<span class="tag press">PRESS</span>');
+  if(x.g) out.push('<span class="tag gov">政府</span>');
+  if(x.d.length) out.push(x.jp ? '<span class="tag jp">日本</span>' : '<span class="tag coop">協力</span>');
+  if(!x.g && !x.d.length) out.push('<span class="tag press">報道</span>');
   return out.join("");
 }
 function itemHTML(x, compact){
@@ -1331,7 +1336,7 @@ function seg(name, opts, cur){
 const sectorSelect = cur => {
   const opt = ([id,ja]) => `<option value="${id}" ${id===cur?"selected":""}>${SEC[id].no} ${esc(ja)}</option>`;
   const favs = SECTORS.filter(([id])=>FAV.has(id));
-  return `<select data-sel="s" aria-label="分野"><option value="">すべての分野</option>${favs.length?`<optgroup label="★ マイ分野">${favs.map(opt).join("")}</optgroup><optgroup label="すべて">`:""}${SECTORS.map(opt).join("")}${favs.length?"</optgroup>":""}</select>`;
+  return `<select data-sel="s" aria-label="分野"><option value="">すべての分野</option>${favs.length?`<optgroup label="★ My分野">${favs.map(opt).join("")}</optgroup><optgroup label="すべて">`:""}${SECTORS.map(opt).join("")}${favs.length?"</optgroup>":""}</select>`;
 };
 function donorSelect(cur){
   const g = {};
@@ -1573,16 +1578,16 @@ function overviewKPIs(sid){
   const sum = l => l.reduce((a,p)=>a+(hasAmt(p)?valAmt(p,sid):0),0);
   const k = (l, v, n, list, extra="") => `<div class="kpi"><div class="l">${l}</div><div class="v">${money(v)||"—"}</div><div class="s">${n}件${unk(list)?`・<span class="unk">金額不明 ${unk(list)}件</span>`:""}${extra}</div></div>`;
   return `<div class="kpis">
-    ${k('<span class="en">Running now · </span>実施中の総額', sum(act), act.length, act)}
-    ${k('<span class="en">All so far · </span>これまでの総額', sum(pj), pj.length, pj, '（重複なし・<button class="linkbtn" data-cover>公開データの範囲</button>）')}
-    ${k(`<span class="en">New in ${YNOW} · </span>今年の新規`, sum(yr), yr.length, yr)}
-    <div class="kpi" data-unknown="${sid||""}" style="cursor:pointer" title="金額不明の案件を一覧"><div class="l"><span class="en">Amount unknown · </span>金額不明</div><div class="v">${unk(pj)}<small>件</small></div><div class="s">うち実施中 ${unk(act)}件・一覧を見る →</div></div>
+    ${k('実施中の案件の総額', sum(act), act.length, act)}
+    ${k('これまでの案件の総額', sum(pj), pj.length, pj, '（重複なし・<button class="linkbtn" data-cover>公開データの範囲</button>）')}
+    ${k(`${YNOW}年に始まった案件の総額`, sum(yr), yr.length, yr)}
+    <div class="kpi" data-unknown="${sid||""}" style="cursor:pointer" title="金額不明の案件を一覧"><div class="l">金額が公開されていない案件</div><div class="v">${unk(pj)}<small>件</small></div><div class="s">うち実施中 ${unk(act)}件・一覧を見る →</div></div>
   </div>`;
 }
 // news column: scrolls on its own beside the main column on a PC
-function sideNews(list, title, more){
+function sideNews(list, title, more, top=""){
   const t = CH.side, l = list.filter(x=>t==="gov" ? x.g : t==="coop" ? x.d.length : true).slice(0,60);
-  return `<aside class="sidec"><div class="sideh"><h2>${title}</h2>${segCH("side",[["gov","政府の動き"],["coop","協力"],["all","すべて"]])}</div>
+  return `<aside class="sidec"><div class="sideh"><h2>${title}</h2>${segCH("side",[["gov","政府の動き"],["coop","協力"],["all","すべて"]])}</div>${top}
     <div class="sidel">${listHTML(l,false,true)}</div>
     <button class="linkbtn" style="margin:8px 2px" data-gofeed="${t==="all"?"all":t}" ${more||""}>ニュースページで見る →</button></aside>`;
 }
@@ -1683,7 +1688,7 @@ function weekHTML(secs, opt={}){
       ${lead && lead!==(x.tj||"") ? `<div class="wk-l">${esc(lead)}</div>` : ""}
       <div class="wk-m">${esc(fmtDay(x.ts))} · ${esc(x.s||"")}${p.why&&p.why.filter(Boolean).length?` · <i>選んだ理由:${esc(p.why.filter(Boolean).slice(0,3).join("、"))}</i>`:""}</div></li>`; };
   return `<section class="wk" aria-label="${esc(opt.title||"今週の重要ニュース")}">
-    <div class="wk-h"><div><div class="wk-k">THIS WEEK · KEY NEWS</div><div class="wk-t">${esc(opt.title||"今週の重要ニュース")}</div><div class="wk-d">${md(d0)}〜${md(new Date())}の7日間・${total.length}本のニュースから${list.length}本</div></div>
+    <div class="wk-h"><div><div class="wk-k">7日間から選んだ重要ニュース</div><div class="wk-t">${esc(opt.title||"今週の重要ニュース")}</div><div class="wk-d">${md(d0)}〜${md(new Date())}の7日間・${total.length}本のニュースから${list.length}本</div></div>
       <div class="wk-c"><span>政府の動き<b>${g}</b></span><span>協力<b>${o}</b></span><span>その他の報道<b>${total.length-g-o}</b></span></div></div>
     ${aiSecs.length ? `<div class="wk-sw" role="group" aria-label="選び方"><button data-wkmode="ai" class="${ai?"on":""}">AIのまとめ${sample?"(見本)":""}</button><button data-wkmode="rule" class="${ai?"":"on"}">自動選定(ルール)</button></div>` : ""}
     ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<b>${esc(SEC[c].ja)}</b> `:""}${esc(secs.length>1 ? l.replace(/^[^、。\s]{1,8}では、?/,"") : l)}</p>`).join("")}</div>` : ""}
@@ -1709,7 +1714,7 @@ function viewHome(){
     const jicaLine = SHOW_JP && ready ? `<span class="jline" title="JICA：実施中 ${jAct.length}件・累計 ${jAll.length}件">JICA ${jAll.length?`累計 <b>${jAll.length}</b>件・実施中 <b>${jAct.length}</b>件${jAct.some(hasAmt)?" "+money(jAct.reduce((a,p)=>a+shareAmt(p),0)):""}`:"案件なし"}</span>` : "";
     return `<div class="tile" data-sec="${id}" role="link" tabindex="0">
       <span class="top"><span class="no">${SEC[id].no}</span><span class="nm">${esc(ja)}</span>${favStar(id)}</span>
-      <span class="amt">${ready?(money(amt)||"—"):"…"}<small>実施中 ${ready?sp.length:"…"}件${ready&&unk(sp)?`・金額不明 ${unk(sp)}`:""}</small></span>
+      <span class="amt"><span class="al">実施中の案件の総額</span>${ready?(money(amt)||"—"):"…"}<small>実施中 ${ready?sp.length:"…"}件${ready&&unk(sp)?`・金額不明 ${unk(sp)}`:""}</small></span>
       <span class="drs">${top3 || '<span class="note">金額の分かる実施中案件なし</span>'}</span>
       ${jicaLine}
       <span class="tf"><span>政府の動き <b>${m.filter(x=>x.g).length}</b></span><span>協力ニュース <b>${m.filter(x=>x.d.length).length}</b></span></span>
@@ -1721,26 +1726,28 @@ function viewHome(){
   const mine = FAV.size ? its.filter(x=>x.c.some(c=>FAV.has(c))) : its;
   const jump = `<nav class="jump" aria-label="分野へ移動">${SECTORS.map(([id,ja])=>`<button class="jchip ${FAV.has(id)?"on":""}" data-sec="${id}">${FAV.has(id)?"★ ":""}${esc(ja)}</button>`).join("")}</nav>`;
   const favIds = SECTORS.filter(([id])=>FAV.has(id)).map(([id])=>id);
-  const wk = weekHTML(favIds.length ? favIds : SECTORS.map(([id])=>id), {n:6, title: favIds.length ? "マイ分野 今週の重要ニュース" : "全分野 今週の重要ニュース", more: favIds.length ? '<button class="linkbtn" data-gomy>マイ分野のニュース →</button>' : '<span>☆で分野を選ぶと、その分野だけのまとめになります</span>'});
+  const wk = weekHTML(favIds.length ? favIds : SECTORS.map(([id])=>id), {n:6, title: favIds.length ? "My分野 今週の重要ニュース" : "全分野 今週の重要ニュース", more: favIds.length ? '<button class="linkbtn" data-gomy>My分野のニュース →</button>' : '<span>☆で分野を選ぶと、その分野だけのまとめになります</span>'});
+  const sideAll = CH.sscope==="all" || !FAV.size, side = sideAll ? its : mine;
+  const scopeSw = FAV.size ? `<div class="sscope">${segCH("sscope",[["my","My分野"],["all","全分野"]])}<span class="note">新しい順にすべて</span></div>` : '<div class="sscope"><span class="note">新しい順にすべて</span></div>';
   return `<div class="layout"><div class="mainc">
     ${wk}
+    ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
+    ${favTiles?`${secHead("My sectors","My分野",'<span class="note">★で外す(下の一覧にも残ります)</span>')}<div class="matrix">${favTiles}</div>`
+      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと、その分野が「My分野」としてここに並び、上の重要ニュースと右のニュースもその分野に絞られます。</p>`}
+    ${secHead("Overview","協力の全体像",'<span class="note">援助機関の公開データにある、キルギス向けの協力案件の金額</span>')}
     ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
     ${ready&&SHOW_COVER?coverageHTML():""}
-    <div class="mynews">${secHead("News",FAV.size?"マイ分野の新着":"最新ニュース",'<span class="nbtns">'+(FAV.size?'<button class="linkbtn" data-gomy>マイ分野 →</button>':"")+'<button class="linkbtn" data-goall>すべてのニュース →</button></span>')}${listHTML(mine.slice(0,6),false,true)}</div>
-    ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>`
-      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すか、ニュース欄で分野を選んで「☆ 概況に表示」を押すと、「マイ分野」がここに並び、上のニュースもその分野に絞られます。</p>`}
-    ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
-    ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary>${secHead("Overview","協力の全体像",'<span class="note">全分野・全援助機関の推移と割合 <span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></span>')}</summary>
+    ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary class="ovsum">年ごとの推移と、援助機関・分野の割合のグラフ<span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></summary>
       <div class="cols">${yearHTML("")}${shareHTML("")}</div>${govHTML("")?`<div style="margin-top:12px">${govHTML("")}</div>`:""}</details>`:""}
-    ${secHead("Sectors","分野別の協力",'<span class="note">実施中案件の支援額と件数・上位3機関の割合・☆でマイ分野に追加</span>')}
+    ${secHead("Sectors","分野別の協力",'<span class="note">各分野の実施中案件の総額と件数・上位3機関の割合・☆でMy分野に追加</span>')}
     <div class="matrix">${tiles}</div>
-    <p class="note" style="margin:8px 0 0">分野別の支援額は、複数分野にまたがる案件を分野数で按分。下段は直近30日の政府の動きと協力ニュースの件数。</p>
-  </div>${sideNews(mine, FAV.size?"マイ分野のニュース":"最新ニュース")}</div>`;
+    <p class="note" style="margin:8px 0 0">金額は援助機関が公開している案件の額(米ドル換算、複数分野にまたがる案件は分野数で按分)。下段は直近30日の政府の動きと協力ニュースの件数。</p>
+  </div>${sideNews(side, (sideAll?"全分野":"My分野")+" 今日のニュース", "", scopeSw)}</div>`;
 }
 function viewFeed(){
   const t = S.t;
   setTitle("ニュース");
-  // older links: "my=1" (マイ分野のみ) becomes the same sectors picked as buttons
+  // older links: "my=1" (My分野のみ) becomes the same sectors picked as buttons
   if(S.my && !S.s && FAV.size){ S.s = [...FAV].join(","); }
   S.my = "";
   const list = filterItems(S);
@@ -1760,7 +1767,7 @@ function newsSectorChips(){
   return `<div class="nsec">
     <div class="nsec-h"><span class="note">分野（いくつでも選べます）</span><span class="sp"></span>
       ${sel.length?`<button class="btn ${all?"on":""}" data-pinsec>${all?"★ 概況に表示中（外す）":"☆ 概況に表示"}</button>`:""}</div>
-    <div class="sfilter"><button class="jchip ${sel.length?"":"on"}" data-nsec="">すべて</button>${favs.length?`<button class="jchip ${favOn?"on":""}" data-nsec="*">★ マイ分野</button>`:""}${SECTORS.filter(([id])=>sel.includes(id)).concat(SECTORS.filter(([id])=>!sel.includes(id))).map(chip).join("")}</div>
+    <div class="sfilter"><button class="jchip ${sel.length?"":"on"}" data-nsec="">すべて</button>${favs.length?`<button class="jchip ${favOn?"on":""}" data-nsec="*">★ My分野</button>`:""}${SECTORS.filter(([id])=>sel.includes(id)).concat(SECTORS.filter(([id])=>!sel.includes(id))).map(chip).join("")}</div>
   </div>`;
 }
 function moreYearsBtn(){
@@ -1780,7 +1787,7 @@ function viewSector(){
   const list = filterProjects({s:s.id, d:S.d, q:S.q, k:S.k, ps:S.sub==="pa"?"open":"past", psort:S.psort, ua:S.ua});
   const jica = SHOW_JP&&ready ? (()=>{const j=pj.filter(p=>p.donor==="jica"), ja=j.filter(p=>p.st==="active"); return `<button class="jbadge" data-donor="jica">JICA 実施中 <b>${ja.length}</b>件${ja.some(hasAmt)?" "+money(ja.reduce((a,p)=>a+shareAmt(p),0)):""}・累計 <b>${j.length}</b>件 →</button>`;})() : "";
   return `<div class="layout"><div class="mainc">
-    <div class="shead2"><div><div class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)">SECTOR ${s.no} / 20</div>
+    <div class="shead2"><div><div class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)">分野 ${s.no} / 20</div>
       <h2>${esc(s.ja)} ${favStar(s.id)}</h2></div>${jica}${SUM_SPEC[s.id]?`<button class="btn primary sumbtn" data-sumopen title="この分野の戦略・ドナー・最近の動きを1つの画面に(PDFで保存できます)">サマリー</button>`:""}</div>
     ${weekHTML([s.id], {title:s.ja+" 今週の重要ニュース", more:`<button class="linkbtn" data-gofeed="all" data-wksec="${s.id}">この分野のニュースをすべて見る →</button>`})}
     ${ready?overviewKPIs(s.id):""}
@@ -2846,7 +2853,7 @@ main.addEventListener("click", e=>{
   if(t.closest("[data-pinsec]")){
     const sel = secList(S.s), on = sel.every(id=>FAV.has(id));
     for(const id of sel) on ? FAV.delete(id) : FAV.add(id);
-    lsSet("km-fav", [...FAV]); toast(on ? "概況のマイ分野から外しました" : "概況のマイ分野に表示します"); render(); return; }
+    lsSet("km-fav", [...FAV]); toast(on ? "概況のMy分野から外しました" : "概況のMy分野に表示します"); render(); return; }
   if(t.closest("[data-goall]")){ go({v:"feed", t:"all", s:"", my:"", d:"", q:"", p:90}); return; }
   if(t.closest("[data-gomy]")){ go({v:"feed", t:"all", s:[...FAV].filter(f=>SEC[f]).join(","), my:"", d:"", q:"", p:90}); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
