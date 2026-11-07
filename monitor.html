@@ -1349,7 +1349,7 @@ function viewDonor(){
   return `<div class="panel shead"><div><div class="k">${esc(DGROUP[d.g]||"")}</div><h2>${esc(d.ja)}</h2></div>
       <div class="minis"><div class="mini"><div class="v">${projReady()?act.length:"…"}</div><div class="l">実施中案件</div></div>
       <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額${fs.length?"（按分）":""}${unk(act)?`<br><span class="unk">金額不明 ${unk(act)}件</span>`:""}</div></div>
-      <div class="mini"><div class="v">${projReady()?sub.filter(p=>!isOpen(p)).length:"…"}</div><div class="l">過去の案件</div></div>
+      <div class="mini"><div class="v">${!projReady()?"…":sf?"—":sub.filter(p=>!isOpen(p)).length}</div><div class="l">過去の案件</div></div>
       <div class="mini"><div class="v">${list.length}</div><div class="l">関連ニュース（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}）</div></div></div></div>${band}
     ${secRows.length?`<div class="cols" style="margin-top:10px">
       <div class="panel chart"><div class="phk">By sector · all periods</div><h3 class="ph">分野別の${useAmt?"支援額と件数":"案件数"}</h3>
@@ -1359,7 +1359,7 @@ function viewDonor(){
     </div>`:""}
     <div class="filters" style="margin-top:10px">${periodSelect(S.p)} ${sectorSelect(S.s)} ${qInput()}</div>
     <div class="cols">
-      <section>${secHead("Projects","案件")}<div class="filters">${seg("ps",[["all","すべて"],["active","実施中"],["pipeline","計画中"],["closed","終了"]],S.ps)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"]],S.psort)}</div>${projectListHTML(pj)}</section>
+      <section>${secHead("Projects","案件")}<div class="filters">${S.g?"":seg("ps",[["all","すべて"],["active","実施中"],["pipeline","計画中"],["closed","終了"]],S.ps)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"]],S.psort)}</div>${projectListHTML(pj)}</section>
       <section>${secHead("News","関連ニュース")}${listHTML(list)}</section>
     </div>`;
 }
@@ -1876,7 +1876,7 @@ async function csvDownload(kind){
 }
 
 /* ---------- events ---------- */
-$("#tabs").addEventListener("click", e=>{ const b = e.target.closest("button"); if(b) go({v:b.dataset.v, s:"", d:"", t:"all", sub:"pa", ps:"active", k:""}); });
+$("#tabs").addEventListener("click", e=>{ const b = e.target.closest("button"); if(b) go({v:b.dataset.v, s:"", d:"", g:"", t:"all", sub:"pa", ps:"active", k:""}); });
 $("#home").onclick = ()=>{ $("#q").value=""; go({v:"home", s:"", d:"", q:""}); };
 $("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); go({v:"feed", q:$("#q").value.trim(), t:"all", p:0, s:"", d:""}); });
 const main = $("#main");
@@ -1945,7 +1945,7 @@ main.addEventListener("keydown", e=>{
 });
 main.addEventListener("change", e=>{
   const c = e.target.closest("[data-chsel]"); if(c){ CH[c.dataset.chsel] = c.value; lsSet("km-charts", CH); render(); return; }
-  const s = e.target.closest("[data-sel]"); if(s) go({[s.dataset.sel]: s.dataset.sel==="p" ? +s.value : s.value}, false); });
+  const s = e.target.closest("[data-sel]"); if(s) go({[s.dataset.sel]: s.dataset.sel==="p" ? +s.value : s.value, ...(s.dataset.sel==="s" ? {g:""} : {})}, false); });
 let qTimer = 0, composing = null;  // the filter box a Japanese word is being composed in
 function filterLater(i){
   clearTimeout(qTimer);
