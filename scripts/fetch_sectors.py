@@ -1156,8 +1156,35 @@ def donor_of(text):
     return "ngo"
 
 
+# sector tags checked by hand (scripts/sector_fixes.json): they win over the keyword / DAC / AI tags and over the
+# tags a project kept from earlier runs (old tags are otherwise never dropped)
+def load_sector_fixes():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sector_fixes.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError) as e:
+        print("sector_fixes.json not read:", e)
+        return {}
+
+
+def fix_sectors(p, fixes):
+    rules = [v for k, v in (fixes.get("prefix") or {}).items() if p["id"].startswith(k)]
+    if p["id"] in (fixes.get("ids") or {}):
+        rules.append(fixes["ids"][p["id"]])
+    if not rules:
+        return
+    c = set(p.get("c", []))
+    for r in rules:
+        c -= set(r.get("drop", []))
+    for r in rules:
+        c |= {x for x in r.get("add", []) if x in SECTOR_IDS}
+    p["c"] = sorted(c, key=SECTOR_IDS.index)
+
+
 def finish_projects(projs, prev):
     prev_by = {p["id"]: p for p in (prev or {}).get("projects", [])}
+    fixes = load_sector_fixes()
     today = NOW.date().isoformat()
     for p in projs:
         # reports lag: anything past its end date has finished, whatever the status code says
@@ -1173,6 +1200,7 @@ def finish_projects(projs, prev):
             p["c"], p["ai"] = old.get("c", []), old["ai"]  # keep the AI judgement
         elif old:
             p["c"] = sorted(set(p["c"]) | set(old.get("c", [])), key=SECTOR_IDS.index)
+        fix_sectors(p, fixes)
         if old:
             if old.get("t") == p["t"] and old.get("tj"):
                 p["tj"] = old["tj"]

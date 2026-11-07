@@ -13,6 +13,7 @@ on:
   push:
     paths:
       - scripts/fetch_sectors.py
+      - scripts/sector_fixes.json
       - .github/workflows/update-sectors.yml
 
 permissions:
