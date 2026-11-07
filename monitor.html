@@ -641,6 +641,8 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
 .sv-cell{all:unset;display:block;width:100%;min-height:18px;cursor:pointer;text-align:center;box-sizing:border-box;padding:2px 0}
 .sv-cell:focus-visible{outline:2px solid var(--st);outline-offset:-2px}
 .sv-mx td.dc:has(.sv-cell):hover{box-shadow:inset 0 0 0 2px var(--st)}
+@media screen{.sv-mx td.dc:has(.sv-cell){position:relative}.sv-mx td.dc .sv-cell{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;min-height:0}}
+.sv-nc{font-size:9.5px;color:var(--sm)}
 .sv-tot{text-align:right;padding:0}.sv-tot:hover b{text-decoration:underline}
 .sv-pop{position:fixed;z-index:70;background:#fff;color:var(--si);border:1px solid var(--sl);border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.28);overflow-y:auto;-webkit-overflow-scrolling:touch;font-size:12.5px;line-height:1.5}
 .sv-pop.sheet{left:0!important;right:0;bottom:0;top:auto!important;width:auto!important;max-height:70vh!important;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -2391,7 +2393,7 @@ function sumHTML(sid){
   for(const r of rows){
     if(r.p!==cur){ cur = r.p; body += `<tr class="sv-pil"><td colspan="${cols.length+(rest.size?1:0)+4}"><span>${esc(pil[cur]||"")}</span></td></tr>`; }
     const other = [...rest].reduce((v,d)=>v+(r.by[d]||0), 0);
-    const cell = (d, v, n) => n ? `<td class="dc ${sumShade(v)}"><button class="sv-cell" data-svcell="${esc(r.id)}|${esc(d)}" aria-label="${esc(r.n)}・${esc(d==="*"?"その他":dn(d))}の案件 ${n}件">${sumM(v)||"·"}</button></td>` : '<td class="dc"></td>';
+    const cell = (d, v, n) => n ? `<td class="dc ${sumShade(v)}"><button class="sv-cell" data-svcell="${esc(r.id)}|${esc(d)}" aria-label="${esc(r.n)}・${esc(d==="*"?"その他":dn(d))}の案件 ${n}件">${sumM(v)||`<span class="sv-nc">${n}件</span>`}</button></td>` : '<td class="dc"></td>';
     const cells = cols.map(d=>cell(d, r.by[d]||0, r.cnt[d]||0)).join("") + (rest.size ? cell("*", other, [...rest].reduce((v,d)=>v+(r.cnt[d]||0), 0)) : "");
     const nw = r.nw.length ? r.nw.map(x=>`<div><span>${sumMD(x.ts)}</span><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc((x.tj||x.t||"").slice(0,40))}</a></div>`).join("") : '<span>—</span>';
     body += `<tr><td><div class="sv-lbl">${esc(r.n)}</div><div class="sv-st">${esc(r.st)}<span class="sv-cf ${/案|目標|推定/.test(r.cf)?"an":""}">${esc(r.cf)}</span></div></td>
