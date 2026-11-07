@@ -510,6 +510,7 @@ details.ov[open] .ovs{display:inline}
 .foot{margin:34px 0 0;font-size:12px;color:var(--faint);line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
 mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px}
 @media (pointer:coarse){input,select,textarea{font-size:16px!important}}
+.newver{position:fixed;left:50%;bottom:calc(64px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--accent);color:var(--panel);border:0;padding:12px 18px;border-radius:999px;font-size:14px;z-index:41;box-shadow:0 4px 16px rgba(0,0,0,.25);cursor:pointer;max-width:calc(100% - 32px)}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:7px 14px;border-radius:6px;font-size:12.5px;z-index:40}
 @media (max-width:560px){
   .logo span{display:none}
@@ -594,6 +595,25 @@ function lsGet(k,d){ try{ const v = JSON.parse(localStorage.getItem(k)); return 
 function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 const CURS = ["USD","JPY","KGS"];
 let CUR = CURS.includes(lsGet("km-cur","USD")) ? lsGet("km-cur","USD") : "USD";
+// GitHub Pages lets browsers keep the page for up to 10 minutes. Ask the server for the page itself
+// (this also refreshes the browser's copy); when it is newer than the one on screen, offer a reload.
+let lastVersionCheck = 0;
+function checkNewVersion(){
+  if(EMBED || !/^https?:$/.test(location.protocol)) return;
+  if(Date.now() - lastVersionCheck < 10*60*1000) return;  // the page is ~220KB: at most every 10 minutes
+  lastVersionCheck = Date.now();
+  fetch(location.pathname, {cache:"reload"}).then(r=>{
+    const lm = r.headers.get("last-modified");
+    if(!r.ok || !lm || !document.lastModified) return;
+    if(Date.parse(lm) - Date.parse(document.lastModified) > 1000 && !document.getElementById("newver")){
+      const b = document.createElement("button"); b.id = "newver"; b.className = "newver";
+      b.textContent = "サイトが更新されています。押すと最新版を表示します";
+      b.onclick = ()=>location.reload(); document.body.appendChild(b);
+    }
+  }).catch(()=>{});
+}
+setTimeout(checkNewVersion, 1500);
+document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible") checkNewVersion(); });
 function toast(msg){ const t = document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
 
 /* ---------- theme / JICA switch ---------- */
