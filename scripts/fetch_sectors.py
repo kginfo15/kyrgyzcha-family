@@ -1092,7 +1092,10 @@ def finish_projects(projs, prev):
         if old:
             if old.get("t") == p["t"] and old.get("tj"):
                 p["tj"] = old["tj"]
+            if old.get("x") == p.get("x") and old.get("xj"):
+                p["xj"] = old["xj"]
     translate_projects(projs)
+    describe_projects(projs)
     for p in projs:
         for k in [k for k, v in p.items() if v in (None, "", [])]:
             del p[k]
@@ -1119,6 +1122,38 @@ def translate_projects(projs):
             log(f"project translate failed: {e}")
             time.sleep(3)
     log(f"projects translated {done}, {len(todo) - done} left")
+
+
+def describe_projects(projs):
+    """A one-or-two-line Japanese description (xj) for running and planned projects:
+    the first sentences of the donor's own description, machine-translated.
+    The strategy map shows it under each project so a reader can see what it is."""
+    budget = int(os.environ.get("PROJECT_XJ_BUDGET", 900))
+    todo = []
+    for p in projs:
+        if not p.get("x") or p.get("xj") or p.get("st") not in ("active", "pipeline"):
+            continue
+        if re.search(r"[\u3040-\u30ff]", p["x"]):  # already Japanese (JICA)
+            p["xj"] = fn.first_sentences(p["x"], 160)
+        else:
+            todo.append(p)
+    todo.sort(key=lambda p: p["st"] != "active")
+    done = 0
+    for i in range(0, min(len(todo), budget), 20):
+        if time_left() < 12 * 60:
+            break
+        chunk = todo[i:i + 20]
+        try:
+            tr = fn.translate_batch([fn.first_sentences(p["x"], 220) for p in chunk], sl="auto")
+            for p, t in zip(chunk, tr):
+                if t:
+                    p["xj"] = t
+            done += len(chunk)
+            time.sleep(0.5)
+        except Exception as e:
+            log(f"project describe failed: {e}")
+            time.sleep(3)
+    log(f"project descriptions translated {done}, {len(todo) - done} left")
 
 
 
@@ -1295,6 +1330,7 @@ def collect_projects(out_dir):
     if fresh and not os.environ.get("FORCE_PROJECTS"):
         log("projects: still fresh, keeping (translating any left)")
         translate_projects(prev.get("projects", []))
+        describe_projects(prev.get("projects", []))
         result = prev
     else:
         projs, sources = [], {}
