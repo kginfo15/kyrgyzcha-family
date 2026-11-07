@@ -451,6 +451,7 @@ details.ov[open] .ovs{display:inline}
 .nsec-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;min-height:30px}
 .nsec-h .sp{flex:1}
 .mynews{margin-top:4px}
+.nbtns{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
 .mynews .orig,.mynews .also{display:none}
 .mynews .it h3{font-size:14.5px}
 .sidec{margin-top:22px}
@@ -1146,9 +1147,9 @@ function viewHome(){
   return `<div class="layout"><div class="mainc">
     ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
     ${ready&&SHOW_COVER?coverageHTML():""}
-    ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>
-      <div class="mynews">${secHead("My news","マイ分野の新着",'<button class="linkbtn" data-gomy>ニュースで見る →</button>')}${listHTML(mine.slice(0,6),false,true)}</div>`
-      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すか、ニュース欄で分野を選んで「☆ 概況に表示」を押すと、「マイ分野」とその新着ニュースがこの上に並びます。</p>`}
+    <div class="mynews">${secHead("News",FAV.size?"マイ分野の新着":"最新ニュース",'<span class="nbtns">'+(FAV.size?'<button class="linkbtn" data-gomy>マイ分野 →</button>':"")+'<button class="linkbtn" data-goall>すべてのニュース →</button></span>')}${listHTML(mine.slice(0,6),false,true)}</div>
+    ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>`
+      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すか、ニュース欄で分野を選んで「☆ 概況に表示」を押すと、「マイ分野」がここに並び、上のニュースもその分野に絞られます。</p>`}
     ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
     ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary>${secHead("Overview","協力の全体像",'<span class="note">全分野・全援助機関の推移と割合 <span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></span>')}</summary>
       <div class="cols">${yearHTML("")}${shareHTML("")}</div>${govHTML("")?`<div style="margin-top:12px">${govHTML("")}</div>`:""}</details>`:""}
@@ -1745,6 +1746,7 @@ main.addEventListener("click", e=>{
     const sel = secList(S.s), on = sel.every(id=>FAV.has(id));
     for(const id of sel) on ? FAV.delete(id) : FAV.add(id);
     lsSet("km-fav", [...FAV]); toast(on ? "概況のマイ分野から外しました" : "概況のマイ分野に表示します"); render(); return; }
+  if(t.closest("[data-goall]")){ go({v:"feed", t:"all", s:"", my:"", d:"", q:"", p:90}); return; }
   if(t.closest("[data-gomy]")){ go({v:"feed", t:"all", s:[...FAV].filter(f=>SEC[f]).join(","), my:"", d:"", q:"", p:90}); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
