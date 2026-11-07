@@ -88,6 +88,8 @@ def judge(ind):
     if good(proj):
         return "good", f"✓ 今のペースで{t['y']}年に目標に届く見込み"
     if not flat and (b > 0) == up:
+        if abs(proj - last) < abs(t["v"] - last) * 0.25:   # moving the right way, but covers under a quarter of the gap
+            return "bad", f"✕ ペースが遅く、{t['y']}年でも約{fmt(proj)}"
         return "warn", f"△ 今のペースだと{t['y']}年に約{fmt(proj)}"
     return "bad", "✕ 横ばいで目標に近づいていない" if flat else "✕ 目標と逆の方向に動いている"
 
