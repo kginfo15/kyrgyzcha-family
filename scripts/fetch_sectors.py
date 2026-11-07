@@ -281,7 +281,7 @@ def term_queries(key, n=8):
 TERM_Q_RU = term_queries("qru")
 TERM_Q_EN = term_queries("qen")
 TERM_SETS = 3  # each run asks one third of them, in turn (runs every 3 hours)
-TERM_SET = (NOW.hour // 3) % TERM_SETS
+TERM_SET = (NOW.toordinal() * 8 + NOW.hour // 3) % TERM_SETS  # the day number too, so all thirds get the same share
 # JICA / Japan on their own, without a sector word
 
 # ---------------------------------------------------------------- actors
