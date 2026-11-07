@@ -19,6 +19,7 @@
   --bg:#eef1f5; --panel:#ffffff; --panel2:#f6f8fb; --ink:#0d1520; --sub:#4a5668; --faint:#7f8a9b; --line:#dbe1e9;
   --band:#0d1520; --band2:#162231; --band-ink:#e8edf3; --band-sub:#8ea0b6;
   --accent:#0a7f93; --accent-soft:#e1f2f5;
+  --mark:#13804f; --mark-soft:#e3f4ea;
   --gov:#a36500; --gov-soft:#fbf0db; --coop:#0a7f93; --coop-soft:#e1f2f5; --jp:#c8343c; --jp-soft:#fbe6e7;
   --press:#5a6578; --press-soft:#edf0f4;
   --act:#13804f; --pipe:#9a6b00; --closed:#7f8a9b;
@@ -32,6 +33,7 @@
     --bg:#0a1018; --panel:#111a25; --panel2:#0e1620; --ink:#e6ebf2; --sub:#a1adbe; --faint:#6f7d90; --line:#1f2b3a;
     --band:#070c13; --band2:#0f1822; --band-ink:#e6ebf2; --band-sub:#7d8ea4;
     --accent:#66d1dd; --accent-soft:#11303a;
+    --mark:#5ad39a; --mark-soft:#12301f;
     --gov:#f0b84a; --gov-soft:#2e2412; --coop:#66d1dd; --coop-soft:#10303a; --jp:#ff6b72; --jp-soft:#3a171b;
     --press:#a9b4c4; --press-soft:#1b2532;
     --act:#5ad39a; --pipe:#f0b84a; --closed:#7f8a9b;
@@ -43,6 +45,7 @@
   --bg:#0a1018; --panel:#111a25; --panel2:#0e1620; --ink:#e6ebf2; --sub:#a1adbe; --faint:#6f7d90; --line:#1f2b3a;
   --band:#070c13; --band2:#0f1822; --band-ink:#e6ebf2; --band-sub:#7d8ea4;
   --accent:#66d1dd; --accent-soft:#11303a;
+  --mark:#5ad39a; --mark-soft:#12301f;
   --gov:#f0b84a; --gov-soft:#2e2412; --coop:#66d1dd; --coop-soft:#10303a; --jp:#ff6b72; --jp-soft:#3a171b;
   --press:#a9b4c4; --press-soft:#1b2532;
   --act:#5ad39a; --pipe:#f0b84a; --closed:#7f8a9b;
@@ -398,6 +401,45 @@ small.orig{color:var(--faint);font-size:11px;margin-left:4px}
 .nklg>span{display:inline-flex;align-items:baseline}
 .tree details.tnode.kgov{border-left-color:var(--gov)}
 .tree details.tnode.knat{border-left-color:var(--accent)}
+/* the branches that belong to the sector the viewer came from (sector-marks) */
+.tree details.tnode.sechit{border-left:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;padding-right:6px}
+.tree details.tnode.secdim>summary{opacity:.55}
+.smk{margin:2px 0 6px;font-size:12.5px;color:var(--mark)}.smk b{font-weight:600}
+.secctx{border:1px solid var(--mark);background:var(--mark-soft);border-radius:8px;padding:8px 10px;margin:10px 0;font-size:13px;line-height:1.6}
+.secctx p{margin:2px 0}
+.secctx .linkbtn{margin:2px 8px 2px 0}
+.sxc{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:12px;padding:1px 9px;margin:2px 4px 2px 0;cursor:pointer}
+.sxc.on{border-color:var(--mark);background:var(--mark);color:var(--panel);font-weight:600}
+.bn.bn-hit{border-color:var(--mark)!important;border-width:2px;background:var(--mark-soft)!important}
+.bn-why{display:block;color:var(--mark);font-size:11px;margin-top:3px;line-height:1.4}
+/* the sector page's map: national goal -> this sector's pillars -> running projects */
+.smap{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin:12px 0}
+.smap>h3{margin:0 0 4px;font-size:16px}
+.smap .sm-tot{font-size:12.5px;color:var(--sub);margin:4px 0 8px}
+.sm-ch{border-top:1px solid var(--line);padding:10px 0 4px}
+.sm-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.sm-step{display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;border-radius:10px;font-size:11px;font-weight:700;color:var(--panel);background:var(--accent);flex:0 0 auto}
+.sm-step.s2{background:var(--gov)}.sm-step.s3{background:var(--d1)}
+.sm-h b{font-size:14px}
+.sm-tg{margin:4px 0 4px 28px;font-size:12.5px}.sm-tg>summary{cursor:pointer;color:var(--sub)}
+.sm-tg ul{margin:4px 0;padding-left:18px}
+.sm-st{margin:8px 0 4px 14px;padding-left:12px;border-left:2px solid var(--gov)}
+.sm-st .sm-h button.linkbtn{font-weight:600;font-size:13.5px;text-align:left}
+.sm-why{font-size:12.5px;color:var(--sub);margin:2px 0 4px}
+.sm-pl{margin:4px 0 4px 8px;border-left:3px solid var(--mark);background:var(--mark-soft);border-radius:0 6px 6px 0;padding:4px 8px}
+.sm-pl>summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;font-size:13px;min-height:28px}
+.sm-pl>summary::-webkit-details-marker{display:none}
+.sm-pl>summary::before{content:"▸";color:var(--faint);font-size:11px}.sm-pl[open]>summary::before{content:"▾"}
+.sm-pl>summary b{flex:1 1 60%;min-width:0;font-weight:600}
+.sm-pl .tc{font-family:var(--mono);font-size:11px;color:var(--sub)}
+.sm-pl .note{margin:2px 0}
+.sm-pj{list-style:none;margin:4px 0;padding:0;font-size:12.5px}
+.sm-pj li{display:flex;gap:8px;align-items:baseline;padding:4px 0;border-top:1px dashed var(--line)}
+.sm-pj li a{flex:1;min-width:0;color:var(--ink);text-decoration:none}.sm-pj li a b{color:var(--d1);font-weight:600;margin-right:4px}
+.sm-pj .tc{white-space:nowrap}
+.sm-co{margin:6px 0 4px 14px;padding-left:12px;border-left:2px dashed var(--line);font-size:12.5px}
+.sm-co ul{margin:4px 0;padding-left:18px}
+.smap .sm-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .tpj li.pjt{margin:6px 0;padding:8px 10px;border:1px solid var(--line);border-left:3px solid var(--d1);border-radius:6px;background:var(--panel);gap:2px}
 .tpj li.pjt.weak{border-style:dashed;border-left-style:solid;border-left-color:var(--faint)}
 .tpj li.pjt.weak .nk-pj{background:var(--faint)}
@@ -1967,6 +2009,7 @@ function viewSector(){
     ${weekHTML([s.id], {title:s.ja+" 今週の重要ニュース", more:`<button class="linkbtn" data-gofeed="all" data-wksec="${s.id}">この分野のニュースをすべて見る →</button>`})}
     ${ready?overviewKPIs(s.id):""}
     ${orgsFor(s.id).length?`<div class="orgl" style="margin:10px 0"><span class="note">この分野を担当する省庁（組織図）</span>${orgsFor(s.id).map(o=>orgBtn(o, null)).join("")}</div>`:""}
+    ${secMapHTML(s.id)}
     ${reportsHTML(s.id)}
     ${indicatorsHTML(s.id)}
     ${ready?`${secHead("Overview","この分野の協力の全体像")}<div class="cols">${yearHTML(s.id)}${shareHTML(s.id)}</div>${govHTML(s.id)?`<div style="margin-top:12px">${govHTML(s.id)}</div>`:""}`:'<div class="panel chart"><div class="empty">案件データを読み込み中…</div></div>'}
@@ -2283,6 +2326,19 @@ const TREES = {};
 for(const el of document.querySelectorAll('script[type="application/json"][id^="tree-"]')){
   try{ const t = JSON.parse(el.textContent); TREES[t.strategy] = t; }catch(e){}
 }
+/* sector marks (script tag "sector-marks"): which branches of a strategy tree belong to a sector, and why the strategy
+   appears under that sector at all (one strategy serves several sectors). Pilot: nutrition and health (2026-11-07). */
+const SMARK = (()=>{ try{ return JSON.parse(document.getElementById("sector-marks").textContent); }catch(e){ return {}; } })();
+const ctxSec = () => SEC[S.s] ? S.s : "";   // the sector the viewer came from (one sector only)
+const hasMarks = sec => !!(SMARK.marks && SMARK.marks[sec]);
+function smarkOf(sec, strat){
+  const m = ((SMARK.marks||{})[sec]||{})[strat], t = TREES[strat];
+  if(!m) return null;
+  const ids = Object.keys(m.nodes||{}), keep = new Set(), up = {};
+  if(t){ const walk = (ns, p) => { for(const n of ns||[]){ up[n.id] = p; walk(n.kids, n.id); } }; walk(t.nodes, null);
+    for(const id of ids) for(let p = up[id]; p; p = up[p]) keep.add(p); }
+  return {why:m.why||"", nodes:m.nodes||{}, ids:new Set(ids), all:ids.includes("*") || !t, keep};
+}
 /* key reports per sector (script tags "reports-<sector id>"): a hand-picked reading list, grouped by sub-field */
 const REPORTS = {};
 for(const el of document.querySelectorAll('script[type="application/json"][id^="reports-"]')){
@@ -2394,6 +2450,48 @@ function treeNode(strategy, id){
   const walk = ns => { for(const n of ns||[]){ if(n.id===id) return n; const f = walk(n.kids); if(f) return f; } return null; };
   return TREES[strategy] ? walk(TREES[strategy].nodes) : null;
 }
+/* one sector's strategies on one screen, in three steps:
+   1 national goal (chapter of the National Development Programme 2030) -> 2 the strategies and only this sector's pillars in them
+   (with the reason) -> 3 the running donor projects on those pillars. Only for sectors with marks (pilot: nutrition, health). */
+function secMapHTML(sec){
+  const M = (SMARK.marks||{})[sec];
+  if(!M) return "";
+  const nm = esc(SEC[sec].ja), co = (SMARK.chapterOnly||{})[sec] || {}, ready = projReady();
+  const strats = Object.keys(M).map(id=>STRATS2.find(s=>s.id===id)).filter(Boolean);
+  const chs = NDP_CH.filter(c=>strats.some(s=>s.ch===c.id) || co[c.id]);
+  const seen = new Map();
+  const under = (pl, n) => (pl.by[n.id]||[]).concat(...(n.kids||[]).map(k=>under(pl, k)));
+  const pillar = (s, n, reason) => {
+    const list = ready ? [...new Set(under(placed(s.id), n))] : [], g = pjGroups(list);
+    list.forEach(p=>seen.set(p.id, p));
+    const sum = list.reduce((v, p)=>v + (hasAmt(p) ? p.amt : 0), 0);
+    return `<details class="sm-pl"><summary><b>${esc(n.n.replace(/（原文.*?）/, ""))}</b><span class="tc">${!ready?"…":g.length?`<span class="sm-step s3">3</span> ${g.length}件${sum?" · "+money(sum):""}`:"案件なし"}</span></summary>
+      ${reason?`<p class="note">${nm}に関係する理由：${esc(reason)}</p>`:""}
+      ${g.length?`<ul class="sm-pj">${g.map(ps=>{ const p = ps[0], a = ps.reduce((v, q)=>v + (hasAmt(q) ? q.amt : 0), 0);
+        return `<li><a href="${esc(p.u)}" target="_blank" rel="noopener"><b>${esc(p.donor&&p.donor!=="ngo"?donorName(p.donor).replace(/（.*?）/,""):p.org||"")}</b>${esc(p.tj||p.t)}${ps.length>1?` ×${ps.length}`:""}</a>${a?`<span class="tc">${money(a)}</span>`:""}</li>`; }).join("")}</ul>`:ready?`<p class="note">この柱で実施中のドナー案件は、まだ見つかっていません（空白）。</p>`:""}
+      <button class="linkbtn" data-st="${esc(s.id)}" data-tnode="${esc(n.id)}">樹形図でこの枝を見る →</button></details>`;
+  };
+  const strat = s => {
+    const m = smarkOf(sec, s.id), t = TREES[s.id];
+    const nodes = !t ? [] : m.all ? (t.nodes[0].kids||[]).map(n=>[n, ""]) : [...m.ids].map(id=>[treeNode(s.id, id), m.nodes[id]]).filter(([n])=>n);
+    return `<div class="sm-st"><div class="sm-h"><span class="sm-step s2">2</span><button class="linkbtn" data-st="${esc(s.id)}">${esc(s.name)} →</button></div>
+      <p class="sm-why">${esc(m.why)}${m.all?`（全体が${nm}に関係します）`:""}</p>${nodes.map(([n, r])=>pillar(s, n, r)).join("")}</div>`;
+  };
+  const body = chs.map(c=>{
+    const tg = (c.targets||[]).concat(...(c.parts||[]).map(p=>p.targets.map(x=>p.name+"："+x)));
+    return `<div class="sm-ch"><div class="sm-h"><span class="sm-step">1</span><b>${esc(c.no)} ${esc(c.name)}</b><button class="linkbtn" data-st="ch-${esc(c.id)}">章を見る →</button></div>
+      ${tg.length?`<details class="sm-tg"><summary>この章全体の国の数値目標（${tg.length}件）</summary><ul>${tg.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`:""}
+      ${strats.filter(s=>s.ch===c.id).map(strat).join("")}
+      ${co[c.id]?`<div class="sm-co"><p>${esc(co[c.id])}</p><ul>${(c.tasks||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}</div>`;
+  }).join("");
+  const tot = [...seen.values()], amt = tot.reduce((v, p)=>v + (hasAmt(p) ? p.amt : 0), 0);
+  return `<section class="smap" id="secmap"><h3>${nm}の戦略の見取り図</h3>
+    <p class="note"><span class="sm-step">1</span> 国の目標（国家開発プログラム2030の章） → <span class="sm-step s2">2</span> 関わる国の戦略と、その中で<b>${nm}に当たる柱だけ</b>（理由つき） → <span class="sm-step s3">3</span> その柱で実施中のドナー案件。<br>1つの国の戦略はいくつもの分野にまたがるので、ほかの分野にも同じ戦略が出てきます。ここでは${nm}に関係する部分だけを抜き出しています。</p>
+    ${ready?`<p class="sm-tot">この見取り図に載っている実施中の案件：${pjGroups(tot).length}件${amt?" · "+money(amt):""}（重複なし）</p>`:""}
+    ${body}
+    <div class="sm-foot"><button class="shb" data-sectree="${sec}"><b>1枚の樹形図で見る</b><small>${nm}の枝だけ（全部も見られます）</small></button></div></section>`;
+}
+function showSecMap(){ requestAnimationFrame(()=>{ const el = document.getElementById("secmap"); if(el) el.scrollIntoView({block:"start"}); }); }
 function reportsHTML(sec){
   const R = REPORTS[sec];
   if(!R) return "";
@@ -2505,19 +2603,22 @@ function nodeLinks(t, n, depth){
 }
 function treeHTML(t, title=""){
   const pl = treePlace(t);
+  const sec = ctxSec(), mk = sec ? smarkOf(sec, t.strategy) : null, hl = mk && !mk.all;
   const all = n => [...new Set((pl.by[n.id] || []).concat(...(n.kids || []).map(all)))];   // a project may sit on two branches
-  const node = (n, depth) => {
+  const node = (n, depth, inMk) => {
     const a = all(n), own = pl.by[n.id] || [], sum = a.reduce((v, p)=>v + (hasAmt(p) ? p.amt : 0), 0);
     const short = n.n.replace(/（原文.*?）/, "").replace(/^[\d.]+\s*/, "");
-    return `<details class="tnode k${depth===0?"nat":n.type==="分野"?"area":n.type?"gov":"grp"}" data-tn="${esc(n.id)}" ${depth===0?"open":""}><summary><span class="tn">${nodeKind(n, depth)}${esc(n.n)}</span>${n.conf?`<span class="ctag ${CONF_CLS[n.conf]||"c-guess"}">${esc(n.conf)}</span>`:""}<span class="tc">${a.length ? a.length + "件" + (sum ? " · " + money(sum) : "") : "案件なし"}</span></summary>
-      ${n.m?`<p class="tm">${esc(n.m)}</p>`:""}${n.d?`<p class="td">${esc(n.d)}</p>`:""}${nodeLinks(t, n, depth)}
-      ${own.length?`<ul class="tpj">${pjGroups(own).map(ps=>pjRow(ps, pl.why, short)).join("")}</ul>`:""}${(n.kids || []).map(k=>node(k, depth + 1)).join("")}</details>`;
+    const hit = hl && mk.ids.has(n.id), path = hl && mk.keep.has(n.id), dim = hl && !hit && !path && !inMk;
+    return `<details class="tnode k${depth===0?"nat":n.type==="分野"?"area":n.type?"gov":"grp"}${hit?" sechit":dim?" secdim":""}" data-tn="${esc(n.id)}" ${depth===0||hit||path?"open":""}><summary><span class="tn">${nodeKind(n, depth)}${esc(n.n)}</span>${n.conf?`<span class="ctag ${CONF_CLS[n.conf]||"c-guess"}">${esc(n.conf)}</span>`:""}<span class="tc">${a.length ? a.length + "件" + (sum ? " · " + money(sum) : "") : "案件なし"}</span></summary>
+      ${hit?`<p class="smk"><b>${esc(SEC[sec].ja)}に関係する枝</b>：${esc(mk.nodes[n.id])}</p>`:""}${n.m?`<p class="tm">${esc(n.m)}</p>`:""}${n.d?`<p class="td">${esc(n.d)}</p>`:""}${nodeLinks(t, n, depth)}
+      ${own.length?`<ul class="tpj">${pjGroups(own).map(ps=>pjRow(ps, pl.why, short)).join("")}</ul>`:""}${(n.kids || []).map(k=>node(k, depth + 1, inMk || hit)).join("")}</details>`;
   };
   return `<div class="blk tree"><h3>樹形図：${title?esc(title)+"の":""}構成と援助機関の案件</h3>
     <p class="note">${esc(t.note)} 実施中の案件 ${pl.n}件のうち ${pl.n - pl.un.length}件を当てはめています。<br>確かさ：<span class="ctag c-law">法令・本文</span>原文で確認 <span class="ctag c-doc">資料</span>公的な資料 <span class="ctag c-news">報道</span>報道のみ <span class="ctag c-draft">案</span>まだ承認されていない <span class="ctag c-guess">推定・要確認</span>調べ中</p>
     <div class="nklg"><span><span class="nk nk-nat">国の戦略</span>樹形図の元になる国の戦略・構想・プログラム</span><span><span class="nk nk-area">章・柱</span>その文書の中の章（独立した文書ではない）</span><span><span class="nk nk-gov">政府プログラム</span>章を具体化する政府の別の文書（「政府規則」「政府制度」も同じ色）</span><span><span class="nk nk-pj">ドナー案件</span>援助機関が実施中の案件（名前を押すと元のページへ）</span></div>
     <p class="note">ドナー案件の置き場所は、案件の説明を読んで一件ずつ決めています（${esc(t.picked||"")}時点の案件）。それより後に出てきた新しい案件は、目印の言葉で自動的に仮置きし、<span class="weakmark">点線の枠</span>で示しています。</p>
-    ${t.nodes.map(n=>node(n, 0)).join("")}
+    ${hl?`<p class="smk">緑色の枝が「${esc(SEC[sec].ja)}」に関係する部分です（最初から開いています）。ほかの枝は薄く表示していますが、押せば開きます。</p>`:""}
+    ${t.nodes.map(n=>node(n, 0, false)).join("")}
     ${pl.un.length?`<details class="tnode"><summary><span class="tn">この戦略には入れていない案件</span><span class="tc">${pl.un.length}件</span></summary><p class="note">分野の印は付いているものの、説明を読むとこの戦略の中身ではない案件です（理由つき）。まだ読んでいない新しい案件で、どの目印の言葉にも当たらなかったものもここに入ります。</p><ul class="tpj">${pjGroups(pl.un).map(ps=>pjRow(ps, pl.why, "")).join("")}</ul></details>`:""}</div>`;
 }
 // "優先3 観光…" -> number 3 and the original's word for it; every list is numbered 1, 2, 3…
@@ -2544,6 +2645,7 @@ function sheetHTML(id){
     <h2>${esc(x.name)}</h2>${x.ru?`<p class="ru">${esc(x.ru)}</p>`:""}
     ${!isCh?`<div class="meta2">${statusTag(x.status)}<span>${esc(x.period||"")}</span><span>${esc(x.basis||"")}</span></div>`:""}
     ${x.summary?`<p class="sum">${esc(x.summary)}</p>`:""}
+    ${secCtxHTML(x, isCh, sectors)}
     ${sectors.length?(()=>{ const ord = [...sectors].sort((a,b)=>(b===S.s)-(a===S.s)).filter(c=>SEC[c]);
       return `<div class="sh-tree"><span class="note">この戦略に当てはまる案件を、分野ごとの1枚の樹形図で見る</span><div>${(ord.length>3?ord.slice(0,1):ord).map(c=>`<button class="shb${c===ord[0]?" primary":""}" data-sectree="${c}"><b>樹形図で見る</b><small>${esc(SEC[c].ja)}</small></button>`).join("")}${ord.length>3?`<select class="sh-tsel" data-sectreesel aria-label="ほかの分野の樹形図"><option value="">ほかの分野の樹形図(${ord.length-1}分野)…</option>${ord.slice(1).map(c=>`<option value="${c}">${esc(SEC[c].ja)}</option>`).join("")}</select>`:""}</div></div>`; })():""}
     ${!isCh?docLinks(x):""}
@@ -2561,6 +2663,26 @@ function sheetHTML(id){
         catch(e){ return `<div class="blk"><p class="note">樹形図を表示できませんでした（${esc(e.message)}）。</p></div>`; } }).join(""); })()}
     ${kids.length?`<div class="blk"><h3>${x.parent?"この節":"この章"}につながる分野別戦略</h3>${kids.map(k=>`<button class="srow" data-st="${k.id}"><span>${k.part?`<small class="orig">${esc(k.part)}</small> `:""}${esc(k.name)}</span><span class="note">${esc(k.period)}</span></button>`).join("")}</div>`:""}
   </div>`;
+}
+// the band under a strategy's summary: the sectors it serves (why the same strategy shows up under several sectors),
+// and, when the viewer came from one sector, why it is here and which branches are that sector's
+function secCtxHTML(x, isCh, sectors){
+  const list = sectors.filter(c=>SEC[c]), sec = ctxSec(), what = isCh ? "章" : "戦略";
+  if(!list.length) return "";
+  let h = `<p><b>この${what}が関わる分野</b>（押すと分野ページへ）<br>${list.map(c=>`<button class="sxc${c===sec?" on":""}" data-sec="${c}">${esc(SEC[c].ja)}</button>`).join("")}</p>
+    ${list.length>1?`<p class="note">1つの${what}が${list.length}つの分野にまたがっているので、どの分野から開いても同じ${what}が出てきます。</p>`:""}`;
+  if(sec && hasMarks(sec)){
+    const mk = !isCh ? smarkOf(sec, x.id) : null, co = isCh ? ((SMARK.chapterOnly||{})[sec]||{})[x.id] : "";
+    const nm = esc(SEC[sec].ja);
+    if(mk){
+      h += `<p><b>いまは「${nm}」から見ています。</b>${esc(mk.why)}</p>`;
+      if(!mk.all) h += `<p>${nm}に関係する枝（下の樹形図で緑色）：<br>${[...mk.ids].map(id=>{ const n = treeNode(x.id, id); return n ? `<button class="linkbtn" data-tjump="${esc(id)}">${esc(n.n.replace(/（原文.*?）/, ""))} →</button>` : ""; }).join("")}</p>`;
+      else h += `<p class="note">この${what}は全体が${nm}に関係します。</p>`;
+    } else if(co) h += `<p><b>いまは「${nm}」から見ています。</b>${esc(co)}</p>`;
+    else if(!isCh && list.includes(sec)) h += `<p class="note">いまは「${nm}」から見ています。この${what}の中で${nm}に当たる枝は、まだ印を付けていません。</p>`;
+    h += `<p><button class="linkbtn" data-secmap="${sec}">← ${nm}の「戦略の見取り図」に戻る</button></p>`;
+  }
+  return `<div class="secctx">${h}</div>`;
 }
 // open one unit on a ministry page and bring it into view
 function showOrgUnit(id){
@@ -2587,7 +2709,7 @@ function renderSheet(){
 
 /* one sector's whole picture as a single left-to-right tree:
    National Programme chapter -> sector strategy / programme -> its pillars and government programmes -> donor projects */
-let BT_PUSHED = false, BT_PJ = false, BT_ZOOM = matchMedia("(max-width:640px)").matches ? .85 : 1;
+let BT_PUSHED = false, BT_PJ = false, BT_ALL = false, BT_ZOOM = matchMedia("(max-width:640px)").matches ? .85 : 1;
 function bigTreeHTML(sec){
   const has = arr => (arr||[]).includes(sec);
   const box = (kind, label, name, extra="", attrs="") => `<div class="bn bn-${kind}" ${attrs}>${label?`<span class="nk nk-${kind}">${esc(label)}</span>`:""}<span class="bn-t">${esc(name)}</span>${extra}</div>`;
@@ -2598,38 +2720,51 @@ function bigTreeHTML(sec){
     return [`<li><details class="bn bn-pjs" ${BT_PJ?"open":""}><summary><span class="nk nk-pj">ドナー案件</span>${g.length}件</summary>${g.map(ps=>{ const p = ps[0];
       return `<a href="${esc(p.u)}" target="_blank" rel="noopener"><b>${esc(p.donor&&p.donor!=="ngo"?donorName(p.donor).replace(/（.*?）/,""):p.org||"")}</b> ${esc(p.tj||p.t)}${ps.length>1?` ×${ps.length}`:""}</a>`; }).join("")}</details></li>`];
   };
-  const treeKids = (t, pl, n, depth) => {
-    const kids = (n.kids||[]).map(k=>{
+  // mk: this sector's marks on the tree (null = show everything); own: list the projects sitting right on n
+  const nm = SEC[sec].ja, flt = mk => mk && !mk.all && !BT_ALL ? mk : null;
+  const why = (mk, id) => mk && !mk.all && mk.ids.has(id) ? `<span class="bn-why">${esc(nm)}：${esc(mk.nodes[id])}</span>` : "";
+  const treeKids = (t, pl, n, depth, mk=null, own=true) => {
+    const f = flt(mk);
+    const kids = (n.kids||[]).filter(k=>!f || f.ids.has(k.id) || f.keep.has(k.id)).map(k=>{
+      const hit = mk && !mk.all && mk.ids.has(k.id);
       const kind = k.type==="分野" ? "area" : k.type ? "gov" : "area";
       const label = k.type==="分野" ? "章・柱" : k.type ? (k.type==="戦略"||k.type==="計画" ? "政府プログラム" : "政府"+k.type) : "";
       // every box opens an overview: a strategy on the map opens its own page, any other branch opens the tree at that branch
       const s2 = STRATS2.find(x=>x.id===k.id && x.id!==t.strategy);
       const attrs = s2 ? `data-st="${esc(s2.id)}" role="button" tabindex="0"` : `data-st="${esc(t.strategy)}" data-tnode="${esc(k.id)}" role="button" tabindex="0"`;
       // a government programme that has its own page on the map is broken down into its own parts
-      const more = s2 && !TREES[s2.id] ? subBoxes(s2) : s2 && TREES[s2.id] ? (TREES[s2.id].nodes[0].kids||[]).map(c=>li(box(c.type==="分野"?"area":"gov", c.type==="分野"?"章・柱":"政府プログラム", c.n.replace(/（原文.*?）/, ""), c.d?`<span class="bn-d">${esc(c.d)}</span>`:"", `data-st="${esc(s2.id)}" data-tnode="${esc(c.id)}" role="button" tabindex="0"`))) : [];
-      return li(box(kind, label, k.n.replace(/（原文.*?）/, ""), k.d?`<span class="bn-d">${esc(k.d)}</span>`:"", attrs), treeKids(t, pl, k, depth+1).concat(more));
+      const m2 = s2 && TREES[s2.id] ? smarkOf(sec, s2.id) : null, f2 = flt(m2);
+      const more = s2 && !TREES[s2.id] ? subBoxes(s2) : s2 && TREES[s2.id] ? (TREES[s2.id].nodes[0].kids||[]).filter(c=>!f2 || f2.ids.has(c.id) || f2.keep.has(c.id)).map(c=>li(box((c.type==="分野"?"area":"gov")+(m2&&!m2.all&&m2.ids.has(c.id)?" bn-hit":""), c.type==="分野"?"章・柱":"政府プログラム", c.n.replace(/（原文.*?）/, ""), (c.d?`<span class="bn-d">${esc(c.d)}</span>`:"")+why(m2, c.id), `data-st="${esc(s2.id)}" data-tnode="${esc(c.id)}" role="button" tabindex="0"`))) : [];
+      return li(box(kind+(hit?" bn-hit":""), label, k.n.replace(/（原文.*?）/, ""), (k.d?`<span class="bn-d">${esc(k.d)}</span>`:"")+why(mk, k.id), attrs), treeKids(t, pl, k, depth+1, hit ? null : mk, !f || hit).concat(more));
     });
-    return pjs(pl.by[n.id]||[]).concat(kids);
+    return (own ? pjs(pl.by[n.id]||[]) : []).concat(kids);
   };
   // the parts of a strategy that has no tree yet: its sub-programmes from the map (all of them, so nothing is hidden)
   const subBoxes = s => (s.subs||[]).map(u=>li(box("area", "章・柱", u.name.replace(/^(優先|コンポーネント|課題)\s*\d+\s*/, ""), u.desc?`<span class="bn-d">${esc(u.desc)}</span>`:(u.items||[]).length?`<span class="bn-d">${esc(u.items.join("、"))}</span>`:"", `data-st="${esc(s.id)}" role="button" tabindex="0"`)));
   const stratNode = s => {
-    const t = TREES[s.id];
+    const t = TREES[s.id], mk = smarkOf(sec, s.id), f = flt(mk);
     let kids = [];
-    if(t){ const pl = placed(s.id); kids = t.nodes.flatMap((n, i)=> i===0 ? treeKids(t, pl, n, 1) : [li(box("area", "", n.n, n.d?`<span class="bn-d">${esc(n.d)}</span>`:"", `data-st="${esc(s.id)}" data-tnode="${esc(n.id)}" role="button" tabindex="0"`), treeKids(t, pl, n, 1))]); }
+    if(t){ const pl = placed(s.id); kids = t.nodes.flatMap((n, i)=>{
+      if(i===0) return treeKids(t, pl, n, 1, mk, !f);
+      if(f && !f.ids.has(n.id) && !f.keep.has(n.id)) return [];
+      const hit = mk && !mk.all && mk.ids.has(n.id);
+      return [li(box("area"+(hit?" bn-hit":""), "", n.n, (n.d?`<span class="bn-d">${esc(n.d)}</span>`:"")+why(mk, n.id), `data-st="${esc(s.id)}" data-tnode="${esc(n.id)}" role="button" tabindex="0"`), treeKids(t, pl, n, 1, hit ? null : mk, !f || hit))]; }); }
     else kids = subBoxes(s);
-    return li(box("nat", "国の戦略", s.name, `<span class="bn-d">${esc(s.period||"")}${s.part?" · "+esc(s.part):""}</span>${s.pos?`<span class="bn-d">この章にある理由：${esc(s.pos)}</span>`:""}`, `data-st="${s.id}" role="button" tabindex="0"`), kids);
+    return li(box("nat", "国の戦略", s.name, `<span class="bn-d">${esc(s.period||"")}${s.part?" · "+esc(s.part):""}</span>${s.pos?`<span class="bn-d">この章にある理由：${esc(s.pos)}</span>`:""}${mk?`<span class="bn-why">${esc(nm)}に出てくる理由：${esc(mk.why)}</span>`:""}${f?`<span class="bn-d">${esc(nm)}に関係する枝だけを表示中</span>`:""}`, `data-st="${s.id}" role="button" tabindex="0"`), kids);
   };
   const chs = NDP_CH.filter(c=>has(c.sectors) || STRATS2.some(k=>k.ch===c.id && has(k.sectors)));
   const body = chs.map(c=>{
-    const ks = STRATS2.filter(k=>k.ch===c.id && has(k.sectors));
-    return li(box("ch", "国家開発プログラム2030", `${c.no} ${c.name}`, "", `data-st="ch-${c.id}" role="button" tabindex="0"`), ks.map(stratNode));
+    const ks = STRATS2.filter(k=>k.ch===c.id && has(k.sectors)), co = ((SMARK.chapterOnly||{})[sec]||{})[c.id];
+    // a chapter with no strategy on the map for this sector yet: its tasks, so the box is not empty
+    const tasks = co && !ks.length ? c.tasks.map(x=>li(box("area", "章の課題", x, "", `data-st="ch-${c.id}" role="button" tabindex="0"`))) : [];
+    return li(box("ch", "国家開発プログラム2030", `${c.no} ${c.name}`, co?`<span class="bn-why">${esc(nm)}に出てくる理由：${esc(co)}</span>`:"", `data-st="ch-${c.id}" role="button" tabindex="0"`), ks.map(stratNode).concat(tasks));
   });
   return `<div class="bt-bar"><b>${esc(SEC[sec].ja)}：戦略から案件までの全体図</b>
+      ${hasMarks(sec)?`<label class="bt-sw"><input type="checkbox" data-btall ${BT_ALL?"checked":""}> 戦略の全部の枝を見る</label>`:""}
       <label class="bt-sw"><input type="checkbox" data-btpj ${BT_PJ?"checked":""}> ドナー案件を全部開く</label>
       <span class="bt-z"><button class="btn" data-btzoom="-1" aria-label="縮小">−</button><button class="btn" data-btzoom="1" aria-label="拡大">＋</button></span>
       <button class="sh-x" data-btclose aria-label="閉じる">×</button></div>
-    <p class="note bt-note">左から右へ：国家開発プログラム2030の章 → 分野別の国の戦略 → その中の章・柱と政府プログラム → ドナー案件（青い箱を押すと一覧）。戦略の箱を押すと詳しい説明が開きます。横と下にスクロールできます。</p>
+    <p class="note bt-note">左から右へ：国家開発プログラム2030の章 → 分野別の国の戦略 → その中の章・柱と政府プログラム → ドナー案件（青い箱を押すと一覧）。戦略の箱を押すと詳しい説明が開きます。横と下にスクロールできます。${hasMarks(sec)?`<br>${BT_ALL?`戦略の全部の枝を表示しています。緑の枠が${esc(nm)}に関係する枝です。`:`最初は、それぞれの戦略の中で<b>${esc(nm)}に関係する枝（緑の枠）だけ</b>を表示しています。全部を見るときは上の「戦略の全部の枝を見る」。`}`:""}</p>
     <div class="bt-scroll"><ul class="bt" style="zoom:${BT_ZOOM}">${body.join("")}</ul></div>`;
 }
 // the big tree is part of the address (#…&bt=health), so the back gesture closes it
@@ -2641,6 +2776,7 @@ function renderBigTree(force){
   const sec = S.v==="strategy" && SEC[S.bt] ? S.bt : "";
   if(!sec){ if(el){ el.remove(); if(!S.st && !S.sm && !S.mp) document.body.classList.remove("noscroll"); } return; }
   if(!el){ el = document.createElement("div"); el.id = "bigtree"; el.className = "bigtree"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); document.body.appendChild(el); force = true; }
+  if(el.dataset.sec && el.dataset.sec !== sec) BT_ALL = false;
   if(force || el.dataset.sec !== sec || el.dataset.ready !== String(projReady())){ el.innerHTML = bigTreeHTML(sec); el.dataset.sec = sec; el.dataset.ready = String(projReady()); }
   document.body.classList.add("noscroll");
 }
@@ -2651,7 +2787,8 @@ document.addEventListener("click", e=>{
   const z = t.closest("[data-btzoom]"); if(z){ BT_ZOOM = Math.max(.4, Math.min(1.4, +(BT_ZOOM + .15*z.dataset.btzoom).toFixed(2))); const u = bt.querySelector(".bt"); if(u) u.style.zoom = BT_ZOOM; return; }
   const st = t.closest("[data-st]"); if(st){ go({st:st.dataset.st}, false); if(st.dataset.tnode) showTreeNode(st.dataset.tnode); return; }
 });
-document.addEventListener("change", e=>{ if(e.target.matches && e.target.matches("[data-btpj]")){ BT_PJ = e.target.checked; renderBigTree(true); } });
+document.addEventListener("change", e=>{ if(e.target.matches && e.target.matches("[data-btpj]")){ BT_PJ = e.target.checked; renderBigTree(true); }
+  if(e.target.matches && e.target.matches("[data-btall]")){ BT_ALL = e.target.checked; renderBigTree(true); } });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.bt && !S.st) closeBigTree(); });
 
 /* ---------- one-picture map of everything (trial, 試作中) ----------
@@ -3327,6 +3464,8 @@ document.addEventListener("click", e=>{
   const sh = e.target.closest("#sheet"); if(!sh) return;
   const t = e.target;
   if(t.closest("[data-close]")){ go({st:""}, false); return; }
+  const tj = t.closest("[data-tjump]"); if(tj){ showTreeNode(tj.dataset.tjump); return; }
+  const smp = t.closest("[data-secmap]"); if(smp){ go({v:"sector", s:smp.dataset.secmap, sub:"pa", d:"", q:"", k:"", st:"", bt:"", ps:"active", g:"", sm:""}); showSecMap(); return; }
   const og = t.closest("[data-org]"); if(og){ go({v:"org", og:og.dataset.org, ou:og.dataset.ou||"", st:"", bt:""}); if(og.dataset.ou) showOrgUnit(og.dataset.ou); return; }
   const st = t.closest("[data-st]"); if(st){ go({st:st.dataset.st}, false); sh.querySelector(".sh-panel").scrollTop = 0; return; }
   const tr = t.closest("[data-sectree]"); if(tr){ BT_PUSHED = !EMBED; go({v:"strategy", s:tr.dataset.sectree, st:"", bt:tr.dataset.sectree}); return; }
