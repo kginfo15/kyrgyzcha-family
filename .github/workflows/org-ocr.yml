@@ -1,0 +1,41 @@
+name: Ministry structures (read the drawn schemes)
+
+# Adds ocr/<act>.txt to the org-db branch: the text read off each drawn management scheme
+# (Tesseract OCR, Russian). Pictures are read and thrown away, never published.
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Ministry structures"]
+    types: [completed]
+  push:
+    paths:
+      - scripts/org_ocr.py
+      - .github/workflows/org-ocr.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: org-db
+  cancel-in-progress: false
+
+jobs:
+  ocr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: org-db
+          path: orgdb
+      - name: Install OCR
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-rus >/dev/null
+      - name: Read the schemes
+        run: python3 scripts/org_ocr.py orgdb
+      - name: Publish
+        run: |
+          cd orgdb
+          git add -A ocr
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Scheme text (OCR)" || exit 0
+          git push -q origin HEAD:org-db
