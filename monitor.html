@@ -523,6 +523,8 @@ details.ov[open] .ovs{display:inline}
 .ovh,.ovs{color:var(--accent);margin-left:6px}
 /* ---- PC: main column + news column that scrolls on its own ---- */
 .layout{display:block}
+.mnews{margin-top:4px}.mnews .orig,.mnews .also{display:none}
+@media (min-width:1100px){.mnews{display:none}}
 .nsec{margin:2px 0 10px}
 .nsec-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;min-height:30px}
 .nsec-h .sp{flex:1}
@@ -1731,6 +1733,7 @@ function viewHome(){
   const scopeSw = FAV.size ? `<div class="sscope">${segCH("sscope",[["my","My分野"],["all","全分野"]])}<span class="note">新しい順にすべて</span></div>` : '<div class="sscope"><span class="note">新しい順にすべて</span></div>';
   return `<div class="layout"><div class="mainc">
     ${wk}
+    <section class="mnews">${secHead("News",(sideAll?"全分野":"My分野")+" 今日のニュース",'<button class="linkbtn" data-tonews>すべて見る ↓</button>')}${listHTML(side.slice(0,4),false,true)}</section>
     ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
     ${favTiles?`${secHead("My sectors","My分野",'<span class="note">★で外す(下の一覧にも残ります)</span>')}<div class="matrix">${favTiles}</div>`
       :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと、その分野が「My分野」としてここに並び、上の重要ニュースと右のニュースもその分野に絞られます。</p>`}
@@ -1742,7 +1745,7 @@ function viewHome(){
     ${secHead("Sectors","分野別の協力",'<span class="note">各分野の実施中案件の総額と件数・上位3機関の割合・☆でMy分野に追加</span>')}
     <div class="matrix">${tiles}</div>
     <p class="note" style="margin:8px 0 0">金額は援助機関が公開している案件の額(米ドル換算、複数分野にまたがる案件は分野数で按分)。下段は直近30日の政府の動きと協力ニュースの件数。</p>
-  </div>${sideNews(side, (sideAll?"全分野":"My分野")+" 今日のニュース", "", scopeSw)}</div>`;
+  </div><div id="sidenews">${sideNews(side, (sideAll?"全分野":"My分野")+" 今日のニュース", "", scopeSw)}</div></div>`;
 }
 function viewFeed(){
   const t = S.t;
@@ -2858,6 +2861,7 @@ main.addEventListener("click", e=>{
   if(t.closest("[data-gomy]")){ go({v:"feed", t:"all", s:[...FAV].filter(f=>SEC[f]).join(","), my:"", d:"", q:"", p:90}); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
+  if(t.closest("[data-tonews]")){ const sn = document.getElementById("sidenews"); if(sn) sn.scrollIntoView({behavior:"smooth"}); return; }
   const wm = t.closest("[data-wkmode]"); if(wm){ WK_MODE = wm.dataset.wkmode; lsSet("km-wk", WK_MODE); render(); return; }
   const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
   const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", ps:"active", g:"", sm:""}); return; }
