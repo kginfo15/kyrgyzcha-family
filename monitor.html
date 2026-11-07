@@ -1566,7 +1566,7 @@ async function loadWeekAI(){
     try{
       const r = await fetch(u, {cache:"no-cache"}); if(!r.ok) continue;
       const d = await r.json();
-      if(d && d.sectors && Date.now()-Date.parse(d.updated) < 10*DAY){ WEEK_AI = d; render(); return; }
+      if(d && d.sectors && Date.now()-Date.parse(d.updated) < 10*DAY){ WEEK_AI = d; render(document.activeElement); return; }
     }catch(e){}
   }
 }
@@ -1608,6 +1608,13 @@ function weekPicks(secs, n){
   const ai = aiSecs.length && WK_MODE==="ai" ? aiSecs : null;
   if(ai){
     const byId = new Map(all.map(x=>[x.i, x]));
+    if(ai.length>5){  // many sectors (no favourites): each sector's top two AI picks, ranked by the rule score
+      const c2 = [];
+      for(const c of ai) for(const pk of WEEK_AI.sectors[c].picks.slice(0,2)){ const x = byId.get(pk.i); if(x) c2.push({x, sec:c, why:[pk.why], ...(({sc,row})=>({sc,row}))(wkScore(x, c))}); }
+      c2.sort((a,b)=>b.sc-a.sc);
+      for(const p of c2) if(out.length<n && !seen.has(p.x.i)){ out.push(p); seen.add(p.x.i); }
+      return {list:out, total:all, ai:[...new Set(out.map(p=>p.sec))], aiSecs};
+    }
     for(let k=0; out.length<n && k<5; k++) for(const c of ai){
       const pk = WEEK_AI.sectors[c].picks[k], x = pk && (byId.get(pk.i) || items().find(y=>y.i===pk.i));
       if(x && !seen.has(x.i) && out.length<n){ out.push({x, sec:c, why:[pk.why], row:wkScore(x, c).row}); seen.add(x.i); }
@@ -1644,7 +1651,7 @@ function weekHTML(secs, opt={}){
     <div class="wk-h"><div><div class="wk-k">THIS WEEK · KEY NEWS</div><div class="wk-t">${esc(opt.title||"今週の重要ニュース")}</div><div class="wk-d">${md(d0)}〜${md(new Date())}の7日間・${total.length}本のニュースから${list.length}本</div></div>
       <div class="wk-c"><span>政府の動き<b>${g}</b></span><span>協力<b>${o}</b></span><span>その他の報道<b>${total.length-g-o}</b></span></div></div>
     ${aiSecs.length ? `<div class="wk-sw" role="group" aria-label="選び方"><button data-wkmode="ai" class="${ai?"on":""}">AIのまとめ${sample?"(見本)":""}</button><button data-wkmode="rule" class="${ai?"":"on"}">自動選定(ルール)</button></div>` : ""}
-    ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<b>${esc(SEC[c].ja)}</b> `:""}${esc(secs.length>1 ? l.replace(/^[^、。]{1,14}では、/,"") : l)}</p>`).join("")}</div>` : ""}
+    ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<b>${esc(SEC[c].ja)}</b> `:""}${esc(secs.length>1 ? l.replace(/^[^、。\s]{1,8}では、?/,"") : l)}</p>`).join("")}</div>` : ""}
     ${list.length ? `<ol>${list.map(item).join("")}</ol>` : '<div class="wk-empty">この7日間に目立ったニュースはありません。</div>'}
     <div class="wk-f"><span>${ai?`${esc(WEEK_AI.by||"AI")}が${esc(WEEK_AI.updated||"")}に候補から選び、理由と1文のまとめを書いたもの${sample?"(見本:手動で1回作成。週1回の自動更新はAPIキー登録後)":""}`:"自動選定:政府の決定・援助機関・複数の媒体・戦略の分野に当たる言葉・金額や合意を点数にして上位を表示"}</span><span class="sp"></span>${opt.more||""}</div>
   </section>`;
