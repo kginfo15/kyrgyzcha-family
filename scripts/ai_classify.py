@@ -18,7 +18,8 @@ import sys
 import time
 
 AI_VERSION = 1
-MODEL = os.environ.get("MONITOR_MODEL") or "claude-opus-5-5"
+# Haiku: sorting news into sectors is a light task, and it costs a small fraction of Opus
+MODEL = os.environ.get("MONITOR_MODEL") or "claude-haiku-5-5"
 ITEM_BATCH = 25
 PROJECT_BATCH = 40
 
@@ -96,8 +97,8 @@ class Classifier:
             resp = self.client.beta.messages.create(
                 model=MODEL,
                 max_tokens=16000,
-                betas=["server-side-fallback-2026-07-01"],
-                fallbacks="default",
+                # server-side fallback on refusals exists for Opus/Sonnet/Fable, not for Haiku
+                **({} if "haiku" in MODEL else {"betas": ["server-side-fallback-2026-07-01"], "fallbacks": "default"}),
                 system=self.system,
                 output_config={"effort": "low", "format": {
                     "type": "json_schema", "schema": _schema(self.sector_ids, self.donor_ids, with_flags)}},
