@@ -257,6 +257,7 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .lg li:hover{background:var(--panel2)}
 .lg li.nolink{cursor:default}
 .lg li.on{background:var(--accent-soft);font-weight:600}
+.qx{flex-basis:100%;font-size:12px;color:var(--sub)}
 .fbtns{display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center}
 @media (max-width:939px){.dside{order:-1}}
 .dside .panel{padding:2px 14px}.dside .rpl .rp:first-child{border-top:0}
@@ -670,7 +671,7 @@ $("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 // ym: new = started that year, ongoing = running that year, cum = everything started up to that year
 const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov"}, lsGet("km-charts", {}));
@@ -759,6 +760,7 @@ async function boot(){
   }catch(e){ loadErr = String(e.message||e); }
   render();
   loadProjects();
+  setTimeout(loadSearchTerms, 1500);  // ready before the first search, so the filter box is not redrawn under the keyboard
 }
 
 /* ---------- formatting ---------- */
@@ -810,7 +812,7 @@ const STAR = '<svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 
 const secList = v => String(v||"").split(",").filter(id=>SEC[id]);
 function filterItems(o){
   const min = o.p ? Date.now() - o.p*DAY : 0;
-  const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const qm = queryMatchers(o.q, S.qr);
   return items().filter(x=>{
     if(x.ts < min) return false;
     if(o.s && !secList(o.s).some(c=>x.c.includes(c))) return false;
@@ -819,13 +821,90 @@ function filterItems(o){
     if(o.t==="gov" && !x.g) return false;
     if(o.t==="coop" && !x.d.length) return false;
     if(o.t==="press" && (x.g || x.d.length)) return false;
-    for(const t of terms) if(!x.k.includes(t)) return false;
+    if(qm.length && !qOK(x, qm)) return false;
     return true;
   });
 }
 const isOpen = p => p.st==="active"||p.st==="pipeline";
+
+/* ---------- search across languages ----------
+   search-terms.json (made by ブルクト) groups the Japanese, Russian and English words for one idea.
+   A search word found in the table matches any word of its group (and of its child groups);
+   other words match as plain text. Both sides are normalised first (PET CT = PET-CT = pet/ct). */
+let SEARCH_TERMS = null, termsLoading = false, termsFailed = false;
+const SW = "0-9a-zа-яөүңәіқғұһ";
+const normQ = s => String(s||"").normalize("NFKC").toLowerCase().replace(/ё/g,"е").replace(/[\-‐–—\/・]/g," ").replace(/\s+/g," ");
+const rxEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+// ja: anywhere; ru/en (and Latin words in ja): from the start of a word; a trailing "!" = the whole word only
+function termRx(t, lang){
+  const whole = t.endsWith("!"), s = normQ(t.replace(/!$/,"")).trim(), parts = s.split(" ");
+  if(lang==="ja" && !whole && !/[a-zа-я]/.test(s)) return rxEsc(s);
+  return `(?:^|[^${SW}])` + parts.map(rxEsc).join(`[${SW}]*\\s+`) + (whole ? `(?![${SW}])` : "");
+}
+function loadSearchTerms(){
+  if(SEARCH_TERMS || termsLoading || termsFailed || EMBED) return;
+  termsLoading = true;
+  fetch("search-terms.json", {cache:"no-cache"}).then(r=>r.ok?r.json():null).then(d=>{
+    if(!d || !Array.isArray(d.groups)){ termsFailed = true; return; }
+    const byId = {}, kids = {}, keys = [];
+    for(const g of d.groups){ byId[g.id] = g; if(g.parent) (kids[g.parent] = kids[g.parent] || []).push(g.id); }
+    for(const g of d.groups) for(const lang of ["ja","ru","en"]) for(const t of g[lang]||[]){
+      const k = normQ(t.replace(/!$/,"")).trim();
+      // a Russian/English stem also matches a longer typed word ("vaccination", "сельское хозяйство")
+      const stem = lang!=="ja" && !t.endsWith("!") && k.length>=4 ? new RegExp("^"+k.split(" ").map(rxEsc).join(`[${SW}]*\\s+`)) : null;
+      if(k) keys.push({k, flat:k.replace(/ /g,""), id:g.id, stem});
+    }
+    // a group with its child groups, one regular expression
+    const rx = {}, family = id => [id, ...(kids[id]||[]).flatMap(family)];
+    const groupRx = id => rx[id] || (rx[id] = new RegExp(family(id).flatMap(f=>["ja","ru","en"].flatMap(l=>(byId[f][l]||[]).map(t=>termRx(t,l)))).join("|")));
+    SEARCH_TERMS = {byId, keys, groupRx};
+    qCache = {};
+    // never redraw the filter box being typed in: the keyboard would close (iPhone)
+    if(!S.q) return;
+    const a = document.activeElement;
+    if(a && a.closest && a.closest("[data-inp]")){ if(composing !== a) render(a); }
+    else render();
+  }).catch(()=>{ termsFailed = true; }).finally(()=>{ termsLoading = false; });
+}
+// which groups a search word stands for: the same word, or a longer form of a Russian/English stem
+function termGroups(word){
+  if(!SEARCH_TERMS) return [];
+  const w = normQ(word).trim(), flat = w.replace(/ /g,"");
+  const exact = SEARCH_TERMS.keys.filter(e=>e.k===w || e.flat===flat);
+  const hit = exact.length ? exact : SEARCH_TERMS.keys.filter(e=>e.stem && e.stem.test(w));
+  return [...new Set(hit.map(e=>e.id))];
+}
+let qCache = {};
+// one matcher per search word (all must match); also what to tell the reader about the widened words
+function queryMatchers(q, raw){
+  q = (q||"").trim();
+  if(!q) return [];
+  const key = q+"|"+(raw?1:0);
+  if(qCache[key]) return qCache[key];
+  if(!raw) loadSearchTerms();
+  const words = [], whole = raw ? [] : termGroups(q);
+  if(whole.length) words.push({w:q, ids:whole});
+  else for(const w of normQ(q).trim().split(" ")) words.push({w, ids:raw ? [] : termGroups(w)});
+  const out = words.map(({w, ids})=>{
+    const plain = normQ(w).trim(), rxs = ids.map(id=>SEARCH_TERMS.groupRx(id));
+    return {w, ids, test: rxs.length ? txt => rxs.some(r=>r.test(txt)) : txt => txt.includes(plain)};
+  });
+  if(SEARCH_TERMS || raw) qCache[key] = out;
+  return out;
+}
+const qOK = (x, qm) => { const t = x.kn || (x.kn = normQ(x.k)); return qm.every(m=>m.test(t)); };
+// the line under the search box: "灌漑 → орошение・irrigation なども含めて検索"
+function qExpandNote(){
+  if(!S.q || EMBED) return "";
+  const qm = queryMatchers(S.q, S.qr), hit = qm.filter(m=>m.ids.length);
+  if(S.qr) return `<span class="qx">言い換えなしで検索中 <button class="linkbtn" data-qraw="">言い換えも含める</button></span>`;
+  if(!hit.length) return "";
+  const ex = m => { const g = SEARCH_TERMS.byId[m.ids[0]], pick = l => (g[l]||[]).map(t=>t.replace(/!$/,"")).find(t=>normQ(t).trim()!==normQ(m.w).trim());
+    return [pick("ja"), ...(g.show||[]).filter(t=>normQ(t).trim()!==normQ(m.w).trim())].filter(Boolean).slice(0,3).join("・"); };
+  return `<span class="qx">${hit.map(m=>`${esc(m.w)} → ${esc(ex(m))}`).join("、")} なども含めて検索 <button class="linkbtn" data-qraw="1">言い換えなしで探す</button></span>`;
+}
 function filterProjects(o){
-  const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const qm = queryMatchers(o.q, S.qr);
   const r = projects().filter(p=>{
     if(o.s && !secList(o.s).some(c=>p.c.includes(c))) return false;
     if(o.d && p.donor!==o.d) return false;
@@ -835,7 +914,7 @@ function filterProjects(o){
     if(o.ps==="past" && isOpen(p)) return false;
     if(["active","pipeline"].includes(o.ps) && p.st!==o.ps) return false;
     if(o.ps==="closed" && isOpen(p)) return false;
-    for(const t of terms) if(!p.k.includes(t)) return false;
+    if(qm.length && !qOK(p, qm)) return false;
     return true;
   });
   const by = {start:(a,b)=>(b.a||"").localeCompare(a.a||""), amount:(a,b)=>(b.amt||0)-(a.amt||0),
@@ -943,7 +1022,7 @@ function donorSelect(cur){
   return `<select data-sel="d" aria-label="機関"><option value="">すべての機関</option>${Object.entries(DGROUP).map(([k,l])=>g[k]?`<optgroup label="${esc(l)}">${g[k].map(d=>`<option value="${d.id}" ${d.id===cur?"selected":""}>${esc(d.ja)}</option>`).join("")}</optgroup>`:"").join("")}</select>`;
 }
 const periodSelect = cur => `<select data-sel="p" aria-label="期間">${PERIODS.map(([v,l])=>`<option value="${v}" ${v===cur?"selected":""}>${l}</option>`).join("")}</select>`;
-const qInput = () => `<input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}" aria-label="絞り込み">`;
+const qInput = () => `<input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}" aria-label="絞り込み">${qExpandNote()}`;
 function weekly(list, n=12){
   const now = Date.now(), w = new Array(n).fill(0);
   for(const x of list){ const i = Math.floor((now-x.ts)/(7*DAY)); if(i>=0&&i<n) w[n-1-i]++; }
@@ -1905,7 +1984,7 @@ async function csvDownload(kind){
 /* ---------- events ---------- */
 $("#tabs").addEventListener("click", e=>{ const b = e.target.closest("button"); if(b) go({v:b.dataset.v, s:"", d:"", g:"", t:"all", sub:"pa", ps:"active", k:""}); });
 $("#home").onclick = ()=>{ $("#q").value=""; go({v:"home", s:"", d:"", q:""}); };
-$("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); go({v:"feed", q:$("#q").value.trim(), t:"all", p:0, s:"", d:""}); });
+$("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); go({v:"feed", q:$("#q").value.trim(), qr:"", t:"all", p:0, s:"", d:""}); });
 const main = $("#main");
 main.addEventListener("click", e=>{
   const t = e.target;
@@ -1939,6 +2018,7 @@ main.addEventListener("click", e=>{
   const gd = t.closest("[data-gdonor]"); if(gd){ go({v:"donor", d:gd.dataset.gdonor, s:gd.dataset.g.split(".")[0], g:gd.dataset.g, q:"", ps:"active", k:""}); return; }
   const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:S.v==="sector"&&secList(S.s).length?S.s:"", g:"", q:"", ps:"all", k:""}); return; }
   if(t.closest("[data-allsec]")){ go({s:"", g:""}); return; }
+  const qraw = t.closest("[data-qraw]"); if(qraw){ go({qr:qraw.dataset.qraw}, false); return; }
   if(t.closest("[data-morerep]")){ MORE_REP = !MORE_REP; render(); return; }
   if(t.closest("[data-morenews]")){ MORE_NEWS = !MORE_NEWS; render(); return; }
   if(t.closest("[data-widen]")){ go({p:365}); return; }
@@ -1982,7 +2062,7 @@ function filterLater(i){
   clearTimeout(qTimer);
   qTimer = setTimeout(()=>{
     if(composing === i || !document.body.contains(i)) return;
-    go({q:i.value}, false, i); $("#q").value = S.q;
+    go({q:i.value, ...(i.value.trim() ? {} : {qr:""})}, false, i); $("#q").value = S.q;
   }, 250);
 }
 main.addEventListener("input", e=>{
