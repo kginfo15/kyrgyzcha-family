@@ -214,7 +214,7 @@ var settings = Object.assign({
 }, lget(K.set,{}));
 var progress = lget(K.prog,{});        // 単語進捗 {id:{...}}
 var cprogress = lget(K.cprog,{});      // 作文進捗 {id:{...}}（別キー）
-var history  = lget(K.hist,{streak:{count:0,last:null}, days:{}});
+var studyLog  = lget(K.hist,{streak:{count:0,last:null}, days:{}});
 var ui = lget(K.sess,{view:"word", level:"A1", wordSub:"select", reviewSub:"list", session:null, pickPacks:[],
   composeSub:"select", composeSession:null});
 
@@ -246,16 +246,16 @@ function P(id){
   return progress[id];
 }
 function hasProg(id){return !!progress[id];}
-function saveAll(){lset(K.prog,progress);lset(K.cprog,cprogress);lset(K.set,settings);lset(K.hist,history);lset(K.sess,ui);}
+function saveAll(){lset(K.prog,progress);lset(K.cprog,cprogress);lset(K.set,settings);lset(K.hist,studyLog);lset(K.sess,ui);}
 function saveUI(){lset(K.sess,ui);}
 
-/* history / streak */
-function dayRec(k){k=k||todayKey();if(!history.days[k])history.days[k]={learned:0,reviewed:0,newIntro:0};return history.days[k];}
+/* studyLog / streak */
+function dayRec(k){k=k||todayKey();if(!studyLog.days[k])studyLog.days[k]={learned:0,reviewed:0,newIntro:0};return studyLog.days[k];}
 function bumpStreak(){
-  var t=todayKey(); if(history.streak.last===t)return;
+  var t=todayKey(); if(studyLog.streak.last===t)return;
   var y=new Date();y.setDate(y.getDate()-1);
-  history.streak.count = (history.streak.last===todayKey(y))? history.streak.count+1 : 1;
-  history.streak.last=t;
+  studyLog.streak.count = (studyLog.streak.last===todayKey(y))? studyLog.streak.count+1 : 1;
+  studyLog.streak.last=t;
 }
 
 /* ===== SRS ===== */
@@ -604,7 +604,7 @@ function renderProgress(){
   var learning=allIds.filter(function(id){return progress[id]&&progress[id].status==="learning";}).length;
   var weak=allIds.filter(isWeak).length;
   var t=dayRec(todayKey());
-  var weekN=0; for(var i=0;i<7;i++){var d=new Date();d.setDate(d.getDate()-i);var r=history.days[todayKey(d)];if(r)weekN+=(r.learned+r.reviewed);}
+  var weekN=0; for(var i=0;i<7;i++){var d=new Date();d.setDate(d.getDate()-i);var r=studyLog.days[todayKey(d)];if(r)weekN+=(r.learned+r.reviewed);}
   var h="";
   function lvbar(name,o){var pc=Math.round(o.learned/o.total*100);var pm=Math.round(o.mastered/o.total*100);
     return '<div class="card" style="padding:14px;margin-bottom:10px"><div style="display:flex;justify-content:space-between"><b>'+name+'</b><span class="small muted">学習 '+o.learned+' / '+o.total+'（定着 '+o.mastered+'）</span></div>'+
@@ -626,7 +626,7 @@ function renderProgress(){
      statbox(learning,"単語 学習中")+statbox(weak,"単語 苦手")+
      statbox(cLearned,"作文 学習済み")+statbox(cMastered,"作文 定着")+
      statbox(cNew,"作文 未学習")+statbox(cDue,"作文 復習待ち")+
-     statbox(cWeak,"作文 苦手")+statbox(history.streak.count||0,"連続日数")+
+     statbox(cWeak,"作文 苦手")+statbox(studyLog.streak.count||0,"連続日数")+
      statbox(t.learned||0,"今日の学習")+statbox(t.reviewed||0,"今日の復習")+'</div>';
   h+='<div class="h2">パック別の進捗（単語）</div>';
   SHOW_LEVELS.forEach(function(level){
@@ -687,7 +687,7 @@ function memoSheet(){
 function exportData(){
   var data={appVersion:APP_VERSION,dataVersion:DATA_VERSION,exportedAt:new Date().toISOString(),
     settings:settings,vocabProgress:progress,composeProgress:cprogress,
-    streak:history.streak,learningHistory:history.days};
+    streak:studyLog.streak,learningHistory:studyLog.days};
   var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
   var url=URL.createObjectURL(blob); var a=document.createElement("a");
   a.href=url; a.download="kyrgyzcha_backup_"+todayKey()+".json"; document.body.appendChild(a); a.click();
@@ -701,8 +701,8 @@ function importData(){
       if(d.vocabProgress)progress=d.vocabProgress; else if(d.progress)progress=d.progress; // v3 / 旧v2両対応
       if(d.composeProgress)cprogress=d.composeProgress;
       if(d.settings)settings=Object.assign(settings,d.settings);
-      if(d.streak)history.streak=d.streak;
-      if(d.learningHistory)history.days=d.learningHistory;
+      if(d.streak)studyLog.streak=d.streak;
+      if(d.learningHistory)studyLog.days=d.learningHistory;
       saveAll();closeSheet();render();toast("復元しました");
     }catch(e){toast("ファイルを読み込めませんでした");}};
     r.readAsText(f);};
@@ -710,8 +710,8 @@ function importData(){
 }
 function resetData(){
   if(!confirm("学習進捗（単語・作文）をすべて初期化します。よろしいですか？（バックアップの書き出しを推奨）"))return;
-  lset(K.legacy+"_beforeReset_"+Date.now(), {progress:progress,cprogress:cprogress,history:history});
-  progress={}; cprogress={}; history={streak:{count:0,last:null},days:{}}; ui.session=null; ui.composeSession=null;
+  lset(K.legacy+"_beforeReset_"+Date.now(), {progress:progress,cprogress:cprogress,history:studyLog});
+  progress={}; cprogress={}; studyLog={streak:{count:0,last:null},days:{}}; ui.session=null; ui.composeSession=null;
   saveAll();closeSheet();render();toast("初期化しました");
 }
 
@@ -816,7 +816,7 @@ buildQueue=function(scope){
     lset(K.legacy+"_v2_"+Date.now(),{progress:v2prog,settings:lget("kyrgyzApp_v2_settings",null),history:lget("kyrgyzApp_v2_history",null),at:new Date().toISOString()});
     progress=v2prog||{};
     var v2set=lget("kyrgyzApp_v2_settings",null); if(v2set)settings=Object.assign(settings,v2set);
-    var v2hist=lget("kyrgyzApp_v2_history",null); if(v2hist)history=v2hist;
+    var v2hist=lget("kyrgyzApp_v2_history",null); if(v2hist)studyLog=v2hist;
     saveAll(); return;
   }
   // --- v1 (kg_status / kg_custom) -> v3 ---
