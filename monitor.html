@@ -686,6 +686,19 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
   .myrow-h{display:block;margin:2px 0 0;font-size:11px;color:var(--faint);text-align:right}
   .mys-n{display:none}
 }
+.pconly{display:none}
+@media (min-width:1100px){
+  .pconly{display:block}.sponly{display:none}
+  .myside{margin-bottom:14px}
+  .myside .myrow{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .myside .tile{padding:9px 10px 8px;gap:4px}
+  .myside .tile .nm{font-size:12.5px}
+  .myside .tile .amt{font-size:19px}
+  .myside .tile .amt .al,.myside .tile .drs,.myside .tile .tf{display:none}
+  .myside .tile .jline{font-size:10.5px}
+  .myside .tile .tact{min-height:30px;font-size:11.5px;padding:4px 2px}
+  .myside .mys-n{display:none}
+}
 @media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
 /* ---------- sector summary: full screen report, printable (A4 landscape, 3 pages) ---------- */
 .sumbtn{margin-left:auto}
@@ -1820,21 +1833,27 @@ function viewHome(){
   const wk = weekHTML(favIds.length ? favIds : SECTORS.map(([id])=>id), {n:6, title: favIds.length ? "My分野 今週の重要ニュース" : "全分野 今週の重要ニュース", more: favIds.length ? '<button class="linkbtn" data-gomy>My分野のニュース →</button>' : '<span>☆で分野を選ぶと、その分野だけのまとめになります</span>'});
   const sideAll = CH.sscope==="all" || !FAV.size, side = sideAll ? its : mine;
   const scopeSw = FAV.size ? `<div class="sscope">${segCH("sscope",[["my","My分野"],["all","全分野"]])}<span class="note">新しい順にすべて</span></div>` : '<div class="sscope"><span class="note">新しい順にすべて</span></div>';
+  // PC: the amount strip leads the main column and the My分野 cards sit above the news column;
+  // phones keep the My分野 swipe row on top and the amounts further down
+  const myHead = secHead("My sectors","My分野",'<span class="note mys-n">★で外す</span><button class="linkbtn" data-favlink title="★は端末ごとに保存されます。このリンクをMacやスマホで開くと、同じMy分野になります">ほかの端末にも同じ★を</button>');
+  const ovHead = secHead("Overview","協力の全体像",'<span class="note">援助機関の公開データにある、キルギス向けの協力案件の金額</span>');
+  const kpis = ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>';
   return `<div class="layout"><div class="mainc">
-    ${favTiles?`<section class="mysec">${secHead("My sectors","My分野",'<span class="note mys-n">★で外す</span><button class="linkbtn" data-favlink title="★は端末ごとに保存されます。このリンクをMacやスマホで開くと、同じMy分野になります">ほかの端末にも同じ★を</button>')}<div class="myrow ${favIds.length===1?"one":""}">${favTiles}</div>${favIds.length>1?'<p class="myrow-h">左右にスワイプ</p>':""}</section>`:""}
+    ${favTiles?`<section class="mysec sponly">${myHead}<div class="myrow ${favIds.length===1?"one":""}">${favTiles}</div>${favIds.length>1?'<p class="myrow-h">左右にスワイプ</p>':""}</section>`:""}
+    <div class="pconly">${ovHead}${kpis}</div>
     ${wk}
     <section class="mnews">${secHead("News",(sideAll?"全分野":"My分野")+" 今日のニュース",'<button class="linkbtn" data-tonews>すべて見る ↓</button>')}${listHTML(side.slice(0,4),false,true)}</section>
     ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
     ${favTiles?"":`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと、その分野が「My分野」としてここに並び、上の重要ニュースと右のニュースもその分野に絞られます。★は端末(ブラウザ)ごとに保存されるので、iPhoneで選んだ★はMacには出ません。iPhoneの「ほかの端末にも同じ★を」でリンクを送ると、同じMy分野にできます。</p>`}
-    ${secHead("Overview","協力の全体像",'<span class="note">援助機関の公開データにある、キルギス向けの協力案件の金額</span>')}
-    ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
+    <div class="sponly">${ovHead}${kpis}</div>
+    ${!ready?"":`<div class="pconly">${secHead("Overview","協力の全体像のグラフ","")}</div>`}
     ${ready&&SHOW_COVER?coverageHTML():""}
     ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary class="ovsum">年ごとの推移と、援助機関・分野の割合のグラフ<span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></summary>
       <div class="cols">${yearHTML("")}${shareHTML("")}</div>${govHTML("")?`<div style="margin-top:12px">${govHTML("")}</div>`:""}</details>`:""}
     ${secHead("Sectors","分野別の協力",'<span class="note">各分野の実施中案件の総額と件数・上位3機関の割合・☆でMy分野に追加</span>')}
     <div class="matrix">${tiles}</div>
     <p class="note" style="margin:8px 0 0">金額は援助機関が公開している案件の額(米ドル換算、複数分野にまたがる案件は分野数で按分)。下段は直近30日の政府の動きと協力ニュースの件数。</p>
-  </div><div id="sidenews">${sideNews(side, (sideAll?"全分野":"My分野")+" 今日のニュース", "", scopeSw)}</div></div>`;
+  </div><div id="sidenews">${favTiles?`<section class="mysec myside pconly">${myHead}<div class="myrow">${favTiles}</div></section>`:""}${sideNews(side, (sideAll?"全分野":"My分野")+" 今日のニュース", "", scopeSw)}</div></div>`;
 }
 function viewFeed(){
   const t = S.t;
