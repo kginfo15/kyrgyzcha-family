@@ -1564,7 +1564,7 @@ function renderSheet(){
 
 function viewStrategy(){
   setTitle("国家戦略マップ");
-  const hi = S.s;   // sector filter
+  const hi = SEC[S.s] ? S.s : (secList(S.s)[0]||"");   // sector filter (one sector; a news link may carry several)
   const has = arr => !hi || arr.includes(hi);
   const chFund = c => fundFor(c.sectors);
   const strat = s => `<button class="scard2 ${has(s.sectors)?"":"dim"}" data-st="${s.id}"><span class="sc-n">${esc(s.name)}</span><span class="sc-p">${esc(s.period)}${s.status!=="有効"?" · "+esc(s.status):""}</span><span class="smini">${s.sectors.map(c=>secTag(c, c===hi)).join("")}</span></button>`;
