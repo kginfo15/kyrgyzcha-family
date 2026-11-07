@@ -1,0 +1,41 @@
+name: Ask the legal database
+
+# Runs the questions in scripts/legal_db_queries.txt against Kyrgyzstan's
+# legal database (cbd.minjust.gov.kg: title/text search and linked acts) and
+# publishes the answers on the `legal-db` branch (one force-pushed commit).
+# It has its own branch because fetch-strategy-docs.yml replaces the whole
+# `strategy-docs` branch on every run.
+# Touches nothing used by the strategy-document or translation jobs.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/legal_db.py
+      - scripts/legal_db_queries.txt
+      - .github/workflows/legal-db.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: legal-db
+  cancel-in-progress: false
+
+jobs:
+  ask:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ask
+        run: python3 scripts/legal_db.py "$RUNNER_TEMP/legal"
+      - name: Publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/legal"
+          git init -q
+          git checkout -q --orphan legal-db
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Legal database answers"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" legal-db

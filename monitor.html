@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<!--KM:HEAD-START-->
+<title>Kyrgyz Monitor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#0d1520">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1520'/%3E%3Cpath d='M5 23l7-10 5 6 4-5 6 9z' fill='%2366d1dd'/%3E%3Ccircle cx='23' cy='9' r='2.5' fill='%23f0b84a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a console - a dense status band on top, a sector matrix, then feeds in columns.
+   Glacier cyan for cooperation, tunduk gold for government, flag red for Japan. */
+:root{
+  --bg:#eef1f5; --panel:#ffffff; --panel2:#f6f8fb; --ink:#0d1520; --sub:#4a5668; --faint:#7f8a9b; --line:#dbe1e9;
+  --band:#0d1520; --band2:#162231; --band-ink:#e8edf3; --band-sub:#8ea0b6;
+  --accent:#0a7f93; --accent-soft:#e1f2f5;
+  --gov:#a36500; --gov-soft:#fbf0db; --coop:#0a7f93; --coop-soft:#e1f2f5; --jp:#c8343c; --jp-soft:#fbe6e7;
+  --press:#5a6578; --press-soft:#edf0f4;
+  --act:#13804f; --pipe:#9a6b00; --closed:#7f8a9b;
+  --spark:#0a7f93; --spark-fill:rgba(10,127,147,.14); --bar:#9cc9d2; --hot:#c8343c;
+  --d1:#2a78d6; --d2:#eb6834; --d3:#1baf7a; --d4:#6250d6; --d5:#e87ba4; --d6:#008300; --d7:#e34948; --dother:#a7afbb;
+  --sans:"IBM Plex Sans","IBM Plex Sans JP","Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1018; --panel:#111a25; --panel2:#0e1620; --ink:#e6ebf2; --sub:#a1adbe; --faint:#6f7d90; --line:#1f2b3a;
+    --band:#070c13; --band2:#0f1822; --band-ink:#e6ebf2; --band-sub:#7d8ea4;
+    --accent:#66d1dd; --accent-soft:#11303a;
+    --gov:#f0b84a; --gov-soft:#2e2412; --coop:#66d1dd; --coop-soft:#10303a; --jp:#ff6b72; --jp-soft:#3a171b;
+    --press:#a9b4c4; --press-soft:#1b2532;
+    --act:#5ad39a; --pipe:#f0b84a; --closed:#7f8a9b;
+    --spark:#66d1dd; --spark-fill:rgba(102,209,221,.13); --bar:#2c6e7a; --hot:#ff6b72; color-scheme:dark;
+    --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#9085e9; --d5:#d55181; --d6:#008300; --d7:#e66767; --dother:#5d6878;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1018; --panel:#111a25; --panel2:#0e1620; --ink:#e6ebf2; --sub:#a1adbe; --faint:#6f7d90; --line:#1f2b3a;
+  --band:#070c13; --band2:#0f1822; --band-ink:#e6ebf2; --band-sub:#7d8ea4;
+  --accent:#66d1dd; --accent-soft:#11303a;
+  --gov:#f0b84a; --gov-soft:#2e2412; --coop:#66d1dd; --coop-soft:#10303a; --jp:#ff6b72; --jp-soft:#3a171b;
+  --press:#a9b4c4; --press-soft:#1b2532;
+  --act:#5ad39a; --pipe:#f0b84a; --closed:#7f8a9b;
+  --spark:#66d1dd; --spark-fill:rgba(102,209,221,.13); --bar:#2c6e7a; --hot:#ff6b72; color-scheme:dark;
+    --d1:#3987e5; --d2:#d95926; --d3:#199e70; --d4:#9085e9; --d5:#d55181; --d6:#008300; --d7:#e66767; --dother:#5d6878;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:14.5px/1.6 var(--sans);-webkit-text-size-adjust:100%;
+  padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--band)}
+a{color:var(--accent)}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--mono)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ---- top band ---- */
+header.top{background:var(--band);color:var(--band-ink);position:sticky;top:env(safe-area-inset-top,0px);z-index:20;border-bottom:1px solid var(--band2)}
+.bar1{display:flex;align-items:center;gap:14px;padding-block:10px 6px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px;cursor:pointer;border:0;background:none;color:inherit;padding:0}
+.logo svg{width:26px;height:26px;flex:none}
+.logo b{font-family:var(--mono);font-weight:600;letter-spacing:.18em;font-size:13.5px}
+.logo span{font-size:11.5px;color:var(--band-sub);letter-spacing:.02em}
+.status{margin-left:auto;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11.5px;color:var(--band-sub);white-space:nowrap}
+.live{width:7px;height:7px;border-radius:50%;background:#5ad39a;box-shadow:0 0 0 3px rgba(90,211,154,.18)}
+.live.stale{background:#f0b84a;box-shadow:0 0 0 3px rgba(240,184,74,.18)}
+.tbtn{border:1px solid var(--band2);background:var(--band2);color:var(--band-ink);border-radius:6px;padding:3px 9px;font-size:11.5px;cursor:pointer;font-family:var(--mono);letter-spacing:.04em}
+.tbtn[aria-pressed="false"]{opacity:.55;text-decoration:line-through}
+.bar2{flex:1;min-width:0;display:flex;margin:0;max-width:560px}
+@media (max-width:760px){.bar2{order:3;flex-basis:100%;max-width:none}}
+.snap{font-size:10px;border:1px solid var(--band2);border-radius:3px;padding:0 4px;margin-right:4px;cursor:help}
+.search{flex:1;min-width:0;position:relative}
+.search input{width:100%;border:1px solid var(--band2);border-radius:7px;padding:7px 12px 7px 32px;background:var(--band2);color:var(--band-ink);font-size:13.5px}
+.search input::placeholder{color:var(--band-sub)}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--band-sub)}
+nav.tabs{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;margin-bottom:-1px}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{background:none;border:0;color:var(--band-sub);padding:8px 13px 9px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;font-size:13.5px}
+nav.tabs button:hover{color:var(--band-ink)}
+nav.tabs button.on{color:var(--band-ink);border-bottom-color:var(--accent);font-weight:600}
+
+main{padding-top:18px}
+.sec-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:26px 0 10px}
+.sec-h h2{margin:0;font-size:15px;font-weight:700;letter-spacing:.01em;text-wrap:balance}
+.sec-h .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.sec-h .sp{flex:1}
+.sec-h a,.linkbtn{font-size:12.5px;color:var(--accent);background:none;border:0;cursor:pointer;padding:0;text-decoration:none}
+.note{color:var(--sub);font-size:12.5px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px}
+
+/* ---- KPI band ---- */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
+.kpi{padding:12px 16px;border-left:1px solid var(--line);min-width:0}
+.kpi:first-child{border-left:0}
+.kpi .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase}
+.kpi .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:500;line-height:1.25;margin-top:2px}
+.kpi .s{font-size:12px;color:var(--sub)}
+.kpi .v small{font-size:13px;color:var(--sub);margin-left:4px}
+@media (max-width:720px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi:nth-child(3){border-left:0}.kpi:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* ---- sector matrix ---- */
+.matrix{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:11px 12px 10px;cursor:pointer;text-align:left;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto auto 1fr;align-content:start;gap:7px;min-width:0;line-height:1.4;transition:border-color .15s,transform .15s}
+.tile:hover,.tile:focus-visible{border-color:var(--accent);transform:translateY(-1px)}
+.fav{margin-left:auto;border:0;background:none;cursor:pointer;color:var(--faint);font-size:15px;line-height:1;padding:0 2px;flex:none}
+.fav:hover{color:var(--gov)} .fav.on{color:var(--gov)}
+.tile .top{display:flex;align-items:baseline;gap:7px;min-width:0}
+.tile .no{font-family:var(--mono);font-size:10.5px;color:var(--faint);flex:none}
+.tile .nm{font-weight:600;font-size:13.5px;line-height:1.35;flex:1;min-width:0}
+.tile .hot{font-family:var(--mono);font-size:10.5px;color:var(--hot);font-weight:600;flex:none}
+.tile .mid{display:flex;align-items:flex-end;gap:10px}
+.tile .big{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:24px;font-weight:500;line-height:1}
+.tile .big small{font-size:10.5px;color:var(--faint);margin-left:3px;font-weight:400}
+.tile svg.sp{flex:1;height:30px;min-width:0}
+.mix{display:flex;height:4px;border-radius:2px;overflow:hidden;background:var(--press-soft)}
+.mix i{display:block}
+.mix .g{background:var(--gov)} .mix .c{background:var(--coop)} .mix .j{background:var(--jp)}
+.tile .tf{display:flex;align-items:flex-end;gap:10px;font-family:var(--mono);font-size:11px;color:var(--sub);flex-wrap:wrap}
+.tile .tf b{font-weight:600;color:var(--ink)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--sub);margin-top:8px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* ---- columns ---- */
+.cols{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:940px){.cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cols.c3{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}}
+
+/* ---- hot list ---- */
+.rank{list-style:none;margin:0;padding:0}
+.rank li{display:grid;grid-template-columns:22px minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:9px 12px;border-top:1px solid var(--line);cursor:pointer}
+.rank li:first-child{border-top:0}
+.rank li:hover{background:var(--panel2)}
+.rank .i{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.rank .n{font-weight:600;font-size:13.5px}
+.rank .c{font-family:var(--mono);font-size:12px;color:var(--sub)}
+.rank .d{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--hot);min-width:52px;text-align:right}
+.rank .d.down{color:var(--faint);font-weight:400}
+
+/* ---- filters ---- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:9px;margin-bottom:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--panel2)}
+.seg button{border:0;background:none;padding:4px 10px;cursor:pointer;font-size:12.5px;color:var(--sub)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--ink);color:var(--panel);font-weight:600}
+select,.filters input{border:1px solid var(--line);background:var(--panel2);border-radius:6px;padding:4px 8px;font-size:12.5px;max-width:100%;min-width:0}
+.filters input{flex:1;min-width:130px}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--ink);font-family:var(--mono);letter-spacing:.04em}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.on{border-color:var(--gov);color:var(--gov)}
+.count{font-family:var(--mono);font-size:11.5px;color:var(--sub);margin:6px 2px 8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.count .sp{flex:1}
+
+/* ---- feed ---- */
+.list{display:flex;flex-direction:column}
+.feed{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.day{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--faint);padding:14px 2px 6px}
+.feed .day{padding:8px 14px;background:var(--panel2);border-top:1px solid var(--line)}
+.feed .day:first-child{border-top:0}
+.it{padding:11px 44px 11px 14px;position:relative;border-top:1px solid var(--line);min-width:0}
+.feed .it:first-child,.feed .day+.it{border-top:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11.5px;color:var(--faint)}
+.meta .t{font-family:var(--mono)}
+.meta .src{color:var(--sub)}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:1px 6px;border-radius:3px;font-weight:600;line-height:1.6;text-transform:uppercase}
+.tag.gov{background:var(--gov-soft);color:var(--gov)}
+.tag.coop{background:var(--coop-soft);color:var(--coop)}
+.tag.jp{background:var(--jp-soft);color:var(--jp)}
+.tag.press{background:var(--press-soft);color:var(--press)}
+.tag.lang{border:1px solid var(--line);color:var(--faint);font-weight:500}
+.don{font-size:11.5px;color:var(--coop);font-weight:600}
+.don.jp{color:var(--jp)}
+.it h3{font-size:14.5px;margin:3px 0 1px;line-height:1.5;font-weight:600;text-wrap:pretty}
+.it h3 a{color:var(--ink);text-decoration:none}
+.it h3 a:hover{color:var(--accent)}
+.it .orig{font-size:12px;color:var(--faint);margin:0;overflow-wrap:anywhere}
+.it .orig a{color:var(--faint)}
+.it .also{font-size:11.5px;color:var(--faint);margin:4px 0 0}
+.it .also a{color:var(--sub)}
+.it .lead{font-size:12.5px;color:var(--sub);margin:4px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{font-size:11px;border:1px solid var(--line);border-radius:4px;padding:0 6px;color:var(--sub);background:var(--panel2);cursor:pointer;line-height:1.75}
+.chip:hover{border-color:var(--accent);color:var(--accent)}
+.chip .n{font-family:var(--mono);color:var(--faint);margin-left:3px}
+.star{position:absolute;top:9px;right:10px;border:0;background:none;cursor:pointer;padding:3px;color:var(--faint);line-height:0}
+.star svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
+.star.on{color:var(--gov)} .star.on svg{fill:currentColor}
+.more{display:block;margin:12px auto;padding:7px 18px}
+.empty{padding:28px 16px;text-align:center;color:var(--sub)}
+
+/* ---- projects ---- */
+.pj{padding:11px 14px;border-top:1px solid var(--line);min-width:0}
+.feed .pj:first-child{border-top:0}
+.pj .row1{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--sub)}
+.st{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;padding:0 6px;border-radius:3px;border:1px solid currentColor;line-height:1.7}
+.st-active{color:var(--act)} .st-pipeline{color:var(--pipe)} .st-closed,.st-dropped,.st-suspended{color:var(--closed)}
+.pj h3{font-size:14px;margin:4px 0 1px;line-height:1.5;font-weight:600}
+.pj h3 a{color:var(--ink);text-decoration:none}
+.pj h3 a:hover{color:var(--accent)}
+.pj .amt{font-family:var(--mono);font-weight:600;color:var(--ink)}
+.pj .per{font-family:var(--mono)}
+.pj .desc{font-size:12.5px;color:var(--sub);margin:3px 0 0}
+.timeline{height:4px;background:var(--press-soft);border-radius:2px;margin-top:7px;position:relative;overflow:hidden}
+.timeline i{position:absolute;top:0;bottom:0;background:var(--act);border-radius:2px;opacity:.75}
+
+/* ---- sector / donor head ---- */
+.shead{padding:16px;display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.shead{grid-template-columns:minmax(0,1fr) auto;align-items:end}}
+.shead .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.shead h2{margin:2px 0 0;font-size:21px;font-weight:700;letter-spacing:.01em}
+.minis{display:flex;gap:22px;flex-wrap:wrap}
+.mini .v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:500;line-height:1.2}
+.mini .l{font-size:11.5px;color:var(--sub)}
+.chart{padding:14px 16px}
+.chart svg{width:100%;height:120px;display:block}
+.chart text{font-family:var(--mono);font-size:10px;fill:var(--faint)}
+.subtabs{display:flex;gap:4px;flex-wrap:wrap;margin:16px 0 10px;border-bottom:1px solid var(--line)}
+.subtabs button{border:0;background:none;padding:7px 11px 9px;font-size:13px;cursor:pointer;color:var(--sub);border-bottom:2px solid transparent;margin-bottom:-1px}
+.subtabs button.on{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.subtabs button span{font-family:var(--mono);font-size:11px;color:var(--faint);margin-left:5px}
+.dons{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+
+/* ---- donors ---- */
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:14px}
+.dtab{width:100%;border-collapse:collapse;font-size:13px}
+.dtab th,.dtab td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.dtab tr:last-child td{border-bottom:0}
+.dtab th:first-child,.dtab td:first-child{text-align:left}
+.dtab th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--faint);font-weight:500;text-transform:uppercase;background:var(--panel2)}
+.dtab td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.dtab td:first-child{font-family:var(--sans);font-weight:500}
+.dtab tr.click{cursor:pointer}
+.dtab tr.click:hover td{background:var(--panel2)}
+.dtab .barcell{width:22%;min-width:90px}
+.hbar{height:6px;background:var(--press-soft);border-radius:3px;overflow:hidden}
+.hbar i{display:block;height:100%;background:var(--coop)}
+.dtab tr.jp .hbar i{background:var(--jp)}
+
+/* ---- cooperation charts ---- */
+.dn{display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:14px;align-items:center;margin-top:10px}
+@media (max-width:520px){.dn{grid-template-columns:minmax(0,1fr)}.dn svg{max-width:200px;margin:0 auto}}
+.dn svg{width:100%;height:auto;display:block}
+.dn svg path{stroke:var(--panel);stroke-width:2;cursor:pointer}
+.dn svg path:hover{opacity:.82}
+.dn .ct{font-family:var(--mono);fill:var(--ink);font-size:17px;font-weight:500}
+.dn .cl{font-family:var(--sans);fill:var(--faint);font-size:9.5px}
+.lg{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lg li{display:grid;grid-template-columns:10px minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:3px 4px;border-radius:4px;font-size:12.5px;cursor:pointer}
+.lg li:hover{background:var(--panel2)}
+.lg li.nolink{cursor:default}
+.lg i{width:10px;height:10px;border-radius:2px;display:block}
+.lg .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lg .pc{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
+.lg .vv{font-family:var(--mono);color:var(--faint);font-size:11.5px;min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+.ctrls{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.panel h3.ph{margin:0;font-size:13.5px;font-weight:700}
+.panel .phk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.ych svg{width:100%;height:150px;display:block;margin-top:8px}
+.ych text{font-family:var(--mono);font-size:9.5px;fill:var(--faint)}
+.ych rect.b{fill:var(--coop)}
+.ych rect.b.now{fill:var(--accent)}
+.ych rect.hit{fill:transparent;cursor:default}
+.ych rect.hit:hover+rect.b,.ych g:hover rect.b{opacity:.75}
+.sharebar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--press-soft);gap:1px}
+.sharebar i{display:block;height:100%}
+.tile .drs{display:flex;flex-direction:column;gap:3px;min-height:54px}
+.tile .dr{display:grid;grid-template-columns:minmax(0,1fr) 46px 34px;gap:6px;align-items:center;font-size:11.5px}
+.tile .dn2{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--sub)}
+.tile .db{height:5px;background:var(--press-soft);border-radius:3px;overflow:hidden}
+.tile .db i{display:block;height:100%;background:var(--coop)}
+.tile .dp{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--ink)}
+.tile .jline{font-size:11px;color:var(--sub);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .jline b{color:var(--d7)}
+.tile .cap{font-size:11px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:500;line-height:1.1}
+.tile .amt small{display:block;font-size:11px;color:var(--faint);font-weight:400;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.unk{font-size:10.5px;color:var(--faint);border:1px dashed var(--faint);border-radius:3px;padding:0 5px;line-height:1.6}
+.kind{font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:3px;padding:0 5px;line-height:1.6}
+/* ---- national strategy map ---- */
+.stree{display:flex;flex-direction:column;align-items:stretch}
+.snode{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;text-align:center;max-width:720px;margin:0 auto;width:100%}
+.snode .k,.pilh .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.snode h3{margin:2px 0;font-size:16px}
+.snode h3 a,.scard h4 a{color:var(--ink);text-decoration:none}
+.snode h3 a:hover,.scard h4 a:hover{color:var(--accent)}
+.snode.top{border-color:var(--gov)}
+.goals{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:center;list-style:none;padding:0;margin:6px 0 0;font-size:12px;color:var(--sub)}
+.goals li::before{content:"▸ ";color:var(--gov)}
+.sper{font-size:11.5px;color:var(--faint)}
+.sline{width:2px;height:18px;background:var(--line);margin:0 auto}
+.pils{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));border-top:2px solid var(--line);padding-top:14px}
+.pil{display:flex;flex-direction:column;gap:8px;min-width:0}
+@media (min-width:1100px){.pils{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px}}
+.pilh{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.pilh h3{margin:2px 0;font-size:15px}
+.pilh .note{margin:2px 0 6px}
+.cards{display:flex;flex-direction:column;gap:6px;border-left:2px solid var(--line);margin-left:12px;padding-left:10px}
+.scard{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;position:relative}
+.scard::before{content:"";position:absolute;left:-12px;top:16px;width:10px;height:2px;background:var(--line)}
+.scard.draft{border-style:dashed}
+.scard h4{margin:0;font-size:13px;line-height:1.45}
+.smarks{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.smark{border:1px solid var(--line);background:var(--panel2);border-radius:4px;padding:0 5px 0 0;font-size:10.5px;cursor:pointer;color:var(--sub);display:inline-flex;align-items:center;gap:4px;line-height:1.7}
+.smark b{background:var(--coop);color:var(--panel);font-family:var(--mono);font-weight:600;padding:0 4px;border-radius:3px 0 0 3px}
+.smark:hover{border-color:var(--accent);color:var(--accent)}
+.sfund{display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;margin-top:6px;font-size:11.5px}
+.sfund .sa{font-family:var(--mono);font-size:15px;font-weight:600}
+.sfund .stop{flex-basis:100%;color:var(--sub)}
+.sfund .sj{font-family:var(--mono);color:var(--d7);font-size:11px}
+.stab td{font-family:var(--sans)}
+.stab td.stl{text-align:left;white-space:normal;font-size:12px;color:var(--sub);min-width:180px}
+.sno{font-family:var(--mono);color:var(--faint);font-weight:500}
+/* ---- strategy map v2 ---- */
+.shero{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}
+.hcard{flex:1;min-width:240px;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;display:flex;flex-direction:column;gap:3px;color:var(--ink)}
+.hcard b{font-size:16px}
+.hcard .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.hcard.main{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-soft),var(--panel) 60%)}
+.hcard:hover{border-color:var(--accent)}
+.harrow{align-self:center;color:var(--faint);font-size:18px}
+@media (max-width:620px){.harrow{display:none}}
+.sfilter{display:flex;flex-wrap:wrap;gap:5px}
+.sfilter .jchip b{font-family:var(--mono);color:var(--faint);font-weight:500}
+@media (max-width:720px){.sfilter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.sfilter::-webkit-scrollbar{display:none}.sfilter .jchip{white-space:nowrap}}
+.sfocus{margin-top:12px;padding:14px 16px;border-color:var(--accent)}
+.sfocus .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--faint)}
+.sfocus h3{margin:2px 0 8px;font-size:15px}
+.sfrow{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:12.5px;align-items:start}
+.sfrow>b{color:var(--sub);font-weight:600}
+.sfrow>span{display:flex;flex-wrap:wrap;gap:5px}
+@media (max-width:560px){.sfrow{grid-template-columns:minmax(0,1fr)}}
+.chref{border:1px solid var(--line);background:var(--panel2);border-radius:6px;padding:3px 9px;font-size:12px;cursor:pointer;color:var(--ink);text-align:left}
+.chref b{font-family:var(--mono);color:var(--accent);margin-right:3px}
+.chref small{color:var(--faint);margin-left:4px}
+.chref:hover{border-color:var(--accent)}
+.pils2{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;align-items:start}
+@media (max-width:720px){.pils2{grid-template-columns:minmax(0,1fr);gap:6px}}
+details.pil2{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+details.pil2>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:11px 14px}
+details.pil2>summary::-webkit-details-marker{display:none}
+details.pil2[open]>summary{border-bottom:1px solid var(--line);background:var(--panel2)}
+.pno{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);border-radius:6px;text-align:center;padding:4px 0}
+.pnm{font-weight:700;font-size:14px;line-height:1.35}
+.pnm small{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);font-weight:400;letter-spacing:.08em;text-transform:uppercase}
+.smini{display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+.smini i{font-style:normal;font-family:var(--mono);font-size:10px;font-weight:600;background:var(--coop-soft);color:var(--coop);border-radius:3px;padding:0 4px;line-height:1.7}
+.smini i.on{background:var(--gov);color:var(--panel)}
+.smini i{font-family:var(--sans);white-space:nowrap}
+.pgrp{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 0;grid-column:1/-1}
+.pgrp .pno{min-width:42px;padding:4px 8px}
+.ppart{margin:8px 0}.ppart>b{font-size:12.5px;color:var(--sub)}
+.subno{font-family:var(--mono);color:var(--accent);margin-right:8px}
+small.orig{color:var(--faint);font-size:11px;margin-left:4px}
+.tree details.tnode{border-left:2px solid var(--line);margin:4px 0 4px 2px;padding-left:10px}
+.tree details.tnode>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;padding:4px 0;font-size:13px}
+.tree details.tnode>summary::-webkit-details-marker{display:none}
+.tree details.tnode>summary::before{content:"▸";color:var(--faint);font-size:11px}
+.tree details.tnode[open]>summary::before{content:"▾"}
+.tree .tn{font-weight:600;flex:1 1 60%;min-width:0}
+.ttype{display:inline-block;font-size:10px;font-weight:600;border-radius:3px;padding:0 5px;margin-right:6px;line-height:1.7;vertical-align:1px;border:1px solid var(--line);color:var(--sub);background:var(--panel)}
+.ttype.t-strat{border-color:var(--accent);color:var(--accent)}
+.ttype.t-prog{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.ttype.t-rule,.ttype.t-sys{border-style:dashed}
+.tree .tc{font-family:var(--mono);font-size:11px;color:var(--sub)}
+.tree .tm,.tree .td{margin:0 0 4px;font-size:12.5px;color:var(--sub)}
+.tree .tm{color:var(--faint)}
+.tpj{list-style:none;margin:2px 0 6px;padding:0;font-size:12.5px}
+.tpj li{display:flex;flex-direction:column;padding:4px 0;border-top:1px dashed var(--line)}
+.ctag{display:inline-block;font-size:10.5px;border-radius:3px;padding:0 5px;line-height:1.7;margin-right:2px;white-space:nowrap}
+.c-law{background:var(--accent);color:var(--panel)}
+.c-doc{background:var(--coop-soft);color:var(--coop)}
+.c-news{background:var(--gov-soft);color:var(--gov)}
+.c-draft,.c-guess{background:var(--panel2);color:var(--sub);border:1px dashed var(--line)}
+details.pil2.insec{margin-left:16px;border-left:3px solid var(--accent-soft)}
+/* phones: the sector tags go under the chapter name so long names are not squeezed */
+@media (max-width:720px){
+  details.pil2>summary{grid-template-columns:44px minmax(0,1fr)}
+  details.pil2>summary .smini{grid-column:2;justify-content:flex-start}
+  .scard2{grid-template-columns:minmax(0,1fr)}
+  .scard2 .smini{grid-row:auto;grid-column:1;max-width:none;justify-content:flex-start}
+}
+.pbody{padding:10px 14px 12px;display:flex;flex-direction:column;gap:8px}
+.chlink{align-self:flex-start;border:0;background:none;color:var(--accent);cursor:pointer;padding:0;font-size:12.5px}
+.scards{display:flex;flex-direction:column;gap:6px}
+.scard2{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;text-align:left;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;padding:8px 10px;cursor:pointer;color:var(--ink)}
+.scard2:hover{border-color:var(--accent)}
+.scard2 .sc-n{font-weight:600;font-size:13px;line-height:1.4}
+.scard2 .sc-p{grid-column:1;font-size:11px;color:var(--faint);font-family:var(--mono)}
+.scard2 .smini{grid-row:1/3;grid-column:2;align-self:center;max-width:92px}
+.scard2.dim{opacity:.38}
+.smark.on{border-color:var(--gov)}
+/* detail panel: slides in from the right on a PC, full screen on a phone */
+body.noscroll{overflow:hidden}
+.sheet{position:fixed;inset:0;z-index:50}
+.sh-bg{position:absolute;inset:0;background:rgba(5,10,18,.55)}
+.sh-panel{position:absolute;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--bg);border-left:1px solid var(--line);overflow-y:auto;
+  padding:calc(14px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) 20px;animation:shin .2s ease-out}
+@keyframes shin{from{transform:translateX(40px);opacity:.6}}
+@media (prefers-reduced-motion:reduce){.sh-panel{animation:none}}
+@media (max-width:640px){.sh-panel{border-left:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+.sh-top{display:flex;align-items:center;justify-content:space-between;position:sticky;top:-14px;background:var(--bg);padding:4px 0;z-index:1}
+.sh-top .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint)}
+.sh-x{border:1px solid var(--line);background:var(--panel);border-radius:8px;width:34px;height:34px;font-size:18px;cursor:pointer;color:var(--ink)}
+.sheet-in h2{margin:4px 0 2px;font-size:19px;line-height:1.4}
+.sheet-in .ru{margin:0;color:var(--faint);font-size:12px}
+.meta2{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;font-size:12px;color:var(--sub)}
+.stag{font-size:10.5px;font-weight:700;border-radius:3px;padding:0 6px;line-height:1.8}
+.stag.ok{background:var(--don-soft,var(--coop-soft));color:var(--act)}
+.stag.old{background:var(--press-soft);color:var(--closed)}
+.sheet-in .sum{font-size:13.5px;line-height:1.75;margin:10px 0}
+.dlinks{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.dlinks .btn{text-decoration:none;font-family:var(--sans);font-size:12.5px;padding:6px 12px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--panel)}
+.btn.primary:hover{color:var(--panel);opacity:.9}
+.blk{margin-top:16px}
+.blk h3{font-size:12px;font-family:var(--mono);letter-spacing:.1em;color:var(--faint);margin:0 0 6px;font-weight:500}
+.tg{margin:0;padding-left:18px;font-size:13px;line-height:1.7}
+details.sub{border:1px solid var(--line);border-radius:6px;background:var(--panel);margin-bottom:5px}
+details.sub>summary{cursor:pointer;padding:7px 10px;display:flex;gap:8px;justify-content:space-between;align-items:center;font-size:13px;list-style:none}
+details.sub>summary::-webkit-details-marker{display:none}
+details.sub>summary::before{content:"▸";color:var(--faint);margin-right:2px}
+details.sub[open]>summary::before{content:"▾"}
+details.sub>summary>span:first-child{flex:1}
+details.sub>p,details.sub>ul,details.sub>.smarks{margin:0 10px 8px;font-size:12.5px;color:var(--sub)}
+.srow{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:8px 10px;margin-bottom:5px;cursor:pointer;color:var(--ink);font-size:13px}
+.srow:hover{border-color:var(--accent)}
+.docv{max-width:780px;margin:0 auto}
+.docbox{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-top:10px;line-height:1.85;font-size:14.5px}
+.docbox h2{font-size:19px} .docbox h3{font-size:15px;margin-top:22px;border-left:3px solid var(--accent);padding-left:8px}
+@media (max-width:560px){.docbox{padding:14px}}
+/* ---- sector jump bar and the foldable overview ---- */
+.jump{display:flex;flex-wrap:wrap;gap:5px}
+.jchip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--sub)}
+.jchip:hover{border-color:var(--accent);color:var(--accent)}
+.jchip.on{border-color:var(--gov);color:var(--ink)}
+@media (max-width:560px){.kpi .l .en{display:none}.kpi .l{letter-spacing:.04em}.tile .dr:nth-child(n+2),.tile .tf{display:none}.tile .drs{min-height:0}.tile{gap:5px}}
+@media (max-width:720px){.jump{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.jump::-webkit-scrollbar{display:none}.jchip{white-space:nowrap}}
+details.ov>summary{list-style:none;cursor:pointer}
+details.ov>summary::-webkit-details-marker{display:none}
+details.ov .ovs,details.ov[open] .ovh{display:none}
+details.ov[open] .ovs{display:inline}
+.ovh,.ovs{color:var(--accent);margin-left:6px}
+/* ---- PC: main column + news column that scrolls on its own ---- */
+.layout{display:block}
+.sidec{margin-top:22px}
+.sideh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 8px}
+.sideh h2{margin:0;font-size:15px;flex:1}
+.shead2{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.shead2 h2{margin:2px 0 0;font-size:22px;display:flex;align-items:center;gap:8px}
+.jbadge{margin-left:auto;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--sub);font-family:var(--mono)}
+.jbadge b{color:var(--d7)}
+.kpi .v small{font-size:13px;color:var(--sub);margin-left:3px}
+.cover{margin-top:10px}
+.cband{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--sub)}
+.cband b{display:block;font-family:var(--mono);font-size:16px;color:var(--ink)}
+.ydet{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.ydh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--sub)}
+.ydh b{color:var(--ink)}
+.ydh .sp{flex:1}
+.ylist{list-style:decimal;margin:6px 0 0;padding-left:22px;font-size:12.5px;max-height:320px;overflow-y:auto}
+.ylist li{padding:4px 0;border-bottom:1px dashed var(--line)}
+.ylist li>*{vertical-align:top}
+.ylist .yt{display:inline-block;width:calc(100% - 92px)}
+.ylist .yt a{color:var(--ink);text-decoration:none}
+.ylist .yt a:hover{color:var(--accent)}
+.ylist .ym{display:block;font-size:11px;color:var(--faint)}
+.ylist .ya{display:inline-block;width:88px;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+@media (min-width:1100px){
+  .wrap{max-width:1500px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:26px;align-items:start}
+  .sidec{position:sticky;top:96px;max-height:calc(100vh - 110px);display:flex;flex-direction:column;margin-top:0}
+  .sidel{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;border-radius:8px}
+  .matrix{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+}
+@media (min-width:1500px){ .layout{grid-template-columns:minmax(0,1fr) 420px} }
+.foot{margin:34px 0 0;font-size:12px;color:var(--faint);line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
+mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px}
+@media (pointer:coarse){input,select,textarea{font-size:16px!important}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--panel);padding:7px 14px;border-radius:6px;font-size:12.5px;z-index:40}
+@media (max-width:560px){
+  .logo span{display:none}
+  .matrix{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tile .big{font-size:20px}
+  .status .ut{display:none}
+}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
+</style>
+<!--KM:HEAD-END-->
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="bar1">
+      <button class="logo" id="home" type="button" aria-label="ホーム">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#162231"/><path d="M5 23l7-10 5 6 4-5 6 9z" fill="#66d1dd"/><circle cx="23" cy="9" r="2.5" fill="#f0b84a"/></svg>
+        <b>KYRGYZ MONITOR</b>
+      </button>
+      <form class="bar2" id="sform" role="search">
+        <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input id="q" type="search" placeholder="キーワード検索（日本語・ロシア語・英語）" autocomplete="off"></label>
+      </form>
+      <div class="status">
+        <i class="live" id="live"></i><span class="ut" id="upd">—</span>
+        <button class="tbtn" id="cur" type="button" title="金額の通貨を切り替え（ドル／円／ソム）">$</button>
+        <button class="tbtn" id="jica" type="button" aria-pressed="true" title="JICA・日本の協力を表示">JP</button>
+        <button class="tbtn" id="theme" type="button" title="表示テーマ">◐</button>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button data-v="home">概況</button>
+      <button data-v="feed">ニュース</button>
+      <button data-v="projects">協力案件</button>
+      <button data-v="donors">援助機関</button>
+      <button data-v="strategy">国家戦略</button>
+      <button data-v="saved">保存</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="main"><div class="empty">読み込み中…</div></main>
+
+<!-- strategy trees: programme structure and the rules that place donor projects on it -->
+<script type="application/json" id="tree-health">{"sector": "health", "strategy": "health", "chapter": "9.4", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "nodes": [{"id": "hp", "type": "プログラム", "n": "保健プログラム「健康な人 ― 繁栄する国」2019–2030", "m": "政府決定 2018年12月20日 No.600（行動計画2019–2023・指標表つき）、内閣決定 2024年12月26日 No.802 で改正", "conf": "法令", "d": "病気ごとの対策から保健システム全体の土台づくりへ切り替えるプログラム。3つの優先分野で進め、病気ごとの国のプログラムや規則はそれぞれの分野の下で動く。", "kids": [{"id": "A", "type": "分野", "n": "1 一次医療（PHC）と公衆衛生の強化", "conf": "資料", "d": "世界銀行の技術評価（2019）にプログラムの構成として記載。", "kids": [{"id": "A1", "type": "分野", "n": "1.1 効率的な一次医療のモデル（予防・早期発見・慢性疾患の管理）", "conf": "資料", "d": "看護師による慢性疾患の管理、巡回チーム、オンライン相談、成果に応じた支払い。"}, {"id": "A2", "type": "分野", "n": "1.2 一次医療と病院の連携（紹介の流れ・継続した診療）", "conf": "資料"}, {"id": "A3", "type": "分野", "n": "1.3 一次医療の質と、全住民の公平なアクセス", "conf": "資料", "d": "運営主体を問わない質の管理の仕組み。"}, {"id": "A4", "type": "分野", "n": "1.4 一次医療の人材の能力強化", "conf": "資料", "d": "一次医療の教育・研修センターでの継続研修。"}, {"id": "A5", "type": "分野", "n": "1.5 非感染性疾患の予防と対策", "conf": "資料", "d": "死亡の約8割を占める非感染性疾患（心臓病・がん・腎臓病・精神の病気など）の予防と管理。下の国のプログラムが具体化している。", "kids": [{"id": "heart", "type": "戦略", "n": "「健康な心臓」国家プログラム 2025–2030", "m": "大統領令 2025年11月17日 No.314", "conf": "法令", "d": "心血管疾患の早期発見と治療、患者の流れの見直し。"}, {"id": "ckd", "type": "戦略", "n": "慢性腎臓病の予防・診断・治療プログラム 2026–2030", "m": "内閣決定 2026年9月15日 No.618（行動計画つき）", "conf": "法令"}, {"id": "mh", "type": "戦略", "n": "精神保健プログラム 2018–2030", "m": "政府決定 2018年3月1日 No.119（第2期 2023–2027）", "conf": "法令", "d": "地域で受けられる精神保健サービスへの移行。"}, {"id": "onco", "type": "規則", "n": "がん医療の提供に関する規程", "m": "内閣決定 2024年12月18日 No.762", "conf": "法令", "d": "国のがんプログラムはなく、この規程とWHOとの3つの取り組み（子宮頸がん・乳がん・小児がん）で進めている。"}, {"id": "ncd13", "type": "戦略", "n": "非感染性疾患の予防・対策プログラム 2013–2020（期間終了）", "m": "政府決定 2013年11月11日 No.597", "conf": "法令", "d": "後継の総合プログラムは法令データベースで見つからず、上の病気ごとのプログラムに引き継がれている。"}]}, {"id": "A7", "type": "分野", "n": "1.6 感染症の予防と対策", "conf": "推定", "d": "国家開発プログラム9.4の課題（健康リスクの管理）に対応。下の国のプログラムが具体化している。", "kids": [{"id": "imm", "type": "戦略", "n": "予防接種（免疫予防）プログラム 2025–2030", "m": "内閣決定 2025年2月25日 No.90（前身 2020–2024 は No.609）", "conf": "法令"}, {"id": "tb", "type": "戦略", "n": "結核対策プログラム「結核-VI」2023–2026", "m": "内閣決定 2023年3月3日 No.119", "conf": "法令"}, {"id": "hiv", "type": "戦略", "n": "HIVと血液で感染するウイルス性肝炎の対策プログラム 2026–2030", "m": "2025年9月にパブリックコメント", "conf": "案"}, {"id": "epi", "type": "戦略", "n": "感染症対策・健康危機への備えの総合計画 2026–2030", "m": "2026年2月にパブリックコメント", "conf": "案"}]}, {"id": "A6", "type": "分野", "n": "1.7 母子保健", "conf": "推定", "d": "国家開発プログラム9.4の目標（妊産婦・5歳未満児の死亡）に対応。法令データベースで「母の健康」「周産期」「母と子の健康」を検索したが、独立した国のプログラムは見つからなかった。"}]}, {"id": "B", "type": "分野", "n": "2 病院・救急医療の合理化", "conf": "資料", "kids": [{"id": "B1", "type": "分野", "n": "2.1 病院の再編と近代化（施設・医療機材）", "conf": "資料", "d": "使われていない病院の見直し、建物ではなくサービスに資金をつける。"}, {"id": "B2", "type": "分野", "n": "2.2 救急医療", "conf": "資料", "d": "法令データベースでは救急車の調達などの個別決定のみで、独立したプログラムはない。"}, {"id": "B3", "type": "分野", "n": "2.3 病院の経営と感染管理", "conf": "資料", "d": "院長の公募と成果契約、経営能力をつけてから独立採算へ。医療廃棄物・院内感染の管理。"}]}, {"id": "C", "type": "分野", "n": "3 保健システムの土台の強化", "conf": "資料", "kids": [{"id": "C1", "type": "分野", "n": "3.1 財政とUHC（国の医療保障・強制医療保険・成果払い）", "conf": "資料", "d": "国が保障する医療サービス（SGBP）の見直し、一次医療への成果払い、サービスの原価計算と戦略的購入、医療保険の改革。", "kids": [{"id": "sgbp", "type": "制度", "n": "国の保障医療プログラム（無料・優遇で受けられる医療の範囲）", "m": "内閣決定 2023年9月21日 No.493、新しいモデルの試行は大統領令 2026年7月8日 No.252", "conf": "法令"}, {"id": "mhi", "type": "制度", "n": "強制医療保険基金の予算法 2026年（2027–2028年の計画つき）", "m": "法律 2026年1月23日 No.7", "conf": "法令"}]}, {"id": "C2", "type": "分野", "n": "3.2 人材と医学教育", "conf": "資料", "d": "法令データベースで「保健の人材政策」を検索したが、独立した戦略は見つからなかった。"}, {"id": "C3", "type": "分野", "n": "3.3 医薬品・医療機器", "conf": "推定", "kids": [{"id": "med26", "type": "規則", "n": "医薬品の安全・入手しやすさ・集中調達の改善の緊急措置", "m": "大統領令 2026年6月9日 No.202", "conf": "法令"}, {"id": "edl", "type": "制度", "n": "必須医薬品・医療機器の国のリスト 2026–2028", "m": "内閣承認 2026年10月", "conf": "報道"}]}, {"id": "C4", "type": "分野", "n": "3.4 デジタル保健（電子カルテ・診療ガイドラインの電子化）", "conf": "資料", "kids": [{"id": "dt", "type": "戦略", "n": "デジタル・トランスフォーメーション構想 2024–2028 の保健の取り組み", "m": "大統領令 2024年4月5日 No.90（マップ掲載済みの構想の第4章）", "conf": "法令", "d": "電子カルテなどのデジタル保健。"}, {"id": "dhe", "type": "規則", "n": "デジタル保健の統一エコシステムに関する規程", "m": "内閣 2024年10月24日", "conf": "法令"}, {"id": "eh16", "type": "戦略", "n": "電子保健プログラム 2016–2020（期間終了）", "m": "政府決定 2016年3月18日 No.134", "conf": "法令", "d": "後継のプログラムはなく、上の構想と規程に引き継がれている。"}]}, {"id": "C5", "type": "分野", "n": "3.5 保健行政・情報・モニタリング", "conf": "推定"}]}]}, {"id": "oth", "type": "", "n": "保健につながる、ほかの分野の戦略（マップに掲載済み）", "conf": "", "kids": [{"id": "water", "type": "戦略", "n": "飲料水供給・排水システム発展プログラム 〜2026", "conf": "法令"}, {"id": "food", "type": "戦略", "n": "食料安全保障・栄養プログラム", "conf": "本文旧版"}, {"id": "clim", "type": "", "n": "気候変動への強さ（国家開発プログラム13）", "conf": "本文"}]}], "rules": [["imm", "vaccin|immuniz|pentavalent|pneumococcal|polio|rotavirus|papilloma|gavi|targeted country assistance|country foundations"], ["tb", "tubercul|\\bTB\\b"], ["hiv", "\\bHIV\\b|AIDS|PEPFAR|hepatitis|epidemic control|stigma|community led monitoring"], ["epi", "health security|one health|zoonotic|surveillance and alert|acute public health threats|health emergenc|preparedness|AMR|antimicrobial|COVID|pandemic|infectious"], ["A6", "empowerment for women, girls|mother.?child|maternal|newborn|reproductive|sexual, reproductive"], ["heart", "cardio|heart|hypertens"], ["ckd", "kidney|renal|dialys"], ["onco", "cancer|oncolog|がん"], ["A2", "referral|早期発見"], ["clim", "vulnerability and adaptation"], ["A5", "non-?communicable|best buys|risk factors|promotion and preventive"], ["mh", "mental health"], ["A4", "PHC educational|nursing"], ["A1", "primary health care|primary care|primary healthcare|community action for health"], ["B1", "医療機材|hospital infrastructure|equipment"], ["B3", "waste management|facilities autonomy|hospital"], ["C1", "sector program health|budget support to the health|SWAp|health financing|Health Policy and Financing|insurance"], ["C2", "medical education|workforce"], ["C3", "medicine|pharma|drug supply"], ["dt", "digital health|health information system|e-health"], ["C5", "health governance|health leadership|evidence-informed|Ext\\.eval|Precedent-setting|health system strengthening"], ["water", "water|wastewater|WASH"], ["food", "nutrition|food|feeding"], ["clim", "climate|air quality|air pollution|大気"]], "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned", "note": "3段の形：プログラム → 分野（サブプログラム）→ その分野を具体化する国の戦略・個別プログラム・規則。分野の構成は世界銀行の技術評価（2019）、個別の文書は法令データベース（cbd.minjust.gov.kg、2026年11月6日照会）と報道による。案件の当てはめは題名・説明のキーワードによる自動判定。"}</script>
+<script type="application/json" id="tree-digital">{"sector": "digital", "strategy": "digital", "chapter": "8", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "nodes": [{"id": "digital", "type": "プログラム", "n": "デジタル・トランスフォーメーション構想 2024–2028", "conf": "法令", "m": "大統領令 2024年4月5日 No.90", "kids": [{"id": "D2", "type": "分野", "n": "1 戦略目標（行政改革・システム統合・電子サービス・データ活用・AI）（原文 第2章）", "conf": "法令", "kids": [{"id": "ecom", "type": "戦略", "n": "電子商取引の支援・発展プログラム 2023–2026", "conf": "資料", "m": "内閣承認（SDGs国別報告書2025に記載）"}, {"id": "odata", "type": "戦略", "n": "オープンデータ構想 2022–2024（期間終了）", "conf": "資料", "m": "SDGs国別報告書2025に記載"}, {"id": "lsbar", "type": "戦略", "n": "行政手続きの障壁削減プログラム 2026–2030", "conf": "報道", "d": "行政サービスのデジタル化・簡素化。", "m": "内閣決定 2025年12月13日 No.807"}]}, {"id": "D3", "type": "分野", "n": "2 デジタル基盤（データセンター・政府クラウド・光ファイバー）（原文 第3章）", "conf": "法令"}, {"id": "D4", "type": "分野", "n": "3 分野別のデジタル化（原文 第4章）", "conf": "法令", "kids": [{"id": "dhe", "type": "規則", "n": "保健：デジタル保健の統一エコシステムに関する規程", "conf": "法令", "m": "内閣 2024年10月24日"}, {"id": "D4e", "type": "分野", "n": "教育：教育のデジタル化", "conf": "本文"}, {"id": "D4n", "type": "分野", "n": "エネルギー：デジタル・エネルギー", "conf": "本文"}, {"id": "D4j", "type": "分野", "n": "立法・司法・選挙のデジタル化", "conf": "本文"}, {"id": "D4r", "type": "分野", "n": "防災のデジタル化", "conf": "本文"}]}]}], "rules": [["dhe", "digital health|Primary Health Care|health"], ["D4n", "Electricity|AMI|metering|energy"], ["D4j", "Justice|JUST4ALL|Jogorku Kenesh|Parliament"], ["D4e", "KLIC|coding|Digital Fabrication|digital-Learning|Universit|teachers and learners|Master's"], ["D4r", "Earthquake|Disaster"], ["D2", "Digitalisation|digital transformation|Digital Forward|Tax Administration|Statistical|Payment|\\bAI\\b|frontier|e-Government|Digital Competences|Digital Innovation"]], "note": "3段の形：構想 → 章（サブプログラム）→ 具体化する国の戦略・規則。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script type="application/json" id="tree-drrplan">{"sector": "drr", "strategy": "drrplan", "chapter": "13", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "only": "disaster|DRR|landslide|flood|drought|glacier|earthquake|mudflow|preparedness|hazard|Resilien|heatwave|cold wave", "nodes": [{"id": "drrplan", "type": "プログラム", "n": "緊急事態リスク低減の行動計画 2025–2030", "conf": "法令", "m": "内閣決定 2025年9月23日 No.601", "kids": [{"id": "R1", "type": "分野", "n": "1 危険箇所・施設の棚卸し", "conf": "法令"}, {"id": "R2", "type": "分野", "n": "2 予防措置（土石流・地すべり対策など）", "conf": "法令"}, {"id": "R3", "type": "分野", "n": "3 技術圏の安全（ダム・鉱滓など）", "conf": "法令"}, {"id": "R4", "type": "分野", "n": "4 森林への投資", "conf": "法令", "kids": [{"id": "forest", "type": "戦略", "n": "森林分野発展構想 〜2040（2024–2028版）", "conf": "資料", "m": "SDGs国別報告書2025に記載"}]}, {"id": "R5", "type": "分野", "n": "5 規制・能力の向上", "conf": "法令", "kids": [{"id": "cps", "type": "戦略", "n": "市民保護・災害リスク低減発展戦略 〜2040", "conf": "資料", "m": "SDGs国別報告書2025に記載"}]}, {"id": "R6", "type": "分野", "n": "6 資金調達（地方自治体の予算を含む）", "conf": "法令", "kids": [{"id": "drrfin", "type": "戦略", "n": "災害リスク・ファイナンス戦略 2026–2030", "conf": "報道", "m": "内閣承認 2026年6月（マップ掲載済み）"}]}]}, {"id": "drrup", "n": "上位の構想", "kids": [{"id": "drrconcept", "type": "戦略", "n": "住民と国土の緊急事態からの総合的保護構想 2018–2030", "conf": "資料", "m": "政府決定 2018年1月29日 No.58（マップ掲載済み）"}]}], "rules": [["R2", "Landslide|flood|drought|glacier|mudflow"], ["R3", "tailing|radioactive|dam safety"], ["forest", "forest|woodland"], ["drrfin", "insurance|risk financ|contingen"], ["R5", "preparedness|Disaster Risk Reduction|Disaster Management|capacity in assessment|Earthquake|Resilient societies|resilience of Central Asian"], ["R6", "Resilience Water|Resilient Water|Climate Change- and Disaster-Resilient|Enhancing Resilience in Kyrgyzstan|Rural Communities|DR and CC"]], "note": "3段の形：行動計画 → 章（サブプログラム）→ 具体化する国の戦略。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script type="application/json" id="tree-edu">{"sector": "education", "strategy": "edu", "chapter": "9.3", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "nodes": [{"id": "edu", "type": "プログラム", "n": "教育発展プログラム 2021–2040", "conf": "法令", "d": "就学前から成人教育まで、3つの課題と職業教育・高等教育で進める20年のプログラム。", "m": "政府決定 2021年5月4日（行動計画「アルティン・カズィク」〜2026）", "kids": [{"id": "E1", "type": "分野", "n": "1 公平で平等なアクセス（課題1）", "conf": "法令", "d": "都市と農村の差の解消、インクルーシブ教育と多言語教育、安全な学習環境（校舎・給食・衛生）。", "kids": [{"id": "lang", "type": "戦略", "n": "国家語（キルギス語）発展プログラム 2026–2028", "conf": "報道", "d": "多言語教育のうち国家語の教育を具体化。", "m": "内閣承認 2026年7月"}, {"id": "food", "type": "戦略", "n": "食料安全保障・栄養プログラム（学校給食）", "conf": "本文旧版", "d": "学校給食はこの枠組みでWFPなどと協力。", "m": "マップ掲載済み"}]}, {"id": "E2", "type": "分野", "n": "2 教育の質（課題2）", "conf": "法令", "d": "教育内容の近代化、デジタル化、教員の能力開発、学習成果の評価、教科書。", "kids": [{"id": "y12", "type": "戦略", "n": "12年制の学校教育への移行構想", "conf": "法令", "d": "6+3+3制へ。最初の12年制の卒業生は2036/2037年度。", "m": "内閣決定 2024年10月30日 No.654（行動計画 2024–2028）"}, {"id": "altyn", "type": "計画", "n": "行動計画「アルティン・カズィク」〜2026", "conf": "資料", "m": "教育発展プログラムの実施計画"}]}, {"id": "E3", "type": "分野", "n": "3 効果的な管理と財政（課題3）", "conf": "法令", "d": "人数割りの財政と学校の自主性、認可・認証、モニタリング、教育管理情報システム（EMIS）。"}, {"id": "E4", "type": "分野", "n": "4 職業教育（初等・中等職業）", "conf": "法令", "d": "職業基準に基づく内容、雇用者との連携、優良センター、資格枠組み。", "kids": [{"id": "prof", "type": "戦略", "n": "職業人材プログラム「Профессиональные кадры」2026–2030", "conf": "案", "m": "2026年10月にパブリックコメント"}]}, {"id": "E5", "type": "分野", "n": "5 高等教育・成人教育", "conf": "法令", "d": "大学の自治と評価、認証、腐敗対策、生涯学習。", "kids": [{"id": "hec", "type": "戦略", "n": "高等教育発展構想 〜2030", "conf": "案", "m": "2026年4月にパブリックコメント"}, {"id": "sci", "type": "戦略", "n": "科学・高等教育・知的財産・イノベーション発展国家プログラム 2026–2030", "conf": "案", "m": "2026年3月に案を作成"}]}]}], "rules": [["E1", "school meals|feeding|nutrition|inclusive|disabilit|ECD|ECE|preschool|learning environment|Enhancing Resilience in Kyrgyzstan|child protection"], ["E3", "Education Sector Reform Performance Contract|EDUCATION SYSTEM|education management information|multiple indicator cluster"], ["E2", "School Education Reform|Learning Outcomes|Learning for the Future|STEAM|teacher|curricul|competency|digital-Learning|coding|KLIC|ADAP"], ["E4", "skills|Techno|Digital Fabrication|Technical College|vocational|labour market"], ["E5", "Higher Education|Universit|Master's|Scholarship|Academy|Medical Education"]], "note": "3段の形：プログラム → 課題（サブプログラム）→ その課題を具体化する国の戦略・計画。課題の構成はプログラム本文（法令データベース）、個別の文書は法令データベース・教育省サイト・報道による。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script type="application/json" id="tree-eneff">{"sector": "energy", "strategy": "eneff", "chapter": "5.4", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "only": "energy|electric|heat|power|HPP|solar|renewable|efficien|metering|AMI|housing|building|KyrSEFF|SRMI|Kambarata|transmission|E-Mobility|Green Solutions", "nodes": [{"id": "eneff", "type": "プログラム", "n": "省エネ・エネルギー効率政策プログラム 2023–2027", "conf": "法令", "m": "内閣決定 2023年6月29日 No.328", "kids": [{"id": "F1", "type": "分野", "n": "1 法制度の整備と価格政策", "conf": "法令"}, {"id": "F2", "type": "分野", "n": "2 エネルギーの生産と配電での省エネ", "conf": "法令", "kids": [{"id": "enp", "type": "戦略", "n": "国家エネルギー・プログラム 〜2035（第1期 2024–2027）", "conf": "法令", "d": "発電能力の拡大と送配電の近代化。", "m": "内閣決定 2024年4月12日 No.172（マップ掲載済み）"}]}, {"id": "F3", "type": "分野", "n": "3 公共部門・建築・住宅公共サービスでの省エネ", "conf": "法令"}, {"id": "F4", "type": "分野", "n": "4 産業での省エネ", "conf": "法令"}, {"id": "F5", "type": "分野", "n": "5 ガス化と再生可能エネルギー", "conf": "法令", "kids": [{"id": "renew", "type": "戦略", "n": "再生可能エネルギー開発（分散型・マイクロ発電）2026–2030", "conf": "報道", "m": "内閣承認 2026年5月（マップ掲載済み）"}]}, {"id": "F6", "type": "分野", "n": "6 啓発", "conf": "法令"}]}], "rules": [["renew", "renewable|solar|SRMI|E-Mobility|Electric cars|Green Solutions"], ["enp", "HPP|Kambarata|transmission|Electricity|electro|Oshelectro|Vostokelectro|power supply|電力"], ["F2", "AMI|metering|Digitalization"], ["F3", "heat|building|housing"], ["F4", "KyrSEFF|industr"]], "note": "3段の形：プログラム → 柱（サブプログラム）→ 具体化する国のプログラム。エネルギー分野の案件のうち、電力・熱・省エネに関わるものだけを並べています。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script type="application/json" id="tree-gender">{"sector": "gender", "strategy": "gender", "chapter": "9.2", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "nodes": [{"id": "gender", "type": "プログラム", "n": "ジェンダー平等達成国家戦略 〜2030", "conf": "法令", "d": "本文は決定文のみ取得。5つの優先分野は決定文の記載による。", "m": "内閣決定 2022年9月16日 No.513（行動計画 2022–2024）", "kids": [{"id": "G1", "type": "分野", "n": "1 女性の経済的機会の拡大", "conf": "法令", "kids": [{"id": "wbiz", "type": "戦略", "n": "女性起業の支援・発展国家プログラム 2022–2026", "conf": "資料", "m": "SDGs国別報告書2025に記載"}]}, {"id": "G2", "type": "分野", "n": "2 文化政策と機能的な教育", "conf": "法令"}, {"id": "G3", "type": "分野", "n": "3 ジェンダー差別からの保護（家庭内暴力を含む）", "conf": "法令", "kids": [{"id": "traf", "type": "戦略", "n": "人身取引対策プログラム 2022–2025（期間終了）", "conf": "資料", "m": "内閣決定（マップ掲載済み）"}]}, {"id": "G4", "type": "分野", "n": "4 意思決定へのジェンダー均等な参加", "conf": "法令", "kids": [{"id": "wlead", "type": "戦略", "n": "女性のリーダーシップ支援国家プログラム 〜2030（行動計画 2024–2027）", "conf": "資料", "m": "国家開発プログラム2030・SDGs国別報告書2025に記載"}]}, {"id": "G5", "type": "分野", "n": "5 規制・法制度の整備", "conf": "法令"}]}], "rules": [["traf", "traffick"], ["G3", "violen|GBV|Spotlight|protection|harmful|shelter|victim|justice|survivor"], ["wlead", "leadership|political|decision-making|parliament|elect"], ["wbiz", "entrepreneur|business|economic empowerment|livelihood|income|employment|value chain|Workforce|labour"], ["G2", "education|school|girls|norms|stereotyp|youth|media"], ["G5", "legal|legislat|CEDAW|human rights|policy|statistic"]], "note": "3段の形：戦略 → 優先分野 → 具体化する国のプログラム。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script type="application/json" id="tree-pasture">{"sector": "agri", "strategy": "pasture", "chapter": "5.3", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "only": "pasture|livestock|graz|rangeland|herd|veterinar|animal|cashmere|yak|mountain", "nodes": [{"id": "pasture", "type": "プログラム", "n": "牧草地発展プログラム 2024–2029", "conf": "法令", "m": "内閣決定 2024年8月9日 No.462", "kids": [{"id": "P1", "type": "分野", "n": "1 牧草地の持続的な管理と利用の改善", "conf": "法令", "kids": [{"id": "soil", "type": "戦略", "n": "土壌肥沃度向上プログラム 2024–2028", "conf": "資料", "m": "SDGs国別報告書2025に記載"}, {"id": "org", "type": "戦略", "n": "有機生産発展プログラム 2025–2029", "conf": "資料", "m": "SDGs国別報告書2025に記載"}]}, {"id": "P2", "type": "分野", "n": "2 牧草地の気候変動への適応", "conf": "法令"}, {"id": "P3", "type": "分野", "n": "3 人材育成と知識・技能の向上", "conf": "法令"}]}], "rules": [["P2", "climate|resilien|adapt|drought"], ["P3", "capacity|training|knowledge|extension|research|education"], ["org", "organic|value chain|market|cashmere"], ["P1", "pasture|graz|rangeland|livestock|animal|veterinar|herd"]], "note": "3段の形：プログラム → 優先分野 → 具体化する国のプログラム。農業分野の案件のうち、牧草地・畜産に関わるものだけを並べています。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script type="application/json" id="tree-tourism">{"sector": ["private", "nature", "urban"], "strategy": "tourism", "chapter": "5.3", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "only": "touris|heritage|hotel|Issyk-Kul", "nodes": [{"id": "tourism", "type": "プログラム", "n": "持続可能な観光発展プログラム 2025–2030", "conf": "法令", "m": "内閣決定 2024年12月18日 No.765", "kids": [{"id": "T1", "type": "分野", "n": "1 観光政策の最適化", "conf": "法令"}, {"id": "T2", "type": "分野", "n": "2 消費者市場の形成", "conf": "法令"}, {"id": "T3", "type": "分野", "n": "3 観光サービス市場のデジタル化", "conf": "法令"}, {"id": "T4", "type": "分野", "n": "4 観光の安全", "conf": "法令"}, {"id": "T5", "type": "分野", "n": "5 歴史・文化遺産と自然環境の保全", "conf": "法令", "kids": [{"id": "cult", "type": "戦略", "n": "文化・芸術発展プログラム 2026–2030", "conf": "報道", "m": "内閣承認 2026年2月"}]}, {"id": "T6", "type": "分野", "n": "6 地域の発展", "conf": "法令", "kids": [{"id": "regions", "type": "戦略", "n": "地域の総合的社会経済発展プログラム 2025–2030", "conf": "報道", "m": "内閣決定 2025年3月25日（マップ掲載済み）"}]}, {"id": "T7", "type": "分野", "n": "7 観光インフラの整備", "conf": "法令"}, {"id": "T8", "type": "分野", "n": "8 観光のグリーン技術", "conf": "法令"}, {"id": "T9", "type": "分野", "n": "9 医療・スポーツ・保養観光", "conf": "法令"}]}], "rules": [["cult", "heritage|cultur|creative"], ["T3", "digital|marketing"], ["T8", "Environmental Management|green"], ["T7", "infrastructure|road|hotel"], ["T6", "region|community|rural"]], "note": "3段の形：プログラム → 優先分野 → 具体化する国のプログラム。民間セクター分野の案件のうち、観光に関わるものだけを並べています。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script type="application/json" id="tree-water">{"sector": "water", "strategy": "water", "chapter": "9.4", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "only": "water supply|drinking|sanitation|wastewater|water sub-?project|water framework|water project|water services|water sector|Water Use Permits|Water Resource|irrigation|Water and Wastewater|Water II|Osh water|WASH", "nodes": [{"id": "water", "type": "プログラム", "n": "飲料水供給・排水システム発展プログラム 〜2026", "conf": "法令", "m": "政府決定 2020年6月12日 No.330", "kids": [{"id": "W1", "type": "分野", "n": "1 政策の実施と制度面の改革", "conf": "法令", "kids": [{"id": "wcode", "type": "法律", "n": "水法典", "conf": "法令", "m": "法律 2025年6月27日 No.128（マップ掲載済み）"}]}, {"id": "W2", "type": "分野", "n": "2 資金協力事業の質の高い実施", "conf": "法令"}, {"id": "W3", "type": "分野", "n": "3 投資の魅力と運営能力の向上", "conf": "法令"}]}, {"id": "wsup", "n": "上位・関連の水の戦略", "kids": [{"id": "nws", "type": "戦略", "n": "国家水戦略 〜2040", "conf": "資料", "d": "飲料水・灌漑・水資源管理を含む水分野全体の長期戦略。", "m": "大統領令 2023年2月10日 No.23"}, {"id": "irr", "type": "戦略", "n": "灌漑発展国家プログラム 〜2026", "conf": "資料", "m": "SDGs国別報告書2025に記載"}]}], "rules": [["W1", "Sector Reform|Budget Support|Water Use Permits|Public Service Improvement"], ["W3", "Resource Efficiency|Program Readiness|Preparing"], ["irr", "irrigation|on-farm|Water Resources Sector Project|Resilient Water Resources Programme"], ["W2", "water supply|drinking water|sanitation|wastewater|water sub-?project|water framework|water services|water project|Water II|Osh water|WASH"]], "note": "3段の形：プログラム → コンポーネント → 法律・上位の戦略。水分野の案件のうち、給水・衛生・灌漑に関わるものだけを並べています。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
+<script>
+"use strict";
+const BASE = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/sector-data/";
+const EMBED = window.KM_DATA || null;   // snapshot carried inside the page (claude.ai version)
+const TZ = "Asia/Bishkek";
+const SECTORS = [
+  ["urban","都市・地域開発"],["transport","運輸交通"],["energy","資源・エネルギー"],["private","民間セクター開発"],
+  ["agri","農業・農村開発"],["health","保健医療"],["nutrition","栄養改善"],["education","教育"],
+  ["social","社会保障・障害と開発"],["sports","スポーツと開発"],["peace","平和構築"],["governance","ガバナンス"],
+  ["finance","公共財政・金融システム"],["gender","ジェンダー平等"],["digital","デジタル化"],["climate","気候変動"],
+  ["nature","自然環境保全"],["envmgmt","環境管理"],["water","水資源・水供給"],["drr","防災・災害リスク削減"],
+];
+const SEC = Object.fromEntries(SECTORS.map(([id,ja],i)=>[id,{id,ja,no:String(i+1).padStart(2,"0")}]));
+// short sector names for the small tags of the strategy map (sector numbers there were mistaken for chapter numbers)
+const SEC_SHORT = {urban:"都市",transport:"運輸",energy:"エネルギー",private:"民間",agri:"農業",health:"保健",nutrition:"栄養",education:"教育",
+  social:"社会保障",sports:"スポーツ",peace:"平和",governance:"ガバナンス",finance:"財政・金融",gender:"ジェンダー",digital:"デジタル",
+  climate:"気候",nature:"自然",envmgmt:"環境管理",water:"水",drr:"防災"};
+const secTag = (id, on) => `<i class="${on?"on":""}" title="${esc(SEC[id].ja)}">${esc(SEC_SHORT[id]||SEC[id].ja)}</i>`;
+const DGROUP = {japan:"日本",mdb:"国際開発金融機関",un:"国連・国際機関",bilateral:"二国間",fund:"基金",ngo:"財団・NGO"};
+const JP_IDS = new Set(["jica","jp"]);
+let DONORS = {};
+const ST_JA = {active:"実施中",pipeline:"計画中",closed:"終了",dropped:"中止",suspended:"中断"};
+const PERIODS = [[7,"7日"],[30,"30日"],[90,"90日"],[365,"1年"],[0,"全期間"]];
+const DAY = 864e5;
+
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = s => document.querySelector(s);
+function lsGet(k,d){ try{ const v = JSON.parse(localStorage.getItem(k)); return v==null?d:v; }catch(e){ return d; } }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+const CURS = ["USD","JPY","KGS"];
+let CUR = CURS.includes(lsGet("km-cur","USD")) ? lsGet("km-cur","USD") : "USD";
+function toast(msg){ const t = document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
+
+/* ---------- theme / JICA switch ---------- */
+function applyTheme(t){ if(t) document.documentElement.setAttribute("data-theme",t); else document.documentElement.removeAttribute("data-theme"); }
+applyTheme(lsGet("km-theme",null));
+$("#theme").onclick = ()=>{ const c = lsGet("km-theme",null), n = c==null?"dark":c==="dark"?"light":null; lsSet("km-theme",n); applyTheme(n); };
+let SHOW_JP = lsGet("km-jp", true);
+// favourite sectors ("マイ分野"): pinned to the top of the overview and usable as a news filter
+let FAV = new Set(lsGet("km-fav", []));
+function toggleFav(id){ FAV.has(id) ? FAV.delete(id) : FAV.add(id); lsSet("km-fav", [...FAV]); }
+const favStar = id => `<button class="fav ${FAV.has(id)?"on":""}" data-fav="${id}" title="${FAV.has(id)?"マイ分野から外す":"マイ分野に追加"}" aria-label="マイ分野">${FAV.has(id)?"★":"☆"}</button>`;
+function syncJP(){ $("#jica").setAttribute("aria-pressed", String(SHOW_JP)); $("#jica").title = SHOW_JP ? "JICA・日本の協力を表示中（押すと隠す）" : "JICA・日本の協力を隠しています（押すと表示）"; }
+syncJP();
+const CUR_LABEL = {USD:"$", JPY:"¥", KGS:"сом"};
+function syncCur(){ $("#cur").textContent = CUR_LABEL[CUR]; $("#cur").title = `金額の通貨：${{USD:"米ドル",JPY:"日本円",KGS:"キルギス・ソム"}[CUR]}（押すと切り替え）`; }
+syncCur();
+$("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("km-cur", CUR); syncCur();
+  toast(CUR==="USD" ? "米ドルで表示" : `${CUR==="JPY"?"日本円":"ソム"}で表示（1ドル=${fx(CUR)}${CUR==="JPY"?"円":"ソム"}${INDEX&&INDEX.fx&&INDEX.fx.date?`・${INDEX.fx.date}のレート`:"・目安のレート"}）`); render(); };
+$("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
+
+/* ---------- state & routing ---------- */
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:""};
+// chart switches (not part of the address): donut scope/metric/range, year chart metric
+// ym: new = started that year, ongoing = running that year, cum = everything started up to that year
+const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov"}, lsGet("km-charts", {}));
+if(CH.ym==="amt"||CH.ym==="n"){ CH.ymet = CH.ym; CH.ym = "new"; }
+if(!["new","ongoing","cum"].includes(CH.ym)) CH.ym = "new";
+if(!/^(active|all|[yoc]\d{4})$/.test(CH.range) || +CH.range.slice(1) > new Date().getFullYear()) CH.range = "active";
+const S = {...DEF};
+const PAGE = 50;
+let shown = PAGE;
+function readHash(){
+  const h = new URLSearchParams(EMBED ? "" : location.hash.slice(1));
+  for(const k of Object.keys(DEF)) S[k] = h.has(k) ? h.get(k) : DEF[k];
+  S.p = +S.p || (h.get("p")==="0" ? 0 : DEF.p);
+}
+function go(patch, push=true, keep=null){
+  Object.assign(S, patch); shown = PAGE;
+  if(!EMBED){
+    const h = new URLSearchParams();
+    for(const k of Object.keys(DEF)) if(String(S[k])!==String(DEF[k])) h.set(k,S[k]);
+    const str = h.toString(), url = str ? "#"+str : location.pathname+location.search;
+    push ? history.pushState(null,"",url) : history.replaceState(null,"",url);
+  }
+  render(keep); if(push) window.scrollTo(0,0);
+}
+window.addEventListener("popstate", ()=>{ if(EMBED) return; readHash(); shown=PAGE; render(); });
+
+/* ---------- data ---------- */
+let INDEX = null, ITEMS = [], PROJECTS = null, loadedYears = new Set(), loadErr = "";
+let saved = lsGet("km-saved", {});
+async function getJSON(name){
+  if(EMBED){
+    if(name==="index.json") return EMBED.index;
+    if(name==="projects.json") return EMBED.projects;
+    const y = (name.match(/items-(\d+)/)||[])[1];
+    return {items:(EMBED.items||[]).filter(x=>(x.p||"").startsWith(y))};
+  }
+  const r = await fetch(BASE+name, {cache:"no-cache"});
+  if(!r.ok) throw new Error("HTTP "+r.status);
+  return r.json();
+}
+function prep(x){
+  x.ts = Date.parse(x.p) || 0; x.c = x.c||[]; x.d = x.d||[];
+  x.jp = x.d.some(d=>JP_IDS.has(d));
+  x.k = ((x.t||"")+" "+(x.tj||"")+" "+(x.l||"")+" "+(x.lj||"")+" "+(x.s||"")).toLowerCase();
+  return x;
+}
+async function loadYear(y){
+  if(loadedYears.has(y)) return;
+  loadedYears.add(y);
+  const d = await getJSON("items-"+y+".json");
+  const have = new Set(ITEMS.map(x=>x.i));
+  // items the AI judged off-topic (ads, crime blotter, passing mentions) are kept in the data but not shown
+  for(const x of d.items||[]) if(!have.has(x.i) && !x.hide) ITEMS.push(prep(x));
+  ITEMS.sort((a,b)=>b.ts-a.ts);
+  linkDups();
+}
+// the same story from several outlets is shown once, with the other outlets listed under it
+let REPEATS = {};
+function linkDups(){
+  const byId = {}; for(const x of ITEMS) byId[x.i] = x;
+  REPEATS = {};
+  for(const x of ITEMS){ x.isDup = !!(x.dup && byId[x.dup]); if(x.isDup) (REPEATS[x.dup] = REPEATS[x.dup]||[]).push(x); }
+}
+let projLoading = null;
+function loadProjects(){
+  if(PROJECTS) return Promise.resolve(PROJECTS);
+  if(!projLoading) projLoading = getJSON("projects.json").then(d=>{
+    PROJECTS = (d.projects||[]).map(p=>{ p.c=p.c||[]; p.k=((p.t||"")+" "+(p.tj||"")+" "+(p.x||"")+" "+(p.org||"")+" "+(p.impl||"")).toLowerCase(); return p; });
+    PROJECTS.meta = d;
+  }).catch(e=>{ PROJECTS = []; PROJECTS.err = String(e.message||e); }).then(()=>{ render(); return PROJECTS; });
+  return projLoading;
+}
+const items = () => ITEMS.filter(x=>!x.isDup && (SHOW_JP || !(x.jp && x.d.every(d=>JP_IDS.has(d)))));
+const projects = () => !PROJECTS || PROJECTS.err ? [] : SHOW_JP ? PROJECTS : PROJECTS.filter(p=>!JP_IDS.has(p.donor));
+const projReady = () => PROJECTS && !PROJECTS.err;
+
+async function boot(){
+  readHash(); $("#q").value = S.q;
+  try{
+    INDEX = await getJSON("index.json");
+    for(const d of INDEX.donors||[]) DONORS[d.id] = d;
+    await Promise.all((INDEX.years||[]).slice(0,2).map(loadYear));
+    const age = Date.now() - Date.parse(INDEX.updated);
+    $("#upd").innerHTML = (EMBED?`<span class="snap" title="${esc(EMBED.note||"")}">SNAPSHOT</span>`:"UPDATED ") + esc(fmtDT(INDEX.updated));
+    $("#live").classList.toggle("stale", age > 12*3600e3);
+  }catch(e){ loadErr = String(e.message||e); }
+  render();
+  loadProjects();
+}
+
+/* ---------- formatting ---------- */
+const dtfDay = new Intl.DateTimeFormat("ja-JP",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",weekday:"short"});
+const dtfT = new Intl.DateTimeFormat("ja-JP",{timeZone:TZ,month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"});
+const dtfHM = new Intl.DateTimeFormat("ja-JP",{timeZone:TZ,hour:"2-digit",minute:"2-digit"});
+const fmtDay = ts => dtfDay.format(new Date(ts));
+const fmtDT = s => { try{ return dtfT.format(new Date(s)); }catch(e){ return ""; } };
+const fmtHM = ts => dtfHM.format(new Date(ts));
+const ymd = s => s ? s.slice(0,7).replace("-","/") : "";
+// amounts are held in US dollars; the viewer picks dollars, yen or som (latest rate from the collector)
+const FX_DEFAULT = {JPY:150, KGS:87.4};
+const fx = c => (INDEX && INDEX.fx && INDEX.fx[c]) || FX_DEFAULT[c];
+function jpUnits(v, unit){   // 1.2兆 / 350億 / 12億 / 4,500万
+  if(v>=1e12) return (v/1e12).toFixed(v>=1e13?1:2)+"兆"+unit;
+  if(v>=1e8) return (v>=1e10?Math.round(v/1e8).toLocaleString():(v/1e8).toFixed(1))+"億"+unit;
+  if(v>=1e4) return Math.round(v/1e4).toLocaleString()+"万"+unit;
+  return Math.round(v).toLocaleString()+unit;
+}
+function money(v, cur=CUR){
+  if(v==null||!v) return "";
+  if(cur==="JPY") return jpUnits(v*fx("JPY"), "円");
+  if(cur==="KGS") return jpUnits(v*fx("KGS"), "ソム");
+  if(v>=1e9) return "$"+(v/1e9).toFixed(2)+"B";
+  if(v>=1e6) return "$"+(v/1e6).toFixed(v>=1e8?0:1)+"M";
+  if(v>=1e3) return "$"+Math.round(v/1e3)+"K";
+  return "$"+Math.round(v);
+}
+function jaLink(url){
+  try{
+    const u = new URL(url);
+    if(!/^https?:$/.test(u.protocol) || /(^|\.)news\.google\.com$/.test(u.hostname) || /\.translate\.goog$/.test(u.hostname) || /\.jp$/.test(u.hostname)) return url;
+    const host = u.hostname.replace(/-/g,"--").replace(/\./g,"-") + ".translate.goog";
+    const q = new URLSearchParams(u.search);
+    q.set("_x_tr_sl","auto"); q.set("_x_tr_tl","ja"); q.set("_x_tr_hl","ja"); q.set("_x_tr_pto","wapp");
+    return `https://${host}${u.pathname}?${q}${u.hash}`;
+  }catch(e){ return url; }
+}
+function hl(text){
+  const s = esc(text);
+  const terms = (S.q||"").trim().split(/\s+/).filter(t=>t.length>1).map(t=>esc(t).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+  return terms.length ? s.replace(new RegExp("("+terms.join("|")+")","gi"),'<mark class="hl">$1</mark>') : s;
+}
+const donorName = id => (DONORS[id]&&DONORS[id].ja) || id;
+const STAR = '<svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z" stroke-linejoin="round"/></svg>';
+
+/* ---------- filtering ---------- */
+function filterItems(o){
+  const min = o.p ? Date.now() - o.p*DAY : 0;
+  const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
+  return items().filter(x=>{
+    if(x.ts < min) return false;
+    if(o.s && !x.c.includes(o.s)) return false;
+    if(o.my && FAV.size && !x.c.some(c=>FAV.has(c))) return false;
+    if(o.d && !x.d.includes(o.d)) return false;
+    if(o.t==="gov" && !x.g) return false;
+    if(o.t==="coop" && !x.d.length) return false;
+    if(o.t==="press" && (x.g || x.d.length)) return false;
+    for(const t of terms) if(!x.k.includes(t)) return false;
+    return true;
+  });
+}
+const isOpen = p => p.st==="active"||p.st==="pipeline";
+function filterProjects(o){
+  const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const r = projects().filter(p=>{
+    if(o.s && !p.c.includes(o.s)) return false;
+    if(o.d && p.donor!==o.d) return false;
+    if(o.k && sch(p)!==o.k) return false;
+    if(o.ua && hasAmt(p)) return false;
+    if(o.ps==="open" && !isOpen(p)) return false;
+    if(o.ps==="past" && isOpen(p)) return false;
+    if(["active","pipeline"].includes(o.ps) && p.st!==o.ps) return false;
+    if(o.ps==="closed" && isOpen(p)) return false;
+    for(const t of terms) if(!p.k.includes(t)) return false;
+    return true;
+  });
+  const by = {start:(a,b)=>(b.a||"").localeCompare(a.a||""), amount:(a,b)=>(b.amt||0)-(a.amt||0),
+              end:(a,b)=>(a.e||"9999").localeCompare(b.e||"9999")}[o.psort||"start"];
+  return r.sort(by);
+}
+
+/* ---------- pieces ---------- */
+function kindTags(x){
+  const out = [];
+  if(x.g) out.push('<span class="tag gov">GOV</span>');
+  if(x.d.length) out.push(x.jp ? '<span class="tag jp">JAPAN</span>' : '<span class="tag coop">COOP</span>');
+  if(!x.g && !x.d.length) out.push('<span class="tag press">PRESS</span>');
+  return out.join("");
+}
+function itemHTML(x, compact){
+  const title = x.tj || x.t, lead = x.lj || x.l, on = saved[x.i] ? "on" : "";
+  const dons = x.d.map(d=>`<span class="don ${JP_IDS.has(d)?"jp":""}">${esc(donorName(d))}</span>`).join(" ");
+  const showOrig = x.tj && x.tj!==x.t;
+  return `<article class="it">
+    <div class="meta"><span class="t">${esc(fmtHM(x.ts))}</span>${kindTags(x)}<span class="src">${esc(x.s||"")}</span>${dons}${x.lang&&x.lang!=="ru"?`<span class="tag lang">${esc(x.lang)}</span>`:""}</div>
+    <h3><a href="${esc(jaLink(x.u))}" target="_blank" rel="noopener">${hl(title)}</a></h3>
+    <p class="orig">${showOrig?hl(x.t)+" · ":""}<a href="${esc(x.u)}" target="_blank" rel="noopener">原文</a></p>
+    ${lead && lead!==title && !compact ? `<p class="lead">${hl(lead)}</p>` : ""}
+    ${REPEATS[x.i] ? `<p class="also">同じニュース：他 ${REPEATS[x.i].length} 媒体 ${REPEATS[x.i].slice(0,5).map(r=>`<a href="${esc(jaLink(r.u))}" target="_blank" rel="noopener">${esc(r.s||"")}</a>`).join("・")}</p>` : ""}
+    ${x.c.length && !compact ? `<div class="chips">${x.c.map(c=>SEC[c]?`<button class="chip" data-sec="${c}">${esc(SEC[c].ja)}</button>`:"").join("")}</div>` : ""}
+    <button class="star ${on}" data-star="${esc(x.i)}" title="保存" aria-label="保存">${STAR}</button>
+  </article>`;
+}
+function listHTML(list, more=true, compact=false){
+  if(!list.length) return `<div class="feed"><div class="empty">該当する情報はありません</div></div>`;
+  let out = "", last = "";
+  for(const x of list.slice(0, more?shown:list.length)){
+    const d = fmtDay(x.ts);
+    if(d!==last){ out += `<div class="day">${esc(d)}</div>`; last = d; }
+    out += itemHTML(x, compact);
+  }
+  out = `<div class="feed">${out}</div>`;
+  if(more && list.length > shown) out += `<button class="btn more" data-more>さらに表示 · 残り ${list.length-shown}</button>`;
+  return out;
+}
+function projectHTML(p){
+  const now = new Date().toISOString().slice(0,10);
+  let tl = "";
+  if(p.a && p.e && p.e > p.a){
+    const a = Date.parse(p.a), e = Date.parse(p.e), n = Date.parse(now);
+    const pct = Math.max(0, Math.min(100, (n-a)/(e-a)*100));
+    tl = `<div class="timeline" title="期間の経過 ${Math.round(pct)}%"><i style="left:0;width:${pct}%"></i></div>`;
+  }
+  const jp = JP_IDS.has(p.donor);
+  return `<article class="pj">
+    <div class="row1"><span class="st st-${esc(p.st)}">${esc(ST_JA[p.st]||p.st)}</span>
+      <span class="don ${jp?"jp":""}">${esc(p.donor&&p.donor!=="ngo"?donorName(p.donor):"")}</span>
+      ${p.org && donorName(p.donor)!==p.org ? `<span>${esc(p.org)}</span>` : ""}<span class="kind" ${p.kind?`title="元の区分: ${esc(p.kind)}"`:""}>${esc(sch(p))}</span>${(p.a||p.e)?`<span class="per">${esc(ymd(p.a)||"?")}–${esc(ymd(p.e)||"?")}</span>`:""}${amtHTML(p)}</div>
+    <h3><a href="${esc(p.u)}" target="_blank" rel="noopener">${hl(p.tj||p.t)}</a></h3>
+    ${p.tj && p.tj!==p.t ? `<p class="orig" style="font-size:12px;color:var(--faint);margin:0">${hl(p.t)}</p>` : ""}
+    ${p.impl ? `<p class="desc">実施機関: ${esc(p.impl)}</p>` : ""}
+    ${p.x ? `<p class="desc">${hl(p.x)}</p>` : ""}
+    ${p.c.length?`<div class="chips">${p.c.map(c=>SEC[c]?`<button class="chip" data-sec="${c}">${esc(SEC[c].ja)}</button>`:"").join("")}</div>`:""}
+    ${isOpen(p)?tl:""}
+  </article>`;
+}
+function yen(v){ return jpUnits(v, "円"); }
+// amounts: a project whose public data gives no amount is counted as "金額不明", never as zero
+const hasAmt = p => (p.amt||0) > 0;
+const unk = list => list.filter(p=>!hasAmt(p)).length;
+const unkNote = (n, all) => n ? `金額不明 ${n}件${all!=null?` / ${all}件`:""}` : "";
+const amtHTML = p => !hasAmt(p) ? `<span class="unk" title="公開情報に金額の記載がありません">金額不明</span>` : p.amtx ? `<span class="amt" title="金額の項目がなく、案件説明に書かれた額（ユーロはドル換算）">${money(p.amt)}</span><span class="note">（説明文の額）</span>` : p.jpy ? (CUR==="JPY" ? `<span class="amt" title="JICAの公表額">${yen(p.jpy)}</span>` : `<span class="amt">${money(p.amt)}</span><span class="note">（${yen(p.jpy)}）</span>`) : p.amt ? `<span class="amt">${money(p.amt)}</span>` : "";
+// one set of cooperation forms for every donor (the collector sets p.sch; older records are mapped here)
+const SCHEMES = ["融資（事業）","無償資金（事業・機材）","技術協力","財政・政策支援","緊急・復興支援","その他・不明"];
+function sch(p){
+  if(p.sch) return p.sch;
+  const k = (p.kind||"").toLowerCase();
+  if(p.src==="jica") return /有償|円借款/.test(k) ? SCHEMES[0] : /無償/.test(k) ? SCHEMES[1] : k ? SCHEMES[2] : SCHEMES[5];
+  if(p.src==="wb") return /development policy|structural adjustment|sector adjustment|program-for-results|programmatic/.test(k) ? SCHEMES[3]
+    : /technical assistance/.test(k) ? SCHEMES[2] : /emergency|rehabilitation/.test(k) ? SCHEMES[4] : SCHEMES[0];
+  return SCHEMES[5];
+}
+function kindSelect(list){
+  const kinds = SCHEMES.filter(k=>list.some(p=>sch(p)===k));
+  if(kinds.length<2 && !S.k) return "";
+  return `<select data-sel="k" aria-label="協力形態"><option value="">すべての協力形態</option>${kinds.map(k=>`<option ${k===S.k?"selected":""}>${esc(k)}</option>`).join("")}</select>`;
+}
+function projectListHTML(list){
+  if(!PROJECTS) return `<div class="feed"><div class="empty">案件データを読み込み中…</div></div>`;
+  if(PROJECTS.err) return `<div class="feed"><div class="empty">案件データを読み込めませんでした（${esc(PROJECTS.err)}）</div></div>`;
+  if(!list.length) return `<div class="feed"><div class="empty">該当する案件はありません</div></div>`;
+  const total = list.reduce((s,p)=>s+(p.amt||0),0), u = unk(list);
+  let out = `<div class="count"><span>${list.length} 件</span>${total?`<span>合計 ${money(total)}（金額判明 ${list.length-u}件）</span>`:""}${u?`<span class="unk">金額不明 ${u}件</span>`:""}<span class="sp"></span><button class="btn" data-csv="projects">CSV</button></div>`;
+  out += `<div class="feed">${list.slice(0, shown).map(projectHTML).join("")}</div>`;
+  if(list.length > shown) out += `<button class="btn more" data-more>さらに表示 · 残り ${list.length-shown}</button>`;
+  return out;
+}
+function seg(name, opts, cur){
+  return `<span class="seg">${opts.map(([v,l])=>`<button data-set="${name}" data-val="${v}" class="${String(v)===String(cur)?"on":""}">${esc(l)}</button>`).join("")}</span>`;
+}
+const sectorSelect = cur => {
+  const opt = ([id,ja]) => `<option value="${id}" ${id===cur?"selected":""}>${SEC[id].no} ${esc(ja)}</option>`;
+  const favs = SECTORS.filter(([id])=>FAV.has(id));
+  return `<select data-sel="s" aria-label="分野"><option value="">すべての分野</option>${favs.length?`<optgroup label="★ マイ分野">${favs.map(opt).join("")}</optgroup><optgroup label="すべて">`:""}${SECTORS.map(opt).join("")}${favs.length?"</optgroup>":""}</select>`;
+};
+function donorSelect(cur){
+  const g = {};
+  for(const d of Object.values(DONORS)) if(SHOW_JP || d.g!=="japan") (g[d.g] = g[d.g]||[]).push(d);
+  return `<select data-sel="d" aria-label="機関"><option value="">すべての機関</option>${Object.entries(DGROUP).map(([k,l])=>g[k]?`<optgroup label="${esc(l)}">${g[k].map(d=>`<option value="${d.id}" ${d.id===cur?"selected":""}>${esc(d.ja)}</option>`).join("")}</optgroup>`:"").join("")}</select>`;
+}
+const periodSelect = cur => `<select data-sel="p" aria-label="期間">${PERIODS.map(([v,l])=>`<option value="${v}" ${v===cur?"selected":""}>${l}</option>`).join("")}</select>`;
+const qInput = () => `<input type="search" data-inp="q" placeholder="絞り込み" value="${esc(S.q)}" aria-label="絞り込み">`;
+function weekly(list, n=12){
+  const now = Date.now(), w = new Array(n).fill(0);
+  for(const x of list){ const i = Math.floor((now-x.ts)/(7*DAY)); if(i>=0&&i<n) w[n-1-i]++; }
+  return w;
+}
+function spark(w){
+  const W = 120, H = 30, max = Math.max(1,...w), step = W/(w.length-1);
+  const pts = w.map((v,i)=>[i*step, H-3-(v/max)*(H-6)]);
+  const line = pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join("");
+  const last = pts[pts.length-1];
+  return `<svg class="sp" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${line}L${W} ${H}L0 ${H}Z" fill="var(--spark-fill)"/><path d="${line}" fill="none" stroke="var(--spark)" stroke-width="1.5" vector-effect="non-scaling-stroke"/><circle cx="${last[0]}" cy="${last[1]}" r="2" fill="var(--spark)"/></svg>`;
+}
+function monthChart(list){
+  const now = new Date(), months = [];
+  for(let i=11;i>=0;i--){ const d = new Date(now.getFullYear(), now.getMonth()-i, 1); months.push({k:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"), m:d.getMonth()+1, g:0, o:0}); }
+  const idx = Object.fromEntries(months.map((m,i)=>[m.k,i]));
+  for(const x of list){ const i = idx[(x.p||"").slice(0,7)]; if(i==null) continue; if(x.g) months[i].g++; else months[i].o++; }
+  const max = Math.max(1,...months.map(m=>m.g+m.o));
+  const W = 600, H = 120, top = 8, base = 100, bw = W/12;
+  const bars = months.map((m,i)=>{
+    const x = i*bw+6, w = bw-12; let y = base, s = "";
+    for(const [v,col] of [[m.g,"var(--gov)"],[m.o,"var(--bar)"]]){ const h = v/max*(base-top); y -= h; if(h>0) s += `<rect x="${x}" y="${y}" width="${w}" height="${Math.max(0,h-1)}" fill="${col}"/>`; }
+    return `<g><title>${m.m}月: 政府 ${m.g}件・その他の報道 ${m.o}件</title>${s}</g><text x="${x+w/2}" y="${base+14}" text-anchor="middle">${m.m}月</text>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="月別の報道件数"><line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)"/>${bars}<text x="2" y="${top+2}">${max}</text></svg>`;
+}
+/* ----- cooperation figures ----- */
+// a project spanning several sectors counts in each with an equal share of its amount
+const shareAmt = p => (p.amt||0) / Math.max(1, p.c.length);
+// in one sector a multi-sector project counts with its share; across all sectors with its full amount
+const valAmt = (p, sid) => sid ? shareAmt(p) : (p.amt||0);
+const sectorProjects = sid => sid ? projects().filter(p=>p.c.includes(sid)) : projects();
+const DCOL = ["var(--d1)","var(--d2)","var(--d3)","var(--d4)","var(--d5)","var(--d6)"];
+const JICA_COL = "var(--d7)";   // JICA keeps one colour everywhere, whatever its rank
+// colours follow the donor, not its rank in the current view: fixed per sector by all-time amount
+const colorCache = {};
+function donorColors(sid){
+  const key = sid+"|"+SHOW_JP+"|"+(PROJECTS?PROJECTS.length:0);
+  if(colorCache[key]) return colorCache[key];
+  const tot = {};
+  for(const p of sectorProjects(sid)) tot[p.donor] = (tot[p.donor]||0) + valAmt(p,sid) + 1;
+  const order = Object.entries(tot).filter(([d])=>d!=="ngo" && d!=="jica").sort((a,b)=>b[1]-a[1]).map(([d])=>d);
+  const map = {}; order.slice(0,6).forEach((d,i)=>map[d]=DCOL[i]);
+  if(SHOW_JP) map.jica = JICA_COL;
+  return colorCache[key] = map;
+}
+/* ----- years: each project counts once, at its full amount, in the year it was approved or started.
+   Yearly spending is not published, and summing the projects running in each year counts one project
+   in several years, so new commitments per year are the figure that adds up. ----- */
+const Y0 = 2000, YNOW = new Date().getFullYear();
+const startYear = p => +((p.a||"").slice(0,4)) || 0;
+const endYear = p => +((p.e||"").slice(0,4)) || (isOpen(p) ? 9999 : startYear(p) + 3);   // no end date: open ones run on, closed ones ~3 years
+const runningIn = (p, y) => { const a = startYear(p); return !!a && a <= y && endYear(p) >= y; };
+const ML = () => ({new:"y", ongoing:"o", cum:"c"})[CH.ym];
+const rangeLabel = r => r==="active" ? "実施中の" : r==="all" ? "全期間の" : r[0]==="y" ? r.slice(1)+"年に始まった" : r[0]==="o" ? r.slice(1)+"年に実施中だった" : r.slice(1)+"年までに始まった（累計）";
+function inRange(p, r){
+  if(r==="active") return p.st==="active";
+  if(r==="all") return true;
+  const y = +r.slice(1), a = startYear(p);
+  return r[0]==="y" ? a===y : r[0]==="o" ? runningIn(p, y) : !!a && a<=y;
+}
+function rangeAmt(p, r, sid){ return valAmt(p, sid); }
+function shareData(sid){
+  const map = donorColors(sid), val = {}, cnt = {};
+  let unit = CH.metric==="amt" ? "amt" : "n", note, unknown = [];
+  if(CH.scope==="gov"){
+    // government has no project data: compare how often each side appears in a year of announcements and news
+    const min = Date.now()-365*DAY;
+    for(const x of items()) if(x.ts>=min && (!sid || x.c.includes(sid))){
+      if(x.g) val.gov = (val.gov||0)+1;
+      for(const d of x.d) val[d] = (val[d]||0)+1;
+    }
+    unit = "n"; note = "直近1年の発表・報道に登場した件数の割合（政府の予算額は公開データがないため、件数で比較しています）";
+  }else{
+    for(const p of sectorProjects(sid)){
+      if(!inRange(p, CH.range)) continue;
+      cnt[p.donor] = (cnt[p.donor]||0)+1;
+      if(unit==="amt" && !hasAmt(p)){ unknown.push(p); continue; }
+      const v = unit==="amt" ? rangeAmt(p, CH.range, sid) : 1;
+      if(v) val[p.donor] = (val[p.donor]||0)+v;
+    }
+    note = `${rangeLabel(CH.range)}案件の${unit==="amt"?"支援額"+(sid?"（複数分野の案件は按分）":""):"件数"}の割合`;
+  }
+  const total = Object.values(val).reduce((a,b)=>a+b,0);
+  const ranked = Object.entries(val).filter(([d])=>d!=="gov").sort((a,b)=>b[1]-a[1]).map(([d])=>d);
+  const rows = []; let other = 0;
+  for(const [d,v] of Object.entries(val).sort((a,b)=>b[1]-a[1])){
+    if(d==="gov") rows.push({id:"gov", name:"キルギス政府", v, col:"var(--gov)"});
+    else if(map[d]) rows.push({id:d, name:donorName(d)+(d==="jica"?`（${ranked.indexOf(d)+1}位）`:""), v, col:map[d], n:cnt[d]});
+    else other += v;
+  }
+  if(other) rows.push({id:"", name:"その他", v:other, col:"var(--dother)"});
+  // JICA stays visible even when it has nothing in this view
+  const jicaEmpty = SHOW_JP && CH.scope!=="gov" && !val.jica;
+  return {rows, total, unit, note, unknown, jicaEmpty, jicaN: cnt.jica||0};
+}
+function donutSVG(rows, total, center, sub){
+  const R = 70, r = 46, cx = 90, cy = 90;
+  if(!total) return `<svg viewBox="0 0 180 180" role="img" aria-label="データなし"><circle cx="${cx}" cy="${cy}" r="${(R+r)/2}" fill="none" stroke="var(--press-soft)" stroke-width="${R-r}"/><text class="cl" x="${cx}" y="${cy+4}" text-anchor="middle">データなし</text></svg>`;
+  let a0 = -Math.PI/2, out = "";
+  const pt = (rad, a) => [cx + rad*Math.cos(a), cy + rad*Math.sin(a)];
+  for(const row of rows){
+    const frac = row.v/total, a1 = a0 + frac*2*Math.PI, big = a1-a0 > Math.PI ? 1 : 0;
+    let d;
+    if(frac >= .9999) d = `M${cx} ${cy-R}A${R} ${R} 0 1 1 ${cx-.01} ${cy-R}L${cx-.01} ${cy-r}A${r} ${r} 0 1 0 ${cx} ${cy-r}Z`;
+    else{ const [x0,y0]=pt(R,a0),[x1,y1]=pt(R,a1),[x2,y2]=pt(r,a1),[x3,y3]=pt(r,a0); d = `M${x0} ${y0}A${R} ${R} 0 ${big} 1 ${x1} ${y1}L${x2} ${y2}A${r} ${r} 0 ${big} 0 ${x3} ${y3}Z`; }
+    out += `<path d="${d}" fill="${row.col}" ${row.id&&row.id!=="gov"?`data-donor="${row.id}"`:""}><title>${esc(row.name)} ${Math.round(frac*1000)/10}%</title></path>`;
+    a0 = a1;
+  }
+  return `<svg viewBox="0 0 180 180" role="img" aria-label="援助機関の割合">${out}<text class="ct" x="${cx}" y="${cy+3}" text-anchor="middle">${esc(center)}</text><text class="cl" x="${cx}" y="${cy+18}" text-anchor="middle">${esc(sub)}</text></svg>`;
+}
+const segCH = (k, opts) => `<span class="seg">${opts.map(([v,l])=>`<button data-ch="${k}" data-val="${v}" class="${CH[k]===v?"on":""}">${esc(l)}</button>`).join("")}</span>`;
+function rangeSelect(){
+  const m = ML(), lab = {y:"年に始まった", o:"年に実施中", c:"年までの累計"}[m];
+  const opts = [["active","実施中（現在）"],["all","全期間"]];
+  for(let y=YNOW; y>=Y0; y--) opts.push([m+y, y+lab]);
+  if(!opts.some(o=>o[0]===CH.range)) opts.splice(2, 0, [CH.range, rangeLabel(CH.range).replace(/の$/,"")]);
+  return `<select data-chsel="range" aria-label="期間">${opts.map(([v,l])=>`<option value="${v}" ${CH.range===v?"selected":""}>${l}</option>`).join("")}</select>`;
+}
+function shareHTML(sid){
+  const {rows, total, unit, note, unknown, jicaEmpty, jicaN} = shareData(sid);
+  const fmt = v => unit==="amt" ? money(v) : Math.round(v)+"件";
+  const center = unit==="amt" ? money(total) : Math.round(total)+"件";
+  let legend = rows.map(r=>`<li class="${r.id&&r.id!=="gov"?"":"nolink"}" ${r.id&&r.id!=="gov"?`data-donor="${r.id}"`:""}><i style="background:${r.col}"></i><span class="nm">${esc(r.name)}</span><span class="pc">${(r.v/total*100).toFixed(r.v/total<.1?1:0)}%</span><span class="vv">${fmt(r.v)}</span></li>`).join("");
+  if(jicaEmpty) legend += `<li data-donor="jica"><i style="background:${JICA_COL}"></i><span class="nm">JICA</span><span class="pc">—</span><span class="vv">${jicaN?`${jicaN}件（金額不明）`:"案件なし"}</span></li>`;
+  const ub = {}; for(const p of unknown) ub[p.donor] = (ub[p.donor]||0)+1;
+  const unkLine = unknown.length ? `<p class="note" style="margin:6px 0 0"><span class="unk">金額不明 ${unknown.length}件</span> 割合に含めていません（${Object.entries(ub).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([d,n])=>esc(donorName(d))+" "+n+"件").join("・")}${Object.keys(ub).length>4?" ほか":""}）。件数で見ると全案件を比べられます。</p>` : "";
+  const dis = CH.scope==="gov";
+  return `<div class="panel chart"><div class="phk">Donor share</div><h3 class="ph">どこが大きく協力しているか</h3>
+    <div class="ctrls">${segCH("scope",[["donor","ドナーのみ"],["gov","政府を含む"]])}
+      ${dis?"":segCH("metric",[["amt","支援額"],["n","案件数"]])} ${dis?"":rangeSelect()}</div>
+    <div class="dn">${donutSVG(rows,total,center,unit==="amt"?"合計":"合計件数")}<ul class="lg">${legend||'<li class="nolink"><span></span><span class="note">データがありません</span></li>'}</ul></div>
+    <p class="note" style="margin:8px 0 0">${esc(note)}。年は推移グラフの棒を押しても切り替わります。</p>${unkLine}</div>`;
+}
+function yearData(sid){
+  const map = donorColors(sid), amtMode = CH.ymet!=="n";
+  const series = [...Object.keys(map).filter(d=>d!=="jica"), ...(map.jica?["jica"]:[]), "_other"];
+  const years = []; for(let y=Y0; y<=YNOW; y++) years.push({y, v:{}, tot:0, unk:0, n:0});
+  const pj = sectorProjects(sid);
+  let nodate = 0;
+  for(const p of pj){
+    if(!startYear(p)){ nodate++; continue; }
+    const key = map[p.donor] ? p.donor : "_other";
+    for(const o of years){
+      if(!inRange(p, ML()+o.y)) continue;
+      o.n++;
+      if(amtMode && !hasAmt(p)){ o.unk++; continue; }
+      const v = amtMode ? valAmt(p, sid) : 1;
+      o.v[key] = (o.v[key]||0)+v; o.tot += v;
+    }
+  }
+  return {map, series, years, nodate, amtMode};
+}
+function yearHTML(sid){
+  const {map, series, years, nodate, amtMode} = yearData(sid);
+  const max = Math.max(1,...years.map(o=>o.tot)), W = 720, H = 190, top = 16, base = 160, bw = W/years.length;
+  const fmt = v => amtMode ? (money(v)||"0") : Math.round(v)+"件";
+  const col = k => k==="_other" ? "var(--dother)" : map[k];
+  const nm = k => k==="_other" ? "その他" : donorName(k);
+  const sel = CH.ysel || null;
+  const lab = {new:"に始まった案件", ongoing:"に実施中だった案件", cum:"までに始まった案件の累計"}[CH.ym];
+  let g = `<line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)"/><line x1="0" y1="${top}" x2="${W}" y2="${top}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="0" y="${top-5}">${fmt(max)}</text>`;
+  years.forEach((o,i)=>{
+    const x = i*bw+2, w = bw-4; let y = base, rects = "";
+    for(const k of series){ const v = o.v[k]||0; if(!v) continue; const h = v/max*(base-top); y -= h; rects += `<rect x="${x}" y="${y}" width="${w}" height="${Math.max(0,h-1)}" fill="${col(k)}"/>`; }
+    const tip = `${o.y}年${lab}: ${o.n}件${amtMode?`・${fmt(o.tot)}${o.unk?`（金額不明 ${o.unk}件）`:""}`:""}\n` + series.filter(k=>o.v[k]).sort((a,b)=>o.v[b]-o.v[a]).map(k=>`${nm(k)} ${fmt(o.v[k])}`).join("\n");
+    g += `<g class="yb" data-year="${o.y}" style="cursor:pointer;${sel&&o.y!==sel?"opacity:.55":""}"><title>${esc(tip)}</title><rect class="hit" x="${i*bw}" y="${top}" width="${bw}" height="${base-top+18}" fill="transparent"/>${rects}${o.y===sel?`<rect x="${x}" y="${base+3}" width="${w}" height="2" fill="var(--ink)"/>`:""}${(o.y%2===0||o.y===YNOW||o.y===sel)?`<text x="${x+w/2}" y="${base+16}" text-anchor="middle" ${o.y===sel?'style="fill:var(--ink);font-weight:600"':""}>${String(o.y).slice(2)}</text>`:""}</g>`;
+  });
+  const last = CH.ym==="new" ? (k=>years.reduce((a,o)=>a+(o.v[k]||0),0)) : (k=>years[years.length-1].v[k]||0);
+  const legend = series.filter(k=>last(k)||k==="jica").sort((a,b)=>(a==="_other")-(b==="_other") || last(b)-last(a)).map(k=>`<li ${k!=="_other"?`data-donor="${k}"`:'class="nolink"'}><i style="background:${col(k)}"></i><span class="nm">${esc(nm(k))}</span><span class="pc">${fmt(last(k))}</span><span class="vv">${CH.ym==="new"?`${Y0}–${YNOW}計`:YNOW+"年"}</span></li>`).join("");
+  const title = {new:"その年に決まった新規の支援", ongoing:"その年に実施中だった支援の総額", cum:"これまでの支援の累計（重複なし）"}[CH.ym];
+  const expl = {new:"各案件を開始・承認した年に全額で1回だけ数えます。年ごとの合計を足すと全期間の総額になります。",
+    ongoing:"その年に動いていた案件の総額（ストック）です。複数年の案件は各年に全額で入るため、年どうしを足し合わせることはできません。",
+    cum:"その年までに始まった案件の総額です。各案件は1回だけ数えるので重複はありません（3年で3億の案件は3億として1回）。多くの機関は2010年ごろ以降のデータしか公開していないため、それ以前は実際より少なく出ます。"}[CH.ym];
+  return `<div class="panel chart ych"><div class="phk">Cooperation over time</div><h3 class="ph">${title}</h3>
+    <div class="ctrls">${segCH("ym",[["new","新規（その年）"],["ongoing","実施中（その年）"],["cum","累計"]])} ${segCH("ymet",[["amt","金額"],["n","件数"]])}</div>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}">${g}</svg>
+    <ul class="lg" style="margin-top:6px">${legend}</ul>
+    <p class="note" style="margin:6px 0 0">${expl}${amtMode?"金額不明の案件は件数だけ数え、金額には入れていません。":""}${nodate?`開始年不明 ${nodate}件は表示外。`:""}年の棒を押すと、その年の案件一覧（金額不明を含む）が下に出ます。</p>
+    ${sel ? yearDetail(sid, sel) : ""}</div>`;
+}
+// the projects behind one bar, amount-unknown ones listed by name
+function yearDetail(sid, y){
+  const r = ML()+y, list = sectorProjects(sid).filter(p=>inRange(p, r));
+  const known = list.filter(hasAmt).sort((a,b)=>valAmt(b,sid)-valAmt(a,sid)), unknown = list.filter(p=>!hasAmt(p));
+  const row = p => `<li><span class="yt"><a href="${esc(p.u)}" target="_blank" rel="noopener">${esc(p.tj||p.t)}</a><span class="ym"><span class="don ${JP_IDS.has(p.donor)?"jp":""}">${esc(p.donor&&p.donor!=="ngo"?donorName(p.donor):p.org||"")}</span> · ${esc(sch(p))}${p.a?` · ${esc(ymd(p.a))}–${esc(ymd(p.e)||"")}`:""}</span></span><span class="ya">${hasAmt(p)?money(valAmt(p,sid)):'<span class="unk">金額不明</span>'}</span></li>`;
+  const total = known.reduce((a,p)=>a+valAmt(p,sid),0);
+  return `<div class="ydet"><div class="ydh"><b>${esc(rangeLabel(r))}案件</b><span>${list.length}件・${money(total)||"0"}（金額判明 ${known.length}件）</span>${unknown.length?`<span class="unk">金額不明 ${unknown.length}件</span>`:""}<span class="sp"></span><button class="linkbtn" data-ysel="0">閉じる ×</button></div>
+    <ol class="ylist">${known.slice(0,25).map(row).join("")}</ol>${known.length>25?`<p class="note">ほか ${known.length-25}件（金額判明）</p>`:""}
+    ${unknown.length?`<div class="ydh" style="margin-top:8px"><b>金額不明の案件</b><span>${unknown.length}件 — 公開情報に金額の記載がないもの</span></div><ol class="ylist">${unknown.slice(0,40).map(row).join("")}</ol>${unknown.length>40?`<p class="note">ほか ${unknown.length-40}件</p>`:""}`:""}</div>`;
+}
+// how far back each donor's public data goes: older cooperation is mostly missing from it
+function coverageHTML(){
+  const first = {}, cnt = {}, recent = {};
+  for(const p of projects()){ const y = startYear(p); if(!y) continue; first[p.donor] = Math.min(first[p.donor]||9999, y); cnt[p.donor]=(cnt[p.donor]||0)+1; if(y>=2011) recent[p.donor]=(recent[p.donor]||0)+1; }
+  const BANDS = ["〜1999","2000–09","2010–19","2020–"], band = {};
+  for(const p of projects()){ const y = startYear(p); if(!y) continue; const b = BANDS[y<2000?0:y<2010?1:y<2020?2:3]; band[b]=(band[b]||0)+(p.amt||0); }
+  const rows = Object.entries(first).filter(([d])=>DONORS[d]).sort((a,b)=>a[1]-b[1]);
+  return `<div class="panel chart cover"><div class="phk">Data coverage</div><h3 class="ph">公開データでさかのぼれる範囲</h3>
+    <p class="note">援助データの国際的な公開（IATI）が始まったのは2011年ごろで、多くの機関はそれ以降の案件しか公開していません。そのため「これまでの総額」は実際の協力の歴史より小さく、最近の案件に偏ります（世界銀行は1992年から全件あり）。</p>
+    <div class="cband">${BANDS.map(b=>`<span><b>${money(band[b]||0)}</b>${b}に開始</span>`).join("")}</div>
+    <ul class="lg" style="margin-top:8px">${rows.map(([d,y])=>`<li data-donor="${d}"><i style="background:var(--dother)"></i><span class="nm">${esc(donorName(d))}</span><span class="pc">最古 ${y}年</span><span class="vv" style="min-width:150px">${cnt[d]}件・うち2011年以降 ${Math.round((recent[d]||0)/cnt[d]*100)}%</span></li>`).join("")}</ul>
+    <button class="linkbtn" data-cover style="margin-top:6px">閉じる ×</button></div>`;
+}
+let SHOW_COVER = false;
+// the government's own spending beside donor commitments (World Bank estimates; education and health so far)
+const GOV_KEY = {education:"education", health:"health", "":"total"};
+function govHTML(sid){
+  const key = GOV_KEY[sid], g = INDEX && INDEX.gov && INDEX.gov[key];
+  if(!g || !Object.keys(g).length) return "";
+  const ys = Object.keys(g).map(Number).filter(y=>y>=2010).sort((a,b)=>a-b);
+  if(!ys.length) return "";
+  const don = {}; for(const p of sectorProjects(sid)) if(hasAmt(p)){ const y = startYear(p); if(y) don[y] = (don[y]||0) + valAmt(p, sid); }
+  const W = 720, H = 170, top = 14, base = 140, bw = W/ys.length;
+  const max = Math.max(1, ...ys.map(y=>Math.max(g[y]||0, don[y]||0)));
+  let svg = `<line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="var(--line)"/><text x="0" y="${top-4}">${money(max)}</text>`;
+  ys.forEach((y,i)=>{
+    const x = i*bw, w = (bw-6)/2, hg = (g[y]||0)/max*(base-top), hd = (don[y]||0)/max*(base-top);
+    svg += `<g><title>${y}年\n政府支出 ${money(g[y])||"—"}\nドナー新規 ${money(don[y]||0)||"0"}</title><rect x="${x+2}" y="${base-hg}" width="${w}" height="${hg}" fill="var(--gov)"/><rect x="${x+2+w+1}" y="${base-hd}" width="${w}" height="${hd}" fill="var(--coop)"/>${(y%2===0||i===ys.length-1)?`<text x="${x+bw/2}" y="${base+14}" text-anchor="middle">${String(y).slice(2)}</text>`:""}</g>`;
+  });
+  const last = ys[ys.length-1], ratio = g[last] ? (don[last]||0)/g[last]*100 : 0;
+  const name = {education:"教育", health:"保健", total:"政府全体"}[key];
+  return `<div class="panel chart ych"><div class="phk">Government spending</div><h3 class="ph">政府の${name}支出とドナーの新規支援</h3>
+    <div class="ctrls"><span class="note"><span style="color:var(--gov)">■</span> 政府の${name}支出（年間） <span style="color:var(--coop)">■</span> ドナーの新規支援（その年に決まった額）</span></div>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="政府支出とドナー支援">${svg}</svg>
+    <p class="note" style="margin:6px 0 0">${last}年：政府支出 <b>${money(g[last])}</b>・ドナー新規 <b>${money(don[last]||0)||"0"}</b>（政府支出の約${ratio.toFixed(0)}%）。政府支出は世界銀行の推計（対GDP比×GDP）で、最新年はまだ出ていないことがあります。政府支出は「その年に使った額」、ドナーは「その年に決まった複数年分の額」なので、比率は目安です。</p></div>`;
+}
+// headline figures: running now, everything so far (each project once), this year's new, unknown amounts
+function overviewKPIs(sid){
+  const pj = sectorProjects(sid), act = pj.filter(p=>p.st==="active"), yr = pj.filter(p=>startYear(p)===YNOW);
+  const sum = l => l.reduce((a,p)=>a+(hasAmt(p)?valAmt(p,sid):0),0);
+  const k = (l, v, n, list, extra="") => `<div class="kpi"><div class="l">${l}</div><div class="v">${money(v)||"—"}</div><div class="s">${n}件${unk(list)?`・<span class="unk">金額不明 ${unk(list)}件</span>`:""}${extra}</div></div>`;
+  return `<div class="kpis">
+    ${k('<span class="en">Running now · </span>実施中の総額', sum(act), act.length, act)}
+    ${k('<span class="en">All so far · </span>これまでの総額', sum(pj), pj.length, pj, '（重複なし・<button class="linkbtn" data-cover>公開データの範囲</button>）')}
+    ${k(`<span class="en">New in ${YNOW} · </span>今年の新規`, sum(yr), yr.length, yr)}
+    <div class="kpi" data-unknown="${sid||""}" style="cursor:pointer" title="金額不明の案件を一覧"><div class="l"><span class="en">Amount unknown · </span>金額不明</div><div class="v">${unk(pj)}<small>件</small></div><div class="s">うち実施中 ${unk(act)}件・一覧を見る →</div></div>
+  </div>`;
+}
+// news column: scrolls on its own beside the main column on a PC
+function sideNews(list, title, more){
+  const t = CH.side, l = list.filter(x=>t==="gov" ? x.g : t==="coop" ? x.d.length : true).slice(0,60);
+  return `<aside class="sidec"><div class="sideh"><h2>${title}</h2>${segCH("side",[["gov","政府の動き"],["coop","協力"],["all","すべて"]])}</div>
+    <div class="sidel">${listHTML(l,false,true)}</div>
+    <button class="linkbtn" style="margin:8px 2px" data-gofeed="${t==="all"?"all":t}" ${more||""}>ニュースページで見る →</button></aside>`;
+}
+function setTitle(t){ document.title = t ? t+" · Kyrgyz Monitor" : "Kyrgyz Monitor"; }
+const secHead = (k,h,right="") => `<div class="sec-h"><span class="k">${k}</span><h2>${h}</h2><span class="sp"></span>${right}</div>`;
+
+/* ---------- views ---------- */
+function viewHome(){
+  setTitle("");
+  const now = Date.now(), d30 = now-30*DAY, its = items(), pj = projects();
+  const ready = projReady();
+  const tile = ([id,ja])=>{
+    const sp = pj.filter(p=>p.c.includes(id) && p.st==="active");
+    const amt = sp.reduce((a,p)=>a+shareAmt(p),0);
+    const by = {}; for(const p of sp) by[p.donor] = (by[p.donor]||0) + shareAmt(p);
+    const rows = Object.entries(by).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]);
+    // top three donors by name, share and a one-colour bar (no colour legend to decode)
+    const top3 = rows.slice(0,3).map(([d,v])=>`<span class="dr"><span class="dn2">${esc(donorName(d).replace(/（.*?）/,""))}</span><span class="db"><i style="width:${v/amt*100}%"></i></span><span class="dp">${Math.round(v/amt*100)}%</span></span>`).join("");
+    const m = its.filter(x=>x.ts>=d30 && x.c.includes(id));
+    const jAll = pj.filter(p=>p.donor==="jica" && p.c.includes(id)), jAct = jAll.filter(p=>p.st==="active");
+    const jicaLine = SHOW_JP && ready ? `<span class="jline" title="JICA：実施中 ${jAct.length}件・累計 ${jAll.length}件">JICA ${jAll.length?`累計 <b>${jAll.length}</b>件・実施中 <b>${jAct.length}</b>件${jAct.some(hasAmt)?" "+money(jAct.reduce((a,p)=>a+shareAmt(p),0)):""}`:"案件なし"}</span>` : "";
+    return `<div class="tile" data-sec="${id}" role="link" tabindex="0">
+      <span class="top"><span class="no">${SEC[id].no}</span><span class="nm">${esc(ja)}</span>${favStar(id)}</span>
+      <span class="amt">${ready?(money(amt)||"—"):"…"}<small>実施中 ${ready?sp.length:"…"}件${ready&&unk(sp)?`・金額不明 ${unk(sp)}`:""}</small></span>
+      <span class="drs">${top3 || '<span class="note">金額の分かる実施中案件なし</span>'}</span>
+      ${jicaLine}
+      <span class="tf"><span>政府の動き <b>${m.filter(x=>x.g).length}</b></span><span>協力ニュース <b>${m.filter(x=>x.d.length).length}</b></span></span>
+    </div>`;
+  };
+  // my sectors come first (and stay in the full list below); the overview charts can be folded away
+  const favTiles = SECTORS.filter(([id])=>FAV.has(id)).map(tile).join("");
+  const tiles = SECTORS.map(tile).join("");
+  const mine = FAV.size ? its.filter(x=>x.c.some(c=>FAV.has(c))) : its;
+  const jump = `<nav class="jump" aria-label="分野へ移動">${SECTORS.map(([id,ja])=>`<button class="jchip ${FAV.has(id)?"on":""}" data-sec="${id}">${FAV.has(id)?"★ ":""}${esc(ja)}</button>`).join("")}</nav>`;
+  return `<div class="layout"><div class="mainc">
+    ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
+    ${ready&&SHOW_COVER?coverageHTML():""}
+    ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>`
+      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと「マイ分野」としてこの上に並びます。</p>`}
+    ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
+    ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary>${secHead("Overview","協力の全体像",'<span class="note">全分野・全援助機関の推移と割合 <span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></span>')}</summary>
+      <div class="cols">${yearHTML("")}${shareHTML("")}</div>${govHTML("")?`<div style="margin-top:12px">${govHTML("")}</div>`:""}</details>`:""}
+    ${secHead("Sectors","分野別の協力",'<span class="note">実施中案件の支援額と件数・上位3機関の割合・☆でマイ分野に追加</span>')}
+    <div class="matrix">${tiles}</div>
+    <p class="note" style="margin:8px 0 0">分野別の支援額は、複数分野にまたがる案件を分野数で按分。下段は直近30日の政府の動きと協力ニュースの件数。</p>
+  </div>${sideNews(mine, FAV.size?"マイ分野のニュース":"最新ニュース")}</div>`;
+}
+function viewFeed(){
+  const t = S.t;
+  setTitle("ニュース");
+  const list = filterItems(S);
+  const lead = {gov:"大統領・内閣・各省庁・議会の決定や発表", coop:"援助機関・NGOによる融資・無償資金・技術協力・署名・事業の開始など", press:"政府の動き・協力以外の報道"}[t] || "政府の動き・協力・報道をまとめて新しい順に";
+  return `${secHead("News","ニュース",`<span class="note">${lead}</span>`)}
+    <div class="filters">${seg("t",[["all","すべて"],["gov","政府の動き"],["coop","協力"],["press","その他の報道"]],t)}
+      ${FAV.size?`<button class="btn ${S.my?"on":""}" data-set="my" data-val="${S.my?"":"1"}">${S.my?"★ マイ分野のみ":"☆ マイ分野のみ"}</button>`:""}
+      ${periodSelect(S.p)} ${sectorSelect(S.s)} ${donorSelect(S.d)} ${qInput()}</div>
+    <div class="count"><span>${list.length} 件</span><span class="sp"></span>${moreYearsBtn()}<button class="btn" data-csv="items">CSV</button></div>
+    ${listHTML(list)}`;
+}
+function moreYearsBtn(){
+  if(!INDEX || (S.p && S.p<=365)) return "";
+  const rest = (INDEX.years||[]).filter(y=>!loadedYears.has(y));
+  return rest.length && !EMBED ? `<button class="btn" data-years>${rest.join("・")}年も読み込む</button>` : "";
+}
+function viewSector(){
+  const s = SEC[S.s];
+  if(!s) return viewHome();
+  setTitle(s.ja);
+  const all = items().filter(x=>x.c.includes(s.id));
+  const pj = sectorProjects(s.id), ready = projReady();
+  if(S.sub!=="pc") S.sub = "pa";
+  const cnt = {pa:pj.filter(isOpen).length, pc:pj.filter(p=>!isOpen(p)).length};
+  const base = filterProjects({s:s.id, d:S.d, q:S.q, ps:S.sub==="pa"?"open":"past", psort:S.psort, ua:S.ua});
+  const list = filterProjects({s:s.id, d:S.d, q:S.q, k:S.k, ps:S.sub==="pa"?"open":"past", psort:S.psort, ua:S.ua});
+  const jica = SHOW_JP&&ready ? (()=>{const j=pj.filter(p=>p.donor==="jica"), ja=j.filter(p=>p.st==="active"); return `<button class="jbadge" data-donor="jica">JICA 実施中 <b>${ja.length}</b>件${ja.some(hasAmt)?" "+money(ja.reduce((a,p)=>a+shareAmt(p),0)):""}・累計 <b>${j.length}</b>件 →</button>`;})() : "";
+  return `<div class="layout"><div class="mainc">
+    <div class="shead2"><div><div class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)">SECTOR ${s.no} / 20</div>
+      <h2>${esc(s.ja)} ${favStar(s.id)}</h2></div>${jica}</div>
+    ${ready?overviewKPIs(s.id):""}
+    ${ready?`${secHead("Overview","この分野の協力の全体像")}<div class="cols">${yearHTML(s.id)}${shareHTML(s.id)}</div>${govHTML(s.id)?`<div style="margin-top:12px">${govHTML(s.id)}</div>`:""}`:'<div class="panel chart"><div class="empty">案件データを読み込み中…</div></div>'}
+    <div class="subtabs">${[["pa","実施中・計画中の案件",ready?cnt.pa:"…"],["pc","過去の案件",ready?cnt.pc:"…"]].map(([k,l,n])=>`<button data-sub="${k}" class="${S.sub===k?"on":""}">${l}<span>${n}</span></button>`).join("")}</div>
+    <div class="filters">${donorSelect(S.d)} ${kindSelect(base)} ${uaBtn()} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>${projectListHTML(list)}
+  </div>${sideNews(all, "この分野のニュース")}
+  </div>`;
+}
+// the overview opens by default on a PC and stays folded on a phone, until the viewer chooses
+function ovOpen(){ const v = lsGet("km-ov", null); return v==null ? matchMedia("(min-width:1100px)").matches : v; }
+document.addEventListener("toggle", e=>{ if(e.target.id==="ov") lsSet("km-ov", e.target.open); }, true);
+const uaBtn = () => `<button class="btn ${S.ua?"on":""}" data-set="ua" data-val="${S.ua?"":"1"}">${S.ua?"✓ ":""}金額不明のみ</button>`;
+function viewProjects(){
+  setTitle("案件");
+  const base = filterProjects({...S, k:""}), list = filterProjects(S);
+  const src = PROJECTS && PROJECTS.meta;
+  const NAMES = {wb:"世界銀行", iati:"IATI", jica:"JICA"};
+  const srcs = src && src.sources ? Object.entries(src.sources).map(([k,v])=>`${NAMES[k]||k} ${v.count}件${v.ok?"":"（前回分）"}`).join("・") : "";
+  const news = filterItems({t:"coop", s:S.s, d:S.d, p:365, q:""}).slice(0,12);
+  return `${secHead("Projects","協力案件",'<span class="note">援助機関の案件（実施中・計画中・過去）と、同じ条件の協力ニュース</span>')}
+    <div class="filters">${seg("ps",[["active","実施中"],["pipeline","計画中"],["closed","終了"],["all","すべて"]],S.ps)}
+      ${sectorSelect(S.s)} ${donorSelect(S.d)} ${kindSelect(base)} ${uaBtn()} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>
+    <div class="cols c3">
+      <section>${projectListHTML(list)}</section>
+      <section><div class="count"><span>関連する協力ニュース（1年）</span><span class="sp"></span><button class="linkbtn" data-gofeed="coop">すべて見る →</button></div>${listHTML(news,false)}</section>
+    </div>
+    ${src?`<p class="foot">案件データ更新 ${esc(fmtDT(src.updated))}${srcs?"・"+esc(srcs):""}。出典: World Bank Projects API、IATI（d-portal.org 経由）、JICA ODA見える化サイト。金額は各機関の報告値（米ドルにそろえて表示。JICAの円建て額は1ドル=140円でドル換算し、円表示では公表額をそのまま表示）。右上のボタンで円・ソム表示に切り替えられます。分野はタイトル・説明・分野コードから自動判定。</p>`:""}`;
+}
+function viewDonors(){
+  setTitle("援助機関");
+  const d90 = Date.now()-90*DAY, rows = {};
+  for(const id in DONORS) rows[id] = {n90:0, n:0, pa:0, pt:0, amt:0, u:0};
+  for(const x of items()) for(const d of x.d) if(rows[d]){ rows[d].n++; if(x.ts>=d90) rows[d].n90++; }
+  for(const p of projects()){ const r = rows[p.donor]; if(!r) continue; r.pt++; if(p.st==="active"){ r.pa++; r.amt += p.amt||0; if(!hasAmt(p)) r.u++; } }
+  const maxAmt = Math.max(1,...Object.values(rows).map(r=>r.amt));
+  const g = {};
+  for(const d of Object.values(DONORS)) if(SHOW_JP || d.g!=="japan") (g[d.g]=g[d.g]||[]).push(d);
+  return `${secHead("Donors","援助機関・NGO",'<span class="note">報道での登場件数と公開データ上の案件</span>')}
+    ${Object.entries(DGROUP).map(([k,l])=>g[k]?`<div class="tablewrap"><table class="dtab">
+      <thead><tr><th>${esc(l)}</th><th>報道 90日</th><th>報道 累計</th><th>実施中</th><th>実施中金額</th><th>金額不明</th><th class="barcell"></th><th>案件総数</th></tr></thead>
+      <tbody>${g[k].sort((a,b)=>(rows[b.id].amt-rows[a.id].amt)||(rows[b.id].n90-rows[a.id].n90)).map(d=>{const r=rows[d.id];return `<tr class="click ${k==="japan"?"jp":""}" data-donor="${d.id}"><td>${esc(d.ja)}</td><td>${r.n90}</td><td>${r.n}</td><td>${projReady()?r.pa:"…"}</td><td>${r.amt?money(r.amt):"—"}</td><td>${projReady()&&r.u?r.u+"件":"—"}</td><td class="barcell"><div class="hbar"><i style="width:${r.amt/maxAmt*100}%"></i></div></td><td>${projReady()?r.pt:"…"}</td></tr>`}).join("")}</tbody>
+    </table></div>`:"").join("")}
+    <p class="note">JICAの金額は円を1ドル=140円で概算換算。「NGO・市民団体」の案件数には、上の一覧に当てはまらない報告機関（各国NGO・財団など）の案件も含みます。</p>`;
+}
+function viewDonor(){
+  const d = DONORS[S.d];
+  if(!d) return viewDonors();
+  setTitle(d.ja);
+  const list = filterItems({...S, t:"all"});
+  const all = projects().filter(p=>p.donor===d.id);
+  const base = filterProjects({d:S.d, s:S.s, q:S.q, ps:S.ps, psort:S.psort});
+  const pj = filterProjects({d:S.d, s:S.s, q:S.q, k:S.k, ps:S.ps, psort:S.psort});
+  // where this donor works: amount (or count when no amounts) by sector, all periods
+  const bySec = {}; let useAmt = all.some(p=>p.amt);
+  const nSec = {};
+  for(const p of all) for(const c of p.c){ bySec[c] = (bySec[c]||0) + (useAmt ? shareAmt(p) : 1); nSec[c] = (nSec[c]||0)+1; }
+  const secRows = Object.entries(bySec).sort((a,b)=>b[1]-a[1] || nSec[b[0]]-nSec[a[0]]).slice(0,12), smax = Math.max(1,...secRows.map(r=>r[1]));
+  const kinds = {}; for(const p of all) kinds[sch(p)]=(kinds[sch(p)]||0)+1;
+  const actAmt = all.filter(p=>p.st==="active").reduce((a,p)=>a+(p.amt||0),0);
+  return `<div class="panel shead"><div><div class="k">${esc(DGROUP[d.g]||"")}</div><h2>${esc(d.ja)}</h2></div>
+      <div class="minis"><div class="mini"><div class="v">${projReady()?all.filter(p=>p.st==="active").length:"…"}</div><div class="l">実施中案件</div></div>
+      <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額${unk(all.filter(p=>p.st==="active"))?`<br><span class="unk">金額不明 ${unk(all.filter(p=>p.st==="active"))}件</span>`:""}</div></div>
+      <div class="mini"><div class="v">${projReady()?all.filter(p=>!isOpen(p)).length:"…"}</div><div class="l">過去の案件</div></div>
+      <div class="mini"><div class="v">${list.length}</div><div class="l">関連ニュース（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}）</div></div></div></div>
+    ${secRows.length?`<div class="cols" style="margin-top:10px">
+      <div class="panel chart"><div class="phk">By sector · all periods</div><h3 class="ph">分野別の${useAmt?"支援額と件数":"案件数"}</h3>
+        <ul class="lg" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-sec="${c}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?(money(v)||"金額不明")+" · "+nSec[c]+"件":Math.round(v)+"件"}</span><span class="vv"><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></span></li>`).join("")}</ul></div>
+      ${Object.keys(kinds).length?`<div class="panel chart"><div class="phk">By form</div><h3 class="ph">協力形態ごとの案件数</h3>
+        <ul class="lg" style="margin-top:8px">${Object.entries(kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<li data-kind="${esc(k)}"><i style="background:var(--dother)"></i><span class="nm">${esc(k)}</span><span class="pc">${n}件</span><span class="vv"></span></li>`).join("")}</ul></div>`:""}
+    </div>`:""}
+    <div class="filters" style="margin-top:10px">${periodSelect(S.p)} ${sectorSelect(S.s)} ${qInput()}</div>
+    <div class="cols">
+      <section>${secHead("Projects","案件")}<div class="filters">${seg("ps",[["all","すべて"],["active","実施中"],["pipeline","計画中"],["closed","終了"]],S.ps)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"]],S.psort)}</div>${projectListHTML(pj)}</section>
+      <section>${secHead("News","関連ニュース")}${listHTML(list)}</section>
+    </div>`;
+}
+
+/* ---------- national strategies: what Kyrgyzstan has decided, and where the donor money sits ----------
+   Built from the documents themselves (fetched to the strategy-docs branch, machine-translated there);
+   chapter numbers follow the National Development Program to 2030. */
+const DOCS_BASE = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/strategy-docs/";
+const DOCS_VIEW = "https://github.com/yuuuta21/kyrgyzcha-family/blob/strategy-docs/";
+const SDB = {
+  nds: {kind:"国家戦略", name:"国家開発戦略 2018–2040", ru:"Национальная стратегия развития Кыргызской Республики на 2018–2040 годы",
+    period:"2018–2040", basis:"大統領令 2018年10月31日 No.221", status:"有効", doc:"nds-2040-en-adam",
+    url:"https://adam.edu.kg/media/uploads/2022/04/15/national-strategy-of-kyrgyz-republic-2018-2040.pdf",
+    summary:"2040年に向けた国の長期ビジョン。「人間・家族・社会」「経済的豊かさと発展の環境」「行政」の3本柱で、保健・教育から交通・エネルギー・清潔な水・環境と防災、法の支配・地方自治・デジタル変革（Taza Koom）までを方向づけ、中期の実行計画（国家開発プログラム）の土台になっています。",
+    subs:[
+      {name:"II 人間・家族・社会", desc:"保健（一次医療・保険）、質の高い教育と科学、若者、機会均等、働きがいのある雇用と老後、家族、市民統合、文化、民主国家における宗教", sectors:["health","education","social","gender","sports","peace"]},
+      {name:"III 経済的豊かさと発展の環境", desc:"マクロ経済の安定、ビジネス環境（中小企業・税制）、質の高いインフラ（エネルギー・交通・清潔な水）、環境・気候変動適応・防災、地域開発（国境地域を含む）、優先産業（工業・アグリビジネス・軽工業クラスター・観光）", sectors:["finance","private","energy","transport","water","envmgmt","climate","drr","urban","agri","nature"]},
+      {name:"IV 行政", desc:"効果的で公正な国家、均衡ある統治、法の支配、地方自治、安全な国、実利的な外交、デジタル変革「Taza Koom」、市民社会", sectors:["governance","peace","digital","urban"]},
+      {name:"VI 中期の優先ステップ", desc:"一次医療の強化、母子保健、非感染性疾患の早期死亡の削減、感染症対策、救急医療、就学前教育の全員就学、学校教育と高等教育の質、学校のインターネット接続、職業教育、労働移民の支援 など", sectors:["health","education","social","digital"]},
+    ]},
+  ndp: {kind:"国家プログラム", name:"国家開発プログラム 2030年まで", ru:"Национальная программа развития Кыргызской Республики до 2030 года",
+    period:"2025–2030", basis:"大統領令 2025年6月5日 No.178", status:"有効", doc:"ndp-2030-stat",
+    url:"https://mineconom.gov.kg/ru/post/11033",
+    summary:"国家開発戦略2040の中期の実行計画。前身の「国家開発プログラム2026年まで」を引き継ぎ、工業化・地域ハブ・農業と観光・グリーンエネルギーの4つの「発展ベクトル」を中心に、中小企業・金融・デジタル化・社会開発・行政改革・法制度・外交と安全保障・気候変動への強さまで14章で目標値と課題を定めています。すべての分野別戦略はこのプログラムに従属させると定めています（10.2）。",
+    goals:["1人当たりGDP 4,500ドル","GDP 300億ドル以上","実質成長率 年平均8%","SDGs達成度で上位30か国","人間開発指数の順位を10位上げる","失業率 5%以下","固定資本投資 GDP比20%以上","政府対外債務 GDP比60%以内"]},
+};
+// chapters of the National Development Program to 2030: the pillars of the map.
+// Numbers as in the original, in Arabic figures; 5.x and 9.x are sections of chapters 5 and 9.
+const NDP_PARENT = {"5":"発展ベクトル", "9":"社会開発"};
+const NDP_CH = [
+  {id:"II", no:"2", name:"精神・道徳的発展", en:"Spiritual & civic", sectors:["peace","education"],
+    targets:["国民の85%が「キルギス・ジャラヌ（キルギス市民）」であることを誇りに思う","国民の95%が信教の自由が保障されていると考える","国連の世界幸福度ランキングで上位50か国"],
+    tasks:["市民アイデンティティ「キルギス・ジャラヌ」の育成と市民文化の向上","文化を人道的近代化の戦略的手段に（文化のデジタル化・創造産業・文化センター・国産映画の再興）"]},
+  {id:"5.1", no:"5.1", parent:"5", name:"工業化", en:"Industrialization", sectors:["private","energy","digital"],
+    targets:["工業生産を2倍に（2024年比）","工業の固定資本投資シェア 34% → 50%","地方に工業団地・テクノパークを5か所以上"],
+    tasks:["生産性を高める技術の導入","国内外の生産チェーンの構築","産業クラスター（重要鉱物・軽工業・製薬など）と工業団地・経済特区","工業の省エネ・再エネ利用","輸出・国際市場での地位強化"]},
+  {id:"5.2", no:"5.2", parent:"5", name:"地域ハブ（物流・通過輸送）", en:"Regional hub", sectors:["transport","private","urban"],
+    targets:["鉄道貨物 年1,500万トン","倉庫・物流施設 100万㎡以上","国道の50%以上を建設・改修","運輸業の付加価値 15億ドル","航空旅客 年700万人・貨物4.5万トン"],
+    tasks:["道路網（南北幹線道路など）","鉄道（中国・キルギス・ウズベキスタン鉄道、電化）","都市交通（電気バス・自転車道・充電網）","民間航空・空港の近代化","物流センター・マルチモーダル輸送","国際港・輸送回廊、通関の簡素化"]},
+  {id:"5.3", no:"5.3", parent:"5", name:"農業・観光", en:"Agriculture & tourism", sectors:["agri","water","nutrition","climate","private","nature"],
+    parts:[{name:"農業", targets:["農業生産 +30%","農産物加工 2倍","水の損失を15%まで削減","灌漑面積 +1.5万ha","水供給の改善 9.3万ha"],
+      tasks:["加工と輸出","生産性の向上","灌漑システムの拡大・近代化","水資源の効率利用","人材育成","気候変動への適応"]},
+     {name:"観光", targets:["観光のGDP比 7%","旅行・観光競争力指数で上位50か国","山岳観光の安全性の国際評価70点以上"],
+      tasks:["ホテルなど宿泊インフラ","観光ルート・観光ゾーン","自然・文化資源の持続的管理","人材育成","国内観光・海外からの観光（インバウンド）","国際競争力とマーケティング"]}],
+    targets:[], tasks:[]},
+  {id:"5.4", no:"5.4", parent:"5", name:"グリーンエネルギー", en:"Green energy", sectors:["energy","climate"],
+    targets:["発電に占める再生可能エネルギー 92%","再エネ発電 年75億kWh","保証容量 550–700MW","送電損失 10%以下","温室効果ガス 16%削減（国際資金があれば44%）"],
+    tasks:["発電能力の拡大・多様化","省エネと需要管理","エネルギー基盤の近代化・デジタル化","地域統合（CASA-1000 など）","環境の持続性と気候適応","資金と透明な管理"]},
+  {id:"VI", no:"6", name:"中小企業支援", en:"SMEs", sectors:["private","finance","gender"],
+    targets:["中小企業の付加価値 3倍（2024年比）","GDPに占める中小企業の比率 50%以上"],
+    tasks:["資金へのアクセス","行政の障壁の削減","起業相談・教育（女性起業家を含む）","土地とインフラへのアクセス"]},
+  {id:"VII", no:"7", name:"金融市場", en:"Financial market", sectors:["finance","private"],
+    targets:[], tasks:["工業・輸出・物流・グリーンエネルギー・観光・農業・地方・中小企業への資金の拡大","信用保証の拡充","ファクタリング・保険など代替的な資金調達","株式市場の発展とデジタル化"]},
+  {id:"VIII", no:"8", name:"デジタル化", en:"Digitalization", sectors:["digital","governance","gender"],
+    targets:[], tasks:["国家情報システムの統合（単一インテグレーター）","IT人材（サイバーセキュリティ・AI・デュアル教育）","IT輸出・データセンター・クラウド","IT分野での女性の経済的機会","フィンテック（デジタル決済・暗号資産基盤）","電子商取引・マーケットプレイス"]},
+  {id:"9.1", no:"9.1", parent:"9", name:"人的資源と働きがいのある雇用", en:"Decent work", sectors:["social","gender","private"],
+    targets:["インフォーマル就業 58%まで削減","貧困率 20%","就業率 60%","障害のある有資格者の就業率 60%以上"],
+    tasks:["完全雇用と労働生産性","移民の効果的な管理"]},
+  {id:"9.2", no:"9.2", parent:"9", name:"公正な社会保障", en:"Social protection", sectors:["social","gender","nutrition"],
+    targets:["子どもの貧困 25%","貧困家庭の子どもへの手当の受給率 30%","親のいない子の家庭型養育 55%","社会パスポートのデジタル化 98%以上","高齢者センター 3か所以上"],
+    tasks:["全ての層への最低保障","社会サービスの拡充と効率化","社会保障のデジタル化"]},
+  {id:"9.3", no:"9.3", parent:"9", name:"教育", en:"Education", sectors:["education","digital","nutrition"],
+    targets:["3–5歳の就学前教育 80%","6–17歳の就学 98.8%","障害児用スロープのある学校 100%","小学生の基礎学力（算数40%・読解55%）","全国統一試験の平均130点・合格70%超","高速インターネットのある学校 98%","教員へのノートPC 85%","研究費 GDP比0.5–1.0%"],
+    tasks:["教員の研修と処遇","新しい教科書・カリキュラム・実践的な授業","デジタル教材","労働市場に合わせた教育","学校での子どもの健康（給食を含む）","インクルーシブ教育","教育インフラ","財政の透明性","技術・高速インターネットへのアクセス","応用研究"]},
+  {id:"9.4", no:"9.4", parent:"9", name:"保健", en:"Health", sectors:["health","nutrition","sports","water"],
+    targets:["強制医療保険の加入率 85%","平均寿命 75歳","妊産婦死亡 出生10万あたり22","5歳未満児死亡 出生1,000あたり14","非感染性疾患による早期死亡 30%減","予防・一次医療の利用 70%"],
+    tasks:["医療へのアクセスと質","医薬品の安全","保健システムの管理","健康リスクの管理（飲料水など）","健康的な生活と体育・スポーツ"]},
+  {id:"X", no:"10", name:"行政改革・地域開発", en:"Public administration & regions", sectors:["governance","urban","finance","digital"],
+    targets:[], tasks:["10.1 公務員・地方公務員制度（成果志向・人事のデジタル化）","10.2 戦略計画システム（全ての分野別戦略を国家プログラムに従属・統一モニタリング・予算との連動）","10.3 マクロ経済の安定（財政の持続性・予算のオープンデータ・投資管理・財政改革）","10.4 地域開発（地域総合発展プログラム2025–2030・成長拠点・都市圏の形成・空間データ基盤）","10.5 脱官僚化（手続きの簡素化・デジタル化）"]},
+  {id:"XI", no:"11", name:"法制度・治安・汚職対策", en:"Rule of law", sectors:["governance","peace","gender"],
+    targets:[], tasks:["11.1 法の支配と司法へのアクセス（法教育・司法の独立）","11.2 治安（犯罪・麻薬・家庭内暴力・国境地域の越境犯罪・テロ対策・サイバー犯罪）","11.3 汚職対策（行政の透明化・デジタル化・法執行機関）"]},
+  {id:"XII", no:"12", name:"外交と国家安全保障", en:"Foreign policy & security", sectors:["peace"],
+    targets:[], tasks:["12.1 伝統的・戦略的パートナーとの外交","12.2 主権と領土保全、軍の近代化、民間防衛の強化"]},
+  {id:"XIII", no:"13", name:"気候変動への強さ（防災・環境）", en:"Climate resilience", sectors:["drr","climate","nature","envmgmt","water"],
+    targets:["全国の災害早期警報システム","地方自治体の100%が地方防災戦略を実施","旧ウラン鉱滓・廃石たい積場16か所の安全化","仙台防災枠組の目標達成","自然保護区を国土の10%に","温室効果ガス16%削減","気候適応指数ND-GAINを3ポイント改善","ビシュケクの有害排出を16%削減（改良炭・ガス化）"],
+    tasks:["13.1 災害リスクの低減","13.2 生態系と生物多様性の保全・回復","気候変動対策と適応","廃棄物管理","環境安全"]},
+];
+// sector strategies and programmes, placed under the chapter of the National Programme they serve
+const STRATS2 = [
+  {id:"edu", ch:"9.3", name:"教育発展プログラム 2021–2040", ru:"Программа развития образования в Кыргызской Республике на 2021-2040 годы", period:"2021–2040", basis:"政府決定 2021年5月4日", status:"有効", sectors:["education","digital","gender"], doc:"cbd-education-2040", url:"https://cbd.minjust.gov.kg/158227/edition/1070465/ru",
+    summary:"2012–2020年の教育戦略を引き継ぐ20年の長期プログラム。人口増加・グローバル化・デジタル化・格差の4つの流れを踏まえ、「公平で平等なアクセス」「教育の質」「効果的な管理と財政」の3つの課題を就学前から成人教育まで全段階で進めます。2022年から中等教育（11年）を義務化。行動計画「アルティン・カズィク」（2026年まで）で具体化されています。指標の例：就学前教育の就園率 22.2%（2020）→ 32%（2030）→ 42%（2040）、生徒あたりPC 1/28 → 1/15 → 1/13。",
+    subs:[{name:"課題1 公平で平等なアクセス", sectors:["education","social","gender"], desc:"全段階での就学の拡大（都市と農村の就園率の差の解消）、インクルーシブ教育と多言語教育、安全な学習環境（校舎の新築・改修、学校給食、衛生）"},
+          {name:"課題2 教育の質", sectors:["education","digital"], desc:"教育内容の近代化、教育のデジタル化、教員の継続的な能力開発、学習成果の評価制度（国際学力調査への参加）、教科書の充足率100%"},
+          {name:"課題3 効果的な管理と財政", sectors:["education","finance","governance"], desc:"全段階での人数割り（標準）財政への移行と学校の自主性、認可と認証、モニタリング、教育管理情報システム（EMIS）"},
+          {name:"職業教育（初等・中等職業）", sectors:["education","private"], desc:"職業基準に基づく内容の更新、雇用者団体との連携と実習先、優良センター（Center of Excellence）、資格枠組みによる独立評価"},
+          {name:"高等教育・成人教育", sectors:["education","governance"], desc:"大学の自治と国の大学ランキング、独立認証の改善、腐敗対策、非公式に得た技能の認定、生涯学習"}]},
+  {id:"health", ch:"9.4", name:"保健プログラム「健康な人 ― 繁栄する国」", ru:"Программа «Здоровый человек – процветающая страна» на 2019–2030 годы", period:"2019–2030", basis:"政府決定 2018年12月20日 No.600", status:"有効", sectors:["health","nutrition","sports"], doc:"health-2030", url:"https://base.spinform.ru/show_doc.fwx?rgn=114530",
+    summary:"2030年までの保健政策。全国民への医療保障（UHC）をめざし、一次医療の強化、医療保険と戦略的購入、非感染性疾患・感染症対策、母子保健を柱とし、2019–2023年を第1期の行動計画としています。"},
+  {id:"sports", ch:"9.4", name:"体育・スポーツ発展プログラム 2030年まで", ru:"Программа развития физической культуры и спорта до 2030 года", period:"〜2030", basis:"内閣決定", status:"有効", sectors:["sports","health","education"], doc:"cbd-sports-2030", url:"https://cbd.minjust.gov.kg/230045338/edition/52205/ru",
+    summary:"定期的に運動する国民を15%から30%に倍増させることをめざすプログラム。調整役は国家体育スポーツ庁で、関係機関は半年ごとに報告します。",
+    subs:[{name:"優先1 運動・スポーツの大衆化", sectors:["sports","health"], desc:"定期的に運動する人の割合を30%以上に"},
+          {name:"優先2 スポーツ施設の拡充と近代化", sectors:["sports","urban"], desc:"スポーツ施設を3,500か所に"},
+          {name:"優先3 オリンピック選手の育成", sectors:["sports"], desc:"選手育成の体制の拡充"},
+          {name:"優先4 非オリンピック・民族・新しい競技", sectors:["sports","digital"], desc:"民族競技やeスポーツ（eスポーツのプラットフォーム）"},
+          {name:"優先5 スポーツ専門人材の能力向上", sectors:["sports","education"]},
+          {name:"優先6 スポーツ医学の制度化", sectors:["sports","health"]}]},
+  {id:"water", ch:"9.4", name:"飲料水供給・排水システム発展プログラム", ru:"Программа развития систем питьевого водоснабжения и водоотведения населенных пунктов до 2026 года", period:"〜2026", basis:"政府決定 2020年6月12日 No.330", status:"有効", sectors:["water","health","urban"], doc:"drinking-water-2026", url:"http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf",
+    summary:"村と都市の飲料水供給・排水システムを整備するプログラム。水源と施設の状態、水質と衛生基準、料金と財源、事業者の持続性、制度づくりを課題とし、3つのコンポーネントで進めます。",
+    subs:[{name:"コンポーネント1 政策の実施と制度面の改革", sectors:["water","governance"], desc:"国の政策の実施、規制と制度の整備、料金・財源の仕組み"},
+          {name:"コンポーネント2 資金協力事業の質の高い実施", sectors:["water","urban"], desc:"外部資金（援助機関）による給水事業の準備と実施の質の向上"},
+          {name:"コンポーネント3 投資の魅力と運営能力の向上", sectors:["water","private","finance"], desc:"給水事業者の持続性と投資の呼び込み、運営能力の強化"}]},
+  {id:"gender", ch:"9.2", name:"ジェンダー平等達成国家戦略 2030年まで", ru:"Национальная стратегия Кыргызской Республики по достижению гендерного равенства до 2030 года", period:"2022–2030（行動計画 2022–2024）", basis:"内閣決定 2022年9月16日 No.513", status:"有効", sectors:["gender","social","governance"], doc:"cbd-gender-2030", url:"http://cbd.minjust.gov.kg/act/view/ru-ru/159450?cl=ru-ru",
+    summary:"2030年までに、女性と男性、少女と少年が固定観念や差別のない平等な機会を得られる社会をめざす国家戦略。5つの優先分野と2022–2024年の国家行動計画からなります。",
+    subs:[{name:"女性の経済的機会の拡大", sectors:["gender","private","social"]},{name:"文化政策と機能的な教育", sectors:["gender","education"]},{name:"ジェンダー差別からの保護（家庭内暴力を含む）", sectors:["gender","peace","governance"]},{name:"意思決定へのジェンダー均等な参加", sectors:["gender","governance"]},{name:"規制・法制度の整備", sectors:["gender","governance"]}]},
+  {id:"migration", ch:"9.1", name:"移民政策構想 2021–2030", ru:"Концепция миграционной политики Кыргызской Республики на 2021–2030 годы", period:"2021–2030", basis:"政府決定", status:"有効", sectors:["social","peace"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"労働移民の保護と帰国者の再統合、移民の管理を定める構想（SDGs国別報告書2025で確認）。"},
+  {id:"digital", ch:"VIII", name:"デジタル・トランスフォーメーション構想", ru:"Концепция цифровой трансформации Кыргызской Республики на 2024–2028 годы", period:"2024–2028", basis:"大統領令 2024年4月5日 No.90", status:"有効", sectors:["digital","governance","education"], doc:"cbd-digital-2028", url:"https://cbd.minjust.gov.kg/30-164/edition/6414/ru",
+    summary:"2024–2028年のデジタル化の全体構想。①政府の仕組みそのもののデジタル化、②国の情報システムとデータベースの統合、③行政サービスのデジタル化、④データに基づく行政、⑤人工知能を戦略目標とし、国のデータセンターと「政府クラウド」、光ファイバー網などの基盤を整えたうえで、保健・教育・農業・エネルギー・防災など18の分野別イニシアティブを定めています。",
+    subs:[{name:"第2章 戦略目標（行政改革・システム統合・電子サービス・データ活用・AI）", sectors:["digital","governance"], desc:"政策の立案・調整・執行管理のデジタル化、省庁間と官民のデータ連携、市民と企業向けサービスの簡素化"},
+          {name:"第3章 デジタル基盤", sectors:["digital","urban"], desc:"国家データセンター（ГЦОД）と「G-Cloud」、光ファイバー網の建設、公文書のデジタル化と国家デジタルアーカイブ、空間データ基盤"},
+          {name:"第4章 分野別：保健・教育・社会保障・雇用", sectors:["digital","health","education","social"], desc:"電子カルテなどのデジタル保健、教育の3つの電子台帳、社会扶助と雇用のデジタル化、卒業証書の照合"},
+          {name:"第4章 分野別：農業・環境・エネルギー・運輸・都市・建設", sectors:["digital","agri","envmgmt","energy","transport","urban"], desc:"農業と地下資源・環境のデジタル化、デジタル・エネルギー、デジタル運輸、デジタル都市、建設分野の変革"},
+          {name:"第4章 分野別：防災", sectors:["digital","drr"], desc:"災害リスク低減のデジタル化（早期警報・監視など）"},
+          {name:"第4章 分野別：立法・司法・治安・選挙・サイバー", sectors:["digital","governance","peace"], desc:"立法過程・裁判・法執行・軍のデジタル化、サイバーセキュリティと個人情報保護、選挙のデジタル化（生体認証）"},
+          {name:"第4章 分野別：スポーツ", sectors:["digital","sports"], desc:"体育・スポーツのデジタル化"}]},
+  {id:"roads", ch:"5.2", name:"道路部門発展の基本方針 2023–2030", ru:"Основные направления развития дорожной отрасли на 2023-2030 годы", period:"2023–2030", basis:"内閣決定 2023年2月10日 No.71", status:"有効", sectors:["transport","drr"], doc:"roads-2030", url:"https://base.spinform.ru/show_doc.fwx?rgn=148158",
+    summary:"道路網の整備と道路部門の管理の改善を定める方針（2016–2025年版を置き換え）。国際道路・国道・地方道の現状評価、維持管理と安全、資金を扱い、運輸省の中期予算の基礎になっています。"},
+  {id:"tourism", ch:"5.3", part:"観光", name:"持続可能な観光発展プログラム 2030年まで", ru:"Программа устойчивого развития туризма на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2024年12月18日 No.765", status:"有効", sectors:["private","nature","digital"], doc:"cbd-tourism-2030", url:"https://cbd.minjust.gov.kg/44-149/edition/23883/ru",
+    summary:"観光をGDPの7%に、旅行・観光競争力指数で上位50か国に、観光客を毎年10%増やすことをめざすプログラム。国の政策・デジタル化・安全・地域開発など9つの方向で進めます。",
+    subs:[{name:"優先1 観光政策の最適化", sectors:["private","governance"]},
+          {name:"優先2 消費者市場の形成", sectors:["private"]},
+          {name:"優先3 観光サービス市場のデジタル化", sectors:["private","digital"]},
+          {name:"優先4 観光の安全", sectors:["private","drr"]},
+          {name:"優先5 歴史・文化遺産と自然環境の保全", sectors:["nature","private"]},
+          {name:"優先6 地域の発展", sectors:["urban","private"]},
+          {name:"優先7 観光インフラの整備", sectors:["urban","transport"]},
+          {name:"優先8 観光のグリーン技術", sectors:["climate","envmgmt"]},
+          {name:"優先9 医療・スポーツ・保養観光", sectors:["private","health","sports"]}]},
+  {id:"pasture", ch:"5.3", part:"農業", name:"牧草地発展プログラム 2024–2029", ru:"Программа развития пастбищ Кыргызской Республики на 2024–2029 годы", period:"2024–2029", basis:"内閣決定 2024年8月9日 No.462", status:"有効", sectors:["agri","nature","climate"], doc:"cbd-pasture-2029", url:"https://cbd.minjust.gov.kg/53-357/edition/14287/ru",
+    summary:"気候変動のもとで牧草地を守り改善し、牧草地の効果的な管理を通じて農村住民の生活水準を高めることを目的とするプログラム。牧草地の劣化（過放牧・利用の偏り・インフラの荒廃）を課題とし、3つの優先分野と9つの課題で進めます。担当は水資源・農業・加工産業省と牧草地局で、地方自治体と牧草地利用者組合が実施の担い手です。",
+    subs:[{name:"優先1 牧草地の持続的な管理と利用の改善", sectors:["agri","nature","governance"], desc:"法令の整備、国・地方自治体・地域社会の連携と投資の呼び込み、状態のモニタリング、牧草地インフラ（道路・橋・水場）の復旧、播種と輪換放牧による収量の向上"},
+          {name:"優先2 牧草地の気候変動への適応", sectors:["climate","agri","drr"], desc:"適応の戦略文書と情報基盤、気候変動下の新しい管理手法、土石流・地すべりなど危険な気象現象の影響の軽減"},
+          {name:"優先3 人材育成と知識・技能の向上", sectors:["agri","education","digital"], desc:"管理人材の育成、研究機関と若手研究者の支援、普及・相談支援、牧草地の情報システムと広報"}]},
+  {id:"food", ch:"5.3", part:"農業", name:"食料安全保障・栄養プログラム", ru:"Программа продовольственной безопасности и питания", period:"2025–2030（前期 2019–2023）", basis:"前期：政府決定 2019年6月27日 No.320", status:"有効", sectors:["nutrition","agri","health"], doc:"food-security-2023", url:"https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf",
+    summary:"食料の確保と栄養改善のプログラム。現在は2025–2030年版で、WFPなどとの学校給食の協力もこの枠組みで行われています（本文は2019–2023年版）。"},
+  {id:"watercode", ch:"5.3", part:"農業", name:"水法典", ru:"Водный кодекс Кыргызской Республики", period:"2025年〜", basis:"法律 2025年6月27日 No.128", status:"有効", sectors:["water","agri","envmgmt"], doc:"water-code-2025", url:"https://faolex.fao.org/docs/pdf/kyr237135.pdf",
+    summary:"水資源の管理・利用・保護の基本法（2025年の新法典）。灌漑・飲料水・水質保全の制度の基礎になります。"},
+  {id:"energy", ch:"5.4", name:"国家エネルギー・プログラム 2035年まで", ru:"Национальная энергетическая программа Кыргызской Республики до 2035 года", period:"〜2035（第1期 2024–2027）", basis:"内閣決定 2024年4月12日 No.172", status:"有効", sectors:["energy","climate"], doc:"", url:"https://www.gov.kg/ru/npa/s/4468",
+    summary:"2035年までのエネルギー部門の計画。発電能力の拡大（大型水力・再エネ）、送配電の近代化、料金と財務の健全化を扱います。"},
+  {id:"eneff", ch:"5.4", name:"省エネ・エネルギー効率政策プログラム", ru:"Программа «Внедрение политики энергосбережения и энергоэффективности в Кыргызской Республике на 2023-2027 годы»", period:"2023–2027", basis:"内閣決定 2023年6月29日 No.328", status:"有効", sectors:["energy","climate","urban"], doc:"cbd-energy-efficiency-2027", url:"https://cbd.minjust.gov.kg/160277/edition/1264523/ru",
+    summary:"経済成長に伴うエネルギー消費の伸びを抑え、GDPあたりのエネルギー消費量（購買力平価）を世界平均に近づけることを目的とするプログラム。発電・送配電の効率化と、公共部門・建築・住宅公共サービス・産業での省エネ、ガス化と再エネを柱とし、資金はグリーン・エネルギー基金や援助機関の資金も見込んでいます。",
+    subs:[{name:"法制度の整備と価格政策", sectors:["energy","governance"], desc:"省エネ法令の調和、投資の基盤づくり、燃料・電力の料金規制を省エネの手段として活用"},
+          {name:"エネルギーの生産と配電での省エネ", sectors:["energy"], desc:"発電所・送配電網・ガス配管の損失の削減"},
+          {name:"公共部門・建築・住宅公共サービスでの省エネ", sectors:["energy","urban","climate"], desc:"学校や病院など予算部門の建物、建築基準、集合住宅と熱供給（ЖКХ）の効率化"},
+          {name:"産業での省エネ", sectors:["energy","private"], desc:"企業のエネルギー監査と設備の更新、エネルギー・サービス会社（ESCO）"},
+          {name:"ガス化と再生可能エネルギー", sectors:["energy","climate","envmgmt"], desc:"集落のガス化とボイラーのクリーン燃料・再エネへの転換、再エネ発電所の建設の加速（大気汚染の改善にもつながる）"},
+          {name:"啓発", sectors:["energy","education"], desc:"すべての消費者に省エネの利点を知らせる"}]},
+  {id:"renew", ch:"5.4", name:"再生可能エネルギー開発（分散型・マイクロ発電）", ru:"Развитие возобновляемых источников энергии в Кыргызской Республике на 2026–2030 годы", period:"2026–2030", basis:"内閣承認", status:"有効", sectors:["energy","climate"], doc:"", url:"https://24.kg/ekonomika/374354_kabmin_utverdil_pyatiletnyuyu_programmu_zelenoy_energetiki_inbspmikrogeneratsii/",
+    summary:"家庭や企業による小規模な再エネ発電（分散型・マイクロ発電）を広げる5か年のプログラム。"},
+  {id:"green", ch:"XIII", name:"グリーン経済発展プログラム 2025–2029", ru:"Программа развития зеленой экономики в Кыргызской Республике на 2025–2029 годы", period:"2025–2029", basis:"内閣決定 2025年9月1日", status:"有効", sectors:["climate","envmgmt","energy","agri"], doc:"", url:"https://www.un-page.org/news/green-leap-forward-kyrgyz-republic-adopts-new-green-economy-programme-2025-2029/",
+    summary:"2019–2023年版に続くグリーン経済の5か年プログラム。エネルギー、農業、産業、廃棄物などの分野でグリーン化を進めます。"},
+  {id:"ndc", ch:"XIII", name:"国が決定する貢献（NDC 3.0）", ru:"Определяемый на национальном уровне вклад", period:"〜2035（前版 2021年更新）", basis:"2025年10月提出", status:"有効", sectors:["climate","energy","agri","envmgmt"], doc:"ndc-2021-en", url:"https://daryo.uz/en/2025/10/13/kyrgyzstan-targets-up-to-39-emission-cut-by-2035/",
+    summary:"パリ協定のもとでの温室効果ガス削減と適応の目標。2035年までに最大39%の削減を掲げ、国家開発プログラム2030と整合させています（本文は2021年更新版）。"},
+  {id:"drrplan", ch:"XIII", name:"緊急事態リスク低減の行動計画 2025–2030", ru:"План мероприятий по снижению рисков возникновения чрезвычайных ситуаций на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2025年9月23日 No.601（大統領令 2025年2月27日 No.68）", status:"有効", sectors:["drr","nature","envmgmt"], doc:"drr-plan-2030", url:"https://www.cawater-info.net/bk/dam-safety/files/kg-601-2025.pdf",
+    summary:"災害リスクを減らすための具体的な行動計画。危険箇所の棚卸しから予防工事、技術災害の防止、植林、制度と能力の強化、資金の確保までを6章で定めています。",
+    subs:[{name:"第1章 危険箇所・施設の棚卸し", sectors:["drr"]},{name:"第2章 予防措置（土石流・地すべり対策など）", sectors:["drr","water"]},{name:"第3章 技術圏の安全（ダム・鉱滓など）", sectors:["drr","envmgmt","energy"]},{name:"第4章 森林への投資", sectors:["drr","nature","climate"]},{name:"第5章 規制・能力の向上", sectors:["drr","governance"]},{name:"第6章 資金調達（地方自治体の予算を含む）", sectors:["drr","finance"]}]},
+  {id:"drrconcept", ch:"XIII", name:"住民と国土の緊急事態からの総合的保護構想 2018–2030", ru:"Концепция комплексной защиты населения и территории Кыргызской Республики от чрезвычайных ситуаций на 2018–2030 годы", period:"2018–2030（第2期 2023–2026）", basis:"政府決定 2018年1月29日 No.58", status:"有効", sectors:["drr"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"防災の基本構想。仙台防災枠組に沿って、予防・早期警報・対応・復旧の体制を整えます。"},
+  {id:"drrfin", ch:"XIII", name:"災害リスク・ファイナンス戦略 2026–2030", ru:"Стратегия финансирования рисков стихийных бедствий на 2026–2030 годы", period:"2026–2030", basis:"内閣承認 2026年6月", status:"有効", sectors:["drr","finance"], doc:"", url:"https://economist.kg/vlast/2026/06/06/disaster-risk-financing-strategy-2030/",
+    summary:"災害の被害に備える資金（予備費・保険など）の戦略。財務省が報告を取りまとめます。"},
+  {id:"lsg", ch:"X", name:"地方自治発展プログラム 2024–2028", ru:"Программа развития местного самоуправления Кыргызской Республики на 2024–2028 годы", period:"2024–2028", basis:"内閣決定 2024年2月22日 No.80", status:"有効", sectors:["governance","urban","finance"], doc:"local-self-gov-2028", url:"https://base.spinform.ru/show_doc.fwx?rgn=158417",
+    summary:"地方自治の制度を改善するプログラム（国家開発プログラム2026に基づく）。地方自治体の権限と財源、行政サービスの質、住民参加を扱います。公開されている本文は決定の抜粋のみで、プログラム本体の章立ては確認できていません。"},
+  {id:"regions", ch:"X", name:"地域の総合的社会経済発展プログラム 2025–2030", ru:"Государственная программа комплексного социально-экономического развития регионов на 2025–2030 годы", period:"2025–2030", basis:"内閣決定 2025年3月25日", status:"有効", sectors:["urban","private","agri","digital","envmgmt"], doc:"", url:"https://economist.kg/novosti/2025/03/25/kabmin-utvierdil-proghrammu-razvitiia-rieghionov-kyrghyzstana-do-2030-ghoda/",
+    summary:"各州の総合的な発展計画。工業、農業、観光、デジタル化、環境、国土計画など14の方向で地域ごとに進めます（国家開発プログラム10.4）。"},
+  {id:"bishkek", ch:"X", name:"「スマートで持続可能な都市ビシュケク」構想 2033年まで", ru:"Концепция «Умный устойчивый город Бишкек» до 2033 года", period:"〜2033", basis:"—", status:"有効", sectors:["urban","transport","envmgmt","digital"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"首都ビシュケクの都市開発の構想（SDGs国別報告書2025で確認）。交通・環境・デジタル化を含みます。"},
+  {id:"legal", ch:"XI", name:"法政策構想 2023–2026", ru:"Концепция правовой политики Кыргызской Республики на 2023–2026 годы", period:"2023–2026", basis:"—", status:"有効", sectors:["governance"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"法制度づくりの方針（SDGs国別報告書2025で確認）。"},
+  {id:"trafficking", ch:"XI", name:"人身取引対策プログラム 2022–2025", ru:"Программа по противодействию торговле людьми на 2022–2025 годы", period:"2022–2025", basis:"内閣決定", status:"期間終了", sectors:["peace","gender","social"], doc:"", url:"https://kyrgyzstan.un.org/sites/default/files/2025-08/VNR%202025%20Kyrgyz%20Republic%20Report%20RU.pdf",
+    summary:"人身取引の防止と被害者保護のプログラム（SDGs国別報告書2025で確認）。"},
+  {id:"religion", ch:"II", name:"宗教分野の国家政策構想 2021–2026", ru:"Концепция государственной политики Кыргызской Республики в религиозной сфере на 2021–2026 годы", period:"2021–2026（行動計画 2022–2026）", basis:"大統領令 2021年", status:"有効", sectors:["peace","education","governance"], doc:"cbd-religion-2026", url:"https://cbd.minjust.gov.kg/30-117/edition/594259/ru",
+    summary:"世俗国家の原則のもとで信教の自由と宗教間の調和を保ち、過激主義を防ぐための構想。市民アイデンティティ「キルギス・ジャラヌ」と結びついています。",
+    subs:[{name:"2.1 宗教団体の活動の国による規制", sectors:["governance","peace"], desc:"宗教団体の登録と活動の規制、省庁間の調整会議、宗教状況のモニタリングと調査"},
+          {name:"2.2 宗教教育・宗教学教育", sectors:["education","peace"], desc:"宗教教育機関の規制と、学校での宗教学（世俗的な宗教理解）の教育"},
+          {name:"2.3 宗教的急進主義・過激主義の予防", sectors:["peace"], desc:"破壊的な勧誘の禁止、過激主義の扇動の取り締まり"}]},
+];
+const SEC_NDS = {health:"2.1", education:"2.1", social:"2.1", gender:"2.1–2.2", sports:"2.1", peace:"2.3・2.5 / 4.5", finance:"3.2", private:"3.2–3.3", energy:"3.2", transport:"3.2", water:"3.2", envmgmt:"3.2", climate:"3.2", drr:"3.2", urban:"3.2 / 4.4", agri:"3.3", nature:"3.2–3.3", governance:"4", digital:"4.7", nutrition:"2.1 / 3.3"};
+
+// active donor funding behind a set of sectors: each project counts once, with its share in those sectors
+function fundFor(sectors){
+  const set = new Set(sectors), by = {}; let amt = 0, n = 0, u = 0, jn = 0, ja = 0;
+  for(const p of projects()){
+    if(p.st!=="active") continue;
+    const hit = p.c.filter(c=>set.has(c)).length; if(!hit) continue;
+    n++; if(p.donor==="jica") jn++;
+    if(!hasAmt(p)){ u++; continue; }
+    const v = (p.amt||0) * hit / Math.max(1, p.c.length);
+    amt += v; by[p.donor] = (by[p.donor]||0) + v; if(p.donor==="jica") ja += v;
+  }
+  const top = Object.entries(by).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  return {amt, n, u, top, jn, ja};
+}
+const secMark = (id, on) => `<button class="smark ${on?"on":""}" data-sec="${id}" title="分野${SEC[id].no}">${esc(SEC[id].ja)}</button>`;
+const secMarks = (ids, hi) => `<div class="smarks">${ids.map(id=>secMark(id, hi===id)).join("")}</div>`;
+function fundLine(f, compact){
+  if(!projReady()) return "";
+  return `<div class="sfund"><span class="sa">${money(f.amt)||"—"}</span><span class="note">実施中 ${f.n}件${f.u?`・金額不明 ${f.u}`:""}</span>
+    ${!compact&&f.top.length?`<span class="stop">${f.top.map(([d,v])=>`${esc(donorName(d).replace(/（.*?）/,""))} ${Math.round(v/f.amt*100)}%`).join("・")}</span>`:""}
+    ${SHOW_JP?`<span class="sj">JICA ${f.jn?`${f.jn}件${f.ja?" "+money(f.ja):""}`:"—"}</span>`:""}</div>`;
+}
+const docLinks = x => `<div class="dlinks">${x.doc?(EMBED?`<a class="btn primary" href="${DOCS_VIEW}ja/${encodeURIComponent(x.doc)}.md" target="_blank" rel="noopener">日本語訳で読む</a>`:`<button class="btn primary" data-doc="${x.doc}">日本語訳で読む</button>`):""}<a class="btn" href="${esc(x.url)}" target="_blank" rel="noopener">原文・出典</a>${x.url&&!/\.pdf($|\?)/i.test(x.url)?`<a class="btn" href="${esc(jaLink(x.url))}" target="_blank" rel="noopener">出典をGoogle翻訳で</a>`:""}</div>`;
+const statusTag = s => `<span class="stag ${s==="有効"?"ok":"old"}">${esc(s||"")}</span>`;
+
+/* the detail panel: one strategy, chapter or the two national documents */
+/* strategy trees (script tags "tree-<strategy id>"): how a programme branches, and which donor projects sit on each branch */
+const TREES = {};
+for(const el of document.querySelectorAll('script[type="application/json"][id^="tree-"]')){
+  try{ const t = JSON.parse(el.textContent); TREES[t.strategy] = t; }catch(e){}
+}
+// active projects of the tree's sector, each placed on the first branch whose words match its title (then its description)
+function treePlace(t){
+  const rules = t.rules.map(([n, rx])=>[n, new RegExp(rx, "i")]), skip = t.exclude ? new RegExp(t.exclude) : null;
+  const only = t.only ? new RegExp(t.only, "i") : null, secs = [].concat(t.sector);
+  const by = {}, un = []; let n = 0;
+  for(const p of projects()){
+    if(p.st!=="active" || !p.c.some(c=>secs.includes(c))) continue;
+    if(skip && skip.test((p.t||"")+" "+(p.x||""))) continue;  // an agency's running costs, not a programme
+    if(only && !only.test((p.t||"")+" "+(p.x||""))) continue;  // the tree covers only part of a broad sector
+    n++;
+    const hit = (rules.find(([, r])=>r.test(p.t||"")) || rules.find(([, r])=>r.test(p.x||"")) || [])[0];
+    (hit ? (by[hit] = by[hit] || []) : un).push(p);
+  }
+  return {by, un, n};
+}
+const TYPE_CLS = {"プログラム":"prog","分野":"area","戦略":"strat","規則":"rule","制度":"sys","計画":"strat","法律":"rule"};
+const CONF_CLS = {"法令":"c-law","本文":"c-law","本文一部":"c-doc","本文旧版":"c-doc","資料":"c-doc","報道":"c-news","案":"c-draft","要確認":"c-guess","推定":"c-guess"};
+function treeHTML(t, title=""){
+  const pl = treePlace(t);
+  const all = n => (pl.by[n.id] || []).concat(...(n.kids || []).map(all));
+  const pj = p => `<li><span>${esc(p.tj || p.t)}</span><span class="note">${esc(donorName(p.donor))}${hasAmt(p) ? " · " + money(p.amt) : ""}</span></li>`;
+  const node = (n, depth) => {
+    const a = all(n), own = (pl.by[n.id] || []).slice().sort((x, y)=>(y.amt||0)-(x.amt||0)), sum = a.reduce((v, p)=>v + (hasAmt(p) ? p.amt : 0), 0);
+    return `<details class="tnode" ${depth===0?"open":""}><summary><span class="tn">${n.type?`<span class="ttype t-${TYPE_CLS[n.type]||"x"}">${esc(n.type)}</span>`:""}${esc(n.n)}</span>${n.conf?`<span class="ctag ${CONF_CLS[n.conf]||"c-guess"}">${esc(n.conf)}</span>`:""}<span class="tc">${a.length ? a.length + "件" + (sum ? " · " + money(sum) : "") : "案件なし"}</span></summary>
+      ${n.m?`<p class="tm">${esc(n.m)}</p>`:""}${n.d?`<p class="td">${esc(n.d)}</p>`:""}
+      ${own.length?`<ul class="tpj">${own.map(pj).join("")}</ul>`:""}${(n.kids || []).map(k=>node(k, depth + 1)).join("")}</details>`;
+  };
+  return `<div class="blk tree"><h3>樹形図：${title?esc(title)+"の":""}構成と援助機関の案件</h3>
+    <p class="note">${esc(t.note)} 実施中の案件 ${pl.n}件のうち ${pl.n - pl.un.length}件を当てはめています。<br>確かさ：<span class="ctag c-law">法令・本文</span>原文で確認 <span class="ctag c-doc">資料</span>公的な資料 <span class="ctag c-news">報道</span>報道のみ <span class="ctag c-draft">案</span>まだ承認されていない <span class="ctag c-guess">推定・要確認</span>調べ中</p>
+    ${t.nodes.map(n=>node(n, 0)).join("")}
+    ${pl.un.length?`<details class="tnode"><summary><span class="tn">どの枝にも当てはまらなかった案件</span><span class="tc">${pl.un.length}件</span></summary><ul class="tpj">${pl.un.map(pj).join("")}</ul></details>`:""}</div>`;
+}
+// "優先3 観光…" -> number 3 and the original's word for it; every list is numbered 1, 2, 3…
+// (the National Development Strategy keeps its own chapter numbers: II -> 2)
+const ROMAN = {I:1,II:2,III:3,IV:4,V:5,VI:6,VII:7,VIII:8,IX:9,X:10};
+function subLabel(name, i, own){
+  const r = name.match(/^(I|II|III|IV|V|VI|VII|VIII|IX|X)\s+(.*)$/);
+  if(own && r) return {no:String(ROMAN[r[1]]), name:r[2], orig:""};
+  const m = name.match(/^(第\d+章|課題\s*\d+|優先\s*\d+|コンポーネント\s*\d+|\d+(?:\.\d+)+)\s*(.*)$/);
+  return m ? {no:String(i+1), name:m[2], orig:m[1]} : {no:String(i+1), name, orig:""};
+}
+function sheetHTML(id){
+  if(/^ch-5\.3[ab]$/.test(id)) id = "ch-5.3";  // links from before 5.3 was one section
+  const x = SDB[id] || STRATS2.find(s=>s.id===id) || NDP_CH.find(c=>"ch-"+c.id===id);
+  if(!x) return "";
+  const isCh = !!x.tasks, sectors = x.sectors || [...new Set((x.subs||[]).flatMap(s=>s.sectors||[]))];
+  const ch = x.ch ? NDP_CH.find(c=>c.id===x.ch) : null;
+  const f = sectors.length ? fundFor(sectors) : null;
+  const kids = isCh ? STRATS2.filter(s=>s.ch===x.id) : [];
+  const sub = (s, l) => `<details class="sub"><summary><span>${l?`<b class="subno">${esc(l.no)}</b>${esc(l.name)}${l.orig?`<small class="orig">（原文 ${esc(l.orig)}）</small>`:""}`:esc(s.name)}</span>${s.sectors?`<span class="smini">${s.sectors.map(c=>secTag(c)).join("")}</span>`:""}</summary>
+      ${s.desc?`<p>${esc(s.desc)}</p>`:""}${s.items?`<ul>${s.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}${s.sectors?secMarks(s.sectors):""}</details>`;
+  return `<div class="sheet-in">
+    <div class="sh-top"><span class="k">${isCh?"国家開発プログラム2030 "+(x.parent?`第${x.parent}章「${NDP_PARENT[x.parent]}」 ${esc(x.no)}`:`第${esc(x.no)}章`):esc(x.kind||"分野別戦略・プログラム")}</span><button class="sh-x" data-close aria-label="閉じる">×</button></div>
+    <h2>${esc(x.name)}</h2>${x.ru?`<p class="ru">${esc(x.ru)}</p>`:""}
+    ${!isCh?`<div class="meta2">${statusTag(x.status)}<span>${esc(x.period||"")}</span><span>${esc(x.basis||"")}</span></div>`:""}
+    ${x.summary?`<p class="sum">${esc(x.summary)}</p>`:""}
+    ${!isCh?docLinks(x):""}
+    ${ch?`<div class="blk"><h3>国家開発プログラム2030での位置づけ</h3><button class="chref" data-st="ch-${ch.id}"><b>${esc(ch.no)}</b> ${esc(ch.name)}${x.part?"（"+esc(x.part)+"）":""} →</button></div>`:""}
+    ${(x.goals||x.targets||[]).length?`<div class="blk"><h3>目標</h3><ul class="tg">${(x.goals||x.targets).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:""}
+    ${sectors.length?`<div class="blk"><h3>関わる分野</h3>${secMarks(sectors)}${f?fundLine(f):""}<p class="note">援助機関の実施中の案件のうち、これらの分野に入るもの（複数分野の案件は按分）。分野を押すと分野ページへ。</p></div>`:""}
+    ${(x.parts||[]).map(pt=>`<div class="blk"><h3>${esc(pt.name)}：目標</h3><ul class="tg">${pt.targets.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
+      <div class="blk"><h3>${esc(pt.name)}：主な課題</h3>${pt.tasks.map(t=>sub({name:t})).join("")}</div>`).join("")}
+    ${isCh&&x.tasks.length?`<div class="blk"><h3>主な課題</h3>${x.tasks.map(t=>sub({name:t})).join("")}</div>`:""}
+    ${(x.subs||[]).length?`<div class="blk"><h3>${id==="nds"?"構成":"サブプログラム・構成"}</h3>${x.subs.map((u,i)=>sub(u, subLabel(u.name, i, id==="nds"))).join("")}</div>`:""}
+    ${(()=>{ // a strategy shows its own tree; a chapter shows the trees of its strategies
+      const ts = TREES[x.id] ? [TREES[x.id]] : isCh ? Object.values(TREES).filter(t=>t.chapter===x.id || t.chapter===x.no) : [];
+      return ts.map(t=>{ try{ return treeHTML(t, ts.length>1 || isCh ? (STRATS2.find(s=>s.id===t.strategy)||{}).name : ""); }
+        catch(e){ return `<div class="blk"><p class="note">樹形図を表示できませんでした（${esc(e.message)}）。</p></div>`; } }).join(""); })()}
+    ${kids.length?`<div class="blk"><h3>${x.parent?"この節":"この章"}につながる分野別戦略</h3>${kids.map(k=>`<button class="srow" data-st="${k.id}"><span>${k.part?`<small class="orig">${esc(k.part)}</small> `:""}${esc(k.name)}</span><span class="note">${esc(k.period)}</span></button>`).join("")}</div>`:""}
+  </div>`;
+}
+function renderSheet(){
+  let el = document.getElementById("sheet");
+  if(!S.st){ if(el) el.remove(); document.body.classList.remove("noscroll"); return; }
+  if(!el){ el = document.createElement("div"); el.id = "sheet"; el.className = "sheet"; document.body.appendChild(el); }
+  el.innerHTML = `<div class="sh-bg" data-close></div><aside class="sh-panel" role="dialog" aria-modal="true">${sheetHTML(S.st)}</aside>`;
+  document.body.classList.add("noscroll");
+}
+
+function viewStrategy(){
+  setTitle("国家戦略マップ");
+  const hi = S.s;   // sector filter
+  const has = arr => !hi || arr.includes(hi);
+  const chFund = c => fundFor(c.sectors);
+  const strat = s => `<button class="scard2 ${has(s.sectors)?"":"dim"}" data-st="${s.id}"><span class="sc-n">${esc(s.name)}</span><span class="sc-p">${esc(s.period)}${s.status!=="有効"?" · "+esc(s.status):""}</span><span class="smini">${s.sectors.map(c=>secTag(c, c===hi)).join("")}</span></button>`;
+  let lastParent = "";
+  const chapter = c => {
+    const kids = STRATS2.filter(s=>s.ch===c.id), show = has(c.sectors) || kids.some(k=>has(k.sectors));
+    if(!show) return "";
+    const cards = list => `<div class="scards">${list.map(strat).join("")}</div>`;
+    const parts = c.parts ? c.parts.map(pt=>{ const ks = kids.filter(k=>k.part===pt.name);
+      return `<div class="ppart"><b>${esc(pt.name)}</b>${ks.length?cards(ks):`<p class="note">個別の戦略は見つかっていません。</p>`}</div>`; }).join("") : "";
+    const head = c.parent && c.parent!==lastParent ? `<div class="pgrp"><span class="pno">${c.parent}</span><b>${esc(NDP_PARENT[c.parent])}</b><span class="note">第${c.parent}章（${c.parent}.1〜 はその節）</span></div>` : "";
+    lastParent = c.parent || "";
+    return head + `<details class="pil2 ${c.parent?"insec":""}" ${hi||matchMedia("(min-width:900px)").matches?"open":""}><summary>
+        <span class="pno">${esc(c.no)}</span><span class="pnm">${esc(c.name)}<small>${esc(c.en)}</small></span>
+        <span class="smini">${c.sectors.map(s=>secTag(s, s===hi)).join("")}</span></summary>
+      <div class="pbody"><button class="chlink" data-st="ch-${c.id}">目標と課題を見る →</button>${fundLine(chFund(c), true)}
+        ${parts||(kids.length?cards(kids):`<p class="note">この章に直接つながる個別の戦略は今回の調査では見つかっていません（章の中で直接定められています）。</p>`)}</div></details>`;
+  };
+  const chips = `<div class="sfilter"><button class="jchip ${hi?"":"on"}" data-sfil="">すべての分野</button>${SECTORS.map(([id,ja])=>`<button class="jchip ${hi===id?"on":""}" data-sfil="${id}"><b>分野${SEC[id].no}</b> ${esc(ja)}</button>`).join("")}</div>`;
+  // where each sector appears: chapters, strategies, sub-programmes
+  const where = id => {
+    const chs = NDP_CH.filter(c=>c.sectors.includes(id)), st = STRATS2.filter(s=>s.sectors.includes(id)),
+          subs = STRATS2.flatMap(s=>(s.subs||[]).filter(u=>(u.sectors||[]).includes(id)).map(u=>({s,u})));
+    return {chs, st, subs};
+  };
+  let focus = "";
+  if(hi){
+    const w = where(hi), f = fundFor([hi]);
+    focus = `<div class="panel sfocus"><div class="k">分野${SEC[hi].no}</div><h3>${esc(SEC[hi].ja)} はどこに位置づけられているか</h3>
+      <div class="sfrow"><b>国家開発戦略2040</b><span>${esc(SEC_NDS[hi]||"—")}</span></div>
+      <div class="sfrow"><b>国家開発プログラム2030</b><span>${w.chs.map(c=>`<button class="chref" data-st="ch-${c.id}"><b>${esc(c.no)}</b> ${esc(c.name)}</button>`).join("")}</span></div>
+      <div class="sfrow"><b>分野別の戦略</b><span>${w.st.length?w.st.map(s=>`<button class="chref" data-st="${s.id}">${esc(s.name)}</button>`).join(""):"—"}</span></div>
+      ${w.subs.length?`<div class="sfrow"><b>サブプログラム</b><span>${w.subs.map(({s,u})=>`<button class="chref" data-st="${s.id}">${esc(u.name)}<small>（${esc(s.name)}）</small></button>`).join("")}</span></div>`:""}
+      <div class="sfrow"><b>援助機関の支援</b><span>${fundLine(f)}</span></div>
+      <button class="linkbtn" data-sec="${hi}">この分野のページへ →</button></div>`;
+  }
+  return `${secHead("National strategy","国家戦略マップ",'<span class="note">国の戦略・プログラムの構成と、各分野の位置づけ・援助機関の支援</span>')}
+    <div class="shero">
+      <button class="hcard" data-st="nds"><span class="k">NATIONAL DEVELOPMENT STRATEGY</span><b>${SDB.nds.name}</b><span class="note">${SDB.nds.basis}</span></button>
+      <span class="harrow" aria-hidden="true">→</span>
+      <button class="hcard main" data-st="ndp"><span class="k">NATIONAL DEVELOPMENT PROGRAM</span><b>${SDB.ndp.name}</b><span class="note">${SDB.ndp.basis}・14章</span></button>
+    </div>
+    <div class="note" style="margin:8px 0 4px">分野で絞り込む：</div>${chips}
+    ${focus}
+    ${secHead("Chapters","国家開発プログラム2030の章と、そこにつながる分野別戦略",'<span class="note">章・戦略を押すと詳細（目標・サブプログラム・日本語訳の本文）</span>')}
+    <div class="pils2">${NDP_CH.map(chapter).join("")}</div>
+    <p class="note">番号は国家開発プログラム2030の原文どおりです。第1・3・4・14章（はじめに・現状・目標・実施の管理）は分野の中身がないため載せていません。目標は上の「国家開発プログラム」のカードで見られます。</p>
+    <p class="foot">章の構成と目標値は「国家開発プログラム2030年まで」（大統領令 2025年 No.178）の本文から、分野別戦略は法令データベース・政府発表・SDGs国別報告書2025から確認したものです。分野（番号）の対応づけと援助機関の支援額（実施中の案件、複数分野の案件は按分）はこのページによる整理です。本文の日本語訳は機械翻訳です。</p>`;
+}
+
+/* the Japanese reading view of a strategy text (machine translation kept on the strategy-docs branch) */
+async function viewDocLoad(){
+  const box = document.getElementById("docbox"); if(!box) return;
+  try{
+    const r = await fetch(DOCS_BASE + "ja/" + encodeURIComponent(S.doc) + ".md", {cache:"no-cache"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const md = await r.text();
+    box.innerHTML = md.split(/\n{2,}/).map(b=>{
+      b = b.trim(); if(!b) return "";
+      if(b.startsWith("## ")) return `<h3>${esc(b.slice(3))}</h3>`;
+      if(b.startsWith("# ")) return `<h2>${esc(b.slice(2))}</h2>`;
+      if(b.startsWith("> ")) return `<p class="note">${esc(b.slice(2))}</p>`;
+      if(b.startsWith("原文: ")) return `<p class="note">原文: <a href="${esc(b.slice(4))}" target="_blank" rel="noopener">${esc(b.slice(4))}</a></p>`;
+      return `<p>${esc(b)}</p>`;
+    }).join("");
+  }catch(e){ box.innerHTML = `<div class="empty">日本語訳をまだ読み込めません（${esc(e.message)}）。翻訳の作成中かもしれません。</div>`; }
+}
+function viewDoc(){
+  setTitle("日本語訳");
+  setTimeout(viewDocLoad, 0);
+  return `<div class="docv"><button class="linkbtn" data-back>← 戻る</button><div id="docbox" class="docbox"><div class="empty">読み込み中…</div></div></div>`;
+}
+
+function viewSaved(){
+  setTitle("保存");
+  const list = Object.values(saved).map(prep).sort((a,b)=>b.ts-a.ts);
+  return `${secHead("Saved","保存した記事",'<span class="note">この端末のブラウザに保存されます</span>')}
+    <div class="count"><span>${list.length} 件</span><span class="sp"></span>${list.length?'<button class="btn" data-csv="saved">CSV</button>':""}</div>
+    ${list.length?listHTML(list):'<div class="feed"><div class="empty">記事の ☆ を押すとここに保存されます</div></div>'}`;
+}
+function footer(){
+  if(!INDEX) return "";
+  const bf = Math.min(INDEX.backfill_cursor||0, INDEX.backfill_months||36);
+  return `<p class="foot">収集元: キルギスの主要メディア（24.kg、Kaktus.media、AKIpress、Kloop、Кабар、Азаттык ほか）、政府・議会サイト、Google ニュース検索（ロシア語・英語・日本語）、国際機関の発表、World Bank Projects API、IATI。
+    見出しは${INDEX.ai?"AIによる日本語見出し、または":""}機械翻訳で、タイトルを押すと記事全体を Google 翻訳で開きます。${INDEX.ai?`分野・政府の動き・協力の判定は AI（${esc(INDEX.ai.model)}）による自動判定です（判定済み ${(INDEX.ai.items_done||0).toLocaleString()}件・関係の薄い記事 ${(INDEX.ai.hidden||0).toLocaleString()}件を非表示。未判定の記事はキーワードで仮分類）。`:"分野・機関・政府の判定はキーワードによる自動判定です。"}
+    金額は各機関の報告額を米ドルにそろえ、円・ソム表示は${INDEX.fx&&INDEX.fx.date?`${esc(INDEX.fx.date)}の`:"目安の"}レート（1ドル=${fx("JPY")}円・${fx("KGS")}ソム）で換算しています（過去の案件も同じレート）。
+    蓄積 ${(INDEX.total||0).toLocaleString()} 件${bf?`・過去 ${bf} か月分をさかのぼって収集済み`:""}${INDEX.untranslated?`・翻訳待ち ${INDEX.untranslated} 件`:""}${EMBED?"":"・3時間ごとに自動更新"}。</p>`;
+}
+function render(keep=null){
+  document.querySelectorAll("#tabs button").forEach(b=>{ const v = b.dataset.v; b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor") || (v==="feed"&&(S.v==="gov"||S.v==="coop")) || (v==="strategy"&&S.v==="doc")); });
+  const m = $("#main");
+  if(!INDEX){
+    m.innerHTML = loadErr ? `<div class="feed"><div class="empty">データをまだ読み込めません（${esc(loadErr)}）。<br>初回の収集が終わると表示されます。</div></div>` : `<div class="empty">読み込み中…</div>`;
+    return;
+  }
+  if(S.v==="gov"||S.v==="coop"){ S.t = S.v; S.v = "feed"; }
+  const f = {home:viewHome, feed:viewFeed, sector:viewSector,
+             projects:viewProjects, donors:viewDonors, donor:viewDonor, saved:viewSaved, strategy:viewStrategy, doc:viewDoc}[S.v] || viewHome;
+  const html = f() + (S.v==="doc" ? "" : footer());
+  if(!(keep && m.contains(keep) && renderAround(m, html, keep))) m.innerHTML = html;
+  renderSheet();
+}
+// Redraw `m` but leave the element `keep` (the filter box being typed in) where it is.
+// Replacing it would close the iPhone keyboard, and Safari does not let a page reopen it.
+function renderAround(m, html, keep){
+  const fresh = document.createElement("div"); fresh.innerHTML = html;
+  const twin = fresh.querySelector(`[data-inp="${keep.dataset.inp}"]`);
+  if(!twin) return false;
+  const oldChain = [], newChain = [];
+  for(let n = keep; n !== m; n = n.parentNode) oldChain.push(n);
+  for(let n = twin; n !== fresh; n = n.parentNode) newChain.push(n);
+  if(oldChain.length !== newChain.length) return false;
+  oldChain.push(m); newChain.push(fresh);
+  for(let k = oldChain.length - 1; k > 0; k--){
+    const box = oldChain[k], stay = oldChain[k-1], nbox = newChain[k], nstay = newChain[k-1];
+    if(k < oldChain.length - 1){  // match the box's own attributes (class, style) to the new drawing
+      for(const a of [...box.attributes]) if(!nbox.hasAttribute(a.name)) box.removeAttribute(a.name);
+      for(const a of [...nbox.attributes]) box.setAttribute(a.name, a.value);
+    }
+    for(const c of [...box.childNodes]) if(c !== stay) box.removeChild(c);
+    let before = true;
+    for(const c of [...nbox.childNodes]){
+      if(c === nstay){ before = false; continue; }
+      before ? box.insertBefore(c, stay) : box.appendChild(c);
+    }
+  }
+  return true;
+}
+
+/* ---------- CSV ---------- */
+async function csvDownload(kind){
+  const q = v => '"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+  let rows, name;
+  if(kind==="projects"){
+    const list = S.v==="sector" ? filterProjects({s:S.s,d:S.d,q:S.q,k:S.k,ps:S.sub==="pa"?"open":"past",psort:S.psort})
+               : S.v==="donor" ? filterProjects({d:S.d,s:S.s,q:S.q,k:S.k,ps:S.ps,psort:S.psort}) : filterProjects(S);
+    rows = [["状態","機関","報告機関","協力形態","元の区分","案件名（日本語）","案件名（原文）","開始","終了","金額USD","金額JPY","分野","URL"]].concat(
+      list.map(p=>[ST_JA[p.st]||p.st, donorName(p.donor), p.org, sch(p), p.kind, p.tj, p.t, p.a, p.e, hasAmt(p)?p.amt:"金額不明", p.jpy, p.c.map(c=>SEC[c]?.ja).join("／"), p.u]));
+    name = "projects";
+  }else{
+    const list = kind==="saved" ? Object.values(saved).map(prep).sort((a,b)=>b.ts-a.ts)
+               : S.v==="sector" ? filterItems({...S, t:S.sub==="press"?"all":S.sub})
+               : filterItems({...S, t:{gov:"gov",coop:"coop"}[S.v]||S.t});
+    rows = [["日時","媒体","種別","機関","見出し（日本語）","見出し（原文）","要旨（日本語）","分野","URL"]].concat(
+      list.map(x=>[fmtDT(x.p), x.s, x.g?"政府":x.d.length?"協力":"報道", x.d.map(donorName).join("／"), x.tj, x.t, x.lj||x.l, x.c.map(c=>SEC[c]?.ja).join("／"), x.u]));
+    name = kind==="saved" ? "saved" : "news";
+  }
+  const text = "﻿"+rows.map(r=>r.map(q).join(",")).join("\r\n");
+  const filename = `kyrgyz-${name}${S.s?"-"+S.s:""}-${new Date().toISOString().slice(0,10)}.csv`;
+  if(EMBED){
+    const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+    if(!dl){ toast("この表示ではCSVを保存できません"); return; }
+    try{ await dl.save({filename, data:text}); }catch(e){ if(e && e.code!=="declined") toast("CSVを保存できませんでした"); }
+    return;
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], {type:"text/csv"}));
+  a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+}
+
+/* ---------- events ---------- */
+$("#tabs").addEventListener("click", e=>{ const b = e.target.closest("button"); if(b) go({v:b.dataset.v, s:"", d:"", t:"all", sub:"pa", ps:"active", k:""}); });
+$("#home").onclick = ()=>{ $("#q").value=""; go({v:"home", s:"", d:"", q:""}); };
+$("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); go({v:"feed", q:$("#q").value.trim(), t:"all", p:0, s:"", d:""}); });
+const main = $("#main");
+main.addEventListener("click", e=>{
+  const t = e.target;
+  if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
+  const stb = t.closest("[data-st]"); if(stb){ e.preventDefault(); go({st:stb.dataset.st}, false); return; }
+  const sf = t.closest("[data-sfil]"); if(sf){ go({s:sf.dataset.sfil}, false); return; }
+  if(t.closest("[data-back]")){ if(EMBED) go({v:"strategy", doc:""}); else history.back(); return; }
+  const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
+  const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
+  const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
+  const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:""}); return; }
+  const ch = t.closest("[data-ch]"); if(ch){
+    CH[ch.dataset.ch] = ch.dataset.val;
+    if(ch.dataset.ch==="ym" && CH.range[0].match(/[yoc]/) && CH.range!=="active") CH.range = CH.ysel ? ML()+CH.ysel : "active";
+    lsSet("km-charts", CH); render(); return; }
+  const ybar = t.closest("[data-year]"); if(ybar){ const y = +ybar.dataset.year; CH.ysel = CH.ysel===y ? 0 : y; if(CH.ysel){ CH.range = ML()+y; CH.scope = "donor"; } lsSet("km-charts", CH); render(); return; }
+  const ys = t.closest("[data-ysel]"); if(ys){ CH.ysel = 0; lsSet("km-charts", CH); render(); return; }
+  if(t.closest("[data-cover]")){ e.stopPropagation(); SHOW_COVER = !SHOW_COVER; if(S.v!=="home") go({v:"home"}); else render(); return; }
+  const uk = t.closest("[data-unknown]"); if(uk){ go({v:"projects", s:uk.dataset.unknown, ua:"1", ps:"all", d:"", k:""}); return; }
+  const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:"", q:"", ps:"all", k:""}); return; }
+  const st = t.closest("[data-star]");
+  if(st){
+    const id = st.dataset.star;
+    if(saved[id]) delete saved[id];
+    else { const x = ITEMS.find(x=>x.i===id); if(x){ const {ts,k,jp,...rest} = x; saved[id] = rest; } }
+    lsSet("km-saved", saved); st.classList.toggle("on", !!saved[id]);
+    if(S.v==="saved") render();
+    return;
+  }
+  const kd = t.closest("[data-kind]"); if(kd){ go({k:kd.dataset.kind, ps:"all"}, false); return; }
+  const set = t.closest("[data-set]"); if(set){ go({[set.dataset.set]: set.dataset.val}, false); return; }
+  const sub = t.closest("[data-sub]"); if(sub){ go({sub:sub.dataset.sub}, false); return; }
+  if(t.closest("[data-more]")){ shown += PAGE*2; render(); return; }
+  const csv = t.closest("[data-csv]"); if(csv){ csvDownload(csv.dataset.csv); return; }
+  const yb = t.closest("[data-years]");
+  if(yb){ yb.disabled = true; yb.textContent = "読み込み中…"; Promise.all((INDEX.years||[]).filter(y=>!loadedYears.has(y)).map(y=>loadYear(y).catch(()=>{}))).then(render); }
+});
+// the strategy detail panel lives outside <main>
+document.addEventListener("click", e=>{
+  const sh = e.target.closest("#sheet"); if(!sh) return;
+  const t = e.target;
+  if(t.closest("[data-close]")){ go({st:""}, false); return; }
+  const st = t.closest("[data-st]"); if(st){ go({st:st.dataset.st}, false); sh.querySelector(".sh-panel").scrollTop = 0; return; }
+  const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", st:""}); return; }
+  const doc = t.closest("[data-doc]"); if(doc){ go({v:"doc", doc:doc.dataset.doc, st:""}); return; }
+});
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.st) go({st:""}, false); });
+main.addEventListener("keydown", e=>{
+  const tile = e.target.closest(".tile[data-sec]");
+  if(tile && e.target===tile && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go({v:"sector", s:tile.dataset.sec, sub:"pa", d:"", q:"", k:""}); }
+});
+main.addEventListener("change", e=>{
+  const c = e.target.closest("[data-chsel]"); if(c){ CH[c.dataset.chsel] = c.value; lsSet("km-charts", CH); render(); return; }
+  const s = e.target.closest("[data-sel]"); if(s) go({[s.dataset.sel]: s.dataset.sel==="p" ? +s.value : s.value}, false); });
+let qTimer = 0, composing = null;  // the filter box a Japanese word is being composed in
+function filterLater(i){
+  clearTimeout(qTimer);
+  qTimer = setTimeout(()=>{
+    if(composing === i || !document.body.contains(i)) return;
+    go({q:i.value}, false, i); $("#q").value = S.q;
+  }, 250);
+}
+main.addEventListener("input", e=>{
+  const i = e.target.closest("[data-inp]"); if(!i) return;
+  if(e.isComposing || composing === i) return;  // Japanese input: wait until the word is chosen
+  filterLater(i);
+});
+main.addEventListener("compositionstart", e=>{ const i = e.target.closest("[data-inp]"); if(i) composing = i; });
+main.addEventListener("compositionend", e=>{
+  const i = e.target.closest("[data-inp]"); if(!i) return;
+  composing = null; filterLater(i);
+});
+boot();
+</script>
+</body>
+</html>

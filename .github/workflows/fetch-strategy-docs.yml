@@ -1,0 +1,68 @@
+name: Fetch strategy documents
+
+# Downloads the strategy texts listed in scripts/strategy_docs.txt, adds
+# Japanese machine translations (ja/*.md, scripts/translate_docs.py) and
+# publishes them on the `strategy-docs` branch (one force-pushed commit),
+# so the strategy map can be built from the documents themselves.
+on:
+  workflow_dispatch:
+  # once a day, to finish the documents a run had no time for (runs only from the default branch)
+  schedule:
+    - cron: "23 3 * * *"
+  push:
+    paths:
+      - scripts/strategy_docs.txt
+      - scripts/translate_docs.py
+      - strategy-ja/**
+      - .github/workflows/fetch-strategy-docs.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-strategy-docs
+  cancel-in-progress: true
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download
+        run: |
+          mkdir -p "$RUNNER_TEMP/docs"
+          grep -v '^#' scripts/strategy_docs.txt | grep -v '^\s*$' | while IFS=$'\t' read -r name url; do
+            out="$RUNNER_TEMP/docs/$name"
+            if curl -sSL --max-time 90 -A "Mozilla/5.0 (X11; Linux x86_64) Chrome/124 Safari/537.36" -o "$out.bin" "$url"; then
+              type=$(file -b --mime-type "$out.bin")
+              case "$type" in
+                application/pdf) mv "$out.bin" "$out.pdf" ;;
+                text/html|application/xhtml+xml) mv "$out.bin" "$out.html" ;;
+                application/msword|application/vnd.openxmlformats*) mv "$out.bin" "$out.doc" ;;
+                *) mv "$out.bin" "$out.dat" ;;
+              esac
+              echo "$name	$url	$type	$(stat -c %s "$RUNNER_TEMP/docs/$name".*)" >> "$RUNNER_TEMP/docs/index.tsv"
+            else
+              echo "$name	$url	FAILED	0" >> "$RUNNER_TEMP/docs/index.tsv"
+            fi
+          done
+          cat "$RUNNER_TEMP/docs/index.tsv"
+      - name: Translate into Japanese
+        timeout-minutes: 58
+        env:
+          TRANSLATE_BUDGET: "3000"
+        run: |
+          command -v pdftotext >/dev/null || sudo apt-get install -y -qq poppler-utils >/dev/null
+          python3 scripts/translate_docs.py "$RUNNER_TEMP/docs" || echo "translation failed"
+      - name: Publish
+        if: ${{ !cancelled() }}  # a cancelled run must not replace what is published
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/docs"
+          git init -q
+          git checkout -q --orphan strategy-docs
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Strategy documents"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" strategy-docs

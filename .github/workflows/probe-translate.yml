@@ -1,0 +1,36 @@
+name: Probe translation
+
+# One-off check that the translation request used by scripts/translate_docs.py
+# is accepted from GitHub's runners (short and long paragraphs, POST body).
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/probe-translate.yml
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Translate a sample
+        run: |
+          python3 - <<'EOF'
+          import sys, time
+          sys.path.insert(0, "scripts")
+          import translate_docs as td
+          short = ["Национальная программа развития Кыргызской Республики до 2030 года.",
+                   "Увеличение доли туристической отрасли в ВВП до 7%."]
+          long = ["Развитие человеческого потенциала и обеспечение достойного труда. " * 30] * 3
+          for name, batch in (("short", short), ("long", long)):
+              t = time.time()
+              try:
+                  out = td.gtx(batch, "ru")
+                  print(name, "OK", round(time.time() - t, 1), "s", sum(map(len, batch)), "chars ->", out[0][:80])
+              except Exception as e:
+                  print(name, "FAILED", repr(e))
+          t = time.time()
+          out = td.translate(long * 4, "ru")
+          print("translate() 12 long paragraphs", round(time.time() - t, 1), "s", "translated" if out[0] != long[0] else "NOT translated", out[0][:60])
+          EOF

@@ -1,0 +1,36 @@
+# Questions for the legal database (scripts/legal_db.py, .github/workflows/legal-db.yml).
+# kind<TAB>label<TAB>value   kinds: search (title words), text (words in the text),
+# refs (document id), doc (document code: its card and linked acts),
+# chain (title search, then the card and linked acts of the first 5 hits)
+# Health: strategies and programmes below the health programme (2026-11-06, second round).
+search	digital-health	цифрового здравоохранения
+search	e-health	электронного здравоохранения
+search	health-informatization	информатизации здравоохранения
+search	medicines-policy	лекарственной политики
+search	medicines-supply	лекарственного обеспечения
+search	health-workforce	кадровой политики в здравоохранении
+search	health-workforce2	кадровых ресурсов здравоохранения
+search	phc	первичной медико-санитарной помощи
+search	maternal	охраны здоровья матери
+search	perinatal	перинатальной помощи
+search	mental-health	психического здоровья
+search	immunization	иммунизации
+search	immunoprophylaxis	иммунопрофилактике
+search	hiv	ВИЧ
+search	ncd	неинфекционных заболеваний
+search	cancer	онкологической помощи
+search	diabetes	сахарного диабета
+search	amr	антимикробной резистентности
+search	tobacco	табака
+search	emergency-care	скорой медицинской помощи
+search	health-insurance	медицинского страхования
+search	sanitary	санитарно-эпидемиологического благополучия
+search	health-concept	Концепции развития здравоохранения
+search	health-strategy	Стратегии развития здравоохранения
+search	health-programs	Программы Кабинета Министров Кыргызской Республики по
+# ブルクト's follow-up (21:10)
+chain	immunoprophylaxis-2025	иммунопрофилактики на 2025
+text	immunization-program-2025	Программа иммунопрофилактики на 2025-2030
+chain	state-guarantees	государственных гарантий
+chain	mother-child	охраны здоровья матери и ребенка
+chain	mother-child2	здоровья матери и ребенка

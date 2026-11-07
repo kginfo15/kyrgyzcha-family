@@ -1,0 +1,50 @@
+name: Update sector monitor
+
+# Collects Kyrgyz government moves, press coverage, donor / NGO news and donor
+# projects for sectors.html (scripts/fetch_sectors.py) and publishes them on
+# the `sector-data` branch as a single force-pushed commit.
+# Runs every 3 hours; every run adds to the stored archive and fills in one
+# more past month.
+on:
+  schedule:
+    - cron: "41 */3 * * *"
+  workflow_dispatch:
+  # also run when the collector changes, so a change can be tried before it reaches main
+  push:
+    paths:
+      - scripts/fetch_sectors.py
+      - .github/workflows/update-sectors.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-sectors
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the Claude SDK
+        run: python3 -m pip install --quiet "anthropic>=2,<3"
+      - name: Collect
+        env:
+          TIME_BUDGET: "5400"
+          # optional: with this secret set, Claude classifies items (scripts/ai_classify.py)
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # optional repository variable to choose the model (default claude-opus-5-5)
+          MONITOR_MODEL: ${{ vars.MONITOR_MODEL }}
+        run: python3 scripts/fetch_sectors.py "$RUNNER_TEMP/out"
+      - name: Publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/out"
+          git init -q
+          git checkout -q --orphan sector-data
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update sector data"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" sector-data
