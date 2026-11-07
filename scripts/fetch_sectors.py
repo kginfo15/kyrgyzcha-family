@@ -1441,6 +1441,12 @@ def collect_projects(out_dir):
         all(p.get("pv") == JICA_PV for p in prev.get("projects", []) if p.get("src") == "jica")
     if fresh and not os.environ.get("FORCE_PROJECTS"):
         log("projects: still fresh, keeping (translating any left)")
+        fixes = load_sector_fixes()   # hand tag fixes take effect at once, not only at the daily refetch
+        for p in prev.get("projects", []):
+            p.setdefault("c", [])
+            fix_sectors(p, fixes)
+            if not p["c"]:
+                del p["c"]
         translate_projects(prev.get("projects", []))
         describe_projects(prev.get("projects", []))
         result = prev
