@@ -1,0 +1,48 @@
+name: Weekly key-news summary
+
+# Once a week Claude (Haiku) picks each sector's key news of the past 7 days
+# and writes one sentence on the week (scripts/week_summary.py). The result
+# goes to the `week-data` branch as week.json (plus a dated copy under weeks/),
+# which monitor.html reads. Without the ANTHROPIC_API_KEY secret the job only
+# prints a notice and the page keeps its free-rule selection.
+on:
+  schedule:
+    - cron: "0 1 * * 6"   # Saturday 01:00 UTC = 07:00 in Bishkek
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: week-summary
+  cancel-in-progress: false
+
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the Claude SDK
+        run: python3 -m pip install --quiet "anthropic>=2,<3"
+      - name: Previous weeks
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          git fetch -q origin week-data && git --work-tree="$RUNNER_TEMP/out" checkout origin/week-data -- . || echo "first run: no week-data branch yet"
+      - name: Summarise
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # optional repository variable to choose the model (default claude-haiku-5-5)
+          WEEK_MODEL: ${{ vars.WEEK_MODEL }}
+        run: python3 scripts/week_summary.py "$RUNNER_TEMP/out"
+      - name: Publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/out"
+          [ -f week.json ] || { echo "no week.json: nothing to publish"; exit 0; }
+          git init -q
+          git checkout -q --orphan week-data
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Weekly key-news summary"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" week-data

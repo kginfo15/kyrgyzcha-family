@@ -524,6 +524,41 @@ details.ov[open] .ovs{display:inline}
 .nsec{margin:2px 0 10px}
 .nsec-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;min-height:30px}
 .nsec-h .sp{flex:1}
+/* ---- this week's key news (top of a sector page and of the overview) ---- */
+.wk{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:12px 0 4px;box-shadow:0 1px 2px rgba(13,21,32,.05)}
+.wk-h{display:flex;align-items:flex-end;gap:10px 16px;flex-wrap:wrap;background:var(--band);color:var(--band-ink);padding:11px 16px 10px;border-bottom:3px solid var(--accent)}
+.wk-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--accent)}
+.wk-t{font-size:17px;font-weight:700;line-height:1.3;margin-top:2px}
+.wk-d{font-size:11.5px;color:var(--band-sub);margin-top:2px}
+.wk-c{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.wk-c span{font-size:11px;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:2px 9px;color:var(--band-ink);white-space:nowrap}
+.wk-c b{font-family:var(--mono);margin-left:3px}
+.wk-lead{padding:10px 16px 10px 13px;font-size:14px;font-weight:600;line-height:1.6;border-bottom:1px solid var(--line);background:var(--accent-soft);border-left:3px solid var(--accent)}
+.wk-lead p{margin:0}.wk-lead p+p{margin-top:4px}.wk-lead b{color:var(--accent);font-size:12px;margin-right:4px}
+.wk-sw{display:flex;gap:0;padding:8px 16px 0;background:var(--panel)}
+.wk-sw button{font:inherit;font-size:12px;padding:4px 12px;border:1px solid var(--line);background:var(--panel);color:var(--sub);cursor:pointer}
+.wk-sw button:first-child{border-radius:6px 0 0 6px}.wk-sw button:last-child{border-radius:0 6px 6px 0;border-left:0}
+.wk-sw button.on{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.wk-sw+.wk-lead{margin-top:8px}
+.wk ol{list-style:none;margin:0;padding:0;counter-reset:wk}
+.wk li{counter-increment:wk;display:grid;grid-template-columns:30px minmax(0,1fr);gap:0 10px;padding:11px 16px;border-bottom:1px solid var(--line)}
+.wk li:last-child{border-bottom:0}
+.wk li:before{content:counter(wk);grid-row:1/span 4;font-family:var(--mono);font-size:20px;font-weight:700;color:var(--accent);line-height:1.1;text-align:right}
+.wk-tg{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-bottom:3px}
+.wk-tg span{font-size:10.5px;border-radius:4px;padding:1px 6px;line-height:1.5;white-space:nowrap}
+.wk-tg .g{background:var(--gov-soft);color:var(--gov)}.wk-tg .o{background:var(--coop-soft);color:var(--coop)}.wk-tg .j{background:var(--jp-soft);color:var(--jp)}.wk-tg .p{background:var(--press-soft);color:var(--press)}
+.wk-tg .r{border:1px solid var(--line);color:var(--sub)}
+.wk-tg .s{background:var(--ink);color:var(--panel);cursor:pointer;border:0;font:inherit;font-size:10.5px}
+.wk-tg .n{color:var(--hot);font-weight:600}
+.wk li h4{margin:0;font-size:14.5px;line-height:1.45}
+.wk li h4 a{color:var(--ink);text-decoration:none}.wk li h4 a:hover{text-decoration:underline}
+.wk-l{font-size:12.5px;color:var(--sub);line-height:1.55;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wk-m{font-size:11px;color:var(--faint);margin-top:3px}
+.wk-m i{font-style:normal;color:var(--sub)}
+.wk-f{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 16px;font-size:11px;color:var(--faint);background:var(--panel2);border-top:1px solid var(--line)}
+.wk-f .sp{flex:1}
+.wk-empty{padding:14px 16px;font-size:13px;color:var(--sub)}
+@media (max-width:640px){.wk-h{padding:10px 12px}.wk li{padding:10px 12px;grid-template-columns:22px minmax(0,1fr);gap:0 8px}.wk li:before{font-size:17px}.wk-c{margin-left:0}.wk-lead,.wk-f{padding-left:12px;padding-right:12px}.wk li h4{font-size:14px}}
 .mynews{margin-top:4px}
 .rgs{padding:4px 14px}
 .tnode.hit{scroll-margin-top:72px}
@@ -1032,6 +1067,7 @@ const projReady = () => PROJECTS && !PROJECTS.err;
 async function boot(){
   readHash(); $("#q").value = S.q;
   try{
+    loadWeekAI();
     INDEX = await getJSON("index.json");
     for(const d of INDEX.donors||[]) DONORS[d.id] = d;
     await Promise.all((INDEX.years||[]).slice(0,2).map(loadYear));
@@ -1553,6 +1589,109 @@ function sideNews(list, title, more){
 function setTitle(t){ document.title = t ? t+" · Kyrgyz Monitor" : "Kyrgyz Monitor"; }
 const secHead = (k,h,right="") => `<div class="sec-h"><span class="k">${k}</span><h2>${h}</h2><span class="sp"></span>${right}</div>`;
 
+/* ---------- this week's key news ----------
+   Picked with free rules for now. A weekly AI summary can later fill <script id="week-text">:
+   sectors[id] = {lead:"one sentence", picks:[{i:"news id", why:"reason"}]} and it is used first. */
+// week.json is written once a week by .github/workflows/week-summary.yml (Claude Haiku) on the week-data branch.
+// Until that runs with an API key, week-sample.json (one sample made by hand with Haiku) stands in, marked 見本.
+let WEEK_AI = null;
+let WK_MODE = lsGet("km-wk", "ai");
+async function loadWeekAI(){
+  for(const u of ["https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/week-data/week.json", "week-sample.json"]){
+    try{
+      const r = await fetch(u, {cache:"no-cache"}); if(!r.ok) continue;
+      const d = await r.json();
+      if(d && d.sectors && Date.now()-Date.parse(d.updated) < 10*DAY){ WEEK_AI = d; render(document.activeElement); return; }
+    }catch(e){}
+  }
+}
+const WK_BIG = /ドル|ソム|億|万円|融資|無償|助成|署名|協定|覚書|合意|承認|可決|採択|決定|法律|法案|改正|大統領令|政令|決議|戦略|プログラム|開始|開通|着工|開所|подпис|соглашен|меморанд|млн|млрд|грант|кредит|утверд|постановл|указ|закон/i;
+const wkRowCache = {};
+function wkRows(sec){
+  if(wkRowCache[sec]) return wkRowCache[sec];
+  const sp = SUM_SPEC[sec];
+  return wkRowCache[sec] = sp ? sp.rows.filter(r=>r.nk).map(r=>({n:r.n.replace(/[(（].*$/,""), k:new RegExp(r.nk,"i"), x:r.nx?new RegExp(r.nx,"i"):null})) : [];
+}
+// score one news item for one sector; returns {sc, why[], row}
+function wkScore(x, sec){
+  const why = [], txt = (x.tj||"")+" "+(x.lj||"")+" "+x.t;
+  let sc = 0, row = "";
+  if(x.g){ sc += 4; why.push("政府の発表・決定"); }
+  if(x.d.length){ sc += 4 + (x.jp?1:0); why.push(x.d.slice(0,2).map(d=>donorName(d).replace(/（.*?）/,"")).join("・")+"が登場"); }
+  const rp = (REPEATS[x.i]||[]).length;
+  if(rp){ sc += Math.min(6, rp*2); why.push((rp+1)+"媒体が報道"); }
+  for(const r of wkRows(sec)) if(r.k.test(txt) && !(r.x && r.x.test(txt))){ row = r.n; sc += 3; why.push("戦略の分野「"+row+"」"); break; }
+  if(WK_BIG.test(txt)){ sc += 2; why.push("金額・合意・制度の動き"); }
+  if(x.c[0]===sec) sc += 2;                      // this sector is the article's main one
+  sc -= Math.max(0, x.c.length-2);               // articles tagged to many sectors are usually general
+  sc += Math.max(0, 1.5*(1-(Date.now()-x.ts)/(7*DAY)));
+  return {sc, why, row};
+}
+// the week's top items for one or several sectors (several = the viewer's my sectors)
+function weekPicks(secs, n){
+  const since = Date.now()-7*DAY, all = items().filter(x=>x.ts>=since && !x.isDup && x.c.some(c=>secs.includes(c)));
+  const pool = [];
+  for(const x of all){
+    let best = null;
+    for(const c of x.c) if(secs.includes(c)){ const r = wkScore(x, c); if(!best || r.sc>best.sc) best = {...r, sec:c}; }
+    pool.push({x, ...best});
+  }
+  pool.sort((a,b)=>b.sc-a.sc || b.x.ts-a.x.ts);
+  const out = [], seen = new Set(), perRow = {}, perSec = {};
+  // the weekly AI summary: its picks in its order (several sectors take turns), with its reasons
+  const aiSecs = WEEK_AI ? secs.filter(c=>WEEK_AI.sectors[c] && (WEEK_AI.sectors[c].picks||[]).length) : [];
+  const ai = aiSecs.length && WK_MODE==="ai" ? aiSecs : null;
+  if(ai){
+    const byId = new Map(all.map(x=>[x.i, x]));
+    if(ai.length>5){  // many sectors (no favourites): each sector's top two AI picks, ranked by the rule score
+      const c2 = [];
+      for(const c of ai) for(const pk of WEEK_AI.sectors[c].picks.slice(0,2)){ const x = byId.get(pk.i); if(x) c2.push({x, sec:c, why:[pk.why], ...(({sc,row})=>({sc,row}))(wkScore(x, c))}); }
+      c2.sort((a,b)=>b.sc-a.sc);
+      for(const p of c2) if(out.length<n && !seen.has(p.x.i)){ out.push(p); seen.add(p.x.i); }
+      return {list:out, total:all, ai:[...new Set(out.map(p=>p.sec))], aiSecs};
+    }
+    for(let k=0; out.length<n && k<5; k++) for(const c of ai){
+      const pk = WEEK_AI.sectors[c].picks[k], x = pk && (byId.get(pk.i) || items().find(y=>y.i===pk.i));
+      if(x && !seen.has(x.i) && out.length<n){ out.push({x, sec:c, why:[pk.why], row:wkScore(x, c).row}); seen.add(x.i); }
+    }
+    return {list:out, total:all, ai, aiSecs};
+  }
+  for(const p of pool){
+    if(out.length>=n) break;
+    if(seen.has(p.x.i) || p.sc<3) continue;
+    const key = (p.x.tj||p.x.t).replace(/[\s「」『』"“”:：、。,.!?]/g,"").slice(0,14);
+    if(seen.has(key)) continue;
+    if(p.row && (perRow[p.sec+p.row]||0)>=2) continue;          // keep a mix of topics
+    if(secs.length>1 && (perSec[p.sec]||0)>=Math.max(2, Math.ceil(n/secs.length)+1)) continue;
+    out.push(p); seen.add(p.x.i); seen.add(key);
+    if(p.row) perRow[p.sec+p.row] = (perRow[p.sec+p.row]||0)+1;
+    perSec[p.sec] = (perSec[p.sec]||0)+1;
+  }
+  return {list:out, total:all, ai:null, aiSecs};
+}
+function weekHTML(secs, opt={}){
+  if(!INDEX) return "";
+  const n = opt.n || 5, {list, total, ai, aiSecs} = weekPicks(secs, n);
+  const sample = WEEK_AI && /見本/.test(WEEK_AI.by||"");
+  const leads = ai ? ai.map(c=>[c, WEEK_AI.sectors[c].lead]).filter(([,l])=>l) : [];
+  const g = total.filter(x=>x.g).length, o = total.filter(x=>x.d.length).length;
+  const d0 = new Date(Date.now()-6*DAY), md = d => `${d.getMonth()+1}/${d.getDate()}`;
+  const kind = x => x.g ? '<span class="g">政府</span>' : x.d.length ? (x.jp?'<span class="j">日本</span>':'<span class="o">協力</span>') : '<span class="p">報道</span>';
+  const item = p => { const x = p.x, rp = (REPEATS[x.i]||[]).length, lead = (x.lj||"").replace(/[.…]{2,}$/,"");
+    return `<li><div class="wk-tg">${kind(x)}${secs.length>1&&SEC[p.sec]?`<button class="s" data-sec="${p.sec}">${esc(SEC[p.sec].ja)}</button>`:""}${p.row?`<span class="r">${esc(p.row)}</span>`:""}${rp?`<span class="n">${rp+1}媒体</span>`:""}</div>
+      <h4><a href="${esc(jaLink(x.u))}" target="_blank" rel="noopener">${esc(x.tj||x.t)}</a></h4>
+      ${lead && lead!==(x.tj||"") ? `<div class="wk-l">${esc(lead)}</div>` : ""}
+      <div class="wk-m">${esc(fmtDay(x.ts))} · ${esc(x.s||"")}${p.why&&p.why.filter(Boolean).length?` · <i>選んだ理由:${esc(p.why.filter(Boolean).slice(0,3).join("、"))}</i>`:""}</div></li>`; };
+  return `<section class="wk" aria-label="${esc(opt.title||"今週の重要ニュース")}">
+    <div class="wk-h"><div><div class="wk-k">THIS WEEK · KEY NEWS</div><div class="wk-t">${esc(opt.title||"今週の重要ニュース")}</div><div class="wk-d">${md(d0)}〜${md(new Date())}の7日間・${total.length}本のニュースから${list.length}本</div></div>
+      <div class="wk-c"><span>政府の動き<b>${g}</b></span><span>協力<b>${o}</b></span><span>その他の報道<b>${total.length-g-o}</b></span></div></div>
+    ${aiSecs.length ? `<div class="wk-sw" role="group" aria-label="選び方"><button data-wkmode="ai" class="${ai?"on":""}">AIのまとめ${sample?"(見本)":""}</button><button data-wkmode="rule" class="${ai?"":"on"}">自動選定(ルール)</button></div>` : ""}
+    ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<b>${esc(SEC[c].ja)}</b> `:""}${esc(secs.length>1 ? l.replace(/^[^、。\s]{1,8}では、?/,"") : l)}</p>`).join("")}</div>` : ""}
+    ${list.length ? `<ol>${list.map(item).join("")}</ol>` : '<div class="wk-empty">この7日間に目立ったニュースはありません。</div>'}
+    <div class="wk-f"><span>${ai?`${esc(WEEK_AI.by||"AI")}が${esc(WEEK_AI.updated||"")}に候補から選び、理由と1文のまとめを書いたもの${sample?"(見本:手動で1回作成。週1回の自動更新はAPIキー登録後)":""}`:"自動選定:政府の決定・援助機関・複数の媒体・戦略の分野に当たる言葉・金額や合意を点数にして上位を表示"}</span><span class="sp"></span>${opt.more||""}</div>
+  </section>`;
+}
+
 /* ---------- views ---------- */
 function viewHome(){
   setTitle("");
@@ -1581,7 +1720,10 @@ function viewHome(){
   const tiles = SECTORS.map(tile).join("");
   const mine = FAV.size ? its.filter(x=>x.c.some(c=>FAV.has(c))) : its;
   const jump = `<nav class="jump" aria-label="分野へ移動">${SECTORS.map(([id,ja])=>`<button class="jchip ${FAV.has(id)?"on":""}" data-sec="${id}">${FAV.has(id)?"★ ":""}${esc(ja)}</button>`).join("")}</nav>`;
+  const favIds = SECTORS.filter(([id])=>FAV.has(id)).map(([id])=>id);
+  const wk = weekHTML(favIds.length ? favIds : SECTORS.map(([id])=>id), {n:6, title: favIds.length ? "マイ分野 今週の重要ニュース" : "全分野 今週の重要ニュース", more: favIds.length ? '<button class="linkbtn" data-gomy>マイ分野のニュース →</button>' : '<span>☆で分野を選ぶと、その分野だけのまとめになります</span>'});
   return `<div class="layout"><div class="mainc">
+    ${wk}
     ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
     ${ready&&SHOW_COVER?coverageHTML():""}
     <div class="mynews">${secHead("News",FAV.size?"マイ分野の新着":"最新ニュース",'<span class="nbtns">'+(FAV.size?'<button class="linkbtn" data-gomy>マイ分野 →</button>':"")+'<button class="linkbtn" data-goall>すべてのニュース →</button></span>')}${listHTML(mine.slice(0,6),false,true)}</div>
@@ -1640,6 +1782,7 @@ function viewSector(){
   return `<div class="layout"><div class="mainc">
     <div class="shead2"><div><div class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)">SECTOR ${s.no} / 20</div>
       <h2>${esc(s.ja)} ${favStar(s.id)}</h2></div>${jica}${SUM_SPEC[s.id]?`<button class="btn primary sumbtn" data-sumopen title="この分野の戦略・ドナー・最近の動きを1つの画面に(PDFで保存できます)">サマリー</button>`:""}</div>
+    ${weekHTML([s.id], {title:s.ja+" 今週の重要ニュース", more:`<button class="linkbtn" data-gofeed="all" data-wksec="${s.id}">この分野のニュースをすべて見る →</button>`})}
     ${ready?overviewKPIs(s.id):""}
     ${reportsHTML(s.id)}
     ${indicatorsHTML(s.id)}
@@ -2708,6 +2851,7 @@ main.addEventListener("click", e=>{
   if(t.closest("[data-gomy]")){ go({v:"feed", t:"all", s:[...FAV].filter(f=>SEC[f]).join(","), my:"", d:"", q:"", p:90}); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
+  const wm = t.closest("[data-wkmode]"); if(wm){ WK_MODE = wm.dataset.wkmode; lsSet("km-wk", WK_MODE); render(); return; }
   const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
   const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", ps:"active", g:"", sm:""}); return; }
   const ch = t.closest("[data-ch]"); if(ch){
