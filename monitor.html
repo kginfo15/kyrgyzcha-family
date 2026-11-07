@@ -611,7 +611,9 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
   .sv-bar select{max-width:52vw}.sv-bar .sp{display:none}.sv-bar button{padding:6px 8px}
   .sv-hint{display:none}
   .sv-mx td:first-child,.sv-mx th:first-child{position:sticky;left:0;background:#fff;z-index:1;box-shadow:1px 0 0 var(--sh)}
-  .sv-pil td:first-child{background:var(--sb)}
+  .sv-pil td:first-child{background:var(--sb);position:static;box-shadow:none}
+  .sv-pil td span{position:sticky;left:4px}
+  .sv-mx col:first-child{width:124px!important}.sv-mx{min-width:880px}
   .sv-swipe{display:block!important}
 }
 @media print{
@@ -2103,7 +2105,7 @@ function sumHTML(sid){
   const th = cols.map(d=>`<th class="dc">${esc(dn(d))}</th>`).join("") + (rest.size ? '<th class="dc">他</th>' : "");
   let body = "", cur = null;
   for(const r of rows){
-    if(r.p!==cur){ cur = r.p; body += `<tr class="sv-pil"><td colspan="${cols.length+(rest.size?1:0)+4}">${esc(pil[cur]||"")}</td></tr>`; }
+    if(r.p!==cur){ cur = r.p; body += `<tr class="sv-pil"><td colspan="${cols.length+(rest.size?1:0)+4}"><span>${esc(pil[cur]||"")}</span></td></tr>`; }
     const other = [...rest].reduce((v,d)=>v+(r.by[d]||0), 0);
     const cells = cols.map(d=>`<td class="dc ${sumShade(r.by[d]||0)}">${sumM(r.by[d]||0)}</td>`).join("") + (rest.size ? `<td class="dc ${sumShade(other)}">${sumM(other)}</td>` : "");
     const nw = r.nw.length ? r.nw.map(x=>`<div><span>${sumMD(x.ts)}</span><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc((x.tj||x.t||"").slice(0,40))}</a></div>`).join("") : '<span>—</span>';
@@ -2164,8 +2166,9 @@ document.addEventListener("change", e=>{ const s = e.target.closest("[data-sumse
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.sm) sumClose(); });
 // opened with the button: the phone's back gesture closes it; opened from a shared address: closing stays on the sector page
 let SUM_PUSHED = false;
-function sumOpen(){ SUM_PUSHED = !EMBED; go({sm:"1"}); }
-function sumClose(){ if(SUM_PUSHED){ SUM_PUSHED = false; history.back(); } else go({sm:""}, false); }
+let SUM_FROM = "";
+function sumOpen(){ SUM_PUSHED = !EMBED; SUM_FROM = S.s; go({sm:"1"}); }
+function sumClose(){ if(SUM_PUSHED && S.s===SUM_FROM){ SUM_PUSHED = false; history.back(); } else { SUM_PUSHED = false; go({sm:""}, false); } }
 window.addEventListener("popstate", ()=>{ if(!S.sm) SUM_PUSHED = false; });
 
 function render(keep=null){
@@ -2243,7 +2246,7 @@ async function csvDownload(kind){
 }
 
 /* ---------- events ---------- */
-$("#tabs").addEventListener("click", e=>{ const b = e.target.closest("button"); if(b) go({v:b.dataset.v, s:"", d:"", g:"", t:"all", sub:"pa", ps:"active", k:""}); });
+$("#tabs").addEventListener("click", e=>{ const b = e.target.closest("button"); if(b) go({v:b.dataset.v, s:"", d:"", g:"", t:"all", sub:"pa", ps:"active", k:"", sm:""}); });
 $("#home").onclick = ()=>{ $("#q").value=""; go({v:"home", s:"", d:"", q:""}); };
 $("#sform").addEventListener("submit", e=>{ e.preventDefault(); $("#q").blur(); go({v:"feed", q:$("#q").value.trim(), qr:"", t:"all", p:0, s:"", d:""}); });
 const main = $("#main");
@@ -2267,7 +2270,7 @@ main.addEventListener("click", e=>{
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
   const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
-  const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", ps:"active", g:""}); return; }
+  const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", ps:"active", g:"", sm:""}); return; }
   const ch = t.closest("[data-ch]"); if(ch){
     CH[ch.dataset.ch] = ch.dataset.val;
     if(ch.dataset.ch==="ym" && CH.range[0].match(/[yoc]/) && CH.range!=="active") CH.range = CH.ysel ? ML()+CH.ysel : "active";
@@ -2308,7 +2311,7 @@ document.addEventListener("click", e=>{
   const t = e.target;
   if(t.closest("[data-close]")){ go({st:""}, false); return; }
   const st = t.closest("[data-st]"); if(st){ go({st:st.dataset.st}, false); sh.querySelector(".sh-panel").scrollTop = 0; return; }
-  const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", st:"", ps:"active", g:""}); return; }
+  const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", st:"", ps:"active", g:"", sm:""}); return; }
   const doc = t.closest("[data-doc]"); if(doc){ go({v:"doc", doc:doc.dataset.doc, st:""}); return; }
 });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.st) go({st:""}, false); });
