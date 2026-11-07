@@ -1644,7 +1644,7 @@ function weekHTML(secs, opt={}){
     <div class="wk-h"><div><div class="wk-k">THIS WEEK · KEY NEWS</div><div class="wk-t">${esc(opt.title||"今週の重要ニュース")}</div><div class="wk-d">${md(d0)}〜${md(new Date())}の7日間・${total.length}本のニュースから${list.length}本</div></div>
       <div class="wk-c"><span>政府の動き<b>${g}</b></span><span>協力<b>${o}</b></span><span>その他の報道<b>${total.length-g-o}</b></span></div></div>
     ${aiSecs.length ? `<div class="wk-sw" role="group" aria-label="選び方"><button data-wkmode="ai" class="${ai?"on":""}">AIのまとめ${sample?"(見本)":""}</button><button data-wkmode="rule" class="${ai?"":"on"}">自動選定(ルール)</button></div>` : ""}
-    ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<b>${esc(SEC[c].ja)}</b> `:""}${esc(l)}</p>`).join("")}</div>` : ""}
+    ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<b>${esc(SEC[c].ja)}</b> `:""}${esc(secs.length>1 ? l.replace(/^[^、。]{1,14}では、/,"") : l)}</p>`).join("")}</div>` : ""}
     ${list.length ? `<ol>${list.map(item).join("")}</ol>` : '<div class="wk-empty">この7日間に目立ったニュースはありません。</div>'}
     <div class="wk-f"><span>${ai?`${esc(WEEK_AI.by||"AI")}が${esc(WEEK_AI.updated||"")}に候補から選び、理由と1文のまとめを書いたもの${sample?"(見本:手動で1回作成。週1回の自動更新はAPIキー登録後)":""}`:"自動選定:政府の決定・援助機関・複数の媒体・戦略の分野に当たる言葉・金額や合意を点数にして上位を表示"}</span><span class="sp"></span>${opt.more||""}</div>
   </section>`;
