@@ -21,6 +21,16 @@ AI_VERSION = 1
 # Haiku: sorting news into sectors is a light task, and it costs a small fraction of Opus
 MODEL = os.environ.get("MONITOR_MODEL") or "claude-haiku-5-5"
 ITEM_BATCH = 25
+REFUSED = "refused"
+REFUSAL_LIMIT = 2  # a record in a batch refused this many times keeps its keyword sorting
+
+
+def _refused(records):
+    """Count a refusal against each record of the batch; give up on it after REFUSAL_LIMIT."""
+    for r in records:
+        r["air"] = r.get("air", 0) + 1
+        if r["air"] >= REFUSAL_LIMIT:
+            r["ai"] = AI_VERSION
 PROJECT_BATCH = 40
 
 
@@ -123,7 +133,7 @@ class Classifier:
         if resp.stop_reason == "refusal":
             self.usage["refused"] += 1
             log(f"ai: refused ({getattr(resp.stop_details, 'category', None)})")
-            return None
+            return REFUSED
         if resp.stop_reason == "max_tokens":
             log("ai: output cut off, batch skipped")
             return None
@@ -146,6 +156,9 @@ class Classifier:
             recs = [{"id": x["i"], "title": x["t"], "lead": (x.get("l") or "")[:300], "source": x.get("s", ""),
                      "date": x["p"][:10]} for x in chunk]
             got = self._ask("Classify each news record.", recs, True)
+            if got == REFUSED:
+                _refused(chunk)
+                continue
             if not got:
                 continue
             for x in chunk:
@@ -162,6 +175,7 @@ class Classifier:
                 if r.get("title_ja") and x.get("lang") != "ja":
                     x["tj"] = r["title_ja"]
                 x["ai"] = AI_VERSION
+                x.pop("air", None)
                 done += 1
         log(f"ai items: {done} judged, {len(todo) - done} left; usage {self.usage}")
 
@@ -178,6 +192,9 @@ class Classifier:
                      "description": (p.get("x") or "")[:300], "donor": p.get("org", ""), "type": p.get("kind", "")}
                     for p in chunk]
             got = self._ask("Give the sectors of each donor project record.", recs, False)
+            if got == REFUSED:
+                _refused(chunk)
+                continue
             if not got:
                 continue
             for p in chunk:
