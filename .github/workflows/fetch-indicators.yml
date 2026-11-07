@@ -5,8 +5,10 @@ name: Fetch indicators
 # The raw result goes to the `indicators-data` branch as indicators-raw.json.
 # Twice a year (the international databases update slowly) and on demand.
 on:
-  schedule:
-    - cron: "0 2 15 1,7 *"   # 15 January and 15 July
+  # schedule paused while the repo is private (free plan has only 2,000 Actions min/month).
+  # To restart, remove the leading '# ' from the next two lines.
+  # schedule:
+  #   - cron: "0 2 15 1,7 *"   # 15 January and 15 July
   workflow_dispatch:
   push:
     paths:
