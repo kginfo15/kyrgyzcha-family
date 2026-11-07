@@ -490,19 +490,21 @@ INCIDENT_RE = stem_re([
     "самоубийств", "суицид", "избил", "избиени", "драк", "задымлени",
     "accident", "crash", "collision", "collided", "overturned", "killed", "murder", "detained", "arrested",
     "criminal case", "sentenced", "convicted", "fraud", "theft", "stole", "fire broke", "caught fire", "drowned",
-    "missing", "fined", "seized", "smuggl", "drug traffick", "suicide", "beaten"])
+    "went missing", "missing person", "fined", "seized", "smuggl", "drug traffick", "suicide", "beaten"])
 INCIDENT_URL_RE = re.compile(r"svodka\.akipress", re.I)  # the agency's crime and accident feed
 # ...unless the story is also about a programme, a reform, a project or the national figures, or a donor is in it
 POLICY_RE = re.compile(stem_re(["стратеги", "программ", "законопроект", "закон", "постановлени", "реформ", "проект",
                                "грант", "концепци", "смертност", "статистик", "с начала год", "strategy", "programme",
                                "program", "reform", "project", "grant", "bill on", "draft law", "mortality",
-                               "statistic", "since the beginning of", "полугоди", "квартал", "half of the year"]).pattern
-                       + r"|за (\d+|\w+) месяц|in (the first )?\w+ months")
+                               "statistic", "since the beginning of", "полугоди", "квартал", "half of the year", "по итогам", "запрет",
+                               "first half", "ban on"]).pattern
+                       + r"|за (\d+|два|три|четыре|пять|шесть|семь|восемь|девять|десять|одиннадцать) месяц"
+                       + r"|за \d{4} год|с начала \d{4}|in (the first )?(\d+|\w+) months|early \d{4}|in \d{4}")
 INCIDENT_KEEP = {
     "drr": None,  # every DRR word is itself about an emergency
     "governance": stem_re(["коррупц", "взятк", "антикорруп", "депутат", "жогорку кенеш", "парламент", "счетн палат",
                            "corruption", "bribe", "deputies", "parliament", "audit chamber"]),
-    "gender": stem_re(["насили", "изнасил", "rape", "femicide", "ала качуу", "похищени невест", "кража невест", "ранн брак", "violence",
+    "gender": stem_re(["насили", "изнасил", "убий", "убит", "фемицид", "бездейств", "rape", "femicide", "murder", "ала качуу", "похищени невест", "кража невест", "ранн брак", "violence",
                        "bride kidnapping", "early marriage"]),
     # a breakdown of the grid or the water supply is news about the network itself
     "energy": stem_re(["электроснабж", "энергосистем", "тэц", "гэс", "подстанц", "электроэнерг", "отключени свет",
@@ -511,6 +513,7 @@ INCIDENT_KEEP = {
     # fines for poaching, burning waste or polluting are how the environment rules are enforced
     "nature": stem_re(["браконь", "охот", "барс", "snow leopard", "заповедн", "лесн пожар", "poach", "wildlife"]),
     "envmgmt": stem_re(["отход", "мусор", "свалк", "выброс", "загрязн", "waste", "landfill", "pollution", "emission"]),
+    "social": stem_re(["мигрант", "миграц", "migrant", "migration"]),
     "peace": stem_re(["граница", "границ", "пограничн", "приграничн", "border"]),
 }
 # a vaccine or an outbreak among animals is agriculture (the veterinary service), not public health
@@ -528,7 +531,9 @@ FOREIGN_RE = stem_re(["казахстан", "узбекистан", "таджи�
                       "china", "india", "turkey", "türkiye", "spain", "ukraine", "iran", "afghanistan", "tashkent",
                       "almaty", "astana", "dushanbe", "europe"])
 
-KG_PLACE_RE = stem_re(["торугарт", "иркештам", "камбарат", "кумтор", "torugart", "irkeshtam", "kambarata", "kumtor"])
+# "задержали зарплату", "рейс задержан": a delay, not an arrest
+NOT_INCIDENT_RE = stem_re(["зарплат", "выплат", "пенси", "рейс", "salar", "flight"])
+KG_PLACE_RE = stem_re(["центральн ази", "central asia", "торугарт", "иркештам", "камбарат", "кумтор", "torugart", "irkeshtam", "kambarata", "kumtor"])
 BILATERAL_RE = stem_re(["встретил", "встреча", "переговор", "соглашени", "меморандум", "визит", "met with", "talks",
                         "agreement", "memorandum", "visit"])
 
@@ -542,7 +547,8 @@ def sector_filter(sectors, text, link, donors, title=""):
         sectors = [s for s in sectors if s in ("social", "peace")]
     if "health" in sectors and ANIMAL_RE.search(text) and not HUMAN_RE.search(text):
         sectors = [s for s in sectors if s != "health"]
-    if (INCIDENT_RE.search(text) or INCIDENT_URL_RE.search(link or "")) and not POLICY_RE.search(text):
+    if (INCIDENT_RE.search(text) and not NOT_INCIDENT_RE.search(text) or INCIDENT_URL_RE.search(link or "")) \
+            and not POLICY_RE.search(text):
         sectors = [s for s in sectors if s in INCIDENT_KEEP and (INCIDENT_KEEP[s] is None or INCIDENT_KEEP[s].search(text))]
     return sectors
 
