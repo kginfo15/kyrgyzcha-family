@@ -260,7 +260,10 @@ def load_terms():
 
 TERM_GROUPS = load_terms()
 _by_sec = {}
+TERM_NOT_SECTOR = {"disab"}  # "инвалид" alone is social protection, not health (social has its own group)
 for _g in TERM_GROUPS:
+    if _g.get("id") in TERM_NOT_SECTOR:
+        continue
     for _sid in [_g.get("sec")] + list(_g.get("also") or []):
         if _sid in SECTOR_IDS:
             _by_sec.setdefault(_sid, []).extend(p for p in map(term_pattern, (_g.get("ru") or []) + (_g.get("en") or [])) if p)
@@ -473,6 +476,77 @@ NOT_COOP_RE = stem_re(["прогноз", "прогнозиру", "оценил",
                        "見通し", "予測"])
 
 
+# Incidents (road accidents, crime, arrests, fires, court cases, fines, one family's story) name a sector word
+# in passing — an ambulance in a crash, a disabled brother in a land seizure — but say nothing about the
+# sector's policy or projects, so they get no sector. Disasters stay under DRR, corruption cases under
+# governance, violence against women under gender, grid and water-supply breakdowns under energy and water,
+# and poaching or pollution fines under nature and environment, because those are what those sectors are about.
+INCIDENT_RE = stem_re([
+    "дтп", "авария$", "аварии$", "аварию$", "столкновени", "перевернул", "наезд", "сбил пешеход", "сбила пешеход", "погиб",
+    "скончал", "смертельн", "обнаружен тел", "нашли тел", "убий", "убил", "убит", "зарезал", "изнасил", "задержан",
+    "задержал", "арестова", "уголовн дел", "возбудил дел", "возбуждено дел", "приговор", "осужден", "мошенни",
+    "краж", "украл", "похитил", "грабеж", "разбой", "пожар", "загорел", "сгорел", "утонул", "пропал", "пропавш",
+    "оштрафова", "штраф", "изъял", "изъят", "контрабанд", "наркотик", "психотроп", "нелегальн", "незаконн ввез",
+    "самоубийств", "суицид", "избил", "избиени", "драк", "задымлени",
+    "accident", "crash", "collision", "collided", "overturned", "killed", "murder", "detained", "arrested",
+    "criminal case", "sentenced", "convicted", "fraud", "theft", "stole", "fire broke", "caught fire", "drowned",
+    "missing", "fined", "seized", "smuggl", "drug traffick", "suicide", "beaten"])
+INCIDENT_URL_RE = re.compile(r"svodka\.akipress", re.I)  # the agency's crime and accident feed
+# ...unless the story is also about a programme, a reform, a project or the national figures, or a donor is in it
+POLICY_RE = re.compile(stem_re(["стратеги", "программ", "законопроект", "закон", "постановлени", "реформ", "проект",
+                               "грант", "концепци", "смертност", "статистик", "с начала год", "strategy", "programme",
+                               "program", "reform", "project", "grant", "bill on", "draft law", "mortality",
+                               "statistic", "since the beginning of", "полугоди", "квартал", "half of the year"]).pattern
+                       + r"|за (\d+|\w+) месяц|in (the first )?\w+ months")
+INCIDENT_KEEP = {
+    "drr": None,  # every DRR word is itself about an emergency
+    "governance": stem_re(["коррупц", "взятк", "антикорруп", "депутат", "жогорку кенеш", "парламент", "счетн палат",
+                           "corruption", "bribe", "deputies", "parliament", "audit chamber"]),
+    "gender": stem_re(["насили", "изнасил", "rape", "femicide", "ала качуу", "похищени невест", "кража невест", "ранн брак", "violence",
+                       "bride kidnapping", "early marriage"]),
+    # a breakdown of the grid or the water supply is news about the network itself
+    "energy": stem_re(["электроснабж", "энергосистем", "тэц", "гэс", "подстанц", "электроэнерг", "отключени свет",
+                       "power plant", "power grid", "power supply", "blackout", "hydropower"]),
+    "water": stem_re(["водоснабж", "питьев вод", "водопровод", "water supply", "drinking water"]),
+    # fines for poaching, burning waste or polluting are how the environment rules are enforced
+    "nature": stem_re(["браконь", "охот", "барс", "snow leopard", "заповедн", "лесн пожар", "poach", "wildlife"]),
+    "envmgmt": stem_re(["отход", "мусор", "свалк", "выброс", "загрязн", "waste", "landfill", "pollution", "emission"]),
+    "peace": stem_re(["граница", "границ", "пограничн", "приграничн", "border"]),
+}
+# a vaccine or an outbreak among animals is agriculture (the veterinary service), not public health
+ANIMAL_RE = stem_re(["ветеринар", "скот", "животн", "крупн рогат", "овец", "овцы", "ящур", "птиц",
+                     "livestock", "veterinar", "animal", "cattle", "sheep", "poultry"])
+HUMAN_RE = stem_re(["человек", "людей", "люди", "жител", "пациент", "детей", "дети", "human", "people", "patient", "children"])
+
+
+# a story about another country (a pharma plant in Kazakhstan, a footballer in Spain) is not Kyrgyz sector news;
+# labour migration and borders stay (they are Kyrgyz sectors even when the place named is abroad), and so do
+# meetings and agreements with that country
+FOREIGN_RE = stem_re(["казахстан", "узбекистан", "таджикистан", "туркменистан", "росси", "рф", "москв", "китай", "кнр",
+                      "индия$", "индии$", "индию$", "турци", "испани", "сша", "украин", "иран", "афганистан", "ташкент", "алмат", "астан",
+                      "душанбе", "европ", "kazakhstan", "uzbekistan", "tajikistan", "turkmenistan", "russia", "moscow",
+                      "china", "india", "turkey", "türkiye", "spain", "ukraine", "iran", "afghanistan", "tashkent",
+                      "almaty", "astana", "dushanbe", "europe"])
+
+KG_PLACE_RE = stem_re(["торугарт", "иркештам", "камбарат", "кумтор", "torugart", "irkeshtam", "kambarata", "kumtor"])
+BILATERAL_RE = stem_re(["встретил", "встреча", "переговор", "соглашени", "меморандум", "визит", "met with", "talks",
+                        "agreement", "memorandum", "visit"])
+
+
+def sector_filter(sectors, text, link, donors, title=""):
+    """Drop sectors named only in passing (see INCIDENT_RE, ANIMAL_RE, FOREIGN_RE)."""
+    if not sectors or donors:
+        return sectors
+    tl = title.lower()
+    if FOREIGN_RE.search(tl) and not kg_related(text) and not KG_PLACE_RE.search(text) and not BILATERAL_RE.search(text):
+        sectors = [s for s in sectors if s in ("social", "peace")]
+    if "health" in sectors and ANIMAL_RE.search(text) and not HUMAN_RE.search(text):
+        sectors = [s for s in sectors if s != "health"]
+    if (INCIDENT_RE.search(text) or INCIDENT_URL_RE.search(link or "")) and not POLICY_RE.search(text):
+        sectors = [s for s in sectors if s in INCIDENT_KEEP and (INCIDENT_KEEP[s] is None or INCIDENT_KEEP[s].search(text))]
+    return sectors
+
+
 def classify(title, lead, link, source, query_gov=False):
     """Return (sectors, donors, gov) or None when the item is out of scope."""
     title = NEWSPAPER_TAIL.sub(" ", title)  # "…｜朝刊・夕刊ニュース｜下野新聞デジタル" is the paper, not the topic
@@ -488,6 +562,7 @@ def classify(title, lead, link, source, query_gov=False):
         donors.remove("jp")
     if NOT_DEV_RE.search(text):
         donors = []
+    sectors = sector_filter(sectors, text, link, donors, unicodedata.normalize("NFKC", title))
     h = host_of(link)
     gov = (is_gov_host(h) and h not in ("kabar.kg",) or bool(GOV_RE.search(text)) or (query_gov and bool(sectors))) \
         and not NOT_GOV_RE.search(text)
