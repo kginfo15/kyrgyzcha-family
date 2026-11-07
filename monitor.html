@@ -256,6 +256,8 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .lg li{display:grid;grid-template-columns:10px minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:3px 4px;border-radius:4px;font-size:12.5px;cursor:pointer}
 .lg li:hover{background:var(--panel2)}
 .lg li.nolink{cursor:default}
+.lg li.on{background:var(--accent-soft);font-weight:600}
+.fband{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-top:10px;padding:10px 14px;border:1px solid var(--accent);background:var(--accent-soft);border-radius:8px;font-size:13px}
 .lg i{width:10px;height:10px;border-radius:2px;display:block}
 .lg .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lg .pc{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums;min-width:3.6em;text-align:right}
@@ -1323,18 +1325,24 @@ function viewDonor(){
   const bySec = {}; let useAmt = all.some(p=>p.amt);
   const nSec = {};
   for(const p of all) for(const c of p.c){ bySec[c] = (bySec[c]||0) + (useAmt ? shareAmt(p) : 1); nSec[c] = (nSec[c]||0)+1; }
-  const secRows = Object.entries(bySec).sort((a,b)=>b[1]-a[1] || nSec[b[0]]-nSec[a[0]]).slice(0,12), smax = Math.max(1,...secRows.map(r=>r[1]));
-  const kinds = {}; for(const p of all) kinds[sch(p)]=(kinds[sch(p)]||0)+1;
-  const actAmt = all.filter(p=>p.st==="active").reduce((a,p)=>a+(p.amt||0),0);
+  const secAll = Object.entries(bySec).sort((a,b)=>b[1]-a[1] || nSec[b[0]]-nSec[a[0]]), fs0 = secList(S.s);
+  // keep the narrowed sector in the list even when it is outside the top 12
+  const secRows = secAll.filter((r,i)=>i<12 || fs0.includes(r[0])), smax = Math.max(1,...secRows.map(r=>r[1]));
+  // narrowed to one or more sectors: the top numbers count that part only (multi-sector projects by their share)
+  const fs = secList(S.s), inS = p => !fs.length || p.c.some(c=>fs.includes(c));
+  const sub = all.filter(inS), part = p => fs.length ? shareAmt(p)*p.c.filter(c=>fs.includes(c)).length : (p.amt||0);
+  const kinds = {}; for(const p of sub) kinds[sch(p)]=(kinds[sch(p)]||0)+1;
+  const act = sub.filter(p=>p.st==="active"), actAmt = act.reduce((a,p)=>a+part(p),0);
+  const band = fs.length ? `<div class="fband"><span><b>${esc(fs.map(c=>SEC[c].ja).join("・"))} × ${esc(d.ja)}</b> に絞り込み中</span><button class="btn" data-allsec>全体を見る</button></div>` : "";
   return `<div class="panel shead"><div><div class="k">${esc(DGROUP[d.g]||"")}</div><h2>${esc(d.ja)}</h2></div>
-      <div class="minis"><div class="mini"><div class="v">${projReady()?all.filter(p=>p.st==="active").length:"…"}</div><div class="l">実施中案件</div></div>
-      <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額${unk(all.filter(p=>p.st==="active"))?`<br><span class="unk">金額不明 ${unk(all.filter(p=>p.st==="active"))}件</span>`:""}</div></div>
-      <div class="mini"><div class="v">${projReady()?all.filter(p=>!isOpen(p)).length:"…"}</div><div class="l">過去の案件</div></div>
-      <div class="mini"><div class="v">${list.length}</div><div class="l">関連ニュース（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}）</div></div></div></div>
+      <div class="minis"><div class="mini"><div class="v">${projReady()?act.length:"…"}</div><div class="l">実施中案件</div></div>
+      <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額${fs.length?"（按分）":""}${unk(act)?`<br><span class="unk">金額不明 ${unk(act)}件</span>`:""}</div></div>
+      <div class="mini"><div class="v">${projReady()?sub.filter(p=>!isOpen(p)).length:"…"}</div><div class="l">過去の案件</div></div>
+      <div class="mini"><div class="v">${list.length}</div><div class="l">関連ニュース（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}）</div></div></div></div>${band}
     ${secRows.length?`<div class="cols" style="margin-top:10px">
       <div class="panel chart"><div class="phk">By sector · all periods</div><h3 class="ph">分野別の${useAmt?"支援額と件数":"案件数"}</h3>
-        <ul class="lg l5" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-sec="${c}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?(money(v)||"金額不明"):""}</span><span class="cnt">${nSec[c]}件</span><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></li>`).join("")}</ul></div>
-      ${Object.keys(kinds).length?`<div class="panel chart"><div class="phk">By form</div><h3 class="ph">協力形態ごとの案件数</h3>
+        <ul class="lg l5" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-sec="${c}" class="${fs.includes(c)?"on":""}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?(money(v)||"金額不明"):""}</span><span class="cnt">${nSec[c]}件</span><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></li>`).join("")}</ul></div>
+      ${Object.keys(kinds).length?`<div class="panel chart"><div class="phk">By form</div><h3 class="ph">協力形態ごとの案件数${fs.length?"（絞り込み中の分野）":""}</h3>
         <ul class="lg l3" style="margin-top:8px">${Object.entries(kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<li data-kind="${esc(k)}"><i style="background:var(--dother)"></i><span class="nm">${esc(k)}</span><span class="pc">${n}件</span></li>`).join("")}</ul></div>`:""}
     </div>`:""}
     <div class="filters" style="margin-top:10px">${periodSelect(S.p)} ${sectorSelect(S.s)} ${qInput()}</div>
@@ -1864,7 +1872,8 @@ main.addEventListener("click", e=>{
   const ys = t.closest("[data-ysel]"); if(ys){ CH.ysel = 0; lsSet("km-charts", CH); render(); return; }
   if(t.closest("[data-cover]")){ e.stopPropagation(); SHOW_COVER = !SHOW_COVER; if(S.v!=="home") go({v:"home"}); else render(); return; }
   const uk = t.closest("[data-unknown]"); if(uk){ go({v:"projects", s:uk.dataset.unknown, ua:"1", ps:"all", d:"", k:""}); return; }
-  const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:"", q:"", ps:"all", k:""}); return; }
+  const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:S.v==="sector"&&secList(S.s).length?S.s:"", q:"", ps:"all", k:""}); return; }
+  if(t.closest("[data-allsec]")){ go({s:""}); return; }
   const st = t.closest("[data-star]");
   if(st){
     const id = st.dataset.star;
