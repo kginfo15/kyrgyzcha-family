@@ -227,6 +227,63 @@ SECTOR_RES = [(sid, re.compile(stem_re(words).pattern + "|" + "|".join(re.escape
               for sid, _, words, _, _ in SECTORS]
 SECTOR_IDS = [s[0] for s in SECTORS]
 
+# ---------------------------------------------------------------- term table
+# search-terms.json (repo root, also used by the page's search) groups the Russian / English words
+# for one idea under a sector. Its words widen the sector match, and its qru / qen search words
+# become extra Google News queries. ru/en: from the start of a word; a trailing "!" = whole word only.
+TERM_W = "0-9a-zа-яөүңәіқғұһ"
+
+
+def tnorm(s):
+    s = unicodedata.normalize("NFKC", s).lower().replace("ё", "е")
+    return re.sub(r"[\-‐–—/・]", " ", s)
+
+
+def term_pattern(t):
+    whole = t.endswith("!")
+    parts = tnorm(t.rstrip("!")).split()
+    if not parts:
+        return None
+    body = (f"[{TERM_W}]*\\s+").join(re.escape(x) for x in parts)
+    return f"(?<![{TERM_W}]){body}" + (f"(?![{TERM_W}])" if whole else "")
+
+
+def load_terms():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "search-terms.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f).get("groups", [])
+    except Exception as e:
+        log(f"search-terms.json: not used ({e})")
+        return []
+
+
+TERM_GROUPS = load_terms()
+_by_sec = {}
+for _g in TERM_GROUPS:
+    for _sid in [_g.get("sec")] + list(_g.get("also") or []):
+        if _sid in SECTOR_IDS:
+            _by_sec.setdefault(_sid, []).extend(p for p in map(term_pattern, (_g.get("ru") or []) + (_g.get("en") or [])) if p)
+TERM_RES = {sid: re.compile("|".join(ps)) for sid, ps in _by_sec.items() if ps}
+
+
+def term_queries(key, n=8):
+    """The table's search words, eight per query, in a stable order."""
+    seen, words = set(), []
+    for g in TERM_GROUPS:
+        for q in g.get(key) or []:
+            if q not in seen:
+                seen.add(q)
+                words.append(q)
+    return [words[i:i + n] for i in range(0, len(words), n)]
+
+
+TERM_Q_RU = term_queries("qru")
+TERM_Q_EN = term_queries("qen")
+TERM_SETS = 3  # each run asks one third of them, in turn (runs every 3 hours)
+TERM_SET = (NOW.hour // 3) % TERM_SETS
+# JICA / Japan on their own, without a sector word
+
 # ---------------------------------------------------------------- actors
 # id, Japanese label, group, stems (Russian / English / Kyrgyz)
 DONORS = [
@@ -331,6 +388,19 @@ GOV_FEEDS = [
 GN_RU = dict(hl="ru", gl="KG", ceid="KG:ru")
 GN_EN = dict(hl="en-US", gl="US", ceid="US:en")
 GN_JA = dict(hl="ja", gl="JP", ceid="JP:ja")
+JP_ONLY_QUERIES = [("Кыргызстан JICA", GN_RU, "ru"), ("Кыргызстан Япония", GN_RU, "ru"), ("Kyrgyzstan JICA", GN_EN, "en")]
+
+
+def term_query_list(suffix_ru, suffix_en):
+    """This run's third of the term-table queries."""
+    qs = []
+    for i, words in enumerate(TERM_Q_RU):
+        if i % TERM_SETS == TERM_SET:
+            qs.append((f"(Кыргызстан OR Бишкек OR Кыргызской) ({' OR '.join(words)}) {suffix_ru}", GN_RU, "ru", False))
+    for i, words in enumerate(TERM_Q_EN):
+        if i % TERM_SETS == TERM_SET:
+            qs.append((f"(Kyrgyzstan OR \"Kyrgyz Republic\") ({' OR '.join(words)}) {suffix_en}", GN_EN, "en", False))
+    return qs
 JA_QUERIES = ["キルギス JICA", "キルギス (無償資金協力 OR 円借款 OR 技術協力)", "キルギス 協力隊",
               "キルギス (草の根 OR 日本大使館)", "キルギス site:jica.go.jp", "キルギス (政府 OR 大統領 OR 開発)"]
 GOV_QUERIES = [
@@ -389,7 +459,8 @@ ORG_NAME_RE = re.compile(r"(всемирн|азиатск|европейск|е�
 
 def sector_ids(text):
     text = ORG_NAME_RE.sub(" ", text.lower())
-    return [sid for sid, rx in SECTOR_RES if rx.search(text)]
+    tn = tnorm(text)
+    return [sid for sid, rx in SECTOR_RES if rx.search(text) or (sid in TERM_RES and TERM_RES[sid].search(tn))]
 
 
 # not a policy move even when an official is named; and adverts
@@ -496,6 +567,9 @@ def collect(archive_empty):
     for q in ["Кыргызстан (JICA OR Япония OR японский) (грант OR проект OR помощь)",
               "Kyrgyzstan (JICA OR Japan) (grant OR project OR assistance)"]:
         queries.append((f"{q} when:{ru_days}d", GN_RU if "Кыр" in q else GN_EN, "ru" if "Кыр" in q else "en", False))
+    for q, region, lang in JP_ONLY_QUERIES:
+        queries.append((f"{q} when:{ru_days}d", region, lang, False))
+    queries += term_query_list(f"when:{ru_days}d", f"when:{en_days}d")
     for q in JA_QUERIES:
         queries.append((f"{q} when:{max(ru_days, 30)}d", GN_JA, "ja", False))
     out.extend(run_gnews(queries))
@@ -563,6 +637,9 @@ def backfill_queries(cursor):
         qs.append((f"{q} {rng}", GN_RU, "ru", True))
     for q in JA_QUERIES[:4]:
         qs.append((f"{q} {rng}", GN_JA, "ja", False))
+    for q, region, lang in JP_ONLY_QUERIES:
+        qs.append((f"{q} {rng}", region, lang, False))
+    qs += term_query_list(rng, rng)
     return start, qs
 
 
