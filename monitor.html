@@ -257,7 +257,9 @@ select,.filters input{border:1px solid var(--line);background:var(--panel2);bord
 .lg li:hover{background:var(--panel2)}
 .lg li.nolink{cursor:default}
 .lg li.on{background:var(--accent-soft);font-weight:600}
-.fbtns{display:flex;gap:6px;flex-wrap:wrap}
+.fbtns{display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center}
+@media (max-width:939px){.dside{order:-1}}
+.dside .panel{padding:2px 14px}.dside .rpl .rp:first-child{border-top:0}
 .rg-d{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 8px}
 .rg-d .chip{font-size:12px;line-height:2}
 .fband{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-top:10px;padding:10px 14px;border:1px solid var(--accent);background:var(--accent-soft);border-radius:8px;font-size:13px}
@@ -1344,8 +1346,8 @@ function viewDonor(){
   const sub = all.filter(inS), part = p => fs.length ? shareAmt(p)*p.c.filter(c=>fs.includes(c)).length : (p.amt||0);
   const kinds = {}; for(const p of sub) kinds[sch(p)]=(kinds[sch(p)]||0)+1;
   const act = sub.filter(p=>p.st==="active"), actAmt = act.reduce((a,p)=>a+part(p),0);
-  const band = sf ? `<div class="fband"><span><b>${esc(SEC[sf.sec].ja)} › ${esc(sf.name)} × ${esc(d.ja)}</b> に絞り込み中<br><span class="note">樹形図でこの小分類の枝に当てはめた実施中の案件です（題名からの自動判定）。</span></span><span class="fbtns"><button class="btn" data-allsub>${esc(SEC[sf.sec].ja)}全体</button><button class="btn" data-allsec>全体を見る</button></span></div>`
-    : fs.length ? `<div class="fband"><span><b>${esc(fs.map(c=>SEC[c].ja).join("・"))} × ${esc(d.ja)}</b> に絞り込み中</span><button class="btn" data-allsec>全体を見る</button></div>` : "";
+  const band = sf ? `<div class="fband"><span><b>${esc(SEC[sf.sec].ja)} › ${esc(sf.name)} × ${esc(d.ja)}</b> に絞り込み中<br><span class="note">樹形図でこの小分類の枝に当てはめた実施中の案件です（題名からの自動判定）。</span></span><span class="fbtns"><button class="btn" data-allsub>${esc(SEC[sf.sec].ja)}全体</button><button class="btn" data-allsec>全体を見る</button><button class="linkbtn" data-sec="${sf.sec}">${esc(SEC[sf.sec].ja)}の分野ページへ →</button></span></div>`
+    : fs.length ? `<div class="fband"><span><b>${esc(fs.map(c=>SEC[c].ja).join("・"))} × ${esc(d.ja)}</b> に絞り込み中<br><span class="note">下の「分野別」の行を押すと、別の分野に切り替わります。</span></span><span class="fbtns"><button class="btn" data-allsec>全体を見る</button>${fs.length===1?`<button class="linkbtn" data-sec="${fs[0]}">${esc(SEC[fs[0]].ja)}の分野ページへ →</button>`:""}</span></div>` : "";
   return `<div class="panel shead"><div><div class="k">${esc(DGROUP[d.g]||"")}</div><h2>${esc(d.ja)}</h2></div>
       <div class="minis"><div class="mini"><div class="v">${projReady()?act.length:"…"}</div><div class="l">実施中案件</div></div>
       <div class="mini"><div class="v">${projReady()?money(actAmt)||"—":"…"}</div><div class="l">実施中の支援額${fs.length?"（按分）":""}${unk(act)?`<br><span class="unk">金額不明 ${unk(act)}件</span>`:""}</div></div>
@@ -1353,15 +1355,39 @@ function viewDonor(){
       <div class="mini"><div class="v">${list.length}</div><div class="l">関連ニュース（${esc(PERIODS.find(p=>p[0]===S.p)?.[1]||"")}）</div></div></div></div>${band}
     ${secRows.length?`<div class="cols" style="margin-top:10px">
       <div class="panel chart"><div class="phk">By sector · all periods</div><h3 class="ph">分野別の${useAmt?"支援額と件数":"案件数"}</h3>
-        <ul class="lg l5" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-sec="${c}" class="${fs.includes(c)?"on":""}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?(money(v)||"金額不明"):""}</span><span class="cnt">${nSec[c]}件</span><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></li>`).join("")}</ul></div>
+        <ul class="lg l5" style="margin-top:8px">${secRows.map(([c,v])=>`<li data-dsec="${c}" class="${fs.includes(c)?"on":""}" title="${fs.includes(c)&&!S.g?"押すと絞り込みを外す":"この分野に絞り込む"}"><i style="background:var(--coop)"></i><span class="nm">${esc(SEC[c].ja)}</span><span class="pc">${useAmt?(money(v)||"金額不明"):""}</span><span class="cnt">${nSec[c]}件</span><span class="hbar" style="display:block;width:60px"><i style="width:${v/smax*100}%"></i></span></li>`).join("")}</ul></div>
       ${Object.keys(kinds).length?`<div class="panel chart"><div class="phk">By form</div><h3 class="ph">協力形態ごとの案件数${fs.length?"（絞り込み中の分野）":""}</h3>
         <ul class="lg l3" style="margin-top:8px">${Object.entries(kinds).sort((a,b)=>b[1]-a[1]).map(([k,n])=>`<li data-kind="${esc(k)}"><i style="background:var(--dother)"></i><span class="nm">${esc(k)}</span><span class="pc">${n}件</span></li>`).join("")}</ul></div>`:""}
     </div>`:""}
     <div class="filters" style="margin-top:10px">${periodSelect(S.p)} ${sectorSelect(S.s)} ${qInput()}</div>
     <div class="cols">
-      <section>${secHead("Projects","案件")}<div class="filters">${S.g?"":seg("ps",[["all","すべて"],["active","実施中"],["pipeline","計画中"],["closed","終了"]],S.ps)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"]],S.psort)}</div>${projectListHTML(pj)}</section>
-      <section>${secHead("News","関連ニュース")}${listHTML(list)}</section>
+      <section>${secHead("Projects","案件")}<div class="filters">${sf?"":seg("ps",[["all","すべて"],["active","実施中"],["pipeline","計画中"],["closed","終了"]],S.ps)} ${kindSelect(base)} ${seg("psort",[["start","開始日"],["amount","金額"]],S.psort)}</div>${projectListHTML(pj)}</section>
+      <section class="dside">${secHead("News","関連ニュース",list.length>5?`<button class="linkbtn" data-morenews>${MORE_NEWS?"5件に戻す":`すべて表示（${list.length}件）`}</button>`:"")}${listHTML(MORE_NEWS?list:list.slice(0,5), MORE_NEWS)}
+        ${!list.length&&S.p&&S.p<365?`<p class="note"><button class="linkbtn" data-widen>期間を1年に広げる →</button></p>`:""}
+        ${donorReportsHTML(d.id, fs, sf, S.g)}</section>
     </div>`;
+}
+let MORE_NEWS = false;
+// who wrote a key report, read from its free-text "by" ("世界銀行 独立評価グループ", "ADB・CAREC") → donor ids
+const REPORT_BY = [["wb",/世界銀行|世銀|ESMAP|IFC|PEFA/],["adb",/ADB|CAREC/],["ebrd",/EBRD|欧州復興開発銀行/],["imf",/IMF/],["aiib",/AIIB|アジアインフラ/],
+  ["eu",/(^|[^A-Z])EU([^A-Z]|$)|欧州訓練財団|エラスムス/],["de",/KfW|GIZ/],["undp",/UNDP/],["unicef",/UNICEF/],["who",/WHO/],["fao",/FAO/],["wfp",/WFP/],
+  ["unfpa",/UNFPA/],["unwomen",/UN Women/],["iom",/IOM/],["unesco",/UNESCO/],["ilo",/ILO/],["unep",/UNEP/],
+  ["un",/国連|UNECE|UNDRR|UNIATF|UNAIDS|UNITAR|IFAD/],["gcf",/GCF|緑の気候基金|GEF/],["gf",/グローバルファンド|Gavi/],["jica",/JICA/]];
+const reportDonors = by => REPORT_BY.filter(([, rx])=>rx.test(by||"")).map(([id])=>id);
+function donorReportsHTML(did, fs, sf, gref){
+  const out = [], seen = new Set();
+  for(const R of Object.values(REPORTS)){
+    if(fs.length && !fs.includes(R.sector)) continue;
+    R.groups.forEach((g, gi)=>{
+      if(sf && gref!==R.sector+"."+gi) return;
+      for(const r of g.reports) if(!seen.has(r.u) && reportDonors(r.by).includes(did)){ seen.add(r.u); out.push({r, where:`${SEC[R.sector]?SEC[R.sector].ja:R.sector} › ${g.n}`}); }
+    });
+  }
+  const scope = sf ? "この小分類" : fs.length ? "この分野" : "全分野";
+  return `${secHead("Reports","この機関の重要レポート",`<span class="note">${scope}の重要レポート表から ${out.length}本</span>`)}
+    ${out.length?`<div class="panel"><ul class="rpl">${out.map(({r, where})=>`<li class="rp"><a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>${r.pdf?'<span class="tag lang">PDF</span>':""}
+      <span class="rp-m">${esc(r.by)}・${esc(r.y)}</span><span class="rp-o">${esc(where)}</span></li>`).join("")}</ul></div>`
+      :`<div class="feed"><div class="empty">${scope}の重要レポート表には、この機関の文書はありません</div></div>`}`;
 }
 
 /* ---------- national strategies: what Kyrgyzstan has decided, and where the donor money sits ----------
@@ -1908,9 +1934,12 @@ main.addEventListener("click", e=>{
   const ys = t.closest("[data-ysel]"); if(ys){ CH.ysel = 0; lsSet("km-charts", CH); render(); return; }
   if(t.closest("[data-cover]")){ e.stopPropagation(); SHOW_COVER = !SHOW_COVER; if(S.v!=="home") go({v:"home"}); else render(); return; }
   const uk = t.closest("[data-unknown]"); if(uk){ go({v:"projects", s:uk.dataset.unknown, ua:"1", ps:"all", d:"", k:""}); return; }
+  const ds = t.closest("[data-dsec]"); if(ds){ const c = ds.dataset.dsec; go({s:S.s===c&&!S.g?"":c, g:"", ps:"all", k:""}, true, null); return; }
   const gd = t.closest("[data-gdonor]"); if(gd){ go({v:"donor", d:gd.dataset.gdonor, s:gd.dataset.g.split(".")[0], g:gd.dataset.g, q:"", ps:"active", k:""}); return; }
   const don = t.closest("[data-donor]"); if(don){ go({v:"donor", d:don.dataset.donor, s:S.v==="sector"&&secList(S.s).length?S.s:"", g:"", q:"", ps:"all", k:""}); return; }
   if(t.closest("[data-allsec]")){ go({s:"", g:""}); return; }
+  if(t.closest("[data-morenews]")){ MORE_NEWS = !MORE_NEWS; render(); return; }
+  if(t.closest("[data-widen]")){ go({p:365}); return; }
   if(t.closest("[data-allsub]")){ go({g:"", ps:"all"}); return; }
   const st = t.closest("[data-star]");
   if(st){
