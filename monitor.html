@@ -436,7 +436,7 @@ details.sub>p,details.sub>ul,details.sub>.smarks{margin:0 10px 8px;font-size:12.
 /* ---- sector jump bar and the foldable overview ---- */
 .jump{display:flex;flex-wrap:wrap;gap:5px}
 .jchip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--sub)}
-.jchip:hover{border-color:var(--accent);color:var(--accent)}
+@media (hover:hover){.jchip:hover{border-color:var(--accent);color:var(--accent)}}
 .jchip.on{border-color:var(--gov);color:var(--ink)}
 @media (max-width:560px){.kpi .l .en{display:none}.kpi .l{letter-spacing:.04em}.tile .dr:nth-child(n+2),.tile .tf{display:none}.tile .drs{min-height:0}.tile{gap:5px}}
 @media (max-width:720px){.jump{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.jump::-webkit-scrollbar{display:none}.jchip{white-space:nowrap}}
@@ -447,6 +447,12 @@ details.ov[open] .ovs{display:inline}
 .ovh,.ovs{color:var(--accent);margin-left:6px}
 /* ---- PC: main column + news column that scrolls on its own ---- */
 .layout{display:block}
+.nsec{margin:2px 0 10px}
+.nsec-h{display:flex;align-items:center;gap:8px;margin-bottom:6px;min-height:30px}
+.nsec-h .sp{flex:1}
+.mynews{margin-top:4px}
+.mynews .orig,.mynews .also{display:none}
+.mynews .it h3{font-size:14.5px}
 .sidec{margin-top:22px}
 .sideh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 8px}
 .sideh h2{margin:0;font-size:15px;flex:1}
@@ -473,6 +479,7 @@ details.ov[open] .ovs{display:inline}
 @media (min-width:1100px){
   .wrap{max-width:1500px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
   .layout{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:26px;align-items:start}
+  .mynews{display:none}
   .sidec{position:sticky;top:96px;max-height:calc(100vh - 110px);display:flex;flex-direction:column;margin-top:0}
   .sidel{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;border-radius:8px}
   .matrix{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
@@ -721,12 +728,14 @@ const donorName = id => (DONORS[id]&&DONORS[id].ja) || id;
 const STAR = '<svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z" stroke-linejoin="round"/></svg>';
 
 /* ---------- filtering ---------- */
+// the news page can show several sectors at once: s="health,edu"
+const secList = v => String(v||"").split(",").filter(id=>SEC[id]);
 function filterItems(o){
   const min = o.p ? Date.now() - o.p*DAY : 0;
   const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
   return items().filter(x=>{
     if(x.ts < min) return false;
-    if(o.s && !x.c.includes(o.s)) return false;
+    if(o.s && !secList(o.s).some(c=>x.c.includes(c))) return false;
     if(o.my && FAV.size && !x.c.some(c=>FAV.has(c))) return false;
     if(o.d && !x.d.includes(o.d)) return false;
     if(o.t==="gov" && !x.g) return false;
@@ -740,7 +749,7 @@ const isOpen = p => p.st==="active"||p.st==="pipeline";
 function filterProjects(o){
   const terms = (o.q||"").toLowerCase().trim().split(/\s+/).filter(Boolean);
   const r = projects().filter(p=>{
-    if(o.s && !p.c.includes(o.s)) return false;
+    if(o.s && !secList(o.s).some(c=>p.c.includes(c))) return false;
     if(o.d && p.donor!==o.d) return false;
     if(o.k && sch(p)!==o.k) return false;
     if(o.ua && hasAmt(p)) return false;
@@ -1137,8 +1146,9 @@ function viewHome(){
   return `<div class="layout"><div class="mainc">
     ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
     ${ready&&SHOW_COVER?coverageHTML():""}
-    ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>`
-      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと「マイ分野」としてこの上に並びます。</p>`}
+    ${favTiles?`${secHead("My sectors","マイ分野",'<span class="note">★で外す（下の一覧にも残ります）</span>')}<div class="matrix">${favTiles}</div>
+      <div class="mynews">${secHead("My news","マイ分野の新着",'<button class="linkbtn" data-gomy>ニュースで見る →</button>')}${listHTML(mine.slice(0,6),false,true)}</div>`
+      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すか、ニュース欄で分野を選んで「☆ 概況に表示」を押すと、「マイ分野」とその新着ニュースがこの上に並びます。</p>`}
     ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
     ${ready?`<details class="ov" id="ov" ${ovOpen()?"open":""}><summary>${secHead("Overview","協力の全体像",'<span class="note">全分野・全援助機関の推移と割合 <span class="ovh">開く ▾</span><span class="ovs">閉じる ▴</span></span>')}</summary>
       <div class="cols">${yearHTML("")}${shareHTML("")}</div>${govHTML("")?`<div style="margin-top:12px">${govHTML("")}</div>`:""}</details>`:""}
@@ -1150,14 +1160,28 @@ function viewHome(){
 function viewFeed(){
   const t = S.t;
   setTitle("ニュース");
+  // older links: "my=1" (マイ分野のみ) becomes the same sectors picked as buttons
+  if(S.my && !S.s && FAV.size){ S.s = [...FAV].join(","); }
+  S.my = "";
   const list = filterItems(S);
   const lead = {gov:"大統領・内閣・各省庁・議会の決定や発表", coop:"援助機関・NGOによる融資・無償資金・技術協力・署名・事業の開始など", press:"政府の動き・協力以外の報道"}[t] || "政府の動き・協力・報道をまとめて新しい順に";
   return `${secHead("News","ニュース",`<span class="note">${lead}</span>`)}
     <div class="filters">${seg("t",[["all","すべて"],["gov","政府の動き"],["coop","協力"],["press","その他の報道"]],t)}
-      ${FAV.size?`<button class="btn ${S.my?"on":""}" data-set="my" data-val="${S.my?"":"1"}">${S.my?"★ マイ分野のみ":"☆ マイ分野のみ"}</button>`:""}
-      ${periodSelect(S.p)} ${sectorSelect(S.s)} ${donorSelect(S.d)} ${qInput()}</div>
+      ${periodSelect(S.p)} ${donorSelect(S.d)} ${qInput()}</div>
+    ${newsSectorChips()}
     <div class="count"><span>${list.length} 件</span><span class="sp"></span>${moreYearsBtn()}<button class="btn" data-csv="items">CSV</button></div>
     ${listHTML(list)}`;
+}
+// sector buttons on the news page: each one turns on/off, several can be on at once
+function newsSectorChips(){
+  const sel = secList(S.s), all = sel.length && sel.every(id=>FAV.has(id));
+  const favs = [...FAV].filter(id=>SEC[id]), favOn = favs.length && favs.length===sel.length && favs.every(id=>sel.includes(id));
+  const chip = ([id,ja]) => `<button class="jchip ${sel.includes(id)?"on":""}" data-nsec="${id}" aria-pressed="${sel.includes(id)}">${sel.includes(id)?"✓ ":""}${esc(ja)}${FAV.has(id)?" ★":""}</button>`;
+  return `<div class="nsec">
+    <div class="nsec-h"><span class="note">分野（いくつでも選べます）</span><span class="sp"></span>
+      ${sel.length?`<button class="btn ${all?"on":""}" data-pinsec>${all?"★ 概況に表示中（外す）":"☆ 概況に表示"}</button>`:""}</div>
+    <div class="sfilter"><button class="jchip ${sel.length?"":"on"}" data-nsec="">すべて</button>${favs.length?`<button class="jchip ${favOn?"on":""}" data-nsec="*">★ マイ分野</button>`:""}${SECTORS.filter(([id])=>sel.includes(id)).concat(SECTORS.filter(([id])=>!sel.includes(id))).map(chip).join("")}</div>
+  </div>`;
 }
 function moreYearsBtn(){
   if(!INDEX || (S.p && S.p<=365)) return "";
@@ -1540,7 +1564,7 @@ function renderSheet(){
 
 function viewStrategy(){
   setTitle("国家戦略マップ");
-  const hi = S.s;   // sector filter
+  const hi = SEC[S.s] ? S.s : (secList(S.s)[0]||"");   // sector filter (one sector; a news link may carry several)
   const has = arr => !hi || arr.includes(hi);
   const chFund = c => fundFor(c.sectors);
   const strat = s => `<button class="scard2 ${has(s.sectors)?"":"dim"}" data-st="${s.id}"><span class="sc-n">${esc(s.name)}</span><span class="sc-p">${esc(s.period)}${s.status!=="有効"?" · "+esc(s.status):""}</span><span class="smini">${s.sectors.map(c=>secTag(c, c===hi)).join("")}</span></button>`;
@@ -1689,7 +1713,7 @@ async function csvDownload(kind){
     name = kind==="saved" ? "saved" : "news";
   }
   const text = "﻿"+rows.map(r=>r.map(q).join(",")).join("\r\n");
-  const filename = `kyrgyz-${name}${S.s?"-"+S.s:""}-${new Date().toISOString().slice(0,10)}.csv`;
+  const filename = `kyrgyz-${name}${S.s?"-"+S.s.replace(/,/g,"-"):""}-${new Date().toISOString().slice(0,10)}.csv`;
   if(EMBED){
     const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
     if(!dl){ toast("この表示ではCSVを保存できません"); return; }
@@ -1713,6 +1737,15 @@ main.addEventListener("click", e=>{
   const stb = t.closest("[data-st]"); if(stb){ e.preventDefault(); go({st:stb.dataset.st}, false); return; }
   const sf = t.closest("[data-sfil]"); if(sf){ go({s:sf.dataset.sfil}, false); return; }
   if(t.closest("[data-back]")){ if(EMBED) go({v:"strategy", doc:""}); else history.back(); return; }
+  const ns = t.closest("[data-nsec]"); if(ns){
+    const id = ns.dataset.nsec, sel = secList(S.s);
+    const next = id==="" ? [] : id==="*" ? [...FAV].filter(f=>SEC[f]) : sel.includes(id) ? sel.filter(x=>x!==id) : [...sel, id];
+    go({s:SECTORS.map(([x])=>x).filter(x=>next.includes(x)).join(","), my:""}, false); return; }
+  if(t.closest("[data-pinsec]")){
+    const sel = secList(S.s), on = sel.every(id=>FAV.has(id));
+    for(const id of sel) on ? FAV.delete(id) : FAV.add(id);
+    lsSet("km-fav", [...FAV]); toast(on ? "概況のマイ分野から外しました" : "概況のマイ分野に表示します"); render(); return; }
+  if(t.closest("[data-gomy]")){ go({v:"feed", t:"all", s:[...FAV].filter(f=>SEC[f]).join(","), my:"", d:"", q:"", p:90}); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
   const gf = t.closest("[data-gofeed]"); if(gf){ go({v:"feed", t:gf.dataset.gofeed, p:365}); return; }
