@@ -1,0 +1,15 @@
+# Fails if any HTML page loses <meta name="robots" content="noindex, nofollow, noarchive">,
+# so the site stays out of search engines (scripts/check_noindex.py).
+name: Check noindex
+on:
+  push:
+    branches: [main]
+    paths: ["**.html", "**.htm", "scripts/check_noindex.py"]
+  pull_request:
+    paths: ["**.html", "**.htm", "scripts/check_noindex.py"]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/check_noindex.py
