@@ -444,6 +444,23 @@ small.orig{color:var(--faint);font-size:11px;margin-left:4px}
 .bn-pjs a:last-child{border-bottom:0}
 .bn-pjs a b{color:var(--d1);font-weight:600}
 .bt-open{margin:8px 8px 0 0}
+/* one-picture map of everything (trial): NDP chapter -> strategy -> pillar -> donor projects, radial 2D */
+.mapall{position:fixed;inset:0;z-index:45;background:var(--bg);display:flex;flex-direction:column}
+.mp-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:calc(10px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 6px max(16px,env(safe-area-inset-left,0px))}
+.mp-bar>b{flex:1 1 60%;font-size:15px}
+.mp-trial{font-size:11px;font-weight:700;color:var(--pipe);border:1px solid var(--pipe);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.mp-leg{display:flex;flex-wrap:wrap;gap:2px 10px;font-size:11.5px;color:var(--sub);width:100%}
+.mp-leg span{display:inline-flex;align-items:center;gap:4px}
+.mp-leg i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.mp-cv{flex:1;position:relative;min-height:0;border-top:1px solid var(--line);background:var(--panel)}
+.mp-cv .mp-msg{position:absolute;inset:0;display:grid;place-items:center;color:var(--sub);font-size:13px;padding:0 16px;text-align:center}
+.mp-info{position:absolute;left:0;right:0;bottom:0;background:var(--panel2);border-top:1px solid var(--line);font-size:13px;line-height:1.55;
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.mp-info .k{font-size:11px;color:var(--sub);padding-right:36px}
+.mp-info b{display:block;font-size:14.5px;margin:2px 0 4px}
+.mp-info .sh-x{position:absolute;right:max(10px,env(safe-area-inset-right,0px));top:6px}
+.mp-info .btn{margin:4px 6px 0 0;font-size:12.5px}
+.mp-open{margin:8px 0 4px}
 .sc-pos{display:block;font-size:11px;color:var(--sub);font-weight:400;line-height:1.45;margin-top:2px}
 .tree .tl{margin:0 0 4px;display:flex;flex-wrap:wrap;gap:4px 14px}
 .weakmark{border:1px dashed var(--faint);border-radius:4px;padding:0 4px}
@@ -1064,7 +1081,7 @@ $("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:"", sm:"", bt:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:"", sm:"", bt:"", mp:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 // ym: new = started that year, ongoing = running that year, cum = everything started up to that year
 const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov", sscope:"my"}, lsGet("km-charts", {}));
@@ -2471,7 +2488,7 @@ function showTreeNode(id){
 }
 function renderSheet(){
   let el = document.getElementById("sheet");
-  if(!S.st){ if(el) el.remove(); if(!S.bt && !S.sm) document.body.classList.remove("noscroll"); return; }
+  if(!S.st){ if(el) el.remove(); if(!S.bt && !S.sm && !S.mp) document.body.classList.remove("noscroll"); return; }
   if(!el){ el = document.createElement("div"); el.id = "sheet"; el.className = "sheet"; document.body.appendChild(el); }
   el.innerHTML = `<div class="sh-bg" data-close></div><aside class="sh-panel" role="dialog" aria-modal="true">${sheetHTML(S.st)}</aside>`;
   document.body.classList.add("noscroll");
@@ -2531,7 +2548,7 @@ window.addEventListener("popstate", ()=>{ if(!S.bt) BT_PUSHED = false; });
 function renderBigTree(force){
   let el = document.getElementById("bigtree");
   const sec = S.v==="strategy" && SEC[S.bt] ? S.bt : "";
-  if(!sec){ if(el){ el.remove(); if(!S.st && !S.sm) document.body.classList.remove("noscroll"); } return; }
+  if(!sec){ if(el){ el.remove(); if(!S.st && !S.sm && !S.mp) document.body.classList.remove("noscroll"); } return; }
   if(!el){ el = document.createElement("div"); el.id = "bigtree"; el.className = "bigtree"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); document.body.appendChild(el); force = true; }
   if(force || el.dataset.sec !== sec || el.dataset.ready !== String(projReady())){ el.innerHTML = bigTreeHTML(sec); el.dataset.sec = sec; el.dataset.ready = String(projReady()); }
   document.body.classList.add("noscroll");
@@ -2545,6 +2562,124 @@ document.addEventListener("click", e=>{
 });
 document.addEventListener("change", e=>{ if(e.target.matches && e.target.matches("[data-btpj]")){ BT_PJ = e.target.checked; renderBigTree(true); } });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.bt && !S.st) closeBigTree(); });
+
+/* ---------- one-picture map of everything (trial, 試作中) ----------
+   NDP 2030 chapter -> national strategy / programme -> its pillars -> donor projects, drawn as a radial 2D network.
+   Projects come from the same hand placement as the strategy trees (placed()); a project not on any tree hangs from
+   「未分類」 under the chapter of its first sector. The drawing library (force-graph, MIT) loads only when the map opens. */
+const MP_LIB = "https://cdn.jsdelivr.net/npm/force-graph@1.51.4/dist/force-graph.min.js";
+let MP_PUSHED = false, MP_G = null, MP_LOADING = null;
+const MP_KIND = ["中心","国家開発プログラム2030の章","国の戦略・プログラム","戦略の中の柱","ドナー案件"];
+function mpColors(){
+  const dark = document.documentElement.dataset.theme==="dark" || (document.documentElement.dataset.theme!=="light" && matchMedia("(prefers-color-scheme: dark)").matches);
+  return dark ? {root:"#e8edf3", ch:"#e9b949", st:"#f08a4b", pl:"#4fc3c7", un:"#8a96a8", japan:"#ff5a6e", mdb:"#7aa2ff", unorg:"#6fcf86", other:"#b8a4e8", ink:"#e8edf3", link:"rgba(160,172,190,.22)", link2:"rgba(233,185,73,.5)"}
+              : {root:"#0d1520", ch:"#b07800", st:"#d0612a", pl:"#0a7f93", un:"#8a96a8", japan:"#c8343c", mdb:"#2f5fd0", unorg:"#1f9a50", other:"#7d5cc4", ink:"#0d1520", link:"rgba(80,95,120,.2)", link2:"rgba(176,120,0,.5)"};
+}
+const mpGrp = d => { const g = DONORS[d] && DONORS[d].g; return g==="japan" ? "japan" : g==="mdb" ? "mdb" : g==="un" ? "unorg" : "other"; };
+function mpGraph(){
+  const N = [], L = [], seen = new Set(), add = (n, parent) => { N.push(n); if(parent) L.push({source:parent, target:n.id}); return n; };
+  add({id:"root", k:0, n:"国家開発プログラム2030"});
+  const pjNodes = (list, parent, why) => {
+    const fresh = list.filter(p=>!seen.has(p.id)); fresh.forEach(p=>seen.add(p.id));
+    for(const ps of pjGroups(fresh)){ const p = ps[0], w = why && why.get(p);
+      add({id:"p:"+p.id, k:4, n:p.tj||p.t, p, cnt:ps.length, why:w&&w.f==="r"?w.w:"", g:mpGrp(p.donor)}, parent); }
+  };
+  const under = (pl, n) => (pl.by[n.id]||[]).concat(...(n.kids||[]).map(k=>under(pl, k)));
+  for(const c of NDP_CH){
+    const cid = "ch:"+c.id; add({id:cid, k:1, n:`${c.no} ${c.name}`, no:c.no, st:"ch-"+c.id}, "root");
+    for(const s of STRATS2.filter(x=>x.ch===c.id)){
+      const sid = "st:"+s.id; add({id:sid, k:2, n:s.name, st:s.id}, cid);
+      const t = TREES[s.id];
+      if(t){
+        const pl = placed(s.id);
+        t.nodes.forEach((r, i)=>{
+          const parts = i===0 ? (r.kids||[]) : [r];          // the first root is the strategy itself; later roots are related groups
+          if(i===0) pjNodes(pl.by[r.id]||[], sid, pl.why);
+          for(const k of parts){ const kid = "pl:"+s.id+":"+k.id;
+            add({id:kid, k:3, n:k.n.replace(/（原文.*?）/, ""), st:s.id, tn:k.id}, sid);
+            pjNodes(under(pl, k), kid, pl.why); }
+        });
+      } else for(const [i, u] of (s.subs||[]).entries()) add({id:"pl:"+s.id+":"+i, k:3, n:u.name, st:s.id}, sid);
+    }
+  }
+  // everything still running that no tree has placed: under 「未分類」 of the chapter of its first sector
+  const rest = {};
+  for(const p of projects()){ if(p.st!=="active" || seen.has(p.id)) continue;
+    const c = NDP_CH.find(c=>c.sectors.includes(p.c[0])); const key = c ? c.id : "";
+    (rest[key] = rest[key] || []).push(p); }
+  for(const [cid, list] of Object.entries(rest)){
+    const uid = "un:"+(cid||"x"); add({id:uid, k:3, un:1, n:"未分類（戦略にまだ置いていない案件）"}, cid ? "ch:"+cid : "root");
+    pjNodes(list, uid, null);
+  }
+  return {nodes:N, links:L};
+}
+function mapHTML(){
+  const C = mpColors(), dot = (c, t) => `<span><i style="background:${c}"></i>${t}</span>`;
+  return `<div class="mp-bar"><b>全体マップ<span class="mp-trial">試作中</span></b><button class="sh-x" data-mpclose aria-label="閉じる">×</button>
+    <div class="mp-leg">${dot(C.ch,"計画の章")}${dot(C.st,"国の戦略")}${dot(C.pl,"戦略の中の柱")}${dot(C.un,"未分類")}${dot(C.japan,"案件：日本")}${dot(C.mdb,"開発銀行")}${dot(C.unorg,"国連機関")}${dot(C.other,"各国・基金・NGO")}</div>
+    <p class="note" style="margin:0">真ん中から外へ：章 → 国の戦略 → 柱 → 実施中のドナー案件。指で動かし、2本指で拡大。点を押すと名前が出ます。</p></div>
+    <div class="mp-cv" id="mpcv"><div class="mp-msg">${projReady()?"配置を計算中…":"案件データを読み込み中…"}</div></div>`;
+}
+function mpLoad(){
+  if(window.ForceGraph) return Promise.resolve();
+  return MP_LOADING = MP_LOADING || new Promise((ok, ng)=>{ const s = document.createElement("script"); s.src = MP_LIB; s.onload = ok; s.onerror = ()=>{ MP_LOADING = null; ng(new Error("図の部品を読み込めませんでした")); }; document.head.appendChild(s); });
+}
+function mpInfo(n){
+  const box = document.getElementById("mpcv"); if(!box) return;
+  let el = box.querySelector(".mp-info"); if(!el){ el = document.createElement("div"); el.className = "mp-info"; box.appendChild(el); }
+  const p = n.p, kind = n.un ? "未分類" : MP_KIND[n.k];
+  const kids = n.k<4 && MP_G ? MP_G.graphData().links.filter(l=>(l.source.id||l.source)===n.id).length : 0;
+  el.innerHTML = `<button class="sh-x" data-mpinfo aria-label="閉じる">×</button><div class="k">${esc(kind)}${p?" · "+esc(p.donor&&p.donor!=="ngo"?donorName(p.donor):p.org||""):""}</div><b>${esc(n.n)}</b>
+    ${p ? `${n.why?`<div class="note">この戦略に置いた理由：${esc(n.why)}</div>`:""}${n.cnt>1?`<div class="note">同名の案件 ${n.cnt}件（段階・追加融資など）</div>`:""}<a class="btn" href="${esc(p.u)}" target="_blank" rel="noopener">案件の元のページ →</a>`
+        : `${kids?`<div class="note">つながっている下の項目：${kids}件</div>`:""}${n.st?`<button class="btn" data-st="${esc(n.st)}"${n.tn?` data-tnode="${esc(n.tn)}"`:""}>詳しい説明を見る →</button>`:""}`}`;
+}
+function mpDraw(){
+  const box = document.getElementById("mpcv"); if(!box || !projReady()) return;
+  mpLoad().then(()=>{
+    if(!document.getElementById("mpcv")) return;
+    const C = mpColors(), size = {0:10,1:6,2:3.5,3:2,4:.8}, col = n => n.k===4 ? C[n.g] : n.un ? C.un : [C.root,C.ch,C.st,C.pl][n.k];
+    box.querySelector(".mp-msg")?.remove();
+    if(MP_G && MP_G._destructor) MP_G._destructor();
+    const W = box.clientWidth, H = box.clientHeight;
+    MP_G = ForceGraph()(box).width(W).height(H).backgroundColor("rgba(0,0,0,0)")
+      .dagMode("radialout").dagLevelDistance(Math.max(50, Math.min(W, H)/9))
+      .nodeRelSize(2.2).nodeVal(n=>size[n.k]).nodeColor(col).nodeLabel(n=>esc(n.n))
+      .linkColor(l=>l.target.k===4 ? C.link : C.link2).linkWidth(l=>l.target.k<=2 ? 1 : .5)
+      .enableNodeDrag(false).warmupTicks(150).cooldownTicks(80)
+      .nodeCanvasObjectMode(n=>n.k<=2 || (n.k===3) ? "after" : undefined)
+      .nodeCanvasObject((n, ctx, sc)=>{
+        const txt = n.k===0 ? "NDP 2030" : n.k===1 ? (sc>2 ? n.n : n.no) : sc>(n.k===2?2.2:4.5) ? n.n.slice(0, 18)+(n.n.length>18?"…":"") : "";
+        if(!txt) return;
+        ctx.font = `${(n.k<=1?12:10.5)/sc}px system-ui,-apple-system,"Hiragino Sans",sans-serif`; ctx.textAlign = "center"; ctx.fillStyle = C.ink;
+        ctx.fillText(txt, n.x, n.y - (n.k<=1?9:6)/sc - 1);
+      })
+      .onNodeClick(n=>{ mpInfo(n); MP_G.centerAt(n.x, n.y, 500); if(MP_G.zoom()<2.5) MP_G.zoom(2.5, 500); })
+      .graphData(mpGraph());
+    MP_G.onEngineStop(()=>{ if(!MP_G._fit){ MP_G._fit = 1; MP_G.zoomToFit(400, 20); } });
+  }).catch(e=>{ box.innerHTML = `<div class="mp-msg">${esc(e.message)}。通信状態を確かめて、開き直してください。</div>`; });
+}
+function openMap(){ MP_PUSHED = !EMBED; go({mp:"1"}); }
+function closeMap(){ if(MP_PUSHED){ MP_PUSHED = false; history.back(); } else go({mp:""}, false); }
+window.addEventListener("popstate", ()=>{ if(!S.mp) MP_PUSHED = false; });
+function renderMap(){
+  let el = document.getElementById("mapall");
+  const on = S.v==="strategy" && S.mp;
+  if(!on){ if(el){ if(MP_G && MP_G._destructor) MP_G._destructor(); MP_G = null; el.remove(); if(!S.st && !S.bt && !S.sm) document.body.classList.remove("noscroll"); } return; }
+  const ready = String(projReady());
+  if(!el){ el = document.createElement("div"); el.id = "mapall"; el.className = "mapall"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); document.body.appendChild(el); }
+  if(el.dataset.ready !== ready){ el.dataset.ready = ready; el.innerHTML = mapHTML(); mpDraw(); }
+  document.body.classList.add("noscroll");
+}
+document.addEventListener("click", e=>{
+  const t = e.target;
+  if(t.closest("[data-mapall]")){ openMap(); return; }
+  if(!t.closest("#mapall")) return;
+  if(t.closest("[data-mpclose]")){ closeMap(); return; }
+  if(t.closest("[data-mpinfo]")){ t.closest(".mp-info").remove(); return; }
+  const st = t.closest("[data-st]"); if(st){ go({st:st.dataset.st}, false); if(st.dataset.tnode) showTreeNode(st.dataset.tnode); }
+});
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.mp && !S.st) closeMap(); });
+window.addEventListener("resize", ()=>{ const b = document.getElementById("mpcv"); if(MP_G && b) MP_G.width(b.clientWidth).height(b.clientHeight); });
 
 function viewStrategy(){
   setTitle("国家戦略マップ");
@@ -2592,6 +2727,7 @@ function viewStrategy(){
       <span class="harrow" aria-hidden="true">→</span>
       <button class="hcard main" data-st="ndp"><span class="k">NATIONAL DEVELOPMENT PROGRAM</span><b>${SDB.ndp.name}</b><span class="note">${SDB.ndp.basis}・14章</span></button>
     </div>
+    <button class="btn primary mp-open" data-mapall>全体を1枚のマップで見る（試作中）</button>
     <div class="note" style="margin:8px 0 4px">分野で絞り込む：</div>${chips}
     ${focus}
     ${secHead("Chapters","国家開発プログラム2030の章と、そこにつながる分野別戦略",'<span class="note">章・戦略を押すと詳細（目標・サブプログラム・日本語訳の本文）</span>')}
@@ -2833,7 +2969,7 @@ function sumPop(btn){
 function renderSummary(){
   let el = document.getElementById("sumv");
   const on = S.v==="sector" && S.sm && SUM_SPEC[S.s];
-  if(!on){ if(el){ el.remove(); document.body.classList.remove("svopen"); if(!S.st && !S.bt) document.body.classList.remove("noscroll"); } return; }
+  if(!on){ if(el){ el.remove(); document.body.classList.remove("svopen"); if(!S.st && !S.bt && !S.mp) document.body.classList.remove("noscroll"); } return; }
   if(!el){ el = document.createElement("div"); el.id = "sumv"; document.body.appendChild(el); }
   const bar = `<div class="sv-bar"><button data-sumclose>← 閉じる</button>
     <select data-sumsec aria-label="分野">${SECTORS.filter(([id])=>SUM_SPEC[id]).map(([id,ja])=>`<option value="${id}" ${id===S.s?"selected":""}>${esc(ja)}</option>`).join("")}</select>
@@ -2875,6 +3011,7 @@ function render(keep=null){
   renderSheet();
   renderSummary();
   renderBigTree();
+  renderMap();
 }
 // Redraw `m` but leave the element `keep` (the filter box being typed in) where it is.
 // Replacing it would close the iPhone keyboard, and Safari does not let a page reopen it.
