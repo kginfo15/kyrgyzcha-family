@@ -1,0 +1,100 @@
+{
+ "note": "手で確かめた分野タグの直し（2026-11-07、ブルクトの調べ・Yutaの了承）。自動の判定や前回のタグより優先する。prefix は案件IDの先頭が一致するもの全部に、ids はその案件だけに効く。drop=外す、add=足す。",
+ "prefix": {
+  "XM-DAC-41140-": {
+   "drop": [
+    "finance"
+   ],
+   "why": "WFPの国別プログラムの活動。「国のポートフォリオ予算（CPB）」という言葉で金融と誤判定されていた"
+  }
+ },
+ "ids": {
+  "XM-DAC-41304-2210224112": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "UNESCOの水科学。栄養とは関係ない"
+  },
+  "XM-DAC-41304-3210224132": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "UNESCOの水科学。栄養とは関係ない"
+  },
+  "XM-DAC-41304-A210234041": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "UNESCOの水科学。栄養とは関係ない"
+  },
+  "XM-DAC-928-KG-2026-27-04.002.EU01.KGZ02": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "WHOのポリオなどの予防接種"
+  },
+  "XM-DAC-41301-762749": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "FAOの農業センサス"
+  },
+  "US-GOV-11-7200AA19CA00002": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "米国のHIV対策（EpiC）"
+  },
+  "US-GOV-11-7200AA23M00003-228391": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "米国の人道支援（栄養の記述なし）"
+  },
+  "GB-GOV-1-400222": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "英国の中央アジア小規模プロジェクト（あらゆる分野のタグが付いていた）"
+  },
+  "US-GOV-1-7200AA22N00008": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "米国の学習成果の向上（教育）"
+  },
+  "WB-P175587": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "世界銀行の地域経済開発"
+  },
+  "WB-P174318": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "世界銀行の酪農の生産性向上"
+  },
+  "US-GOV-1-7200GH21IO00004": {
+   "drop": [
+    "nutrition"
+   ],
+   "why": "米国からユニセフへの拠出（中身の記述なし）"
+  },
+  "XM-DAC-41140-KG02.01.021.URT1": {
+   "add": [
+    "nutrition"
+   ],
+   "drop": [
+    "finance"
+   ],
+   "why": "WFPの危機対応（緊急食糧援助）"
+  },
+  "US-GOV-1-7200GH22IO00005": {
+   "add": [
+    "nutrition"
+   ],
+   "why": "米国の緊急食糧支援"
+  }
+ }
+}
