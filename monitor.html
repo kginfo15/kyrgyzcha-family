@@ -2943,7 +2943,8 @@ main.addEventListener("click", e=>{
   if(t.closest("[data-favlink]")){
     const url = location.origin + location.pathname + "?fav=" + [...FAV].filter(f=>SEC[f]).join(",");
     const done = () => toast("リンクをコピーしました。ほかの端末で開くと同じMy分野になります");
-    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, ()=>prompt("このリンクをほかの端末で開いてください", url));
+    if(navigator.share && /iPhone|iPad|Android/.test(navigator.userAgent)) navigator.share({title:"My分野", url}).catch(()=>{});  // phones: share sheet (AirDrop to the Mac)
+    else if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, ()=>prompt("このリンクをほかの端末で開いてください", url));
     else prompt("このリンクをほかの端末で開いてください", url);
     return; }
   if(t.closest("[data-gomy]")){ go({v:"feed", t:"all", s:[...FAV].filter(f=>SEC[f]).join(","), my:"", d:"", q:"", p:90}); return; }
