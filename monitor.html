@@ -538,7 +538,7 @@ details.ov[open] .ovs{display:inline}
 .wk-c span{font-size:11px;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:2px 9px;color:var(--band-ink);white-space:nowrap}
 .wk-c b{font-family:var(--mono);margin-left:3px}
 .wk-lead{padding:10px 16px 10px 13px;font-size:14px;font-weight:600;line-height:1.6;border-bottom:1px solid var(--line);background:var(--accent-soft);border-left:3px solid var(--accent)}
-.wk-lead p{margin:0}.wk-lead p+p{margin-top:4px}.wk-lead b{color:var(--accent);font-size:12px;margin-right:4px}
+.wk-lead p{margin:0}.wk-lead .wk-sec{font:inherit;font-size:12px;font-weight:700;color:var(--accent);background:none;border:0;padding:0;margin-right:4px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}.wk-lead .wk-sec:hover{text-decoration-thickness:2px}.wk-lead p+p{margin-top:4px}.wk-lead b{color:var(--accent);font-size:12px;margin-right:4px}
 .wk-sw{display:flex;gap:0;padding:8px 16px 0;background:var(--panel)}
 .wk-sw button{font:inherit;font-size:12px;padding:4px 12px;border:1px solid var(--line);background:var(--panel);color:var(--sub);cursor:pointer}
 .wk-sw button:first-child{border-radius:6px 0 0 6px}.wk-sw button:last-child{border-radius:0 6px 6px 0;border-left:0}
@@ -596,6 +596,23 @@ details.ov[open] .ovs{display:inline}
 .ovsum::-webkit-details-marker{display:none}
 .shead2{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:12px}
 .shead2 h2{margin:2px 0 0;font-size:22px;display:flex;align-items:center;gap:8px}
+.shead2{align-items:flex-end}
+.sh-l{display:flex;flex-direction:column;gap:8px;min-width:0}
+.sh-k{font-size:11.5px;color:var(--faint)}
+.sh-r{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.shb{display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer;font:inherit;text-align:left;min-width:0}
+.shb b{font-size:14px}.shb small{font-size:11px;color:var(--faint)}
+.shb:hover{border-color:var(--accent)}
+.shb.primary{background:var(--ink);border-color:var(--ink);color:var(--panel)}.shb.primary small{color:var(--band-sub)}
+.jcard{display:inline-flex;align-items:center;gap:0;align-self:flex-start;border:1px solid var(--line);border-left:3px solid var(--jp);background:var(--panel);border-radius:6px;padding:0;font:inherit;font-size:12.5px;color:var(--sub);cursor:pointer;overflow:hidden;max-width:100%;flex-wrap:wrap}
+.jcard>span{padding:6px 10px;white-space:nowrap}
+.jcard .jl{font-weight:700;color:var(--jp);background:var(--jp-soft);letter-spacing:.04em}
+.jcard b{color:var(--ink);font-size:14px;margin:0 1px}.jcard i{font-style:normal;margin-left:6px;color:var(--ink);font-family:var(--mono)}
+.jcard .jn+.jn{border-left:1px solid var(--line)}
+.jcard .jg{color:var(--accent);font-weight:600;border-left:1px solid var(--line)}
+.jcard:hover .jg{text-decoration:underline}
+.jcard.none{cursor:default;border-left-color:var(--line)}.jcard.none .jl{color:var(--faint);background:var(--panel2)}
+@media (max-width:640px){.sh-r{margin-left:0;width:100%}.shb{flex:1 1 0;justify-content:center;align-items:center;text-align:center;padding:10px 8px}.shb small,.shb .lg{display:none}.jcard>span{padding:6px 8px}.jcard .jt{display:none}}
 .jbadge{margin-left:auto;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--sub);font-family:var(--mono)}
 .jbadge b{color:var(--d7)}
 .kpi .v small{font-size:13px;color:var(--sub);margin-left:3px}
@@ -1693,7 +1710,7 @@ function weekHTML(secs, opt={}){
     <div class="wk-h"><div><div class="wk-k">7日間から選んだ重要ニュース</div><div class="wk-t">${esc(opt.title||"今週の重要ニュース")}</div><div class="wk-d">${md(d0)}〜${md(new Date())}の7日間・${total.length}本のニュースから${list.length}本</div></div>
       <div class="wk-c"><span>政府の動き<b>${g}</b></span><span>協力<b>${o}</b></span><span>その他の報道<b>${total.length-g-o}</b></span></div></div>
     ${aiSecs.length ? `<div class="wk-sw" role="group" aria-label="選び方"><button data-wkmode="ai" class="${ai?"on":""}">AIのまとめ${sample?"(見本)":""}</button><button data-wkmode="rule" class="${ai?"":"on"}">自動選定(ルール)</button></div>` : ""}
-    ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<b>${esc(SEC[c].ja)}</b> `:""}${esc(secs.length>1 ? l.replace(/^[^、。\s]{1,8}では、?/,"") : l)}</p>`).join("")}</div>` : ""}
+    ${leads.length ? `<div class="wk-lead">${leads.slice(0,4).map(([c,l])=>`<p>${secs.length>1?`<button class="wk-sec" data-sec="${c}">${esc(SEC[c].ja)}</button> `:""}${esc(secs.length>1 ? l.replace(/^[^、。\s]{1,8}では、?/,"") : l)}</p>`).join("")}</div>` : ""}
     ${list.length ? `<ol>${list.map(item).join("")}</ol>` : '<div class="wk-empty">この7日間に目立ったニュースはありません。</div>'}
     <div class="wk-f"><span>${ai?`${esc(WEEK_AI.by||"AI")}が${esc(WEEK_AI.updated||"")}に候補から選び、理由と1文のまとめを書いたもの${sample?"(見本:手動で1回作成。週1回の自動更新はAPIキー登録後)":""}`:"自動選定:政府の決定・援助機関・複数の媒体・戦略の分野に当たる言葉・金額や合意を点数にして上位を表示"}</span><span class="sp"></span>${opt.more||""}</div>
   </section>`;
@@ -1788,10 +1805,13 @@ function viewSector(){
   const cnt = {pa:pj.filter(isOpen).length, pc:pj.filter(p=>!isOpen(p)).length};
   const base = filterProjects({s:s.id, d:S.d, q:S.q, ps:S.sub==="pa"?"open":"past", psort:S.psort, ua:S.ua});
   const list = filterProjects({s:s.id, d:S.d, q:S.q, k:S.k, ps:S.sub==="pa"?"open":"past", psort:S.psort, ua:S.ua});
-  const jica = SHOW_JP&&ready ? (()=>{const j=pj.filter(p=>p.donor==="jica"), ja=j.filter(p=>p.st==="active"); return `<button class="jbadge" data-donor="jica">JICA 実施中 <b>${ja.length}</b>件${ja.some(hasAmt)?" "+money(ja.reduce((a,p)=>a+shareAmt(p),0)):""}・累計 <b>${j.length}</b>件 →</button>`;})() : "";
+  const jica = SHOW_JP&&ready ? (()=>{const j=pj.filter(p=>p.donor==="jica"), ja=j.filter(p=>p.st==="active");
+    return j.length ? `<button class="jcard" data-donor="jica" title="この分野のJICA案件の一覧へ"><span class="jl">JICA</span><span class="jn">実施中 <b>${ja.length}</b>件${ja.some(hasAmt)?`<i>${money(ja.reduce((a,p)=>a+shareAmt(p),0))}</i>`:""}</span><span class="jn jt">累計 <b>${j.length}</b>件</span><span class="jg">案件を見る →</span></button>`
+      : `<span class="jcard none"><span class="jl">JICA</span><span class="jn">この分野の案件はまだありません</span></span>`;})() : "";
   return `<div class="layout"><div class="mainc">
-    <div class="shead2"><div><div class="k" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--faint)">分野 ${s.no} / 20</div>
-      <h2>${esc(s.ja)} ${favStar(s.id)}</h2></div>${jica}${SUM_SPEC[s.id]?`<button class="btn primary sumbtn" data-sumopen title="この分野の戦略・ドナー・最近の動きを1つの画面に(PDFで保存できます)">サマリー</button>`:""}</div>
+    <div class="shead2"><div class="sh-l"><div class="sh-k">分野 ${s.no} / 20</div>
+      <h2>${esc(s.ja)} ${favStar(s.id)}</h2>${jica}</div>
+      <div class="sh-r">${SUM_SPEC[s.id]?`<button class="shb primary" data-sumopen title="戦略の分野ごとに、どのドナーが動いていて、どこが空白かを1つの画面に(PDFで保存できます)"><b>ギャップ分析</b><small>戦略×ドナー×最近の動き</small></button>`:""}<button class="shb" data-sectree="${s.id}" title="国の戦略・プログラムの構成と援助機関の案件を1枚の樹形図で"><b><span class="lg">国家戦略を</span>樹形図で見る</b><small>戦略の構成と当てはまる案件</small></button></div></div>
     ${weekHTML([s.id], {title:s.ja+" 今週の重要ニュース", more:`<button class="linkbtn" data-gofeed="all" data-wksec="${s.id}">この分野のニュースをすべて見る →</button>`})}
     ${ready?overviewKPIs(s.id):""}
     ${reportsHTML(s.id)}
@@ -2735,7 +2755,7 @@ function renderSummary(){
   const bar = `<div class="sv-bar"><button data-sumclose>← 閉じる</button>
     <select data-sumsec aria-label="分野">${SECTORS.filter(([id])=>SUM_SPEC[id]).map(([id,ja])=>`<option value="${id}" ${id===S.s?"selected":""}>${esc(ja)}</option>`).join("")}</select>
     <span class="sp"></span><span class="sv-hint">横長A4・3枚</span><button class="sv-pdf" data-sumprint>PDFで保存・印刷</button></div>`;
-  el.innerHTML = bar + (projReady() ? (()=>{ try{ return sumHTML(S.s); }catch(e){ return `<section class="sv-sheet"><p class="sv-empty">サマリーを作れませんでした(${esc(e.message)})。</p></section>`; } })()
+  el.innerHTML = bar + (projReady() ? (()=>{ try{ return sumHTML(S.s); }catch(e){ return `<section class="sv-sheet"><p class="sv-empty">ギャップ分析を作れませんでした(${esc(e.message)})。</p></section>`; } })()
     : '<section class="sv-sheet"><p class="sv-empty">案件データを読み込み中…</p></section>');
   document.body.classList.add("svopen", "noscroll");
 }
@@ -2840,6 +2860,7 @@ const main = $("#main");
 main.addEventListener("click", e=>{
   const t = e.target;
   if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
+  const stree = t.closest("[data-sectree]"); if(stree){ BT_PUSHED = !EMBED; go({v:"strategy", s:stree.dataset.sectree, bt:stree.dataset.sectree}); return; }
   if(t.closest("[data-sumopen]")){ sumOpen(); return; }
   const im = t.closest("[data-indmore]");
   if(im){ const id = im.dataset.indmore, d = document.getElementById("idet-"+id), open = !IND_OPEN.has(id);
