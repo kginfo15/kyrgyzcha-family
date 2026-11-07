@@ -641,6 +641,35 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
   .sv-foot{position:absolute;left:0;right:0;bottom:0}
   .sv-h1,.sv-h2,.sv-h3,.sv-h4,.lv-a,.lv-b,.lv-w,.lv-c,.sv-pil td,.sv-bar1,.sv-msg li:before,.sv-kpis{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
+/* ---------- indicators per pillar (health) ---------- */
+.ikey{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--sub);margin:0 0 10px;align-items:center}
+.ikey svg{vertical-align:middle;margin-right:4px}
+.inds{display:grid;gap:12px}
+.ipil{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px 10px;min-width:0}
+.iph{display:flex;align-items:baseline;gap:4px 10px;flex-wrap:wrap;margin-bottom:6px}
+.iph h3{font-size:15px;margin:0}.iph .itag{font-size:12px;color:var(--sub)}.iph .linkbtn{margin-left:auto;text-align:left}
+.igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:12px}
+.ind{border-top:1px solid var(--line);padding-top:9px;min-width:0}
+.ind h4{font-size:13.5px;margin:0 0 2px;font-weight:600}
+.inow{display:flex;align-items:baseline;gap:6px 8px;flex-wrap:wrap}
+.inow b{font-size:21px;font-variant-numeric:tabular-nums}.inow .u{font-size:12px;color:var(--sub)}
+.ichip{font-size:12px;border-radius:999px;padding:1px 8px;border:1px solid currentColor;white-space:nowrap}
+.ichip.good{color:var(--act)}.ichip.warn{color:var(--pipe)}.ichip.bad{color:var(--hot)}.ichip.na{color:var(--faint)}
+.itg{font-size:12px;color:var(--sub);margin:2px 0 4px}.itg span{display:inline-block;margin-right:10px}
+svg.ich{width:100%;height:auto;display:block;overflow:visible}
+.isrc{font-size:11px;color:var(--faint);margin:2px 0 0}
+.inote{font-size:12px;color:var(--sub);background:var(--panel2);border-radius:6px;padding:6px 8px;margin:6px 0 0}
+.ipil>.inote{margin:0 0 8px}
+.ibar{height:10px;background:var(--line);border-radius:5px;position:relative;margin:6px 0 3px}
+.ibar i{position:absolute;left:0;top:0;bottom:0;background:var(--d1);border-radius:5px}
+.ibar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.idl{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--sub)}
+.imore{font:inherit;font-size:14px;margin-top:10px;padding:10px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);width:100%;cursor:pointer;min-height:44px}
+.idet{margin-top:10px}.idet[hidden]{display:none}
+.ihb{display:grid;grid-template-columns:5.5em 1fr 3.5em;gap:6px;align-items:center;font-size:13px;margin:3px 0}
+.ihb .t{height:12px;background:var(--d1);border-radius:0 4px 4px 0}.ihb .v{font-variant-numeric:tabular-nums;color:var(--sub);text-align:right}
+.ifoot{margin:8px 0 14px}
+#itip{position:fixed;pointer-events:none;background:var(--ink);color:var(--panel);font-size:12px;padding:4px 8px;border-radius:6px;display:none;z-index:70;white-space:nowrap}
 </style>
 <!--KM:HEAD-END-->
 </head>
@@ -697,6 +726,70 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
 <script type="application/json" id="reports-nature">{"sector": "nature", "strategy": null, "updated": "2026-11-07", "source": "ブルクト調査 2026-11-07（全リンクを開いて確認）", "groups": [{"id": "all", "n": "自然環境保全の全体像", "d": "環境政策、生物多様性の目標", "prog": ["green"], "reports": [{"t": "環境パフォーマンス・レビュー：キルギス（第3次）", "o": "Environmental Performance Reviews: Kyrgyzstan, Third Review", "by": "国連欧州経済委員会（UNECE）", "y": 2025, "u": "https://un-ilibrary.org/content/books/9789213587836"}, {"t": "生物多様性条約 第7次国別報告の完成", "o": "Kyrgyzstan Finalizes Seventh National Biodiversity Report", "by": "中央アジア気候ポータル", "y": 2026, "u": "https://centralasiaclimateportal.org/kyrgyzstan-has-completed-the-seventh-national-report-on-the-implementation-of-the-un-convention-on-biological-diversity/"}, {"t": "気候変動と生物多様性の目標の整合（図解）", "o": "Climate Change and Biodiversity Alignment: National Targets and Measures (Kyrgyz Republic Illustrated Analysis)", "by": "Zoï環境ネットワーク・UNITAR", "y": 2025, "u": "https://zoinet.org/wp-content/uploads/2025/11/KRG-climate-biodiv-alignment-report_EN.pdf", "pdf": 1}]}, {"id": "bio", "n": "生物多様性・保護区", "d": "山の生態系、ユキヒョウなどの野生生物", "prog": ["green"], "reports": [{"t": "西天山からパミール・アライまでの生物多様性保全", "o": "Collaborative Actions for Biodiversity Conservation: From Western Tian Shan to Pamir-Alai", "by": "UNDP（GEF）", "y": 2024, "u": "https://www.undp.org/kyrgyzstan/press-releases/collaborative-actions-biodiversity-conservation-western-tian-shan-pamir-alai"}, {"t": "景観のつながり：西天山の生物多様性保全の鍵", "o": "Landscape Connectivity: Key for Sustaining Biodiversity Conservation in the Western Tian-Shan", "by": "UNDP", "y": 2023, "u": "https://www.undp.org/kyrgyzstan/blog/landscape-connectivity-key-sustaining-biodiversity-conservation-western-tian-shan"}]}, {"id": "forest", "n": "森林・牧草地", "d": "森林の保全と回復、牧草地", "strat": ["drrplan:forest", "pasture:pasture"], "reports": [{"t": "キルギス 国別気候・開発報告（CCDR）", "o": "Kyrgyz Republic Country Climate and Development Report", "by": "世界銀行", "y": 2025, "u": "https://www.worldbank.org/en/country/kyrgyzrepublic/publication/ccdr"}]}, {"id": "lake", "n": "湖・観光地の環境", "d": "イシク・クル湖など", "strat": ["tourism:T5"], "reports": [{"t": "イシク・クル湖の環境管理と持続可能な観光開発プロジェクト", "o": "Issyk-Kul Environmental Management and Sustainable Tourism Development Project", "by": "ADB", "y": 2024, "u": "https://www.adb.org/projects/55250-001/main"}]}]}</script>
 <script type="application/json" id="reports-health">{"sector": "health", "strategy": "health", "updated": "2026-11-07", "source": "ブルクト調査 2026-11-07（全リンクを開いて確認）", "note": "strat = tree-health のノードid（キルギスの戦略・プログラム側）。名前・法令番号は tree-health から引く。reports = ドナー・国際機関の文書。", "groups": [{"id": "all", "n": "保健全体のレビュー", "d": "保健システム全体の評価・年次報告", "strat": ["hp"], "reports": [{"t": "キルギス 保健システム・レビュー 2022", "o": "Kyrgyzstan: health system review 2022", "by": "WHO欧州保健システム・政策オブザバトリー", "y": 2022, "u": "https://eurohealthobservatory.who.int/publications/i/kyrgyzstan-health-system-review-2022"}, {"t": "保健システムの現状 2024：キルギス", "o": "Health systems in action 2024: Kyrgyzstan", "by": "WHO欧州保健システム・政策オブザバトリー", "y": 2024, "u": "https://eurohealthobservatory.who.int/publications/i/health-systems-in-action-kyrgyzstan-2024", "note": "公的保障の狭さ、自己負担の高さ、医療人材の減少"}, {"t": "WHO国別協力戦略 キルギス 2024–2030", "o": "WHO Country Cooperation Strategy, Kyrgyzstan 2024–2030", "by": "WHO", "y": 2025, "u": "https://www.who.int/europe/publications/i/item/WHO-EURO-2025-9497-49269-73611", "note": "WHOと保健省が2030年まで一緒に取り組む優先課題"}, {"t": "WHOキルギス事務所 年次報告 2024", "o": "Annual report 2024: WHO Country Office in Kyrgyzstan", "by": "WHO", "y": 2025, "u": "https://www.who.int/europe/publications/i/item/WHO-EURO-2025-12133-51905-79572"}, {"t": "WHO 保健の成果事例 キルギス 2024", "o": "Health impact story - Kyrgyzstan 2024", "by": "WHO", "y": 2024, "u": "https://www.who.int/kyrgyzstan/publications/m/item/health-impact-2024-kgz-country-profile"}, {"t": "中央アジア保健投資フォーラム報告（2024年6月 ビシュケク）", "o": "Report of Central Asia International Health Investment Forum: health is the best investment", "by": "WHO・キルギス保健省", "y": 2025, "u": "https://www.who.int/europe/publications/i/item/WHO-EURO-2024-10713-50485-76261"}, {"t": "キルギスの保健サービス提供：根拠のスコーピング・レビュー", "o": "A scoping review on health services delivery in Kyrgyzstan: what does the evidence tell us?", "by": "WHO", "y": 2018, "u": "https://kyrgyzstan.un.org/sites/default/files/2019-12/A%20scoping%20review%20on%20health%20services%20delivery%20in%20Kyrgyzstan%20what%20does%20the%20evidence%20tell%20us%20%282018%29_ENG.pdf", "pdf": 1}, {"t": "ADB 中央・西アジア 保健分野の方針 2025", "o": "Central and West Asia Health Sector Approach 2025", "by": "ADB", "y": 2023, "u": "https://www.adb.org/node/890891", "note": "キルギスを含む10か国"}]}, {"id": "uhc", "n": "UHC・保健財政", "d": "医療保障、医療保険、自己負担、財政", "strat": ["C1", "sgbp", "mhi"], "reports": [{"t": "人々は医療費を払えるか：キルギスの経済的保護の新しいデータ", "o": "Can people afford to pay for health care? New evidence on financial protection in Kyrgyzstan", "by": "WHO", "y": 2018, "u": "https://iris.who.int/handle/10665/329444"}, {"t": "一次医療の財政強化：キルギスへの政策上の考察", "o": "Strengthening primary health care financing: policy considerations for Kyrgyzstan", "by": "WHO", "y": 2023, "u": "https://iris.who.int/bitstream/handle/10665/373013/WHO-EURO-2023-7677-47444-69732-eng.pdf", "pdf": 1}, {"t": "保健予算の執行：キルギスの事例研究", "o": "Budget execution in health: Kyrgyzstan case study", "by": "WHO", "y": 2025, "u": "https://www.who.int/europe/publications/i/item/WHO-EURO-2025-11069-50841-77080", "note": "保健予算が計画どおり使われない理由"}, {"t": "キルギスの保健の財政余地", "o": "Fiscal Space for Health in the Kyrgyz Republic", "by": "世界銀行", "y": 2019, "u": "https://openknowledge.worldbank.org/entities/publication/36fb0de1-8986-551a-9fc4-a815f88dc69f"}, {"t": "国の保障医療プログラム（SGBP）の見直し：より貧困層に配慮した明確な給付へ", "o": "Toward a More Pro-Poor and Explicit Health Benefit Package in the Kyrgyz Republic", "by": "世界銀行", "y": 2019, "u": "https://openknowledge.worldbank.org/entities/publication/8c7a026a-23af-5127-a5ce-9de2c3b18b80"}, {"t": "子どもの健康のための公的財政の強化", "o": "Evidence for Action: Strengthening Public Financing to Improve Child Health Outcomes", "by": "UNICEF", "y": 2026, "u": "https://www.unicef.org/kyrgyzstan/reports/evidence-action-health"}]}, {"id": "phc", "n": "一次医療（PHC）", "d": "家庭医、地域の診療所、紹介の流れ", "strat": ["A1", "A2", "A3", "A4"], "reports": [{"t": "一次医療の財政強化：キルギスへの政策上の考察", "o": "Strengthening primary health care financing: policy considerations for Kyrgyzstan", "by": "WHO", "y": 2023, "u": "https://iris.who.int/bitstream/handle/10665/373013/WHO-EURO-2023-7677-47444-69732-eng.pdf", "pdf": 1}, {"t": "キルギスの保健サービス提供：根拠のスコーピング・レビュー", "o": "A scoping review on health services delivery in Kyrgyzstan: what does the evidence tell us?", "by": "WHO", "y": 2018, "u": "https://kyrgyzstan.un.org/sites/default/files/2019-12/A%20scoping%20review%20on%20health%20services%20delivery%20in%20Kyrgyzstan%20what%20does%20the%20evidence%20tell%20us%20%282018%29_ENG.pdf", "pdf": 1}, {"t": "非感染性疾患の早期発見・早期治療のためのパイロットリファラル体制強化プロジェクト（事前評価表）", "o": "（日本語原文）", "by": "JICA", "y": 2022, "u": "https://www2.jica.go.jp/ja/evaluation/pdf/2021_201903145_1_s.pdf", "pdf": 1}]}, {"id": "ncd", "n": "非感染性疾患（NCD）・精神保健", "d": "心臓病、がん、腎臓病、精神保健", "strat": ["A5", "heart", "ckd", "mh", "onco"], "reports": [{"t": "NCD対策の投資効果 2024（保健省・WHO・UNDP）", "o": "Kyrgyzstan NCD investment case 2024", "by": "国連機関間タスクフォース（UNIATF）", "y": 2025, "u": "https://uniatf.who.int/docs/librariesprovider22/default-document-library/kyrgyzstan-ncd-ic-2024-v21-280525.pdf?sfvrsn=a06d1619_1", "pdf": 1}, {"t": "キルギスのNCD予防と管理：投資の論拠", "o": "Prevention and control of noncommunicable diseases in Kyrgyzstan: the case for investment", "by": "WHO", "y": 2017, "u": "https://www.who.int/europe/publications/i/item/WHO-EURO-2017-4787-44550-63088", "note": "NCDの損失はGDPの約3.9%"}, {"t": "精神保健の投資効果 2024", "o": "Mental health investment case: Kyrgyzstan", "by": "国連機関間タスクフォース（UNIATF）・WHO", "y": 2025, "u": "https://uniatf.who.int/docs/librariesprovider22/default-document-library/mental-health-ic-kyrgyzstan-2024-v16-280525.pdf?sfvrsn=7bf7e04b_1", "pdf": 1}, {"t": "非感染性疾患の早期発見・早期治療のためのパイロットリファラル体制強化プロジェクト（事前評価表）", "o": "（日本語原文）", "by": "JICA", "y": 2022, "u": "https://www2.jica.go.jp/ja/evaluation/pdf/2021_201903145_1_s.pdf", "pdf": 1}, {"t": "南部地域における中核病院医療機材整備計画（事前評価表）", "o": "（日本語原文）", "by": "JICA", "y": 2025, "u": "https://www2.jica.go.jp/ja/evaluation/pdf/2025_2561350_1_s.pdf", "pdf": 1, "note": "循環器・がん医療の機材"}]}, {"id": "inf", "n": "感染症・予防接種", "d": "結核、HIV、肝炎、ワクチン", "strat": ["A7", "imm", "tb", "hiv"], "reports": [{"t": "国連合同計画によるHIV対策支援 2022–2023", "o": "Kyrgyzstan 2022–2023: Summary of the Joint Programme's Support to the National HIV Response", "by": "UNAIDS", "y": 2025, "u": "https://open.unaids.org/sites/default/files/2025/Kyrgyzstan-country-report_2022-2023.pdf", "pdf": 1}, {"t": "結核・HIV対策の人権上の障壁の削減：進捗評価", "o": "Kyrgyzstan Progress Assessment (Breaking Down Barriers)", "by": "グローバルファンド", "y": 2023, "u": "https://www.theglobalfund.org/media/13575/crg_2023-progressassessmentkyrgyzstan_report_en.pdf", "pdf": 1}, {"t": "中央アジアの結核・多剤耐性結核プログラム監査（ウズベキスタン・キルギス・タジキスタン）", "o": "Global Fund supported TB/MDR-TB programs in Eastern Europe and Central Asia", "by": "グローバルファンド監察総監室", "y": 2022, "u": "https://www.theglobalfund.org/media/12251/oig_gf-oig-22-013_report_en.pdf", "pdf": 1}, {"t": "結核対策プログラム III・IV 事後評価", "o": "Ex post evaluation – Kyrgyzstan: TB Control Programme III and IV", "by": "KfW（ドイツ復興金融公庫）", "y": 2020, "u": "https://www.entwicklungsbank.kfw.de/PDF/Evaluierung/Ergebnisse-und-Publikationen/PDF-Dokumente-E-K_EN/Kirgisistan_TB_2020_E.pdf", "pdf": 1}, {"t": "Gavi 保健システム強化支援の評価：キルギス", "o": "GAVI Health System Strengthening Support Evaluation: Kyrgyzstan Case Study", "by": "Gavi", "y": 2009, "u": "https://gavi.org/news/document-library/hss-evaluation-kyrgyzstan", "note": "古い資料"}]}, {"id": "mch", "n": "母子保健・栄養", "d": "妊産婦、新生児、子どもの健康と栄養", "strat": ["A6", "food"], "reports": [{"t": "複数指標クラスター調査（MICS）2023", "o": "Multiple Indicator Cluster Survey (MICS) - Kyrgyz Republic, 2023", "by": "UNICEF・国家統計委員会", "y": 2024, "u": "https://www.unicef.org/kyrgyzstan/publications/mics-kyrgyz-republic-2023", "note": "子どもの死亡は減少、予防接種率は76.7%→71.6%に低下"}, {"t": "家族計画と妊産婦保健の投資効果", "o": "Investment case: family planning and maternal health in Kyrgyzstan", "by": "キルギス保健省・UNFPA", "y": 2023, "u": "https://kyrgyzstan.un.org/sites/default/files/2025-11/FINAL_Kyrgyzstan_edited-Invesment%20Case.pdf", "pdf": 1}, {"t": "妊産婦死亡の秘匿調査（CEMD）着手報告", "o": "Inception Report on Confidential Enquiry into Maternal Deaths in KG", "by": "UNFPA", "y": 2016, "u": "https://kyrgyzstan.unfpa.org/en/publications/inception-report-confidential-enquiry-maternal-deaths-kg"}, {"t": "キルギスの子どもの主な課題", "o": "Key Issues for Children in Kyrgyzstan", "by": "UNICEF", "y": 2025, "u": "https://www.unicef.org/kyrgyzstan/media/10661/file", "pdf": 1}, {"t": "子どもの健康のための公的財政の強化", "o": "Evidence for Action: Strengthening Public Financing to Improve Child Health Outcomes", "by": "UNICEF", "y": 2026, "u": "https://www.unicef.org/kyrgyzstan/reports/evidence-action-health"}]}, {"id": "sec", "n": "健康危機への備え・環境と健康", "d": "感染症の流行への備え、IHR、検査室、大気汚染", "strat": ["epi", "clim"], "reports": [{"t": "国際保健規則（IHR）の対応能力の合同外部評価", "o": "Joint external evaluation of IHR core capacities of Kyrgyzstan", "by": "WHO", "y": 2024, "u": "https://www.who.int/publications/i/item/9789240090286", "note": "2023年7月の評価"}, {"t": "ADB 地域保健安全保障強化プロジェクト（3,000万ドル）", "o": "ADB $30 Million Project to Help Strengthen Health Security in the Kyrgyz Republic", "by": "ADB", "y": 2022, "u": "https://www.adb.org/news/adb-30-million-project-help-strengthen-health-security-kyrgyz-republic", "note": "検査室と病院の救急の強化"}, {"t": "キルギス：大気の質と健康", "o": "Kyrgyzstan – Air quality and health", "by": "WHO", "y": 2025, "u": "https://www.who.int/europe/publications/m/item/kyrgyzstan-air-quality-and-health"}]}, {"id": "sys", "n": "保健システムの土台", "d": "病院・医療機材、人材、医薬品、デジタル保健", "strat": ["B", "B1", "C2", "C3", "C4", "dt", "dhe", "med26", "edl"], "reports": [{"t": "南部地域における中核病院医療機材整備計画（事前評価表）", "o": "（日本語原文）", "by": "JICA", "y": 2025, "u": "https://www2.jica.go.jp/ja/evaluation/pdf/2025_2561350_1_s.pdf", "pdf": 1, "note": "循環器・がん医療の機材"}, {"t": "ADB 中央・西アジア 保健分野の方針 2025", "o": "Central and West Asia Health Sector Approach 2025", "by": "ADB", "y": 2023, "u": "https://www.adb.org/node/890891", "note": "キルギスを含む10か国"}, {"t": "デジタル保健の格差解消 合同プログラム 年次報告 2024", "o": "Annual Progress Report 2024: Joint Programme 'Bridging the Digital Health Divide'", "by": "国連SDG合同基金", "y": 2026, "u": "https://mptf.undp.org/sites/default/files/documents/2026-01/kyrgyzstan_dt_hit_2024_apr.pdf", "pdf": 1}, {"t": "保健システムの現状 2024：キルギス", "o": "Health systems in action 2024: Kyrgyzstan", "by": "WHO欧州保健システム・政策オブザバトリー", "y": 2024, "u": "https://eurohealthobservatory.who.int/publications/i/health-systems-in-action-kyrgyzstan-2024", "note": "公的保障の狭さ、自己負担の高さ、医療人材の減少"}]}]}</script>
 <script type="application/json" id="tree-health">{"sector": "health", "strategy": "health", "chapter": "9.4", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "nodes": [{"id": "hp", "type": "プログラム", "n": "保健プログラム「健康な人 ― 繁栄する国」2019–2030", "m": "政府決定 2018年12月20日 No.600（行動計画2019–2023・指標表つき）、内閣決定 2024年12月26日 No.802 で改正", "conf": "法令", "d": "病気ごとの対策から保健システム全体の土台づくりへ切り替えるプログラム。3つの優先分野で進め、病気ごとの国のプログラムや規則はそれぞれの分野の下で動く。", "kids": [{"id": "A", "type": "分野", "n": "1 一次医療（PHC）と公衆衛生の強化", "conf": "資料", "d": "世界銀行の技術評価（2019）にプログラムの構成として記載。", "kids": [{"id": "A1", "type": "分野", "n": "1.1 効率的な一次医療のモデル（予防・早期発見・慢性疾患の管理）", "conf": "資料", "d": "看護師による慢性疾患の管理、巡回チーム、オンライン相談、成果に応じた支払い。"}, {"id": "A2", "type": "分野", "n": "1.2 一次医療と病院の連携（紹介の流れ・継続した診療）", "conf": "資料"}, {"id": "A3", "type": "分野", "n": "1.3 一次医療の質と、全住民の公平なアクセス", "conf": "資料", "d": "運営主体を問わない質の管理の仕組み。"}, {"id": "A4", "type": "分野", "n": "1.4 一次医療の人材の能力強化", "conf": "資料", "d": "一次医療の教育・研修センターでの継続研修。"}, {"id": "A5", "type": "分野", "n": "1.5 非感染性疾患の予防と対策", "conf": "資料", "d": "死亡の約8割を占める非感染性疾患（心臓病・がん・腎臓病・精神の病気など）の予防と管理。下の国のプログラムが具体化している。", "kids": [{"id": "heart", "type": "戦略", "n": "「健康な心臓」国家プログラム 2025–2030", "m": "大統領令 2025年11月17日 No.314", "conf": "法令", "d": "心血管疾患の早期発見と治療、患者の流れの見直し。"}, {"id": "ckd", "type": "戦略", "n": "慢性腎臓病の予防・診断・治療プログラム 2026–2030", "m": "内閣決定 2026年9月15日 No.618（行動計画つき）", "conf": "法令"}, {"id": "mh", "type": "戦略", "n": "精神保健プログラム 2018–2030", "m": "政府決定 2018年3月1日 No.119（第2期 2023–2027）", "conf": "法令", "d": "地域で受けられる精神保健サービスへの移行。"}, {"id": "onco", "type": "規則", "n": "がん医療の提供に関する規程", "m": "内閣決定 2024年12月18日 No.762", "conf": "法令", "d": "国のがんプログラムはなく、この規程とWHOとの3つの取り組み（子宮頸がん・乳がん・小児がん）で進めている。"}, {"id": "ncd13", "type": "戦略", "n": "非感染性疾患の予防・対策プログラム 2013–2020（期間終了）", "m": "政府決定 2013年11月11日 No.597", "conf": "法令", "d": "後継の総合プログラムは法令データベースで見つからず、上の病気ごとのプログラムに引き継がれている。"}]}, {"id": "A7", "type": "分野", "n": "1.6 感染症の予防と対策", "conf": "推定", "d": "国家開発プログラム9.4の課題（健康リスクの管理）に対応。下の国のプログラムが具体化している。", "kids": [{"id": "imm", "type": "戦略", "n": "予防接種（免疫予防）プログラム 2025–2030", "m": "内閣決定 2025年2月25日 No.90（前身 2020–2024 は No.609）", "conf": "法令"}, {"id": "tb", "type": "戦略", "n": "結核対策プログラム「結核-VI」2023–2026", "m": "内閣決定 2023年3月3日 No.119", "conf": "法令"}, {"id": "hiv", "type": "戦略", "n": "HIVと血液で感染するウイルス性肝炎の対策プログラム 2026–2030", "m": "2025年9月にパブリックコメント", "conf": "案"}, {"id": "epi", "type": "戦略", "n": "感染症対策・健康危機への備えの総合計画 2026–2030", "m": "2026年2月にパブリックコメント", "conf": "案"}]}, {"id": "A6", "type": "分野", "n": "1.7 母子保健", "conf": "推定", "d": "国家開発プログラム9.4の目標（妊産婦・5歳未満児の死亡）に対応。法令データベースで「母の健康」「周産期」「母と子の健康」を検索したが、独立した国のプログラムは見つからなかった。"}]}, {"id": "B", "type": "分野", "n": "2 病院・救急医療の合理化", "conf": "資料", "kids": [{"id": "B1", "type": "分野", "n": "2.1 病院の再編と近代化（施設・医療機材）", "conf": "資料", "d": "使われていない病院の見直し、建物ではなくサービスに資金をつける。"}, {"id": "B2", "type": "分野", "n": "2.2 救急医療", "conf": "資料", "d": "法令データベースでは救急車の調達などの個別決定のみで、独立したプログラムはない。"}, {"id": "B3", "type": "分野", "n": "2.3 病院の経営と感染管理", "conf": "資料", "d": "院長の公募と成果契約、経営能力をつけてから独立採算へ。医療廃棄物・院内感染の管理。"}]}, {"id": "C", "type": "分野", "n": "3 保健システムの土台の強化", "conf": "資料", "kids": [{"id": "C1", "type": "分野", "n": "3.1 財政とUHC（国の医療保障・強制医療保険・成果払い）", "conf": "資料", "d": "国が保障する医療サービス（SGBP）の見直し、一次医療への成果払い、サービスの原価計算と戦略的購入、医療保険の改革。", "kids": [{"id": "sgbp", "type": "制度", "n": "国の保障医療プログラム（無料・優遇で受けられる医療の範囲）", "m": "内閣決定 2023年9月21日 No.493、新しいモデルの試行は大統領令 2026年7月8日 No.252", "conf": "法令"}, {"id": "mhi", "type": "制度", "n": "強制医療保険基金の予算法 2026年（2027–2028年の計画つき）", "m": "法律 2026年1月23日 No.7", "conf": "法令"}]}, {"id": "C2", "type": "分野", "n": "3.2 人材と医学教育", "conf": "資料", "d": "法令データベースで「保健の人材政策」を検索したが、独立した戦略は見つからなかった。"}, {"id": "C3", "type": "分野", "n": "3.3 医薬品・医療機器", "conf": "推定", "kids": [{"id": "med26", "type": "規則", "n": "医薬品の安全・入手しやすさ・集中調達の改善の緊急措置", "m": "大統領令 2026年6月9日 No.202", "conf": "法令"}, {"id": "edl", "type": "制度", "n": "必須医薬品・医療機器の国のリスト 2026–2028", "m": "内閣承認 2026年10月", "conf": "報道"}]}, {"id": "C4", "type": "分野", "n": "3.4 デジタル保健（電子カルテ・診療ガイドラインの電子化）", "conf": "資料", "kids": [{"id": "dt", "type": "戦略", "n": "デジタル・トランスフォーメーション構想 2024–2028 の保健の取り組み", "m": "大統領令 2024年4月5日 No.90（マップ掲載済みの構想の第4章）", "conf": "法令", "d": "電子カルテなどのデジタル保健。"}, {"id": "dhe", "type": "規則", "n": "デジタル保健の統一エコシステムに関する規程", "m": "内閣 2024年10月24日", "conf": "法令"}, {"id": "eh16", "type": "戦略", "n": "電子保健プログラム 2016–2020（期間終了）", "m": "政府決定 2016年3月18日 No.134", "conf": "法令", "d": "後継のプログラムはなく、上の構想と規程に引き継がれている。"}]}, {"id": "C5", "type": "分野", "n": "3.5 保健行政・情報・モニタリング", "conf": "推定"}]}]}, {"id": "oth", "type": "", "n": "保健につながる、ほかの分野の戦略（マップに掲載済み）", "conf": "", "kids": [{"id": "water", "type": "戦略", "n": "飲料水供給・排水システム発展プログラム 〜2026", "conf": "法令"}, {"id": "food", "type": "戦略", "n": "食料安全保障・栄養プログラム", "conf": "本文旧版"}, {"id": "clim", "type": "", "n": "気候変動への強さ（国家開発プログラム13）", "conf": "本文"}]}], "rules": [["imm", "vaccin|immuniz|pentavalent|pneumococcal|polio|rotavirus|papilloma|gavi|targeted country assistance|country foundations"], ["tb", "tubercul|\\bTB\\b"], ["hiv", "\\bHIV\\b|AIDS|PEPFAR|hepatitis|epidemic control|stigma|community led monitoring"], ["epi", "health security|one health|zoonotic|surveillance and alert|acute public health threats|health emergenc|preparedness|AMR|antimicrobial|COVID|pandemic|infectious"], ["A6", "empowerment for women, girls|mother.?child|maternal|newborn|reproductive|sexual, reproductive"], ["heart", "cardio|heart|hypertens"], ["ckd", "kidney|renal|dialys"], ["onco", "cancer|oncolog|がん"], ["A2", "referral|早期発見"], ["clim", "vulnerability and adaptation"], ["A5", "non-?communicable|best buys|risk factors|promotion and preventive"], ["mh", "mental health"], ["A4", "PHC educational|nursing"], ["A1", "primary health care|primary care|primary healthcare|community action for health"], ["B1", "医療機材|hospital infrastructure|equipment"], ["B3", "waste management|facilities autonomy|hospital"], ["C1", "sector program health|budget support to the health|SWAp|health financing|Health Policy and Financing|insurance"], ["C2", "medical education|workforce"], ["C3", "medicine|pharma|drug supply"], ["dt", "digital health|health information system|e-health"], ["C5", "health governance|health leadership|evidence-informed|Ext\\.eval|Precedent-setting|health system strengthening"], ["water", "water|wastewater|WASH"], ["food", "nutrition|food|feeding"], ["clim", "climate|air quality|air pollution|大気"]], "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned", "note": "3段の形：プログラム → 分野（サブプログラム）→ その分野を具体化する国の戦略・個別プログラム・規則。分野の構成は世界銀行の技術評価（2019）、個別の文書は法令データベース（cbd.minjust.gov.kg、2026年11月6日照会）と報道による。案件の当てはめは題名・説明のキーワードによる自動判定。"}</script>
+<script type="application/json" id="ind-health">{"pillars":[
+ {"id":"all","name":"全体","tag":"国家開発プログラム 9.4 の総合目標","inds":[
+  {"name":"平均寿命","unit":"歳","dir":"up","status":"warn","st":"△ 今のペースだと2030年に約73.5歳",
+   "s":[[2015,70.7],[2016,71.0],[2017,71.2],[2018,71.4],[2019,71.6],[2020,71.8],[2021,71.9],[2022,72.0],[2023,72.2],[2024,72.4]],
+   "t":[{"k":"nat","v":75,"y":2030,"l":"国家 75歳"}],"src":"世界銀行 WDI SP.DYN.LE00.IN(統計委員会:2023年 72.0歳)"}
+ ]},
+ {"id":"uhc","name":"① UHC・保健財政","tag":"医療保障・自己負担","inds":[
+  {"name":"医療費のうち患者の自己負担","unit":"%","dir":"down","status":"bad","st":"✕ 4割前後で高止まり",
+   "s":[[2014,56.3],[2015,54.5],[2016,57.2],[2017,56.4],[2018,46.6],[2019,46.2],[2020,46.0],[2021,39.1],[2022,39.9],[2023,42.3]],
+   "t":[{"k":"sdg","v":20,"y":2030,"l":"WHO目安 20%以下"}],"src":"世界銀行 WDI SH.XPD.OOPC.CH.ZS(元はWHO保健支出DB)"},
+  {"name":"UHCサービスカバー指数","unit":"点(100点満点)","ymin":50,"ymax":100,"dir":"up","status":"warn","st":"△ 2015年から横ばい",
+   "s":[[2015,74],[2016,74],[2017,74],[2018,75],[2019,74],[2020,74],[2021,73],[2022,73],[2023,74]],
+   "t":[],"src":"WHO GHO UHC_INDEX_REPORTED(SDG 3.8.1)",
+   "note":"国家目標「義務医療保険の加入率85%」は、毎年の実績値を出している公開データがまだ見つかっていない(保健省・義務医療保険基金の年報を探す)。"}
+ ]},
+ {"id":"phc","name":"② 一次医療(PHC)","tag":"家庭医・予防・慢性疾患の管理","donor":[
+  {"name":"糖尿病患者のうち年1回HbA1c検査を受けた割合","base":0,"by":2018,"now":0,"ny":2020,"tgt":35,"ty":2024,"who":"世界銀行 PforR(P167598)の成果指標"},
+  {"name":"妊娠初期に血液・尿検査を受けた妊婦の割合","base":16,"by":2018,"now":16,"ny":2020,"tgt":50,"ty":2024,"who":"世界銀行 PforR(P167598)の成果指標"}
+ ],"inds":[],
+  "note":"国家目標「予防・早期介入・一次医療の適用 70%」は定義と毎年の数字が公開されていない。代わりにドナーの成果指標(下)で進み具合を見る。ドナーの実績は報告書(ISR)ごとに更新されるので、最新版を拾い直す必要あり。"},
+ {"id":"ncd","name":"③ 非感染性疾患(NCD)","tag":"心臓病・がん・糖尿病・慢性呼吸器","inds":[
+  {"name":"30〜69歳がNCDで亡くなる確率","unit":"%","dir":"down","status":"good","st":"✓ SDG目標(2015年から1/3減)に近づいている",
+   "s":[[2015,25.2],[2019,22.7],[2020,21.8],[2021,18.8],[2022,17.7],[2023,18.3]],
+   "t":[{"k":"nat","v":17.6,"y":2030,"l":"国家 30%減"},{"k":"sdg","v":16.8,"y":2030,"l":"SDG 1/3減"}],
+   "src":"国連SDGデータベース SH_DTH_NCOM(〜2021)・WHO GHO NCDMORT3070(2022〜)",
+   "note":"国家目標「30%減」は基準年が書かれていないため、試作では2015年を基準にした(要確認)。"}
+ ],"detail":{"title":"NCDの詳しい指標","inds":[
+  {"name":"たばこを吸う大人の割合","unit":"%","dir":"down","status":"warn","st":"△ WHO目標(2010年から30%減)にあと少し",
+   "s":[[2000,33.4],[2005,30.6],[2010,28.1],[2015,25.7],[2020,23.7],[2022,23.0],[2023,22.6],[2024,22.2]],
+   "t":[{"k":"sdg","v":19.7,"y":2025,"l":"WHO 19.7%"}],"src":"世界銀行 WDI SH.PRV.SMOK(元はWHO)"},
+  {"name":"アルコール消費量(15歳以上1人あたり)","unit":"リットル/年(純アルコール)","dir":"down","status":"good","st":"✓ 減少中",
+   "s":[[2019,4.14],[2020,3.80],[2021,3.63],[2022,3.51],[2023,3.29]],
+   "t":[],"src":"WHO GHO SA_0000001688"},
+  {"name":"糖尿病の割合(20〜79歳)","unit":"%","dir":"down","status":"na","st":"— データは2点のみ",
+   "s":[[2011,6.3],[2024,7.6]],"t":[],"src":"世界銀行 WDI SH.STA.DIAB.ZS(元はIDF)"}
+ ],"cancer":{"title":"がん 新しく見つかった人数(2024年推計、多い順)","rows":[["乳がん",1218],["胃がん",1076],["肺がん",816],["大腸がん",706],["子宮頸がん",538]],
+   "src":"IARC GLOBOCAN 2024 キルギス版ファクトシート(全体 8,902人、死亡 5,139人)"}}},
+ {"id":"inf","name":"④ 感染症・予防接種","tag":"結核・HIV・ワクチン","inds":[
+  {"name":"結核の新しい患者(10万人あたり)","unit":"人","dir":"down","status":"bad","st":"✕ 2020年から下げ止まり",
+   "s":[[2015,178],[2016,170],[2017,156],[2018,144],[2019,136],[2020,131],[2021,132],[2022,133],[2023,131],[2024,128]],
+   "t":[{"k":"sdg","v":89,"y":2025,"l":"WHO 2025年 半減"},{"k":"sdg","v":36,"y":2030,"l":"WHO 2030年 8割減"}],
+   "src":"世界銀行 WDI SH.TBS.INCD(元はWHO世界結核報告)"},
+  {"name":"はしかワクチン(1〜2歳)の接種率","unit":"%","dir":"up","status":"good","st":"✓ 目安の95%以上",
+   "s":[[2015,99],[2016,97],[2017,95],[2018,96],[2019,96],[2020,92],[2021,93],[2022,94],[2023,96],[2024,96]],
+   "t":[{"k":"sdg","v":95,"y":2030,"l":"WHO 95%"}],"src":"世界銀行 WDI SH.IMM.MEAS(元はWHO/UNICEF推計)"}
+ ]},
+ {"id":"mch","name":"⑤ 母子保健","tag":"妊産婦・新生児・子ども","inds":[
+  {"name":"妊産婦の死亡(出生10万人あたり)","unit":"人","dir":"down","status":"warn","st":"△ 数字の出どころで差が大きい",
+   "s":[[2015,58],[2016,53],[2017,49],[2018,49],[2019,47],[2020,55],[2021,70],[2022,44],[2023,42]],
+   "s2":[[2021,37.1],[2024,25.7]],
+   "t":[{"k":"nat","v":22,"y":2030,"l":"国家 22"},{"k":"sdg","v":70,"y":2030,"l":"SDG 70未満"}],
+   "src":"青:国連推計(世界銀行 WDI SH.STA.MMRT)/橙:保健省(国家開発プログラム2030 本文)",
+   "note":"国家目標は保健省の数字で測る前提。国連推計とは数え方が違うので、両方並べて見せる。"},
+  {"name":"5歳未満児の死亡(出生1,000人あたり)","unit":"人","dir":"down","status":"warn","st":"△ 2030年に14.0へはペース不足",
+   "s":[[2020,17.8],[2021,17.5],[2022,17.3],[2023,17.0],[2024,16.8]],
+   "s2":[[2021,17.9],[2024,15.9]],
+   "t":[{"k":"nat","v":14.0,"y":2030,"l":"国家 14.0"},{"k":"sdg","v":25,"y":2030,"l":"SDG 25以下"}],
+   "src":"青:国連推計(WDI SH.DYN.MORT)/橙:国の統計(国家開発プログラム2030 本文)"},
+  {"name":"乳児死亡(出生1,000人あたり)","unit":"人","dir":"down","status":"good","st":"✓ 下がっている",
+   "s":[[2020,14.4],[2021,15.2],[2022,14.3],[2023,14.0],[2024,13.1]],
+   "t":[],"src":"キルギス国家統計委員会 オープンデータ 143(JSON・州別あり)",
+   "note":"州別の数字も同じデータに入っている(ビシュケク市・オシ市が高いのは、大きな病院に重い患者が集まるため)。"}
+ ]}
+]}</script>
 <script type="application/json" id="tree-digital">{"sector": "digital", "strategy": "digital", "chapter": "8", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "nodes": [{"id": "digital", "type": "プログラム", "n": "デジタル・トランスフォーメーション構想 2024–2028", "conf": "法令", "m": "大統領令 2024年4月5日 No.90", "kids": [{"id": "D2", "type": "分野", "n": "1 戦略目標（行政改革・システム統合・電子サービス・データ活用・AI）（原文 第2章）", "conf": "法令", "kids": [{"id": "ecom", "type": "戦略", "n": "電子商取引の支援・発展プログラム 2023–2026", "conf": "資料", "m": "内閣承認（SDGs国別報告書2025に記載）"}, {"id": "odata", "type": "戦略", "n": "オープンデータ構想 2022–2024（期間終了）", "conf": "資料", "m": "SDGs国別報告書2025に記載"}, {"id": "lsbar", "type": "戦略", "n": "行政手続きの障壁削減プログラム 2026–2030", "conf": "報道", "d": "行政サービスのデジタル化・簡素化。", "m": "内閣決定 2025年12月13日 No.807"}]}, {"id": "D3", "type": "分野", "n": "2 デジタル基盤（データセンター・政府クラウド・光ファイバー）（原文 第3章）", "conf": "法令"}, {"id": "D4", "type": "分野", "n": "3 分野別のデジタル化（原文 第4章）", "conf": "法令", "kids": [{"id": "dhe", "type": "規則", "n": "保健：デジタル保健の統一エコシステムに関する規程", "conf": "法令", "m": "内閣 2024年10月24日"}, {"id": "D4e", "type": "分野", "n": "教育：教育のデジタル化", "conf": "本文"}, {"id": "D4n", "type": "分野", "n": "エネルギー：デジタル・エネルギー", "conf": "本文"}, {"id": "D4j", "type": "分野", "n": "立法・司法・選挙のデジタル化", "conf": "本文"}, {"id": "D4r", "type": "分野", "n": "防災のデジタル化", "conf": "本文"}]}]}], "rules": [["dhe", "digital health|Primary Health Care|health"], ["D4n", "Electricity|AMI|metering|energy"], ["D4j", "Justice|JUST4ALL|Jogorku Kenesh|Parliament"], ["D4e", "KLIC|coding|Digital Fabrication|digital-Learning|Universit|teachers and learners|Master's"], ["D4r", "Earthquake|Disaster"], ["D2", "Digitalisation|digital transformation|Digital Forward|Tax Administration|Statistical|Payment|\\bAI\\b|frontier|e-Government|Digital Competences|Digital Innovation"]], "note": "3段の形：構想 → 章（サブプログラム）→ 具体化する国の戦略・規則。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
 <script type="application/json" id="tree-drrplan">{"sector": "drr", "strategy": "drrplan", "chapter": "13", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "only": "disaster|DRR|landslide|flood|drought|glacier|earthquake|mudflow|preparedness|hazard|Resilien|heatwave|cold wave", "nodes": [{"id": "drrplan", "type": "プログラム", "n": "緊急事態リスク低減の行動計画 2025–2030", "conf": "法令", "m": "内閣決定 2025年9月23日 No.601", "kids": [{"id": "R1", "type": "分野", "n": "1 危険箇所・施設の棚卸し", "conf": "法令"}, {"id": "R2", "type": "分野", "n": "2 予防措置（土石流・地すべり対策など）", "conf": "法令"}, {"id": "R3", "type": "分野", "n": "3 技術圏の安全（ダム・鉱滓など）", "conf": "法令"}, {"id": "R4", "type": "分野", "n": "4 森林への投資", "conf": "法令", "kids": [{"id": "forest", "type": "戦略", "n": "森林分野発展構想 〜2040（2024–2028版）", "conf": "資料", "m": "SDGs国別報告書2025に記載"}]}, {"id": "R5", "type": "分野", "n": "5 規制・能力の向上", "conf": "法令", "kids": [{"id": "cps", "type": "戦略", "n": "市民保護・災害リスク低減発展戦略 〜2040", "conf": "資料", "m": "SDGs国別報告書2025に記載"}]}, {"id": "R6", "type": "分野", "n": "6 資金調達（地方自治体の予算を含む）", "conf": "法令", "kids": [{"id": "drrfin", "type": "戦略", "n": "災害リスク・ファイナンス戦略 2026–2030", "conf": "報道", "m": "内閣承認 2026年6月（マップ掲載済み）"}]}]}, {"id": "drrup", "n": "上位の構想", "kids": [{"id": "drrconcept", "type": "戦略", "n": "住民と国土の緊急事態からの総合的保護構想 2018–2030", "conf": "資料", "m": "政府決定 2018年1月29日 No.58（マップ掲載済み）"}]}], "rules": [["R2", "Landslide|flood|drought|glacier|mudflow"], ["R3", "tailing|radioactive|dam safety"], ["forest", "forest|woodland"], ["drrfin", "insurance|risk financ|contingen"], ["R5", "preparedness|Disaster Risk Reduction|Disaster Management|capacity in assessment|Earthquake|Resilient societies|resilience of Central Asian"], ["R6", "Resilience Water|Resilient Water|Climate Change- and Disaster-Resilient|Enhancing Resilience in Kyrgyzstan|Rural Communities|DR and CC"]], "note": "3段の形：行動計画 → 章（サブプログラム）→ 具体化する国の戦略。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
 <script type="application/json" id="tree-edu">{"sector": "education", "strategy": "edu", "chapter": "9.3", "levels": ["プログラム", "分野（サブプログラム）", "戦略・個別プログラム・規則"], "nodes": [{"id": "edu", "type": "プログラム", "n": "教育発展プログラム 2021–2040", "conf": "法令", "d": "就学前から成人教育まで、3つの課題と職業教育・高等教育で進める20年のプログラム。", "m": "政府決定 2021年5月4日（行動計画「アルティン・カズィク」〜2026）", "kids": [{"id": "E1", "type": "分野", "n": "1 公平で平等なアクセス（課題1）", "conf": "法令", "d": "都市と農村の差の解消、インクルーシブ教育と多言語教育、安全な学習環境（校舎・給食・衛生）。", "kids": [{"id": "lang", "type": "戦略", "n": "国家語（キルギス語）発展プログラム 2026–2028", "conf": "報道", "d": "多言語教育のうち国家語の教育を具体化。", "m": "内閣承認 2026年7月"}, {"id": "food", "type": "戦略", "n": "食料安全保障・栄養プログラム（学校給食）", "conf": "本文旧版", "d": "学校給食はこの枠組みでWFPなどと協力。", "m": "マップ掲載済み"}]}, {"id": "E2", "type": "分野", "n": "2 教育の質（課題2）", "conf": "法令", "d": "教育内容の近代化、デジタル化、教員の能力開発、学習成果の評価、教科書。", "kids": [{"id": "y12", "type": "戦略", "n": "12年制の学校教育への移行構想", "conf": "法令", "d": "6+3+3制へ。最初の12年制の卒業生は2036/2037年度。", "m": "内閣決定 2024年10月30日 No.654（行動計画 2024–2028）"}, {"id": "altyn", "type": "計画", "n": "行動計画「アルティン・カズィク」〜2026", "conf": "資料", "m": "教育発展プログラムの実施計画"}]}, {"id": "E3", "type": "分野", "n": "3 効果的な管理と財政（課題3）", "conf": "法令", "d": "人数割りの財政と学校の自主性、認可・認証、モニタリング、教育管理情報システム（EMIS）。"}, {"id": "E4", "type": "分野", "n": "4 職業教育（初等・中等職業）", "conf": "法令", "d": "職業基準に基づく内容、雇用者との連携、優良センター、資格枠組み。", "kids": [{"id": "prof", "type": "戦略", "n": "職業人材プログラム「Профессиональные кадры」2026–2030", "conf": "案", "m": "2026年10月にパブリックコメント"}]}, {"id": "E5", "type": "分野", "n": "5 高等教育・成人教育", "conf": "法令", "d": "大学の自治と評価、認証、腐敗対策、生涯学習。", "kids": [{"id": "hec", "type": "戦略", "n": "高等教育発展構想 〜2030", "conf": "案", "m": "2026年4月にパブリックコメント"}, {"id": "sci", "type": "戦略", "n": "科学・高等教育・知的財産・イノベーション発展国家プログラム 2026–2030", "conf": "案", "m": "2026年3月に案を作成"}]}]}], "rules": [["E1", "school meals|feeding|nutrition|inclusive|disabilit|ECD|ECE|preschool|learning environment|Enhancing Resilience in Kyrgyzstan|child protection"], ["E3", "Education Sector Reform Performance Contract|EDUCATION SYSTEM|education management information|multiple indicator cluster"], ["E2", "School Education Reform|Learning Outcomes|Learning for the Future|STEAM|teacher|curricul|competency|digital-Learning|coding|KLIC|ADAP"], ["E4", "skills|Techno|Digital Fabrication|Technical College|vocational|labour market"], ["E5", "Higher Education|Universit|Master's|Scholarship|Academy|Medical Education"]], "note": "3段の形：プログラム → 課題（サブプログラム）→ その課題を具体化する国の戦略・計画。課題の構成はプログラム本文（法令データベース）、個別の文書は法令データベース・教育省サイト・報道による。", "exclude": "An efficiently managed WHO|Effective WHO health leadership|Core capacities of WHO|financial practices supported|corporate digital|attract, recruit and retain|programme budget aligned"}</script>
@@ -1468,6 +1561,7 @@ function viewSector(){
       <h2>${esc(s.ja)} ${favStar(s.id)}</h2></div>${jica}${SUM_SPEC[s.id]?`<button class="btn primary sumbtn" data-sumopen title="この分野の戦略・ドナー・最近の動きを1つの画面に(PDFで保存できます)">サマリー</button>`:""}</div>
     ${ready?overviewKPIs(s.id):""}
     ${reportsHTML(s.id)}
+    ${indicatorsHTML(s.id)}
     ${ready?`${secHead("Overview","この分野の協力の全体像")}<div class="cols">${yearHTML(s.id)}${shareHTML(s.id)}</div>${govHTML(s.id)?`<div style="margin-top:12px">${govHTML(s.id)}</div>`:""}`:'<div class="panel chart"><div class="empty">案件データを読み込み中…</div></div>'}
     <div class="subtabs">${[["pa","実施中・計画中の案件",ready?cnt.pa:"…"],["pc","過去の案件",ready?cnt.pc:"…"]].map(([k,l,n])=>`<button data-sub="${k}" class="${S.sub===k?"on":""}">${l}<span>${n}</span></button>`).join("")}</div>
     <div class="filters">${donorSelect(S.d)} ${kindSelect(base)} ${uaBtn()} ${seg("psort",[["start","開始日"],["amount","金額"],["end","終了日"]],S.psort)} ${qInput()}</div>${projectListHTML(list)}
@@ -1787,6 +1881,98 @@ const REPORTS = {};
 for(const el of document.querySelectorAll('script[type="application/json"][id^="reports-"]')){
   try{ const r = JSON.parse(el.textContent); REPORTS[r.sector] = r; }catch(e){}
 }
+/* indicators per pillar (script tags "ind-<sector id>"): actual figures against national / SDG / donor targets.
+   Phase 1: static numbers checked by hand on 2026-11-07; each pillar points to its branch of the strategy tree. */
+const INDS = {};
+for(const el of document.querySelectorAll('script[type="application/json"][id^="ind-"]')){
+  try{ INDS[el.id.slice(4)] = JSON.parse(el.textContent); }catch(e){}
+}
+const IND_NODE = {health:{all:"hp", uhc:"C1", phc:"A1", ncd:"A5", inf:"A7", mch:"A6"}};
+const IND_OPEN = new Set();   // pillars whose "＋詳しい指標" is open (kept across re-renders)
+const indNum = v => (Math.round(v*10)/10).toLocaleString("ja-JP");
+function indChart(ind){
+  const W=320, H=150, L=34, R=86, T=10, B=22;
+  const pts = ind.s.concat(ind.s2||[]), xs = pts.map(p=>p[0]), ys = pts.map(p=>p[1]);
+  for(const t of ind.t||[]){ xs.push(t.y); ys.push(t.v); }
+  const x0 = Math.min(...xs), x1 = Math.max(...xs, 2030);
+  let y0 = Math.min(...ys), y1 = Math.max(...ys); const pad = (y1-y0)*0.12 || 1;
+  y0 = Math.max(0, y0-pad); y1 = y1+pad; if(ind.ymin!=null) y0 = ind.ymin; if(ind.ymax!=null) y1 = ind.ymax;
+  const X = v => L+(v-x0)/(x1-x0||1)*(W-L-R), Y = v => T+(1-(v-y0)/(y1-y0||1))*(H-T-B);
+  let g = "";
+  for(const v of [y0,(y0+y1)/2,y1]) g += `<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${L-4}" y="${Y(v)+4}" font-size="10" fill="var(--faint)" text-anchor="end">${indNum(v)}</text>`;
+  for(const v of [x0,2030]) g += `<text x="${X(v)}" y="${H-6}" font-size="10" fill="var(--faint)" text-anchor="middle">${v}</text>`;
+  const used = [];
+  for(const t of ind.t||[]){
+    const dash = t.k==="nat" ? "6 3" : "2 3", col = t.k==="nat" ? "var(--ink)" : "var(--sub)";
+    let y = Y(t.v); for(const u of used) if(Math.abs(u-y)<12) y = u+(y>=u?12:-12); used.push(y);
+    g += `<line x1="${L}" x2="${X(t.y)}" y1="${Y(t.v)}" y2="${Y(t.v)}" stroke="${col}" stroke-width="1.5" stroke-dasharray="${dash}"/><text x="${X(t.y)+4}" y="${y+4}" font-size="10" fill="${col}">${esc(t.l)}</text>`;
+  }
+  const series = (s, col, who, below) => {
+    let o = `<path d="${s.map((p,i)=>(i?"L":"M")+X(p[0]).toFixed(1)+","+Y(p[1]).toFixed(1)).join("")}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round"/>`;
+    for(const p of s) o += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="4" fill="${col}" stroke="var(--panel)" stroke-width="2"/><circle class="ihit" cx="${X(p[0])}" cy="${Y(p[1])}" r="12" fill="transparent" data-itip="${esc(p[0]+"年 "+who+"："+indNum(p[1])+" "+ind.unit)}"/>`;
+    const last = s[s.length-1];
+    return o + `<text x="${X(last[0])}" y="${Y(last[1])+(below?16:-8)}" font-size="11" fill="var(--ink)" text-anchor="middle" font-weight="600">${indNum(last[1])}</text>`;
+  };
+  g += series(ind.s, "var(--d1)", ind.s2 ? "国連推計" : "実績");
+  if(ind.s2) g += series(ind.s2, "var(--d2)", "保健省", true);
+  return `<svg class="ich" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ind.name)}の推移">${g}</svg>`;
+}
+const IND_ST = {good:"good", warn:"warn", bad:"bad", na:"na"};
+function indCard(ind){
+  const last = ind.s[ind.s.length-1];
+  const tg = (ind.t||[]).map(t=>`<span>${t.k==="nat"?"国家目標":"国際目標"}：${esc(t.l)}（${t.y}年）</span>`).join("");
+  return `<div class="ind"><h4>${esc(ind.name)}</h4>
+    <div class="inow"><b>${indNum(last[1])}</b><span class="u">${esc(ind.unit)}（${last[0]}年）</span><span class="ichip ${IND_ST[ind.status]||"na"}">${esc(ind.st)}</span></div>
+    ${tg?`<div class="itg">${tg}</div>`:""}${indChart(ind)}
+    <p class="isrc">出どころ：${esc(ind.src)}</p>${ind.note?`<div class="inote">${esc(ind.note)}</div>`:""}</div>`;
+}
+const indDonor = d => `<div class="ind"><h4>${esc(d.name)}</h4><div class="itg">${esc(d.who)}</div>
+    <div class="inow"><b>${d.now}</b><span class="u">%（${d.ny}年の最新公開値）</span><span class="ichip na">— 新しい報告書待ち</span></div>
+    <div class="ibar" role="img" aria-label="目標${d.tgt}%に対して${d.now}%"><i style="width:${Math.min(100,Math.max(d.now,1))}%"></i><em style="left:${Math.min(100,d.tgt)}%"></em></div>
+    <div class="idl"><span>開始時 ${d.base}%（${d.by}）</span><span>ドナー目標 ${d.tgt}%（${d.ty}）</span></div></div>`;
+function indicatorsHTML(sec){
+  const D = INDS[sec];
+  if(!D) return "";
+  const nodes = IND_NODE[sec] || {}, strat = (TREES[sec] || {}).strategy || sec;
+  const pillar = p => {
+    const node = nodes[p.id] && treeNode(strat, nodes[p.id]);
+    let h = `<section class="ipil"><div class="iph"><h3>${esc(p.name)}</h3><span class="itag">${esc(p.tag)}</span>${node?`<button class="linkbtn" data-st="${esc(strat)}" data-tnode="${esc(nodes[p.id])}" title="${esc(node.n)}">戦略の樹形図で見る →</button>`:""}</div>
+      ${p.note?`<div class="inote">${esc(p.note)}</div>`:""}
+      <div class="igrid">${p.inds.map(indCard).join("")}${(p.donor||[]).map(indDonor).join("")}</div>`;
+    if(p.detail){
+      const c = p.detail.cancer, mx = c ? c.rows[0][1] : 1, open = IND_OPEN.has(p.id);
+      h += `<button class="imore" type="button" aria-expanded="${open}" data-indmore="${esc(p.id)}">${open?"－":"＋"} ${esc(p.detail.title)}</button>
+        <div class="igrid idet" id="idet-${esc(p.id)}" ${open?"":"hidden"}>${p.detail.inds.map(indCard).join("")}${c?`<div class="ind"><h4>${esc(c.title)}</h4>${c.rows.map(r=>`<div class="ihb"><span>${esc(r[0])}</span><div class="t" style="width:${r[1]/mx*100}%"></div><span class="v">${r[1].toLocaleString("ja-JP")}</span></div>`).join("")}
+          <p class="isrc">出どころ：${esc(c.src)}</p><div class="inote">がんは毎年の推移が無料APIで取れないため、数年に1回の推計を表で見せています。国の目標値は「がん医療の規程」に数値目標がないため、WHOの子宮頸がん目標（2030年までに検診70%・HPVワクチン90%）と比べる案です。</div></div>`:""}</div>`;
+    }
+    return h + `</section>`;
+  };
+  return `${secHead("Indicators","柱ごとの最新指標")}
+    <div class="ikey"><span><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" stroke="var(--d1)" stroke-width="2"/><circle cx="13" cy="5" r="3.5" fill="var(--d1)"/></svg>実績</span>
+      <span><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" stroke="var(--d2)" stroke-width="2"/><circle cx="13" cy="5" r="3.5" fill="var(--d2)"/></svg>実績（保健省の数字）</span>
+      <span><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="6 3"/></svg>国家目標 2030</span>
+      <span><svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" stroke="var(--sub)" stroke-width="1.5" stroke-dasharray="2 3"/></svg>SDG・国際目標</span>
+      <span><span class="ichip good">✓ 順調</span> <span class="ichip warn">△ 要注意</span> <span class="ichip bad">✕ 遅れ</span></span></div>
+    <div class="inds">${D.pillars.map(pillar).join("")}</div>
+    <p class="note ifoot">点に指を当てる（PCはマウスを乗せる）と数値が出ます。数値は2026年11月7日に手で取得したもので、半年ごとの自動更新は今後の予定です。出どころ：世界銀行 WDI / WHO GHO / 国連SDGデータベース / キルギス国家統計委員会 / IARC GLOBOCAN 2024 / 世界銀行 PforR 実施状況報告 / 国家開発プログラム2030 第9.4節。✓△✕は「今のペースで2030年に目標へ届くか」の目安です。</p>`;
+}
+// the tooltip for a point on an indicator chart: hover on a PC, a tap on a phone
+(function(){
+  let tip = null, lastTouch = 0;
+  const show = e => {
+    if(e.type==="touchstart") lastTouch = Date.now(); else if(Date.now()-lastTouch<500) return;  // the mouseover a tap sends must not hide it
+    const t = e.target.closest && e.target.closest(".ihit");
+    if(!t){ if(tip) tip.style.display = "none"; return; }
+    if(!tip){ tip = document.createElement("div"); tip.id = "itip"; document.body.appendChild(tip); }
+    const r = t.getBoundingClientRect();
+    tip.textContent = t.getAttribute("data-itip"); tip.style.display = "block";
+    tip.style.left = Math.min(innerWidth-tip.offsetWidth-8, Math.max(8, r.left+r.width/2-tip.offsetWidth/2)) + "px";
+    tip.style.top = Math.max(8, r.top-32) + "px";
+  };
+  document.addEventListener("mouseover", show);
+  document.addEventListener("touchstart", show, {passive:true});
+  addEventListener("scroll", ()=>{ if(tip) tip.style.display = "none"; }, {passive:true});
+})();
 function treeNode(strategy, id){
   const walk = ns => { for(const n of ns||[]){ if(n.id===id) return n; const f = walk(n.kids); if(f) return f; } return null; };
   return TREES[strategy] ? walk(TREES[strategy].nodes) : null;
@@ -2254,6 +2440,10 @@ main.addEventListener("click", e=>{
   const t = e.target;
   if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
   if(t.closest("[data-sumopen]")){ sumOpen(); return; }
+  const im = t.closest("[data-indmore]");
+  if(im){ const id = im.dataset.indmore, d = document.getElementById("idet-"+id), open = !IND_OPEN.has(id);
+    if(open) IND_OPEN.add(id); else IND_OPEN.delete(id);
+    if(d) d.hidden = !open; im.setAttribute("aria-expanded", open); im.textContent = im.textContent.replace(/^[＋－]/, open?"－":"＋"); return; }
   const stb = t.closest("[data-st]"); if(stb){ e.preventDefault(); go({st:stb.dataset.st}, false); if(stb.dataset.tnode) showTreeNode(stb.dataset.tnode); return; }
   const sf = t.closest("[data-sfil]"); if(sf){ go({s:sf.dataset.sfil}, false); return; }
   if(t.closest("[data-back]")){ if(EMBED) go({v:"strategy", doc:""}); else history.back(); return; }
