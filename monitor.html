@@ -1034,6 +1034,16 @@ $("#theme").onclick = ()=>{ const c = lsGet("km-theme",null), n = c==null?"dark"
 let SHOW_JP = lsGet("km-jp", true);
 // favourite sectors ("My分野"): pinned to the top of the overview and usable as a news filter
 let FAV = new Set(lsGet("km-fav", []));
+// ★ are kept in each browser. A link with ?fav=health,education (made by the 「ほかの端末にも」 button)
+// sets the same My分野 on another computer or phone, then the parameter is dropped from the address.
+try{
+  const fp = new URLSearchParams(location.search).get("fav");
+  if(fp!==null){
+    FAV = new Set(fp.split(",").filter(Boolean)); lsSet("km-fav", [...FAV]);
+    history.replaceState(null, "", location.pathname + location.hash);
+    setTimeout(()=>toast(FAV.size ? "My分野をこの端末にも設定しました" : "My分野を空にしました"), 600);
+  }
+}catch(e){}
 function toggleFav(id){ FAV.has(id) ? FAV.delete(id) : FAV.add(id); lsSet("km-fav", [...FAV]); }
 const favStar = id => `<button class="fav ${FAV.has(id)?"on":""}" data-fav="${id}" title="${FAV.has(id)?"My分野から外す":"My分野に追加"}" aria-label="My分野">${FAV.has(id)?"★":"☆"}</button>`;
 function syncJP(){ $("#jica").setAttribute("aria-pressed", String(SHOW_JP)); $("#jica").title = SHOW_JP ? "JICA・日本の協力を表示中（押すと隠す）" : "JICA・日本の協力を隠しています（押すと表示）"; }
@@ -1131,7 +1141,8 @@ async function boot(){
     for(const d of INDEX.donors||[]) DONORS[d.id] = d;
     await Promise.all((INDEX.years||[]).slice(0,2).map(loadYear));
     const age = Date.now() - Date.parse(INDEX.updated);
-    $("#upd").innerHTML = (EMBED?`<span class="snap" title="${esc(EMBED.note||"")}">保存版</span>`:"更新 ") + esc(fmtDT(INDEX.updated));
+    $("#upd").innerHTML = (EMBED?`<span class="snap" title="${esc(EMBED.note||"")}">保存版</span>`:"ニュース取得 ") + esc(fmtDT(INDEX.updated));
+    if(!EMBED) $("#upd").title = "ニュースと案件は3時間ごとに自動で集めています。ページを開いた時刻ではなく、最後に集めた時刻です。";
     $("#live").classList.toggle("stale", age > 12*3600e3);
   }catch(e){ loadErr = String(e.message||e); }
   render();
@@ -1789,8 +1800,8 @@ function viewHome(){
     ${wk}
     <section class="mnews">${secHead("News",(sideAll?"全分野":"My分野")+" 今日のニュース",'<button class="linkbtn" data-tonews>すべて見る ↓</button>')}${listHTML(side.slice(0,4),false,true)}</section>
     ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
-    ${favTiles?`${secHead("My sectors","My分野",'<span class="note">★で外す(下の一覧にも残ります)</span>')}<div class="matrix">${favTiles}</div>`
-      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと、その分野が「My分野」としてここに並び、上の重要ニュースと右のニュースもその分野に絞られます。</p>`}
+    ${favTiles?`${secHead("My sectors","My分野",'<span class="note">★で外す(下の一覧にも残ります)</span><button class="linkbtn" data-favlink title="★は端末ごとに保存されます。このリンクをMacやスマホで開くと、同じMy分野になります">ほかの端末にも同じ★を</button>')}<div class="matrix">${favTiles}</div>`
+      :`<p class="note" style="margin:14px 0 0">分野の ☆ を押すと、その分野が「My分野」としてここに並び、上の重要ニュースと右のニュースもその分野に絞られます。★は端末(ブラウザ)ごとに保存されるので、iPhoneで選んだ★はMacには出ません。iPhoneの「ほかの端末にも同じ★を」でリンクを送ると、同じMy分野にできます。</p>`}
     ${secHead("Overview","協力の全体像",'<span class="note">援助機関の公開データにある、キルギス向けの協力案件の金額</span>')}
     ${ready?overviewKPIs(""):'<div class="kpis"><div class="kpi"><div class="v">…</div></div></div>'}
     ${ready&&SHOW_COVER?coverageHTML():""}
@@ -2929,6 +2940,12 @@ main.addEventListener("click", e=>{
     for(const id of sel) on ? FAV.delete(id) : FAV.add(id);
     lsSet("km-fav", [...FAV]); toast(on ? "概況のMy分野から外しました" : "概況のMy分野に表示します"); render(); return; }
   if(t.closest("[data-goall]")){ go({v:"feed", t:"all", s:"", my:"", d:"", q:"", p:90}); return; }
+  if(t.closest("[data-favlink]")){
+    const url = location.origin + location.pathname + "?fav=" + [...FAV].filter(f=>SEC[f]).join(",");
+    const done = () => toast("リンクをコピーしました。ほかの端末で開くと同じMy分野になります");
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done, ()=>prompt("このリンクをほかの端末で開いてください", url));
+    else prompt("このリンクをほかの端末で開いてください", url);
+    return; }
   if(t.closest("[data-gomy]")){ go({v:"feed", t:"all", s:[...FAV].filter(f=>SEC[f]).join(","), my:"", d:"", q:"", p:90}); return; }
   const fav = t.closest("[data-fav]"); if(fav){ e.stopPropagation(); toggleFav(fav.dataset.fav); render(); return; }
   const goBtn = t.closest("[data-go]"); if(goBtn){ go({v:"feed", t:goBtn.dataset.go, s:"", d:"", my:FAV.size?"1":""}); return; }
