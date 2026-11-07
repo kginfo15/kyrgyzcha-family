@@ -474,6 +474,9 @@ details.pil2>summary .smini{grid-column:2;justify-content:flex-start}
 body.noscroll{overflow:hidden}
 .sheet{position:fixed;inset:0;z-index:50}
 .sh-bg{position:absolute;inset:0;background:rgba(5,10,18,.55)}
+.sh-tree{margin:12px 0 4px;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.sh-tree>div{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;align-items:center}
+.sh-tsel{font:inherit;font-size:max(16px,13px);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);max-width:100%}
 .sh-panel{position:absolute;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--bg);border-left:1px solid var(--line);overflow-y:auto;
   padding:calc(14px + env(safe-area-inset-top,0px)) max(20px,env(safe-area-inset-right,0px)) calc(30px + env(safe-area-inset-bottom,0px)) 20px;animation:shin .2s ease-out}
 @keyframes shin{from{transform:translateX(40px);opacity:.6}}
@@ -523,6 +526,13 @@ details.ov[open] .ovs{display:inline}
 .ovh,.ovs{color:var(--accent);margin-left:6px}
 /* ---- PC: main column + news column that scrolls on its own ---- */
 .layout{display:block}
+.myq{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:4px 0 2px}
+.myq-l{font-size:12px;font-weight:700;color:var(--sub);margin-right:2px}
+.myq-i{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden}
+.myq-i button{font:inherit;border:0;background:none;cursor:pointer;padding:6px 10px;font-size:12.5px;color:var(--ink);white-space:nowrap}
+.myq-n{font-weight:700}
+.myq-b{border-left:1px solid var(--line)!important;color:var(--accent)!important}
+.myq-i button:hover{background:var(--accent-soft)}
 .mnews{margin-top:4px}.mnews .orig,.mnews .also{display:none}
 @media (min-width:1100px){.mnews{display:none}}
 .nsec{margin:2px 0 10px}
@@ -1748,7 +1758,9 @@ function viewHome(){
   const wk = weekHTML(favIds.length ? favIds : SECTORS.map(([id])=>id), {n:6, title: favIds.length ? "My分野 今週の重要ニュース" : "全分野 今週の重要ニュース", more: favIds.length ? '<button class="linkbtn" data-gomy>My分野のニュース →</button>' : '<span>☆で分野を選ぶと、その分野だけのまとめになります</span>'});
   const sideAll = CH.sscope==="all" || !FAV.size, side = sideAll ? its : mine;
   const scopeSw = FAV.size ? `<div class="sscope">${segCH("sscope",[["my","My分野"],["all","全分野"]])}<span class="note">新しい順にすべて</span></div>` : '<div class="sscope"><span class="note">新しい順にすべて</span></div>';
+  const quick = favIds.length ? `<nav class="myq" aria-label="My分野へのショートカット"><span class="myq-l">My分野</span>${favIds.map(id=>`<span class="myq-i"><button class="myq-n" data-sec="${id}">${esc(SEC[id].ja)}</button>${SUM_SPEC[id]?`<button class="myq-b" data-sumgo="${id}">ギャップ分析</button>`:""}<button class="myq-b" data-sectree="${id}">樹形図</button></span>`).join("")}</nav>` : "";
   return `<div class="layout"><div class="mainc">
+    ${quick}
     ${wk}
     <section class="mnews">${secHead("News",(sideAll?"全分野":"My分野")+" 今日のニュース",'<button class="linkbtn" data-tonews>すべて見る ↓</button>')}${listHTML(side.slice(0,4),false,true)}</section>
     ${secHead("Jump","分野へ移動",'<button class="btn" data-go-strategy>国家戦略マップ →</button>')}${jump}
@@ -2370,6 +2382,8 @@ function sheetHTML(id){
     <h2>${esc(x.name)}</h2>${x.ru?`<p class="ru">${esc(x.ru)}</p>`:""}
     ${!isCh?`<div class="meta2">${statusTag(x.status)}<span>${esc(x.period||"")}</span><span>${esc(x.basis||"")}</span></div>`:""}
     ${x.summary?`<p class="sum">${esc(x.summary)}</p>`:""}
+    ${sectors.length?(()=>{ const ord = [...sectors].sort((a,b)=>(b===S.s)-(a===S.s)).filter(c=>SEC[c]);
+      return `<div class="sh-tree"><span class="note">この戦略に当てはまる案件を、分野ごとの1枚の樹形図で見る</span><div>${(ord.length>3?ord.slice(0,1):ord).map(c=>`<button class="shb${c===ord[0]?" primary":""}" data-sectree="${c}"><b>樹形図で見る</b><small>${esc(SEC[c].ja)}</small></button>`).join("")}${ord.length>3?`<select class="sh-tsel" data-sectreesel aria-label="ほかの分野の樹形図"><option value="">ほかの分野の樹形図(${ord.length-1}分野)…</option>${ord.slice(1).map(c=>`<option value="${c}">${esc(SEC[c].ja)}</option>`).join("")}</select>`:""}</div></div>`; })():""}
     ${!isCh?docLinks(x):""}
     ${ch?`<div class="blk"><h3>国家開発プログラム2030での位置づけ</h3>${x.pos?`<p class="note">${esc(x.pos)}</p>`:""}<button class="chref" data-st="ch-${ch.id}"><b>${esc(ch.no)}</b> ${esc(ch.name)}${x.part?"（"+esc(x.part)+"）":""} →</button></div>`:""}
     ${(x.goals||x.targets||[]).length?`<div class="blk"><h3>目標</h3><ul class="tg">${(x.goals||x.targets).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:""}
@@ -2862,6 +2876,7 @@ main.addEventListener("click", e=>{
   if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
   const stree = t.closest("[data-sectree]"); if(stree){ BT_PUSHED = !EMBED; go({v:"strategy", s:stree.dataset.sectree, bt:stree.dataset.sectree}); return; }
   if(t.closest("[data-sumopen]")){ sumOpen(); return; }
+  const sg = t.closest("[data-sumgo]"); if(sg){ SUM_PUSHED = !EMBED; SUM_FROM = sg.dataset.sumgo; go({v:"sector", s:sg.dataset.sumgo, sub:"pa", d:"", q:"", k:"", sm:"1"}); return; }
   const im = t.closest("[data-indmore]");
   if(im){ const id = im.dataset.indmore, d = document.getElementById("idet-"+id), open = !IND_OPEN.has(id);
     if(open) IND_OPEN.add(id); else IND_OPEN.delete(id);
@@ -2926,10 +2941,12 @@ document.addEventListener("click", e=>{
   const t = e.target;
   if(t.closest("[data-close]")){ go({st:""}, false); return; }
   const st = t.closest("[data-st]"); if(st){ go({st:st.dataset.st}, false); sh.querySelector(".sh-panel").scrollTop = 0; return; }
+  const tr = t.closest("[data-sectree]"); if(tr){ BT_PUSHED = !EMBED; go({v:"strategy", s:tr.dataset.sectree, st:"", bt:tr.dataset.sectree}); return; }
   const sec = t.closest("[data-sec]"); if(sec){ go({v:"sector", s:sec.dataset.sec, sub:"pa", d:"", q:"", k:"", st:"", ps:"active", g:"", sm:""}); return; }
   const doc = t.closest("[data-doc]"); if(doc){ go({v:"doc", doc:doc.dataset.doc, st:""}); return; }
 });
 document.addEventListener("keydown", e=>{ if(e.key==="Escape" && S.st) go({st:""}, false); });
+document.addEventListener("change", e=>{ const sel = e.target.closest("[data-sectreesel]"); if(sel && sel.value){ BT_PUSHED = !EMBED; go({v:"strategy", s:sel.value, st:"", bt:sel.value}); } });
 main.addEventListener("keydown", e=>{
   const tile = e.target.closest(".tile[data-sec]");
   if(tile && e.target===tile && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); go({v:"sector", s:tile.dataset.sec, sub:"pa", d:"", q:"", k:""}); }
