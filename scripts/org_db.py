@@ -48,6 +48,24 @@ TITLE_QUERIES = [
     "О Национальном",
     "О Департаменте",
     "Об Инспекции",
+    # each current ministry by name (some resolutions are called "Вопросы ..." / "О вопросах ...")
+    "Министерства цифрового развития",
+    "Министерства юстиции",
+    "Министерства внутренних дел",
+    "Министерства просвещения",
+    "Министерства науки, высшего образования",
+    "Министерства культуры, информации",
+    "Министерства иностранных дел",
+    "Министерства труда, социального обеспечения",
+    "Министерства обороны",
+    "Министерства здравоохранения",
+    "Министерства водных ресурсов",
+    "Министерства энергетики",
+    "Министерства транспорта",
+    "Министерства финансов",
+    "Министерства экономики и коммерции",
+    "Министерства природных ресурсов",
+    "Министерства чрезвычайных ситуаций",
 ]
 # Text search: every act whose text approves a management scheme.
 TEXT_QUERIES = ["схему управления"]
@@ -121,10 +139,45 @@ def cut_scheme(text):
     return text[ms[-1].start():].strip() if ms else ""
 
 
+IMG_RE = re.compile(r"""(?is)<img\b[^>]*?\bsrc\s*=\s*["']?([^"' >]+)""")
+
+
+def save_images(content, out, safe):
+    """Pictures of the scheme annex (most schemes are drawn, not typed). data: URIs are decoded,
+    links are fetched from the database. Returns the saved file names."""
+    import base64
+    starts = [m.start() for m in re.finditer(r"(?i)с\s*х\s*е\s*м\w*\s+управлени", content)]
+    part = content[starts[-1]:] if starts else content
+    names = []
+    for n, src in enumerate(IMG_RE.findall(part)[:40], 1):
+        try:
+            src = html.unescape(src)
+            if src.startswith("data:"):
+                head, b64 = src.split(",", 1)
+                ext = (re.search(r"image/(\w+)", head) or [None, "png"])[1]
+                blob = base64.b64decode(b64)
+            else:
+                url = src if src.startswith("http") else ("https://cbd.minjust.gov.kg" + (src if src.startswith("/") else "/" + src))
+                req = urllib.request.Request(url, headers={"User-Agent": UA["User-Agent"], "Referer": UA["Referer"]})
+                with urllib.request.urlopen(req, timeout=60) as res:
+                    blob = res.read()
+                    ext = (re.search(r"image/(\w+)", res.headers.get("Content-Type", "")) or [None, "png"])[1]
+            if len(blob) < 1500:   # spacer pixels and bullets
+                continue
+            name = f"{safe}-{n}.{ext.replace('jpeg', 'jpg')}"
+            open(os.path.join(out, "img", name), "wb").write(blob)
+            names.append(name)
+        except Exception as e:
+            names.append(f"ERROR {src[:80]}: {e}")
+    return names
+
+
 def main():
     out = sys.argv[1]
     os.makedirs(os.path.join(out, "schemes"), exist_ok=True)
     os.makedirs(os.path.join(out, "full"), exist_ok=True)
+    os.makedirs(os.path.join(out, "img"), exist_ok=True)
+    os.makedirs(os.path.join(out, "html"), exist_ok=True)
     found, log = {}, []
     for words in TITLE_QUERIES:
         try:
@@ -167,6 +220,8 @@ def main():
             open(os.path.join(out, "full", safe + ".txt"), "w", encoding="utf-8").write(text)
             if scheme:
                 open(os.path.join(out, "schemes", safe + ".txt"), "w", encoding="utf-8").write(scheme)
+                open(os.path.join(out, "html", safe + ".html"), "w", encoding="utf-8").write(content)
+                row["pictures"] = save_images(content, out, safe)
             row.update(chars=len(text), scheme=bool(scheme), schemeChars=len(scheme),
                        images=len(re.findall(r"(?i)<img\b", content)), file=safe)
         except Exception as e:
