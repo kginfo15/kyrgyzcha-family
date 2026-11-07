@@ -1330,6 +1330,7 @@ def collect_projects(out_dir):
     if fresh and not os.environ.get("FORCE_PROJECTS"):
         log("projects: still fresh, keeping (translating any left)")
         translate_projects(prev.get("projects", []))
+        describe_projects(prev.get("projects", []))
         result = prev
     else:
         projs, sources = [], {}

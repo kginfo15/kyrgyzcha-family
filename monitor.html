@@ -1812,7 +1812,7 @@ function treeHTML(t, title=""){
   };
   return `<div class="blk tree"><h3>樹形図：${title?esc(title)+"の":""}構成と援助機関の案件</h3>
     <p class="note">${esc(t.note)} 実施中の案件 ${pl.n}件のうち ${pl.n - pl.un.length}件を当てはめています。<br>確かさ：<span class="ctag c-law">法令・本文</span>原文で確認 <span class="ctag c-doc">資料</span>公的な資料 <span class="ctag c-news">報道</span>報道のみ <span class="ctag c-draft">案</span>まだ承認されていない <span class="ctag c-guess">推定・要確認</span>調べ中</p>
-    <div class="nklg"><span><span class="nk nk-nat">国の戦略</span>樹形図の元になる国の戦略・構想・プログラム</span><span><span class="nk nk-area">章・柱</span>その文書の中の章（独立した文書ではない）</span><span><span class="nk nk-gov">政府プログラム</span>章を具体化する政府の別の文書・規則</span><span><span class="nk nk-pj">ドナー案件</span>援助機関が実施中の案件（名前を押すと元のページへ）</span></div>
+    <div class="nklg"><span><span class="nk nk-nat">国の戦略</span>樹形図の元になる国の戦略・構想・プログラム</span><span><span class="nk nk-area">章・柱</span>その文書の中の章（独立した文書ではない）</span><span><span class="nk nk-gov">政府プログラム</span>章を具体化する政府の別の文書（「政府規則」「政府制度」も同じ色）</span><span><span class="nk nk-pj">ドナー案件</span>援助機関が実施中の案件（名前を押すと元のページへ）</span></div>
     <p class="note">ドナー案件の置き場所は、各枝に決めた「目印の言葉」が案件名に入っているかで自動で決めています。案件名になく説明文だけに入っていたものは<span class="weakmark">点線の枠</span>で示しています（ずれている可能性あり）。</p>
     ${t.nodes.map(n=>node(n, 0)).join("")}
     ${pl.un.length?`<details class="tnode"><summary><span class="tn">どの枝にも当てはまらなかった案件</span><span class="tc">${pl.un.length}件</span></summary><p class="note">どの枝の目印の言葉も、案件名・説明文に見つからなかった案件です。</p><ul class="tpj">${pjGroups(pl.un).map(ps=>pjRow(ps, null, "")).join("")}</ul></details>`:""}</div>`;
