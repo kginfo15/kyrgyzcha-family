@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>なかよし ペット</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Zen+Maru+Gothic:wght@700;900&display=swap">
+<style>
+:root{
+  --bg:#EAF3FF; --wall:#FFE9F1; --wall-dot:#FFD6E4; --floor:#F6D7A7; --floor-line:#E9C38A;
+  --ink:#43365A; --ink-soft:#8A7DA0; --panel:#FFFFFF; --edge:#E6DDF2;
+  --pink:#FF7EA8; --pink-deep:#E25A88; --sun:#FFC93C; --mint:#4CC9A0; --sky:#5AB4E8; --lilac:#A88BEB;
+  --display:"Mochiy Pop One","Hiragino Maru Gothic ProN","Zen Maru Gothic",system-ui,sans-serif;
+  --body:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:700;overflow:hidden;
+  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;word-break:keep-all;overflow-wrap:anywhere}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.app{height:100%;height:100dvh;display:flex;flex-direction:column;max-width:760px;margin:0 auto;gap:8px;
+  padding:max(8px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+
+/* top */
+.top{display:flex;align-items:center;gap:8px}
+.iconbtn{width:44px;height:44px;flex:none;border-radius:50%;background:var(--panel);font-size:22px;box-shadow:0 3px 0 var(--edge)}
+.plate{flex:1;min-width:0;background:var(--panel);border-radius:999px;padding:5px 12px 6px 6px;box-shadow:0 3px 0 var(--edge);display:flex;align-items:center;gap:8px}
+.lv{font-family:var(--display);background:var(--sun);border-radius:999px;padding:3px 10px;font-size:14px;white-space:nowrap}
+.pname{font-family:var(--display);font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:none;max-width:45%}
+@media (max-width:480px){.stage-tag{display:none}}
+.xpbar{flex:1;min-width:40px;height:12px;background:#F1ECF8;border-radius:99px;overflow:hidden}
+.xpbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),#FFB2CB);border-radius:99px;transition:width .4s}
+.stage-tag{font-size:12px;color:var(--ink-soft);white-space:nowrap}
+
+.gauges{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.g{background:var(--panel);border-radius:14px;padding:4px 8px 6px;box-shadow:0 3px 0 var(--edge);min-width:0}
+.g .lab{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--ink-soft);white-space:nowrap}
+.g .lab b{font-size:16px}
+.g .bar{height:9px;border-radius:99px;background:#F1ECF8;overflow:hidden;margin-top:2px}
+.g .bar i{display:block;height:100%;width:50%;border-radius:99px;transition:width .6s,background .6s}
+.g.low{animation:wob .8s infinite}
+@keyframes wob{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
+
+/* room */
+.room{position:relative;flex:1;min-height:250px;border-radius:26px;overflow:hidden;
+  background:radial-gradient(circle at 12px 12px,var(--wall-dot) 3px,transparent 3.5px) 0 0/30px 30px,var(--wall);box-shadow:inset 0 0 0 4px #fff}
+.floor{position:absolute;left:0;right:0;bottom:0;height:28%;background:repeating-linear-gradient(90deg,var(--floor) 0 56px,var(--floor-line) 56px 59px);border-top:6px solid #DDAF73}
+.win{position:absolute;left:6%;top:7%;width:24%;max-width:130px;aspect-ratio:1/.85;border:7px solid #fff;border-radius:14px;background:linear-gradient(#9ED8FF,#D8F1FF);overflow:hidden;transition:background 1s}
+.win:after{content:"☁️";position:absolute;left:12%;top:18%;font-size:24px}
+.toilet{position:absolute;right:4%;bottom:12%;font-size:min(16vw,70px);line-height:1;z-index:1;cursor:pointer}
+.toilet.flush{animation:shake .5s 2}
+.pet{position:absolute;left:50%;bottom:9%;width:min(62%,300px);aspect-ratio:1;transform:translateX(-50%);z-index:3;cursor:pointer;transform-origin:50% 100%}
+.pet .inner{width:100%;height:100%;transform-origin:50% 95%;animation:idle 2.2s ease-in-out infinite}
+.pet svg{width:100%;height:100%;display:block;overflow:visible}
+.pet.hop .inner{animation:hop .55s ease-out}
+.pet.eat .inner{animation:munch .3s ease-in-out 3}
+.pet.wiggle .inner{animation:wig .5s ease-in-out 2}
+.pet.strain .inner{animation:strain .25s ease-in-out 6}
+.pet.spin .inner{animation:spin 1s ease-in-out}
+@keyframes idle{0%,100%{transform:scale(1,1)}50%{transform:scale(1.03,.97)}}
+@keyframes hop{0%{transform:translateY(0) scale(1.1,.9)}40%{transform:translateY(-32%) scale(.95,1.05)}100%{transform:translateY(0)}}
+@keyframes munch{0%,100%{transform:scale(1)}50%{transform:scale(1.08,.92)}}
+@keyframes wig{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+@keyframes strain{0%,100%{transform:scale(1,1)}50%{transform:scale(1.06,.9)}}
+@keyframes spin{to{transform:rotateY(720deg)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.want{position:absolute;z-index:4;left:calc(50% + min(18%,90px));bottom:calc(9% + min(52%,250px));background:#fff;border-radius:18px;padding:4px 10px;font-size:28px;box-shadow:0 3px 0 var(--edge);display:none;animation:bob 1.2s ease-in-out infinite}
+.want.show{display:block}
+.want:after{content:"";position:absolute;left:10px;bottom:-8px;border:8px solid transparent;border-top-color:#fff;border-bottom:0}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.poop{position:absolute;z-index:2;font-size:min(10vw,44px);line-height:1;cursor:pointer;transition:transform .9s cubic-bezier(.6,-.2,.7,1),left .9s cubic-bezier(.6,-.2,.7,1),bottom .9s,opacity .9s;animation:pop .35s ease-out}
+.poop.gold{filter:sepia(1) saturate(4) hue-rotate(5deg) brightness(1.2) drop-shadow(0 0 6px #FFD43B)}
+.poop.big{font-size:min(15vw,64px)}
+.poop .fly{position:absolute;font-size:14px;left:60%;top:-30%;animation:flyc 1.4s linear infinite}
+@keyframes flyc{0%{transform:translate(0,0)}25%{transform:translate(8px,-6px)}50%{transform:translate(0,-12px)}75%{transform:translate(-8px,-6px)}100%{transform:translate(0,0)}}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
+.water{position:absolute;left:0;right:0;bottom:0;height:30%;z-index:5;pointer-events:none;transform:translateX(110%);
+  background:linear-gradient(180deg,rgba(120,200,255,.0),rgba(90,180,240,.75) 30%,rgba(60,150,230,.85));border-radius:60% 0 0 0}
+.water.go{animation:wave 1.6s ease-in-out}
+@keyframes wave{0%{transform:translateX(110%)}45%{transform:translateX(0)}100%{transform:translateX(-110%)}}
+.fx{position:absolute;z-index:6;pointer-events:none;font-size:28px;animation:rise 1.1s ease-out forwards}
+@keyframes rise{0%{opacity:1;transform:translate(-50%,0) scale(.6)}100%{opacity:0;transform:translate(-50%,-90px) scale(1.3)}}
+.food{position:absolute;z-index:6;font-size:44px;pointer-events:none;transition:transform .6s cubic-bezier(.4,-.3,.6,1),opacity .2s}
+.night{position:absolute;inset:0;z-index:7;background:radial-gradient(circle at 80% 20%,#3A3F7A,#171A3A);opacity:0;pointer-events:none;transition:opacity .8s}
+.night.on{opacity:.82;pointer-events:auto}
+.night:before{content:"🌙 ✨      ⭐        ✨";position:absolute;top:12%;left:10%;font-size:22px;white-space:pre}
+.zzz{position:absolute;z-index:8;font-size:32px;color:#fff;pointer-events:none;animation:rise 1.6s ease-out forwards;font-family:var(--display)}
+.tub{position:absolute;left:50%;bottom:4%;width:min(80%,380px);height:30%;transform:translateX(-50%);z-index:4;display:none;pointer-events:none}
+.tub.on{display:block}
+.tub:before{content:"";position:absolute;inset:18% 0 0 0;background:linear-gradient(#fff,#E4EEF7);border-radius:20px 20px 46% 46%;box-shadow:inset 0 -8px 0 #CBDCEC,0 6px 0 rgba(0,0,0,.08)}
+.tub:after{content:"";position:absolute;left:4%;right:4%;top:10%;height:22%;background:rgba(150,210,255,.85);border-radius:50%}
+.bubble{position:absolute;z-index:5;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.75) 40%,rgba(190,225,255,.6));pointer-events:none;animation:bub 2.4s ease-out forwards}
+@keyframes bub{0%{transform:scale(0)}15%{transform:scale(1)}80%{opacity:1}100%{transform:translateY(-50px) scale(1.1);opacity:0}}
+.ball{position:absolute;z-index:6;font-size:min(13vw,52px);line-height:1;cursor:pointer;transition:left .7s ease-out,bottom .7s cubic-bezier(.3,1.6,.6,1)}
+.modebar{position:absolute;z-index:9;left:50%;top:10px;transform:translateX(-50%);display:none}
+.modebar.on{display:block}
+.meter{width:min(70vw,300px);height:16px;background:#fff;border-radius:99px;overflow:hidden;box-shadow:0 2px 0 var(--edge)}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sky),var(--mint));transition:width .2s}
+.say{position:absolute;z-index:8;left:50%;top:10px;transform:translateX(-50%);background:#fff;border-radius:18px;padding:8px 14px;font-family:var(--display);font-size:clamp(15px,4.2vw,20px);box-shadow:0 3px 0 var(--edge);white-space:nowrap;max-width:94%;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .25s}
+.say.on{opacity:1}
+
+/* actions */
+.acts{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.act{background:var(--panel);border-radius:18px;padding:6px 2px 5px;box-shadow:0 4px 0 var(--edge);display:flex;flex-direction:column;align-items:center;font-size:12px;gap:1px;min-width:0}
+.act b{font-size:30px;line-height:36px}
+.act:active{transform:translateY(3px);box-shadow:0 1px 0 var(--edge)}
+.act.hint{background:#FFF4CC;animation:hopb .8s ease-in-out infinite}
+@keyframes hopb{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.foods{position:absolute;z-index:9;left:8px;right:8px;bottom:8px;background:#fff;border-radius:22px;padding:10px;box-shadow:0 5px 0 var(--edge);display:none;grid-template-columns:repeat(4,1fr);gap:8px}
+.foods.on{display:grid}
+.foods button{font-size:38px;background:#FFF6EA;border-radius:16px;padding:4px 0;display:flex;flex-direction:column;align-items:center;font-size:12px}
+.foods button b{font-size:36px;line-height:42px}
+
+/* overlays */
+.ov{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:14px;background:rgba(67,54,90,.38)}
+.ov.show{display:flex}
+.card{background:var(--panel);border-radius:28px;padding:18px 16px;max-width:520px;width:100%;text-align:center;box-shadow:0 8px 0 var(--edge);max-height:94dvh;overflow:auto}
+.card h1{font-family:var(--display);font-size:30px;margin:4px 0 6px;color:var(--pink)}
+.card h2{font-family:var(--display);font-size:22px;margin:4px 0 8px}
+.card p{margin:6px 0 10px;font-size:15px;color:var(--ink-soft);line-height:1.6}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.bigbtn{background:var(--sun);font-family:var(--display);font-size:19px;padding:12px 18px;border-radius:999px;box-shadow:0 5px 0 #D9A21F}
+.bigbtn:active{transform:translateY(3px);box-shadow:0 2px 0 #D9A21F}
+.bigbtn.pink{background:var(--pink);color:#fff;box-shadow:0 5px 0 var(--pink-deep)}
+.bigbtn.mint{background:var(--mint);color:#fff;box-shadow:0 5px 0 #2F9E79}
+.bigbtn.small{font-size:15px;padding:9px 14px}
+.bigbtn:disabled{opacity:.4}
+.title-pets{display:flex;justify-content:center;gap:2px;margin:4px 0}
+.title-pets div{width:74px;height:74px;animation:idle 2s ease-in-out infinite}
+.title-pets div:nth-child(2){animation-delay:-.6s}.title-pets div:nth-child(3){animation-delay:-1.2s}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px;margin:8px 0}
+.sp{background:#F8F4FF;border-radius:18px;padding:6px 2px 8px;font-size:12px;box-shadow:0 3px 0 var(--edge);position:relative}
+.sp .im{width:70px;height:70px;margin:0 auto}
+.sp.sel{background:#FFE6EF;box-shadow:0 3px 0 var(--pink-deep),0 0 0 3px var(--pink) inset}
+.sp .badge{position:absolute;right:4px;top:4px;font-size:11px;background:var(--sun);border-radius:99px;padding:0 6px}
+.preview{width:150px;height:150px;margin:0 auto}
+.swatches{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:8px 0}
+.sw{width:42px;height:42px;border-radius:50%;box-shadow:0 3px 0 rgba(0,0,0,.12),inset 0 0 0 3px rgba(255,255,255,.7)}
+.sw.sel{outline:4px solid var(--ink);outline-offset:2px}
+.nameRow{display:flex;gap:8px;justify-content:center;align-items:center;margin:8px 0}
+.nameRow input{font:inherit;font-family:var(--display);font-size:20px;width:min(60vw,220px);padding:8px 12px;border-radius:14px;border:3px solid var(--edge);text-align:center;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chips button{background:#F8F4FF;border-radius:99px;padding:5px 10px;font-size:14px;box-shadow:0 2px 0 var(--edge)}
+.zrow{display:flex;align-items:center;gap:6px;background:#F8F4FF;border-radius:16px;padding:6px 8px;margin:6px 0;text-align:left}
+.zrow .nm{width:72px;flex:none;font-size:12px}
+.zrow .cells{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;flex:1}
+.zcell{aspect-ratio:1;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;color:#D8CFE6;position:relative}
+.zcell svg{width:100%;height:100%}
+.zcell.got{background:#FFF6D6}
+.evo{position:fixed;inset:0;z-index:30;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle,#FFF8D6,#FFC6DD);text-align:center;padding:16px}
+.evo.show{display:flex}
+.evo .im{width:min(70vw,300px);height:min(70vw,300px)}
+.evo .im.flash{animation:flash 1.6s ease-in-out}
+@keyframes flash{0%{filter:brightness(1)}30%{filter:brightness(4) saturate(0)}60%{filter:brightness(4) saturate(0);transform:scale(1.2) rotate(360deg)}100%{filter:brightness(1)}}
+.evo h1{font-family:var(--display);font-size:28px;color:var(--pink);margin:6px 0}
+.evo p{font-size:16px;margin:4px 0 14px}
+.rays{position:absolute;inset:-50%;background:repeating-conic-gradient(rgba(255,255,255,.55) 0 10deg,transparent 10deg 20deg);animation:rot 12s linear infinite;z-index:-1}
+@keyframes rot{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="top">
+    <button class="iconbtn" id="homeBtn" aria-label="はじめに もどる">🏠</button>
+    <div class="plate"><span class="lv" id="lv">Lv1</span><span class="pname" id="pname"></span><div class="xpbar"><i id="xp"></i></div><span class="stage-tag" id="stageTag"></span></div>
+    <button class="iconbtn" id="zukanBtn" aria-label="ずかん">📖</button>
+    <button class="iconbtn" id="voiceBtn" aria-label="こえ">🔊</button>
+  </div>
+  <div class="gauges" id="gauges"></div>
+  <div class="room" id="room">
+    <div class="win" id="win"></div>
+    <div class="floor"></div>
+    <div class="toilet" id="toilet">🚽</div>
+    <div class="tub" id="tub"></div>
+    <div class="pet" id="pet"><div class="inner" id="petInner"></div></div>
+    <div class="want" id="want"></div>
+    <div class="water" id="water"></div>
+    <div class="night" id="night"></div>
+    <div class="say" id="say"></div>
+    <div class="modebar" id="modebar"><div class="meter"><i id="modeMeter"></i></div></div>
+    <div class="foods" id="foods"></div>
+  </div>
+  <div class="acts" id="acts"></div>
+</div>
+
+<div class="ov show" id="titleOv"><div class="card" id="titleCard"></div></div>
+<div class="ov" id="pickOv"><div class="card" id="pickCard"></div></div>
+<div class="ov" id="zukanOv"><div class="card" id="zukanCard"></div></div>
+<div class="ov" id="doneOv"><div class="card" id="doneCard"></div></div>
+<div class="evo" id="evo"><div class="rays"></div><div class="im" id="evoIm"></div><h1 id="evoT"></h1><p id="evoP"></p><button class="bigbtn pink" id="evoBtn" style="display:none">やったー！</button></div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+
+/* ================= sound & voice ================= */
+let AC=null;
+function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume();return AC}
+function tone(f,d=.12,type="sine",v=.18,slide=0,delay=0){const a=ac();if(!a)return;const t0=a.currentTime+delay,o=a.createOscillator(),g=a.createGain();o.type=type;o.frequency.setValueAtTime(f,t0);
+  if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(40,f*slide),t0+d);g.gain.setValueAtTime(v,t0);g.gain.exponentialRampToValueAtTime(.001,t0+d);o.connect(g);g.connect(a.destination);o.start(t0);o.stop(t0+d)}
+function noise(d=.15,v=.15,f1=1200,f2=0){const a=ac();if(!a)return;const n=a.sampleRate*d,b=a.createBuffer(1,n,a.sampleRate),c=b.getChannelData(0);
+  for(let i=0;i<n;i++)c[i]=(Math.random()*2-1)*Math.min(1,(n-i)/(n*.4));const s=a.createBufferSource();s.buffer=b;const f=a.createBiquadFilter();f.type="lowpass";f.frequency.setValueAtTime(f1,a.currentTime);
+  if(f2)f.frequency.exponentialRampToValueAtTime(f2,a.currentTime+d);const g=a.createGain();g.gain.value=v;s.connect(f);f.connect(g);g.connect(a.destination);s.start()}
+const SFX={
+  pop(){tone(rnd(520,760),.12,"sine",.2,1.8)},
+  munch(){tone(220,.08,"square",.06);tone(180,.08,"square",.06,0,.15);tone(240,.08,"square",.06,0,.3)},
+  plop(){tone(300,.2,"sine",.25,.45)},
+  pfu(){noise(.35,.25,500,150);tone(120,.3,"sawtooth",.05,.6)},
+  flush(){noise(1.6,.32,3000,300);tone(400,.5,"sine",.06,.3,.9)},
+  splash(){noise(.15,.15,2500)},
+  heart(){tone(880,.1,"sine",.12);tone(1175,.15,"sine",.12,0,.09)},
+  boing(){tone(260,.3,"sine",.2,2.6)},
+  level(){[523,659,784,1047].forEach((f,i)=>tone(f,.2,"triangle",.15,0,i*.1))},
+  evo(){[392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.3,"triangle",.14,0,i*.13))},
+  crack(){noise(.08,.3,4000)},
+  nope(){tone(240,.15,"square",.05)},
+  snore(){tone(140,.6,"sine",.08,.7)},
+};
+let voiceOn=store("pet_voice");if(voiceOn===null)voiceOn=true;
+let jaVoice=null;function loadVoice(){try{jaVoice=speechSynthesis.getVoices().find(v=>/ja/i.test(v.lang))||null}catch(e){}}
+try{speechSynthesis.onvoiceschanged=loadVoice;loadVoice()}catch(e){}
+function speak(t){if(!voiceOn||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="ja-JP";if(jaVoice)u.voice=jaVoice;u.rate=1;u.pitch=1.35;speechSynthesis.speak(u)}catch(e){}}
+let sayT=0;
+function say(t,voice=true){const e=$("say");e.textContent=t;e.classList.add("on");clearTimeout(sayT);sayT=setTimeout(()=>e.classList.remove("on"),2600);if(voice)speak(t)}
+
+/* ================= species ================= */
+const SPECIES=[
+  {id:"maru",name:"まるっち",c:"#FFB3C7",feats:["tuft"]},
+  {id:"usa",name:"うさぎ",c:"#FFFFFF",body:"egg",ears:"bunny",tail:"puff"},
+  {id:"neko",name:"ねこ",c:"#F7B267",ears:"cat",tail:"cat",feats:["whisk"]},
+  {id:"inu",name:"いぬ",c:"#E8C39E",ears:"dog",tail:"puff",feats:["snout"]},
+  {id:"kuma",name:"くま",c:"#B98560",ears:"bear",feats:["snout"]},
+  {id:"panda",name:"パンダ",c:"#FFFFFF",ears:"bear",earDark:true,feats:["patch"]},
+  {id:"pen",name:"ペンギン",c:"#5B7DB1",body:"egg",feats:["beak","belly","flipper"]},
+  {id:"hiyo",name:"ひよこ",c:"#FFE066",feats:["beak","tuft","flipper"]},
+  {id:"kaeru",name:"かえる",c:"#8BD17C",body:"wide",ears:"frog",feats:["belly"]},
+  {id:"kitsune",name:"きつね",c:"#F4A259",ears:"fox",tail:"fox",feats:["belly"]},
+  {id:"hamu",name:"ハムスター",c:"#F2C894",body:"wide",ears:"mouse",feats:["bigcheek","belly"]},
+  {id:"risu",name:"りす",c:"#C98B5E",ears:"cat",tail:"squirrel",feats:["belly"]},
+  {id:"koala",name:"コアラ",c:"#A9B4C2",ears:"koala",feats:["bignose"]},
+  {id:"buta",name:"こぶた",c:"#FFC2D1",ears:"pig",tail:"curl",feats:["pignose"]},
+  {id:"hitsuji",name:"ひつじ",c:"#FFF8E7",body:"cloud",ears:"dog",feats:["wool"]},
+  {id:"uni",name:"ユニコーン",c:"#FFFFFF",ears:"horse",horn:"uni",tail:"mane",feats:["mane"]},
+  {id:"pega",name:"ペガサス",c:"#CFE8FF",ears:"horse",wings:"feather",tail:"mane",feats:["mane"]},
+  {id:"dora",name:"ドラゴン",c:"#7ED6A7",horn:"dragon",wings:"bat",tail:"dragon",feats:["belly"]},
+  {id:"fushi",name:"フェニックス",c:"#FF8A5B",wings:"flame",tail:"flame",feats:["beak","crest"]},
+  {id:"gurifo",name:"グリフォン",c:"#E9C46A",ears:"cat",wings:"feather",tail:"cat",feats:["beak"]},
+  {id:"kappa",name:"カッパ",c:"#6CC9A5",feats:["plate","beak"]},
+  {id:"obake",name:"おばけ",c:"#F1F3FF",body:"ghost"},
+  {id:"slime",name:"スライム",c:"#7CC6FE",body:"drop"},
+  {id:"yousei",name:"ようせい",c:"#E2C2FF",wings:"fairy",feats:["antenna"]},
+  {id:"hoshi",name:"ほしのこ",c:"#FFD93D",body:"star"},
+  {id:"kumo",name:"くもっこ",c:"#FFFFFF",body:"cloud",feats:["rain"]},
+];
+const SPI=Object.fromEntries(SPECIES.map(s=>[s.id,s]));
+const VARIANTS=[
+  {id:"king",name:"おうさま",how:"ごはんを たくさん",em:"👑"},
+  {id:"kira",name:"キラキラ",how:"おふろと トイレを たくさん",em:"✨"},
+  {id:"genki",name:"げんき",how:"あそびを たくさん",em:"⚡"},
+  {id:"love",name:"ラブラブ",how:"なでなでを たくさん",em:"💗"},
+  {id:"yume",name:"ゆめみ",how:"ねんねを たくさん",em:"🌙"},
+  {id:"niji",name:"にじいろ",how:"ぜんぶ バランスよく",em:"🌈"},
+];
+const VI=Object.fromEntries(VARIANTS.map(v=>[v.id,v]));
+const COLORS=["#FFB3C7","#FF8FA3","#FFC57A","#FFE066","#B8E986","#7ED6A7","#8FD3FE","#A0B4FF","#C9A7FF","#FFFFFF","#C9A27E","#A9B4C2"];
+const NAMES=["ぷに","もち","ころん","ぽぽ","るる","ちゃちゃ","まめ","ぴーち","わたぼう","きらら","ぽん","むぎ","ここ","みるく","てんてん","ふわり","もも","ぐり","らら","ぷりん"];
+const FOODS=[{e:"🍎",n:"りんご"},{e:"🍙",n:"おにぎり"},{e:"🍰",n:"ケーキ"},{e:"🐟",n:"おさかな"},{e:"🥕",n:"にんじん"},{e:"🍼",n:"ミルク"},{e:"🍓",n:"いちご"},{e:"🍪",n:"クッキー"}];
+
+/* ================= drawing (SVG) ================= */
+function hx(c){c=c.replace("#","");return [0,2,4].map(i=>parseInt(c.slice(i,i+2),16))}
+function shade(c,t){const a=hx(c),b=t>0?[255,255,255]:[30,20,40];t=Math.abs(t);return "#"+a.map((v,i)=>Math.round(v+(b[i]-v)*t).toString(16).padStart(2,"0")).join("")}
+let gid=0;
+const SHAPES={round:[1,1],egg:[.9,1.1],wide:[1.18,.9],cloud:[1.12,.92],ghost:[.95,1.08],drop:[1,1],star:[1,1]};
+function petSVG(o){
+  const sp=SPI[o.sp],st=o.stage,v=st>=3?o.variant:null,mood=o.mood||"normal",id="g"+(++gid);
+  const c=o.color,d=shade(c,-.32),l=shade(c,.6),line=shade(c,-.45);
+  const fs=st===1?.65:st===2?.85:1;
+  let r=[0,40,52,62][st]+(v==="king"?6:0);
+  const [wx,wy]=SHAPES[sp.body||"round"];const rx=r*wx,ry=r*wy,cx=100,cy=180-ry,top=cy-ry;
+  const fill=v==="niji"?`url(#${id}n)`:c;
+  let defs=`<radialGradient id="${id}h" cx=".35" cy=".3" r=".7"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>`;
+  if(v==="niji")defs+=`<linearGradient id="${id}n" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFB3C7"/><stop offset=".25" stop-color="#FFE29A"/><stop offset=".5" stop-color="#B8F2C9"/><stop offset=".75" stop-color="#A8D8FF"/><stop offset="1" stop-color="#D7B8FF"/></linearGradient>`;
+  let back="",body="",front="",acc="";
+  const S=`stroke="${line}" stroke-width="3" stroke-linejoin="round"`;
+  // aura for niji / kira
+  if(v==="niji")back+=`<path d="M${cx-r*1.6},${cy+ry*.6} A${r*1.6},${r*1.6} 0 0 1 ${cx+r*1.6},${cy+ry*.6}" fill="none" stroke="url(#${id}n)" stroke-width="12" opacity=".7"/>`;
+  // tail
+  const tx=cx+rx*.85,ty=cy+ry*.45,ts=fs;
+  switch(sp.tail){
+    case "puff":back+=`<circle cx="${tx}" cy="${ty}" r="${12*ts}" fill="${l}" ${S}/>`;break;
+    case "cat":back+=`<path d="M${tx-6},${ty} q${30*ts},-6 ${22*ts},${-40*ts}" fill="none" stroke="${line}" stroke-width="${13*ts}" stroke-linecap="round"/><path d="M${tx-6},${ty} q${30*ts},-6 ${22*ts},${-40*ts}" fill="none" stroke="${c}" stroke-width="${8*ts}" stroke-linecap="round"/>`;break;
+    case "fox":back+=`<path d="M${tx-8},${ty+6} C${tx+40*ts},${ty+10} ${tx+50*ts},${ty-40*ts} ${tx+18*ts},${ty-58*ts} C${tx+22*ts},${ty-30*ts} ${tx},${ty-10} ${tx-8},${ty-6}Z" fill="${c}" ${S}/><path d="M${tx+18*ts},${ty-58*ts} C${tx+30*ts},${ty-50*ts} ${tx+32*ts},${ty-40*ts} ${tx+30*ts},${ty-36*ts} C${tx+22*ts},${ty-38*ts} ${tx+18*ts},${ty-46*ts} ${tx+18*ts},${ty-58*ts}Z" fill="#fff"/>`;break;
+    case "squirrel":back+=`<path d="M${tx-10},${ty+8} C${tx+50*ts},${ty+6} ${tx+46*ts},${ty-70*ts} ${tx+6*ts},${ty-70*ts} C${tx-14*ts},${ty-70*ts} ${tx-6},${ty-40*ts} ${tx+12*ts},${ty-44*ts} C${tx+24*ts},${ty-30*ts} ${tx},${ty-8} ${tx-10},${ty-6}Z" fill="${d}" ${S}/>`;break;
+    case "curl":back+=`<path d="M${tx},${ty} c10,-2 12,-14 4,-14 c-8,0 -6,12 6,8" fill="none" stroke="${d}" stroke-width="4" stroke-linecap="round"/>`;break;
+    case "mane":back+=`<path d="M${tx-6},${ty} q${34*ts},4 ${30*ts},${-36*ts}" fill="none" stroke="#FF9EC7" stroke-width="${12*ts}" stroke-linecap="round"/><path d="M${tx-4},${ty+4} q${40*ts},6 ${38*ts},${-24*ts}" fill="none" stroke="#9ED8FF" stroke-width="${9*ts}" stroke-linecap="round"/><path d="M${tx-4},${ty+8} q${34*ts},12 ${40*ts},${-8*ts}" fill="none" stroke="#C9A7FF" stroke-width="${8*ts}" stroke-linecap="round"/>`;break;
+    case "dragon":back+=`<path d="M${tx-10},${ty-6} Q${tx+30*ts},${ty} ${tx+46*ts},${ty-26*ts} L${tx+54*ts},${ty-36*ts} L${tx+40*ts},${ty-30*ts} Q${tx+26*ts},${ty+18} ${tx-10},${ty+14}Z" fill="${c}" ${S}/>`;break;
+    case "flame":back+=`<path d="M${tx-10},${ty} q${30*ts},-4 ${44*ts},${-34*ts} q${-4*ts},${20*ts} ${8*ts},${30*ts} q${-20*ts},${-2*ts} ${-28*ts},${20*ts}Z" fill="#FFC93C" stroke="#F0761F" stroke-width="3"/>`;break;
+  }
+  // wings
+  if(sp.wings&&st>=2){const ws=st===2?.6:1,wy0=cy-ry*.1;
+    const wing=(side)=>{const x=cx+side*rx*.8,sx=side;
+      if(sp.wings==="feather")return `<g transform="translate(${x},${wy0}) scale(${sx*ws},${ws})"><path d="M0,0 C20,-40 60,-46 70,-30 C58,-26 66,-14 54,-10 C62,-2 50,6 40,4 C44,14 26,16 0,14Z" fill="#fff" stroke="#B9C7DB" stroke-width="3" stroke-linejoin="round"/></g>`;
+      if(sp.wings==="bat")return `<g transform="translate(${x},${wy0}) scale(${sx*ws},${ws})"><path d="M0,0 L30,-34 L62,-30 L54,-12 L64,0 L44,2 L46,16 L26,8 L0,16Z" fill="${d}" stroke="${line}" stroke-width="3" stroke-linejoin="round"/></g>`;
+      if(sp.wings==="fairy")return `<g transform="translate(${x},${wy0}) scale(${sx*ws},${ws})" opacity=".85"><ellipse cx="34" cy="-22" rx="34" ry="22" fill="#D7F0FF" stroke="#9BC9F0" stroke-width="3" transform="rotate(-25 34 -22)"/><ellipse cx="28" cy="14" rx="22" ry="14" fill="#FFE0F3" stroke="#F0A8CF" stroke-width="3" transform="rotate(20 28 14)"/></g>`;
+      if(sp.wings==="flame")return `<g transform="translate(${x},${wy0}) scale(${sx*ws},${ws})"><path d="M0,10 C10,-30 40,-50 70,-44 C56,-36 64,-24 76,-22 C60,-12 66,0 56,4 C50,10 30,14 0,14Z" fill="#FFC93C" stroke="#F0761F" stroke-width="3" stroke-linejoin="round"/><path d="M6,8 C18,-14 36,-28 54,-28 C40,-16 34,-2 6,8Z" fill="#FF7A3D"/></g>`;
+      return ""};
+    back+=wing(-1)+wing(1)}
+  // ears
+  const ex=rx*.55,et=top+ry*.12;const ec=sp.earDark?"#3E3A48":c;
+  const pinkIn="#FFC1D4";
+  switch(sp.ears){
+    case "bunny":for(const s of[-1,1])back+=`<g transform="rotate(${s*12} ${cx+s*16*fs} ${top+6})"><ellipse cx="${cx+s*16*fs}" cy="${top-26*fs}" rx="${12*fs}" ry="${34*fs}" fill="${c}" ${S}/><ellipse cx="${cx+s*16*fs}" cy="${top-24*fs}" rx="${6*fs}" ry="${24*fs}" fill="${pinkIn}"/></g>`;break;
+    case "cat":case "horse":for(const s of[-1,1]){const bx=cx+s*ex,h=(sp.ears==="horse"?22:26)*fs;back+=`<path d="M${bx-s*16*fs},${et+12} L${bx+s*4*fs},${et-h} L${bx+s*18*fs},${et+14}Z" fill="${c}" ${S}/><path d="M${bx-s*8*fs},${et+8} L${bx+s*3*fs},${et-h+12*fs} L${bx+s*11*fs},${et+10}Z" fill="${pinkIn}"/>`}break;
+    case "fox":for(const s of[-1,1]){const bx=cx+s*ex;back+=`<path d="M${bx-s*20*fs},${et+14} L${bx+s*6*fs},${et-36*fs} L${bx+s*22*fs},${et+16}Z" fill="${c}" ${S}/><path d="M${bx-s*9*fs},${et+8} L${bx+s*5*fs},${et-22*fs} L${bx+s*12*fs},${et+10}Z" fill="#fff"/>`}break;
+    case "bear":for(const s of[-1,1])back+=`<circle cx="${cx+s*rx*.68}" cy="${top+ry*.18}" r="${15*fs}" fill="${ec}" ${S}/><circle cx="${cx+s*rx*.68}" cy="${top+ry*.18}" r="${7*fs}" fill="${sp.earDark?"#6A6478":pinkIn}"/>`;break;
+    case "mouse":for(const s of[-1,1])back+=`<circle cx="${cx+s*rx*.6}" cy="${top+ry*.12}" r="${12*fs}" fill="${c}" ${S}/><circle cx="${cx+s*rx*.6}" cy="${top+ry*.12}" r="${6*fs}" fill="${pinkIn}"/>`;break;
+    case "koala":for(const s of[-1,1])back+=`<circle cx="${cx+s*rx*.85}" cy="${top+ry*.28}" r="${21*fs}" fill="${c}" ${S}/><circle cx="${cx+s*rx*.85}" cy="${top+ry*.28}" r="${12*fs}" fill="${l}"/>`;break;
+    case "dog":for(const s of[-1,1])back+=`<ellipse cx="${cx+s*rx*.86}" cy="${top+ry*.45}" rx="${11*fs}" ry="${22*fs}" fill="${d}" ${S} transform="rotate(${s*-18} ${cx+s*rx*.86} ${top+ry*.45})"/>`;break;
+    case "pig":for(const s of[-1,1]){const bx=cx+s*rx*.58;back+=`<path d="M${bx-s*14*fs},${top+ry*.2} L${bx+s*14*fs},${top-8*fs} L${bx+s*16*fs},${top+ry*.28}Z" fill="${c}" ${S}/>`}break;
+    case "frog":for(const s of[-1,1])back+=`<circle cx="${cx+s*rx*.45}" cy="${top+4}" r="${16*fs}" fill="${c}" ${S}/>`;break;
+  }
+  // body
+  const bodyAttr=`fill="${fill}" ${S}`;
+  const shape=sp.body||"round";
+  if(shape==="ghost"){let p=`M${cx-rx},${cy} A${rx},${ry} 0 0 1 ${cx+rx},${cy} L${cx+rx},${cy+ry*.92}`;const n=4;for(let i=0;i<n;i++){const x1=cx+rx-(i+.5)*2*rx/n,x2=cx+rx-(i+1)*2*rx/n;p+=` Q${x1},${cy+ry*(i%2?1.12:.7)} ${x2},${cy+ry*.92}`}body+=`<path d="${p}Z" ${bodyAttr}/>`}
+  else if(shape==="drop")body+=`<path d="M${cx},${top-ry*.3} C${cx+rx*.35},${top} ${cx+rx},${cy-ry*.2} ${cx+rx},${cy+ry*.35} C${cx+rx},${cy+ry*1.05} ${cx-rx},${cy+ry*1.05} ${cx-rx},${cy+ry*.35} C${cx-rx},${cy-ry*.2} ${cx-rx*.35},${top} ${cx},${top-ry*.3}Z" ${bodyAttr}/>`;
+  else if(shape==="star"){let p="";for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,q=i%2?r*.62:r*1.12;p+=(i?"L":"M")+(cx+Math.cos(a)*q).toFixed(1)+","+(cy+8+Math.sin(a)*q).toFixed(1)}body+=`<path d="${p}Z" fill="${fill}" stroke="${line}" stroke-width="22" stroke-linejoin="round"/><path d="${p}Z" fill="${fill}" stroke="${fill}" stroke-width="16" stroke-linejoin="round"/>`}
+  else if(shape==="cloud"){const cs=[[0,.1,.78],[-.55,.25,.55],[.55,.25,.55],[-.3,-.35,.55],[.3,-.35,.55],[-.75,.5,.4],[.75,.5,.4]];
+    body+=cs.map(([x,y,s])=>`<circle cx="${cx+x*rx}" cy="${cy+y*ry}" r="${s*r}" fill="${fill}" stroke="${line}" stroke-width="3"/>`).join("")+cs.map(([x,y,s])=>`<circle cx="${cx+x*rx}" cy="${cy+y*ry}" r="${s*r-2.5}" fill="${fill}"/>`).join("")}
+  else body+=`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" ${bodyAttr}/>`;
+  const feats=sp.feats||[];
+  if(feats.includes("belly"))body+=`<ellipse cx="${cx}" cy="${cy+ry*.35}" rx="${rx*.6}" ry="${ry*.52}" fill="${sp.id==="pen"?"#fff":l}"/>`;
+  if(feats.includes("flipper"))for(const s of[-1,1])body+=`<ellipse cx="${cx+s*rx*.98}" cy="${cy+ry*.2}" rx="${8*fs}" ry="${18*fs}" fill="${d}" ${S} transform="rotate(${s*-25} ${cx+s*rx*.98} ${cy+ry*.2})"/>`;
+  if(shape!=="star"&&shape!=="cloud")body+=`<ellipse cx="${cx-rx*.25}" cy="${cy-ry*.35}" rx="${rx*.5}" ry="${ry*.4}" fill="url(#${id}h)"/>`;
+  // feet
+  if(!["ghost","drop","star","cloud"].includes(shape))for(const s of[-1,1])body+=`<ellipse cx="${cx+s*rx*.42}" cy="${cy+ry*.95}" rx="${12*fs}" ry="${7*fs}" fill="${d}" ${S}/>`;
+  // face
+  const fy=(shape==="star"?cy+6:cy-ry*.02),fex=r*.34,er=r*.12;
+  if(feats.includes("patch"))for(const s of[-1,1])front+=`<ellipse cx="${cx+s*fex}" cy="${fy}" rx="${er*1.9}" ry="${er*2.2}" fill="#3E3A48" transform="rotate(${s*-20} ${cx+s*fex} ${fy})"/>`;
+  const eyeC=feats.includes("patch")?"#fff":"#2E2440";
+  if(mood==="happy"||mood==="love")for(const s of[-1,1])front+=`<path d="M${cx+s*fex-er},${fy+er*.3} Q${cx+s*fex},${fy-er*1.3} ${cx+s*fex+er},${fy+er*.3}" fill="none" stroke="${eyeC}" stroke-width="${er*.7}" stroke-linecap="round"/>`;
+  else if(mood==="sleep")for(const s of[-1,1])front+=`<path d="M${cx+s*fex-er},${fy} Q${cx+s*fex},${fy+er*1.1} ${cx+s*fex+er},${fy}" fill="none" stroke="${eyeC}" stroke-width="${er*.6}" stroke-linecap="round"/>`;
+  else if(mood==="strain")for(const s of[-1,1])front+=`<path d="M${cx+s*fex+s*er},${fy-er*.7} L${cx+s*fex-s*er*.6},${fy} L${cx+s*fex+s*er},${fy+er*.7}" fill="none" stroke="${eyeC}" stroke-width="${er*.55}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  else front+=`<g class="eyes" style="transform-origin:${cx}px ${fy}px;animation:blink 4s infinite">`+[-1,1].map(s=>`<ellipse cx="${cx+s*fex}" cy="${fy}" rx="${er}" ry="${er*1.25}" fill="${eyeC}"/><circle cx="${cx+s*fex+er*.35}" cy="${fy-er*.45}" r="${er*.42}" fill="#fff"/>`).join("")+`</g>`;
+  const ck=feats.includes("bigcheek")?1.6:1;
+  for(const s of[-1,1])front+=`<ellipse cx="${cx+s*r*.56}" cy="${fy+r*.2}" rx="${r*.13*ck}" ry="${r*.08*ck}" fill="#FF8FB1" opacity="${mood==="love"?.9:.55}"/>`;
+  const my=fy+r*.3;
+  if(feats.includes("snout"))front+=`<ellipse cx="${cx}" cy="${my-2}" rx="${r*.26}" ry="${r*.18}" fill="${l}"/><ellipse cx="${cx}" cy="${my-r*.12}" rx="${r*.08}" ry="${r*.055}" fill="#3E3A48"/>`;
+  if(feats.includes("bignose"))front+=`<ellipse cx="${cx}" cy="${my-r*.12}" rx="${r*.13}" ry="${r*.1}" fill="#4A4458"/>`;
+  if(feats.includes("pignose"))front+=`<ellipse cx="${cx}" cy="${my-r*.05}" rx="${r*.2}" ry="${r*.13}" fill="#FF9DB7" ${S}/><ellipse cx="${cx-r*.07}" cy="${my-r*.05}" rx="${r*.035}" ry="${r*.05}" fill="${line}"/><ellipse cx="${cx+r*.07}" cy="${my-r*.05}" rx="${r*.035}" ry="${r*.05}" fill="${line}"/>`;
+  if(feats.includes("whisk"))for(const s of[-1,1])front+=`<path d="M${cx+s*r*.4},${my-2} l${s*r*.35},-4 M${cx+s*r*.4},${my+3} l${s*r*.35},4" stroke="${line}" stroke-width="2" stroke-linecap="round"/>`;
+  if(feats.includes("beak")){const bw=r*.2;front+=mood==="eat"?`<path d="M${cx-bw},${my-4} L${cx+bw},${my-4} L${cx},${my-12}Z M${cx-bw},${my} L${cx+bw},${my} L${cx},${my+12}Z" fill="#FFA531" stroke="#E07B12" stroke-width="2" stroke-linejoin="round"/>`:`<path d="M${cx-bw},${my-6} L${cx+bw},${my-6} L${cx},${my+8}Z" fill="#FFA531" stroke="#E07B12" stroke-width="2" stroke-linejoin="round"/>`}
+  else if(mood==="eat")front+=`<ellipse cx="${cx}" cy="${my+2}" rx="${r*.13}" ry="${r*.15}" fill="#8C2F4A"/><ellipse cx="${cx}" cy="${my+6}" rx="${r*.08}" ry="${r*.06}" fill="#FF7F9F"/>`;
+  else if(mood==="sad")front+=`<path d="M${cx-6},${my+4} Q${cx},${my-3} ${cx+6},${my+4}" fill="none" stroke="${line}" stroke-width="2.5" stroke-linecap="round"/>`;
+  else if(mood==="strain")front+=`<path d="M${cx-8},${my} L${cx+8},${my}" stroke="${line}" stroke-width="3" stroke-linecap="round"/>`;
+  else if(mood==="happy"||mood==="love")front+=`<path d="M${cx-r*.14},${my-2} Q${cx},${my+r*.2} ${cx+r*.14},${my-2}Z" fill="#8C2F4A"/>`;
+  else front+=`<path d="M${cx-8},${my} q4,5 8,0 q4,5 8,0" fill="none" stroke="${line}" stroke-width="2.5" stroke-linecap="round"/>`;
+  // head features
+  if(feats.includes("tuft"))front+=`<path d="M${cx},${top+2} q-4,-18 -14,-20 M${cx},${top+2} q2,-20 10,-24 M${cx},${top+2} q8,-12 18,-12" fill="none" stroke="${line}" stroke-width="3" stroke-linecap="round"/>`;
+  if(feats.includes("crest"))front+=`<path d="M${cx-14*fs},${top+6} q-6,-30 ${10*fs},${-40*fs} q-2,${16*fs} ${8*fs},${22*fs} q4,${-18*fs} ${16*fs},${-22*fs} q-4,${20*fs} ${-2*fs},${40*fs}Z" fill="#FFC93C" stroke="#F0761F" stroke-width="3" stroke-linejoin="round"/>`;
+  if(feats.includes("mane"))front+=["#FF9EC7","#FFD36E","#9ED8FF","#C9A7FF"].map((col,i)=>`<circle cx="${cx-rx*.3+i*rx*.18}" cy="${top+6-Math.sin(i/3*Math.PI)*6}" r="${11*fs}" fill="${col}"/>`).join("");
+  if(feats.includes("plate"))front+=`<ellipse cx="${cx}" cy="${top+4}" rx="${r*.42}" ry="${r*.13}" fill="#E8F7FF" stroke="#9BC9F0" stroke-width="3"/>`;
+  if(feats.includes("antenna"))for(const s of[-1,1])front+=`<path d="M${cx+s*8},${top+3} q${s*4},-18 ${s*14},-24" fill="none" stroke="${line}" stroke-width="3" stroke-linecap="round"/><circle cx="${cx+s*22}" cy="${top-21}" r="6" fill="#FFE066" stroke="${line}" stroke-width="2"/>`;
+  if(feats.includes("wool"))front+=[-1,0,1].map(i=>`<circle cx="${cx+i*r*.25}" cy="${top+6-(i?0:5)}" r="${r*.2}" fill="#fff" stroke="${line}" stroke-width="2.5"/>`).join("");
+  if(feats.includes("rain")&&st>=2)front+=[-1,0,1].map(i=>`<path d="M${cx+i*r*.5},${cy+ry*1.15} q-4,8 0,10 q4,-2 0,-10Z" fill="#8FD3FE"/>`).join("");
+  if(sp.horn==="uni"&&st>=2){const h=st===2?22:34;front+=`<path d="M${cx-8},${top+6} L${cx},${top-h} L${cx+8},${top+6}Z" fill="#FFE07A" stroke="#E0A92A" stroke-width="3" stroke-linejoin="round"/><path d="M${cx-5},${top-2} L${cx+5},${top-6} M${cx-3},${top-h*.4} L${cx+3},${top-h*.5}" stroke="#E0A92A" stroke-width="2"/>`}
+  if(sp.horn==="dragon"&&st>=2)for(const s of[-1,1])front+=`<path d="M${cx+s*rx*.3},${top+8} q${s*-2},${-22*fs} ${s*12*fs},${-26*fs} q${s*-6*fs},${12*fs} ${s*2*fs},${28*fs}Z" fill="#FFF3C4" stroke="#C9A74A" stroke-width="3" stroke-linejoin="round"/>`;
+  // variant accessories
+  if(v==="king")acc+=`<path d="M${cx-24},${top+2} L${cx-28},${top-24} L${cx-12},${top-12} L${cx},${top-30} L${cx+12},${top-12} L${cx+28},${top-24} L${cx+24},${top+2}Z" fill="#FFD43B" stroke="#C99A0E" stroke-width="3" stroke-linejoin="round"/><circle cx="${cx}" cy="${top-6}" r="4.5" fill="#FF5A7A"/><circle cx="${cx-16}" cy="${top-4}" r="3" fill="#5AB4E8"/><circle cx="${cx+16}" cy="${top-4}" r="3" fill="#4CC9A0"/>`;
+  if(v==="kira")acc+=[[cx-rx-14,top+10,9],[cx+rx+12,top+24,12],[cx-rx+2,cy+ry*.7,7],[cx+rx-4,top-10,7]].map(([x,y,s])=>`<path d="M${x},${y-s} Q${x},${y} ${x+s},${y} Q${x},${y} ${x},${y+s} Q${x},${y} ${x-s},${y} Q${x},${y} ${x},${y-s}Z" fill="#FFE066" stroke="#F0B90B" stroke-width="1.5"/>`).join("")+`<ellipse cx="${cx+rx*.35}" cy="${cy-ry*.45}" rx="${rx*.12}" ry="${ry*.07}" fill="#fff" opacity=".9" transform="rotate(-30 ${cx+rx*.35} ${cy-ry*.45})"/>`;
+  if(v==="genki")acc+=`<path d="M${cx-rx*.92},${fy-r*.42} Q${cx},${fy-r*.75} ${cx+rx*.92},${fy-r*.42}" fill="none" stroke="#FF5A5A" stroke-width="9" stroke-linecap="round"/><path d="M${cx+rx*.88},${fy-r*.42} l16,-10 M${cx+rx*.88},${fy-r*.42} l18,4" stroke="#FF5A5A" stroke-width="6" stroke-linecap="round"/><text x="${cx-rx-22}" y="${top+10}" font-size="22">⚡</text>`;
+  if(v==="love")acc+=`<g transform="translate(${cx+rx*.5},${top+8})"><path d="M0,0 L-16,-10 L-16,10Z M0,0 L16,-10 L16,10Z" fill="#FF7EA8" stroke="#E25A88" stroke-width="2.5" stroke-linejoin="round"/><circle r="5" fill="#FFB2CB" stroke="#E25A88" stroke-width="2"/></g><text x="${cx-rx-20}" y="${top+16}" font-size="18">💗</text><text x="${cx+rx+2}" y="${cy+6}" font-size="14">💗</text>`;
+  if(v==="yume")acc+=`<g transform="rotate(-18 ${cx} ${top})"><path d="M${cx-26},${top+8} Q${cx},${top-4} ${cx+26},${top+8} L${cx+30},${top-30} Q${cx+42},${top-40} ${cx+48},${top-24}Z" fill="#6C7BD9" stroke="#4553A8" stroke-width="3" stroke-linejoin="round"/><circle cx="${cx+48}" cy="${top-24}" r="7" fill="#fff" stroke="#C9CFE8" stroke-width="2"/><text x="${cx-6}" y="${top-4}" font-size="11">⭐</text></g><text x="${cx-rx-24}" y="${top+4}" font-size="20">🌙</text>`;
+  if(v==="niji")acc+=`<ellipse cx="${cx}" cy="${top-14}" rx="${r*.45}" ry="${r*.1}" fill="none" stroke="#FFD43B" stroke-width="5"/>`;
+  // dirt
+  let dirt="";if(o.dirty>0){const n=Math.round(o.dirty*6);for(let i=0;i<n;i++){const a=i*2.1+1,dd=r*.55*((i*37%10)/10+.2);dirt+=`<ellipse cx="${cx+Math.cos(a)*dd*wx}" cy="${cy+Math.sin(a)*dd*wy+ry*.2}" rx="${5+i%3*2}" ry="${4+i%2*2}" fill="#8B6A4A" opacity=".55"/>`}
+    if(o.dirty>.5)dirt+=`<path d="M${cx-rx-10},${top+20} q-6,-8 0,-16 q6,-8 0,-16 M${cx+rx+10},${top+20} q6,-8 0,-16 q-6,-8 0,-16" fill="none" stroke="#9BBF62" stroke-width="3" stroke-linecap="round" opacity=".8"/>`}
+  return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs><ellipse cx="100" cy="186" rx="${rx*.8}" ry="7" fill="rgba(0,0,0,.12)"/>${back}${body}${dirt}${front}${acc}</svg>`;
+}
+function eggSVG(sp,color,crack=0){const c=color,l=shade(c,.55),d=shade(c,-.35);const s=SPI[sp];
+  let spots="";for(let i=0;i<6;i++){const a=i*1.7+sp.length,x=100+Math.cos(a)*24,y=128+Math.sin(a)*34;spots+=`<ellipse cx="${x}" cy="${y}" rx="${7+i%3*2}" ry="${6+i%2*2}" fill="${c}" opacity=".9"/>`}
+  let cr="";if(crack>0){const n=Math.ceil(crack*4);let p=`M66,${118}`;for(let i=1;i<=n*2;i++)p+=` L${66+i*8.5},${118+(i%2?-8:6)}`;cr=`<path d="${p}" fill="none" stroke="${d}" stroke-width="3" stroke-linejoin="round"/>`}
+  const mark=s.horn==="uni"?"🦄":s.wings?"🪶":"";
+  return `<svg viewBox="0 0 200 200"><ellipse cx="100" cy="186" rx="40" ry="7" fill="rgba(0,0,0,.12)"/><path d="M100,62 C138,62 150,130 146,150 C142,176 122,184 100,184 C78,184 58,176 54,150 C50,130 62,62 100,62Z" fill="${l}" stroke="${d}" stroke-width="3"/>${spots}<ellipse cx="84" cy="96" rx="12" ry="18" fill="#fff" opacity=".5"/>${cr}</svg>`}
+
+/* ================= state ================= */
+const LV_CHILD=3,LV_ADULT=7;
+const xpNeed=lv=>30+lv*6;
+let P=null;   // current pet
+function newPet(sp,color,name){return {sp,color,name,stage:0,hatch:0,lv:1,xp:0,g:{food:70,clean:90,fun:70,energy:80},cnt:{food:0,bath:0,play:0,pet:0,sleep:0},poops:[],dirt:0,variant:null,done:false,born:Date.now()}}
+function save(){if(P)store("pet_cur",P)}
+let zukan=store("pet_zukan")||{};
+function zkey(sp,v){return sp+":"+v}
+
+/* ================= UI: gauges/header ================= */
+const GAUGES=[{k:"food",em:"🍎",n:"おなか"},{k:"clean",em:"🛁",n:"きれい"},{k:"fun",em:"💖",n:"たのしい"},{k:"energy",em:"⚡",n:"げんき"}];
+$("gauges").innerHTML=GAUGES.map(g=>`<div class="g" id="g_${g.k}"><div class="lab"><b>${g.em}</b>${g.n}</div><div class="bar"><i></i></div></div>`).join("");
+const ACTS=[{k:"feed",em:"🍎",n:"ごはん"},{k:"flush",em:"🚽",n:"トイレ"},{k:"bath",em:"🛁",n:"おふろ"},{k:"play",em:"⚽",n:"あそぶ"},{k:"sleep",em:"💤",n:"ねんね"},{k:"pat",em:"🤚",n:"なでなで"}];
+$("acts").innerHTML=ACTS.map(a=>`<button class="act" id="a_${a.k}"><b>${a.em}</b>${a.n}</button>`).join("");
+$("foods").innerHTML=FOODS.map((f,i)=>`<button data-i="${i}"><b>${f.e}</b>${f.n}</button>`).join("");
+const STAGE_NAMES=["たまご","あかちゃん","こども","おとな"];
+function petTitle(){const s=SPI[P.sp];return P.stage>=3?VI[P.variant].name+s.name:s.name}
+function renderHeader(){$("pname").textContent=P.name;$("lv").textContent=P.stage===0?"🥚":"Lv"+P.lv;$("stageTag").textContent=P.stage>=3?petTitle():STAGE_NAMES[P.stage];
+  $("xp").style.width=P.stage===0?(P.hatch/8*100)+"%":(P.stage>=3?100:P.xp/xpNeed(P.lv)*100)+"%";
+  for(const g of GAUGES){const v=P.g[g.k],e=$("g_"+g.k);e.querySelector("i").style.width=v+"%";e.querySelector("i").style.background=v<25?"#FF6B6B":v<50?"#FFB547":"#4CC9A0";e.classList.toggle("low",v<25&&P.stage>0)}}
+let mood="normal",moodT=0;
+function setMood(m,ms=1200){mood=m;clearTimeout(moodT);renderPet();if(ms)moodT=setTimeout(()=>{mood="normal";renderPet()},ms)}
+function curMood(){if(mood!=="normal")return mood;if(P.g.food<25||P.g.fun<25)return "sad";return "normal"}
+function renderPet(){if(!P)return;const el=$("petInner");
+  if(P.stage===0){el.innerHTML=eggSVG(P.sp,P.color,P.hatch/8);return}
+  el.innerHTML=petSVG({sp:P.sp,color:P.color,stage:P.stage,variant:P.variant,mood:sleeping?"sleep":curMood(),dirty:clamp((100-P.g.clean)/100,0,1)*(P.g.clean<60?1:0)})}
+function anim(cls,ms=600){const p=$("pet");p.classList.remove("hop","eat","wiggle","strain","spin");void p.offsetWidth;p.classList.add(cls);setTimeout(()=>p.classList.remove(cls),ms)}
+function fx(txt,x,y,size=28){const e=document.createElement("div");e.className="fx";e.textContent=txt;e.style.left=x+"px";e.style.top=y+"px";e.style.fontSize=size+"px";$("room").appendChild(e);setTimeout(()=>e.remove(),1100)}
+function petCenter(){const r=$("pet").getBoundingClientRect(),rr=$("room").getBoundingClientRect();return {x:r.left-rr.left+r.width/2,y:r.top-rr.top+r.height*.55,w:r.width,top:r.top-rr.top}}
+function updateWant(){const w=$("want");if(!P||P.stage===0||busy){w.classList.remove("show");return}
+  let em=null;if(P.poops.length>=3)em="💩❓";else if(P.g.food<40)em="🍎";else if(P.g.clean<40)em="🛁";else if(P.g.energy<30)em="💤";else if(P.g.fun<40)em="⚽";
+  document.querySelectorAll(".act").forEach(a=>a.classList.remove("hint"));
+  if(em){w.textContent=em;w.classList.add("show");const k={"🍎":"feed","🛁":"bath","💤":"sleep","⚽":"play","💩❓":"flush"}[em];$("a_"+k).classList.add("hint")}else w.classList.remove("show")}
+
+/* ================= XP / evolution ================= */
+function gain(n,why){if(!P||P.stage===0||P.stage>=3){return}P.xp+=n;const c=petCenter();fx("+"+n,c.x+c.w*.3,c.top+20,20);
+  while(P.stage<3&&P.xp>=xpNeed(P.lv)){P.xp-=xpNeed(P.lv);P.lv++;SFX.level();if(P.lv===LV_CHILD)return evolve(2);if(P.lv>=LV_ADULT)return evolve(3);say(`レベル ${P.lv}に なった！`);fx("⭐",c.x,c.top,40)}
+  renderHeader();save()}
+function decideVariant(){const k=P.cnt,vals=[k.food,k.bath,k.play,k.pet,k.sleep];const mx=Math.max(...vals),mn=Math.min(...vals);
+  if(mn>=2&&mx<=mn*2.2)return "niji";const ids=["king","kira","genki","love","yume"];const i=vals.indexOf(mx);
+  const ties=vals.map((v,j)=>v===mx?j:-1).filter(j=>j>=0);return ids[ties.length>1?pick(ties):i]}
+let busy=false;
+function evolve(stage){busy=true;closeModes();const old=P.stage===0?eggSVG(P.sp,P.color,1):petSVG({sp:P.sp,color:P.color,stage:P.stage,variant:P.variant,mood:"happy"});
+  if(stage===3)P.variant=decideVariant();
+  $("evoIm").innerHTML=old;$("evoT").textContent=P.stage===0?"あれれ…？":"あれ…？ "+P.name+"の ようすが…！";$("evoP").textContent="";$("evoBtn").style.display="none";$("evo").classList.add("show");
+  speak($("evoT").textContent);
+  setTimeout(()=>{$("evoIm").classList.add("flash");SFX.evo()},900);
+  setTimeout(()=>{P.stage=stage;if(stage===1){P.lv=1;P.xp=0}
+    $("evoIm").innerHTML=petSVG({sp:P.sp,color:P.color,stage,variant:P.variant,mood:"happy"});
+    const t=stage===1?`${P.name}が うまれた！`:stage===2?`${P.name}は こどもに なった！`:`${P.name}は ${petTitle()}に しんかした！`;
+    $("evoT").textContent=t;$("evoP").textContent=stage===1?"ごはんを あげたり、あそんだり して そだてよう！":stage===2?"もうすこしで おとなに なるよ。どんな すがたに なるかな？":`${VI[P.variant].how} したから ${VI[P.variant].name}に なったよ！`;
+    speak(t);$("evoBtn").style.display="block";save()},2000);
+  setTimeout(()=>$("evoIm").classList.remove("flash"),2700)}
+$("evoBtn").onclick=()=>{$("evo").classList.remove("show");SFX.pop();busy=false;renderPet();renderHeader();
+  if(P.stage>=3&&!P.done){P.done=true;const key=zkey(P.sp,P.variant),isNew=!zukan[key];zukan[key]={name:P.name,color:P.color,d:Date.now()};store("pet_zukan",zukan);save();showDone(isNew)}};
+function showDone(isNew){const n=Object.keys(zukan).length,tot=SPECIES.length*VARIANTS.length;
+  $("doneCard").innerHTML=`<div class="preview">${petSVG({sp:P.sp,color:P.color,stage:3,variant:P.variant,mood:"happy"})}</div>
+  <h2>${isNew?"🎉 ずかんに あたらしく とうろく！":"📖 ずかんに とうろく したよ"}</h2><p><b style="color:var(--ink)">${P.name}</b>（${petTitle()}）<br>あつめた かず：<b style="color:var(--pink);font-size:20px">${n}</b> / ${tot}</p>
+  <div class="btns"><button class="bigbtn pink" id="dNew">🥚 あたらしい たまごを そだてる</button><button class="bigbtn small" id="dStay">もうすこし ${P.name}と あそぶ</button></div>`;
+  $("doneOv").classList.add("show");speak(isNew?"ずかんに あたらしく とうろく！":"ずかんに とうろく したよ");
+  $("dNew").onclick=()=>{$("doneOv").classList.remove("show");openPick()};$("dStay").onclick=()=>$("doneOv").classList.remove("show")}
+
+/* ================= actions ================= */
+function needPet(){if(!P||P.stage===0){say("たまごを なでて あたためよう！");return false}if(busy||sleeping){return false}return true}
+function closeModes(){$("foods").classList.remove("on");endBath(true);endPlay(true)}
+$("a_feed").onclick=()=>{if(!needPet())return;SFX.pop();const on=$("foods").classList.toggle("on");if(on){endBath(true);endPlay(true);say("なにを あげる？",false)}};
+$("foods").onclick=e=>{const b=e.target.closest("button");if(!b)return;feed(+b.dataset.i,b)};
+function feed(i,btn){const f=FOODS[i];$("foods").classList.remove("on");const rr=$("room").getBoundingClientRect(),br=btn.getBoundingClientRect(),c=petCenter();
+  const el=document.createElement("div");el.className="food";el.textContent=f.e;el.style.left=(br.left-rr.left+br.width/2-22)+"px";el.style.top=(br.top-rr.top)+"px";$("room").appendChild(el);
+  requestAnimationFrame(()=>{el.style.transform=`translate(${c.x-(br.left-rr.left+br.width/2)}px,${c.y-(br.top-rr.top)}px) scale(.5)`});
+  setTimeout(()=>{el.remove();setMood("eat",1000);anim("eat",900);SFX.munch();fx("😋",c.x,c.top);
+    const full=P.g.food>=95;P.g.food=clamp(P.g.food+25,0,100);P.g.fun=clamp(P.g.fun+3,0,100);P.cnt.food++;
+    say(full?"おなか いっぱい！ でも たべちゃう！":pick([`${f.n} おいしい！`,"もぐもぐ…","うまうま！",`${f.n} だいすき！`]));
+    gain(full?3:9);renderHeader();updateWant();
+    // poop comes later
+    const n=Math.random()<.12?3:Math.random()<.35?2:1;setTimeout(()=>doPoop(n),rnd(2500,4500))},620)}
+function doPoop(n){if(!P||P.stage===0||sleeping)return;mood="strain";renderPet();anim("strain",1500);say("う〜ん…",false);
+  setTimeout(()=>{mood="normal";for(let i=0;i<n;i++)setTimeout(()=>addPoop(),i*260);SFX.pfu();setTimeout(()=>{say(n>=3?"いっぱい でた〜！":n===2?"うんち 2こ でた！":"うんち でた！");setMood("happy",900)},300)},1500)}
+function addPoop(kind){if(P.poops.length>=14)return;const g=kind||(Math.random()<.08?"gold":Math.random()<.15?"big":"");
+  P.poops.push({x:rnd(6,72),y:rnd(3,18),k:g,t:Date.now()});SFX.plop();renderPoops();P.g.clean=clamp(P.g.clean-6,0,100);renderHeader();renderPet();updateWant();save()}
+function renderPoops(){document.querySelectorAll(".poop").forEach(e=>e.remove());
+  P.poops.forEach((p,i)=>{const e=document.createElement("div");e.className="poop "+(p.k||"");e.style.left=p.x+"%";e.style.bottom=p.y+"%";e.innerHTML=`💩${Date.now()-p.t>15000?'<span class="fly">🪰</span>':""}`;e.dataset.i=i;
+    e.onclick=ev=>{ev.stopPropagation();flushOne(i,e)};$("room").appendChild(e)})}
+function flushOne(i,el){if(busy||sleeping)return;const p=P.poops[i];if(!p)return;el.style.left="88%";el.style.bottom="18%";el.style.transform="rotate(540deg) scale(0)";el.style.opacity="0";SFX.splash();$("toilet").classList.add("flush");setTimeout(()=>$("toilet").classList.remove("flush"),900);
+  P.poops.splice(i,1);P.g.clean=clamp(P.g.clean+6,0,100);P.cnt.bath+=.5;setTimeout(()=>{renderPoops();renderPet()},900);gain(p.k==="gold"?12:4);if(p.k==="gold")say("きんの うんちだ！ ラッキー！");renderHeader();updateWant()}
+function flushAll(){if(!needPet())return;closeModes();
+  if(!P.poops.length){say("うんち ないね… でるかな？");doPoop(Math.random()<.5?2:1);return}
+  const rr=$("room").getBoundingClientRect();SFX.flush();$("water").classList.remove("go");void $("water").offsetWidth;$("water").classList.add("go");$("toilet").classList.add("flush");setTimeout(()=>$("toilet").classList.remove("flush"),1100);
+  const n=P.poops.length,gold=P.poops.filter(p=>p.k==="gold").length;
+  document.querySelectorAll(".poop").forEach((e,i)=>setTimeout(()=>{e.style.left="88%";e.style.bottom="18%";e.style.transform=`rotate(${720+i*90}deg) scale(0)`;e.style.opacity="0"},500+i*60));
+  P.poops=[];P.g.clean=clamp(P.g.clean+6*n,0,100);P.cnt.bath+=n*.5;
+  setTimeout(()=>{renderPoops();say(n>=5?`${n}こも ながれた！ ジャーー！`:`ジャー！ ${n}こ ながしたよ！`);fx("✨",rr.width*.85,rr.height*.6,36);setMood("happy",1000);renderPet()},1500);
+  gain(n*4+gold*8);renderHeader();updateWant();save()}
+$("a_flush").onclick=flushAll;$("toilet").onclick=flushAll;
+
+/* bath */
+let bathing=false,bathProg=0;
+$("a_bath").onclick=()=>{if(!needPet())return;if(bathing){endBath();return}$("foods").classList.remove("on");endPlay(true);bathing=true;bathProg=0;SFX.splash();
+  $("tub").classList.add("on");$("modebar").classList.add("on");$("modeMeter").style.width="0";say("ゆびで ごしごし あらってあげよう！")};
+function scrub(x,y){if(!bathing)return;bathProg=Math.min(1,bathProg+.018);$("modeMeter").style.width=bathProg*100+"%";
+  if(Math.random()<.5){const b=document.createElement("div");b.className="bubble";const s=rnd(14,34);b.style.width=b.style.height=s+"px";b.style.left=(x-s/2+rnd(-14,14))+"px";b.style.top=(y-s/2+rnd(-14,14))+"px";$("room").appendChild(b);setTimeout(()=>b.remove(),2400)}
+  if(Math.random()<.08)SFX.splash();P.g.clean=clamp(P.g.clean+.8,0,100);if(Math.random()<.1){renderPet();renderHeader()}
+  if(bathProg>=1)endBath()}
+function endBath(silent){if(!bathing)return;bathing=false;$("tub").classList.remove("on");$("modebar").classList.remove("on");if(silent)return;
+  if(bathProg>=.5){P.g.clean=100;P.g.fun=clamp(P.g.fun+8,0,100);P.cnt.bath+=2;setMood("happy",1400);anim("wiggle",1000);say("ぴかぴか！ きもちいい〜！");const c=petCenter();fx("✨",c.x-40,c.top+20);fx("✨",c.x+40,c.top+40);gain(14)}
+  else say("また はいろうね");renderPet();renderHeader();updateWant();save()}
+
+/* play */
+let playing=false,catches=0,ballEl=null;
+$("a_play").onclick=()=>{if(!needPet())return;if(playing){endPlay();return}if(P.g.energy<10){say("つかれて ねむい…");return}$("foods").classList.remove("on");endBath(true);playing=true;catches=0;
+  ballEl=document.createElement("div");ballEl.className="ball";ballEl.textContent=pick(["⚽","🏀","🎾","🏐"]);ballEl.style.left="15%";ballEl.style.bottom="8%";$("room").appendChild(ballEl);
+  $("modebar").classList.add("on");$("modeMeter").style.width="0";say("ボールを タップして なげよう！");
+  ballEl.onclick=e=>{e.stopPropagation();throwBall()}}
+function throwBall(){if(!playing||ballEl.dataset.fly)return;ballEl.dataset.fly=1;SFX.boing();ballEl.style.bottom="62%";ballEl.style.left="44%";
+  setTimeout(()=>{anim("hop",550);setMood("happy",700)},250);
+  setTimeout(()=>{catches++;$("modeMeter").style.width=(catches/5*100)+"%";const c=petCenter();fx(pick(["キャッチ！","ナイス！","やったー！"]),c.x,c.top,20);SFX.pop();
+    P.g.fun=clamp(P.g.fun+8,0,100);P.g.energy=clamp(P.g.energy-4,0,100);P.cnt.play+=.6;gain(4);renderHeader();
+    ballEl.style.left=rnd(5,75)+"%";ballEl.style.bottom=rnd(5,14)+"%";delete ballEl.dataset.fly;if(catches>=5)setTimeout(()=>endPlay(),500)},750)}
+function endPlay(silent){if(!playing)return;playing=false;if(ballEl)ballEl.remove();ballEl=null;$("modebar").classList.remove("on");if(silent)return;
+  if(catches>=3){say("たのしかった〜！");setMood("happy",1200);gain(6)}renderHeader();updateWant();save()}
+
+/* sleep */
+let sleeping=false;
+$("a_sleep").onclick=()=>{if(!needPet())return;closeModes();sleeping=true;$("night").classList.add("on");$("win").style.background="linear-gradient(#20265A,#3A3F7A)";renderPet();say("おやすみ〜");SFX.snore();
+  let k=0;const iv=setInterval(()=>{const c=petCenter();const z=document.createElement("div");z.className="zzz";z.textContent="Z";z.style.left=(c.x+c.w*.2+k*8)+"px";z.style.top=(c.top+10)+"px";$("room").appendChild(z);setTimeout(()=>z.remove(),1600);if(k%2)SFX.snore();k++},700);
+  setTimeout(()=>{clearInterval(iv);sleeping=false;$("night").classList.remove("on");$("win").style.background="";P.g.energy=100;P.cnt.sleep+=1.2;setMood("happy",1200);anim("hop",550);say("おはよう！ げんき いっぱい！");gain(10);renderHeader();updateWant();save()},5200)};
+$("night").onclick=()=>say("しーっ… ねてるよ",false);
+
+/* pat */
+let patT=0;
+function pat(){if(!needPet())return;const now=Date.now();const c=petCenter();fx(pick(["💗","💕","💖"]),c.x+rnd(-40,40),c.top+rnd(0,40));SFX.heart();setMood("love",1000);anim("wiggle",900);
+  if(now-patT>1500){patT=now;P.g.fun=clamp(P.g.fun+5,0,100);P.cnt.pet+=1;gain(4);if(Math.random()<.4)say(pick(["えへへ","うれしい！","くすぐったい〜","だいすき！"]));renderHeader();updateWant();save()}}
+$("a_pat").onclick=pat;
+
+/* pet / room pointer */
+let drag=null;
+$("pet").addEventListener("pointerdown",e=>{ac();if(!P)return;
+  if(P.stage===0){P.hatch++;SFX.crack();anim("wiggle",900);const c=petCenter();fx("💗",c.x+rnd(-30,30),c.top+30);renderPet();renderHeader();
+    if(P.hatch===1)say("あたたかく なってきた！");if(P.hatch===5)say("うごいてる！ もうすこし！");if(P.hatch>=8){P.hatch=8;evolve(1)}save();return}
+  if(bathing){drag=true;return}pat()});
+$("room").addEventListener("pointermove",e=>{if(!bathing)return;if(e.pointerType==="mouse"&&!e.buttons)return;const rr=$("room").getBoundingClientRect(),x=e.clientX-rr.left,y=e.clientY-rr.top,c=petCenter();if(Math.abs(x-c.x)<c.w*.45&&y>c.top)scrub(x,y)});
+$("room").addEventListener("pointerdown",e=>{if(e.target.closest(".foods"))return;if(bathing){const rr=$("room").getBoundingClientRect();scrub(e.clientX-rr.left,e.clientY-rr.top)}});
+$("room").style.touchAction="none";
+
+/* tick */
+setInterval(()=>{if(!P||P.stage===0||busy||sleeping||document.hidden)return;
+  P.g.food=clamp(P.g.food-1.2,0,100);P.g.fun=clamp(P.g.fun-.9,0,100);P.g.energy=clamp(P.g.energy-.6,0,100);if(P.poops.length)P.g.clean=clamp(P.g.clean-.4*P.poops.length,0,100);else P.g.clean=clamp(P.g.clean-.3,0,100);
+  // sometimes poops on its own
+  if(Math.random()<.025&&P.poops.length<6)doPoop(1);
+  renderHeader();updateWant();if(Math.random()<.2){renderPet();renderPoops()}save()},3000);
+
+/* ================= screens ================= */
+function showTitle(){busy=false;closeModes();$("titleOv").classList.add("show");const has=store("pet_cur");const n=Object.keys(zukan).length;
+  const ps=[["uni","#FFFFFF","love"],["maru","#FFB3C7","king"],["dora","#7ED6A7","genki"]];
+  $("titleCard").innerHTML=`<div class="title-pets">${ps.map(([s,c,v])=>`<div>${petSVG({sp:s,color:c,stage:3,variant:v,mood:"happy"})}</div>`).join("")}</div>
+   <h1>なかよし ペット</h1><p>たまごから そだてて、おとなに しんか させよう！<br>${SPECIES.length}しゅるい × ${VARIANTS.length}つの すがた</p>
+   <div class="btns">${has&&!has.done?`<button class="bigbtn pink" id="tCont">▶ つづきから（${has.name}）</button>`:""}
+   <button class="bigbtn ${has&&!has.done?"":"pink"}" id="tNew">🥚 あたらしい たまご</button>
+   <button class="bigbtn small" id="tZ">📖 ずかん（${n} / ${SPECIES.length*VARIANTS.length}）</button></div>`;
+  if($("tCont"))$("tCont").onclick=()=>{ac();SFX.pop();P=has;$("titleOv").classList.remove("show");enterRoom()};
+  $("tNew").onclick=()=>{ac();SFX.pop();if(has&&!has.done&&!confirm(`${has.name}と おわかれして あたらしい たまごに する？`))return;$("titleOv").classList.remove("show");openPick()};
+  $("tZ").onclick=()=>{SFX.pop();openZukan()}}
+let pk={sp:"maru",color:null,name:""};
+function openPick(){pk={sp:pk.sp||"maru",color:null,name:""};pickStep1()}
+function pickStep1(){$("pickCard").innerHTML=`<h2>どの こを そだてる？</h2><div class="grid">${SPECIES.map(s=>{const got=VARIANTS.filter(v=>zukan[zkey(s.id,v.id)]).length;
+    return `<button class="sp ${pk.sp===s.id?"sel":""}" data-s="${s.id}">${got?`<span class="badge">${got}/6</span>`:""}<div class="im">${petSVG({sp:s.id,color:s.c,stage:2,mood:"normal"})}</div>${s.name}</button>`}).join("")}</div>
+    <div class="btns"><button class="bigbtn pink" id="p1n">つぎへ ▶</button><button class="bigbtn small" id="p1b">もどる</button></div>`;
+  $("pickOv").classList.add("show");speak("どの こを そだてる？");
+  document.querySelectorAll("#pickCard .sp").forEach(b=>b.onclick=()=>{pk.sp=b.dataset.s;SFX.pop();speak(SPI[pk.sp].name);document.querySelectorAll("#pickCard .sp").forEach(x=>x.classList.toggle("sel",x===b))});
+  $("p1n").onclick=()=>{SFX.pop();pk.color=SPI[pk.sp].c;pickStep2()};$("p1b").onclick=()=>{$("pickOv").classList.remove("show");showTitle()}}
+function pickStep2(){const s=SPI[pk.sp];const cols=[s.c,...COLORS.filter(c=>c.toLowerCase()!==s.c.toLowerCase())];
+  if(!pk.name)pk.name=pick(NAMES);
+  $("pickCard").innerHTML=`<h2>いろと なまえを きめよう</h2><div class="preview" id="pv"></div>
+   <div class="swatches">${cols.map(c=>`<button class="sw ${c===pk.color?"sel":""}" style="background:${c}" data-c="${c}" aria-label="いろ"></button>`).join("")}</div>
+   <div class="nameRow"><input id="nm" maxlength="8" value="${pk.name}" aria-label="なまえ"><button class="iconbtn" id="dice" aria-label="なまえを きめる">🎲</button></div>
+   <div class="chips">${NAMES.slice(0,8).map(n=>`<button data-n="${n}">${n}</button>`).join("")}</div>
+   <div class="btns"><button class="bigbtn pink" id="p2n">🥚 たまごから そだてる！</button><button class="bigbtn small" id="p2b">もどる</button></div>`;
+  const pv=()=>{$("pv").innerHTML=petSVG({sp:pk.sp,color:pk.color,stage:2,mood:"happy"})};pv();speak("いろと なまえを きめよう");
+  document.querySelectorAll("#pickCard .sw").forEach(b=>b.onclick=()=>{pk.color=b.dataset.c;SFX.pop();document.querySelectorAll("#pickCard .sw").forEach(x=>x.classList.toggle("sel",x===b));pv()});
+  const setN=n=>{pk.name=n;$("nm").value=n;SFX.pop();speak(n)};
+  $("dice").onclick=()=>setN(pick(NAMES));document.querySelectorAll("#pickCard .chips button").forEach(b=>b.onclick=()=>setN(b.dataset.n));
+  $("nm").oninput=()=>pk.name=$("nm").value;
+  $("p2b").onclick=()=>{SFX.pop();pickStep1()};
+  $("p2n").onclick=()=>{const n=($("nm").value||"").trim()||pick(NAMES);P=newPet(pk.sp,pk.color,n);save();$("pickOv").classList.remove("show");SFX.pop();enterRoom();say(`${n}の たまご！ タップして あたためよう！`)}}
+function enterRoom(){busy=false;closeModes();renderPet();renderPoops();renderHeader();updateWant();
+  if(P.stage===0)setTimeout(()=>say("たまごを タップして あたためよう！"),300);else if(P.done)say(`${P.name}、おかえり！`)}
+function openZukan(){const n=Object.keys(zukan).length,tot=SPECIES.length*VARIANTS.length;
+  $("zukanCard").innerHTML=`<h2>📖 ずかん　${n} / ${tot}</h2><p style="margin:0 0 4px">おとなに なると しんかの すがたが ふえるよ<br>${VARIANTS.map(v=>`${v.em}${v.name}＝${v.how}`).join("　")}</p>
+   ${SPECIES.map(s=>`<div class="zrow"><div class="nm">${s.name}</div><div class="cells">${VARIANTS.map(v=>{const z=zukan[zkey(s.id,v.id)];
+      return z?`<div class="zcell got" title="${z.name}">${petSVG({sp:s.id,color:z.color,stage:3,variant:v.id,mood:"happy"})}</div>`:`<div class="zcell">？</div>`}).join("")}</div></div>`).join("")}
+   <div class="btns"><button class="bigbtn small" id="zc">とじる</button></div>`;
+  $("zukanOv").classList.add("show");$("zc").onclick=()=>$("zukanOv").classList.remove("show")}
+
+$("homeBtn").onclick=()=>{SFX.pop();save();showTitle()};
+$("zukanBtn").onclick=()=>{SFX.pop();openZukan()};
+function setVoiceBtn(){$("voiceBtn").textContent=voiceOn?"🔊":"🔇"}
+$("voiceBtn").onclick=()=>{voiceOn=!voiceOn;store("pet_voice",voiceOn);setVoiceBtn();try{if(!voiceOn)speechSynthesis.cancel()}catch(e){}};
+const st=document.createElement("style");st.textContent="@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}";document.head.appendChild(st);
+setVoiceBtn();P=store("pet_cur");if(P){renderPet();renderPoops();renderHeader()}showTitle();
+</script>
+</body>
+</html>
