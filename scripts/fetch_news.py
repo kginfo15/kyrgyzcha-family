@@ -371,7 +371,7 @@ def collect_infra(prev_tr):
 
 # ---------------------------------------------------------------- my streets
 
-# Central Bishkek streets around the JICA office (Panfilov St. 178) that the app
+# Central Bishkek streets that the app
 # lets people pick from: (id used by weather.html, Russian word start).
 # Kyrgyz forms share the same start.
 WATCH_STREETS = [
