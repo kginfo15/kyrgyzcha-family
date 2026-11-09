@@ -24,7 +24,7 @@ import sys
 import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/sector-data/"
+DATA = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/sector-data/"
 MODEL = os.environ.get("WEEK_MODEL") or "claude-haiku-5-5"
 PICKS = 5
 CANDIDATES = 15

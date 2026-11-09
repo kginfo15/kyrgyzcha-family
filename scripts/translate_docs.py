@@ -51,7 +51,7 @@ MAX_CHARS = 260000
 TIME_BUDGET = int(os.environ.get("TRANSLATE_BUDGET", 50 * 60))
 START = time.time()
 STATS = collections.Counter()
-PREV = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/strategy-docs/"
+PREV = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/strategy-docs/"
 
 
 def gtx(texts, sl):

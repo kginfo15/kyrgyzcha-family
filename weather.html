@@ -281,7 +281,6 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .sbtn.on{background:rgba(var(--accent-rgb),.10);border-color:rgba(var(--accent-rgb),.55)}
 .sbtn.on .ck{background:var(--accent);border-color:var(--accent)}
 .sbtn.on .ck svg{opacity:1}
-.sbtn .jica{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.06em;color:#000;background:var(--star);border-radius:4px;padding:0 4px;margin-left:4px;vertical-align:2px}
 .pfoot{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;margin-top:16px;padding:12px 0 4px;background:linear-gradient(180deg,transparent,var(--panel) 30%)}
 .pclear{font-size:13px;font-weight:700;color:var(--ink-3);padding:12px 6px}
 .pdone{flex:1;font-size:15px;font-weight:800;color:var(--on-ink);background:var(--ink);border-radius:14px;padding:13px}
@@ -741,7 +740,7 @@ const MODELS = [
   {key:"gfs_seamless", name:"GFS（米国）"},
 ];
 const TZ = CFG.tz;
-const NEWS_URL = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/news-data/" + CFG.news;
+const NEWS_URL = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/news-data/" + CFG.news;
 // settings are kept per country (Kyrgyzstan keeps its original keys)
 const CACHE_KEY = "kg-weather-v2"+CFG.suffix, FAV_KEY = "kg-weather-favs"+CFG.suffix, PREF_KEY = "kg-weather-prefs";
 const NEWS_KEY = "kg-news-v1"+CFG.suffix;
@@ -1101,14 +1100,14 @@ const KIND = {water:"🚰 断水", power:"⚡ 停電", gas:"🔥 ガス", heat:"
 const HAZ_KINDS = ["quake","slide","avalanche","flood","wind","storm","emergency"];
 const kindLabels = ks => (ks||[]).filter(k=>KIND[k]);
 const STREETS_BY_COUNTRY = {kg:[
-  // JICA office: Orion 2 Building, Panfilov St. 178
-  {id:"panfilova", ja:"パンフィロバ通り", ru:"ул. Панфилова", g:"jica", jica:true},
-  {id:"razzakova", ja:"ラザコバ通り", ru:"ул. Раззакова", g:"jica"},
-  {id:"kievskaya", ja:"キエフスカヤ通り", ru:"ул. Киевская", g:"jica"},
-  {id:"orozbekova", ja:"オロズベコバ通り", ru:"ул. Орозбекова", g:"jica"},
-  {id:"toktogula", ja:"トクトグル通り", ru:"ул. Токтогула", g:"jica"},
-  {id:"moskovskaya", ja:"モスコフスカヤ通り", ru:"ул. Московская", g:"jica"},
-  {id:"chui", ja:"チュイ大通り", ru:"пр. Чуй", g:"jica"},
+  // Bishkek city centre: main streets first, then other central streets
+  {id:"panfilova", ja:"パンフィロバ通り", ru:"ул. Панфилова", g:"main"},
+  {id:"razzakova", ja:"ラザコバ通り", ru:"ул. Раззакова", g:"main"},
+  {id:"kievskaya", ja:"キエフスカヤ通り", ru:"ул. Киевская", g:"main"},
+  {id:"orozbekova", ja:"オロズベコバ通り", ru:"ул. Орозбекова", g:"main"},
+  {id:"toktogula", ja:"トクトグル通り", ru:"ул. Токтогула", g:"main"},
+  {id:"moskovskaya", ja:"モスコフスカヤ通り", ru:"ул. Московская", g:"main"},
+  {id:"chui", ja:"チュイ大通り", ru:"пр. Чуй", g:"main"},
   {id:"erkindik", ja:"エルキンディク並木道", ru:"б. Эркиндик", g:"center"},
   {id:"abdrakhmanova", ja:"アブドラフマノバ通り", ru:"ул. Абдрахманова", g:"center"},
   {id:"tynystanova", ja:"トゥイヌイスタノバ通り", ru:"ул. Тыныстанова", g:"center"},
@@ -1180,7 +1179,7 @@ function renderPicker(){
   const sel = new Set(myStreets);
   const group = (g, title) => `<div class="pgroup">${title}</div><div class="sgrid">${STREETS.filter(x=>x.g===g).map(x=>`
       <button class="sbtn ${sel.has(x.id)?"on":""}" data-st="${x.id}" aria-pressed="${sel.has(x.id)}">
-        <span class="sj">${shortSt(x.id)}${x.jica?'<span class="jica">JICA</span>':""}</span><span class="sr">${x.ru}</span>
+        <span class="sj">${shortSt(x.id)}</span><span class="sr">${x.ru}</span>
         <span class="ck">${CHECK_SVG}</span></button>`).join("")}</div>`;
   if(COUNTRY==="kz"){
     const cities = Object.entries(CFG.streetCities);
@@ -1190,7 +1189,7 @@ function renderPicker(){
       + group(pickerCity, `<b>${CFG.streetCities[pickerCity]}</b>中心部の主な通り`);
   } else {
     document.getElementById("pbody").innerHTML =
-      group("jica", "<b>JICA事務所のまわり</b>パンフィロバ通り178") + group("center", "中心部のほかの通り");
+      group("main", "<b>ビシュケク中心部</b>主な通り") + group("center", "中心部のほかの通り");
   }
   document.getElementById("pdone").textContent = sel.size ? `決定（${sel.size}本）` : "決定";
 }

@@ -6,10 +6,8 @@ name: Weekly key-news summary
 # which monitor.html reads. Without the ANTHROPIC_API_KEY secret the job only
 # prints a notice and the page keeps its free-rule selection.
 on:
-  # schedule paused while the repo is private (free plan has only 2,000 Actions min/month).
-  # To restart, remove the leading '# ' from the next two lines.
-  # schedule:
-  #   - cron: "0 1 * * 6"   # Saturday 01:00 UTC = 07:00 in Bishkek
+  schedule:
+    - cron: "0 1 * * 6"   # Saturday 01:00 UTC = 07:00 in Bishkek
   workflow_dispatch:
 
 permissions:

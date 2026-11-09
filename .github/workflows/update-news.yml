@@ -5,19 +5,16 @@ name: Update Kyrgyz news
 # `news-data` branch (a single force-pushed commit, so main's
 # history stays clean).
 #
-# GitHub often skips scheduled runs, so each run keeps going for about 5.5
-# hours, refreshing every 30 minutes, and then starts the next run itself.
-# The schedule is only a backup that restarts the chain if it ever breaks.
+# Runs every 2 hours (Yuta's choice, 2026-11-09). One run takes a few
+# minutes, so this stays well inside the free plan even if the repo is
+# private again (about 12 runs a day).
 on:
-  # schedule paused while the repo is private (free plan has only 2,000 Actions min/month).
-  # To restart, remove the leading '# ' from the next two lines.
-  # schedule:
-  #   - cron: "17 */3 * * *"
+  schedule:
+    - cron: "17 */2 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
-  actions: write
 
 concurrency:
   group: update-news
@@ -26,16 +23,13 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 350
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Refresh every 30 minutes
+      - name: Refresh once
         env:
           TOKEN: ${{ github.token }}
         run: |
-          start=$(date +%s)
-          echo "START=$start" >> "$GITHUB_ENV"
-          end=$(( start + 5*3600 + 30*60 ))
           publish() {
             rm -rf "$RUNNER_TEMP/out" && mkdir "$RUNNER_TEMP/out" && cd "$RUNNER_TEMP/out"
             git init -q
@@ -46,42 +40,23 @@ jobs:
             git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" news-data
             cd "$GITHUB_WORKSPACE"
           }
-          while :; do
-            # pick up script changes pushed to main since this run started
-            git fetch -q --depth 1 origin main && git checkout -q FETCH_HEAD -- scripts || true
-            ok=0
-            # one file per country; keep the last good file if a country fails this round
-            for c in kg kz; do
-              f="news.json"; a="news-archive.json"
-              [ "$c" = kg ] || { f="news-$c.json"; a="news-archive-$c.json"; }
-              rm -f "$RUNNER_TEMP/new-archive.json"
-              if python3 scripts/fetch_news.py "$c" "$RUNNER_TEMP/new-archive.json" > "$RUNNER_TEMP/new.json"; then
-                mv "$RUNNER_TEMP/new.json" "$RUNNER_TEMP/$f"; ok=1
-              else
-                echo "fetch $c failed"
-                curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$f" -o "$RUNNER_TEMP/$f" || rm -f "$RUNNER_TEMP/$f"
-              fi
-              # the week of stored items behind the weekly digest
-              if [ -s "$RUNNER_TEMP/new-archive.json" ]; then
-                mv "$RUNNER_TEMP/new-archive.json" "$RUNNER_TEMP/$a"
-              else
-                curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$a" -o "$RUNNER_TEMP/$a" || rm -f "$RUNNER_TEMP/$a"
-              fi
-            done
-            [ "$ok" = 1 ] && { publish || echo "publish failed"; }
-            [ $(( $(date +%s) + 1800 )) -lt "$end" ] || break
-            sleep 1800
+          ok=0
+          # one file per country; keep the last good file if a country fails this round
+          for c in kg kz; do
+            f="news.json"; a="news-archive.json"
+            [ "$c" = kg ] || { f="news-$c.json"; a="news-archive-$c.json"; }
+            rm -f "$RUNNER_TEMP/new-archive.json"
+            if python3 scripts/fetch_news.py "$c" "$RUNNER_TEMP/new-archive.json" > "$RUNNER_TEMP/new.json"; then
+              mv "$RUNNER_TEMP/new.json" "$RUNNER_TEMP/$f"; ok=1
+            else
+              echo "fetch $c failed"
+              curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$f" -o "$RUNNER_TEMP/$f" || rm -f "$RUNNER_TEMP/$f"
+            fi
+            # the week of stored items behind the weekly digest
+            if [ -s "$RUNNER_TEMP/new-archive.json" ]; then
+              mv "$RUNNER_TEMP/new-archive.json" "$RUNNER_TEMP/$a"
+            else
+              curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$a" -o "$RUNNER_TEMP/$a" || rm -f "$RUNNER_TEMP/$a"
+            fi
           done
-      - name: Start the next run
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # only chain after a long run, so an early failure can't loop quickly
-          if [ $(( $(date +%s) - ${START:-$(date +%s)} )) -gt 3000 ]; then
-            # paused while the repo is private; remove the leading "# " to restart the chain
-            # gh workflow run update-news.yml --ref main -R "$GITHUB_REPOSITORY"
-            echo "chain paused"
-          else
-            echo "run ended early; leaving the restart to the schedule"
-          fi
+          [ "$ok" = 1 ] && { publish || echo "publish failed"; }

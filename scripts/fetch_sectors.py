@@ -55,7 +55,7 @@ def stem_re(words):
 NOW = datetime.now(timezone.utc)
 START = time.time()
 TIME_BUDGET = int(os.environ.get("TIME_BUDGET", 80 * 60))  # seconds for the whole run
-BASE = os.environ.get("PREV_BASE", "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/sector-data/")
+BASE = os.environ.get("PREV_BASE", "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/sector-data/")
 KEEP_YEARS = 4
 BACKFILL_MONTHS = 36
 

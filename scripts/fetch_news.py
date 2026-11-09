@@ -23,7 +23,7 @@ from datetime import datetime, timedelta, timezone
 from email.utils import parsedate_to_datetime
 
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"}
-PREV_URL = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/news-data/news.json"
+PREV_URL = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/news-data/news.json"
 JST = timezone(timedelta(hours=9))
 NOW = datetime.now(timezone.utc)
 
@@ -371,7 +371,7 @@ def collect_infra(prev_tr):
 
 # ---------------------------------------------------------------- my streets
 
-# Central Bishkek streets around the JICA office (Panfilov St. 178) that the app
+# Central Bishkek streets that the app
 # lets people pick from: (id used by weather.html, Russian word start).
 # Kyrgyz forms share the same start.
 WATCH_STREETS = [
@@ -872,7 +872,7 @@ def use_country(code):
     VILLAGE_RE, POSTCODE_RE = re.compile(c["village"]), re.compile(c["postcode"])
     JA_KEYWORDS, JA_QUERIES, MOFA_CODE = c["ja_keywords"], c["ja_queries"], c["mofa"]
     TZ_HOURS, WORLD_QUERIES = c["tz_hours"], c["world_queries"]
-    PREV_URL = "https://raw.githubusercontent.com/yuuuta21/kyrgyzcha-family/news-data/" + c["prev"]
+    PREV_URL = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/news-data/" + c["prev"]
 
 
 def main():
