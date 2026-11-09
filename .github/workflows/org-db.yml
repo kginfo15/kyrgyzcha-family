@@ -6,10 +6,8 @@ name: Ministry structures
 # a ministry got a new regulation after its structure was last read.
 on:
   workflow_dispatch:
-  # schedule paused while the repo is private (free plan has only 2,000 Actions min/month).
-  # To restart, remove the leading '# ' from the next two lines.
-  # schedule:
-  #   - cron: "17 4 1 * *"
+  schedule:
+    - cron: "17 4 1 * *"
   push:
     paths:
       - scripts/org_db.py

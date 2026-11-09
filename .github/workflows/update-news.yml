@@ -9,10 +9,8 @@ name: Update Kyrgyz news
 # hours, refreshing every 30 minutes, and then starts the next run itself.
 # The schedule is only a backup that restarts the chain if it ever breaks.
 on:
-  # schedule paused while the repo is private (free plan has only 2,000 Actions min/month).
-  # To restart, remove the leading '# ' from the next two lines.
-  # schedule:
-  #   - cron: "17 */3 * * *"
+  schedule:
+    - cron: "17 */3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -79,9 +77,7 @@ jobs:
         run: |
           # only chain after a long run, so an early failure can't loop quickly
           if [ $(( $(date +%s) - ${START:-$(date +%s)} )) -gt 3000 ]; then
-            # paused while the repo is private; remove the leading "# " to restart the chain
-            # gh workflow run update-news.yml --ref main -R "$GITHUB_REPOSITORY"
-            echo "chain paused"
+            gh workflow run update-news.yml --ref main -R "$GITHUB_REPOSITORY"
           else
             echo "run ended early; leaving the restart to the schedule"
           fi
