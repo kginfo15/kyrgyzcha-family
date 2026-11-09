@@ -5,7 +5,7 @@ usage: python3 scripts/check_noindex.py   (exit code 1 if a page is missing it)
 Every page must carry, inside <head>:
   <meta name="robots" content="noindex, nofollow, noarchive">
 robots.txt can't be used instead: GitHub Pages serves this site under
-yuuuta21.github.io/kyrgyzcha-family/, and crawlers only read robots.txt at the
+kginfo15.github.io/kyrgyzcha-family/, and crawlers only read robots.txt at the
 domain root.
 """
 import glob
