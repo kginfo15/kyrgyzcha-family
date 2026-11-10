@@ -4,10 +4,14 @@ name: Update sector monitor
 # projects for sectors.html (scripts/fetch_sectors.py) and publishes them on
 # the `sector-data` branch as a single force-pushed commit.
 # Runs every 3 hours; every run adds to the stored archive and fills in one
-# more past month.
+# more past month. GitHub often skips or delays scheduled runs, so a run on
+# main waits until 3 hours after it started and then starts the next run
+# itself; the schedule is only a backup that restarts the chain if it breaks.
+# Public repos: Actions minutes are free. If the repo goes private again,
+# pause this (it runs around the clock).
 on:
   schedule:
-    - cron: "41 */3 * * *"
+    - cron: "41 */12 * * *"
   workflow_dispatch:
   # also run when the collector changes, so a change can be tried before it reaches main
   push:
@@ -18,6 +22,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: update-sectors
@@ -26,9 +31,11 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 110
+    timeout-minutes: 190
     steps:
       - uses: actions/checkout@v4
+      - name: Note the start time
+        run: echo "START=$(date +%s)" >> "$GITHUB_ENV"
       - name: Install the Claude SDK
         run: python3 -m pip install --quiet "anthropic>=2,<3"
       - name: Collect
@@ -49,3 +56,15 @@ jobs:
           git add -A
           git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update sector data"
           git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" sector-data
+      - name: Wait, then start the next run
+        # only on main and not for test runs started by a push
+        if: always() && github.ref == 'refs/heads/main' && github.event_name != 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          elapsed=$(( $(date +%s) - ${START:-$(date +%s)} ))
+          # an early failure must not loop quickly
+          if [ "$elapsed" -lt 600 ]; then echo "run ended early; leaving the restart to the schedule"; exit 0; fi
+          wait=$(( 3*3600 - 300 - elapsed ))
+          if [ "$wait" -gt 0 ]; then sleep "$wait"; fi
+          gh workflow run update-sectors.yml --ref main -R "$GITHUB_REPOSITORY"
