@@ -350,6 +350,16 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .cat-major{background:var(--brand-soft);color:var(--brand)}
 .nitem .nl{font-size:13px;color:var(--ink-2);margin-top:3px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .nitem .no{font-size:11px;color:var(--ink-3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nsearch{margin:8px 0}
+.nsbox{display:block;position:relative}
+.nsbox input{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 12px 8px 34px;background:var(--card);color:var(--ink);font-size:16px;-webkit-appearance:none;appearance:none}
+.nsbox input::placeholder{color:var(--ink-3);font-size:13.5px}
+.nsbox input:focus{outline:none;border-color:var(--accent)}
+.nsbox svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--ink-3);pointer-events:none}
+.nqhead{font-size:12px;color:var(--ink-2);padding:10px 0 6px;line-height:1.5}
+.nqhead .qx{display:block;color:var(--ink-3);margin-top:2px}
+.linkbtn{font-size:inherit;color:var(--brand);text-decoration:underline;text-underline-offset:2px;padding:0}
+.cat-kind{background:var(--card-2);color:var(--ink-2)}
 .nnote{font-size:11px;color:var(--ink-3);padding:6px 0 4px;border-top:1px solid var(--line)}
 .risk{margin:10px 0 6px;padding:12px;border-radius:12px;background:var(--card-2)}
 .risk .lv{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
@@ -599,7 +609,7 @@ details.about .foot{margin-top:8px}
     </div>
     <div class="banner" id="banner"></div>
   </header>
-  <p class="notice" role="note">このサイトは、開発者が個人的な情報収集のために作成したものです。内容の正確性や最新性は保証しておらず、所属組織の見解を示すものでもありません。</p>
+  <p class="notice" role="note">このサイトは、開発者が個人的な情報収集のために作成したものです。内容の正確性や最新性は保証していません。</p>
 
   <div class="layout">
   <div class="topgrid">
@@ -613,6 +623,10 @@ details.about .foot{margin-top:8px}
   <aside class="col-side">
   <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span><button class="wkpill" id="openWeekly">📅 先週のまとめ</button></h2>
   <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地報道</button><button data-k="japan">日本の報道</button><button data-k="world">世界の報道</button><button data-k="safety">安全情報</button></div>
+  <form class="nsearch" id="nsform" role="search" action="#">
+    <label class="nsbox"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="nq" type="search" placeholder="ニュースを検索（日本語・ロシア語・英語）" autocomplete="off" enterkeyhint="search" aria-label="ニュースを検索"></label>
+  </form>
   <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
   </aside>
   </div>
@@ -774,6 +788,9 @@ let favs = lsGet(FAV_KEY); if(!Array.isArray(favs)) favs = [...CFG.favs];
 const prefs = Object.assign({sort:"def", newsTab:"local", newsCat:"all"}, lsGet(PREF_KEY)||{});
 if(!["local","japan","world","safety"].includes(prefs.newsTab)) prefs.newsTab = "local";
 let loading = false, newsShowAll = false;
+// news search state (declared early: renderNews can run before the search code below)
+let newsQ = "", newsQRaw = false, newsArchive = null, archiveLoading = false;
+let SEARCH_TERMS = null, termsLoading = false, termsFailed = false, qCache = {};
 
 const idx = id => CITIES.findIndex(c=>c.id===id);
 const isFav = id => favs.includes(id);
@@ -1027,8 +1044,107 @@ function newsData(){
 }
 const fmtDate = iso => new Date(iso).toLocaleDateString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric"});
 
+/* ---------- news search (same rules as the search on monitor.html) ----------
+   Searches the local, Japanese and world news now on the page plus the stored week of items
+   (news-archive.json). search-terms.json groups the Japanese, Russian and English words for one idea,
+   so 「断水」 also finds "отключение воды". The input itself is never redrawn (the iPhone keyboard stays open). */
+const SW = "0-9a-zа-яөүңәіқғұһ";
+const normQ = s => String(s||"").normalize("NFKC").toLowerCase().replace(/ё/g,"е").replace(/[\-‐–—\/・]/g," ").replace(/\s+/g," ");
+const rxEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+function termRx(t, lang){
+  const whole = t.endsWith("!"), s = normQ(t.replace(/!$/,"")).trim(), parts = s.split(" ");
+  if(lang==="ja" && !whole && !/[a-zа-я]/.test(s)) return rxEsc(s);
+  return `(?:^|[^${SW}])` + parts.map(rxEsc).join(`[${SW}]*\\s+`) + (whole ? `(?![${SW}])` : "");
+}
+function loadSearchTerms(){
+  if(SEARCH_TERMS || termsLoading || termsFailed) return;
+  termsLoading = true;
+  fetch("search-terms.json", {cache:"no-cache"}).then(r=>r.ok?r.json():null).then(d=>{
+    if(!d || !Array.isArray(d.groups)){ termsFailed = true; return; }
+    const byId = {}, kids = {}, keys = [];
+    for(const g of d.groups){ byId[g.id] = g; if(g.parent) (kids[g.parent] = kids[g.parent] || []).push(g.id); }
+    for(const g of d.groups) for(const lang of ["ja","ru","en"]) for(const t of g[lang]||[]){
+      const k = normQ(t.replace(/!$/,"")).trim();
+      const stem = lang!=="ja" && !t.endsWith("!") && k.length>=4 ? new RegExp("^"+k.split(" ").map(rxEsc).join(`[${SW}]*\\s+`)) : null;
+      if(k) keys.push({k, flat:k.replace(/ /g,""), id:g.id, stem});
+    }
+    const rx = {}, family = id => [id, ...(kids[id]||[]).flatMap(family)];
+    const groupRx = id => rx[id] || (rx[id] = new RegExp(family(id).flatMap(f=>["ja","ru","en"].flatMap(l=>(byId[f][l]||[]).map(t=>termRx(t,l)))).join("|")));
+    SEARCH_TERMS = {byId, keys, groupRx};
+    qCache = {};
+    if(newsQ) renderNews();
+  }).catch(()=>{ termsFailed = true; }).finally(()=>{ termsLoading = false; });
+}
+function loadNewsArchive(){
+  if(newsArchive || archiveLoading) return;
+  archiveLoading = true;
+  fetch(NEWS_URL.replace(/news(-kz)?\.json$/, `news-archive${CFG.suffix}.json`), {cache:"no-cache"})
+    .then(r=>r.ok?r.json():null).then(d=>{ newsArchive = (d && d.items) || []; if(newsQ) renderNews(); })
+    .catch(()=>{ newsArchive = []; }).finally(()=>{ archiveLoading = false; });
+}
+function termGroups(word){
+  if(!SEARCH_TERMS) return [];
+  const w = normQ(word).trim(), flat = w.replace(/ /g,"");
+  const exact = SEARCH_TERMS.keys.filter(e=>e.k===w || e.flat===flat);
+  const hit = exact.length ? exact : SEARCH_TERMS.keys.filter(e=>e.stem && e.stem.test(w));
+  return [...new Set(hit.map(e=>e.id))];
+}
+// one matcher per search word (all must match)
+function queryMatchers(q, raw){
+  q = (q||"").trim();
+  if(!q) return [];
+  const key = q+"|"+(raw?1:0);
+  if(qCache[key]) return qCache[key];
+  if(!raw) loadSearchTerms();
+  const words = [], whole = raw ? [] : termGroups(q);
+  if(whole.length) words.push({w:q, ids:whole});
+  else for(const w of normQ(q).trim().split(" ")) words.push({w, ids:raw ? [] : termGroups(w)});
+  const out = words.map(({w, ids})=>{
+    const plain = normQ(w).trim(), rxs = ids.map(id=>SEARCH_TERMS.groupRx(id));
+    return {w, ids, test: rxs.length ? txt => rxs.some(r=>r.test(txt)) : txt => txt.includes(plain)};
+  });
+  if(SEARCH_TERMS || raw) qCache[key] = out;
+  return out;
+}
+// "灌漑 → орошение・irrigation なども含めて検索"
+function qExpandNote(){
+  const qm = queryMatchers(newsQ, newsQRaw), hit = qm.filter(m=>m.ids.length);
+  if(newsQRaw) return `<span class="qx">言い換えなしで検索中 <button class="linkbtn" data-nqraw="">言い換えも含める</button></span>`;
+  if(!hit.length) return "";
+  const ex = m => { const g = SEARCH_TERMS.byId[m.ids[0]], pick = l => (g[l]||[]).map(t=>t.replace(/!$/,"")).find(t=>normQ(t).trim()!==normQ(m.w).trim());
+    return [pick("ja"), ...(g.show||[]).filter(t=>normQ(t).trim()!==normQ(m.w).trim())].filter(Boolean).slice(0,3).join("・"); };
+  return `<span class="qx">${hit.map(m=>`${esc(m.w)} → ${esc(ex(m))}`).join("、")} なども含めて検索 <button class="linkbtn" data-nqraw="1">言い換えなしで探す</button></span>`;
+}
+// every article we have: on the page now + the stored week, newest first, one per link
+function newsPool(nd){
+  const seen = new Set(), out = [];
+  const add = (x, kind) => { if(!x || !x.link || seen.has(x.link)) return; seen.add(x.link);
+    out.push({...x, kind, kn: normQ([x.title, x.title_ja, x.lead, x.lead_ja, x.source].filter(Boolean).join(" "))}); };
+  (nd.local||[]).forEach(x=>add(x,"local")); (nd.japan||[]).forEach(x=>add(x,"japan")); (nd.world||[]).forEach(x=>add(x,"world"));
+  (nd.infra||[]).forEach(x=>add(x,"infra"));
+  (newsArchive||[]).forEach(x=>add(x, {news:"local", world:"world", infra:"infra"}[x.kind] || "local"));
+  return out.sort((a,b)=>(b.published||"").localeCompare(a.published||""));
+}
+const KIND_LBL = {local:"現地", japan:"日本", world:"世界", infra:"ライフライン"};
+function renderNewsSearch(el, nd, more, when){
+  const qm = queryMatchers(newsQ, newsQRaw);
+  const items = newsPool(nd).filter(x=>qm.every(m=>m.test(x.kn)));
+  const shown = newsShowAll ? items : items.slice(0,10);
+  const wait = (!newsArchive && archiveLoading) || (termsLoading && !newsQRaw);
+  el.innerHTML = `<div class="nqhead">「${esc(newsQ)}」の検索結果 <b>${items.length}件</b>${wait?"（読み込み中…）":""}${qExpandNote()}</div>`
+    + (shown.length ? shown.map(n=>{
+        const jp = n.kind==="japan", href = jp ? n.link : jaLink(n.link);
+        return `<div class="nitem"><a class="nmain" href="${esc(href)}" target="_blank" rel="noopener">
+          <div class="nt"><span class="cat ${n.kind==="world"?"cat-major":"cat-kind"}">${KIND_LBL[n.kind]}</span>${esc(n.title_ja||n.title)}</div>
+          ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}</a>
+          <div class="ns">${esc(n.source||"")}${when(n.published)}${jp?"":"・"+origLink(n.link)}</div></div>`; }).join("")
+      : `<div class="nempty">見つかりませんでした。言葉を短くするか、別の言い方で試してください。</div>`)
+    + (items.length>10 ? more(items.length) : "")
+    + `<div class="nnote">現地・日本・世界の報道と、この1週間ほどに集めた記事から探しています（日本語訳・原文の両方が対象）。</div>`;
+}
+
 function renderNews(){
-  document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", b.dataset.k===prefs.newsTab));
+  document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", !newsQ && b.dataset.k===prefs.newsTab));
   const el = document.getElementById("news"), nd = newsData();
   renderAlert(nd); renderInfra(nd); renderHazards(nd); renderCalendar(); renderPasses();
   if(weeklyOpen) renderWeekly();
@@ -1041,6 +1157,7 @@ function renderNews(){
   if(!nd){ el.innerHTML = `<div class="nempty">ニュースを読み込めませんでした。しばらくしてから更新してください。</div>`; return; }
   const more = (n)=> n>5 ? `<button class="nmore" id="nmore">${newsShowAll?"閉じる":"もっと見る（"+n+"件）"}</button>` : "";
   const when = iso => iso ? "・"+ago(Date.parse(iso)) : "";
+  if(newsQ){ renderNewsSearch(el, nd, more, when); return; }
 
   if(prefs.newsTab==="local"){
     const all = (nd.local||[]).filter(x=>x.title_ja);
@@ -1072,7 +1189,7 @@ function renderNews(){
         <div class="nt"><span class="cat cat-major">${esc(n.source)}</span>${esc(n.title_ja||n.title)}</div></a>
         <div class="ns">${esc(n.source)}${when(n.published)}・${origLink(n.link)}</div></div>`).join("") : `<div class="nempty">最近の大手メディアの${CFG.short}関連の記事はありません。</div>`)
       + more(items.length)
-      + `<div class="nnote">海外の大手メディア（Reuters・AP・BBC・Bloomberg・FT・Guardian・Al Jazeera・DW など）の${CFG.short}に関する記事を日本語に訳しています。有料の記事は全文を読めないことがあります。</div>`;
+      + `<div class="nnote">海外の主なメディア（Reuters・AP・BBC・Bloomberg・Eurasianet・The Diplomat などの英語メディアと、TASS・Interfax・Kommersant などのロシア語メディア）の${CFG.short}に関する記事を日本語に訳しています。有料の記事は全文を読めないことがあります。</div>`;
     return;
   }
   // safety
@@ -1754,7 +1871,10 @@ document.addEventListener("click", e=>{
   const sb = e.target.closest("#sortbar button");
   if(sb){ prefs.sort = sb.dataset.s; lsSet(PREF_KEY, prefs); renderList(); return; }
   const nt = e.target.closest("#newsTabs button");
-  if(nt){ prefs.newsTab = nt.dataset.k; newsShowAll = false; lsSet(PREF_KEY, prefs); renderNews(); return; }
+  if(nt){ prefs.newsTab = nt.dataset.k; newsShowAll = false; lsSet(PREF_KEY, prefs);
+    if(newsQ){ newsQ = ""; document.getElementById("nq").value = ""; } renderNews(); return; }
+  const nr = e.target.closest("[data-nqraw]");
+  if(nr){ newsQRaw = !!nr.dataset.nqraw; newsShowAll = false; renderNews(); return; }
   const ct = e.target.closest("[data-cat]");
   if(ct){ prefs.newsCat = ct.dataset.cat; newsShowAll = false; lsSet(PREF_KEY, prefs); renderNews(); return; }
   if(e.target.closest("#alert")){ prefs.newsTab = "safety"; newsShowAll = false; renderNews();
@@ -1790,6 +1910,15 @@ document.addEventListener("click", e=>{
   if(e.target.closest("#mall")){ mallOpen = !mallOpen; renderInfra(newsData()); return; }
   if(e.target.closest("#nmore")){ newsShowAll = !newsShowAll; renderNews(); return; }
 });
+// news search box: filter as you type (after a short pause; not while a Japanese word is still being composed)
+(()=>{
+  const inp = document.getElementById("nq"); let timer = 0;
+  const run = () => { const v = inp.value.trim(); if(v===newsQ) return; newsQ = v; newsShowAll = false; renderNews(); };
+  inp.addEventListener("focus", ()=>{ loadSearchTerms(); loadNewsArchive(); });
+  inp.addEventListener("input", e=>{ if(e.isComposing) return; clearTimeout(timer); timer = setTimeout(run, 250); });
+  inp.addEventListener("compositionend", ()=>{ clearTimeout(timer); timer = setTimeout(run, 250); });
+  document.getElementById("nsform").addEventListener("submit", e=>{ e.preventDefault(); clearTimeout(timer); run(); inp.blur(); });
+})();
 document.addEventListener("keydown", e=>{
   if(e.key==="Escape" && !document.getElementById("picker").hidden){ closePicker(); return; }
   if(e.key==="Escape" && openIdx!=null && document.getElementById("skinPicker").hidden){ closeSheet(false); return; }
