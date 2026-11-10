@@ -577,7 +577,7 @@ def collect_japan():
     return out[:25]
 
 
-# ---------------------------------------------------------------- world press (major outlets only)
+# ---------------------------------------------------------------- world press (international outlets only, English and Russian)
 
 WORLD_MEDIA = {
     "reuters.com": "Reuters", "apnews.com": "AP", "bbc.com": "BBC", "bbc.co.uk": "BBC", "bloomberg.com": "Bloomberg",
@@ -586,7 +586,28 @@ WORLD_MEDIA = {
     "aljazeera.com": "Al Jazeera", "dw.com": "DW", "france24.com": "France 24", "cnn.com": "CNN",
     "asia.nikkei.com": "Nikkei Asia", "rferl.org": "RFE/RL", "euronews.com": "Euronews", "afp.com": "AFP",
     "scmp.com": "South China Morning Post", "politico.eu": "Politico", "voanews.com": "VOA", "lemonde.fr": "Le Monde",
+    # wider net (2026-11-10): outlets that often cover Central Asia, in English and Russian
+    "eurasianet.org": "Eurasianet", "thediplomat.com": "The Diplomat", "timesca.com": "Times of Central Asia",
+    "intellinews.com": "bne IntelliNews", "cabar.asia": "CABAR.asia",
+    "xinhuanet.com": "Xinhua", "news.cn": "Xinhua", "cgtn.com": "CGTN",
+    "globaltimes.cn": "Global Times", "aa.com.tr": "Anadolu", "trtworld.com": "TRT World",
+    "dailysabah.com": "Daily Sabah", "rfi.fr": "RFI",
+    "independent.co.uk": "The Independent", "telegraph.co.uk": "The Telegraph", "time.com": "TIME",
+    "foreignpolicy.com": "Foreign Policy", "newsweek.com": "Newsweek", "upi.com": "UPI", "cnbc.com": "CNBC",
+    "forbes.com": "Forbes", "abc.net.au": "ABC (Australia)", "straitstimes.com": "Straits Times",
+    "worldbank.org": "World Bank", "un.org": "UN News", "devex.com": "Devex", "thenewhumanitarian.org": "The New Humanitarian",
+    "tass.com": "TASS", "tass.ru": "TASS", "ria.ru": "RIA Novosti", "interfax.ru": "Interfax",
+    "kommersant.ru": "Kommersant", "rbc.ru": "RBC", "vedomosti.ru": "Vedomosti", "iz.ru": "Izvestia",
+    "rg.ru": "Rossiyskaya Gazeta", "lenta.ru": "Lenta.ru", "gazeta.ru": "Gazeta.ru", "meduza.io": "Meduza",
+    "novayagazeta.eu": "Novaya Gazeta Europe", "currenttime.tv": "Current Time",
+    "fergana.media": "Fergana", "fergana.agency": "Fergana", "eadaily.com": "EADaily",
+    "regnum.ru": "Regnum", "ng.ru": "Nezavisimaya Gazeta", "mk.ru": "MK", "aif.ru": "AiF",
 }
+# each outlet at most this many items, so one wire service cannot fill the list
+WORLD_PER_OUTLET = 4
+WORLD_MAX = 30
+WORLD_DAYS = 30
+EDITIONS = {"en-US": ("en-US", "US", "US:en"), "en-GB": ("en-GB", "GB", "GB:en"), "ru": ("ru", "RU", "RU:ru")}
 
 
 def world_outlet(source_url):
@@ -600,9 +621,11 @@ def world_outlet(source_url):
 def collect_world(prev_tr):
     items, seen = [], set()
     for q in WORLD_QUERIES:
+        q, ed = q if isinstance(q, tuple) else (q, "en-US")
+        hl, gl, ceid = EDITIONS[ed]
         try:
             got = list(rss_items("https://news.google.com/rss/search?" + urllib.parse.urlencode(
-                {"q": q, "hl": "en-US", "gl": "US", "ceid": "US:en"})))
+                {"q": q, "hl": hl, "gl": gl, "ceid": ceid})))
         except Exception as e:
             log(f"world {q}: failed: {e}")
             continue
@@ -614,14 +637,19 @@ def collect_world(prev_tr):
             if src and title.endswith(" - " + src):
                 title = title[: -len(" - " + src)].strip()
             key = title.lower()[:60]
-            if key in seen or not it["date"] or it["date"] < NOW - timedelta(days=21):
+            if key in seen or not it["date"] or it["date"] < NOW - timedelta(days=WORLD_DAYS):
                 continue
             seen.add(key)
             items.append({"title": title, "link": it["link"], "source": outlet,
                           "published": it["date"].isoformat()})
         log(f"world '{q}': {len(got)} fetched")
     items.sort(key=lambda x: x["published"], reverse=True)
-    items = items[:15]
+    per, kept = {}, []
+    for x in items:
+        per[x["source"]] = per.get(x["source"], 0) + 1
+        if per[x["source"]] <= WORLD_PER_OUTLET:
+            kept.append(x)
+    items = kept[:WORLD_MAX]
     for x in items:
         x["link"] = resolve_gnews(x["link"])
     # paid placements on news sites (e.g. BBC StoryWorks) are not reporting
@@ -828,7 +856,10 @@ COUNTRIES = {
         watch={"bishkek": WATCH_STREETS}, village=VILLAGE_RE.pattern, postcode=r"(?<!\d)72\d{4}(?!\d)",
         ja_keywords=("キルギス", "ビシュケク", "イシク", "オシュ", "ジャパロフ"),
         ja_queries=["キルギス ({sites}) when:90d", "キルギス when:14d", "ビシュケク when:30d"],
-        mofa="0996", prev="news.json", tz_hours=6, world_queries=["Kyrgyzstan when:14d", "Bishkek when:14d"]),
+        mofa="0996", prev="news.json", tz_hours=6, world_queries=["Kyrgyzstan when:30d", "Kyrgyz OR Bishkek OR Japarov when:30d",
+                                                            ("Kyrgyzstan when:30d", "en-GB"),
+                                                            ("Киргизия OR Кыргызстан when:14d", "ru"),
+                                                            ("Бишкек OR Жапаров OR киргизский when:14d", "ru")]),
     "kz": dict(
         feeds=[("Tengrinews", "https://tengrinews.kz/news.rss"), ("Kazinform", "https://www.inform.kz/rss/rus.xml"),
                ("Kursiv", "https://kz.kursiv.media/feed/"), ("Sputnik Казахстан", "https://ru.sputnik.kz/export/rss2/archive/index.xml"),
@@ -852,7 +883,8 @@ COUNTRIES = {
         ja_keywords=("カザフ", "アスタナ", "アルマトイ", "アルマティ", "トカエフ"),
         ja_queries=["カザフスタン ({sites}) when:90d", "カザフスタン when:14d", "アスタナ OR アルマトイ when:30d"],
         mofa="0007", prev="news-kz.json", tz_hours=5,
-        world_queries=["Kazakhstan when:14d", "Astana OR Almaty when:14d"]),
+        world_queries=["Kazakhstan when:30d", "Astana OR Almaty OR Tokayev when:30d", ("Kazakhstan when:30d", "en-GB"),
+                       ("Казахстан when:14d", "ru"), ("Астана OR Алматы OR Токаев when:14d", "ru")]),
 }
 
 
