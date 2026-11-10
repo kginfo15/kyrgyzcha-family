@@ -5,16 +5,20 @@ name: Update Kyrgyz news
 # `news-data` branch (a single force-pushed commit, so main's
 # history stays clean).
 #
-# Runs every 2 hours (Yuta's choice, 2026-11-09). One run takes a few
-# minutes, so this stays well inside the free plan even if the repo is
-# private again (about 12 runs a day).
+# Refreshes every 2 hours (Yuta's choice, 2026-11-09).
+# GitHub often skips or delays scheduled runs (none fired for hours after the
+# repo became public again), so each run refreshes 3 times, 2 hours apart, and
+# then starts the next run itself. The schedule is only a backup that
+# restarts the chain if it ever breaks. Public repos: Actions minutes are free.
+# If the repo goes private again, pause this (it runs around the clock).
 on:
   schedule:
-    - cron: "17 */2 * * *"
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: update-news
@@ -23,10 +27,10 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@v4
-      - name: Refresh once
+      - name: Refresh every 2 hours
         env:
           TOKEN: ${{ github.token }}
         run: |
@@ -40,6 +44,11 @@ jobs:
             git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" news-data
             cd "$GITHUB_WORKSPACE"
           }
+          start=$(date +%s)
+          echo "START=$start" >> "$GITHUB_ENV"
+          for round in 1 2 3; do
+          # pick up script changes pushed to main since this run started
+          git fetch -q --depth 1 origin main && git checkout -q FETCH_HEAD -- scripts || true
           ok=0
           # one file per country; keep the last good file if a country fails this round
           for c in kg kz; do
@@ -59,4 +68,20 @@ jobs:
               curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$a" -o "$RUNNER_TEMP/$a" || rm -f "$RUNNER_TEMP/$a"
             fi
           done
-          [ "$ok" = 1 ] && { publish || echo "publish failed"; }
+          if [ "$ok" = 1 ]; then publish || echo "publish failed"; fi
+          # next refresh 2 hours after this round started
+          wait=$(( start + round*7200 - $(date +%s) ))
+          [ "$round" = 3 ] && wait=$(( wait - 300 ))  # leave time to start the next run
+          if [ "$wait" -gt 0 ]; then sleep "$wait"; fi
+          done
+      - name: Start the next run
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # only chain after a long run, so an early failure can't loop quickly
+          if [ $(( $(date +%s) - ${START:-$(date +%s)} )) -gt 3000 ]; then
+            gh workflow run update-news.yml --ref main -R "$GITHUB_REPOSITORY"
+          else
+            echo "run ended early; leaving the restart to the schedule"
+          fi
