@@ -54,7 +54,8 @@ def get(url, timeout=30):
 # ticket.kg category pages -> our category. Sport, seminars, tourism and
 # cinema are left out (not culture events / films change daily).
 TK_CATEGORIES = [("concerts", "concert"), ("performances", "theatre"), ("humor", "comedy"),
-                 ("kids", "kids"), ("exhibition", "exhibit"), ("other", "other")]
+                 ("kids", "kids"), ("exhibition", "exhibit"), ("other", "other"),
+                 ("sport", None), ("seminars", None), ("tourism", None)]  # None = leave out
 TYPE_CAT = {"MusicEvent": "concert", "TheaterEvent": "theatre", "DanceEvent": "theatre",
             "ComedyEvent": "comedy", "ChildrensEvent": "kids", "ExhibitionEvent": "exhibit",
             "Festival": "festival", "VisualArtsEvent": "exhibit", "LiteraryEvent": "other"}
@@ -159,16 +160,16 @@ def collect_ticketkg():
             continue
         for s in event_links(page):
             cat_of.setdefault(s, cat)
-            if s not in order:
+            if s not in order and cat:
                 order.append(s)
         time.sleep(DELAY)
     try:  # the home page lists events of every category; type decides for these
         for s in event_links(get("https://ticket.kg/")):
-            if s not in order:
+            if s not in order and s not in cat_of:
                 order.append(s)
     except Exception as e:
         log(f"ticket.kg home: {e}")
-    log(f"ticket.kg: {len(order)} event links, {len(cat_of)} with a category")
+    log(f"ticket.kg: {len(order)} event links to read, {sum(1 for v in cat_of.values() if v is None)} left out (sport/seminar/tour)")
     out = []
     for slug in order[:MAX_EVENTS]:
         time.sleep(DELAY)
@@ -226,18 +227,29 @@ def collect_articles(prev):
 # -------------------------------------------------------------- translation
 
 def translate_all(items, key, cache):
-    """Fill item[key + '_ja'] from cache or Google's free endpoint, 15 at a time."""
-    todo = [x for x in items if x.get(key) and not cache.get(x[key])]
-    for i in range(0, len(todo), 15):
-        chunk = todo[i:i + 15]
+    """Fill item[key + '_ja'] from cache or Google's free endpoint.
+
+    Small batches with pauses; Google answers 429 (too many requests) when
+    called fast from GitHub's machines. Whatever is left untranslated is
+    tried again on the next run (the page then shows the original)."""
+    todo = []
+    for x in items:
+        if x.get(key) and not cache.get(x[key]) and x[key] not in todo:
+            todo.append(x[key])
+    fails = 0
+    i = 0
+    while i < len(todo) and fails < 4:
+        chunk = todo[i:i + 5]
         try:
-            tr = translate_batch([x[key] for x in chunk], sl="auto", tl="ja")
-            for x, t in zip(chunk, tr):
-                cache[x[key]] = t
-            time.sleep(0.5)
+            for src, t in zip(chunk, translate_batch(chunk, sl="auto", tl="ja")):
+                cache[src] = t
+            i += len(chunk)
+            fails = 0
+            time.sleep(1.5)
         except Exception as e:
-            log(f"translate failed: {e}")
-            break
+            fails += 1
+            log(f"translate failed ({fails}): {e}")
+            time.sleep(20 * fails)
     for x in items:
         x[key + "_ja"] = cache.get(x.get(key), "")
 
