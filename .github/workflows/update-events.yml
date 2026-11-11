@@ -1,0 +1,61 @@
+name: Update culture events
+
+# Reads culture events (ticket.kg public event pages + afisha articles from
+# 24.kg / Kaktus RSS) with scripts/fetch_events.py and publishes events.json
+# on the `events-data` branch (one force-pushed commit), read by events.html.
+#
+# Refreshes about every 6 hours. Like update-news.yml, GitHub often skips
+# scheduled runs, so each run refreshes once, waits, and then starts the next
+# run itself; the schedule only restarts the chain if it ever breaks.
+# Public repo: Actions minutes are free. If the repo goes private again,
+# pause this workflow (it runs around the clock).
+on:
+  schedule:
+    - cron: "41 */12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: update-events
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          start=$(date +%s)
+          echo "START=$start" >> "$GITHUB_ENV"
+          if python3 scripts/fetch_events.py > "$RUNNER_TEMP/events.json"; then
+            mkdir "$RUNNER_TEMP/out" && cd "$RUNNER_TEMP/out"
+            git init -q
+            git checkout -q --orphan events-data
+            cp "$RUNNER_TEMP/events.json" .
+            git add events.json
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update events"
+            git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" events-data || echo "publish failed"
+          else
+            echo "fetch failed; keeping the previous events.json"
+          fi
+          # next refresh about 6 hours after this one started
+          wait=$(( start + 21600 - 600 - $(date +%s) ))
+          if [ "$wait" -gt 0 ]; then sleep "$wait"; fi
+      - name: Start the next run
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # only chain after a long run, so an early failure can't loop quickly
+          if [ $(( $(date +%s) - ${START:-$(date +%s)} )) -gt 3000 ]; then
+            gh workflow run update-events.yml --ref main -R "$GITHUB_REPOSITORY"
+          else
+            echo "run ended early; leaving the restart to the schedule"
+          fi
