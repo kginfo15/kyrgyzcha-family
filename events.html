@@ -296,6 +296,7 @@ function cardHTML(e, d, others){
     +(price(e)?'<span>'+esc(price(e))+'</span>':'')+'</div>';
   h+='<div class="title">'+esc(e.title_ja||e.title)+'</div>';
   if(e.title && e.title_ja && e.title_ja!==e.title) h+='<div class="orig">'+esc(e.title)+'</div>';
+  else if(!e.fest && !e.title_ja) h+='<div class="orig">(日本語訳は次回の更新で付きます)</div>';
   if(e.desc) h+='<div class="venue">'+esc(e.desc)+'</div>';
   if(e.venue) h+='<div class="venue">📍 '+esc(vj||e.venue)+(vj&&vj!==e.venue?' <span class="vo">'+esc(e.venue)+'</span>':'')+'</div>';
   if(others.length) h+='<div class="more">ほかの日: '+others.slice(0,6).map(function(x){return esc(md(x)+"("+WD[wday(x.slice(0,10))]+") "+x.slice(11,16));}).join("、")+(others.length>6?" ほか":"")+'</div>';

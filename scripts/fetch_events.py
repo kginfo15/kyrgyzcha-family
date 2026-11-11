@@ -229,16 +229,18 @@ def collect_articles(prev):
 def translate_all(items, key, cache):
     """Fill item[key + '_ja'] from cache or Google's free endpoint.
 
-    Small batches with pauses; Google answers 429 (too many requests) when
-    called fast from GitHub's machines. Whatever is left untranslated is
-    tried again on the next run (the page then shows the original)."""
+    Small batches with pauses. Google often answers 429 (too many requests)
+    to GitHub's machines; then we stop quickly and the rest is tried again on
+    the next run (each run gets a different machine). Translations are kept
+    in events.json ("tr"), so the list fills up over a few runs; until then
+    the page shows the original title."""
     todo = []
     for x in items:
         if x.get(key) and not cache.get(x[key]) and x[key] not in todo:
             todo.append(x[key])
     fails = 0
     i = 0
-    while i < len(todo) and fails < 4:
+    while i < len(todo) and fails < 2:
         chunk = todo[i:i + 5]
         try:
             for src, t in zip(chunk, translate_batch(chunk, sl="auto", tl="ja")):
@@ -249,7 +251,7 @@ def translate_all(items, key, cache):
         except Exception as e:
             fails += 1
             log(f"translate failed ({fails}): {e}")
-            time.sleep(20 * fails)
+            time.sleep(30)
     for x in items:
         x[key + "_ja"] = cache.get(x.get(key), "")
 
