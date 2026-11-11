@@ -9,28 +9,12 @@ on:
     branches: [claude/project-thread-osk90d]
     paths:
       - .github/workflows/probe-events.yml
+      - scripts/probe/**
 
 jobs:
   probe:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Fetch pages
-        run: |
-          mkdir out; cd out
-          UA="kyrgyzcha-family-events/0.1 (personal non-commercial event list; +https://github.com/kginfo15/kyrgyzcha-family)"
-          i=0
-          for u in https://ticket.kg/robots.txt https://ticket.kg/ https://sxodim.com/robots.txt https://sxodim.com/bishkek \
-                   https://24.kg/feed https://kaktus.media/?rss; do
-            i=$((i+1))
-            code=$(curl -sL -m 30 -A "$UA" -o "p$i.html" -w "%{http_code} %{url_effective}" "$u")
-            echo "== $i $u -> $code $(wc -c < p$i.html) bytes"
-            head -c 1500 "p$i.html" | tr '\n' ' '; echo
-            echo "-- links:"; grep -oE 'href="[^"]{5,120}"' "p$i.html" | sort -u | head -60
-            echo "-- data hints:"; grep -oE '(__NEXT_DATA__|__NUXT__|application/ld\+json|/api/[a-zA-Z0-9/_-]+)' "p$i.html" | sort | uniq -c | head -20
-            sleep 3
-          done
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pages
-          path: out
+      - uses: actions/checkout@v4
+      - run: python3 scripts/probe/probe_events.py
