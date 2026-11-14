@@ -50,15 +50,15 @@ to_deg = Transformer.from_crs("EPSG:6677", "EPSG:4326", always_xy=True).transfor
 def overpass(q):
     data = urllib.parse.urlencode({"data": q}).encode()
     err = None
-    for url in OVERPASS:
-        for i in range(2):
+    for i in range(3):
+        for url in OVERPASS:
             try:
                 with urllib.request.urlopen(urllib.request.Request(url, data=data, headers=UA), timeout=180) as r:
                     return json.loads(r.read())
             except Exception as e:
                 err = e
                 print("overpass", url, e, flush=True)
-                time.sleep(15)
+                time.sleep(30)
     raise err
 
 
@@ -180,15 +180,29 @@ def main():
            "sources": {"outline": "OpenStreetMap contributors (ODbL)",
                        "landcover": "ESA WorldCover 10m 2021 v200 (CC BY 4.0)"},
            "sites": {}, "problems": []}
+    # outlines from the last good run, used when OpenStreetMap does not answer
+    saved_path = os.path.join(OUT, "outlines.json")
+    saved = json.load(open(saved_path)) if os.path.exists(saved_path) else {}
     try:
         els = all_outlines()
     except Exception as e:
-        els = []
-        out["problems"].append(f"OpenStreetMap: {e}")
+        if not saved:
+            # nothing to fall back on: stop without writing, so last week's files stay
+            print("OpenStreetMap failed and no saved outlines:", e)
+            sys.exit(1)
+        els = None
+        out["problems"].append(f"OpenStreetMap did not answer ({e}); outlines from the previous run")
+    outlines = {}
     with rasterio.Env(GDAL_DISABLE_READDIR_ON_OPEN="EMPTY_DIR", CPL_VSIL_CURL_ALLOWED_EXTENSIONS=".tif"):
         src = rasterio.open(WC)
         for key, survey, ja, en, region, muni, lat, lon, traps in SITES:
-            g, osm_id, osm_name = park_outline(els, key, lat, lon)
+            if els is None:
+                o = saved.get(key)
+                g, osm_id, osm_name = (shape(o["geometry"]), o["osm_id"], o["osm_name"]) if o else (None, None, None)
+            else:
+                g, osm_id, osm_name = park_outline(els, key, lat, lon)
+            if g is not None:
+                outlines[key] = {"osm_id": osm_id, "osm_name": osm_name, "geometry": mapping(g.simplify(0.00002))}
             if g is None:
                 out["problems"].append(f"{key}: no OpenStreetMap outline")
             row = {"name": ja}
@@ -216,6 +230,7 @@ def main():
                     row[f"tree_frac_{dist}m"] = f["tree"]
             out["sites"][key] = row
             print(key, row)
+    json.dump(outlines, open(saved_path, "w"), ensure_ascii=False)
     out["candidates"] = DEBUG
     out["unmatched"] = [[el.get("tags", {}).get("name", ""), el["type"], el.get("tags", {}).get("type"),
                          sorted({(m.get("type"), m.get("role")) for m in el.get("members", [])}),

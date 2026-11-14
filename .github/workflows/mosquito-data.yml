@@ -34,7 +34,7 @@ jobs:
             git worktree add -q "$RUNNER_TEMP/prev" FETCH_HEAD
             [ -d "$RUNNER_TEMP/prev/weather" ] && cp -r "$RUNNER_TEMP/prev/weather" "$RUNNER_TEMP/out/" || true
             [ -f "$RUNNER_TEMP/prev/mosquito.json" ] && cp "$RUNNER_TEMP/prev/mosquito.json" "$RUNNER_TEMP/out/" || true
-            for f in vegetation.json vegetation.csv; do [ -f "$RUNNER_TEMP/prev/$f" ] && cp "$RUNNER_TEMP/prev/$f" "$RUNNER_TEMP/out/" || true; done
+            for f in vegetation.json vegetation.csv outlines.json; do [ -f "$RUNNER_TEMP/prev/$f" ] && cp "$RUNNER_TEMP/prev/$f" "$RUNNER_TEMP/out/" || true; done
           fi
       - name: Install PDF reader and map tools
         run: pip install -q pdfplumber==0.11.10 shapely==2.2.0 rasterio==1.5.2 pyproj==3.8.0
