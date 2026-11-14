@@ -294,7 +294,8 @@ def site_list():
             cands = [(dist_km((lat, lon), (s[3], s[4])), s[0]) for s in STATIONS if var in s[5]]
             st[var] = min(cands)[1]
         nearest = min((dist_km((lat, lon), (s[3], s[4])), s[0]) for s in STATIONS)
-        elev = prev.get(key, {}).get("elevation_m")
+        p0 = prev.get(key, {})
+        elev = p0.get("elevation_m") if (p0.get("lat"), p0.get("lon")) == (lat, lon) else None
         if elev is None:
             elev = elevation(lat, lon)
             time.sleep(0.5)
