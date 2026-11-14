@@ -14,7 +14,7 @@ around each park. For every park:
 Year-by-year greenness (Sentinel-2 NDVI) is a later step; the page already reads
 `ndvi_<year>` keys if they appear here.
 """
-import json, math, os, sys, time, urllib.parse, urllib.request
+import json, math, os, re, sys, time, urllib.parse, urllib.request
 import numpy as np
 import rasterio
 from rasterio.features import geometry_mask
@@ -69,7 +69,22 @@ def all_outlines():
         kw = KEYWORDS[key]
         parts.append(f'way["name"~"{kw}"];relation["name"~"{kw}"];')
     q = "[out:json][timeout:170][bbox:35.45,139.10,35.90,139.95];(" + "".join(parts) + ");out geom;"
-    return overpass(q).get("elements", [])
+    els = overpass(q).get("elements", [])
+    # plus every park / garden / cemetery / zoo / school area that contains a site point,
+    # whatever its name (some park outlines carry no name, or a different one)
+    sel = ['[leisure~"^(park|garden)$"]', '[landuse=cemetery]', '[amenity~"^(grave_yard|school)$"]', '[tourism=zoo]']
+    parts = []
+    for key, survey, ja, en, region, muni, lat, lon, traps in SITES:
+        parts.append(f"is_in({lat},{lon})->.a;(" + "".join(f"way(pivot.a){t};relation(pivot.a){t};" for t in sel) + ");out geom;")
+    time.sleep(5)
+    try:
+        more = overpass("[out:json][timeout:170];" + "".join(parts)).get("elements", [])
+        for el in more:
+            el["_containing"] = True
+        els += more
+    except Exception as e:
+        print("is_in query failed", e)
+    return els
 
 
 def geom_of(el):
@@ -115,7 +130,8 @@ def park_outline(els, key, lat, lon):
     cands = []
     for el in els:
         tags = el.get("tags", {})
-        if kw not in tags.get("name", ""):
+        named = bool(re.search(kw, tags.get("name", "")))
+        if not named and not el.get("_containing"):
             continue
         try:
             g = geom_of(el)
@@ -131,11 +147,18 @@ def park_outline(els, key, lat, lon):
         kind = (tags.get("leisure") in ("park", "garden", "nature_reserve") or tags.get("landuse") == "cemetery"
                 or tags.get("amenity") in ("grave_yard", "school") or tags.get("tourism") in ("zoo", "attraction")
                 or tags.get("boundary") in ("national_park", "protected_area"))
-        cands.append((kind, g.area, el["type"] + "/" + str(el["id"]), tags.get("name"), g))
+        inside = g.contains(here)
+        if not named and not inside:
+            continue
+        # best: a park-type area holding the site point; next: a park-type area with the park's name
+        rank = 2 if (kind and inside) else 1 if kind else 0
+        cands.append((rank, g.area, el["type"] + "/" + str(el["id"]), tags.get("name"), g))
     if not cands:
         return None, None, None
     cands.sort(key=lambda c: (c[0], c[1]), reverse=True)
     DEBUG[key] = [[c[0], round(transform(to_m, c[4]).area / 1e4, 2), c[2], c[3], c[4].geom_type] for c in cands[:8]]
+    if cands[0][0] == 0:
+        return None, None, None
     best = cands[0]
     return best[4], best[2], best[3]
 
