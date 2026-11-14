@@ -194,6 +194,9 @@ def main():
     detail, summary = {}, {}
     for p in pdfs:
         text = pdf_text(os.path.join(RAW, "pdf", p["file"]))
+        # the text as read, kept next to the data so a parsing problem can be looked at
+        os.makedirs(os.path.join(OUT, "text"), exist_ok=True)
+        open(os.path.join(OUT, "text", p["file"][:-4] + ".txt"), "w").write(text)
         head = norm(text[:800])
         fy = fiscal_year(text)
         kind = ("detail" if "被害発生・相談件数" in head and "4月" in head
