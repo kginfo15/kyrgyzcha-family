@@ -86,7 +86,11 @@ def geom_of(el):
                 lines.append(LineString(pts))
         if not lines:
             return None
-        merged = linemerge(unary_union(lines))
+        u = unary_union(lines)
+        try:
+            merged = u if u.geom_type == "LineString" else linemerge(u)
+        except ValueError:
+            merged = u
         parts = list(merged.geoms) if hasattr(merged, "geoms") else [merged]
         polys = [Polygon(l.coords) for l in parts if l.is_ring and len(l.coords) >= 4]
         if not polys:
@@ -98,6 +102,13 @@ def geom_of(el):
 DEBUG = {}
 
 
+def safe_geom(el):
+    try:
+        return geom_of(el)
+    except Exception:
+        return None
+
+
 def park_outline(els, key, lat, lon):
     kw = KEYWORDS[key]
     here = Point(lon, lat)
@@ -106,7 +117,11 @@ def park_outline(els, key, lat, lon):
         tags = el.get("tags", {})
         if kw not in tags.get("name", ""):
             continue
-        g = geom_of(el)
+        try:
+            g = geom_of(el)
+        except Exception as e:
+            print("outline", el.get("id"), e)
+            continue
         if g is None or g.is_empty:
             continue
         g = g.buffer(0)
@@ -182,7 +197,7 @@ def main():
     out["unmatched"] = [[el.get("tags", {}).get("name", ""), el["type"], el.get("tags", {}).get("type"),
                          sorted({(m.get("type"), m.get("role")) for m in el.get("members", [])}),
                          sum(1 for m in el.get("members", []) if m.get("geometry"))]
-                        for el in els if el["type"] == "relation" and geom_of(el) is None
+                        for el in els if el["type"] == "relation" and safe_geom(el) is None
                         and any(t in el.get("tags", {}).get("name", "") for t in ("公園", "霊園", "庭園", "緑地"))][:40]
     json.dump(out, open(os.path.join(OUT, "vegetation.json"), "w"), ensure_ascii=False, indent=1)
     with open(os.path.join(OUT, "vegetation.csv"), "w", encoding="utf-8") as f:
