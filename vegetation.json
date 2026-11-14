@@ -1,0 +1,2289 @@
+{
+ "built": "2026-11-14T05:44Z",
+ "sources": {
+  "outline": "OpenStreetMap contributors (ODbL)",
+  "landcover": "ESA WorldCover 10m 2021 v200 (CC BY 4.0)"
+ },
+ "sites": {
+  "oi": {
+   "name": "大井ふ頭中央海浜公園",
+   "boundary": "osm",
+   "osm_id": "way/694543118",
+   "osm_name": "大井ふ頭中央海浜公園 スポーツの森",
+   "outline_lat": 35.59057,
+   "outline_lon": 139.75274,
+   "point_inside": false,
+   "point_to_outline_m": 17,
+   "area_ha": 28.29,
+   "tree_frac": 0.464,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.138,
+   "crop_frac": 0.048,
+   "built_frac": 0.346,
+   "bare_frac": 0.003,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.555,
+   "tree_frac_200m": 0.289,
+   "built_frac_500m": 0.665,
+   "tree_frac_500m": 0.144
+  },
+  "odaiba": {
+   "name": "お台場海浜公園",
+   "boundary": "osm",
+   "osm_id": "relation/13893938",
+   "osm_name": "お台場海浜公園",
+   "outline_lat": 35.63108,
+   "outline_lon": 139.77735,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 11.29,
+   "tree_frac": 0.349,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.042,
+   "crop_frac": 0.015,
+   "built_frac": 0.295,
+   "bare_frac": 0.133,
+   "water_frac": 0.166,
+   "built_frac_200m": 0.347,
+   "tree_frac_200m": 0.078,
+   "built_frac_500m": 0.348,
+   "tree_frac_500m": 0.053
+  },
+  "aoyama": {
+   "name": "青山霊園",
+   "boundary": "osm",
+   "osm_id": "way/37721897",
+   "osm_name": "青山霊園",
+   "outline_lat": 35.66581,
+   "outline_lon": 139.72265,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 25.75,
+   "tree_frac": 0.67,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.0,
+   "built_frac": 0.33,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.842,
+   "tree_frac_200m": 0.153,
+   "built_frac_500m": 0.88,
+   "tree_frac_500m": 0.114
+  },
+  "yanaka": {
+   "name": "谷中霊園",
+   "boundary": "osm",
+   "osm_id": "relation/13744633",
+   "osm_name": "谷中霊園",
+   "outline_lat": 35.72436,
+   "outline_lon": 139.77187,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 13.15,
+   "tree_frac": 0.447,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.0,
+   "built_frac": 0.553,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.931,
+   "tree_frac_200m": 0.068,
+   "built_frac_500m": 0.905,
+   "tree_frac_500m": 0.091
+  },
+  "somei": {
+   "name": "染井霊園",
+   "boundary": "osm",
+   "osm_id": "relation/18545345",
+   "osm_name": "染井霊園",
+   "outline_lat": 35.73909,
+   "outline_lon": 139.73739,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 6.14,
+   "tree_frac": 0.486,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.0,
+   "built_frac": 0.514,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.905,
+   "tree_frac_200m": 0.084,
+   "built_frac_500m": 0.952,
+   "tree_frac_500m": 0.043
+  },
+  "shakujii": {
+   "name": "石神井公園",
+   "boundary": "osm",
+   "osm_id": "relation/2658286",
+   "osm_name": "石神井公園",
+   "outline_lat": 35.73821,
+   "outline_lon": 139.59616,
+   "point_inside": false,
+   "point_to_outline_m": 124,
+   "area_ha": 20.51,
+   "tree_frac": 0.762,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.006,
+   "crop_frac": 0.001,
+   "built_frac": 0.039,
+   "bare_frac": 0.0,
+   "water_frac": 0.192,
+   "built_frac_200m": 0.691,
+   "tree_frac_200m": 0.257,
+   "built_frac_500m": 0.857,
+   "tree_frac_500m": 0.122
+  },
+  "toneri": {
+   "name": "舎人公園",
+   "boundary": "osm",
+   "osm_id": "relation/10118100",
+   "osm_name": null,
+   "outline_lat": 35.79866,
+   "outline_lon": 139.77332,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 63.71,
+   "tree_frac": 0.473,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.271,
+   "crop_frac": 0.039,
+   "built_frac": 0.172,
+   "bare_frac": 0.008,
+   "water_frac": 0.038,
+   "built_frac_200m": 0.939,
+   "tree_frac_200m": 0.05,
+   "built_frac_500m": 0.956,
+   "tree_frac_500m": 0.038
+  },
+  "kinuta": {
+   "name": "砧公園",
+   "boundary": "osm",
+   "osm_id": "way/32203169",
+   "osm_name": "砧公園",
+   "outline_lat": 35.6305,
+   "outline_lon": 139.62016,
+   "point_inside": false,
+   "point_to_outline_m": 217,
+   "area_ha": 44.32,
+   "tree_frac": 0.874,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.069,
+   "crop_frac": 0.007,
+   "built_frac": 0.05,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.826,
+   "tree_frac_200m": 0.166,
+   "built_frac_500m": 0.854,
+   "tree_frac_500m": 0.132
+  },
+  "inokashira": {
+   "name": "井の頭恩賜公園",
+   "boundary": "osm",
+   "osm_id": "relation/5411501",
+   "osm_name": "井の頭恩賜公園",
+   "outline_lat": 35.69891,
+   "outline_lon": 139.5787,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 20.06,
+   "tree_frac": 0.85,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.003,
+   "built_frac": 0.03,
+   "bare_frac": 0.0,
+   "water_frac": 0.117,
+   "built_frac_200m": 0.737,
+   "tree_frac_200m": 0.252,
+   "built_frac_500m": 0.848,
+   "tree_frac_500m": 0.145
+  },
+  "tamazoo": {
+   "name": "多摩動物公園",
+   "boundary": "osm",
+   "osm_id": "way/637680775",
+   "osm_name": "多摩動物公園",
+   "outline_lat": 35.65075,
+   "outline_lon": 139.4009,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 47.62,
+   "tree_frac": 0.885,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.001,
+   "crop_frac": 0.0,
+   "built_frac": 0.113,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.387,
+   "tree_frac_200m": 0.605,
+   "built_frac_500m": 0.536,
+   "tree_frac_500m": 0.457
+  },
+  "sayama": {
+   "name": "狭山公園",
+   "boundary": "osm",
+   "osm_id": "way/1303833115",
+   "osm_name": "都立狭山公園",
+   "outline_lat": 35.7583,
+   "outline_lon": 139.43935,
+   "point_inside": false,
+   "point_to_outline_m": 121,
+   "area_ha": 3.09,
+   "tree_frac": 0.977,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.0,
+   "built_frac": 0.023,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.437,
+   "tree_frac_200m": 0.494,
+   "built_frac_500m": 0.496,
+   "tree_frac_500m": 0.337
+  },
+  "oyamada": {
+   "name": "小山田緑地",
+   "boundary": "osm",
+   "osm_id": "way/197641985",
+   "osm_name": "都立小山田緑地",
+   "outline_lat": 35.59595,
+   "outline_lon": 139.4168,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 24.03,
+   "tree_frac": 0.914,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.075,
+   "crop_frac": 0.0,
+   "built_frac": 0.006,
+   "bare_frac": 0.005,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.228,
+   "tree_frac_200m": 0.697,
+   "built_frac_500m": 0.265,
+   "tree_frac_500m": 0.673
+  },
+  "hachioji": {
+   "name": "八王子霊園",
+   "boundary": "osm",
+   "osm_id": "way/219515487",
+   "osm_name": "東京都八王子霊園",
+   "outline_lat": 35.66276,
+   "outline_lon": 139.26731,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 46.0,
+   "tree_frac": 0.517,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.43,
+   "crop_frac": 0.0,
+   "built_frac": 0.052,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.238,
+   "tree_frac_200m": 0.738,
+   "built_frac_500m": 0.278,
+   "tree_frac_500m": 0.705
+  },
+  "yakuyo": {
+   "name": "東京都薬用植物園",
+   "boundary": "osm",
+   "osm_id": "way/153760077",
+   "osm_name": "東京都薬用植物園",
+   "outline_lat": 35.7322,
+   "outline_lon": 139.43446,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 3.0,
+   "tree_frac": 0.79,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.0,
+   "built_frac": 0.21,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.85,
+   "tree_frac_200m": 0.141,
+   "built_frac_500m": 0.806,
+   "tree_frac_500m": 0.165
+  },
+  "jindai": {
+   "name": "神代植物公園",
+   "boundary": "osm",
+   "osm_id": "relation/20434696",
+   "osm_name": "神代植物公園",
+   "outline_lat": 35.66991,
+   "outline_lon": 139.54796,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 53.04,
+   "tree_frac": 0.828,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.084,
+   "crop_frac": 0.024,
+   "built_frac": 0.064,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.621,
+   "tree_frac_200m": 0.376,
+   "built_frac_500m": 0.695,
+   "tree_frac_500m": 0.298
+  },
+  "mizuho": {
+   "name": "瑞穂農芸高等学校",
+   "boundary": "circle_150m",
+   "area_ha": 7.06,
+   "tree_frac": 0.006,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.0,
+   "built_frac": 0.994,
+   "bare_frac": 0.0,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.883,
+   "tree_frac_200m": 0.107,
+   "built_frac_500m": 0.764,
+   "tree_frac_500m": 0.227
+  },
+  "yoyogi": {
+   "name": "代々木公園",
+   "boundary": "osm",
+   "osm_id": "relation/19862716",
+   "osm_name": "代々木公園",
+   "outline_lat": 35.67141,
+   "outline_lon": 139.69517,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 53.33,
+   "tree_frac": 0.876,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.013,
+   "crop_frac": 0.02,
+   "built_frac": 0.087,
+   "bare_frac": 0.002,
+   "water_frac": 0.002,
+   "built_frac_200m": 0.657,
+   "tree_frac_200m": 0.326,
+   "built_frac_500m": 0.735,
+   "tree_frac_500m": 0.255
+  },
+  "hibiya": {
+   "name": "日比谷公園",
+   "boundary": "osm",
+   "osm_id": "way/145408909",
+   "osm_name": "日比谷公園",
+   "outline_lat": 35.67404,
+   "outline_lon": 139.75632,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 16.16,
+   "tree_frac": 0.848,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.028,
+   "crop_frac": 0.0,
+   "built_frac": 0.114,
+   "bare_frac": 0.006,
+   "water_frac": 0.003,
+   "built_frac_200m": 0.636,
+   "tree_frac_200m": 0.194,
+   "built_frac_500m": 0.696,
+   "tree_frac_500m": 0.136
+  },
+  "hamarikyu": {
+   "name": "浜離宮恩賜庭園",
+   "boundary": "osm",
+   "osm_id": "way/7836744",
+   "osm_name": "浜離宮恩賜庭園",
+   "outline_lat": 35.66018,
+   "outline_lon": 139.76382,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 24.96,
+   "tree_frac": 0.841,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.041,
+   "crop_frac": 0.007,
+   "built_frac": 0.007,
+   "bare_frac": 0.0,
+   "water_frac": 0.104,
+   "built_frac_200m": 0.627,
+   "tree_frac_200m": 0.057,
+   "built_frac_500m": 0.674,
+   "tree_frac_500m": 0.041
+  },
+  "toyama": {
+   "name": "戸山公園",
+   "boundary": "osm",
+   "osm_id": "way/209465552",
+   "osm_name": "戸山公園",
+   "outline_lat": 35.70383,
+   "outline_lon": 139.71352,
+   "point_inside": false,
+   "point_to_outline_m": 32,
+   "area_ha": 12.32,
+   "tree_frac": 0.859,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.0,
+   "crop_frac": 0.0,
+   "built_frac": 0.14,
+   "bare_frac": 0.001,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.852,
+   "tree_frac_200m": 0.142,
+   "built_frac_500m": 0.908,
+   "tree_frac_500m": 0.089
+  },
+  "ueno": {
+   "name": "上野恩賜公園",
+   "boundary": "osm",
+   "osm_id": "relation/5413419",
+   "osm_name": "上野公園",
+   "outline_lat": 35.71402,
+   "outline_lon": 139.77393,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 64.03,
+   "tree_frac": 0.558,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.054,
+   "crop_frac": 0.022,
+   "built_frac": 0.306,
+   "bare_frac": 0.012,
+   "water_frac": 0.05,
+   "built_frac_200m": 0.863,
+   "tree_frac_200m": 0.134,
+   "built_frac_500m": 0.901,
+   "tree_frac_500m": 0.095
+  },
+  "komazawa": {
+   "name": "駒沢オリンピック公園",
+   "boundary": "osm",
+   "osm_id": "way/27620248",
+   "osm_name": "駒沢オリンピック公園総合運動場",
+   "outline_lat": 35.62512,
+   "outline_lon": 139.6623,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 42.97,
+   "tree_frac": 0.506,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.113,
+   "crop_frac": 0.004,
+   "built_frac": 0.354,
+   "bare_frac": 0.02,
+   "water_frac": 0.003,
+   "built_frac_200m": 0.884,
+   "tree_frac_200m": 0.114,
+   "built_frac_500m": 0.903,
+   "tree_frac_500m": 0.095
+  },
+  "hikarigaoka": {
+   "name": "光が丘公園",
+   "boundary": "osm",
+   "osm_id": "way/32305435",
+   "osm_name": "光が丘公園",
+   "outline_lat": 35.7663,
+   "outline_lon": 139.62966,
+   "point_inside": false,
+   "point_to_outline_m": 172,
+   "area_ha": 57.94,
+   "tree_frac": 0.788,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.093,
+   "crop_frac": 0.022,
+   "built_frac": 0.093,
+   "bare_frac": 0.003,
+   "water_frac": 0.0,
+   "built_frac_200m": 0.785,
+   "tree_frac_200m": 0.212,
+   "built_frac_500m": 0.851,
+   "tree_frac_500m": 0.146
+  },
+  "sarue": {
+   "name": "猿江恩賜公園",
+   "boundary": "osm",
+   "osm_id": "relation/10288254",
+   "osm_name": "猿江恩賜公園",
+   "outline_lat": 35.69061,
+   "outline_lon": 139.81831,
+   "point_inside": false,
+   "point_to_outline_m": 264,
+   "area_ha": 10.0,
+   "tree_frac": 0.787,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.015,
+   "crop_frac": 0.028,
+   "built_frac": 0.149,
+   "bare_frac": 0.0,
+   "water_frac": 0.022,
+   "built_frac_200m": 0.798,
+   "tree_frac_200m": 0.124,
+   "built_frac_500m": 0.89,
+   "tree_frac_500m": 0.058
+  },
+  "kasai": {
+   "name": "葛西臨海公園",
+   "boundary": "osm",
+   "osm_id": "way/689336469",
+   "osm_name": "葛西臨海公園",
+   "outline_lat": 35.64221,
+   "outline_lon": 139.85948,
+   "point_inside": true,
+   "point_to_outline_m": 0,
+   "area_ha": 75.78,
+   "tree_frac": 0.619,
+   "shrub_frac": 0.0,
+   "grass_frac": 0.125,
+   "crop_frac": 0.014,
+   "built_frac": 0.174,
+   "bare_frac": 0.019,
+   "water_frac": 0.048,
+   "built_frac_200m": 0.449,
+   "tree_frac_200m": 0.056,
+   "built_frac_500m": 0.401,
+   "tree_frac_500m": 0.052
+  }
+ },
+ "problems": [
+  "mizuho: no OpenStreetMap outline"
+ ],
+ "candidates": {
+  "oi": [
+   [
+    1,
+    28.29,
+    "way/694543118",
+    "大井ふ頭中央海浜公園 スポーツの森",
+    "Polygon"
+   ],
+   [
+    1,
+    11.31,
+    "way/694543116",
+    "大井ふ頭中央海浜公園なぎさの森",
+    "Polygon"
+   ],
+   [
+    1,
+    8.23,
+    "way/1011233778",
+    "大井ふ頭中央海浜公園なぎさの森",
+    "Polygon"
+   ],
+   [
+    1,
+    1.65,
+    "way/694543117",
+    "大井ふ頭中央海浜公園みどりヶ浜",
+    "Polygon"
+   ],
+   [
+    0,
+    0.62,
+    "way/46705601",
+    "大井ふ頭中央海浜公園第一駐車場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.44,
+    "way/162938028",
+    "大井ふ頭中央海浜公園第二駐車場",
+    "Polygon"
+   ]
+  ],
+  "odaiba": [
+   [
+    2,
+    11.29,
+    "relation/13893938",
+    "お台場海浜公園",
+    "MultiPolygon"
+   ],
+   [
+    2,
+    11.29,
+    "relation/13893938",
+    "お台場海浜公園",
+    "MultiPolygon"
+   ],
+   [
+    0,
+    0.33,
+    "way/198117539",
+    "お台場海浜公園中央駐車場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.2,
+    "way/198113764",
+    "お台場海浜公園北口駐車場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.12,
+    "way/1288814483",
+    "お台場海浜公園バイク駐輪場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.0,
+    "way/838278184",
+    "お台場海浜公園乗船場",
+    "Polygon"
+   ]
+  ],
+  "aoyama": [
+   [
+    2,
+    25.75,
+    "way/37721897",
+    "青山霊園",
+    "Polygon"
+   ],
+   [
+    2,
+    25.75,
+    "way/37721897",
+    "青山霊園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.03,
+    "way/140478415",
+    "青山霊園管理所",
+    "Polygon"
+   ]
+  ],
+  "yanaka": [
+   [
+    2,
+    13.15,
+    "relation/13744633",
+    "谷中霊園",
+    "MultiPolygon"
+   ],
+   [
+    2,
+    13.15,
+    "relation/13744633",
+    "谷中霊園",
+    "MultiPolygon"
+   ],
+   [
+    0,
+    0.01,
+    "way/1028597451",
+    "谷中霊園管理事務所",
+    "Polygon"
+   ]
+  ],
+  "somei": [
+   [
+    2,
+    6.14,
+    "relation/18545345",
+    "染井霊園",
+    "MultiPolygon"
+   ],
+   [
+    2,
+    6.14,
+    "relation/18545345",
+    "染井霊園",
+    "MultiPolygon"
+   ],
+   [
+    0,
+    0.01,
+    "way/1350857732",
+    "染井霊園事務所",
+    "Polygon"
+   ]
+  ],
+  "shakujii": [
+   [
+    1,
+    20.51,
+    "relation/2658286",
+    "石神井公園",
+    "MultiPolygon"
+   ],
+   [
+    1,
+    1.38,
+    "way/212708520",
+    "石神井公園 野鳥風致地区",
+    "Polygon"
+   ],
+   [
+    1,
+    0.48,
+    "way/594338374",
+    "石神井公園 山桜園",
+    "Polygon"
+   ],
+   [
+    1,
+    0.25,
+    "way/705965361",
+    "石神井公園 野草観察園",
+    "Polygon"
+   ],
+   [
+    1,
+    0.22,
+    "way/1545973533",
+    "上石神井公園",
+    "Polygon"
+   ],
+   [
+    0,
+    61.15,
+    "relation/19445178",
+    "Bus 石01 石神井公園駅北口 => 石神井循環",
+    "Polygon"
+   ],
+   [
+    0,
+    3.75,
+    "way/906848627",
+    "ブリリアシティ石神井公園アトラス",
+    "Polygon"
+   ],
+   [
+    0,
+    0.52,
+    "way/1225610670",
+    "石神井公園駅南口西地区第一種市街地再開発事業",
+    "Polygon"
+   ]
+  ],
+  "toneri": [
+   [
+    2,
+    63.71,
+    "relation/10118100",
+    null,
+    "MultiPolygon"
+   ],
+   [
+    0,
+    2.61,
+    "way/1475091687",
+    "舎人公園陸上競技場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.13,
+    "way/58243186",
+    "舎人公園駅",
+    "Polygon"
+   ],
+   [
+    0,
+    0.05,
+    "way/332861904",
+    "舎人公園",
+    "Polygon"
+   ]
+  ],
+  "kinuta": [
+   [
+    1,
+    44.32,
+    "way/32203169",
+    "砧公園",
+    "Polygon"
+   ],
+   [
+    0,
+    49.26,
+    "relation/18354939",
+    "砧公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.46,
+    "way/44894205",
+    "砧公園アスレチック広場",
+    "Polygon"
+   ]
+  ],
+  "inokashira": [
+   [
+    2,
+    20.06,
+    "relation/5411501",
+    "井の頭恩賜公園",
+    "Polygon"
+   ],
+   [
+    2,
+    20.06,
+    "relation/5411501",
+    "井の頭恩賜公園",
+    "Polygon"
+   ],
+   [
+    1,
+    11.68,
+    "way/158660874",
+    "井の頭恩賜公園（西園）",
+    "Polygon"
+   ],
+   [
+    1,
+    8.03,
+    "way/153789019",
+    "井の頭自然文化園",
+    "Polygon"
+   ],
+   [
+    1,
+    1.73,
+    "way/43761830",
+    "井の頭恩賜公園（第二公園）",
+    "Polygon"
+   ],
+   [
+    1,
+    1.53,
+    "relation/5411543",
+    "井の頭自然文化園（分園）",
+    "Polygon"
+   ],
+   [
+    1,
+    0.03,
+    "way/653694929",
+    "井の頭まるた児童遊園",
+    "Polygon"
+   ],
+   [
+    0,
+    134.84,
+    "relation/21293828",
+    "井の頭",
+    "Polygon"
+   ]
+  ],
+  "tamazoo": [
+   [
+    2,
+    47.62,
+    "way/637680775",
+    "多摩動物公園",
+    "Polygon"
+   ],
+   [
+    2,
+    47.62,
+    "way/637680775",
+    "多摩動物公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.11,
+    "relation/9638136",
+    "多摩動物公園",
+    "Polygon"
+   ]
+  ],
+  "sayama": [
+   [
+    1,
+    3.09,
+    "way/1303833115",
+    "都立狭山公園",
+    "Polygon"
+   ]
+  ],
+  "oyamada": [
+   [
+    2,
+    24.03,
+    "way/197641985",
+    "都立小山田緑地",
+    "Polygon"
+   ],
+   [
+    2,
+    24.03,
+    "way/197641985",
+    "都立小山田緑地",
+    "Polygon"
+   ],
+   [
+    1,
+    10.19,
+    "way/391585347",
+    "都立小山田緑地 梅木窪分園",
+    "Polygon"
+   ],
+   [
+    1,
+    3.79,
+    "way/391590693",
+    "都立小山田緑地 大久保分園",
+    "Polygon"
+   ],
+   [
+    1,
+    1.6,
+    "way/1118558908",
+    "都立小山田緑地 山中分園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.3,
+    "way/860695110",
+    "都立小山田緑地 山中分園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.11,
+    "way/944310743",
+    "都立小山田緑地 東口駐車場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.09,
+    "way/1169030599",
+    "都立小山田緑地 北口駐車場",
+    "Polygon"
+   ]
+  ],
+  "hachioji": [
+   [
+    2,
+    46.0,
+    "way/219515487",
+    "東京都八王子霊園",
+    "Polygon"
+   ],
+   [
+    2,
+    46.0,
+    "way/219515487",
+    "東京都八王子霊園",
+    "Polygon"
+   ]
+  ],
+  "yakuyo": [
+   [
+    2,
+    3.0,
+    "way/153760077",
+    "東京都薬用植物園",
+    "Polygon"
+   ],
+   [
+    2,
+    3.0,
+    "way/153760077",
+    "東京都薬用植物園",
+    "Polygon"
+   ],
+   [
+    1,
+    0.02,
+    "way/582796637",
+    "小平市立薬用植物園前公園",
+    "Polygon"
+   ]
+  ],
+  "jindai": [
+   [
+    2,
+    53.04,
+    "relation/20434696",
+    "神代植物公園",
+    "MultiPolygon"
+   ],
+   [
+    2,
+    53.04,
+    "relation/20434696",
+    "神代植物公園",
+    "MultiPolygon"
+   ],
+   [
+    0,
+    23.18,
+    "way/260866219",
+    "神代植物公園本園",
+    "Polygon"
+   ],
+   [
+    0,
+    6.48,
+    "way/260866222",
+    "神代植物公園 自由広場",
+    "Polygon"
+   ],
+   [
+    0,
+    4.35,
+    "way/260865912",
+    "神代植物公園 水生植物園",
+    "Polygon"
+   ]
+  ],
+  "yoyogi": [
+   [
+    2,
+    53.33,
+    "relation/19862716",
+    "代々木公園",
+    "MultiPolygon"
+   ],
+   [
+    2,
+    53.33,
+    "relation/19862716",
+    "代々木公園",
+    "MultiPolygon"
+   ],
+   [
+    1,
+    0.42,
+    "way/1029462259",
+    "YOYOGI Park 都立代々木公園",
+    "Polygon"
+   ],
+   [
+    0,
+    2.05,
+    "way/1280884286",
+    "代々木公園陸上競技場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.12,
+    "way/214765540",
+    "Brillia Tower 代々木公園CLASSY",
+    "Polygon"
+   ],
+   [
+    0,
+    0.09,
+    "way/680802488",
+    "代々木公園ドッグラン",
+    "Polygon"
+   ],
+   [
+    0,
+    0.05,
+    "way/138382335",
+    "京阪神 代々木公園ビル",
+    "Polygon"
+   ],
+   [
+    0,
+    0.04,
+    "way/258440885",
+    "セザール代々木公園",
+    "Polygon"
+   ]
+  ],
+  "hibiya": [
+   [
+    2,
+    16.16,
+    "way/145408909",
+    "日比谷公園",
+    "Polygon"
+   ],
+   [
+    2,
+    16.16,
+    "way/145408909",
+    "日比谷公園",
+    "Polygon"
+   ],
+   [
+    0,
+    20.71,
+    "relation/3787155",
+    "日比谷公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.02,
+    "way/145409057",
+    "日比谷公園サービスセンター",
+    "Polygon"
+   ],
+   [
+    0,
+    0.0,
+    "way/145409081",
+    "丸の内警察署日比谷公園前交番",
+    "Polygon"
+   ],
+   [
+    0,
+    0.0,
+    "way/145409046",
+    "千代田区日比谷公園防災倉庫",
+    "Polygon"
+   ]
+  ],
+  "hamarikyu": [
+   [
+    2,
+    24.96,
+    "way/7836744",
+    "浜離宮恩賜庭園",
+    "Polygon"
+   ],
+   [
+    2,
+    24.96,
+    "way/7836744",
+    "浜離宮恩賜庭園",
+    "Polygon"
+   ],
+   [
+    0,
+    43.28,
+    "relation/19835627",
+    "浜離宮庭園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.38,
+    "relation/12075647",
+    "浜離宮 ザ・タワー",
+    "Polygon"
+   ],
+   [
+    0,
+    0.24,
+    "way/149853651",
+    "浜離宮三井ビルディング",
+    "Polygon"
+   ],
+   [
+    0,
+    0.23,
+    "way/261651835",
+    "住友不動産汐留浜離宮ビル",
+    "Polygon"
+   ],
+   [
+    0,
+    0.2,
+    "way/149853746",
+    "浜離宮パークサイドプレイス",
+    "Polygon"
+   ],
+   [
+    0,
+    0.19,
+    "way/887447547",
+    "パークコート浜離宮ザ・タワー",
+    "Polygon"
+   ]
+  ],
+  "toyama": [
+   [
+    1,
+    12.32,
+    "way/209465552",
+    "戸山公園",
+    "Polygon"
+   ],
+   [
+    1,
+    6.8,
+    "way/94518684",
+    "都立戸山公園",
+    "Polygon"
+   ],
+   [
+    1,
+    1.02,
+    "way/467848619",
+    "西戸山公園",
+    "Polygon"
+   ],
+   [
+    1,
+    0.33,
+    "way/212507051",
+    "西戸山公園",
+    "Polygon"
+   ],
+   [
+    1,
+    0.09,
+    "way/467863784",
+    "西戸山公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.05,
+    "way/94524807",
+    "戸山公園サービスセンター(戸山公園事務所)",
+    "Polygon"
+   ]
+  ],
+  "ueno": [
+   [
+    2,
+    64.03,
+    "relation/5413419",
+    "上野公園",
+    "MultiPolygon"
+   ],
+   [
+    2,
+    64.03,
+    "relation/5413419",
+    "上野公園",
+    "MultiPolygon"
+   ],
+   [
+    0,
+    82.89,
+    "relation/18158889",
+    "上野公園",
+    "Polygon"
+   ],
+   [
+    0,
+    12.29,
+    "relation/6842187",
+    "都営バス上01系統 東大構内⇒上野公園山下（循環）",
+    "Polygon"
+   ],
+   [
+    0,
+    4.98,
+    "relation/9443874",
+    "都営バス上69系統 小滝橋車庫⇒春日駅⇒上野公園（循環）",
+    "Polygon"
+   ],
+   [
+    0,
+    0.12,
+    "way/145344116",
+    "上野恩賜公園野外ステージ（水上音楽堂）",
+    "Polygon"
+   ],
+   [
+    0,
+    0.06,
+    "way/511500197",
+    "上野公園大駐車場",
+    "Polygon"
+   ]
+  ],
+  "komazawa": [
+   [
+    2,
+    42.97,
+    "way/27620248",
+    "駒沢オリンピック公園総合運動場",
+    "Polygon"
+   ],
+   [
+    2,
+    42.97,
+    "way/27620248",
+    "駒沢オリンピック公園総合運動場",
+    "Polygon"
+   ],
+   [
+    0,
+    3.07,
+    "way/229538469",
+    "駒沢オリンピック公園総合運動場陸上競技場",
+    "Polygon"
+   ]
+  ],
+  "hikarigaoka": [
+   [
+    1,
+    57.94,
+    "way/32305435",
+    "光が丘公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.19,
+    "way/924385573",
+    "ザ・パークハウス光が丘公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.14,
+    "way/768810883",
+    "ウェリス光が丘公園パークハウス",
+    "Polygon"
+   ],
+   [
+    0,
+    0.12,
+    "way/920597602",
+    "老人ホームSOMPOケアラヴィーレ光が丘公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.11,
+    "way/768810990",
+    "エコヴィレッジ光が丘公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.1,
+    "way/904179536",
+    "プラウド練馬光が丘公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.04,
+    "way/57404751",
+    "光が丘公園管理事務所",
+    "Polygon"
+   ],
+   [
+    0,
+    0.01,
+    "way/918732213",
+    "光が丘公園 バードサンクチュアリ",
+    "Polygon"
+   ]
+  ],
+  "sarue": [
+   [
+    1,
+    10.0,
+    "relation/10288254",
+    "猿江恩賜公園",
+    "Polygon"
+   ],
+   [
+    1,
+    4.89,
+    "relation/10288221",
+    "猿江恩賜公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.07,
+    "way/1255986544",
+    "パークホームズ錦糸町 猿江恩賜公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.04,
+    "way/1257221471",
+    "パーク・ノヴァ猿江恩賜公園",
+    "Polygon"
+   ],
+   [
+    0,
+    0.03,
+    "way/507967941",
+    "プラセール猿江恩賜公園",
+    "Polygon"
+   ]
+  ],
+  "kasai": [
+   [
+    2,
+    75.78,
+    "way/689336469",
+    "葛西臨海公園",
+    "Polygon"
+   ],
+   [
+    2,
+    75.78,
+    "way/689336469",
+    "葛西臨海公園",
+    "Polygon"
+   ],
+   [
+    0,
+    2.88,
+    "way/88878015",
+    "葛西臨海公園専用有料駐車場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.91,
+    "way/191056504",
+    "葛西臨海公園駅",
+    "Polygon"
+   ],
+   [
+    0,
+    0.23,
+    "relation/14105337",
+    "都営バス西葛26系統 葛西臨海公園駅⇒西葛西駅⇒船堀駅",
+    "Polygon"
+   ],
+   [
+    0,
+    0.06,
+    "way/190858886",
+    "東京水辺ライン葛西臨海公園発着場",
+    "Polygon"
+   ],
+   [
+    0,
+    0.04,
+    "way/156492889",
+    "葛西臨海公園サービスセンター",
+    "Polygon"
+   ]
+  ]
+ },
+ "unmatched": [
+  [
+   "西武バス荻14系統 荻窪駅⇒上井草駅⇒石神井公園駅南口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   41
+  ],
+  [
+   "代々木公園サイクリングコース",
+   "relation",
+   "route",
+   [
+    [
+     "way",
+     "forward"
+    ]
+   ],
+   2
+  ],
+  [
+   "代々木公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ],
+    [
+     "node",
+     "stop"
+    ],
+    [
+     "way",
+     "platform"
+    ]
+   ],
+   1
+  ],
+  [
+   "Bus 石02 石神井公園駅北口 => 成増駅南口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   31
+  ],
+  [
+   "Bus 石02 成増駅南口 => 石神井公園駅北口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   31
+  ],
+  [
+   "お台場海浜公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ],
+    [
+     "node",
+     "stop"
+    ],
+    [
+     "way",
+     "platform"
+    ]
+   ],
+   1
+  ],
+  [
+   "舎人公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ],
+    [
+     "node",
+     "stop"
+    ]
+   ],
+   0
+  ],
+  [
+   "多摩動物公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ],
+    [
+     "node",
+     "stop"
+    ]
+   ],
+   0
+  ],
+  [
+   "葛西臨海公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ],
+    [
+     "node",
+     "stop"
+    ],
+    [
+     "way",
+     "platform"
+    ]
+   ],
+   1
+  ],
+  [
+   "石神井公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ],
+    [
+     "node",
+     "stop"
+    ],
+    [
+     "way",
+     "platform"
+    ]
+   ],
+   2
+  ],
+  [
+   "井の頭公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ]
+   ],
+   0
+  ],
+  [
+   "京王電鉄動物園線 : 高原不動→多摩動物公園",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "stop"
+    ],
+    [
+     "way",
+     ""
+    ],
+    [
+     "way",
+     "platform"
+    ]
+   ],
+   14
+  ],
+  [
+   "井の頭公園",
+   "relation",
+   "public_transport",
+   [
+    [
+     "node",
+     ""
+    ],
+    [
+     "node",
+     "stop"
+    ]
+   ],
+   0
+  ],
+  [
+   "京王電鉄動物園線 : 多摩動物公園→高原不動",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "stop"
+    ],
+    [
+     "way",
+     ""
+    ],
+    [
+     "way",
+     "platform"
+    ]
+   ],
+   14
+  ],
+  [
+   "都営バス上60系統 上野公園⇒根津駅⇒池袋駅東口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   62
+  ],
+  [
+   "都営バス上60系統 池袋駅東口⇒根津駅⇒上野公園",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   59
+  ],
+  [
+   "都営バス上60系統 大塚駅⇒根津駅⇒上野公園",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   38
+  ],
+  [
+   "都営バス上60系統 上野公園⇒根津駅⇒大塚駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   46
+  ],
+  [
+   "都営バス上26系統 上野公園⇒とうきょうスカイツリー駅⇒亀戸駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   57
+  ],
+  [
+   "都営バス上26系統 亀戸駅⇒とうきょうスカイツリー駅⇒上野公園",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   48
+  ],
+  [
+   "都営バス西葛26系統 船堀駅⇒西葛西駅⇒葛西臨海公園駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   57
+  ],
+  [
+   "都営バス葛西21系統 葛西臨海公園駅⇒東葛西九丁目⇒葛西駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   25
+  ],
+  [
+   "都営バス葛西21系統 葛西駅⇒東葛西九丁目⇒葛西臨海公園駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   23
+  ],
+  [
+   "都営バス葛西21系統 葛西駅⇒東葛西九丁目⇒葛西臨海公園駅（平日朝ルート）",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   23
+  ],
+  [
+   "都営バス西葛20乙系統 葛西臨海公園駅⇒葛西市場⇒西葛西駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   20
+  ],
+  [
+   "都営バス西葛20乙系統 西葛西駅⇒葛西市場⇒葛西臨海公園駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   19
+  ],
+  [
+   "都営バス臨海28-1系統 葛西臨海公園駅⇒葛西駅⇒一之江橋西詰",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   32
+  ],
+  [
+   "都営バス臨海28-1系統 一之江橋西詰⇒葛西駅⇒葛西臨海公園駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   33
+  ],
+  [
+   "Bus 石04 土支田一丁目 => 石神井公園駅北口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   17
+  ],
+  [
+   "Bus 石04 石神井公園駅北口 => 土支田一丁目",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   20
+  ],
+  [
+   "西武バス荻14系統 石神井公園駅南口⇒上井草駅⇒荻窪駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   47
+  ],
+  [
+   "西武バス石22系統 上井草駅入口⇒石神井公園駅南口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   18
+  ],
+  [
+   "西武バス石22系統 石神井公園駅南口⇒上井草駅入口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   18
+  ],
+  [
+   "Bus 荻11 石神井公園駅⇒井荻駅入口⇒荻窪駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   47
+  ],
+  [
+   "Bus 荻11 荻窪駅⇒井荻駅入口⇒石神井公園駅",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   41
+  ],
+  [
+   "Bus 石21 南田中車庫⇒石神井公園駅南口",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   22
+  ],
+  [
+   "Bus 石21 石神井公園駅南口⇒南田中車庫",
+   "relation",
+   "route",
+   [
+    [
+     "node",
+     "platform"
+    ],
+    [
+     "node",
+     "platform_entry_only"
+    ],
+    [
+     "node",
+     "platform_exit_only"
+    ],
+    [
+     "way",
+     ""
+    ]
+   ],
+   23
+  ]
+ ],
+ "script_hash": "ee863a1cadd49007"
+}

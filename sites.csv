@@ -1,0 +1,26 @@
+site,survey,name_ja,name_en,region,municipality,lat,lon,elevation_m,mesh3,n_traps,station_temp,station_precip,station_wind,station_humidity
+oi,kouiki,大井ふ頭中央海浜公園,Oi Futo Chuo Kaihin Park,区部,品川区,35.5885,139.753,7.2,53393600,1,0371,0371,0371,0370
+odaiba,kouiki,お台場海浜公園,Odaiba Kaihin Park,区部,港区,35.6297,139.7752,3.9,53393652,1,47662,47662,47662,47662
+aoyama,kouiki,青山霊園,Aoyama Cemetery,区部,港区,35.6682,139.7226,31.1,53394507,1,47662,47662,47662,47662
+yanaka,kouiki,谷中霊園,Yanaka Cemetery,区部,台東区,35.724,139.7698,18.6,53394661,1,47662,47662,47662,47662
+somei,kouiki,染井霊園,Somei Cemetery,区部,豊島区,35.7391,139.7374,24.9,53394588,1,47662,47662,47662,47662
+shakujii,kouiki,石神井公園,Shakujii Park,区部,練馬区,35.7365,139.5995,45.0,53394487,1,1002,1002,1002,1002
+toneri,kouiki,舎人公園,Toneri Park,区部,足立区,35.8005,139.7705,2.8,53395661,1,47662,47662,47662,47662
+kinuta,kouiki,砧公園,Kinuta Park,区部,世田谷区,35.631,139.6275,36.1,53393550,1,1002,0368,1002,1002
+inokashira,kouiki,井の頭恩賜公園,Inokashira Park,多摩,武蔵野市・三鷹市,35.7,139.5735,56.6,53394445,1,1002,1002,1002,1002
+tamazoo,kouiki,多摩動物公園,Tama Zoological Park,多摩,日野市,35.649,139.4022,126.0,53393372,1,0366,0366,0366,0366
+sayama,kouiki,狭山公園,Sayama Park,多摩,東村山市,35.7605,139.438,105.2,53395315,1,1133,1133,1133,1133
+oyamada,kouiki,小山田緑地,Oyamada Ryokuchi,多摩,町田市,35.596,139.4168,105.0,53393313,1,1133,1133,1133,1133
+hachioji,kouiki,八王子霊園,Hachioji Cemetery,多摩,八王子市,35.6628,139.2673,200.4,53393291,1,0366,0366,0366,0366
+yakuyo,kouiki,東京都薬用植物園,Tokyo Medicinal Plant Garden,多摩,小平市,35.7322,139.4345,79.3,53394374,1,1133,1133,1133,1133
+jindai,kouiki,神代植物公園,Jindai Botanical Garden,多摩,調布市,35.6705,139.549,54.8,53394403,1,1133,1133,1133,1133
+mizuho,kouiki,瑞穂農芸高等学校,Mizuho Nogei High School,多摩,瑞穂町,35.7712,139.354,136.1,53395228,1,1001,1001,1001,1001
+yoyogi,juuten,代々木公園,Yoyogi Park,区部,渋谷区,35.6717,139.6949,34.6,53394505,10,47662,47662,47662,47662
+hibiya,juuten,日比谷公園,Hibiya Park,区部,千代田区,35.6735,139.756,3.7,53394600,5,47662,47662,47662,47662
+hamarikyu,juuten,浜離宮恩賜庭園,Hama-rikyu Gardens,区部,中央区,35.66,139.7633,1.9,53393691,5,47662,47662,47662,47662
+toyama,juuten,戸山公園,Toyama Park,区部,新宿区,35.7035,139.7115,20.6,53394546,5,47662,47662,47662,47662
+ueno,juuten,上野恩賜公園,Ueno Park,区部,台東区,35.7148,139.773,17.7,53394651,5,47662,47662,47662,47662
+komazawa,juuten,駒沢オリンピック公園,Komazawa Olympic Park,区部,世田谷区,35.6252,139.6612,40.1,53393552,5,47662,0368,47662,47662
+hikarigaoka,juuten,光が丘公園,Hikarigaoka Park,区部,練馬区,35.761,139.6295,41.8,53395510,5,1002,1002,1002,1002
+sarue,juuten,猿江恩賜公園,Sarue Onshi Park,区部,江東区,35.688,139.8143,-0.1,53394625,5,47662,47662,47662,47662
+kasai,juuten,葛西臨海公園,Kasai Rinkai Park,区部,江戸川区,35.6415,139.8618,8.0,53393668,5,0370,0370,0370,0370

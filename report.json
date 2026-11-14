@@ -1,0 +1,279 @@
+{
+ "built": "2026-11-14T06:01Z",
+ "pdfs": [
+  {
+   "kind": "kouiki",
+   "year": 2026,
+   "file": "261110_kouiki1.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/261110_kouiki1.pdf",
+   "label": "2026年度 第10回サーベイランス結果（PDF：145KB）",
+   "sites": 16,
+   "filled": 1078,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2025,
+   "file": "R7_kouiki.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/R7_kouiki.pdf",
+   "label": "令和７年度（PDF：101KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2024,
+   "file": "R6_kouiki.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/R6_kouiki.pdf",
+   "label": "令和６年度（PDF：101KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2023,
+   "file": "R5_kouiki.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/R5_kouiki.pdf",
+   "label": "令和５年度（PDF：101KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2022,
+   "file": "R4_kouiki.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/R4_kouiki.pdf",
+   "label": "令和４年度（PDF：101KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2021,
+   "file": "21matome_kouiki_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/21matome_kouiki_A.pdf",
+   "label": "令和３年度（PDF：381KB）",
+   "sites": 16,
+   "filled": 896,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2020,
+   "file": "210218_kouiki_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/210218_kouiki_A.pdf",
+   "label": "令和２年度（PDF:395KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2019,
+   "file": "200313_kouiki_A1.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/200313_kouiki_A1.pdf",
+   "label": "令和元年度（PDF:476KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2018,
+   "file": "190331_h30syuusei_kouiki_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/190331_h30syuusei_kouiki_A.pdf",
+   "label": "平成30年度（PDF:394KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2017,
+   "file": "171107_kouiki_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/171107_kouiki_A.pdf",
+   "label": "平成29年度（PDF:398KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2016,
+   "file": "H28kouiki.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/H28kouiki.pdf",
+   "label": "平成28年度（PDF:399KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "kouiki",
+   "year": 2015,
+   "file": "H27kansennshou.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/kansensyou-surveillance/data/H27kansennshou.pdf",
+   "label": "平成27年度（PDF:369KB）",
+   "sites": 16,
+   "filled": 1120,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2026,
+   "file": "261029_juuten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/261029_juuten_A.pdf",
+   "label": "2026年度 成虫（PDF：302KB）",
+   "sites": 9,
+   "filled": 468,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2025,
+   "file": "R7_juuten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/R7_juuten_A.pdf",
+   "label": "2025年度 成虫（PDF：170KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2024,
+   "file": "R6_juuten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/R6_juuten_A.pdf",
+   "label": "2024年度 成虫（PDF：171KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2023,
+   "file": "240312_juuten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/240312_juuten_A.pdf",
+   "label": "2023年度 成虫（PDF：752KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2022,
+   "file": "230306_juuten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/230306_juuten_A.pdf",
+   "label": "2022年度 成虫（PDF：752KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2021,
+   "file": "21matome_juuten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/21matome_juuten_A.pdf",
+   "label": "2021年度 成虫（PDF：751KB）",
+   "sites": 9,
+   "filled": 396,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2020,
+   "file": "210218Juten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/210218Juten_A.pdf",
+   "label": "2020年度 成虫（PDF：697KB）",
+   "sites": 9,
+   "filled": 396,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2019,
+   "file": "200313_juten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/200313_juten_A.pdf",
+   "label": "2019年度 成虫（PDF：422KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2018,
+   "file": "190331_h30syuusei_juten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/190331_h30syuusei_juten_A.pdf",
+   "label": "2018年度 成虫（PDF：772KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2017,
+   "file": "180315_juten_A1.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/180315_juten_A1.pdf",
+   "label": "2017年度 成虫（PDF：850KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2016,
+   "file": "H28juuten_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/H28juuten_A.pdf",
+   "label": "2016年度 成虫（PDF：712KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  },
+  {
+   "kind": "juuten",
+   "year": 2015,
+   "file": "H27dengu_A.pdf",
+   "url": "https://www.tmiph.metro.tokyo.lg.jp/files/kj_kankyo/mosq/mosquito/dengue-surveillance/data/H27dengu_A.pdf",
+   "label": "2015年度 成虫（PDF：632KB）",
+   "sites": 9,
+   "filled": 504,
+   "problems": []
+  }
+ ],
+ "problems": [],
+ "weather": {
+  "fetched_months": 24
+ },
+ "years": {
+  "kouiki": [
+   "2015",
+   "2016",
+   "2017",
+   "2018",
+   "2019",
+   "2020",
+   "2021",
+   "2022",
+   "2023",
+   "2024",
+   "2025",
+   "2026"
+  ],
+  "juuten": [
+   "2015",
+   "2016",
+   "2017",
+   "2018",
+   "2019",
+   "2020",
+   "2021",
+   "2022",
+   "2023",
+   "2024",
+   "2025",
+   "2026"
+  ]
+ }
+}
