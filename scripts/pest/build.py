@@ -154,9 +154,12 @@ def read_summary(text):
         if name in ("合計", "総計"):
             if total is None:
                 total = vals[:12]
+                out["_year"] = vals[12]
             continue
         if name in CLASSES and CLASSES.index(name) not in out:
             out[CLASSES.index(name)] = vals[:12]
+            if sum(vals[:12]) != vals[12]:
+                out.setdefault("_bad", []).append(name)
     return out, total
 
 
@@ -211,10 +214,13 @@ def main():
             entry["rows"] = sum(len(c["items"]) for c in d.values())
         elif kind == "summary" and fy not in summary:
             s, tot = read_summary(text)
-            summary[fy] = {"classes": s, "total": tot, "url": p["url"]}
+            ty = s.pop("_year", None)
+            bad = s.pop("_bad", [])
+            summary[fy] = {"classes": s, "total": tot, "total_year": ty, "bad": bad, "url": p["url"]}
             entry["rows"] = len(s)
 
     years = {}
+    notes = []
     for fy in sorted(set(detail) | set(summary)):
         probs = []
         d, s = detail.get(fy), summary.get(fy)
@@ -237,10 +243,17 @@ def main():
             else:
                 probs.append("no 総計 row")
         if s and not d:
+            probs += [f"調査結果 {n}: months do not add up to the row total" for n in s["bad"]]
             if len(s["classes"]) != 12:
                 probs.append(f"調査結果: found {len(s['classes'])} classes")
-            elif s["total"] and [sum(s["classes"][c][m] for c in range(12)) for m in range(12)] != s["total"]:
-                probs.append("調査結果: classes do not add up to 合計")
+            elif s["total"]:
+                months = [sum(s["classes"][c][m] for c in range(12)) for m in range(12)]
+                if sum(months) != s["total_year"]:
+                    probs.append(f"調査結果: classes add up to {sum(months)}, 合計 says {s['total_year']}")
+                elif months != s["total"]:
+                    # 平成25年度: the 合計 row's months are misprinted in the PDF itself,
+                    # while every class row and the yearly total agree
+                    notes.append(f"{fy}: the PDF's own 合計 row has wrong monthly values; months were added up from the 12 classes")
         if probs:
             report["problems"] += [f"{fy}: {x}" for x in probs]
             print(f"FY{fy}: left out ({len(probs)} problems)")
@@ -271,6 +284,7 @@ def main():
         "years": years,
         "weather": weather(),
         "problems": report["problems"],
+        "notes": notes,
     }
     json.dump(data, open(os.path.join(OUT, "pest.json"), "w"), ensure_ascii=False, separators=(",", ":"))
     months = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
@@ -286,6 +300,7 @@ def main():
                     for i, m in enumerate(months):
                         cy = int(y) + (1 if m <= 3 else 0)
                         f.write(f"{y},{cy},{m},{int(ci)+1},{CLASSES[int(ci)]},{g},{name},{vals[i]}\n")
+    report["notes"] = notes
     json.dump(report, open(os.path.join(OUT, "report.json"), "w"), ensure_ascii=False, indent=1)
     print(f"{len(years)} years, {len(pests)} pests, {len(report['problems'])} problems")
 
