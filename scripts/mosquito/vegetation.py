@@ -67,8 +67,9 @@ def all_outlines():
     parts = []
     for key, survey, ja, en, region, muni, lat, lon, traps in SITES:
         kw = KEYWORDS[key]
-        parts.append(f'way(around:1500,{lat},{lon})["name"~"{kw}"];relation(around:1500,{lat},{lon})["name"~"{kw}"];')
-    return overpass("[out:json][timeout:170];(" + "".join(parts) + ");out geom;").get("elements", [])
+        parts.append(f'way["name"~"{kw}"];relation["name"~"{kw}"];')
+    q = "[out:json][timeout:170][bbox:35.45,139.10,35.90,139.95];(" + "".join(parts) + ");out geom;"
+    return overpass(q).get("elements", [])
 
 
 def geom_of(el):
@@ -95,15 +96,18 @@ def park_outline(els, key, lat, lon):
         if g is None or g.is_empty:
             continue
         g = g.buffer(0)
-        if g.distance(here) > 0.015:   # about 1.5 km
+        if g.distance(here) > 0.05:   # about 5 km: the same name elsewhere is another place
             continue
-        good = any(tags.get(k) for k in ("leisure", "landuse", "tourism", "amenity", "boundary", "historic"))
-        cands.append((g.contains(here), good, g.area, el["type"] + "/" + str(el["id"]), tags.get("name"), g))
+        # the park itself, not a pond, stage or stadium inside it
+        kind = (tags.get("leisure") in ("park", "garden", "nature_reserve") or tags.get("landuse") == "cemetery"
+                or tags.get("amenity") in ("grave_yard", "school") or tags.get("tourism") in ("zoo", "attraction")
+                or tags.get("boundary") in ("national_park", "protected_area"))
+        cands.append((kind, g.area, el["type"] + "/" + str(el["id"]), tags.get("name"), g))
     if not cands:
         return None, None, None
-    cands.sort(key=lambda c: (c[0], c[1], c[2]), reverse=True)
+    cands.sort(key=lambda c: (c[0], c[1]), reverse=True)
     best = cands[0]
-    return best[5], best[3], best[4]
+    return best[4], best[2], best[3]
 
 
 def fractions(src, geom_deg):
@@ -141,7 +145,11 @@ def main():
                 row["boundary"] = "circle_150m"
             else:
                 gm = transform(to_m, g)
-                row.update({"boundary": "osm", "osm_id": osm_id, "osm_name": osm_name})
+                c = g.representative_point()
+                row.update({"boundary": "osm", "osm_id": osm_id, "osm_name": osm_name,
+                            "outline_lat": round(c.y, 5), "outline_lon": round(c.x, 5),
+                            "point_inside": bool(g.contains(Point(lon, lat))),
+                            "point_to_outline_m": round(gm.distance(Point(*to_m(lon, lat))))})
             row["area_ha"] = round(gm.area / 1e4, 2)
             inner = fractions(src, transform(to_deg, gm))
             if inner:
