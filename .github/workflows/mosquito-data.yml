@@ -1,0 +1,52 @@
+name: Mosquito surveillance data
+
+# Builds the data behind mosquito.html and publishes it on the `mosquito-data`
+# branch (one force-pushed commit): mosquito counts read from the Tokyo
+# Metropolitan Institute of Public Health PDFs (checked against the PDFs' own
+# totals) and JMA daily weather. Weather months already fetched are carried
+# over from the previous run, so a weekly run only asks for recent months.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "40 21 * * 0"   # Monday 06:40 JST
+  push:
+    paths:
+      - scripts/mosquito/**
+      - .github/workflows/mosquito-data.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mosquito-data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Previous data
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          if git fetch -q --depth 1 origin mosquito-data; then
+            git worktree add -q "$RUNNER_TEMP/prev" FETCH_HEAD
+            [ -d "$RUNNER_TEMP/prev/weather" ] && cp -r "$RUNNER_TEMP/prev/weather" "$RUNNER_TEMP/out/" || true
+            [ -f "$RUNNER_TEMP/prev/mosquito.json" ] && cp "$RUNNER_TEMP/prev/mosquito.json" "$RUNNER_TEMP/out/" || true
+          fi
+      - name: Install PDF reader
+        run: pip install -q pdfplumber==0.11.10
+      - name: Build
+        run: python3 scripts/mosquito/build.py "$RUNNER_TEMP/out"
+      - name: Publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/out"
+          rm -rf cache   # the PDFs themselves are not republished
+          git init -q
+          git checkout -q --orphan mosquito-data
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Mosquito surveillance data"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" mosquito-data
