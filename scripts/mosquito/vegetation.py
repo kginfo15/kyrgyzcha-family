@@ -20,7 +20,7 @@ import rasterio
 from rasterio.features import geometry_mask
 from rasterio.windows import from_bounds
 from shapely.geometry import Point, Polygon, MultiPolygon, LineString, mapping, shape
-from shapely.ops import polygonize, unary_union, transform
+from shapely.ops import linemerge, polygonize, unary_union, transform
 from pyproj import Transformer
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -39,7 +39,7 @@ KEYWORDS = {
     "inokashira": "井の頭", "tamazoo": "多摩動物公園", "sayama": "狭山公園", "oyamada": "小山田緑地",
     "hachioji": "八王子霊園", "yakuyo": "薬用植物園", "jindai": "神代植物公園", "mizuho": "瑞穂農芸",
     "yoyogi": "代々木公園", "hibiya": "日比谷公園", "hamarikyu": "浜離宮", "toyama": "戸山公園",
-    "ueno": "上野恩賜公園", "komazawa": "駒沢オリンピック公園", "hikarigaoka": "光が丘公園",
+    "ueno": "上野(恩賜)?公園", "komazawa": "駒沢オリンピック公園", "hikarigaoka": "光が丘公園",
     "sarue": "猿江恩賜公園", "kasai": "葛西臨海公園",
 }
 
@@ -77,9 +77,20 @@ def geom_of(el):
         pts = [(p["lon"], p["lat"]) for p in el["geometry"]]
         return Polygon(pts) if len(pts) >= 4 and pts[0] == pts[-1] else None
     if el["type"] == "relation":
-        lines = [LineString([(p["lon"], p["lat"]) for p in m["geometry"]])
-                 for m in el.get("members", []) if m.get("role") in ("outer", "") and m.get("geometry")]
-        polys = list(polygonize(unary_union(lines))) if lines else []
+        lines = []
+        for m in el.get("members", []):
+            if m.get("type") != "way" or m.get("role") not in ("outer", ""):
+                continue
+            pts = [(p["lon"], p["lat"]) for p in (m.get("geometry") or []) if p and "lon" in p]
+            if len(pts) >= 2:
+                lines.append(LineString(pts))
+        if not lines:
+            return None
+        merged = linemerge(unary_union(lines))
+        parts = list(merged.geoms) if hasattr(merged, "geoms") else [merged]
+        polys = [Polygon(l.coords) for l in parts if l.is_ring and len(l.coords) >= 4]
+        if not polys:
+            polys = list(polygonize(unary_union(lines)))
         return unary_union(polys) if polys else None
     return None
 
@@ -168,7 +179,11 @@ def main():
             out["sites"][key] = row
             print(key, row)
     out["candidates"] = DEBUG
-    out["unmatched"] = sorted({el.get("tags", {}).get("name", "") + " " + el["type"] for el in els if geom_of(el) is None})[:80]
+    out["unmatched"] = [[el.get("tags", {}).get("name", ""), el["type"], el.get("tags", {}).get("type"),
+                         sorted({(m.get("type"), m.get("role")) for m in el.get("members", [])}),
+                         sum(1 for m in el.get("members", []) if m.get("geometry"))]
+                        for el in els if el["type"] == "relation" and geom_of(el) is None
+                        and any(t in el.get("tags", {}).get("name", "") for t in ("公園", "霊園", "庭園", "緑地"))][:40]
     json.dump(out, open(os.path.join(OUT, "vegetation.json"), "w"), ensure_ascii=False, indent=1)
     with open(os.path.join(OUT, "vegetation.csv"), "w", encoding="utf-8") as f:
         cols = ["site", "name", "boundary", "osm_id", "area_ha", "tree_frac", "shrub_frac", "grass_frac", "crop_frac",
