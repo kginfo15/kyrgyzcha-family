@@ -1,0 +1,55 @@
+name: Pest consultation data
+
+# Builds the data behind pest.html and publishes it on the `pest-data` branch
+# (one force-pushed commit): Tokyo's yearly pest-consultation counts (read from
+# the Tokyo Bureau of Public Health PDFs and checked against their own totals)
+# and JMA monthly weather for Tokyo. Downloaded PDFs are kept on that branch
+# under raw/ and reused, so a run only fetches what is new.
+# Tokyo publishes the new fiscal year around the end of August; a monthly
+# check is plenty.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 22 3 * *"   # 4th of each month, 07:15 JST
+  push:
+    paths:
+      - scripts/pest/**
+      - .github/workflows/pest-data.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pest-data
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Previous data
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          if git fetch -q --depth 1 origin pest-data; then
+            git worktree add -q "$RUNNER_TEMP/prev" FETCH_HEAD
+            [ -d "$RUNNER_TEMP/prev/raw" ] && cp -r "$RUNNER_TEMP/prev/raw" "$RUNNER_TEMP/out/" || true
+          fi
+      - name: Install PDF reader
+        run: sudo apt-get install -y -qq poppler-utils >/dev/null
+      - name: Download
+        run: python3 scripts/pest/fetch.py "$RUNNER_TEMP/out"
+      - name: Build
+        run: |
+          if [ -f scripts/pest/build.py ]; then python3 scripts/pest/build.py "$RUNNER_TEMP/out"; fi
+      - name: Publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/out"
+          git init -q
+          git checkout -q --orphan pest-data
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Pest consultation data"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" pest-data
