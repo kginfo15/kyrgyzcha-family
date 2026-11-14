@@ -42,6 +42,7 @@ jobs:
         run: python3 scripts/mosquito/build.py "$RUNNER_TEMP/out"
       - name: Vegetation (only when the park list or the method changed)
         continue-on-error: true
+        timeout-minutes: 15
         run: |
           H=$(cat scripts/mosquito/vegetation.py scripts/mosquito/sites.py | sha256sum | cut -c1-16)
           OLD=$(python3 -c "import json;print(json.load(open('$RUNNER_TEMP/out/vegetation.json')).get('script_hash',''))" 2>/dev/null || true)

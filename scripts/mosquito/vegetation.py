@@ -51,14 +51,24 @@ def overpass(q):
     data = urllib.parse.urlencode({"data": q}).encode()
     err = None
     for url in OVERPASS:
-        for i in range(3):
+        for i in range(2):
             try:
-                with urllib.request.urlopen(urllib.request.Request(url, data=data, headers=UA), timeout=120) as r:
+                with urllib.request.urlopen(urllib.request.Request(url, data=data, headers=UA), timeout=180) as r:
                     return json.loads(r.read())
             except Exception as e:
                 err = e
-                time.sleep(10 * (i + 1))
+                print("overpass", url, e, flush=True)
+                time.sleep(15)
     raise err
+
+
+def all_outlines():
+    """One Overpass request for every park: features named like the park within 1.5 km."""
+    parts = []
+    for key, survey, ja, en, region, muni, lat, lon, traps in SITES:
+        kw = KEYWORDS[key]
+        parts.append(f'way(around:1500,{lat},{lon})["name"~"{kw}"];relation(around:1500,{lat},{lon})["name"~"{kw}"];')
+    return overpass("[out:json][timeout:170];(" + "".join(parts) + ");out geom;").get("elements", [])
 
 
 def geom_of(el):
@@ -73,21 +83,22 @@ def geom_of(el):
     return None
 
 
-def park_outline(key, lat, lon):
+def park_outline(els, key, lat, lon):
     kw = KEYWORDS[key]
-    q = f"""[out:json][timeout:90];
-(way(around:1500,{lat},{lon})["name"~"{kw}"];relation(around:1500,{lat},{lon})["name"~"{kw}"];);
-out geom;"""
-    els = overpass(q).get("elements", [])
+    here = Point(lon, lat)
     cands = []
     for el in els:
+        tags = el.get("tags", {})
+        if kw not in tags.get("name", ""):
+            continue
         g = geom_of(el)
         if g is None or g.is_empty:
             continue
         g = g.buffer(0)
-        tags = el.get("tags", {})
+        if g.distance(here) > 0.015:   # about 1.5 km
+            continue
         good = any(tags.get(k) for k in ("leisure", "landuse", "tourism", "amenity", "boundary", "historic"))
-        cands.append((g.contains(Point(lon, lat)), good, g.area, el["type"] + "/" + str(el["id"]), tags.get("name"), g))
+        cands.append((g.contains(here), good, g.area, el["type"] + "/" + str(el["id"]), tags.get("name"), g))
     if not cands:
         return None, None, None
     cands.sort(key=lambda c: (c[0], c[1], c[2]), reverse=True)
@@ -112,15 +123,17 @@ def main():
            "sources": {"outline": "OpenStreetMap contributors (ODbL)",
                        "landcover": "ESA WorldCover 10m 2021 v200 (CC BY 4.0)"},
            "sites": {}, "problems": []}
+    try:
+        els = all_outlines()
+    except Exception as e:
+        els = []
+        out["problems"].append(f"OpenStreetMap: {e}")
     with rasterio.Env(GDAL_DISABLE_READDIR_ON_OPEN="EMPTY_DIR", CPL_VSIL_CURL_ALLOWED_EXTENSIONS=".tif"):
         src = rasterio.open(WC)
         for key, survey, ja, en, region, muni, lat, lon, traps in SITES:
-            try:
-                g, osm_id, osm_name = park_outline(key, lat, lon)
-                time.sleep(2)
-            except Exception as e:
-                out["problems"].append(f"{key}: outline: {e}")
-                g, osm_id, osm_name = None, None, None
+            g, osm_id, osm_name = park_outline(els, key, lat, lon)
+            if g is None:
+                out["problems"].append(f"{key}: no OpenStreetMap outline")
             row = {"name": ja}
             if g is None:
                 # no outline found: a 150 m circle around the representative point, marked as such
