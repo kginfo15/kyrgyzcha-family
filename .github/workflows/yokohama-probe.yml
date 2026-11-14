@@ -1,0 +1,23 @@
+name: Yokohama mosquito probe (temporary)
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/project-thread-w6fqig]
+    paths:
+      - scripts/yokohama_probe/**
+      - .github/workflows/yokohama-probe.yml
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y -qq poppler-utils >/dev/null
+      - run: python3 scripts/yokohama_probe/fetch.py yokohama-probe
+      - name: Save
+        run: |
+          git add -A yokohama-probe
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Yokohama probe data" || exit 0
+          git push -q origin HEAD:claude/project-thread-w6fqig
