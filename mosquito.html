@@ -681,7 +681,7 @@ function drawDetail(){
     return { x: x(dd), y: top + 20, html, cross: [top, top3 + H3] };
   });
   const sname = id => (D.stations.find(z => z.id === id) || {}).name;
-  $("detailNote").textContent = "気象:気象庁「" + sname(s.stations.t) + "」(気温)・「" + sname(s.stations.p) + "」(降水量)の日別値。欠けている日は「東京」の値で補っています。点線の丸は欠測・中止の回です。";
+  $("detailNote").textContent = "気象:気象庁「" + sname(s.stations.t) + "」(気温)・「" + sname(s.stations.p) + "」(降水量)の日別値。欠けている日は「東京」の値で補っています。点線の丸は欠測・中止の回です。 " + vegText(key);
 }
 
 /* ---------- seasonal shape by species ---------- */
@@ -898,11 +898,19 @@ function siteYear(group, mode, tie){
       row.weather_source = "jma";
     }
     const veg = VEG && VEG.sites && VEG.sites[s.key] || {};
-    for (const c of ["tree_frac", "grass_frac", "water_frac", "built_frac_500m", "ndvi_summer"]) row[c] = veg[c] != null ? veg[c] : (veg["ndvi_" + y] != null && c === "ndvi_summer" ? veg["ndvi_" + y] : null);
+    for (const c of VEG_COLS) row[c] = veg[c] != null ? veg[c] : null;
+    row.ndvi_summer = veg["ndvi_" + y] != null ? veg["ndvi_" + y] : null;
+    row.veg_boundary = veg.boundary || null;
     out.push(row);
   }
   out.sort((a, b) => a.survey.localeCompare(b.survey) || a.site.localeCompare(b.site) || a.year.localeCompare(b.year));
   return out;
+}
+const VEG_COLS = ["area_ha", "tree_frac", "grass_frac", "water_frac", "built_frac", "tree_frac_200m", "built_frac_200m", "tree_frac_500m", "built_frac_500m"];
+function vegText(key){
+  const v = VEG && VEG.sites && VEG.sites[key]; if (!v || v.tree_frac == null) return "";
+  const pc = x => x == null ? "—" : Math.round(x * 100) + "%";
+  return "植生(公園の範囲内" + (v.area_ha ? " " + v.area_ha + "ha" : "") + "):樹林 " + pc(v.tree_frac) + "・草地 " + pc(v.grass_frac) + "・水面 " + pc(v.water_frac) + "・建物など " + pc(v.built_frac) + " / 周り500mの建物など " + pc(v.built_frac_500m) + (v.boundary === "osm" ? "" : "(公園の範囲が見つからず、半径150mの円で計算)") + "。出典:ESA WorldCover 2021・公園の範囲はOpenStreetMap。";
 }
 const PEAK_COL = { 6:0, 7:.25, 8:.5, 9:.75, 10:1 };
 function drawPeaks(){
@@ -934,7 +942,7 @@ function drawPeaks(){
   $("pkLegend").innerHTML = "<span>ピーク月</span>" + MONTHS.map(m => '<span><span class="sw" style="width:14px;height:14px;border-radius:4px;background:' + col(m) + '"></span>' + m + "月</span>").join("") +
     "<span>・9〜10月 = 遅いピーク</span>";
   const late = rows.filter(r => r.peak_value && r.complete); const n9 = late.filter(r => r.late_peak).length;
-  $("dlNote").textContent = "この表の条件で:判定できた地点×年 " + late.length + " 件のうち、遅いピーク(9〜10月)は " + n9 + " 件。CSVはすべての調査(広域・重点)・すべての年を含みます。" + (VEG ? "" : " 植生の列(tree_frac など)は植生データの準備ができしだい埋まります。");
+  $("dlNote").textContent = "この表の条件で:判定できた地点×年 " + late.length + " 件のうち、遅いピーク(9〜10月)は " + n9 + " 件。CSVはすべての調査(広域・重点)・すべての年を含みます。" + (VEG ? " 植生の列(tree_frac など)は公園ごとに1つの値で、年による変化はまだ入っていません。" : " 植生の列(tree_frac など)は植生データの準備ができしだい埋まります。");
 }
 function toCSV(rows, cols){
   const q = v => v == null ? "" : (typeof v === "string" && /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : String(v));
@@ -957,6 +965,7 @@ function buildDownloads(){
   link("調査回ごとの全データ(counts.csv)", "counts.csv");
   link("地点一覧(sites.csv)", "sites.csv");
   link("日別の気象(weather_daily.csv)", "weather_daily.csv");
+  if (VEG) link("公園の植生(vegetation.csv)", "vegetation.csv");
 }
 
 /* ---------- wiring ---------- */
@@ -1005,7 +1014,7 @@ async function load(){
   } catch (e){ $("loading").innerHTML = '<span class="err">データを読み込めませんでした。少し時間をおいて再読み込みしてください。</span>'; $("stamp").textContent = ""; return; }
   init();
   try { const r = await fetch(DATA_BASE + "weather.json", { cache: "no-cache" }); if (r.ok){ W = await r.json(); drawDetail(); drawScatter(false); drawHeat(); drawPeaks(); } } catch (e) {}
-  try { const r = await fetch(DATA_BASE + "vegetation.json", { cache: "no-cache" }); if (r.ok){ VEG = await r.json(); drawPeaks(); } } catch (e) {}
+  try { const r = await fetch(DATA_BASE + "vegetation.json", { cache: "no-cache" }); if (r.ok){ VEG = await r.json(); drawPeaks(); drawDetail(); buildDownloads(); } } catch (e) {}
 }
 load();
 })();

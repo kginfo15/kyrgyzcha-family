@@ -34,11 +34,23 @@ jobs:
             git worktree add -q "$RUNNER_TEMP/prev" FETCH_HEAD
             [ -d "$RUNNER_TEMP/prev/weather" ] && cp -r "$RUNNER_TEMP/prev/weather" "$RUNNER_TEMP/out/" || true
             [ -f "$RUNNER_TEMP/prev/mosquito.json" ] && cp "$RUNNER_TEMP/prev/mosquito.json" "$RUNNER_TEMP/out/" || true
+            for f in vegetation.json vegetation.csv; do [ -f "$RUNNER_TEMP/prev/$f" ] && cp "$RUNNER_TEMP/prev/$f" "$RUNNER_TEMP/out/" || true; done
           fi
-      - name: Install PDF reader
-        run: pip install -q pdfplumber==0.11.10
+      - name: Install PDF reader and map tools
+        run: pip install -q pdfplumber==0.11.10 shapely==2.2.0 rasterio==1.5.2 pyproj==3.8.0
       - name: Build
         run: python3 scripts/mosquito/build.py "$RUNNER_TEMP/out"
+      - name: Vegetation (only when the park list or the method changed)
+        continue-on-error: true
+        run: |
+          H=$(cat scripts/mosquito/vegetation.py scripts/mosquito/sites.py | sha256sum | cut -c1-16)
+          OLD=$(python3 -c "import json;print(json.load(open('$RUNNER_TEMP/out/vegetation.json')).get('script_hash',''))" 2>/dev/null || true)
+          if [ "$H" != "$OLD" ]; then
+            python3 scripts/mosquito/vegetation.py "$RUNNER_TEMP/out"
+            python3 -c "import json,sys;p='$RUNNER_TEMP/out/vegetation.json';d=json.load(open(p));d['script_hash']='$H';json.dump(d,open(p,'w'),ensure_ascii=False,indent=1)"
+          else
+            echo "vegetation unchanged"
+          fi
       - name: Publish
         env:
           TOKEN: ${{ github.token }}
