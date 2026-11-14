@@ -84,6 +84,9 @@ def geom_of(el):
     return None
 
 
+DEBUG = {}
+
+
 def park_outline(els, key, lat, lon):
     kw = KEYWORDS[key]
     here = Point(lon, lat)
@@ -106,6 +109,7 @@ def park_outline(els, key, lat, lon):
     if not cands:
         return None, None, None
     cands.sort(key=lambda c: (c[0], c[1]), reverse=True)
+    DEBUG[key] = [[c[0], round(transform(to_m, c[4]).area / 1e4, 2), c[2], c[3], c[4].geom_type] for c in cands[:8]]
     best = cands[0]
     return best[4], best[2], best[3]
 
@@ -163,6 +167,8 @@ def main():
                     row[f"tree_frac_{dist}m"] = f["tree"]
             out["sites"][key] = row
             print(key, row)
+    out["candidates"] = DEBUG
+    out["unmatched"] = sorted({el.get("tags", {}).get("name", "") + " " + el["type"] for el in els if geom_of(el) is None})[:80]
     json.dump(out, open(os.path.join(OUT, "vegetation.json"), "w"), ensure_ascii=False, indent=1)
     with open(os.path.join(OUT, "vegetation.csv"), "w", encoding="utf-8") as f:
         cols = ["site", "name", "boundary", "osm_id", "area_ha", "tree_frac", "shrub_frac", "grass_frac", "crop_frac",
