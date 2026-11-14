@@ -1,0 +1,137 @@
+表1 横浜市内の医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果（2020年1月～12月）                              横浜市衛生研究所 微生物検査研究課 細菌担当
+2020年1月～2020年12月搬入分
+
+      CRE感染症届出患者株
+                                                                         カルバペネマー      その他のβ-ラクタム系耐性遺
+番号 分離月 医療圏*1     性別   年代       症状       渡航歴   材料                 菌種                                      特記事項
+                                                                          ゼ遺伝子*2            伝子
+  1    12   北部   男    70代    腹腔内膿瘍            膿     K. oxytoca            bla IMP-1
+  2    2    西部   女    80代     尿路感染症           尿     S. marcescens                         bla CTX-M-2
+  3    3    南部   男    80代    慢性気道感染症          喀痰    K. pneumoniae                         bla CTX-M-15
+  4    3    南部   女    60代     菌血症             血液    E. cloacae complex
+  5    4    北部   男    90代    尿路感染症            尿     K. aerogenes
+  6    5    西部   男    40代   皮膚軟部組織感染症         浸出液   K. aerogenes
+  7    5    西部   男    60代      肺炎             喀痰    K. aerogenes
+  8    5    南部   男    50代     尿路感染症           尿     K. aerogenes
+  9    5    北部   男    70代     尿路感染症           尿     E. cloacae complex    bla IMP-1
+ 10    5    西部   女    70代     肝膿瘍             膿     K. aerogenes
+ 11    5    北部   女    70代    尿路感染症            尿     E. coli               bla IMP-1
+ 12    5    南部   男    60代    腹腔内膿瘍            膿     E. cloacae complex    bla IMP-1
+ 13    5    南部   男    80代    尿路感染症            尿     K. aerogenes
+ 14                                                 E. coli                              bla CTX-M-27
+       5    南部   女    50代     肝膿瘍             膿
+ 15                                                 E. coli                              bla CTX-M-27
+ 16    6    北部   男    50代      肺炎             喀痰    K. aerogenes
+ 17    5    北部   男    60代     術後創感染           創部    E. cloacae complex    bla IMP-1
+ 18    6    西部   男    60代     腹膜炎             腹水    K. aerogenes
+ 19    6    西部   女    90代      菌血症            血液    E. cloacae complex
+ 20    6    南部   男    80代      肺炎             喀痰    E. cloacae complex
+ 21    6    南部   男    70代    腹腔内膿瘍            膿     E. cloacae complex
+ 22    6    西部   男    80代     菌血症             血液    E. cloacae complex
+ 23                                                 E. cloacae complex    bla IMP-1
+       7    北部   男    60代     菌血症             血液
+ 24                                                 K. pneumoniae         bla IMP-1
+ 25    7    北部   男    50代     骨髄炎             骨髄    C. braakii
+ 26    7    北部   男    80代     腸炎、肺炎            便    E. cloacae complex    bla IMP-1
+ 27    7    南部   男    80代      肺炎             喀痰    E. cloacae complex    bla IMP-1
+ 28    7    西部   女    90代   菌血症、尿路感染症         血液    C. braakii
+ 29    8    南部   女    40代    子宮内感染            羊水    S. marcescens
+ 30    8    北部   男    80代     菌血症             血液    K. aerogenes
+ 31    8    南部   女    80代      肺炎             喀痰    E. cloacae complex    bla IMP-1
+ 32    8    南部   女    90代      肺炎             喀痰    E. cloacae complex    bla IMP-1
+ 33    9    北部   男    70代    菌血症、肺炎           血液    K. aerogenes
+ 34    8    南部   女    90代      肺炎             喀痰    E. cloacae complex    bla IMP-1
+ 35    9    西部   男    70代    尿路感染症            尿     K. aerogenes
+ 36    10   北部   女    70代   尿路感染症、肺炎           尿    E. cloacae complex
+ 37    9    南部   男    70代    腹膜炎、敗血症          腹水    E. cloacae complex    bla IMP-1
+ 38    9    南部   女    80代    尿路感染症            尿     K. pneumoniae         bla IMP-1
+ 39    10   北部   男    20代     菌血症             血液    K. aerogenes
+ 40    10   北部   男    80代   尿路感染症、発熱          尿     E. cloacae complex    bla IMP-1
+ 41    10   北部   男    80代      肺炎             喀痰    E. cloacae complex
+ 42    10   南部   男    80代    菌血症、胆管炎          血液    E. cloacae complex
+ 43    11   南部   女    50代    尿路感染症            尿     K. pneumoniae                         bla CTX-M-3
+ 44    11   北部   女    70代    尿路感染症            尿     K. oxytoca            bla IMP-1
+ 45    12   西部   女    80代      肺炎             喀痰    K. aerogenes
+ 46    12   西部   女    90代     尿路感染症            尿    E. coli                              bla CTX-M-15
+      CRE感染症届出対象外株
+                                                                                          カルバペネマー       その他のβ-ラクタム系耐性遺
+番号 分離月 医療圏*1        性別   年代           症状          渡航歴      材料               菌種                 *2                                   特記事項
+                                                                                           ゼ遺伝子               伝子
+  1    12     北部     男   50代       壊死性筋膜炎                  膿      K. pneumoniae                               bla CTX-M-15
+  2    12     北部     男    70代         肺炎                鼻腔ぬぐい液 K. pneumoniae                                  bla CTX-M-15
+  3    1      北部     男    50代         褥瘡                   膿      K. pneumoniae                               bla CTX-M-15
+  4    2      北部     女    50代       褥瘡、発熱                  膿      E. coli
+  5    3      北部     男    70代    穿孔性腹膜炎、下血                 血液     K. aerogenes
+  6    3      北部     男    60代          無           有       便      K. pneumoniae                               bla CTX-M-15         メキシコ渡航歴有
+ 7     1      西部     女   80代           無                   尿      E. cloacae complex       bla IMP-1
+  8    4      南部     女   小児            無                   便      E. cloacae complex       bla IMP-1
+  9    4      南部     女   小児            無                   便      E. cloacae complex       bla IMP-1
+ 10    4      南部     女   小児            無                   便      E. cloacae complex       bla IMP-1
+ 11    4      南部     男   小児            無                   便      E. cloacae complex       bla IMP-1
+ 12    4      南部     男   小児            無                   便      R. ornithinolytica       bla IMP-1
+ 13    6      南部     女   80代           無                   尿      E. coli                                     bla CTX-M-15
+ 14    7      南部     女   80代      胆管炎、胆嚢炎                  胆汁     E. coli                                bla CTX-M-227，bla CMY-2
+ 15    7      南部     男   小児            無                   便      E. cloacae complex       bla IMP-1
+ 16    8      南部     男   小児            無                   便      E. cloacae complex       bla IMP-1
+ 17    8      南部     男   小児            無                   便      E. cloacae complex       bla IMP-1
+ 18    8      南部     女   小児            無                   便      E. cloacae complex       bla IMP-1
+ 19    8      南部     女   小児            無                   便      E. cloacae complex       bla IMP-1
+ 20    8      南部     男   小児            無                   便      E. cloacae complex       bla IMP-1
+ 21    8      南部     女   小児            無                   便      E. cloacae complex       bla IMP-1
+ 22    8      南部     男   小児            無                   便      E. coli                  bla IMP-1          bla CTX-M-14
+ 23    8      南部         環境由来                                     Pantoea sp.              bla IMP-11
+ 24                                                        血液     E. coli                                       bla CMY-2
+       8      北部     女   90代       敗血症、発熱
+ 25                                                        尿      E. coli                                       bla CMY-2
+ 26    7      南部     女   80代          肺炎                   喀痰     E. cloacae complex       bla IMP-1
+ 27    8      北部     男   80代    倦怠感、食欲不振                   血液     K. aerogenes
+ 28    9      南部     男   70代           無                   便      K. aerogenes
+ 29    8      南部     男    80代          無                   便      E. cloacae complex       bla IMP-1
+ 30    9      南部     女   90代           無                   便      E. coli                                     bla CTX-M-15
+ 31    10     南部     女    50代      胃腸炎、下痢                  便      K. pneumoniae                               bla CTX-M-3
+ 32    12     南部     女   70代       慢性胆管炎                   胆汁     K. pneumoniae
+ 33    12     北部     男   80代          肺炎                   喀痰     E. cloacae complex       bla IMP-1
+ 34    12     南部     女   60代         膀胱炎                   尿      K. pneumoniae                           bla CTX-M-3，bla DHA-1
+ 35    12     南部     男   小児           腸炎                   便      E. cloacae complex
+ 36    12     南部     女   80代         胆嚢炎                   胆汁     K. pneumoniae                                bla DHA-1
+ 37    12     北部     女   80代       子宮留膿腫                 膣分泌物     E. cloacae complex
+ 38    12     北部     女   80代          肺炎                   喀痰     K. pneumoniae                               bla CTX-M-3
+ 39    12     北部     男   60代           無                   喀痰     S. marcescens
+
+
+
+
+            *1 北部：鶴見、神奈川、港北、緑、青葉、都筑                     西部：西、保土ケ谷、旭、戸塚、泉、瀬谷            南部：中、南、港南、磯子、金沢、栄
+            *2 bla IMP-1、bla IMP-6、bla NDM-1 など、プラスミド性であり水平伝播する可能性が高い
+表2 横浜市内医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果集計
+（菌種別遺伝子検査結果）
+              横浜市衛生研究所 微生物検査研究課 細菌担当
+
+2020年1月～2020年12月搬入分
+
+CRE感染症届出患者株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Citrobacter braakii              2         0          0/2
+Enterobacter cloacae complex     19       11         11/19
+Escherichia coli                 4         1          1/4
+Klebsiella aerogenes             13        0          0/13
+Klebsiella oxytoca               2         2          2/2
+Klebsiella pneumoniae            4         2          2/4
+Serratia marcescens              2         0          0/2
+計                                46       16         16/46
+
+
+CRE感染症届出対象外株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Enterobacter cloacae complex     17       15         15/17
+Escherichia coli                 7         1          1/7
+Klebsiella aerogenes             3         0          0/3
+Klebsiella pneumoniae            9         0          0/9
+Raoultella ornithinolytica        1        1          1/1
+Serratia marcescens              1         0          0/1
+計                                38       17         17/38
+

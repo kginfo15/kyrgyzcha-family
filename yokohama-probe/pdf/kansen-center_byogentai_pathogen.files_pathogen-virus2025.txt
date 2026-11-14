@@ -1,0 +1,1026 @@
+病原体定点からのウイルス検出結果（2025年1月分）
+    分離結果               遺伝子結果                年齢      性別     臨床診断名
+   inf.AH1pdm           Rhino              10歳代     女 感冒
+   inf.AH1pdm                              30歳代     男 気管支炎
+   inf.AH1pdm          inf.AH1pdm          10歳代     男 インフルエンザA
+   inf.AH1pdm          inf.AH1pdm          10歳代     男 インフルエンザA
+   inf.AH1pdm          inf.AH1pdm          10歳代     女 インフルエンザA
+   inf.AH1pdm                           5歳以上10歳未満   女 インフルエンザA
+   inf.AH1pdm           inf.AH1pdm         40歳代     男 インフルエンザ
+   inf.AH1pdm           inf.AH1pdm         20歳代     女 インフルエンザA
+   inf.AH1pdm           inf.AH1pdm         60歳代     男 インフルエンザA
+                       HCoV-OC43         1歳以上5歳未満   男 咽頭炎
+                       hMPV/RSV          1歳以上5歳未満   男 咽頭炎
+                       HCoV-OC43         1歳以上5歳未満   男 咽頭炎
+    inf.AH1pdm             Adeno         1歳以上5歳未満   女 咽頭炎
+    inf.AH1pdm          inf.AH1pdm      5歳以上10歳未満   女 インフルエンザA
+    inf.AH1pdm          inf.AH1pdm      5歳以上10歳未満   女 インフルエンザA
+  inf.B(Victoria)     inf.B(Victoria)      30歳代     女 インフルエンザB
+    inf.AH1pdm          inf.AH1pdm         30歳代     男 インフルエンザA
+    inf.AH1pdm          inf.AH1pdm         50歳代     男 インフルエンザA
+    inf.AH1pdm                             60歳代     男 インフルエンザA
+    inf.AH1pdm         inf.AH1pdm        1歳以上5歳未満   女 インフルエンザA
+    inf.AH1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザA
+      Adeno-5                            1歳以上5歳未満   女 感冒
+      Adeno-1              Rhino        6か月以上1歳未満   女 ウイルス性気管支炎
+                          hMPV           1歳以上5歳未満   女 気管支炎
+    inf.AH1pdm         inf.AH1pdm          10歳代     男 インフルエンザA
+    inf.AH1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザ
+    inf.AH1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザ
+    inf.AH1pdm         inf.AH1pdm          20歳代     男 インフルエンザA
+    inf.AH1pdm         inf.AH1pdm          20歳代     女 インフルエンザA
+    inf.AH1pdm                             60歳代     男 インフルエンザA
+    inf.AH1pdm          inf.AH1pdm         10歳代     男 インフルエンザA
+  inf.B(Victoria)     inf.B(Victoria)      20歳代     女 インフルエンザB
+    inf.AH1pdm          inf.AH1pdm         10歳代     男 インフルエンザA
+                    HCoV-OC43/Para-3     1歳以上5歳未満   男 咽頭炎
+     inf.AH3               inf.AH3      5歳以上10歳未満   女 インフルエンザA
+                            Rhino       5歳以上10歳未満   女 急性上気道炎
+   inf.AH1pdm           inf.AH1pdm      5歳以上10歳未満   男 インフルエンザA
+                         Adeno-41        1歳以上5歳未満   女 川崎病・アデノウイルス腸炎
+
+※ 略語は、巻末参照
+
+
+
+
+                                                            2025年1月-1/1
+病原体定点からのウイルス検出結果（2025年2月分）
+    分離結果            遺伝子結果                年齢       性別       臨床診断名
+   inf.AH1pdm       inf.AH1pdm        5歳以上10歳未満   女    急性上気道炎
+                    HCoV-HKU1            6か月未満    男    ウイルス性気管支炎
+                    HCoV-OC43          1歳以上5歳未満   女    上気道炎
+   inf.AH1pdm       inf.AH1pdm            10歳代    女    インフルエンザ
+   inf.AH1pdm       inf.AH1pdm            10歳代    男    インフルエンザ
+   inf.AH1pdm                             10歳代    男    急性上気道炎
+                        hMPV           1歳以上5歳未満   男    急性気管支炎
+     inf.AH3           inf.AH3        5歳以上10歳未満   男    インフルエンザA
+                         RSV              10歳代    女    咽頭扁桃炎
+    inf.AH1pdm                        5歳以上10歳未満   女    咽頭炎
+       inf.AH3         inf.AH3            70歳代    女    インフルエンザA
+    inf.AH1pdm       inf.AH1pdm           50歳代    女    インフルエンザA
+    inf.AH1pdm       inf.AH1pdm           50歳代    女    インフルエンザA
+    inf.AH1pdm       inf.AH1pdm       5歳以上10歳未満   男    インフルエンザA
+      Adeno-2                          1歳以上5歳未満   女    咽頭炎
+       inf.AH3          inf.AH3           10歳代    女    インフルエンザA
+  inf.B(Victoria)   inf.B(Victoria)       30歳代    男    インフルエンザB
+
+※ 略語は、巻末参照
+
+
+
+
+                                                            2025年2月-1/1
+病原体定点からのウイルス検出結果（2025年3月分）
+    分離結果               遺伝子結果                年齢       性別        臨床診断名
+                           NoroG2           10歳代     男    感染性胃腸炎
+                            hMPV            10歳代     女    ヒトメタ気管支炎
+    inf.AH1pdm              hMPV         5歳以上10歳未満   女    hMPV気管支炎
+    inf.AH1pdm           inf.AH1pdm      5歳以上10歳未満   男    インフルエンザA
+  inf.B(Victoria)      inf.B(Victoria)      10歳代     男    インフルエンザB
+  inf.B(Victoria)      inf.B(Victoria)      10歳代     男    インフルエンザB
+                            hMPV          1歳以上5歳未満   男    気管支炎
+                         Rhino/RSV        1歳以上5歳未満   男    咽頭炎
+                             RSV         6か月以上1歳未満   女    咽頭炎
+                             Rhino       5歳以上10歳未満   男    咽頭炎
+   inf.AH1pdm            inf.AH1pdm      5歳以上10歳未満   女    インフルエンザA
+                      Rota-A/Entero      5歳以上10歳未満   男    胃腸炎
+                             RSV          1歳以上5歳未満   女    気管支炎・RSウイルス感染症
+                                                          急性鼻咽頭炎（ヒトメタニューモ
+                          hMPV            6か月未満      男
+                                                          ウイルスによる）
+                          hMPV              10歳代     男    急性上気道炎
+   inf.AH1pdm          inf.AH1pdm           30歳代     女    インフルエンザA
+   inf.AH1pdm          inf.AH1pdm           80歳代     男    インフルエンザA
+                    HCoV-OC43/VZV        5歳以上10歳未満   女    水痘
+    Adeno-2               Adeno          5歳以上10歳未満   女    水痘
+                      HCoV-NL63          5歳以上10歳未満   女    急性上気道炎
+                           RSV            1歳以上5歳未満   男    RS気管支炎
+                    HCoV-NL63/hMPV          10歳代     男    急性咽頭炎
+                           Rhino            10歳代     男    急性咽頭炎
+   inf.AH1pdm          inf.AH1pdm           10歳代     男    インフルエンザ
+      inf.AH3                               50歳代     男    上気道炎
+                    HCoV-NL63/Para-3        30歳代     男    上気道炎
+     inf.AH3             inf.AH3         5歳以上10歳未満   男    インフルエンザA
+     inf.AH3             inf.AH3         5歳以上10歳未満   女    インフルエンザA
+                           RSV            1歳以上5歳未満   男    RSV気管支炎
+                       HCoV-229E          1歳以上5歳未満   女    咽頭炎
+  inf.B(Victoria)                        5歳以上10歳未満   男    咽頭炎・インフルエンザB
+  inf.B(Victoria)                           10歳代     男    インフルエンザB
+      inf.AH3             inf.AH3           10歳代     女    インフルエンザA
+  inf.B(Victoria)     inf.B(Victoria)       10歳代     男    インフルエンザB
+    inf.AH1pdm          inf.AH1pdm          60歳代     女    インフルエンザA
+                      inf.B(Victoria)       40歳代     女    インフルエンザB
+                       HCoV-OC43            50歳代     男    上気道炎
+
+※ 略語は、巻末参照
+
+
+
+
+                                                                2025年3月-1/1
+病原体定点からのウイルス検出結果（2025年4月分）
+    分離結果               遺伝子結果               年齢       性別              臨床診断名
+                            B19         5歳以上10歳未満   女 伝染性紅斑
+                           Rhino         1歳以上5歳未満   男 急性咽頭気管支炎
+   inf.AH1pdm          inf.AH1pdm          10歳代     女 インフルエンザA
+   inf.AH1pdm                              40歳代     男 インフルエンザA
+                    SARS-CoV-2/Para-
+                                          20歳代      女    COVID-19
+                          3/HBoV
+  inf.B(Victoria)     inf.B(Victoria)       10歳代    男    インフルエンザB
+                           Rhino            60歳代    男    ARI
+                         Adeno-1            10歳代    女    ARI
+                          Para-3            70歳代    女    ARI
+  inf.B(Victoria)     inf.B(Victoria)   5歳以上10歳未満   女    ARI（インフルエンザB）
+                         Adeno-1         1歳以上5歳未満   男    ARI
+                            RSV          1歳以上5歳未満   女    ARI（RS細気管支炎）
+  SARS-CoV-2          SARS-CoV-2            10歳代    女    ARI
+                           Rhino        6か月以上1歳未満   女    ARI
+                           Rhino         1歳以上5歳未満   女    ARI
+                           Rhino         1歳以上5歳未満   女    ARI
+                    SARS-CoV-2/hMPV         10歳代    男    ARI（気管支炎）
+                           Rhino         1歳以上5歳未満   男    ARI
+                           Rhino        6か月以上1歳未満   女    ARI
+  SARS-CoV-2          SARS-CoV-2        6か月以上1歳未満   男    ARI（COVID-19）
+                      SARS-CoV-2            60歳代    女    ARI
+                      SARS-CoV-2         1歳以上5歳未満   男    ARI
+                      SARS-CoV-2            30歳代    女    ARI
+                            RSV             60歳代    女    ARI（上気道炎）
+                            RSV             40歳代    女    ARI（上気道炎）
+                      SARS-CoV-2            40歳代    男    ARI
+                      SARS-CoV-2            30歳代    男    ARI（COVID-19）
+                           Rhino        6か月以上1歳未満   女    ARI
+                      SARS-CoV-2            50歳代    女    ARI
+                           Rhino        6か月以上1歳未満   女    ARI
+                         Adeno-2         1歳以上5歳未満   女    ARI
+                           Rhino        6か月以上1歳未満   男    ARI
+                           Rhino         1歳以上5歳未満   女    ARI
+                           Rhino           6か月未満    男    ARI
+                           Rhino        5歳以上10歳未満   女    ARI
+    Para-2                               1歳以上5歳未満   女    ARI
+  SARS-CoV-2          SARS-CoV-2            10歳代    男    ARI
+    Para-2                              5歳以上10歳未満   女    ARI
+                          Rhino          1歳以上5歳未満   男    ARI
+      Rhino                                 20歳代    男    ARI
+                      SARS-CoV-2            80歳代    男    ARI
+                         Rhino           1歳以上5歳未満   男    ARI
+                         Rhino           1歳以上5歳未満   女    ARI
+                        Adeno-2          1歳以上5歳未満   女    ARI
+                                                                   2025年4月-1/2
+病原体定点からのウイルス検出結果（2025年4月分）
+       分離結果                   遺伝子結果                     年齢            性別             臨床診断名
+                                 Rhino            5歳以上10歳未満            男   ARI
+                                 RSV                 20歳代              女   ARI
+        HPeV-1                                     1歳以上5歳未満            女   ARI
+        Para-2                                       10歳代              女   ARI
+                                  RSV             5歳以上10歳未満            男   ARI
+     inf.B(Victoria)           Influenza             40歳代              男   ARI（扁桃炎)
+         inf.AH3               Influenza             50歳代              女   ARI（インフルエンザA）
+         inf.AH3               Influenza             10歳代              女   ARI（インフルエンザA）
+                                 Rhino            5歳以上10歳未満            女   ARI
+                                 Rhino            5歳以上10歳未満            男   ARI
+                                  RSV              1歳以上5歳未満            男   ARI
+                               Adeno-2             1歳以上5歳未満            男   ARI
+       inf.AH1pdm              Influenza          5歳以上10歳未満            男   ARI
+     inf.B(Victoria)           Influenza             10歳代              女   ARI
+                             SARS-CoV-2              80歳代              男   ARI
+         inf.AH3               Influenza             40歳代              女   ARI
+      inf.AH1pdm               Influenza           1歳以上5歳未満            女   ARI
+     SARS-CoV-2              SARS-CoV-2              30歳代              男   ARI
+                             SARS-CoV-2              30歳代              男   ARI
+                                 Rhino               20歳代              女   ARI
+
+※1 略語は、巻末参照
+※2 ARI（急性呼吸器感染症）とは
+   https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou/kekkaku-kansenshou19/ari.html
+
+
+
+
+                                                                                       2025年4月-2/2
+病原体定点からのウイルス検出結果（2025年5月分）
+    分離結果            遺伝子結果               年齢     性別        臨床診断名
+    HPeV-1                         6か月以上1歳未満   女 感染性胃腸炎
+                        Rhino         6か月未満    女 ARI
+                       Para-3      6か月以上1歳未満   男 ARI
+                        Rhino          10歳代    女 ARI
+                    Rhino/Para-3    1歳以上5歳未満   男 ARI
+                    Rhino/Para-3    1歳以上5歳未満   男 ARI
+                        Rhino       1歳以上5歳未満   男 ARI
+                        Rhino       1歳以上5歳未満   男 ARI
+                        Rhino      6か月以上1歳未満   女 ARI
+                        Rhino       1歳以上5歳未満   男 ARI
+                        Rhino      5歳以上10歳未満   男 ARI
+                    SARS-CoV-2         10歳代    女 ARI
+                         RSV           20歳代    男 ARI
+                        Rhino          10歳代    男 ARI（上気道炎）
+  inf.B(Victoria)        Inf.B         10歳代    男 ARI（インフルエンザB）
+                       Para-3      5歳以上10歳未満   男 ARI（上気道炎）
+                        hMPV           50歳代    女 ARI
+                    SARS-CoV-2         50歳代    女 ARI
+  SARS-CoV-2        SARS-CoV-2         50歳代    女 ARI（COVID-19）
+                        Rhino       1歳以上5歳未満   男 ARI
+     inf.AH3          Influenza    5歳以上10歳未満   女 ARI
+                         RSV        1歳以上5歳未満   男 ARI
+                        Rhino          10歳代    男 ARI
+                        Rhino          20歳代    男 ARI
+                        Rhino       1歳以上5歳未満   男 ARI
+                        Rhino       1歳以上5歳未満   女 ARI
+                    Rhino/Para-3    1歳以上5歳未満   女 ARI
+                        Rhino      6か月以上1歳未満   女 ARI
+                        Rhino      5歳以上10歳未満   女 ARI
+                        Rhino       1歳以上5歳未満   男 ARI
+                       Para-3       1歳以上5歳未満   男 ARI
+                        Rhino       1歳以上5歳未満   男 ARI
+                       Para-2          20歳代    男 ARI
+                        Rhino          40歳代    男 ARI
+                        Rhino          50歳代    女 ARI
+                        Rhino          20歳代    女 ARI
+  SARS-CoV-2        SARS-CoV-2         80歳代    女 ARI
+                    SARS-CoV-2         90歳代    女 ARI
+                       Para-2          40歳代    女 ARI（りんご病疑い）
+                        Rhino       1歳以上5歳未満   男 ARI
+                       Para-3       1歳以上5歳未満   女 ARI（耳下腺炎）
+                          B19      5歳以上10歳未満   女 りんご病
+                        Rhino       1歳以上5歳未満   女 ARI
+     Para-2            Para-2       1歳以上5歳未満   女 ARI
+                                                        2025年5月-1/2
+病原体定点からのウイルス検出結果（2025年5月分）
+       分離結果                   遺伝子結果                   年齢              性別        臨床診断名
+                             Rhino/Para-3        6か月以上1歳未満            女 ARI
+                                Para-3           5歳以上10歳未満            女 ARI
+                                Para-3            1歳以上5歳未満            女 ARI
+                                 Rhino               70歳代             男 ARI
+                                 inf.A           5歳以上10歳未満            男 ARI
+                                 Rhino            1歳以上5歳未満            女 ARI
+                             Para-3/inf.A        6か月以上1歳未満            女 ARI
+                                Para-3               10歳代             女 ARI
+                                Para-3           5歳以上10歳未満            女 ARI
+                                 Rhino           5歳以上10歳未満            男 ARI
+                                Para-3            1歳以上5歳未満            女 ARI
+        HSV-1                Para-4/Rhino         1歳以上5歳未満            男 ARI
+                                Para-4            1歳以上5歳未満             男 ARI
+                                 RSV                6か月未満              女 ARI
+                                 Rhino               70歳代              男 ARI
+                                 Rhino               50歳代              男 ARI
+     SARS-CoV-2              SARS-CoV-2              10歳代              女 ARI（コロナ）
+                             SARS-CoV-2                40歳代            女 ARI
+      inf.AH1pdm                  inf.A             40歳代               男   ARI
+                                Para-3              50歳代               男   ARI
+     SARS-CoV-2              SARS-CoV-2             60歳代               女   ARI
+       Adeno-1                  Adeno            6か月以上1歳未満             女   ARI
+                                Para-3            1歳以上5歳未満             男   ARI
+        Para-2                  Para-2            1歳以上5歳未満             女   ARI
+                                Para-3            1歳以上5歳未満             男   ARI
+                                 hMPV            6か月以上1歳未満             女   ARI
+                                Para-3           6か月以上1歳未満             女   ARI
+                                Para-3            1歳以上5歳未満             男   ARI
+                             Rhino/Para-4         1歳以上5歳未満             女   ARI
+                                 Rhino           5歳以上10歳未満             女   ARI
+
+※1 略語は、巻末参照
+※2 ARI（急性呼吸器感染症）とは
+   https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou/kekkaku-kansenshou19/ari.html
+
+
+
+
+                                                                                       2025年5月-2/2
+病原体定点からのウイルス検出結果（2025年6月分）
+   分離結果            遺伝子結果                 年齢     性別        臨床診断名
+                      Para-4            30歳代    女 ARI
+                      Para-3         1歳以上5歳未満   女 ARI
+                  Rhino/Para-3       1歳以上5歳未満   男 ARI
+                      Para-3         1歳以上5歳未満   男 ARI
+                      hMPV           1歳以上5歳未満   女 ARI（hMPV感染症）
+                      Rhino          1歳以上5歳未満   女 ARI
+                     Adeno-2         1歳以上5歳未満   男 ARI
+                  SARS-CoV-2            20歳代    男 ARI
+                      Para-3            50歳代    女 ARI
+                  SARS-CoV-2            40歳代    女 ARI
+                      Rhino             20歳代    女 ARI
+                    Adeno-41        6か月以上1歳未満   男 感染性胃腸炎
+                      Rhino          1歳以上5歳未満   男 ARI
+                      Rhino          1歳以上5歳未満   女 ARI
+                 Adeno-2/Rhino       1歳以上5歳未満   女 ARI
+                      hMPV          6か月以上1歳未満   女 ARI
+               Rhino/Para-3/Adeno   6か月以上1歳未満   男 ARI
+                  Para-3/Rhino          30歳代    女 ARI
+                      Para-3        5歳以上10歳未満   女 ARI
+                      Para-3         1歳以上5歳未満   男 ARI
+                  Rhino/Para-3       1歳以上5歳未満   女 ARI
+                      Rhino            6か月未満    男 低月齢発熱
+                      Rhino         5歳以上10歳未満   男 ARI
+                      Para-4         1歳以上5歳未満    女 ARI
+                      Para-2         1歳以上5歳未満    男 ARI
+                     CoxA-6         6か月以上1歳未満    男 ARI
+                      Para-3         1歳以上5歳未満    女 ARI
+                      Rhino             10歳代     女 ARI
+                      Para-3         1歳以上5歳未満    男 ARI
+                      Rhino          1歳以上5歳未満    男 ARI
+                  SARS-CoV-2            50歳代     女 ARI
+                      Para-4            60歳代     女 ARI
+                      Rhino             70歳代    男 ARI
+  SARS-CoV-2      SARS-CoV-2            10歳代    女 ARI
+                      Para-3            10歳代    女 ARI
+                      Para-4         1歳以上5歳未満   男 ARI
+    Rhino        Rhino or Entero        10歳代    女 ARI
+                      Rhino          1歳以上5歳未満   男 ARI
+                  Para-3/Rhino      6か月以上1歳未満   女 ARI
+                      Para-3        5歳以上10歳未満   女 ARI
+                  SARS-CoV-2            80歳代    女 ARI
+                      Para-3        5歳以上10歳未満   女 ARI
+                      Para-3         1歳以上5歳未満    男 ARI
+                      Rhino             10歳代     男 ARI
+                                                         2025年6月-1/3
+病原体定点からのウイルス検出結果（2025年6月分）
+   分離結果          遺伝子結果               年齢      性別     臨床診断名
+                   Para-3           10歳代     女 ARI
+                   Para-3        1歳以上5歳未満    女 ARI
+                Para-3/Rhino       6か月未満     男 ARI
+                    Rhino       6か月以上1歳未満    男 ARI
+                    RSV          1歳以上5歳未満    男 ARI
+                   Para-3       5歳以上10歳未満    男 ARI
+                SARS-CoV-2          10歳代     男 ARI
+                SARS-CoV-2          50歳代     男 ARI
+                    Rhino           10歳代     男 ARI
+                SARS-CoV-2          60歳代     女 ARI
+                    Rhino           10歳代     男 ARI
+                   Para-3           60歳代     男 ARI
+                    Rhino           40歳代     男 ARI
+  SARS-CoV-2    SARS-CoV-2          50歳代     女 ARI
+    Para-2         Para-2           10歳代     男 ARI
+                   Para-3           70歳代     男 ARI
+               Adeno-2 /Rhino    1歳以上5歳未満     女 ARI
+                Para-3/Rhino       6か月未満      男 ARI
+                    Rhino           10歳代      男 ARI
+    Adeno-2        Adeno         1歳以上5歳未満     男 ARI
+                   Para-3           60歳代      男 ARI
+                    Rhino       5歳以上10歳未満     男 ARI
+                   Para-3        1歳以上5歳未満     男 ARI
+    Para-2                       1歳以上5歳未満     女 ARI
+    Para-2        Para-2        5歳以上10歳未満     女 ARI
+    Para-2                       1歳以上5歳未満     男 ARI
+                   Rhino        5歳以上10歳未満     女 ARI
+                   Para-3        1歳以上5歳未満     女 ARI
+                   Para-3        1歳以上5歳未満     男 ARI
+                   Rhino         1歳以上5歳未満     男 ARI
+                   Rhino         1歳以上5歳未満     男 ARI
+                   Para-4        5歳以上10歳未満    男 ARI
+                SARS-CoV-2          20歳代     女 ARI
+                   Para-3           10歳代     女 ARI
+                SARS-CoV-2          20歳代     男 ARI
+  SARS-CoV-2    SARS-CoV-2          60歳代     男 ARI
+                   Rhino            20歳代     女 ARI
+                   Rhino        5歳以上10歳未満    女 耳下腺炎
+                   Adeno         1歳以上5歳未満    女 ARI
+                   Rhino         1歳以上5歳未満    男 ARI
+               CoxA-10/Adeno       6か月未満     男 ARI
+                   Para-3        1歳以上5歳未満    男 ARI
+                   Rhino        5歳以上10歳未満    女 ARI
+                   Para-4        1歳以上5歳未満    女 ARI
+                                                    2025年6月-2/3
+病原体定点からのウイルス検出結果（2025年6月分）
+   分離結果         遺伝子結果            年齢     性別     臨床診断名
+                 Rhino       1歳以上5歳未満   女 ARI
+                 Para-3        6か月未満    女 ウイルス性髄膜炎
+
+※ 略語は、巻末参照
+
+
+
+
+                                               2025年6月-3/3
+病原体定点からのウイルス検出結果（2025年7月分）
+    分離結果               遺伝子結果                年齢     性別      臨床診断名
+                        Para-4          1歳以上5歳未満   男 ARI
+                        Para-3          1歳以上5歳未満   女 ARI
+                        Para-3          1歳以上5歳未満   男 ARI
+                        Para-3          1歳以上5歳未満   女 ARI
+                      Rhino/hMPV        1歳以上5歳未満   男 ARI
+                         Rhino         5歳以上10歳未満   男 ARI
+                         hMPV             80歳代     女 ARI
+                        Para-3            10歳代     男 ARI
+                        Para-3            20歳代      男 ARI
+                    RSV/SARS-CoV-2        70歳代      男 ARI
+                        Para-3             50歳代     男 ARI
+                         Rhino             10歳代     男 ARI
+                         Rhino             20歳代     男 ARI
+                       HBoV/RSV         1歳以上5歳未満    女 RSウイルス感染症
+    Adeno-1                             1歳以上5歳未満    女 咽頭結膜熱
+    Adeno-2                             1歳以上5歳未満    男 咽頭結膜熱
+                          RSV           1歳以上5歳未満    女 ARI
+                         Rhino          1歳以上5歳未満    女 ARI
+                         Rhino          1歳以上5歳未満    男 ARI
+                      SARS-CoV-2           50歳代     女 ARI
+                         Para-3            30歳代     女 ARI
+                        Echo-18         1歳以上5歳未満    男 ARI
+                        Echo-18         1歳以上5歳未満    男 ARI
+                         Rhino          1歳以上5歳未満    女 ARI
+                          RSV           1歳以上5歳未満    男 ARI
+    Adeno-1                             1歳以上5歳未満    女 ARI
+                          Rhino         1歳以上5歳未満    男 ARI
+                          Rhino         1歳以上5歳未満    女 ARI
+                      Adeno/Rhino       1歳以上5歳未満    男 ARI
+                         Para-4        5歳以上10歳未満    女 ARI
+    Adeno-2          Adeno/Para-4       1歳以上5歳未満    男 ARI
+                     SARS-CoV-2            70歳代     男 ARI
+                     SARS-CoV-2           80歳代     男 ARI
+                     SARS-CoV-2           20歳代     女 ARI
+                     SARS-CoV-2           30歳代     男 ARI
+                     SARS-CoV-2           60歳代     女 ARI
+                         Para-4           20歳代     男 ARI
+    Adeno-5              Adeno            40歳代     男 ARI
+                         Para-3           40歳代     男 ARI
+                     SARS-CoV-2           70歳代     男 ARI
+                          RSV          6か月以上1歳未満   女 RSV感染症
+                         Para-3        6か月以上1歳未満   男 ARI
+      Para-2        Para-2/Adeno-5     5歳以上10歳未満   女 ARI
+  inf.B(Victoria)    inf.B(Victoria)   5歳以上10歳未満   女 ARI
+                                                           2025年7月-1/3
+病原体定点からのウイルス検出結果（2025年7月分）
+   分離結果           遺伝子結果                 年齢     性別      臨床診断名
+                   Echo-18        6か月以上1歳未満    女 ARI
+                    Para-4         1歳以上5歳未満    男 ARI
+                    Para-4         1歳以上5歳未満    女 ARI
+                 SARS-CoV-2            50歳代    女 ARI
+                    Para-4         1歳以上5歳未満    男 ARI
+                    Para-4         1歳以上5歳未満    男 ARI
+                 Rhino/Para-4      1歳以上5歳未満    男 ARI
+                     Rhino         1歳以上5歳未満    女 ARI
+    HPeV-5                        5歳以上10歳未満    女 ARI
+                     Para-4            10歳代     女 ARI
+                      Rhino            10歳代     男 ARI
+                     Para-3            10歳代     女 ARI
+                      Rhino            10歳代     女 ARI
+  SARS-CoV-2      SARS-CoV-2           70歳代     男 ARI
+  SARS-CoV-2      SARS-CoV-2           60歳代     男 ARI
+                     Para-3            60歳代     男 ARI
+                       RSV             10歳代     男 ARI
+                     Para-4            50歳代     男 ARI
+                Adeno-31/Para-4    1歳以上5歳未満     男 ARI
+                    CoxA-4        5歳以上10歳未満     男 ARI
+                    Echo-18        1歳以上5歳未満     女 ARI
+                      Rhino       5歳以上10歳未満     男 ARI
+                    Echo-18            40歳代     女 ARI
+                     Para-4           6か月未満     女 ARI
+    Adeno-3          Adeno        5歳以上10歳未満     男 ARI
+                    Adeno-3       5歳以上10歳未満     男 ARI
+                      Rhino        1歳以上5歳未満     男 手足口病
+                     Para-3        1歳以上5歳未満     女 ARI
+                       RSV         1歳以上5歳未満     男 ARI
+                    Adeno-1        5歳以上10歳未満    男 ARI
+                     CoxA-2       6か月以上1歳未満     女 ARI
+                   RSV/Rhino        1歳以上5歳未満    女 ARI
+                       RSV          1歳以上5歳未満    男 ARI
+                  Para-3/Rhino    5歳以上10歳未満    男 ARI
+                      Rhino        1歳以上5歳未満    男 ARI
+                    Adeno-2       5歳以上10歳未満    女 ARI
+                  SARS-CoV-2           30歳代    男 ARI
+                  SARS-CoV-2           70歳代    男 ARI
+               SARS-CoV-2/Rhino        30歳代    男 ARI
+                  SARS-CoV-2           30歳代    女 ARI
+                      hMPV             30歳代    男 ARI
+                  SARS-CoV-2           50歳代    男 ARI
+                  SARS-CoV-2           60歳代    男 ARI
+    HSV-2                              10歳代    女 ARI
+                                                       2025年7月-2/3
+病原体定点からのウイルス検出結果（2025年7月分）
+   分離結果            遺伝子結果               年齢      性別     臨床診断名
+                  SARS-CoV-2          60歳代     男 ARI
+                  SARS-CoV-2          30歳代     男 ARI
+  SARS-CoV-2      SARS-CoV-2          60歳代     男 ARI
+                  SARS-CoV-2          30歳代     男 ARI
+  SARS-CoV-2      SARS-CoV-2          30歳代     男 ARI
+  SARS-CoV-2      SARS-CoV-2          60歳代     女 ARI
+                    CoxA-10        1歳以上5歳未満    女 手足口病
+                     Para-4        1歳以上5歳未満    男 ARI
+                      RSV          1歳以上5歳未満    女 ARI
+                   RSV/Rhino       1歳以上5歳未満    男 ARI
+               Adeno-1/RSV/Rhino    1歳以上5歳未満   男 ARI
+                     Rhino         5歳以上10歳未満   男 ARI
+                     Para-2         1歳以上5歳未満   女 ARI
+                     Para-3           10歳代     男 ARI
+
+※ 略語は、巻末参照
+
+
+
+
+                                                      2025年7月-3/3
+病原体定点からのウイルス検出結果（2025年8月分）
+   分離結果             遺伝子結果              年齢      性別      臨床診断名
+                        RSV         1歳以上5歳未満   男 ARI
+                        RSV         1歳以上5歳未満   女 ARI
+                  Adeno/CoxA-6      1歳以上5歳未満   女 ARI
+                       Rhino       5歳以上10歳未満   男 ARI
+                   SARS-CoV-2         50歳代     女 ARI
+                   SARS-CoV-2         20歳代     女 ARI
+                   SARS-CoV-2         70歳代     男 ARI
+                   SARS-CoV-2         40歳代     男 ARI
+  SARS-CoV-2       SARS-CoV-2         40歳代     女 ARI
+                       hMPV           70歳代     女 ARI
+  SARS-CoV-2       SARS-CoV-2         70歳代     女 ARI
+  SARS-CoV-2       SARS-CoV-2         10歳代     男 ARI
+                   SARS-CoV-2         50歳代     女 ARI
+                        RSV         1歳以上5歳未満   男 RSV感染症
+    Adeno-2        Adeno/Rhino     5歳以上10歳未満   男 咽頭結膜熱
+                   Adeno/Rhino      1歳以上5歳未満   男 ARI
+  SARS-CoV-2    SARS-CoV-2/Rhino      20歳代     女 ARI
+                      CoxA-4       5歳以上10歳未満   女 ARI
+    Para-2            Para-2       5歳以上10歳未満   女 ARI
+                   SARS-CoV-2         40歳代     女 ARI
+                Rhino/SARS-CoV-2   5歳以上10歳未満   男 ARI
+                    RSV/Rhino      6か月以上1歳未満   男 ARI
+                    RSV/Rhino       1歳以上5歳未満   男 ARI
+                    RSV/Rhino       1歳以上5歳未満   女 ARI
+                   SARS-CoV-2         40歳代     男 ARI
+                      Para-4          40歳代     男 ARI
+                   SARS-CoV-2         50歳代     男 ARI
+                   SARS-CoV-2         70歳代     男 ARI
+                   SARS-CoV-2         70歳代     女 ARI
+  SARS-CoV-2       SARS-CoV-2         60歳代     男 ARI
+                   SARS-CoV-2         30歳代     女 ARI
+   inf.AH1pdm           inf.A         50歳代     女 ARI
+                       hMPV           60歳代     女 ARI
+                   SARS-CoV-2         80歳代     女 ARI
+                   SARS-CoV-2         50歳代     女 ARI
+                   SARS-CoV-2         60歳代     男 ARI
+                   SARS-CoV-2         40歳代     男 ARI
+  SARS-CoV-2       SARS-CoV-2         60歳代     男 ARI
+                       hMPV         1歳以上5歳未満   女 ARI
+                       Rhino          20歳代     男 ARI
+                        RSV         1歳以上5歳未満   男 ARI
+                       Rhino       5歳以上10歳未満   男 ARI
+                        RSV           40歳代     男 ARI
+                      Adeno         1歳以上5歳未満   男 ARI
+                                                       2025年8月-1/2
+病原体定点からのウイルス検出結果（2025年8月分）
+   分離結果          遺伝子結果               年齢      性別      臨床診断名
+                    RSV          6か月以上1歳未満   男 RSV感染症
+                   Echo-9           30歳代     男 急性脳炎疑い
+                    RSV             60歳代     女 ARI
+    CoxA-16    Rhino or Entero      10歳代     男 ARI
+                    RSV           1歳以上5歳未満   女 ARI
+                    RSV          5歳以上10歳未満   男 ARI
+                    Rhino        5歳以上10歳未満   男 ARI
+                    RSV             60歳代     男 ARI
+                    RSV             10歳代     女 ARI
+     Rhino     Rhino or Entero      30歳代     男 ARI
+  SARS-CoV-2    SARS-CoV-2          20歳代     女 ARI
+                  Adeno-2        1歳以上5歳未満    男   ARI
+                   Rhino           10歳代      女   ARI
+
+※ 略語は、巻末参照
+
+
+
+
+                                                       2025年8月-2/2
+病原体定点からのウイルス検出結果（2025年9月分）
+   分離結果             遺伝子結果                年齢      性別       臨床診断名
+                       RSV           5歳以上10歳未満   男 ARI
+                Rhino/SARS-CoV-2     6か月以上1歳未満   男 ARI
+                       RSV            1歳以上5歳未満   女 ARI
+                       RSV            1歳以上5歳未満   女 ARI
+     Rhino             Rhino            10歳代     男 ARI
+                      CoxA-4            10歳代     男 ARI
+                       Rhino          1歳以上5歳未満   女 ARI
+                Rhino/SARS-CoV-2      1歳以上5歳未満   男 ARI
+                      CoxA-4          1歳以上5歳未満   男 ARI
+                      RSV              60歳代      女 ARI
+                    SARS-CoV-2           60歳代    女   ARI
+                    SARS-CoV-2           30歳代    男   ARI
+                        RSV          6か月以上1歳未満   女   ARI
+                    SARS-CoV-2           40歳代    女   ARI
+  SARS-CoV-2        SARS-CoV-2           70歳代    女   ARI
+                    SARS-CoV-2           70歳代    男   ARI
+                       Rhino             60歳代    男   ARI
+                        RSV              70歳代    女   ARI
+  SARS-CoV-2        SARS-CoV-2           50歳代    男   ARI
+  SARS-CoV-2        SARS-CoV-2           10歳代    女   ARI
+                 Rhino/SARS-CoV-2    5歳以上10歳未満   男   ARI
+                Adeno/SARS-CoV-2     5歳以上10歳未満   男   ARI
+               Adeno-54/SARS-CoV-2   5歳以上10歳未満   女   ARI
+                    SARS-CoV-2        1歳以上5歳未満   男   ARI
+                        RSV           1歳以上5歳未満   男   ARI
+                    SARS-CoV-2           60歳代    女   ARI
+  SARS-CoV-2        SARS-CoV-2           50歳代    男   ARI
+  SARS-CoV-2    Para-3/SARS-CoV-2        10歳代    男   ARI
+    Adeno-3     Adeno/SARS-CoV-2      1歳以上5歳未満   女   咽頭結膜熱
+                        RSV             6か月未満    女   RSV感染症
+                        RSV          5歳以上10歳未満   女   ARI
+    Adeno-2            Adeno          1歳以上5歳未満   男   ARI
+                    SARS-CoV-2       5歳以上10歳未満   女   ARI
+                    SARS-CoV-2           60歳代    女   ARI
+                    SARS-CoV-2           30歳代    女   ARI
+                    SARS-CoV-2           50歳代    男   ARI
+                       Rhino             40歳代    男   ARI
+  SARS-CoV-2        SARS-CoV-2           40歳代    女   ARI
+  SARS-CoV-2        SARS-CoV-2           20歳代    男   ARI
+  SARS-CoV-2        SARS-CoV-2           80歳代    女   ARI
+                    SARS-CoV-2           80歳代    女   ARI
+  SARS-CoV-2        SARS-CoV-2           10歳代    男   ARI
+    Para-2             hMPV          5歳以上10歳未満   男   ARI
+                    SARS-CoV-2           10歳代    女   ARI
+                                                              2025年9月-1/3
+病原体定点からのウイルス検出結果（2025年9月分）
+    分離結果              遺伝子結果               年齢     性別     臨床診断名
+   inf.AH1pdm         inf.AH1pdm         10歳代    女 ARI
+  SARS-CoV-2         SARS-CoV-2         6か月未満    男 ARI
+                          RSV        6か月以上1歳未満   男 ARI
+                          Rhino       1歳以上5歳未満   女 ARI
+                          Rhino      6か月以上1歳未満   男 ARI
+                          Rhino          40歳代    男 ARI
+                     SARS-CoV-2          40歳代    女 ARI
+                     SARS-CoV-2          50歳代    男 ARI
+                     SARS-CoV-2          60歳代    女 ARI
+                 SARS-CoV-2/Rhino     1歳以上5歳未満   女 ARI
+                         hMPV         1歳以上5歳未満   男 ARI
+                     SARS-CoV-2          10歳代    男 ARI
+    Para-2               Para-2          10歳代    男 ARI
+                 SARS-CoV-2/Rhino    5歳以上10歳未満   男 ARI
+                     SARS-CoV-2       1歳以上5歳未満   男 ARI
+                     SARS-CoV-2      5歳以上10歳未満   女 ARI
+                 SARS-CoV-2/Rhino     1歳以上5歳未満   男 ARI
+                     SARS-CoV-2      5歳以上10歳未満   男 ARI
+                         Para-3          10歳代    男 ARI
+                 SARS-CoV-2/Rhino    5歳以上10歳未満   女 ARI
+    inf. AH3    inf.AH3/SARS-CoV-2       10歳代    男 ARI
+                     SARS-CoV-2          30歳代    男 ARI
+                          Rhino          10歳代    男 ARI
+                          Rhino          10歳代    男 ARI
+                          Rhino      5歳以上10歳未満   女 ARI
+                     SARS-CoV-2          20歳代    男 ARI
+                     SARS-CoV-2          30歳代    男 ARI
+                          RSV            50歳代    男 ARI
+                  SARS-CoV-2/RSV         70歳代    女 ARI
+     Rhino                Rhino          10歳代    男 ARI
+                          RSV            20歳代    女 ARI
+                 SARS-CoV-2/Rhino        40歳代    女 ARI
+                          RSV            50歳代    女 ARI
+                          Rhino          10歳代    女 ARI
+                          RSV        5歳以上10歳未満   女 RS気管支炎
+                          Rhino       1歳以上5歳未満   女 ARI
+                     SARS-CoV-2      5歳以上10歳未満   男 ARI
+                          inf.A          40歳代    男 ARI
+                     SARS-CoV-2          60歳代    女 ARI
+                     SARS-CoV-2          20歳代    女 ARI
+                     SARS-CoV-2          20歳代    男 ARI
+                          inf.A          20歳代    男 ARI
+                         Para-2          50歳代    女 ARI
+                     SARS-CoV-2          80歳代    女 ARI
+                                                        2025年9月-2/3
+病原体定点からのウイルス検出結果（2025年9月分）
+   分離結果         遺伝子結果             年齢     性別      臨床診断名
+                   inf.A         70歳代    男 ARI
+                  Rhino          40歳代    女 ARI
+                   inf.A         10歳代    男 ARI
+                  Adeno       1歳以上5歳未満   女 ARI
+                   B19        1歳以上5歳未満   女 りんご病
+                   RSV          6か月未満    女 RS気管支炎
+                   RSV        1歳以上5歳未満   女 RS気管支炎
+                   inf.B     5歳以上10歳未満   男 インフルエンザB
+                RSV/Rhino     1歳以上5歳未満   男 RSV感染症
+
+※ 略語は、巻末参照
+
+
+
+
+                                                 2025年9月-3/3
+病原体定点からのウイルス検出結果（2025年10月分）
+    分離結果                   遺伝子結果                  年齢      性別     臨床診断名
+                          SARS-CoV-2          5歳以上10歳未満   男 ARI
+                               Rhino           1歳以上5歳未満   女 ARI
+                               Rhino          5歳以上10歳未満   女 手足口病
+     Rhino                     Rhino             10歳代     女 ARI
+     HSV-1                   Adeno-2           1歳以上5歳未満   女 ARI
+     Rhino                     Rhino             10歳代     女 ARI
+                          SARS-CoV-2             10歳代     男 ARI
+  SARS-CoV-2              SARS-CoV-2             10歳代     男 ARI
+                          SARS-CoV-2             10歳代     女 ARI
+                               hMPV              20歳代     男 ARI
+                          SARS-CoV-2             60歳代     男 ARI
+                          SARS-CoV-2             50歳代     男 ARI
+                               Rhino             20歳代     男 ARI
+                              Para-2             40歳代     男 ARI
+  SARS-CoV-2              SARS-CoV-2             70歳代     女 ARI
+      inf.AH3        inf.AH3/SARS-CoV-2          20歳代     女 ARI
+  SARS-CoV-2              SARS-CoV-2             80歳代     女 ARI
+     Adeno-2                   Adeno           1歳以上5歳未満   女 アデノウイルス感染症
+      inf.AH3                 inf.AH3         5歳以上10歳未満   女 インフルエンザA
+  inf.B(Victoria)         inf.B(Victoria)      1歳以上5歳未満   男 ARI
+  inf.B(Victoria)         inf.B(Victoria)     5歳以上10歳未満   男 ARI
+                               Rhino          5歳以上10歳未満   女 ARI
+                    RSV/hMPV/inf.B(Victori
+  inf.B(Victoria)                             5歳以上10歳未満   女   ARI
+                        a)/SARS-CoV-2
+  inf.B(Victoria)   inf.B(Victoria)/Adeno-2   5歳以上10歳未満   男   ARI
+                          SARS-CoV-2             10歳代     女   ARI
+                               hMPV              40歳代     女   ARI
+                           Rhino/Adeno        6か月以上1歳未満   女   ARI
+                                inf.A         5歳以上10歳未満   男   ARI
+     Para-2                   Para-2             10歳代     男   ARI
+                               Rhino           1歳以上5歳未満   女   ARI
+    Adeno-1                Rhino/Adeno         1歳以上5歳未満   女   ARI
+                               Rhino             10歳代     女   ARI
+                               Rhino             10歳代     女   ARI
+                          SARS-CoV-2             60歳代     男   ARI
+                          SARS-CoV-2             20歳代     男   ARI
+                              Para-2             10歳代     女   ARI
+                                RSV              10歳代     男   ARI
+  SARS-CoV-2                   Rhino             60歳代     女   ARI
+                               Rhino             10歳代     女   ARI
+                                RSV              30歳代     男   ARI
+                                RSV              20歳代     女   ARI
+                                RSV              30歳代     男   ARI
+                               Rhino             60歳代     女   ARI
+                                RSV              50歳代     男   ARI
+                                                                    2025年10月-1/2
+病原体定点からのウイルス検出結果（2025年10月分）
+   分離結果             遺伝子結果                   年齢     性別      臨床診断名
+                        Rhino          5歳以上10歳未満   女 ARI
+                        Rhino             40歳代     女 ARI
+                       inf.AH3         5歳以上10歳未満   女 ARI
+                         RSV            1歳以上5歳未満   女 RSウイルス気管支炎
+             Rhino or Entero/inf.AH3      10歳代     男 ARI
+                        Rhino           1歳以上5歳未満   男 ARI
+                   inf.AH3/Inf.B          10歳代     女 ARI
+                        Rhino           1歳以上5歳未満   男 ARI
+                       inf.AH3            10歳代     男 ARI
+                        Rhino           1歳以上5歳未満   男 ARI
+                        Rhino             10歳代     女 ARI
+                        Rhino          5歳以上10歳未満   男 ARI
+                        Adeno          5歳以上10歳未満   女 ARI
+                        hMPV            1歳以上5歳未満   男 ARI
+                       inf.AH3            10歳代     男 ARI
+                        hMPV           5歳以上10歳未満   男 ARI
+                       inf.AH3         5歳以上10歳未満   男 ARI
+                         RSV            1歳以上5歳未満   男 ARI
+                       inf.AH3            10歳代      男 ARI
+                        Rhino             20歳代      男 ARI
+                       inf.AH3            30歳代      男 ARI
+                       inf.AH3             10歳代     男 ARI
+                       inf.AH3             10歳代     女 ARI
+                        Rhino              30歳代     女 ARI
+                        Rhino              30歳代     男 ARI
+                       inf.AH3             20歳代     男 ARI
+                   SARS-CoV-2              10歳代     男 ARI
+                       inf.AH3             10歳代     男 ARI
+              inf.AH3/SARS-CoV-2           10歳代     男 ARI
+                        Rhino              10歳代     男 ARI
+                         RSV           6か月以上1歳未満    男 RSウイルス気管支炎
+                        Rhino          5歳以上10歳未満    女 ARI
+                       inf.AH3         5歳以上10歳未満    女 ARI
+                       inf.AH3         5歳以上10歳未満   男 ARI
+                        Rhino             10歳代     男 ARI
+                       inf.AH3            10歳代     男 ARI
+                        Rhino           1歳以上5歳未満   女 ARI
+                        Rhino             50歳代     女 ARI
+
+※ 略語は、巻末参照
+
+
+
+
+                                                           2025年10月-2/2
+病原体定点からのウイルス検出結果（2025年11月分）
+   分離結果          遺伝子結果               年齢     性別      臨床診断名
+    inf.AH3         inf.AH3     5歳以上10歳未満   男 ARI
+    inf.AH3         inf.AH3        10歳代     女 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満   女 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満   男 ARI
+    inf.AH3         inf.AH3        30歳代     女 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満    男 ARI
+                     Rhino       1歳以上5歳未満   男 ARI
+    inf.AH3         inf.AH3        10歳代      女 ARI
+                    Para-4       1歳以上5歳未満    男 ARI
+    inf.AH3         inf.AH3         10歳代     男 ARI
+    inf.AH3         inf.AH3         10歳代     女 ARI
+                 Rhino/Adeno     1歳以上5歳未満    男 ARI
+    inf.AH3     inf.AH3/Rhino       30歳代     女 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満    女 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満    男 ARI
+    inf.AH3         inf.AH3         30歳代     女 ARI
+    inf.AH3         inf.AH3         10歳代     男 ARI
+    inf.AH3         inf.AH3         60歳代     男 ARI
+    inf.AH3     inf.AH3/Rhino       10歳代     男 ARI
+    inf.AH3           inf.A         20歳代     男 ARI
+    inf.AH3         inf.AH3         60歳代     女 ARI
+    inf.AH3         inf.AH3         50歳代     女 ARI
+    inf.AH3         inf.AH3         30歳代     男 ARI
+    inf.AH3         inf.AH3         40歳代     女 ARI
+    inf.AH3     inf.AH3/Rhino       10歳代     男 ARI
+                     Rhino          10歳代     男 ARI
+    inf.AH3         inf.AH3         20歳代    女 ARI
+    inf.AH3         inf.AH3        10歳代     女 ARI
+                     Rhino       1歳以上5歳未満   女 ARI
+    inf.AH3         inf.AH3        10歳代     男 ARI
+                  RSV/Rhino      1歳以上5歳未満   男 ARI
+                     Rhino         10歳代     男 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満   男 ARI
+    inf.AH3         inf.AH3        30歳代     女 ARI
+                    HPeV-5       1歳以上5歳未満   女 ARI
+    inf.AH3     inf.AH3/Rhino      10歳代     男 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満   女 インフルエンザ肺炎
+    inf.AH3         inf.AH3      1歳以上5歳未満    男 インフルエンザA
+    inf.AH3         inf.AH3     5歳以上10歳未満    男 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満    男 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満    女 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満    男 ARI
+    inf.AH3         inf.AH3         10歳代     女 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満    男 ARI
+                                                    2025年11月-1/2
+病原体定点からのウイルス検出結果（2025年11月分）
+   分離結果             遺伝子結果                年齢     性別        臨床診断名
+    inf.AH3            inf.AH3      5歳以上10歳未満   男 ARI
+    inf.AH3            inf.AH3      5歳以上10歳未満   男 ARI
+    inf.AH3            inf.AH3       1歳以上5歳未満   男 ARI
+    inf.AH3              inf.A         10歳代     女 ARI
+    inf.AH3            inf.AH3         40歳代     女 ARI
+    inf.AH3            inf.AH3         10歳代     男 ARI
+    inf.AH3            inf.AH3         40歳代      女 ARI
+    inf.AH3            inf.AH3      5歳以上10歳未満    女 ARI
+                        Rhino          20歳代      女 ARI
+    inf.AH3            inf.AH3         10歳代      男 ARI
+    inf.AH3            inf.AH3          10歳代     男 ARI
+    inf.AH3            inf.AH3          10歳代     男 ARI
+    inf.AH3            inf.AH3          70歳代     男 ARI
+    inf.AH3            inf.AH3          50歳代     女 ARI
+    inf.AH3            inf.AH3          40歳代     女 ARI
+    inf.AH3            inf.AH3          10歳代     女 ARI
+    inf.AH3            inf.AH3          10歳代     男 ARI
+    inf.AH3            inf.AH3          10歳代     女 ARI
+    inf.AH3            inf.AH3          20歳代     女 ARI
+              inf.AH3/Rhino/SARS-
+    inf.AH3                         5歳以上10歳未満   男   ARI
+                       CoV-2
+    inf.AH3            inf.AH3      5歳以上10歳未満   男   ARI
+    inf.AH3            inf.AH3       1歳以上5歳未満   女   ARI
+    inf.AH3            inf.AH3      5歳以上10歳未満   男   ARI
+                        Rhino        1歳以上5歳未満   男   ARI
+    inf.AH3            inf.AH3      5歳以上10歳未満   女   ARI
+    inf.AH3            inf.AH3         10歳代     女   ARI
+    inf.AH3            inf.AH3         30歳代     女   ARI
+    inf.AH3            inf.AH3      5歳以上10歳未満   男   ARI
+    inf.AH3        inf.AH3/Rhino    5歳以上10歳未満   男   ARI
+    inf.AH3            inf.AH3      5歳以上10歳未満   女   インフルエンザA
+
+※ 略語は、巻末参照
+
+
+
+
+                                                          2025年11月-2/2
+病原体定点からのウイルス検出結果（2025年12月分）
+   分離結果          遺伝子結果               年齢     性別       臨床診断名
+                     Rhino      5歳以上10歳未満   男 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満   男 ARI
+                 Rhino/Adeno     1歳以上5歳未満   男 ARI
+    inf.AH3         inf.AH3        20歳代     男 ARI
+                     Rhino         10歳代     女 ARI
+     inf.AH3        inf.AH3     5歳以上10歳未満   男 ARI
+    Adeno-5    Rhino/Adeno-5     1歳以上5歳未満   女 ARI
+     inf.AH3        inf.AH3      1歳以上5歳未満   男 ARI
+     inf.AH3        inf.AH3        10歳代     男 ARI
+     inf.AH3        inf.AH3      1歳以上5歳未満    男 ARI
+     inf.AH3        inf.AH3     5歳以上10歳未満    女 ARI
+     inf.AH3        inf.AH3         60歳代     女 ARI
+     inf.AH3        inf.AH3         40歳代     男 ARI
+                SARS-CoV-2          60歳代     女 ARI
+    inf.AH3         inf.AH3         40歳代     女 ARI
+    inf.AH3         inf.AH3         10歳代     女 ARI
+    inf.AH3         inf.AH3         20歳代     男 ARI
+    inf.AH3         inf.AH3         50歳代     女 ARI
+    inf.AH3         inf.AH3         20歳代     男 ARI
+                     Rhino          10歳代     女 ARI
+    inf.AH3    inf.AH3/Adeno        10歳代     女 ARI
+    inf.AH3     inf.AH3/Rhino       30歳代     女 ARI
+    inf.AH3         inf.AH3         20歳代     男 ARI
+    inf.AH3         inf.AH3         40歳代     女 ARI
+    inf.AH3         inf.AH3         10歳代     男 ARI
+    inf.AH3    inf.AH3/Adeno     1歳以上5歳未満    男 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満    男 ARI
+                    inf.AH3     5歳以上10歳未満   男 ARI
+    inf.AH3         inf.AH3        30歳代     女 ARI
+    inf.AH3         inf.AH3        10歳代     女 ARI
+    inf.AH3         inf.AH3        10歳代     男 ARI
+    Para-2          Para-2         40歳代     男 ARI
+                     Rhino       1歳以上5歳未満   男 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満    男 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満    女 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満    男 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満    女 ARI
+                   Adeno-2       1歳以上5歳未満    男 ARI
+                     Rhino          10歳代     男 ARI
+    inf.AH3         inf.AH3     5歳以上10歳未満    男 ARI
+    inf.AH3         inf.AH3      1歳以上5歳未満    男 ARI
+    inf.AH3         inf.AH3         20歳代     男 ARI
+                    Para-1          70歳代     女 ARI
+    inf.AH3         inf.AH3         10歳代     男 ARI
+                                                     2025年12月-1/3
+病原体定点からのウイルス検出結果（2025年12月分）
+   分離結果             遺伝子結果               年齢     性別     臨床診断名
+                   SARS-CoV-2         30歳代     女 ARI
+    inf.AH3          inf.AH3          20歳代     女 ARI
+    inf.AH3          inf.AH3          20歳代     女 ARI
+    inf.AH3          inf.AH3          10歳代     男 ARI
+    inf.AH3          inf.AH3          20歳代     女 ARI
+                      hMPV         5歳以上10歳未満   女 ARI
+    inf.AH3          inf.AH3           10歳代    男 ARI
+    inf.AH3   inf.AH3/SARS-CoV-2       10歳代    女 ARI
+                      Rhino        6か月以上1歳未満   女 ARI
+    inf.AH3          inf.AH3        1歳以上5歳未満   女 ARI
+    inf.AH3            inf.A           10歳代    男 ARI
+    inf.AH3            inf.A       5歳以上10歳未満   男 ARI
+    inf.AH3            inf.A           10歳代    男 ARI
+    inf.AH3            inf.A           10歳代    男 ARI
+                      Rhino        5歳以上10歳未満   男 ARI
+                       inf.A       5歳以上10歳未満   女 ARI
+    inf.AH3            inf.A       5歳以上10歳未満   女 ARI
+                      Rhino            10歳代    男 ARI
+    inf.AH3            inf.A       6か月以上1歳未満   男 ARI
+                      Rhino         1歳以上5歳未満   男 ARI
+    inf.AH3            inf.A           10歳代    女 ARI
+                      Rhino         1歳以上5歳未満   男 ARI
+    inf.AH3            inf.A           10歳代    女 ARI
+    inf.AH3            inf.A           60歳代    男 ARI
+    inf.AH3            inf.A           50歳代    男 ARI
+    inf.AH3            inf.A           20歳代    男 ARI
+                      Rhino            30歳代    男 ARI
+                  Adeno-1/Rhino     1歳以上5歳未満   女 ARI
+    inf.AH3            inf.A           10歳代    男 ARI
+    inf.AH3            inf.A          40歳代     男 ARI
+                      Rhino        6か月以上1歳未満   男 ARI
+                      Rhino         1歳以上5歳未満   女 ARI
+                      Rhino         1歳以上5歳未満   女 ARI
+    inf.AH3            inf.A       5歳以上10歳未満   男 ARI
+    inf.AH3                           10歳代     女 ARI
+    inf.AH3         inf.A             20歳代     女 ARI
+    inf.AH3         inf.A             40歳代     女 ARI
+                    Rhino             20歳代     男 ARI
+    inf.AH3                           50歳代     女 インフルエンザ脳症
+    inf.AH3                        5歳以上10歳未満   女 ARI
+    inf.AH3                         1歳以上5歳未満   男 ARI
+    inf.AH3                         1歳以上5歳未満   女 ARI
+    inf.AH3                         1歳以上5歳未満   女 ARI
+    inf.AH3                        5歳以上10歳未満    男 ARI
+                                                      2025年12月-2/3
+病原体定点からのウイルス検出結果（2025年12月分）
+   分離結果         遺伝子結果             年齢      性別       臨床診断名
+    inf.AH3                   5歳以上10歳未満   男 ARI
+                  Rhino          10歳代     女 ARI
+    inf.AH3                   5歳以上10歳未満   男 ARI
+    inf.AH3                   6か月以上1歳未満   女 ARI
+                SARS-CoV-2       20歳代     男 ARI
+    inf.AH3                      40歳代     男 ARI
+    inf.AH3                      50歳代     男 ARI
+    inf.AH3                      50歳代     男 ARI
+    inf.AH3                      20歳代      女 ARI
+    inf.AH3                      20歳代      女 ARI
+    inf.AH3     SARS-CoV-2       10歳代      男 ARI
+                SARS-CoV-2       70歳代      男 ARI
+                   Rhino         10歳代      男 ARI
+    inf.AH3                      50歳代      男 ARI
+    inf.AH3                      40歳代      女 ARI
+
+※ 略語は、巻末参照
+
+
+
+
+                                                   2025年12月-3/3
+                        略語一覧
+
+ ARI     急性呼吸器感染症
+
+Adeno    アデノウイルス           HPeV       ヒトパレコウイルス
+
+Astro    アストロウイルス           HSV       単純ヘルペスウイルス
+
+ B19     ヒトパルボウイルスB19     Influenza   インフルエンザウイルス
+
+CoxA     コクサッキーウイルスA        inf.A     A型インフルエンザウイルス
+
+CoxB     コクサッキーウイルスB        inf.B     B型インフルエンザウイルス
+
+Echo     エコーウイルス            Noro      ノロウイルス
+
+Entero   エンテロウイルス           Para      パラインフルエンザウイルス
+
+HBoV     ヒトボカウイルス          Rhino      ライノウイルス
+
+HCoV     コロナウイルス            Rota      ロタウイルス
+SARS-    新型コロナウイルス          RSV       RSウイルス
+CoV-2
+HHV-6    ヒトヘルペスウイルス6       Sapo       サポウイルス
+
+hMPV     ヒトメタニューモウイルス       VZV       水痘帯状疱疹ウイルス
+
+
+
+
+                                                    略語一覧
+

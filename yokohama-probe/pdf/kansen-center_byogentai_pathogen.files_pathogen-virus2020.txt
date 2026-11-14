@@ -1,0 +1,400 @@
+病原体定点からのウイルス検出結果（2020年1月分）
+    分離結果               遺伝子結果               年齢       性別      臨床診断名
+  inf.AH1N1pdm         inf.AH1pdm         70歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         40歳代      男 インフルエンザ肺炎
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザA
+                    HCoV-229E or NL63   5歳以上10歳未満   男 咽頭炎
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         50歳代      男 インフルエンザA
+  inf.AH1N1pdm                            60歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         60歳代      男 インフルエンザA
+  inf.AH1N1pdm                            60歳代      男 インフルエンザA
+  inf.AH1N1pdm                            30歳代      男 インフルエンザA
+  inf.AH1N1pdm                            30歳代      男 インフルエンザA
+  inf.AH1N1pdm                            50歳代      女 インフルエンザA
+  inf.AH1N1pdm                            50歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         60歳代      女 インフルエンザA
+                          hMPV            未記入       男 上気道・下気道炎
+  inf.AH1N1pdm         inf.AH1pdm         70歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         60歳代      男 インフルエンザA
+  inf.AH1N1pdm                          5歳以上10歳未満   女 ウイルス性髄膜炎
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    男 咽頭気管支炎
+  inf.B(Victoria)     inf.B(Victoria)   1歳以上5歳未満    女 インフルエンザB
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         10歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         10歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       6か月以上1歳未満   女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザ
+  inf.AH1N1pdm         inf.AH1pdm         10歳代      女 インフルエンザ
+  inf.AH1N1pdm         inf.AH1pdm         50歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         40歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         30歳代      男 インフルエンザA
+                                                      単純ヘルペス脳炎・インフルエン
+  inf.AH1N1pdm         inf.AH1pdm        6か月未満      女
+                                                      ザA
+                       inf.AH1pdm         70歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         未記入       男 未記入
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       6か月以上1歳未満   男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         10歳代      男 インフルエンザA
+                        Adeno-2         1歳以上5歳未満    女 下痢
+
+                                                             2020年1月-1/2
+病原体定点からのウイルス検出結果（2020年1月分）
+    分離結果               遺伝子結果               年齢       性別       臨床診断名
+                         NoroG2         1歳以上5歳未満    男 急性腸炎
+                         NoroG2         1歳以上5歳未満    男 急性腸炎
+  inf.AH1N1pdm         inf.AH1pdm         50歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         20歳代      男 インフルエンザA
+  inf.AH1N1pdm                            30歳代      男 急性咽喉頭炎
+  inf.AH1N1pdm                            20歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         70歳代      女 インフルエンザA
+  inf.AH1N1pdm                            10歳代      男 インフルエンザA
+  inf.B(Victoria)     inf.B(Victoria)     20歳代      女 インフルエンザB
+     inf.AH3                              20歳代      男 インフルエンザA
+                                                      インフルエンザA・急性壊死性脳
+  inf.AH1N1pdm                            10歳代      男
+                                                      症
+     HSV-1                                30歳代      女 ヘルペス初感染
+  inf.AH1N1pdm                            50歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザA・重症肺炎
+    Adeno-2                             1歳以上5歳未満    女 急性上気道炎
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         10歳代      女 インフルエンザA
+  inf.B(Victoria)     inf.B(Victoria)     10歳代      女 インフルエンザB
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザA
+  inf.B(Victoria)     inf.B(Victoria)   5歳以上10歳未満   男 インフルエンザ
+                    HCoV-229E or NL63     10歳代      男 急性咽頭炎
+  inf.AH1N1pdm         inf.AH1pdm         10歳代      女 インフルエンザ
+  inf.AH1N1pdm         inf.AH1pdm         50歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         40歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         20歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   女 インフルエンザA
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                              2020年1月-2/2
+病原体定点からのウイルス検出結果（2020年2月分）
+    分離結果               遺伝子結果               年齢       性別       臨床診断名
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    男 インフルエンザA
+  inf.B(Victoria)                         未記入       男 インフルエンザB
+  inf.B(Victoria)                       5歳以上10歳未満   男 インフルエンザB
+  inf.B(Victoria)                       5歳以上10歳未満   女 インフルエンザB
+  inf.B(Victoria)                       5歳以上10歳未満   女 咽頭炎
+  inf.B(Victoria)                       5歳以上10歳未満   女 インフルエンザB
+  inf.B(Victoria)                         10歳代      女 インフルエンザB
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    男 インフルエンザA
+  inf.AH1N1pdm                            60歳代      女 インフルエンザA
+  inf.AH1N1pdm                            20歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         70歳代      女 インフルエンザA
+  inf.AH1N1pdm                            40歳代      男 インフルエンザA
+  inf.AH1N1pdm                            50歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         50歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   女 インフルエンザA
+                       HCoV-OC43        1歳以上5歳未満    女 上気道炎
+  inf.B(Victoria)                       5歳以上10歳未満   男 インフルエンザB
+                          Rhino          6か月未満      男 ウイルス性気管支炎
+  inf.B(Victoria)                       5歳以上10歳未満   女 インフルエンザB
+  inf.B(Victoria)                         10歳代      男 インフルエンザB
+  inf.B(Victoria)                       5歳以上10歳未満   女 インフルエンザB
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   女 インフルエンザA
+  inf.B(Victoria)                       5歳以上10歳未満   女 インフルエンザ
+  inf.AH1N1pdm         inf.AH1pdm         10歳代      男 インフルエンザ
+  inf.B(Victoria)                       5歳以上10歳未満   女 インフルエンザ
+  inf.AH1N1pdm                            40歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         50歳代      女 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         40歳代      男 インフルエンザA
+  inf.AH1N1pdm                            10歳代      男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm         30歳代      男 インフルエンザA
+    Adeno-2                             1歳以上5歳未満    男 浸出性扁桃炎
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザA
+  inf.AH1N1pdm         inf.AH1pdm       1歳以上5歳未満    女 インフルエンザA
+  inf.B(Victoria)       B(Victoria)       10歳代      男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)     5歳以上10歳未満   女 インフルエンザB
+  inf.B(Victoria)       B(Victoria)     5歳以上10歳未満   男 インフルエンザB
+    inf.AH3N2              AH3          1歳以上5歳未満    女 インフルエンザA
+                    HCoV-229E or NL63   1歳以上5歳未満    女 咽頭炎
+  inf.AH1N1pdm         inf.AH1pdm       5歳以上10歳未満   男 インフルエンザA
+  inf.B(Victoria)       B(Victoria)       10歳代      女 インフルエンザB
+                       Enterovirus      1歳以上5歳未満    女 急性上気道炎
+                                                              2020年2月-1/2
+病原体定点からのウイルス検出結果（2020年2月分）
+    分離結果            遺伝子結果            年齢       性別       臨床診断名
+  inf.B(Victoria)   B(Victoria)     10歳代      男 インフルエンザB
+  inf.AH1N1pdm                      未記入       女 インフルエンザA
+  inf.B(Victoria)   B(Victoria)     未記入       女 インフルエンザB
+  inf.AH1N1pdm                      30歳代      女 インフルエンザA
+                      hMPV        1歳以上5歳未満    男 hMPV気管支炎
+  inf.B(Victoria)                   10歳代      女 インフルエンザB
+     HSV-1                        1歳以上5歳未満    女 急性咽頭炎
+  inf.B(Victoria)                   10歳代      男 インフルエンザB
+  inf.B(Victoria)                 5歳以上10歳未満   女 インフルエンザ
+                      Rhino       6か月以上1歳未満   女 急性咽頭気管支炎
+                    HCoV-OC43       60歳代      女 上気道炎
+  inf.AH1N1pdm      inf.AH1pdm      50歳代      女 上気道炎
+  inf.AH1N1pdm      inf.AH1pdm      10歳代      女 インフルエンザA
+  inf.B(Victoria)                   10歳代      男 インフルエンザB
+  inf.AH1N1pdm      inf.AH1pdm    5歳以上10歳未満   女 インフルエンザA
+                                                急性散在性脊髄性脳炎疑い
+                      Para-2      5歳以上10歳未満   男
+                                                （ADEM)
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                        2020年2月-2/2
+病原体定点からのウイルス検出結果（2020年3月分）
+    分離結果               遺伝子結果               年齢       性別       臨床診断名
+                    HCoV-229E or NL63   1歳以上5歳未満    男 気管支炎
+                                                      ヒトメタニューモウイルス気管支
+                          hMPV          1歳以上5歳未満    女
+                                                      炎
+  inf.B(Victoria)       B(Victoria)     5歳以上10歳未満   男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)       10歳代      男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)     5歳以上10歳未満   男 インフルエンザB
+    Adeno-1               Adeno         1歳以上5歳未満    女 急性上気道炎
+  inf.AH1N1pdm                            40歳代      不明 インフルエンザA
+                    HCoV-229E or NL63   1歳以上5歳未満    男 インフルエンザB
+                          hMPV            50歳代      男 急性咽喉頭炎
+                    HCoV-229E or NL63     70歳代      女 肺炎
+                       Enterovirus      6か月以上1歳未満   女 急性心筋炎
+                    HCoV-229E or NL63   1歳以上5歳未満    女 急性上気道炎
+                          hMPV          1歳以上5歳未満    女 hMPV細気管支炎
+  inf.B(Victoria)       B(Victoria)       10歳代      男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)     5歳以上10歳未満   男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)       10歳代      男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)     6か月以上1歳未満   男 急性咽頭炎
+                         NoroG2         1歳以上5歳未満    男 感染性胃腸炎
+  inf.B(Victoria)       B(Victoria)     1歳以上5歳未満    男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)       10歳代      男 インフルエンザB
+  inf.B(Victoria)       B(Victoria)       10歳代      女 インフルエンザB
+    Adeno-3               Adeno         1歳以上5歳未満    男 咽頭結膜熱
+                       Enterovirus       6か月未満      女 気管支炎
+                    HCoV-229E or NL63   1歳以上5歳未満    男 気管支炎
+                          hMPV          1歳以上5歳未満    男 急性気管支炎
+                       Enterovirus      5歳以上10歳未満   女 急性上気道炎
+                          Rhino         6か月以上1歳未満   女 ウイルス性気管支炎
+    Adeno-3               Adeno         1歳以上5歳未満    男 急性咽頭気管支炎
+
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                              2020年3月-1/1
+病原体定点からのウイルス検出結果（2020年4月分）
+   分離結果          遺伝子結果               年齢       性別      臨床診断名
+    Adeno-2                       1歳以上5歳未満    女 咽頭炎
+                    hMPV          6か月以上1歳未満   女 ヒトメタニューモウイルス感染症
+              HCoV-229E or NL63   1歳以上5歳未満    男 咽頭炎
+                    Rhino         1歳以上5歳未満    女 咽頭炎
+                    hMPV          1歳以上5歳未満    男 hMPV気管支炎
+                                                ウイルス性気管支炎（細気管支
+                    Rhino         6か月以上1歳未満   女
+                                                炎）
+                    Rhino           10歳代      女 急性咽頭炎
+                    hMPV          1歳以上5歳未満    男 急性気管支炎
+                Rhino/Para-4      1歳以上5歳未満    女 急性鼻咽頭炎
+                    hMPV          1歳以上5歳未満    女 咽頭炎
+    Adeno-2                       1歳以上5歳未満    女 咽頭炎
+                 Enterovirus      1歳以上5歳未満    男 急性上気道炎
+                    Rhino         1歳以上5歳未満    女 急性咽頭炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                        2020年4月-1/1
+病原体定点からのウイルス検出結果（2020年5月分）
+   分離結果         遺伝子結果           年齢       性別      臨床診断名
+    Adeno-1       Adeno       1歳以上5歳未満   女 咽頭炎
+                Enterovirus   1歳以上5歳未満   女 咽頭炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                  2020年5月-1/1
+病原体定点からのウイルス検出結果（2020年6月分）
+   分離結果         遺伝子結果              年齢       性別      臨床診断名
+                   Rhino         1歳以上5歳未満   男 咽頭炎
+             HCoV-229E or NL63   1歳以上5歳未満   男 急性上気道炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                     2020年6月-1/1
+病原体定点からのウイルス検出結果（2020年7月分）
+   分離結果         遺伝子結果            年齢       性別       臨床診断名
+    Adeno-2       Rhino       1歳以上5歳未満    男 咽頭気管支炎・左中耳炎
+                  Rhino       1歳以上5歳未満    女 急性気管支炎
+                  Rhino       1歳以上5歳未満    男 ウイルス性気管支炎
+                  Rhino       1歳以上5歳未満    男 急性咽頭炎
+                Enterovirus   5歳以上10歳未満   男 急性咽頭扁桃炎
+                  Rhino       5歳以上10歳未満   女 急性咽頭炎
+                  Rhino       5歳以上10歳未満   女 咽頭炎
+                  Rhino       6か月以上1歳未満   男 気管支炎
+                  Rhino       1歳以上5歳未満    男 咽頭炎
+                  Rhino       1歳以上5歳未満    女 咽頭炎
+                Enterovirus     40歳代      女 急性上気道炎
+                  Rhino       5歳以上10歳未満   女 急性咽頭炎
+                  Rhino       5歳以上10歳未満   女 急性咽頭炎
+                  Rhino         10歳代      男 急性鼻咽頭炎
+                  Rhino       1歳以上5歳未満    男 咽頭炎
+                  Rhino       1歳以上5歳未満    男 咽頭炎
+                  Rhino       1歳以上5歳未満    男 咽頭炎
+                  Rhino       1歳以上5歳未満    男 扁桃炎・発疹症
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                    2020年7月-1/1
+病原体定点からのウイルス検出結果（2020年8月分）
+   分離結果         遺伝子結果           年齢       性別       臨床診断名
+                  Rhino      1歳以上5歳未満    男 急性上気道炎・大腸炎
+                  Rhino      1歳以上5歳未満    女 急性咽頭炎
+                  Rhino      1歳以上5歳未満    女 急性咽頭炎
+                  Rhino      1歳以上5歳未満    男 鼻咽頭炎
+                  Rhino      6か月以上1歳未満   男 咽頭炎・結膜炎
+                  Rhino      1歳以上5歳未満    男 急性上気道炎
+                  CoxA-4       30歳代      男 急性上気道炎
+                  Rhino      1歳以上5歳未満    男 ウイルス性気管支炎
+                  Rhino      5歳以上10歳未満   女 急性咽頭炎
+                  CoxA-4     1歳以上5歳未満    男 咽頭炎
+                  CoxA-4     1歳以上5歳未満    女 咽頭炎
+                  Rhino      1歳以上5歳未満    女 咽頭炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                   2020年8月-1/1
+病原体定点からのウイルス検出結果（2020年9月分）
+   分離結果         遺伝子結果           年齢       性別       臨床診断名
+                  Rhino      1歳以上5歳未満    男 急性上気道炎
+                  Rhino      1歳以上5歳未満    男 細気管支炎
+                  Rhino      5歳以上10歳未満   男 急性咽頭炎
+                  Rhino      6か月以上1歳未満   男 咽頭炎
+                  Rhino       6か月未満      女 気管支炎
+                  Rhino      1歳以上5歳未満    女 急性上気道炎・中耳炎
+                  Rhino       6か月未満      女 細気管支炎
+                  Rhino      1歳以上5歳未満    男 急性鼻咽頭炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                   2020年9月-1/1
+病原体定点からのウイルス検出結果（2020年10月分）
+   分離結果         遺伝子結果            年齢       性別       臨床診断名
+                  Rhino       1歳以上5歳未満    男 気管支炎
+                  Rhino       1歳以上5歳未満    男 咽頭炎・紅斑
+                  Rhino       1歳以上5歳未満    女 咽頭炎
+                  Rhino        6か月未満      男 敗血症・尿路感染症の疑い
+                  Rhino         50歳代      女 急性咽頭炎
+                  Rhino       1歳以上5歳未満    女 咽頭炎
+                  Rhino       5歳以上10歳未満   女 咽頭炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                   2020年10月-1/1
+病原体定点からのウイルス検出結果（2020年11月分）
+   分離結果         遺伝子結果           年齢       性別       臨床診断名
+                  Rhino       1歳以上5歳未満   男 気管支炎
+                  Rhino       1歳以上5歳未満   女 咽頭炎
+                  Rhino         10歳代     女 感冒
+    Mumps                     1歳以上5歳未満   女 感冒
+                  Rhino   6か月以上1歳未満      男 急性上気道炎
+                  Rhino   6か月以上1歳未満      男 ウイルス性気管支炎
+                  Rhino        6か月未満     男 ウイルス性気管支炎
+                  Rhino       1歳以上5歳未満   男 咽頭炎
+                  Rhino   6か月以上1歳未満      女 細気管支炎
+                  Rhino       1歳以上5歳未満   男 咽頭炎・胃腸炎
+   Adeno-53                     未記入      男 流行性角結膜炎の疑い
+                  Rhino       1歳以上5歳未満   男 ウイルス性気管支炎
+    Adeno-3                   1歳以上5歳未満   男 急性咽頭炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                  2020年11月-1/1
+病原体定点からのウイルス検出結果（2020年12月分）
+   分離結果         遺伝子結果           年齢       性別       臨床診断名
+                   Rhino       6か月未満     男 無呼吸発作
+    Echo-11       Echo-11       10歳代     男 咽頭炎
+                   Rhino      1歳以上5歳未満   男 喘息性気管支炎
+                   Rhino      1歳以上5歳未満   女 上気道炎
+                   Rhino       6か月未満     女 急性鼻咽頭炎
+                   Rhino       6か月未満     男 感冒
+                   Rhino      1歳以上5歳未満   男 感冒
+                   Rhino      1歳以上5歳未満   男 喘息性気管支炎
+                  Adeno-1     1歳以上5歳未満   男 急性咽頭炎
+                   Rhino      1歳以上5歳未満   女 鼻咽頭炎
+                   Rhino      1歳以上5歳未満   女 感冒
+                   Rhino        未記入      男 ウイルス性細気管支炎
+
+※ 検出結果の略語は、巻末参照
+
+
+
+
+                                                  2020年12月-1/1
+                    ウイルス解析結果   略語一覧
+
+
+Adeno    アデノウイルス           HPeV    ヒトパレコウイルス
+
+Astro    アストロウイルス          HSV     単純ヘルペスウイルス
+
+ B19     ヒトパルボウイルスB19      inf.A   A型インフルエンザウイルス
+
+CoxA     コクサッキーウイルスA       inf.B   B型インフルエンザウイルス
+
+CoxB     コクサッキーウイルスB       Noro    ノロウイルス
+
+Echo     エコーウイルス           Para    パラインフルエンザウイルス
+
+Entero   エンテロウイルス          Rhino   ライノウイルス
+
+HBoV     ヒトボカウイルス          Rota    ロタウイルス
+
+HCoV     コロナウイルス           RSV     RSウイルス
+
+HHV-6    ヒトヘルペスウイルス6       Sapo    サポウイルス
+
+hMPV     ヒトメタニューモウイルス      VZV     水痘帯状疱疹ウイルス
+
+
+
+
+                                                略語一覧
+

@@ -1,0 +1,469 @@
+表1 横浜市内の医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果（2018年1月～6月）                                        横浜市衛生研究所 微生物検査研究課 細菌担当
+
+      CRE感染症届出患者株
+                                                                                  カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1     性別   年代       症状         渡航歴     材料               菌種                   *2                            特記事項
+                                                                                   ゼ遺伝子      性遺伝子
+ 1     1    南部   男    70歳代 菌血症、敗血症、胆のう炎   無       血液     Enterobacter aerogenes
+ 2     12   西部   男    70歳代     肺炎         無       喀痰     Enterobacter aerogenes
+ 3     1    南部   女    小児       菌血症        無       血液     Enterobacter aerogenes
+ 4     1    南部   男    60歳代   尿路感染症、肺炎     無        尿     Klebsiella oxytoca        bla IMP-1
+ 5     1    南部   女    小児       腹膜炎        無       腹水     Enterobacter aerogenes
+ 6     1    西部   女    60歳代     敗血症        無       血液     Enterobacter cloacae      bla IMP-1
+ 7     1    南部   男    80歳代     肺炎         無       喀痰     Enterobacter aerogenes
+ 8     1    南部   男    10歳代   尿路感染症、肺炎     無        尿     Enterobacter aerogenes
+ 9     2    西部   男    80歳代     肺炎         無       喀痰     Citrobacter freundii
+ 10    3    南部   男    70歳代   胆管炎、肝膿瘍      無       胆汁     Enterobacter cloacae
+ 11    3    南部   男    80歳代   尿路感染症、肺炎     無        尿     Klebsiella oxytoca        bla IMP-1
+ 12    4    西部   女    80歳代    皮下膿瘍        無        膿     Enterobacter aerogenes
+ 13    4    南部   男    60歳代    尿路感染症       無        尿     Enterobacter aerogenes
+ 14    4    南部   女    90歳代   軟部組織感染症      無        膿     Enterobacter aerogenes
+ 15    5    南部   男    60歳代     発熱         無     カテーテル Enterobacter aerogenes
+ 16    5    南部   男    80歳代     菌血症        無       血液     Enterobacter aerogenes
+ 17    5    南部   男    70歳代     肺炎         無       喀痰     Serratia marcescens
+ 18    5    西部   女    70歳代   菌血症、敗血症      無       血液     Enterobacter cloacae
+ 19    5    西部   男    60歳代   菌血症、胆管炎      無       血液     Enterobacter cloacae
+ 20    5    北部   女    50歳代     敗血症        無       血液     Enterobacter cloacae      bla IMP-1
+ 21    5    北部   男    80歳代     髄膜炎        無       髄液     Enterobacter aerogenes
+ 22                                               血液     Klebsiella pneumoniae                  bla SHV-1，bla DHA-1
+       6    南部   男    60歳代     菌血症        無
+ 23                                               血液     Klebsiella pneumoniae                  bla SHV-1，bla DHA-1
+ 24    5    南部   男    40歳代     肺炎         無       喀痰     Enterobacter aerogenes
+ 25    6    南部   男    60歳代    腹腔内膿瘍       無        膿     Klebsiella pneumoniae     bla IMP-1
+ 26    5    北部   男    80歳代     肺炎         無       喀痰     Enterobacter cloacae      bla IMP-1
+ 27    6    西部   女    30歳代    尿路感染症       無        尿     Enterobacter aerogenes
+
+
+
+
+                                                           - 1-
+                                                                                         カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1      性別    年代          症状          渡航歴      材料               菌種                   *2                 特記事項
+                                                                                          ゼ遺伝子      性遺伝子
+ 28                                                       尿     Enterobacter aerogenes
+      6     南部     男   70歳代       尿路感染症           無
+ 29                                                       尿     Enterobacter aerogenes
+ 30   6     南部     男   90歳代       尿路感染症           無       尿     Serratia marcescens                   bla TEM-1
+ 31   6     南部     男   70歳代        右足壊疽           無       膿     Citrobacter braakii
+ 32   6     西部     男   80歳代         肺炎            無      喀痰     Enterobacter cloacae      bla IMP-1
+ 33   6      西部         女 90歳代                 肺炎        無    喀痰   Enterobacter cloacae    bla IMP-1
+          *1 北部：鶴見、神奈川、港北、緑、青葉、都筑                     西部：西、保土ケ谷、旭、戸塚、泉、瀬谷             南部：中、南、港南、磯子、金沢、栄
+          *2 bla IMP-1、bla IMP-6、bla NDM-1 など、プラスミド性であり水平伝播する可能性が高い
+
+
+
+
+                                                                 - 2-
+      CRE感染症届出対象外株
+                                                                             カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1    性別   年代      症状     渡航歴      材料               菌種                   *2                                    特記事項
+                                                                              ゼ遺伝子      性遺伝子
+ 1     1   南部   女    60歳代   気道定着    無        喀痰     Klebsiella pneumoniae     bla IMP-1       bla TEM-1，bla SHV-11
+ 2     1   南部   女    小児     腸管穿孔    無        腹水     Enterobacter aerogenes
+ 3     1   南部   男    40歳代   腸管内定着   無         便     Escherichia coli                              bla CTX-M-1５
+ 4     1   南部   男    50歳代   腹腔内膿瘍   無         膿     Escherichia coli                               bla CMY-133
+ 5     1   南部   男    50歳代   胆道感染    無        胆汁     Escherichia coli                                bla CMY-2
+ 6     2   南部   女    60歳代   尿路感染症   無         尿     Klebsiella pneumoniae                  bla CTX-M group，bla SHV-119
+ 7     2   西部   男    40歳代    発熱     無        血液     Enterobacter aerogenes
+ 8     2   西部   女    80歳代   胆石胆管炎   無        血液     Enterobacter aerogenes
+ 9 不明      北部   男    小児      不明     不明        便     Klebsiella oxytoca        bla IMP-1
+ 10 不明     北部   女    80歳代    不明     不明        便     Citrobacter freundii      bla IMP-1
+                                                                                            bla CTX-M-15 ，bla SHV-28，
+ 11 不明     北部   男    70歳代    不明     不明        便     Klebsiella pneumoniae
+                                                                                                    bla TEM-1
+ 12 不明     北部   男    70歳代    不明     不明        便     Citrobacter freundii      bla IMP-1
+ 13 不明     北部   男    80歳代    不明     不明    ドレーン排液 Enterobacter cloacae          bla IMP-1
+ 14 不明     北部   男    80歳代    不明     不明        便     Enterobacter cloacae       bla IMP-1
+ 15 不明     北部   女    60歳代    不明     不明       腹水     Klebsiella pneumoniae     bla GES-24            bla SHV-1
+ 16 不明     北部   女    60歳代    不明     不明       腹水     Klebsiella pneumoniae     bla GES-24            bla SHV-1
+ 17    2   西部   男    70歳代    無し     無        喀痰     Klebsiella pneumoniae                     bla SHV-1，bla DHA-1
+ 18    3   西部   男    80歳代    無し     無        喀痰     Klebsiella pneumoniae                     bla SHV-1，bla DHA-1
+ 19    4   西部   男    90歳代    脳梗塞    無         膿     Enterobacter aerogenes
+ 20    2   西部   男    70歳代    無し     無         便     Enterobacter aerogenes
+ 21    4   南部   男    70歳代    口内炎    無     口腔分泌物 Enterobacter aerogenes
+ 22    4   南部   女    70歳代    肺炎     無        喀痰     Enterobacter cloacae
+ 23 不明     北部   男    90歳代    不明     不明        便     Enterobacter cloacae      bla IMP-1
+ 24 不明     北部   男    60歳代    不明     不明       喀痰     Enterobacter cloacae      bla IMP-1
+ 25 不明     北部   男    60歳代    不明     不明     咽頭粘液     Citrobacter freundii      bla IMP-1
+ 26 不明     北部   男    50歳代    不明     不明        便     Citrobacter freundii      bla IMP-1
+ 27 不明     北部   男    60歳代    不明     不明        便     Enterobacter cloacae      bla IMP-1
+ 28 不明     北部   男    50歳代    不明     不明        便     Klebsiella oxytoca        bla IMP-1
+ 29 不明     北部   女    60歳代    不明     不明        便     Enterobacter aerogenes
+
+
+
+
+                                                      - 3-
+                                                                                        カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1      性別   年代           症状          渡航歴     材料              菌種                    *2                                    特記事項
+                                                                                         ゼ遺伝子      性遺伝子
+ 30 不明      北部     男   10歳代         不明          不明      血液     Klebsiella pneumoniae     bla IMP-1           bla LEN-1
+ 31 不明      北部     男   70歳代         不明          不明       便     Citrobacter freundii      bla IMP-1
+ 32 不明      北部     男   80歳代         不明          不明       便     Citrobacter freundii      bla IMP-1
+ 33   5     西部     男   50歳代       発熱、腹痛          有       便     Escherichia coli          bla NDM-5                                 中国渡航歴あり
+ 34   5     西部     男   80歳代    粘液ろうからの排膿         無       膿     Enterobacter cloacae      bla IMP-1
+ 35                                                      尿     Escherichia coli                      bla CTX-M-14 ，bla TEM group
+      6     西部     女   90歳代 誤嚥性肺炎、尿路感染症          無
+ 36                                                     喀痰     Escherichia coli                      bla CTX-M-14 ，bla TEM group
+ 37   1     南部     女   60歳代      尿路感染症           無       尿     Klebsiella pneumoniae                        bla CTX-M-2
+ 38   6     西部     男   60歳代   胆石、胆のう炎、発熱         無      血液     Enterobacter aerogenes
+ 39   6     西部     男   70歳代    認知症、CRP上昇                喀痰     Enterobacter cloacae      bla IMP-1
+
+          *1 北部：鶴見、神奈川、港北、緑、青葉、都筑                     西部：西、保土ケ谷、旭、戸塚、泉、瀬谷        南部：中、南、港南、磯子、金沢、栄
+          *2 bla IMP-1、bla IMP-6、bla NDM-1 など、プラスミド性であり水平伝播する可能性が高い
+
+
+
+
+                                                                - 4-
+表2 横浜市内医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果集計
+（菌種別遺伝子検査結果）
+             横浜市衛生研究所 微生物検査研究課 細菌担当
+
+2018年1月～2018年6月搬入分
+
+CRE感染症届出患者株
+                         遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                         実施株数 A   保有株数 B      保有率 B/A
+Enterobacter aerogenes     16                   0/16
+Enterobacter cloacae        8       5           5/8
+Klebsiella pneumoniae       3       1           1/3
+Klebsiella oxytoca          2       2           2/2
+Citrobacter freundii        1                    0/1
+Citrobacter braakii         1                    0/1
+Serratia marcescens         2                    0/2
+計                          33       8           8/33
+
+
+CRE感染症届出対象外株
+                         遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                         実施株数 A   保有株数 B      保有率 B/A
+Enterobacter aerogenes      8                    0/8
+Enterobacter cloacae        8        7           7/8
+Klebsiella pneumoniae       9        4           4/9
+Klebsiella oxytoca          2        2           2/2
+Citrobacter freundii        6        6           6/6
+Escherichia coli            6        1           1/6
+計                          39       20          20/39
+
+
+
+
+                                             - 5-
+表1 横浜市内の医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果（2017年1月～12月）                                       横浜市衛生研究所 微生物検査研究課 細菌担当
+
+      CRE感染症届出患者株
+                                                                                  カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1     性別   年代        症状       渡航歴      材料               菌種                                                       特記事項
+                                                                                   ゼ遺伝子*2    性遺伝子
+  1    12   西部   男    50歳代      肺炎        無       喀痰     Enterobacter cloacae
+  2    1    南部   女    90歳代     胆のう炎       無       胆汁     Citrobacter braakii
+  3    1    西部   女    80歳代     胆管炎        無       腹水     Enterobacter cloacae
+  4    1    南部   男    70歳代      肺炎        無       喀痰     Enterobacter aerogenes
+  5    1    南部   女    90歳代     創感染        無       膿      Enterobacter aerogenes
+  6    2    南部   女    60歳代     腹膜炎        無       腹水     Enterobacter cloacae
+  7    2    西部   男    60歳代    敗血症、胆管炎     無       血液     Enterobacter cloacae
+  8    2    西部   男    70歳代     菌血症        無       血液     Enterobacter aerogenes
+  9    2    南部   女    70歳代     腸炎、膵炎      無       膿      Enterobacter cloacae      bla IMP-1
+                                                                                               bla CTX-M-14，bla CTX-M-1５，
+ 10    2    西部   男    70歳代     菌血症       無        血液     Klebsiella pneumoniae
+                                                                                                    bla TEM-1，bla SHV-1
+ 11    3    南部   男    70歳代     胆管炎       無        胆汁     Serratia marcescens
+ 12    3    南部   男    60歳代   手術部縫合不全     無        膿      Serratia marcescens
+ 13    3    南部   男    70歳代     菌血症       無        血液     Enterobacter aerogenes
+ 14    4    南部   男    80歳代    尿路感染症      無        尿      Enterobacter cloacae
+ 15    4    西部   男    60歳代     腹膜炎       無        腹水     Citrobacter freundii
+ 16    5    西部   男    50歳代    術後感染症      無     ドレーン排液 Serratia marcescens
+ 17    5    南部   男    70歳代    菌血症、敗血症    無        血液     Enterobacter aerogenes
+ 18    5    南部   女    70歳代   発熱、頭部皮下貯留   無     皮下貯留液 Enterobacter cloacae          bla IMP-1
+ 19    6    南部   男    70歳代      肺炎        無       喀痰     Enterobacter aerogenes
+ 20    6    北部   女    80歳代    尿路感染症      無        尿      Enterobacter aerogenes
+ 21    6    北部   男    60歳代     菌血症       無        血液     Enterobacter cloacae      bla IMP-1
+ 22    6    南部   男    60歳代     胆管炎       無        胆汁     Enterobacter cloacae
+ 23                                               血液     Enterobacter aerogenes
+       6    西部   男    40歳代     敗血症        無
+ 24                                               血液     Enterobacter aerogenes
+ 25    6    西部   男    80歳代     胆管炎       無        胆汁     Enterobacter cloacae
+ 26    7    南部   女    80歳代    尿路感染症      無        尿      Enterobacter aerogenes
+ 27    7    西部   女    80歳代    尿路感染症      無        尿      Enterobacter cloacae
+
+
+
+                                                         - 1-
+                                                                                           カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1       性別    年代          症状          渡航歴       材料               菌種                                                   特記事項
+                                                                                            ゼ遺伝子*2    性遺伝子
+ 28   7      西部     男   70歳代      敗血症、胆管炎          無       血液     Enterobacter aerogenes
+ 29   7      西部     男   70歳代         敗血症           無       血液     Enterobacter aerogenes
+ 30   7      西部     男   60歳代     手術部創部感染           無       膿      Enterobacter aerogenes
+ 31   7      北部     女   80歳代       尿路感染症           無       尿      Enterobacter cloacae      bla IMP-1
+ 32   8      西部     男   80歳代         胆汁漏           無    ドレーン排液 Enterobacter cloacae         bla IMP-1         bla TEM-1
+ 33   8      西部     男   60歳代         腹膜炎           無       腹水     Enterobacter cloacae
+ 34   8      北部     女   80歳代       尿路感染症           無       尿      Klebsiella pneumoniae     bla IMP-1         bla SHV-1
+ 35   8      南部     男   70歳代      腸炎、菌血症           無       血液     Enterobacter aerogenes
+ 36   8      南部     女   70歳代         腹膜炎           無       腹水     Enterobacter aerogenes
+ 37   8      西部     女   60歳代         肺炎            無       喀痰     Enterobacter cloacae      bla IMP-1
+ 38   9      西部     男   80歳代 腹膜炎、尿路感染症、胆のう炎        無       尿      Escherichia coli                           bla CTX-M-15
+ 39   9      西部     男   70歳代 手術後ドレーン排液の変化          無       腹水     Citrobacter freundii
+ 40   10     北部     女   80歳代       尿路感染症           無       尿      Escherichia coli                            bla CMY-2
+ 41   10     西部     女   80歳代 指壊疽、皮下膿瘍、蜂窩織炎         無       膿      Enterobacter cloacae      bla IMP-1
+ 42   10     南部     男   80歳代         敗血症           無       血液     Enterobacter aerogenes
+ 43   10     西部     男   80歳代      腸炎、敗血症           無       血液     Enterobacter cloacae
+ 44   10     南部     男   40歳代         肺炎            無       喀痰     Enterobacter aerogenes
+ 45   10     南部     女   70歳代         腹膜炎           無       腹水     Klebsiella pneumoniae     bla IMP-1         bla SHV-11
+ 46   10     南部     女   70歳代       尿路感染症           無       尿      Enterobacter cloacae
+ 47   10     西部     男   60歳代         指壊疽           無      分泌物     Enterobacter cloacae      bla IMP-1         bla MOX-1
+ 48   11     北部     男   70歳代     菌血症、胆のう炎          無       血液     Enterobacter aerogenes
+ 49   11     南部     女   80歳代       尿路感染症           無       尿      Enterobacter aerogenes
+ 50   11     北部     男   60歳代    尿路感染症、菌血症          無       血液     Enterobacter cloacae      bla IMP-1
+ 51   12     北部     女   70歳代        胆のう炎           無       胆汁     Enterobacter cloacae
+ 52   12     西部     男   80歳代 尿路感染症、肺炎、菌血症          無       血液     Enterobacter cloacae
+                                                                                                        bla CTX-M-3，bla TEM-1，
+ 53   12     西部     女   50歳代      菌血症、敗血症          無       血液     Klebsiella pneumoniae
+                                                                                                               bla SHV-11
+ 54   12      西部         男 70歳代                 肝膿瘍       無    腹水   Enterobacter aerogenes
+           *1 北部：鶴見、神奈川、港北、緑、青葉、都筑                     西部：西、保土ケ谷、旭、戸塚、泉、瀬谷             南部：中、南、港南、磯子、金沢、栄
+           *2 bla IMP-1、bla IMP-6、bla NDM-1 など、プラスミド性であり水平伝播する可能性が高い
+
+
+
+
+                                                                  - 2-
+      CRE感染症届出対象外株
+                                                                                   カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1    性別   年代        症状        渡航歴      材料                菌種                                                          特記事項
+                                                                                    ゼ遺伝子*2    性遺伝子
+  1    1   南部   男    60歳代     肺炎、発熱       無       喀痰      Enterobacter aerogenes
+  2    2   南部   男    70歳代    腹腔内膿瘍、発熱     無    ドレーン排液 Citrobacter freundii           bla IMP-1           bla TEM-1
+  3    2   南部   男    70歳代     肺炎、発熱       無       喀痰      Enterobacter cloacae       bla IMP-1           bla TEM-1
+  4    2   南部   男    60歳代     発熱、発疹       無       胆汁      Enterobacter cloacae
+  5    2   西部   男    90歳代      肺炎         無      吸引痰      Enterobacter cloacae       bla IMP-1
+  6                                                尿      Escherichia coli                         bla CTX-M-2，bla TEM-1
+       3   西部   女    90歳代   誤嚥性肺炎、胆管がん    無
+  7                                              吸引痰      Escherichia coli                         bla CTX-M-2，bla TEM-1
+  8    3   南部   女    80歳代    術後腹腔内感染      無    ドレーン排液 Enterobacter cloacae
+  9    3   西部   女    80歳代     尿路感染症       無        尿      Enterobacter cloacae
+ 10    3   西部   女    70歳代    肺炎、尿路感染症     無        尿      Enterobacter cloacae
+ 11    3   南部   男    70歳代     敗血症、発熱      無       血液      Enterobacter aerogenes
+ 12    4   西部   男    60歳代      脳挫傷       無       吸引痰      Enterobacter cloacae       bla IMP-1
+ 13    4   南部   男    80歳代    尿路感染症疑い     無         尿      Enterobacter aerogenes     bla IMP-1
+                                                                                                  bla CTX-M-1５，bla TEM-1，    バングラディシュ渡航歴
+ 14    4   北部   男    40歳代    創部瘢痕形成       有      閉鎖膿      Klebsiella pneumoniae     bla OXA-181
+                                                                                                          bla SHV-11              あり
+ 15    4   南部   男    70歳代    急性腸炎疑い       無        便      Enterobacter aerogenes     bla IMP-1           bla TEM-1
+ 16    4   南部   女    70歳代    術後腹腔内感染     無     ドレーン排液 Enterobacter cloacae
+ 17    5   西部   男    １０歳代    肛門周囲膿瘍       無      閉鎖膿      Enterobacter asburiae
+ 18    5   西部   男    30歳代     腸管皮膚ろう      無      閉鎖膿      Enterobacter cloacae
+ 19    5   南部   男    80歳代   敗血症、尿路感染症    無        血液      Klebsiella oxytoca
+ 20    5   南部   女    70歳代    気道感染症疑い     無        喀痰      Enterobacter cloacae
+ 21    4   南部   男    20歳代     急性胆管炎      無     ドレーン排液 Klebsiella pneumoniae                       bla CTX-M-14，bla SHV-11
+ 22    4   南部   女    小児       尿路感染症      無         尿      Klebsiella pneumoniae                   bla CTX-M-14，bla SHV-11
+ 23    5   南部   男    小児       尿路感染症      無         尿      Escherichia coli                              bla CTX-M-27
+ 24    5   南部   男    小児       尿路感染症      無         尿      Klebsiella pneumoniae                   bla CTX-M-14，bla SHV-11
+ 25    5   南部   男    小児        敗血症       無        血液      Klebsiella pneumoniae                   bla CTX-M-14，bla SHV-11
+ 26    5   西部   男    60歳代     脳挫傷、肺炎      無      吸引痰      Enterobacter cloacae       bla IMP-1
+                                                                                                  bla CTX-M-14，bla SHV-11，
+ 27    5   南部   女    70歳代     右下腿潰瘍      無       開放膿      Klebsiella pneumoniae
+                                                                                                          bla DHA-1
+ 28    5   北部   環境由来株                    無                Klebsiella oxytoca         bla IMP-1
+
+
+
+                                                          - 3-
+                                                                                         カルバペネマー その他のβ-ラクタム系耐
+番号 分離月 医療圏*1       性別   年代           症状          渡航歴      材料               菌種                                                      特記事項
+                                                                                          ゼ遺伝子*2    性遺伝子
+ 29   7      西部     男   90歳代         肺炎           無      吸引痰     Enterobacter cloacae
+ 30   7      西部     女   40歳代 子宮筋腫術後、膣断端感染         無     膣分泌物     Enterobacter asburiae
+ 31   7      南部     男   70歳代        胆管炎           無       胆汁     Escherichia coli                         bla TEM-1，bla CMY-69
+                                                                                                        bla CTX-M-15，bla TEM-1，
+ 32   7      西部     女   30歳代       感染性腸炎          無       便      Escherichia coli         bla OXA-181
+                                                                                                                bla CMY-2
+ 33   8      西部     男   40歳代         無し           無       喀痰  Escherichia coli                                 bla CTX-M-15
+ 34 不明       北部    不明   不明                        無           Enterobacter cloacae
+ 35 不明       北部    不明   不明                        無           Enterobacter cloacae
+ 36   8      西部     男   20歳代     水様下痢、発熱          有       便   Escherichia coli            bla NDM-5          bla CTX-M-15         インド渡航歴あり
+ 37   8      南部     男   70歳代         肺炎           無      喀痰   Enterobacter aerogenes                         bla CTX-M-14
+ 38   8      南部     女   30歳代        口内炎           無    口腔分泌物 Enterobacter cloacae
+ 39   8      西部     男   70歳代         発熱           無       尿   Escherichia coli                               bla CTX-M-27
+ 40   10     西部     男   80歳代        敗血症           無      血液   Escherichia coli                                bla TEM-1
+ 41   10     南部     女   80歳代 肝周囲液貯留、膵頭十二指腸切除      無    ドレーン排液 Klebsiella oxytoca           bla IMP-1          bla TEM-1
+ 42   10     西部     男   90歳代         肺炎           無      吸引痰  Citrobacter braakii          bla IMP-1          bla TEM-1
+ 43 不明       北部     男   70歳代                      無       便   Enterobacter cloacae
+ 44 不明       北部     女   小児                        無       便   Klebsiella oxytoca           bla IMP-1
+ 45 不明       北部     男   60歳代                      無       便   Citrobacter freundii         bla IMP-1
+ 46 不明       北部     女   60歳代                      無      膿瘍   Enterobacter cloacae         bla IMP-1
+ 47 不明       北部     女   90歳代                      無       便   Enterobacter cloacae         bla IMP-1
+ 48   12     西部     女   90歳代         疼痛           無      喀痰   Enterobacter cloacae         bla IMP-1
+ 49   12     南部     女   50歳代      慢性気道感染          無      喀痰   Enterobacter aerogenes
+
+           *1 北部：鶴見、神奈川、港北、緑、青葉、都筑                     西部：西、保土ケ谷、旭、戸塚、泉、瀬谷          南部：中、南、港南、磯子、金沢、栄
+           *2 bla IMP-1、bla IMP-6、bla NDM-1 など、プラスミド性であり水平伝播する可能性が高い
+
+
+
+
+                                                                 - 4-
+表2 横浜市内医療機関で分離
+             表1 横浜市内の医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果（2017年1月～12月）
+（菌種別遺伝子検査結果）
+             横浜市衛生研究所 微生物検査研究課 細菌担当
+
+2017年1月～2017年12月搬入分
+
+CRE感染症届出患者株
+                         遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                         実施株数 A   保有株数 B      保有率 B/A
+Enterobacter aerogenes     20                   0/20
+Enterobacter cloacae       22       9           9/22
+Klebsiella pneumoniae      4        2            2/4
+Citrobacter freundii       2                     0/2
+Citrobacter braakii        1                     0/1
+Escherichia coli           2                     0/2
+Serratia marcescens        3                     0/3
+計                          54       11          11/54
+
+
+CRE感染症届出対象外株
+                         遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                         実施株数 A   保有株数 B      保有率 B/A
+Enterobacter aerogenes     6        2            2/6
+Enterobacter cloacae       19       7           7/19
+Enterobacter asburiae      2                     0/2
+Klebsiella pneumoniae      6        1            1/6
+Klebsiella oxytoca         4        3            3/4
+Citrobacter freundii       2        2            2/2
+Citrobacter braakii        1        1            1/1
+Escherichia coli           9        2            2/9
+計                          49       18          18/49
+
+
+
+
+                                             - 5-
+表1 横浜市内の医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果（2016年1月～12月）                                               横浜市衛生研究所 微生物検査研究課 細菌担当
+
+                 *1                                                                      カルバペネマー
+番号 分離月 医療圏            性別   年代         症状        渡航歴      材料               菌種                            その他の耐性遺伝子                    特記事項
+                                                                                          ゼ遺伝子*2
+ 1   1      南部        男    60歳代      菌血症          無      血液     Enterobacter aerogenes                  染色体性AmpC遺伝子
+ 2   1      南部        男    80歳代   肺炎、敗血症、胆管炎      無      血液     Klebsiella pneumoniae
+ 3   1      北部        男    50歳代      胆のう炎         無      血液     Enterobacter aerogenes                  染色体性AmpC遺伝子
+ 4                                                      カテ先     Enterobacter aerogenes                  染色体性AmpC遺伝子
+     2      西部        女    60歳代      敗血症          無
+ 5                                                      術創部     Enterobacter aerogenes                  染色体性AmpC遺伝子
+ 6                                                    胸腔ドレーン Enterobacter aerogenes                     染色体性AmpC遺伝子
+     2      西部        男    60歳代       膿胸          無
+ 7                                                      気管痰     Enterobacter aerogenes                  染色体性AmpC遺伝子
+ 8                                                       腹水     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子
+     2      北部        男    80歳代     腸炎、腹膜炎        無
+ 9                                                       腹水     Citrobacter freundii      bla IMP-1     染色体性AmpC遺伝子
+                                                                                                        bla CTX-M-3，染色体性
+10   3      南部        男    80歳代      無症状          無      胆汁     Enterobacter cloacae      bla IMP-1                                  届出対象外
+                                                                                                            AmpC遺伝子
+11   4      西部        男    60歳代 腹膜炎、敗血症、肛門周囲      無       膿     Enterobacter aerogenes                  染色体性AmpC遺伝子
+                                     膿瘍
+12   4      西部        男    60歳代    尿路感染症         不明       尿     Citrobacter freundii      bla IMP-1     染色体性AmpC遺伝子
+13   4      南部        男    80歳代       肺炎          無      喀痰     Enterobacter aerogenes                  染色体性AmpC遺伝子
+14   5      北部        男    80歳代   腸炎、敗血症、胆のう炎     無      血液     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子
+15   5      南部        男    80歳代       肺炎          無      喀痰     Enterobacter cloacae                    染色体性AmpC遺伝子
+16   5      西部        男    80歳代      腹膜炎          無   ドレーン排液 Enterobacter aerogenes                     染色体性AmpC遺伝子
+17   5      西部        女    90歳代       肺炎          無      喀痰     Enterobacter cloacae                    染色体性AmpC遺伝子
+18   6      西部        男    60歳代      腹膜炎          無      腹水     Enterobacter cloacae                    染色体性AmpC遺伝子
+19   6      北部        男    80歳代      胆のう炎         無      胆汁     Serratia marcescens                     染色体性AmpC遺伝子
+20   6      南部        女    40歳代      無症状          無       尿     Enterobacter aerogenes                  染色体性AmpC遺伝子                  届出対象外
+21   6      西部        男    70歳代    腹膜炎、胆管炎        無      胆汁     Enterobacter aerogenes                  染色体性AmpC遺伝子
+22   6      南部        男    70歳代       発熱          無     腸管液     Enterobacter aerogenes                  染色体性AmpC遺伝子                  届出対象外
+23   6      西部        女    不明         不明          無     閉鎖膿     Enterobacter aerogenes    bla IMP-1     染色体性AmpC遺伝子                  届出対象外
+24   6      西部        女    70歳代       肺炎          無      喀痰     Enterobacter cloacae                    染色体性AmpC遺伝子
+25   6      南部        女    70歳代       発熱          無       尿     Escerichia coli           bla IMP-1                                  届出対象外
+                                                                                                        bla CTX-M-55、bla TEM-1、
+26   6      西部        女    80歳代       無           無       尿     Escerichia coli           bla NDM-5                                  届出対象外
+                                                                                                              bla CMY-2like
+27   6      南部        女    60歳代     創部感染症         無       膿     Enterobacter cloacae                    染色体性AmpC遺伝子
+28   6      西部        男    70歳代     閉塞性黄疸         無      胆汁     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子                  届出対象外
+29   7      南部        男    10歳代     尿路感染症         無       尿     Enterobacter aerogenes                  染色体性AmpC遺伝子
+30   7      西部        男    60歳代      胆管炎          無      胆汁     Enterobacter aerogenes                  染色体性AmpC遺伝子
+31   7      西部        男    80歳代       肺炎          無      喀痰     Enterobacter aerogenes                  染色体性AmpC遺伝子
+32   7      南部        男    50歳代       肺炎          無      喀痰     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子
+33   7      南部        女    80歳代     尿路感染症         無       尿     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子
+34   7      北部        男    80歳代    左足潰瘍・壊疽        無       膿     Klebsiella oxytoca        bla IMP-1    染色体性β-ラクタマーゼ
+                                                                                                           遺伝子
+35   8      南部        女    70歳代   重症膵炎膵仮性嚢胞       無      腹水     Klebsiella pneumoniae     bla IMP-1                                  届出対象外
+36   8      南部        男    60歳代     尿路感染症         無       尿     Enterobacter aerogenes                  染色体性AmpC遺伝子
+                                                                                                       bla SHV-12，染色体性AmpC
+37   8      南部        女    小児       尿路感染症         無       尿     Citrobacter freundii
+                                                                                                                遺伝子
+38   8      南部        不明   小児         無           無       便     Klebsiella pneumoniae                     bla TEM-29、bla SHV-12      届出対象外
+39   8      南部        男    80歳代       肺炎          無      喀痰     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子
+40   8      南部        女    50歳代   痙攣、発熱、意識障害      無   気管吸引痰 Enterobacter aerogenes                      染色体性AmpC遺伝子                  届出対象外
+41   8      南部        女    70歳代   菌血症、腹腔内膿瘍       無      血液     Klebsiella pneumoniae     bla IMP-1             bla SHV-1
+42   8      西部        女    40歳代      菌血症          無      血液     Enterobacter aerogenes                  染色体性AmpC遺伝子
+43   8      南部        男    50歳代      菌血症          無      血液     Enterobacter aerogenes                  染色体性AmpC遺伝子
+44   8      南部        男    80歳代   がん術後広汎性腹膜炎      無   ドレーン排液 Enterobacter aerogenes                     染色体性AmpC遺伝子
+45                                                       喀痰     Klebsiella oxytoca        bla IMP-1    染色体性β-ラクタマーゼ
+                                                                                                           遺伝子
+     9      北部        男    60歳代       肺炎          無
+46                                                        便     Klebsiella oxytoca        bla IMP-1    染色体性β-ラクタマーゼ
+                                                                                                           遺伝子
+47   9      南部        男    80歳代      腹膜炎          無      腹水     Klebsiella pneumoniae     bla IMP-1            bla SHV-1
+48   9      南部        男    90歳代       肺炎          無      喀痰     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子
+
+49   9      西部        女    80歳代      結腸穿孔         無       便     Enterobacter cloacae      bla NDM-5                               届出対象外・No.26と同
+                                                                                                        染色体性AmpC遺伝子
+                                                                                                                                      一
+50   9      西部        男    70歳代       気胸          無     吸引痰     Enterobacter cloacae                    染色体性AmpC遺伝子                  届出対象外
+51   9      南部        男    70歳代     腹腔内膿瘍         無      腹水     Enterobacter aerogenes                  染色体性AmpC遺伝子                  届出対象外
+52   9      北部        男    60歳代     創部感染症         無       膿     Enterobacter cloacae                    染色体性AmpC遺伝子
+53   10     南部        女    60歳代       肺炎          無      喀痰     Enterobacter aerogenes                  染色体性AmpC遺伝子
+54   11     南部        男    小児        菌血症          無      血液     Klebsiella pneumoniae     bla IMP-11      bla SHV-1、bla TEM-1
+55   11     南部        男    60歳代       肺炎          無      喀痰     Enterobacter aerogenes                  染色体性AmpC遺伝子
+56   11     西部        女    80歳代      敗血症          無      血液     Enterobacter cloacae                    染色体性AmpC遺伝子
+57   11     南部        女    50歳代       下痢          無       便     Klebsiella pneumoniae                   bla SHV-28、bla CTX-M-15      届出対象外
+58   11     南部        男    80歳代     尿路感染症         無       尿     Enterobacter cloacae      bla IMP-1     染色体性AmpC遺伝子
+59   11     北部        男    70歳代      腹膜炎          無      腹水     Escerichia coli                                bla CMY-2
+60   11     西部        男    60歳代     尿路感染症         無       尿     Enterobacter aerogenes                  染色体性AmpC遺伝子
+61   11     南部        女    50歳代      敗血症          無      血液     Klebsiella pneumoniae                   bla SHV-28、bla CTX-M-15      No.57と同一
+62   11     南部        男    50歳代     腹腔内膿瘍         無       膿     Enterobacter aerogenes                  染色体性AmpC遺伝子
+63   11     西部        男    80歳代     尿路感染症         無       尿     Enterobacter aerogenes                  染色体性AmpC遺伝子
+64   11     南部        女    70歳代       膿胸          無      胸水     Klebsiella pneumoniae     bla IMP-1            bla SHV-1１
+65   12     南部        女    10歳代     尿路感染症         無       尿     Enterobacter aerogenes                  染色体性AmpC遺伝子
+66   12     南部        男    小児        皮膚炎          無      皮膚     Enterobacter aerogenes                  染色体性AmpC遺伝子
+67   12     南部        男    70歳代 術後縫合不全、腹腔内膿瘍      無      腹水     Enterobacter cloacae
+                                                                                                         bla SHV-12、bla TEM-1、
+68   12     西部        男    70歳代      胆のう炎         無      胆汁     Enterobacter cloacae                                                 届出対象外
+                                                                                                        染色体性AmpC遺伝子
+
+          *1 北部：鶴見、神奈川、港北、緑、青葉、都筑                     西部：西、保土ケ谷、旭、戸塚、泉、瀬谷            南部：中、南、港南、磯子、金沢、栄
+          *2 bla IMP-1、bla IMP-6、bla NDM-1 など、プラスミド性であり水平伝播する可能性が高い
+
+
+
+
+                                                                          - 1-
+表2 横浜市内医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果集計
+（菌種別遺伝子検査結果）
+                 横浜市衛生研究所 微生物検査研究課 細菌担当
+
+2016年1月～2016年12月搬入分
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名                      届出数
+                               実施株数 A   保有株数 B      保有率 B/A
+Enterobacter aerogenes    23     29        1            1/29
+Enterobacter cloacae      15     20       10           10/20
+Klebsiella pneumoniae      6      9        5             5/9
+Citrobacter freundii       3      3        2             2/3
+Escherichia coli           1      3        2             2/3
+Klebsiella oxytoca         2      3        3             3/3
+Serratia marcescens        1      1        0             0/1
+計                         51     68       23           23/68
+
+
+
+
+                                                - 2-
+

@@ -1,0 +1,85 @@
+表1 横浜市内の医療機関で分離されたカルバペネム耐性腸内細菌目細菌（CRE）の検査結果（2026年1月～6月）                                                                      横浜市衛生研究所 検査研究課 細菌担当
+
+2026年1月～2026年6月検体受付分
+
+
+
+      CRE感染症届出患者株*1
+
+番号    検体受付月   医療圏*2    性別   年代          症状            渡航歴        材料               菌種          カルバペネマーゼ遺伝子*3   その他のβ-ラクタム系耐性遺伝子*4          特記事項
+
+ 1       1     南部      男    80代        尿路感染症                     尿      E. cloacae complex        bla IMP-1
+
+ 2       2     南部      女    70代   腹膜炎、敗血症、十二指腸穿孔                 腹水     C. freundii complex       bla IMP-1
+
+ 3       3     西部      男    60代         腹膜炎                      腹水     K. aerogenes
+
+ 4       3     南部      女    70代        尿路感染症                     尿      K. oxytoca                bla IMP-1           bla CTX-M-3
+
+ 5       3     西部      女    90代        尿路感染症                     尿      K. pneumoniae                                 bla CTX-M-15
+
+ 6       4     西部      女    60代        尿路感染症                     尿      E. coli                                  bla CTX-M-15、bla TEM-1
+
+ 7       4     北部      男    60代         創感染                      膿      E. cloacae complex                             CTX-M型
+
+ 8       4     北部      男    50代         発熱                    カテーテル先端   E. cloacae complex        bla IMP-1
+
+ 9       4     南部      女    90代        尿路感染症                     尿      E. cloacae complex        bla IMP-1       CTX-M型、bla TEM-1
+
+ 10      5     西部      女    90代        尿路感染症                     尿      E. cloacae complex        bla IMP-1
+
+ 11      6     西部      女    70代        腹腔内膿瘍                     膿      E. cloacae complex        bla IMP-1
+
+ 12      6     南部      男    40代        尿路感染症                     尿      E. coli                   bla NDM-5      bla CTX-M-55、bla TEM-1
+
+ 13      6     西部      女    80代        尿路感染症                     尿      E. coli                   bla NDM-1            bla TEM-1
+
+ 14      6     南部      男    50代         胆嚢炎                      胆汁     K. aerogenes
+
+
+
+      CRE感染症届出対象外株
+
+番号    検体受付月   医療圏*2    性別   年代          症状            渡航歴        材料               菌種          カルバペネマーゼ遺伝子*3   その他のβ-ラクタム系耐性遺伝子*4          特記事項
+
+ 1       4     南部      男    80代         発熱                       喀痰     E. cloacae complex        bla NDM-1            bla TEM-1
+
+
+
+
+*1 2025年4月7日より届出基準が改正された 【感染症の予防及び感染症の患者に対する医療に関する法律第12 条第１項及び第14 条第２項に基づく届出の基準等について（一部改正）：令和7年3月26日 感感発0326第8号】
+
+*2 北部：鶴見、神奈川、港北、緑、青葉、都筑      西部：西、保土ケ谷、旭、戸塚、泉、瀬谷   南部：中、南、港南、磯子、金沢、栄
+
+*3 カルバペネマーゼ 遺伝子はプラスミド上に存在することが多く、水平伝播する可能性が高い
+
+*4 遺伝子型判定のためのシークエンス解析を実施したもののみ記載
+表2 横浜市内医療機関で分離されたカルバペネム耐性腸内細菌目細菌（CRE）の検査結果集計
+（菌種別遺伝子検査結果）
+                                              横浜市衛生研究所 検査研究課 細菌担当
+
+
+
+
+2026年1月～2026年6月検体受付分
+
+CRE感染症届出患者株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Enterobacter cloacae complex      6       5              5/6
+Escherichia coli                  3       2              2/3
+Klebsiella aerogenes              2       0              0/2
+Citrobacter freundii complex      1       1              1/1
+Klebsiella oxytoca                1       1              1/1
+Klebsiella pneumoniae             1       0              0/1
+計                                14       9             9/14
+
+
+CRE感染症届出対象外株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Enterobacter cloacae complex     1        1              1/1
+計                                1        1              1/1
+

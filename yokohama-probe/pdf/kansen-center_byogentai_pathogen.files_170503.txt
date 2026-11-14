@@ -1,0 +1,114 @@
+                    劇症型溶血性レンサ球菌感染症のまとめ
+                      （病原体の検査結果について）
+     劇症型溶血性レンサ球菌感染症は、溶血性を示すA群やG群のレンサ球菌によって引き起こされる感染
+症です。基礎疾患の有無に関わらず、突然の四肢の疼痛、腫脹、発熱などで発症し、その後急激に軟部
+組織壊死、急性腎不全、播種性血管内凝固症候群（DIC）、多臓器不全（MOF）を引き起こしショック状態
+から死亡することも多い感染症です。1999年の調査開始から患者数は年々増えており、2016年第52週の
+感染者報告数は、全国で492例、神奈川県で53例となっています。
+     当所では、感染症法に基づく感染症発生動向調査事業の一環として市内の医療機関から送付された劇
+症型溶血性レンサ球菌感染症の患者から分離された菌株についてT型別 1） 、 emm 遺伝子 1） 、発赤毒素
+（spe）遺伝子の検査をおこなっています。さらに菌株を国立感染症研究所に送付し、そこでM型別1）、薬剤
+感受性試験などをおこなっています。2）
+     今回は2016年1月から12月までの1年間に市内の医療機関から受け入れた菌株についてその検査結果
+を報告いたします。
+     全国的に、2014年から発生件数が急激に増加し2016年は、発生届22事例から分離された31株の菌株
+が搬入されました。その起因菌はA群、B群およびG群溶血性レンサ球菌でした。そのうち事例数が多い株
+として、A群では「TB3264型 M型別不能 emm 89.0」の株が5事例から分離されました。また、G群では
+「Streptococcus dysgalactiae subsp.equisimilis emm stG6792.3」の株が4事例から分離されました。また、今
+年はB群溶血性レンサ球菌による事例が3事例でしたが、血清型はそれぞれ異なっていました。
+     患者の内訳は22事例のうち、男性が12事例（A群4事例、B群2事例、G群6事例）、女性が10事例（A群6
+事例、B群1事例、G群3事例）となっており、A群は女性、G群は男性にやや多く見られました。また、年齢別
+に分類すると22事例のうち40代～50代が6事例、60代～70代が7事例、80代～90代が9事例と、高齢者に
+多く発症する傾向がみられました。
+
+1）
+     T型別、M型別とは、A群溶血性レンサ球菌の菌体表層に存在する蛋白の血清型別のことで、疫学調査
+     の手段として広く用いられています。また、M蛋白は抗オプソニン作用を示し、病原因子として知られて
+     います。emm遺伝子による型別はそのM蛋白遺伝子で型別する方法です。
+2）
+     国立感染症研究所 衛生微生物技術協議会第37回研究会（広島） レファレンスセンター等報告
+     https://www.niid.go.jp/niid/ja/allarticles/manual/297-labo-manual/6629-reference-report37.html
+
+
+
+
+                                                    3
+表 2016年に搬入された劇症型溶血性レンサ球菌感染症由来菌株の検査結果
+                                                                      発赤毒素遺伝子
+採取日     年齢   性別    材料          菌名            T型      M型     emm
+                                                                        （spe）
+                               G群
+12/24   83   女     血液     S.dysgalactiae                   stG10.0
+                         subsp.equisimilis
+2/28    95   男    血液        B群 Ⅴ型
+                               G群
+3/15    84   男     血液     S.dysgalactiae                  型別不能
+                         subsp.equisimilis
+4/16    53   女    胸水           A群             UT     UT     112.0     speB、speC、speF
+4/27    74   男    血液           A群             UT     3      3.93      speA、speB、speF
+                  壊死軟部
+ 5/8    80   男                 A群             12     UT     89.0      speB、speC、speF
+                   組織
+                               G群
+5/24    73   男     血液     S.dysgalactiae                  stG6792.3
+                         subsp.equisimilis
+6/16    48   女 皮膚病巣            A群              1     1       1.0      speA、speB、speF
+
+6/23    42   女     血液          A群              1     1       1.0      speA、speB、speF
+                               G群
+7/16    65   男     膿      S.dysgalactiae                  stG6792.3
+                         subsp.equisimilis
+                               G群
+7/16               膿      S.dysgalactiae                  stG6792.3
+                         subsp.equisimilis
+                               G群
+7/19              皮下組織    S.dysgalactiae                  stG6792.3
+                         subsp.equisimilis
+                               G群
+8/31    71   男     血液     S.dysgalactiae                   stG11.0
+                         subsp.equisimilis
+ 9/8    86   女     血液      B群 Ⅰb型
+                               G群
+10/7    46   男     血液     S.dysgalactiae                  stG245.0
+                         subsp.equisimilis
+                               G群
+10/11   65   女     血液     S.dysgalactiae                  stG6792.3
+                         subsp.equisimilis
+10/14   74   男     血液          A群              1     1       1.0      speA、speB、speF
+10/19   52   女    動脈血          A群            B3264   UT     89.0      speB、speC、speF
+10/19             動脈血          A群            B3264   UT     89.0      speB、speC、speF
+10/20             皮膚病巣         A群            B3264   UT     89.0      speB、speC、speF
+10/21             皮膚病巣         A群            B3264   UT     89.0      speB、speC、speF
+
+
+                                        4
+表 2016年に搬入された劇症型溶血性レンサ球菌感染症由来菌株の検査結果（続き）
+                                                                     発赤毒素遺伝子
+採取日     年齢   性別   材料         菌名            T型      M型      emm
+                                                                       （spe）
+11/4    85   男    創部         A群            B3264   UT      89.0      speB、speC、speF
+11/11   43   女    血液         A群            B3264   UT      89.0      speB、speC、speF
+11/11             血液         A群            B3264   UT      89.0      speB、speC、speF
+11/4    85   女    血液         A群            B3264   UT      89.0      speB、speC、speF
+11/4              血液         A群            B3264   UT      89.0      speB、speC、speF
+11/4              皮膚         A群            B3264   UT      89.0      speB、speC、speF
+
+11/6    86   男    血液      B群 Ⅱ型
+                             G群
+12/2    86   女    血液    S.dysgalactiae                   stG485.0
+                       subsp.equisimilis
+                             G群
+12/2              血液    S.dysgalactiae                   stG485.0
+                       subsp.equisimilis
+                             G群
+12/19   75   男    血液    S.dysgalactiae                   stG6792.3
+                       subsp.equisimilis
+
+
+                                                        【 微生物検査研究課 細菌担当 】
+
+
+
+
+                                      5
+

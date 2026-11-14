@@ -1,0 +1,30 @@
+表2 横浜市内医療機関で分離されたカルバペネム耐性腸内細菌目細菌（CRE）の検査結果集計
+（菌種別遺伝子検査結果）
+              横浜市衛生研究所 微生物検査研究課 細菌担当
+
+2023年1月～2023年12月検体受付分
+
+CRE感染症届出患者株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Klebsiella aerogenes             13       0          0/13
+Klebsiella pneumoniae            12       2          2/12
+Enterobacter cloacae complex     11       4          4/11
+Escherichia coli                  2       0          0/2
+Klebsiella oxytoca                1       1          1/1
+Klebsiella variicola              1       1          1/1
+Serratia marcescens               1       0          0/1
+計                                41       8          8/41
+
+
+CRE感染症届出対象外株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Enterobacter cloacae complex     6        3          3/6
+Klebsiella aerogenes             5        0          0/5
+Citrobacter freundii complex     1        0          0/1
+Klebsiella pneumoniae            1        0          0/1
+計                                13       3          3/13
+

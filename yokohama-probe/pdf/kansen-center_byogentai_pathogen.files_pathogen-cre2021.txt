@@ -1,0 +1,129 @@
+2021年1月～2021年12月搬入分
+
+      CRE感染症届出患者株
+                                                                                 カルバペネマー      その他のβ-ラクタム系耐性遺
+番号 分離月 医療圏*1     性別   年代        症状         渡航歴      材料                 菌種              *2                          特記事項
+                                                                                  ゼ遺伝子              伝子
+  1    12   北部   男    80代      尿路感染症                 尿     E. cloacae complex     bla IMP-1
+  2    1    南部   女    80代    菌血症、尿路感染症              血液     E. cloacae complex     bla IMP-1
+                                                                                                                ミャンマー渡航歴および
+  3    12   北部   男    60代       肺炎          有       喀痰     K. pneumoniae          bla NDM-5      bla CTX-M-15
+                                                                                                                    入院歴有
+  4    2    南部   男    70代       菌血症                 血液     K. aerogenes
+  5    2    北部   女    80代      尿路感染症                 尿     E. cloacae complex
+  6    2    南部   男    70代       肺炎                  喀痰     K. aerogenes
+  7    2    北部   男    50代       腹膜炎                 腹水     K. aerogenes
+  8    2    北部   男    80代       肺炎                  喀痰     E. cloacae complex
+  9    2    北部   男    60代      尿路感染症                 尿     K. aerogenes
+ 10    3    南部   女    70代      尿路感染症                 尿     E. hermanii            bla IMP-1
+ 11    4    南部   男    小児        敗血症                 血液     E. cloacae complex     bla IMP-1
+ 12    4    西部   男    小児       尿路感染症                 尿     K. aerogenes
+ 13    5    南部   男    60代     発熱、胆管炎                胆汁     K. pneumoniae          bla IMP-1
+ 14    5    北部   男    80代     腹膜炎、敗血症               血液     E. cloacae complex
+ 15    5    南部   男    70代       腹膜炎                 腹水     K. pneumoniae          bla IMP-1
+ 16    5    北部   男    40代     肺炎、菌血症                血液     K. aerogenes
+ 17    5    北部   女    70代      皮膚潰瘍                  膿     K. aerogenes
+ 18    5    南部   男    70代      尿路感染症                 尿     K. aerogenes
+ 19    6    西部   女    70代     胆嚢炎、胆管炎               胆汁     E. cloacae complex
+ 20    6    南部   男    70代       肺炎                  喀痰     E. cloacae complex     bla IMP-1
+ 21    6    西部   男    70代       胆管炎                 胆汁     K. pneumoniae          bla IMP-1
+ 22    7    北部   女    90代       敗血症                 血液     K. aerogenes
+ 23    7    北部   男    60代      尿路感染症                 尿     E. cloacae complex     bla IMP-1
+ 24    7    北部   男    90代       菌血症                 血液     E. cloacae complex
+ 25    7    北部   女    80代      尿路感染症                 尿     E. cloacae complex
+ 26    7    北部   女    80代       胆嚢炎                 喀痰     E. cloacae complex
+ 27    7    南部   女    90代       胆嚢炎                 胆汁     C. koseri
+ 28    7    西部   女    90代      尿路感染症                 尿     K. aerogenes                          bla CTX-M-15
+ 29    8    南部   男    50代       敗血症                 血液     C. freundii complex    bla IMP-1
+ 30    7    西部   男    90代       肺炎                  喀痰     K. pneumoniae          bla IMP-1
+ 31    8    北部   男    小児       尿路感染症                 尿     E. cloacae complex                     bla CTX-M-9
+ 32    8    北部   男    80代       肺炎                  喀痰     E. cloacae complex
+ 33    8    西部   女    80代       肺炎                  喀痰     E. cloacae complex
+ 34    9    北部   男    80代     肺炎、菌血症                血液     E. cloacae complex     bla IMP-1
+ 35    9    南部   女    80代       胆嚢炎                 胆汁     K. aerogenes
+ 36    9    西部   女    80代     胆嚢炎、腹膜炎               腹水     E. cloacae complex     bla IMP-1
+ 37    9    西部   男    70代       敗血症                 血液     K. aerogenes
+ 38    10   南部   男    40代       肺炎                  喀痰     K. aerogenes
+ 39    10   南部   男    70代       胆管炎                 胆汁     E. coli                               bla CTX-M-55
+ 40    10   北部   男    70代      尿路感染症                 尿     K. aerogenes
+ 41    10   北部   女    80代    敗血症、腎盂腎炎               血液     K. aerogenes
+ 42    10   南部   女    80代   敗血症、膵炎、後腹膜膿瘍         ドレーン排液 K. pneumoniae             bla IMP-1
+ 43    10   北部   女    50代       直腸瘻                 創部     E. cloacae complex
+ 44    10   北部   女    50代       肺炎                  喀痰     K. aerogenes
+ 45    10   北部   男    60代     肺炎、敗血症                喀痰     K. aerogenes
+ 46    12   北部   男    70代       肺炎                  喀痰     E. cloacae complex
+ 47                                                 血液     E. cloacae complex
+       12   南部   男    80代       菌血症
+ 48                                                 血液     E. cloacae complex
+ 49    12   北部   男    40代       腹膜炎              ドレーン排液 C. freundii complex
+ 50    12   南部   女    80代    腹膜炎、腹腔内膿瘍              腹水     E. cloacae complex     bla IMP-1
+ 51    12   西部   男    70代      腹腔内膿瘍             ドレーン排液 K. aerogenes
+      CRE感染症届出対象外株
+                                                                                          カルバペネマー       その他のβ-ラクタム系耐性遺
+番号 分離月 医療圏*1        性別    年代          症状            渡航歴   材料               菌種                                             特記事項
+                                                                                           ゼ遺伝子*2             伝子
+  1    1      南部     男    50代       胆道感染症                 胆汁     E. cloacae complex
+  2    2      北部     男    70代          無                   便     K. pneumoniae                             bla CTX-M-15
+  3    3      北部     男    50代          無                   便     K. pneumoniae                              bla CTX-M-3
+  4    3      北部     男    70代         肺炎                  喀痰     K. aerogenes
+  5    3      南部     女    小児           無                   便     E. cloacae complex        bla IMP-1
+  6    4      南部     男    小児           無                   便     E. cloacae complex        bla IMP-1
+  7 R2.9      南部     男    小児           無                   便     E. cloacae complex        bla IMP-1
+  8 R2.9      南部     男    小児           無                  創部     E. cloacae complex        bla IMP-1
+  9    5      南部     男    小児           無                   便     E. cloacae complex        bla IMP-1
+ 10    5      南部         環境由来                                    E. cloacae complex        bla IMP-1
+ 11    5      南部         環境由来                                    E. cloacae complex        bla IMP-1
+ 12    6      南部     女    小児           無                   便     E. cloacae complex        bla IMP-1
+ 13    6      南部     男    小児           無                   便     E. cloacae complex        bla IMP-1
+ 14    6      南部     女    小児           無                   便     E. cloacae complex        bla IMP-1
+ 15    6      北部     男    50代         発熱                  血液     E. cloacae complex
+ 16    7      北部     男    60代         胆嚢炎                 胆汁     E. cloacae complex        bla IMP-1
+ 17    8      北部     男    60代      潰瘍性大腸炎                  便     E. cloacae complex        bla IMP-19
+ 18    8      南部     男    50代   胆道感染症、急性膵炎、感染性膵壊死         胆汁     K. aerogenes
+ 19    8      南部     男    50代          無                  胆汁     K. aerogenes
+ 20    9      南部     女    小児           無                   便     Citrobacter farmeri       bla IMP-11
+ 21    9      南部     女    小児           無                   便     グラム陰性桿菌                   bla IMP-11
+ 22    9      南部     女    小児           無                   便     K. oxytoca                bla IMP-11
+ 23    9      北部     女    70代          無                   尿     K. pneumoniae                             bla CTX-M-15
+ 24    9      西部     男    50代         肺炎                  喀痰     E. coli                                     bla DHA-1
+ 25    10     西部     男    50代          無                   便     E. coli                                     bla CMY-2
+ 26    10     北部     女    80代         肺炎                  喀痰     E. cloacae complex        bla IMP-1
+ 27    12     北部     男    70代       発熱、痰貯留                喀痰     K. aerogenes
+ 28    12     西部     男    80代          無                   尿     E. cloacae complex
+
+
+            *1 北部：鶴見、神奈川、港北、緑、青葉、都筑                     西部：西、保土ケ谷、旭、戸塚、泉、瀬谷            南部：中、南、港南、磯子、金沢、栄
+            *2 bla IMP-1、bla IMP-6、bla NDM-1 など、プラスミド性であり水平伝播する可能性が高い
+表2 横浜市内医療機関で分離されたカルバペネム耐性腸内細菌科細菌（CRE）の検査結果集計
+（菌種別遺伝子検査結果）
+              横浜市衛生研究所 微生物検査研究課 細菌担当
+
+2021年1月～2021年12月搬入分
+
+CRE感染症届出患者株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Citrobacter freundii complex     2        1           1/2
+Citrobacter koseri                1        0          0/1
+Enterobacter cloacae complex     22       8          8/22
+Escherichia coli                  1        0          0/1
+Escherichia hermanii              1        1          1/1
+Klebsiella aerogenes             18        0          0/18
+Klebsiella pneumoniae             6        6          6/6
+計                                51       16         16/51
+
+
+CRE感染症届出対象外株
+                               遺伝子検査 カルバペネマーゼ遺伝子 カルバペネマーゼ遺伝子
+菌種名
+                               実施株数 A   保有株数 B      保有率 B/A
+Citrobacter farmeri               1        1          1/1
+Enterobacter cloacae complex     14       11         11/14
+Escherichia coli                  2        0          0/2
+Klebsiella aerogenes              4        0          0/4
+Klebsiella oxytoca                1        1          1/1
+Klebsiella pneumoniae             3        0          0/3
+グラム陰性桿菌                           1        1          1/1
+計                                26       14         14/26
+
