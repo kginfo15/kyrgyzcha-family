@@ -1,0 +1,173 @@
+{
+ "cbd-education-2040": {
+  "title": "教育発展プログラム 2021–2040",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1070465&lang=ru",
+  "paragraphs": 250,
+  "chars": 44197,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "cbd-digital-2028": {
+  "title": "デジタル・トランスフォーメーション構想 2024–2028",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=6414&lang=ru",
+  "paragraphs": 277,
+  "chars": 88284,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "cbd-tourism-2030": {
+  "title": "持続可能な観光発展プログラム 2030年まで",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=23883&lang=ru",
+  "paragraphs": 139,
+  "chars": 51822,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "cbd-pasture-2029": {
+  "title": "牧草地発展プログラム 2024–2029",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=14287&lang=ru",
+  "paragraphs": 155,
+  "chars": 26703,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "cbd-sports-2030": {
+  "title": "体育・スポーツ発展プログラム 2030年まで",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=52205&lang=ru",
+  "paragraphs": 134,
+  "chars": 37685,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "cbd-religion-2026": {
+  "title": "宗教分野の国家政策構想 2021–2026",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=594259&lang=ru",
+  "paragraphs": 193,
+  "chars": 63240,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "cbd-energy-efficiency-2027": {
+  "title": "省エネ・エネルギー効率政策プログラム 2023–2027",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1264523&lang=ru",
+  "paragraphs": 213,
+  "chars": 53489,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "cbd-gender-2030": {
+  "title": "ジェンダー平等達成国家戦略 2030年まで",
+  "source": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1189693&lang=ru",
+  "paragraphs": 16,
+  "chars": 3129,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "health-2030": {
+  "title": "保健プログラム「健康な人 ― 繁栄する国」2019–2030",
+  "source": "https://base.spinform.ru/show_doc.fwx?rgn=114530",
+  "paragraphs": 33,
+  "chars": 3707,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "local-self-gov-2028": {
+  "title": "地方自治発展プログラム 2024–2028",
+  "source": "https://base.spinform.ru/show_doc.fwx?rgn=158417",
+  "paragraphs": 36,
+  "chars": 3589,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "roads-2030": {
+  "title": "道路部門発展の基本方針 2023–2030",
+  "source": "https://base.spinform.ru/show_doc.fwx?rgn=148158",
+  "paragraphs": 149,
+  "chars": 10415,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "drinking-water-2026": {
+  "title": "飲料水供給・排水システム発展プログラム 2026年まで",
+  "source": "http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf",
+  "paragraphs": 611,
+  "chars": 69309,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "drr-plan-2030": {
+  "title": "緊急事態リスク低減の行動計画 2025–2030",
+  "source": "https://www.cawater-info.net/bk/dam-safety/files/kg-601-2025.pdf",
+  "paragraphs": 618,
+  "chars": 30427,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "food-security-2023": {
+  "title": "食料安全保障・栄養プログラム 2019–2023",
+  "source": "https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf",
+  "paragraphs": 2703,
+  "chars": 106206,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "water-code-2025": {
+  "title": "水法典 2025",
+  "source": "https://faolex.fao.org/docs/pdf/kyr237135.pdf",
+  "paragraphs": 1138,
+  "chars": 117231,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "ndc-2021-en": {
+  "title": "国が決定する貢献（NDC）2021年更新版",
+  "source": "https://unfccc.int/sites/default/files/NDC/2022-06/%D0%9E%D0%9D%D0%A3%D0%92%20ENG%20%D0%BE%D1%82%2008102021.pdf",
+  "paragraphs": 995,
+  "chars": 74170,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "ndp-2030-stat": {
+  "title": "国家開発プログラム 2030年まで（大統領令 2025年 No.178）",
+  "source": "https://stat.gov.kg/media/files/be95e086-a299-4be2-8e38-8cc8b90c15d0.pdf",
+  "paragraphs": 518,
+  "chars": 141030,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "nds-2040-en-adam": {
+  "title": "国家開発戦略 2018–2040",
+  "source": "https://adam.edu.kg/media/uploads/2022/04/15/national-strategy-of-kyrgyz-republic-2018-2040.pdf",
+  "paragraphs": 601,
+  "chars": 250532,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ },
+ "nds-2040-ru": {
+  "title": "国家開発プログラム 2026年まで（前身のプログラム）",
+  "source": "https://faolex.fao.org/docs/pdf/kyr208595.pdf",
+  "paragraphs": 710,
+  "chars": 184980,
+  "untranslated": 0,
+  "retries": 0,
+  "complete": true
+ }
+}
