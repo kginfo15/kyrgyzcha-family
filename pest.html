@@ -76,7 +76,7 @@ h2{font-size:17px;margin:0 0 2px;line-height:1.35}
 .sel{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px;font-size:13px;color:var(--ink-2)}
 .tag{display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);border-radius:999px;padding:3px 4px 3px 10px;font-size:13px;color:var(--ink)}
 .tag i{width:9px;height:9px;border-radius:50%;display:inline-block}
-.tag button{border:0;background:transparent;color:var(--ink-3);font-size:16px;line-height:1;padding:2px 6px;cursor:pointer}
+.tag button{border:0;background:transparent;color:var(--ink-3);font-size:16px;line-height:1;padding:2px 6px;min-width:30px;min-height:30px;margin:-4px -2px -4px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .switch{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2);cursor:pointer;user-select:none;-webkit-user-select:none}
 .switch input{appearance:none;-webkit-appearance:none;width:36px;height:22px;border-radius:999px;background:var(--line);position:relative;margin:0;transition:background .25s;cursor:pointer}
 .switch input::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
@@ -244,7 +244,7 @@ footer p{margin:6px 0}
 
 <footer>
   <p><b>出典</b>: 東京都保健医療局「<a href="https://www.hokeniryo.metro.tokyo.lg.jp/kankyo/eisei/nezukon" rel="noopener">東京都におけるねずみ・衛生害虫等相談状況調査結果</a>」を加工して作成 / 気象: 気象庁ホームページ「<a href="https://www.data.jma.go.jp/stats/etrn/index.php" rel="noopener">過去の気象データ検索</a>」(東京)のデータを加工して作成。</p>
-  <p><b>読むときの注意</b>: 数字は相談の件数で、虫や動物の数・駆除の件数ではありません(報道で話題になると相談が増える、なども含みます)。年度は4月〜翌3月です。区市町村別の内訳は公開されていないため、東京都全体の数字です。平成27年度は12の大きな分類だけ公開されています。</p>
+  <p><b>読むときの注意</b>: 数字は相談の件数で、虫や動物の数・駆除の件数ではありません(報道で話題になると相談が増える、なども含みます)。年度は4月〜翌3月です。区市町村別の内訳は公開されていないため、東京都全体の数字です。平成25・27年度は12の大きな分類だけ公開されています(種類別は平成28年度から)。平成26年度は都のサイトに見つからないため空欄です。</p>
   <p id="builtAt"></p>
 </footer>
 </div>
@@ -281,7 +281,7 @@ function el(tag, attrs, parentEl){
 function hel(tag, cls, txt){ var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
 function fmt(n){ return n === null || n === undefined || isNaN(n) ? "–" : Math.round(n).toLocaleString("ja-JP"); }
 function fmt1(n){ return n === null || n === undefined || isNaN(n) ? "–" : (Math.round(n * 10) / 10).toFixed(1); }
-function css(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+function css(prop){ return getComputedStyle(document.documentElement).getPropertyValue(prop).trim(); }
 function era(y){ return y >= 2019 ? (y === 2019 ? "R元" : "R" + (y - 2018)) : "H" + (y - 1988); }
 function fyLabel(y){ return y + "年度(" + era(y) + ")"; }
 function sum(a){ var s = 0; for (var i = 0; i < a.length; i++) s += a[i] || 0; return s; }
@@ -792,7 +792,7 @@ function renderWx(){
   var W = Math.max(320, Math.min(box.clientWidth || 600, 940)), H = W < 480 ? 260 : 320;
   var pad = {l: 52, r: 18, t: 14, b: 34};
   var isMonthY = wxUnit === "year" && (ym === "centroid" || ym === "peak");
-  if (!pts.length){ box.textContent = ""; box.appendChild(hel("div", "empty", "この組み合わせのデータがありません(年度の途中など)")); $("wxStat").textContent = ""; return; }
+  if (!pts.length){ box.textContent = ""; box.appendChild(hel("div", "empty", "この組み合わせは計算できません(期間が年度をまたぐ・まだデータがない、など)")); $("wxStat").textContent = ""; return; }
   var xs = pts.map(function(p){ return p.x; }), yv = pts.map(function(p){ return p.y; });
   var xlo = Math.min.apply(null, xs), xhi = Math.max.apply(null, xs), xr = (xhi - xlo) || 1;
   xlo -= xr * 0.08; xhi += xr * 0.08;
@@ -887,10 +887,10 @@ function renderTable(){
   tb.appendChild(b);
   var w = $("tbl"); w.textContent = ""; w.appendChild(tb);
 }
-function download(name, text){
+function download(fileName, text){
   var blob = new Blob(["﻿" + text], {type: "text/csv;charset=utf-8"});
   var url = URL.createObjectURL(blob), a = document.createElement("a");
-  a.href = url; a.download = name; document.body.appendChild(a); a.click();
+  a.href = url; a.download = fileName; document.body.appendChild(a); a.click();
   setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 1500);
 }
 function csvRows(keys){
@@ -923,7 +923,7 @@ function setupDownloads(){
     download("tokyo_pest_all.csv", out.join("\n") + "\n");
   });
   $("dlWx").addEventListener("click", function(){
-    var out = ["year,month," + WXVARS.map(function(w){ return w.k; }).join(",")];
+    var out = ["year,month,t_mean_C,tmax_mean_C,tmax_highest_C,tmin_mean_C,precip_mm,humidity_pct,wind_ms,sunshine_h"];
     Object.keys(D.weather).sort().forEach(function(y){
       for (var m = 1; m <= 12; m++){
         var row = [y, m], any = false;
@@ -931,7 +931,6 @@ function setupDownloads(){
         if (any) out.push(row.join(","));
       }
     });
-    out.push("# t=平均気温 tx=日最高気温の平均 tn=日最低気温の平均 txx=月の最高気温 p=降水量合計(mm) h=平均湿度(%) w=平均風速(m/s) sun=日照時間(h); 気象庁 東京(47662)");
     download("tokyo_weather_monthly.csv", out.join("\n") + "\n");
   });
 }
