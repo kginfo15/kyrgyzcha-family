@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>東京都 衛生害虫の相談件数</title>
+<meta name="description" content="東京都のねずみ・衛生害虫等(ハチ・ネズミなど)の相談件数を、年度×月・種類別に見て、気象との関係を調べるツール。">
+<meta name="theme-color" content="#0f1115">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f1115'/%3E%3Crect x='6' y='6' width='6' height='6' rx='1.5' fill='%23f6c48a'/%3E%3Crect x='13' y='6' width='6' height='6' rx='1.5' fill='%23e8843a'/%3E%3Crect x='20' y='6' width='6' height='6' rx='1.5' fill='%23b4470f'/%3E%3Crect x='6' y='13' width='6' height='6' rx='1.5' fill='%23e8843a'/%3E%3Crect x='13' y='13' width='6' height='6' rx='1.5' fill='%23b4470f'/%3E%3Crect x='20' y='13' width='6' height='6' rx='1.5' fill='%23f6c48a'/%3E%3Crect x='6' y='20' width='6' height='6' rx='1.5' fill='%23b4470f'/%3E%3Crect x='13' y='20' width='6' height='6' rx='1.5' fill='%23f6c48a'/%3E%3Crect x='20' y='20' width='6' height='6' rx='1.5' fill='%23e8843a'/%3E%3C/svg%3E">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f4f3ef; --surface:#fcfcfb; --surface-2:#f0eee8; --line:#e2dfd6; --grid:#ebe8e0;
+  --ink:#141414; --ink-2:#52514e; --ink-3:#7d7b74;
+  --accent:#c2410c; --on-accent:#fff;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --heat-0:#f8eee2; --heat-1:#f2b77c; --heat-2:#d9661f; --heat-3:#8a2c05;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0f1115; --surface:#171a20; --surface-2:#1f232b; --line:#2a2f39; --grid:#232831;
+    --ink:#f0efec; --ink-2:#c3c2b7; --ink-3:#8f8e86;
+    --accent:#fb923c; --on-accent:#1a1206;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+    --heat-0:#221c18; --heat-1:#6b3416; --heat-2:#d9661f; --heat-3:#ffd08a;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0f1115; --surface:#171a20; --surface-2:#1f232b; --line:#2a2f39; --grid:#232831;
+  --ink:#f0efec; --ink-2:#c3c2b7; --ink-3:#8f8e86;
+  --accent:#fb923c; --on-accent:#1a1206;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --heat-0:#221c18; --heat-1:#6b3416; --heat-2:#d9661f; --heat-3:#ffd08a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  font-size:16px;line-height:1.55;padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+header{padding:calc(18px + env(safe-area-inset-top)) 0 6px}
+.kicker{font-size:12px;letter-spacing:.08em;color:var(--ink-3);font-weight:600}
+h1{font-size:clamp(22px,5.4vw,30px);margin:2px 0 4px;line-height:1.25;letter-spacing:.01em}
+.lead{color:var(--ink-2);font-size:14px;margin:0}
+.themebtn{float:right;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font:inherit;font-size:13px;
+  border-radius:999px;padding:5px 11px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+h2{font-size:17px;margin:0 0 2px;line-height:1.35}
+.hint{font-size:13px;color:var(--ink-3);margin:0 0 10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin:14px 0;box-shadow:var(--shadow)}
+.card.in{animation:rise .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* picker */
+.picker{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  margin:10px -16px 0;padding:8px 16px 8px;border-bottom:1px solid var(--line)}
+@supports not (background:color-mix(in srgb,red 50%,blue)){.picker{background:var(--bg)}}
+.row{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 0 4px;scroll-snap-type:x proximity}
+.row::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;font-size:14px;
+  padding:6px 12px;border-radius:999px;cursor:pointer;-webkit-tap-highlight-color:transparent;white-space:nowrap;
+  transition:background .25s,color .25s,border-color .25s,transform .15s;scroll-snap-align:start;min-height:34px}
+.chip:active{transform:scale(.96)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.chip.small{font-size:13px;padding:4px 10px;min-height:30px}
+.pickline{display:flex;align-items:center;gap:8px;margin-top:4px}
+.pickline .lbl{font-size:12px;color:var(--ink-3);flex:0 0 auto}
+.sel{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px;font-size:13px;color:var(--ink-2)}
+.tag{display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);border-radius:999px;padding:3px 4px 3px 10px;font-size:13px;color:var(--ink)}
+.tag i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.tag button{border:0;background:transparent;color:var(--ink-3);font-size:16px;line-height:1;padding:2px 6px;cursor:pointer}
+.switch{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2);cursor:pointer;user-select:none;-webkit-user-select:none}
+.switch input{appearance:none;-webkit-appearance:none;width:36px;height:22px;border-radius:999px;background:var(--line);position:relative;margin:0;transition:background .25s;cursor:pointer}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.switch input:checked{background:var(--accent)}
+.switch input:checked::after{transform:translateX(14px)}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+@media (max-width:680px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;box-shadow:var(--shadow)}
+.kpi .k{font-size:12px;color:var(--ink-3)}
+.kpi .v{font-size:clamp(22px,6vw,30px);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em;line-height:1.2;margin-top:2px}
+.kpi .v small{font-size:13px;font-weight:500;color:var(--ink-2);margin-left:2px}
+.kpi .d{font-size:12px;color:var(--ink-2);margin-top:2px}
+
+/* charts */
+.seg{display:inline-flex;background:var(--surface-2);border-radius:10px;padding:2px;gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:13px;padding:5px 10px;border-radius:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tools{display:flex;gap:8px 12px;flex-wrap:wrap;align-items:center;margin:4px 0 10px}
+.tools .lbl{font-size:12px;color:var(--ink-3)}
+select{font:inherit;font-size:16px;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);max-width:100%}
+svg{display:block;width:100%;height:auto;overflow:visible;-webkit-user-select:none;user-select:none}
+svg text{font-family:inherit;fill:var(--ink-3);font-size:11px}
+.axis line,.gridl{stroke:var(--grid);stroke-width:1}
+.axis .base{stroke:var(--line)}
+.cell{transition:fill .5s ease,opacity .5s ease}
+.cell.dim{opacity:.35}
+.heatwrap{position:relative}
+.legend{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-3);margin-top:8px;flex-wrap:wrap}
+.legend .bar{width:140px;height:10px;border-radius:5px}
+.legend .key{display:inline-flex;align-items:center;gap:6px;color:var(--ink-2)}
+.legend .key i{display:inline-block;width:14px;height:3px;border-radius:2px}
+.line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.dot{stroke:var(--surface);stroke-width:2}
+.yr{fill:none;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round;transition:opacity .3s,stroke-width .3s}
+.yr.off{opacity:.18}
+.yr.on{stroke-width:3}
+.empty{font-size:14px;color:var(--ink-3);padding:24px 0;text-align:center}
+.stat{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.stat div{background:var(--surface-2);border-radius:10px;padding:6px 10px;font-size:13px;color:var(--ink-2)}
+.stat b{color:var(--ink);font-variant-numeric:tabular-nums}
+.note{font-size:12px;color:var(--ink-3);margin:8px 0 0}
+
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.45;
+  padding:7px 10px;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.25);opacity:0;transform:translateY(4px);
+  transition:opacity .15s,transform .15s;max-width:240px}
+#tip.show{opacity:1;transform:none}
+#tip b{font-variant-numeric:tabular-nums}
+
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--surface)}
+thead th{color:var(--ink-3);font-weight:600}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+details summary{cursor:pointer;color:var(--ink-2);font-size:14px;padding:4px 0}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  font:inherit;font-size:14px;padding:8px 14px;border-radius:12px;cursor:pointer;text-decoration:none;-webkit-tap-highlight-color:transparent}
+.btn.primary{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+footer{font-size:12px;color:var(--ink-3);margin-top:20px}
+footer p{margin:6px 0}
+.warn{font-size:13px;background:var(--surface-2);border-radius:10px;padding:8px 12px;color:var(--ink-2);margin-top:10px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <button class="themebtn" id="themeBtn" type="button" aria-label="表示の明るさを切り替える">表示: 自動</button>
+  <div class="kicker">TOKYO · PEST CONSULTATIONS</div>
+  <h1>東京都 衛生害虫の相談件数</h1>
+  <p class="lead">都内の区市町村・保健所に寄せられた、ハチ・ネズミなどの相談の件数を、年度×月・種類ごとに見て、気象との関係を調べるツールです。</p>
+</header>
+
+<div class="picker" id="picker">
+  <div class="row" id="classRow" aria-label="大きな分類"></div>
+  <div class="row" id="pestRow" aria-label="種類"></div>
+  <div class="pickline">
+    <label class="switch"><input type="checkbox" id="cmpSwitch"> 比べる(3つまで)</label>
+    <div class="sel" id="selTags"></div>
+  </div>
+</div>
+
+<div class="kpis" id="kpis"></div>
+
+<section class="card in" id="heatCard">
+  <h2 id="heatTitle">年度 × 月のマス目</h2>
+  <p class="hint">色が濃い(暗い画面では明るい)ほど相談が多い月です。マスを触ると件数が出ます。</p>
+  <div class="tools">
+    <div class="seg" id="heatMode">
+      <button type="button" aria-pressed="true" data-v="count">件数</button>
+      <button type="button" aria-pressed="false" data-v="share">その年度の中の割合</button>
+    </div>
+  </div>
+  <div class="heatwrap" id="heat"></div>
+  <div class="legend" id="heatLegend"></div>
+</section>
+
+<section class="card in" id="trendCard" style="animation-delay:.05s">
+  <h2>年度ごとの推移</h2>
+  <p class="hint">年度(4月〜翌3月)の合計件数です。「比べる」をオンにすると種類を重ねられます。</p>
+  <div class="tools">
+    <div class="seg" id="trendMode">
+      <button type="button" aria-pressed="true" data-v="abs">件数</button>
+      <button type="button" aria-pressed="false" data-v="idx">最初の年度を100とした指数</button>
+    </div>
+  </div>
+  <div id="trend"></div>
+  <div class="legend" id="trendLegend"></div>
+</section>
+
+<section class="card in" id="seasonCard" style="animation-delay:.1s">
+  <h2>季節の形(ピークはいつ?)</h2>
+  <p class="hint">年度ごとの月別件数を重ねた線です。古い年度ほど薄く、新しい年度ほど濃い色。線か下の年度ボタンを触るとその年度が目立ちます。</p>
+  <div class="tools">
+    <div class="seg" id="seasonMode">
+      <button type="button" aria-pressed="true" data-v="count">件数</button>
+      <button type="button" aria-pressed="false" data-v="share">割合(山の形だけ比べる)</button>
+    </div>
+  </div>
+  <div id="season"></div>
+  <div class="row" id="yearRow" style="margin-top:8px"></div>
+  <div id="peakTable"></div>
+  <p class="note">「重心月」は、その年度の相談が平均して何月ごろに集まったかを表す数字です(例: 7.5 = 7月後半)。件数で重みをつけた月の平均で、山が遅い年ほど大きくなります。</p>
+</section>
+
+<section class="card in" id="wxCard" style="animation-delay:.15s">
+  <h2>気象との関係</h2>
+  <p class="hint">気象庁の東京(千代田区北の丸公園)の月の値と比べます。点1つが1つの年度(または1か月)です。</p>
+  <div class="tools">
+    <div class="seg" id="wxUnit">
+      <button type="button" aria-pressed="true" data-v="year">年度ごと</button>
+      <button type="button" aria-pressed="false" data-v="month">月ごと</button>
+    </div>
+  </div>
+  <div class="tools">
+    <span class="lbl">横軸(気象)</span>
+    <select id="wxVar" aria-label="気象の種類"></select>
+    <select id="wxWin" aria-label="期間"></select>
+  </div>
+  <div class="tools" id="wxYrow">
+    <span class="lbl">縦軸</span>
+    <select id="wxY" aria-label="縦軸"></select>
+  </div>
+  <div id="wx"></div>
+  <div class="stat" id="wxStat"></div>
+  <p class="note">r(相関係数)は −1〜+1 の数字で、+1に近いほど「気象の値が大きい年ほど件数も多い」、−1に近いほど逆、0に近いほど関係がはっきりしないことを表します。点が少ないので、ここでの値は当たりをつけるための目安です(相関は原因を示すものではありません)。</p>
+</section>
+
+<section class="card in" id="dlCard" style="animation-delay:.2s">
+  <h2>データ</h2>
+  <p class="hint">統計ソフト(R・Excel など)で分析するためのCSVファイル(表の形のテキスト)をダウンロードできます。</p>
+  <div class="btns">
+    <button class="btn primary" type="button" id="dlSel">選んだ種類のCSV</button>
+    <button class="btn" type="button" id="dlAll">全種類のCSV</button>
+    <button class="btn" type="button" id="dlWx">気象(東京・月別)のCSV</button>
+  </div>
+  <details style="margin-top:12px">
+    <summary>表で見る(選んだ種類)</summary>
+    <div class="tablewrap" id="tbl"></div>
+  </details>
+  <div id="probs"></div>
+</section>
+
+<footer>
+  <p><b>出典</b>: 東京都保健医療局「<a href="https://www.hokeniryo.metro.tokyo.lg.jp/kankyo/eisei/nezukon" rel="noopener">東京都におけるねずみ・衛生害虫等相談状況調査結果</a>」を加工して作成 / 気象: 気象庁ホームページ「<a href="https://www.data.jma.go.jp/stats/etrn/index.php" rel="noopener">過去の気象データ検索</a>」(東京)のデータを加工して作成。</p>
+  <p><b>読むときの注意</b>: 数字は相談の件数で、虫や動物の数・駆除の件数ではありません(報道で話題になると相談が増える、なども含みます)。年度は4月〜翌3月です。区市町村別の内訳は公開されていないため、東京都全体の数字です。平成27年度は12の大きな分類だけ公開されています。</p>
+  <p id="builtAt"></p>
+</footer>
+</div>
+<div id="tip" role="status" aria-live="polite"></div>
+
+<!-- snapshot of pest.json (built by .github/workflows/pest-data.yml); a newer copy is read from the pest-data branch when online -->
+<script type="application/json" id="pest-json">__PEST_JSON__</script>
+
+<script>
+(function(){
+"use strict";
+var DATA_URL = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/pest-data/pest.json";
+var MONTHS = [4,5,6,7,8,9,10,11,12,1,2,3];
+var MLABEL = MONTHS.map(function(m){ return m + "月"; });
+var NS = "http://www.w3.org/2000/svg";
+var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+var D = null;               // the data
+var selList = [];           // selected series keys: "all", "c:1", "p:スズメバチ"
+var compare = false;
+var heatMode = "count", trendMode = "abs", seasonMode = "count", wxUnit = "year";
+var focusYear = null;
+var lastTrend = {};          // series key -> last drawn points (for smooth morphing)
+var lastSeason = {};
+var shownClass = null;       // class whose pests are shown in the second row
+
+/* ---------------------------------------------------------------- helpers */
+function $(id){ return document.getElementById(id); }
+function el(tag, attrs, parentEl){
+  var e = document.createElementNS(NS, tag);
+  for (var k in attrs) if (attrs[k] !== undefined && attrs[k] !== null) e.setAttribute(k, attrs[k]);
+  if (parentEl) parentEl.appendChild(e);
+  return e;
+}
+function hel(tag, cls, txt){ var e = document.createElement(tag); if (cls) e.className = cls; if (txt !== undefined) e.textContent = txt; return e; }
+function fmt(n){ return n === null || n === undefined || isNaN(n) ? "–" : Math.round(n).toLocaleString("ja-JP"); }
+function fmt1(n){ return n === null || n === undefined || isNaN(n) ? "–" : (Math.round(n * 10) / 10).toFixed(1); }
+function css(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+function era(y){ return y >= 2019 ? (y === 2019 ? "R元" : "R" + (y - 2018)) : "H" + (y - 1988); }
+function fyLabel(y){ return y + "年度(" + era(y) + ")"; }
+function sum(a){ var s = 0; for (var i = 0; i < a.length; i++) s += a[i] || 0; return s; }
+var yearCache = null;
+/* every fiscal year from the first to the last; a year Tokyo has not published stays empty */
+function years(){
+  if (yearCache) return yearCache;
+  var k = Object.keys(D.years).map(Number), out = [];
+  for (var y = Math.min.apply(null, k); y <= Math.max.apply(null, k); y++) out.push(y);
+  return (yearCache = out);
+}
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+function ease(t){ return 1 - Math.pow(1 - t, 3); }
+
+function hexRgb(h){ h = h.replace("#", ""); if (h.length === 3) h = h.replace(/./g, "$&$&"); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+function lin(c){ c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+function unlin(c){ c = c <= 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 1 / 2.4) - 0.055; return Math.round(clamp(c, 0, 1) * 255); }
+function toLab(rgb){
+  var r = lin(rgb[0]), g = lin(rgb[1]), b = lin(rgb[2]);
+  var l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+  var m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+  var s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+}
+function fromLab(L){
+  var l = Math.pow(L[0] + 0.3963377774 * L[1] + 0.2158037573 * L[2], 3);
+  var m = Math.pow(L[0] - 0.1055613458 * L[1] - 0.0638541728 * L[2], 3);
+  var s = Math.pow(L[0] - 0.0894841775 * L[1] - 1.2914855480 * L[2], 3);
+  return "rgb(" + unlin(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s) + "," + unlin(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s) + "," + unlin(-0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s) + ")";
+}
+var ramp = null;
+function buildRamp(){ ramp = ["--heat-0", "--heat-1", "--heat-2", "--heat-3"].map(function(n){ return toLab(hexRgb(css(n))); }); }
+function heatColor(t){
+  t = clamp(t, 0, 1) * (ramp.length - 1);
+  var i = Math.min(Math.floor(t), ramp.length - 2), f = t - i, a = ramp[i], b = ramp[i + 1];
+  return fromLab([a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, a[2] + (b[2] - a[2]) * f]);
+}
+function seriesColor(i){ return css(["--s1", "--s2", "--s3"][i % 3]); }
+
+/* ---------------------------------------------------------------- data access */
+function keyLabel(key){
+  if (key === "all") return "すべて(総計)";
+  if (key.slice(0, 2) === "c:") return D.classes[+key.slice(2)].ja;
+  return key.slice(2).replace("(", "（").replace(")", "）");
+}
+function pestClass(nm){ for (var i = 0; i < D.pests.length; i++) if (D.pests[i].name === nm) return D.pests[i].c; return null; }
+/* 12 monthly counts of a series in fiscal year y, or null when that year has no such data */
+function monthly(key, y){
+  var Y = D.years[String(y)];
+  if (!Y) return null;
+  var out = [0,0,0,0,0,0,0,0,0,0,0,0], ci, m;
+  if (key === "all"){
+    for (ci in Y.classes) for (m = 0; m < 12; m++) out[m] += Y.classes[ci].sub[m];
+    return out;
+  }
+  if (key.slice(0, 2) === "c:"){
+    var c = Y.classes[key.slice(2)];
+    return c ? c.sub.slice() : null;
+  }
+  var nm = key.slice(2), pc = pestClass(nm);
+  var cc = Y.classes[String(pc)];
+  if (!cc || !cc.items || !(nm in cc.items)) return null;
+  return cc.items[nm].slice();
+}
+function centroid(v){ var s = sum(v); if (!s) return null; var a = 0; for (var i = 0; i < 12; i++) a += v[i] * (i + 1); return a / s; }
+function peakIdx(v){ var b = 0; for (var i = 1; i < 12; i++) if (v[i] > v[b]) b = i; return b; }
+/* fiscal-month index (0 = April) -> month position 4..15 for centroid display */
+function cmLabel(c){ if (c === null) return "–"; var m = c + 3; var mm = m > 12 ? m - 12 : m; return fmt1(mm) + "月ごろ"; }
+
+/* ---------------------------------------------------------------- picker */
+function chip(txt, pressed, onTap, swatch){
+  var b = hel("button", "chip");
+  b.type = "button";
+  if (swatch){ var s = hel("span", "sw"); s.style.background = swatch; b.appendChild(s); }
+  b.appendChild(document.createTextNode(txt));
+  b.setAttribute("aria-pressed", pressed ? "true" : "false");
+  b.addEventListener("click", onTap);
+  return b;
+}
+function pick(key){
+  if (compare){
+    var i = selList.indexOf(key);
+    if (i >= 0){ if (selList.length > 1) selList.splice(i, 1); }
+    else { if (selList.length >= 3) selList.shift(); selList.push(key); }
+  } else selList = [key];
+  if (key.slice(0, 2) === "c:") shownClass = +key.slice(2);
+  else if (key.slice(0, 2) === "p:") shownClass = pestClass(key.slice(2));
+  renderAll();
+}
+function renderPicker(){
+  var row = $("classRow"); row.textContent = "";
+  row.appendChild(chip("すべて", selList.indexOf("all") >= 0, function(){ shownClass = null; pick("all"); }));
+  D.classes.forEach(function(c, i){
+    var b = chip(c.ja, selList.indexOf("c:" + i) >= 0, function(){ pick("c:" + i); });
+    if (shownClass === i) b.style.borderColor = "var(--ink)";
+    row.appendChild(b);
+  });
+  var pr = $("pestRow"); pr.textContent = "";
+  if (shownClass === null){
+    var popular = ["スズメバチ", "アシナガバチ", "クマネズミ", "ドブネズミ", "トコジラミ", "マダニ", "ヤブカ", "ハト", "カラス", "ケムシ"];
+    var lab = hel("span", "chip small", "よく見る種類:"); lab.style.border = "0"; lab.style.background = "transparent"; lab.style.color = "var(--ink-3)"; lab.style.paddingLeft = "0";
+    pr.appendChild(lab);
+    popular.forEach(function(nm){ if (pestClass(nm) !== null) pr.appendChild(smallChip(nm)); });
+  } else {
+    D.pests.forEach(function(p){ if (p.c === shownClass) pr.appendChild(smallChip(p.name)); });
+  }
+  var tags = $("selTags"); tags.textContent = "";
+  selList.forEach(function(k, i){
+    var t = hel("span", "tag");
+    if (compare || selList.length > 1){ var dot = hel("i"); dot.style.background = seriesColor(i); t.appendChild(dot); }
+    t.appendChild(document.createTextNode(keyLabel(k)));
+    if (selList.length > 1){
+      var x = hel("button", "", "×"); x.type = "button"; x.setAttribute("aria-label", keyLabel(k) + "を外す");
+      x.addEventListener("click", function(){ selList.splice(selList.indexOf(k), 1); renderAll(); });
+      t.appendChild(x);
+    }
+    tags.appendChild(t);
+  });
+}
+function smallChip(nm){
+  var c = chip(nm.replace("(", "（").replace(")", "）"), selList.indexOf("p:" + nm) >= 0, function(){ pick("p:" + nm); });
+  c.classList.add("small");
+  return c;
+}
+
+/* ---------------------------------------------------------------- KPIs */
+function countUp(node, to, suffix){
+  var from = +(node.getAttribute("data-v") || 0);
+  node.setAttribute("data-v", to);
+  var t0 = performance.now(), dur = reduceMotion ? 0 : 700;
+  function step(now){
+    var t = dur ? clamp((now - t0) / dur, 0, 1) : 1;
+    node.firstChild.nodeValue = fmt(from + (to - from) * ease(t));
+    if (t < 1) requestAnimationFrame(step);
+  }
+  if (!node.firstChild) node.appendChild(document.createTextNode(""));
+  if (suffix && !node.querySelector("small")) node.appendChild(hel("small", "", suffix));
+  requestAnimationFrame(step);
+}
+function renderKpis(){
+  var key = selList[0], ys = years().filter(function(y){ return monthly(key, y); });
+  var box = $("kpis");
+  if (!box.children.length){
+    for (var i = 0; i < 4; i++){ var k = hel("div", "kpi"); k.appendChild(hel("div", "k")); var v = hel("div", "v"); k.appendChild(v); k.appendChild(hel("div", "d")); box.appendChild(k); }
+  }
+  var cards = box.children;
+  if (!ys.length){ for (var j = 0; j < 4; j++){ cards[j].children[0].textContent = ""; cards[j].children[1].textContent = "–"; cards[j].children[2].textContent = ""; } return; }
+  var last = ys[ys.length - 1], lv = monthly(key, last), lt = sum(lv);
+  var prev = ys.length > 1 ? sum(monthly(key, ys[ys.length - 2])) : null;
+  var first = ys[0], ft = sum(monthly(key, first));
+  var avg = 0; ys.forEach(function(y){ avg += sum(monthly(key, y)); }); avg /= ys.length;
+  cards[0].children[0].textContent = "最新 " + fyLabel(last);
+  countUp(cards[0].children[1], lt, "件");
+  cards[0].children[2].textContent = prev !== null && prev ? "前年度から " + (lt >= prev ? "+" : "") + fmt1((lt / prev - 1) * 100) + "%" : "";
+  cards[1].children[0].textContent = ys.length + "年度の平均";
+  countUp(cards[1].children[1], avg, "件/年");
+  cards[1].children[2].textContent = era(first) + "→" + era(last) + "で " + (ft ? (lt >= ft ? "+" : "") + fmt1((lt / ft - 1) * 100) + "%" : "–");
+  var pk = peakIdx(lv);
+  cards[2].children[0].textContent = "最新年度のピーク月";
+  cards[2].children[1].textContent = MLABEL[pk];
+  cards[2].children[1].removeAttribute("data-v");
+  cards[2].children[2].textContent = fmt(lv[pk]) + "件(年度の" + (lt ? fmt1(lv[pk] / lt * 100) : "–") + "%)";
+  var cents = ys.map(function(y){ return centroid(monthly(key, y)); });
+  cards[3].children[0].textContent = "重心月(最新 / 平均)";
+  cards[3].children[1].textContent = cmLabel(cents[cents.length - 1]).replace("ごろ", "");
+  cards[3].children[1].removeAttribute("data-v");
+  var cm = cents.filter(function(c){ return c !== null; });
+  cards[3].children[2].textContent = "平均 " + cmLabel(cm.reduce(function(a, b){ return a + b; }, 0) / cm.length);
+}
+
+/* ---------------------------------------------------------------- tooltip */
+var tipNode = null, tipTimer = null;
+function showTip(html, x, y){
+  tipNode.innerHTML = html;
+  tipNode.classList.add("show");
+  var w = tipNode.offsetWidth, h = tipNode.offsetHeight;
+  var vx = clamp(x - w / 2, 8, window.innerWidth - w - 8), vy = y - h - 14;
+  if (vy < 8) vy = y + 18;
+  tipNode.style.left = vx + "px"; tipNode.style.top = vy + "px";
+  clearTimeout(tipTimer);
+}
+function hideTip(delay){ clearTimeout(tipTimer); tipTimer = setTimeout(function(){ tipNode.classList.remove("show"); }, delay || 0); }
+
+/* ---------------------------------------------------------------- heatmap */
+function renderHeat(){
+  var key = selList[0], ys = years();
+  $("heatTitle").textContent = "年度 × 月のマス目 — " + keyLabel(key);
+  var box = $("heat");
+  var W = Math.max(320, Math.min(box.clientWidth || 600, 940));
+  var left = W < 480 ? 46 : 92, right = 46, topPad = 22, rowH = W < 480 ? 24 : 28, gap = 2;
+  var cw = (W - left - right) / 12;
+  var H = topPad + ys.length * rowH + 4;
+  var svg = box.querySelector("svg");
+  var fresh = !svg || +svg.getAttribute("data-rows") !== ys.length || +svg.getAttribute("data-w") !== W;
+  if (fresh){
+    box.textContent = "";
+    svg = el("svg", {viewBox: "0 0 " + W + " " + H, "data-rows": ys.length, "data-w": W, role: "img"}, box);
+    MLABEL.forEach(function(m, i){ el("text", {x: left + cw * i + cw / 2, y: 14, "text-anchor": "middle"}, svg).textContent = W < 420 ? String(MONTHS[i]) : m; });
+    el("text", {x: W - right + 6, y: 14}, svg).textContent = "合計";
+    ys.forEach(function(y, r){
+      var ty = topPad + r * rowH + rowH / 2 + 4;
+      el("text", {x: left - 8, y: ty, "text-anchor": "end"}, svg).textContent = W < 480 ? era(y) : fyLabel(y);
+      for (var i = 0; i < 12; i++){
+        var c = el("rect", {"class": "cell", x: left + cw * i + gap / 2, y: topPad + r * rowH + gap / 2, width: cw - gap, height: rowH - gap, rx: 4, "data-r": r, "data-i": i, fill: css("--surface-2")}, svg);
+        c.style.transitionDelay = reduceMotion ? "0s" : ((r * 12 + i) * 4) + "ms";
+      }
+      el("text", {"class": "tot", x: W - right + 6, y: ty, "data-r": r, fill: "var(--ink-2)"}, svg);
+    });
+    var hit = el("rect", {x: left, y: topPad, width: cw * 12, height: ys.length * rowH, fill: "transparent"}, svg);
+    function at(ev){
+      var pt = svg.getBoundingClientRect(), sx = W / pt.width;
+      var px = (ev.clientX - pt.left) * sx, py = (ev.clientY - pt.top) * sx;
+      var i = Math.floor((px - left) / cw), r = Math.floor((py - topPad) / rowH);
+      if (i < 0 || i > 11 || r < 0 || r >= ys.length) return hideTip(200);
+      var v = monthly(selList[0], ys[r]);
+      if (!v) return showTip(fyLabel(ys[r]) + "<br>" + (D.years[String(ys[r])] ? "この種類の内訳は公開されていません" : "この年度のデータは公開されていません"), ev.clientX, ev.clientY);
+      var tot = sum(v), cy = ys[r] + (MONTHS[i] <= 3 ? 1 : 0);
+      showTip("<b>" + cy + "年" + MONTHS[i] + "月</b>(" + fyLabel(ys[r]) + ")<br>" + keyLabel(selList[0]) + ": <b>" + fmt(v[i]) + "件</b><br>年度の " + (tot ? fmt1(v[i] / tot * 100) : "–") + "%", ev.clientX, ev.clientY);
+      svg.querySelectorAll(".cell").forEach(function(c){ c.classList.toggle("dim", !(+c.getAttribute("data-r") === r || +c.getAttribute("data-i") === i)); });
+    }
+    hit.addEventListener("pointermove", at);
+    hit.addEventListener("pointerdown", at);
+    hit.addEventListener("pointerleave", function(){ hideTip(300); svg.querySelectorAll(".cell").forEach(function(c){ c.classList.remove("dim"); }); });
+  }
+  // values
+  var rows = ys.map(function(y){ return monthly(key, y); });
+  var max = 0;
+  rows.forEach(function(v){ if (!v) return; var t = sum(v); for (var i = 0; i < 12; i++){ var x = heatMode === "share" ? (t ? v[i] / t : 0) : v[i]; if (x > max) max = x; } });
+  var cells = svg.querySelectorAll(".cell");
+  cells.forEach(function(c){
+    var r = +c.getAttribute("data-r"), i = +c.getAttribute("data-i"), v = rows[r];
+    if (!v){ c.setAttribute("fill", css("--surface-2")); c.style.opacity = ".5"; return; }
+    c.style.opacity = "";
+    var t = sum(v), x = heatMode === "share" ? (t ? v[i] / t : 0) : v[i];
+    // square-root scale so small months still show some colour
+    c.style.fill = heatColor(max ? Math.sqrt(x / max) : 0);
+  });
+  svg.querySelectorAll(".tot").forEach(function(t){ var v = rows[+t.getAttribute("data-r")]; t.textContent = v ? fmt(sum(v)) : "—"; });
+  // legend
+  var lg = $("heatLegend"); lg.textContent = "";
+  lg.appendChild(hel("span", "", heatMode === "share" ? "0%" : "0件"));
+  var bar = hel("span", "bar"); var stops = [];
+  for (var s = 0; s <= 8; s++) stops.push(heatColor(s / 8) + " " + (s / 8 * 100) + "%");
+  bar.style.background = "linear-gradient(90deg," + stops.join(",") + ")";
+  lg.appendChild(bar);
+  lg.appendChild(hel("span", "", heatMode === "share" ? fmt1(max * 100) + "%" : fmt(max) + "件"));
+  if (rows.some(function(v){ return !v; })) lg.appendChild(hel("span", "", "(灰色: データなし)"));
+}
+
+/* ---------------------------------------------------------------- generic line chart frame */
+function niceMax(v){ if (v <= 0) return 1; var p = Math.pow(10, Math.floor(Math.log10(v))), n = v / p; return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p; }
+function niceTicks(lo, hi, n){
+  var span = hi - lo || 1, step = Math.pow(10, Math.floor(Math.log10(span / n))), err = span / n / step;
+  step *= err >= 7.5 ? 10 : err >= 3.5 ? 5 : err >= 1.5 ? 2 : 1;
+  var out = [], v = Math.ceil(lo / step) * step;
+  for (; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10));
+  return out;
+}
+function frame(box, W, H, pad, xTicks, yTicks, xf, yf, yFmt){
+  box.textContent = "";
+  var svg = el("svg", {viewBox: "0 0 " + W + " " + H, role: "img"}, box);
+  var g = el("g", {"class": "axis"}, svg);
+  yTicks.forEach(function(t){
+    el("line", {x1: pad.l, x2: W - pad.r, y1: yf(t), y2: yf(t), "class": "gridl"}, g);
+    el("text", {x: pad.l - 6, y: yf(t) + 4, "text-anchor": "end"}, g).textContent = yFmt ? yFmt(t) : fmt(t);
+  });
+  el("line", {x1: pad.l, x2: W - pad.r, y1: H - pad.b, y2: H - pad.b, "class": "base"}, g);
+  xTicks.forEach(function(t){ el("text", {x: xf(t.v), y: H - pad.b + 16, "text-anchor": "middle"}, g).textContent = t.t; });
+  return svg;
+}
+function pathD(pts){
+  var d = "", pen = false;
+  pts.forEach(function(p){ if (p === null){ pen = false; return; } d += (pen ? "L" : "M") + p[0].toFixed(1) + "," + p[1].toFixed(1); pen = true; });
+  return d;
+}
+/* animate a path (and its dots) from old points to new ones */
+function morph(path, dots, from, to, dur){
+  if (reduceMotion || !from || from.length !== to.length){
+    path.setAttribute("d", pathD(to));
+    dots.forEach(function(d, i){ if (to[i]){ d.setAttribute("cx", to[i][0]); d.setAttribute("cy", to[i][1]); } });
+    if (!from && !reduceMotion && path.getTotalLength){
+      var L = path.getTotalLength();
+      path.style.strokeDasharray = L; path.style.strokeDashoffset = L;
+      path.getBoundingClientRect();
+      path.style.transition = "stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)";
+      path.style.strokeDashoffset = "0";
+      setTimeout(function(){ path.style.strokeDasharray = ""; path.style.transition = ""; }, 1000);
+      dots.forEach(function(d, i){ d.style.opacity = "0"; d.style.transition = "opacity .3s " + (0.3 + i * 0.04) + "s"; requestAnimationFrame(function(){ d.style.opacity = "1"; }); });
+    }
+    return;
+  }
+  var t0 = performance.now();
+  function step(now){
+    var t = ease(clamp((now - t0) / dur, 0, 1));
+    var cur = to.map(function(p, i){
+      if (!p) return null;
+      var f = from[i] || [p[0], p[1]];
+      return [f[0] + (p[0] - f[0]) * t, f[1] + (p[1] - f[1]) * t];
+    });
+    path.setAttribute("d", pathD(cur));
+    dots.forEach(function(d, i){ if (cur[i]){ d.setAttribute("cx", cur[i][0]); d.setAttribute("cy", cur[i][1]); } });
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---------------------------------------------------------------- trend */
+function renderTrend(){
+  var box = $("trend"), ys = years();
+  var W = Math.max(320, Math.min(box.clientWidth || 600, 940)), H = W < 480 ? 230 : 280;
+  var pad = {l: 52, r: 16, t: 12, b: 26};
+  var series = selList.map(function(k){
+    var vals = ys.map(function(y){ var v = monthly(k, y); return v ? sum(v) : null; });
+    if (trendMode === "idx"){
+      var base = null; vals.forEach(function(v){ if (base === null && v) base = v; });
+      vals = vals.map(function(v){ return v === null || !base ? null : v / base * 100; });
+    }
+    return {key: k, vals: vals};
+  });
+  var hi = 0, lo = trendMode === "idx" ? Infinity : 0;
+  series.forEach(function(s){ s.vals.forEach(function(v){ if (v !== null){ hi = Math.max(hi, v); lo = Math.min(lo, v); } }); });
+  if (trendMode === "idx"){ lo = Math.min(lo, 100); lo = Math.floor(lo / 20) * 20; hi = Math.ceil(Math.max(hi, 100) / 20) * 20; } else hi = niceMax(hi * 1.05);
+  var xf = function(i){ return pad.l + (W - pad.l - pad.r) * (ys.length > 1 ? i / (ys.length - 1) : 0.5); };
+  var yf = function(v){ return H - pad.b - (H - pad.t - pad.b) * (v - lo) / (hi - lo || 1); };
+  var step = W < 480 ? 2 : 1;
+  var svg = frame(box, W, H, pad, ys.map(function(y, i){ return {v: i, t: i % step === (ys.length - 1) % step ? (W < 480 ? era(y) : era(y)) : ""}; }), niceTicks(lo, hi, 4), xf, yf);
+  if (trendMode === "idx") el("line", {x1: pad.l, x2: W - pad.r, y1: yf(100), y2: yf(100), stroke: "var(--ink-3)", "stroke-dasharray": "3 4"}, svg);
+  var newLast = {};
+  series.forEach(function(s, si){
+    var col = seriesColor(si);
+    var pts = s.vals.map(function(v, i){ return v === null ? null : [xf(i), yf(v)]; });
+    var path = el("path", {"class": "line", stroke: col}, svg);
+    var dots = pts.map(function(p){ return el("circle", {"class": "dot", r: 4, fill: col, cx: p ? p[0] : -99, cy: p ? p[1] : -99, opacity: p ? 1 : 0}, svg); });
+    morph(path, dots, lastTrend[s.key + trendMode], pts, 650);
+    newLast[s.key + trendMode] = pts;
+    // direct label at the last point
+    var lastP = null; pts.forEach(function(p){ if (p) lastP = p; });
+    if (lastP && series.length > 1){ var t = el("text", {x: lastP[0] - 6, y: lastP[1] - 9, "text-anchor": "end", fill: "var(--ink-2)"}, svg); t.textContent = keyLabel(s.key); }
+  });
+  lastTrend = newLast;
+  // crosshair
+  var cross = el("line", {y1: pad.t, y2: H - pad.b, stroke: "var(--ink-3)", "stroke-width": 1, opacity: 0}, svg);
+  var hit = el("rect", {x: pad.l - 10, y: 0, width: W - pad.l - pad.r + 20, height: H, fill: "transparent"}, svg);
+  function at(ev){
+    var b = svg.getBoundingClientRect(), sx = W / b.width, px = (ev.clientX - b.left) * sx;
+    var i = clamp(Math.round((px - pad.l) / ((W - pad.l - pad.r) / Math.max(1, ys.length - 1))), 0, ys.length - 1);
+    cross.setAttribute("x1", xf(i)); cross.setAttribute("x2", xf(i)); cross.setAttribute("opacity", .5);
+    var html = "<b>" + fyLabel(ys[i]) + "</b>";
+    series.forEach(function(s, si){ html += "<br><span style='color:" + seriesColor(si) + "'>●</span> " + keyLabel(s.key) + ": <b>" + (s.vals[i] === null ? "–" : trendMode === "idx" ? fmt1(s.vals[i]) : fmt(s.vals[i]) + "件") + "</b>"; });
+    showTip(html, ev.clientX, ev.clientY);
+  }
+  hit.addEventListener("pointermove", at); hit.addEventListener("pointerdown", at);
+  hit.addEventListener("pointerleave", function(){ cross.setAttribute("opacity", 0); hideTip(300); });
+  var lg = $("trendLegend"); lg.textContent = "";
+  if (series.length > 1) series.forEach(function(s, si){ var k = hel("span", "key"); var i = hel("i"); i.style.background = seriesColor(si); k.appendChild(i); k.appendChild(document.createTextNode(keyLabel(s.key))); lg.appendChild(k); });
+}
+
+/* ---------------------------------------------------------------- season shape */
+function yearColor(i, n){ return heatColor(0.25 + 0.75 * (n > 1 ? i / (n - 1) : 1)); }
+function renderSeason(){
+  var key = selList[0], box = $("season");
+  var ys = years().filter(function(y){ return monthly(key, y); });
+  var W = Math.max(320, Math.min(box.clientWidth || 600, 940)), H = W < 480 ? 240 : 290;
+  var pad = {l: 52, r: 16, t: 12, b: 26};
+  var data = ys.map(function(y){ var v = monthly(key, y), t = sum(v); return seasonMode === "share" ? v.map(function(x){ return t ? x / t * 100 : 0; }) : v; });
+  var hi = 0; data.forEach(function(v){ v.forEach(function(x){ hi = Math.max(hi, x); }); });
+  hi = niceMax(hi * 1.05);
+  var xf = function(i){ return pad.l + (W - pad.l - pad.r) * i / 11; };
+  var yf = function(v){ return H - pad.b - (H - pad.t - pad.b) * v / hi; };
+  var svg = frame(box, W, H, pad, MLABEL.map(function(m, i){ return {v: i, t: W < 420 ? String(MONTHS[i]) : m}; }), niceTicks(0, hi, 4), xf, yf, seasonMode === "share" ? function(t){ return t + "%"; } : null);
+  if (!ys.length){ box.appendChild(hel("div", "empty", "データがありません")); return; }
+  var paths = [], newLast = {};
+  ys.forEach(function(y, k){
+    var pts = data[k].map(function(v, i){ return [xf(i), yf(v)]; });
+    var p = el("path", {"class": "yr", stroke: yearColor(k, ys.length), "data-y": y}, svg);
+    morph(p, [], lastSeason[y + seasonMode], pts, 600);
+    newLast[y + seasonMode] = pts;
+    paths.push(p);
+  });
+  lastSeason = newLast;
+  var peakDot = el("circle", {r: 5, fill: "var(--accent)", stroke: "var(--surface)", "stroke-width": 2, opacity: 0}, svg);
+  function setFocus(y){
+    focusYear = y;
+    paths.forEach(function(p){ var on = +p.getAttribute("data-y") === y; p.classList.toggle("on", on); p.classList.toggle("off", y !== null && !on); if (on) svg.appendChild(p); });
+    svg.appendChild(peakDot);
+    if (y !== null && ys.indexOf(y) >= 0){
+      var v = data[ys.indexOf(y)], pk = peakIdx(v);
+      peakDot.setAttribute("cx", xf(pk)); peakDot.setAttribute("cy", yf(v[pk])); peakDot.setAttribute("opacity", 1);
+    } else peakDot.setAttribute("opacity", 0);
+    $("yearRow").querySelectorAll(".chip").forEach(function(c){ c.setAttribute("aria-pressed", +c.getAttribute("data-y") === y ? "true" : "false"); });
+  }
+  var hit = el("rect", {x: pad.l - 10, y: 0, width: W - pad.l - pad.r + 20, height: H, fill: "transparent"}, svg);
+  function at(ev){
+    var b = svg.getBoundingClientRect(), sx = W / b.width, px = (ev.clientX - b.left) * sx, py = (ev.clientY - b.top) * sx;
+    var i = clamp(Math.round((px - pad.l) / ((W - pad.l - pad.r) / 11)), 0, 11);
+    // nearest year line at this month
+    var best = 0, bd = Infinity;
+    data.forEach(function(v, k){ var d = Math.abs(yf(v[i]) - py); if (d < bd){ bd = d; best = k; } });
+    setFocus(ys[best]);
+    var v = monthly(key, ys[best]);
+    showTip("<b>" + fyLabel(ys[best]) + "</b><br>" + MLABEL[i] + ": <b>" + fmt(v[i]) + "件</b><br>ピーク: " + MLABEL[peakIdx(v)] + " / 重心月 " + cmLabel(centroid(v)), ev.clientX, ev.clientY);
+  }
+  hit.addEventListener("pointermove", at); hit.addEventListener("pointerdown", at);
+  hit.addEventListener("pointerleave", function(){ hideTip(300); });
+  var yr = $("yearRow"); yr.textContent = "";
+  ys.forEach(function(y, k){
+    var c = chip(era(y), y === focusYear, function(){ setFocus(focusYear === y ? null : y); }, yearColor(k, ys.length));
+    c.classList.add("small"); c.setAttribute("data-y", y); yr.appendChild(c);
+  });
+  setFocus(ys.indexOf(focusYear) >= 0 ? focusYear : null);
+  // peak table
+  var tb = hel("table"), th = hel("thead"), tr = hel("tr");
+  ["年度", "合計", "ピーク月", "ピークの件数", "重心月"].forEach(function(h){ tr.appendChild(hel("th", "", h)); });
+  th.appendChild(tr); tb.appendChild(th);
+  var bd2 = hel("tbody");
+  ys.forEach(function(y){
+    var v = monthly(key, y), r = hel("tr");
+    [fyLabel(y), fmt(sum(v)), MLABEL[peakIdx(v)], fmt(v[peakIdx(v)]), cmLabel(centroid(v))].forEach(function(x){ r.appendChild(hel("td", "", x)); });
+    bd2.appendChild(r);
+  });
+  tb.appendChild(bd2);
+  var wrap = hel("details"); wrap.style.marginTop = "10px";
+  wrap.appendChild(hel("summary", "", "年度ごとのピーク月と重心月(表)"));
+  var tw = hel("div", "tablewrap"); tw.appendChild(tb); wrap.appendChild(tw);
+  var pt = $("peakTable"); var wasOpen = pt.querySelector("details") && pt.querySelector("details").open;
+  pt.textContent = ""; wrap.open = !!wasOpen; pt.appendChild(wrap);
+}
+
+/* ---------------------------------------------------------------- weather */
+var WXVARS = [
+  {k: "t", ja: "平均気温", unit: "℃", agg: "mean"},
+  {k: "tx", ja: "日最高気温の平均", unit: "℃", agg: "mean"},
+  {k: "txx", ja: "最高気温(期間の最高)", unit: "℃", agg: "max"},
+  {k: "tn", ja: "日最低気温の平均", unit: "℃", agg: "mean"},
+  {k: "p", ja: "降水量(合計)", unit: "mm", agg: "sum"},
+  {k: "h", ja: "平均湿度", unit: "%", agg: "mean"},
+  {k: "w", ja: "平均風速", unit: "m/s", agg: "mean"},
+  {k: "sun", ja: "日照時間(合計)", unit: "時間", agg: "sum"}
+];
+// windows as [calendar-year offset from the fiscal year, month] pairs
+var WINS = [
+  {id: "spring", ja: "春(4〜5月)", m: [[0,4],[0,5]]},
+  {id: "jun", ja: "6月", m: [[0,6]]},
+  {id: "summer", ja: "夏(7〜8月)", m: [[0,7],[0,8]]},
+  {id: "jja", ja: "6〜8月", m: [[0,6],[0,7],[0,8]]},
+  {id: "jjas", ja: "6〜9月", m: [[0,6],[0,7],[0,8],[0,9]]},
+  {id: "autumn", ja: "秋(9〜10月)", m: [[0,9],[0,10]]},
+  {id: "winter", ja: "直前の冬(前年12〜2月)", m: [[-1,12],[0,1],[0,2]]},
+  {id: "fy", ja: "年度全体(4〜3月)", m: [[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10],[0,11],[0,12],[1,1],[1,2],[1,3]]}
+];
+var YMETRICS = [
+  {id: "total", ja: "年度の合計件数"},
+  {id: "win", ja: "同じ期間の件数"},
+  {id: "centroid", ja: "重心月(山の時期)"},
+  {id: "peak", ja: "ピーク月"},
+  {id: "after", ja: "その後(9〜3月)の件数"}
+];
+function wxVal(y, m, k){ var Y = D.weather[String(y)]; if (!Y || !Y[k]) return null; var v = Y[k][m - 1]; return v === undefined ? null : v; }
+function wxAgg(fy, vk, win){
+  var spec = WXVARS.filter(function(v){ return v.k === vk; })[0], vals = [];
+  for (var i = 0; i < win.m.length; i++){ var v = wxVal(fy + win.m[i][0], win.m[i][1], vk); if (v === null) return null; vals.push(v); }
+  if (spec.agg === "sum") return sum(vals);
+  if (spec.agg === "max") return Math.max.apply(null, vals);
+  return sum(vals) / vals.length;
+}
+function fiscalIdx(m){ return MONTHS.indexOf(m); }
+function pearson(xs, ys){
+  var n = xs.length; if (n < 3) return null;
+  var mx = sum(xs) / n, my = sum(ys) / n, sxy = 0, sxx = 0, syy = 0;
+  for (var i = 0; i < n; i++){ sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) * (xs[i] - mx); syy += (ys[i] - my) * (ys[i] - my); }
+  if (!sxx || !syy) return null;
+  return {r: sxy / Math.sqrt(sxx * syy), slope: sxy / sxx, icpt: my - sxy / sxx * mx, n: n};
+}
+function ranks(a){ var idx = a.map(function(v, i){ return [v, i]; }).sort(function(p, q){ return p[0] - q[0]; }), r = new Array(a.length); var i = 0; while (i < idx.length){ var j = i; while (j + 1 < idx.length && idx[j + 1][0] === idx[i][0]) j++; for (var k = i; k <= j; k++) r[idx[k][1]] = (i + j) / 2 + 1; i = j + 1; } return r; }
+function renderWx(){
+  var key = selList[0], box = $("wx");
+  var vk = $("wxVar").value, win = WINS.filter(function(w){ return w.id === $("wxWin").value; })[0], ym = $("wxY").value;
+  var spec = WXVARS.filter(function(v){ return v.k === vk; })[0];
+  $("wxWin").style.display = wxUnit === "year" ? "" : "none";
+  $("wxYrow").style.display = wxUnit === "year" ? "" : "none";
+  var pts = [];
+  if (wxUnit === "year"){
+    years().forEach(function(y){
+      var v = monthly(key, y); if (!v) return;
+      var x = wxAgg(y, vk, win); if (x === null) return;
+      var yv;
+      if (ym === "total") yv = sum(v);
+      else if (ym === "win"){ yv = 0; var ok = true; win.m.forEach(function(p){ if (p[0] === 0 || (p[0] === 1 && p[1] <= 3)){ yv += v[fiscalIdx(p[1])]; } else ok = false; }); if (!ok) yv = null; }
+      else if (ym === "centroid") yv = centroid(v) === null ? null : centroid(v) + 3;
+      else if (ym === "peak") yv = peakIdx(v) + 4;
+      else if (ym === "after") yv = sum(v.slice(5));
+      if (yv === null) return;
+      pts.push({x: x, y: yv, lab: era(y), tip: fyLabel(y)});
+    });
+  } else {
+    years().forEach(function(y){
+      var v = monthly(key, y); if (!v) return;
+      MONTHS.forEach(function(m, i){
+        var cy = y + (m <= 3 ? 1 : 0), x = wxVal(cy, m, vk);
+        if (x === null) return;
+        pts.push({x: x, y: v[i], lab: "", tip: cy + "年" + m + "月", m: m});
+      });
+    });
+  }
+  var W = Math.max(320, Math.min(box.clientWidth || 600, 940)), H = W < 480 ? 260 : 320;
+  var pad = {l: 52, r: 18, t: 14, b: 34};
+  var isMonthY = wxUnit === "year" && (ym === "centroid" || ym === "peak");
+  if (!pts.length){ box.textContent = ""; box.appendChild(hel("div", "empty", "この組み合わせのデータがありません(年度の途中など)")); $("wxStat").textContent = ""; return; }
+  var xs = pts.map(function(p){ return p.x; }), yv = pts.map(function(p){ return p.y; });
+  var xlo = Math.min.apply(null, xs), xhi = Math.max.apply(null, xs), xr = (xhi - xlo) || 1;
+  xlo -= xr * 0.08; xhi += xr * 0.08;
+  var ylo = isMonthY ? Math.floor(Math.min.apply(null, yv)) - 0.5 : 0, yhi = isMonthY ? Math.ceil(Math.max.apply(null, yv)) + 0.5 : niceMax(Math.max.apply(null, yv) * 1.08);
+  var xf = function(v){ return pad.l + (W - pad.l - pad.r) * (v - xlo) / (xhi - xlo); };
+  var yf = function(v){ return H - pad.b - (H - pad.t - pad.b) * (v - ylo) / (yhi - ylo); };
+  var xt = niceTicks(xlo, xhi, W < 480 ? 4 : 6).map(function(t){ return {v: t, t: String(t)}; });
+  var yFmt = isMonthY ? function(t){ var m = t > 12 ? t - 12 : t; return Math.abs(t - Math.round(t)) < 1e-9 ? m + "月" : ""; } : null;
+  var yT = isMonthY ? niceTicks(ylo, yhi, 5).filter(function(t){ return Math.abs(t - Math.round(t)) < 1e-9; }) : niceTicks(ylo, yhi, 4);
+  var svg = frame(box, W, H, pad, xt, yT, xf, yf, yFmt);
+  el("text", {x: W - pad.r, y: H - 4, "text-anchor": "end"}, svg).textContent = spec.ja + "(" + spec.unit + ")" + (wxUnit === "year" ? " · " + win.ja : "");
+  var st = pearson(xs, yv);
+  if (st){
+    var x1 = xlo + (xhi - xlo) * 0.02, x2 = xhi - (xhi - xlo) * 0.02;
+    var ln = el("line", {x1: xf(x1), y1: yf(st.icpt + st.slope * x1), x2: xf(x2), y2: yf(st.icpt + st.slope * x2), stroke: "var(--accent)", "stroke-width": 2, "stroke-dasharray": "6 5", opacity: 0}, svg);
+    ln.style.transition = "opacity .6s .3s"; requestAnimationFrame(function(){ requestAnimationFrame(function(){ ln.setAttribute("opacity", ".8"); }); });
+  }
+  var nodes = [];
+  pts.forEach(function(p, i){
+    var c = el("circle", {cx: xf(p.x), cy: yf(ylo), r: wxUnit === "year" ? 6 : 4, fill: wxUnit === "year" ? css("--s1") : monthColor(p.m), "fill-opacity": wxUnit === "year" ? 0.9 : 0.75, stroke: "var(--surface)", "stroke-width": 1.5}, svg);
+    nodes.push(c);
+    if (p.lab){ var t = el("text", {x: xf(p.x) + 8, y: yf(p.y) - 7, fill: "var(--ink-2)", opacity: 0}, svg); t.textContent = p.lab; t.style.transition = "opacity .4s " + (0.2 + i * 0.03) + "s"; requestAnimationFrame(function(){ requestAnimationFrame(function(){ t.setAttribute("opacity", 1); }); }); }
+  });
+  // points rise into place
+  var t0 = performance.now();
+  function rise(now){
+    var t = reduceMotion ? 1 : ease(clamp((now - t0) / 700, 0, 1));
+    nodes.forEach(function(c, i){ c.setAttribute("cy", yf(ylo) + (yf(pts[i].y) - yf(ylo)) * t); });
+    if (t < 1) requestAnimationFrame(rise);
+  }
+  requestAnimationFrame(rise);
+  var hit = el("rect", {x: 0, y: 0, width: W, height: H, fill: "transparent"}, svg);
+  function at(ev){
+    var b = svg.getBoundingClientRect(), sx = W / b.width, px = (ev.clientX - b.left) * sx, py = (ev.clientY - b.top) * sx;
+    var best = -1, bd = 30 * 30;
+    pts.forEach(function(p, i){ var dx = xf(p.x) - px, dy = yf(p.y) - py, d = dx * dx + dy * dy; if (d < bd){ bd = d; best = i; } });
+    nodes.forEach(function(c, i){ c.setAttribute("r", i === best ? (wxUnit === "year" ? 9 : 7) : (wxUnit === "year" ? 6 : 4)); });
+    if (best < 0) return hideTip(200);
+    var p = pts[best];
+    var yl = isMonthY ? cmLabel(p.y - 3) : fmt(p.y) + "件";
+    showTip("<b>" + p.tip + "</b><br>" + spec.ja + ": <b>" + fmt1(p.x) + spec.unit + "</b><br>" + (wxUnit === "year" ? YMETRICS.filter(function(m){ return m.id === ym; })[0].ja : "件数") + ": <b>" + yl + "</b>", ev.clientX, ev.clientY);
+  }
+  hit.addEventListener("pointermove", at); hit.addEventListener("pointerdown", at);
+  hit.addEventListener("pointerleave", function(){ hideTip(300); nodes.forEach(function(c){ c.setAttribute("r", wxUnit === "year" ? 6 : 4); }); });
+  var sbox = $("wxStat"); sbox.textContent = "";
+  function addStat(lbl, val){ var d = hel("div"); d.appendChild(document.createTextNode(lbl + " ")); d.appendChild(hel("b", "", val)); sbox.appendChild(d); }
+  addStat("点の数", String(pts.length));
+  if (st){
+    addStat("相関係数 r", (st.r >= 0 ? "+" : "") + st.r.toFixed(2));
+    var sp = pearson(ranks(xs), ranks(yv));
+    if (sp) addStat("順位相関", (sp.r >= 0 ? "+" : "") + sp.r.toFixed(2));
+    var unitY = isMonthY ? "か月" : "件";
+    addStat("傾き", spec.unit + "あたり " + (st.slope >= 0 ? "+" : "") + (isMonthY ? st.slope.toFixed(2) : fmt(st.slope)) + unitY);
+  }
+  if (wxUnit === "month"){
+    var lg = hel("div"); lg.style.background = "transparent"; lg.style.padding = "6px 0";
+    lg.textContent = "点の色: ";
+    [[4, "春"], [7, "夏"], [10, "秋"], [1, "冬"]].forEach(function(s){ var i = hel("span", "", "● "); i.style.color = monthColor(s[0]); lg.appendChild(i); lg.appendChild(document.createTextNode(s[1] + "  ")); });
+    sbox.appendChild(lg);
+  }
+}
+function monthColor(m){ return m >= 3 && m <= 5 ? css("--s3") : m >= 6 && m <= 8 ? css("--s2") : m >= 9 && m <= 11 ? "#b8860b" : css("--s1"); }
+function setupWx(){
+  var v = $("wxVar"); WXVARS.forEach(function(w){ var o = hel("option", "", w.ja); o.value = w.k; v.appendChild(o); });
+  var w = $("wxWin"); WINS.forEach(function(x){ var o = hel("option", "", x.ja); o.value = x.id; w.appendChild(o); });
+  w.value = "summer";
+  var y = $("wxY"); YMETRICS.forEach(function(x){ var o = hel("option", "", x.ja); o.value = x.id; y.appendChild(o); });
+  [v, w, y].forEach(function(s){ s.addEventListener("change", renderWx); });
+}
+
+/* ---------------------------------------------------------------- table + CSV */
+function renderTable(){
+  var key = selList[0], tb = hel("table"), th = hel("thead"), tr = hel("tr");
+  tr.appendChild(hel("th", "", "年度"));
+  MLABEL.forEach(function(m){ tr.appendChild(hel("th", "", m)); });
+  tr.appendChild(hel("th", "", "合計"));
+  th.appendChild(tr); tb.appendChild(th);
+  var b = hel("tbody");
+  years().forEach(function(y){
+    var v = monthly(key, y), r = hel("tr");
+    r.appendChild(hel("td", "", era(y)));
+    for (var i = 0; i < 12; i++) r.appendChild(hel("td", "", v ? fmt(v[i]) : "–"));
+    r.appendChild(hel("td", "", v ? fmt(sum(v)) : "–"));
+    b.appendChild(r);
+  });
+  tb.appendChild(b);
+  var w = $("tbl"); w.textContent = ""; w.appendChild(tb);
+}
+function download(name, text){
+  var blob = new Blob(["﻿" + text], {type: "text/csv;charset=utf-8"});
+  var url = URL.createObjectURL(blob), a = document.createElement("a");
+  a.href = url; a.download = name; document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 1500);
+}
+function csvRows(keys){
+  var out = ["fiscal_year,calendar_year,month,series,count"];
+  keys.forEach(function(k){
+    years().forEach(function(y){
+      var v = monthly(k, y); if (!v) return;
+      MONTHS.forEach(function(m, i){ out.push([y, y + (m <= 3 ? 1 : 0), m, '"' + keyLabel(k) + '"', v[i]].join(",")); });
+    });
+  });
+  return out.join("\n") + "\n";
+}
+function setupDownloads(){
+  $("dlSel").addEventListener("click", function(){ download("tokyo_pest_selected.csv", csvRows(selList)); });
+  $("dlAll").addEventListener("click", function(){
+    var out = ["fiscal_year,calendar_year,month,class_no,class,group,pest,count"];
+    years().forEach(function(y){
+      var Y = D.years[String(y)];
+      Object.keys(Y.classes).forEach(function(ci){
+        var c = Y.classes[ci], items = Object.keys(c.items);
+        var rows = items.map(function(n){ return [n, c.items[n]]; });
+        rows.push(["(小計)", c.sub]);
+        rows.forEach(function(r){
+          var g = ""; D.pests.forEach(function(p){ if (p.name === r[0] && p.group) g = p.group; });
+          MONTHS.forEach(function(m, i){ out.push([y, y + (m <= 3 ? 1 : 0), m, +ci + 1, D.classes[+ci].ja, g, '"' + r[0] + '"', r[1][i]].join(",")); });
+        });
+      });
+    });
+    download("tokyo_pest_all.csv", out.join("\n") + "\n");
+  });
+  $("dlWx").addEventListener("click", function(){
+    var out = ["year,month," + WXVARS.map(function(w){ return w.k; }).join(",")];
+    Object.keys(D.weather).sort().forEach(function(y){
+      for (var m = 1; m <= 12; m++){
+        var row = [y, m], any = false;
+        WXVARS.forEach(function(w){ var v = wxVal(+y, m, w.k); if (v !== null) any = true; row.push(v === null ? "" : v); });
+        if (any) out.push(row.join(","));
+      }
+    });
+    out.push("# t=平均気温 tx=日最高気温の平均 tn=日最低気温の平均 txx=月の最高気温 p=降水量合計(mm) h=平均湿度(%) w=平均風速(m/s) sun=日照時間(h); 気象庁 東京(47662)");
+    download("tokyo_weather_monthly.csv", out.join("\n") + "\n");
+  });
+}
+
+/* ---------------------------------------------------------------- wiring */
+function segWire(id, setter){
+  $(id).querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click", function(){
+      $(id).querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      setter(b.getAttribute("data-v"));
+    });
+  });
+}
+function renderAll(){
+  renderPicker(); renderKpis(); renderHeat(); renderTrend(); renderSeason(); renderWx(); renderTable();
+}
+function renderInfo(){
+  $("builtAt").textContent = "データ更新: " + D.built.replace("T", " ").replace("Z", " UTC") + " · " + Object.keys(D.years).length + "年度分(" + fyLabel(years()[0]) + "〜" + fyLabel(years()[years().length - 1]) + ")";
+  var pb = $("probs"); pb.textContent = "";
+  if (D.notes && D.notes.length) pb.appendChild(hel("p", "note", "注: " + D.notes.join(" / ")));
+  if (D.problems && D.problems.length){
+    var w = hel("div", "warn", "読み取りで合計が合わず、表示から外した年度があります: " + D.problems.join(" / "));
+    pb.appendChild(w);
+  }
+}
+var THEMES = ["auto", "light", "dark"], THEME_JA = {auto: "自動", light: "明るい", dark: "暗い"};
+function applyTheme(t){
+  if (t === "auto") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", t);
+  $("themeBtn").textContent = "表示: " + THEME_JA[t];
+  buildRamp();
+}
+function start(data){
+  D = data; yearCache = null;
+  selList = ["all"];
+  renderInfo();
+  renderAll();
+}
+function init(){
+  tipNode = $("tip");
+  var theme = "auto";
+  try { theme = localStorage.getItem("pest-theme") || "auto"; } catch (e) {}
+  applyTheme(theme);
+  $("themeBtn").addEventListener("click", function(){
+    theme = THEMES[(THEMES.indexOf(theme) + 1) % 3];
+    try { localStorage.setItem("pest-theme", theme); } catch (e) {}
+    applyTheme(theme); lastTrend = {}; lastSeason = {};
+    var h = $("heat"); h.textContent = "";
+    renderAll();
+  });
+  if (window.matchMedia) {
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    var onScheme = function(){ buildRamp(); $("heat").textContent = ""; if (D) renderAll(); };
+    if (mq.addEventListener) mq.addEventListener("change", onScheme); else if (mq.addListener) mq.addListener(onScheme);
+  }
+  $("cmpSwitch").addEventListener("change", function(){ compare = this.checked; if (!compare) selList = [selList[0]]; renderAll(); });
+  segWire("heatMode", function(v){ heatMode = v; renderHeat(); });
+  segWire("trendMode", function(v){ trendMode = v; renderTrend(); });
+  segWire("seasonMode", function(v){ seasonMode = v; renderSeason(); });
+  segWire("wxUnit", function(v){ wxUnit = v; renderWx(); });
+  setupWx(); setupDownloads();
+  document.addEventListener("scroll", function(){ hideTip(0); }, {passive: true});
+  var rt = null, lastW = window.innerWidth;
+  window.addEventListener("resize", function(){
+    if (Math.abs(window.innerWidth - lastW) < 2) return;   // iOS fires resize when the toolbar hides
+    lastW = window.innerWidth;
+    clearTimeout(rt); rt = setTimeout(function(){ if (!D) return; $("heat").textContent = ""; lastTrend = {}; lastSeason = {}; renderAll(); }, 200);
+  });
+  var snap = null;
+  try { snap = JSON.parse($("pest-json").textContent); } catch (e) {}
+  if (snap && snap.years) start(snap);
+  fetch(DATA_URL + "?t=" + Math.floor(Date.now() / 3600000), {cache: "no-store"})
+    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(fresh){ if (fresh && fresh.years && (!D || fresh.built > D.built)){ var keep = D ? selList.slice() : null; start(fresh); if (keep){ selList = keep.filter(function(k){ return k === "all" || monthlyAny(k); }); if (!selList.length) selList = ["all"]; renderAll(); } } })
+    .catch(function(){ if (!D){ $("kpis").textContent = "データを読み込めませんでした。時間をおいて開き直してください。"; } });
+}
+function monthlyAny(k){ return years().some(function(y){ return monthly(k, y); }); }
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+</script>
+</body>
+</html>

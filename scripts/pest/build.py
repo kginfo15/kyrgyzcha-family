@@ -253,7 +253,7 @@ def main():
                 elif months != s["total"]:
                     # 平成25年度: the 合計 row's months are misprinted in the PDF itself,
                     # while every class row and the yearly total agree
-                    notes.append(f"{fy}: the PDF's own 合計 row has wrong monthly values; months were added up from the 12 classes")
+                    notes.append(f"{fy}年度: PDFの「合計」行の月別の数字に誤りがあるため、月の合計は12分類の数字を足して出しています(年間合計はPDFと一致)")
         if probs:
             report["problems"] += [f"{fy}: {x}" for x in probs]
             print(f"FY{fy}: left out ({len(probs)} problems)")
