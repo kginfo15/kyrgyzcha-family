@@ -81,6 +81,7 @@ select{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);bo
 .card h2{font-size:17px;margin:0 0 2px}
 .card .lead{color:var(--ink2);font-size:13px;margin:0 0 10px}
 .grid2{display:grid;gap:14px}
+.grid2>*{min-width:0} /* let the columns shrink on narrow phones instead of pushing past the card */
 @media (min-width: 900px){ .grid2{grid-template-columns:1.35fr 1fr} }
 .note{color:var(--muted);font-size:12px;margin-top:8px}
 .src{color:var(--muted);font-size:11.5px;margin-top:10px;line-height:1.5}
@@ -462,7 +463,7 @@ function wardBox(){ // fit the 23 wards plus the visible sites
   return [x0, y0, w, h];
 }
 function applyZoom(){
-  const wantWards = st.zoomWards || st.survey === "juuten";
+  const wantWards = st.zoomWards;
   $("zoomBtn").textContent = wantWards ? "全体を表示" : "区部を拡大";
   zoomTo(wantWards ? wardBox() : [0, 0, MAPD.w, MAPD.h]);
 }
@@ -615,8 +616,8 @@ function drawDetail(){
   const key = st.site && sitesBy[st.site].survey === st.survey ? st.site : siteList()[0].key;
   const s = sitesBy[key]; const year = curYear();
   $("detailTitle").textContent = s.name + " の季節の動き(" + year + "年・" + GROUP_JA[st.group] + ")";
-  const { w } = chartSize(wrap); const L = 44, R = 12, H1 = 170, H2 = 80, H3 = 70, gap = 26, top = 16;
-  const h = top + H1 + gap + H2 + gap + H3 + 22;
+  const { w } = chartSize(wrap); const L = 44, R = 12, H1 = 170, H2 = 80, H3 = 70, gap = 26, padTop = 16;
+  const h = padTop + H1 + gap + H2 + gap + H3 + 22;
   const svg = el("svg", {class:"chart", viewBox:"0 0 " + w + " " + h}); wrap.appendChild(svg);
   const d0 = doy(year + "-04-01"), d1 = doy(year + "-11-30");
   const x = d => L + (d - d0) / (d1 - d0) * (w - L - R);
@@ -630,10 +631,10 @@ function drawDetail(){
   let mx = 0; for (const se of series) for (const p of se.pts) if (p) mx = Math.max(mx, p[1]);
   mx = niceMax(mx);
   const g1 = el("g", {}, svg);
-  const y1 = v => top + H1 - v / mx * H1;
+  const y1 = v => padTop + H1 - v / mx * H1;
   for (let i = 0; i <= 4; i++){ const v = mx * i / 4; el("line", {class:"gl", x1:L, x2:w-R, y1:y1(v), y2:y1(v)}, g1); const t = el("text", {x:L-6, y:y1(v)+4, "text-anchor":"end"}, g1); t.textContent = fmt(v, mx < 10 ? 1 : 0); }
-  xAxisMonths(g1, x, top, top + H1, year, false);
-  const tt = el("text", {class:"ttl", x:L, y:top - 4}, g1); tt.textContent = "捕獲数(" + (st.unit === "trap" ? "匹/トラップ" : "匹") + ")";
+  xAxisMonths(g1, x, padTop, padTop + H1, year, false);
+  const tt = el("text", {class:"ttl", x:L, y:padTop - 4}, g1); tt.textContent = "捕獲数(" + (st.unit === "trap" ? "匹/トラップ" : "匹") + ")";
   const pathOf = pts => { let d = "", pen = false; for (const p of pts){ if (!p){ pen = false; continue; } d += (pen ? "L" : "M") + x(p[0]).toFixed(1) + "," + y1(p[1]).toFixed(1); pen = true; } return d; };
   for (const se of series) if (se.y !== year) el("path", {class:"faint", d:pathOf(se.pts)}, g1);
   const main = series.find(se => se.y === year);
@@ -644,11 +645,11 @@ function drawDetail(){
     for (const q of main.pts) if (q) el("circle", {class:"pt", cx:x(q[0]), cy:y1(q[1]), r:4}, g1);
     // missing rounds of the selected year
     const Y = D.surveys[st.survey][year], S = Y.sites[key];
-    if (S) Y.rounds.forEach((r,i) => { if (S.status[i] !== "ok" && S.status[i] !== "pending"){ const md = midDoy(r); if (md != null) el("circle", {cx:x(md), cy:top + H1, r:4, fill:"none", stroke:cssVar("--missing"), "stroke-dasharray":"2 2"}, g1); } });
+    if (S) Y.rounds.forEach((r,i) => { if (S.status[i] !== "ok" && S.status[i] !== "pending"){ const md = midDoy(r); if (md != null) el("circle", {cx:x(md), cy:padTop + H1, r:4, fill:"none", stroke:cssVar("--missing"), "stroke-dasharray":"2 2"}, g1); } });
   }
   // panel 2: temperature (7-day mean) and panel 3: rain
   const tS = W ? wxSeries(s, "t", year) : null, pS = W ? wxSeries(s, "p", year) : null;
-  const top2 = top + H1 + gap, top3 = top2 + H2 + gap;
+  const top2 = padTop + H1 + gap, top3 = top2 + H2 + gap;
   const g2 = el("g", {}, svg), g3 = el("g", {}, svg);
   const t2 = el("text", {class:"ttl", x:L, y:top2 - 6}, g2); t2.textContent = "日平均気温(7日平均, ℃)";
   const t3 = el("text", {class:"ttl", x:L, y:top3 - 6}, g3); t3.textContent = "日降水量(mm)";
@@ -678,7 +679,7 @@ function drawDetail(){
     if (main){ let best = null; for (const q of main.pts) if (q && (!best || Math.abs(q[0] - dd) < Math.abs(best[0] - dd))) best = q; if (best && Math.abs(best[0] - dd) <= 7) html += "<br>" + esc(roundLabel(best[2])) + ":" + fmt(best[1], st.unit === "trap" ? 1 : 0) + " 匹"; }
     if (tS && tS[dd] != null) html += "<br>気温 " + tS[dd].toFixed(1) + "℃";
     if (pS && pS[dd] != null) html += " ・雨 " + pS[dd].toFixed(1) + "mm";
-    return { x: x(dd), y: top + 20, html, cross: [top, top3 + H3] };
+    return { x: x(dd), y: padTop + 20, html, cross: [padTop, top3 + H3] };
   });
   const sname = id => (D.stations.find(z => z.id === id) || {}).name;
   $("detailNote").textContent = "気象:気象庁「" + sname(s.stations.t) + "」(気温)・「" + sname(s.stations.p) + "」(降水量)の日別値。欠けている日は「東京」の値で補っています。点線の丸は欠測・中止の回です。 " + vegText(key);
@@ -694,12 +695,12 @@ function drawSeason(){
   }).sort((a,b) => b.sum - a.sum);
   const shown = gs.filter(x => x.sum > 0).slice(0, 3); // 3 series max: beyond that colors stop being distinguishable
   const colors = [cssVar("--s1"), cssVar("--s2"), cssVar("--s3")];
-  const { w } = chartSize(wrap); const L = 36, R = 12, top = 14, H = 190;
-  const svg = el("svg", {class:"chart", viewBox:"0 0 " + w + " " + (top + H + 26)}); wrap.appendChild(svg);
+  const { w } = chartSize(wrap); const L = 36, R = 12, padTop = 14, H = 190;
+  const svg = el("svg", {class:"chart", viewBox:"0 0 " + w + " " + (padTop + H + 26)}); wrap.appendChild(svg);
   const d0 = doy(year + "-04-01"), d1 = doy(year + "-11-30");
-  const x = d => L + (d - d0) / (d1 - d0) * (w - L - R), y = v => top + H - v / 100 * H;
+  const x = d => L + (d - d0) / (d1 - d0) * (w - L - R), y = v => padTop + H - v / 100 * H;
   for (const v of [0, 50, 100]){ el("line", {class:"gl", x1:L, x2:w-R, y1:y(v), y2:y(v)}, svg); const t = el("text", {x:L-6, y:y(v)+4, "text-anchor":"end"}, svg); t.textContent = v; }
-  xAxisMonths(svg, x, top, top + H, year, true);
+  xAxisMonths(svg, x, padTop, padTop + H, year, true);
   const lines = [];
   shown.forEach((o, k) => {
     const mx = Math.max(1, ...o.tot.filter(v => v != null));
@@ -721,7 +722,7 @@ function drawSeason(){
     if (!best || best.dx > 30) return null;
     let html = "<b>" + esc(roundLabel(best.r)) + "</b>";
     for (const l of lines){ const p = l.pts[best.i]; html += '<br><span class="sw" style="background:' + l.color + '"></span>' + esc(GROUP_JA[l.o.g]) + " " + (p ? fmt(p[2]) + " 匹" : "—"); }
-    return { x: x(best.md), y: top + 10, html, cross: [top, top + H] };
+    return { x: x(best.md), y: padTop + 10, html, cross: [padTop, padTop + H] };
   });
 }
 
@@ -761,11 +762,11 @@ let scat = null; // {svg, dots:Map, ...}
 function drawScatter(animate){
   const wrap = $("scatterWrap"); const def = WX.find(v => v.k === st.wxVar);
   const pts = wxPoints(st.lag, st.wxVar, st.wxWin);
-  const { w } = chartSize(wrap); const L = 46, R = 12, top = 12, H = Math.round(Math.min(360, w * .62));
+  const { w } = chartSize(wrap); const L = 46, R = 12, padTop = 12, H = Math.round(Math.min(360, w * .62));
   if (!scat || scat.w !== w || !animate){
     wrap.querySelectorAll("svg,.ttbox").forEach(n => n.remove());
-    const svg = el("svg", {class:"chart", viewBox:"0 0 " + w + " " + (top + H + 34)}); wrap.appendChild(svg);
-    scat = { svg, w, H, L, R, top, axes: el("g", {}, svg), gdots: el("g", {}, svg), dots: new Map(), pts: [] };
+    const svg = el("svg", {class:"chart", viewBox:"0 0 " + w + " " + (padTop + H + 34)}); wrap.appendChild(svg);
+    scat = { svg, w, H, L, R, padTop, axes: el("g", {}, svg), gdots: el("g", {}, svg), dots: new Map(), pts: [] };
     attachHover(wrap, svg, (px, py) => {
       let best = null, bd = 1e9; for (const p of scat.pts){ const dx = p.px - px, dy = p.py - py, d = dx*dx + dy*dy; if (d < bd){ bd = d; best = p; } }
       if (!best || bd > 900) return null;
@@ -779,12 +780,12 @@ function drawScatter(animate){
   let x0 = Math.min(...xs), x1 = Math.max(...xs); if (!isFinite(x0)){ x0 = 0; x1 = 1; } const padx = (x1 - x0) * .04 || 1; const lo = Math.min(...xs); x0 = (lo >= 0 && x0 - padx < 0) ? 0 : x0 - padx; x1 += padx;
   const ymax = Math.max(1, ...pts.map(p => p.y));
   const yv = v => st.wxLog ? Math.log10(1 + v) / Math.log10(1 + ymax) : v / ymax;
-  const X = v => L + (v - x0) / (x1 - x0) * (w - L - R), Y = v => top + H - yv(v) * H;
+  const X = v => L + (v - x0) / (x1 - x0) * (w - L - R), Y = v => padTop + H - yv(v) * H;
   const ticks = st.wxLog ? [0, 1, 10, 100, 1000, 10000].filter(t => t <= ymax * 1.05) : [0, ymax/4, ymax/2, ymax*3/4, ymax];
   for (const t of ticks){ el("line", {class:"gl", x1:L, x2:w-R, y1:Y(t), y2:Y(t)}, axes); const tx = el("text", {x:L-6, y:Y(t)+4, "text-anchor":"end"}, axes); tx.textContent = fmt(t); }
-  const nx = 5; for (let i = 0; i <= nx; i++){ const v = x0 + (x1 - x0) * i / nx; el("line", {class:"gl", x1:X(v), x2:X(v), y1:top, y2:top+H}, axes); const tx = el("text", {x:X(v), y:top+H+14, "text-anchor":"middle"}, axes); tx.textContent = v.toFixed(Math.abs(x1 - x0) < 20 ? 1 : 0); }
-  const xl = el("text", {class:"ttl", x:(L + w - R)/2, y:top+H+30, "text-anchor":"middle"}, axes); xl.textContent = def.ja + "(" + def.unit + ")・調査日の " + st.lag + "週前までの" + st.wxWin + "日間";
-  const yl = el("text", {class:"ttl", x:L, y:top - 2}, axes); yl.textContent = "捕獲数(" + (st.unit === "trap" ? "匹/トラップ" : "匹") + (st.wxLog ? "・対数" : "") + ")";
+  const nx = 5; for (let i = 0; i <= nx; i++){ const v = x0 + (x1 - x0) * i / nx; el("line", {class:"gl", x1:X(v), x2:X(v), y1:padTop, y2:padTop+H}, axes); const tx = el("text", {x:X(v), y:padTop+H+14, "text-anchor":"middle"}, axes); tx.textContent = v.toFixed(Math.abs(x1 - x0) < 20 ? 1 : 0); }
+  const xl = el("text", {class:"ttl", x:(L + w - R)/2, y:padTop+H+30, "text-anchor":"middle"}, axes); xl.textContent = def.ja + "(" + def.unit + ")・調査日の " + st.lag + "週前までの" + st.wxWin + "日間";
+  const yl = el("text", {class:"ttl", x:L, y:padTop - 2}, axes); yl.textContent = "捕獲数(" + (st.unit === "trap" ? "匹/トラップ" : "匹") + (st.wxLog ? "・対数" : "") + ")";
   // dots: keyed by survey point, so changing the lag moves each dot to its new place
   const seen = new Set(); const sel = st.site;
   const c1 = cssVar("--s1"), c2 = cssVar("--s2");
@@ -875,7 +876,7 @@ function siteYear(group, mode, tie){
     const row = { site_id: survey + "_" + s.key, site: s.key, name_ja: s.name, survey, region: s.region, municipality: s.municipality, year: y,
       lat: s.lat, lon: s.lon, elevation_m: s.elevation_m, mesh3: s.mesh3, n_traps: s.n_traps, group,
       peak_rule: mode === "mean" ? "monthly_mean_per_round" : "monthly_sum", tie_rule: tie,
-      peak_month: peak, peak_value: best, late_peak: peak >= 9 ? 1 : 0, peak_tie: tops.length > 1 ? 1 : 0,
+      peak_month: best > 0 ? peak : null, peak_value: best, late_peak: best > 0 ? (peak >= 9 ? 1 : 0) : null, peak_tie: best > 0 && tops.length > 1 ? 1 : 0,
       complete: ms.every(r => r.n_rounds > 0) ? 1 : 0, in_progress: pending ? 1 : 0, second_peak: second,
       center_doy: wsum ? +(wd / wsum).toFixed(1) : null, total_jun_oct: ms.reduce((a, r) => a + (r.sum || 0), 0) };
     const mn = ["jun","jul","aug","sep","oct"];
@@ -887,9 +888,10 @@ function siteYear(group, mode, tie){
       MONTHS.forEach((m, i) => { row["p_" + mn[i]] = r1(monthlyWx(s, y, "p", m, "mean")); });
       MONTHS.forEach((m, i) => { row["p_" + mn[i] + "_total"] = r1(monthlyWx(s, y, "p", m, "sum")); });
       const a = doy(y + "-06-01"), b = doy(y + "-10-31");
-      row.t_season = r1(rangeWx(s, y, "t", a, b, v => v) / (b - a + 1));
-      row.rh_season = r1(rangeWx(s, y, "h", a, b, v => v) / (b - a + 1));
-      row.p_season = r1(rangeWx(s, y, "p", a, b, v => v) / (b - a + 1));
+      const perDay = v => v == null ? null : v / (b - a + 1);
+      row.t_season = r1(perDay(rangeWx(s, y, "t", a, b, v => v)));
+      row.rh_season = r1(perDay(rangeWx(s, y, "h", a, b, v => v)));
+      row.p_season = r1(perDay(rangeWx(s, y, "p", a, b, v => v)));
       row.days_tmax30 = r1(rangeWx(s, y, "tx", a, b, v => v >= 30 ? 1 : 0));
       row.days_tmax35 = r1(rangeWx(s, y, "tx", a, b, v => v >= 35 ? 1 : 0));
       row.gdd10_jan_oct = r1(rangeWx(s, y, "t", doy(y + "-01-01"), b, v => Math.max(0, v - 10)));
@@ -948,9 +950,9 @@ function toCSV(rows, cols){
   const q = v => v == null ? "" : (typeof v === "string" && /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : String(v));
   return "﻿" + cols.join(",") + "\n" + rows.map(r => cols.map(c => q(r[c])).join(",")).join("\n") + "\n";
 }
-function download(name, text){
+function download(fileName, text){
   const blob = new Blob([text], { type: "text/csv;charset=utf-8" });
-  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = fileName; document.body.appendChild(a); a.click();
   setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
 }
 function buildDownloads(){
@@ -981,7 +983,7 @@ function init(){
   sitesBy = {}; for (const s of D.sites) sitesBy[s.key] = s;
   buildMap(); buildChips(); buildYears(false);
   for (const v of WX){ const o = document.createElement("option"); o.value = v.k; o.textContent = v.ja; $("wxVar").appendChild(o); }
-  bindSeg("segSurvey", v => { st.survey = v; st.site = null; buildChips(); buildYears(true); applyZoom(); refresh(); });
+  bindSeg("segSurvey", v => { st.survey = v; st.site = null; st.zoomWards = v === "juuten"; buildChips(); buildYears(true); applyZoom(); refresh(); });
   bindSeg("segUnit", v => { st.unit = v; refresh(); });
   bindSeg("segTime", v => { st.timeMode = v; $("roundLine").classList.toggle("on", v === "round"); drawMap(); });
   bindSeg("segPeak", v => { st.pkMode = v; drawPeaks(); });
@@ -991,7 +993,7 @@ function init(){
   $("roundRange").addEventListener("input", e => { st.roundIdx = +e.target.value; $("roundLabel").textContent = roundLabel(D.surveys[st.survey][curYear()].rounds[st.roundIdx]); drawMap(); });
   $("playYear").onclick = () => togglePlay("playYear", () => { st.yearIdx = (st.yearIdx + 1) % years.length; $("yearRange").value = st.yearIdx; $("yearNum").textContent = curYear() + "年"; refresh(); return true; }, 1600);
   $("playRound").onclick = () => togglePlay("playRound", () => { const n = D.surveys[st.survey][curYear()].rounds.length; st.roundIdx = (st.roundIdx + 1) % n; $("roundRange").value = st.roundIdx; $("roundLabel").textContent = roundLabel(D.surveys[st.survey][curYear()].rounds[st.roundIdx]); drawMap(); return true; }, 1100);
-  $("zoomBtn").onclick = () => { st.zoomWards = !(st.zoomWards || st.survey === "juuten"); if (st.survey === "juuten" && !st.zoomWards) { st.zoomWards = false; } applyZoom(); setTimeout(drawMap, DUR + 200); };
+  $("zoomBtn").onclick = () => { st.zoomWards = !st.zoomWards; applyZoom(); setTimeout(drawMap, DUR + 200); };
   $("lagRange").addEventListener("input", e => { st.lag = +e.target.value; drawScatter(true); markHeat(); });
   $("wxVar").onchange = e => { st.wxVar = e.target.value; drawScatter(false); markHeat(); };
   $("wxWin").onchange = e => { st.wxWin = +e.target.value; drawScatter(false); drawHeat(); };
@@ -1000,7 +1002,7 @@ function init(){
   $("wxLog").onchange = e => { st.wxLog = e.target.checked; drawScatter(true); };
   buildDownloads();
   let rt = null; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { scat = null; drawDetail(); drawSeason(); if (W) drawScatter(false); }, 250); });
-  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { scat = null; refresh(); });
+  if (window.matchMedia){ const mq = matchMedia("(prefers-color-scheme: dark)"), onScheme = () => { scat = null; refresh(); }; if (mq.addEventListener) mq.addEventListener("change", onScheme); else if (mq.addListener) mq.addListener(onScheme); }
   $("loading").hidden = true; $("app").hidden = false;
   applyZoom(); refresh();
   $("stamp").textContent = "データ更新:" + D.built.replace("T", " ").replace("Z", " UTC") + " ・ 広域 " + Object.keys(D.surveys.kouiki).sort()[0] + "〜" + Object.keys(D.surveys.kouiki).sort().pop() + "年度 ・ 重点 " + Object.keys(D.surveys.juuten).sort()[0] + "〜" + Object.keys(D.surveys.juuten).sort().pop() + "年度";
