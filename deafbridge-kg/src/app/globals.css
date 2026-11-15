@@ -1,0 +1,526 @@
+@import "tailwindcss";
+
+/*
+ * Layout: one screen, no page scroll — header / stage (the other person's words) / control dock.
+ * 夜のイシク・クル湖とアラ・トー山脈をイメージした、青みのある黒の単一テーマ。色に意味を持たせる:
+ *   湖のターコイズ = 自分・自分の操作 / 国旗の太陽の金 = 相手（話している・相手の言葉）
+ *   国旗の赤 = 録音中
+ */
+:root {
+  --bg: #04070c;
+  --surface: #0b1119;
+  --surface-2: #131b26;
+  --border: #1e2939;
+  --fg: #e8eff7;
+  --muted: #7f91a7;
+  --accent: #4fd6c8;
+  --accent-fg: #021d1b;
+  --rec: #ff3d52;
+  --rec-fg: #ffffff;
+  --them: #ffc940;
+  --them-ink: #1a1300;
+  --them-soft: #161205;
+  --me: #0a2326;
+  --ok: #7be3a2;
+  --warn: #ffb547;
+  --font-ui: "Onest", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", "Segoe UI",
+    Roboto, sans-serif;
+  --font-brand: "Unbounded", var(--font-ui);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-rec: var(--rec);
+  --color-rec-fg: var(--rec-fg);
+  --color-them: var(--them);
+  --color-them-ink: var(--them-ink);
+  --color-them-soft: var(--them-soft);
+  --color-me: var(--me);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --font-brand: var(--font-brand);
+}
+
+/* 文字サイズ設定（大 / 特大） */
+.fs-large {
+  --fs-scale: 1;
+  --fs-reply: 1.125rem;
+  --fs-body: 1rem;
+}
+.fs-xlarge {
+  --fs-scale: 1.22;
+  --fs-reply: 1.375rem;
+  --fs-body: 1.2rem;
+}
+
+html,
+body {
+  height: 100%;
+  /* 山の夜空：上からうっすら湖の青緑と星明かり */
+  background:
+    radial-gradient(90% 38% at 15% -8%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(80% 32% at 95% -6%, color-mix(in srgb, #5b7cff 14%, transparent), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--fg);
+  font-family: var(--font-ui);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+.text-reply {
+  font-size: var(--fs-reply);
+  line-height: 1.3;
+}
+.text-body {
+  font-size: var(--fs-body);
+  line-height: 1.45;
+}
+
+/* 相手の言葉：文字数に応じて最大限大きく */
+.say {
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+.say-xl {
+  font-size: calc(3.1rem * var(--fs-scale) * var(--say-k, 1));
+}
+.say-l {
+  font-size: calc(2.4rem * var(--fs-scale) * var(--say-k, 1));
+}
+.say-m {
+  font-size: calc(1.85rem * var(--fs-scale) * var(--say-k, 1));
+}
+.say-s {
+  font-size: calc(1.45rem * var(--fs-scale) * var(--say-k, 1));
+}
+
+/* ---- メイン画面の部品（大きさは画面の高さで変える） ---- */
+:root {
+  --mic: 100px;
+  --dock-btn: 54px;
+  --tile-icon: 36px;
+  --tile-text: 0.95rem;
+}
+.mic {
+  width: var(--mic);
+  height: var(--mic);
+}
+.mic-core {
+  width: calc(var(--mic) * 0.72);
+  height: calc(var(--mic) * 0.72);
+}
+.mic-glow-rec {
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--rec) 14%, transparent),
+    0 0 40px color-mix(in srgb, var(--rec) 55%, transparent);
+}
+.mic-glow-idle {
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--accent) 10%, transparent),
+    0 10px 36px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.mic-glow-them {
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--them) 16%, transparent),
+    0 0 40px color-mix(in srgb, var(--them) 55%, transparent);
+}
+.dock-btn {
+  width: var(--dock-btn);
+  height: var(--dock-btn);
+}
+.tile {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--fg) 4%, var(--surface)), var(--surface));
+}
+.tile-icon {
+  width: var(--tile-icon);
+  height: var(--tile-icon);
+}
+.tile-text {
+  font-size: calc(var(--tile-text) * var(--fs-scale));
+}
+.stage {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent) 5%, transparent), transparent 40%),
+    var(--surface);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--fg) 7%, transparent);
+}
+.guide-title {
+  font-size: calc(1.4rem * var(--fs-scale) * var(--say-k, 1));
+}
+@media (max-height: 700px) {
+  .guide-title {
+    font-size: calc(1.25rem * var(--fs-scale) * var(--say-k, 1));
+  }
+}
+/* ステージが収まらない時の自動調整（ConversationScreen が段階 fit-1〜3 を付ける） */
+.fit-1 {
+  --say-k: 0.86;
+}
+.fit-2 {
+  --say-k: 0.74;
+}
+.fit-3 {
+  --say-k: 0.62;
+}
+/* 1段目：まず下の返答ボタンの補足行を消して、ステージ（会話の流れ）に場所を譲る */
+.fit-1 .guide-sub,
+.fit-1 .status-sub,
+.fit-1 .tile-sub {
+  display: none;
+}
+/* 会話の流れ：収まらない時は古いものから減らす */
+.fit-2 .thread-item:nth-last-child(n + 3) {
+  display: none;
+}
+.fit-3 .thread-item:nth-last-child(n + 2) {
+  display: none;
+}
+.fit-4 .thread {
+  display: none;
+}
+.fit-2 .stepper-label {
+  display: none;
+}
+.fit-2 .stage-trans {
+  font-size: 0.95rem;
+}
+.fit-3 .stage-ja,
+.fit-3 .intro .ja-gloss {
+  display: none;
+}
+
+/* 対面モード：相手側から読む部分 */
+.staff-text {
+  font-size: calc(1.35rem * var(--fs-scale) * var(--say-k, 1));
+}
+.stage-trans {
+  font-size: calc(1.4rem * var(--fs-scale) * var(--say-k, 1));
+}
+.fit-2 .staff-btn-label,
+.fit-2 [role="status"] .ja-gloss {
+  display: none;
+}
+.fit-3 .staff-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* 切り替えタブ：日本語補助は1行に収める */
+.mode-label .ja-gloss {
+  display: inline;
+  margin-left: 0.35em;
+  font-size: 0.68rem;
+}
+@media (max-width: 380px) {
+  .mode-label .ja-gloss {
+    display: none;
+  }
+}
+@media (max-height: 700px) {
+  .mode-tabs {
+    margin-bottom: 0.4rem;
+  }
+  .mode-tabs button {
+    min-height: 1.85rem;
+  }
+  .mode-label .ja-gloss {
+    display: none;
+  }
+}
+.fit-3 .stepper,
+.fit-3 .tile-spoken {
+  display: none;
+}
+.fit-4 {
+  --say-k: 0.55;
+}
+.fit-4 .eyebrow,
+.fit-4 .status-plain {
+  display: none;
+}
+
+/* 対面モード：相手向け表示の分、すぐ使う返答は2つに */
+.mode-counter .tile:nth-child(n + 3) {
+  display: none;
+}
+/* とても低い画面の対面モードでは、相手の言葉と相手向け表示を優先（返答は「返答一覧」から） */
+@media (max-height: 640px) {
+  .mode-counter .tile {
+    display: none;
+  }
+}
+.mode-label .ja-gloss::before {
+  content: "";
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.ornament {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+@media (max-height: 760px) {
+  .tile-sub {
+    display: none;
+  }
+  :root {
+    --mic: 88px;
+    --dock-btn: 48px;
+    --tile-icon: 32px;
+    --tile-text: 0.9rem;
+  }
+}
+
+/* 背の低い画面（iPhone SE、claude.ai アプリ内の表示など）でも1画面に収める */
+@media (max-height: 720px) {
+  .say-xl {
+    font-size: calc(2.4rem * var(--fs-scale) * var(--say-k, 1));
+  }
+  .say-l {
+    font-size: calc(1.9rem * var(--fs-scale) * var(--say-k, 1));
+  }
+  .say-m {
+    font-size: calc(1.5rem * var(--fs-scale) * var(--say-k, 1));
+  }
+  .tile-sub {
+    display: none;
+  }
+}
+
+@media (max-height: 640px) {
+  :root {
+    --mic: 76px;
+    --dock-btn: 44px;
+    --tile-icon: 28px;
+    --tile-text: 0.85rem;
+  }
+  .say-xl {
+    font-size: calc(2rem * var(--fs-scale) * var(--say-k, 1));
+  }
+  .say-l {
+    font-size: calc(1.6rem * var(--fs-scale) * var(--say-k, 1));
+  }
+  .say-m,
+  .say-s {
+    font-size: calc(1.3rem * var(--fs-scale) * var(--say-k, 1));
+  }
+  /* とても低い画面では、すぐ使う返答を2つに（残りは「返答一覧」から） */
+  .tile:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (max-height: 700px) {
+  .stepper .ja-gloss {
+    display: none;
+  }
+}
+
+@media (max-height: 700px) {
+  .guide-sub {
+    display: none;
+  }
+}
+
+@media (max-height: 560px) {
+  .dock-label {
+    display: none;
+  }
+}
+
+.brand {
+  font-family: var(--font-brand);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pt-safe {
+  padding-top: max(0.5rem, env(safe-area-inset-top));
+}
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* 日本語補助表示（確認用）：本来の文字の下に小さく添える */
+.tx {
+  display: inline-block;
+}
+.ja-gloss {
+  display: block;
+  font-size: max(0.7em, 0.72rem);
+  font-weight: 500;
+  line-height: 1.3;
+  opacity: 0.72;
+  letter-spacing: 0;
+}
+.ja-gloss::before {
+  content: "JA ";
+  font-size: 0.78em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+/* 相手が話している間、ステージを太陽色で光らせる */
+.stage-speaking {
+  background:
+    radial-gradient(120% 70% at 50% 0%, color-mix(in srgb, var(--them) 16%, transparent), transparent 70%),
+    var(--them-soft);
+  box-shadow:
+    inset 0 0 0 2px var(--them),
+    0 0 48px -8px color-mix(in srgb, var(--them) 55%, transparent);
+}
+
+/* 視覚通知：画面全体を一瞬光らせる */
+@keyframes flash-fade {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.flash {
+  animation: flash-fade 0.9s ease-out forwards;
+}
+
+/* ステップ：今の段階の丸 */
+@keyframes step-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+.step-active {
+  animation: step-glow 1.8s ease-in-out infinite;
+}
+
+/* 録音ボタン：最初に押す場所を知らせる波紋 */
+@keyframes mic-cta {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+.mic-cta {
+  border: 2px solid var(--accent);
+  animation: mic-cta 2.2s ease-out infinite;
+}
+
+/* ステップ2：ベルが揺れる */
+@keyframes bell-ring {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  10% {
+    transform: rotate(-12deg);
+  }
+  20% {
+    transform: rotate(10deg);
+  }
+  30% {
+    transform: rotate(-8deg);
+  }
+  40% {
+    transform: rotate(5deg);
+  }
+}
+.bell-ring svg {
+  transform-origin: 50% 15%;
+  animation: bell-ring 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1s ease-in-out infinite;
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.sheet-in {
+  animation: sheet-up 0.22s ease-out;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+.shimmer {
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot,
+  .sheet-in,
+  .shimmer,
+  .step-active,
+  .mic-cta,
+  .bell-ring svg {
+    animation: none;
+  }
+}

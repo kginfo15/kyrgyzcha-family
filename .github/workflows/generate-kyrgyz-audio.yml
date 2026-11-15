@@ -1,0 +1,66 @@
+# 定型文のキルギス語音声を生成してリポジトリに保存する。
+# 端末（iPhone / Android）にはキルギス語の音声合成がないため、事前に作った MP3 を再生する。
+# モデル: Meta MMS-TTS (facebook/mms-tts-kir, CC BY-NC 4.0 = 非商用)。
+name: Generate Kyrgyz phrase audio
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "deafbridge-kg/src/lib/phrases.ts"
+      - "deafbridge-kg/scripts/tts_mms.py"
+      - ".github/workflows/generate-kyrgyz-audio.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kyrgyz-audio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deafbridge-kg
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ffmpeg (MP3 encoding)
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+
+      - name: Install TTS dependencies (CPU)
+        run: |
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install "transformers>=4.40,<5" scipy numpy uroman
+
+      - name: Export Kyrgyz phrases
+        run: node scripts/generate-audio.mjs --dump ky > "$RUNNER_TEMP/phrases-ky.json"
+
+      - name: Synthesize Kyrgyz audio
+        run: python scripts/tts_mms.py --lang kir --in "$RUNNER_TEMP/phrases-ky.json" --out public/audio/ky
+
+      - name: Update audio manifest
+        run: node scripts/generate-audio.mjs --manifest-only
+
+      - name: Commit generated audio
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/audio
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Generate Kyrgyz phrase audio (Meta MMS-TTS, CC BY-NC 4.0)"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
