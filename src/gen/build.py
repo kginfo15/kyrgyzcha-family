@@ -1,3 +1,4 @@
+import glob
 import json,re,sys,os
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
 from translit import roma, strip, ACUTE
@@ -109,7 +110,13 @@ rep('DATA_VERSION="ru-a1a2-2440-compose400"','DATA_VERSION="ru-a1a2-%d-compose%d
 rep('check("VOCABが2440件前後",VOCAB.length>=2290&&VOCAB.length<=2590,','check("VOCABが1500件以上",VOCAB.length>=1500&&VOCAB.length<=2700,')
 rep('check("COMPOSEが400件前後",COMPOSE.length>=350&&COMPOSE.length<=450,','check("COMPOSEが%d件前後",COMPOSE.length>=%d&&COMPOSE.length<=%d,'%(400+len(comp),400+len(comp)-50,400+len(comp)+50))
 # PHASE47 simple UI layer
-p47=open(os.path.join(here,"phase47.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase48.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase49.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase50.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase51.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase52.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase53.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase55.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase56.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase57.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase58.js"),encoding="utf-8").read()
+pics={}
+for f in sorted(glob.glob(os.path.join(here,"..","ru","pics*.txt"))):
+    for ln in open(f,encoding="utf-8"):
+        a=ln.split()
+        if len(a)==2: pics["A"+a[0]]=a[1]
+p59=open(os.path.join(here,"phase59.js"),encoding="utf-8").read().replace("/*P59S*/{}/*P59E*/","/*P59S*/"+json.dumps(pics,ensure_ascii=False)+"/*P59E*/")
+p47=open(os.path.join(here,"phase47.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase48.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase49.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase50.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase51.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase52.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase53.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase55.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase56.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase57.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase58.js"),encoding="utf-8").read()+"\n"+p59
 rep("/* ===== init ===== */", p47+"\n/* ===== init ===== */")
 rep('else if(ui.view==="gnote")body=renderGrammarNotes();','else if(ui.view==="gnote")body=renderGrammarNotes();\n  else if(ui.view==="p47words")body=renderP47Words();')
 rep('var title={gnote:"文法ノート",','var title={p47words:"単語練習",gnote:"文法ノート",')

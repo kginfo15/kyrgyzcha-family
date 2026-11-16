@@ -152,5 +152,6 @@ sub_re(r'<!--\n  Русский — .*?-->',
 s = s.replace('DATA_VERSION="ru-a1a2-', 'DATA_VERSION="ky-a1a2-')
 s = re.sub(r'check\("VOCABが[^"]*",VOCAB.length>=\d+&&VOCAB.length<=\d+,', 'check("VOCABが%d件前後",VOCAB.length>=%d&&VOCAB.length<=%d,' % (len(vocab), len(vocab) - 100, len(vocab) + 300), s)
 s = re.sub(r'check\("COMPOSEが\d+件前後",COMPOSE.length>=\d+&&COMPOSE.length<=\d+,', 'check("COMPOSEが%d件前後",COMPOSE.length>=%d&&COMPOSE.length<=%d,' % (len(compose), len(compose) - 50, len(compose) + 200), s)
+s = re.sub(r"/\*P59S\*/.*?/\*P59E\*/", "/*P59S*/{}/*P59E*/", s, flags=re.S)
 open(out_path, "w", encoding="utf-8").write(s)
 print("vocab", len(vocab), "enriched", sum(1 for w in vocab if w["simpleExp"]), "compose", len(compose), "groups", len(groups))
