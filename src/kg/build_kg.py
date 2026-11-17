@@ -175,7 +175,16 @@ sub_re(r'<!--\n  Русский — .*?-->',
 s = s.replace('DATA_VERSION="ru-a1a2-', 'DATA_VERSION="ky-a1a2-')
 s = re.sub(r'check\("VOCABが[^"]*",VOCAB.length>=\d+&&VOCAB.length<=\d+,', 'check("VOCABが%d件前後",VOCAB.length>=%d&&VOCAB.length<=%d,' % (len(vocab), len(vocab) - 100, len(vocab) + 300), s)
 s = re.sub(r'check\("COMPOSEが\d+件前後",COMPOSE.length>=\d+&&COMPOSE.length<=\d+,', 'check("COMPOSEが%d件前後",COMPOSE.length>=%d&&COMPOSE.length<=%d,' % (len(compose), len(compose) - 50, len(compose) + 200), s)
-s = re.sub(r"/\*P59S\*/.*?/\*P59E\*/", "/*P59S*/{}/*P59E*/", s, flags=re.S)
+# Kyrgyz pictures: pics/auto.json (matched to the Russian table by meaning) + pics/k*.txt ("ID emoji", manual, wins)
+_pics = json.load(open(os.path.join(here, "pics", "auto.json"), encoding="utf-8"))
+for f in sorted(glob.glob(os.path.join(here, "pics", "k*.txt"))):
+    for ln in open(f, encoding="utf-8"):
+        a = ln.split()
+        if len(a) == 2: _pics["A" + a[0]] = a[1]
+_ids = set(w["id"] for w in vocab)
+_pics = {k: v for k, v in _pics.items() if k in _ids}
+s = re.sub(r"/\*P59S\*/.*?/\*P59E\*/", lambda m: "/*P59S*/" + json.dumps(_pics, ensure_ascii=False) + "/*P59E*/", s, flags=re.S)
+print("pictures", len(_pics))
 s = s.replace("@@RU@@", "ロシア語")
 open(out_path, "w", encoding="utf-8").write(s)
 print("vocab", len(vocab), "enriched", sum(1 for w in vocab if w["simpleExp"]), "compose", len(compose), "groups", len(groups))

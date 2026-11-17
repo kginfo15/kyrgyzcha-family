@@ -116,14 +116,18 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 - 量の目安：ロシア語は単語1587＋例文約1000＋作文505で、合計3000件ほど。
 - 独立したWebアプリに作り直す場合は、自前のサーバー経由で音声APIをその場で呼ぶこともできます。
 
-## キルギス語の追加語と録音音声
+## キルギス語の追加語・絵・録音音声
 
-- **追加語**：`src/kg/add/*.txt` に「A2到達に足りない語」を足しています（代名詞の変化形、つなぎ言葉、動作の動詞、手続き・体調の語など約300語）。書式は `## レベル カテゴリ` の見出しと、`単語|意味|品詞|例文|例文の訳|解説` の行です。読みがな（カナ・ローマ字）は `src/kg/kana.py` が自動で作ります。
+- **追加語**：`src/kg/add/*.txt` に「A2到達に足りない語」を足しています（約300語）。書式は `## レベル カテゴリ` の見出しと、`単語|意味|品詞|例文|例文の訳|解説` の行です。読みがなは `src/kg/kana.py` が自動で作ります。
+- **絵**：`src/kg/pics/auto.json`（ロシア語の絵の表と意味が一致した語）と `src/kg/pics/k*.txt`（手で付けた「ID 絵文字」、こちらが優先）。ロシア語は `src/ru/pics*.txt`。
 - **録音音声**：`kyrgyz/audio/` に置いています。`ky-index.json` が「文 → [ファイル名, 開始位置, 長さ]」の表で、`ky-w0.mp3` などは短い音声をつなげたファイルです。
-- **作り直し方**：単語や例文を変えたら音声も作り直します。
-  1. 環境の許可ホストに `huggingface.co` と `us.aws.cdn.hf.co` が必要です（環境「Russian_A2」には追加済み）。
-  2. `pip install torch transformers scipy`、モデルは `https://huggingface.co/facebook/mms-tts-kir/resolve/main/` から `config.json` `vocab.json` `tokenizer_config.json` `special_tokens_map.json` `model.safetensors` を1つのフォルダに保存。
+- **音声モデル**：`kyrgyz-ai/TTS_small`（MMS-TTS をキルギス語話者1人の録音で調整したモデル）。元の `facebook/mms-tts-kir` は「ж」の音が約3分の1で欠けるので使いません（音声認識で計測：ж の認識 30/48 → 47/48）。
+- **品質チェック**：`facebook/mms-1b-all`（kir アダプタ）で音声認識にかけます。単語は最大4候補を作り、一番正しく認識されたものを採用します。文は1回で生成します。
+- **作り直し方**（約3600件で、単語が約1.5時間、文が約45分）：
+  1. 環境の許可ホスト：`huggingface.co`、`us.aws.cdn.hf.co`（環境「Russian_A2」には追加済み）。
+  2. `pip install torch transformers scipy`。`https://huggingface.co/<モデル名>/resolve/main/<ファイル>` から、音声モデル（config.json, vocab.json, tokenizer_config.json, special_tokens_map.json, added_tokens.json, model.safetensors）と認識モデル（config.json, preprocessor_config.json, tokenizer_config.json, vocab.json, special_tokens_map.json, adapter.kir.safetensors, model.safetensors 約3.9GB）をそれぞれのフォルダに保存。
   3. アプリから単語・例文・作文の一覧を `{"w":[],"e":[],"c":[]}` のJSONに書き出す。
-  4. `python src/kg/tts/gen_audio.py <モデルのフォルダ> <一覧.json> kyrgyz/audio`（約3600件で1時間ほど）。
+  4. `python src/kg/tts/gen_audio.py <音声モデル> <認識モデル> <一覧.json> <出力先> w` と、同じく最後を `ec` にしたものを実行。
+  5. できた `ky-index-w.json` と `ky-index-ec.json` を1つの `ky-index.json` にまとめ、MP3と一緒に `kyrgyz/audio/` に置く。
 - **公開**：Artifact を publish するとき、`files` で `audio/ky-index.json` と `audio/ky-*.mp3` を一緒に送ります。
-- **ライセンス**：音声モデルは Meta MMS-TTS（CC BY-NC 4.0、非商用）です。アプリを販売する場合は、商用利用できる音声に差し替える必要があります。
+- **ライセンス**：音声モデルは CC BY-NC 4.0（非商用）です。アプリを販売する場合は、商用利用できる音声に差し替える必要があります。

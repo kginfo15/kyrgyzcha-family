@@ -60,7 +60,7 @@ function p61Play(text,rate){
   var _set=renderSettings;
   renderSettings=function(embed){
     var h=String(_set.apply(this,arguments));
-    return h+'<div class="p61-note">'+(P61.idx?'キルギス語は録音音声（'+Object.keys(P61.idx).length.toLocaleString()+'件）で再生します。録音が無い文は端末の読み上げになります。<br>音声：Meta MMS-TTS（facebook/mms-tts-kir, CC BY-NC 4.0）':'録音音声を読み込めないため、端末の読み上げを使っています。')+'</div>';
+    return h+'<div class="p61-note">'+(P61.idx?'キルギス語は録音音声（'+Object.keys(P61.idx).length.toLocaleString()+'件）で再生します。録音が無い文は端末の読み上げになります。<br>音声：kyrgyz-ai/TTS_small（MMS-TTS を元にしたキルギス語モデル, CC BY-NC 4.0）':'録音音声を読み込めないため、端末の読み上げを使っています。')+'</div>';
   };
   var st=document.createElement("style");st.textContent='.p61-note{font-size:11.5px;color:var(--muted);line-height:1.7;margin:18px 4px 8px}';document.head.appendChild(st);
 })();
