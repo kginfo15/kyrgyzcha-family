@@ -185,6 +185,7 @@ _ids = set(w["id"] for w in vocab)
 _pics = {k: v for k, v in _pics.items() if k in _ids}
 s = re.sub(r"/\*P59S\*/.*?/\*P59E\*/", lambda m: "/*P59S*/" + json.dumps(_pics, ensure_ascii=False) + "/*P59E*/", s, flags=re.S)
 print("pictures", len(_pics))
+s = re.sub(r"/\*P66S\*/.*?/\*P66E\*/", lambda m: "/*P66S*/" + open(os.path.join(here, "..", "pics", "atlas-ky.json"), encoding="utf-8").read().strip() + "/*P66E*/", s, flags=re.S)
 s = s.replace("@@RU@@", "ロシア語")
 open(out_path, "w", encoding="utf-8").write(s)
 print("vocab", len(vocab), "enriched", sum(1 for w in vocab if w["simpleExp"]), "compose", len(compose), "groups", len(groups))

@@ -65,6 +65,7 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 | phase63 | 見た目の作り直し（影・グラデーション・絵アイコンをやめ、平らな面と細い線に）、色テーマ5種、ホームの絵の表示切替 |
 | phase64 | 右上のボタンから開く「見た目の変更」シート、ホームを1画面に収めてスクロールを止める処理 |
 | phase65 | まとめて練習・作文カードを1画面に収める（ページはスクロールせず、長いカードだけ内側でスクロール） |
+| phase66 | 単語の絵をイラスト画像で表示（`pics/atlas.webp` を読み込めないときは絵文字に戻る） |
 | phase60 | クイズの出し方（ミックス／外国語→日本語／日本語→外国語）、記録画面の簡素化 |
 
 新しい機能は `src/gen/phase59.js` のように新しいファイルを作り、`build.py` の phase を連結している行に追加するのが安全です。
@@ -131,3 +132,14 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
   5. できた `ky-index-w.json` と `ky-index-ec.json` を1つの `ky-index.json` にまとめ、MP3と一緒に `kyrgyz/audio/` に置く。
 - **公開**：Artifact を publish するとき、`files` で `audio/ky-index.json` と `audio/ky-*.mp3` を一緒に送ります。
 - **ライセンス**：音声モデルは CC BY-NC 4.0（非商用）です。アプリを販売する場合は、商用利用できる音声に差し替える必要があります。
+
+## 単語の絵（イラスト画像）
+
+- **素材**：Microsoft Fluent Emoji の 3D イラスト（MIT License, © Microsoft Corporation）。npm の `@lobehub/fluent-emoji-3d` に WebP で入っています。
+- **仕組み**：単語ごとの絵は今までどおり「ID 絵文字」の表（`src/ru/pics*.txt`、`src/kg/pics/`）で指定します。`src/pics/build_atlas.py` が、使われている絵を1枚の画像シート（`russian/pics/atlas.webp`、`kyrgyz/pics/atlas.webp`）にまとめ、位置の表（`src/pics/atlas-ru.json`、`atlas-ky.json`）を作ります。アプリのビルドがこの表を取り込みます。
+- **絵を足した・変えたとき**：
+  1. `npm i @lobehub/fluent-emoji-3d`、`pip install pillow regex`
+  2. `python src/pics/build_atlas.py node_modules/@lobehub/fluent-emoji-3d/assets russian/pics/atlas.webp src/pics/atlas-ru.json src/ru/pics*.txt`
+  3. `python src/pics/build_atlas.py <同じassets> kyrgyz/pics/atlas.webp src/pics/atlas-ky.json src/kg/pics/auto.json src/kg/pics/k*.txt`
+  4. アプリをビルドし直す。
+- **公開**：publish のとき `files` で `pics/atlas.webp` を一緒に送ります。
