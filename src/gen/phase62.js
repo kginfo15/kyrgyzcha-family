@@ -36,7 +36,7 @@ function p62Row(act,val,title,sub){return '<button type="button" class="p62-lrow
 var _p62Home=renderHome;
 renderHome=function(){
   var h=String(_p62Home()),mode=settings.p62Home||"basic";
-  var tailLink='<button type="button" class="p62-custom" data-act="p62open">ホーム画面の形・色を変える</button>';
+  var tailLink='';
   var iHero=h.indexOf('<div class="p51-herowrap">'),iCard=h.indexOf('<button type="button" class="p47-card"'),iMore=h.indexOf('<button type="button" class="p47-more"');
   var end=h.lastIndexOf('</div>');
   if(mode==="basic"||iHero<0||iCard<0||iMore<0)return h.slice(0,end)+tailLink+h.slice(end);
