@@ -15,6 +15,28 @@ for _w in kv:
         _w.update(word="май", kana="マイ", roma="may", meaning="5月")
         kv.append(dict(_sec, id="A1-901"))
         break
+# A2 coverage additions: add/*.txt  ("## LEVEL category" headers, then word|meaning|pos|exKg|exJa|explanation)
+sys.path.insert(0, here)
+from kana import kana as _kana, roma as _roma
+_have = set(w["word"] for w in kv)
+_n = {"A1": 901, "A2": 400}
+_added = {}
+for f in sorted(glob.glob(os.path.join(here, "add", "*.txt"))):
+    lv = cat = None
+    for ln in open(f, encoding="utf-8"):
+        ln = ln.rstrip("\n")
+        if not ln.strip(): continue
+        if ln.startswith("## "):
+            lv, cat = ln[3:].split(" ", 1); continue
+        word, meaning, pos, exk, exj, exp = ln.split("|")
+        if word in _have: continue
+        _have.add(word); _n[lv] += 1
+        wid = "%s-%03d" % (lv, _n[lv])
+        k = sum(1 for x in _added.values() if x == (lv, cat))
+        kv.append({"id": wid, "level": lv, "word": word, "kana": _kana(word), "roma": _roma(word), "meaning": meaning,
+                   "category": cat, "pos": pos, "pack": lv + "-add", "packTitle": "A2到達の追加語", "lesson": k // 20 + 1,
+                   "simpleExp": exp, "detailExp": exp, "exKg": exk, "exJa": exj, "audio": ""})
+        _added[wid] = (lv, cat)
 # optional enrichment: enrich/*.json  {id: {simpleExp, detailExp, changeRule, exKg, exJa}}
 enrich = {}
 for f in sorted(glob.glob(os.path.join(here, "enrich", "*.json"))):
@@ -53,7 +75,8 @@ for c in compose:
         groups.append(seen[gp])
     seen[gp]["composeIds"].append(c["id"]); seen[gp]["count"] += 1
 
-def J(x): return json.dumps(x, ensure_ascii=False, separators=(",", ":"))
+# words about the Russian language must survive the global "ロシア語"→"キルギス語" rename below
+def J(x): return json.dumps(x, ensure_ascii=False, separators=(",", ":")).replace("ロシア語", "@@RU@@")
 
 def sub_re(pat, repl, flags=re.S, count=1):
     global s
@@ -153,5 +176,6 @@ s = s.replace('DATA_VERSION="ru-a1a2-', 'DATA_VERSION="ky-a1a2-')
 s = re.sub(r'check\("VOCABが[^"]*",VOCAB.length>=\d+&&VOCAB.length<=\d+,', 'check("VOCABが%d件前後",VOCAB.length>=%d&&VOCAB.length<=%d,' % (len(vocab), len(vocab) - 100, len(vocab) + 300), s)
 s = re.sub(r'check\("COMPOSEが\d+件前後",COMPOSE.length>=\d+&&COMPOSE.length<=\d+,', 'check("COMPOSEが%d件前後",COMPOSE.length>=%d&&COMPOSE.length<=%d,' % (len(compose), len(compose) - 50, len(compose) + 200), s)
 s = re.sub(r"/\*P59S\*/.*?/\*P59E\*/", "/*P59S*/{}/*P59E*/", s, flags=re.S)
+s = s.replace("@@RU@@", "ロシア語")
 open(out_path, "w", encoding="utf-8").write(s)
 print("vocab", len(vocab), "enriched", sum(1 for w in vocab if w["simpleExp"]), "compose", len(compose), "groups", len(groups))

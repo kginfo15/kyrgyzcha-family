@@ -60,6 +60,7 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 | phase57 | その他の練習の戻るボタン |
 | phase58 | 画面切替時に先頭へ、集中表示、到達テスト（45問） |
 | phase59 | 単語の絵（`src/ru/pics*.txt` の「ID 絵文字」表）、5問ごとの中断画面の廃止 |
+| phase61 | 録音済み音声の再生（キルギス語）。`audio/ky-index.json` と `audio/ky-*.mp3` があれば端末の読み上げより優先 |
 | phase60 | クイズの出し方（ミックス／外国語→日本語／日本語→外国語）、記録画面の簡素化 |
 
 新しい機能は `src/gen/phase59.js` のように新しいファイルを作り、`build.py` の phase を連結している行に追加するのが安全です。
@@ -110,3 +111,15 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 - 必要なもの：クラウド環境の許可ドメインに `huggingface.co`（または使うAPIのホスト）を追加。有料APIならAPIキー。
 - 量の目安：ロシア語は単語1587＋例文約1000＋作文505で、合計3000件ほど。
 - 独立したWebアプリに作り直す場合は、自前のサーバー経由で音声APIをその場で呼ぶこともできます。
+
+## キルギス語の追加語と録音音声
+
+- **追加語**：`src/kg/add/*.txt` に「A2到達に足りない語」を足しています（代名詞の変化形、つなぎ言葉、動作の動詞、手続き・体調の語など約300語）。書式は `## レベル カテゴリ` の見出しと、`単語|意味|品詞|例文|例文の訳|解説` の行です。読みがな（カナ・ローマ字）は `src/kg/kana.py` が自動で作ります。
+- **録音音声**：`kyrgyz/audio/` に置いています。`ky-index.json` が「文 → [ファイル名, 開始位置, 長さ]」の表で、`ky-w0.mp3` などは短い音声をつなげたファイルです。
+- **作り直し方**：単語や例文を変えたら音声も作り直します。
+  1. 環境の許可ホストに `huggingface.co` と `us.aws.cdn.hf.co` が必要です（環境「Russian_A2」には追加済み）。
+  2. `pip install torch transformers scipy`、モデルは `https://huggingface.co/facebook/mms-tts-kir/resolve/main/` から `config.json` `vocab.json` `tokenizer_config.json` `special_tokens_map.json` `model.safetensors` を1つのフォルダに保存。
+  3. アプリから単語・例文・作文の一覧を `{"w":[],"e":[],"c":[]}` のJSONに書き出す。
+  4. `python src/kg/tts/gen_audio.py <モデルのフォルダ> <一覧.json> kyrgyz/audio`（約3600件で1時間ほど）。
+- **公開**：Artifact を publish するとき、`files` で `audio/ky-index.json` と `audio/ky-*.mp3` を一緒に送ります。
+- **ライセンス**：音声モデルは Meta MMS-TTS（CC BY-NC 4.0、非商用）です。アプリを販売する場合は、商用利用できる音声に差し替える必要があります。
