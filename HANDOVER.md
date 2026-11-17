@@ -61,6 +61,7 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 | phase58 | 画面切替時に先頭へ、集中表示、到達テスト（45問） |
 | phase59 | 単語の絵（`src/ru/pics*.txt` の「ID 絵文字」表）、5問ごとの中断画面の廃止 |
 | phase61 | 録音済み音声の再生（キルギス語）。`audio/ky-index.json` と `audio/ky-*.mp3` があれば端末の読み上げより優先 |
+| phase62 | ホーム画面の形（4種）と色（8種）の選択、クイズの「次へ」を画面下に固定 |
 | phase60 | クイズの出し方（ミックス／外国語→日本語／日本語→外国語）、記録画面の簡素化 |
 
 新しい機能は `src/gen/phase59.js` のように新しいファイルを作り、`build.py` の phase を連結している行に追加するのが安全です。
