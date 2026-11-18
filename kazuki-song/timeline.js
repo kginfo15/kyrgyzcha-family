@@ -30,7 +30,7 @@ window.TIMELINE=[
  {
   "t": 6.667,
   "d": 1.458,
-  "text": "かずきは いつも",
+  "text": "かづきは いつも",
   "scene": "hook",
   "line": 2
  },
@@ -212,7 +212,7 @@ window.TIMELINE=[
  {
   "t": 36.667,
   "d": 1.667,
-  "text": "かずきは おりこう",
+  "text": "かづきは おりこう",
   "scene": "oriko",
   "line": 11
  },
@@ -303,7 +303,7 @@ window.TIMELINE=[
  {
   "t": 53.333,
   "d": 1.458,
-  "text": "かずきは いつも",
+  "text": "かづきは いつも",
   "scene": "final",
   "line": 16
  },
@@ -331,7 +331,7 @@ window.TIMELINE=[
  {
   "t": 58.333,
   "d": 0.833,
-  "text": "かずき〜",
+  "text": "かづき〜",
   "scene": "final",
   "line": 17
  },

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>かずきの がんばってる!ソング</title>
+<title>かづきの がんばってる!ソング</title>
 <style>
 @font-face{font-family:"Maru";src:url("../nichika-papa/zen-maru-gothic-japanese-900-normal.woff2") format("woff2");font-weight:900}
 html,body{margin:0;height:100%;background:#222;overflow:hidden}
@@ -235,7 +235,7 @@ intro(t,lt,b){
   let o=bg("love",t);
   for(let i=0;i<10;i++){const a=i*PI/5+t*0.8;o+=star(640+cos(a)*520,330+sin(a)*250,1+rnd(i)*0.8,["#ffe14d","#ff7fb0","#5cc8ff"][i%3],t*120);}
   o+=kazuki(640,GY-b*44,1.12,{mood:"happy",...dance(t,b)});
-  o+=label(640,105,"かずきの",80,"#7a5cff",-3,pop(lt/0.4));
+  o+=label(640,105,"かづきの",80,"#7a5cff",-3,pop(lt/0.4));
   if(lt>0.8)o+=label(640,215,"がんばってる!ソング",88,PINK,2,pop((lt-0.8)/0.4)+b*0.04);
   return o;
 },
@@ -263,7 +263,7 @@ pool(t,lt,b){
 },
 study(t,lt,b){
   let o=bg("soft",t);
-  const items=["1+2=3","あ","A","5","か","ず","き","10"];
+  const items=["1+2=3","あ","A","5","か","づ","き","10"];
   items.forEach((s,i)=>{const ph=(t*0.35+i/items.length)%1;o+=label(120+rnd(i+2)*1040,590-ph*400,s,56+rnd(i)*26,["#7a5cff","#ff7fb0","#3b8fd9","#3fae6a"][i%4],sin(t*2+i)*14);});
   const wr=lt>BAR*2;
   o+=kazuki(640,GY-20-b*8,1.35,{mood:"happy",aL:60,aR:wr?70+sin(t*30)*10:150+b*15,tilt:wr?8:0});
@@ -311,7 +311,7 @@ tegami2(t,lt,b){
   o+=mama(1060,GY+30,0.9,{mood:"happy",aL:150+b*20,aR:150+b*20});
   o+=kazuki(210,GY+30-b*20,1.2,{mood:"happy",aL:150,aR:150});
   o+=G(640,330,pop(lt/0.4)+b*0.03,-4,`<rect x="-250" y="-190" width="500" height="380" rx="18" fill="#fffdf2" stroke="#ffb3cc" stroke-width="10"/>
-    <text text-anchor="middle" y="-70" font-size="72" fill="#7a5cff">ママ</text><text text-anchor="middle" y="30" font-size="84" fill="${PINK}">だいすき</text>${heart(-70,120,1.5)}${heart(70,120,1.5,"#ff8fb1")}${star(-200,-140,0.9)}${star(200,-140,0.9)}<text text-anchor="end" x="225" y="170" font-size="34" fill="#9a8f99">かずきより</text>`);
+    <text text-anchor="middle" y="-70" font-size="72" fill="#7a5cff">ママ</text><text text-anchor="middle" y="30" font-size="84" fill="${PINK}">だいすき</text>${heart(-70,120,1.5)}${heart(70,120,1.5,"#ff8fb1")}${star(-200,-140,0.9)}${star(200,-140,0.9)}<text text-anchor="end" x="225" y="170" font-size="34" fill="#9a8f99">かづきより</text>`);
   return o;
 },
 oriko(t,lt,b){
@@ -319,7 +319,7 @@ oriko(t,lt,b){
   o+=hanamaru(640,345,1.75,lt/1.2,sin(t*2)*4);
   for(let i=0;i<8;i++){const a=i*PI/4-t*0.7;o+=star(640+cos(a)*470,340+sin(a)*250,1+b*0.3,"#ffe14d",t*90);}
   o+=kazuki(640,GY+10-b*14,1.3,{mood:"happy",crown:true,aL:-55,aR:150,tilt:sin(t*PI/BEAT/2)*6});
-  o+=label(640,100,lt<BAR?"かずきは おりこう!":"やさしい ねえね",80,"#e8302a",-3,pop((lt%BAR)/0.3));
+  o+=label(640,100,lt<BAR?"かづきは おりこう!":"やさしい ねえね",80,"#e8302a",-3,pop((lt%BAR)/0.3));
   return o;
 },
 mamoru(t,lt,b){
@@ -365,7 +365,7 @@ final(t,lt,b){
   o+=mama(1060,GY-b*22-j*0.5,0.93,{mood:"happy",...dance(t,b,2)});
   o+=nichika(860,GY-(1-b)*26-j*0.7,1.15,{mood:"happy",...dance(t,b,3)});
   o+=kazuki(560,GY-b*40-j,1.3,{mood:"happy",crown:lt>BAR*2,...(end?{aL:165,aR:165}:dance(t,b))});
-  const txt=lt<BAR?"かずきは いつも":lt<BAR*2?"がんばってる!":lt<BAR*3?"きょうも がんばる!":"かずき〜 イェーイ!";
+  const txt=lt<BAR?"かづきは いつも":lt<BAR*2?"がんばってる!":lt<BAR*3?"きょうも がんばる!":"かづき〜 イェーイ!";
   o+=label(640,100,txt,92,PINK,-3,pop((lt%BAR)/0.3)+b*0.08);
   return o;
 }};
