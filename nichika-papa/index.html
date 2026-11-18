@@ -79,19 +79,30 @@ function face(mood,cy,k){ // k: 大きさ係数
 // にちか: 足もとが原点。 aL/aR は腕の角度(0=下, 90=横, 180=上, マイナス=内側)
 function nichika(x,y,s,o={}){
   const {mood="happy",aL=20,aR=20,rot=0,tilt=0}=o;
+  const SH="#fff4d6";
+  const narm=(deg,side)=>{const r=deg*PI/180,sx=side*27,sy=-138;
+    return arm(sx,sy,deg,side,54,SKIN,15)+`<line x1="${sx}" y1="${sy}" x2="${sx+side*sin(r)*20}" y2="${sy+cos(r)*20}" stroke="${SH}" stroke-width="22" stroke-linecap="round"/>`;};
   let b="";
-  b+=`<line x1="-18" y1="-70" x2="-18" y2="-8" stroke="${SKIN}" stroke-width="15" stroke-linecap="round"/><line x1="18" y1="-70" x2="18" y2="-8" stroke="${SKIN}" stroke-width="15" stroke-linecap="round"/>`;
-  b+=`<ellipse cx="-22" cy="-4" rx="19" ry="10" fill="#e8302a"/><ellipse cx="22" cy="-4" rx="19" ry="10" fill="#e8302a"/>`;
-  const armsBack=aL>=0?arm(-27,-138,aL,-1,56,SKIN,15):"", armsBackR=aR>=0?arm(27,-138,aR,1,56,SKIN,15):"";
-  b+=armsBack+armsBackR;
-  b+=`<path d="M-50 -58 L-30 -152 L30 -152 L50 -58Z" fill="#ffcf33" stroke="#ffcf33" stroke-width="12" stroke-linejoin="round"/>`;
-  b+=`<circle cx="-20" cy="-95" r="7" fill="#fff"/><circle cx="14" cy="-80" r="7" fill="#fff"/><circle cx="6" cy="-120" r="7" fill="#fff"/>`;
-  if(aL<0)b+=arm(-27,-138,aL,-1,56,SKIN,15); if(aR<0)b+=arm(27,-138,aR,1,56,SKIN,15);
+  // あし(はだし)
+  b+=`<line x1="-19" y1="-66" x2="-19" y2="-10" stroke="${SKIN}" stroke-width="19" stroke-linecap="round"/><line x1="19" y1="-66" x2="19" y2="-10" stroke="${SKIN}" stroke-width="19" stroke-linecap="round"/>`;
+  b+=`<ellipse cx="-24" cy="-5" rx="19" ry="10" fill="${SKIN}"/><ellipse cx="24" cy="-5" rx="19" ry="10" fill="${SKIN}"/>`;
+  if(aL>=0)b+=narm(aL,-1); if(aR>=0)b+=narm(aR,1);
+  // おむつ
+  b+=`<path d="M-42 -102 L42 -102 L40 -70 Q0 -40 -40 -70Z" fill="#fff" stroke="#bcd9f2" stroke-width="4" stroke-linejoin="round"/>`;
+  b+=`<path d="M-42 -92 H42" stroke="#bcd9f2" stroke-width="4"/><rect x="-40" y="-99" width="16" height="9" rx="3" fill="#8fd0ff"/><rect x="24" y="-99" width="16" height="9" rx="3" fill="#8fd0ff"/>`;
+  // はんそでシャツ
+  b+=`<path d="M-38 -100 L-31 -152 L31 -152 L38 -100Z" fill="${SH}" stroke="${SH}" stroke-width="12" stroke-linejoin="round"/>`;
+  // スイカ(三角)が うえきばちポケットに ささってる
+  b+=`<path d="M-19 -146 L19 -146 L0 -110Z" fill="#ff4d5e" stroke="#ff4d5e" stroke-width="3" stroke-linejoin="round"/>`;
+  b+=`<path d="M-21 -147 H21" stroke="#2fa84f" stroke-width="7" stroke-linecap="round"/><path d="M-18 -142 H18" stroke="#eaffd0" stroke-width="2.5"/>`;
+  b+=`<circle cx="-7" cy="-135" r="2.2" fill="#222"/><circle cx="6" cy="-134" r="2.2" fill="#222"/><circle cx="0" cy="-126" r="2.2" fill="#222"/>`;
+  b+=`<path d="M-12 -120 L12 -120 L8 -101 L-8 -101Z" fill="#9a5b2c"/><rect x="-15" y="-124" width="30" height="7" rx="3" fill="#7d4720"/>`;
+  if(aL<0)b+=narm(aL,-1); if(aR<0)b+=narm(aR,1);
   let h="";
-  h+=`<circle cx="-68" cy="-222" r="27" fill="${HAIR}"/><circle cx="68" cy="-222" r="27" fill="${HAIR}"/>`;
+  // えりくらいの そとはねヘア
+  h+=`<path d="M-58 -215 Q-62 -168 -92 -150 Q-64 -140 -44 -160Z" fill="${HAIR}"/><path d="M58 -215 Q62 -168 92 -150 Q64 -140 44 -160Z" fill="${HAIR}"/>`;
   h+=`<circle cx="0" cy="-206" r="64" fill="${HAIR}"/><circle cx="0" cy="-198" r="56" fill="${SKIN}"/>`;
-  h+=`<path d="M-57 -202 Q-50 -268 0 -268 Q50 -268 57 -202 Q34 -240 6 -238 Q-4 -220 -57 -202Z" fill="${HAIR}"/>`;
-  h+=`<circle cx="-50" cy="-240" r="10" fill="#e8302a"/><circle cx="50" cy="-240" r="10" fill="#e8302a"/>`;
+  h+=`<path d="M-57 -196 Q-52 -268 0 -268 Q52 -268 57 -196 Q40 -236 8 -238 Q-10 -222 -57 -196Z" fill="${HAIR}"/>`;
   h+=face(mood,-198,1);
   b+=`<g transform="rotate(${tilt} 0 -150)">${h}</g>`;
   return G(x,y,s,rot,b);
@@ -113,6 +124,7 @@ function papa(x,y,s,o={}){
     h+=`<path d="M-66 -372 Q-70 -440 0 -440 Q70 -440 66 -372 Q40 -410 0 -404 Q-40 -410 -66 -372Z" fill="#2b2b33"/>`;
     for(let i=0;i<13;i++){const a=PI*(0.12+0.76*i/12),r=i%2?50:58;h+=`<circle cx="${(cos(a)*r).toFixed(1)}" cy="${(-362+sin(a)*r*0.95).toFixed(1)}" r="3.2" fill="#555"/>`;}
     h+=face(mood,-370,1.15);
+    h+=`<g fill="#fff" fill-opacity=".3" stroke="#222" stroke-width="5"><circle cx="-26" cy="-367" r="21"/><circle cx="26" cy="-367" r="21"/></g><path d="M-5 -367 H5 M-47 -369 L-64 -374 M47 -369 L64 -374" stroke="#222" stroke-width="5" stroke-linecap="round"/>`;
   }
   b+=`<g transform="rotate(${tilt} 0 -300)">${h}</g>`;
   return G(x,y,s,rot,b);
