@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>パパきらい?だいすき!のうた</title>
+<style>
+@font-face{font-family:"Maru";src:url("zen-maru-gothic-japanese-900-normal.woff2") format("woff2");font-weight:900}
+html,body{margin:0;height:100%;background:#222;overflow:hidden}
+#stage{position:absolute;inset:0;margin:auto;width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;display:block}
+text{font-family:"Maru","Hiragino Maru Gothic ProN",sans-serif;font-weight:900}
+#play{position:absolute;inset:0;margin:auto;width:220px;height:90px;font:900 32px "Maru",sans-serif;border:0;border-radius:45px;background:#ff5c8a;color:#fff;box-shadow:0 6px 0 #c93a66;cursor:pointer}
+</style>
+</head>
+<body>
+<svg id="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg"></svg>
+<button id="play">▶ さいせい</button>
+<audio id="au" src="song.m4a" preload="auto"></audio>
+<script src="timeline.js"></script>
+<script>
+const W=1280,H=720,GY=610,BEAT=0.5,TL=window.TIMELINE;
+const SKIN="#ffd9b8",HAIR="#4a2c1a",PINK="#ff5c8a";
+const sin=Math.sin,cos=Math.cos,PI=Math.PI,abs=Math.abs;
+const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const ease=x=>{x=cl(x);return 1-Math.pow(1-x,3)};
+const pop=x=>{x=cl(x);return x<1?1+0.25*sin(x*PI)*(1-x)- (1-x)*(1-x):1};
+const rnd=i=>{const x=sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+const G=(x,y,s,r,inner)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})">${inner}</g>`;
+
+function heart(x,y,s,col=PINK,r=0,op=1){
+  return `<path transform="translate(${x} ${y}) rotate(${r}) scale(${s})" opacity="${op}" fill="${col}" stroke="#fff" stroke-width="3" stroke-linejoin="round" d="M0 14 C-34 -8 -22 -34 -9 -34 C-3 -34 0 -29 0 -25 C0 -29 3 -34 9 -34 C22 -34 34 -8 0 14Z"/>`;
+}
+function star(x,y,s,col="#ffe14d",r=0){
+  let p="";for(let i=0;i<10;i++){const a=i*PI/5-PI/2,R=i%2?9:22;p+=(i?"L":"M")+(cos(a)*R).toFixed(1)+" "+(sin(a)*R).toFixed(1)}
+  return `<path transform="translate(${x} ${y}) rotate(${r}) scale(${s})" fill="${col}" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="${p}Z"/>`;
+}
+function anger(x,y,s){ // おこりマーク
+  return G(x,y,s,0,`<g fill="none" stroke="#e8302a" stroke-width="7" stroke-linecap="round"><path d="M-6 -22 Q-6 -6 -22 -6"/><path d="M6 -22 Q6 -6 22 -6"/><path d="M-6 22 Q-6 6 -22 6"/><path d="M6 22 Q6 6 22 6"/></g>`);
+}
+function stink(x,y,s,t,n=3,col="#7cb518"){
+  let o="";
+  for(let i=0;i<n;i++){
+    const ph=(t*0.6+i/n)%1,yy=-ph*130,xx=(i-(n-1)/2)*46+sin(t*3+i)*6;
+    let d=`M${xx} ${yy}`;for(let k=1;k<=4;k++)d+=` q${k%2?16:-16} -11 0 -22`;
+    o+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" opacity="${(sin(ph*PI)).toFixed(2)}"/>`;
+  }
+  return G(x,y,s,0,o);
+}
+function arm(sx,sy,deg,side,L,col,w){
+  const a=deg*PI/180,ex=sx+side*sin(a)*L,ey=sy+cos(a)*L;
+  return `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/><circle cx="${ex}" cy="${ey}" r="${w*0.62}" fill="${SKIN}"/>`;
+}
+function face(mood,cy,k){ // k: 大きさ係数
+  const e=22*k,ey=cy+2*k;let o="";
+  const st=`fill="none" stroke="#3a2416" stroke-width="${5*k}" stroke-linecap="round" stroke-linejoin="round"`;
+  if(mood=="happy"){
+    o+=`<path d="M${-e-10*k} ${ey} q${10*k} ${-13*k} ${20*k} 0" ${st}/><path d="M${e-10*k} ${ey} q${10*k} ${-13*k} ${20*k} 0" ${st}/>`;
+    o+=`<path d="M${-17*k} ${cy+17*k} q${17*k} ${26*k} ${34*k} 0Z" fill="#d6323e" stroke="#3a2416" stroke-width="${3*k}" stroke-linejoin="round"/>`;
+  }else if(mood=="soft"){
+    o+=`<circle cx="${-e}" cy="${ey}" r="${6*k}" fill="#3a2416"/><circle cx="${e}" cy="${ey}" r="${6*k}" fill="#3a2416"/>`;
+    o+=`<path d="M${-10*k} ${cy+20*k} q${10*k} ${9*k} ${20*k} 0" ${st}/>`;
+  }else if(mood=="angry"){
+    o+=`<path d="M${-e-13*k} ${ey-18*k} l${22*k} ${9*k}" ${st}/><path d="M${e+13*k} ${ey-18*k} l${-22*k} ${9*k}" ${st}/>`;
+    o+=`<circle cx="${-e}" cy="${ey+2*k}" r="${6*k}" fill="#3a2416"/><circle cx="${e}" cy="${ey+2*k}" r="${6*k}" fill="#3a2416"/>`;
+    o+=`<path d="M${-13*k} ${cy+27*k} q${13*k} ${-13*k} ${26*k} 0" ${st}/>`;
+  }else if(mood=="yuck"){
+    o+=`<path d="M${-e-9*k} ${ey-8*k} l${15*k} ${8*k} l${-15*k} ${8*k}" ${st}/><path d="M${e+9*k} ${ey-8*k} l${-15*k} ${8*k} l${15*k} ${8*k}" ${st}/>`;
+    o+=`<path d="M${-16*k} ${cy+24*k} q${5*k} ${-8*k} ${11*k} 0 t${11*k} 0 t${11*k} 0" ${st}/>`;
+  }else if(mood=="sad"){
+    o+=`<path d="M${-e-12*k} ${ey-12*k} l${20*k} ${-8*k}" ${st}/><path d="M${e+12*k} ${ey-12*k} l${-20*k} ${-8*k}" ${st}/>`;
+    o+=`<circle cx="${-e}" cy="${ey+3*k}" r="${6*k}" fill="#3a2416"/><circle cx="${e}" cy="${ey+3*k}" r="${6*k}" fill="#3a2416"/>`;
+    o+=`<path d="M${-12*k} ${cy+28*k} q${12*k} ${-12*k} ${24*k} 0" ${st}/>`;
+    o+=`<path d="M${-e-2*k} ${ey+12*k} q${-9*k} ${16*k} 0 ${22*k} q${9*k} ${-6*k} 0 ${-22*k}Z" fill="#6ecbff"/><path d="M${e+2*k} ${ey+12*k} q${-9*k} ${16*k} 0 ${22*k} q${9*k} ${-6*k} 0 ${-22*k}Z" fill="#6ecbff"/>`;
+  }
+  const blush=mood=="angry"?"#ff6b5c":"#ff9fb0";
+  o+=`<ellipse cx="${-e-14*k}" cy="${cy+16*k}" rx="${11*k}" ry="${7*k}" fill="${blush}" opacity=".75"/><ellipse cx="${e+14*k}" cy="${cy+16*k}" rx="${11*k}" ry="${7*k}" fill="${blush}" opacity=".75"/>`;
+  return o;
+}
+// にちか: 足もとが原点。 aL/aR は腕の角度(0=下, 90=横, 180=上, マイナス=内側)
+function nichika(x,y,s,o={}){
+  const {mood="happy",aL=20,aR=20,rot=0,tilt=0}=o;
+  let b="";
+  b+=`<line x1="-18" y1="-70" x2="-18" y2="-8" stroke="${SKIN}" stroke-width="15" stroke-linecap="round"/><line x1="18" y1="-70" x2="18" y2="-8" stroke="${SKIN}" stroke-width="15" stroke-linecap="round"/>`;
+  b+=`<ellipse cx="-22" cy="-4" rx="19" ry="10" fill="#e8302a"/><ellipse cx="22" cy="-4" rx="19" ry="10" fill="#e8302a"/>`;
+  const armsBack=aL>=0?arm(-27,-138,aL,-1,56,SKIN,15):"", armsBackR=aR>=0?arm(27,-138,aR,1,56,SKIN,15):"";
+  b+=armsBack+armsBackR;
+  b+=`<path d="M-50 -58 L-30 -152 L30 -152 L50 -58Z" fill="#ffcf33" stroke="#ffcf33" stroke-width="12" stroke-linejoin="round"/>`;
+  b+=`<circle cx="-20" cy="-95" r="7" fill="#fff"/><circle cx="14" cy="-80" r="7" fill="#fff"/><circle cx="6" cy="-120" r="7" fill="#fff"/>`;
+  if(aL<0)b+=arm(-27,-138,aL,-1,56,SKIN,15); if(aR<0)b+=arm(27,-138,aR,1,56,SKIN,15);
+  let h="";
+  h+=`<circle cx="-68" cy="-222" r="27" fill="${HAIR}"/><circle cx="68" cy="-222" r="27" fill="${HAIR}"/>`;
+  h+=`<circle cx="0" cy="-206" r="64" fill="${HAIR}"/><circle cx="0" cy="-198" r="56" fill="${SKIN}"/>`;
+  h+=`<path d="M-57 -202 Q-50 -268 0 -268 Q50 -268 57 -202 Q34 -240 6 -238 Q-4 -220 -57 -202Z" fill="${HAIR}"/>`;
+  h+=`<circle cx="-50" cy="-240" r="10" fill="#e8302a"/><circle cx="50" cy="-240" r="10" fill="#e8302a"/>`;
+  h+=face(mood,-198,1);
+  b+=`<g transform="rotate(${tilt} 0 -150)">${h}</g>`;
+  return G(x,y,s,rot,b);
+}
+function papa(x,y,s,o={}){
+  const {mood="happy",aL=15,aR=15,rot=0,tilt=0,back=false}=o;
+  let b="";
+  b+=`<line x1="-28" y1="-150" x2="-28" y2="-10" stroke="#3b5ba5" stroke-width="40" stroke-linecap="round"/><line x1="28" y1="-150" x2="28" y2="-10" stroke="#3b5ba5" stroke-width="40" stroke-linecap="round"/>`;
+  b+=`<ellipse cx="-38" cy="-6" rx="36" ry="15" fill="${SKIN}"/><ellipse cx="38" cy="-6" rx="36" ry="15" fill="${SKIN}"/>`;
+  if(aL>=0)b+=arm(-62,-285,aL,-1,105,"#3fae6a",30); if(aR>=0)b+=arm(62,-285,aR,1,105,"#3fae6a",30);
+  b+=`<rect x="-66" y="-310" width="132" height="175" rx="34" fill="#3fae6a"/>`;
+  b+=`<path d="M-66 -235h132M-66 -190h132" stroke="#fff" stroke-width="12" opacity=".55"/>`;
+  if(aL<0)b+=arm(-62,-285,aL,-1,105,"#3fae6a",30); if(aR<0)b+=arm(62,-285,aR,1,105,"#3fae6a",30);
+  let h="";
+  h+=`<circle cx="-66" cy="-362" r="14" fill="${SKIN}"/><circle cx="66" cy="-362" r="14" fill="${SKIN}"/>`;
+  h+=`<circle cx="0" cy="-366" r="66" fill="${SKIN}"/>`;
+  if(back){h+=`<circle cx="0" cy="-370" r="67" fill="#2b2b33"/>`;}
+  else{
+    h+=`<path d="M-66 -372 Q-70 -440 0 -440 Q70 -440 66 -372 Q40 -410 0 -404 Q-40 -410 -66 -372Z" fill="#2b2b33"/>`;
+    for(let i=0;i<13;i++){const a=PI*(0.12+0.76*i/12),r=i%2?50:58;h+=`<circle cx="${(cos(a)*r).toFixed(1)}" cy="${(-362+sin(a)*r*0.95).toFixed(1)}" r="3.2" fill="#555"/>`;}
+    h+=face(mood,-370,1.15);
+  }
+  b+=`<g transform="rotate(${tilt} 0 -300)">${h}</g>`;
+  return G(x,y,s,rot,b);
+}
+function bigFoot(x,y,s,t){
+  let o=`<rect x="120" y="-70" width="500" height="140" rx="60" fill="#3b5ba5"/>`;
+  o+=`<ellipse cx="0" cy="0" rx="170" ry="105" fill="${SKIN}"/>`;
+  [[-150,-78,34],[-178,-36,28],[-186,6,25],[-180,44,22],[-162,76,19]].forEach(([tx,ty,r],i)=>{
+    o+=`<circle cx="${tx+sin(t*8+i)*5}" cy="${ty}" r="${r}" fill="${SKIN}" stroke="#e9b78f" stroke-width="3"/>`;});
+  o+=`<path d="M-40 -30 q20 30 0 60 M10 -40 q24 40 0 80" fill="none" stroke="#e9b78f" stroke-width="5" stroke-linecap="round"/>`;
+  return G(x,y,s,sin(t*PI*2)*4,o);
+}
+function cloud(x,y,s,col="#d9e86a"){
+  return G(x,y,s,0,`<g fill="${col}"><circle cx="-50" cy="6" r="42"/><circle cx="0" cy="-18" r="56"/><circle cx="56" cy="4" r="44"/><circle cx="6" cy="30" r="46"/></g>`);
+}
+function bg(kind,t){
+  const pal={angry:["#ffb36b","#ff8552","#c96a3a"],stinky:["#e7f3a0","#c9de6b","#8aa83a"],soft:["#e6dcff","#ffd6ea","#8fd6a0"],love:["#9be3ff","#ffe0ee","#7ed68a"]}[kind];
+  let o=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${pal[0]}"/><stop offset="1" stop-color="${pal[1]}"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#sky)"/>`;
+  if(kind=="love"){
+    let rays="";for(let i=0;i<12;i++){const a=i*PI/6+t*0.25;rays+=`<path d="M640 330 L${640+cos(a-0.12)*1200} ${330+sin(a-0.12)*1200} L${640+cos(a+0.12)*1200} ${330+sin(a+0.12)*1200}Z" fill="#fff" opacity=".28"/>`;}
+    o+=rays;
+    ["#ff6b6b","#ffb84d","#ffe14d","#7ed957","#5cc8ff","#b58cff"].forEach((c,i)=>{o+=`<circle cx="640" cy="${GY+60}" r="${560-i*24}" fill="none" stroke="${c}" stroke-width="24" opacity=".8"/>`;});
+  }else if(kind=="angry"){
+    for(let i=0;i<9;i++){const x=i*160+((t*40)%160)-80;o+=`<path d="M${x} 0 l40 0 l-120 ${H} l-40 0Z" fill="#fff" opacity=".1"/>`;}
+  }else if(kind=="soft"){
+    for(let i=0;i<14;i++){o+=`<circle cx="${rnd(i)*W}" cy="${(rnd(i+50)*500+sin(t+i)*12)}" r="${10+rnd(i+9)*26}" fill="#fff" opacity=".35"/>`;}
+  }else{
+    for(let i=0;i<8;i++){o+=cloud(rnd(i+3)*W,rnd(i+30)*380+40,0.5+rnd(i)*0.5,"#f4fbc0");}
+  }
+  o+=`<ellipse cx="640" cy="${H+250}" rx="1100" ry="400" fill="${pal[2]}"/>`;
+  return o;
+}
+function rainHearts(t,n,seed=0){
+  let o="";const cols=[PINK,"#ff8fb1","#ffb84d","#ff6b6b","#b58cff"];
+  for(let i=0;i<n;i++){const sp=0.25+rnd(i+seed)*0.3,ph=(t*sp+rnd(i*3+seed))%1;
+    o+=heart(rnd(i*7+seed)*W+sin(t*2+i)*20,-40+ph*(H+80),0.6+rnd(i+11)*1.1,cols[i%5],sin(t*3+i)*20,0.9);}
+  return o;
+}
+function flowHearts(t,x1,y1,x2,y2,n){
+  let o="";for(let i=0;i<n;i++){const ph=(t*0.7+i/n)%1,x=x1+(x2-x1)*ph,y=y1+(y2-y1)*ph-sin(ph*PI)*130;
+    o+=heart(x,y,0.5+sin(ph*PI)*0.9,i%2?PINK:"#ff8fb1",sin(t*4+i)*15,cl(sin(ph*PI)*2));}
+  return o;
+}
+function label(x,y,txt,size,fill,r=0,s=1){
+  return `<text transform="translate(${x} ${y}) rotate(${r}) scale(${s})" text-anchor="middle" font-size="${size}" fill="${fill}" stroke="#fff" stroke-width="${size*0.16}" paint-order="stroke" stroke-linejoin="round">${txt}</text>`;
+}
+
+const SC={
+intro(t,lt,b){
+  let o=bg("love",t);
+  o+=nichika(170,GY-b*18,1.05,{mood:lt<2?"angry":"happy",aL:lt<2?-50:150+b*20,aR:lt<2?-50:150-b*20});
+  o+=papa(1110,GY-(1-b)*14,0.85,{mood:lt<2?"sad":"happy",aL:lt<2?10:150,aR:lt<2?10:150});
+  o+=label(640,170,"パパ きらい?",104,"#e8302a",-4,pop(lt/0.5));
+  if(lt>1.9)o+=label(640,300,"だいすき!のうた",92,PINK,3,pop((lt-1.9)/0.5));
+  if(lt>1.9)o+=heart(640,430,2.2+b*0.4);
+  return o;
+},
+kirai(t,lt,b){
+  let o=bg("angry",t);
+  o+=papa(930,GY,1.08,{mood:"sad",aL:60+sin(t*4)*8,aR:20,tilt:-6});
+  o+=nichika(400,GY-b*26,1.5,{mood:"angry",aL:-55,aR:-55,tilt:-8});
+  o+=anger(545,170,1.3+b*0.5)+anger(250,240,0.9+(1-b)*0.4);
+  if(lt>2)o+=label(690,250,"きらい!",80,"#e8302a",8,pop(((lt-2)%1)/0.3));
+  return o;
+},
+kusai(t,lt,b){
+  let o=bg("stinky",t);
+  o+=bigFoot(900,400,1.25,t);
+  o+=stink(700,300,1.7,t,4)+stink(820,250,1.3,t+0.4,3);
+  o+=nichika(280,GY-b*10,1.45,{mood:"yuck",aL:40+b*30,aR:163,rot:-8});
+  for(let i=0;i<3;i++)o+=`<circle cx="${600+cos(t*5+i*2)*90+i*60}" cy="${200+sin(t*7+i*2)*50}" r="7" fill="#333"/>`;
+  if(lt>1)o+=label(520,170,"くさ〜い!",84,"#5a7d0a",-8,pop(((lt-1)%1)/0.3));
+  return o;
+},
+hige(t,lt,b){
+  let o=bg("angry",t);
+  const px=1010-b*40;
+  o+=papa(px,1180,2.3,{mood:"happy",aL:40,aR:40,tilt:-10});
+  for(let i=0;i<7;i++){const a=PI*(0.55+0.5*i/6);o+=star(px-60+cos(a)*(250+b*40),400+sin(a)*(190+b*30),0.7+rnd(i)*0.6,"#fff36b",t*90+i*30);}
+  o+=nichika(300+b*10,GY,1.45,{mood:lt>2?"yuck":"angry",aL:30,aR:150,rot:-10});
+  o+=label(600,150,lt>2?"いたい!":"ちくちく",80,"#e8302a",-6,pop((lt%2)/0.3));
+  return o;
+},
+onara(t,lt,b){
+  let o=bg("stinky",t);
+  const k=ease((lt-1.15)/0.5);
+  o+=papa(900,GY-(lt>1.2&&lt<1.6?20:0),1.1,{back:true,aL:30,aR:30,rot:lt>1.2?6:0});
+  if(k>0){o+=cloud(900-k*330,GY-190,0.6+k*1.6+b*0.08);o+=label(900-k*330,GY-170,"ぷ〜",70+k*40,"#7a8c12");o+=stink(900-k*330,GY-330,1.3,t,3);}
+  const fall=ease((lt-2)/0.5);
+  o+=nichika(260,GY-b*8*(1-fall),1.4,{mood:lt>1.3?"yuck":"soft",aL:lt>1.3?150:20,aR:lt>1.3?160:20,rot:-fall*70});
+  return o;
+},
+acchi(t,lt,b){
+  let o=bg("angry",t);
+  o+=papa(820+ease(lt/3.5)*330,GY,1.05,{mood:"sad",aL:10,aR:10,tilt:12,rot:4});
+  o+=nichika(380,GY-b*22,1.5,{mood:"angry",aL:-50,aR:92+b*8});
+  o+=label(700,200,"あっち いって!",76,"#e8302a",-5,pop(lt/0.3));
+  if(lt>2){const n=Math.min(3,Math.floor((lt-2)/0.5)+1);for(let i=0;i<n;i++)o+=anger(250+i*130,150-(i%2)*50,1.1*pop((lt-2-i*0.5)/0.25));}
+  return o;
+},
+demo(t,lt,b){
+  let o=bg("soft",t);
+  o+=papa(1010,GY,0.8,{mood:"sad",tilt:8});
+  o+=nichika(520,GY,1.6,{mood:"soft",aL:10,aR:150,tilt:10});
+  o+=label(760,220,"でも…",96,"#8a6fd1",0,pop(lt/0.4));
+  return o;
+},
+dakko(t,lt,b){
+  let o=bg("soft",t);
+  const up=sin(t*PI)*0.5+0.5;
+  o+=papa(640,GY,0.8,{mood:"happy",aL:168,aR:168});
+  o+=nichika(640,GY-300-up*40,0.8,{mood:"happy",aL:110,aR:110,rot:sin(t*PI)*6});
+  o+=heart(380,250-up*30,1.4)+heart(900,220+up*30,1.1,"#ff8fb1")+star(300,420,1.2,"#ffe14d",t*60)+star(990,440,1,"#ffe14d",-t*60);
+  o+=label(250,150,"たかい たかーい",50,"#8a6fd1",-6);
+  return o;
+},
+asobu(t,lt,b){
+  let o=bg("soft",t);
+  const ph=(t%1.5)/1.5,dir=Math.floor(t/1.5)%2,p=dir?1-ph:ph;
+  const bx=440+p*400,by=GY-260-sin(ph*PI)*190;
+  o+=papa(930,GY-(p>0.85?18:0),1.08,{mood:"happy",aL:p>0.7?150:50,aR:40});
+  o+=nichika(350,GY-(p<0.15?18:0),1.45,{mood:"happy",aL:40,aR:p<0.3?150:60});
+  o+=`<g transform="translate(${bx} ${by}) rotate(${t*300})"><circle r="46" fill="#fff" stroke="#e8302a" stroke-width="5"/><path d="M-46 0 A46 46 0 0 1 0 -46 L0 0Z" fill="#e8302a"/><path d="M46 0 A46 46 0 0 1 0 46 L0 0Z" fill="#5cc8ff"/></g>`;
+  o+=star(200,180,1.2,"#ffe14d",t*50)+star(1090,160,1,"#ffe14d",-t*50);
+  return o;
+},
+yappari(t,lt,b){
+  let o=bg("soft",t);
+  o+=`<rect width="${W}" height="${H}" fill="#fff" opacity="${cl(lt)*0.45}"/>`;
+  o+=papa(960,GY,1.0,{mood:"soft",aL:40,aR:40});
+  o+=nichika(520,GY,1.6+lt*0.12,{mood:"soft",aL:-40,aR:-40,tilt:6});
+  o+=heart(640,190,0.5+lt*3.2,PINK,sin(t*20)*4);
+  return o;
+},
+suki(t,lt,b){
+  let o=bg("love",t)+rainHearts(t,16);
+  o+=papa(900,GY-(1-b)*26,1.08,{mood:"happy",aL:120+sin(t*PI*2)*40,aR:120-sin(t*PI*2)*40,rot:sin(t*PI)*5});
+  o+=nichika(400,GY-b*34,1.55,{mood:"happy",aL:150+sin(t*PI*2)*25,aR:150-sin(t*PI*2)*25,rot:sin(t*PI)*-6});
+  o+=label(650,190,"すき!",120,PINK,-6,pop((lt%1)/0.3)+b*0.08);
+  return o;
+},
+papa(t,lt,b){
+  let o=bg("love",t);
+  o+=papa(930,GY-(1-b)*12,0.98,{mood:"happy",aL:60,aR:60,tilt:sin(t*PI)*5});
+  o+=nichika(360,GY-b*24,1.5,{mood:"happy",aL:60,aR:105});
+  o+=flowHearts(t,450,330,900,260,7);
+  o+=label(640,105,"パパが だいすき",76,PINK,-3,pop(lt/0.4));
+  return o;
+},
+hug(t,lt,b){
+  let o=bg("love",t);
+  o+=papa(900,GY-b*18,0.98,{mood:"happy",aL:105,aR:70});
+  o+=nichika(380,GY-(1-b)*18,1.5,{mood:"happy",aL:70,aR:70,tilt:sin(t*PI)*6});
+  o+=flowHearts(t,860,260,420,330,7);
+  o+=label(640,100,"パパも にちかが だいすき",64,"#3b8fd9",3,pop(lt/0.4));
+  return o;
+},
+self(t,lt,b){
+  let o=bg("love",t);
+  o+=heart(640,420,8.5+b*0.6,"#ffc2d6");
+  for(let i=0;i<8;i++){const a=i*PI/4+t;o+=star(640+cos(a)*380,330+sin(a)*250,1+rnd(i)*0.6,"#ffe14d",t*80);}
+  o+=papa(1120,GY+40,0.8,{mood:"happy",aL:130+b*30,aR:130+b*30});
+  o+=nichika(640,GY+30-b*20,2.0,{mood:"happy",aL:-62,aR:-62,tilt:sin(t*PI)*7});
+  o+=label(640,110,"にちかも だいすき",72,PINK,-3,pop(lt/0.4));
+  return o;
+},
+kusaikedo(t,lt,b){
+  let o=bg("love",t);
+  o+=bigFoot(980,430,0.95,t)+stink(850,360,1.3,t,3);
+  if(lt<2){o+=nichika(360,GY-b*14,1.5,{mood:"yuck",aL:40,aR:163,rot:-5});o+=label(600,170,"くさいけど…",76,"#5a7d0a",-5,pop(lt/0.3));}
+  else{o+=nichika(360,GY-b*28,1.5,{mood:"happy",aL:150,aR:150});o+=heart(640,230,2.5*pop((lt-2)/0.4)+b*0.3);o+=label(640,120,"やっぱり",76,PINK,4,pop((lt-2)/0.3));}
+  return o;
+},
+finale(t,lt,b){
+  let o=bg("love",t)+rainHearts(t,22,5);
+  for(let i=0;i<30;i++){const ph=(t*0.4+rnd(i))%1;o+=`<rect x="${rnd(i+70)*W}" y="${ph*H}" width="14" height="22" rx="3" fill="${["#ffe14d","#5cc8ff","#7ed957","#b58cff"][i%4]}" transform="rotate(${t*200+i*40} ${rnd(i+70)*W} ${ph*H})"/>`;}
+  o+=papa(840,GY-(1-b)*30,0.98,{mood:"happy",aL:160,aR:160,rot:sin(t*PI)*7});
+  o+=nichika(470,GY-b*36,1.55,{mood:"happy",aL:160,aR:160,rot:sin(t*PI)*-8});
+  o+=label(640,125,lt>2?"パパ〜!":"だいすき!",100,PINK,-5,pop((lt%2)/0.3)+b*0.06);
+  return o;
+},
+gyu(t,lt,b){
+  let o=bg("love",t)+rainHearts(t,14,9);
+  const k=ease(lt/0.8);
+  o+=heart(640,430,9+sin(t*PI*2)*0.5,"#ff8fb1");
+  o+=papa(900-k*200,GY+20,1.15,{mood:"happy",aL:-35*k+40*(1-k),aR:20,tilt:-8*k});
+  o+=nichika(380+k*210,GY+20,1.5,{mood:"happy",aL:60,aR:95,tilt:10*k});
+  o+=label(640,140,"だいすき!",130,PINK,-4,pop((lt-0.6)/0.5));
+  if(lt>2.6)o+=label(1100,560,"おしまい",54,"#8a6fd1",0,pop((lt-2.6)/0.4));
+  return o;
+}};
+
+function caption(t){
+  const li=Math.floor(t/4),ps=TL.filter(p=>Math.floor(p.t/4)==li);
+  if(!ps.length||t<ps[0].t-0.4)return"";
+  let tsp="";
+  ps.forEach(p=>{const on=t>=p.t-0.03;tsp+=`<tspan fill="${on?PINK:"#9a8f99"}">${p.text} </tspan>`;});
+  return `<rect x="140" y="${H-98}" width="1000" height="80" rx="40" fill="#fff" opacity=".93"/><text x="640" y="${H-42}" text-anchor="middle" font-size="46" xml:space="preserve">${tsp.replace(/ <\/tspan>$/,"</tspan>")}</text>`;
+}
+function render(t){
+  let name="intro",start=0;
+  for(const p of TL){if(t>=p.t-0.12){if(p.scene!=name){name=p.scene;start=p.t-0.12;}}else break;}
+  const lt=t-start,b=abs(sin(PI*t/BEAT));
+  let o=SC[name](t,lt,b)+caption(t);
+  if(start>0&&lt<0.25)o+=`<rect width="${W}" height="${H}" fill="#fff" opacity="${(1-lt/0.25)*0.8}"/>`;
+  if(t>59.3)o+=`<rect width="${W}" height="${H}" fill="#fff" opacity="${cl((t-59.3)/0.7)}"/>`;
+  document.getElementById("stage").innerHTML=o;
+}
+window.render=render;
+render(0);
+const au=document.getElementById("au"),btn=document.getElementById("play");
+if(location.hash=="#capture")btn.remove();
+btn.onclick=()=>{btn.style.display="none";au.currentTime=0;au.play();(function loop(){render(au.currentTime);if(!au.ended)requestAnimationFrame(loop);else btn.style.display="";})();};
+</script>
+</body>
+</html>
