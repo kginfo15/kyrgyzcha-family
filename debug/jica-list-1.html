@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>メンテナンス中 | JICA - 国際協力機構</title>
+<!--
+  ============================================================
+  JICAウェブサイト メンテナンス画面
+  ・外部CSS／JSに依存しない単体ファイル
+  ・サーバー側では HTTP 503（Retry-After 付き）で返す想定
+  ・更新時に書き換えるのは「メンテナンス情報エリア」のみ
+  ============================================================
+-->
+<style>
+  /* ---------- カラートークン（本サイトCSSの値に合わせて調整） ---------- */
+  :root {
+    --jica-blue: #0071c5;        /* コーポレートカラー：本サイトの指定値に差し替え */
+    --jica-blue-dark: #005a9e;   /* ヘッダー下段の濃い帯 */
+    --jica-blue-light: #e8f1fa;  /* 情報エリア背景 */
+    --text-main: #333333;
+    --text-sub: #666666;
+    --border: #d9dee3;
+    --bg-page: #ffffff;
+    --bg-footer: #f5f7f9;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { font-size: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-page);
+    color: var(--text-main);
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans",
+                 "Yu Gothic", "YuGothic", Meiryo, sans-serif;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- ① ページヘッダー（ロゴ＋青帯のみ） ---------- */
+  .header {
+    position: relative;
+    height: 140px;
+    background: linear-gradient(to bottom,
+                var(--jica-blue) 0, var(--jica-blue) 96px,
+                var(--jica-blue-dark) 96px, var(--jica-blue-dark) 100%);
+  }
+
+  .header__logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 138px;
+    height: 148px;              /* 帯より少し下にはみ出させる（本サイト準拠） */
+    padding: 18px 10px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+  }
+
+  .header__logo-mark { width: 96px; height: auto; }
+  .header__logo-name { width: 120px; height: auto; }
+
+  /* ---------- ② メインエリア ---------- */
+  .main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 64px 16px;
+  }
+
+  .maintenance {
+    width: 100%;
+    max-width: 720px;
+    text-align: center;
+  }
+
+  .maintenance__icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 24px;
+    color: var(--jica-blue);
+  }
+
+  .maintenance__title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+  }
+
+  .maintenance__title-en {
+    margin: 4px 0 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--jica-blue);
+    letter-spacing: 0.08em;
+  }
+
+  .maintenance__lead {
+    margin: 28px 0 0;
+    font-size: 1rem;
+  }
+
+  .maintenance__lead-en {
+    margin: 8px 0 0;
+    font-size: 0.875rem;
+    color: var(--text-sub);
+    line-height: 1.7;
+  }
+
+  /* ---------- ③ メンテナンス情報エリア ---------- */
+  .info {
+    margin: 40px 0 0;
+    padding: 28px 32px;
+    background: var(--jica-blue-light);
+    border-top: 3px solid var(--jica-blue);
+    text-align: left;
+  }
+
+  .info__heading {
+    margin: 0 0 16px;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--jica-blue);
+  }
+
+  .info__heading span {
+    margin-left: 8px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-sub);
+  }
+
+  .info__list {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 7.5em 1fr;
+    border-top: 1px solid var(--border);
+  }
+
+  .info__list dt,
+  .info__list dd {
+    margin: 0;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9375rem;
+  }
+
+  .info__list dt {
+    font-weight: 700;
+    padding-right: 12px;
+  }
+
+  .info__list dt small {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-sub);
+    line-height: 1.4;
+  }
+
+  .info__list dd small {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--text-sub);
+    line-height: 1.6;
+  }
+
+  /* ---------- ④ フッター ---------- */
+  .footer {
+    background: var(--bg-footer);
+    border-top: 1px solid var(--border);
+    padding: 32px 16px 24px;
+  }
+
+  .footer__inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .footer__logo {
+    flex-shrink: 0;
+    width: 88px;
+    height: auto;
+  }
+
+  .footer__org {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .footer__address {
+    margin: 4px 0 0;
+    font-style: normal;
+    font-size: 0.8125rem;
+    color: var(--text-sub);
+    line-height: 1.7;
+  }
+
+  .footer__copyright {
+    max-width: 960px;
+    margin: 24px auto 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--text-sub);
+    text-align: center;
+  }
+
+  /* ---------- スマートフォン ---------- */
+  @media (max-width: 600px) {
+    .header {
+      height: 72px;
+      background: linear-gradient(to bottom,
+                  var(--jica-blue) 0, var(--jica-blue) 56px,
+                  var(--jica-blue-dark) 56px, var(--jica-blue-dark) 100%);
+    }
+    .header__logo {
+      width: 76px;
+      height: 80px;
+      padding: 10px 6px 8px;
+    }
+    .header__logo-mark { width: 54px; }
+    .header__logo-name { width: 64px; }
+    .main { padding: 48px 16px; }
+    .maintenance__icon { width: 56px; height: 56px; }
+    .maintenance__title { font-size: 1.375rem; }
+    .info { padding: 20px 16px; }
+    .info__list { grid-template-columns: 1fr; }
+    .info__list dt { padding-bottom: 0; border-bottom: none; }
+    .info__list dd { padding-top: 4px; }
+    .footer__inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ① ページヘッダー（ロゴ＋青帯のみ／リンク・アイコンなし） -->
+  <header class="header">
+    <div class="header__logo">
+      <!-- ロゴ：本番ではBase64埋め込み（data:image/png;base64,...）への差し替えを推奨 -->
+      <img class="header__logo-mark" src="asset/logo.png" alt="JICA">
+      <img class="header__logo-name" src="https://www.jica.go.jp/assets/img/logo2.png" alt="独立行政法人 国際協力機構">
+    </div>
+  </header>
+
+  <!-- ② メインエリア -->
+  <main class="main">
+    <section class="maintenance" aria-labelledby="maintenance-title">
+
+      <svg class="maintenance__icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M38.5 18.5a8 8 0 0 0-9.6 10.3L18.6 39.1a2.8 2.8 0 0 0 0 4l2.3 2.3a2.8 2.8 0 0 0 4 0l10.3-10.3a8 8 0 0 0 10.3-9.6l-4.6 4.6-4.4-1.2-1.2-4.4 4.6-4.6z"
+              stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
+
+      <h1 class="maintenance__title" id="maintenance-title">ただいまメンテナンス中です</h1>
+      <p class="maintenance__title-en" lang="en">Under Maintenance</p>
+
+      <p class="maintenance__lead">
+        現在、システムメンテナンスのためサービスを一時停止しております。<br>
+        ご利用の皆さまにはご不便をおかけいたしますが、<br>
+        何卒ご理解くださいますようお願い申し上げます。
+      </p>
+      <p class="maintenance__lead-en" lang="en">
+        This website is currently undergoing scheduled maintenance.<br>
+        We apologize for any inconvenience and appreciate your understanding.
+      </p>
+      <p class="maintenance__lead">
+        <a href="https://www.jica.go.jp">JICA ウェブサイトトップへ（JICA Website Top）</a>
+      </p>
+
+      <!-- ③ メンテナンス情報エリア ========== ここから編集 ========== -->
+      <div class="info">
+        <h2 class="info__heading">メンテナンス情報<span lang="en">Maintenance Information</span></h2>
+        <dl class="info__list">
+          <dt>対象<small lang="en">Scope</small></dt>
+          <dd>
+事業評価案件検索画面（日）<br>
+https://www2.jica.go.jp/ja/evaluation/index.php<br>
+<br>
+事業評価案件検索画面（英）<br>
+https://www2.jica.go.jp/en/evaluation/index.php<br>
+<br>
+コンサルタント等契約案件公示検索画面<br>
+https://www2.jica.go.jp/ja/announce/index.php?contract=1<br>
+<br>
+採択事業検索画面<br>
+https://www2.jica.go.jp/ja/priv_sme_partner/index.php<br>
+<br>
+円借款案件検索画面<br>
+https://www2.jica.go.jp/ja/yen_loan/index.php<br>
+<br>
+見える化案件検索画面<br>
+https://www2.jica.go.jp/ja/oda/index.php
+          </dd>
+
+          <dt>内容<small lang="en">Details</small></dt>
+          <dd>
+            予防的な安全対策のため
+            <small lang="en">For preventative safety measures</small>
+          </dd>
+
+          <dt>補足<small lang="en">Notes</small></dt>
+          <dd>
+            安全が確認出来次第、再開を予定しております。
+            <small lang="en">We will resume search page once safety has been confirmed.</small>
+          </dd>
+        </dl>
+      </div>
+      <!-- ③ メンテナンス情報エリア ========== ここまで編集 ========== -->
+
+    </section>
+  </main>
+
+  <!-- ④ フッター -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <!-- ロゴ：本番ではBase64埋め込み（data:image/png;base64,...）への差し替えを推奨 -->
+      <img class="footer__logo" src="asset/logo.png" alt="JICA">
+      <div>
+        <p class="footer__org">独立行政法人 国際協力機構</p>
+        <address class="footer__address">
+          〒102-8012 東京都千代田区二番町5-25 二番町センタービル<br>
+          電話番号：（03）5226-6660から6663（代表）
+        </address>
+      </div>
+    </div>
+    <p class="footer__copyright" lang="en">Copyright &copy; Japan International Cooperation Agency</p>
+  </footer>
+
+</body>
+</html>
