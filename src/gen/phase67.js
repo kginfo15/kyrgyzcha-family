@@ -104,7 +104,8 @@ document.addEventListener("click",function(e){
   '.study .extrabtn{border-radius:12px!important}.study .easy{line-height:1.75!important}'+
   '.study details.more>summary{font-weight:700}.study .gd{line-height:1.8!important}'+
   /* 結果画面：ボタンを画面下に固定 */
-  'body.p67-result #main .p50-btns{position:sticky;bottom:0;z-index:20;background:var(--bg);padding:10px 0 calc(10px + env(safe-area-inset-bottom));margin-top:14px!important;border-top:1px solid var(--line)}'+
+  'body.p67-result #main .p50-btns{position:fixed;left:0;right:0;bottom:calc(57px + env(safe-area-inset-bottom));z-index:25;background:var(--bg);padding:10px max(16px,calc(50% - 284px));margin:0!important;border-top:1px solid var(--line)}'+
+  'body.p67-result #main{padding-bottom:150px}'+
   /* リスニングの設定の畳み */
   '.p67-lisset{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:0 14px}'+
   '.p67-lisset>summary{list-style:none;cursor:pointer;padding:14px 0;font-weight:700;display:flex;justify-content:space-between;align-items:center}'+
@@ -166,3 +167,18 @@ if(P_LVLS.indexOf("B1")>=0){
       for(var i=0;i<a.length;i++){var t=a[i].textContent;if(/A2の文法項目ごとの達成度|A2カバー状況/.test(t))a[i].textContent=t.replace(/A2の文法項目ごとの達成度/,"文法項目ごとの達成度（A1〜B1）").replace("A2カバー状況","文法の達成度");}}}catch(_){}
     return r;};
 }
+
+/* ===== PHASE67-2: レビュー指摘の修正（全言語共通） ===== */
+/* 瞬間作文の一覧：「各20文」をやめ、B1 のユニットの前に見出しを入れる */
+var _p67Cs=renderComposeSelect;
+renderComposeSelect=function(){var h=String(_p67Cs.apply(this,arguments)).replace("ユニットで選ぶ（各20文）","ユニットで選ぶ");
+  var b=-1;for(var i=0;i<UNITS.length;i++){if(COMPOSE.some(function(c){return c.unit===UNITS[i]&&c.level==="B1";})){b=i;break;}}
+  if(b>=0)h=h.replace('<div class="row2" data-act="cunit" data-val="'+b+'"','<div class="h2">B1 ・ 中級</div><div class="row2" data-act="cunit" data-val="'+b+'"');
+  return h;};
+/* リスニング：0語のときに「0語中 1語目」と出さない */
+var _p67Lis2=renderListening;
+renderListening=function(){return String(_p67Lis2.apply(this,arguments)).replace(/>0語中 1語目</,">対象の単語がありません<");};
+/* 設定：クラウドに保存できていないときは「Claudeアカウントに保存」の一文を出さない */
+var _p67Set=renderSettings;
+renderSettings=function(){var h=String(_p67Set.apply(this,arguments));
+  if(typeof P50==="undefined"||P50.state!=="cloud")h=h.replace("記録はClaudeアカウントに保存されるので、どこから開いても同じです。","");return h;};

@@ -46,8 +46,12 @@ function p58Grammar(lv,n){
   }
   return items;
 }
+/* 聞き取り問題は、その端末にロシア語の声があるときだけ出す（ない端末では読解問題にする） */
+try{if(window.speechSynthesis)speechSynthesis.getVoices();}catch(_){}
+function p58CanListen(){try{if(!window.speechSynthesis)return false;if(P47_LANG==="ky")return true;
+  return speechSynthesis.getVoices().some(function(v){return /^ru/i.test(v.lang||"");});}catch(_){return false;}}
 function p58Read(lv,n){
-  var pool=shuffle(p58LevelCompose(lv)),items=[],canListen=!!window.speechSynthesis;
+  var pool=shuffle(p58LevelCompose(lv)),items=[],canListen=p58CanListen();
   for(var i=0;i<pool.length&&items.length<n;i++){var c=pool[i],others=shuffle(pool.filter(function(x){return x.id!==c.id&&x.ja!==c.ja;})).slice(0,3);
     var opts=shuffle([c].concat(others)).map(function(x){return x.id;});
     items.push({sec:"r",kind:"read",mode:(canListen&&items.length%2===1)?"listen":"read",cid:c.id,opts:opts,ans:opts.indexOf(c.id)});}
@@ -86,7 +90,7 @@ function renderP58(){
 function p58Result(T){
   var S=p58Score(T),lv=T.lv;
   var h='<div class="p56-result '+(S.pass?"ok":"ng")+'"><div class="p56-rart p48-ill">'+p48Art(S.pass?"trophy":"star",54)+'</div><div class="p56-rlv">'+lv+' 到達テスト</div>'+
-    '<div class="p56-rpct">'+S.pct+'<small>%</small></div><div class="p56-rmsg">'+(S.pass?lv+' 合格です！おめでとうございます':'合格まであと少し。弱い分野を練習してもう一度挑戦しましょう')+'</div>'+
+    '<div class="p56-rpct">'+S.pct+'<small>%</small></div><div class="p56-rmsg">'+(S.pass?lv+' 合格です！おめでとうございます':(S.pct>=60?'合格まであと少し。弱い分野を練習してもう一度挑戦しましょう':'まずは下の弱い分野から練習しましょう。覚えた単語が増えたらもう一度挑戦してください'))+'</div>'+
     '<div class="p56-rsub">'+S.ok+' / '+S.n+' 問正解 ・ 合格条件：全体75%以上、各分野60%以上</div></div>';
   h+='<div class="p48-card">';Object.keys(P58_SEC).forEach(function(k){var p=S.sp[k],ok=p>=60;
     h+='<div class="p58-srow"><span>'+P58_SEC[k]+'</span><span class="p58-sbar"><i class="'+(ok?"":"low")+'" style="width:'+p+'%"></i><em style="left:60%"></em></span><b class="'+(ok?"":"low")+'">'+p+'%</b><small>'+S.sec[k][0]+'/'+S.sec[k][1]+'</small></div>';});
