@@ -86,7 +86,7 @@ def main():
             kind, _, rest = ref.partition(":")
             if kind == "news":
                 x = items.get(rest)
-                return (x.get("tj") or x.get("t") or "") + " " + x.get("p", "")[:10] if x else None
+                return (x.get("tj") or x.get("t") or "") + " " + (x.get("lj") or x.get("l") or "") + " " + x.get("p", "")[:10] if x else None
             if kind == "proj":
                 p = projects.get(rest)
                 return json.dumps(p, ensure_ascii=False) if p else None
@@ -132,7 +132,8 @@ def main():
             if kind != "f":
                 return
             core = {k: v for k, v in facts.items() if k not in ("asof", "data", "note", "rows")}
-            pool = " ".join(backing) + " " + json.dumps(core, ensure_ascii=False)
+            # the facts block counts only for sentences that cite a fact; otherwise numbers must be in the cited data itself
+            pool = " ".join(backing) + (" " + json.dumps(core, ensure_ascii=False) if any(r.startswith("fact:") for r in refs) else "")
             pool = re.sub(r'\d{4}-\d\d-\d\d(T[\d:.+Z]+)?', ' ', pool)   # dates are not amounts
             pool_nums = [float(x.replace(",", "")) for x in re.findall(r'\d[\d,]*(?:\.\d+)?', pool)]
             # headlines write 4億3000万 / 3億1,300万: read those as one number too
