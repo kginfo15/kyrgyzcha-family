@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>こんしゅうも がんばったね</title>
+<style>
+@font-face{font-family:"Maru";src:url("../nichika-papa/zen-maru-gothic-japanese-900-normal.woff2") format("woff2");font-weight:900}
+html,body{margin:0;height:100%;background:#222;overflow:hidden}
+#stage{position:absolute;inset:0;margin:auto;width:100vw;height:56.25vw;max-height:100vh;max-width:177.78vh;display:block}
+text{font-family:"Maru","Hiragino Maru Gothic ProN",sans-serif;font-weight:900}
+#play{position:absolute;inset:0;margin:auto;width:220px;height:90px;font:900 32px "Maru",sans-serif;border:0;border-radius:45px;background:#ff5c8a;color:#fff;box-shadow:0 6px 0 #c93a66;cursor:pointer}
+</style>
+</head>
+<body>
+<svg id="stage" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg"></svg>
+<button id="play">▶ さいせい</button>
+<audio id="au" src="song.m4a" preload="auto"></audio>
+<script src="timeline.js"></script>
+<script>
+const W=1280,H=720,GY=610,BEAT=60/104,TL=window.TIMELINE;
+const SKIN="#ffd9b8",HAIR="#4a2c1a",PINK="#ff5c8a";
+const sin=Math.sin,cos=Math.cos,PI=Math.PI,abs=Math.abs;
+const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const ease=x=>{x=cl(x);return 1-Math.pow(1-x,3)};
+const pop=x=>{x=cl(x);return x<1?1+0.25*sin(x*PI)*(1-x)- (1-x)*(1-x):1};
+const rnd=i=>{const x=sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x)};
+const G=(x,y,s,r,inner)=>`<g transform="translate(${x} ${y}) rotate(${r||0}) scale(${s||1})">${inner}</g>`;
+
+function heart(x,y,s,col=PINK,r=0,op=1){
+  return `<path transform="translate(${x} ${y}) rotate(${r}) scale(${s})" opacity="${op}" fill="${col}" stroke="#fff" stroke-width="3" stroke-linejoin="round" d="M0 14 C-34 -8 -22 -34 -9 -34 C-3 -34 0 -29 0 -25 C0 -29 3 -34 9 -34 C22 -34 34 -8 0 14Z"/>`;
+}
+function star(x,y,s,col="#ffe14d",r=0){
+  let p="";for(let i=0;i<10;i++){const a=i*PI/5-PI/2,R=i%2?9:22;p+=(i?"L":"M")+(cos(a)*R).toFixed(1)+" "+(sin(a)*R).toFixed(1)}
+  return `<path transform="translate(${x} ${y}) rotate(${r}) scale(${s})" fill="${col}" stroke="#fff" stroke-width="2" stroke-linejoin="round" d="${p}Z"/>`;
+}
+function anger(x,y,s){ // おこりマーク
+  return G(x,y,s,0,`<g fill="none" stroke="#e8302a" stroke-width="7" stroke-linecap="round"><path d="M-6 -22 Q-6 -6 -22 -6"/><path d="M6 -22 Q6 -6 22 -6"/><path d="M-6 22 Q-6 6 -22 6"/><path d="M6 22 Q6 6 22 6"/></g>`);
+}
+function stink(x,y,s,t,n=3,col="#7cb518"){
+  let o="";
+  for(let i=0;i<n;i++){
+    const ph=(t*0.6+i/n)%1,yy=-ph*130,xx=(i-(n-1)/2)*46+sin(t*3+i)*6;
+    let d=`M${xx} ${yy}`;for(let k=1;k<=4;k++)d+=` q${k%2?16:-16} -11 0 -22`;
+    o+=`<path d="${d}" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" opacity="${(sin(ph*PI)).toFixed(2)}"/>`;
+  }
+  return G(x,y,s,0,o);
+}
+function arm(sx,sy,deg,side,L,col,w){
+  const a=deg*PI/180,ex=sx+side*sin(a)*L,ey=sy+cos(a)*L;
+  return `<line x1="${sx}" y1="${sy}" x2="${ex}" y2="${ey}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/><circle cx="${ex}" cy="${ey}" r="${w*0.62}" fill="${SKIN}"/>`;
+}
+function face(mood,cy,k){ // k: 大きさ係数
+  const e=22*k,ey=cy+2*k;let o="";
+  const st=`fill="none" stroke="#3a2416" stroke-width="${5*k}" stroke-linecap="round" stroke-linejoin="round"`;
+  if(mood=="happy"){
+    o+=`<path d="M${-e-10*k} ${ey} q${10*k} ${-13*k} ${20*k} 0" ${st}/><path d="M${e-10*k} ${ey} q${10*k} ${-13*k} ${20*k} 0" ${st}/>`;
+    o+=`<path d="M${-17*k} ${cy+17*k} q${17*k} ${26*k} ${34*k} 0Z" fill="#d6323e" stroke="#3a2416" stroke-width="${3*k}" stroke-linejoin="round"/>`;
+  }else if(mood=="soft"){
+    o+=`<circle cx="${-e}" cy="${ey}" r="${6*k}" fill="#3a2416"/><circle cx="${e}" cy="${ey}" r="${6*k}" fill="#3a2416"/>`;
+    o+=`<path d="M${-10*k} ${cy+20*k} q${10*k} ${9*k} ${20*k} 0" ${st}/>`;
+  }else if(mood=="angry"){
+    o+=`<path d="M${-e-13*k} ${ey-18*k} l${22*k} ${9*k}" ${st}/><path d="M${e+13*k} ${ey-18*k} l${-22*k} ${9*k}" ${st}/>`;
+    o+=`<circle cx="${-e}" cy="${ey+2*k}" r="${6*k}" fill="#3a2416"/><circle cx="${e}" cy="${ey+2*k}" r="${6*k}" fill="#3a2416"/>`;
+    o+=`<path d="M${-13*k} ${cy+27*k} q${13*k} ${-13*k} ${26*k} 0" ${st}/>`;
+  }else if(mood=="yuck"){
+    o+=`<path d="M${-e-9*k} ${ey-8*k} l${15*k} ${8*k} l${-15*k} ${8*k}" ${st}/><path d="M${e+9*k} ${ey-8*k} l${-15*k} ${8*k} l${15*k} ${8*k}" ${st}/>`;
+    o+=`<path d="M${-16*k} ${cy+24*k} q${5*k} ${-8*k} ${11*k} 0 t${11*k} 0 t${11*k} 0" ${st}/>`;
+  }else if(mood=="sad"){
+    o+=`<path d="M${-e-12*k} ${ey-12*k} l${20*k} ${-8*k}" ${st}/><path d="M${e+12*k} ${ey-12*k} l${-20*k} ${-8*k}" ${st}/>`;
+    o+=`<circle cx="${-e}" cy="${ey+3*k}" r="${6*k}" fill="#3a2416"/><circle cx="${e}" cy="${ey+3*k}" r="${6*k}" fill="#3a2416"/>`;
+    o+=`<path d="M${-12*k} ${cy+28*k} q${12*k} ${-12*k} ${24*k} 0" ${st}/>`;
+    o+=`<path d="M${-e-2*k} ${ey+12*k} q${-9*k} ${16*k} 0 ${22*k} q${9*k} ${-6*k} 0 ${-22*k}Z" fill="#6ecbff"/><path d="M${e+2*k} ${ey+12*k} q${-9*k} ${16*k} 0 ${22*k} q${9*k} ${-6*k} 0 ${-22*k}Z" fill="#6ecbff"/>`;
+  }
+  const blush=mood=="angry"?"#ff6b5c":"#ff9fb0";
+  o+=`<ellipse cx="${-e-14*k}" cy="${cy+16*k}" rx="${11*k}" ry="${7*k}" fill="${blush}" opacity=".75"/><ellipse cx="${e+14*k}" cy="${cy+16*k}" rx="${11*k}" ry="${7*k}" fill="${blush}" opacity=".75"/>`;
+  return o;
+}
+// にちか: 足もとが原点。 aL/aR は腕の角度(0=下, 90=横, 180=上, マイナス=内側)
+function nichika(x,y,s,o={}){
+  const {mood="happy",aL=20,aR=20,rot=0,tilt=0}=o;
+  const SH="#fff4d6";
+  const narm=(deg,side)=>{const r=deg*PI/180,sx=side*27,sy=-138;
+    return arm(sx,sy,deg,side,54,SKIN,15)+`<line x1="${sx}" y1="${sy}" x2="${sx+side*sin(r)*20}" y2="${sy+cos(r)*20}" stroke="${SH}" stroke-width="22" stroke-linecap="round"/>`;};
+  let b="";
+  // あし(はだし)
+  b+=`<line x1="-19" y1="-66" x2="-19" y2="-10" stroke="${SKIN}" stroke-width="19" stroke-linecap="round"/><line x1="19" y1="-66" x2="19" y2="-10" stroke="${SKIN}" stroke-width="19" stroke-linecap="round"/>`;
+  b+=`<ellipse cx="-24" cy="-5" rx="19" ry="10" fill="${SKIN}"/><ellipse cx="24" cy="-5" rx="19" ry="10" fill="${SKIN}"/>`;
+  if(aL>=0)b+=narm(aL,-1); if(aR>=0)b+=narm(aR,1);
+  // おむつ
+  b+=`<path d="M-42 -102 L42 -102 L40 -70 Q0 -40 -40 -70Z" fill="#fff" stroke="#bcd9f2" stroke-width="4" stroke-linejoin="round"/>`;
+  b+=`<path d="M-42 -92 H42" stroke="#bcd9f2" stroke-width="4"/><rect x="-40" y="-99" width="16" height="9" rx="3" fill="#8fd0ff"/><rect x="24" y="-99" width="16" height="9" rx="3" fill="#8fd0ff"/>`;
+  // はんそでシャツ
+  b+=`<path d="M-38 -100 L-31 -152 L31 -152 L38 -100Z" fill="${SH}" stroke="${SH}" stroke-width="12" stroke-linejoin="round"/>`;
+  // スイカ(三角)が うえきばちポケットに ささってる
+  b+=`<path d="M-19 -146 L19 -146 L0 -110Z" fill="#ff4d5e" stroke="#ff4d5e" stroke-width="3" stroke-linejoin="round"/>`;
+  b+=`<path d="M-21 -147 H21" stroke="#2fa84f" stroke-width="7" stroke-linecap="round"/><path d="M-18 -142 H18" stroke="#eaffd0" stroke-width="2.5"/>`;
+  b+=`<circle cx="-7" cy="-135" r="2.2" fill="#222"/><circle cx="6" cy="-134" r="2.2" fill="#222"/><circle cx="0" cy="-126" r="2.2" fill="#222"/>`;
+  b+=`<path d="M-12 -120 L12 -120 L8 -101 L-8 -101Z" fill="#9a5b2c"/><rect x="-15" y="-124" width="30" height="7" rx="3" fill="#7d4720"/>`;
+  if(aL<0)b+=narm(aL,-1); if(aR<0)b+=narm(aR,1);
+  let h="";
+  // えりくらいの そとはねヘア
+  h+=`<path d="M-58 -215 Q-62 -168 -92 -150 Q-64 -140 -44 -160Z" fill="${HAIR}"/><path d="M58 -215 Q62 -168 92 -150 Q64 -140 44 -160Z" fill="${HAIR}"/>`;
+  h+=`<circle cx="0" cy="-206" r="64" fill="${HAIR}"/><circle cx="0" cy="-198" r="56" fill="${SKIN}"/>`;
+  h+=`<path d="M-57 -196 Q-52 -268 0 -268 Q52 -268 57 -196 Q40 -236 8 -238 Q-10 -222 -57 -196Z" fill="${HAIR}"/>`;
+  h+=face(mood,-198,1);
+  b+=`<g transform="rotate(${tilt} 0 -150)">${h}</g>`;
+  return G(x,y,s,rot,b);
+}
+function papa(x,y,s,o={}){
+  const {mood="happy",aL=15,aR=15,rot=0,tilt=0,back=false}=o;
+  let b="";
+  b+=`<line x1="-28" y1="-150" x2="-28" y2="-10" stroke="#3b5ba5" stroke-width="40" stroke-linecap="round"/><line x1="28" y1="-150" x2="28" y2="-10" stroke="#3b5ba5" stroke-width="40" stroke-linecap="round"/>`;
+  b+=`<ellipse cx="-38" cy="-6" rx="36" ry="15" fill="${SKIN}"/><ellipse cx="38" cy="-6" rx="36" ry="15" fill="${SKIN}"/>`;
+  if(aL>=0)b+=arm(-62,-285,aL,-1,105,"#3fae6a",30); if(aR>=0)b+=arm(62,-285,aR,1,105,"#3fae6a",30);
+  b+=`<rect x="-66" y="-310" width="132" height="175" rx="34" fill="#3fae6a"/>`;
+  b+=`<path d="M-66 -235h132M-66 -190h132" stroke="#fff" stroke-width="12" opacity=".55"/>`;
+  if(aL<0)b+=arm(-62,-285,aL,-1,105,"#3fae6a",30); if(aR<0)b+=arm(62,-285,aR,1,105,"#3fae6a",30);
+  let h="";
+  h+=`<circle cx="-66" cy="-362" r="14" fill="${SKIN}"/><circle cx="66" cy="-362" r="14" fill="${SKIN}"/>`;
+  h+=`<circle cx="0" cy="-366" r="66" fill="${SKIN}"/>`;
+  if(back){h+=`<circle cx="0" cy="-370" r="67" fill="#2b2b33"/>`;}
+  else{
+    h+=`<path d="M-66 -372 Q-70 -440 0 -440 Q70 -440 66 -372 Q40 -410 0 -404 Q-40 -410 -66 -372Z" fill="#2b2b33"/>`;
+    for(let i=0;i<13;i++){const a=PI*(0.12+0.76*i/12),r=i%2?50:58;h+=`<circle cx="${(cos(a)*r).toFixed(1)}" cy="${(-362+sin(a)*r*0.95).toFixed(1)}" r="3.2" fill="#555"/>`;}
+    h+=face(mood,-370,1.15);
+    h+=`<g fill="#fff" fill-opacity=".3" stroke="#222" stroke-width="5"><circle cx="-26" cy="-367" r="21"/><circle cx="26" cy="-367" r="21"/></g><path d="M-5 -367 H5 M-47 -369 L-64 -374 M47 -369 L64 -374" stroke="#222" stroke-width="5" stroke-linecap="round"/>`;
+  }
+  b+=`<g transform="rotate(${tilt} 0 -300)">${h}</g>`;
+  return G(x,y,s,rot,b);
+}
+function bigFoot(x,y,s,t){
+  let o=`<rect x="120" y="-70" width="500" height="140" rx="60" fill="#3b5ba5"/>`;
+  o+=`<ellipse cx="0" cy="0" rx="170" ry="105" fill="${SKIN}"/>`;
+  [[-150,-78,34],[-178,-36,28],[-186,6,25],[-180,44,22],[-162,76,19]].forEach(([tx,ty,r],i)=>{
+    o+=`<circle cx="${tx+sin(t*8+i)*5}" cy="${ty}" r="${r}" fill="${SKIN}" stroke="#e9b78f" stroke-width="3"/>`;});
+  o+=`<path d="M-40 -30 q20 30 0 60 M10 -40 q24 40 0 80" fill="none" stroke="#e9b78f" stroke-width="5" stroke-linecap="round"/>`;
+  return G(x,y,s,sin(t*PI*2)*4,o);
+}
+function cloud(x,y,s,col="#d9e86a"){
+  return G(x,y,s,0,`<g fill="${col}"><circle cx="-50" cy="6" r="42"/><circle cx="0" cy="-18" r="56"/><circle cx="56" cy="4" r="44"/><circle cx="6" cy="30" r="46"/></g>`);
+}
+function bg(kind,t){
+  const pal={angry:["#ffb36b","#ff8552","#c96a3a"],stinky:["#e7f3a0","#c9de6b","#8aa83a"],soft:["#e6dcff","#ffd6ea","#8fd6a0"],love:["#9be3ff","#ffe0ee","#7ed68a"]}[kind];
+  let o=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${pal[0]}"/><stop offset="1" stop-color="${pal[1]}"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#sky)"/>`;
+  if(kind=="love"){
+    let rays="";for(let i=0;i<12;i++){const a=i*PI/6+t*0.25;rays+=`<path d="M640 330 L${640+cos(a-0.12)*1200} ${330+sin(a-0.12)*1200} L${640+cos(a+0.12)*1200} ${330+sin(a+0.12)*1200}Z" fill="#fff" opacity=".28"/>`;}
+    o+=rays;
+    ["#ff6b6b","#ffb84d","#ffe14d","#7ed957","#5cc8ff","#b58cff"].forEach((c,i)=>{o+=`<circle cx="640" cy="${GY+60}" r="${560-i*24}" fill="none" stroke="${c}" stroke-width="24" opacity=".8"/>`;});
+  }else if(kind=="angry"){
+    for(let i=0;i<9;i++){const x=i*160+((t*40)%160)-80;o+=`<path d="M${x} 0 l40 0 l-120 ${H} l-40 0Z" fill="#fff" opacity=".1"/>`;}
+  }else if(kind=="soft"){
+    for(let i=0;i<14;i++){o+=`<circle cx="${rnd(i)*W}" cy="${(rnd(i+50)*500+sin(t+i)*12)}" r="${10+rnd(i+9)*26}" fill="#fff" opacity=".35"/>`;}
+  }else{
+    for(let i=0;i<8;i++){o+=cloud(rnd(i+3)*W,rnd(i+30)*380+40,0.5+rnd(i)*0.5,"#f4fbc0");}
+  }
+  o+=`<ellipse cx="640" cy="${H+250}" rx="1100" ry="400" fill="${pal[2]}"/>`;
+  return o;
+}
+function rainHearts(t,n,seed=0){
+  let o="";const cols=[PINK,"#ff8fb1","#ffb84d","#ff6b6b","#b58cff"];
+  for(let i=0;i<n;i++){const sp=0.25+rnd(i+seed)*0.3,ph=(t*sp+rnd(i*3+seed))%1;
+    o+=heart(rnd(i*7+seed)*W+sin(t*2+i)*20,-40+ph*(H+80),0.6+rnd(i+11)*1.1,cols[i%5],sin(t*3+i)*20,0.9);}
+  return o;
+}
+function flowHearts(t,x1,y1,x2,y2,n){
+  let o="";for(let i=0;i<n;i++){const ph=(t*0.7+i/n)%1,x=x1+(x2-x1)*ph,y=y1+(y2-y1)*ph-sin(ph*PI)*130;
+    o+=heart(x,y,0.5+sin(ph*PI)*0.9,i%2?PINK:"#ff8fb1",sin(t*4+i)*15,cl(sin(ph*PI)*2));}
+  return o;
+}
+function label(x,y,txt,size,fill,r=0,s=1){
+  return `<text transform="translate(${x} ${y}) rotate(${r}) scale(${s})" text-anchor="middle" font-size="${size}" fill="${fill}" stroke="#fff" stroke-width="${size*0.16}" paint-order="stroke" stroke-linejoin="round">${txt}</text>`;
+}
+
+const BAR=BEAT*4;
+function kazuki(x,y,s,o={}){
+  const {mood="happy",aL=20,aR=20,rot=0,tilt=0,swim=false,cape=false,crown=false}=o;
+  const C=swim?"#2b4fa8":"#ff7fb0";
+  let b="";
+  if(cape)b+=`<path d="M-30 -176 L30 -176 L70 -50 Q0 -78 -70 -50Z" fill="#e8302a"/>`;
+  b+=`<path d="M-62 -240 L-66 -128 Q-66 -116 -54 -116 L54 -116 Q66 -116 66 -128 L62 -240Z" fill="${HAIR}"/>`;
+  b+=`<line x1="-17" y1="-95" x2="-17" y2="-10" stroke="${SKIN}" stroke-width="16" stroke-linecap="round"/><line x1="17" y1="-95" x2="17" y2="-10" stroke="${SKIN}" stroke-width="16" stroke-linecap="round"/>`;
+  b+=`<ellipse cx="-21" cy="-5" rx="19" ry="10" fill="${swim?SKIN:"#7a5cff"}"/><ellipse cx="21" cy="-5" rx="19" ry="10" fill="${swim?SKIN:"#7a5cff"}"/>`;
+  if(aL>=0)b+=arm(-30,-166,aL,-1,62,SKIN,15); if(aR>=0)b+=arm(30,-166,aR,1,62,SKIN,15);
+  if(swim)b+=`<path d="M-36 -100 L-30 -178 L30 -178 L36 -100 Q0 -80 -36 -100Z" fill="${C}" stroke="${C}" stroke-width="10" stroke-linejoin="round"/><path d="M-30 -150 H30" stroke="#ffe14d" stroke-width="7"/>`;
+  else b+=`<path d="M-56 -88 L-30 -178 L30 -178 L56 -88Z" fill="${C}" stroke="${C}" stroke-width="12" stroke-linejoin="round"/><path d="M-58 -90 H58" stroke="#fff" stroke-width="8" stroke-linecap="round"/>`+star(0,-138,0.75,"#ffe14d",0);
+  if(aL<0)b+=arm(-30,-166,aL,-1,62,SKIN,15); if(aR<0)b+=arm(30,-166,aR,1,62,SKIN,15);
+  let h="";
+  h+=`<circle cx="0" cy="-234" r="63" fill="${HAIR}"/><circle cx="0" cy="-226" r="55" fill="${SKIN}"/>`;
+  h+=`<path d="M-58 -222 Q-60 -296 0 -296 Q60 -296 58 -222 L52 -246 Q28 -256 0 -254 Q-28 -256 -52 -246Z" fill="${HAIR}"/>`;
+  h+=`<rect x="-65" y="-240" width="17" height="118" rx="8" fill="${HAIR}"/><rect x="48" y="-240" width="17" height="118" rx="8" fill="${HAIR}"/>`;
+  h+=heart(-46,-262,0.42,"#ff5c8a");
+  if(swim)h+=`<g stroke="#222" stroke-width="4" fill="#7fe3ff"><circle cx="-18" cy="-272" r="12"/><circle cx="18" cy="-272" r="12"/></g>`;
+  if(crown)h+=`<path d="M-36 -292 L-40 -334 L-18 -312 L0 -342 L18 -312 L40 -334 L36 -292Z" fill="#ffd21f" stroke="#e0a800" stroke-width="4" stroke-linejoin="round"/>`;
+  h+=face(mood,-226,1);
+  b+=`<g transform="rotate(${tilt} 0 -175)">${h}</g>`;
+  return G(x,y,s,rot,b);
+}
+function mama(x,y,s,o={}){
+  const {mood="happy",aL=15,aR=15,rot=0,tilt=0}=o;const MH="#6b3f24",TOP="#ff9f8a";
+  let b="";
+  b+=`<ellipse cx="-26" cy="-6" rx="26" ry="12" fill="#b0563c"/><ellipse cx="26" cy="-6" rx="26" ry="12" fill="#b0563c"/>`;
+  b+=`<path d="M-74 -22 L-50 -200 L50 -200 L74 -22Z" fill="#7d6fd6" stroke="#7d6fd6" stroke-width="10" stroke-linejoin="round"/>`;
+  if(aL>=0)b+=arm(-52,-286,aL,-1,100,TOP,26); if(aR>=0)b+=arm(52,-286,aR,1,100,TOP,26);
+  b+=`<rect x="-58" y="-312" width="116" height="130" rx="32" fill="${TOP}"/>`;
+  if(aL<0)b+=arm(-52,-286,aL,-1,100,TOP,26); if(aR<0)b+=arm(52,-286,aR,1,100,TOP,26);
+  let h=`<path d="M-70 -380 L-74 -310 Q-40 -292 0 -296 Q40 -292 74 -310 L70 -380Z" fill="${MH}"/><circle cx="0" cy="-372" r="70" fill="${MH}"/><circle cx="0" cy="-364" r="60" fill="${SKIN}"/>`;
+  h+=`<path d="M-62 -360 Q-60 -436 4 -434 Q62 -432 62 -360 Q40 -410 -10 -412 Q-44 -400 -62 -360Z" fill="${MH}"/>`;
+  h+=face(mood,-366,1.1);
+  b+=`<g transform="rotate(${tilt} 0 -300)">${h}</g>`;
+  return G(x,y,s,rot,b);
+}
+function crane(x,y,s,col,flap,r=0){
+  const w=sin(flap)*28;
+  return G(x,y,s,r,`<path d="M-50 10 L0 0 L50 14 L0 26Z" fill="${col}"/><path d="M-10 6 L10 -${52+w} L22 10Z" fill="${col}" opacity=".85"/><path d="M-2 10 L-22 -${44+w} L14 12Z" fill="#fff" opacity=".55"/><path d="M40 12 L70 -24 L78 -8 L64 -14Z" fill="${col}"/><path d="M-44 10 L-78 -20 L-36 16Z" fill="${col}" opacity=".8"/>`);
+}
+function hanamaru(x,y,s,prog=1,r=0){
+  let d="";const n=70;for(let i=0;i<=n*cl(prog);i++){const a=i/n*PI*5,R=6+i/n*58;d+=(i?"L":"M")+(cos(a)*R).toFixed(1)+" "+(sin(a)*R).toFixed(1);}
+  let pet="";if(prog>=1)for(let i=0;i<8;i++){const a=i*PI/4;pet+=`<circle cx="${(cos(a)*86).toFixed(1)}" cy="${(sin(a)*86).toFixed(1)}" r="27" fill="none" stroke="#e8302a" stroke-width="9"/>`;}
+  return G(x,y,s,r,`<circle r="118" fill="#fff" opacity=".8"/>${pet}<path d="${d}" fill="none" stroke="#e8302a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>`);
+}
+function confetti(t,n){let o="";for(let i=0;i<n;i++){const ph=(t*0.45+rnd(i))%1,x=rnd(i+70)*W;o+=`<rect x="${x}" y="${ph*H}" width="14" height="22" rx="3" fill="${["#ffe14d","#5cc8ff","#7ed957","#b58cff","#ff7fb0"][i%5]}" transform="rotate(${t*220+i*40} ${x} ${ph*H})"/>`;}return o;}
+function burst(x,y,s,txt,r){
+  let p="";for(let i=0;i<24;i++){const a=i*PI/12,R=i%2?70:104;p+=(i?"L":"M")+(cos(a)*R).toFixed(1)+" "+(sin(a)*R).toFixed(1);}
+  return G(x,y,s,r,`<path d="${p}Z" fill="#ffe14d" stroke="#fff" stroke-width="6" stroke-linejoin="round"/><text text-anchor="middle" y="18" font-size="44" fill="#e8302a">${txt}</text>`);
+}
+function hai(t){
+  const p=TL.find(p=>p.text=="えらい!"&&t>=p.t-0.03&&t<p.t+0.4);if(!p)return"";
+  const k=pop((t-p.t+0.03)/0.2);return burst(175,200,1.45*k,"えらい!",-12)+burst(1105,200,1.45*k,"えらい!",12);
+}
+function dance(t,b,i=0){return {aL:140+sin(t*PI/BEAT+i)*35,aR:140-sin(t*PI/BEAT+i)*35,rot:sin(t*PI/BEAT/2+i)*6};}
+
+function friend(x,y,s,o={}){
+  const {mood="happy",aL=20,aR=20,rot=0}=o;let b="";
+  b+=`<line x1="-17" y1="-70" x2="-17" y2="-10" stroke="${SKIN}" stroke-width="16" stroke-linecap="round"/><line x1="17" y1="-70" x2="17" y2="-10" stroke="${SKIN}" stroke-width="16" stroke-linecap="round"/>`;
+  b+=`<ellipse cx="-21" cy="-5" rx="19" ry="10" fill="#3b8fd9"/><ellipse cx="21" cy="-5" rx="19" ry="10" fill="#3b8fd9"/>`;
+  b+=arm(-28,-140,aL,-1,54,SKIN,15)+arm(28,-140,aR,1,54,SKIN,15);
+  b+=`<rect x="-36" y="-104" width="72" height="40" rx="12" fill="#34508f"/><path d="M-36 -98 L-30 -152 L30 -152 L36 -98Z" fill="#5cc8ff" stroke="#5cc8ff" stroke-width="12" stroke-linejoin="round"/>`;
+  b+=`<circle cx="0" cy="-200" r="56" fill="${SKIN}"/><path d="M-57 -200 Q-58 -264 0 -264 Q58 -264 57 -200 Q30 -234 0 -232 Q-30 -234 -57 -200Z" fill="#2b2b33"/>`+face(mood,-198,1);
+  return G(x,y,s,rot,b);
+}
+const ncrown=(x,y,s,r=0)=>G(x,y,s,r,`<path d="M-34 -262 L-38 -304 L-17 -282 L0 -312 L17 -282 L38 -304 L34 -262Z" fill="#ffd21f" stroke="#e0a800" stroke-width="4" stroke-linejoin="round"/>`);
+const ncape=(x,y,s)=>G(x,y,s,0,`<path d="M-28 -150 L28 -150 L64 -46 Q0 -70 -64 -46Z" fill="#e8302a"/>`);
+function stamps(t,b){let o="";[[170,320],[1110,320],[330,480],[950,480]].forEach(([x,y],i)=>{o+=hanamaru(x,y,0.55+(i%2?b:1-b)*0.25,1,sin(t*2+i)*8);});return o;}
+
+function room(t,flags){
+  let o=`<rect width="${W}" height="${H}" fill="#fff1d6"/><rect y="545" width="${W}" height="180" fill="#e2b989"/><rect y="538" width="${W}" height="12" fill="#c99a5b"/>`;
+  o+=`<rect x="70" y="80" width="250" height="210" rx="10" fill="#b9793f"/><rect x="84" y="94" width="222" height="182" fill="#ff9e7a"/><rect x="84" y="94" width="222" height="80" fill="#8f7fd6" opacity=".55"/><circle cx="195" cy="250" r="44" fill="#ffd66b"/><path d="M195 94 V276 M84 185 H306" stroke="#b9793f" stroke-width="8"/>`;
+  o+=`<ellipse cx="640" cy="640" rx="470" ry="62" fill="#ffc9d9"/>`;
+  if(flags)for(let i=0;i<9;i++)o+=`<path d="M${400+i*100} 30 l38 62 l-76 0Z" fill="${["#ff7fb0","#5cc8ff","#7ed957","#ffb84d","#b58cff"][i%5]}" transform="rotate(${sin(t*2+i)*4} ${400+i*100} 30)"/>`;
+  return o;
+}
+function eve(t){
+  let o=`<defs><linearGradient id="ev" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d4a9e"/><stop offset=".6" stop-color="#c76fa8"/><stop offset="1" stop-color="#ffb88c"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#ev)"/>`;
+  for(let i=0;i<26;i++)o+=star(rnd(i+1)*W,rnd(i+40)*330+20,0.35+rnd(i)*0.5+sin(t*3+i)*0.12,"#fff6b0",i*30);
+  o+=`<circle cx="1090" cy="120" r="62" fill="#fff6c9"/><circle cx="1066" cy="104" r="56" fill="#5a4fa5" opacity=".0"/>`;
+  o+=`<ellipse cx="640" cy="${H+250}" rx="1100" ry="400" fill="#4f9a6a"/>`;
+  return o;
+}
+function sway(t,i=0){return {aL:30+sin(t*PI/BEAT/2+i)*18,aR:30-sin(t*PI/BEAT/2+i)*18,rot:sin(t*PI/BEAT/2+i)*4};}
+function wave2(t,i=0){return {aL:140+sin(t*PI/BEAT+i)*25,aR:140-sin(t*PI/BEAT+i)*25,rot:sin(t*PI/BEAT/2+i)*5};}
+function table(x,y,w){return `<rect x="${x-w/2}" y="${y}" width="${w}" height="34" rx="12" fill="#b9793f"/><rect x="${x-w/2+40}" y="${y+34}" width="28" height="${GY-y}" fill="#9a5b2c"/><rect x="${x+w/2-68}" y="${y+34}" width="28" height="${GY-y}" fill="#9a5b2c"/>`;}
+function cake(x,y,s,t){
+  let o=`<ellipse cx="0" cy="0" rx="190" ry="24" fill="#fff" stroke="#d9d2ee" stroke-width="5"/><rect x="-150" y="-110" width="300" height="110" rx="18" fill="#fff6e8" stroke="#f1d9b5" stroke-width="5"/><rect x="-100" y="-200" width="200" height="94" rx="16" fill="#fff6e8" stroke="#f1d9b5" stroke-width="5"/>`;
+  for(let i=0;i<7;i++)o+=`<circle cx="${-132+i*44}" cy="-106" r="20" fill="#fff"/>`;
+  for(let i=0;i<5;i++)o+=`<circle cx="${-84+i*42}" cy="-198" r="18" fill="#fff"/>`;
+  for(let i=0;i<5;i++)o+=`<path d="M${-120+i*60} -128 q-16 -30 0 -36 q16 6 0 36Z" fill="#ff4d5e"/>`;
+  for(let i=0;i<3;i++){const cx=-50+i*50;o+=`<rect x="${cx-5}" y="-262" width="10" height="56" rx="4" fill="${["#ff7fb0","#5cc8ff","#ffe14d"][i]}"/><path d="M${cx} -268 q${-9+sin(t*14+i)*4} -18 0 -34 q${9+sin(t*11+i)*4} 16 0 34Z" fill="#ffb300"/>`;}
+  o+=`<path d="M-150 -60 q25 26 50 0 t50 0 t50 0 t50 0 t50 0 t50 0" fill="none" stroke="#ff9fc0" stroke-width="9" stroke-linecap="round"/>`;
+  return G(x,y,s,0,o);
+}
+const phat=(x,y,s,r=0)=>G(x,y,s,r,`<path d="M-32 -424 L0 -512 L32 -424Z" fill="#ff7fb0" stroke="#fff" stroke-width="4" stroke-linejoin="round"/><path d="M-22 -452 L18 -470 M-28 -430 L26 -452" stroke="#ffe14d" stroke-width="7"/><circle cx="0" cy="-514" r="13" fill="#ffe14d"/>`);
+const kcrown=(x,y,s,r=0)=>G(x,y,s,r,`<path d="M-36 -292 L-40 -334 L-18 -312 L0 -342 L18 -312 L40 -334 L36 -292Z" fill="#ffd21f" stroke="#e0a800" stroke-width="4" stroke-linejoin="round"/>`);
+function tl(x,y,txt,size,col,lt){return label(x,y,txt,size,col,-2,pop(lt/0.35));}
+
+const SC={
+intro(t,lt,b){
+  let o=eve(t);
+  o+=nichika(520,GY,1.2,{mood:"happy",...sway(t)})+kazuki(770,GY,1.06,{mood:"happy",...sway(t,1)});
+  o+=label(640,120,"こんしゅうも",72,"#ff5c8a",-3,pop(lt/0.5));
+  if(lt>1)o+=label(640,225,"がんばったね",104,"#ff8fb1",2,pop((lt-1)/0.5));
+  if(lt>2.4)o+=label(1010,330,"しゅうまつの うた",40,"#7a5cff",0,pop((lt-2.4)/0.4));
+  return o;
+},
+futari(t,lt,b){
+  let o=room(t);
+  const two=lt>BAR*2;
+  o+=nichika(470,GY-b*8,1.35,{mood:"happy",...(two?wave2(t):sway(t))});
+  o+=kazuki(810,GY-(1-b)*8,1.18,{mood:"happy",...(two?wave2(t,1):sway(t,1))});
+  if(!two){o+=tl(470,190,"にちかちゃん",60,"#f08a00",lt);if(lt>BAR)o+=tl(840,150,"かづきちゃん",60,"#7a5cff",lt-BAR);}
+  else{o+=tl(700,110,"きょうも いちにち",64,PINK,lt-BAR*2);if(lt>BAR*3)o+=tl(700,200,"がんばったね!",84,PINK,lt-BAR*3)+heart(1090,170,1.4+b*0.3)+star(360,330,1.3,"#ffe14d",t*60);}
+  return o;
+},
+kousaku(t,lt,b){
+  let o=room(t);const C="#c99a5b",D="#a87a40";
+  const p=i=>pop((lt-0.3-i*0.55)/0.35),v=i=>lt>0.3+i*0.55;
+  let c="";
+  if(v(0))c+=G(900,GY,p(0),0,`<rect x="-170" y="-230" width="340" height="230" fill="${C}" stroke="${D}" stroke-width="6"/><rect x="-40" y="-120" width="80" height="120" rx="40" fill="#6b4a25"/>`);
+  if(v(1))c+=G(760,GY-230,p(1),0,`<rect x="-45" y="-150" width="90" height="150" fill="${C}" stroke="${D}" stroke-width="6"/><path d="M-60 -150 L0 -220 L60 -150Z" fill="#e8302a"/>`);
+  if(v(2))c+=G(1040,GY-230,p(2),0,`<rect x="-45" y="-150" width="90" height="150" fill="${C}" stroke="${D}" stroke-width="6"/><path d="M-60 -150 L0 -220 L60 -150Z" fill="#3b8fd9"/>`);
+  if(v(3))c+=G(900,GY-230,p(3),0,`<rect x="-70" y="-50" width="140" height="50" fill="${C}" stroke="${D}" stroke-width="6"/><rect x="-4" y="-150" width="8" height="100" fill="#9a5b2c"/><path d="M4 -150 L70 -128 L4 -104Z" fill="#ffe14d"/>`)+`<rect x="790" y="${GY-190}" width="56" height="56" fill="#9be3ff" stroke="${D}" stroke-width="5"/><rect x="954" y="${GY-190}" width="56" height="56" fill="#9be3ff" stroke="${D}" stroke-width="5"/>`;
+  o+=c;
+  o+=kazuki(420,GY-b*8,1.22,{mood:"happy",aL:40,aR:110+sin(t*8)*18});
+  o+=G(560,GY-250,1,t*60,`<circle r="34" fill="#ff5c8a" stroke="#e0c070" stroke-width="5"/><circle r="15" fill="#fff1d6"/>`);
+  o+=tl(760,110,lt<BAR?"かづきは こうさく":"だんボールで おしろ!",64,"#7a5cff",lt%BAR);
+  return o;
+},
+kzoekaki(t,lt,b){
+  let o=room(t);
+  o+=kazuki(520,GY-b*8,1.1,{mood:"happy",aL:165,aR:165});
+  o+=G(520,GY-455,0.85*pop(lt/0.4),sin(t*2)*3,`<rect x="-150" y="-110" width="300" height="220" rx="8" fill="#fff" stroke="#d9d2ee" stroke-width="6"/><circle cx="-95" cy="-60" r="26" fill="#ffd21f"/><path d="M-130 80 H130" stroke="#7ed957" stroke-width="10" stroke-linecap="round"/>${heart(0,10,1.5)}${heart(70,30,0.9,"#ff8fb1")}${heart(-70,30,0.9,"#b58cff")}<path d="M60 -80 q20 -20 40 0 t40 0" fill="none" stroke="#5cc8ff" stroke-width="8" stroke-linecap="round"/>`);
+  for(let i=0;i<5;i++)o+=star(850+rnd(i)*330,150+rnd(i+3)*330,0.9+b*0.3,"#ffe14d",t*60+i*40);
+  o+=tl(900,330,"おえかきも",62,"#7a5cff",lt);if(lt>BAR)o+=tl(900,420,"がんばったね!",70,PINK,lt-BAR);
+  return o;
+},
+nurie(t,lt,b){
+  let o=room(t);
+  o+=`<rect x="640" y="150" width="500" height="380" rx="10" fill="#fff" stroke="#d9d2ee" stroke-width="6"/>`;
+  const k=cl(lt/(BAR*1.5));
+  const cols=["#ff7fb0","#ffb84d","#ffe14d","#7ed957","#5cc8ff","#b58cff"];
+  for(let i=0;i<6;i++){const a=i*PI/3,f=cl(k*7-i);o+=`<circle cx="${890+cos(a)*82}" cy="${310+sin(a)*82}" r="52" fill="${cols[i]}" fill-opacity="${f}" stroke="#3a2416" stroke-width="5"/>`;}
+  o+=`<circle cx="890" cy="310" r="46" fill="#ffd21f" fill-opacity="${cl(k*7-6)}" stroke="#3a2416" stroke-width="5"/><path d="M890 420 V510 M890 470 q40 -30 70 0" fill="none" stroke="#3a2416" stroke-width="6" stroke-linecap="round"/>`;
+  o+=nichika(400,GY-b*8,1.4,{mood:"happy",aL:40,aR:100+sin(t*10)*18});
+  o+=G(540,GY-290+sin(t*10)*14,1,40,`<rect x="-8" y="-60" width="16" height="60" rx="4" fill="${cols[Math.min(5,Math.floor(k*7))]}"/><path d="M-8 -60 L0 -78 L8 -60Z" fill="${cols[Math.min(5,Math.floor(k*7))]}"/>`);
+  o+=tl(430,120,lt<BAR?"にちかは いろぬり":"がんばったね!",62,"#f08a00",lt%BAR);
+  return o;
+},
+naku(t,lt,b){
+  let o=room(t);
+  const ok=lt>BAR;
+  if(!ok)o+=`<rect width="${W}" height="${H}" fill="#6f7fc0" opacity=".28"/>`;
+  o+=nichika(540+(ok?0:sin(t*18)*3),GY,1.4,{mood:ok?(lt>BAR*1.5?"happy":"soft"):"sad",aL:ok?30:150,aR:ok?30:150});
+  if(!ok)for(let i=0;i<8;i++){const p=(t*1.5+i/8)%1,sd=i%2?1:-1;o+=`<circle cx="${540+sd*(66+p*150)}" cy="${340-sin(p*PI)*90+p*140}" r="${8-p*4}" fill="#6ecbff"/>`;}
+  o+=kazuki(ok?740:900-ease(lt/1.6)*120,GY,1.18,{mood:ok?"happy":"soft",aL:ok?128+sin(t*9)*10:60,aR:30});
+  if(ok){o+=heart(640,150,1.6+b*0.4)+heart(420,240,0.9,"#ff8fb1")+heart(900,200,1,"#ff8fb1");o+=tl(640,300-190,"",0,"#fff",1);}
+  o+=tl(ok?980:640,ok?250:120,ok?"よし よし":"ちょっと ないたけど…",ok?70:62,ok?PINK:"#5b6ea8",ok?lt-BAR:lt);
+  if(ok)o+=tl(430,110,"かづきが",62,"#7a5cff",lt-BAR);
+  return o;
+},
+ouchi(t,lt,b){
+  let o=eve(t);
+  o+=`<rect x="390" y="290" width="500" height="330" fill="#fff3c4"/><path d="M350 300 L640 110 L930 300Z" fill="#e8605a"/><rect x="760" y="130" width="50" height="100" fill="#b9793f"/>`;
+  o+=`<rect x="590" y="440" width="100" height="180" rx="10" fill="#b9793f"/><circle cx="672" cy="535" r="7" fill="#ffd21f"/>`;
+  o+=`<rect x="430" y="340" width="120" height="110" rx="10" fill="#ffe680"/><rect x="730" y="340" width="120" height="110" rx="10" fill="#ffe680"/><path d="M490 340 V450 M430 395 H550 M790 340 V450 M730 395 H850" stroke="#b9793f" stroke-width="6"/>`;
+  for(let i=0;i<3;i++){const p=(t*0.3+i/3)%1;o+=`<circle cx="${785+sin(p*6)*14}" cy="${120-p*110}" r="${16+p*18}" fill="#fff" opacity="${(0.6*(1-p)).toFixed(2)}"/>`;}
+  o+=nichika(250,GY+20-b*8,1.15,{mood:"happy",...wave2(t)})+kazuki(1040,GY+20-(1-b)*8,1.02,{mood:"happy",...wave2(t,1)});
+  o+=heart(640,250,1.3+b*0.3);
+  o+=tl(640,70,lt<BAR?"おうちで いちにち":"がんばったね!",60,"#7a5cff",lt%BAR);
+  return o;
+},
+tanjoubi(t,lt,b){
+  let o=room(t,true)+confetti(t,22);
+  o+=papa(640,GY-b*8,0.78,{mood:"happy",aL:150+b*14,aR:150+b*14})+phat(640,GY-b*8,0.78);
+  o+=nichika(330,GY-(1-b)*14,1.3,{mood:"happy",...wave2(t)})+kazuki(950,GY-(1-b)*14,1.12,{mood:"happy",...wave2(t,1)});
+  o+=G(700,125,pop(lt/0.4),-2,`<rect x="-400" y="-48" width="800" height="92" rx="46" fill="#fff" stroke="${PINK}" stroke-width="7"/><text text-anchor="middle" y="17" font-size="48" fill="${PINK}">パパ おたんじょうび おめでとう</text>`);
+  return o;
+},
+cake(t,lt,b){
+  let o=room(t,true);
+  o+=nichika(260,GY-b*8,1.3,{mood:"happy",aL:30,aR:120+sin(t*8)*14});
+  o+=kazuki(1010,GY-(1-b)*8,1.12,{mood:"happy",aL:120+sin(t*8)*14,aR:30});
+  o+=table(640,470,560)+cake(640,470,pop(lt/0.6),t);
+  for(let i=0;i<6;i++)o+=star(420+rnd(i)*440,140+rnd(i+4)*120,0.7+b*0.3,"#ffe14d",t*80+i*30);
+  o+=tl(700,150,lt<BAR?"みんなで ケーキを":"つくってくれた!",62,PINK,lt%BAR);
+  return o;
+},
+niku(t,lt,b){
+  let o=room(t,true);
+  const th=lt>BAR;
+  o+=papa(210,GY,0.9,{mood:"happy",aL:20,aR:th?120:60})+phat(210,GY,0.9);
+  o+=mama(1080,GY,0.88,{mood:"happy",aL:60,aR:20});
+  o+=nichika(450,GY,1.2,{mood:"happy",aL:30,aR:30})+kazuki(850,GY,1.05,{mood:"happy",aL:30,aR:30});
+  o+=table(650,480,640);
+  o+=`<ellipse cx="650" cy="468" rx="170" ry="30" fill="#fff" stroke="#d9d2ee" stroke-width="5"/><path d="M540 455 Q540 380 650 380 Q770 380 770 455 Q650 490 540 455Z" fill="#a8562f" stroke="#7d3b1d" stroke-width="5"/><path d="M580 410 l40 40 M630 396 l44 46 M684 396 l40 44" stroke="#5e2a12" stroke-width="7" stroke-linecap="round"/>`;
+  for(let i=0;i<3;i++){const p=(t*0.5+i/3)%1;o+=`<path d="M${610+i*40} ${370-p*70} q12 -14 0 -28 q-12 -14 0 -28" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity="${(0.8*sin(p*PI)).toFixed(2)}"/>`;}
+  if(th){o+=flowHearts(t,250,300,440,300,3)+flowHearts(t,250,260,840,280,4);o+=tl(640,150,"ありがとう",96,PINK,lt-BAR);}
+  else o+=tl(640,140,"おにくも たべたね",64,"#a8562f",lt);
+  return o;
+},
+konshu(t,lt,b){
+  let o=eve(t);
+  o+=hanamaru(250,300,1.0,lt/1,sin(t*2)*5)+hanamaru(1030,300,1.0,(lt-0.5)/1,-sin(t*2)*5);
+  const d1=wave2(t),d2=wave2(t,1);
+  o+=nichika(500,GY-b*14,1.35,{mood:"happy",...d1})+ncrown(500,GY-b*14,1.35,d1.rot);
+  o+=kazuki(790,GY-(1-b)*14,1.16,{mood:"happy",...d2})+kcrown(790,GY-(1-b)*14,1.16,d2.rot);
+  o+=tl(640,90,lt<BAR?"こんしゅうも ふたり":"がんばったね!",lt<BAR?60:76,"#7a5cff",lt%BAR);
+  return o;
+},
+ashita(t,lt,b){
+  let o=eve(t);
+  o+=`<rect x="900" y="400" width="270" height="220" fill="#fff3c4"/><path d="M880 408 L1035 310 L1190 408Z" fill="#ff6b6b"/><rect x="1005" y="500" width="60" height="120" rx="8" fill="#b9793f"/><rect x="925" y="440" width="60" height="50" rx="6" fill="#ffe680"/><rect x="1085" y="440" width="60" height="50" rx="6" fill="#ffe680"/>`;
+  o+=label(1035,396,"ほいくえん",28,"#e8302a");
+  const go=lt>BAR*1.1;
+  const d1=go?{aL:160,aR:160,rot:0}:sway(t),d2=go?{aL:160,aR:160,rot:0}:sway(t,1);
+  o+=nichika(380,GY-(go?b*30:0),1.35,{mood:"happy",...d1})+kazuki(660,GY-(go?(1-b)*30:0),1.16,{mood:"happy",...d2});
+  o+=tl(560,95,go?"がんばろう!":"あしたも ほいくえん",go?96:62,go?"#ff5c8a":"#7a5cff",go?lt-BAR*1.1:lt);
+  if(lt>BAR*1.75)o+=label(1040,250,"おやすみ",46,"#7a5cff",4,pop((lt-BAR*1.75)/0.5));
+  return o;
+}};
+
+function caption(t){
+  let cur=null;for(const p of TL)if(t>=p.t-0.4)cur=p.line;
+  if(cur===null)return"";
+  const ps=TL.filter(p=>p.line==cur);let tsp="";
+  ps.forEach(p=>{const on=t>=p.t-0.03;tsp+=`<tspan fill="${on?PINK:"#9a8f99"}">${p.text} </tspan>`;});
+  return `<rect x="110" y="${H-98}" width="1060" height="80" rx="40" fill="#fff" opacity=".93"/><text x="640" y="${H-42}" text-anchor="middle" font-size="44" xml:space="preserve">${tsp.replace(/ <\/tspan>$/,"</tspan>")}</text>`;
+}
+function render(t){
+  let name="intro",start=0;
+  for(const p of TL){if(t>=p.t-0.1){if(p.scene!=name){name=p.scene;start=p.t-0.1;}}else break;}
+  const lt=t-start,b=abs(sin(PI*t/BEAT));
+  let o=SC[name](t,lt,b)+hai(t)+caption(t);
+  if(start>0&&lt<0.2)o+=`<rect width="${W}" height="${H}" fill="#fff" opacity="${(1-lt/0.2)*0.8}"/>`;
+  if(t>59.5)o+=`<rect width="${W}" height="${H}" fill="#fff" opacity="${cl((t-59.5)/0.5)}"/>`;
+  document.getElementById("stage").innerHTML=o;
+}
+window.render=render;
+render(0);
+const au=document.getElementById("au"),btn=document.getElementById("play");
+if(location.hash=="#capture")btn.remove();
+btn.onclick=()=>{btn.style.display="none";au.currentTime=0;au.play();(function loop(){render(au.currentTime);if(!au.ended)requestAnimationFrame(loop);else btn.style.display="";})();};
+</script>
+</body>
+</html>
