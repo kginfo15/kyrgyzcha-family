@@ -18,7 +18,10 @@ function p58Strip(s){return String(s||"").replace(/́/g,"").toLowerCase();}
 var P58_FORMS=(function(){var f={},disp={};COMPOSE.forEach(function(c){(c.breakdown||[]).forEach(function(b){var k=p58Strip(b.base);if(!k)return;
   var s=p58Strip(b.surface);(f[k]=f[k]||{})[s]=1;disp[s]=disp[s]||String(b.surface).replace(/^[«"(]+|[»")]+$/g,"");});});
   Object.keys(f).forEach(function(k){if(!disp[k])disp[k]=k;});return {f:f,disp:disp};})();
-function p58LevelCompose(lv){var r=P58_UNITS[P47_LANG==="ky"?"ky":"ru"][lv];return COMPOSE.filter(function(c){var i=UNITS.indexOf(c.unit);return i>=r[0]&&i<r[1];});}
+function p58LevelCompose(lv){
+  /* B1 は文データの level で選ぶ。A1/A2 はユニットの順番で分ける（B1 の文は含めない） */
+  if(lv==="B1")return COMPOSE.filter(function(c){return c.level==="B1";});
+  var r=P58_UNITS[P47_LANG==="ky"?"ky":"ru"][lv];return COMPOSE.filter(function(c){var i=UNITS.indexOf(c.unit);return c.level!=="B1"&&i>=r[0]&&i<r[1];});}
 function p58Vocab(lv,n){
   var themes=P47_THEMES.filter(function(t){return t.level===lv;}),total=0;themes.forEach(function(t){total+=t.ids.length;});
   var out=[];themes.forEach(function(t){var k=Math.max(1,Math.round(n*t.ids.length/total));out=out.concat(shuffle(t.ids.filter(function(id){return !/\s/.test(WMAP[id].word);})).slice(0,k));});

@@ -79,7 +79,7 @@ function renderP48Stats(){
   var all=0;Object.keys(appHist.days||{}).forEach(function(k){all+=p48DayCount(k);});
   var h='<div class="p48-stats"><div class="p48-title">記録</div>';
   h+='<div class="p48-hero p49-scene"><div class="p49-sceneart">'+p47L().hero+'</div><div class="p48-gauge">'+p48Gauge(pct,230)+'<div class="p48-gin"><div class="p48-pct">'+Math.round(pct*1000)/10+'<small>%</small></div><div class="p48-gl">覚えた単語</div><div class="p48-gn">'+known.toLocaleString()+' / '+total.toLocaleString()+'</div></div></div>';
-  [["A1",a1],["A2",a2]].forEach(function(x){var p=x[1].n?x[1].k/x[1].n:0;
+  P_LVLS.map(function(l){return [l,lv(l)];}).forEach(function(x){var p=x[1].n?x[1].k/x[1].n:0;
     h+='<div class="p48-lv"><span class="p48-lvtag">'+x[0]+'</span><span class="p48-lvbar"><i style="width:'+(p*100).toFixed(1)+'%"></i></span><span class="p48-lvn">'+Math.round(p*100)+'%</span></div>';});
   h+='</div>';
   h+='<div class="p48-tiles">'+

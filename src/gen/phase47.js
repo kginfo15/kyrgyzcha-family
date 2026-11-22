@@ -1,4 +1,7 @@
 /* ===== PHASE47: シンプルUI（ホーム2択・テーマ別単語練習・覚えたリスト・ブックマーク・新デザイン） ===== */
+/* 収録レベルの一覧（ロシア語は B1 まで。キルギス語は A1/A2） */
+var P_LVLS=(function(){var o=["A1","A2"];if(VOCAB.some(function(w){return w.level==="B1";}))o.push("B1");return o;})();
+function pLvRange(){return P_LVLS.length>2?P_LVLS[0]+"〜"+P_LVLS[P_LVLS.length-1]:P_LVLS.join("/");}
 var P47_LANG="ru";
 var P47={
   ru:{name:"ロシア語",native:"Русский",greet:function(h){return h<11?"Доброе утро":(h<18?"Добрый день":"Добрый вечер");},
@@ -76,7 +79,7 @@ function p47CatIcon(cat){
 }
 /* ---- テーマ一覧（カテゴリー＝テーマ） ---- */
 var P47_THEMES=(function(){var m={},out=[];VOCAB.forEach(function(w){var c=w.category||"その他";if(!m[c]){m[c]={cat:c,level:w.level,ids:[]};out.push(m[c]);}m[c].ids.push(w.id);});
-  out.sort(function(a,b){return (a.level===b.level)?0:(a.level==="A1"?-1:1);});return out;})();
+  out.sort(function(a,b){return P_LVLS.indexOf(a.level)-P_LVLS.indexOf(b.level);});return out;})();
 /* ---- 画面：ホーム ---- */
 function p47Ring(pct,size){var r=(size-10)/2,c=2*Math.PI*r,off=c*(1-Math.min(1,pct));
   return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'"><circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="8"/><circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 '+size/2+' '+size/2+')"/></svg>';}
@@ -109,7 +112,7 @@ function renderP47Words(){
     '<button type="button" class="p47-tile" data-act="p47set" data-val="known"'+(kn.length?'':' disabled')+'>'+p47Icon("check",20)+'<b>'+kn.length+'</b><span>覚えた単語</span></button></div>';
   var lv="";
   P47_THEMES.forEach(function(th,i){
-    if(th.level!==lv){lv=th.level;h+='<div class="p47-sec">'+(lv==="A1"?'A1 ・ 基礎':'A2 ・ ステップアップ')+'</div>';}
+    if(th.level!==lv){lv=th.level;h+='<div class="p47-sec">'+({A1:'A1 ・ 基礎',A2:'A2 ・ ステップアップ',B1:'B1 ・ 中級'}[lv]||lv)+'</div>';}
     var n=th.ids.length,k=th.ids.filter(p47IsKnown).length,open=ui.p47Open===i;
     h+='<div class="p47-theme'+(open?" open":"")+'"><button type="button" class="p47-themehead" data-act="p47theme" data-val="'+i+'">'+
       '<span class="p47-themeic">'+p47Icon(p47CatIcon(th.cat),22)+'</span><span class="p47-themetxt"><b>'+esc(th.cat)+'</b>'+
@@ -178,7 +181,7 @@ renderOnboarding=function(){
   var L=p47L(),i=Math.min(ui.onbSlide||0,P47_SLIDES.length-1),s=P47_SLIDES[i],last=i===P47_SLIDES.length-1;
   var h='<div class="p47-onb"><div class="p47-onbart">'+L.hero+'<span class="p47-onbbadge">'+p47Icon(s.ic,30)+'</span></div>';
   h+='<div class="p47-onbbody">'+(last?'':'<button type="button" class="p47-onbskip" data-act="onbskip">スキップ</button>')+
-     '<div class="p47-onbapp">'+esc(L.native)+' ・ '+esc(L.name)+' A1/A2</div>'+
+     '<div class="p47-onbapp">'+esc(L.native)+' ・ '+esc(L.name)+' '+pLvRange()+'</div>'+
      '<h2>'+esc(s.title)+'</h2><p>'+esc(s.body)+'</p>'+
      '<div class="p47-dots">'+P47_SLIDES.map(function(_,k){return '<i class="'+(k===i?"on":"")+'"></i>';}).join("")+'</div>'+
      '<button type="button" class="p47-onbbtn" data-act="'+(last?"onbfinish":"onbnext")+'">'+(last?"はじめる":"次へ")+p47Icon("chev",18)+'</button></div></div>';

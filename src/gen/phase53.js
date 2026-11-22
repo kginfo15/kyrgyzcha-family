@@ -95,7 +95,7 @@ renderP48Stats=function(){
   var pr=function(lv){var p=p53Projection(lv);
     if(p.done)return '<div class="p53-pj"><span class="p48-lvtag">'+lv+'</span><span>すべて覚えました！</span></div>';
     return '<div class="p53-pj"><span class="p48-lvtag">'+lv+'</span><span>残り <b>'+p.left+'</b> 語'+(p.eta?' ・ このペースなら <b>'+(p.eta.getFullYear()!==new Date().getFullYear()?p.eta.getFullYear()+'年':'')+(p.eta.getMonth()+1)+'月'+p.eta.getDate()+'日</b>ごろ達成':' ・ 新しい単語を進めると到達日を予測します')+'</span></div>';};
-  var pj='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達予測</b><span>直近14日のペース</span></div>'+pr("A1")+pr("A2")+'</div>';
+  var pj='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達予測</b><span>直近14日のペース</span></div>'+P_LVLS.map(pr).join("")+'</div>';
   return h.replace('<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">',f+pj+'<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">');
 };
 document.addEventListener("click",function(e){

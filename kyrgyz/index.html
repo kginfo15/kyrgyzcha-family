@@ -1079,7 +1079,7 @@ var LEVEL_COLOR={A1:"#2F9E44",A2:"#C77C02"};
 var K={prog:"kyrgyzApp_v4_vocabProgress",cprog:"kyrgyzApp_v4_composeProgress",
   set:"kyrgyzApp_v4_settings",hist:"kyrgyzApp_v4_history",sess:"kyrgyzApp_v4_session",legacy:"kyrgyzApp_v4_legacyBackup",
   onb:"kyrgyzApp_v4_onboardingDone"};
-var APP_VERSION="1.0", DATA_VERSION="ky-a1a2-2518-compose505";
+var APP_VERSION="1.0", DATA_VERSION="ky-a1a2-2859-compose625";
 var LADDER_DAYS=[3,7,14,30,60,90];
 var TABS=[["word","単語"],["read","例文を読む"],["compose","瞬間作文"],["aloud","音読"],["grammar","文法別練習"],["review","復習"],["progress","進捗"],["settings","設定"]];
 /* PHASE15: ボトムナビを4つに削減。統計と設定は「プロフィール」内へ集約 */
@@ -1414,6 +1414,237 @@ if(String(DATA_VERSION).indexOf("ru-")===0){
   /* 不自然だった文の修正 */
   COMPOSE.forEach(function(c){if(c.id==="R-A2-271"&&/объясня/.test(c.ru)){c.ru="Он рассказывает о работе.";c.accent="Он расска́зывает о рабо́те.";c.ja="彼は仕事について話します。";c.kana="オン ラスカーズィヴァエト ア ラボーチェ。";c.roma="On rasskázyvayet o rabóte.";
     (c.breakdown||[]).forEach(function(b,i){if(/объясн/.test(b.base||"")){c.breakdown[i]={surface:"расска́зывает",base:"расска́зывать",meaning:"話す・語る",why:"он に対応する現在形。о＋前置格で「〜について話す」。",note:"он に対応する現在形。о＋前置格で「〜について話す」。",pos:"動詞"};}});}});
+}
+
+/* ===== PHASE67(データ): 内容の見直し（キルギス語版のみ） =====
+   1) 不自然な組み合わせ（「одна вода」など）を練習から外す（学習記録は消さない）
+   2) 作る側の言葉だったカテゴリ名を、学ぶ人に分かる名前に変える
+   3) 決まり文句だけ・誤りがあった解説（副詞を「形容詞」と説明していた等）を書き直す
+   4) 例文がなかった「場所の言い方」に例文を付ける */
+var P67_HIDE=["A1-729","A1-744","A1-759","A1-774","A1-732","A1-747","A1-762","A1-777","A1-731","A1-746","A1-761","A1-776"];
+var P67_CAT={"数量チャンク":"数と名詞","格変化チャンク":"場所の言い方（〜で・〜へ・〜から）","動詞ペア":"完了体と不完了体","会話チャンク":"会話の決まり文句",
+  "格変化・場所表現":"場所の言い方（〜で・〜へ・〜から）","代名詞・格変化":"代名詞の変化","基本動詞フレーズ":"「私は〜します」","抽象語・会話":"考え・気持ち","動詞・表現":"動詞（ステップアップ）"};
+var P67_EXP={
+"A1-017":"「分かった・いいよ」という軽い同意の返事です。友人や家族との会話向きで、目上の人には Хорошо́. の方が無難です。",
+"A1-020":"「もちろん」。頼まれごとに快く応じるときや、当然だと伝えるときに使います。アクセントは真ん中の е です。",
+"A1-031":"「私」。主語の形です。「私を・私に」は меня́／мне と形が変わります（代名詞の変化を参照）。",
+"A1-032":"家族・友人・子どもに使う「きみ」。初対面や目上の人には вы を使います。動詞は -шь の形になります（ты зна́ешь）。",
+"A1-033":"「あなた」の丁寧な形で、複数の相手「あなたたち」にも使います。動詞は -те の形になります（вы зна́ете）。",
+"A1-034":"「彼」。人だけでなく、男性名詞の物（стол, телефо́н など）を指して「それ」の意味でも使います。",
+"A1-035":"「彼女」。女性名詞の物（кни́га, маши́на など）を指して「それ」の意味でも使います。",
+"A1-036":"「私たち」。動詞は -ем／-им の形になります（мы живём, мы говори́м）。",
+"A1-037":"「あなたたち全員」。вы だけでも複数を表せますが、все を足すと「みんな」を強調できます。",
+"A1-038":"「彼ら・彼女ら・それら」。男女や物の区別なく、複数なら すべて они́ です。",
+"A1-039":"「これは〜です」と紹介するときの э́то。性・数で形が変わらず、Э́то мой брат. のように使います。",
+"A1-040":"「この」（男性名詞につく形）。э́тот дом（この家）。女性は э́та、中性は э́то、複数は э́ти です。",
+"A1-041":"「この」（女性名詞につく形）。э́та кни́га（この本）。",
+"A1-042":"「これらの」（複数名詞につく形）。э́ти докуме́нты（これらの書類）。",
+"A1-043":"「あの・その」（男性名詞につく形）。э́тот（この）と対比して使います。女性は та、複数は те。",
+"A1-044":"「あそこに・そこに」。場所を表す副詞で、行き先「そこへ」は туда́ と別の語になります。",
+"A1-045":"「ここに・ここで」。場所を表す副詞で、行き先「ここへ」は сюда́ と別の語になります。",
+"A1-046":"「ここ」。здесь とほぼ同じですが、より会話的です。書き言葉では здесь が普通です。",
+"A1-047":"「誰」。Кто э́то?（これは誰？）。動詞は男性単数で受けます（Кто пришёл?）。",
+"A1-048":"「何」。Что э́то?（これは何？）。会話では「シト」のように発音します。",
+"A1-049":"「どこに・どこで」（場所）。行き先を聞くときは куда́、出どころは отку́да を使います。",
+"A1-050":"「どこへ」（行き先）。移動の動詞と一緒に使います：Куда́ вы идёте?",
+"A1-051":"「どこから」。出身を聞くときの定番：Отку́да вы?（ご出身は？）",
+"A1-052":"「いつ」。疑問詞のほか、「〜するとき」という接続詞にもなります（Когда́ я до́ма, …）。",
+"A1-053":"「なぜ」。答えるときは потому́ что（なぜなら）で始めます。",
+"A1-054":"「どのように・どう」。Как дела́?（調子はどう？）、Как вас зову́т?（お名前は？）が定番です。",
+"A1-055":"「どんな・どの」（男性名詞に）。後ろの名詞の性・数に合わせて кака́я／како́е／каки́е と変わります。",
+"A1-056":"「どんな・どの」（女性名詞に）。Кака́я пого́да?（どんな天気？）",
+"A1-057":"「どんな・どの」（複数名詞に）。Каки́е докуме́нты ну́жны?（どんな書類が必要？）",
+"A1-058":"「いくつ・いくら」。後ろの名詞は生格になります：Ско́лько сто́ит?（いくら？）、ско́лько дней（何日）。",
+"A1-059":"「誰の」。名詞の性で чья／чьё／чьи と変わります：Чей э́то телефо́н?",
+"A1-060":"「私の」（男性名詞に）。мой дом。持ち物の性に合わせて形が変わり、持ち主の性は関係ありません。",
+"A1-061":"「私の」（女性名詞に）。моя́ ма́ма, моя́ кни́га。",
+"A1-062":"「私の」（中性名詞に）。моё и́мя, моё ме́сто。",
+"A1-063":"「私の」（複数名詞に）。мои́ де́ти, мои́ докуме́нты。",
+"A1-064":"「あなたの」（男性名詞に）。ваш па́спорт。丁寧な相手・複数の相手に使います。",
+"A1-065":"「あなたの」（女性名詞に）。ва́ша фами́лия。",
+"A1-066":"「あなたの」（複数名詞に）。ва́ши докуме́нты。",
+"A1-067":"「ゼロ」。電話番号や気温で使います。ноль гра́дусов（0度）。",
+"A1-068":"「1」。後ろの名詞の性で形が変わります：оди́н дом／одна́ кни́га／одно́ окно́。",
+"A1-069":"「2」。女性名詞には две を使います（два бра́та／две сестры́）。後ろの名詞は単数生格です。",
+"A1-070":"「3」。後ろの名詞は単数生格になります（три дня）。",
+"A1-071":"「4」。2〜4の後ろは単数生格です（четы́ре часа́）。",
+"A1-072":"「5」。5以上の後ろは複数生格になります（пять лет, пять мину́т）。",
+"A1-073":"「6」。後ろの名詞は複数生格（шесть часо́в）。",
+"A1-074":"「7」。後ろの名詞は複数生格（семь дней）。",
+"A1-075":"「8」。アクセントは во́семь。格変化すると восьми́ になります。",
+"A1-076":"「9」。後ろの名詞は複数生格（де́вять рубле́й）。",
+"A1-077":"「10」。11〜19 はこの語をもとに -надцать で作ります。",
+"A1-078":"「11」。-надцать は「10の上に」が由来で、11〜19 はすべてこの形です。",
+"A1-079":"「12」。2 は две の形で入ります。",
+"A1-080":"「13」。три + надцать。",
+"A1-081":"「14」。アクセントは четы́рнадцать と前にあります。",
+"A1-082":"「15」。пять + надцать（т の前の ь が落ちます）。",
+"A1-083":"「16」。шесть + надцать。",
+"A1-084":"「17」。семь + надцать。",
+"A1-085":"「18」。во́семь の е が落ちて восем- になります。",
+"A1-086":"「19」。де́вять + надцать。",
+"A1-087":"「20」。два + дцать（10）。21 は два́дцать оди́н と並べます。",
+"A1-088":"「30」。три + дцать。",
+"A1-089":"「40」。規則から外れた形なので、そのまま覚えます。",
+"A1-090":"「50」。50〜80 は -десят で作ります。",
+"A1-091":"「60」。шесть + десят。",
+"A1-092":"「70」。アクセントは се́мьдесят と最初にあります。",
+"A1-093":"「80」。во́семь + десят。",
+"A1-094":"「90」。これも規則外の形です。",
+"A1-095":"「100」。値段でよく使います。200 は две́сти、300 は три́ста。",
+"A1-096":"「1000」。女性名詞として扱い、две ты́сячи（2000）、пять ты́сяч（5000）となります。",
+"A1-125":"「8月」。「8月に」は в а́вгусте。月の名前は小文字で書きます。",
+"A1-352":"「良い」。名詞の性・数に合わせて хоро́шая／хоро́шее／хоро́шие と変わります。「上手に」は хорошо́。",
+"A1-353":"「悪い」。плоха́я пого́да（悪い天気）。副詞「悪く・具合が悪い」は пло́хо。",
+"A1-354":"「長い」。дли́нный день（長い一日）。時間の長さには до́лгий も使います。",
+"A1-355":"「短い」。коро́ткий отве́т（短い返事）。反対語は дли́нный。",
+"A1-356":"「（値段が）高い」と「親愛なる」の2つの意味があります。手紙の書き出し Дорого́й друг! は後者です。",
+"A1-357":"「（値段が）安い」。副詞「安く」は дёшево、比較級「より安い」は деше́вле。",
+"A1-358":"「暖かい」。тёплая оде́жда（暖かい服）。天気を言うときは Сего́дня тепло́. と副詞を使います。",
+"A1-359":"「清潔な・きれいな」。чи́стая вода́（きれいな水）。反対語は гря́зный。",
+"A1-360":"「汚い」。гря́зная посу́да（汚れた食器）。",
+"A1-361":"「速い」。бы́строе такси́。副詞「速く」は бы́стро。",
+"A1-362":"「遅い・ゆっくりした」。副詞は ме́дленно（Говори́те ме́дленно.）。",
+"A1-363":"「軽い」と「簡単な」の両方。лёгкая су́мка（軽いかばん）、лёгкий вопро́с（簡単な質問）。",
+"A1-364":"「難しい」。тру́дный экза́мен。副詞を使って Э́то тру́дно.（それは難しい）とも言います。",
+"A1-365":"「重要な」。ва́жный вопро́с。「〜が大事だ」は Э́то ва́жно. と副詞の形で言います。",
+"A1-366":"「必要な」。ну́жный докуме́нт（必要な書類）。「〜が必要だ」は мне ну́жен／нужна́／ну́жно の形を使います。",
+"A1-367":"「用意ができた」。обе́д гото́в（昼食ができた）のように、述語では短い形 гото́в／гото́ва を使います。",
+"A1-368":"「（時期・時刻が）早い」。ра́нний по́езд（早朝の列車）。副詞は ра́но。",
+"A1-369":"「（時刻が）遅い」。по́здний ве́чер（夜遅く）。副詞は по́здно。",
+"A1-370":"「今」。時を表す副詞で、形は変わりません。Я сейча́с до́ма.（今、家にいます）",
+"A1-371":"「あとで・それから」。Я позвоню́ пото́м.（あとで電話します）",
+"A1-372":"「もう・すでに」。完了体の過去形とよく使います：Я уже́ сде́лал.",
+"A1-373":"「まだ・さらに」。肯定文では「もっと」（ещё оди́н）、否定文では「まだ〜ない」（ещё не）になります。",
+"A1-374":"「よく・しばしば」。頻度の副詞で、動詞は不完了体を使います。",
+"A1-375":"「ときどき」。Я иногда́ гото́влю.（ときどき料理します）",
+"A1-376":"「いつも」。習慣を表すので、動詞は不完了体です。",
+"A1-377":"「一度も〜ない」。動詞の前に не が必要です：Я никогда́ не был в Москве́.",
+"A1-378":"「また・再び」。Он сно́ва опа́здывает.（彼はまた遅れている）",
+"A1-379":"「一緒に」。Дава́йте пойдём вме́сте.（一緒に行きましょう）。「〜と一緒に」は с＋造格。",
+"A1-380":"「〜の中に・〜で」（場所：前置格）と「〜の中へ」（方向：対格）。в шко́ле（学校で）／в шко́лу（学校へ）。",
+"A1-381":"「〜の上に・〜で」（前置格）と「〜へ」（対格）。на столе́（机の上に）、на рабо́ту（職場へ）。в と組む語・на と組む語は決まっています。",
+"A1-382":"「〜のところに」。後ろは生格。у врача́（医者のところで）、у меня́ есть（私は〜を持っている）。",
+"A1-383":"「〜（人）のところへ・〜に向かって」。後ろは与格。к врачу́（医者のところへ）。",
+"A1-384":"「〜（の中）から」。後ろは生格。в と対になります：в шко́лу（学校へ）↔ из шко́лы（学校から）。",
+"A1-385":"「〜と一緒に」（造格）と「〜から」（生格）の2つ。с дру́гом（友人と）、с рабо́ты（職場から）。на と対になる「から」です。",
+"A1-386":"「（人）から」。後ろは生格。письмо́ от ма́мы（母からの手紙）。",
+"A1-387":"「〜まで」。後ろは生格。до ве́чера（夕方まで）、до встре́чи（また会うときまで＝またね）。",
+"A1-388":"「〜のために」。後ろは生格。пода́рок для сы́на（息子への贈り物）。",
+"A1-389":"「〜なしで」。後ろは生格。ко́фе без са́хара（砂糖なしのコーヒー）。",
+"A1-390":"「〜の後で」。後ろは生格。по́сле рабо́ты（仕事の後で）。",
+"A1-391":"「〜の前に」（時間・場所）。後ろは造格。пе́ред обе́дом（昼食の前に）。",
+"A1-392":"「〜と〜」「そして」。単語どうしも文どうしもつなぎます：ма́ма и па́па。",
+"A1-393":"「〜で、一方〜は」。2つを対比するときの接続詞です：Я до́ма, а он на рабо́те.",
+"A1-394":"「しかし」。前の内容と逆のことを言います：Я хочу́, но не могу́.",
+"A1-395":"「または」。Чай и́ли ко́фе?（お茶それともコーヒー？）",
+"A1-396":"「なぜなら〜だから」。理由を後ろに続けます。почему́（なぜ？）への答えの定番です。",
+"A1-397":"「だから・それで」。結果を後ろに続けます：Я заболе́л, поэ́тому не пришёл.",
+"A1-398":"「もし〜なら」。未来のことは未来形で言います：Е́сли бу́дет вре́мя, я приду́.",
+"A1-138":"「子ども」1人。複数は де́ти とまったく別の語になります。",
+"A1-158":"「隣人」（男性）。女性は сосе́дка。集合住宅でのあいさつや頼みごとでよく使います。",
+"A1-166":"「運転手」。タクシーや乗り合いバスで、行き先を伝える相手です。",
+"A1-238":"「魚」。「魚料理」も ры́ба と言えます。",
+"A1-243":"「サラダ」。マヨネーズで和えた料理など、生野菜以外の料理も含みます。",
+"A1-250":"「バナナ」。男性名詞で、複数は бана́ны。",
+"A2-001":"「学校で」。в＋前置格で場所を表します（шко́ла → в шко́ле）。","A2-002":"「学校へ」。в＋対格で行き先を表します（шко́ла → в шко́лу）。","A2-003":"「学校から」。из＋生格で出どころを表します（шко́ла → из шко́лы）。",
+"A2-004":"「病院で」。в＋前置格（больни́ца → в больни́це）。","A2-005":"「病院へ」。в＋対格（больни́ца → в больни́цу）。","A2-006":"「病院から」。из＋生格（больни́ца → из больни́цы）。",
+"A2-007":"「薬局で」。в＋前置格（апте́ка → в апте́ке）。","A2-008":"「薬局へ」。в＋対格（апте́ка → в апте́ку）。","A2-009":"「薬局から」。из＋生格（апте́ка → из апте́ки）。",
+"A2-010":"「職場で」。рабо́та は в ではなく на と組む語です（на рабо́те）。","A2-011":"「職場へ」。на＋対格（на рабо́ту）。","A2-012":"「職場から」。на と組む語の「から」は с＋生格です（с рабо́ты）。",
+"A2-013":"「家で」。до́ма は副詞で、前置詞なしで使います。","A2-014":"「家へ」。домо́й も前置詞なしの副詞です。帰宅するときの定番です。","A2-015":"「家から」。из＋生格（дом → из до́ма）。",
+"A2-016":"「事務所で」。в＋前置格（о́фис → в о́фисе）。","A2-017":"「事務所へ」。男性名詞の物は対格でも形が変わりません（в о́фис）。","A2-018":"「事務所から」。из＋生格（о́фис → из о́фиса）。",
+"A2-019":"「医者のところで」。人のところにいるときは у＋生格です（врач → у врача́）。","A2-020":"「医者のところへ」。人のところへ行くときは к＋与格です（врач → к врачу́）。",
+"A2-021":"「私のところに」。У меня́ есть … で「私は〜を持っている」という所有の言い方になります。","A2-022":"「子どものところに・子どもには」。У ребёнка температу́ра.（子どもに熱がある）",
+"A2-023":"「妻のところに・妻には」。у＋生格（жена́ → у жены́）。","A2-024":"「同僚のところに」。колле́га は男女どちらにも使い、生格は колле́ги。",
+"A2-152":"「幼稚園で」。в＋前置格（са́дик → в са́дике）。","A2-153":"「幼稚園へ」。в＋対格（в са́дик）。","A2-154":"「幼稚園から」。из＋生格（из са́дика）。",
+"A2-155":"「店で」。в＋前置格（магази́н → в магази́не）。","A2-156":"「店へ」。в＋対格（в магази́н）。","A2-157":"「店から」。из＋生格（из магази́на）。",
+"A2-158":"「銀行で」。в＋前置格（банк → в ба́нке）。","A2-159":"「銀行へ」。в＋対格（в банк）。","A2-160":"「銀行から」。из＋生格（из ба́нка）。",
+"A2-161":"「郵便局で」。по́чта は на と組む語です（на по́чте）。","A2-162":"「郵便局へ」。на＋対格（на по́чту）。","A2-163":"「郵便局から」。на と組む語の「から」は с＋生格（с по́чты）。",
+"A2-164":"「レストランで」。в＋前置格（в рестора́не）。","A2-165":"「レストランへ」。в＋対格（в рестора́н）。","A2-166":"「レストランから」。из＋生格（из рестора́на）。",
+"A2-167":"「空港で」。特別な前置格 -у を使う語です（в аэропорту́）。","A2-168":"「空港へ」。в＋対格（в аэропо́рт）。","A2-169":"「空港から」。из＋生格（из аэропо́рта）。",
+"A2-190":"「私に」（与格）。Мне ну́жно …（私は〜しなければ）、Мне два́дцать лет.（私は20歳）のように使います。",
+"A2-191":"「私を」（対格）と「私の・私から」（生格）が同じ形です。Меня́ зову́т …（私の名前は…）、у меня́。",
+"A2-192":"「私と一緒に」。с＋造格 мной。発音しやすいように с が со になります。",
+"A2-193":"「あなたに」（与格）。Я вам позвоню́.（あなたに電話します）",
+"A2-194":"「あなたを・あなたの」（対格・生格）。Как вас зову́т?（お名前は？）",
+"A2-195":"「あなたと一緒に」。с＋造格 ва́ми。",
+"A2-196":"「子どもに」（与格）。Ребёнку три го́да.（子どもは3歳です）",
+"A2-197":"「子どもを」（対格）と「子どもの」（生格）が同じ形です。人を表す男性名詞は対格＝生格になります。",
+"A2-198":"「子どもと一緒に」。с＋造格（ребёнок → с ребёнком）。",
+"A2-199":"「妻に」（与格）。Я позвоню́ жене́.","A2-200":"「妻を」（対格）。-а で終わる女性名詞は対格で -у になります。","A2-201":"「妻と一緒に」。с＋造格（жена́ → с жено́й）。",
+"A2-202":"「同僚に」（与格）。","A2-203":"「同僚を」（対格）。-а で終わる語は男性を指しても -у になります。","A2-204":"「同僚と一緒に」。с＋造格（с колле́гой）。",
+"A1-1338":"「もうすぐ・まもなく」。Ско́ро бу́дет ле́то.（もうすぐ夏です）",
+"A1-1343":"「画家・芸術家」。女性も同じ語で言えます。",
+"A1-1344":"「エンジニア・技師」。アクセントは最後の е です。",
+"A1-1345":"「プログラマー」。Я рабо́таю программи́стом. と造格で職業を言います。",
+"A1-1349":"「首都」。Москва́ — столи́ца Росси́и.",
+"A1-1350":"「村・田舎」。в дере́вне（田舎で）。祖父母の家を指すことも多い語です。",
+"A1-1351":"「絵・絵画」。写真は фотогра́фия と区別します。",
+"A2-1136":"「ほほえむ」。-ся 動詞で、相手は与格です：улыба́ться дру́гу。",
+"A2-1137":"「（声を出して）笑う」。-ся 動詞。「〜を笑う」は над＋造格です。",
+"A2-1147":"「（出来事を）話して聞かせる」の不完了体。完了体は рассказа́ть。",
+"A2-1150":"「掛かっている」状態。Карти́на виси́т на стене́.（絵が壁に掛かっている）。「掛ける」は ве́шать／пове́сить。",
+"A2-1154":"「（科目を）教える」。教える科目は対格：преподава́ть ру́сский язы́к。",
+"A2-1158":"「一部の・何人かの」。不特定の複数を指します：не́которые лю́ди（一部の人々）。",
+"A2-1135":"「（店・扉などが）閉まる」。Магази́н закрыва́ется в во́семь.（店は8時に閉まる）"
+};
+var P67_EXAMPLE={
+"A2-001":["Сын сейча́с в шко́ле.","息子は今、学校にいます。"],"A2-002":["Я веду́ сы́на в шко́лу.","息子を学校へ連れて行きます。"],"A2-003":["Дочь пришла́ из шко́лы.","娘が学校から帰ってきました。"],
+"A2-004":["Ба́бушка в больни́це.","祖母は入院しています。"],"A2-005":["Мне ну́жно в больни́цу.","病院へ行かなければなりません。"],"A2-006":["Он верну́лся из больни́цы.","彼は病院から戻りました。"],
+"A2-007":["В апте́ке есть э́то лека́рство?","薬局にこの薬はありますか。"],"A2-008":["Я иду́ в апте́ку.","薬局へ行きます。"],"A2-009":["Я иду́ из апте́ки.","薬局から帰るところです。"],
+"A2-010":["Муж ещё на рабо́те.","夫はまだ職場にいます。"],"A2-011":["Я е́ду на рабо́ту на авто́бусе.","バスで職場へ向かいます。"],"A2-012":["Я приду́ с рабо́ты в семь.","7時に仕事から帰ります。"],
+"A2-015":["Я вы́шел из до́ма в во́семь.","8時に家を出ました。"],
+"A2-016":["Я сего́дня в о́фисе.","今日は事務所にいます。"],"A2-017":["Приходи́те в о́фис в два.","2時に事務所へ来てください。"],"A2-018":["Я звоню́ из о́фиса.","事務所から電話しています。"],
+"A2-019":["Я был у врача́.","医者に診てもらいました。"],"A2-020":["Я записа́лся к врачу́.","医者の予約を取りました。"],
+"A2-021":["У меня́ есть вопро́с.","質問があります。"],"A2-022":["У ребёнка температу́ра.","子どもに熱があります。"],"A2-023":["У жены́ сего́дня выходно́й.","妻は今日休みです。"],"A2-024":["Докуме́нты у колле́ги.","書類は同僚が持っています。"],
+"A2-152":["Дочь в са́дике до пяти́.","娘は5時まで幼稚園にいます。"],"A2-153":["Я отвожу́ сы́на в са́дик.","息子を幼稚園へ送ります。"],"A2-154":["Я забира́ю дочь из са́дика.","娘を幼稚園に迎えに行きます。"],
+"A2-155":["В магази́не нет хле́ба.","店にパンがありません。"],"A2-156":["Я схожу́ в магази́н.","店に行ってきます。"],"A2-157":["Я иду́ из магази́на.","店から帰るところです。"],
+"A2-158":["В ба́нке больша́я о́чередь.","銀行は長い行列です。"],"A2-159":["За́втра я пойду́ в банк.","明日、銀行へ行きます。"],"A2-160":["Мне звони́ли из ба́нка.","銀行から電話がありました。"],
+"A2-161":["Посы́лка на по́чте.","荷物は郵便局にあります。"],"A2-162":["Я иду́ на по́чту.","郵便局へ行きます。"],"A2-163":["Я пришёл с по́чты.","郵便局から戻りました。"],
+"A2-164":["Мы обе́даем в рестора́не.","レストランで昼食をとります。"],"A2-165":["Пойдём в рестора́н?","レストランへ行きませんか。"],"A2-166":["Мы вы́шли из рестора́на.","私たちはレストランを出ました。"],
+"A2-167":["Я жду вас в аэропорту́.","空港でお待ちしています。"],"A2-168":["Как дое́хать в аэропо́рт?","空港へはどう行けばいいですか。"],"A2-169":["Я е́ду из аэропо́рта.","空港から向かっています。"]
+};
+/* 意味の表記ゆれ（「店〜で」など）を直す */
+var P67_MEANING={"A2-152":"幼稚園で","A2-153":"幼稚園へ","A2-154":"幼稚園から","A2-155":"店で","A2-156":"店へ","A2-157":"店から","A2-158":"銀行で","A2-159":"銀行へ","A2-160":"銀行から",
+  "A2-161":"郵便局で","A2-162":"郵便局へ","A2-163":"郵便局から","A2-164":"レストランで","A2-165":"レストランへ","A2-166":"レストランから","A2-167":"空港で","A2-168":"空港へ","A2-169":"空港から",
+  "A1-199":"郵便局・郵便","A1-791":"平焼きパン5枚"};
+if(String(DATA_VERSION).indexOf("ru-")===0){
+  VOCAB=VOCAB.filter(function(w){return P67_HIDE.indexOf(w.id)<0;});
+  VOCAB.forEach(function(w){
+    if(P67_CAT[w.category])w.category=P67_CAT[w.category];
+    if(P67_MEANING[w.id])w.meaning=P67_MEANING[w.id];
+    var e=P67_EXP[w.id];
+    if(e){w.simpleExp=e;
+      /* 詳しい解説が同じ決まり文句・誤り（副詞を形容詞と説明）だった場合は差し替える */
+      if(!w.detailExp||w.detailExp.length<40||/形容詞（男性形代表）|格変化した形|を表す代名詞|人称代名詞。$|^数字「/.test(w.detailExp))w.detailExp=e;}
+    var x=P67_EXAMPLE[w.id];if(x&&!w.exRu){w.exRu=x[0];w.exJa=x[1];}
+  });
+}
+/* 瞬間作文 Unit 01〜20 の「詳しい解説」：決まり文句だけだったので、ユニットごとの要点に書き直す */
+var P67_UNITG={
+"Unit 01":"あいさつは相手との距離で使い分けます。目上・初対面には Здра́вствуйте／вы、親しい相手には Приве́т／ты。名乗るときは Меня́ зову́т＋名前（直訳「私を〜と呼ぶ」）。頼みごとには пожа́луйста を添え、お礼には Спаси́бо、返事は Пожа́луйста（どういたしまして）と同じ語で返せます。",
+"Unit 02":"年齢は「人（与格）＋数＋год／го́да／лет」で言います。Мне три́дцать лет.（私は30歳）。数の後ろの形は 1→год、2〜4→го́да、5以上→лет。家族を紹介するときは У меня́ есть сын.（私には息子がいます）の所有の形が便利です。",
+"Unit 03":"「持っている」は у＋人の生格＋есть＋物（主格）。У меня́ есть маши́на.（私は車を持っている）。「ない」は нет＋物の生格になり、形が変わります：У меня́ нет маши́ны. вре́мя → вре́мени のように変わる語もあります。",
+"Unit 04":"「どこに・どこで」は в／на＋前置格。語尾はほとんど -е（шко́ла → в шко́ле）です。どちらの前置詞を使うかは語ごとに決まっていて、建物・囲まれた場所は в、広場・催し・職場などは на（на рабо́те, на по́чте）。",
+"Unit 05":"移動の動詞は「歩いて」か「乗り物で」かで変わります。идти́（歩いて行く）／е́хать（乗り物で行く）は今向かっている最中、пойти́／пое́хать は「出かける・これから行く」。行き先は в／на＋対格（в шко́лу）で表します。",
+"Unit 06":"タクシーや交通では、行き先を до＋生格（до вокза́ла＝駅まで）で伝え、お願いは命令形＋пожа́луйста（Останови́те здесь, пожа́луйста.）で言います。支払い方法は造格：ка́ртой（カードで）、нали́чными（現金で）。",
+"Unit 07":"値段は Ско́лько сто́ит?（いくら？）、複数なら Ско́лько сто́ят? 「〜してもいいですか」は Мо́жно＋動詞の原形。Мо́жно примéрить?（試着できますか）。「〜をください」は Да́йте＋対格で、女性名詞は -у に変わります（буты́лку воды́）。",
+"Unit 08":"注文の基本は Да́йте, пожа́луйста, …（〜をください）と Я возьму́ …（〜にします）。「〜なし」は без＋生格（без са́хара）、「〜入り」は с＋造格（с молоко́м）。会計は Счёт, пожа́луйста.（お会計をお願いします）。",
+"Unit 09":"時刻は в＋時刻（в три часа́＝3時に）、曜日は в＋対格（в понеде́льник）、期限は до＋生格（до пя́тницы）。「今日・明日・昨日」の сего́дня／за́втра／вчера́ は前置詞なしで使います。",
+"Unit 10":"現在形は主語で語尾が変わります。第1変化（рабо́тать）：я рабо́таю, ты рабо́таешь, он рабо́тает, мы рабо́таем, вы рабо́таете, они́ рабо́тают。第2変化（говори́ть）：говорю́, говори́шь, говори́т, говори́м, говори́те, говоря́т。",
+"Unit 11":"過去形は語幹＋-л で作り、主語の性・数で変わります：он рабо́тал, она́ рабо́тала, они́ рабо́тали。я や ты でも話し手が女性なら -ла を使います。「行った（往復した）」は ходи́л／е́здил で表します。",
+"Unit 12":"未来は2通り。完了体の現在形の形がそのまま「（1回）〜する」未来になります（Я позвоню́.）。不完了体は бу́ду＋原形で「〜しているだろう・〜するつもり」（Я бу́ду рабо́тать.）。за́втра, пото́м, на сле́дующей неде́ле と一緒に使います。",
+"Unit 13":"対格は「〜を」（目的語）と「〜へ」（в／на＋行き先）に使います。形が変わるのは主に女性名詞 -а → -у（кни́га → кни́гу）と、人を表す男性名詞（брат → бра́та）。物を表す男性名詞は主格と同じ形です。",
+"Unit 14":"前置格は в／на と組んで「どこで」、о と組んで「〜について」を表します。語尾は多くが -е（о рабо́те）、-ия で終わる語は -ии（в Росси́и）。「〜について話す」は говори́ть о＋前置格です。",
+"Unit 15":"与格は「〜に（あげる・電話する）」と「〜にとって」を表します。Я звоню́ ма́ме.（母に電話する）、Мне хо́лодно.（私は寒い）、Мне ну́жно …（私は〜しなければ）。人称代名詞は мне, тебе́, ему́, ей, нам, вам, им。",
+"Unit 16":"мо́жно（してよい・できる）、ну́жно／на́до（しなければならない）、нельзя́（してはいけない）は主語を取らず、する人を与格で表します：Мне ну́жно идти́. 丁寧な依頼は Не могли́ бы вы …?（〜していただけませんか）や命令形＋пожа́луйста。",
+"Unit 17":"体の痛みは У меня́ боли́т＋部位（主格）。複数なら боля́т（боля́т зу́бы）。熱は У меня́ температу́ра. 症状を伝えた後は Мне ну́жен врач.（医者が必要です）や Где апте́ка? が続きます。",
+"Unit 18":"故障は Не рабо́тает …（〜が動かない）、слома́лся／слома́лась（壊れた：物の性で変わる）。水漏れは Течёт вода́. 修理を頼むときは Мо́жно прийти́ и посмотре́ть?（来て見てもらえますか）のように мо́жно＋原形を使います。",
+"Unit 19":"仕事の場面では、完了体の命令形＋пожа́луйста で依頼します：Прове́рьте, пожа́луйста, докуме́нт. 期限は до＋生格、送り先は 与格（Отпра́вьте мне）。報告は完了体の過去形（Я уже́ отпра́вил.）で「済んだ」ことを伝えます。",
+"Unit 20":"意見と理由を言う型です。Я ду́маю, что …（〜と思う）、потому́ что …（なぜなら）、поэ́тому …（だから）、е́сли …（もし）。2つの文を что や потому́ что でつなぐときは、前にコンマを置きます。"
+};
+if(String(DATA_VERSION).indexOf("ru-")===0){
+  COMPOSE.forEach(function(c){var k=String(c.unit||"").slice(0,7);if(P67_UNITG[k]&&/の練習文です。各単語の形は/.test(c.gDetail||""))c.gDetail=P67_UNITG[k];});
 }
 
 /* ===== PHASE46: 文法ノート（A2までの文法早見表）と A2カバー状況 ===== */
@@ -4462,7 +4693,7 @@ document.body.addEventListener("click",function(e){
   // grammar
   /* PHASE46: 文法ノート／A2カバー状況から練習開始 */
   if(a==="p46note"){var pn=P46_NOTES[+V("data-val")];if(pn){ui.p46Open=pn.key;startCompose({type:"ids",ids:p46NoteIds(pn.gps)},"文法ノート："+pn.title);}return;}
-  if(a==="p46a2"){var pa=P46_A2[+V("data-val")];if(pa)startCompose({type:"ids",ids:p46NoteIds(pa[2])},"A2："+pa[0]);return;}
+  if(a==="p46a2"){var pa=P46_A2[+V("data-val")];if(pa)startCompose({type:"ids",ids:p46NoteIds(pa[2])},(/^B1：/.test(pa[0])?"":"A2：")+pa[0]);return;}
   if(a==="aienable"){settings.aiChatEnabled=true;saveAll();render();return;}
   if(a==="aidisable"){settings.aiChatEnabled=false;saveAll();render();return;}
   if(a==="ggroup"){var grp=GROUPS[+V("data-val")];startCompose({type:"ids",ids:(grp.composeIds||[]).slice()},"文法別練習："+grp.title);return;}
@@ -4539,6 +4770,9 @@ document.body.addEventListener("input",function(e){
 });
 
 /* ===== PHASE47: シンプルUI（ホーム2択・テーマ別単語練習・覚えたリスト・ブックマーク・新デザイン） ===== */
+/* 収録レベルの一覧（キルギス語は B1 まで。キルギス語は A1/A2） */
+var P_LVLS=(function(){var o=["A1","A2"];if(VOCAB.some(function(w){return w.level==="B1";}))o.push("B1");return o;})();
+function pLvRange(){return P_LVLS.length>2?P_LVLS[0]+"〜"+P_LVLS[P_LVLS.length-1]:P_LVLS.join("/");}
 var P47_LANG="ky";
 var P47={
   ru:{name:"キルギス語",native:"Русский",greet:function(h){return h<11?"Доброе утро":(h<18?"Добрый день":"Добрый вечер");},
@@ -4616,7 +4850,7 @@ function p47CatIcon(cat){
 }
 /* ---- テーマ一覧（カテゴリー＝テーマ） ---- */
 var P47_THEMES=(function(){var m={},out=[];VOCAB.forEach(function(w){var c=w.category||"その他";if(!m[c]){m[c]={cat:c,level:w.level,ids:[]};out.push(m[c]);}m[c].ids.push(w.id);});
-  out.sort(function(a,b){return (a.level===b.level)?0:(a.level==="A1"?-1:1);});return out;})();
+  out.sort(function(a,b){return P_LVLS.indexOf(a.level)-P_LVLS.indexOf(b.level);});return out;})();
 /* ---- 画面：ホーム ---- */
 function p47Ring(pct,size){var r=(size-10)/2,c=2*Math.PI*r,off=c*(1-Math.min(1,pct));
   return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'"><circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="8"/><circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 '+size/2+' '+size/2+')"/></svg>';}
@@ -4649,7 +4883,7 @@ function renderP47Words(){
     '<button type="button" class="p47-tile" data-act="p47set" data-val="known"'+(kn.length?'':' disabled')+'>'+p47Icon("check",20)+'<b>'+kn.length+'</b><span>覚えた単語</span></button></div>';
   var lv="";
   P47_THEMES.forEach(function(th,i){
-    if(th.level!==lv){lv=th.level;h+='<div class="p47-sec">'+(lv==="A1"?'A1 ・ 基礎':'A2 ・ ステップアップ')+'</div>';}
+    if(th.level!==lv){lv=th.level;h+='<div class="p47-sec">'+({A1:'A1 ・ 基礎',A2:'A2 ・ ステップアップ',B1:'B1 ・ 中級'}[lv]||lv)+'</div>';}
     var n=th.ids.length,k=th.ids.filter(p47IsKnown).length,open=ui.p47Open===i;
     h+='<div class="p47-theme'+(open?" open":"")+'"><button type="button" class="p47-themehead" data-act="p47theme" data-val="'+i+'">'+
       '<span class="p47-themeic">'+p47Icon(p47CatIcon(th.cat),22)+'</span><span class="p47-themetxt"><b>'+esc(th.cat)+'</b>'+
@@ -4718,7 +4952,7 @@ renderOnboarding=function(){
   var L=p47L(),i=Math.min(ui.onbSlide||0,P47_SLIDES.length-1),s=P47_SLIDES[i],last=i===P47_SLIDES.length-1;
   var h='<div class="p47-onb"><div class="p47-onbart">'+L.hero+'<span class="p47-onbbadge">'+p47Icon(s.ic,30)+'</span></div>';
   h+='<div class="p47-onbbody">'+(last?'':'<button type="button" class="p47-onbskip" data-act="onbskip">スキップ</button>')+
-     '<div class="p47-onbapp">'+esc(L.native)+' ・ '+esc(L.name)+' A1/A2</div>'+
+     '<div class="p47-onbapp">'+esc(L.native)+' ・ '+esc(L.name)+' '+pLvRange()+'</div>'+
      '<h2>'+esc(s.title)+'</h2><p>'+esc(s.body)+'</p>'+
      '<div class="p47-dots">'+P47_SLIDES.map(function(_,k){return '<i class="'+(k===i?"on":"")+'"></i>';}).join("")+'</div>'+
      '<button type="button" class="p47-onbbtn" data-act="'+(last?"onbfinish":"onbnext")+'">'+(last?"はじめる":"次へ")+p47Icon("chev",18)+'</button></div></div>';
@@ -4883,7 +5117,7 @@ function renderP48Stats(){
   var all=0;Object.keys(appHist.days||{}).forEach(function(k){all+=p48DayCount(k);});
   var h='<div class="p48-stats"><div class="p48-title">記録</div>';
   h+='<div class="p48-hero p49-scene"><div class="p49-sceneart">'+p47L().hero+'</div><div class="p48-gauge">'+p48Gauge(pct,230)+'<div class="p48-gin"><div class="p48-pct">'+Math.round(pct*1000)/10+'<small>%</small></div><div class="p48-gl">覚えた単語</div><div class="p48-gn">'+known.toLocaleString()+' / '+total.toLocaleString()+'</div></div></div>';
-  [["A1",a1],["A2",a2]].forEach(function(x){var p=x[1].n?x[1].k/x[1].n:0;
+  P_LVLS.map(function(l){return [l,lv(l)];}).forEach(function(x){var p=x[1].n?x[1].k/x[1].n:0;
     h+='<div class="p48-lv"><span class="p48-lvtag">'+x[0]+'</span><span class="p48-lvbar"><i style="width:'+(p*100).toFixed(1)+'%"></i></span><span class="p48-lvn">'+Math.round(p*100)+'%</span></div>';});
   h+='</div>';
   h+='<div class="p48-tiles">'+
@@ -5648,7 +5882,7 @@ renderP48Stats=function(){
   var pr=function(lv){var p=p53Projection(lv);
     if(p.done)return '<div class="p53-pj"><span class="p48-lvtag">'+lv+'</span><span>すべて覚えました！</span></div>';
     return '<div class="p53-pj"><span class="p48-lvtag">'+lv+'</span><span>残り <b>'+p.left+'</b> 語'+(p.eta?' ・ このペースなら <b>'+(p.eta.getFullYear()!==new Date().getFullYear()?p.eta.getFullYear()+'年':'')+(p.eta.getMonth()+1)+'月'+p.eta.getDate()+'日</b>ごろ達成':' ・ 新しい単語を進めると到達日を予測します')+'</span></div>';};
-  var pj='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達予測</b><span>直近14日のペース</span></div>'+pr("A1")+pr("A2")+'</div>';
+  var pj='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達予測</b><span>直近14日のペース</span></div>'+P_LVLS.map(pr).join("")+'</div>';
   return h.replace('<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">',f+pj+'<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">');
 };
 document.addEventListener("click",function(e){
@@ -5727,7 +5961,7 @@ async function p55Sample(){if(P55.sample!==undefined)return P55.sample;try{P55.s
 function p55ErrMsg(e){var c=e&&e.code;return {rate_limited:"少し時間をおいてからもう一度試してください",not_granted:"AIの利用が許可されていません",not_declared:"このページではAIを使えません",sampling_disabled:"AIが使えない設定になっています",session_expired:"ページを開き直してください",refused:"その内容には答えられませんでした",prompt_too_large:"会話が長くなりすぎました。新しく始めてください"}[c]||"うまく応答できませんでした。もう一度試してください";}
 function p55Rules(sc){
   var known=VOCAB.filter(function(w){return p47IsKnown(w.id);}).slice(-40).map(function(w){return w.word;}).join(", ");
-  return "あなたは日本人の"+P55_LANG_JA+"学習者（A1〜A2レベル）の会話練習相手です。場面：「"+sc.t+"」。あなたの役：「"+sc.role+"」。\n"+
+  return "あなたは日本人の"+P55_LANG_JA+"学習者（"+pLvRange()+"レベル）の会話練習相手です。場面：「"+sc.t+"」。あなたの役：「"+sc.role+"」。\n"+
     "ルール：\n1. 毎回、"+P55_LANG_JA+"で1〜2文だけ短く話す。A2までのやさしい語彙と文法を使う。\n2. その次の行に、日本語訳を（）で書く。\n"+
     "3. 学習者の"+P55_LANG_JA+"に間違いがあれば、さらに次の行に「💡 」から始めて、正しい言い方と日本語の短い説明を1行で書く。間違いがなければこの行は書かない。\n"+
     "4. 学習者が日本語で書いたら、それを"+P55_LANG_JA+"でどう言うかを教えてから会話を続ける。\n5. 毎回、相手が答えやすい質問で終える。絵文字・マークダウンは使わない（💡だけ使う）。\n"+
@@ -5755,7 +5989,7 @@ async function p55Report(){
   T.busy=true;T.report="";render();
   var tr=T.msgs.map(function(m){return (m.role==="user"?"学習者: ":"相手: ")+m.content;}).join("\n");
   try{
-    var r=await s("次は"+P55_LANG_JA+"学習者（A1〜A2）の会話練習の記録です。日本語で短いふりかえりを書いてください。\n形式：\nよかった点：（1行）\n直すとよい表現：（誤→正 を最大3つ、各1行。なければ「特になし」）\n次に使える表現：（"+P55_LANG_JA+"の文を2つ、日本語訳付き）\nマークダウン記号は使わない。\n\n"+tr,{cache:false,modelTier:"quick",onText:function(o){var el=document.getElementById("p55rep");if(el)el.textContent=o.text;}});
+    var r=await s("次は"+P55_LANG_JA+"学習者（"+pLvRange()+"）の会話練習の記録です。日本語で短いふりかえりを書いてください。\n形式：\nよかった点：（1行）\n直すとよい表現：（誤→正 を最大3つ、各1行。なければ「特になし」）\n次に使える表現：（"+P55_LANG_JA+"の文を2つ、日本語訳付き）\nマークダウン記号は使わない。\n\n"+tr,{cache:false,modelTier:"quick",onText:function(o){var el=document.getElementById("p55rep");if(el)el.textContent=o.text;}});
     T.report=r.text;
   }catch(e){T.report=p55ErrMsg(e);}
   T.busy=false;saveUI();render();
@@ -6010,15 +6244,16 @@ renderSessionSummary=function(){
 };
 /* ---- 5) ホーム：いまの目標レベルを1行で ---- */
 function p56LevelState(){
-  var r={};["A1","A2"].forEach(function(lv){var ids=VOCAB.filter(function(w){return w.level===lv;}),k=ids.filter(function(w){return p47IsKnown(w.id);}).length;
+  var r={};P_LVLS.forEach(function(lv){var ids=VOCAB.filter(function(w){return w.level===lv;}),k=ids.filter(function(w){return p47IsKnown(w.id);}).length;
     r[lv]={n:ids.length,k:k,pct:ids.length?Math.round(k/ids.length*100):0,passed:!!(appHist.levelTests[lv]&&appHist.levelTests[lv].passed)};});
-  r.cur=(r.A1.passed||r.A1.pct>=90)?"A2":"A1";return r;
+  /* いまの目標：合格（または9割覚えた）していない最初のレベル */
+  r.cur=P_LVLS[P_LVLS.length-1];for(var i=0;i<P_LVLS.length;i++){var x=r[P_LVLS[i]];if(!(x.passed||x.pct>=90)){r.cur=P_LVLS[i];break;}}return r;
 }
 var _p56Home=renderHome;
 renderHome=function(){
   var h=String(_p56Home()),L=p56LevelState(),c=L[L.cur];
   var bar='<button type="button" class="p56-goal" data-act="bnav" data-val="stats"><span class="p56-gl">いまの目標</span><b>'+L.cur+'</b>'+
-    '<span class="p56-gbar"><i style="width:'+c.pct+'%"></i></span><span class="p56-gn">'+c.pct+'%</span>'+(L.A1.passed?'<span class="p56-badge">A1合格</span>':'')+(L.A2.passed?'<span class="p56-badge">A2合格</span>':'')+'</button>';
+    '<span class="p56-gbar"><i style="width:'+c.pct+'%"></i></span><span class="p56-gn">'+c.pct+'%</span>'+P_LVLS.map(function(l){return L[l].passed?'<span class="p56-badge">'+l+'合格</span>':'';}).join("")+'</button>';
   return h.replace('<div class="p53-note">','<div class="p53-note">').replace(/(<div class="p51-herowrap">)/,bar+'$1');
 };
 /* ---- 6) 記録：到達テストとA2カバー状況への入口 ---- */
@@ -6028,7 +6263,7 @@ renderP48Stats=function(){
   var row=function(lv){var t=appHist.levelTests[lv]||{},c=L[lv];
     return '<div class="p56-trow"><span class="p48-lvtag">'+lv+'</span><span class="p56-tt"><b>'+(t.passed?'合格 ✓':(t.best!=null?'最高 '+t.best+'%':'未受験'))+'</b><small>覚えた単語 '+c.k+' / '+c.n+'</small></span>'+
       '<button type="button" class="p47-btn'+(t.passed?'':' primary')+'" data-act="p56test" data-val="'+lv+'">'+(t.best!=null?'もう一度':'テストを受ける')+'</button></div>';};
-  var card='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達テスト</b><span>25問・80%で合格</span></div>'+row("A1")+row("A2")+
+  var card='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達テスト</b><span>25問・80%で合格</span></div>'+P_LVLS.map(row).join("")+
     '<button type="button" class="p56-link" data-act="p56a2">A2の文法項目ごとの達成度を見る ›</button></div>';
   return h.replace('<div class="p48-tiles">',card+'<div class="p48-tiles">');
 };
@@ -6094,7 +6329,10 @@ function p58Strip(s){return String(s||"").replace(/́/g,"").toLowerCase();}
 var P58_FORMS=(function(){var f={},disp={};COMPOSE.forEach(function(c){(c.breakdown||[]).forEach(function(b){var k=p58Strip(b.base);if(!k)return;
   var s=p58Strip(b.surface);(f[k]=f[k]||{})[s]=1;disp[s]=disp[s]||String(b.surface).replace(/^[«"(]+|[»")]+$/g,"");});});
   Object.keys(f).forEach(function(k){if(!disp[k])disp[k]=k;});return {f:f,disp:disp};})();
-function p58LevelCompose(lv){var r=P58_UNITS[P47_LANG==="ky"?"ky":"ru"][lv];return COMPOSE.filter(function(c){var i=UNITS.indexOf(c.unit);return i>=r[0]&&i<r[1];});}
+function p58LevelCompose(lv){
+  /* B1 は文データの level で選ぶ。A1/A2 はユニットの順番で分ける（B1 の文は含めない） */
+  if(lv==="B1")return COMPOSE.filter(function(c){return c.level==="B1";});
+  var r=P58_UNITS[P47_LANG==="ky"?"ky":"ru"][lv];return COMPOSE.filter(function(c){var i=UNITS.indexOf(c.unit);return c.level!=="B1"&&i>=r[0]&&i<r[1];});}
 function p58Vocab(lv,n){
   var themes=P47_THEMES.filter(function(t){return t.level===lv;}),total=0;themes.forEach(function(t){total+=t.ids.length;});
   var out=[];themes.forEach(function(t){var k=Math.max(1,Math.round(n*t.ids.length/total));out=out.concat(shuffle(t.ids.filter(function(id){return !/\s/.test(WMAP[id].word);})).slice(0,k));});
@@ -6325,7 +6563,7 @@ renderP48Stats=function(){
      '<div class="p60-line"><i style="width:'+pct.toFixed(1)+'%"></i></div>'+
      '<div class="p60-facts"><span><b>'+streak+'</b> 日連続</span><span>今日 <b>'+d+'</b> / '+t+' 問</span><span>累計 <b>'+all.toLocaleString()+'</b> 問</span></div></div>';
   h+='<div class="p60-h">レベル</div><div class="p60-list">';
-  ["A1","A2"].forEach(function(lv){
+  P_LVLS.forEach(function(lv){
     var c=L[lv],tt=appHist.levelTests[lv]||{},p=p53Projection(lv);
     var eta=p.done?'すべて覚えました':('残り '+p.left+' 語'+(p.eta?' ・ 今のペースで '+(p.eta.getFullYear()!==new Date().getFullYear()?p.eta.getFullYear()+'年':'')+(p.eta.getMonth()+1)+'月'+p.eta.getDate()+'日ごろ':''));
     h+='<div class="p60-row"><div class="p60-rt"><b>'+lv+'</b><span>'+c.k+' / '+c.n+' 語</span><em>'+c.pct+'%</em></div><div class="p60-line"><i style="width:'+c.pct+'%"></i></div>'+
@@ -6771,6 +7009,175 @@ p59Put=function(el,pic,cls){
 var _p66Settings=renderSettings;
 renderSettings=function(embed){var h=String(_p66Settings.apply(this,arguments));return P66?h+'<div class="p61-note" style="margin-top:4px">単語の絵：Microsoft Fluent Emoji（MIT License, © Microsoft Corporation）</div>':h;};
 (function(){var st=document.createElement("style");st.textContent='.p61-note{font-size:11.5px;color:var(--muted);line-height:1.7;margin:18px 4px 8px}';document.head.appendChild(st);})();
+
+/* ===== PHASE67: 操作性とデザインの見直し =====
+   - 学習中のサブ画面では上の「Русский」帯を隠し、戻るボタン付きの見出しだけにする
+   - 単語カード：単語が長いときに音声ボタンと並んで不自然に折り返す問題を直す
+   - 瞬間作文：読み仮名の括弧、「0.68x」などの数字、ローマ字、重複した文法ラベル、途中の設定ボタンを外す
+               「解説を見る」は1回押せば解説がすべて開き、下の評価ボタンはいつでも押せる
+   - 4択クイズ：選択肢を「同じテーマ・同じ品詞・同じ長さ（単語か文か）」からそろえ、答えが見え見えにならないようにする
+   - 結果画面：下のボタンを画面下に固定し、スクロールしなくても押せる
+   - 開発用の画面（要確認データ）を一覧から外す */
+
+/* ---- 4択の選択肢：まぎらわしいものから選ぶ ---- */
+p52Pool=function(w){
+  var multi=/\s/.test(w.word),sm=p52Short(w.meaning);
+  var ok=function(x){return x.id!==w.id&&x.word!==w.word&&p52Short(x.meaning)!==sm&&/\s/.test(x.word)===multi;};
+  var t1=VOCAB.filter(function(x){return ok(x)&&x.category===w.category&&x.pos===w.pos;});
+  if(t1.length>=6)return t1;
+  var t2=t1.concat(VOCAB.filter(function(x){return ok(x)&&x.category!==w.category&&x.pos===w.pos&&x.level===w.level;}));
+  if(t2.length>=6)return t2;
+  var t3=t2.concat(VOCAB.filter(function(x){return ok(x)&&x.pos!==w.pos;}));
+  if(t3.length>=6)return t3;
+  return VOCAB.filter(function(x){return x.id!==w.id&&p52Short(x.meaning)!==sm;});
+};
+
+/* ---- 開発用の画面を一覧から外す ---- */
+try{if(typeof LEARN_ITEMS!=="undefined")LEARN_ITEMS=LEARN_ITEMS.filter(function(it){return it[0]!=="reviewqueue";});}catch(_){}
+
+/* ---- 描画後の仕上げ ---- */
+function p67Tidy(){
+  var m=document.getElementById("main");if(!m)return;
+  var b=document.body;
+  /* サブ画面（戻る／やめるボタンがある画面）では上の帯を隠す */
+  var sub=!!ui.learnOpen||!!m.querySelector(".p52-top,.p51-head");
+  b.classList.toggle("p67-sub",sub);
+  /* 瞬間作文カード */
+  var st=m.querySelector(".study");
+  if(st){
+    var gear=st.querySelector(':scope > div:first-child [data-act="bnav"][data-val="profile"]');if(gear)gear.style.visibility="hidden";
+    st.querySelectorAll(".kana").forEach(function(k){var t=k.textContent.replace(/^\s*[\[【]\s*/,"").replace(/\s*[\]】]\s*$/,"").replace(/[。．]\s*$/,"");if(t!==k.textContent)k.textContent=t;});
+    st.querySelectorAll('[data-act="sayslow"]').forEach(function(x){if(/x/.test(x.textContent))x.textContent="ゆっくり";});
+    st.querySelectorAll(".roma").forEach(function(r){r.style.display="none";});
+    var unit=st.querySelector(":scope > .small"),pill=st.querySelector(".tagpill");
+    if(unit&&pill&&unit.textContent.indexOf(pill.textContent.trim())>=0)pill.parentNode.style.display="none";
+    var det=st.querySelector("details.more");if(det&&st.querySelector(".easy"))det.open=true;
+    var extra=st.querySelector('[data-act="toggleextra"] span');if(extra&&st.querySelector(".easy"))extra.textContent="解説を閉じる";
+    else if(extra)extra.textContent="解説を見る";
+    var gd=st.querySelector(".gd");if(gd)gd.textContent=gd.textContent.replace(/\s*下の単語分解では、表面形・基本形・意味・なぜこの形かを確認します。\s*$/,"");
+  }
+  /* 文法ページ（A2カバー状況）の作る側向けの注記を外す */
+  m.querySelectorAll(".note").forEach(function(n){if(/draft|ネイティブ確認/.test(n.textContent))n.style.display="none";});
+  /* 読み仮名の［ ］【 】を外す（リスニングなど） */
+  m.querySelectorAll(".kana,.p52-dk").forEach(function(k){if(k.children.length)return;var t=k.textContent,u=t.replace(/^\s*[\[【]\s*/,"").replace(/\s*[\]】]\s*$/,"");if(u!==t)k.textContent=u;});
+  /* 見出しと同じ大見出し（hero）を重ねて出さない */
+  if(m.querySelector(".p51-head"))m.querySelectorAll(".hero .greet").forEach(function(g){g.style.display="none";});
+  /* 作る側の数字・用語を外す */
+  m.querySelectorAll(".card").forEach(function(c){var bb=c.querySelector(":scope > b");if(bb&&bb.textContent==="収録データ")c.style.display="none";});
+  m.querySelectorAll(".small.muted,.p51-hubsub,.sub").forEach(function(x){if(x.children.length)return;var t=x.textContent;
+    var u=t.replace(/^瞬間作文（[^）]*）。\s*/,"").replace("端末の読み上げでキルギス語を聞き流します","キルギス語を聞き流して、耳を慣らします");if(u!==t)x.textContent=u;});
+  /* リスニング：細かい設定は「再生の設定」にまとめて畳む */
+  var lis=m.querySelector(".v-listening");
+  if(lis&&!lis.querySelector(".p67-lisset")){
+    var wf=lis.querySelector(".waveform");if(wf)wf.style.display="none";
+    var first=null,kids=[].slice.call(lis.children);
+    for(var i=0;i<kids.length;i++){if(kids[i].classList.contains("h2")){first=i;break;}}
+    if(first!==null){
+      var d=document.createElement("details");d.className="p67-lisset";if(ui.p67LisOpen)d.open=true;
+      d.innerHTML='<summary>再生の設定</summary>';
+      kids.slice(first).forEach(function(k){var txt=k.textContent||"";
+        if(/フィルター再生|現在の設定/.test(txt)&&!k.classList.contains("seg")){k.style.display="none";}
+        if(k.classList.contains("seg")&&k.querySelector('[data-act="lisquickfilter"]'))k.style.display="none";
+        d.appendChild(k);});
+      d.addEventListener("toggle",function(){ui.p67LisOpen=d.open;});
+      lis.appendChild(d);
+    }
+  }
+  /* 結果画面：ボタンを下に固定 */
+  var res=m.querySelector(".p56-result");
+  b.classList.toggle("p67-result",!!res);
+}
+var _p67Render=render;
+render=function(){var r=_p67Render.apply(this,arguments);try{p67Tidy();}catch(_){}return r;};
+
+/* 解説を開いたら、解説の先頭が見えるようにカードの中だけをスクロールする（評価ボタンは固定のまま） */
+document.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest('[data-act="toggleextra"]');if(!el)return;
+  setTimeout(function(){try{var card=document.querySelector("#main .study > .card"),easy=card&&card.querySelector(".easy");
+    if(card&&easy)card.scrollTo({top:Math.max(0,easy.offsetTop-80),behavior:"smooth"});}catch(_){}},60);
+});
+
+(function(){
+  var css=
+  /* サブ画面：上の帯を隠し、見出しを上に詰める */
+  'body.p67-sub header.app{display:none!important}'+
+  'body.p67-sub #main{padding-top:calc(6px + env(safe-area-inset-top))!important}'+
+  '.p51-head h2,.p51-head .p51-title{font-size:20px!important;letter-spacing:.01em}'+
+  /* 単語カード：単語と音声ボタンを分けて折り返す */
+  '.p52-dw{display:flex!important;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;line-height:1.15;overflow-wrap:anywhere}'+
+  '.p52-dw .p52-spk{flex:0 0 auto}'+
+  '.p52-dk{margin-top:6px!important}.p52-dexp{line-height:1.75!important;font-size:14px!important}'+
+  '.p52-dex b{font-size:16px!important;line-height:1.5}.p52-dex span{line-height:1.6}'+
+  /* 4択の選択肢：押しやすく、文字は読みやすく */
+  '.p52-opt{min-height:56px!important;border-radius:14px!important}.p52-opt .p52-t{font-size:16px!important;line-height:1.4}'+
+  /* 瞬間作文カード */
+  '.study .qcard .jp{font-size:19px!important;line-height:1.6!important}.study .qcard .accent{font-size:24px!important;line-height:1.45!important}'+
+  '.study .qcard .kana{font-size:14px!important;opacity:.85;margin-top:6px!important}'+
+  '.study .extrabtn{border-radius:12px!important}.study .easy{line-height:1.75!important}'+
+  '.study details.more>summary{font-weight:700}.study .gd{line-height:1.8!important}'+
+  /* 結果画面：ボタンを画面下に固定 */
+  'body.p67-result #main .p50-btns{position:sticky;bottom:0;z-index:20;background:var(--bg);padding:10px 0 calc(10px + env(safe-area-inset-bottom));margin-top:14px!important;border-top:1px solid var(--line)}'+
+  /* リスニングの設定の畳み */
+  '.p67-lisset{margin-top:14px;border:1px solid var(--line);border-radius:16px;background:var(--card);padding:0 14px}'+
+  '.p67-lisset>summary{list-style:none;cursor:pointer;padding:14px 0;font-weight:700;display:flex;justify-content:space-between;align-items:center}'+
+  '.p67-lisset>summary::-webkit-details-marker{display:none}.p67-lisset>summary::after{content:"＋";color:var(--muted);font-weight:400}.p67-lisset[open]>summary::after{content:"－"}'+
+  '.p67-lisset[open]{padding-bottom:14px}.p67-lisset .h2:first-of-type{margin-top:0}'+
+  /* 全体：カードの角・行間をそろえる */
+  '#main .card,#main .p48-card,#main .p47-card{border-radius:16px}'+
+  'body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}'+
+  'button{-webkit-tap-highlight-color:transparent}'+
+  /* リスニング：「前へ」「次へ」のアイコンの向きが逆だったので反転 */
+  '[data-act="lisprev"] svg,[data-act="lisnext"] svg{transform:scaleX(-1)}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
+})();
+
+/* ===== PHASE67-B1: B1（中級）の追加分を画面に反映（キルギス語のみ。B1データがない言語では何もしない） ===== */
+if(P_LVLS.indexOf("B1")>=0){
+  /* 上の帯とタブ名 */
+  try{var _hs=document.getElementById("hsub");if(_hs)_hs.textContent=_hs.textContent.replace(/A1\s*\/\s*A2/,"A1〜B1");document.title=document.title.replace("A1・A2","A1〜B1");}catch(_){}
+  /* 文法別練習に B1 の10項目を追加 */
+  var P67_B1GP=[["仮定法","仮定法 бы（もし〜なら）"],["関係代名詞","関係代名詞 кото́рый"],["形動詞","形動詞（〜している…・〜された…）"],["副動詞","副動詞（〜しながら・〜してから）"],
+    ["移動動詞・接頭辞","接頭辞つきの移動動詞"],["間接話法","間接話法・〜かどうか"],["時・条件・譲歩","時・理由・譲歩をつなぐ"],["受け身","受け身（〜される）"],
+    ["不定・否定代名詞","誰か・何か／誰も〜ない"],["意見・議論","意見を述べる・比べる"]];
+  P67_B1GP.forEach(function(d,i){var ids=COMPOSE.filter(function(c){return c.grammarPoint===d[0];}).map(function(c){return c.id;});
+    if(ids.length)GROUPS.push({id:"b1_"+i,title:"B1："+d[1],count:ids.length,composeIds:ids});});
+  /* 文法ノート：B1 の項目を追加（ユニットの解説＋例文2つ） */
+  P67_B1GP.forEach(function(d){
+    var cs=COMPOSE.filter(function(c){return c.grammarPoint===d[0];});if(!cs.length)return;
+    P46_NOTES.push({key:"b1_"+d[0],title:d[1],lv:"B1",gps:[d[0]],body:function(){
+      return '<p style="line-height:1.8;margin:4px 0 10px">'+esc(cs[0].gDetail)+'</p><ul>'+cs.slice(0,2).map(function(c){
+        return '<li><span class="p46ex">'+esc(c.accent||c.ru)+'</span><br><span class="small muted">'+esc(c.ja)+'</span></li>';}).join("")+'</ul>';}});
+  });
+  var _p67Gn=renderGrammarNotes;
+  renderGrammarNotes=function(){return String(_p67Gn.apply(this,arguments)).replace("A2（基礎レベル）までに必要なキルギス語文法の早見表です。","A1 から B1（中級）までの文法の早見表です。");};
+  /* 文法の達成度：B1 の項目も並べる */
+  var P67_B1CAN={"仮定法":"「もし〜なら」・ていねいな頼み方ができる","関係代名詞":"名詞を文で詳しく説明できる（すべての格）","形動詞":"書き言葉の「〜している…」を読み取れる",
+    "副動詞":"「〜しながら」「〜してから」を一文で言える","移動動詞・接頭辞":"入る・出る・寄る・渡るを言い分けられる","間接話法":"人の話を伝え、「〜かどうか」を聞ける",
+    "時・条件・譲歩":"「〜する前に・〜なのに・〜するとすぐ」でつなげる","受け身":"「〜される・〜された」を言える・読める","不定・否定代名詞":"「誰か・何か」と「誰も〜ない」を使い分けられる","意見・議論":"賛成・反対・比較を理由つきで言える"};
+  P67_B1GP.forEach(function(d){if(COMPOSE.some(function(c){return c.grammarPoint===d[0];}))P46_A2.push(["B1："+d[1],P67_B1CAN[d[0]]||"",[d[0]]]);});
+  if(typeof SHOW_LEVELS!=="undefined"&&SHOW_LEVELS.indexOf("B1")<0)SHOW_LEVELS.push("B1");
+  var _p67A2c=renderA2Check;
+  renderA2Check=function(){return String(_p67A2c.apply(this,arguments)).replace(/目安：A2 は日常の身近な場面で短いやり取りができるレベル。/,"目安：A2 は ТБУ（基礎レベル）、B1 は ТРКИ-1（日常生活と仕事で困らないレベル）相当。");};
+  LEARN_ITEMS.forEach(function(it){if(it[0]==="gnote")it[2]="B1までの文法早見表";if(it[0]==="a2check"){it[1]="文法の達成度";it[2]="A1〜B1の文法項目ごとの進み具合";}});
+  /* リスニング・単語検索：B1 で絞り込めるように */
+  var _p67Blq=buildListenQueue;
+  buildListenQueue=function(f){if(f==="b1")return baseLevel("B1");return _p67Blq.apply(this,arguments);};
+  var _p67Lt=listenTitle;
+  listenTitle=function(f){return f==="b1"?"B1コレクション":_p67Lt.apply(this,arguments);};
+  var _p67Lis=renderListening;
+  renderListening=function(){var L=ui.listen||{};return String(_p67Lis.apply(this,arguments)).replace(/(<button type="button" data-act="lisfilter" data-val="a2"[^>]*>A2<\/button>)/,
+    '$1<button type="button" data-act="lisfilter" data-val="b1" class="'+(L.filter==="b1"?"on":"")+'">B1</button>').replace("キ 速度<br>","読む速さ<br>");};
+  var _p67Ws=renderWordSearch;
+  renderWordSearch=function(){var s=ui.search||{};return String(_p67Ws.apply(this,arguments)).replace(/(<button type="button" data-act="searchlevel" data-val="A2"[^>]*>A2<\/button>)/,
+    '$1<button type="button" data-act="searchlevel" data-val="B1" class="'+(s.level==="B1"?"on":"")+'">B1</button>');};
+  /* 「A2カバー状況」の呼び名を「文法の達成度」にそろえる */
+  try{if(typeof P51_TITLES!=="undefined")P51_TITLES.a2check="文法の達成度";}catch(_){}
+  var _p67RenderB1=render;
+  render=function(){var r=_p67RenderB1.apply(this,arguments);
+    try{var m=document.getElementById("main");if(m){var a=m.querySelectorAll(".p60-rowlink span,.p56-link,.p51-head h2,.p51-head .p51-title");
+      for(var i=0;i<a.length;i++){var t=a[i].textContent;if(/A2の文法項目ごとの達成度|A2カバー状況/.test(t))a[i].textContent=t.replace(/A2の文法項目ごとの達成度/,"文法項目ごとの達成度（A1〜B1）").replace("A2カバー状況","文法の達成度");}}}catch(_){}
+    return r;};
+}
 
 /* ===== init ===== */
 try{ if(!ui.view)ui.view="word"; if(!ui.bnav)ui.bnav="home"; applyDisplayPrefs(); render(); }catch(err){ showFatal((err&&err.stack)||err); }

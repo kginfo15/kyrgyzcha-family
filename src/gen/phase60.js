@@ -44,7 +44,7 @@ renderP48Stats=function(){
      '<div class="p60-line"><i style="width:'+pct.toFixed(1)+'%"></i></div>'+
      '<div class="p60-facts"><span><b>'+streak+'</b> 日連続</span><span>今日 <b>'+d+'</b> / '+t+' 問</span><span>累計 <b>'+all.toLocaleString()+'</b> 問</span></div></div>';
   h+='<div class="p60-h">レベル</div><div class="p60-list">';
-  ["A1","A2"].forEach(function(lv){
+  P_LVLS.forEach(function(lv){
     var c=L[lv],tt=appHist.levelTests[lv]||{},p=p53Projection(lv);
     var eta=p.done?'すべて覚えました':('残り '+p.left+' 語'+(p.eta?' ・ 今のペースで '+(p.eta.getFullYear()!==new Date().getFullYear()?p.eta.getFullYear()+'年':'')+(p.eta.getMonth()+1)+'月'+p.eta.getDate()+'日ごろ':''));
     h+='<div class="p60-row"><div class="p60-rt"><b>'+lv+'</b><span>'+c.k+' / '+c.n+' 語</span><em>'+c.pct+'%</em></div><div class="p60-line"><i style="width:'+c.pct+'%"></i></div>'+

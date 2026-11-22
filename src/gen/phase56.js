@@ -74,15 +74,16 @@ renderSessionSummary=function(){
 };
 /* ---- 5) ホーム：いまの目標レベルを1行で ---- */
 function p56LevelState(){
-  var r={};["A1","A2"].forEach(function(lv){var ids=VOCAB.filter(function(w){return w.level===lv;}),k=ids.filter(function(w){return p47IsKnown(w.id);}).length;
+  var r={};P_LVLS.forEach(function(lv){var ids=VOCAB.filter(function(w){return w.level===lv;}),k=ids.filter(function(w){return p47IsKnown(w.id);}).length;
     r[lv]={n:ids.length,k:k,pct:ids.length?Math.round(k/ids.length*100):0,passed:!!(appHist.levelTests[lv]&&appHist.levelTests[lv].passed)};});
-  r.cur=(r.A1.passed||r.A1.pct>=90)?"A2":"A1";return r;
+  /* いまの目標：合格（または9割覚えた）していない最初のレベル */
+  r.cur=P_LVLS[P_LVLS.length-1];for(var i=0;i<P_LVLS.length;i++){var x=r[P_LVLS[i]];if(!(x.passed||x.pct>=90)){r.cur=P_LVLS[i];break;}}return r;
 }
 var _p56Home=renderHome;
 renderHome=function(){
   var h=String(_p56Home()),L=p56LevelState(),c=L[L.cur];
   var bar='<button type="button" class="p56-goal" data-act="bnav" data-val="stats"><span class="p56-gl">いまの目標</span><b>'+L.cur+'</b>'+
-    '<span class="p56-gbar"><i style="width:'+c.pct+'%"></i></span><span class="p56-gn">'+c.pct+'%</span>'+(L.A1.passed?'<span class="p56-badge">A1合格</span>':'')+(L.A2.passed?'<span class="p56-badge">A2合格</span>':'')+'</button>';
+    '<span class="p56-gbar"><i style="width:'+c.pct+'%"></i></span><span class="p56-gn">'+c.pct+'%</span>'+P_LVLS.map(function(l){return L[l].passed?'<span class="p56-badge">'+l+'合格</span>':'';}).join("")+'</button>';
   return h.replace('<div class="p53-note">','<div class="p53-note">').replace(/(<div class="p51-herowrap">)/,bar+'$1');
 };
 /* ---- 6) 記録：到達テストとA2カバー状況への入口 ---- */
@@ -92,7 +93,7 @@ renderP48Stats=function(){
   var row=function(lv){var t=appHist.levelTests[lv]||{},c=L[lv];
     return '<div class="p56-trow"><span class="p48-lvtag">'+lv+'</span><span class="p56-tt"><b>'+(t.passed?'合格 ✓':(t.best!=null?'最高 '+t.best+'%':'未受験'))+'</b><small>覚えた単語 '+c.k+' / '+c.n+'</small></span>'+
       '<button type="button" class="p47-btn'+(t.passed?'':' primary')+'" data-act="p56test" data-val="'+lv+'">'+(t.best!=null?'もう一度':'テストを受ける')+'</button></div>';};
-  var card='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達テスト</b><span>25問・80%で合格</span></div>'+row("A1")+row("A2")+
+  var card='<div class="p48-card p49-cardill"><div class="p48-ch"><b><span class="p49-chic p48-ill">'+p48Art("trophy",22)+'</span>到達テスト</b><span>25問・80%で合格</span></div>'+P_LVLS.map(row).join("")+
     '<button type="button" class="p56-link" data-act="p56a2">A2の文法項目ごとの達成度を見る ›</button></div>';
   return h.replace('<div class="p48-tiles">',card+'<div class="p48-tiles">');
 };

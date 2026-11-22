@@ -53,7 +53,7 @@ async function p55Sample(){if(P55.sample!==undefined)return P55.sample;try{P55.s
 function p55ErrMsg(e){var c=e&&e.code;return {rate_limited:"少し時間をおいてからもう一度試してください",not_granted:"AIの利用が許可されていません",not_declared:"このページではAIを使えません",sampling_disabled:"AIが使えない設定になっています",session_expired:"ページを開き直してください",refused:"その内容には答えられませんでした",prompt_too_large:"会話が長くなりすぎました。新しく始めてください"}[c]||"うまく応答できませんでした。もう一度試してください";}
 function p55Rules(sc){
   var known=VOCAB.filter(function(w){return p47IsKnown(w.id);}).slice(-40).map(function(w){return w.word;}).join(", ");
-  return "あなたは日本人の"+P55_LANG_JA+"学習者（A1〜A2レベル）の会話練習相手です。場面：「"+sc.t+"」。あなたの役：「"+sc.role+"」。\n"+
+  return "あなたは日本人の"+P55_LANG_JA+"学習者（"+pLvRange()+"レベル）の会話練習相手です。場面：「"+sc.t+"」。あなたの役：「"+sc.role+"」。\n"+
     "ルール：\n1. 毎回、"+P55_LANG_JA+"で1〜2文だけ短く話す。A2までのやさしい語彙と文法を使う。\n2. その次の行に、日本語訳を（）で書く。\n"+
     "3. 学習者の"+P55_LANG_JA+"に間違いがあれば、さらに次の行に「💡 」から始めて、正しい言い方と日本語の短い説明を1行で書く。間違いがなければこの行は書かない。\n"+
     "4. 学習者が日本語で書いたら、それを"+P55_LANG_JA+"でどう言うかを教えてから会話を続ける。\n5. 毎回、相手が答えやすい質問で終える。絵文字・マークダウンは使わない（💡だけ使う）。\n"+
@@ -81,7 +81,7 @@ async function p55Report(){
   T.busy=true;T.report="";render();
   var tr=T.msgs.map(function(m){return (m.role==="user"?"学習者: ":"相手: ")+m.content;}).join("\n");
   try{
-    var r=await s("次は"+P55_LANG_JA+"学習者（A1〜A2）の会話練習の記録です。日本語で短いふりかえりを書いてください。\n形式：\nよかった点：（1行）\n直すとよい表現：（誤→正 を最大3つ、各1行。なければ「特になし」）\n次に使える表現：（"+P55_LANG_JA+"の文を2つ、日本語訳付き）\nマークダウン記号は使わない。\n\n"+tr,{cache:false,modelTier:"quick",onText:function(o){var el=document.getElementById("p55rep");if(el)el.textContent=o.text;}});
+    var r=await s("次は"+P55_LANG_JA+"学習者（"+pLvRange()+"）の会話練習の記録です。日本語で短いふりかえりを書いてください。\n形式：\nよかった点：（1行）\n直すとよい表現：（誤→正 を最大3つ、各1行。なければ「特になし」）\n次に使える表現：（"+P55_LANG_JA+"の文を2つ、日本語訳付き）\nマークダウン記号は使わない。\n\n"+tr,{cache:false,modelTier:"quick",onText:function(o){var el=document.getElementById("p55rep");if(el)el.textContent=o.text;}});
     T.report=r.text;
   }catch(e){T.report=p55ErrMsg(e);}
   T.busy=false;saveUI();render();
