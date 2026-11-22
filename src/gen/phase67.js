@@ -182,3 +182,116 @@ renderListening=function(){return String(_p67Lis2.apply(this,arguments)).replace
 var _p67Set=renderSettings;
 renderSettings=function(){var h=String(_p67Set.apply(this,arguments));
   if(typeof P50==="undefined"||P50.state!=="cloud")h=h.replace("記録はClaudeアカウントに保存されるので、どこから開いても同じです。","");return h;};
+
+/* ===== PHASE67-3: 2回目のご要望 =====
+   - 例文・単語分解：それぞれに読み上げボタンとカタカナ読み
+   - 記録画面：上の帯を消して余白を詰める／日ごとの記録／まとめて練習の周回数（レベル別・全体）
+   - まとめて練習：レベル（A1・A2・B1）を選んで回せる */
+var P67_KANA=/*P67K*/{}/*P67KE*/;
+function p67Kana(t){t=String(t||"").trim();return P67_KANA[t]||P67_KANA[t.replace(/[,.!?»:;]+$/,"")]||"";}
+function p67SpkBtn(t){return '<button type="button" class="p67-spk" data-act="p67say" data-val="'+esc(t)+'" aria-label="読み上げ"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></button>';}
+function p67AddReading(root){
+  /* キルギス語版はロシア語の読み上げにならないよう対象外 */
+  if(!root||P47_LANG!=="ru")return;
+  /* 例文（単語カード・単語の詳細・まとめて練習の詳細） */
+  root.querySelectorAll(".p52-dex b,.p15-exru,.easy > div[style*='font-weight:700']").forEach(function(el){
+    if(el.getAttribute("data-p67r"))return;var t=el.textContent.trim();if(!/[А-Яа-яЁё]/.test(t))return;el.setAttribute("data-p67r","1");
+    var k=p67Kana(t),wrap=document.createElement("div");wrap.className="p67-read";
+    wrap.innerHTML=p67SpkBtn(t)+(k?'<span class="p67-k">'+esc(k)+'</span>':'');el.parentNode.insertBefore(wrap,el.nextSibling);
+  });
+  /* 単語分解の1語ずつ */
+  root.querySelectorAll(".bdc .top").forEach(function(top){
+    if(top.getAttribute("data-p67r"))return;var sf=top.querySelector(".sf");if(!sf)return;top.setAttribute("data-p67r","1");
+    var t=sf.textContent.trim(),k=p67Kana(t);
+    var s=document.createElement("span");s.className="p67-bdr";s.innerHTML=(k?'<span class="p67-k">'+esc(k)+'</span>':'')+p67SpkBtn(t);top.insertBefore(s,sf.nextSibling);
+  });
+}
+document.addEventListener("click",function(e){var el=e.target.closest&&e.target.closest('[data-act="p67say"]');if(!el)return;
+  e.stopImmediatePropagation();e.preventDefault();speak(el.getAttribute("data-val"),0.85);},true);
+/* 描画のたびに、読み方を足し、記録画面では上の帯を消す */
+var _p67R3=render;
+render=function(){var r=_p67R3.apply(this,arguments);
+  try{p67AddReading(document.getElementById("main"));
+    if(ui.bnav==="stats"&&!ui.learnOpen)document.body.classList.add("p67-sub");}catch(_){}
+  return r;};
+/* 単語の詳細シートなど、render 以外で開く画面にも読み方を付ける */
+try{var _p67sh=document.getElementById("sheetHost");if(_p67sh)new MutationObserver(function(){p67AddReading(_p67sh);}).observe(_p67sh,{childList:true,subtree:true});}catch(_){}
+
+/* ---- まとめて練習：レベルで絞って回す（周回数はレベル×範囲ごとに別々に数える） ---- */
+function p67Split(s){var a=String(s||"").split("@");return {t:(["word","phrase","all"].indexOf(a[0])>=0?a[0]:"all"),lv:(P_LVLS.indexOf(a[1])>=0?a[1]:"")};}
+p36Scope=function(){var t=(["word","phrase","all"].indexOf(ui.chalScope)>=0)?ui.chalScope:p67Split(ui.chalScope).t;var lv=P_LVLS.indexOf(ui.chalLevel)>=0?ui.chalLevel:"";return t+(lv?"@"+lv:"");};
+var _p67ScIds=p36ScopeIds;
+p36ScopeIds=function(scope){var s=p67Split(scope),ids=_p67ScIds(s.t);if(!s.lv)return ids;return ids.filter(function(id){var w=byId(id);return w&&w.level===s.lv;});};
+var _p67ScLab=p36ScopeLabel;
+p36ScopeLabel=function(scope){var s=p67Split(scope||p36Scope());return (s.lv?s.lv+" ・ ":"")+_p67ScLab(s.t);};
+var _p67Start=p36Start;
+p36Start=function(scope){var s=p67Split(scope);ui.chalLevel=s.lv;ui.chalScope=s.t;
+  var key=s.t+(s.lv?"@"+s.lv:"");if(!s.lv)return _p67Start(s.t);
+  /* レベル付きの範囲：元の処理は範囲名を3種類に限っているので、同じ流れをここで行う */
+  ui.chalPick=false;var saved=p36SavedState(key);
+  if(saved&&saved.list&&saved.list.length&&saved.pos<saved.list.length-1&&saved.list.every(function(id){return !!byId(id);})){
+    ui.bnav="wordbook";ui.view="word";ui.learnOpen=true;
+    startSessionFromIds(saved.list,"チャレンジモード","reinforce",{type:"all",allLevels:true,chal:key},saved.pos);p32SpeakCurrent();return;}
+  p35StartLap(false);};
+/* 1周終わったら、その日の記録にも残す */
+var _p67Lap=p35StartLap;
+p35StartLap=function(next){if(next){try{var d=dayRec();d.lapsDone=(d.lapsDone||0)+1;d.lapsBy=d.lapsBy||{};var sc=p36Scope();d.lapsBy[sc]=(d.lapsBy[sc]||0)+1;}catch(_){}}
+  return _p67Lap.apply(this,arguments);};
+/* 範囲の選択画面：上にレベルの切り替えを置く */
+var _p67Pick=p36RenderScopePick;
+p36RenderScopePick=function(){
+  var cur=P_LVLS.indexOf(ui.chalLevel)>=0?ui.chalLevel:"";
+  var seg='<div class="p67-lvseg" role="tablist">'+[""].concat(P_LVLS).map(function(l){return '<button type="button" data-act="p67chlv" data-val="'+l+'" class="'+(cur===l?"on":"")+'">'+(l||"全レベル")+'</button>';}).join("")+'</div>';
+  var h=String(_p67Pick.apply(this,arguments));
+  if(cur){/* 各行の件数・周回・行き先をレベル付きの範囲に差し替える */
+    P36SCOPES.forEach(function(sp){var key=sp[0]+"@"+cur,ids=p36ScopeIds(key),st=p36SavedState(key),lap=p35Lap(key),done=p35LapDone(key);
+      var mid=(st&&st.list&&st.list.length&&st.pos<st.list.length-1),pct=mid?Math.round((st.pos+1)/st.list.length*100):0;
+      var stat=mid?(lap+'周目 ・ '+(st.pos+1)+' / '+st.list.length):(done>0?('通算 '+done+'周 ・ 次は'+lap+'周目'):'まだ始めていません');
+      h=h.replace(new RegExp('data-act="chalscope" data-val="'+sp[0]+'"([\\s\\S]*?)<em>[^<]*</em>([\\s\\S]*?)<span class="p49-scopebar"><i style="width:[^"]*"></i></span><span class="p49-scopestat">[\\s\\S]*?</span></span>'),
+        function(m,a,b){return 'data-act="chalscope" data-val="'+key+'"'+a+'<em>'+ids.length.toLocaleString()+'語</em>'+b+'<span class="p49-scopebar"><i style="width:'+pct+'%"></i></span><span class="p49-scopestat">'+(mid?'<b>続きから</b> ・ ':'')+esc(stat)+'</span></span>';});
+    });
+    h=h.replace(/ class="p49-scope on"/g,' class="p49-scope"');
+  }
+  return h.replace(/(<div class="p49-pickbody"><h2>まとめて練習<\/h2><p>[^<]*<\/p>)/,'$1'+seg).replace("全部の単語を順番に見ていく周回モードです。","単語を順番に全部見ていく周回モードです。レベルと範囲を選んでください。").replace("単語とフレーズは思い出し方が違うので、回す範囲を選んでください。","");
+};
+document.addEventListener("click",function(e){var el=e.target.closest&&e.target.closest('[data-act="p67chlv"]');if(!el)return;
+  e.stopImmediatePropagation();e.preventDefault();ui.chalLevel=el.getAttribute("data-val")||"";saveUI();render();},true);
+
+/* ---- 記録画面：まとめて練習の周回数と、日ごとの記録 ---- */
+function p67LapsBy(){var by=(appHist.totals&&appHist.totals.reinforceLapsBy)||{},r={total:0};["", ].concat(P_LVLS).forEach(function(l){r[l||"all"]=0;});
+  Object.keys(by).forEach(function(k){var s=p67Split(k),n=by[k]|0;r.total+=n;r[s.lv||"all"]+=n;});return r;}
+var _p67St=renderP48Stats;
+renderP48Stats=function(){
+  var h=String(_p67St.apply(this,arguments)),L=p67LapsBy();
+  var laps='<div class="p60-h">まとめて練習の周回<small>通算</small></div><div class="p60-list p67-laps">'+
+    '<div class="p67-lap"><b>'+L.total+'</b><span>合計</span></div><div class="p67-lap"><b>'+L.all+'</b><span>全レベル</span></div>'+
+    P_LVLS.map(function(l){return '<div class="p67-lap"><b>'+L[l]+'</b><span>'+l+'</span></div>';}).join("")+'</div>';
+  /* 日ごとの記録（直近14日のうち学習した日） */
+  var rows=[],wd=["日","月","火","水","木","金","土"];
+  for(var i=0;i<14;i++){var dt=new Date();dt.setDate(dt.getDate()-i);var k=todayKey(dt),d=appHist.days[k];if(!d)continue;
+    var parts=[];if(d.newWords)parts.push("新しい単語 "+d.newWords);if(d.reviewedWords)parts.push("復習 "+d.reviewedWords);
+    if(!d.newWords&&!d.reviewedWords&&d.studiedWords)parts.push("単語 "+d.studiedWords);
+    if(d.composeCount)parts.push("作文 "+d.composeCount+"文");if(d.reinforceCount)parts.push("まとめて "+d.reinforceCount+"語");
+    if(d.lapsDone)parts.push("周回 "+d.lapsDone+"周");if(d.listeningCount)parts.push("リスニング "+d.listeningCount+"語");
+    if(!parts.length)continue;var min=Math.round((d.studySeconds||0)/60);
+    rows.push('<div class="p67-day"><div class="p67-dd"><b>'+(i===0?"今日":i===1?"昨日":(dt.getMonth()+1)+"/"+dt.getDate())+'</b><small>'+wd[dt.getDay()]+'</small></div><div class="p67-dp">'+parts.map(function(p){return '<span>'+esc(p)+'</span>';}).join("")+'</div>'+(min?'<em>'+min+'分</em>':'')+'</div>');}
+  var days='<div class="p60-h">日ごとの記録<small>直近14日</small></div><div class="p60-list">'+(rows.length?rows.join(""):'<div class="p67-day p67-empty">まだ記録がありません。学習するとここに日ごとの内容が出ます。</div>')+'</div>';
+  var mark='<div class="p60-h">復習の予定';
+  return h.indexOf(mark)>=0?h.replace(mark,laps+days+mark):h+laps+days;
+};
+(function(){var css=
+  'html{padding-top:0!important}'+
+  '.p67-read{display:flex;align-items:center;gap:8px;margin:4px 0 2px;flex-wrap:wrap}'+
+  '.p67-k{color:var(--sub);font-size:13px;font-weight:700;line-height:1.5}'+
+  '.p67-spk{flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--lineStrong);background:var(--card2);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;padding:0}'+
+  '.p67-spk:active{transform:scale(.94)}'+
+  '.p67-bdr{display:inline-flex;align-items:center;gap:6px;margin-left:auto}.bdc .top{align-items:center!important}'+
+  '.p67-lvseg{display:flex;gap:6px;margin:4px 0 14px;padding:4px;background:var(--card2);border-radius:12px}'+
+  '.p67-lvseg button{flex:1;min-height:40px;border:none;border-radius:9px;background:transparent;color:var(--muted);font-weight:800;font-size:14px;cursor:pointer}'+
+  '.p67-lvseg button.on{background:var(--accent);color:#fff}'+
+  '.p67-laps{display:flex;padding:14px 6px!important}.p67-lap{flex:1;text-align:center}.p67-lap b{display:block;font-size:22px;font-weight:800}.p67-lap span{font-size:12px;color:var(--muted)}'+
+  '.p67-day{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}.p67-day:last-child{border-bottom:none}'+
+  '.p67-dd{width:44px;flex:none}.p67-dd b{display:block;font-size:14px}.p67-dd small{color:var(--muted);font-size:11px}'+
+  '.p67-dp{flex:1;display:flex;flex-wrap:wrap;gap:6px}.p67-dp span{font-size:12.5px;background:var(--card2);border-radius:8px;padding:3px 8px;color:var(--ink)}'+
+  '.p67-day em{font-style:normal;color:var(--muted);font-size:12px;flex:none;padding-top:3px}.p67-empty{color:var(--muted);font-size:13px}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}})();
