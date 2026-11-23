@@ -23,9 +23,12 @@
   function fig(x,y,s,o){o=o||{};var sh=o.shirt||"#3B82F6",sl=o.sleeve||sh,pn=o.pants||"#1E3A5F",hc=o.hairc||"#4A2F1F",sk=o.skin||SK,g='';
     g+='<g transform="translate('+x+' '+y+') scale('+(s||1)+')">';
     /* 脚 */
+    if(o.walk){g+='<path d="M-3 31L-11 56M3 31l7 25" stroke="'+(o.skirt?sk:pn)+'" stroke-width="5.6" stroke-linecap="round"/>'+(o.skirt?'<path d="M-11 31h22l3 12h-28z" fill="'+o.skirt+'"/>':'')+'<ellipse cx="-12.5" cy="57.5" rx="4.6" ry="2.2" fill="#2B2B2B"/><ellipse cx="12" cy="57.5" rx="4.6" ry="2.2" fill="#2B2B2B"/>';}
+    else if(o.sit){g+='<path d="M-6 31h12v6H-6z" fill="'+pn+'"/><path d="M-6.5 33h18v5h-18zM-6.5 33h5.5v0" fill="'+pn+'"/><path d="M8 35v20M3 35v20" stroke="'+pn+'" stroke-width="5.4"/><ellipse cx="9" cy="56" rx="4.6" ry="2.2" fill="#2B2B2B"/><ellipse cx="3" cy="56" rx="4.6" ry="2.2" fill="#2B2B2B"/>';}
+    else{
     if(o.skirt){g+='<path d="M-5 42h3.5v15h-3.5zM1.5 42h3.5v15h-3.5z" fill="'+sk+'"/><path d="M-11 31h22l3 14h-28z" fill="'+o.skirt+'"/>';}
     else g+='<path d="M-6.5 31h5.5v26h-5.5zM1 31h5.5v26H1z" fill="'+pn+'"/>';
-    g+='<ellipse cx="-4" cy="58" rx="4.6" ry="2.2" fill="#2B2B2B"/><ellipse cx="4" cy="58" rx="4.6" ry="2.2" fill="#2B2B2B"/>';
+    g+='<ellipse cx="-4" cy="58" rx="4.6" ry="2.2" fill="#2B2B2B"/><ellipse cx="4" cy="58" rx="4.6" ry="2.2" fill="#2B2B2B"/>';}
     /* 体 */
     if(o.coat)g+='<path d="M-11 13q0-4 5-4h12q5 0 5 4v31h-22z" fill="'+o.coat+'"/>';
     g+='<path d="M-10 13q0-4 5-4h10q5 0 5 4v19h-20z" fill="'+sh+'"/>';
@@ -149,4 +152,5 @@
   A.i_appearance=card("wall",'<ellipse cx="62" cy="40" rx="20" ry="28" fill="#BAE6FD" stroke="#B7794A" stroke-width="3"/>'+fig(62,34,0.5,{shirt:"#E11D48",hair:"long",hairc:"#7C2D12"})+fig(24,34,0.7,{shirt:"#E11D48",hair:"long",hairc:"#7C2D12",pose:"side"}));
   A.i_lang_tongue=A.i_language;
   /* 医療で十字のマークを使う場合は、赤十字と紛らわしくないよう青・緑にする */
+  window.P67KIT={fig:fig,card:card,T:T,bubble:bubble,desk:desk,board:board,heads:heads,BG:BG};
 })(P67_ART);
