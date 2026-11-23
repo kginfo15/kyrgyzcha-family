@@ -232,5 +232,5 @@ async function p68MakeChunks(){
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}})();
 /* ---------- 場面のイラスト（art:i_〜）は細部が見えるよう大きめに表示 ---------- */
 var _p68Fill=p66Fill;
-p66Fill=function(d,pic){var r=_p68Fill.apply(this,arguments);try{if(d&&d.classList){if(/^art:[ij]_/.test(String(pic||"")))d.classList.add("p68-scene");else if(!d.classList.contains("p67-art"))d.classList.remove("p68-scene");}}catch(_){}return r;};
+p66Fill=function(d,pic){var r=_p68Fill.apply(this,arguments);try{if(d&&d.classList){if(/^art:[ijk]_/.test(String(pic||"")))d.classList.add("p68-scene");else if(!d.classList.contains("p67-art"))d.classList.remove("p68-scene");}}catch(_){}return r;};
 (function(){try{var st=document.createElement("style");st.textContent='.p59-pic.p68-scene svg{width:128px!important;height:128px!important;border-radius:18px;box-shadow:0 6px 18px rgba(0,0,0,.25)}.p59-pic.sm.p68-scene svg{width:84px!important;height:84px!important}';document.head.appendChild(st);}catch(_){}})();

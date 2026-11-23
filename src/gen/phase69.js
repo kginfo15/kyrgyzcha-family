@@ -53,6 +53,7 @@ p62ApplyTheme();
 '.p8-grammarpanel{padding-left:18px!important;padding-right:18px!important}',
 '.p15-morepanel .p15-sec{border-top-color:rgba(127,127,127,.22)!important}',
 '.p15-morepanel .p15-sec:first-child{border-top:none!important}',
+'body.p62-bg [data-act="lisfilter"].on{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}',
 'body.p62-bg .p52-next,body.p62-bg .p47-btn.primary{background:var(--accent)!important;background-image:none!important;color:#fff!important;border-color:var(--accent)!important}'
 ].join("");document.head.appendChild(st);}catch(_){}})();
 /* 「詳細」の品詞を日本語に、成績を言葉に */

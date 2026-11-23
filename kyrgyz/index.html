@@ -7841,6 +7841,184 @@ var P67_ART=(function(){
   A.j_sicknote=card("plain",paper(16,10,56,72,4)+'<circle cx="56" cy="62" r="9" fill="none" stroke="#E5332A" stroke-width="2"/><path d="M56 57v10M51 62h10" stroke="#E5332A" stroke-width="2"/>'+'<path d="M24 54h20" stroke="#CBD5E1" stroke-width="2"/><rect x="66" y="16" width="20" height="22" rx="4" fill="#E0F2FE" stroke="#F2B705"/><circle cx="76" cy="27" r="5" fill="#F2C39A"/><path d="M73 29q3-2 6 0" stroke="#7A3E2A" stroke-width="1" fill="none"/>');
   A.j_submit=card("cool",'<rect x="50" y="44" width="46" height="32" fill="#94A3B8"/><rect x="50" y="40" width="46" height="5" fill="#CBD5E1"/>'+fig(78,28,0.5,{shirt:"#334155",tie:"#DC2626"})+fig(24,30,0.76,{shirt:"#10B981",pose:"side"})+paper(42,32,14,18,2)+arr(40,22,58,22,"#E5332A"));
   A.j_article=card("plain",paper(10,10,76,76,0)+T(48,24,"НОВОСТИ",8,"#1F2937",900)+'<path d="M14 30h68" stroke="#1F2937" stroke-width="1.5"/><rect x="16" y="36" width="28" height="22" fill="#BAE6FD"/><path d="M18 56l8-8 6 5 10-10" stroke="#E5332A" stroke-width="1.5" fill="none"/>'+[0,1,2,3,4].map(function(i){return '<path d="M48 '+(38+i*5)+'h32" stroke="#CBD5E1" stroke-width="2"/>';}).join("")+'<path d="M16 64h64M16 70h56M16 76h60" stroke="#CBD5E1" stroke-width="2"/>');
+  K.arr=arr;K.house=house;K.office=office;K.car=car;K.door=door;K.sign=sign;K.clock=clock;K.bed=bed;K.sofa=sofa;K.cal=cal;K.heart=heart;K.paper=paper;K.tree=tree;K.sweat=sweat;
+})(P67_ART);
+
+/* ===== PHASE67-ART5: 第2弾。抽象的で絵文字では意味が伝わりにくかった語の、場面のイラスト（このアプリ用に一から描いたSVG） ===== */
+(function(A){
+  var K=window.P67KIT;if(!K||!K.arr)return;
+  var fig=K.fig,card=K.card,T=K.T,bubble=K.bubble,desk=K.desk,arr=K.arr,house=K.house,office=K.office,car=K.car,door=K.door,sign=K.sign,clock=K.clock,bed=K.bed,sofa=K.sofa,cal=K.cal,heart=K.heart,paper=K.paper,tree=K.tree,sweat=K.sweat;
+  var SK="#F2C39A",INK="#1F2937";
+  function box(x,y,w,h,c){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="2" fill="'+(c||"#D6A86C")+'"/><path d="M'+x+' '+(y+h*0.35)+'h'+w+'M'+(x+w/2)+' '+y+'v'+h+'" stroke="#A97B44" stroke-width="1.4"/>';}
+  function coin(x,y,r,t){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#FBBF24" stroke="#D97706" stroke-width="1.6"/>'+T(x,y+r*0.4,t||"₽",r*1.1,"#92400E",900);}
+  function bill(x,y,w,c){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+(w*0.5)+'" rx="2" fill="'+(c||"#4ADE80")+'" stroke="#15803D"/><circle cx="'+(x+w/2)+'" cy="'+(y+w*0.25)+'" r="'+(w*0.14)+'" fill="#15803D"/>';}
+  function check(x,y,s,c){return '<path d="M'+(x-6*s)+' '+y+'l'+(4*s)+' '+(4*s)+' '+(8*s)+'-'+(9*s)+'" stroke="'+(c||"#16A34A")+'" stroke-width="'+(3*s)+'" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';}
+  function cross(x,y,s,c){return '<path d="M'+(x-5*s)+' '+(y-5*s)+'l'+(10*s)+' '+(10*s)+'M'+(x+5*s)+' '+(y-5*s)+'l-'+(10*s)+' '+(10*s)+'" stroke="'+(c||"#DC2626")+'" stroke-width="'+(3*s)+'" stroke-linecap="round"/>';}
+  function phone(x,y,s,scr){return '<g transform="translate('+x+' '+y+') scale('+(s||1)+')"><rect x="-9" y="-16" width="18" height="32" rx="3" fill="#1F2937"/><rect x="-7" y="-13" width="14" height="25" rx="1" fill="'+(scr||"#E0F2FE")+'"/></g>';}
+  function laptop(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+(s||1)+')"><rect x="-18" y="-24" width="36" height="24" rx="2" fill="#334155"/><rect x="-15" y="-21" width="30" height="18" fill="#E0F2FE"/><path d="M-24 0h48l-4 5h-40z" fill="#94A3B8"/></g>';}
+  function globe(x,y,r){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#F2B705"/><path d="M'+(x-r*0.6)+' '+(y-r*0.5)+'q'+(r*0.4)+' '+(r*0.2)+' '+(r*0.3)+' '+(r*0.6)+'t'+(r*0.2)+' '+(r*0.7)+'M'+(x+r*0.2)+' '+(y-r*0.8)+'q'+(r*0.5)+' '+(r*0.3)+' '+(r*0.3)+' '+(r*0.8)+'" stroke="#22C55E" stroke-width="'+(r*0.35)+'" fill="none" stroke-linecap="round"/><circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="none" stroke="#0369A1" stroke-width="1.4"/>';}
+  function bulb(x,y,s,on){return '<g transform="translate('+x+' '+y+') scale('+(s||1)+')">'+(on!==0?'<circle r="13" fill="#FDE68A" opacity=".55"/>':'')+'<circle cy="-1" r="7" fill="'+(on!==0?"#FACC15":"#E5E7EB")+'" stroke="#CA8A04" stroke-width="1"/><rect x="-3.5" y="5" width="7" height="5" rx="1" fill="#94A3B8"/></g>';}
+  function tag(x,y,t,c){return '<g transform="translate('+x+' '+y+') rotate(-12)"><path d="M-14 -8h22l8 8-8 8h-22z" fill="'+(c||"#FBBF24")+'" stroke="#B45309" stroke-width="1"/><circle cx="7" cy="0" r="1.8" fill="#fff"/>'+T(-4,3,t,8,"#7C2D12",900)+'</g>';}
+  function think(x,y,inner){return '<circle cx="'+(x-14)+'" cy="'+(y+16)+'" r="2" fill="#fff" stroke="#CBD5E1"/><circle cx="'+(x-9)+'" cy="'+(y+11)+'" r="3" fill="#fff" stroke="#CBD5E1"/><ellipse cx="'+x+'" cy="'+y+'" rx="16" ry="11" fill="#fff" stroke="#CBD5E1"/>'+(inner||'');}
+  function bars(x,y,hs,c){return hs.map(function(h,i){return '<rect x="'+(x+i*11)+'" y="'+(y-h)+'" width="8" height="'+h+'" rx="1.5" fill="'+(c||"#3B82F6")+'"/>';}).join("")+'<path d="M'+(x-3)+' '+y+'h'+(hs.length*11+3)+'" stroke="#475569" stroke-width="1.6"/>';}
+  function shield(x,y,s,c){return '<g transform="translate('+x+' '+y+') scale('+(s||1)+')"><path d="M0 -16l13 5v9q0 11-13 18-13-7-13-18v-9z" fill="'+(c||"#E5332A")+'"/>'+check(0,0,1,"#fff")+'</g>';}
+  function form(x,y,w,h){var g=paper(x,y,w,h,0);for(var i=0;i<4;i++)g+='<rect x="'+(x+5)+'" y="'+(y+8+i*((h-14)/4))+'" width="6" height="6" rx="1" fill="#fff" stroke="#64748B"/><path d="M'+(x+15)+' '+(y+11+i*((h-14)/4))+'h'+(w-21)+'" stroke="#CBD5E1" stroke-width="1.8"/>';return g;}
+  function pen(x,y,a){return '<g transform="translate('+x+' '+y+') rotate('+(a||40)+')"><rect x="-2.5" y="-18" width="5" height="18" rx="1" fill="#E5332A"/><path d="M-2.5 0l2.5 5 2.5-5z" fill="#1F2937"/></g>';}
+  function scale(x,y,tilt){var t=tilt||0;return '<path d="M'+x+' '+(y-26)+'v34M'+(x-10)+' '+(y+8)+'h20" stroke="#78716C" stroke-width="2.6"/><g transform="rotate('+t+' '+x+' '+(y-22)+')"><path d="M'+(x-24)+' '+(y-22)+'h48" stroke="#78716C" stroke-width="2.4"/><path d="M'+(x-24)+' '+(y-22)+'l-7 14h14zM'+(x+24)+' '+(y-22)+'l-7 14h14z" fill="none" stroke="#A8A29E" stroke-width="1.2"/><path d="M'+(x-32)+' '+(y-8)+'q8 6 16 0zM'+(x+16)+' '+(y-8)+'q8 6 16 0z" fill="#D6D3D1"/></g>';}
+  function cloud(x,y,s,c){return '<g transform="translate('+x+' '+y+') scale('+(s||1)+')" fill="'+(c||"#fff")+'"><circle cx="-8" cy="2" r="6"/><circle cx="0" cy="-2" r="8"/><circle cx="9" cy="2" r="6"/><rect x="-14" y="2" width="29" height="6" rx="3"/></g>';}
+  function steam(x,y,c){return '<path d="M'+x+' '+y+'q-3-4 0-8t0-8M'+(x+6)+' '+(y-2)+'q-3-4 0-8t0-8" stroke="'+(c||"#94A3B8")+'" stroke-width="1.6" fill="none" stroke-linecap="round"/>';}
+  function counter(y){return '<rect x="40" y="'+y+'" width="56" height="'+(84-y)+'" fill="#B08968"/><rect x="40" y="'+(y-3)+'" width="56" height="5" fill="#8B5E3C"/>';}
+  function sparkle(x,y,s,c){return '<path d="M0 -6l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" transform="translate('+x+' '+y+') scale('+(s||1)+')" fill="'+(c||"#FBBF24")+'"/>';}
+  function wifi(x,y,s,c){return '<g transform="translate('+x+' '+y+') scale('+(s||1)+')" fill="none" stroke="'+(c||"#E5332A")+'" stroke-width="2.4" stroke-linecap="round"><path d="M-12 -4q12-10 24 0M-8 0q8-6 16 0M-4 4q4-3 8 0"/><circle cx="0" cy="8" r="1.6" fill="'+(c||"#E5332A")+'"/></g>';}
+  function plate(x,y,w){return '<ellipse cx="'+x+'" cy="'+y+'" rx="'+w+'" ry="'+(w*0.3)+'" fill="#fff" stroke="#CBD5E1"/>';}
+  function envelope(x,y,w,c){var h=w*0.66;return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="2" fill="'+(c||"#fff")+'" stroke="#94A3B8"/><path d="M'+x+' '+y+'l'+(w/2)+' '+(h*0.55)+' '+(w/2)+'-'+(h*0.55)+'" stroke="#94A3B8" fill="none"/>';}
+  function rain(x,y,n){var g="";for(var i=0;i<n;i++)g+='<path d="M'+(x+i*6)+' '+(y+(i%2)*4)+'l-2 6" stroke="#F2B705" stroke-width="1.8" stroke-linecap="round"/>';return g;}
+  function compass(hl){var R=Math.PI/180,g='<circle cx="48" cy="50" r="32" fill="#fff" stroke="#94A3B8" stroke-width="2"/>';[["С",0],["В",90],["Ю",180],["З",270]].forEach(function(d){var on=d[0]===hl,a=(d[1]-90)*R,cx=48+Math.cos(a)*22,cy=50+Math.sin(a)*22;g+='<path d="M48 50L'+(48+Math.cos(a)*16+Math.cos(a+Math.PI/2)*5).toFixed(1)+' '+(50+Math.sin(a)*16+Math.sin(a+Math.PI/2)*5).toFixed(1)+'L'+(48+Math.cos(a)*30).toFixed(1)+' '+(50+Math.sin(a)*30).toFixed(1)+'L'+(48+Math.cos(a)*16-Math.cos(a+Math.PI/2)*5).toFixed(1)+' '+(50+Math.sin(a)*16-Math.sin(a+Math.PI/2)*5).toFixed(1)+'z" fill="'+(on?"#DC2626":"#CBD5E1")+'"/>';g+=on?'<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="0"/>':'';});[["С",0],["В",90],["Ю",180],["З",270]].forEach(function(d){var on=d[0]===hl,a=(d[1]-90)*R;g+='<circle cx="'+(48+Math.cos(a)*40).toFixed(1)+'" cy="'+(50+Math.sin(a)*40).toFixed(1)+'" r="'+(on?8:0)+'" fill="#DC2626"/>'+T((48+Math.cos(a)*40).toFixed(1),(50+Math.sin(a)*40+3).toFixed(1),d[0],on?10:8,on?"#fff":"#64748B",900);});return g+'<circle cx="48" cy="50" r="3" fill="#475569"/>';}
+
+  /* ---------- 渡す・持つ ---------- */
+  A.k_give=card("wall",fig(26,30,0.76,{shirt:"#E5332A",pose:"hold"})+fig(72,30,0.76,{shirt:"#F97316",hair:"long",pose:"hold"})+box(40,44,16,13)+arr(44,30,56,30,"#16A34A"));
+  A.k_bring=card("wall",door(80,22)+fig(42,30,0.76,{shirt:"#10B981",walk:1,pose:"hold"})+box(48,44,16,13)+arr(12,30,26,30,"#16A34A"));
+  A.k_hold=card("cool",fig(48,26,0.84,{shirt:"#7C3AED",pose:"hold"})+box(38,44,22,18));
+  A.k_lend=card("wall",fig(24,30,0.76,{shirt:"#E5332A",pose:"hold"})+fig(74,30,0.76,{shirt:"#10B981"})+'<rect x="40" y="42" width="14" height="18" rx="1" fill="#DC2626"/><rect x="42" y="42" width="2" height="18" fill="#991B1B"/>'+'<path d="M38 26q12-12 26 0" stroke="#16A34A" stroke-width="2.4" fill="none"/><path d="M64 26l-1-6-5 4z" fill="#16A34A"/><path d="M62 70q-12 10-24 0" stroke="#94A3B8" stroke-width="2" fill="none" stroke-dasharray="3 3"/><path d="M38 70l1 6 4-4z" fill="#94A3B8"/>');
+  /* ---------- 話す ---------- */
+  A.k_speak=card("wall",fig(34,32,0.78,{shirt:"#E5332A",pose:"point"})+bubble(68,22,34,18,'<path d="M58 19h20M58 25h14" stroke="#64748B" stroke-width="2.2" stroke-linecap="round"/>',-1));
+  A.k_tell=card("wall",fig(26,32,0.74,{shirt:"#F97316",pose:"both"})+fig(76,36,0.66,{shirt:"#22C55E",hair:"long"})+bubble(46,16,36,22,'<path d="M32 22l6-8 5 5 4-6 7 9z" fill="#22C55E"/><circle cx="56" cy="11" r="3" fill="#FBBF24"/>',-1));
+  A.k_discuss=card("wall",fig(24,34,0.7,{shirt:"#E5332A"})+fig(72,34,0.7,{shirt:"#E11D48",hair:"long"})+bubble(30,14,24,14,'<path d="M22 14h16" stroke="#64748B" stroke-width="2"/>',-1)+bubble(66,20,24,14,'<path d="M58 20h16" stroke="#64748B" stroke-width="2"/>',1));
+  A.k_chat=card("cool",phone(48,48,1.9,"#F8FAFC")+'<rect x="36" y="30" width="18" height="7" rx="3" fill="#E5E7EB"/><rect x="42" y="40" width="18" height="7" rx="3" fill="#3B82F6"/><rect x="36" y="50" width="14" height="7" rx="3" fill="#E5E7EB"/><rect x="44" y="60" width="16" height="7" rx="3" fill="#3B82F6"/>');
+  /* ---------- 待つ・期限 ---------- */
+  A.k_wait=card("city",'<rect x="62" y="20" width="3" height="60" fill="#475569"/><rect x="54" y="14" width="20" height="12" rx="2" fill="#E5332A"/>'+T(64,23,"BUS",6,"#fff",900)+fig(34,28,0.8,{shirt:"#10B981"})+'<g transform="translate(78 44)"><path d="M-6 -10h12M-6 10h12M-5 -10q0 8 5 10-5 2-5 10M5 -10q0 8-5 10 5 2 5 10" stroke="#78716C" stroke-width="1.8" fill="none"/><path d="M-3 -7h6l-3 6zM-4 9q4-5 8 0z" fill="#F59E0B"/></g>');
+  A.k_deadline=card("plain",cal(14,14,52,[2,4])+'<circle cx="'+(14+4+4*6.29+2.4).toFixed(1)+'" cy="'+(14+13.5+2*6.29+2.4).toFixed(1)+'" r="6" fill="none" stroke="#DC2626" stroke-width="2.4"/>'+'<g transform="translate(76 66)"><circle r="13" fill="#fff" stroke="#DC2626" stroke-width="2.4"/><path d="M0 0v-8M0 0l6 3" stroke="#1F2937" stroke-width="2" stroke-linecap="round"/></g>');
+  A.k_notdone=card("wall",desk(48,62,64)+'<rect x="20" y="36" width="20" height="26" fill="#fff" stroke="#CBD5E1"/><rect x="22" y="32" width="20" height="26" fill="#fff" stroke="#CBD5E1"/><rect x="24" y="28" width="20" height="26" fill="#fff" stroke="#CBD5E1"/>'+fig(66,30,0.6,{shirt:"#E5332A",sad:1,sit:1})+'<rect x="18" y="12" width="60" height="8" rx="4" fill="#E5E7EB"/><rect x="18" y="12" width="26" height="8" rx="4" fill="#F59E0B"/>'+T(48,18.5,"45%",6,"#1F2937",900));
+  A.k_long=card("cool",'<path d="M10 50h76" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/><path d="M10 50h76" stroke="#3B82F6" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 6"/>'+clock(18,28,10,9,0)+clock(78,28,10,5,0)+arr(30,28,66,28,"#475569")+fig(48,52,0.42,{shirt:"#10B981",sad:1}));
+  /* ---------- 書類 ---------- */
+  A.k_apply=card("cool",form(18,10,48,66)+pen(70,52,30)+'<circle cx="62" cy="68" r="10" fill="none" stroke="#DC2626" stroke-width="2"/>'+T(62,71,"受",8,"#DC2626",900));
+  A.k_prescript=card("wall",paper(40,16,40,54,4)+'<g transform="translate(60 54)"><rect x="-10" y="-4" width="20" height="8" rx="4" fill="#60A5FA"/><rect x="0" y="-4" width="10" height="8" rx="0" fill="#fff"/><rect x="-10" y="-4" width="20" height="8" rx="4" fill="none" stroke="#E5332A"/></g>'+fig(20,30,0.72,{shirt:"#93C5FD",coat:"#F8FAFC",steth:1,pose:"write"})+'<rect x="46" y="66" width="28" height="3" fill="#E5332A"/>');
+  A.k_order=card("wall",counter(56)+fig(70,28,0.62,{shirt:"#fff",apron:"#16A34A"})+fig(24,30,0.76,{shirt:"#7C3AED",pose:"point"})+paper(52,40,14,16,2)+bubble(40,16,24,16,T(40,20,"1",8,"#16A34A",900)+'<circle cx="32" cy="17" r="4" fill="#F59E0B"/>',-1));
+  A.k_resign=card("wall",office(78,52,0.9)+fig(36,30,0.76,{shirt:"#334155",tie:"#E5332A",pose:"hold"})+envelope(46,42,18)+T(55,56,"退職",5.5,"#DC2626",900));
+  A.k_form=card("plain",form(22,10,52,74));
+  A.k_sign=card("plain",paper(14,14,68,56,3)+'<path d="M20 58h52" stroke="#94A3B8" stroke-width="1.4"/><path d="M24 54q6-12 10-2t8-4 8 2 10-6" stroke="#1D4ED8" stroke-width="2" fill="none" stroke-linecap="round"/>'+pen(66,52,35)+'<path d="M28 76h40" stroke="#64748B" stroke-width="1"/>');
+  A.k_fill=card("plain",form(18,10,52,74)+check(26,22,0.6)+check(26,37,0.6)+pen(64,50,35));
+  A.k_write=card("wall",desk(48,62,64)+paper(30,48,28,12,2)+fig(54,24,0.7,{shirt:"#F97316",pose:"write",sit:1})+pen(52,52,40));
+  A.k_certificate=card("plain",paper(12,14,72,62,0)+T(48,30,"СПРАВКА",8,INK,900)+'<path d="M22 38h52M22 45h44M22 52h48" stroke="#CBD5E1" stroke-width="2"/><circle cx="66" cy="64" r="8" fill="none" stroke="#E5332A" stroke-width="2"/><circle cx="66" cy="64" r="4" fill="none" stroke="#E5332A"/>');
+  /* ---------- 守る・保険 ---------- */
+  A.k_insurance=card("out",house(40,50,1.2)+'<path d="M14 34q26-26 52 0" fill="#E5332A" opacity=".18" stroke="#E5332A" stroke-width="2.4"/>'+shield(76,36,1));
+  A.k_safe=card("cool",fig(40,30,0.8,{shirt:"#10B981"})+'<path d="M16 26q24-22 48 0z" fill="#E5332A"/><path d="M40 4v22" stroke="#1E3A8A" stroke-width="2"/>'+rain(10,6,3)+rain(66,6,3)+shield(78,64,0.8,"#16A34A"));
+  A.k_guard=card("city",fig(48,26,0.84,{shirt:"#1E3A8A",hair:"cap",badge:1,pose:"hip"})+shield(80,30,0.7));
+  /* ---------- インターネット・翻訳 ---------- */
+  A.k_internet=card("cool",laptop(40,64,1.4)+globe(40,40,9)+wifi(78,28,1.1));
+  A.k_translate=card("plain",'<rect x="8" y="22" width="34" height="34" rx="6" fill="#DBEAFE"/>'+T(25,46,"Я",20,"#1D4ED8",900)+'<rect x="54" y="40" width="34" height="34" rx="6" fill="#FEE2E2"/>'+T(71,64,"私",18,"#B91C1C",900)+arr(30,66,52,66,"#475569")+arr(66,30,44,30,"#475569"));
+  A.k_world=card("cool",globe(48,50,26)+'<path d="M48 24v-10" stroke="#475569" stroke-width="1.4"/>'+[[20,26,"#EF4444"],[76,30,"#22C55E"],[22,74,"#F59E0B"],[76,72,"#8B5CF6"]].map(function(f){return '<path d="M'+f[0]+' '+f[1]+'v-12" stroke="#475569" stroke-width="1.4"/><rect x="'+f[0]+'" y="'+(f[1]-12)+'" width="10" height="7" fill="'+f[2]+'"/>';}).join(""));
+  A.k_upload=card("cool",cloud(48,24,2,"#fff")+arr(48,62,48,30,"#E5332A")+laptop(48,86,1.1));
+  A.k_send=card("out",fig(22,32,0.72,{shirt:"#E5332A",pose:"point"})+envelope(52,24,22)+'<path d="M40 36q6 4 10 0M40 44q6 4 10 0" stroke="#94A3B8" stroke-width="1.6" fill="none"/>'+arr(66,32,90,22,"#E5332A",1));
+  /* ---------- 考える・気持ち ---------- */
+  A.k_idea=card("wall",fig(40,36,0.76,{shirt:"#7C3AED",pose:"point"})+bulb(66,20,1.3));
+  A.k_light=card("wall",'<path d="M48 0v16" stroke="#475569" stroke-width="1.4"/><path d="M36 26h24l-6-10h-12z" fill="#F59E0B"/><path d="M36 26l-20 54h64l-20-54z" fill="#FDE68A" opacity=".5"/>'+bulb(48,28,0.6)+sofa(18,76));
+  A.k_utility=card("plain",paper(14,10,52,72,0)+T(40,22,"СЧЁТ",7,INK,900)+'<path d="M24 34q-3 4 0 6 3-2 0-6z" fill="#F2B705"/><path d="M34 32h-3l-2 5h3l-2 5 6-7h-3z" fill="#FACC15"/><path d="M44 40q-3-4 0-8 3 4 0 8z" fill="#F97316"/><path d="M20 48h40M20 56h34M20 64h40" stroke="#CBD5E1" stroke-width="2"/>'+coin(74,64,10));
+  A.k_think=card("wall",fig(34,36,0.76,{shirt:"#E5332A",pose:"side"})+'<circle cx="38" cy="47" r="0"/>'+think(66,20,'<path d="M58 22q4-8 8 0t8 0" stroke="#64748B" stroke-width="2" fill="none"/>'));
+  A.k_maybe=card("wall",fig(48,34,0.76,{shirt:"#F97316",pose:"both"})+T(24,30,"?",18,"#64748B",900)+T(74,26,"?",14,"#94A3B8",900)+'<path d="M28 74h40" stroke="#CBD5E1" stroke-width="0"/>');
+  A.k_want=card("city",'<rect x="50" y="22" width="40" height="44" rx="2" fill="#E0F2FE" stroke="#475569" stroke-width="2"/><path d="M56 54h28" stroke="#475569"/><rect x="62" y="40" width="16" height="14" rx="2" fill="#F472B6"/><path d="M62 40q8-8 16 0" fill="#FBCFE8"/>'+fig(26,30,0.76,{shirt:"#10B981",pose:"point"})+heart(40,18,0.9));
+  A.k_interest=card("wall",fig(36,34,0.76,{shirt:"#7C3AED",pose:"hold"})+'<path d="M24 50l12-4 12 4v12l-12-4-12 4z" fill="#fff" stroke="#94A3B8"/>'+sparkle(60,20,1.4)+sparkle(72,32,1)+sparkle(66,44,0.8,"#F472B6"));
+  A.k_kind=card("out",fig(30,32,0.76,{shirt:"#10B981",pose:"point"})+fig(70,36,0.68,{shirt:"#94A3B8",hair:"bald",beard:1})+'<path d="M38 18q14-14 28 0z" fill="#F97316"/><path d="M52 4v14" stroke="#7C2D12" stroke-width="1.4"/>'+heart(52,58,0.7));
+  A.k_glad=card("wall",fig(48,30,0.8,{shirt:"#F59E0B",pose:"both"})+sparkle(22,24,1.2)+sparkle(76,22,1)+heart(78,46,0.7)+heart(18,48,0.6));
+  A.k_price=card("plain",'<path d="M20 72l8-30h40l8 30z" fill="#93C5FD"/><path d="M34 42q14-18 28 0" stroke="#3B82F6" stroke-width="3" fill="none"/>'+tag(58,30,"500₽"));
+  A.k_sale=card("city",'<rect x="12" y="20" width="72" height="56" fill="#FEF3C7" stroke="#B45309"/>'+'<rect x="20" y="28" width="56" height="22" rx="3" fill="#DC2626"/>'+T(48,44,"−50%",14,"#fff",900)+tag(36,64,"990")+tag(66,64,"490","#4ADE80"));
+  A.k_sell=card("wall",counter(54)+fig(70,26,0.62,{shirt:"#E5332A",apron:"#F59E0B"})+fig(22,30,0.74,{shirt:"#E11D48",hair:"long",pose:"hold"})+box(44,44,12,10)+coin(34,46,5)+arr(48,38,36,38,"#16A34A"));
+  A.k_salary=card("wall",fig(26,30,0.74,{shirt:"#334155",tie:"#DC2626",pose:"hold"})+fig(72,30,0.74,{shirt:"#10B981",pose:"hold"})+envelope(42,44,18,"#FEF3C7")+bill(46,38,12)+T(51,60,"₽",6,"#15803D",900));
+  A.k_budget=card("plain",'<circle cx="34" cy="44" r="22" fill="#60A5FA"/><path d="M34 44V22a22 22 0 0 1 20 30z" fill="#F59E0B"/><path d="M34 44l20 8a22 22 0 0 1-30 12z" fill="#34D399"/>'+'<rect x="60" y="54" width="28" height="20" rx="4" fill="#78350F"/><rect x="60" y="54" width="28" height="7" rx="3" fill="#92400E"/>'+bill(64,46,18));
+  A.k_scholar=card("cool",fig(34,30,0.76,{shirt:"#E5332A",pose:"hold"})+'<path d="M20 22l14-6 14 6-14 6z" fill="#1F2937"/>'+envelope(46,44,18,"#FEF3C7")+coin(76,36,8)+sparkle(70,20,1));
+  A.k_bonus=card("wall",fig(30,30,0.76,{shirt:"#334155",tie:"#E5332A",pose:"both"})+envelope(56,40,26,"#FDE68A")+sparkle(69,50,1.6,"#DC2626")+sparkle(84,30,1)+sparkle(52,30,0.8));
+  A.k_fine=card("city",car(40,70,1.2,"#94A3B8")+fig(76,30,0.66,{shirt:"#1E3A8A",hair:"police",pose:"hold"})+paper(60,40,14,18,2)+T(67,56,"−₽",5.5,"#DC2626",900));
+  A.k_fee=card("plain",coin(30,56,12)+coin(42,48,12)+coin(54,58,12)+'<circle cx="72" cy="26" r="14" fill="#FEE2E2"/>'+T(72,32,"%",16,"#DC2626",900));
+  A.k_spend=card("cool",'<rect x="20" y="48" width="40" height="28" rx="5" fill="#92400E"/><rect x="20" y="48" width="40" height="10" rx="4" fill="#B45309"/>'+bill(52,26,18)+bill(66,14,16)+coin(76,40,6)+arr(52,52,78,58,"#DC2626"));
+  A.k_law=card("plain",'<rect x="12" y="40" width="34" height="40" rx="2" fill="#7C2D12"/><rect x="15" y="43" width="28" height="34" fill="#9A3412"/>'+T(29,64,"§",16,"#FDE68A",900)+'<g transform="rotate(-30 66 44)"><rect x="54" y="30" width="26" height="12" rx="3" fill="#8B5E3C"/><rect x="65" y="42" width="4" height="26" fill="#A16207"/></g><rect x="56" y="72" width="30" height="6" rx="2" fill="#8B5E3C"/>');
+  A.k_weight=card("wall",'<rect x="26" y="58" width="44" height="18" rx="4" fill="#E5E7EB" stroke="#94A3B8"/><rect x="38" y="62" width="20" height="9" rx="2" fill="#1F2937"/>'+T(48,69.5,"60кг",6,"#4ADE80",900)+fig(48,10,0.66,{shirt:"#F97316"}));
+  A.k_compare=card("cool",scale(48,64,-8)+'<circle cx="24" cy="38" r="7" fill="#EF4444"/><path d="M24 31q2-4 4-4" stroke="#16A34A" stroke-width="1.6"/><path d="M66 40q6-14 10-2q2 6-5 8-6 0-5-6z" fill="#FACC15"/>');
+  /* ---------- 着る・脱ぐ ---------- */
+  A.k_puton=card("wall",fig(48,26,0.82,{shirt:"#F8FAFC",coat:"#B45309",pose:"both"})+arr(80,20,80,46,"#16A34A"));
+  A.k_takeoff=card("wall",'<path d="M78 12v6M74 18h8" stroke="#78716C" stroke-width="2"/><path d="M70 22h16l2 34h-20z" fill="#B45309"/>'+fig(36,28,0.8,{shirt:"#3B82F6",pose:"point"})+arr(52,40,66,30,"#E5332A"));
+  /* ---------- 壊れる・起こる ---------- */
+  A.k_break=card("wall",'<rect x="24" y="22" width="48" height="56" rx="4" fill="#F8FAFC" stroke="#94A3B8" stroke-width="2"/><circle cx="48" cy="54" r="15" fill="#BAE6FD" stroke="#64748B" stroke-width="3"/><path d="M28 30h18" stroke="#CBD5E1" stroke-width="3"/><path d="M42 44l6 8-4 4 8 8" stroke="#1F2937" stroke-width="1.8" fill="none"/>'+cloud(68,16,1,"#9CA3AF")+cloud(78,8,0.7,"#D1D5DB")+'<path d="M80 30l4-6M84 34l6-2" stroke="#F59E0B" stroke-width="2"/>');
+  A.k_happen=card("city",fig(30,30,0.76,{shirt:"#10B981",pose:"both"})+'<path d="M70 26l4 10 10-4-6 9 8 7-11 0 0 11-6-9-8 7 2-11-10-3 10-4z" fill="#FBBF24" stroke="#F97316"/>'+T(70,48,"!",14,"#B91C1C",900));
+  /* ---------- 謝る・ていねい ---------- */
+  A.k_sorry=card("wall",'<g transform="rotate(28 30 80)">'+fig(30,34,0.74,{shirt:"#334155",tie:"#E5332A"})+'</g>'+fig(72,30,0.76,{shirt:"#E11D48",hair:"long",skirt:"#7C3AED"})+sweat(18,40)+bubble(44,14,30,14,T(44,18,"すみません",4.6,INK),-1));
+  A.k_polite=card("city",door(26,16)+fig(44,30,0.72,{shirt:"#E5332A",pose:"point"})+fig(76,32,0.7,{shirt:"#F97316",hair:"long",skirt:"#7C3AED"})+sparkle(60,20,0.9));
+  /* ---------- 達成・増減 ---------- */
+  A.k_achieve=card("out",'<path d="M0 96L48 30 96 96z" fill="#94A3B8"/><path d="M36 46l12-16 12 16-6-2-6 4-6-4z" fill="#fff"/>'+fig(48,4,0.42,{shirt:"#F97316",pose:"both"})+'<path d="M58 6v20" stroke="#475569" stroke-width="1.4"/><path d="M58 6h12l-3 4 3 4h-12z" fill="#DC2626"/>');
+  A.k_up=card("plain",bars(16,78,[14,24,34,48],"#22C55E")+arr(18,62,72,16,"#16A34A"));
+  A.k_down=card("plain",bars(16,78,[48,34,22,12],"#F87171")+arr(18,24,72,64,"#DC2626"));
+  A.k_economy=card("city",office(26,52,0.8)+'<rect x="48" y="20" width="40" height="34" rx="3" fill="#fff" stroke="#CBD5E1"/><path d="M52 46l8-8 8 4 12-14" stroke="#16A34A" stroke-width="2.4" fill="none"/>'+coin(56,68,7)+coin(72,70,7));
+  A.k_price_up=card("city",'<rect x="16" y="40" width="64" height="40" fill="#FEF3C7" stroke="#B45309"/>'+tag(40,58,"300")+arr(62,72,62,30,"#DC2626"));
+  /* ---------- 走る・急ぐ ---------- */
+  A.k_hurry=card("city",fig(40,28,0.8,{shirt:"#E5332A",walk:1,pose:"hold"})+'<path d="M8 40h14M4 50h16M10 60h12" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>'+clock(76,24,11,8,55,1)+sweat(30,30));
+  A.k_run=card("out",'<path d="M0 82q48-14 96 0v14H0z" fill="#EF4444" opacity=".7"/><path d="M0 86q48-14 96 0" stroke="#fff" stroke-width="1.4" fill="none"/>'+fig(48,22,0.8,{shirt:"#F97316",walk:1,pose:"both"})+'<path d="M14 40h12M10 50h14" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>');
+  A.k_active=card("out",fig(36,26,0.8,{shirt:"#22C55E",walk:1,pose:"both"})+'<rect x="70" y="52" width="8" height="18" rx="3" fill="#F2B705"/><rect x="71" y="48" width="6" height="5" fill="#0369A1"/><circle cx="84" cy="66" r="6" fill="#EF4444"/><path d="M84 60q2-3 4-3" stroke="#16A34A" stroke-width="1.6"/>'+heart(78,24,0.8));
+  /* ---------- 方角 ---------- */
+  A.k_direction=card("cool",phone(48,50,2.3,"#ECFDF5")+'<path d="M36 72q8-18 12-24t10-22" stroke="#3B82F6" stroke-width="3" fill="none" stroke-dasharray="4 3"/><circle cx="36" cy="72" r="3.5" fill="#22C55E"/><path d="M58 22a5 5 0 1 1 0 .1zM58 30l-4-6h8z" fill="#DC2626"/>');
+  A.k_north=card("plain",compass("С"));
+  A.k_south=card("plain",compass("Ю"));
+  A.k_west=card("plain",compass("З"));
+  A.k_east=card("plain",compass("В"));
+  /* ---------- 早い・遅い（時刻） ---------- */
+  A.k_early=card("out",'<circle cx="74" cy="66" r="16" fill="#FDBA74"/><path d="M50 52l-6-3M74 42v-7M92 48l5-4" stroke="#FDBA74" stroke-width="2.4"/>'+clock(24,26,13,5,30)+fig(46,34,0.7,{shirt:"#F2B705",pose:"both"}));
+  A.k_latenight=card("stage",'<path d="M78 12a10 10 0 1 0 8 16 12 12 0 0 1-8-16z" fill="#FDE68A"/>'+sparkle(20,14,0.8,"#fff")+sparkle(56,10,0.6,"#fff")+clock(26,32,12,11,40)+desk(52,72,56)+fig(54,38,0.6,{shirt:"#7C3AED",sit:1,sad:1})+'<rect x="68" y="58" width="12" height="9" rx="1" fill="#FDE68A"/>');
+  /* ---------- 体調 ---------- */
+  A.k_cold=card("wall",bed(14,64,68)+'<circle cx="34" cy="54" r="7" fill="'+SK+'"/><path d="M28 50q6-6 12 0" fill="#7A3E2A"/><rect x="38" y="58" width="44" height="10" rx="4" fill="#60A5FA"/><path d="M28 60h12" stroke="#DC2626" stroke-width="3"/>'+'<rect x="40" y="48" width="12" height="3" rx="1.5" fill="#fff" stroke="#94A3B8"/><rect x="50" y="48" width="3" height="3" fill="#EF4444"/>'+T(72,32,"38.5°",9,"#DC2626",900)+'<path d="M58 22q4 4 0 8" stroke="#94A3B8" fill="none"/>');
+  A.k_sneeze=card("out",fig(34,30,0.76,{shirt:"#E5332A"})+'<path d="M44 40l10-4M44 44h12M44 48l10 4" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>'+T(66,30,"ハクション",6,"#64748B",900)+[[70,62],[80,54],[86,70]].map(function(f){return '<circle cx="'+f[0]+'" cy="'+f[1]+'" r="4" fill="#FBBF24"/><circle cx="'+f[0]+'" cy="'+f[1]+'" r="1.6" fill="#F97316"/>';}).join("")+'<circle cx="60" cy="48" r="1" fill="#FACC15"/><circle cx="64" cy="44" r="1" fill="#FACC15"/><circle cx="58" cy="42" r="1" fill="#FACC15"/>');
+  A.k_taste=card("wall",'<path d="M56 62h32l-4 16h-24z" fill="#64748B"/><ellipse cx="72" cy="62" rx="16" ry="4" fill="#F97316"/>'+steam(68,56)+fig(30,30,0.76,{shirt:"#10B981",apron:"#fff",pose:"point"})+'<path d="M44 42l12 14" stroke="#94A3B8" stroke-width="2"/><ellipse cx="44" cy="41" rx="3" ry="2" fill="#94A3B8"/>'+T(18,26,"?",10,"#64748B",900));
+  A.k_full=card("wall",plate(62,68,18)+'<path d="M54 66q4-2 6 0" stroke="#E5E7EB"/>'+fig(30,30,0.78,{shirt:"#F97316",pose:"hold"})+'<ellipse cx="30" cy="54" rx="10" ry="8" fill="#F97316"/>'+T(72,32,"満腹",8,"#B45309",900));
+  A.k_tasty=card("wall",plate(56,72,16)+'<circle cx="56" cy="68" r="8" fill="#F59E0B"/>'+fig(30,30,0.78,{shirt:"#E11D48",hair:"long",pose:"point"})+sparkle(64,30,1.3)+sparkle(78,44,0.9)+heart(50,30,0.6));
+  /* ---------- 支払う・電話 ---------- */
+  A.k_pay=card("wall",counter(56)+'<rect x="62" y="34" width="20" height="24" rx="3" fill="#334155"/><rect x="65" y="37" width="14" height="8" fill="#4ADE80"/>'+check(72,42,0.5,"#14532D")+'<rect x="44" y="40" width="20" height="13" rx="2" fill="#E5332A" transform="rotate(-15 54 46)"/>'+fig(24,30,0.74,{shirt:"#7C3AED",pose:"point"}));
+  A.k_call=card("cool",fig(40,30,0.8,{shirt:"#E5332A",pose:"side"})+'<rect x="44" y="34" width="6" height="11" rx="1.5" fill="#1F2937"/>'+'<path d="M58 30q6 6 0 12M64 26q10 10 0 20M70 22q14 14 0 28" stroke="#22C55E" stroke-width="2.4" fill="none" stroke-linecap="round"/>');
+  A.k_callback=card("cool",phone(48,50,2,"#DCFCE7")+'<path d="M40 50a8 8 0 1 1 8 8" stroke="#16A34A" stroke-width="3" fill="none"/><path d="M48 58l-5 3 5 3z" fill="#16A34A"/>'+'<path d="M74 24q6 6 0 12M80 20q10 10 0 20" stroke="#22C55E" stroke-width="2.4" fill="none" stroke-linecap="round"/>');
+  /* ---------- あいさつ ---------- */
+  A.k_hello=card("out",fig(26,30,0.74,{shirt:"#E5332A",pose:"wave"})+fig(70,30,0.74,{shirt:"#E11D48",hair:"long",skirt:"#7C3AED",pose:"wave"})+bubble(48,14,24,12,T(48,17.5,"！",8,"#F59E0B"),-1));
+  A.k_bye=card("city",door(20,20)+fig(36,30,0.72,{shirt:"#10B981",pose:"wave"})+fig(74,30,0.72,{shirt:"#F97316",walk:1,pose:"wave"})+arr(56,72,92,72,"#94A3B8",1));
+  /* ---------- 好き・調べる ---------- */
+  A.k_love=card("wall",fig(48,30,0.8,{shirt:"#E11D48",hair:"long",skirt:"#7C3AED",pose:"hold"})+heart(48,44,1.6)+heart(22,22,0.6,"#FB7185")+heart(76,20,0.8,"#FB7185"));
+  A.k_like=card("wall",'<rect x="52" y="14" width="36" height="28" fill="#fff" stroke="#8B5E3C" stroke-width="3"/><path d="M56 38l10-12 8 8 6-6 6 10z" fill="#22C55E"/><circle cx="80" cy="22" r="3" fill="#FBBF24"/>'+fig(30,30,0.76,{shirt:"#E5332A",pose:"point"})+heart(70,54,0.9));
+  A.k_check=card("plain",paper(12,12,50,68,0)+check(22,28,0.6)+check(22,42,0.6)+check(22,56,0.6)+'<path d="M30 26h24M30 40h24M30 54h20" stroke="#CBD5E1" stroke-width="2"/><circle cx="66" cy="58" r="13" fill="#E0F2FE" fill-opacity=".6" stroke="#475569" stroke-width="3"/><path d="M75 67l10 10" stroke="#475569" stroke-width="5" stroke-linecap="round"/>');
+  A.k_find=card("wall",sofa(14,62)+fig(66,30,0.72,{shirt:"#10B981",pose:"point"})+'<g transform="translate(30 80)"><circle r="3" fill="none" stroke="#F59E0B" stroke-width="2"/><path d="M3 0h8M8 0v3" stroke="#F59E0B" stroke-width="2"/></g>'+sparkle(24,72,1)+sparkle(42,76,0.7)+T(80,24,"!",12,"#F59E0B",900));
+  A.k_search=card("wall",fig(44,30,0.78,{shirt:"#7C3AED",pose:"point"})+'<circle cx="68" cy="30" r="8" fill="#E0F2FE" fill-opacity=".6" stroke="#475569" stroke-width="2.4"/><path d="M62 36l-6 6" stroke="#475569" stroke-width="3" stroke-linecap="round"/>'+T(18,30,"?",12,"#94A3B8",900)+T(82,58,"?",10,"#94A3B8",900));
+  /* ---------- 開ける・閉める ---------- */
+  A.k_close=card("wall",'<rect x="44" y="14" width="34" height="62" fill="#6B4A3A"/><path d="M46 16h30v60h-30z" fill="#A16207"/><circle cx="70" cy="48" r="2" fill="#FDE68A"/>'+fig(26,30,0.74,{shirt:"#E5332A",pose:"point"})+arr(90,40,80,40,"#475569"));
+  A.k_closed=card("city",door(48,20,"#64748B")+'<path d="M38 38h20" stroke="#475569"/><rect x="28" y="36" width="40" height="14" rx="2" fill="#DC2626"/>'+T(48,46,"ЗАКРЫТО",7,"#fff",900));
+  A.k_open=card("wall",'<rect x="50" y="14" width="34" height="62" fill="#6B4A3A"/><rect x="52" y="16" width="30" height="60" fill="#FEF9C3"/><path d="M52 16l-12 6v60l12-6z" fill="#A16207"/>'+fig(24,30,0.72,{shirt:"#10B981",pose:"point"})+sparkle(68,40,1.2));
+  A.k_opened=card("city",door(48,20,"#16A34A")+'<rect x="28" y="36" width="40" height="14" rx="2" fill="#16A34A" stroke="#fff"/>'+T(48,46,"ОТКРЫТО",7,"#fff",900));
+  /* ---------- 危険・注意 ---------- */
+  A.k_danger=card("out",'<ellipse cx="62" cy="80" rx="22" ry="6" fill="#1F2937"/>'+'<path d="M18 30l14-24 14 24z" fill="#FACC15" stroke="#1F2937" stroke-width="2"/>'+T(32,27,"!",14,INK,900)+'<path d="M32 30v40" stroke="#475569" stroke-width="2"/>'+fig(78,32,0.6,{shirt:"#F97316",walk:1})+'<path d="M56 30l4-4M66 30l-2-6" stroke="#DC2626" stroke-width="2"/>');
+  A.k_warn=card("city",fig(28,30,0.76,{shirt:"#E5332A",pose:"point"})+fig(72,32,0.7,{shirt:"#10B981",hair:"long"})+bubble(50,14,22,14,T(50,19,"!",11,"#DC2626",900),-1));
+  /* ---------- 苦情・気を悪くする ---------- */
+  A.k_complain=card("wall",counter(56)+fig(70,28,0.62,{shirt:"#fff",apron:"#E5332A",sad:1})+fig(26,30,0.76,{shirt:"#DC2626",pose:"point"})+bubble(40,14,24,14,'<path d="M33 10l3 4-3 4M40 10v8M46 10l-3 4 3 4" stroke="#DC2626" stroke-width="1.8" fill="none"/>',-1));
+  A.k_offended=card("wall",fig(30,30,0.76,{shirt:"#E5332A",pose:"both"})+fig(70,30,0.76,{shirt:"#E11D48",hair:"long",skirt:"#7C3AED",sad:1,pose:"hip"})+cloud(72,14,0.9,"#94A3B8")+'<path d="M58 30q-4-3-8 0" stroke="#64748B" stroke-width="1.4" fill="none"/>');
+  /* ---------- 引っ越す・配達 ---------- */
+  A.k_move=card("out",house(18,50,0.9)+arr(34,60,56,60,"#E5332A")+house(76,50,0.9,"#BBF7D0")+box(38,34,16,13)+box(44,22,12,11));
+  A.k_deliver=card("city",door(80,22)+fig(46,28,0.76,{shirt:"#F59E0B",hair:"cap",pose:"hold"})+box(38,44,18,15));
+  /* ---------- 正しい・まちがい・確認 ---------- */
+  A.k_correct=card("plain",paper(16,10,50,70,4)+'<circle cx="62" cy="62" r="18" fill="#DCFCE7"/>'+check(62,62,1.6));
+  A.k_wrong=card("plain",paper(16,10,50,70,4)+'<circle cx="62" cy="62" r="18" fill="#FEE2E2"/>'+cross(62,62,1.4));
+  A.k_confirm=card("plain",paper(16,10,56,70,5)+'<g transform="rotate(-14 62 60)"><rect x="46" y="52" width="32" height="16" rx="3" fill="none" stroke="#16A34A" stroke-width="2.4"/>'+T(62,63.5,"OK",9,"#16A34A",900)+'</g>');
+  A.k_passexam=card("wall",fig(34,30,0.76,{shirt:"#E5332A",pose:"both"})+paper(58,34,26,32,0)+T(71,58,"5",20,"#DC2626",900)+sparkle(20,20,1)+sparkle(80,22,1.2));
+  /* ---------- 断る・約束・望む ---------- */
+  A.k_refuse=card("wall",fig(30,30,0.76,{shirt:"#F97316",pose:"hold"})+box(42,42,12,10)+fig(72,30,0.76,{shirt:"#334155",pose:"point"})+'<circle cx="60" cy="22" r="9" fill="#FEE2E2"/>'+cross(60,22,0.8));
+  A.k_promise=card("wall",fig(26,30,0.74,{shirt:"#E5332A",pose:"hold"})+fig(70,30,0.74,{shirt:"#E11D48",hair:"long",skirt:"#7C3AED",pose:"hold"})+'<circle cx="48" cy="46" r="4.5" fill="'+SK+'"/>'+bubble(48,16,26,14,heart(48,15,0.55)+check(56,17,0.4),-1));
+  A.k_hope=card("out",'<circle cx="70" cy="74" r="20" fill="#FDBA74"/>'+[0,1,2,3,4].map(function(i){var a=(-160+i*35)*Math.PI/180;return '<path d="M'+(70+Math.cos(a)*24).toFixed(1)+' '+(74+Math.sin(a)*24).toFixed(1)+'L'+(70+Math.cos(a)*32).toFixed(1)+' '+(74+Math.sin(a)*32).toFixed(1)+'" stroke="#FDBA74" stroke-width="2.4"/>';}).join("")+fig(28,32,0.7,{shirt:"#10B981",pose:"point"})+sparkle(46,14,1)+'<path d="M48 76v-8M48 70q-6-2-6-6 5 0 6 6M48 68q6-2 6-6-5 0-6 6" fill="#22C55E" stroke="#16A34A" stroke-width="1"/>');
+  /* ---------- 心配・驚き・怒り・悲しみ ---------- */
+  A.k_worry=card("wall",fig(44,32,0.78,{shirt:"#7C3AED",sad:1,pose:"hold"})+'<path d="M24 22q4-4 8 0t8 0M56 18q4-4 8 0t8 0" stroke="#64748B" stroke-width="1.6" fill="none"/>'+sweat(58,34)+phone(76,56,0.6));
+  A.k_surprise=card("wall",fig(32,30,0.76,{shirt:"#10B981",pose:"both"})+'<rect x="58" y="52" width="28" height="22" fill="#F43F5E"/><rect x="56" y="46" width="32" height="8" fill="#E11D48"/><path d="M72 46v28" stroke="#FDE68A" stroke-width="3"/>'+T(70,34,"!?",14,"#F59E0B",900)+'<path d="M50 24l-6-4M52 32l-8 0" stroke="#F59E0B" stroke-width="2"/>');
+  A.k_angry=card("wall",fig(48,30,0.8,{shirt:"#DC2626",pose:"hip"})+'<path d="M30 24q-3-6 0-10M66 24q3-6 0-10" stroke="#94A3B8" stroke-width="2" fill="none"/>'+'<path d="M64 36l4 -4 4 4-4 4zM68 32v-2" stroke="#DC2626" stroke-width="2" fill="none"/>'+cloud(78,16,0.6,"#D1D5DB"));
+  A.k_sad=card("cool",cloud(48,14,1.4,"#94A3B8")+rain(36,24,5)+fig(48,34,0.74,{shirt:"#3B82F6",sad:1})+'<path d="M44 44q-1 3 0 4M53 44q1 3 0 4" stroke="#F2B705" stroke-width="1.6"/>');
+  /* ---------- 両替・間に合う ---------- */
+  A.k_exchange=card("plain",coin(28,36,14,"$")+coin(68,60,14,"₽")+'<path d="M44 30q16-4 22 14" stroke="#E5332A" stroke-width="2.6" fill="none"/><path d="M66 44l1-7-6 3z" fill="#E5332A"/><path d="M52 66q-16 4-22-14" stroke="#16A34A" stroke-width="2.6" fill="none"/><path d="M30 52l-1 7 6-3z" fill="#16A34A"/>');
+  A.k_intime=card("city",'<rect x="50" y="20" width="46" height="56" rx="6" fill="#16A34A"/><rect x="56" y="28" width="16" height="16" fill="#BAE6FD"/><rect x="76" y="28" width="14" height="48" fill="#E0F2FE"/>'+fig(36,28,0.78,{shirt:"#F97316",walk:1,pose:"point"})+clock(18,20,9,8,59)+check(30,14,0.6));
+  /* ---------- 電源・掃除・趣味 ---------- */
+  A.k_switchoff=card("stage",'<rect x="34" y="24" width="28" height="44" rx="5" fill="#E5E7EB"/><rect x="42" y="44" width="12" height="18" rx="2" fill="#94A3B8"/>'+bulb(76,26,1,0)+T(76,54,"OFF",8,"#CBD5E1",900));
+  A.k_plug=card("wall",'<rect x="54" y="30" width="30" height="30" rx="5" fill="#fff" stroke="#CBD5E1"/><circle cx="64" cy="45" r="2.4" fill="#475569"/><circle cx="74" cy="45" r="2.4" fill="#475569"/>'+'<rect x="30" y="38" width="14" height="14" rx="3" fill="#1F2937"/><path d="M44 42h8M44 48h8" stroke="#94A3B8" stroke-width="2.4"/><path d="M30 45q-14 0-16 20" stroke="#1F2937" stroke-width="3" fill="none"/>'+arr(36,26,56,26,"#E5332A"));
+  A.k_tidy=card("wall",fig(36,28,0.78,{shirt:"#10B981",pose:"hold"})+'<path d="M50 34l18 40" stroke="#A16207" stroke-width="3"/><path d="M62 70l12 0 4 10h-20z" fill="#FACC15"/>'+sparkle(80,40,1.2,"#F2B705")+sparkle(20,60,1,"#F2B705"));
+  A.k_draw=card("wall",'<path d="M56 80l10-60M86 80l-10-60" stroke="#8B5E3C" stroke-width="3"/><rect x="52" y="18" width="38" height="32" fill="#fff" stroke="#CBD5E1"/><path d="M56 44l10-12 8 8 6-6 8 10z" fill="#60A5FA"/><circle cx="82" cy="26" r="3.5" fill="#FBBF24"/>'+fig(28,30,0.74,{shirt:"#F97316",pose:"point"}));
+  A.k_hobby=card("wall",fig(30,30,0.76,{shirt:"#7C3AED",pose:"hold"})+'<ellipse cx="34" cy="56" rx="10" ry="12" fill="#B45309"/><circle cx="34" cy="54" r="3" fill="#78350F"/><path d="M34 44l26-26" stroke="#78350F" stroke-width="3"/>'+'<path d="M66 30v-14l10 3v12" stroke="#1F2937" stroke-width="1.8" fill="none"/><circle cx="64" cy="30" r="3" fill="#1F2937"/><circle cx="74" cy="32" r="3" fill="#1F2937"/>');
+  A.k_marry=card("wall",'<path d="M48 4l6 6h-12z" fill="#F472B6"/>'+fig(30,30,0.76,{shirt:"#1F2937",tie:"#fff",pose:"hold"})+fig(66,30,0.76,{shirt:"#fff",hair:"long",skirt:"#F8FAFC",pose:"hold"})+'<circle cx="48" cy="22" r="5" fill="none" stroke="#FBBF24" stroke-width="2.4"/>'+heart(48,10,0.5));
+  A.k_ring=card("plain",'<ellipse cx="48" cy="58" rx="22" ry="20" fill="none" stroke="#FBBF24" stroke-width="7"/><path d="M40 30l8-14 8 14-8 6z" fill="#BAE6FD" stroke="#F2B705"/>'+sparkle(70,24,1.2,"#F2B705"));
 })(P67_ART);
 
 /* ===== PHASE67: 操作性とデザインの見直し =====
@@ -8405,7 +8583,7 @@ async function p68MakeChunks(){
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}})();
 /* ---------- 場面のイラスト（art:i_〜）は細部が見えるよう大きめに表示 ---------- */
 var _p68Fill=p66Fill;
-p66Fill=function(d,pic){var r=_p68Fill.apply(this,arguments);try{if(d&&d.classList){if(/^art:[ij]_/.test(String(pic||"")))d.classList.add("p68-scene");else if(!d.classList.contains("p67-art"))d.classList.remove("p68-scene");}}catch(_){}return r;};
+p66Fill=function(d,pic){var r=_p68Fill.apply(this,arguments);try{if(d&&d.classList){if(/^art:[ijk]_/.test(String(pic||"")))d.classList.add("p68-scene");else if(!d.classList.contains("p67-art"))d.classList.remove("p68-scene");}}catch(_){}return r;};
 (function(){try{var st=document.createElement("style");st.textContent='.p59-pic.p68-scene svg{width:128px!important;height:128px!important;border-radius:18px;box-shadow:0 6px 18px rgba(0,0,0,.25)}.p59-pic.sm.p68-scene svg{width:84px!important;height:84px!important}';document.head.appendChild(st);}catch(_){}})();
 
 /* ===== PHASE69: 「もっと見る」の余白と表記、明るい色テーマ（白・クリームなど） ===== */
@@ -8463,6 +8641,7 @@ p62ApplyTheme();
 '.p8-grammarpanel{padding-left:18px!important;padding-right:18px!important}',
 '.p15-morepanel .p15-sec{border-top-color:rgba(127,127,127,.22)!important}',
 '.p15-morepanel .p15-sec:first-child{border-top:none!important}',
+'body.p62-bg [data-act="lisfilter"].on{background:var(--accent)!important;border-color:var(--accent)!important;color:#fff!important}',
 'body.p62-bg .p52-next,body.p62-bg .p47-btn.primary{background:var(--accent)!important;background-image:none!important;color:#fff!important;border-color:var(--accent)!important}'
 ].join("");document.head.appendChild(st);}catch(_){}})();
 /* 「詳細」の品詞を日本語に、成績を言葉に */
