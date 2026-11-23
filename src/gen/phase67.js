@@ -303,6 +303,7 @@ renderP48Stats=function(){
 var _p67Fill=p66Fill;
 p66Fill=function(d,pic){
   var m=/^art:(\w+)$/.exec(String(pic||""));
+  if(m&&!P67_ART[m[1]]){var _mv=/^(.+)_([1-5]|at|to|from)$/.exec(m[1]);if(_mv&&P67_ART[_mv[1]]&&window.P67KIT&&P67KIT.mark){try{P67_ART[m[1]]=P67KIT.mark(_mv[1],_mv[2]);}catch(_){}}}
   if(m&&P67_ART[m[1]]){var _u=(p66Fill._n=(p66Fill._n||0)+1);d.innerHTML=P67_ART[m[1]].replace(/\b(a3(?:c|sky|wall|cool|stage))\b/g,"$1_"+_u);d.classList.add("p66-img","p67-art");return;}
   if(d.classList&&d.classList.contains("p67-art"))return; /* 画像の読み込み後の再描画で絵の中の文字を絵文字扱いしない */
   return _p67Fill.apply(this,arguments);
