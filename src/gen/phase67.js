@@ -82,7 +82,9 @@ render=function(){var r=_p67Render.apply(this,arguments);try{p67Tidy();}catch(_)
 document.addEventListener("click",function(e){
   var el=e.target.closest&&e.target.closest('[data-act="toggleextra"]');if(!el)return;
   setTimeout(function(){try{var card=document.querySelector("#main .study > .card"),easy=card&&card.querySelector(".easy");
-    if(card&&easy)card.scrollTo({top:Math.max(0,easy.offsetTop-80),behavior:"smooth"});}catch(_){}},60);
+    /* 問題文（日本語）とロシア語の答えが上に残る位置までにとどめ、その下に解説が続くようにする */
+    var ans=card&&(card.querySelector(".qcard .accent")||card.querySelector(".qcard .jp"));
+    if(card&&easy)card.scrollTo({top:Math.max(0,Math.min(easy.offsetTop-80,(ans?ans.offsetTop-70:0))),behavior:"smooth"});}catch(_){}},60);
 });
 
 (function(){
@@ -127,7 +129,8 @@ if(P_LVLS.indexOf("B1")>=0){
   /* 文法別練習に B1 の10項目を追加 */
   var P67_B1GP=[["仮定法","仮定法 бы（もし〜なら）"],["関係代名詞","関係代名詞 кото́рый"],["形動詞","形動詞（〜している…・〜された…）"],["副動詞","副動詞（〜しながら・〜してから）"],
     ["移動動詞・接頭辞","接頭辞つきの移動動詞"],["間接話法","間接話法・〜かどうか"],["時・条件・譲歩","時・理由・譲歩をつなぐ"],["受け身","受け身（〜される）"],
-    ["不定・否定代名詞","誰か・何か／誰も〜ない"],["意見・議論","意見を述べる・比べる"]];
+    ["不定・否定代名詞","誰か・何か／誰も〜ない"],["意見・議論","意見を述べる・比べる"],
+    ["複数形の格","複数形の格変化"],["動詞と格","動詞と格の組み合わせ"]];
   P67_B1GP.forEach(function(d,i){var ids=COMPOSE.filter(function(c){return c.grammarPoint===d[0];}).map(function(c){return c.id;});
     if(ids.length)GROUPS.push({id:"b1_"+i,title:"B1："+d[1],count:ids.length,composeIds:ids});});
   /* 文法ノート：B1 の項目を追加（ユニットの解説＋例文2つ） */
@@ -142,7 +145,7 @@ if(P_LVLS.indexOf("B1")>=0){
   /* 文法の達成度：B1 の項目も並べる */
   var P67_B1CAN={"仮定法":"「もし〜なら」・ていねいな頼み方ができる","関係代名詞":"名詞を文で詳しく説明できる（すべての格）","形動詞":"書き言葉の「〜している…」を読み取れる",
     "副動詞":"「〜しながら」「〜してから」を一文で言える","移動動詞・接頭辞":"入る・出る・寄る・渡るを言い分けられる","間接話法":"人の話を伝え、「〜かどうか」を聞ける",
-    "時・条件・譲歩":"「〜する前に・〜なのに・〜するとすぐ」でつなげる","受け身":"「〜される・〜された」を言える・読める","不定・否定代名詞":"「誰か・何か」と「誰も〜ない」を使い分けられる","意見・議論":"賛成・反対・比較を理由つきで言える"};
+    "時・条件・譲歩":"「〜する前に・〜なのに・〜するとすぐ」でつなげる","受け身":"「〜される・〜された」を言える・読める","不定・否定代名詞":"「誰か・何か」と「誰も〜ない」を使い分けられる","意見・議論":"賛成・反対・比較を理由つきで言える","複数形の格":"複数の名詞・形容詞をすべての格で使える","動詞と格":"занима́ться＋造格など、動詞ごとの格を使える"};
   P67_B1GP.forEach(function(d){if(COMPOSE.some(function(c){return c.grammarPoint===d[0];}))P46_A2.push(["B1："+d[1],P67_B1CAN[d[0]]||"",[d[0]]]);});
   if(typeof SHOW_LEVELS!=="undefined"&&SHOW_LEVELS.indexOf("B1")<0)SHOW_LEVELS.push("B1");
   var _p67A2c=renderA2Check;
@@ -294,4 +297,31 @@ renderP48Stats=function(){
   '.p67-dd{width:44px;flex:none}.p67-dd b{display:block;font-size:14px}.p67-dd small{color:var(--muted);font-size:11px}'+
   '.p67-dp{flex:1;display:flex;flex-wrap:wrap;gap:6px}.p67-dp span{font-size:12.5px;background:var(--card2);border-radius:8px;padding:3px 8px;color:var(--ink)}'+
   '.p67-day em{font-style:normal;color:var(--muted);font-size:12px;flex:none;padding-top:3px}.p67-empty{color:var(--muted);font-size:13px}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}})();
+
+/* ===== PHASE67-4: オリジナルの絵（art:キー）を表示できるようにする ===== */
+var _p67Fill=p66Fill;
+p66Fill=function(d,pic){
+  var m=/^art:(\w+)$/.exec(String(pic||""));
+  if(m&&P67_ART[m[1]]){d.innerHTML=P67_ART[m[1]];d.classList.add("p66-img","p67-art");return;}
+  if(d.classList&&d.classList.contains("p67-art"))return; /* 画像の読み込み後の再描画で絵の中の文字を絵文字扱いしない */
+  return _p67Fill.apply(this,arguments);
+};
+(function(){try{var st=document.createElement("style");st.textContent='.p59-pic.p67-art svg{width:84px;height:84px;display:block}.p59-pic.sm.p67-art svg{width:60px;height:60px}';document.head.appendChild(st);}catch(_){}})();
+
+/* ===== PHASE67-5: 見やすさの改善（デザインレビューの指摘） =====
+   1) 青いボタンの白文字のコントラスト不足（3.65:1）→ 濃い青 #0066CC（5.57:1）
+   2) 下のタブ・補足の灰色文字が小さく薄い → 11px／#8E8E93
+   3) 押す場所を 44px 以上に
+   4) 補足の文字（例文の訳・読み方・カードの説明）を大きく
+   5) 作文の解説を開いたら、問題文がカードの上に見えるように戻す */
+(function(){var css=
+  ':root{--mutedSoft:#8E8E93}'+
+  '.p47-cta,.p52-next,.ans3btn.a-ok,.p67-lvseg button.on,.seg button.on,.filtertabs button.on,.p47-btn.primary{background:#0066CC!important;background-image:none!important}'+
+  'nav.bnav button{font-size:11px!important;padding:8px 1px 8px!important}'+
+  'header.app p{font-size:12px!important}'+
+  '.p67-spk,.p52-spk,.p52-bm{width:44px!important;height:44px!important;min-width:44px}'+
+  '.p60-link{padding:12px 0 12px 16px!important}.p47-more{min-height:44px}.p56-goal{padding-top:12px!important;padding-bottom:12px!important}'+
+  '.star{min-width:44px;min-height:44px}'+
+  '.p52-dex span,.p67-k{font-size:14px!important}.p47-cardtxt small{font-size:13.5px!important}.p52-dexp{font-size:15px!important}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}})();

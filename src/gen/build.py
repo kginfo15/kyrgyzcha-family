@@ -12,7 +12,15 @@ from vocab_b1_3 import V3
 from vocab_b1_4 import V4
 from vocab_b1_5 import V5
 from compose_b1 import UNITS_B1
+# ТРКИ-1（B1）の語彙量に届かせるための補充（基本語は A2、新出は B1）
+from vocab_fill_1 import F1
+from vocab_fill_2 import F2
+from vocab_fill_3 import F3
+from vocab_fill_4 import F4
+from vocab_fill_5 import F5
 from lex_b1 import LB1
+from lex_b1b import LB1B
+LB1.update(LB1B)
 import ru_kana
 src,dst=sys.argv[1],sys.argv[2]
 s=open(src,encoding='utf-8').read()
@@ -80,6 +88,27 @@ for i,(acc,meaning,pos,cat,simple,rule,exr,exj,emo) in enumerate(V1+V2+V3+V4+V5)
         "dataStatus":"active","pos":pos,"level":"B1","pron":"","audio":"","simpleExp":simple})
     if emo: b1pics[vid]=emo
 nb1v=len(voc)-sum(1 for w in voc if w["level"]!="B1")
+# 補充語：同じカテゴリに A2 と B1 が混ざる場合、B1 側は「（B1）」付きの別テーマにする
+FILL=F1+F2+F3+F4+F5
+vocwords=set(x["word"] for x in voc)
+catlv={}
+for t in FILL: catlv.setdefault(t[4],set()).add(t[0])
+nb1=len([w for w in voc if w["level"]=="B1"])
+for k,(lv,acc,meaning,pos,cat,simple,rule,exr,exj,emo) in enumerate(FILL):
+    w=strip(acc)
+    # 元データの「機械的な組み合わせ」カテゴリ（実行時に非表示）にだけある語は、ここで正式な単語として入れ直す
+    if w in seen and (w not in existing or w in vocwords): print("fill skip (already exists):",w); continue
+    seen.add(w)
+    if lv=="B1" and len(catlv[cat])>1 and not cat.endswith("（B1）"): cat=cat+"（B1）"
+    if lv=="A2":
+        vid="A2-%03d"%cnt["A2"]; cnt["A2"]+=1; pk="A2-15"; ptitle="A2 パック15（基本語の補充）"
+    else:
+        nb1+=1; vid="B1-%03d"%nb1; pk="B1-90"; ptitle="B1 "+cat
+    voc.append({"id":vid,"word":w,"accent":acc,"kana":ru_kana.kana(acc),"roma":roma(acc),"meaning":meaning,
+        "lesson":k%5+1,"exRu":exr,"exJa":exj,"detailExp":simple+" "+rule,"changeRule":rule,
+        "packTitle":ptitle,"category":cat,"pack":pk,"reviewStatus":"none",
+        "dataStatus":"active","pos":pos,"level":lv,"pron":"","audio":"","simpleExp":simple})
+    if emo: b1pics[vid]=emo
 n=1
 for u in UNITS_B1:
     for ja,acc,easy in u["s"]:
@@ -171,8 +200,12 @@ for f in sorted(glob.glob(os.path.join(here,"..","ru","pics*.txt"))):
             if a[1]=="-": pics.pop("A"+a[0],None)
             else: pics["A"+a[0]]=a[1]
 pics.update(b1pics)
+# 絵の全件点検の結果：差し替え・追加（"art:キー" は phase67_art.js のオリジナルの絵）と、外す絵
+_aud=json.load(open(os.path.join(here,"..","ru","pics_audit.json"),encoding="utf-8"))
+pics.update(_aud["set"])
+for _i in _aud["remove"]: pics.pop(_i,None)
 p59=open(os.path.join(here,"phase59.js"),encoding="utf-8").read().replace("/*P59S*/{}/*P59E*/","/*P59S*/"+json.dumps(pics,ensure_ascii=False)+"/*P59E*/")
-p47=open(os.path.join(here,"phase47.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase48.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase49.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase50.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase51.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase52.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase53.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase55.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase56.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase57.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase58.js"),encoding="utf-8").read()+"\n"+p59+"\n"+open(os.path.join(here,"phase60.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase61.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase62.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase63.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase64.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase65.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase66.js"),encoding="utf-8").read().replace("/*P66S*/null/*P66E*/","/*P66S*/"+open(os.path.join(here,"..","pics","atlas-ru.json"),encoding="utf-8").read().strip()+"/*P66E*/")+"\n"+open(os.path.join(here,"phase67.js"),encoding="utf-8").read().replace("/*P67K*/{}/*P67KE*/","/*P67K*/"+open(os.path.join(here,"p67_kana.json"),encoding="utf-8").read().strip()+"/*P67KE*/")
+p47=open(os.path.join(here,"phase47.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase48.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase49.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase50.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase51.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase52.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase53.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase55.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase56.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase57.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase58.js"),encoding="utf-8").read()+"\n"+p59+"\n"+open(os.path.join(here,"phase60.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase61.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase62.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase63.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase64.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase65.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase66.js"),encoding="utf-8").read().replace("/*P66S*/null/*P66E*/","/*P66S*/"+open(os.path.join(here,"..","pics","atlas-ru.json"),encoding="utf-8").read().strip()+"/*P66E*/")+"\n"+open(os.path.join(here,"phase67_art.js"),encoding="utf-8").read()+"\n"+open(os.path.join(here,"phase67.js"),encoding="utf-8").read().replace("/*P67K*/{}/*P67KE*/","/*P67K*/"+open(os.path.join(here,"p67_kana.json"),encoding="utf-8").read().strip()+"/*P67KE*/")
 rep("/* ===== init ===== */", p47+"\n/* ===== init ===== */")
 rep('else if(ui.view==="gnote")body=renderGrammarNotes();','else if(ui.view==="gnote")body=renderGrammarNotes();\n  else if(ui.view==="p47words")body=renderP47Words();')
 rep('var title={gnote:"文法ノート",','var title={p47words:"単語練習",gnote:"文法ノート",')
