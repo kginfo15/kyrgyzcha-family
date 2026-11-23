@@ -7512,7 +7512,7 @@ var P67_ART=(function(){
   A.b_tired=svg(SH+per(40,40,"#64748B",{mood:"tired"})+'<path d="M28 20q-4 4 0 8" stroke="#7DD3FC" stroke-width="2.5" fill="none"/><path d="M52 30q4 6 0 8" stroke="#7DD3FC" stroke-width="2.5" fill="none"/><rect x="66" y="40" width="22" height="40" rx="3" fill="none" stroke="#475569" stroke-width="3"/><rect x="72" y="35" width="10" height="5" rx="1" fill="#475569"/><rect x="69" y="70" width="16" height="7" rx="1" fill="'+RED+'"/>');
   A.b_tired_f=A.b_tired.replace(per(40,40,"#64748B",{mood:"tired"}),per(40,40,"#E11D48",{mood:"tired",long:1,hair:"#B45309"}));
   A.b_fever=svg(SH+per(36,40,"#3B82F6",{mood:"sad",skin:"#F8A58A"})+'<path d="M20 18q-3-5 0-10M30 14q-3-5 0-10M40 18q-3-5 0-10" stroke="#F87171" stroke-width="2.5" fill="none"/><rect x="68" y="12" width="12" height="56" rx="6" fill="#F9FAFB" stroke="#94A3B8" stroke-width="2"/><circle cx="74" cy="72" r="10" fill="'+RED+'"/><rect x="71" y="18" width="6" height="52" rx="3" fill="'+RED+'"/>'+T(74,10,"39°",10,RED,900));
-  A.b_sick=svg('<rect x="4" y="54" width="88" height="22" rx="3" fill="#93C5FD"/><rect x="4" y="76" width="6" height="12" fill="#6B7280"/><rect x="86" y="76" width="6" height="12" fill="#6B7280"/><rect x="6" y="44" width="22" height="14" rx="5" fill="#F9FAFB"/><circle cx="20" cy="42" r="10" fill="#F2C39A"/><path d="M11 38q2-8 9-8t9 8z" fill="#5B3A29"/><circle cx="17" cy="43" r="1.2" fill="#3B2A20"/><circle cx="23" cy="43" r="1.2" fill="#3B2A20"/><path d="M17 48q3-2 6 0" stroke="#3B2A20" stroke-width="1.2" fill="none"/><path d="M28 50h60v8H28z" fill="#BFDBFE"/><rect x="12" y="28" width="16" height="7" rx="3" fill="#7DD3FC"/><path d="M48 20h14M55 13v14" stroke="'+RED+'" stroke-width="4"/>');
+  A.b_sick=svg('<rect x="4" y="54" width="88" height="22" rx="3" fill="#93C5FD"/><rect x="4" y="76" width="6" height="12" fill="#6B7280"/><rect x="86" y="76" width="6" height="12" fill="#6B7280"/><rect x="6" y="44" width="22" height="14" rx="5" fill="#F9FAFB"/><circle cx="20" cy="42" r="10" fill="#F2C39A"/><path d="M11 38q2-8 9-8t9 8z" fill="#5B3A29"/><circle cx="17" cy="43" r="1.2" fill="#3B2A20"/><circle cx="23" cy="43" r="1.2" fill="#3B2A20"/><path d="M17 48q3-2 6 0" stroke="#3B2A20" stroke-width="1.2" fill="none"/><path d="M28 50h60v8H28z" fill="#BFDBFE"/><rect x="12" y="28" width="16" height="7" rx="3" fill="#7DD3FC"/><path d="M48 20h14M55 13v14" stroke="'+BLUE+'" stroke-width="4"/>');
   A.b_injury=svg(SH+'<path d="M8 60q20-14 40-10t40 4v18q-20 2-40-4T8 76z" fill="#F2C39A"/><rect x="38" y="48" width="24" height="26" rx="3" fill="#F9FAFB" transform="rotate(6 50 61)"/><path d="M42 56l16 2M41 62l16 2M40 68l16 2" stroke="#E5E7EB" stroke-width="1.5"/><circle cx="50" cy="61" r="3" fill="#FCA5A5"/><path d="M72 36l3 7 7-3-3 7 7 3-8 2 2 7-6-4-4 6-1-8-8-1 6-4-4-7 8 2z" fill="none" stroke="'+RED+'" stroke-width="2.2"/>');
   A.b_weak=svg(SH+per(36,42,"#64748B",{mood:"tired"})+'<rect x="62" y="38" width="28" height="16" rx="3" fill="none" stroke="#475569" stroke-width="3"/><rect x="90" y="43" width="3" height="6" fill="#475569"/><rect x="65" y="41" width="5" height="10" fill="'+RED+'"/>'+T(76,72,"",8));
   A.b_dizzy=svg(SH+per(48,44,"#3B82F6",{mood:"tired"})+'<path d="M48 22a10 4 0 1 0 1 0" stroke="none"/><ellipse cx="48" cy="20" rx="20" ry="6" fill="none" stroke="#A855F7" stroke-width="3" stroke-dasharray="6 4"/>'+head(68,20,90,"#A855F7",0.6)+'<path d="M30 10l2 4 4 1-4 1-2 4-2-4-4-1 4-1zM68 6l2 4 4 1-4 1-2 4-2-4-4-1 4-1z" fill="'+GOLD+'"/>');
@@ -7555,6 +7555,159 @@ var P67_ART=(function(){
     else g+=per(28,34,"#9CA3AF",{s:0.9})+tgt(w,64)+'<path d="M36 60q'+(w==="kid"?'8 6 18 4':'10 6 18 0')+'" stroke="#F2C39A" stroke-width="5" fill="none" stroke-linecap="round"/>'+hi(64,ys,sc);
     return svg(g);}
   ["me","you","kid","wife","col"].forEach(function(w){["dat","acc","with"].forEach(function(k){A["cf_"+w+"_"+k]=casef(w,k);});});
+})(P67_ART);
+
+/* ===== PHASE67-ART3: 人物・職業・場面のイラスト（このアプリ用に一から描いたSVG。実在の人物・キャラクター・ロゴ・赤十字などの標章は使っていない） =====
+   背景つきの「場面の絵」で、アイコンでは分かりにくい言葉（先生・色・友だち など）を見せる。 */
+(function(A){
+  var SK="#F2C39A",SK2="#E0A77E",INK="#1F2937";
+  var FONT='system-ui,-apple-system,Segoe UI,sans-serif';
+  function T(x,y,s,sz,c,w){return '<text x="'+x+'" y="'+y+'" font-size="'+sz+'" text-anchor="middle" font-weight="'+(w||800)+'" font-family="'+FONT+'" fill="'+(c||INK)+'">'+s+'</text>';}
+  /* 背景つきのカード（角丸で切り抜く） */
+  function card(bg,body){return '<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><clipPath id="a3c"><rect width="96" height="96" rx="16"/></clipPath>'+
+    '<linearGradient id="a3sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7CC4F5"/><stop offset="1" stop-color="#D4EEFC"/></linearGradient>'+
+    '<linearGradient id="a3wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCEBD3"/><stop offset="1" stop-color="#F3D9B6"/></linearGradient>'+
+    '<linearGradient id="a3cool" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E0ECF8"/><stop offset="1" stop-color="#C7DAEE"/></linearGradient>'+
+    '<linearGradient id="a3stage" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B1D5E"/><stop offset="1" stop-color="#6D28D9"/></linearGradient>'+
+    '</defs><g clip-path="url(#a3c)">'+(BG[bg]||BG.wall)+body+'</g></svg>';}
+  var BG={
+    wall:'<rect width="96" height="96" fill="url(#a3wall)"/><rect y="74" width="96" height="22" fill="#C99A6B"/><rect y="74" width="96" height="2.5" fill="#B5845A"/>',
+    cool:'<rect width="96" height="96" fill="url(#a3cool)"/><rect y="76" width="96" height="20" fill="#94A3B8"/><rect y="76" width="96" height="2" fill="#7C8BA1"/>',
+    out:'<rect width="96" height="96" fill="url(#a3sky)"/><circle cx="80" cy="16" r="7" fill="#FFE58A"/><path d="M8 22q4-6 10-3 4-5 10 0 6 0 5 5H8z" fill="#fff" opacity=".9"/><rect y="70" width="96" height="26" fill="#8BC86B"/><path d="M0 70q24-6 48 0t48 0v4H0z" fill="#7DBA5E"/>',
+    city:'<rect width="96" height="96" fill="url(#a3sky)"/><rect x="2" y="30" width="18" height="44" fill="#B8C4D6"/><rect x="22" y="20" width="16" height="54" fill="#A3B2C8"/><rect x="62" y="26" width="16" height="48" fill="#B8C4D6"/><rect x="80" y="36" width="16" height="38" fill="#A3B2C8"/><rect y="74" width="96" height="22" fill="#9CA3AF"/><rect y="74" width="96" height="3" fill="#D1D5DB"/>',
+    stage:'<rect width="96" height="96" fill="url(#a3stage)"/><path d="M30 0L18 76h60L66 0z" fill="#FEF9C3" opacity=".22"/><rect y="74" width="96" height="22" fill="#7C2D12"/><rect y="74" width="96" height="3" fill="#9A3412"/>',
+    plain:'<rect width="96" height="96" fill="#F1F5F9"/>'
+  };
+  /* 人物（全身）。x,y＝頭の中心、s＝大きさ。o.shirt 服の色、o.hair 髪型、o.pose 腕のポーズ など */
+  function fig(x,y,s,o){o=o||{};var sh=o.shirt||"#3B82F6",sl=o.sleeve||sh,pn=o.pants||"#1E3A5F",hc=o.hairc||"#4A2F1F",sk=o.skin||SK,g='';
+    g+='<g transform="translate('+x+' '+y+') scale('+(s||1)+')">';
+    /* 脚 */
+    if(o.skirt){g+='<path d="M-5 42h3.5v15h-3.5zM1.5 42h3.5v15h-3.5z" fill="'+sk+'"/><path d="M-11 31h22l3 14h-28z" fill="'+o.skirt+'"/>';}
+    else g+='<path d="M-6.5 31h5.5v26h-5.5zM1 31h5.5v26H1z" fill="'+pn+'"/>';
+    g+='<ellipse cx="-4" cy="58" rx="4.6" ry="2.2" fill="#2B2B2B"/><ellipse cx="4" cy="58" rx="4.6" ry="2.2" fill="#2B2B2B"/>';
+    /* 体 */
+    if(o.coat)g+='<path d="M-11 13q0-4 5-4h12q5 0 5 4v31h-22z" fill="'+o.coat+'"/>';
+    g+='<path d="M-10 13q0-4 5-4h10q5 0 5 4v19h-20z" fill="'+sh+'"/>';
+    if(o.coat)g+='<path d="M-11 13q0-4 5-4h3l3 10 3-10h3q5 0 5 4v31h-6V18l-5 6-5-6v26h-6z" fill="'+o.coat+'"/><path d="M-5 9l5 10 5-10" stroke="#CBD5E1" stroke-width="1" fill="none"/>';
+    if(o.apron)g+='<path d="M-7 14h14v20h-14z" fill="'+o.apron+'"/><path d="M-7 14l-2-4M7 14l2-4" stroke="'+o.apron+'" stroke-width="1.5"/>';
+    if(o.vest)g+='<path d="M-10 13q0-4 5-4h2v23h-7zM10 13q0-4-5-4h-2v23h7z" fill="'+o.vest+'"/><path d="M-10 22h7M3 22h7" stroke="#FDE047" stroke-width="1.6"/>';
+    if(o.tie)g+='<path d="M-3 9l3 3 3-3" fill="#fff"/><path d="M0 11.5l-2 2.5 2 10 2-10z" fill="'+o.tie+'"/>';
+    else if(!o.coat)g+='<path d="M-3.5 9q3.5 4 7 0" stroke="'+SK2+'" stroke-width="1.2" fill="none"/>';
+    if(o.badge)g+='<rect x="3" y="15" width="5" height="3.5" rx=".6" fill="#F8FAFC" stroke="#94A3B8" stroke-width=".5"/>';
+    if(o.steth)g+='<path d="M-4 9q-3 10 2 13 5-3 2-13" stroke="#475569" stroke-width="1.3" fill="none"/><circle cx="-1" cy="22.5" r="1.8" fill="#94A3B8"/>';
+    /* 腕 */
+    var P={down:[[-10,12,-12,29],[10,12,12,29]],point:[[-10,12,-12,29],[10,12,24,0]],wave:[[-10,12,-12,29],[10,12,16,-5]],hold:[[-10,12,-5,23],[10,12,5,23]],side:[[-10,12,-12,29],[10,12,25,15]],both:[[-10,12,-18,-2],[10,12,18,-2]],write:[[-10,12,-5,23],[10,12,12,24]],hip:[[-10,12,-15,22],[10,12,15,22]]}[o.pose||"down"];
+    P.forEach(function(a,i){var mx=(a[0]+a[2])/2+(i?1:-1)*1.5,my=(a[1]+a[3])/2;g+='<path d="M'+a[0]+' '+a[1]+'Q'+mx+' '+my+' '+a[2]+' '+a[3]+'" stroke="'+(o.coat||sl)+'" stroke-width="5.4" stroke-linecap="round" fill="none"/><circle cx="'+a[2]+'" cy="'+a[3]+'" r="2.7" fill="'+sk+'"/>';});
+    /* 首・頭 */
+    g+='<rect x="-2.5" y="5" width="5" height="5" fill="'+SK2+'"/>';
+    var hs=o.hair||"short";
+    if(hs==="long")g+='<path d="M-9 -1q0-10 9-10t9 10v16q-3 2-5 0v-8h-8v8q-2 2-5 0z" fill="'+hc+'"/>';
+    if(hs==="bun")g+='<circle cx="0" cy="-10" r="4.5" fill="'+hc+'"/>';
+    g+='<circle cx="-7.8" cy="1" r="2" fill="'+SK2+'"/><circle cx="7.8" cy="1" r="2" fill="'+SK2+'"/><circle cx="0" cy="0" r="8" fill="'+sk+'"/>';
+    if(hs==="short")g+='<path d="M-8.2 -0.5q-0.5-9.5 8.2-9.5t8.2 9.5q-2-5-5-5.5-2 2.5-7 2.5t-4.4 3z" fill="'+hc+'"/>';
+    else if(hs==="long"||hs==="bun")g+='<path d="M-8.4 0q0-9.5 8.4-9.5t8.4 9.5q-3-6-8.4-6t-8.4 6z" fill="'+hc+'"/>';
+    else if(hs==="bald")g+='<path d="M-8.2 1q0-3 1.5-4.5M8.2 1q0-3-1.5-4.5" stroke="'+hc+'" stroke-width="2.4" fill="none"/>';
+    else if(hs==="cap")g+='<path d="M-9 -2q0-8.5 9-8.5t9 8.5z" fill="'+(o.capc||"#F59E0B")+'"/><rect x="-10" y="-3" width="20" height="2.5" rx="1" fill="'+(o.capc||"#F59E0B")+'"/>';
+    else if(hs==="nurse")g+='<path d="M-8.2 -0.5q0-9.5 8.2-9.5t8.2 9.5q-3-6-8.2-6t-8.2 6z" fill="'+hc+'"/><path d="M-6 -7h12l-1.5-4h-9z" fill="#F8FAFC"/><path d="M-1 -10h2v4h-2zM-2 -9h4v2h-4z" fill="#F2B705"/>';
+    else if(hs==="police")g+='<path d="M-9 -3h18l-2-6h-14z" fill="#1E3A8A"/><rect x="-10" y="-4" width="20" height="2.4" rx="1" fill="#111827"/><circle cx="0" cy="-6" r="1.4" fill="#FCD34D"/>';
+    if(o.beard)g+='<path d="M-6 3q0 7 6 7t6-7q-2 2-6 2t-6-2z" fill="'+hc+'"/>';
+    /* 顔 */
+    g+='<circle cx="-3" cy="0.5" r="1.1" fill="#2B1B12"/><circle cx="3" cy="0.5" r="1.1" fill="#2B1B12"/>';
+    if(o.glasses)g+='<circle cx="-3" cy="0.5" r="2.6" fill="none" stroke="#334155" stroke-width=".9"/><circle cx="3" cy="0.5" r="2.6" fill="none" stroke="#334155" stroke-width=".9"/><path d="M-0.4 0.5h0.8" stroke="#334155" stroke-width=".9"/>';
+    g+=o.sad?'<path d="M-2.2 5q2.2-1.6 4.4 0" stroke="#7A3E2A" stroke-width="1" fill="none" stroke-linecap="round"/>':'<path d="M-2.4 3.6q2.4 2.4 4.8 0" stroke="#7A3E2A" stroke-width="1.1" fill="none" stroke-linecap="round"/>';
+    g+='<circle cx="-5" cy="3" r="1.3" fill="#F9A8A8" opacity=".6"/><circle cx="5" cy="3" r="1.3" fill="#F9A8A8" opacity=".6"/>';
+    return g+'</g>';}
+  function board(x,y,w,h,txt){return '<rect x="'+(x-2)+'" y="'+(y-2)+'" width="'+(w+4)+'" height="'+(h+4)+'" rx="2" fill="#8B5E3C"/><rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="#1F5F3F"/>'+(txt||'')+'<rect x="'+(x+w-14)+'" y="'+(y+h)+'" width="10" height="2" fill="#F8FAFC"/>';}
+  function desk(x,y,w){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="4" rx="1" fill="#B7794A"/><rect x="'+(x+2)+'" y="'+(y+4)+'" width="3" height="14" fill="#8B5E3C"/><rect x="'+(x+w-5)+'" y="'+(y+4)+'" width="3" height="14" fill="#8B5E3C"/>';}
+  function bubble(x,y,w,h,inner,tail){return '<rect x="'+(x-w/2)+'" y="'+(y-h/2)+'" width="'+w+'" height="'+h+'" rx="7" fill="#fff" stroke="#CBD5E1" stroke-width="1"/><path d="M'+(x+(tail||-1)*w/4)+' '+(y+h/2-0.5)+'l'+((tail||-1)*-3)+' 7 '+((tail||-1)*-6)+'-7z" fill="#fff"/>'+(inner||'');}
+  function heads(n,y,c){var g='';for(var i=0;i<n;i++){var x=10+i*(76/(n-1));g+='<path d="M'+(x-8)+' 96q0-12 8-12t8 12z" fill="'+c[i%c.length]+'"/><circle cx="'+x+'" cy="'+(y)+'" r="6" fill="'+SK+'"/><path d="M'+(x-6)+' '+(y-1)+'q0-6 6-6t6 6q-2-3-6-3t-6 3z" fill="'+["#4A2F1F","#1F1A17","#8B5A2B","#3A2A20"][i%4]+'"/>';}return g;}
+  /* ---------- 学校・教育 ---------- */
+  A.i_teacher=card("wall",board(30,10,60,38,T(60,26,"А Б В",11,"#F8FAFC",700)+'<path d="M38 36h22M38 42h30" stroke="#E2E8F0" stroke-width="1.6" opacity=".8"/>')+fig(22,32,0.82,{shirt:"#7C3AED",pose:"point",glasses:1,hair:"bun",hairc:"#5B3A29",skirt:"#334155"}));
+  A.i_lecturer=card("wall",board(36,10,54,34,T(63,30,"x² + y",11,"#F8FAFC",700))+fig(22,30,0.82,{shirt:"#F8FAFC",tie:"#B91C1C",pose:"point",glasses:1,hair:"short"})+desk(6,62,34));
+  A.i_professor=card("wall",'<rect x="44" y="10" width="44" height="40" fill="#E2E8F0" stroke="#94A3B8"/><path d="M50 40l8-10 8 6 10-14 8 10" stroke="#E5332A" stroke-width="2" fill="none"/>'+fig(28,30,0.82,{shirt:"#334155",tie:"#1D4ED8",pose:"point",glasses:1,hair:"bald",hairc:"#CBD5E1",beard:1})+'<path d="M8 60h40l-4 16H12z" fill="#8B5E3C"/>');
+  A.i_lecture=card("wall",board(18,6,60,28,T(48,24,"ЛЕКЦИЯ",9,"#F8FAFC",700))+fig(48,32,0.5,{shirt:"#0F766E",pose:"point",glasses:1})+heads(5,80,["#3B82F6","#F97316","#10B981","#E11D48","#8B5CF6"]));
+  A.i_seminar=card("cool",'<ellipse cx="48" cy="66" rx="34" ry="10" fill="#B7794A"/>'+fig(18,44,0.55,{shirt:"#3B82F6",pose:"hold"})+fig(78,44,0.55,{shirt:"#E11D48",hair:"long",pose:"hold"})+fig(48,36,0.5,{shirt:"#10B981",pose:"side",glasses:1})+'<rect x="32" y="60" width="12" height="7" fill="#fff" transform="rotate(-8 38 63)"/><rect x="52" y="61" width="12" height="7" fill="#fff" transform="rotate(6 58 64)"/>'+bubble(76,14,24,14,T(76,18,"？",9,"#E5332A"),-1));
+  A.i_lesson=card("wall",board(14,6,68,28,T(48,24,"2 + 3 = 5",10,"#F8FAFC",700))+[14,40,66].map(function(x,i){return desk(x,72,18)+fig(x+9,58,0.42,{shirt:["#F97316","#3B82F6","#10B981"][i],hair:i===1?"long":"short",pose:"write"});}).join(""));
+  A.i_kinder=card("out",fig(48,26,0.82,{shirt:"#F472B6",hair:"long",hairc:"#7C4A2D",pose:"both",skirt:"#7C3AED"})+fig(22,56,0.48,{shirt:"#FBBF24",pose:"wave"})+fig(74,56,0.48,{shirt:"#34D399",hair:"long",hairc:"#3A2A20",pose:"wave",skirt:"#E5332A"}));
+  A.i_student=card("out",'<path d="M50 70V36l22-10 22 10v34z" fill="#E5E7EB"/><path d="M48 37l24-12 24 12z" fill="#94A3B8"/>'+[56,66,76,86].map(function(x){return '<rect x="'+x+'" y="40" width="4" height="30" fill="#CBD5E1"/>';}).join("")+fig(28,30,0.82,{shirt:"#E5332A",pose:"hold",hair:"short"})+'<rect x="20" y="49" width="14" height="10" rx="1" fill="#F59E0B"/><rect x="21" y="47" width="12" height="3" fill="#10B981"/><path d="M18 40q-4 6 0 14" stroke="#7C2D12" stroke-width="3" fill="none"/>');
+  A.i_student_f=A.i_student.replace('fig','fig').replace(/<g transform="translate\(28 30\)[\s\S]*?<\/g>/,fig(28,30,0.82,{shirt:"#DB2777",pose:"hold",hair:"long",hairc:"#5B3A29",skirt:"#1E3A8A"}));
+  A.i_pupil=card("out",'<rect x="52" y="34" width="40" height="36" fill="#FDE68A"/><path d="M48 36l24-14 24 14z" fill="#DC2626"/><rect x="66" y="50" width="12" height="20" fill="#7C4A2D"/><circle cx="72" cy="30" r="4" fill="#fff" stroke="#475569"/>'+fig(28,40,0.66,{shirt:"#3B82F6",pose:"wave"})+'<rect x="16" y="46" width="10" height="14" rx="3" fill="#DC2626"/>');
+  A.i_exam=card("cool",desk(10,60,76)+fig(40,36,0.62,{shirt:"#3B82F6",pose:"write",sad:1})+'<rect x="48" y="52" width="22" height="9" fill="#fff" transform="rotate(-6 59 56)"/><path d="M51 55h14M51 58h10" stroke="#94A3B8" stroke-width="1" transform="rotate(-6 59 56)"/><circle cx="80" cy="18" r="11" fill="#fff" stroke="#475569" stroke-width="2"/><path d="M80 18V11M80 18l5 3" stroke="#1F2937" stroke-width="2" stroke-linecap="round"/><path d="M28 14q-2 4 0 6" stroke="#F2B705" stroke-width="2" fill="none"/>');
+  A.i_homework=card("wall",desk(8,62,80)+'<rect x="20" y="46" width="34" height="18" fill="#fff" transform="rotate(-4 37 55)"/><path d="M24 51h24M24 55h20M24 59h22" stroke="#93C5FD" stroke-width="1.2" transform="rotate(-4 37 55)"/>'+T(36,50,"1) ___",6,"#1F2937",700)+'<path d="M58 60l18-22 4 3-18 22-5 1z" fill="#F59E0B"/><path d="M58 60l-1 3 4-2z" fill="#1F2937"/><rect x="64" y="20" width="20" height="16" rx="2" fill="#FDE68A"/><circle cx="74" cy="28" r="5" fill="#F97316"/>');
+  A.i_grade=card("plain",'<rect x="18" y="10" width="54" height="72" rx="3" fill="#fff" stroke="#CBD5E1"/><path d="M26 24h30M26 32h36M26 40h28M26 48h34" stroke="#CBD5E1" stroke-width="2"/><circle cx="62" cy="62" r="16" fill="none" stroke="#DC2626" stroke-width="3"/>'+T(62,70,"5",22,"#DC2626",900)+'<path d="M74 22l6-6 4 4-6 6z" fill="#DC2626"/>');
+  A.i_textbook=card("plain",'<path d="M20 14h50a6 6 0 0 1 6 6v58H26a6 6 0 0 1-6-6z" fill="#E5332A"/><path d="M26 78h50v6H26a6 6 0 0 1 0-6z" fill="#F8FAFC" stroke="#CBD5E1"/>'+T(48,46,"Аа",22,"#F8FAFC",900)+'<rect x="30" y="54" width="36" height="3" rx="1.5" fill="#BFDBFE"/><rect x="34" y="60" width="28" height="3" rx="1.5" fill="#BFDBFE"/>');
+  A.i_dictionary=card("plain",'<path d="M14 22q16-6 34 2v58q-18-8-34-2z" fill="#FDF6E3" stroke="#CBD5E1"/><path d="M82 22q-16-6-34 2v58q18-8 34-2z" fill="#FDF6E3" stroke="#CBD5E1"/>'+T(31,46,"дом",10,"#1F2937",800)+T(31,58,"↓",10,"#E5332A",800)+T(31,70,"家",11,"#1F2937",800)+T(65,46,"кот",10,"#1F2937",800)+T(65,58,"↓",10,"#E5332A",800)+T(65,70,"猫",11,"#1F2937",800)+'<path d="M40 10h16v12l-8-4-8 4z" fill="#DC2626"/>');
+  A.i_grammar=card("plain",'<rect x="12" y="14" width="72" height="68" rx="6" fill="#fff" stroke="#CBD5E1"/>'+T(48,34,"книг-а",13,"#1F2937",800)+T(48,52,"книг-и",13,"#1F2937",800)+T(48,70,"книг-у",13,"#1F2937",800)+'<rect x="52" y="22" width="20" height="16" rx="3" fill="#FDE68A" opacity=".8"/><rect x="52" y="40" width="20" height="16" rx="3" fill="#BBF7D0" opacity=".8"/><rect x="52" y="58" width="20" height="16" rx="3" fill="#BFDBFE" opacity=".8"/>'+T(48,34,"книг-а",13,"#1F2937",800)+T(48,52,"книг-и",13,"#1F2937",800)+T(48,70,"книг-у",13,"#1F2937",800));
+  A.i_pronounce=card("cool",'<path d="M10 30q18-16 36 0v34q-18 16-36 0z" fill="'+SK+'"/><path d="M18 48q10 10 20 0q-10 4-20 0z" fill="#B91C1C"/><path d="M20 49q8 3 16 0" stroke="#fff" stroke-width="2"/>'+[0,1,2].map(function(i){return '<path d="M'+(54+i*10)+' '+(34-i*6)+'q'+(8+i*2)+' '+(14+i*6)+' 0 '+(28+i*12)+'" stroke="#E5332A" stroke-width="3" fill="none" stroke-linecap="round" opacity="'+(1-i*0.25)+'"/>';}).join("")+T(80,22,"Ы",14,"#1F2937",900));
+  A.i_exercise=card("plain",'<rect x="14" y="10" width="68" height="76" rx="5" fill="#fff" stroke="#CBD5E1"/>'+[0,1,2,3].map(function(i){return T(30,28+i*15,(i+1)+".",9,"#64748B",800)+'<path d="M38 '+(28+i*15)+'h34" stroke="#93C5FD" stroke-width="1.5" stroke-dasharray="3 2"/>';}).join("")+T(54,26,"я ___",9,"#1F2937",700)+'<path d="M64 70l14-18 4 3-14 18-5 1z" fill="#F59E0B"/>');
+  A.i_language=card("cool",bubble(30,30,40,28,T(30,36,"Привет",9,"#1F2937",800),-1)+bubble(66,62,40,28,T(66,68,"こんにちは",8,"#1F2937",800),1)+'<path d="M40 50q8 4 14 0" stroke="#E5332A" stroke-width="2" fill="none"/>');
+  A.i_university=card("out",'<path d="M10 70V40h76v30z" fill="#E5E7EB"/><path d="M6 41l42-22 42 22z" fill="#94A3B8"/>'+[16,30,44,58,72].map(function(x){return '<rect x="'+x+'" y="44" width="6" height="26" fill="#F8FAFC"/>';}).join("")+'<rect x="6" y="40" width="84" height="4" fill="#CBD5E1"/><path d="M42 30l6-3 6 3-6 3z" fill="#1F2937"/>'+fig(78,60,0.36,{shirt:"#E5332A",pose:"hold"})+fig(20,60,0.36,{shirt:"#DB2777",hair:"long",pose:"wave"}));
+  /* ---------- 人・家族・人づきあい ---------- */
+  A.i_friends=card("out",fig(34,30,0.8,{shirt:"#F97316",pose:"side"})+fig(62,30,0.8,{shirt:"#22C55E",hair:"short",hairc:"#1F1A17"})+'<path d="M44 44q6-3 10 0" stroke="#F97316" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M47 10q-3-4 0-6 3 2 0 6zM51 10q3-4 0-6-3 2 0 6z" fill="#F43F5E"/><path d="M45 8q4 6 8 0" stroke="#F43F5E" stroke-width="0"/>');
+  A.i_friend_f=card("out",fig(34,30,0.8,{shirt:"#EC4899",hair:"long",hairc:"#5B3A29",pose:"side",skirt:"#6D28D9"})+fig(62,30,0.8,{shirt:"#14B8A6",hair:"bun",hairc:"#1F1A17",skirt:"#1E40AF"})+'<path d="M44 44q6-3 10 0" stroke="#EC4899" stroke-width="5" fill="none" stroke-linecap="round"/>');
+  A.i_family=card("out",'<path d="M60 70V40l14-12 14 12v30z" fill="#FDE68A"/><path d="M56 42l18-16 18 16z" fill="#DC2626"/><rect x="70" y="52" width="8" height="18" fill="#7C4A2D"/>'+fig(18,32,0.7,{shirt:"#E5332A"})+fig(42,34,0.66,{shirt:"#E11D48",hair:"long",skirt:"#7C3AED"})+fig(30,58,0.4,{shirt:"#FBBF24",pose:"wave"})+fig(54,60,0.36,{shirt:"#34D399",hair:"long",skirt:"#F472B6"}));
+  A.i_parents=card("wall",'<rect x="38" y="12" width="20" height="16" rx="2" fill="#fff" stroke="#B7794A" stroke-width="2"/><path d="M48 24q-5-4-5-7 0-3 2.5-3 1.5 0 2.5 1.5 1-1.5 2.5-1.5 2.5 0 2.5 3 0 3-5 7z" fill="#F43F5E"/>'+fig(30,30,0.8,{shirt:"#E5332A",pose:"side"})+fig(66,32,0.76,{shirt:"#E11D48",hair:"long",skirt:"#7C3AED",pose:"down"}));
+  A.i_children=card("out",fig(30,44,0.56,{shirt:"#FBBF24",pose:"both"})+fig(52,46,0.52,{shirt:"#34D399",hair:"long",hairc:"#3A2A20",pose:"wave",skirt:"#E5332A"})+fig(72,44,0.56,{shirt:"#F97316",pose:"hold"})+'<circle cx="72" cy="58" r="5" fill="#EF4444"/><path d="M68 56q4 3 8 0" stroke="#fff" stroke-width="1"/>');
+  A.i_twins=card("out",fig(34,40,0.64,{shirt:"#F59E0B",pose:"side"})+fig(62,40,0.64,{shirt:"#F59E0B",pose:"down"})+'<path d="M44 52q4-2 8 0" stroke="#F59E0B" stroke-width="4" fill="none" stroke-linecap="round"/>'+T(48,20,"=",14,"#E5332A",900));
+  A.i_relatives=card("plain",'<path d="M48 22v12M24 44h48M24 34v10M72 34v10M48 34v20M24 54v8M72 54v8" stroke="#94A3B8" stroke-width="2"/>'+[[48,14,"#8B5CF6"],[24,30,"#E5332A"],[72,30,"#E11D48"],[48,50,"#10B981"],[24,66,"#F59E0B"],[72,66,"#F97316"]].map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="8" fill="'+p[2]+'"/><circle cx="'+p[0]+'" cy="'+(p[1]-1.5)+'" r="3.4" fill="'+SK+'"/><path d="M'+(p[0]-5)+' '+(p[1]+6)+'q5-6 10 0" fill="'+SK+'"/>';}).join(""));
+  A.i_grandchild=card("wall",'<rect x="6" y="50" width="34" height="8" rx="3" fill="#7C3AED"/><rect x="6" y="40" width="8" height="22" rx="3" fill="#6D28D9"/>'+fig(26,30,0.74,{shirt:"#94A3B8",hair:"bald",hairc:"#E5E7EB",glasses:1,pose:"hold"})+fig(62,46,0.5,{shirt:"#F2B705",pose:"both"}));
+  A.i_acquaint=card("city",fig(28,32,0.76,{shirt:"#E5332A",pose:"wave"})+fig(70,32,0.76,{shirt:"#E11D48",hair:"long",pose:"wave",skirt:"#334155"})+bubble(48,12,22,12,T(48,16,"やあ",7,"#1F2937"),-1));
+  A.i_date=card("wall",'<rect x="20" y="58" width="56" height="5" rx="2" fill="#B7794A"/><rect x="46" y="63" width="4" height="14" fill="#8B5E3C"/>'+fig(18,36,0.62,{shirt:"#E5332A",pose:"hold"})+fig(78,36,0.62,{shirt:"#E11D48",hair:"long",pose:"hold"})+'<path d="M34 52h8l-1 6h-6z" fill="#fff"/><path d="M54 52h8l-1 6h-6z" fill="#fff"/><path d="M48 30q-6-5-6-9 0-3 3-3 2 0 3 2 1-2 3-2 3 0 3 3 0 4-6 9z" fill="#F43F5E"/>');
+  A.i_meeting=card("cool",'<rect x="12" y="56" width="72" height="5" rx="2" fill="#B7794A"/>'+fig(22,34,0.6,{shirt:"#334155",tie:"#E5332A",pose:"hold"})+fig(48,30,0.6,{shirt:"#F8FAFC",tie:"#DC2626",pose:"side",glasses:1})+fig(74,34,0.6,{shirt:"#7C3AED",hair:"long",pose:"hold"})+'<rect x="36" y="52" width="10" height="5" fill="#fff"/><rect x="58" y="52" width="10" height="5" fill="#fff"/><rect x="60" y="8" width="28" height="18" rx="2" fill="#fff" stroke="#94A3B8"/><path d="M64 22l6-6 5 4 8-8" stroke="#E5332A" stroke-width="2" fill="none"/>');
+  A.i_contract=card("plain",'<rect x="16" y="10" width="50" height="66" rx="3" fill="#fff" stroke="#CBD5E1"/><path d="M24 22h34M24 30h30M24 38h34M24 46h22" stroke="#CBD5E1" stroke-width="2"/>'+T(41,18,"ДОГОВОР",6,"#1F2937",900)+'<path d="M26 64q6-8 10 0t10-2" stroke="#1D4ED8" stroke-width="2" fill="none"/><path d="M56 70l22-30 5 4-22 30-6 2z" fill="#334155"/><path d="M56 70l-1 4 4-2z" fill="#F59E0B"/><circle cx="74" cy="24" r="10" fill="#DC2626" opacity=".85"/><circle cx="74" cy="24" r="6" fill="none" stroke="#fff" stroke-width="1.5"/>');
+  A.i_negotiation=card("cool",'<rect x="20" y="58" width="56" height="5" rx="2" fill="#B7794A"/>'+fig(18,34,0.62,{shirt:"#334155",tie:"#E5332A",pose:"side"})+fig(78,34,0.62,{shirt:"#7C2D12",tie:"#F59E0B",pose:"down"})+bubble(36,12,20,12,T(36,16,"…",8,"#1F2937"),-1)+bubble(62,12,20,12,T(62,16,"！",8,"#1F2937"),1)+'<rect x="40" y="54" width="16" height="5" fill="#fff"/>');
+  A.i_cooperate=card("out",fig(26,34,0.66,{shirt:"#E5332A",pose:"both"})+fig(70,34,0.66,{shirt:"#F97316",pose:"both"})+'<rect x="12" y="20" width="72" height="12" rx="2" fill="#B7794A"/><path d="M12 24h72" stroke="#8B5E3C"/>');
+  A.i_help=card("out",fig(30,34,0.7,{shirt:"#10B981",pose:"side"})+'<g transform="rotate(-30 66 66)">'+fig(64,48,0.62,{shirt:"#F97316",pose:"wave",sad:1})+'</g>');
+  A.i_interpreter=card("cool",fig(48,34,0.66,{shirt:"#0EA5E9",badge:1})+fig(14,40,0.56,{shirt:"#334155",tie:"#DC2626"})+fig(82,40,0.56,{shirt:"#7C3AED",hair:"long"})+bubble(22,12,22,14,T(22,17,"Да",8,"#1F2937"),-1)+bubble(74,12,22,14,T(74,17,"はい",7,"#1F2937"),1)+'<path d="M34 12h28" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="2 2"/><path d="M62 12l-4-3v6z" fill="#0EA5E9"/>');
+  A.i_colleague=card("cool",'<rect x="6" y="56" width="38" height="4" fill="#94A3B8"/><rect x="52" y="56" width="38" height="4" fill="#94A3B8"/><rect x="12" y="42" width="16" height="12" rx="1" fill="#1F2937"/><rect x="68" y="42" width="16" height="12" rx="1" fill="#1F2937"/>'+fig(34,32,0.56,{shirt:"#E5332A",badge:1,pose:"side"})+fig(62,32,0.56,{shirt:"#DB2777",hair:"long",badge:1,pose:"side"}));
+  A.i_staff=card("cool",fig(48,26,0.84,{shirt:"#F8FAFC",tie:"#1D4ED8",badge:1,pose:"hold"})+'<rect x="40" y="44" width="16" height="11" rx="1" fill="#F59E0B"/>');
+  A.i_boss=card("wall",'<rect x="10" y="56" width="76" height="6" rx="2" fill="#7C4A2D"/><rect x="14" y="62" width="68" height="14" fill="#5C3A22"/>'+fig(48,30,0.66,{shirt:"#1F2937",tie:"#B91C1C",pose:"hold",hair:"short",hairc:"#6B7280",glasses:1})+'<rect x="34" y="50" width="28" height="6" rx="1" fill="#FCD34D"/>'+T(48,55,"ДИРЕКТОР",4,"#1F2937",900));
+  A.i_subordinate=card("cool",fig(28,30,0.72,{shirt:"#1F2937",tie:"#B91C1C",pose:"side",glasses:1,hairc:"#6B7280"})+fig(70,34,0.68,{shirt:"#60A5FA",pose:"hold"})+'<rect x="48" y="40" width="12" height="9" fill="#fff" stroke="#94A3B8"/>');
+  A.i_manager=card("cool",fig(30,30,0.78,{shirt:"#F8FAFC",tie:"#059669",pose:"hold",hair:"short"})+'<rect x="22" y="46" width="16" height="12" rx="1" fill="#A16207"/><rect x="24" y="44" width="12" height="3" fill="#fff"/><rect x="56" y="16" width="34" height="30" rx="2" fill="#fff" stroke="#94A3B8"/><rect x="60" y="34" width="5" height="8" fill="#60A5FA"/><rect x="68" y="28" width="5" height="14" fill="#34D399"/><rect x="76" y="22" width="5" height="20" fill="#F59E0B"/>');
+  A.i_trainee=card("cool",fig(30,30,0.76,{shirt:"#F8FAFC",tie:"#1D4ED8",pose:"point",glasses:1,hairc:"#6B7280"})+fig(66,38,0.62,{shirt:"#86EFAC",pose:"hold",badge:1})+'<rect x="58" y="52" width="14" height="10" fill="#fff" stroke="#94A3B8"/>');
+  /* ---------- 職業 ---------- */
+  A.i_doctor=card("cool",'<rect x="58" y="14" width="30" height="40" rx="3" fill="#fff" stroke="#CBD5E1"/><path d="M73 22v14M66 29h14" stroke="#22C55E" stroke-width="4"/>'+fig(34,28,0.84,{shirt:"#93C5FD",coat:"#F8FAFC",steth:1,pose:"hold",glasses:1}));
+  A.i_nurse=card("cool",fig(40,28,0.84,{shirt:"#7DD3FC",hair:"nurse",hairc:"#5B3A29",pose:"hold",skirt:"#7DD3FC"})+'<rect x="32" y="44" width="14" height="16" rx="1" fill="#A16207"/><rect x="34" y="46" width="10" height="12" fill="#fff"/><path d="M36 50h6M36 53h5" stroke="#94A3B8"/><rect x="66" y="40" width="16" height="22" rx="3" fill="#E0F2FE" stroke="#F2B705"/><path d="M74 44v6M71 47h6" stroke="#0EA5E9" stroke-width="2.4"/>');
+  A.i_dentist=card("cool",fig(30,28,0.8,{shirt:"#93C5FD",coat:"#F8FAFC",pose:"side"})+'<path d="M62 30q-6 0-6 8 0 6 3 14 2 6 4 0l2-8 2 8q2 6 4 0 3-8 3-14 0-8-6-8-3 0-4 2-1-2-2-2z" fill="#fff" stroke="#94A3B8" stroke-width="1.4"/><path d="M54 26l4 4" stroke="#475569" stroke-width="2"/>');
+  A.i_builder=card("out",[0,1,2,3].map(function(r){return [0,1,2].map(function(c){return '<rect x="'+(52+c*13+(r%2)*6)+'" y="'+(58-r*9)+'" width="12" height="8" fill="#DC6B4A" stroke="#B4533A" stroke-width=".8"/>';}).join("");}).join("")+fig(28,30,0.8,{shirt:"#E5332A",vest:"#F97316",hair:"cap",capc:"#FACC15",pose:"hold"})+'<path d="M24 44l10-4 4 4-10 4z" fill="#94A3B8"/>');
+  A.i_police=card("city",fig(48,26,0.86,{shirt:"#1E3A8A",hair:"police",pose:"wave",badge:1,pants:"#111827"})+'<rect x="42" y="38" width="5" height="4" rx="1" fill="#FCD34D"/>');
+  A.i_soldier=card("out",fig(48,26,0.86,{shirt:"#4D7C0F",pants:"#3F6212",hair:"cap",capc:"#3F6212",pose:"down"})+'<path d="M36 38l4 2M56 38l-4 2" stroke="#365314" stroke-width="2"/>');
+  A.i_farmer=card("out",'<path d="M0 70h96v26H0z" fill="#A16207"/><path d="M4 76h88M4 84h88M4 92h88" stroke="#854D0E" stroke-width="2"/>'+[60,72,84].map(function(x){return '<path d="M'+x+' 72v-12" stroke="#16A34A" stroke-width="2"/><path d="M'+x+' 62q-6-2-6-8 6 0 6 8zM'+x+' 62q6-2 6-8-6 0-6 8z" fill="#22C55E"/>';}).join("")+fig(28,26,0.82,{shirt:"#DC2626",pants:"#1D4ED8",hair:"cap",capc:"#FDE68A",pose:"side"})+'<path d="M46 42V82M42 82h8" stroke="#8B5E3C" stroke-width="2.5"/>');
+  A.i_accountant=card("cool",desk(8,60,80)+fig(36,32,0.62,{shirt:"#F8FAFC",tie:"#7C3AED",glasses:1,pose:"write"})+'<rect x="54" y="46" width="20" height="14" rx="2" fill="#374151"/><rect x="56" y="48" width="16" height="4" fill="#A7F3D0"/>'+[0,1,2].map(function(c){return '<rect x="'+(57+c*5)+'" y="54" width="3.5" height="3" fill="#9CA3AF"/>';}).join("")+'<rect x="14" y="52" width="14" height="8" fill="#fff" stroke="#CBD5E1"/>');
+  A.i_lawyer=card("wall",fig(30,28,0.82,{shirt:"#111827",tie:"#B91C1C",pose:"point",glasses:1})+'<path d="M70 26v40M60 66h20" stroke="#A16207" stroke-width="3"/><path d="M56 34h28" stroke="#A16207" stroke-width="2.5"/><path d="M56 34l-6 14h12zM84 34l-6 14h12z" fill="#FCD34D" stroke="#A16207"/>');
+  A.i_singer=card("stage",fig(48,26,0.86,{shirt:"#E11D48",hair:"long",hairc:"#7C2D12",pose:"hold",skirt:"#9F1239"})+'<rect x="46" y="40" width="4" height="8" fill="#111827"/><circle cx="48" cy="38" r="3" fill="#475569"/>'+'<path d="M72 18v10q-4-2-5 1t3 3 4-3v-8l6-2" stroke="#FCD34D" stroke-width="2" fill="none"/><path d="M18 26v8q-3-2-4 1t3 3 3-3v-7" stroke="#FCD34D" stroke-width="2" fill="none"/>');
+  A.i_musician=card("stage",fig(44,26,0.86,{shirt:"#0F172A",pose:"hold",hair:"long",hairc:"#1F1A17"})+'<g transform="rotate(-30 50 52)"><ellipse cx="44" cy="56" rx="9" ry="8" fill="#B45309"/><ellipse cx="51" cy="54" rx="6" ry="6" fill="#B45309"/><circle cx="46" cy="55" r="2.4" fill="#3B2A20"/><rect x="54" y="52" width="26" height="3" fill="#7C4A2D"/></g>');
+  A.i_painter=card("wall",'<path d="M58 80l8-56 8 56M60 70h12" stroke="#8B5E3C" stroke-width="2.5" fill="none"/><rect x="52" y="20" width="32" height="30" fill="#fff" stroke="#B7794A" stroke-width="2"/><path d="M54 44q8-14 16-6t12-8v18H54z" fill="#86EFAC"/><circle cx="76" cy="28" r="4" fill="#FCD34D"/>'+fig(26,28,0.8,{shirt:"#F8FAFC",apron:"#1D4ED8",pose:"side",hair:"short"})+'<path d="M44 42l6-6" stroke="#8B5E3C" stroke-width="2"/>');
+  A.i_engineer=card("cool",'<rect x="46" y="18" width="44" height="34" fill="#1D4ED8"/><path d="M50 24h14v10H50zM68 24h18M68 30h12M50 40h36M58 34v12" stroke="#BFDBFE" stroke-width="1.2" fill="none"/>'+fig(26,30,0.8,{shirt:"#F8FAFC",hair:"cap",capc:"#FACC15",pose:"point",glasses:1}));
+  A.i_programmer=card("cool",desk(8,62,80)+fig(30,36,0.62,{shirt:"#334155",pose:"write",glasses:1})+'<path d="M48 62l4-20h32l-4 20z" fill="#1F2937"/><path d="M53 46h10M55 50h16M57 54h8" stroke="#34D399" stroke-width="1.6"/><path d="M66 46h6" stroke="#F59E0B" stroke-width="1.6"/>');
+  A.i_journalist=card("city",fig(36,28,0.82,{shirt:"#F97316",pose:"side",badge:1})+'<rect x="56" y="38" width="6" height="12" rx="3" fill="#111827"/><rect x="58" y="50" width="2" height="8" fill="#475569"/>'+'<rect x="10" y="44" width="12" height="15" rx="1" fill="#fff" stroke="#94A3B8"/>');
+  A.i_athlete=card("out",'<path d="M0 74h96v22H0z" fill="#DC6B4A"/><path d="M0 82h96" stroke="#fff" stroke-width="1.5"/>'+'<g transform="rotate(10 48 50)">'+fig(48,26,0.82,{shirt:"#E5332A",pose:"both",pants:"#1E3A8A"})+'</g><circle cx="48" cy="46" r="5" fill="#FCD34D" stroke="#B45309"/><path d="M44 36l4 8 4-8" stroke="#DC2626" stroke-width="2" fill="none"/>');
+  A.i_rescuer=card("out",'<rect y="64" width="96" height="32" fill="#F2B705"/><path d="M0 70q12-4 24 0t24 0 24 0 24 0" stroke="#BAE6FD" stroke-width="2" fill="none"/>'+fig(36,26,0.82,{shirt:"#F97316",vest:"#EA580C",hair:"cap",capc:"#DC2626",pose:"side"})+'<circle cx="70" cy="44" r="10" fill="none" stroke="#DC2626" stroke-width="5"/><circle cx="70" cy="44" r="10" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="7.8 7.8"/>');
+  A.i_writer=card("wall",desk(8,62,80)+fig(36,36,0.62,{shirt:"#7C2D12",pose:"write",glasses:1,beard:1})+'<rect x="44" y="54" width="22" height="9" fill="#fff" transform="rotate(-6 55 58)"/><path d="M46 57h16M47 60h12" stroke="#94A3B8" stroke-width="1" transform="rotate(-6 55 58)"/><rect x="70" y="44" width="10" height="16" rx="2" fill="#E5332A"/><rect x="72" y="40" width="10" height="16" rx="2" fill="#F59E0B"/>');
+  A.i_poet=card("wall",'<rect x="20" y="16" width="56" height="64" rx="3" fill="#FDF6E3" stroke="#D6C7AE"/>'+T(48,34,"Я помню",8,"#7C2D12",700)+T(48,46,"чудное",8,"#7C2D12",700)+T(48,58,"мгновенье",8,"#7C2D12",700)+'<path d="M64 76q10-24 22-44-6 18-16 46z" fill="#F8FAFC" stroke="#94A3B8"/><path d="M64 76l-2 6" stroke="#1F2937" stroke-width="1.5"/>');
+  A.i_actor=card("stage",'<path d="M0 0h20q-6 40 0 74H0zM96 0H76q6 40 0 74h20z" fill="#B91C1C"/>'+fig(48,28,0.82,{shirt:"#7C3AED",pose:"both",hair:"short"})+'<path d="M40 54q8 6 16 0" stroke="none"/>');
+  A.i_audience=card("stage",'<rect x="8" y="10" width="80" height="34" rx="2" fill="#FEF9C3" opacity=".25"/>'+heads(6,74,["#3B82F6","#F97316","#10B981","#E11D48","#8B5CF6","#F59E0B"])+'<path d="M10 64l2-4M86 64l-2-4M30 60l1-4M66 60l-1-4" stroke="#FDE68A" stroke-width="1.6"/>');
+  A.i_tourist=card("city",fig(46,28,0.84,{shirt:"#F59E0B",pants:"#0F766E",hair:"cap",capc:"#22C55E",pose:"hold"})+'<rect x="40" y="40" width="12" height="8" rx="2" fill="#1F2937"/><circle cx="46" cy="44" r="2.6" fill="#60A5FA"/><rect x="28" y="40" width="8" height="16" rx="3" fill="#7C3AED"/>');
+  A.i_guide=card("city",fig(30,28,0.82,{shirt:"#0EA5E9",pose:"wave",badge:1})+'<path d="M46 2v28" stroke="#475569" stroke-width="1.5"/><path d="M46 2h14l-3 4 3 4H46z" fill="#F43F5E"/>'+fig(64,46,0.5,{shirt:"#F97316"})+fig(80,46,0.5,{shirt:"#10B981",hair:"long"}));
+  A.i_shopper=card("wall",'<rect x="52" y="10" width="40" height="64" fill="#E5E7EB"/><path d="M52 30h40M52 50h40" stroke="#94A3B8" stroke-width="2"/>'+[56,66,76,84].map(function(x,i){return '<rect x="'+x+'" y="'+(20-i%2*2)+'" width="7" height="10" rx="1" fill="'+["#EF4444","#F59E0B","#22C55E","#3B82F6"][i]+'"/><rect x="'+x+'" y="40" width="7" height="10" rx="1" fill="'+["#A855F7","#EF4444","#FDE68A","#10B981"][i]+'"/>';}).join("")+fig(24,30,0.76,{shirt:"#DB2777",hair:"long",pose:"side",skirt:"#1E3A8A"})+'<path d="M36 50h14l-3 12H38z" fill="none" stroke="#475569" stroke-width="2"/><circle cx="40" cy="66" r="2" fill="#475569"/><circle cx="47" cy="66" r="2" fill="#475569"/>');
+  A.i_passenger=card("cool",'<rect x="4" y="14" width="88" height="56" rx="10" fill="#F59E0B"/><rect x="10" y="20" width="34" height="26" rx="3" fill="#BAE6FD"/><rect x="50" y="20" width="36" height="26" rx="3" fill="#BAE6FD"/>'+fig(27,32,0.5,{shirt:"#E5332A"})+fig(68,32,0.46,{shirt:"#E11D48",hair:"long"})+'<path d="M4 44h88v16q0 10-10 10H14q-10 0-10-10z" fill="#F59E0B"/><rect x="4" y="44" width="88" height="3" fill="#D97706"/><circle cx="22" cy="72" r="7" fill="#1F2937"/><circle cx="74" cy="72" r="7" fill="#1F2937"/>');
+  A.i_foreigner=card("city",fig(36,28,0.82,{shirt:"#14B8A6",hair:"short",hairc:"#D6A85C",pose:"side",skin:"#F5D6C0"})+'<rect x="52" y="48" width="18" height="22" rx="3" fill="#7C3AED"/><path d="M57 48v-4h8v4" stroke="#4C1D95" stroke-width="2" fill="none"/><circle cx="78" cy="18" r="10" fill="#F2B705"/><path d="M72 14q4 2 6-1t5 1M70 20q6 0 8 2t6-2" stroke="#22C55E" stroke-width="2.4" fill="none"/>');
+  A.i_specialist=card("cool",fig(30,28,0.82,{shirt:"#93C5FD",coat:"#F8FAFC",glasses:1,pose:"side"})+'<path d="M58 30h14l-2 6v14q6 4 6 12H56q0-8 6-12V36z" fill="#E0F2FE" stroke="#64748B" stroke-width="1.5"/><path d="M57 58q7-6 18 0v4H57z" fill="#22C55E"/>');
+  A.i_pensioner=card("out",'<rect x="50" y="56" width="40" height="5" rx="2" fill="#8B5E3C"/><rect x="54" y="61" width="3" height="12" fill="#6B4A3A"/><rect x="84" y="61" width="3" height="12" fill="#6B4A3A"/>'+fig(32,28,0.82,{shirt:"#A16207",hair:"bald",hairc:"#E5E7EB",glasses:1,pose:"hold",beard:1})+'<path d="M42 44l6 30" stroke="#7C4A2D" stroke-width="2.5"/>');
+  /* ---------- その他の名詞 ---------- */
+  A.i_color=card("plain",'<path d="M48 14c-22 0-38 14-38 32 0 16 14 28 30 28 6 0 6-6 3-10-3-5 1-9 6-9h9c12 0 20-8 20-18 0-14-14-23-30-23z" fill="#E7C9A2" stroke="#B7794A" stroke-width="1.5"/><circle cx="56" cy="62" r="5" fill="#F1F5F9" stroke="#B7794A"/>'+
+    [[30,34,"#EF4444"],[44,26,"#F59E0B"],[60,26,"#FACC15"],[72,36,"#22C55E"],[26,50,"#3B82F6"],[38,62,"#A855F7"]].map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="6" fill="'+p[2]+'"/>';}).join("")+
+    '<path d="M64 88l18-30 4 2-16 30z" fill="#8B5E3C"/><path d="M82 58l4-8 4 4-4 6z" fill="#3B82F6"/>');
+  A.i_statue=card("out",'<rect x="30" y="56" width="36" height="20" fill="#9CA3AF"/><rect x="26" y="52" width="44" height="6" fill="#B8C0CC"/><rect x="26" y="74" width="44" height="4" fill="#B8C0CC"/>'+fig(48,22,0.74,{shirt:"#94A3B8",pants:"#94A3B8",hairc:"#94A3B8",skin:"#B8C0CC",pose:"point"}).replace(/#2B1B12|#7A3E2A|#F9A8A8|#E0A77E/g,"#94A3B8"));
+  A.i_sight=card("out",'<rect x="20" y="40" width="56" height="34" fill="#F5E6C8"/><path d="M16 42l32-18 32 18z" fill="#B45309"/>'+[24,36,48,60,70].map(function(x){return '<rect x="'+x+'" y="44" width="4" height="30" fill="#FDF6E3"/>';}).join("")+'<path d="M44 24v-12M44 12h10l-2 3 2 3H44" stroke="#475569" fill="#DC2626"/>'+fig(14,56,0.36,{shirt:"#F59E0B"})+'<rect x="10" y="62" width="6" height="4" fill="#1F2937"/>'+fig(86,56,0.36,{shirt:"#10B981",hair:"long"}));
+  A.i_name=card("plain",'<rect x="12" y="24" width="72" height="48" rx="8" fill="#fff" stroke="#E5332A" stroke-width="3"/><rect x="12" y="24" width="72" height="16" rx="8" fill="#E5332A"/><rect x="12" y="32" width="72" height="8" fill="#E5332A"/>'+T(48,36,"ИМЯ",9,"#fff",900)+T(48,62,"Иван",16,"#1F2937",900)+'<rect x="44" y="14" width="8" height="12" rx="2" fill="#94A3B8"/>');
+  A.i_surname=card("plain",'<rect x="12" y="14" width="72" height="68" rx="4" fill="#fff" stroke="#CBD5E1"/>'+T(48,28,"АНКЕТА",8,"#64748B",900)+'<rect x="16" y="34" width="64" height="14" rx="3" fill="#FEF3C7" stroke="#F59E0B"/>'+T(48,44,"Фамилия: Иванов",7.5,"#1F2937",800)+T(48,60,"Имя: Иван",7.5,"#94A3B8",700)+T(48,74,"Отчество: …",7.5,"#94A3B8",700));
+  A.i_patronymic=card("plain",'<rect x="12" y="14" width="72" height="68" rx="4" fill="#fff" stroke="#CBD5E1"/>'+T(48,28,"АНКЕТА",8,"#64748B",900)+T(48,44,"Фамилия: Иванов",7.5,"#94A3B8",700)+T(48,60,"Имя: Иван",7.5,"#94A3B8",700)+'<rect x="16" y="64" width="64" height="14" rx="3" fill="#FEF3C7" stroke="#F59E0B"/>'+T(48,74,"Отчество: Петрович",7,"#1F2937",800));
+  A.i_height=card("wall",'<rect x="58" y="8" width="12" height="70" fill="#fff" stroke="#CBD5E1"/>'+[0,1,2,3,4,5,6].map(function(i){return '<path d="M58 '+(12+i*10)+'h'+(i%2?4:7)+'" stroke="#64748B" stroke-width="1.2"/>';}).join("")+fig(40,36,0.66,{shirt:"#22C55E",pose:"down"})+'<path d="M32 24h34" stroke="#DC2626" stroke-width="2"/>'+T(80,28,"130",8,"#DC2626",900));
+  A.i_single=card("out",fig(48,28,0.84,{shirt:"#E5332A",pose:"hip"})+'<path d="M76 22q-6-5-6-9 0-3 3-3 2 0 3 2 1-2 3-2 3 0 3 3 0 4-6 9z" fill="none" stroke="#94A3B8" stroke-width="1.6" stroke-dasharray="2 2"/>');
+  A.i_appearance=card("wall",'<ellipse cx="62" cy="40" rx="20" ry="28" fill="#BAE6FD" stroke="#B7794A" stroke-width="3"/>'+fig(62,34,0.5,{shirt:"#E11D48",hair:"long",hairc:"#7C2D12"})+fig(24,34,0.7,{shirt:"#E11D48",hair:"long",hairc:"#7C2D12",pose:"side"}));
+  A.i_lang_tongue=A.i_language;
+  /* 医療で十字のマークを使う場合は、赤十字と紛らわしくないよう青・緑にする */
 })(P67_ART);
 
 /* ===== PHASE67: 操作性とデザインの見直し =====
@@ -7862,7 +8015,7 @@ renderP48Stats=function(){
 var _p67Fill=p66Fill;
 p66Fill=function(d,pic){
   var m=/^art:(\w+)$/.exec(String(pic||""));
-  if(m&&P67_ART[m[1]]){d.innerHTML=P67_ART[m[1]];d.classList.add("p66-img","p67-art");return;}
+  if(m&&P67_ART[m[1]]){var _u=(p66Fill._n=(p66Fill._n||0)+1);d.innerHTML=P67_ART[m[1]].replace(/\b(a3(?:c|sky|wall|cool|stage))\b/g,"$1_"+_u);d.classList.add("p66-img","p67-art");return;}
   if(d.classList&&d.classList.contains("p67-art"))return; /* 画像の読み込み後の再描画で絵の中の文字を絵文字扱いしない */
   return _p67Fill.apply(this,arguments);
 };
@@ -7884,6 +8037,243 @@ p66Fill=function(d,pic){
   '.star{min-width:44px;min-height:44px}'+
   '.p52-dex span,.p67-k{font-size:14px!important}.p47-cardtxt small{font-size:13.5px!important}.p52-dexp{font-size:15px!important}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}})();
+
+/* ===== PHASE68: 3回目のご要望 =====
+   1) 文法の専門用語（完了体・生格など）に、やさしい言いかえを自動で添える（最初の1回は（ ）で、2回目からは点線。タップで説明）
+   2) 解説・単語分解の入れ子を減らして、横幅いっぱいに読みやすく
+   3) ブックマーク：いつ登録したかを記録・表示し、一覧ページを作る
+   4) ブックマークした単語からチャンク（よく一緒に使う短いフレーズ）を作る */
+
+/* ---------- 1) 用語のやさしい説明 ---------- */
+var P68_TERMS=[
+ ["不完了体","くり返し・途中の動作の形","動作のくり返し・習慣・している最中を表す動詞の形。例：читать（読む／読んでいる）。"],
+ ["完了体","1回でやり終える形","1回で終わる動作や、やり終えた結果を表す動詞の形。例：прочитать（読み終える）。"],
+ ["主格","「〜が・〜は」の形","主語になる形。辞書に載っている形と同じです。"],
+ ["生格","「〜の・〜がない」の形","「〜の」（持ち主）、「〜がない」、数のあとなどで使う形。"],
+ ["与格","「〜に」の形","「〜に（あげる・言う）」の相手を表す形。"],
+ ["対格","「〜を」の形","「〜を」（動作の相手）や、行き先「〜へ」を表す形。"],
+ ["造格","「〜で・〜と一緒に」の形","道具「〜で」、「〜と一緒に（с＋この形）」、職業「〜として」を表す形。"],
+ ["前置格","「〜で（場所）・〜について」の形","в・на のあとの場所「〜で」や、о（〜について）のあとで使う形。"],
+ ["格変化","役割による語尾の変化","名詞や形容詞の語尾が、文の中の役割（〜が・〜を・〜に など）で変わること。"],
+ ["短語尾","形容詞の短い形","「〜だ」と述べるときに使う、形容詞の短い形。例：рад（うれしい）。"],
+ ["形動詞","動詞からできた形容詞","「〜している〇〇」「〜された〇〇」のように、名詞を説明する動詞の形。"],
+ ["副動詞","「〜しながら・〜してから」の形","主な動作に添えて「〜しながら」「〜してから」を表す動詞の形。"],
+ ["再帰動詞","-ся が付く動詞","-ся（-сь）で終わる動詞。「自分を〜する」「お互いに〜する」などを表します。"],
+ ["命令形","「〜して（ください）」の形","人にお願い・指示をするときの動詞の形。"],
+ ["接頭辞","単語の頭に付く部分","動詞などの頭に付けて意味を足す部分。例：при-（来る）、у-（去る）。"],
+ ["語幹","変わらない部分","語尾を取った、単語の中心の部分。"],
+ ["比較級","「より〜」の形","2つを比べて「より〜」を表す形。例：больше（より多く）。"],
+ ["最上級","「最も〜」の形","「一番〜」を表す形。例：самый（最も）。"],
+ ["不定形","辞書に載っている動詞の形","-ть などで終わる、動詞の元の形。"],
+ ["不定詞","辞書に載っている動詞の形","-ть などで終わる、動詞の元の形。"],
+ ["関係代名詞","名詞をくわしく説明する文をつなぐ言葉","который など。「〜するところの〇〇」のように前の名詞を説明します。"],
+ ["他動詞","「〜を」をとる動詞","「〜を」にあたる言葉（対格）がいっしょに来る動詞。"],
+ ["自動詞","「〜を」をとらない動詞","「〜を」にあたる言葉がいらない動詞。"],
+ ["目的語","「〜を」にあたる言葉","動作を受ける相手・もの。"],
+ ["述語","「どうする・どんなだ」にあたる部分","文の最後に「何をする・どんな状態か」を言う部分。"],
+ ["中性名詞","名詞のグループの1つ（-о・-е で終わることが多い）","キルギス語の名詞は男性・女性・中性の3つのグループに分かれ、形容詞などの語尾が変わります。"],
+ ["男性名詞","名詞のグループの1つ（子音で終わることが多い）","キルギス語の名詞は男性・女性・中性の3つのグループに分かれ、形容詞などの語尾が変わります。"],
+ ["女性名詞","名詞のグループの1つ（-а・-я で終わることが多い）","キルギス語の名詞は男性・女性・中性の3つのグループに分かれ、形容詞などの語尾が変わります。"],
+ ["活用","主語などによる形の変化","主語（私・あなた・彼…）や時（いま・過去・未来）によって動詞の形が変わること。"],
+ ["1人称","「私・私たち」","話している本人。1人称＝私、2人称＝あなた、3人称＝彼・彼女・それ。"],
+ ["2人称","「あなた・あなたたち」","話している相手。1人称＝私、2人称＝あなた、3人称＝彼・彼女・それ。"],
+ ["3人称","「彼・彼女・それ」","話している人と相手以外。1人称＝私、2人称＝あなた、3人称＝彼・彼女・それ。"]
+];
+var P68_MAP={},P68_RE=null;
+(function(){P68_TERMS.forEach(function(t){P68_MAP[t[0]]=t;});
+  var keys=P68_TERMS.map(function(t){return t[0];}).sort(function(a,b){return b.length-a.length;});
+  P68_RE=new RegExp(keys.join("|"),"g");})();
+var P68_SKIP={BUTTON:1,A:1,INPUT:1,TEXTAREA:1,SELECT:1,OPTION:1,SCRIPT:1,STYLE:1,SUMMARY:1,LABEL:1,H1:1,H2:1};
+function p68Gloss(root){
+  if(!root||!root.querySelectorAll)return;
+  var tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+    if(!n.nodeValue||n.nodeValue.length<2)return NodeFilter.FILTER_REJECT;P68_RE.lastIndex=0;if(!P68_RE.test(n.nodeValue))return NodeFilter.FILTER_REJECT;
+    for(var e=n.parentNode;e&&e!==root;e=e.parentNode){if(e.nodeType!==1)continue;if(P68_SKIP[e.tagName]||(e.namespaceURI&&e.namespaceURI.indexOf("svg")>=0))return NodeFilter.FILTER_REJECT;
+      var c=e.className&&typeof e.className==="string"?e.className:"";if(/\bp68-|tagpill|p47-tile|p56-search|bnav|tabbar/.test(c))return NodeFilter.FILTER_REJECT;}
+    /* 見出しや短いラベル（カテゴリ名など）には付けない */
+    var blk=n.parentNode;while(blk&&blk!==root&&blk.nodeType===1&&/^(B|STRONG|EM|SPAN|I|SMALL)$/.test(blk.tagName))blk=blk.parentNode;
+    if(blk&&blk.textContent&&blk.textContent.replace(/\s+/g,"").length<16)return NodeFilter.FILTER_REJECT;
+    return NodeFilter.FILTER_ACCEPT;}});
+  var list=[],done={};while(tw.nextNode())list.push(tw.currentNode);
+  list.forEach(function(n){
+    var s=n.nodeValue,frag=document.createDocumentFragment(),last=0;P68_RE.lastIndex=0;var m;
+    while((m=P68_RE.exec(s))){var t=P68_MAP[m[0]];if(!t)continue;
+      frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+      var sp=document.createElement("span");sp.className="p68-t";sp.setAttribute("data-g",m[0]);sp.textContent=m[0];frag.appendChild(sp);
+      var after=s.slice(m.index+m[0].length,m.index+m[0].length+1);
+      /* 画面の中で最初の1回だけ、やさしい言いかえを（ ）で添える。すぐ後ろに「（」がある場合は付けない */
+      if(!done[m[0]]&&!document.querySelector('.p68-g[data-g="'+m[0]+'"]')&&after!=="（"&&after!=="("){
+        done[m[0]]=1;var g=document.createElement("span");g.className="p68-g"+(t[1].length>14?" p68-gl":"");g.setAttribute("data-g",m[0]);g.textContent=t[1];frag.appendChild(g);
+      }
+      last=m.index+m[0].length;}
+    frag.appendChild(document.createTextNode(s.slice(last)));
+    if(n.parentNode)n.parentNode.replaceChild(frag,n);
+  });
+}
+function p68Pop(el){
+  var t=P68_MAP[el.getAttribute("data-g")];if(!t)return;
+  var p=document.getElementById("p68pop");if(!p){p=document.createElement("div");p.id="p68pop";p.className="p68-pop";document.body.appendChild(p);}
+  p.innerHTML='<b>'+esc(t[0])+'</b><span class="p68-pop1">'+esc(t[1])+'</span><span class="p68-pop2">'+esc(t[2])+'</span>';
+  p.style.display="block";var r=el.getBoundingClientRect(),w=Math.min(300,window.innerWidth-24);p.style.width=w+"px";
+  var x=Math.max(12,Math.min(window.innerWidth-w-12,r.left+r.width/2-w/2));p.style.left=x+"px";
+  var y=r.bottom+8;p.style.top=y+"px";var ph=p.offsetHeight;if(y+ph>window.innerHeight-90)p.style.top=Math.max(12,r.top-ph-8)+"px";
+}
+function p68PopHide(){var p=document.getElementById("p68pop");if(p)p.style.display="none";}
+window.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest(".p68-t,.p68-g");
+  if(el){e.stopImmediatePropagation();e.preventDefault();var t=el.classList.contains("p68-g")?el.previousSibling:el;if(t&&t.classList&&t.classList.contains("p68-t"))p68Pop(t);return;}
+  if(!(e.target.closest&&e.target.closest("#p68pop")))p68PopHide();
+},true);
+window.addEventListener("scroll",p68PopHide,{passive:true});
+var _p68R=render;
+render=function(){var r=_p68R.apply(this,arguments);p68PopHide();try{p68Gloss(document.getElementById("main"));}catch(_){}return r;};
+try{var _p68sh=document.getElementById("sheetHost");if(_p68sh)new MutationObserver(function(){try{p68Gloss(_p68sh);}catch(_){}}).observe(_p68sh,{childList:true,subtree:true});}catch(_){}
+/* 解説の中で、あとから開く部分（解説を見る・もっと見る）にも付ける */
+try{var _p68mn=document.getElementById("main");if(_p68mn)new MutationObserver(function(ms){if(ms.some(function(m){return m.addedNodes.length&&!(m.addedNodes[0].className&&String(m.addedNodes[0].className).indexOf("p68-")===0);}))try{p68Gloss(_p68mn);}catch(_){}}).observe(_p68mn,{childList:true,subtree:true});}catch(_){}
+/* 文法ノートの先頭に、用語のやさしい説明の一覧 */
+if(typeof renderGrammarNotes==="function"){
+  var _p68Gn=renderGrammarNotes;
+  renderGrammarNotes=function(){
+    var used=P68_TERMS.filter(function(t){return P47_LANG==="ru"||!/体$/.test(t[0]);});
+    var box='<details class="p68-gloss"><summary>むずかしい用語のやさしい説明</summary><div class="p68-glist">'+used.map(function(t){return '<div class="p68-gi"><b>'+esc(t[0])+'</b><span>'+esc(t[1])+'</span><small>'+esc(t[2])+'</small></div>';}).join("")+'</div></details>';
+    return box+String(_p68Gn.apply(this,arguments));};
+}
+
+/* ---------- 3) ブックマーク：登録日を記録 ---------- */
+window.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest('[data-act="fav"],[data-act="lisfav"],[data-act="cfav"]');if(!el)return;
+  var a=el.getAttribute("data-act"),id=el.getAttribute("data-val");if(!id)return;
+  var store=a==="cfav"?cprogress:progress,before=!!(store[id]&&store[id].favorite);
+  setTimeout(function(){var p=store[id];if(!p)return;var now=!!p.favorite;
+    if(now&&!before){p.favAt=Date.now();try{saveAll();}catch(_){}}
+    else if(!now&&before&&p.favAt){delete p.favAt;try{saveAll();}catch(_){}}},0);
+},true);
+function p68FavDate(ts){if(!ts)return "以前に登録";var d=new Date(ts),t=new Date();t.setHours(0,0,0,0);var dd=new Date(d);dd.setHours(0,0,0,0);
+  var diff=Math.round((t-dd)/86400000);return diff===0?"今日":diff===1?"昨日":(d.getFullYear()!==t.getFullYear()?d.getFullYear()+"/":"")+(d.getMonth()+1)+"月"+d.getDate()+"日";}
+function p68FavIds(){return VOCAB.filter(function(w){return progress[w.id]&&progress[w.id].favorite;}).sort(function(a,b){return (progress[b.id].favAt||0)-(progress[a.id].favAt||0);}).map(function(w){return w.id;});}
+
+/* ---------- 3') ブックマーク一覧ページ（単語検索の画面を借りて表示） ---------- */
+var P68C=null; /* チャンク作成の状態 */
+function p68LoadChunks(){try{return JSON.parse(localStorage.getItem("p68chunks_"+P47_LANG)||"null")||{list:[],at:0};}catch(_){return {list:[],at:0};}}
+function p68SaveChunks(c){try{localStorage.setItem("p68chunks_"+P47_LANG,JSON.stringify(c));}catch(_){}}
+function p68RenderBm(){
+  var ids=p68FavIds(),h='';
+  if(!ids.length)return '<div class="empty">まだブックマークした単語がありません。単語カードの右上の印をタップすると、ここに集まります。</div>';
+  h+='<div class="p68-bmtop"><div><b>'+ids.length+'</b><span>語</span></div>'+
+     '<button type="button" class="p68-btn" data-act="p68bmstudy">まとめて練習</button>'+
+     '<button type="button" class="p68-btn p68-btn2" data-act="p68chunk"'+(ids.length<2?' disabled':'')+'>チャンクを作る</button></div>';
+  /* チャンク */
+  var C=p68LoadChunks();
+  if(P68C&&P68C.busy)h+='<div class="p68-chunks"><div class="p68-ch-h">チャンクを作っています…</div><div class="p68-ch-note">ブックマークした単語を組み合わせて、よく使う短いフレーズにしています。</div></div>';
+  else if(P68C&&P68C.err)h+='<div class="p68-chunks"><div class="p68-ch-h">チャンク</div><div class="p68-ch-note">'+esc(P68C.err)+'</div></div>';
+  if(!(P68C&&P68C.busy)&&C.list&&C.list.length){
+    h+='<div class="p68-chunks"><div class="p68-ch-h">チャンク<small>'+(C.ai?"AIが作成":"アプリ内の例文から")+' ・ '+p68FavDate(C.at)+'</small></div>'+
+       '<div class="p68-ch-note">チャンク＝いっしょに使うことばのかたまり。まるごと声に出して覚えると、会話でそのまま使えます。</div>';
+    C.list.forEach(function(c){h+='<div class="p68-ch"><div class="p68-chr"><b>'+esc(c.ru)+'</b>'+p67SpkBtn(c.ru)+'</div>'+(c.kana?'<div class="p67-k">'+esc(c.kana)+'</div>':'')+'<div class="p68-chj">'+esc(c.ja)+'</div>'+
+      (c.words&&c.words.length?'<div class="p68-chw">'+c.words.map(function(x){return '<span>'+esc(x)+'</span>';}).join("")+'</div>':'')+'</div>';});
+    h+='</div>';}
+  /* 単語の一覧（登録日ごと） */
+  var cur=null;h+='<div class="p68-bmlist">';
+  ids.forEach(function(id){var w=byId(id),p=progress[id],lab=p68FavDate(p.favAt);
+    if(lab!==cur){h+='<div class="p68-bmday">'+esc(lab)+'</div>';cur=lab;}
+    h+='<button type="button" class="p68-bmrow" data-act="worddetail" data-val="'+id+'"><span class="p68-bmw"><b>'+esc(w.accent||w.word)+'</b><small>'+esc(w.meaning)+'</small></span><span class="p68-bmd">'+esc(w.level)+(p.favAt?'<br>'+new Date(p.favAt).toLocaleTimeString("ja-JP",{hour:"2-digit",minute:"2-digit"}):'')+'</span></button>';});
+  return h+'</div>';
+}
+var _p68Ws=renderWordSearch;
+renderWordSearch=function(){return ui.p68bm?p68RenderBm():_p68Ws.apply(this,arguments);};
+var _p68Sub=renderLearnSub;
+renderLearnSub=function(){var h=String(_p68Sub.apply(this,arguments));return (ui.view==="search"&&ui.p68bm)?h.replace(">単語検索<",">ブックマーク<"):h;};
+/* ブックマークのタイル：練習を始める代わりに一覧を開く */
+window.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest('[data-act]');if(!el)return;
+  var a=el.getAttribute("data-act"),v=el.getAttribute("data-val");
+  if(a==="p47set"&&v==="bookmark"){e.stopImmediatePropagation();e.preventDefault();clearTransientUI();ui.bnav="wordbook";ui.view="search";ui.p68bm=true;ui.learnOpen=true;saveUI();render();window.scrollTo(0,0);return;}
+  if(a==="closelearn"&&ui.p68bm){e.stopImmediatePropagation();e.preventDefault();ui.p68bm=false;ui.view="p47words";saveUI();render();window.scrollTo(0,0);return;}
+  if(a==="p68bmstudy"){e.stopImmediatePropagation();e.preventDefault();ui.p68bm=false;p47StartIds(shuffle(p68FavIds()),"ブックマーク");return;}
+  if(a==="p68chunk"){e.stopImmediatePropagation();e.preventDefault();p68MakeChunks();return;}
+  if(ui.p68bm&&(a==="bnav"||a==="p47words"||a==="tab"))ui.p68bm=false;
+},true);
+
+/* ---------- 4) チャンクを作る：AI（Claude）が使えればAIで、使えなければアプリ内の例文から ---------- */
+function p68Stem(w){w=String(w||"").toLowerCase().replace(/́/g,"").replace(/ё/g,"е").split(/[\s,]+/)[0];return w.length>5?w.slice(0,w.length-2):w.length>3?w.slice(0,w.length-1):w;}
+function p68LocalChunks(ids){
+  var ws=ids.map(byId).filter(Boolean),out=[],seen={};
+  var sents=[];VOCAB.forEach(function(v){if(v.exRu)sents.push({ru:v.exRu,ja:v.exJa||""});});
+  if(typeof COMPOSE!=="undefined")COMPOSE.forEach(function(c){if(c.ru||c.accent)sents.push({ru:c.accent||c.ru,ja:c.ja||""});});
+  function has(s,w){var st=p68Stem(w.word);if(st.length<2)return false;var low=s.toLowerCase().replace(/́/g,"").replace(/ё/g,"е");return new RegExp("(^|[^а-яөүң])"+st.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"i").test(low);}
+  sents.forEach(function(s){if(out.length>=8||seen[s.ru])return;var hit=ws.filter(function(w){return has(s.ru,w);});
+    if(hit.length>=2){seen[s.ru]=1;out.push({ru:s.ru,ja:s.ja,kana:p67Kana(s.ru),words:hit.map(function(w){return w.word;})});}});
+  if(out.length<4)ws.slice(0,8).forEach(function(w){if(out.length>=8||!w.exRu||seen[w.exRu])return;seen[w.exRu]=1;out.push({ru:w.exRu,ja:w.exJa||"",kana:p67Kana(w.exRu),words:[w.word]});});
+  return out;
+}
+async function p68MakeChunks(){
+  var ids=p68FavIds().slice(0,12);if(ids.length<2){toast("ブックマークを2語以上にすると作れます");return;}
+  P68C={busy:true};render();
+  var ws=ids.map(byId).filter(Boolean),s=null;
+  try{s=await p55Sample();}catch(_){s=null;}
+  if(s){
+    var prompt="あなたは日本人の"+P55_LANG_JA+"学習者（"+pLvRange()+"）の先生です。次の単語リストから、2〜3語を組み合わせた自然で短いチャンク（よく一緒に使う語のかたまり・2〜6語のフレーズ）を6つ作ってください。\n"+
+      "単語："+ws.map(function(w){return w.word+"（"+w.meaning+"）";}).join("、")+"\n"+
+      "条件：日常でそのまま使える表現。語尾は正しく変化させる。"+(P47_LANG==="ru"?"キルギス語にはアクセント記号（́）を付ける。":"")+"\n"+
+      "出力はJSONの配列だけ（説明やマークダウンは書かない）。各要素は {\"ru\":\""+P55_LANG_JA+"のチャンク\",\"kana\":\"カタカナ読み\",\"ja\":\"日本語訳\",\"words\":[\"使ったリストの単語\"]}";
+    try{var r=await s(prompt,{cache:false,modelTier:"quick"});var t=String(r.text||"");var m=t.match(/\[[\s\S]*\]/);var arr=m?JSON.parse(m[0]):[];
+      arr=arr.filter(function(c){return c&&c.ru&&c.ja;}).slice(0,8).map(function(c){return {ru:String(c.ru),kana:String(c.kana||""),ja:String(c.ja),words:(c.words||[]).map(String).slice(0,4)};});
+      if(arr.length){p68SaveChunks({list:arr,at:Date.now(),ai:true});P68C=null;render();return;}
+    }catch(e){/* AIが使えないときはアプリ内の例文で作る */}
+  }
+  var loc=p68LocalChunks(ids);
+  if(loc.length){p68SaveChunks({list:loc,at:Date.now(),ai:false});P68C=null;}
+  else P68C={err:"組み合わせられる例文が見つかりませんでした。単語をもう少しブックマークしてから試してください。"};
+  render();
+}
+
+/* ---------- 見た目 ---------- */
+(function(){var css=
+  /* 用語 */
+  '.p68-t{border-bottom:1.5px dotted currentColor;cursor:help}'+
+  '.p68-g{display:inline;font-size:.8em;font-weight:700;color:var(--blue);background:rgba(59,130,246,.14);border-radius:6px;padding:1px 6px;margin:0 3px;cursor:help;white-space:nowrap;-webkit-box-decoration-break:clone;box-decoration-break:clone}.p68-g.p68-gl{white-space:normal}'+
+  '.p68-pop{position:fixed;z-index:9999;display:none;background:var(--card);color:var(--ink);border:1px solid var(--lineStrong);border-radius:14px;padding:12px 14px;box-shadow:0 12px 32px rgba(0,0,0,.35);font-size:14px;line-height:1.7}'+
+  '.p68-pop b{display:block;font-size:15px}.p68-pop1{display:block;color:var(--blue);font-weight:800;margin:2px 0 4px}.p68-pop2{display:block;color:var(--sub);font-size:13.5px}'+
+  '.p68-gloss{margin:0 0 14px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}'+
+  '.p68-gloss summary{padding:14px 16px;font-weight:800;cursor:pointer;color:var(--blue)}'+
+  '.p68-glist{padding:0 16px 8px}.p68-gi{padding:10px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}'+
+  '.p68-gi b{font-size:15px}.p68-gi span{color:var(--blue);font-weight:700;font-size:14px}.p68-gi small{color:var(--sub);font-size:13px;line-height:1.6}'+
+  /* 解説：入れ子の枠を減らし、横幅を広く使う */
+  '@media (max-width:520px){'+
+    '.study .qcard:has(.easy),.study .qcard:has(details.more){padding-left:14px!important;padding-right:14px!important}'+
+    '.qcard .easy{padding:12px 14px!important}'+
+    '.qcard details.more{background:transparent!important;border:none!important;border-top:1px solid var(--line)!important;border-radius:0!important}'+
+    '.qcard details.more>summary{padding:14px 2px!important;background:transparent!important}'+
+    '.qcard details.more .inner{padding:4px 0 8px!important;background:transparent!important}'+
+    '.qcard details.more .bdc{padding:12px 14px!important}'+
+    '.qcard details.more .note{padding:10px 12px!important}'+
+  '}'+
+  '.qcard .easy,.qcard details.more .gd,.qcard details.more .wy,.qcard details.more .mn{font-size:15px!important;line-height:1.85!important;letter-spacing:.01em;word-break:normal;overflow-wrap:anywhere;line-break:strict}'+
+  '.bdc .top{display:grid!important;grid-template-columns:1fr auto;column-gap:10px;row-gap:2px;align-items:center}'+
+  '.bdc .top .sf{grid-column:1;grid-row:1}.bdc .top .p67-bdr{display:contents}'+
+  '.bdc .top .p67-bdr .p67-k{grid-column:1;grid-row:2}.bdc .top .p67-bdr .p67-spk{grid-column:2;grid-row:1/span 2}'+
+  '.bdc .top .bs{grid-column:1/-1;margin-top:4px}'+
+  '.p52-detail,.p15-sec{line-height:1.85}'+
+  /* ブックマーク */
+  '.p68-bmtop{display:flex;align-items:center;gap:8px;margin:2px 0 14px}'+
+  '.p68-bmtop>div{display:flex;align-items:baseline;gap:3px;margin-right:auto}.p68-bmtop>div b{font-size:26px;font-weight:800}.p68-bmtop>div span{color:var(--muted);font-size:13px}'+
+  '.p68-btn{min-height:44px;padding:0 14px;border-radius:12px;border:none;background:var(--blue);color:#fff;font-weight:800;font-size:14px;cursor:pointer}'+
+  '.p68-btn2{background:var(--card2);color:var(--ink);border:1px solid var(--lineStrong)}.p68-btn:disabled{opacity:.4}'+
+  '.p68-chunks{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:16px}'+
+  '.p68-ch-h{font-weight:800;font-size:15px;display:flex;justify-content:space-between;align-items:baseline}.p68-ch-h small{color:var(--muted);font-weight:600;font-size:12px}'+
+  '.p68-ch-note{color:var(--sub);font-size:13px;line-height:1.7;margin:4px 0 6px}'+
+  '.p68-ch{padding:12px 0;border-top:1px solid var(--line)}.p68-chr{display:flex;align-items:center;gap:10px;justify-content:space-between}.p68-chr b{font-size:17px;line-height:1.5}'+
+  '.p68-chj{font-size:14px;margin-top:2px}.p68-chw{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.p68-chw span{font-size:12px;background:var(--card2);border-radius:8px;padding:2px 8px;color:var(--sub)}'+
+  '.p68-bmlist{display:flex;flex-direction:column;gap:6px}'+
+  '.p68-bmday{font-size:12.5px;font-weight:800;color:var(--muted);margin:10px 2px 2px}'+
+  '.p68-bmrow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:inherit;font:inherit;cursor:pointer}'+
+  '.p68-bmw{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.p68-bmw b{font-size:17px}.p68-bmw small{color:var(--sub);font-size:13px}'+
+  '.p68-bmd{flex:none;text-align:right;font-size:12px;color:var(--muted);line-height:1.5}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}})();
+/* ---------- 場面のイラスト（art:i_〜）は細部が見えるよう大きめに表示 ---------- */
+var _p68Fill=p66Fill;
+p66Fill=function(d,pic){var r=_p68Fill.apply(this,arguments);try{if(d&&d.classList){if(/^art:i_/.test(String(pic||"")))d.classList.add("p68-scene");else if(!d.classList.contains("p67-art"))d.classList.remove("p68-scene");}}catch(_){}return r;};
+(function(){try{var st=document.createElement("style");st.textContent='.p59-pic.p68-scene svg{width:128px!important;height:128px!important;border-radius:18px;box-shadow:0 6px 18px rgba(0,0,0,.25)}.p59-pic.sm.p68-scene svg{width:84px!important;height:84px!important}';document.head.appendChild(st);}catch(_){}})();
 
 /* ===== init ===== */
 try{ if(!ui.view)ui.view="word"; if(!ui.bnav)ui.bnav="home"; applyDisplayPrefs(); render(); }catch(err){ showFatal((err&&err.stack)||err); }
