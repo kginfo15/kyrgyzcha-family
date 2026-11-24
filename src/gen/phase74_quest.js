@@ -27,7 +27,7 @@ p70RoadCard=function(){
   var P=p74Path(),S=p74State(),card;
   h=h.replace("<b>道のり</b>","<b>"+P74_NAME+"</b>");
   if(!P){
-    card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>5つの道から、なりたい姿を選ぼう</b><em>剣・魔法・王・武士・海</em></span><span class="p70-rcgo">›</span></button>';
+    card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>なりたい姿を選んで冒険しよう</b><em>剣・魔法・王・武士・海／マナスなど物語と歴史</em></span><span class="p70-rcgo">›</span></button>';
   }else{
     var c=S.cur,ti=c?c.i:0,mon=c?p74MonsterName(ti):"";var li=c?p71NextIn(ti):-1;
     var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74MonsterName(ti);li=p71NextIn(ti);}});
@@ -46,8 +46,10 @@ function p74Page(inner){
 }
 function p74Chooser(){
   var cur=p74S().path,h='<p class="p70-lead">なりたい姿を1つ選んでください。レッスンを終えるたびに敵にダメージを与え、テーマを終えると敵を倒せます。ボスを倒すたびに姿が変わり、装備・技・仲間が増えていきます。道はあとから変えられます（進み具合はそのまま）。</p><div class="p74-paths">';
-  P74_PATHS.forEach(function(P){
-    h+='<button type="button" class="p74-pathc'+(cur===P.id?" on":"")+'" data-act="p74pick" data-val="'+P.id+'" style="--pc:'+P.color+'"><span class="p74-pfig">'+p74Hero(P,0,"p74-pimg")+'<i>›</i>'+p74Hero(P,8,"p74-pimg big")+'</span><span class="p74-ptx"><b>'+esc(P.name)+'</b><small>'+esc(P.goal)+'</small><span>'+esc(P.lead)+'</span></span></button>';});
+  var pc=function(P){return '<button type="button" class="p74-pathc'+(cur===P.id?" on":"")+'" data-act="p74pick" data-val="'+P.id+'" style="--pc:'+P.color+'"><span class="p74-pfig">'+p74Hero(P,0,"p74-pimg")+'<i>›</i>'+p74Hero(P,8,"p74-pimg big")+'</span><span class="p74-ptx"><b>'+esc(P.name)+'</b><small>'+esc(P.goal)+'</small><span>'+esc(P.lead)+'</span></span></button>';};
+  P74_PATHS.forEach(function(P){if(!P.hist)h+=pc(P);});
+  h+='</div><div class="p74-sech"><b>物語と歴史の道（キルギス）</b><small>ボスを倒すたびに次の場面が開き、解説と「〜で学ぶ例文」が読めます。全部クリアすると、その物語や人物の歴史がひととおりわかります。</small></div><div class="p74-paths">';
+  P74_PATHS.forEach(function(P){if(P.hist)h+=pc(P);});
   h+='</div><button type="button" class="p74-plain" data-act="p74plain"><b>ストーリーなしで進める</b><small>物語や敵は出さず、今までの路線図（テーマの一覧）だけで進めます。</small></button>';
   return h;
 }
@@ -56,6 +58,7 @@ function p74Main(){
   h+='<div class="p74-me" style="--pc:'+P.color+'"><div class="p74-mefig">'+p74Hero(P,st,"p74-big")+'</div><div class="p74-meinfo"><small>'+esc(P.name)+'</small><b>'+esc(P.titles[st])+'</b><span class="p74-lv">Lv '+S.lv+'</span>'+
      '<div class="p74-stats"><span><b>'+S.gear+'</b>/17 装備</span><span><b>'+S.skills+'</b>/8 技</span><span><b>'+S.allies+'</b>/5 仲間</span></div>'+
      (st<8?'<small class="p74-next">次の姿「'+esc(P.titles[st+1])+'」まで：ボス「'+esc(P74_BOSS[S.ch.filter(function(c){return !c.beat;})[0]?S.ch.filter(function(c){return !c.beat;})[0].c:7].t)+'」を倒す</small>':'<small class="p74-next">最終形に到達しました！</small>')+'</div></div>';
+  if(P.hist)h+=p74StoryHint(P,S,true);
   /* 仲間の列 */
   if(S.allies)h+='<div class="p74-party">'+P.al.slice(0,S.allies).map(function(a){return '<span>'+p74AllyArt(a,"p74-aimg")+'<small>'+esc(a.n)+'</small></span>';}).join("")+'</div>';
   /* 今たたかっている敵 */
@@ -66,7 +69,7 @@ function p74Main(){
        '<button type="button" class="p74-go" data-act="p71go" data-val="'+c.i+'">レッスン '+(li+1)+' でたたかう</button></div>';}
   /* タブ */
   var v=P74_VIEW||"map";
-  h+='<div class="p74-tabs">'+[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]].map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
+  h+='<div class="p74-tabs">'+(P.hist?[["map","地図"],["story","物語"],["ex","例文"],["gear","装備"],["skill","技"],["ally","仲間"]]:[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]]).map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
   if(v==="map"){
     S.ch.forEach(function(ch){var B=P74_BOSS[ch.c];
       h+='<div class="p74-ch"><div class="p74-chh"><small>第'+(ch.c+1)+'章</small><b>'+esc(B.t)+'の地</b></div>';
@@ -74,6 +77,8 @@ function p74Main(){
         h+='<button type="button" class="p74-row '+st2+'" data-act="p71go" data-val="'+x.i+'"'+(st2==="c"?' id="p70cur"':'')+'><span class="p74-rimg">'+p74Svg(p74Monster(x.i))+(x.done?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><b>'+esc(p74MonsterName(x.i))+'</b><small>'+esc(x.cat)+' ・ '+(x.done?P.verb:'HP '+(x.ln-x.ld)+' / '+x.ln)+'</small>'+(x.done?'':p74Bar(x.ln-x.ld,x.ln,"red sm"))+'</span></button>';});
       h+='<div class="p74-boss'+(ch.beat?" beat":"")+'"><span class="p74-bsimg">'+p74Svg(p74Boss(ch.c))+(ch.beat?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><small>ボス ・ Lv '+p74BossLv(ch.c)+'</small><b>'+esc(B.t)+' '+esc(B.n)+'</b><small class="p74-ru">名前はロシア語の '+esc(B.ru)+'（'+esc(B.ja)+'）から</small>'+
         (ch.beat?'<small>'+P.verb+'！ 技「'+esc(P.sk[ch.c])+'」を覚えた</small>':p74Bar(ch.need-ch.done,ch.need,"red")+'<small>この章の敵を全部倒すと、ボスも倒れます（のこり '+(ch.need-ch.done)+'）</small>')+'</span></div></div>';});
+  }else if(v==="story"&&P.hist){h+=p74StoryTab(P,S);
+  }else if(v==="ex"&&P.hist){h+=p74ExTab(P,S);
   }else if(v==="gear"){
     h+='<div class="p74-list">'+P.gear.map(function(g,i){var on=i<S.gear;var how=i===0?"はじめの持ち物":(i%2?"第"+((i+1)/2)+"章の敵を半分倒す":"第"+(i/2)+"章のボスを倒す");
       return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'★':'？')+'</span><span><b>'+(on?esc(g):'？？？')+'</b><small>'+how+'</small></span></div>';}).join("")+'</div>';
@@ -89,8 +94,9 @@ function p74Main(){
 function p74Open(choose){
   if(!p74Story()){_p74Open();var m0=document.getElementById("p70page");
     if(m0){var b=m0.querySelector(".p70-pbody");if(b)b.insertAdjacentHTML("afterbegin",'<button type="button" class="p74-plain p74-toq" data-act="p74story"><b>'+P74_NAME+'モードにする</b><small>レッスンで敵を倒し、装備・技・仲間を集めながら進みます。</small></button>');}return;}
-  var m=p74Page(choose||!p74Path()?p74Chooser():p74Main());
-  setTimeout(function(){var c=document.getElementById("p70cur");if(c&&c.scrollIntoView&&(P74_VIEW||"map")==="map"&&!choose)c.scrollIntoView({block:"center"});},60);
+  var P0=p74Path();if(P0&&!P0.hist&&(P74_VIEW==="story"||P74_VIEW==="ex"))P74_VIEW="map";
+  var m=p74Page(choose||!P0?p74Chooser():p74Main());try{p72Wrap(m);}catch(_){}
+  setTimeout(function(){var nw=document.getElementById("p74newest");if(nw&&P74_VIEW==="story"&&!choose){var sc=nw.closest(".p70-pbody");if(sc)sc.scrollTop=Math.max(0,nw.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-8);return;}var c=document.getElementById("p70cur");if(c&&c.scrollIntoView&&(P74_VIEW||"map")==="map"&&!choose)c.scrollIntoView({block:"center"});},60);
 }
 p70OpenRoad=function(){p74Open(false);};
 /* ---------- レッスン結果に戦いの様子を出す ---------- */
@@ -113,6 +119,7 @@ p71Result=function(){
     for(var b=0;b<B.ch.length;b++)if(B.ch[b].beat&&!(A.ch[b]&&A.ch[b].beat))g+='<div class="p74-bossko">'+p74Svg(p74Boss(b),"p74-bimg ko")+'<b>ボス「'+esc(P74_BOSS[b].t)+'」を'+P.verb+'！</b></div>';
     if(B.stage>A.stage)g+='<div class="p74-up">'+p74Hero(P,B.stage,"p74-big")+'<b>「'+esc(P.titles[B.stage])+'」になった！</b></div>';
   }
+  if(P.hist){if(A&&B.stage>A.stage)g+='<div class="p74-newsc"><small>新しい場面が開いた！</small>'+p74SceneHtml(P,B.stage,true)+'<button type="button" class="p74-go" data-act="p74read">'+esc(p74Short(P))+'の物語をひらく</button></div>';else g+=p74StoryHint(P,B,false);}
   if(news.length)g+='<div class="p74-news"><small>手に入れたもの</small><ul>'+news.join("")+'</ul></div>';
   g+='</div>';
   return h.replace('<div class="p71-body">','<div class="p71-body">'+g);
@@ -127,6 +134,33 @@ function p74Relabel(root){
   var _r=render;render=function(){var o=_r.apply(this,arguments);try{p74Relabel(document.getElementById("app")||document.body);}catch(_){}return o;};
   var _pr=p71Render;p71Render=function(){var o=_pr.apply(this,arguments);try{p74Relabel(document.getElementById("p71"));}catch(_){}return o;};
 })();
+/* ---------- 物語・歴史の道（hist:1 の道だけ）：場面・解説・例文 ---------- */
+function p74Short(P){return String(P.name).replace(/の道$/,"");}
+function p74Paras(t){return String(t).split("\n").map(function(p){return '<p>'+esc(p)+'</p>';}).join("");}
+function p74Fig(P,f,i){var m=/^(.+?)@(-?\d+)$/.exec(f),k=m?m[1]:f,x=m?+m[2]:90,svg="";
+  if(k==="h")svg=p74Person(P.st[Math.min(8,i)]);
+  else if(/^a\d$/.test(k)){var a=P.al[+k.slice(1)];if(a)svg=a.animal?p74Animal(a.animal,a.c):p74Person(a.o);}
+  else if(/^npc:/.test(k)&&P74_NPC[k.slice(4)])svg=p74Person(P74_NPC[k.slice(4)]);
+  return {x:x,y:38,s:.62,svg:svg};}
+function p74ExHtml(ex,lab){return '<div class="p71-ex p74-ex">'+(lab?'<small class="p74-exl">'+esc(lab)+'</small>':'')+'<div><span class="p74-exru">'+esc(ex[0])+'</span>'+p71Spk(ex[0],"p74-exspk")+'</div><small>'+esc(ex[1])+'</small></div>';}
+function p74SceneHtml(P,i,noTitle){var s=P.story[i];if(!s)return "";
+  return '<div class="p74-sc"><div class="p74-scimg">'+p74Scene(s.fig.map(function(f){return p74Fig(P,f,i);}),{night:s.night,fire:s.fire})+'</div>'+(noTitle?'<b class="p74-sct">'+esc(s.t)+'</b>':'')+
+    '<div class="p74-scx">'+p74Paras(s.x)+'</div>'+(s.ex?p74ExHtml(s.ex,p74Short(P)+"で学ぶ例文"):'')+'</div>';}
+/* 次の場面まであと何テーマか */
+function p74StoryHint(P,S,btn){var st=S.stage;
+  if(st>=8)return '<div class="p74-hint"><span><small>'+esc(p74Short(P))+'の物語</small><b>すべての場面を読めます</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">読む</button>':'')+'</div>';
+  var ch=S.ch.filter(function(c){return !c.beat;})[0],left=ch?ch.need-ch.done:0;
+  return '<div class="p74-hint"><span><small>次の場面「'+esc(P.story[st+1].t)+'」まで</small><b>あと '+left+' テーマ（ボス「'+esc(P74_BOSS[ch?ch.c:7].t)+'」）</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">物語</button>':'')+'</div>';}
+function p74StoryTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">ボスを倒すたびに、次の場面が開きます。場面ごとに解説と例文があり、例文の単語はタップすると意味が出ます。</p>';
+  P.story.forEach(function(s,i){
+    if(i<=st)h+='<details class="p74-scd"'+(i===st?' open id="p74newest"':'')+'><summary><b>'+esc(s.t)+'</b></summary>'+p74SceneHtml(P,i,false)+'</details>';
+    else h+='<div class="p74-sclock"><b>'+esc(s.t)+'</b><small>ボス「'+esc(P74_BOSS[i-1].t)+'」を倒すと開きます</small></div>';});
+  if(P.about)h+=S.stage>=8?'<div class="p74-about"><b>'+esc(P.about.t)+'</b>'+p74Paras(P.about.x)+'</div>':'<div class="p74-sclock"><b>'+esc(P.about.t)+'</b><small>すべてのボスを倒すと読めます</small></div>';
+  return h;}
+function p74ExTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+esc(p74Short(P))+'で学ぶ例文です。スピーカーで読み上げ、単語をタップすると意味と形（格など）が出ます。場面が開くたびに増えます。</p>';
+  P.story.forEach(function(s,i){if(i<=st&&s.ex)h+=p74ExHtml(s.ex,s.t);});
+  if(st<8)h+='<p class="p74-exmore">のこり '+(8-st)+' 文は、次の場面が開くと読めます。</p>';
+  return h;}
 /* ---------- 操作 ---------- */
 window.addEventListener("click",function(e){
   var el=e.target&&e.target.closest?e.target.closest("[data-act]"):null;if(!el)return;var a=el.getAttribute("data-act"),v=el.getAttribute("data-val");
@@ -136,10 +170,18 @@ window.addEventListener("click",function(e){
   else if(a==="p74plain"){s.mode="plain";try{saveAll();}catch(_){}p74Open(false);try{render();}catch(_){}toast("ストーリーなしにしました");}
   else if(a==="p74story"){s.mode="story";try{saveAll();}catch(_){}p74Open(!s.path);try{render();}catch(_){}}
   else if(a==="p74choose"){p74Open(true);}
+  else if(a==="p74read"){P74_VIEW="story";try{if(P71)p71Close();}catch(_){}p74Open(false);}
   else if(a==="p74tab"){P74_VIEW=v;var m=document.getElementById("p70page"),sc=m&&m.querySelector(".p70-pbody"),y=sc?sc.scrollTop:0;p74Open(false);var sc2=document.querySelector("#p70page .p70-pbody");if(sc2)sc2.scrollTop=y;}
 },true);
 /* ---------- 見た目（色はテーマ変数を使い、ダーク・ライトどちらでも読める） ---------- */
 (function(){var css=
+'.p74-sech{margin:16px 2px 8px}.p74-sech b{display:block;font-size:16px}.p74-sech small{display:block;color:var(--muted);font-size:13px;line-height:1.6;margin-top:2px}'+
+'.p74-hint{display:flex;align-items:center;gap:10px;justify-content:space-between;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;margin:10px 0}.p74-hint span{min-width:0}.p74-hint small{display:block;color:var(--muted);font-size:12.5px}.p74-hint b{display:block;font-size:14.5px}.p74-hint button{flex:none;border:0;border-radius:999px;padding:8px 14px;background:var(--pc,var(--accent));color:#fff;font:inherit;font-weight:700}'+
+'.p74-sc{margin:8px 0 4px}.p74-scimg{border-radius:14px;overflow:hidden;line-height:0}.p74-scene{width:100%;height:auto;display:block}.p74-sct{display:block;font-size:16px;margin:10px 0 2px}'+
+'.p74-scx{font-size:14.5px;line-height:1.8;margin:8px 0}.p74-scx p{margin:0 0 8px}.p74-ex{margin:8px 0;box-sizing:border-box}.p74-ex .p74-exl{color:var(--accent);font-weight:800;font-size:12px;margin-bottom:2px}.p74-exru{font-size:17px;font-weight:600;line-height:1.7}.p74-ex .p71-spk{position:static}'+
+'.p74-scd{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:4px 12px;margin:8px 0}.p74-scd summary{cursor:pointer;padding:8px 0;font-size:15px}.p74-sclock{border:1px dashed var(--line);border-radius:14px;padding:10px 12px;margin:8px 0;opacity:.75}.p74-sclock b{display:block;font-size:14.5px}.p74-sclock small{color:var(--muted);font-size:12.5px}'+
+'.p74-about{border:2px solid var(--accent);border-radius:14px;padding:10px 12px;margin:12px 0;font-size:14.5px;line-height:1.8}.p74-about b{display:block;font-size:16px;margin-bottom:6px}.p74-about p{margin:0 0 6px}.p74-newsc{margin-top:12px;text-align:left}.p74-newsc>small{display:block;font-weight:800;color:var(--accent)}.p74-exmore{color:var(--muted);font-size:13px}'+
+
 '.p74-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 12px 12px 10px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer;margin-bottom:10px}'+
 '.p74-cart{flex:none;width:96px;height:74px;border-radius:14px;background:linear-gradient(180deg,#BFE3F2,#E7F3D8 70%,#B9D99A);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative}'+
 '.p74-cimg{width:50px;height:68px}.p74-duel .p74-cimg{width:46px;height:62px}.p74-duel .p74-cmon{margin-left:-4px}'+
@@ -157,7 +199,7 @@ window.addEventListener("click",function(e){
 '.p74-bimg{width:84px;height:112px}.p74-mon{transform:scaleX(-1)}.p74-vs{font-weight:900;color:#FFD34D;font-size:18px;align-self:center;text-shadow:0 2px 0 #2B2233}'+
 '.p74-btx{display:flex;flex-direction:column;gap:2px;margin-top:8px}.p74-btx small{font-size:12px;color:var(--muted)}.p74-btx b{font-size:16px}'+
 '.p74-go{width:100%;margin-top:10px;min-height:48px;border-radius:14px;border:none;background:var(--accent);color:#fff;font:inherit;font-weight:800;font-size:15px;cursor:pointer}'+
-'.p74-tabs{display:flex;gap:6px;margin:14px 0 10px}.p74-tabs button{flex:1;min-height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.p74-tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}'+
+'.p74-tabs{display:flex;gap:6px;margin:14px 0 10px}.p74-tabs button{flex:1;min-width:0;padding:0 2px;min-height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.p74-tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}'+
 '.p74-ch{margin-bottom:14px}.p74-chh{display:flex;align-items:baseline;gap:8px;margin:6px 2px 6px}.p74-chh small{font-size:12px;color:var(--muted);font-weight:700}.p74-chh b{font-size:15px}'+
 '.p74-row,.p74-boss{display:flex;gap:10px;align-items:center;width:100%;padding:6px 10px;margin-bottom:6px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p74-row.c{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.p74-row.d{opacity:.7}'+
 '.p74-rimg,.p74-bsimg{flex:none;position:relative;width:44px;height:58px}.p74-rimg svg,.p74-bsimg svg{width:100%;height:100%}.p74-bsimg{width:66px;height:86px}.p74-ko{position:absolute;right:-4px;bottom:2px;width:20px;height:20px;border-radius:50%;background:#3FA46A;color:#fff;font-style:normal;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}'+

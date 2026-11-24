@@ -252,3 +252,47 @@ function p74Boss(bi){
   }
   return s;
 }
+
+/* ---------- マナスの道の部品（カルパク帽・バトゥルのかぶと・チャパン・槍・弓・愛馬） ---------- */
+P74_HEAD.kalpak=function(){return '<path d="M40 44q4-30 20-32q16 2 20 32z" fill="#FBF8F0" '+P74_OUT+'/><path d="M46 30q14-6 28 0M44 38q16-6 32 0" stroke="#D8CFB8" stroke-width="1.6" fill="none"/><path d="M36 46q4-8 10-6l14 2 14-2q6-2 10 6l-10 2-14-3-14 3z" fill="#2B2233" '+P74_OUT+'/><path d="M60 12v-4" stroke="#2B2233" stroke-width="3" stroke-linecap="round"/>';};
+P74_HEAD.batyr=function(c){return '<path d="M34 52q0-30 26-36q26 6 26 36z" fill="'+(c||"#9AA4AE")+'" '+P74_OUT+'/><path d="M60 16V4" stroke="#C99A2E" stroke-width="3"/><circle cx="60" cy="4" r="3" fill="#E2483B"/><path d="M32 52q28-8 56 0" stroke="#8A5A2B" stroke-width="7" stroke-linecap="round"/><path d="M60 18v32" stroke="#C99A2E" stroke-width="2.5"/>';};
+P74_HEAD.goldbatyr=function(){return '<path d="M32 52q0-32 28-38q28 6 28 38z" fill="#E8B923" '+P74_OUT+'/><path d="M60 14V0" stroke="#C99A2E" stroke-width="3"/><path d="M60 2q-10-4-12 6q8-2 12-2q4 0 12 2q-2-10-12-6z" fill="#F6F1E1" '+P74_OUT+'/><path d="M30 52q30-9 60 0" stroke="#F6F1E1" stroke-width="8" stroke-linecap="round"/><path d="M30 52q30-9 60 0" stroke="#2B2233" stroke-width="1.4" fill="none"/><circle cx="60" cy="32" r="4" fill="#4FB3E8" '+P74_OUT+'/>';};
+P74_HAND.spear=function(){return '<path d="M90 30L84 140" stroke="#7A4E26" stroke-width="5" stroke-linecap="round"/><path d="M90 10l6 14-6 8-6-8z" fill="#DCE3EA" '+P74_OUT+'/><path d="M86 34l8 1" stroke="#E2483B" stroke-width="4" stroke-linecap="round"/>';};
+P74_HAND.bigspear=function(){return '<path d="M90 28L84 142" stroke="#5A3A1E" stroke-width="6" stroke-linecap="round"/><path d="M90 2l8 18-8 10-8-10z" fill="#F4F8FB" '+P74_OUT+'/><path d="M84 32q6 10 12 0" fill="#E2483B" '+P74_OUT+'/><path d="M86 36l-4 12M94 36l4 12" stroke="#E2483B" stroke-width="3" stroke-linecap="round"/>';};
+P74_HAND.bow=function(){return '<path d="M92 50q22 40 0 84" fill="none" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M92 50v84" stroke="#E8E1D0" stroke-width="1.4"/>';};
+P74_HAND.whip=function(){return '<path d="M88 98l4-20" stroke="#5A3A1E" stroke-width="5" stroke-linecap="round"/><path d="M92 78q14-10 8-26q-4 12-14 8" fill="none" stroke="#8A5A2B" stroke-width="2.4" stroke-linecap="round"/>';};
+P74_OFF.quiver=function(){return '<path d="M18 92l8-4 10 26-8 4z" fill="#8A5A2B" '+P74_OUT+'/><path d="M20 90l-4-10M24 88l-2-11M28 87l1-10" stroke="#E8E1D0" stroke-width="2"/>';};
+P74_OFF.kshield=function(){return '<circle cx="28" cy="106" r="15" fill="#B3202B" '+P74_OUT+'/><circle cx="28" cy="106" r="9" fill="none" stroke="#E8B923" stroke-width="2.5"/><path d="M28 98v16M20 106h16" stroke="#E8B923" stroke-width="2"/>';};
+(function(){var _b=p74Body;p74Body=function(o){
+  if(o.type!=="chapan")return _b(o);
+  var c=o.c||"#2C5D8F",t=o.t||"#E8B923",d=p74Shade(c,-.25);
+  return '<path d="M40 84q20-10 40 0l8 58H32z" fill="'+c+'" '+P74_OUT+'/><path d="M50 84l10 58M70 84l-10 58" stroke="'+t+'" stroke-width="3"/>'+
+    '<path d="M34 138h52" stroke="'+t+'" stroke-width="4"/><path d="M40 108h40" stroke="'+(o.belt||"#5A3A1E")+'" stroke-width="5"/><rect x="56" y="104" width="8" height="8" rx="1" fill="#C99A2E" '+P74_OUT+'/>'+
+    '<path d="M44 120q4-4 8 0t8 0 8 0 8 0" stroke="'+p74Shade(t,.2)+'" stroke-width="1.6" fill="none"/>'+(o.fur?'<path d="M40 84q20 10 40 0" fill="none" stroke="#C9A27A" stroke-width="7"/>':'')+'<path d="M40 86v50" stroke="'+d+'" stroke-width="2"/>';};})();
+/* 愛馬（横向き） */
+(function(){var _a=p74Animal;p74Animal=function(kind,c){
+  if(kind!=="horse")return _a(kind,c);
+  c=c||"#E9D9B8";var m="#5A3A22",s='<ellipse cx="60" cy="150" rx="40" ry="5" fill="#000" opacity=".18"/>';
+  s+='<path d="M96 96q16 6 14 30q-6-14-14-16" fill="'+m+'" '+P74_OUT+'/>';
+  s+='<path d="M34 112v34M44 114v32M80 114v32M90 112v34" stroke="'+p74Shade(c,-.15)+'" stroke-width="8" stroke-linecap="round"/><path d="M30 146h8M40 146h8M76 146h8M86 146h8" stroke="#2B2233" stroke-width="5" stroke-linecap="round"/>';
+  s+='<ellipse cx="62" cy="104" rx="36" ry="20" fill="'+c+'" '+P74_OUT+'/>';
+  s+='<path d="M36 100q-10-24-4-42l18 6q0 18 6 32z" fill="'+c+'" '+P74_OUT+'/><path d="M30 60q-14 2-18 14q4 8 14 6l10-4z" fill="'+c+'" '+P74_OUT+'/>';
+  s+='<path d="M34 56q6-10 18 0q-4 12 2 26q-8-12-20-26z" fill="'+m+'" '+P74_OUT+'/><path d="M30 56l2-10 6 8z" fill="'+c+'" '+P74_OUT+'/>';
+  s+='<circle cx="26" cy="66" r="2.4" fill="#2B2233"/><circle cx="16" cy="74" r="1.4" fill="#2B2233"/>';
+  s+='<path d="M48 90q14-6 30 0v14q-16 4-30 0z" fill="#B3202B" '+P74_OUT+'/><path d="M50 96q12-4 26 0" stroke="#E8B923" stroke-width="2" fill="none"/>';
+  return s;};})();
+/* 物語の場面の絵：草原・山・ユルト（遊牧民の移動式住居）＋人物 */
+function p74Scene(figs,opt){
+  opt=opt||{};var s='<rect width="240" height="140" fill="'+(opt.night?"#2E3A5C":"#BFE3F2")+'"/>';
+  if(opt.night)s+='<circle cx="200" cy="26" r="10" fill="#F6F1E1"/><circle cx="40" cy="20" r="1.4" fill="#fff"/><circle cx="90" cy="34" r="1.2" fill="#fff"/><circle cx="150" cy="16" r="1.4" fill="#fff"/>';
+  else s+='<circle cx="204" cy="28" r="12" fill="#FFD34D"/>';
+  s+='<path d="M0 84l40-44 30 30 34-46 40 50 30-30 66 60v40H0z" fill="'+(opt.night?"#4A5878":"#9FB7C9")+'"/><path d="M104 24l-12 14 8-2 4 6 4-6 8 2z" fill="#fff" opacity=".9"/><path d="M40 40l-8 10 6-1 2 4 3-4 5 1z" fill="#fff" opacity=".9"/>';
+  s+='<path d="M0 92q60-14 120-4t120-6v58H0z" fill="'+(opt.night?"#3E5A3E":"#8DBF6A")+'"/><path d="M0 108q80-10 240 0v32H0z" fill="'+(opt.night?"#35502F":"#7AAE57")+'"/>';
+  if(opt.yurt!==false)s+='<g transform="translate('+(opt.yx||176)+' 70)"><path d="M0 34V18q22-14 44 0v16z" fill="#F4EBD8" stroke="#2B2233" stroke-width="1.6"/><path d="M0 18q22-24 44 0" fill="#E8DCC0" stroke="#2B2233" stroke-width="1.6"/><path d="M4 24h36" stroke="#B3202B" stroke-width="3"/><path d="M18 34V24h8v10" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.2"/></g>';
+  if(opt.fire)s+='<g transform="translate(118 108)"><path d="M-10 6h20" stroke="#5A3A1E" stroke-width="4"/><path d="M0 4q-10-10 0-22q2 8 6 8q4 8-6 14z" fill="#F2A541"/><path d="M0 4q-4-6 0-12q4 6 0 12z" fill="#FFE36B"/></g>';
+  (figs||[]).forEach(function(f){s+='<g transform="translate('+f.x+' '+(f.y||36)+') scale('+(f.s||.62)+')">'+f.svg+'</g>';});
+  return '<svg class="p74-scene" viewBox="0 0 240 140" aria-hidden="true">'+s+'</svg>';
+}
+P74_HEAD.elechek=function(){return '<path d="M36 50q-2-30 24-34q26 4 24 34q-4-8-24-10q-20 2-24 10z" fill="#FBF8F0" '+P74_OUT+'/><path d="M38 40q22-10 44 0M40 32q20-8 40 0" stroke="#D8CFB8" stroke-width="1.8" fill="none"/><path d="M36 50q-6 20 2 34l6-4q-6-14-2-28z" fill="#FBF8F0" '+P74_OUT+'/><path d="M84 50q6 20-2 34l-6-4q6-14 2-28z" fill="#FBF8F0" '+P74_OUT+'/>';};
+P74_HEAD.tebetei=function(c){return '<path d="M40 46q0-24 20-26q20 2 20 26z" fill="'+(c||"#B3202B")+'" '+P74_OUT+'/><path d="M34 48q26-12 52 0q-4 8-26 6q-22 2-26-6z" fill="#6B4A2E" '+P74_OUT+'/><path d="M60 20v-6" stroke="#E8B923" stroke-width="3" stroke-linecap="round"/>';};
+P74_HAND.komuz=function(){return '<path d="M104 92l10-40" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M111 50l6 2M110 55l6 2" stroke="#5A3A1E" stroke-width="2" stroke-linecap="round"/><path d="M88 96q8-8 20-2q8 8 2 20q-8 12-20 6q-10-8-2-24z" fill="#B5793B" '+P74_OUT+'/><path d="M98 118l15-64M102 118l14-64" stroke="#F6F1E1" stroke-width=".9"/><circle cx="98" cy="104" r="3" fill="#5A3A1E"/>';};

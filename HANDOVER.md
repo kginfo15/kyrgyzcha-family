@@ -76,7 +76,8 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 | phase73_dict（追記） | 辞書の単語詳細で発音を自動再生＋スピーカーボタン。似た意味の語の使い分け src/gen/dict/use.txt（「語 語|解説」、@a 不完了体 完了体、@g 男性形 女性形、@f 形の変化）を辞書と単語詳細に表示 |
 | phase74_art | 冒険の絵（主人公の部品 P74_HAND/OFF/HEAD・p74Body・p74Person、動物の仲間 p74Animal、テーマごとのモンスター p74Monster、ボス8体 p74Boss）。すべてオリジナル SVG |
 | phase74_paths | 呼び名 P74_NAME（"冒険"、ここを変えれば全体が変わる）と5つの道 P74_PATHS（9段階の姿・称号、装備17・技8・仲間5） |
-| phase74_quest | 冒険モード：settings.p74 {mode:"story"/"plain", path}。進み具合はレッスン記録から計算（テーマ＝敵、レッスン1つ＝1ダメージ、8章ごとにボス、ボス撃破数＝姿の段階）。道を変えても進み具合はそのまま。ストーリーなし＝従来の路線図 |
+| phase74_hist | 物語・歴史の道（hist:1）：マナス、セメテイ、クルマンジャン・ダトカ、トクトグル。各道に story[9]（場面の絵 fig・解説 x・例文 ex[ロシア語,日本語]）と about（全クリア後の解説）。場面だけの人物 P74_NPC、例文の固有名詞や自動で見つからない形 P74_NAMES（タップで意味）。人物を足すときは同じ形で P74_PATHS に push。事実は資料で確かめられることだけ、叙事詩は「物語では」と書く。架空の仲間・モンスターはそう明記 |
+| phase74_quest | 冒険モード：settings.p74 {mode:"story"/"plain", path}。進み具合はレッスン記録から計算（テーマ＝敵、レッスン1つ＝1ダメージ、8章ごとにボス、ボス撃破数＝姿の段階）。道を変えても進み具合はそのまま。ストーリーなし＝従来の路線図 。hist の道は「物語」「例文」タブ、ボスを倒すとレッスン結果に新しい場面と解説（p74SceneHtml・p74StoryTab・p74ExTab・p74StoryHint）|
 | phase60 | クイズの出し方（ミックス／外国語→日本語／日本語→外国語）、記録画面の簡素化 |
 
 新しい機能は `src/gen/phase59.js` のように新しいファイルを作り、`build.py` の phase を連結している行に追加するのが安全です。

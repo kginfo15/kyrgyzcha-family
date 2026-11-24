@@ -104,3 +104,4 @@ var P74_PATHS=[
       {n:"ターニャ",r:"船の料理番",o:{hand:"none",off:"basket",head:"bandana",headc:"#5CB8B2",body:{type:"tunic",c:"#5CB8B2",apron:"#F6F1E1"},hair:"#2B2233",longhair:1}},
       {n:"レフ",r:"老いた航海士",o:{hand:"none",off:"map",head:"tricorn",headc:"#3A3F58",body:{type:"coat",c:"#3A3F58",t:"#C9D3DD"},beard:"#E8EEF4",hair:"#E8EEF4",glasses:1}}]}
 ];
+

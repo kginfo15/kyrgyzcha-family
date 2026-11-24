@@ -12209,6 +12209,50 @@ function p74Boss(bi){
   return s;
 }
 
+/* ---------- マナスの道の部品（カルパク帽・バトゥルのかぶと・チャパン・槍・弓・愛馬） ---------- */
+P74_HEAD.kalpak=function(){return '<path d="M40 44q4-30 20-32q16 2 20 32z" fill="#FBF8F0" '+P74_OUT+'/><path d="M46 30q14-6 28 0M44 38q16-6 32 0" stroke="#D8CFB8" stroke-width="1.6" fill="none"/><path d="M36 46q4-8 10-6l14 2 14-2q6-2 10 6l-10 2-14-3-14 3z" fill="#2B2233" '+P74_OUT+'/><path d="M60 12v-4" stroke="#2B2233" stroke-width="3" stroke-linecap="round"/>';};
+P74_HEAD.batyr=function(c){return '<path d="M34 52q0-30 26-36q26 6 26 36z" fill="'+(c||"#9AA4AE")+'" '+P74_OUT+'/><path d="M60 16V4" stroke="#C99A2E" stroke-width="3"/><circle cx="60" cy="4" r="3" fill="#E2483B"/><path d="M32 52q28-8 56 0" stroke="#8A5A2B" stroke-width="7" stroke-linecap="round"/><path d="M60 18v32" stroke="#C99A2E" stroke-width="2.5"/>';};
+P74_HEAD.goldbatyr=function(){return '<path d="M32 52q0-32 28-38q28 6 28 38z" fill="#E8B923" '+P74_OUT+'/><path d="M60 14V0" stroke="#C99A2E" stroke-width="3"/><path d="M60 2q-10-4-12 6q8-2 12-2q4 0 12 2q-2-10-12-6z" fill="#F6F1E1" '+P74_OUT+'/><path d="M30 52q30-9 60 0" stroke="#F6F1E1" stroke-width="8" stroke-linecap="round"/><path d="M30 52q30-9 60 0" stroke="#2B2233" stroke-width="1.4" fill="none"/><circle cx="60" cy="32" r="4" fill="#4FB3E8" '+P74_OUT+'/>';};
+P74_HAND.spear=function(){return '<path d="M90 30L84 140" stroke="#7A4E26" stroke-width="5" stroke-linecap="round"/><path d="M90 10l6 14-6 8-6-8z" fill="#DCE3EA" '+P74_OUT+'/><path d="M86 34l8 1" stroke="#E2483B" stroke-width="4" stroke-linecap="round"/>';};
+P74_HAND.bigspear=function(){return '<path d="M90 28L84 142" stroke="#5A3A1E" stroke-width="6" stroke-linecap="round"/><path d="M90 2l8 18-8 10-8-10z" fill="#F4F8FB" '+P74_OUT+'/><path d="M84 32q6 10 12 0" fill="#E2483B" '+P74_OUT+'/><path d="M86 36l-4 12M94 36l4 12" stroke="#E2483B" stroke-width="3" stroke-linecap="round"/>';};
+P74_HAND.bow=function(){return '<path d="M92 50q22 40 0 84" fill="none" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M92 50v84" stroke="#E8E1D0" stroke-width="1.4"/>';};
+P74_HAND.whip=function(){return '<path d="M88 98l4-20" stroke="#5A3A1E" stroke-width="5" stroke-linecap="round"/><path d="M92 78q14-10 8-26q-4 12-14 8" fill="none" stroke="#8A5A2B" stroke-width="2.4" stroke-linecap="round"/>';};
+P74_OFF.quiver=function(){return '<path d="M18 92l8-4 10 26-8 4z" fill="#8A5A2B" '+P74_OUT+'/><path d="M20 90l-4-10M24 88l-2-11M28 87l1-10" stroke="#E8E1D0" stroke-width="2"/>';};
+P74_OFF.kshield=function(){return '<circle cx="28" cy="106" r="15" fill="#B3202B" '+P74_OUT+'/><circle cx="28" cy="106" r="9" fill="none" stroke="#E8B923" stroke-width="2.5"/><path d="M28 98v16M20 106h16" stroke="#E8B923" stroke-width="2"/>';};
+(function(){var _b=p74Body;p74Body=function(o){
+  if(o.type!=="chapan")return _b(o);
+  var c=o.c||"#2C5D8F",t=o.t||"#E8B923",d=p74Shade(c,-.25);
+  return '<path d="M40 84q20-10 40 0l8 58H32z" fill="'+c+'" '+P74_OUT+'/><path d="M50 84l10 58M70 84l-10 58" stroke="'+t+'" stroke-width="3"/>'+
+    '<path d="M34 138h52" stroke="'+t+'" stroke-width="4"/><path d="M40 108h40" stroke="'+(o.belt||"#5A3A1E")+'" stroke-width="5"/><rect x="56" y="104" width="8" height="8" rx="1" fill="#C99A2E" '+P74_OUT+'/>'+
+    '<path d="M44 120q4-4 8 0t8 0 8 0 8 0" stroke="'+p74Shade(t,.2)+'" stroke-width="1.6" fill="none"/>'+(o.fur?'<path d="M40 84q20 10 40 0" fill="none" stroke="#C9A27A" stroke-width="7"/>':'')+'<path d="M40 86v50" stroke="'+d+'" stroke-width="2"/>';};})();
+/* 愛馬（横向き） */
+(function(){var _a=p74Animal;p74Animal=function(kind,c){
+  if(kind!=="horse")return _a(kind,c);
+  c=c||"#E9D9B8";var m="#5A3A22",s='<ellipse cx="60" cy="150" rx="40" ry="5" fill="#000" opacity=".18"/>';
+  s+='<path d="M96 96q16 6 14 30q-6-14-14-16" fill="'+m+'" '+P74_OUT+'/>';
+  s+='<path d="M34 112v34M44 114v32M80 114v32M90 112v34" stroke="'+p74Shade(c,-.15)+'" stroke-width="8" stroke-linecap="round"/><path d="M30 146h8M40 146h8M76 146h8M86 146h8" stroke="#2B2233" stroke-width="5" stroke-linecap="round"/>';
+  s+='<ellipse cx="62" cy="104" rx="36" ry="20" fill="'+c+'" '+P74_OUT+'/>';
+  s+='<path d="M36 100q-10-24-4-42l18 6q0 18 6 32z" fill="'+c+'" '+P74_OUT+'/><path d="M30 60q-14 2-18 14q4 8 14 6l10-4z" fill="'+c+'" '+P74_OUT+'/>';
+  s+='<path d="M34 56q6-10 18 0q-4 12 2 26q-8-12-20-26z" fill="'+m+'" '+P74_OUT+'/><path d="M30 56l2-10 6 8z" fill="'+c+'" '+P74_OUT+'/>';
+  s+='<circle cx="26" cy="66" r="2.4" fill="#2B2233"/><circle cx="16" cy="74" r="1.4" fill="#2B2233"/>';
+  s+='<path d="M48 90q14-6 30 0v14q-16 4-30 0z" fill="#B3202B" '+P74_OUT+'/><path d="M50 96q12-4 26 0" stroke="#E8B923" stroke-width="2" fill="none"/>';
+  return s;};})();
+/* 物語の場面の絵：草原・山・ユルト（遊牧民の移動式住居）＋人物 */
+function p74Scene(figs,opt){
+  opt=opt||{};var s='<rect width="240" height="140" fill="'+(opt.night?"#2E3A5C":"#BFE3F2")+'"/>';
+  if(opt.night)s+='<circle cx="200" cy="26" r="10" fill="#F6F1E1"/><circle cx="40" cy="20" r="1.4" fill="#fff"/><circle cx="90" cy="34" r="1.2" fill="#fff"/><circle cx="150" cy="16" r="1.4" fill="#fff"/>';
+  else s+='<circle cx="204" cy="28" r="12" fill="#FFD34D"/>';
+  s+='<path d="M0 84l40-44 30 30 34-46 40 50 30-30 66 60v40H0z" fill="'+(opt.night?"#4A5878":"#9FB7C9")+'"/><path d="M104 24l-12 14 8-2 4 6 4-6 8 2z" fill="#fff" opacity=".9"/><path d="M40 40l-8 10 6-1 2 4 3-4 5 1z" fill="#fff" opacity=".9"/>';
+  s+='<path d="M0 92q60-14 120-4t120-6v58H0z" fill="'+(opt.night?"#3E5A3E":"#8DBF6A")+'"/><path d="M0 108q80-10 240 0v32H0z" fill="'+(opt.night?"#35502F":"#7AAE57")+'"/>';
+  if(opt.yurt!==false)s+='<g transform="translate('+(opt.yx||176)+' 70)"><path d="M0 34V18q22-14 44 0v16z" fill="#F4EBD8" stroke="#2B2233" stroke-width="1.6"/><path d="M0 18q22-24 44 0" fill="#E8DCC0" stroke="#2B2233" stroke-width="1.6"/><path d="M4 24h36" stroke="#B3202B" stroke-width="3"/><path d="M18 34V24h8v10" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.2"/></g>';
+  if(opt.fire)s+='<g transform="translate(118 108)"><path d="M-10 6h20" stroke="#5A3A1E" stroke-width="4"/><path d="M0 4q-10-10 0-22q2 8 6 8q4 8-6 14z" fill="#F2A541"/><path d="M0 4q-4-6 0-12q4 6 0 12z" fill="#FFE36B"/></g>';
+  (figs||[]).forEach(function(f){s+='<g transform="translate('+f.x+' '+(f.y||36)+') scale('+(f.s||.62)+')">'+f.svg+'</g>';});
+  return '<svg class="p74-scene" viewBox="0 0 240 140" aria-hidden="true">'+s+'</svg>';
+}
+P74_HEAD.elechek=function(){return '<path d="M36 50q-2-30 24-34q26 4 24 34q-4-8-24-10q-20 2-24 10z" fill="#FBF8F0" '+P74_OUT+'/><path d="M38 40q22-10 44 0M40 32q20-8 40 0" stroke="#D8CFB8" stroke-width="1.8" fill="none"/><path d="M36 50q-6 20 2 34l6-4q-6-14-2-28z" fill="#FBF8F0" '+P74_OUT+'/><path d="M84 50q6 20-2 34l-6-4q6-14 2-28z" fill="#FBF8F0" '+P74_OUT+'/>';};
+P74_HEAD.tebetei=function(c){return '<path d="M40 46q0-24 20-26q20 2 20 26z" fill="'+(c||"#B3202B")+'" '+P74_OUT+'/><path d="M34 48q26-12 52 0q-4 8-26 6q-22 2-26-6z" fill="#6B4A2E" '+P74_OUT+'/><path d="M60 20v-6" stroke="#E8B923" stroke-width="3" stroke-linecap="round"/>';};
+P74_HAND.komuz=function(){return '<path d="M104 92l10-40" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M111 50l6 2M110 55l6 2" stroke="#5A3A1E" stroke-width="2" stroke-linecap="round"/><path d="M88 96q8-8 20-2q8 8 2 20q-8 12-20 6q-10-8-2-24z" fill="#B5793B" '+P74_OUT+'/><path d="M98 118l15-64M102 118l14-64" stroke="#F6F1E1" stroke-width=".9"/><circle cx="98" cy="104" r="3" fill="#5A3A1E"/>';};
+
 /* ===== Phase74 データ：5つの成り上がりの道（名前・装備・技・仲間はこのアプリのオリジナル） ===== */
 /* 呼び名はここだけ変えれば全体が変わる */
 var P74_NAME="冒険";
@@ -12316,6 +12360,212 @@ var P74_PATHS=[
       {n:"レフ",r:"老いた航海士",o:{hand:"none",off:"map",head:"tricorn",headc:"#3A3F58",body:{type:"coat",c:"#3A3F58",t:"#C9D3DD"},beard:"#E8EEF4",hair:"#E8EEF4",glasses:1}}]}
 ];
 
+
+/* ===== Phase74 物語・歴史の道（hist:1）。キルギスの叙事詩と人物。
+   story[0]＝はじめの場面、story[1..8]＝ボスを倒すたびに開く場面、about＝全部クリアしたあとの解説。
+   ex＝その場面を表すキルギス語の例文 [キルギス語, 日本語]。単語は単語帳の語を使い、固有名詞は P74_NAMES で意味が出る。
+   fig：h＝その段階の主人公、a0〜a4＝仲間、npc:名前@x＝その場面だけの人物。
+   人物を足すときは、この形のまま P74_PATHS に push する。
+   解説は資料で確かめられる内容だけにし、叙事詩は「物語ではこう語られる」と書く。 ===== */
+var P74_NPC={
+  jakyp:{hand:"whip",off:"none",head:"kalpak",body:{type:"chapan",c:"#5E4A7E",t:"#E8B923"},beard:"#E8EEF4",hair:"#E8EEF4"},
+  chiyirdy:{hand:"none",off:"none",head:"elechek",body:{type:"chapan",c:"#B3202B",t:"#E8B923"},hair:"#2B2233"},
+  elder:{hand:"staff",off:"none",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#E8B923",fur:1},beard:"#E8EEF4",hair:"#E8EEF4"},
+  rival:{hand:"bigspear",off:"roundshield",head:"helmet",body:{type:"armor",c:"#5A5A6A",t:"#C99A2E"},beard:"#2B2233",hair:"#2B2233",cape:"#3A2E5C"},
+  manaschy:{hand:"none",off:"none",head:"kalpak",body:{type:"chapan",c:"#7A1F2B",t:"#E8B923",fur:1},beard:"#8A8A8A",hair:"#8A8A8A"},
+  kanykey:{hand:"none",off:"none",head:"elechek",body:{type:"chapan",c:"#7A1F2B",t:"#E8B923",fur:1},hair:"#2B2233"},
+  child:{hand:"none",off:"none",head:"kalpak",body:{type:"chapan",c:"#2C5D8F",t:"#E8D5A8"},hair:"#2B2233"},
+  alymbek:{hand:"whip",off:"none",head:"tebetei",headc:"#2C5D8F",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923",fur:1},beard:"#2B2233",hair:"#2B2233"},
+  officer:{hand:"none",off:"scroll",head:"none",body:{type:"coat",c:"#3A4A3A",t:"#C99A2E",epaulet:1},hair:"#8A6A4A",beard:"#8A6A4A"},
+  mother:{hand:"none",off:"none",head:"elechek",body:{type:"chapan",c:"#5E6E7E",t:"#E8D5A8"},hair:"#2B2233"},
+  people1:{hand:"none",off:"none",head:"kalpak",body:{type:"chapan",c:"#6B8E4E",t:"#E8D5A8"},hair:"#2B2233"},
+  people2:{hand:"none",off:"basket",head:"bandana",headc:"#F6F1E1",body:{type:"chapan",c:"#C7823E",t:"#E8D5A8"},hair:"#2B2233",longhair:1}
+};
+/* 例文に出る固有名詞など（単語帳にない語）：表層形|見出し|意味|形 */
+var P74_NAMES=[
+ "манасчы|манасчы|マナスチ（『マナス』の語り手）|","манас|Мана́с|マナス（叙事詩の英雄）|主格「〜は」","манасе|Мана́с|マナス（叙事詩の英雄）|前置格「〜について」","манаса|Мана́с|マナス（叙事詩の英雄）|生格「〜の」",
+ "жакыпа|Жакы́п|ジャクプ（マナスの父）|生格「〜の」","алмамбет|Алмамбе́т|アルマンベト（マナスの友）|主格「〜は」","каныкей|Каныке́й|カヌケイ（マナスの妻）|主格「〜は」",
+ "бухару|Бухара́|ブハラ（町の名）|対格「〜へ」","семетей|Семете́й|セメテイ（マナスの息子）|主格「〜は」","семетею|Семете́й|セメテイ（マナスの息子）|与格「〜に」","семетея|Семете́й|セメテイ（マナスの息子）|生格「〜の」",
+ "бакай|Бака́й|バカイ（知恵のある相談役）|主格「〜は」","талас|Тала́с|タラス（地名）|対格「〜へ」","кулчоро|Кулчоро́|クルチョロ（アルマンベトの息子）|主格「〜は」","айчурек|Айчуре́к|アイチュレク（セメテイの妻）|主格「〜は」",
+ "курманжан|Курманжа́н|クルマンジャン（人の名）|","алымбека|Алымбе́к|アリムベク（クルマンジャンの夫）|生格・対格","датка|да́тка|ダトカ（地域を治める人の位）|",
+ "акын|акы́н|アクン（即興で歌う詩人）|主格「〜は」","комузе|кому́з|コムズ（キルギスの弦楽器）|前置格「〜で」","токтогул|Токтогу́л|トクトグル（人の名）|主格「〜は」","токтогула|Токтогу́л|トクトグル（人の名）|生格・対格","сибирь|Сиби́рь|シベリア（地名）|対格「〜へ」",
+ /* 単語帳の語の、自動では見つからない形 */
+ "друзьям|друг|友だち|与格・複数「友だちに」（друг の複数は друзья と特別な形）","людям|лю́ди|人々|与格・複数「人々に」","людях|лю́ди|人々|前置格・複数「人々について」（о＋前置格）","матери|мать|母|生格「母の」（для＋生格で「母にとって」）。与格・前置格も同じ形"
+];
+(function(){if(!window.P73_EX)window.P73_EX=[];P74_NAMES.forEach(function(l){var q=l.split("|");P73_EX.push([q[0],q[1],q[2],q[3]||""]);});})();
+
+P74_PATHS.push({id:"manas",hist:1,name:"マナスの道",goal:"少年 → 英雄マナス",verb:"倒した",color:"#B3202B",
+  lead:"キルギスに伝わる英雄叙事詩「マナス」。少年マナスが仲間を集め、人々をまとめる英雄になるまでを、場面の解説と例文つきでたどります。",
+  titles:["少年マナス","力自慢の少年","若き勇者","四十人の仲間の長","アルマンベトの友","カヌケイの夫","民のかしら","大遠征の大将","英雄マナス"],
+  st:[
+   {hand:"whip",off:"none",head:"kalpak",body:{type:"chapan",c:"#6B8E4E",t:"#E8D5A8"},hair:"#2B2233"},
+   {hand:"stick",off:"none",head:"kalpak",body:{type:"chapan",c:"#2C5D8F",t:"#E8D5A8"},hair:"#2B2233"},
+   {hand:"bow",off:"quiver",head:"kalpak",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233"},
+   {hand:"spear",off:"quiver",head:"batyr",body:{type:"chapan",c:"#1F4E8C",t:"#E8B923"},hair:"#2B2233",cape:"#7A1F2B"},
+   {hand:"spear",off:"kshield",head:"batyr",body:{type:"armor",c:"#9AA4AE",t:"#B3202B"},hair:"#2B2233",cape:"#B3202B"},
+   {hand:"spear",off:"kshield",head:"batyr",body:{type:"chapan",c:"#B3202B",t:"#E8B923",fur:1},hair:"#2B2233",cape:"#1F4E8C",beard:"#2B2233"},
+   {hand:"bigspear",off:"kshield",head:"batyr",headc:"#C9D3DD",body:{type:"armor",c:"#C9D3DD",t:"#E8B923",emblem:1},hair:"#2B2233",cape:"#B3202B",beard:"#2B2233"},
+   {hand:"bigspear",off:"kshield",head:"goldbatyr",body:{type:"armor",c:"#DCE3EA",t:"#E8B923",emblem:1},hair:"#2B2233",cape:"#B3202B",beard:"#2B2233",aura:"#E2483B"},
+   {hand:"bigspear",off:"kshield",head:"goldbatyr",body:{type:"chapan",c:"#B3202B",t:"#FFD34D",fur:1},hair:"#2B2233",cape:"#E8B923",beard:"#2B2233",aura:"#FFD34D",spark:1}],
+  gear:["羊飼いのむち","木の棒","白いカルパク（フェルトの帽子）","青いチャパン（長い上着）","弓","矢筒","鉄のかぶと","槍","赤い丸盾","くさりよろい","赤いマント","毛皮のえりのチャパン","銀の大槍","大将の白いよろい","金のかぶと","鷲の羽かざり","英雄の赤い上着"],
+  sk:["力自慢の投げ","草原の早がけ","弓の三連射","槍のひと突き","四十人の陣","友との連携","山をこえる大進軍","英雄の名乗り"],
+  al:[{n:"アク・クラ",r:"マナスの愛馬",animal:"horse",c:"#E9D9B8"},
+      {n:"バカイ",r:"知恵のある相談役",o:{hand:"staff",off:"none",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#E8D5A8"},beard:"#E8EEF4",hair:"#E8EEF4"}},
+      {n:"アルマンベト",r:"兄弟のような友",o:{hand:"sword",off:"none",head:"batyr",headc:"#C99A2E",body:{type:"armor",c:"#5E7F9A",t:"#E8B923"},hair:"#2B2233",cape:"#2C5D8F"}},
+      {n:"カヌケイ",r:"かしこい妻",o:P74_NPC.kanykey},
+      {n:"チュバク",r:"勇ましい仲間",o:{hand:"spear",off:"roundshield",head:"batyr",body:{type:"chapan",c:"#C7823E",t:"#E8B923"},hair:"#5A3A22"}}],
+  story:[
+   {t:"序章　語り手マナスチ",fig:["npc:manaschy@96"],fire:1,night:1,ex:["Манасчы рассказывает длинную историю о Манасе.","マナスチがマナスについての長い物語を語ります。"],
+    x:"「マナス」は、キルギスに伝わるとても長い叙事詩（英雄の物語を語る詩）です。本に書かれるずっと前から、マナスチ（манасчы）と呼ばれる語り手が、声の調子や身ぶりをまじえて語り伝えてきました。三部作をつづけて語ると、13時間ほどかかることもあるといわれます。\n語り手によって、場面や細かい筋が少しずつ違います。この道では、多くの語りに共通する大きな流れをやさしく紹介します。歴史の記録ではなく、「物語ではこう語られる」というお話として読んでください。"},
+   {t:"第1話　待ちのぞまれた子",fig:["npc:jakyp@40","npc:chiyirdy@96","h@156"],ex:["У старого Жакыпа долго не было детей.","年老いたジャクプには、長いあいだ子どもがいませんでした。"],
+    x:"物語では、ジャクプ（Жакып）と妻のチユルドゥ（Чыйырды）には、長いあいだ子どもがいませんでした。祈りつづけた二人に、すばらしい息子が生まれることを知らせる夢が届き、やがて生まれた男の子がマナスです。\n生まれるときにも不思議なことが起きたと語られ、マナスは小さいころから人並みはずれて強い子でした。"},
+   {t:"第2話　力自慢の少年",fig:["h@70","a0@140"],ex:["Маленький Манас был очень сильный.","小さなマナスはとても力が強かった。"],
+    x:"少年マナスは力が強く、元気にあふれていて、まわりの大人をおどろかせます。とても小さいころから、すぐれた馬に乗れるようになったとも語られます。\n遊牧の暮らしでは、馬は家族のように大切な仲間でした。マナスの愛馬アク・クラ（Аккула）は、物語の中で何度も活やくします。"},
+   {t:"第3話　四十人の仲間",fig:["a4@20","h@90","a1@160"],ex:["У Манаса было сорок друзей.","マナスには40人の仲間がいました。"],
+    x:"マナスはまだ若いうちに、自分の「四十人の仲間（кырк чоро）」をつくります。仲間たちは一生マナスを助け、最後までともに戦ったと語られます。\nマナスたちの大きな目的は、ばらばらになっていた部族をまとめ、一つの民にすることです。知恵のある相談役バカイ（Бакай）も、マナスを支えます。"},
+   {t:"第4話　友アルマンベト",fig:["h@50","a2@130"],ex:["Алмамбет стал другом Манаса.","アルマンベトはマナスの友になりました。"],
+    x:"アルマンベト（Алмамбет）は、もともとは別の国で育った勇者です。長い旅のすえにマナスのもとへやって来て、四十人の仲間に加わります。\nマナスはアルマンベトを兄弟のように大切にし、アルマンベトもマナスのいちばんの友として力をつくします。生まれた場所が違っても固い友情を結べる、という物語としても読まれています。"},
+   {t:"第5話　かしこいカヌケイ",fig:["h@50","a3@130"],ex:["Каныкей — умная и добрая жена.","カヌケイはかしこくてやさしい妻です。"],
+    x:"マナスの妻カヌケイ（Каныкей）は、かしこく、人をもてなす心をもった女性として描かれます。夫が人々をまとめる戦いにも、自分から力を貸しました。\nのちに、息子セメテイを守り育てるのもカヌケイです。物語の中で、女性の知恵と強さがたいせつにされている人物として知られています。"},
+   {t:"第6話　コケトイの追悼の宴",fig:["npc:elder@30","h@100","a0@160"],fire:1,ex:["На большом празднике люди играли и пели.","大きな祭りで、人々は競い合い、歌いました。"],
+    x:"長老コケトイ（Көкөтөй）が亡くなり、あとをついだボクムルン（Бокмурун）は、各地の部族を呼び集めて盛大な追悼の宴（アシ）を開きます。\n宴では競馬や力くらべなどの競技が行われ、マナスも愛馬アク・クラで駆けます。遊牧の人々の祭りやもてなしの様子がいきいきと語られ、この宴をきっかけに人々のまとまりが強くなったともいわれます。"},
+   {t:"第7話　大遠征",fig:["a2@10","h@80","npc:rival@170"],night:1,ex:["Манас и его друзья поехали в другую страну.","マナスと仲間たちは、ほかの国へ向かいました。"],
+    x:"宴のあと、マナスは仲間たちをひきいて大遠征（Чоң казат）に出ます。叙事詩の中でも特に長く、はげしい戦いが続く部分です。\n強敵コヌルバイ（Коңурбай）とのたたかいは、よく知られた場面です。アルマンベトやチュバクたち仲間も、それぞれ見せ場をもって活やくします。"},
+   {t:"第8話　英雄のあとをつぐ者",fig:["npc:kanykey@50","npc:child@120"],ex:["Каныкей рассказала сыну о его отце.","カヌケイは息子に、その父のことを話しました。"],
+    x:"多くの語りでは、マナスは遠征で深い傷を負い、そのために亡くなります。仲間たちは、英雄の体を人に知られない場所へ運んで葬ったと語られます。\nけれども物語はここで終わりません。カヌケイに守られて育つ息子セメテイ（Семетей）、そして孫セイテク（Сейтек）の物語へと続きます。この3つをあわせて「マナス三部作」と呼びます。"}],
+  about:{t:"マナスを全部たどったあなたへ",
+   x:"・「マナス」は世界でもとても長い叙事詩の1つで、語り手の版によっては約50万行になるといわれます。いちばん有名なのは、語り手サヤクバイ・カララエフ（Саякбай Каралаев）の版です。\n・サグンバイ・オロズバコフ（Сагымбай Орозбаков）も、三部作すべてを語った名高い語り手です。\n・2013年、「キルギスの叙事詩三部作：マナス・セメテイ・セイテク」はユネスコの無形文化遺産に登録されました。\n・首都ビシケクの国際空港の名前も「マナス」です。\n・叙事詩は歴史の記録そのものではなく、語り手によって内容が違うところがあります。もっと知りたいときは、日本語や英語に訳された本を探してみてください。"}
+});
+
+P74_PATHS.push({id:"semetey",hist:1,name:"セメテイの道",goal:"羊飼いの少年 → 英雄セメテイ",verb:"倒した",color:"#2C5D8F",
+  lead:"『マナス』の続き。英雄の息子セメテイが、自分の生まれを知り、ふるさとタラスへ帰って人々を立て直すまでの物語です。",
+  titles:["羊飼いの少年","真実を知った少年","父の弓を受けつぐ者","ふるさとへ向かう若者","タラスの若き勇者","仲間をまとめる者","アイチュレクの夫","民を守る英雄","英雄セメテイ"],
+  st:[
+   {hand:"whip",off:"none",head:"bandana",headc:"#F6F1E1",body:{type:"chapan",c:"#7E9C5A",t:"#E8D5A8"},hair:"#2B2233"},
+   {hand:"stick",off:"none",head:"kalpak",body:{type:"chapan",c:"#7E9C5A",t:"#E8D5A8"},hair:"#2B2233"},
+   {hand:"bow",off:"quiver",head:"kalpak",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233"},
+   {hand:"bow",off:"quiver",head:"batyr",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233",cape:"#5E7F9A"},
+   {hand:"spear",off:"kshield",head:"batyr",body:{type:"armor",c:"#9AA4AE",t:"#2C5D8F"},hair:"#2B2233",cape:"#2C5D8F"},
+   {hand:"spear",off:"kshield",head:"batyr",headc:"#C9D3DD",body:{type:"armor",c:"#C9D3DD",t:"#E8B923"},hair:"#2B2233",cape:"#1F4E8C"},
+   {hand:"bigspear",off:"kshield",head:"goldbatyr",body:{type:"chapan",c:"#1F4E8C",t:"#E8B923",fur:1},hair:"#2B2233",cape:"#B3202B"},
+   {hand:"bigspear",off:"kshield",head:"goldbatyr",body:{type:"armor",c:"#DCE3EA",t:"#E8B923",emblem:1},hair:"#2B2233",cape:"#1F4E8C",aura:"#4FB3E8"},
+   {hand:"bigspear",off:"kshield",head:"goldbatyr",body:{type:"chapan",c:"#1F4E8C",t:"#FFD34D",fur:1},hair:"#2B2233",cape:"#E8B923",aura:"#FFD34D",spark:1}],
+  gear:["羊飼いのむち","木の棒","白いカルパク","旅の上着","父の弓","父の矢筒","鉄のかぶと","父の槍","青い丸盾","父のよろい","青いマント","毛皮のえりの上着","銀の大槍","白いよろい","金のかぶと","鷲の羽かざり","英雄の青い上着"],
+  sk:["羊飼いの投げ石","父ゆずりの弓","風よりはやい手綱","ふるさとへの突進","まとまる仲間","二人の連携","タラスの守り","英雄の名乗り"],
+  al:[{n:"タイブールル",r:"父ゆずりの愛馬",animal:"horse",c:"#9AA4AE"},
+      {n:"カヌケイ",r:"母",o:P74_NPC.kanykey},
+      {n:"バカイ",r:"知恵のある相談役",o:{hand:"staff",off:"none",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#E8D5A8"},beard:"#E8EEF4",hair:"#E8EEF4"}},
+      {n:"クルチョロ",r:"アルマンベトの息子",o:{hand:"sword",off:"roundshield",head:"batyr",headc:"#C99A2E",body:{type:"armor",c:"#5E7F9A",t:"#E8B923"},hair:"#2B2233"}},
+      {n:"アイチュレク",r:"ふしぎな力をもつ妻",o:{hand:"none",off:"orb",head:"circlet",body:{type:"chapan",c:"#5B4BB7",t:"#E8B923",fur:1},hair:"#2B2233",longhair:1}}],
+  story:[
+   {t:"序章　英雄の息子の物語",fig:["npc:manaschy@96"],fire:1,night:1,ex:["Это история о сыне Манаса.","これはマナスの息子の物語です。"],
+    x:"「セメテイ」は、マナス三部作の2つめの物語です。主人公は、英雄マナスと妻カヌケイの息子セメテイ（Семетей）です。\nこの道でも、語り手によって筋が違うところがあります。多くの紹介に共通する流れを、やさしくまとめています。"},
+   {t:"第1話　母と子の旅",fig:["npc:kanykey@60","npc:child@130"],ex:["Каныкей взяла маленького сына и уехала в Бухару.","カヌケイは幼い息子を連れて、ブハラへ去りました。"],
+    x:"マナスが亡くなったあと、マナスの親族のなかには、その地位をねらう者たちがいました。カヌケイは幼いセメテイを守るため、息子を連れて自分の父の国ブハラへのがれます。\n母が子どもを守りぬく、物語のはじまりの大切な場面です。"},
+   {t:"第2話　何も知らない少年",fig:["h@80","a0@150"],ex:["Семетей жил в другом городе и не знал об отце.","セメテイはほかの町で暮らし、父のことを知りませんでした。"],
+    x:"セメテイは、自分が英雄マナスの息子だとは知らないまま、ふつうの羊飼いの子として育ちます。\nどこで生まれたかより、どう生きるかが大事。そう感じさせる、静かな少年時代の場面です。"},
+   {t:"第3話　明かされた真実",fig:["a1@30","h@100","a2@170"],ex:["Бакай рассказал Семетею правду.","バカイはセメテイに本当のことを話しました。"],
+    x:"大きくなったセメテイに、母カヌケイと、マナスの相談役だったバカイが、本当のことを打ち明けます。\nセメテイは父の武器とよろい、そして父の馬タイブールル（Тайбуурул）を受けつぎ、ふるさとへ帰る決心をします。"},
+   {t:"第4話　ふるさとタラスへ",fig:["a1@20","h@90","a2@160"],ex:["Семетей вернулся домой в Талас.","セメテイはふるさとのタラスへ帰りました。"],
+    x:"セメテイはカヌケイとバカイといっしょに、父の地タラス（Талас）へ向かいます。そこでは、マナスの親族が力をにぎっていました。\nセメテイはまず、内側の争いをおさめて、人々の暮らしを取りもどさなければなりません。"},
+   {t:"第5話　友クルチョロ",fig:["h@50","a3@130"],ex:["Кулчоро — хороший друг Семетея.","クルチョロはセメテイのよい友です。"],
+    x:"アルマンベトの息子クルチョロ（Кулчоро）が、セメテイの仲間になります。父どうしが固い友だったように、息子どうしも力を合わせます。\n親から子へ受けつがれる友情が、この物語の見どころの一つです。"},
+   {t:"第6話　アイチュレク",fig:["h@50","a4@130"],ex:["Айчурек стала женой Семетея.","アイチュレクはセメテイの妻になりました。"],
+    x:"セメテイの妻アイチュレク（Айчүрөк）は、ふしぎな力をもつ女性として語られます。\nマナスの物語のカヌケイと同じように、アイチュレクも物語の中で大きな役わりを果たします。"},
+   {t:"第7話　外からの危機",fig:["a3@10","h@80","npc:rival@170"],night:1,ex:["Семетей и его друзья защищали своих людей.","セメテイと仲間たちは、自分たちの人々を守りました。"],
+    x:"国の外からも、危険がせまります。父マナスと戦った強敵コヌルバイは、セメテイの時代になっても人々をおびやかします。\nさらに、思いがけない人の裏切りもあり、セメテイは難しい戦いを続けることになります。"},
+   {t:"第8話　次の世代へ",fig:["h@60","npc:child@130"],ex:["Семетей оставил маленького сына друзьям.","セメテイは幼い息子を仲間たちに託しました。"],
+    x:"物語の終わり方は、語り手によって違います。セメテイがふしぎな形で姿を消すと語る版もあれば、国を去らなければならなくなると語る版もあります。\nそのまえにセメテイは、幼い息子セイテク（Сейтек）を信頼できる人たちに託します。物語は三部作の最後「セイテク」へと続きます。"}],
+  about:{t:"セメテイを全部たどったあなたへ",
+   x:"・「マナス」「セメテイ」「セイテク」の三部作は、ばらばらだった部族が一つにまとまっていく物語として語られます。\n・三部作は、2013年にユネスコの無形文化遺産に登録されました。\n・物語では、父から子、子から孫へと、勇気と友情が受けつがれていきます。\n・語り手によって筋が大きく違う部分もあります。いろいろな版を読みくらべるのも楽しみ方の一つです。"}
+});
+
+P74_PATHS.push({id:"kurmanjan",hist:1,name:"クルマンジャン・ダトカの道",goal:"アライの少女 → アライの女王",verb:"乗りこえた",color:"#7A1F2B",
+  lead:"19世紀に実在した女性指導者クルマンジャン・ダトカ（1811〜1907年）。夫を失ったあと人々を率い、大きな時代の変化の中で民を守った人生を、事実にそってたどります。",
+  titles:["アライの少女","自分で道を選ぶ娘","アリムベクの妻","夫を支える人","アライの指導者","ダトカ","民を守る交渉役","悲しみを越える母","アライの女王"],
+  st:[
+   {hand:"none",off:"basket",head:"tebetei",headc:"#B3202B",body:{type:"chapan",c:"#6B8E4E",t:"#E8D5A8"},hair:"#2B2233",longhair:1},
+   {hand:"whip",off:"none",head:"tebetei",headc:"#B3202B",body:{type:"chapan",c:"#B3202B",t:"#E8D5A8"},hair:"#2B2233",longhair:1},
+   {hand:"none",off:"none",head:"elechek",body:{type:"chapan",c:"#B3202B",t:"#E8B923"},hair:"#2B2233"},
+   {hand:"whip",off:"none",head:"elechek",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233",cape:"#7A1F2B"},
+   {hand:"staff",off:"none",head:"elechek",body:{type:"chapan",c:"#7A1F2B",t:"#E8B923",fur:1},hair:"#2B2233",cape:"#2C5D8F"},
+   {hand:"staff",off:"scroll",head:"elechek",body:{type:"royal",c:"#7A1F2B",t:"#E8B923"},hair:"#2B2233",cape:"#2C5D8F"},
+   {hand:"staff",off:"scroll",head:"elechek",body:{type:"royal",c:"#5E2A7E",t:"#E8B923"},hair:"#2B2233",cape:"#7A1F2B",aura:"#B9A6F2"},
+   {hand:"staff",off:"none",head:"elechek",body:{type:"chapan",c:"#3A3F58",t:"#C9D3DD",fur:1},hair:"#8A8A8A",cape:"#2B2233"},
+   {hand:"bigscepter",off:"scroll",head:"elechek",body:{type:"royal",c:"#9B1B30",t:"#FFD34D"},hair:"#C9D3DD",cape:"#3A1F6E",aura:"#FFD34D",spark:1}],
+  gear:["羊毛のかご","乗馬のむち","赤い毛皮の帽子","赤いチャパン","白い頭布エレチェク","銀の耳かざり","青いマント","刺しゅうの上着","指導者の杖","毛皮のえりの上着","紫のローブ","約束を書いたまき物","重みのある黒い上着","民からの贈り物の帯","金の帯どめ","アライの杖","女王の赤いローブ"],
+  sk:["自分で決める勇気","馬上の早がけ","人をつなぐことば","落ち着いた判断","部族をまとめる声","争いを止める交渉","涙を見せない強さ","アライの知恵"],
+  al:[{n:"白い愛馬",r:"いつもいっしょの馬",animal:"horse",c:"#F2EEE4"},
+      {n:"アイダ",r:"若い騎手（この道のオリジナルの人物）",o:{hand:"whip",off:"none",head:"tebetei",headc:"#2C5D8F",body:{type:"chapan",c:"#2C5D8F",t:"#E8D5A8"},hair:"#2B2233",longhair:1}},
+      {n:"長老トゥルスン",r:"相談役（この道のオリジナルの人物）",o:P74_NPC.elder},
+      {n:"タカのボルクト",r:"鷹匠のタカ",animal:"hawk",c:"#8A5A2B"},
+      {n:"書記ナルギザ",r:"手紙を書く人（この道のオリジナルの人物）",o:{hand:"none",off:"scroll",head:"elechek",body:{type:"chapan",c:"#5CB8B2",t:"#E8D5A8"},hair:"#2B2233",glasses:1}}],
+  story:[
+   {t:"序章　アライの山々",fig:["h@100"],ex:["Курманжан родилась в горах в 1811 году.","クルマンジャンは1811年に山あいの地で生まれました。"],
+    x:"クルマンジャン・ダトカ（Курманжан датка）は、1811年5月22日、今のキルギス南部オシ州のアライ地方に生まれた、実在の女性です。当時この地域はコーカンド・ハン国という国の一部でした。\nこの道では、記録で確かめられる出来事をもとに、彼女の人生を紹介します。"},
+   {t:"第1話　自分で選んだ道",fig:["h@60","npc:jakyp@140"],ex:["Курманжан ушла домой к отцу.","クルマンジャンは父のいる家へ帰りました。"],
+    x:"18歳のころ、クルマンジャンは会ったこともない男性と結婚させられそうになります。その人を好きになれなかった彼女は、いったん家を出たあと、父マンバトバイのもとで暮らすことを選びました。\n親が結婚相手を決めるのがふつうだった時代に、自分の気持ちで道を選んだことは、とてもめずらしいことでした。"},
+   {t:"第2話　アリムベクとの結婚",fig:["h@60","npc:alymbek@130"],ex:["В 1832 году Курманжан вышла замуж за Алымбека.","1832年、クルマンジャンはアリムベクと結婚しました。"],
+    x:"1832年、クルマンジャンは、アライ地方を治めていたアリムベク（Алымбек）と結婚します。アリムベクは「ダトカ」という位をもつ有力者でした。\nクルマンジャンは夫を支えながら、人々の暮らしや政治のことを学んでいきます。"},
+   {t:"第3話　突然の別れ",fig:["h@90"],night:1,ex:["После смерти мужа Курманжан помогала людям.","夫が亡くなったあと、クルマンジャンは人々を助けました。"],
+    x:"1862年、夫アリムベクは宮廷の争いの中で命を落とします。\n深い悲しみの中でも、クルマンジャンはアライの人々を見捨てませんでした。ここから、彼女自身が人々を率いる時代が始まります。"},
+   {t:"第4話　ダトカと呼ばれて",fig:["npc:people1@20","h@100","npc:people2@170"],ex:["У Курманжан было новое имя — датка.","クルマンジャンには新しい呼び名「ダトカ」がつきました。"],
+    x:"夫を失ったクルマンジャンは、ブハラとコーカンドの君主たちから、アライの統治者として認められ、「ダトカ」の位をあたえられました。\n女性が地域を治めるのは、当時としてはとてもめずらしいことでした。"},
+   {t:"第5話　時代の大きな変化",fig:["h@60","npc:officer@140"],ex:["Курманжан решила говорить о мире.","クルマンジャンは平和について話し合うことを決めました。"],
+    x:"1876年、アライ地方はロシア帝国に組みこまれます。クルマンジャンは、争いを続けるのではなく、人々を説得して新しい支配を受け入れる道を選びました。\n多くの命を守るための、つらく難しい決断だったと考えられています。"},
+   {t:"第6話　母としての悲しみ",fig:["h@100"],night:1,ex:["Это был очень трудный день для матери.","それは母にとって、とてもつらい日でした。"],
+    x:"1893年、クルマンジャンの息子たちと孫たちが、密輸と役人殺害の罪に問われます。いちばんかわいがっていた息子カムチベクには死刑が言いわたされました。\n彼女は、力ずくで息子を助け出そうという人々の声を受け入れず、1895年、公開の処刑の場に立ち会いました。のちに彼女は、オシで息子のとなりに葬られています。"},
+   {t:"第7話　遠くからの訪問者",fig:["h@60","npc:officer@140"],ex:["Люди из других стран хотели увидеть её.","ほかの国の人々も、彼女に会いたがりました。"],
+    x:"晩年のクルマンジャンのもとには、遠くからも人が訪ねてきました。1906年には、旅をしていたロシア軍の大佐マンネルヘイムが彼女に会い、写真をとっています。\nその写真は、今も彼女の姿を伝える大切な記録になっています。"},
+   {t:"第8話　アライの女王",fig:["npc:people1@20","h@100","npc:people2@170"],ex:["Сегодня её лицо можно увидеть на деньгах.","今では、彼女の顔をお金の上で見ることができます。"],
+    x:"クルマンジャン・ダトカは、1907年2月1日に亡くなりました。人々は彼女を「アライの女王」と呼んで敬いました。\n今ではキルギスの50ソム紙幣に彼女の肖像がえがかれ、2004年にはビシケクに記念像が建てられました。"}],
+  about:{t:"クルマンジャン・ダトカを全部たどったあなたへ",
+   x:"・クルマンジャン・ダトカ（1811〜1907年）は、キルギスで最も知られた女性指導者の一人です。\n・生誕200年にあたる2011年は、キルギスで「クルマンジャン・ダトカの年」とされました。\n・2014年には、彼女の生涯をえがいた映画『クルマンジャン・ダトカ』が作られました。\n・50ソム紙幣の表に肖像、裏にはウズゲンの歴史的な建物がえがかれています。\n・この道の仲間（アイダ、トゥルスン、ナルギザ、タカのボルクト）は、学習を楽しむためのオリジナルの登場人物で、実在の人物ではありません。また、モンスターやボスはゲームのための想像上の生きもので、実在の国や人々を表すものではありません。"}
+});
+
+P74_PATHS.push({id:"toktogul",hist:1,name:"トクトグルの道",goal:"村の少年 → 人々の歌い手",verb:"乗りこえた",color:"#3E6E4A",
+  lead:"即興で歌う詩人「アクン」として知られるトクトグル・サトゥルガノフ（1864〜1933年）。歌で人々の思いを伝え、遠いシベリアから故郷へ帰った人生を、事実にそってたどります。",
+  titles:["村の少年","歌が好きな少年","若いアクン","うわさの歌い手","まっすぐな声","遠い地の旅人","帰ってきた歌い手","人々の声","人々のアクン"],
+  st:[
+   {hand:"whip",off:"none",head:"kalpak",body:{type:"chapan",c:"#7E9C5A",t:"#E8D5A8",patch:1},hair:"#2B2233"},
+   {hand:"komuz",off:"none",head:"kalpak",body:{type:"chapan",c:"#7E9C5A",t:"#E8D5A8"},hair:"#2B2233"},
+   {hand:"komuz",off:"none",head:"kalpak",body:{type:"chapan",c:"#2C5D8F",t:"#E8D5A8"},hair:"#2B2233"},
+   {hand:"komuz",off:"none",head:"kalpak",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233",cape:"#7A4E26"},
+   {hand:"komuz",off:"scroll",head:"kalpak",body:{type:"chapan",c:"#7A1F2B",t:"#E8B923"},hair:"#2B2233",beard:"#2B2233"},
+   {hand:"stick",off:"none",head:"hood",headc:"#5E6E7E",body:{type:"coat",c:"#5E6E7E",t:"#9AA4AE"},hair:"#2B2233",beard:"#2B2233"},
+   {hand:"komuz",off:"none",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#E8B923",fur:1},hair:"#2B2233",beard:"#2B2233"},
+   {hand:"komuz",off:"scroll",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#FFD34D",fur:1},hair:"#8A8A8A",beard:"#8A8A8A",aura:"#5BAE6B"},
+   {hand:"komuz",off:"scroll",head:"kalpak",body:{type:"royal",c:"#3E6E4A",t:"#FFD34D"},hair:"#E8EEF4",beard:"#E8EEF4",cape:"#7A1F2B",aura:"#FFD34D",spark:1}],
+  gear:["羊飼いのむち","小さなコムズ","白いカルパク","緑のチャパン","新しい弦","歌の手帳","旅の上着","青いチャパン","刺しゅうの帯","赤いチャパン","厚いフード","丈夫な旅の杖","毛皮のえりの上着","よく鳴るコムズ","金の糸の帯","記録された歌","人々のアクンの上着"],
+  sk:["母ゆずりの歌声","即興のひとふし","笑いの歌","まっすぐな歌","人の心をつかむ節","遠い空の歌","ふるさとの歌","人々の声の大合唱"],
+  al:[{n:"白い子馬",r:"村の子馬",animal:"horse",c:"#E9D9B8"},
+      {n:"アセル",r:"コムズ職人（この道のオリジナルの人物）",o:{hand:"none",off:"none",head:"bandana",headc:"#C7823E",body:{type:"chapan",c:"#C7823E",t:"#E8D5A8"},hair:"#2B2233",longhair:1}},
+      {n:"ベク",r:"旅の羊飼い（この道のオリジナルの人物）",o:{hand:"stick",off:"none",head:"kalpak",body:{type:"chapan",c:"#7E9C5A",t:"#E8D5A8"},hair:"#5A3A22"}},
+      {n:"雪ギツネ",r:"旅でなかよくなったキツネ",animal:"fox",c:"#E8EEF4"},
+      {n:"アイベク",r:"歌を書き留める若者（この道のオリジナルの人物）",o:{hand:"none",off:"book",head:"none",body:{type:"coat",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233",glasses:1}}],
+  story:[
+   {t:"序章　歌で語る人アクン",fig:["h@100"],fire:1,night:1,ex:["Акын поёт и играет на комузе.","アクンはコムズを弾きながら歌います。"],
+    x:"キルギスには、その場で言葉を考えながら歌う詩人「アクン（акын）」がいます。トクトグル・サトゥルガノフ（Токтогул Сатылганов）は、アクンであり作曲家、そしてコムズ（3本の弦の楽器）の弾き手として知られる実在の人物です。\nこの道では、記録で確かめられる出来事をもとに、彼の人生を紹介します。"},
+   {t:"第1話　ケトメン・トベの村",fig:["npc:mother@60","h@140"],ex:["Токтогул родился в маленьком селе в 1864 году.","トクトグルは1864年に小さな村で生まれました。"],
+    x:"トクトグルは1864年、ケトメン・トベの谷にあるクシュチュ・スウ村の、まずしい農家に生まれました。この村は、今ではトクトグル貯水池の水の下にしずんでいます。\nそのころ、この地域はコーカンド・ハン国の一部でした。"},
+   {t:"第2話　最初の先生は母",fig:["npc:mother@60","h@140"],ex:["Мама Токтогула тоже пела песни.","トクトグルの母も歌をうたっていました。"],
+    x:"母のブルマは、悲しみの歌をうたう「コショクチュ」として知られた人でした。トクトグルにとって、母が最初の先生だったと伝えられています。\n言葉とメロディーで気持ちを伝える力は、この母から受けついだものでした。"},
+   {t:"第3話　人々のための歌",fig:["npc:people1@20","h@100","npc:people2@170"],fire:1,ex:["Его песни говорили о бедных людях.","彼の歌はまずしい人々のことを語りました。"],
+    x:"若いトクトグルは、歌い手として名前を知られるようになります。彼は歌の中で、お金持ちのぜいたくや不正をするどく、ときにはユーモアをこめて批判しました。\nそのため、まずしい人々からは愛されましたが、力をもつ人々の中には彼をきらう者もいました。"},
+   {t:"第4話　えん罪",fig:["h@90"],night:1,ex:["В 1898 году Токтогула отправили в Сибирь.","1898年、トクトグルはシベリアへ送られました。"],
+    x:"1898年、アンディジャンで反乱が起きます。トクトグルをきらう有力者が、彼がこの反乱に加わったといううその訴えを出しました。\nトクトグルはとらえられ、重い刑を言いわたされたあと、シベリアでの強制労働に送られます。"},
+   {t:"第5話　遠いシベリア",fig:["h@100"],night:1,ex:["Там было очень холодно.","そこはとても寒かった。"],
+    x:"トクトグルが送られたのは、イルクーツクの近くの、ふるさとから遠くはなれた土地でした。\nきびしい寒さと労働の中でも、ふるさとと家族を思う気持ちは消えませんでした。"},
+   {t:"第6話　ふるさとへの長い道",fig:["h@60","a3@150"],ex:["Через много лет Токтогул вернулся домой.","何年もたって、トクトグルは家に帰りました。"],
+    x:"トクトグルはやがてシベリアから故郷へもどります。帰った年は、資料によって1905年とも1910年とも書かれています。\n帰る旅のあいだには、キルギスの人だけでなく、ウズベクやカザフの人々とも交流し、友だちになったと伝えられています。"},
+   {t:"第7話　帰ってきた歌い手",fig:["npc:people1@20","h@100","npc:people2@170"],fire:1,ex:["Люди любили его песни.","人々は彼の歌を愛しました。"],
+    x:"故郷にもどると、息子はすでに亡くなり、家族もばらばらになっていました。それでもトクトグルは歌いつづけ、「まずしい人々の声」と呼ばれる、最も有名なアクンになりました。\n1928年には首都（当時のフルンゼ、今のビシケク）に招かれ、18曲の器楽曲が記録されました。"},
+   {t:"第8話　名前が残る町",fig:["h@100"],ex:["Сегодня город носит его имя.","今では、町が彼の名前をもっています。"],
+    x:"トクトグルは1933年、ふるさとの村で亡くなり、そこに葬られました。お墓には記念碑が建てられ、村には博物館もできました。\nジャララバード州のトクトグル町は彼の名前から付けられ、ビシケクには彼の名前の通りや記念像があります。"}],
+  about:{t:"トクトグルを全部たどったあなたへ",
+   x:"・トクトグル・サトゥルガノフ（1864〜1933年）は、キルギスを代表するアクンであり、作曲家です。\n・1930年代の終わりごろから、人々の記憶をもとに彼の歌が集められ、本にまとめられ、研究されてきました。\n・キルギスの紙幣にも、アクンでありコムズの弾き手である彼の姿がえがかれています。\n・この道の仲間（アセル、ベク、アイベク）は、学習を楽しむためのオリジナルの登場人物で、実在の人物ではありません。また、モンスターやボスはゲームのための想像上の生きもので、実在の国や人々を表すものではありません。"}
+});
+
 /* ===== Phase74：道のりを「冒険」に（5つの成り上がりの道・モンスター・ボス・装備・技・仲間）。ストーリーなし（今までの路線図）も選べる =====
    記録：settings.p74 = {mode:"story"|"plain", path:"sword"…}。進み具合そのものはレッスンの記録（settings.p71.done）から毎回計算するので、
    道を変えても進み具合は消えず、同じ段階の姿・装備・技・仲間がその道のものに置きかわる。 */
@@ -12345,7 +12595,7 @@ p70RoadCard=function(){
   var P=p74Path(),S=p74State(),card;
   h=h.replace("<b>道のり</b>","<b>"+P74_NAME+"</b>");
   if(!P){
-    card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>5つの道から、なりたい姿を選ぼう</b><em>剣・魔法・王・武士・海</em></span><span class="p70-rcgo">›</span></button>';
+    card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>なりたい姿を選んで冒険しよう</b><em>剣・魔法・王・武士・海／マナスなど物語と歴史</em></span><span class="p70-rcgo">›</span></button>';
   }else{
     var c=S.cur,ti=c?c.i:0,mon=c?p74MonsterName(ti):"";var li=c?p71NextIn(ti):-1;
     var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74MonsterName(ti);li=p71NextIn(ti);}});
@@ -12364,8 +12614,10 @@ function p74Page(inner){
 }
 function p74Chooser(){
   var cur=p74S().path,h='<p class="p70-lead">なりたい姿を1つ選んでください。レッスンを終えるたびに敵にダメージを与え、テーマを終えると敵を倒せます。ボスを倒すたびに姿が変わり、装備・技・仲間が増えていきます。道はあとから変えられます（進み具合はそのまま）。</p><div class="p74-paths">';
-  P74_PATHS.forEach(function(P){
-    h+='<button type="button" class="p74-pathc'+(cur===P.id?" on":"")+'" data-act="p74pick" data-val="'+P.id+'" style="--pc:'+P.color+'"><span class="p74-pfig">'+p74Hero(P,0,"p74-pimg")+'<i>›</i>'+p74Hero(P,8,"p74-pimg big")+'</span><span class="p74-ptx"><b>'+esc(P.name)+'</b><small>'+esc(P.goal)+'</small><span>'+esc(P.lead)+'</span></span></button>';});
+  var pc=function(P){return '<button type="button" class="p74-pathc'+(cur===P.id?" on":"")+'" data-act="p74pick" data-val="'+P.id+'" style="--pc:'+P.color+'"><span class="p74-pfig">'+p74Hero(P,0,"p74-pimg")+'<i>›</i>'+p74Hero(P,8,"p74-pimg big")+'</span><span class="p74-ptx"><b>'+esc(P.name)+'</b><small>'+esc(P.goal)+'</small><span>'+esc(P.lead)+'</span></span></button>';};
+  P74_PATHS.forEach(function(P){if(!P.hist)h+=pc(P);});
+  h+='</div><div class="p74-sech"><b>物語と歴史の道（キルギス）</b><small>ボスを倒すたびに次の場面が開き、解説と「〜で学ぶ例文」が読めます。全部クリアすると、その物語や人物の歴史がひととおりわかります。</small></div><div class="p74-paths">';
+  P74_PATHS.forEach(function(P){if(P.hist)h+=pc(P);});
   h+='</div><button type="button" class="p74-plain" data-act="p74plain"><b>ストーリーなしで進める</b><small>物語や敵は出さず、今までの路線図（テーマの一覧）だけで進めます。</small></button>';
   return h;
 }
@@ -12374,6 +12626,7 @@ function p74Main(){
   h+='<div class="p74-me" style="--pc:'+P.color+'"><div class="p74-mefig">'+p74Hero(P,st,"p74-big")+'</div><div class="p74-meinfo"><small>'+esc(P.name)+'</small><b>'+esc(P.titles[st])+'</b><span class="p74-lv">Lv '+S.lv+'</span>'+
      '<div class="p74-stats"><span><b>'+S.gear+'</b>/17 装備</span><span><b>'+S.skills+'</b>/8 技</span><span><b>'+S.allies+'</b>/5 仲間</span></div>'+
      (st<8?'<small class="p74-next">次の姿「'+esc(P.titles[st+1])+'」まで：ボス「'+esc(P74_BOSS[S.ch.filter(function(c){return !c.beat;})[0]?S.ch.filter(function(c){return !c.beat;})[0].c:7].t)+'」を倒す</small>':'<small class="p74-next">最終形に到達しました！</small>')+'</div></div>';
+  if(P.hist)h+=p74StoryHint(P,S,true);
   /* 仲間の列 */
   if(S.allies)h+='<div class="p74-party">'+P.al.slice(0,S.allies).map(function(a){return '<span>'+p74AllyArt(a,"p74-aimg")+'<small>'+esc(a.n)+'</small></span>';}).join("")+'</div>';
   /* 今たたかっている敵 */
@@ -12384,7 +12637,7 @@ function p74Main(){
        '<button type="button" class="p74-go" data-act="p71go" data-val="'+c.i+'">レッスン '+(li+1)+' でたたかう</button></div>';}
   /* タブ */
   var v=P74_VIEW||"map";
-  h+='<div class="p74-tabs">'+[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]].map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
+  h+='<div class="p74-tabs">'+(P.hist?[["map","地図"],["story","物語"],["ex","例文"],["gear","装備"],["skill","技"],["ally","仲間"]]:[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]]).map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
   if(v==="map"){
     S.ch.forEach(function(ch){var B=P74_BOSS[ch.c];
       h+='<div class="p74-ch"><div class="p74-chh"><small>第'+(ch.c+1)+'章</small><b>'+esc(B.t)+'の地</b></div>';
@@ -12392,6 +12645,8 @@ function p74Main(){
         h+='<button type="button" class="p74-row '+st2+'" data-act="p71go" data-val="'+x.i+'"'+(st2==="c"?' id="p70cur"':'')+'><span class="p74-rimg">'+p74Svg(p74Monster(x.i))+(x.done?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><b>'+esc(p74MonsterName(x.i))+'</b><small>'+esc(x.cat)+' ・ '+(x.done?P.verb:'HP '+(x.ln-x.ld)+' / '+x.ln)+'</small>'+(x.done?'':p74Bar(x.ln-x.ld,x.ln,"red sm"))+'</span></button>';});
       h+='<div class="p74-boss'+(ch.beat?" beat":"")+'"><span class="p74-bsimg">'+p74Svg(p74Boss(ch.c))+(ch.beat?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><small>ボス ・ Lv '+p74BossLv(ch.c)+'</small><b>'+esc(B.t)+' '+esc(B.n)+'</b><small class="p74-ru">名前はキルギス語の '+esc(B.ru)+'（'+esc(B.ja)+'）から</small>'+
         (ch.beat?'<small>'+P.verb+'！ 技「'+esc(P.sk[ch.c])+'」を覚えた</small>':p74Bar(ch.need-ch.done,ch.need,"red")+'<small>この章の敵を全部倒すと、ボスも倒れます（のこり '+(ch.need-ch.done)+'）</small>')+'</span></div></div>';});
+  }else if(v==="story"&&P.hist){h+=p74StoryTab(P,S);
+  }else if(v==="ex"&&P.hist){h+=p74ExTab(P,S);
   }else if(v==="gear"){
     h+='<div class="p74-list">'+P.gear.map(function(g,i){var on=i<S.gear;var how=i===0?"はじめの持ち物":(i%2?"第"+((i+1)/2)+"章の敵を半分倒す":"第"+(i/2)+"章のボスを倒す");
       return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'★':'？')+'</span><span><b>'+(on?esc(g):'？？？')+'</b><small>'+how+'</small></span></div>';}).join("")+'</div>';
@@ -12407,8 +12662,9 @@ function p74Main(){
 function p74Open(choose){
   if(!p74Story()){_p74Open();var m0=document.getElementById("p70page");
     if(m0){var b=m0.querySelector(".p70-pbody");if(b)b.insertAdjacentHTML("afterbegin",'<button type="button" class="p74-plain p74-toq" data-act="p74story"><b>'+P74_NAME+'モードにする</b><small>レッスンで敵を倒し、装備・技・仲間を集めながら進みます。</small></button>');}return;}
-  var m=p74Page(choose||!p74Path()?p74Chooser():p74Main());
-  setTimeout(function(){var c=document.getElementById("p70cur");if(c&&c.scrollIntoView&&(P74_VIEW||"map")==="map"&&!choose)c.scrollIntoView({block:"center"});},60);
+  var P0=p74Path();if(P0&&!P0.hist&&(P74_VIEW==="story"||P74_VIEW==="ex"))P74_VIEW="map";
+  var m=p74Page(choose||!P0?p74Chooser():p74Main());try{p72Wrap(m);}catch(_){}
+  setTimeout(function(){var nw=document.getElementById("p74newest");if(nw&&P74_VIEW==="story"&&!choose){var sc=nw.closest(".p70-pbody");if(sc)sc.scrollTop=Math.max(0,nw.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-8);return;}var c=document.getElementById("p70cur");if(c&&c.scrollIntoView&&(P74_VIEW||"map")==="map"&&!choose)c.scrollIntoView({block:"center"});},60);
 }
 p70OpenRoad=function(){p74Open(false);};
 /* ---------- レッスン結果に戦いの様子を出す ---------- */
@@ -12431,6 +12687,7 @@ p71Result=function(){
     for(var b=0;b<B.ch.length;b++)if(B.ch[b].beat&&!(A.ch[b]&&A.ch[b].beat))g+='<div class="p74-bossko">'+p74Svg(p74Boss(b),"p74-bimg ko")+'<b>ボス「'+esc(P74_BOSS[b].t)+'」を'+P.verb+'！</b></div>';
     if(B.stage>A.stage)g+='<div class="p74-up">'+p74Hero(P,B.stage,"p74-big")+'<b>「'+esc(P.titles[B.stage])+'」になった！</b></div>';
   }
+  if(P.hist){if(A&&B.stage>A.stage)g+='<div class="p74-newsc"><small>新しい場面が開いた！</small>'+p74SceneHtml(P,B.stage,true)+'<button type="button" class="p74-go" data-act="p74read">'+esc(p74Short(P))+'の物語をひらく</button></div>';else g+=p74StoryHint(P,B,false);}
   if(news.length)g+='<div class="p74-news"><small>手に入れたもの</small><ul>'+news.join("")+'</ul></div>';
   g+='</div>';
   return h.replace('<div class="p71-body">','<div class="p71-body">'+g);
@@ -12445,6 +12702,33 @@ function p74Relabel(root){
   var _r=render;render=function(){var o=_r.apply(this,arguments);try{p74Relabel(document.getElementById("app")||document.body);}catch(_){}return o;};
   var _pr=p71Render;p71Render=function(){var o=_pr.apply(this,arguments);try{p74Relabel(document.getElementById("p71"));}catch(_){}return o;};
 })();
+/* ---------- 物語・歴史の道（hist:1 の道だけ）：場面・解説・例文 ---------- */
+function p74Short(P){return String(P.name).replace(/の道$/,"");}
+function p74Paras(t){return String(t).split("\n").map(function(p){return '<p>'+esc(p)+'</p>';}).join("");}
+function p74Fig(P,f,i){var m=/^(.+?)@(-?\d+)$/.exec(f),k=m?m[1]:f,x=m?+m[2]:90,svg="";
+  if(k==="h")svg=p74Person(P.st[Math.min(8,i)]);
+  else if(/^a\d$/.test(k)){var a=P.al[+k.slice(1)];if(a)svg=a.animal?p74Animal(a.animal,a.c):p74Person(a.o);}
+  else if(/^npc:/.test(k)&&P74_NPC[k.slice(4)])svg=p74Person(P74_NPC[k.slice(4)]);
+  return {x:x,y:38,s:.62,svg:svg};}
+function p74ExHtml(ex,lab){return '<div class="p71-ex p74-ex">'+(lab?'<small class="p74-exl">'+esc(lab)+'</small>':'')+'<div><span class="p74-exru">'+esc(ex[0])+'</span>'+p71Spk(ex[0],"p74-exspk")+'</div><small>'+esc(ex[1])+'</small></div>';}
+function p74SceneHtml(P,i,noTitle){var s=P.story[i];if(!s)return "";
+  return '<div class="p74-sc"><div class="p74-scimg">'+p74Scene(s.fig.map(function(f){return p74Fig(P,f,i);}),{night:s.night,fire:s.fire})+'</div>'+(noTitle?'<b class="p74-sct">'+esc(s.t)+'</b>':'')+
+    '<div class="p74-scx">'+p74Paras(s.x)+'</div>'+(s.ex?p74ExHtml(s.ex,p74Short(P)+"で学ぶ例文"):'')+'</div>';}
+/* 次の場面まであと何テーマか */
+function p74StoryHint(P,S,btn){var st=S.stage;
+  if(st>=8)return '<div class="p74-hint"><span><small>'+esc(p74Short(P))+'の物語</small><b>すべての場面を読めます</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">読む</button>':'')+'</div>';
+  var ch=S.ch.filter(function(c){return !c.beat;})[0],left=ch?ch.need-ch.done:0;
+  return '<div class="p74-hint"><span><small>次の場面「'+esc(P.story[st+1].t)+'」まで</small><b>あと '+left+' テーマ（ボス「'+esc(P74_BOSS[ch?ch.c:7].t)+'」）</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">物語</button>':'')+'</div>';}
+function p74StoryTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">ボスを倒すたびに、次の場面が開きます。場面ごとに解説と例文があり、例文の単語はタップすると意味が出ます。</p>';
+  P.story.forEach(function(s,i){
+    if(i<=st)h+='<details class="p74-scd"'+(i===st?' open id="p74newest"':'')+'><summary><b>'+esc(s.t)+'</b></summary>'+p74SceneHtml(P,i,false)+'</details>';
+    else h+='<div class="p74-sclock"><b>'+esc(s.t)+'</b><small>ボス「'+esc(P74_BOSS[i-1].t)+'」を倒すと開きます</small></div>';});
+  if(P.about)h+=S.stage>=8?'<div class="p74-about"><b>'+esc(P.about.t)+'</b>'+p74Paras(P.about.x)+'</div>':'<div class="p74-sclock"><b>'+esc(P.about.t)+'</b><small>すべてのボスを倒すと読めます</small></div>';
+  return h;}
+function p74ExTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+esc(p74Short(P))+'で学ぶ例文です。スピーカーで読み上げ、単語をタップすると意味と形（格など）が出ます。場面が開くたびに増えます。</p>';
+  P.story.forEach(function(s,i){if(i<=st&&s.ex)h+=p74ExHtml(s.ex,s.t);});
+  if(st<8)h+='<p class="p74-exmore">のこり '+(8-st)+' 文は、次の場面が開くと読めます。</p>';
+  return h;}
 /* ---------- 操作 ---------- */
 window.addEventListener("click",function(e){
   var el=e.target&&e.target.closest?e.target.closest("[data-act]"):null;if(!el)return;var a=el.getAttribute("data-act"),v=el.getAttribute("data-val");
@@ -12454,10 +12738,18 @@ window.addEventListener("click",function(e){
   else if(a==="p74plain"){s.mode="plain";try{saveAll();}catch(_){}p74Open(false);try{render();}catch(_){}toast("ストーリーなしにしました");}
   else if(a==="p74story"){s.mode="story";try{saveAll();}catch(_){}p74Open(!s.path);try{render();}catch(_){}}
   else if(a==="p74choose"){p74Open(true);}
+  else if(a==="p74read"){P74_VIEW="story";try{if(P71)p71Close();}catch(_){}p74Open(false);}
   else if(a==="p74tab"){P74_VIEW=v;var m=document.getElementById("p70page"),sc=m&&m.querySelector(".p70-pbody"),y=sc?sc.scrollTop:0;p74Open(false);var sc2=document.querySelector("#p70page .p70-pbody");if(sc2)sc2.scrollTop=y;}
 },true);
 /* ---------- 見た目（色はテーマ変数を使い、ダーク・ライトどちらでも読める） ---------- */
 (function(){var css=
+'.p74-sech{margin:16px 2px 8px}.p74-sech b{display:block;font-size:16px}.p74-sech small{display:block;color:var(--muted);font-size:13px;line-height:1.6;margin-top:2px}'+
+'.p74-hint{display:flex;align-items:center;gap:10px;justify-content:space-between;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;margin:10px 0}.p74-hint span{min-width:0}.p74-hint small{display:block;color:var(--muted);font-size:12.5px}.p74-hint b{display:block;font-size:14.5px}.p74-hint button{flex:none;border:0;border-radius:999px;padding:8px 14px;background:var(--pc,var(--accent));color:#fff;font:inherit;font-weight:700}'+
+'.p74-sc{margin:8px 0 4px}.p74-scimg{border-radius:14px;overflow:hidden;line-height:0}.p74-scene{width:100%;height:auto;display:block}.p74-sct{display:block;font-size:16px;margin:10px 0 2px}'+
+'.p74-scx{font-size:14.5px;line-height:1.8;margin:8px 0}.p74-scx p{margin:0 0 8px}.p74-ex{margin:8px 0;box-sizing:border-box}.p74-ex .p74-exl{color:var(--accent);font-weight:800;font-size:12px;margin-bottom:2px}.p74-exru{font-size:17px;font-weight:600;line-height:1.7}.p74-ex .p71-spk{position:static}'+
+'.p74-scd{border:1px solid var(--line);background:var(--card);border-radius:14px;padding:4px 12px;margin:8px 0}.p74-scd summary{cursor:pointer;padding:8px 0;font-size:15px}.p74-sclock{border:1px dashed var(--line);border-radius:14px;padding:10px 12px;margin:8px 0;opacity:.75}.p74-sclock b{display:block;font-size:14.5px}.p74-sclock small{color:var(--muted);font-size:12.5px}'+
+'.p74-about{border:2px solid var(--accent);border-radius:14px;padding:10px 12px;margin:12px 0;font-size:14.5px;line-height:1.8}.p74-about b{display:block;font-size:16px;margin-bottom:6px}.p74-about p{margin:0 0 6px}.p74-newsc{margin-top:12px;text-align:left}.p74-newsc>small{display:block;font-weight:800;color:var(--accent)}.p74-exmore{color:var(--muted);font-size:13px}'+
+
 '.p74-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 12px 12px 10px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer;margin-bottom:10px}'+
 '.p74-cart{flex:none;width:96px;height:74px;border-radius:14px;background:linear-gradient(180deg,#BFE3F2,#E7F3D8 70%,#B9D99A);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative}'+
 '.p74-cimg{width:50px;height:68px}.p74-duel .p74-cimg{width:46px;height:62px}.p74-duel .p74-cmon{margin-left:-4px}'+
@@ -12475,7 +12767,7 @@ window.addEventListener("click",function(e){
 '.p74-bimg{width:84px;height:112px}.p74-mon{transform:scaleX(-1)}.p74-vs{font-weight:900;color:#FFD34D;font-size:18px;align-self:center;text-shadow:0 2px 0 #2B2233}'+
 '.p74-btx{display:flex;flex-direction:column;gap:2px;margin-top:8px}.p74-btx small{font-size:12px;color:var(--muted)}.p74-btx b{font-size:16px}'+
 '.p74-go{width:100%;margin-top:10px;min-height:48px;border-radius:14px;border:none;background:var(--accent);color:#fff;font:inherit;font-weight:800;font-size:15px;cursor:pointer}'+
-'.p74-tabs{display:flex;gap:6px;margin:14px 0 10px}.p74-tabs button{flex:1;min-height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.p74-tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}'+
+'.p74-tabs{display:flex;gap:6px;margin:14px 0 10px}.p74-tabs button{flex:1;min-width:0;padding:0 2px;min-height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.p74-tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}'+
 '.p74-ch{margin-bottom:14px}.p74-chh{display:flex;align-items:baseline;gap:8px;margin:6px 2px 6px}.p74-chh small{font-size:12px;color:var(--muted);font-weight:700}.p74-chh b{font-size:15px}'+
 '.p74-row,.p74-boss{display:flex;gap:10px;align-items:center;width:100%;padding:6px 10px;margin-bottom:6px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p74-row.c{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.p74-row.d{opacity:.7}'+
 '.p74-rimg,.p74-bsimg{flex:none;position:relative;width:44px;height:58px}.p74-rimg svg,.p74-bsimg svg{width:100%;height:100%}.p74-bsimg{width:66px;height:86px}.p74-ko{position:absolute;right:-4px;bottom:2px;width:20px;height:20px;border-radius:50%;background:#3FA46A;color:#fff;font-style:normal;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}'+
