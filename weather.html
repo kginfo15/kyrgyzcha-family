@@ -311,6 +311,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .mapbtn{display:none}
 .ctry{display:flex;gap:4px;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px}
 .ctry button{flex:1;font-size:12.5px;font-weight:700;padding:7px 4px;border-radius:9px;color:var(--ink-3)}
+@media (max-width:360px){ .ctry button{font-size:11.5px;padding:7px 2px;letter-spacing:-.02em} }
 .ctry button.on{background:rgba(var(--accent-rgb),.14);color:var(--accent);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),.6)}
 .skins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .skin{text-align:left;border-radius:18px;overflow:hidden;border:1.5px solid var(--line);background:var(--card)}
@@ -2047,6 +2048,16 @@ if(CFG.name.length>=9) document.documentElement.setAttribute("data-longname", CF
 // the culture-events page covers Bishkek only
 if(COUNTRY!=="kg") document.getElementById("eventsLink").hidden = true;
 document.getElementById("cname").textContent = CFG.name;
+// shrink the title a little more if it still does not fit (small phones)
+function fitTitle(){
+  const h = document.querySelector("h1"); if(!h) return;
+  h.style.fontSize = "";
+  let size = parseFloat(getComputedStyle(h).fontSize);
+  while(h.scrollWidth > h.clientWidth + 1 && size > 13){ size -= 0.5; h.style.fontSize = size + "px"; }
+}
+fitTitle();
+addEventListener("resize", fitTitle);
+try{ document.fonts && document.fonts.ready.then(fitTitle); }catch(e){}
 document.getElementById("overline").textContent = CFG.over;
 document.getElementById("mtnNote").textContent = CFG.mountainNote;
 document.getElementById("tzNote").textContent = CAPITAL.ja;
