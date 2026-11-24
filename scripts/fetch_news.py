@@ -214,20 +214,100 @@ def local_feed(source, url):
     return _FEED_CACHE[url]
 
 
+# The free endpoint often answers "429 Too Many Requests" to GitHub's servers.
+# Like the monitor (fetch_sectors.py), wait and try again a little, and when it
+# keeps refusing, stop asking for this round: the item is tried again in the
+# next round (2 hours later), so nothing is lost.
+TR_STATE = {"fails": 0, "off": False, "done": 0, "failed": 0, "skipped": 0, "borrowed": 0}
+TR_MAX_FAILS = 4  # refusals in a row before giving up for this round
+
+
+def translate_retry(texts):
+    """translate_batch with waiting on refusals. Returns None when it gave up."""
+    if TR_STATE["off"]:
+        TR_STATE["skipped"] += 1
+        return None
+    for wait in (0, 5, 15):
+        if wait:
+            time.sleep(wait)
+        try:
+            tr = translate_batch(texts)
+            TR_STATE["fails"] = 0
+            TR_STATE["done"] += 1
+            time.sleep(0.4)
+            return tr
+        except Exception as e:
+            err = e
+    log(f"translate failed: {err}")
+    TR_STATE["failed"] += 1
+    TR_STATE["fails"] += 1
+    if TR_STATE["fails"] >= TR_MAX_FAILS:
+        TR_STATE["off"] = True
+        log("translate: refused too often, leaving the rest for the next round")
+    time.sleep(3)
+    return None
+
+
+# Translations the monitor (sector-data branch) already made for the same
+# articles. 24.kg, Kaktus etc. are collected by both, so many local / infra
+# items can borrow them instead of asking the translator again.
+MONITOR_BASE = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/sector-data/"
+MONITOR_TR = {}
+
+
+def link_key(u):
+    u = (u or "").split("#")[0].split("?")[0].rstrip("/")
+    return re.sub(r"^https?://(www\.)?", "", u)
+
+
+def load_monitor_tr():
+    try:
+        idx = json.loads(get(MONITOR_BASE + "index.json", timeout=30))
+        years = sorted(idx.get("years") or [])[-2:]  # this year and last (early January)
+        for y in years:
+            for x in json.loads(get(MONITOR_BASE + f"items-{y}.json", timeout=60)).get("items", []):
+                if x.get("tj") and x.get("u"):
+                    MONITOR_TR[link_key(x["u"])] = (x["t"], x.get("l") or "", x["tj"], x.get("lj") or "")
+        log(f"monitor translations: {len(MONITOR_TR)}")
+    except Exception as e:
+        log(f"monitor translations: not available: {e}")
+
+
+def borrow(x):
+    got = MONITOR_TR.get(link_key(x["link"]))
+    if not got:
+        return None
+    t, l, tj, lj = got
+    if re.sub(r"\W+", "", t.lower())[:50] != re.sub(r"\W+", "", x["title"].lower())[:50]:
+        return None  # same address but another headline: don't trust it
+    lead = x.get("lead") or ""
+    # the lead translation fits only when both cut the same text
+    same_lead = bool(lead) and bool(lj) and l[:80] == lead[:80]
+    return tj, (lj if same_lead else "")
+
+
 def translate_items(items, prev_tr):
     for x in items:
         cached = prev_tr.get(x["link"])
         if cached:
             x["title_ja"], x["lead_ja"] = cached
             continue
-        try:
-            texts = [x["title"]] + ([x["lead"]] if x.get("lead") else [])
-            tr = translate_batch(texts)
+        got = borrow(x)
+        if got:
+            x["title_ja"], x["lead_ja"] = got
+            TR_STATE["borrowed"] += 1
+            if x["lead_ja"] or not x.get("lead"):
+                continue
+            tr = translate_retry([x["lead"]])  # title borrowed, lead still needs a translation
+            if tr:
+                x["lead_ja"] = tr[0]
+            continue
+        texts = [x["title"]] + ([x["lead"]] if x.get("lead") else [])
+        tr = translate_retry(texts)
+        if tr:
             x["title_ja"] = tr[0]
             x["lead_ja"] = tr[1] if len(tr) > 1 else ""
-            time.sleep(0.4)
-        except Exception as e:
-            log(f"translate failed: {e}")
+        else:
             x["title_ja"], x["lead_ja"] = "", ""
 
 
@@ -477,12 +557,8 @@ def collect_mystreet(infra, prev_tr):
             if key in prev_tr:
                 h["text_ja"] = prev_tr[key][0]
                 continue
-            try:
-                h["text_ja"] = translate_batch([h["text"]])[0]
-                time.sleep(0.3)
-            except Exception as e:
-                log(f"translate failed: {e}")
-                h["text_ja"] = ""
+            tr = translate_retry([h["text"]])
+            h["text_ja"] = tr[0] if tr else ""
         out.append({"city": city, "kinds": x["kinds"], "title": x["title"], "title_ja": x.get("title_ja", ""),
                     "link": x["link"], "source": x["source"], "published": x["published"],
                     "date": outage_date(x["title"] + " " + x.get("lead", "")), "hits": hits})
@@ -923,6 +999,9 @@ def main():
     except Exception as e:
         log(f"no previous data: {e}")
 
+    if COUNTRY == "kg":
+        load_monitor_tr()
+
     out = {"version": 2, "country": COUNTRY, "updated": NOW.isoformat()}
     for key, fn in (("local", lambda: collect_local(prev_tr)), ("japan", collect_japan), ("safety", collect_safety), ("world", lambda: collect_world(prev_tr)),
                     ("infra", lambda: collect_infra(prev_tr))):
@@ -936,6 +1015,7 @@ def main():
     except Exception as e:
         log(f"mystreet: failed: {e}")
         out["mystreet"] = None
+    log("translate: {done} new, {borrowed} from the monitor, {failed} refused, {skipped} left for next round".format(**TR_STATE))
     if not out["local"] and not out["japan"]:
         sys.exit("no news fetched")
     out["gnews_links"] = {k: v for k, v in GNEWS_CACHE.items() if v != k}
