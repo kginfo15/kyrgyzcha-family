@@ -212,7 +212,7 @@ function p71Render(){
   var h='',foot='',x=S.steps[S.pos];
   if(S.confirm){h='<div class="p71-body p71-center"><div class="p71-note"><h3>レッスンをやめますか？</h3><p>このレッスンの答えは記録されません。次はこのレッスンの最初から始まります。</p></div></div>';
     foot='<button type="button" class="p71-sec" data-act="p71stay">続ける</button><button type="button" class="p71-main" data-act="p71close">やめる</button>';}
-  else if(!x){h=p71Result();foot='<button type="button" class="p71-sec" data-act="p71close">ホームへ</button><button type="button" class="p71-main" data-act="p71again">次の一歩へ</button>';}
+  else if(!x){h=p71Result();foot='<button type="button" class="p71-sec" data-act="p71close">ホームへ</button><button type="button" class="p71-main" data-act="p71again">道のりの続きへ</button>';}
   else{var w=WMAP[x.id];
     if(x.t==="card"){h='<div class="p71-body"><div class="p71-tag">新しい言葉 '+(S.ids.indexOf(x.id)+1)+' / '+S.ids.length+'</div><div class="p71-card">'+p71Pic(x.id,"big")+'<div class="p71-cw">'+p71WordLine(w)+p71Spk(w.accent||w.word)+'</div><div class="p71-mean">'+esc(w.meaning||"")+'</div>'+
         (w.exRu?'<div class="p71-ex"><div>'+esc(w.exRu)+p71Spk(w.exRu)+'</div><small>'+esc(w.exJa||"")+'</small></div>':'')+(w.simpleExp?'<p class="p71-cexp">'+esc(w.simpleExp)+'</p>':'')+'</div></div>';
@@ -316,7 +316,7 @@ p70RoadCard=function(){
   R.list.forEach(function(x){if(ls&&x.cat===ls&&!x.done)c=x;});
   var li=c?p71NextIn(c.i):-1;
   var bar=c?'<em class="p71-rcbar"><i style="width:'+Math.round(c.ld/c.ln*100)+'%"></i></em>':'';
-  return '<button type="button" class="p70-roadcard" data-act="p71go" data-val="'+(c?c.i:0)+'"><span class="p70-rcart">'+P70_SCENE[c?c.level:P_LVLS[P_LVLS.length-1]]()+'</span><span class="p70-rctxt"><small>次の一歩 ・ '+(c?esc(c.cat):'')+'</small><b>'+(c?'レッスン '+(li+1)+' / '+c.ln+'：言葉・穴埋め・おさらい':'すべてのテーマを達成！')+'</b>'+bar+'</span><span class="p70-rcgo">›</span></button>'+
+  return '<button type="button" class="p70-roadcard" data-act="p71go" data-val="'+(c?c.i:0)+'"><span class="p70-rcart">'+P70_SCENE[c?c.level:P_LVLS[P_LVLS.length-1]]()+'</span><span class="p70-rctxt"><small>道のりを続きから ・ '+(c?esc(c.cat):'')+'</small><b>'+(c?'レッスン '+(li+1)+' / '+c.ln+'：言葉・穴埋め・おさらい':'すべてのテーマを達成！')+'</b>'+bar+'</span><span class="p70-rcgo">›</span></button>'+
     '<button type="button" class="p71-maplink" data-act="p70road">道のり（'+done+' / '+R.list.length+' テーマ）を見る</button>';
 };
 p70OpenRoad=function(){
