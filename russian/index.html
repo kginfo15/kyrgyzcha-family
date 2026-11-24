@@ -13131,6 +13131,33 @@ function p74FoeArt(P,ti){var f=p74FoeOf(P,ti);return f?p74Art(f[1]):p74Monster(t
 function p74BossName(P,c){var D=P&&P74_FOES[P.id];return D?D[c].b.n:P74_BOSS[c].t+" "+P74_BOSS[c].n;}
 function p74BossArt(P,c){var D=P&&P74_FOES[P.id];return D?p74Art(D[c].b.a):p74Boss(c);}
 
+/* ---------- 冒険モードのレッスンでは、単語の絵の人物に、その道の時代の帽子をかぶせる ----------
+   絵の意味（何をしている人か・何の物か）は変えない。顔のアップ（体の部分の単語）には付けない。
+   バスや電話など、現代の物そのものを表す絵はそのまま。 */
+var P74_HAT={
+ kg:'<path d="M-11 -3Q-7 -20 0 -24Q7 -20 11 -3Z" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.2"/><path d="M-11.5 -3.5Q0 -8 11.5 -3.5" stroke="#2B2233" stroke-width="2.6" fill="none"/><path d="M-4 -8Q-1 -16 0 -22M4 -8Q1 -16 0 -22" stroke="#B9A878" stroke-width=".9" fill="none"/><circle cx="0" cy="-24" r="1.4" fill="#2B2233"/>',
+ med:'<path d="M-11 -4Q-12 -16 0 -16Q13 -16 12 -5Q4 -9 -11 -4Z" fill="#8A4B2A" stroke="#2B2233" stroke-width="1"/><path d="M6 -14Q14 -24 18 -22Q12 -18 8 -12Z" fill="#E8D5A8" stroke="#2B2233" stroke-width=".8"/>',
+ wiz:'<path d="M-11 -4L2 -30L10 -5Z" fill="#5B4BB7" stroke="#2B2233" stroke-width="1"/><path d="M-14 -4Q0 -9 14 -4Q0 0 -14 -4Z" fill="#4A3C9A" stroke="#2B2233" stroke-width="1"/><path d="M1 -19l1.2 2.4 2.6.3-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.3z" fill="#FFD34D"/>',
+ jp:'<path d="M-17 -4L0 -16L17 -4Q0 -1 -17 -4Z" fill="#7A5A3A" stroke="#2B2233" stroke-width="1"/><path d="M-6 -12L0 -16L6 -12" stroke="#C99A2E" stroke-width="1.2" fill="none"/>',
+ sea:'<path d="M-10.5 -2Q-11 -14 0 -14Q11 -14 10.5 -2Q0 -7 -10.5 -2Z" fill="#C0392B" stroke="#2B2233" stroke-width="1"/><circle cx="-4" cy="-9" r="1" fill="#fff"/><circle cx="3" cy="-11" r="1" fill="#fff"/><path d="M10 -5l6 3-5 2z" fill="#C0392B" stroke="#2B2233" stroke-width=".8"/>'
+};
+function p74Era(P){if(!P)return "";if(P.hist)return "kg";return {sword:"med",king:"med",magic:"wiz",samurai:"jp",sea:"sea"}[P.id]||"";}
+function p74Costume(d,P){
+  var era=p74Era(P),hat=P74_HAT[era];if(!hat||!d)return;var svg=d.querySelector("svg");if(!svg||svg.getAttribute("data-era")===era)return;
+  svg.setAttribute("data-era",era);var NS="http://www.w3.org/2000/svg";
+  Array.prototype.slice.call(svg.querySelectorAll("circle,ellipse")).forEach(function(el){
+    if(String(el.getAttribute("fill")||"").toUpperCase()!=="#F2C39A")return;
+    var cx=+(el.getAttribute("cx")||0),cy=+(el.getAttribute("cy")||0),r=+(el.getAttribute("r")||el.getAttribute("rx")||0);
+    if(el.tagName.toLowerCase()==="ellipse"&&+el.getAttribute("ry")<r*.75)return;
+    if(!(r>=5&&r<=16))return;
+    var g=document.createElementNS(NS,"g");g.setAttribute("transform","translate("+cx+" "+cy+") scale("+(r/10).toFixed(3)+")");g.innerHTML=hat;
+    /* 髪や顔の部品（頭のすぐ後ろに描かれているもの）の上にかぶせる */
+    var at=el,nx=el.nextElementSibling,k=0;
+    while(nx&&k<4){var b=null;try{b=nx.getBBox();}catch(_){}if(!b||b.width>r*3||b.height>r*3||Math.abs(b.x+b.width/2-cx)>r*1.3||Math.abs(b.y+b.height/2-cy)>r*1.6)break;at=nx;nx=nx.nextElementSibling;k++;}
+    at.parentNode.insertBefore(g,at.nextSibling);
+  });
+}
+
 /* ===== Phase74：道のりを「冒険」に（5つの成り上がりの道・モンスター・ボス・装備・技・仲間）。ストーリーなし（今までの路線図）も選べる =====
    記録：settings.p74 = {mode:"story"|"plain", path:"sword"…}。進み具合そのものはレッスンの記録（settings.p71.done）から毎回計算するので、
    道を変えても進み具合は消えず、同じ段階の姿・装備・技・仲間がその道のものに置きかわる。 */
@@ -13172,7 +13199,7 @@ p70RoadCard=function(){
     var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74FoeName(P,ti);li=p74Next(ti);}});
     card='<button type="button" class="p74-card" data-act="p71go" data-val="'+ti+'"><span class="p74-cart p74-duel">'+p74Hero(P,S.stage,"p74-cimg")+(c?p74Svg(p74FoeArt(P,ti),"p74-cimg p74-cmon"):'')+'</span>'+
       '<span class="p74-ctxt"><small>'+P74_NAME+'を続きから ・ '+esc(P.titles[S.stage])+' Lv '+S.lv+'</small>'+
-      (c?'<b>'+(P.ev?'「'+esc(mon)+'」へ進む':esc(mon)+'とたたかう')+'</b><em>'+esc(c.cat)+' ・ レッスン '+(li+1)+' / '+c.ln+'</em>'+p74Bar(c.ln-c.ld,c.ln,"red"):'<b>'+(P.ev?'すべての出来事をクリア！':'すべての敵を'+P.verb+'！')+'</b><em>'+esc(P.titles[8])+'になりました</em>')+'</span><span class="p70-rcgo">›</span></button>';
+      (c?'<b>'+(P.ev?'「'+esc(mon)+'」へ進む':esc(mon)+'とたたかう')+'</b><em>'+esc(c.cat)+' ・ 完了 '+c.ld+' / '+c.ln+' レッスン</em>'+p74Bar(c.ln-c.ld,c.ln,"red"):'<b>'+(P.ev?'すべての出来事をクリア！':'すべての敵を'+P.verb+'！')+'</b><em>'+esc(P.titles[8])+'になりました</em>')+'</span><span class="p70-rcgo">›</span></button>';
   }
   return h.replace(/<button type="button" class="p70-roadcard"[\s\S]*?<\/button>/,card);
 };
@@ -13194,6 +13221,7 @@ function p74Chooser(){
 }
 function p74Main(){
   var P=p74Path(),S=p74State(),st=S.stage,h='';
+  if(P74_VIEW==="read"&&P.story)return '<button type="button" class="p74-rtop" data-act="p74tab" data-val="map">‹ 冒険の画面にもどる</button>'+p74Reader(P,S);
   h+='<div class="p74-me" style="--pc:'+P.color+'"><div class="p74-mefig">'+p74Hero(P,st,"p74-big")+'</div><div class="p74-meinfo"><small>'+esc(P.name)+'</small><b>'+esc(P.titles[st])+'</b><span class="p74-lv">Lv '+S.lv+'</span>'+
      '<button type="button" class="p74-chg" data-act="p74choose">道を変える・最初から ›</button><div class="p74-stats"><span><b>'+S.gear+'</b>/17 装備</span><span><b>'+S.skills+'</b>/8 技</span><span><b>'+S.allies+'</b>/5 仲間</span></div>'+
      (st<8?'<small class="p74-next">次の姿「'+esc(P.titles[st+1])+'」まで：'+(P.ev?'「':'ボス「')+esc(p74BossName(P,S.ch.filter(function(c){return !c.beat;})[0]?S.ch.filter(function(c){return !c.beat;})[0].c:7))+(P.ev?'」をクリアする':'」を倒す')+'</small>':'<small class="p74-next">最終形に到達しました！</small>')+'</div></div>';
@@ -13204,18 +13232,19 @@ function p74Main(){
   var c=S.cur;
   if(c){var li=p74Next(c.i);
     h+='<div class="p74-battle"><div class="p74-bfig">'+p74Hero(P,st,"p74-bimg")+'<span class="p74-vs">'+(P.ev?'›':'VS')+'</span>'+p74Svg(p74FoeArt(P,c.i),"p74-bimg p74-mon")+'</div>'+
-       '<div class="p74-btx"><small>'+(P.ev?'第'+(p74ChOf(c.i)+1)+'章の出来事':'Lv '+(c.i+3))+' ・ テーマ「'+esc(c.cat)+'」</small><b>'+esc(p74FoeName(P,c.i))+'</b>'+p74Bar(c.ln-c.ld,c.ln,"red")+'<small>'+(P.ev?'のこり '+(c.ln-c.ld)+' / '+c.ln+' レッスン（レッスン1つで1歩前進）':'のこり HP '+(c.ln-c.ld)+' / '+c.ln+'（レッスン1つで1ダメージ）')+'</small></div>'+
-       '<button type="button" class="p74-go" data-act="p71go" data-val="'+c.i+'">レッスン '+(li+1)+(P.ev?' で進む':' でたたかう')+'</button></div>';}
+       '<div class="p74-btx"><small>'+(P.ev?'第'+(p74ChOf(c.i)+1)+'章の出来事':'Lv '+(c.i+3))+' ・ テーマ「'+esc(c.cat)+'」</small><b>'+esc(p74FoeName(P,c.i))+'</b>'+p74Bar(c.ln-c.ld,c.ln,"red")+'<small>'+'完了 '+c.ld+' / '+c.ln+' レッスン'+(P.ev?'（レッスン1つで1歩前進）':'（レッスン1つで1ダメージ）')+'</small></div>'+
+       '<button type="button" class="p74-go" data-act="p71go" data-val="'+c.i+'">'+(P.ev?'次のレッスンで進む':'次のレッスンでたたかう')+'</button></div>';}
   /* タブ */
   var v=P74_VIEW||"map";
-  h+='<div class="p74-tabs">'+(P.hist?[["map","地図"],["story","物語"],["ex","例文"],["gear","装備"],["skill","技"],["ally","仲間"]]:P.story?[["map","地図"],["story","物語"],["gear","装備"],["skill","技"],["ally","仲間"]]:[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]]).map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
+  h+='<div class="p74-tabs">'+(P.hist?[["map","地図"],["story","物語"],["ex","例文"],["gear","装備"],["skill","技"],["ally","仲間"]]:P.story?[["map","地図"],["story","物語"],["gear","装備"],["skill","技"],["ally","仲間"]]:[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]]).map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]||(v==="read"&&t[0]==="story")?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
   if(v==="map"){
     S.ch.forEach(function(ch){var B=P74_BOSS[ch.c],ct=P.story&&P.story[ch.c+1]?P.story[ch.c+1].t.replace(/^[^　]+　/,""):B.t+"の地",bn=p74BossName(P,ch.c);
       h+='<div class="p74-ch"><div class="p74-chh"><small>第'+(ch.c+1)+'章</small><b>'+esc(ct)+'</b></div>';
       ch.themes.forEach(function(x){var st2=x.done?"d":(S.cur&&x.i===S.cur.i?"c":"");
-        h+='<button type="button" class="p74-row '+st2+'" data-act="p71go" data-val="'+x.i+'"'+(st2==="c"?' id="p70cur"':'')+'><span class="p74-rimg">'+p74Svg(p74FoeArt(P,x.i))+(x.done?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><b>'+esc(p74FoeName(P,x.i))+'</b><small>'+esc(x.cat)+' ・ '+(x.done?P.verb:(P.ev?'のこり ':'HP ')+(x.ln-x.ld)+' / '+x.ln)+'</small>'+(x.done?'':p74Bar(x.ln-x.ld,x.ln,"red sm"))+'</span></button>';});
+        h+='<button type="button" class="p74-row '+st2+'" data-act="p71go" data-val="'+x.i+'"'+(st2==="c"?' id="p70cur"':'')+'><span class="p74-rimg">'+p74Svg(p74FoeArt(P,x.i))+(x.done?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><b>'+esc(p74FoeName(P,x.i))+'</b><small>'+esc(x.cat)+' ・ '+(x.done?P.verb:'完了 '+x.ld+' / '+x.ln)+'</small>'+(x.done?'':p74Bar(x.ln-x.ld,x.ln,"red sm"))+'</span></button>';});
       h+='<div class="p74-boss'+(ch.beat?" beat":"")+'"><span class="p74-bsimg">'+p74Svg(p74BossArt(P,ch.c))+(ch.beat?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><small>'+(P.ev?'この章の大きな出来事':'ボス ・ Lv '+p74BossLv(ch.c))+'</small><b>'+esc(bn)+'</b>'+(P74_FOES[P.id]?'':'<small class="p74-ru">名前はロシア語の '+esc(B.ru)+'（'+esc(B.ja)+'）から</small>')+
         (ch.beat?'<small>'+P.verb+'！ 技「'+esc(P.sk[ch.c])+'」を覚えた</small>':p74Bar(ch.need-ch.done,ch.need,"red")+'<small>'+(P.ev?'この章のテーマを全部終えると、クリアできます':'この章の敵を全部倒すと、ボスも倒れます')+'（のこり '+(ch.need-ch.done)+'）</small>')+'</span></div></div>';});
+  }else if(v==="read"&&P.story){h+=p74Reader(P,S);
   }else if(v==="story"&&P.story){h+=p74StoryTab(P,S);
   }else if(v==="ex"&&P.hist){h+=p74ExTab(P,S);
   }else if(v==="gear"){
@@ -13233,7 +13262,7 @@ function p74Main(){
 function p74Open(choose){
   if(!p74Story()){_p74Open();var m0=document.getElementById("p70page");
     if(m0){var b=m0.querySelector(".p70-pbody");if(b)b.insertAdjacentHTML("afterbegin",'<button type="button" class="p74-plain p74-toq" data-act="p74story"><b>'+P74_NAME+'モードにする</b><small>レッスンで敵を倒し、装備・技・仲間を集めながら進みます。</small></button>');}return;}
-  var P0=p74Path();if(P0&&!P0.hist&&(P74_VIEW==="story"||P74_VIEW==="ex"))P74_VIEW="map";
+  var P0=p74Path();if(P0&&((!P0.hist&&P74_VIEW==="ex")||(!P0.story&&(P74_VIEW==="story"||P74_VIEW==="read"))))P74_VIEW="map";
   var m=p74Page(choose||!P0?p74Chooser():p74Main());try{p72Wrap(m);}catch(_){}
   setTimeout(function(){var nw=document.getElementById("p74newest");if(nw&&P74_VIEW==="story"&&!choose){var sc=nw.closest(".p70-pbody");if(sc)sc.scrollTop=Math.max(0,nw.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-8);return;}var c=document.getElementById("p70cur");if(c&&c.scrollIntoView&&(P74_VIEW||"map")==="map"&&!choose)c.scrollIntoView({block:"center"});},60);
 }
@@ -13254,7 +13283,7 @@ p71Result=function(){
   var A=P74_SNAP,B=p74State(),ti=P71.ti,x=B.list[ti];if(!x)return h;
   var dead=x.done,sk=B.skills?P.sk[(P71.li+ti)%B.skills]:null;
   var g='<div class="p74-res" style="--pc:'+P.color+'"><div class="p74-bfig">'+p74Hero(P,B.stage,"p74-bimg")+'<span class="p74-hit">'+(dead?(P.ev?"クリア!":"KO!"):(P.ev?"+1":"−1"))+'</span>'+p74Svg(p74FoeArt(P,ti),"p74-bimg p74-mon"+(dead&&!P.ev?" ko":""))+'</div>';
-  var fn=p74FoeName(P,ti);g+='<p>'+(P.ev?'「'+esc(fn)+'」へ 1歩前進。'+(dead?'<b>「'+esc(fn)+'」をクリア！</b>':'のこり '+(x.ln-x.ld)+' / '+x.ln+' レッスン'):(sk?'技「'+esc(sk)+'」！ ':'')+esc(fn)+'に 1 ダメージ。'+(dead?'<b>'+esc(fn)+'を'+P.verb+'！</b>':'のこり HP '+(x.ln-x.ld)+' / '+x.ln))+'</p>'+(dead?'':p74Bar(x.ln-x.ld,x.ln,"red"));
+  var fn=p74FoeName(P,ti);g+='<p>'+(P.ev?'「'+esc(fn)+'」へ 1歩前進。'+(dead?'<b>「'+esc(fn)+'」をクリア！</b>':'完了 '+x.ld+' / '+x.ln+' レッスン'):(sk?'技「'+esc(sk)+'」！ ':'')+esc(fn)+'に 1 ダメージ。'+(dead?'<b>'+esc(fn)+'を'+P.verb+'！</b>':'完了 '+x.ld+' / '+x.ln+' レッスン'))+'</p>'+(dead?'':p74Bar(x.ln-x.ld,x.ln,"red"));
   var news=[];
   if(A){
     for(var i=A.gear;i<B.gear;i++)news.push('<li><span>装備</span>'+esc(P.gear[i])+'</li>');
@@ -13263,9 +13292,10 @@ p71Result=function(){
     for(var b=0;b<B.ch.length;b++)if(B.ch[b].beat&&!(A.ch[b]&&A.ch[b].beat))g+='<div class="p74-bossko">'+p74Svg(p74BossArt(P,b),"p74-bimg"+(P.ev?"":" ko"))+'<b>'+(P.ev?'「'+esc(p74BossName(P,b))+'」をクリア！':'ボス「'+esc(p74BossName(P,b))+'」を'+P.verb+'！')+'</b></div>';
     if(B.stage>A.stage)g+='<div class="p74-up">'+p74Hero(P,B.stage,"p74-big")+'<b>「'+esc(P.titles[B.stage])+'」になった！</b></div>';
   }
-  if(P.story){if(A&&B.stage>A.stage)g+='<div class="p74-newsc"><small>'+(P.hist?'新しい場面が開いた！':'新しい話が開いた！')+'</small>'+p74SceneHtml(P,B.stage,true)+'<button type="button" class="p74-go" data-act="p74read">'+esc(p74Short(P))+'の物語をひらく</button></div>';else g+=p74StoryHint(P,B,false);}
+  if(P.story){if(A&&B.stage>A.stage)g+='<div class="p74-newsc"><small>'+(P.hist?'新しい場面が開いた！':'新しい話が開いた！')+'</small>'+p74SceneHtml(P,B.stage,true)+'<button type="button" class="p74-go" data-act="p74read" data-val="'+B.stage+'">'+esc(p74Short(P))+'の物語をひらく</button></div>';else g+=p74StoryHint(P,B,false);}
   if(news.length)g+='<div class="p74-news"><small>手に入れたもの</small><ul>'+news.join("")+'</ul></div>';
   g+='</div>';
+  h=h.replace(/<div class="p71-dart">[\s\S]*?<\/svg><\/div>/,'');
   return h.replace('<div class="p71-body">','<div class="p71-body">'+g);
 };
 /* ---------- 「道のり」という呼び名を冒険モードでは置きかえる ---------- */
@@ -13293,14 +13323,26 @@ function p74SceneHtml(P,i,noTitle){var s=P.story[i];if(!s)return "";
     '<div class="p74-scx">'+p74Paras(s.x)+'</div>'+(s.ex?p74ExHtml(s.ex,p74Short(P)+"で学ぶ例文"):'')+(s.nx?'<p class="p74-nx"><b>次回予告</b>'+esc(s.nx)+'</p>':'')+'</div>';}
 /* 次の場面まであと何テーマか */
 function p74StoryHint(P,S,btn){var st=S.stage;
-  if(st>=8)return '<div class="p74-hint"><span><small>'+esc(p74Short(P))+'の物語</small><b>すべての'+(P.hist?'場面':'話')+'を読めます</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">読む</button>':'')+'</div>';
+  if(st>=8)return '<div class="p74-hint"><span><small>'+esc(p74Short(P))+'の物語</small><b>すべての'+(P.hist?'場面':'話')+'を読めます</b></span>'+(btn?'<button type="button" data-act="p74ri" data-val="0">読む</button>':'')+'</div>';
   var ch=S.ch.filter(function(c){return !c.beat;})[0],left=ch?ch.need-ch.done:0;
-  return '<div class="p74-hint"><span><small>次の'+(P.hist?'場面':'話')+'「'+esc(P.story[st+1].t)+'」まで</small><b>あと '+left+' テーマ（'+(P.ev?'':'ボス')+'「'+esc(p74BossName(P,ch?ch.c:7))+'」）</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">物語</button>':'')+'</div>';}
-function p74StoryTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+(P.hist?'章をクリアするたびに、次の場面が開きます。場面ごとに解説と例文があり、例文の単語はタップすると意味が出ます。':'ボスを倒すたびに、次の話が開きます。')+'</p>';
+  return '<div class="p74-hint"><span><small>次の'+(P.hist?'場面':'話')+'「'+esc(P.story[st+1].t)+'」まで</small><b>あと '+left+' テーマ（'+(P.ev?'':'ボス')+'「'+esc(p74BossName(P,ch?ch.c:7))+'」）</b></span>'+(btn?'<button type="button" data-act="p74ri" data-val="'+st+'">'+(st?'ここまでを読む':'序章を読む')+'</button>':'')+'</div>';}
+function p74StoryTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+(P.hist?'章をクリアするたびに、次の場面が開きます。場面ごとに解説と例文があります。':'ボスを倒すたびに、次の話が開きます。')+'読みたい話を押すと、前後に行き来しながら読めます。</p>';
+  h+='<button type="button" class="p74-go p74-readall" data-act="p74ri" data-val="0">はじめから読む（いま '+(st+1)+' 話まで読めます）</button><div class="p74-toc">';
   P.story.forEach(function(s,i){
-    if(i<=st)h+='<details class="p74-scd"'+(i===st?' open id="p74newest"':'')+'><summary><b>'+esc(s.t)+'</b></summary>'+p74SceneHtml(P,i,false)+'</details>';
-    else h+='<div class="p74-sclock"><b>'+esc(s.t)+'</b><small>'+(P.ev?'「':'ボス「')+esc(p74BossName(P,i-1))+(P.ev?'」をクリアすると開きます':'」を倒すと開きます')+'</small></div>';});
-  if(P.about)h+=S.stage>=8?'<div class="p74-about"><b>'+esc(P.about.t)+'</b>'+p74Paras(P.about.x)+'</div>':'<div class="p74-sclock"><b>'+esc(P.about.t)+'</b><small>すべての章をクリアすると読めます</small></div>';
+    if(i<=st)h+='<button type="button" class="p74-tocr" data-act="p74ri" data-val="'+i+'"><span class="p74-tocn">'+(i===0?'序':i)+'</span><span><b>'+esc(s.t.replace(/^[^　]+　/,""))+'</b><small>'+(i===st?'いちばん新しい話':'読める')+'</small></span><i>›</i></button>';
+    else h+='<div class="p74-tocr off"><span class="p74-tocn">'+i+'</span><span><b>'+esc(s.t.replace(/^[^　]+　/,""))+'</b><small>'+(P.ev?'「':'ボス「')+esc(p74BossName(P,i-1))+(P.ev?'」をクリアすると開きます':'」を倒すと開きます')+'</small></span></div>';});
+  if(P.about)h+=S.stage>=8?'<button type="button" class="p74-tocr" data-act="p74ri" data-val="9"><span class="p74-tocn">★</span><span><b>'+esc(P.about.t)+'</b><small>まとめ</small></span><i>›</i></button>':'<div class="p74-tocr off"><span class="p74-tocn">★</span><span><b>'+esc(P.about.t)+'</b><small>すべての章をクリアすると読めます</small></span></div>';
+  return h+'</div>';}
+/* 1話ずつ読む画面（前後に行き来できる） */
+var P74_RI=0;
+function p74Top(){setTimeout(function(){var m=document.getElementById("p70page");if(m)m.scrollTop=0;},80);}
+function p74Reader(P,S){var st=Math.min(8,S.stage),last=st+(S.stage>=8&&P.about?1:0),i=Math.max(0,Math.min(last,P74_RI|0)),h='';
+  var nav=function(pos){return '<div class="p74-rnav '+pos+'"><button type="button" data-act="p74ri" data-val="'+(i-1)+'"'+(i>0?'':' disabled')+'>‹ 前の話</button><span>'+(i>8?'まとめ':(i===0?'序章':'第'+i+'話'))+' ・ '+(i+1)+' / '+(last+1)+'</span><button type="button" data-act="p74ri" data-val="'+(i+1)+'"'+(i<last?'':' disabled')+'>次の話 ›</button></div>';};
+  h+=nav("top");
+  if(i>8)h+='<div class="p74-about"><b>'+esc(P.about.t)+'</b>'+p74Paras(P.about.x)+'</div>';
+  else h+='<div class="p74-rd"><b class="p74-sct">'+esc(P.story[i].t)+'</b>'+p74SceneHtml(P,i,false)+'</div>';
+  if(i===last&&i<8){var ch=S.ch.filter(function(c){return !c.beat;})[0],left=ch?ch.need-ch.done:0;h+='<p class="p74-rmore">ここまでが、いま読める話です。次の'+(P.hist?'場面':'話')+'は、あと '+left+' テーマで開きます。</p>';}
+  h+=nav("bot")+'<button type="button" class="p74-rback" data-act="p74tab" data-val="story">話の一覧へ</button>';
   return h;}
 function p74ExTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+esc(p74Short(P))+'で学ぶ例文です。スピーカーで読み上げ、単語をタップすると意味と形（格など）が出ます。場面が開くたびに増えます。</p>';
   P.story.forEach(function(s,i){if(i<=st&&s.ex)h+=p74ExHtml(s.ex,s.t);});
@@ -13338,11 +13380,18 @@ window.addEventListener("click",function(e){
     var was=s.path;s.mode="story";s.path=pid;if(!s.own||typeof s.own!=="object")s.own={};if(a==="p74fresh2")s.own[pid]={};
     try{saveAll();}catch(_){}var d2=document.getElementById("p74dlg");if(d2)d2.remove();P74_VIEW="map";p74Open(false);try{render();}catch(_){}
     var P2=p74Path();toast(a==="p74fresh2"?"「"+P2.name+"」を最初から始めます":(was&&was!==pid?"「"+P2.name+"」に変えました（続きから）":"「"+P2.name+"」を続きから進めます"));}
-  else if(a==="p74read"){P74_VIEW="story";try{if(P71)p71Close();}catch(_){}p74Open(false);}
+  else if(a==="p74read"){P74_VIEW="read";P74_RI=+(v||0);try{if(P71)p71Close();}catch(_){}p74Open(false);p74Top();}
+  else if(a==="p74ri"){P74_VIEW="read";P74_RI=+v;p74Open(false);p74Top();}
   else if(a==="p74tab"){P74_VIEW=v;var m=document.getElementById("p70page"),sc=m&&m.querySelector(".p70-pbody"),y=sc?sc.scrollTop:0;p74Open(false);var sc2=document.querySelector("#p70page .p70-pbody");if(sc2)sc2.scrollTop=y;}
 },true);
 /* ---------- 見た目（色はテーマ変数を使い、ダーク・ライトどちらでも読める） ---------- */
 (function(){var css=
+'.p74-rtop{border:0;background:none;color:var(--accent);font:inherit;font-weight:800;padding:4px 0 8px;cursor:pointer}'+
+'.p74-readall{margin:4px 0 10px}.p74-toc{display:flex;flex-direction:column;gap:8px}.p74-tocr{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer;box-sizing:border-box}.p74-tocr span:nth-child(2){flex:1;min-width:0}.p74-tocr b{display:block;font-size:15px}.p74-tocr small{display:block;color:var(--muted);font-size:12.5px}.p74-tocr i{font-style:normal;color:var(--muted);font-size:20px}.p74-tocr.off{opacity:.6;border-style:dashed;cursor:default}'+
+'.p74-tocn{flex:none;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}.p74-tocr.off .p74-tocn{background:var(--line);color:var(--muted)}'+
+'.p74-rnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:6px 0 10px}.p74-rnav span{font-size:13px;color:var(--muted);font-weight:700;text-align:center}.p74-rnav button{flex:none;min-height:40px;padding:0 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--accent);font:inherit;font-weight:800;cursor:pointer}.p74-rnav button:disabled{opacity:.35;cursor:default}.p74-rnav.bot{margin-top:14px}'+
+'.p74-rd .p74-sct{font-size:18px;margin:0 0 8px}.p74-rmore{font-size:13.5px;color:var(--muted);line-height:1.7;margin:10px 0 0}.p74-rback{display:block;width:100%;margin-top:8px;min-height:42px;border-radius:12px;border:0;background:none;color:var(--muted);font:inherit;font-weight:700;cursor:pointer}'+
+
 '.p74-nx{margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:var(--card2,rgba(127,127,127,.1));font-size:14px;line-height:1.7}.p74-nx b{display:inline-block;margin-right:8px;padding:1px 8px;border-radius:999px;background:var(--accent);color:#fff;font-size:12px}'+
 
 '#p74dlg{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;padding:16px;box-sizing:border-box}.p74-dbox{width:100%;max-width:420px;background:var(--card);color:var(--ink);border-radius:18px;padding:16px;box-sizing:border-box;margin-bottom:max(8px,env(safe-area-inset-bottom))}.p74-dt{display:block;font-size:17px}.p74-dbox p{font-size:14px;line-height:1.7;margin:6px 0 10px;color:var(--ink)}'+
@@ -13387,6 +13436,12 @@ window.addEventListener("click",function(e){
 '.p74-bossko,.p74-up{display:flex;align-items:center;gap:10px;margin-top:10px;padding:8px 10px;border-radius:14px;background:rgba(232,185,35,.15);border:1px solid rgba(232,185,35,.5)}.p74-bossko .p74-bimg{width:60px;height:80px;opacity:.6}.p74-up .p74-big{width:70px;height:94px}.p74-bossko b,.p74-up b{font-size:15px}'+
 '.p74-news{margin-top:10px}.p74-news small{font-size:12px;color:var(--muted);font-weight:700}.p74-news ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}.p74-news li{font-size:14px;font-weight:700}.p74-news li span{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;margin-right:6px;border-radius:999px;background:var(--accent);color:#fff}';
 var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);})();
+/* ---------- 冒険モードのレッスン：単語の絵を道の時代に合わせる（帽子・紙の背景） ---------- */
+(function(){
+  var _f=p66Fill;p66Fill=function(d){var o=_f.apply(this,arguments);try{if(d&&d.closest&&d.closest("#p71")&&p74Story()){var P=p74Path();if(P)p74Costume(d,P);}}catch(_){}return o;};
+  var _r=p71Render;p71Render=function(){var o=_r.apply(this,arguments);try{var P=p74Story()?p74Path():null;document.body.classList.toggle("p74-era",!!P);}catch(_){}return o;};
+  try{var st=document.createElement("style");st.textContent='body.p74-era #p71 .p59-pic.p67-art{background:#F4EAD0;border-radius:14px;box-shadow:inset 0 0 0 2px #CDB27A}body.p74-era #p71 .p59-pic.p67-art svg{filter:sepia(.18)}';document.head.appendChild(st);}catch(_){}
+})();
 
 /* ===== init ===== */
 try{ if(!ui.view)ui.view="word"; if(!ui.bnav)ui.bnav="home"; applyDisplayPrefs(); render(); }catch(err){ showFatal((err&&err.stack)||err); }
