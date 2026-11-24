@@ -3585,7 +3585,7 @@ const anaT = (p, f="t") => !SHOW_JP && p[f+"nj"] ? p[f+"nj"] : (!SHOW_JP && p.jp
 const anaVT = p => p.k==="v" ? '<span class="rp-vt">読み</span>' : "";
 // row money from the text's facts, without Japan when the JP switch is off
 const anaRowM = r => !r ? 0 : SHOW_JP ? r.musd : Object.entries(r.by_donor||{}).filter(([d])=>!JP_IDS.has(d)).reduce((v,[,x])=>v+x, 0);
-const anaM = m => m>=100 ? (m/100).toFixed(1)+"億" : m>=1 ? (Math.round(m*10)/10).toLocaleString("ja-JP")+"百万" : m>0 ? "1百万未満" : "0";
+const anaM = m => m>=100 ? (m/100).toFixed(1)+"億" : m>=1 ? (Math.round(m*10)/10).toLocaleString("ja-JP")+"百万" : m>=0.01 ? Math.round(m*100)+"万" : m>0 ? "1万未満の" : "0";
 const ANA_CAT = {gov:"国家統計・政府資料", donor:"ドナー・国際機関の報告", paper:"論文"};
 // the numbers of a sector, read live from the site's data (used when the sector's text has no facts block yet)
 function anaFacts(sid, D){
@@ -3677,12 +3677,12 @@ function anaHTML(sid, D, mx, mode){
     const g = [...by].map(([d, l])=>({d, l:l.sort((a,b)=>shareAmt(b[0])-shareAmt(a[0])), a:l.reduce((v,[p])=>v+shareAmt(p), 0)})).sort((a,b)=>b.a-a.a);
     const tot = g.reduce((v,x)=>v+x.a, 0), n = seen.size;
     const yr = s => String(s||"").slice(0,7).replace("-","/");
-    const head = `<p class="an-tn">${n}件・${anaM(tot/1e6)}ドル(按分後)。${st==="closed"?`${CLOSED_FROM}年以降に終わった案件だけ。`:""}金額は契約・約束額のドル換算、複数分野の案件は按分。</p>`;
+    const head = `<p class="an-tn">${n}件・${tot>=5e4 ? anaM(tot/1e6)+"ドル" : tot>0 ? "10万ドル未満" : "金額の記録なし"}(按分後)。${st==="closed"?`${CLOSED_FROM}年以降に終わった案件だけ。`:""}金額は契約・約束額のドル換算、複数分野の案件は按分。</p>`;
     if(slide) return head + `<table class="an-t an-pts"><thead><tr><th>ドナー</th><th class="r">件数</th><th class="r">金額(百万ドル)</th><th>主な案件</th></tr></thead><tbody>${g.slice(0,10).map(x=>`<tr><td>${esc(SUM_DN[x.d]||donorName(x.d))}</td><td class="r">${x.l.length}</td><td class="r">${sumM(x.a)||"0"}</td><td>${x.l.slice(0,2).map(([p])=>esc(String(p.tj||p.t||"").slice(0,34))).join(" / ")}</td></tr>`).join("")}</tbody></table>${g.length>10?`<p class="an-tn">ほか${g.length-10}ドナー。全部の一覧は文章版にあります。</p>`:""}`;
     const lim = st==="closed" ? 5 : 8;
     const tr = ([p, rs]) => `<tr><td><a href="${esc(p.u)}" target="_blank" rel="noopener">${esc(p.tj||p.t)}</a></td><td class="r">${sumM(shareAmt(p))||"—"}</td><td class="nw">${esc(yr(p.a))}〜${esc(yr(p.e))}</td><td>${esc(rs.map(r=>r.n.replace(/[(（].*$/,"")).join("、"))}</td></tr>`;
     const tb = l => `<table class="an-t an-pt"><colgroup><col><col style="width:12%"><col style="width:17%"><col style="width:22%"></colgroup><thead><tr><th>案件</th><th class="r">百万ドル</th><th>期間</th><th>表の行</th></tr></thead><tbody>${l.map(tr).join("")}</tbody></table>`;
-    return head + g.map(x=>`<div class="an-pg"><h5>${esc(SUM_DN[x.d]||donorName(x.d))}<span>${x.l.length}件・${sumM(x.a)||"0"}百万ドル</span></h5>${tb(x.l.slice(0, lim))}
+    return head + g.map(x=>`<div class="an-pg"><h5>${esc(SUM_DN[x.d]||donorName(x.d))}<span>${x.l.length}件・${x.a>=5e4 ? sumM(x.a)+"百万ドル" : x.a>0 ? "10万ドル未満" : "金額の記録なし"}</span></h5>${tb(x.l.slice(0, lim))}
       ${x.l.length>lim ? `<details class="an-more"><summary>残り${x.l.length-lim}件を見る</summary>${tb(x.l.slice(lim))}</details><p class="an-prn">ほか${x.l.length-lim}件(画面の「残り${x.l.length-lim}件を見る」で一覧が見られます)</p>` : ""}</div>`).join("");
   };
   const fig = (f, sec={}) => {
@@ -3748,7 +3748,7 @@ function anaHTML(sid, D, mx, mode){
   const msgOf = s => !SHOW_JP && s.msgnj ? s.msgnj : s.msg;
   const secs = A.chapters.flatMap(c=>c.sections.map(s=>({c, s})));
   const sid2 = s => "an-s"+String(s.no).replace(".","-");
-  const srcLi = d => `<li id="an-doc-${esc(d.id)}">${d.u?`<a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a>`:`<b>${esc(d.t)}</b>`}(${esc(d.by)}、${esc(d.y)})<div>読んだ範囲:${esc(d.scope)}</div></li>`;
+  const srcLi = d => `<li id="an-doc-${esc(d.id)}">${d.u?`<a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a>`:`<b>${esc(d.t)}</b>`}(${[d.by,d.y].filter(x=>x && x!=="—").map(esc).join("、")})<div>読んだ範囲:${esc(d.scope)}</div></li>`;
   const srcList = (docs.length ? Object.entries(ANA_CAT).map(([c, l])=>{ const l2 = docs.filter(d=>(d.cat||"donor")===c);
       return l2.length ? `<h5 class="an-srch">${esc(l)}</h5>${c==="paper"?'<p class="an-tn">論文の数字は国の統計ではありません。本文では「論文」の印を付けています。</p>':""}<ol class="an-src">${l2.map(srcLi).join("")}</ol>` : ""; }).join("")
     : `<p class="an-tn">この分野の文献に基づく本文は準備中です。いまはサイトのデータ(協力案件・指標・国の戦略・ニュース)だけで作っています。</p>`) + `
