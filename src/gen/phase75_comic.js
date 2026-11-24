@@ -43,7 +43,9 @@ p74SceneHtml=function(P,i,noTitle){var rd=p75Rd(),s=P&&P.story&&P.story[i];if(!s
   else{h=h.replace(/<div class="p74-scimg">[\s\S]*?<\/svg><\/div>/,cm);}
   return h;};
 function p75RdBar(){var rd=p75Rd(),b=function(v,t){return '<button type="button" class="'+(rd===v?"on":"")+'" data-act="p75rd" data-val="'+v+'">'+t+'</button>';};
-  return '<div class="p75-rdbar"><span>読み方</span>'+b("both","4コマ＋文章")+b("comic","4コマ")+b("text","文章")+'</div>';}
+  return '<div class="p75-rdbar"><span>読み方を選ぶ</span>'+b("comic","4コマ漫画で読む")+b("text","文章で読む")+b("both","両方")+'</div>';}
+var _p75Tab=p74StoryTab;
+p74StoryTab=function(){return p75RdBar()+_p75Tab.apply(this,arguments);};
 var _p75Reader=p74Reader;
 p74Reader=function(){return p75RdBar()+_p75Reader.apply(this,arguments);};
 document.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="p75rd"]'):null;if(!el)return;

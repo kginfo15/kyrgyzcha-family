@@ -83,6 +83,7 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 | phase75_levels | 冒険モードの難易度（1見て選ぶ／2聞いて選ぶ／3文字を並べて書く／4聞いて書く／5文の形を書く）。p71Build を包んで pick→m:"hear"/"type"/"dict"、cloze/form→m:"ctype"（難易度5）に変え、x.m のある問題は p75Render で描く（文字タイル＋パソコンのキー入力）。settings.p74.lvl／clr（1周した最高の難易度、1周で次が開く・未開放も確認つきで選べる）。難易度2以上の進み具合は settings.p74.own["道@難易度"]。レッスンの途中再開：localStorage K.set+"_p71run" に P71 を保存、同じレッスンを開くと続きから。「道のりの続きへ」は冒険モードでは p74Road/p74Next で選ぶ。 |
 | phase75_comic | 物語の4コマ漫画（p75Comic：場面の fig からカメラ位置を変えた4コマ＋本文を4つに分けた文）。settings.p74.rd = both／comic／text（読む画面の上で切りかえ）。 |
 | phase75_guide | 文法解説書：settings.p72g {read:{章:日付}, bm:{id,y}}（読んだ✓・しおり）。新しい章「日本語の訳とずれるところ」(jpdiff、前置格の次)。穴埋め・形の問題で答える前に「文法解説書「〜」を読む」案内（p72Topics から）。クイズ中に開くと「クイズにもどる」。 |
+| phase76_manga / phase76_manas | 4コマの描き下ろし。M6（背景・ユルトの中・馬と乗り手・ゆりかご・ふきだし・集中線などの部品）と m6(人物,{face,pose,…})。p74Person に face（表情10種）・look・pose（fist/carry/hold/run など）・beld（既婚女性の巻きスカート）・olpok（マナスの白い戦衣）・braid（アルマンベトの金の三つ編み）を追加。P76[道] があれば p75Comic の自動4コマの代わりに使う（いまはマナスの9話）。服装の資料：UNESCO（ak-kalpak, elechek, shyrdak）、encyclocraftsapr.com、central-asia.guide、advantour、factsanddetails、Moldobaev 1979（アク・オルポク）、beutel.narod.ru・orexca（カヌケイ・アルマンベト・バカイ・チュバク）。絵は資料の写しではなく特徴だけを使ったオリジナル。 |
 | phase60 | クイズの出し方（ミックス／外国語→日本語／日本語→外国語）、記録画面の簡素化 |
 
 新しい機能は `src/gen/phase59.js` のように新しいファイルを作り、`build.py` の phase を連結している行に追加するのが安全です。

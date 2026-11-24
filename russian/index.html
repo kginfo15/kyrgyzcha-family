@@ -12319,6 +12319,32 @@ function p74Body(o){
   return s;
 }
 /* ---------- 主人公・仲間の全身 ---------- */
+function p74Face(o){var f=o.face||(o.rival?"rival":"none"),L={l:-2,r:2}[o.look]||0,U={u:-2,d:2}[o.look]||0,K="#2B2233",h="";
+  var eye=function(x){return '<ellipse cx="'+(x+L)+'" cy="'+(60+U)+'" rx="3" ry="3.8" fill="'+K+'"/><circle cx="'+(x+1+L)+'" cy="'+(58.6+U)+'" r="1.1" fill="#fff"/>';};
+  var arc=function(x){return '<path d="M'+(x-4)+' 61q4-5 8 0" stroke="'+K+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>';};
+  var shut=function(x){return '<path d="M'+(x-4)+' 60q4 3 8 0" stroke="'+K+'" stroke-width="2.2" fill="none" stroke-linecap="round"/>';};
+  var B={none:'M47 52l8 2M73 52l-8 2',rival:'M46 49l10 5M74 49l-10 5',angry:'M46 49l10 5M74 49l-10 5',determined:'M46 51l10 3M74 51l-10 3',sad:'M47 53l8-3M73 53l-8-3',cry:'M47 53l8-3M73 53l-8-3',worry:'M47 52l8-3M73 52l-8-3',surprise:'M47 48q4-3 8 0M65 48q4-3 8 0',joy:'M47 51q4-2 8 0M65 51q4-2 8 0',laugh:'M47 51q4-2 8 0M65 51q4-2 8 0',sleep:'M47 53h8M65 53h8',smile:'M47 52l8 1M73 52l-8 1'}[f]||'M47 52l8 2M73 52l-8 2';
+  h+='<path d="'+B+'" stroke="'+K+'" stroke-width="'+(f==="rival"||f==="angry"?3:2.4)+'" stroke-linecap="round" fill="none"/>';
+  if(f==="joy"||f==="laugh")h+=arc(51)+arc(69);else if(f==="sleep"||f==="cry")h+=shut(51)+shut(69);
+  else if(f==="surprise")h+='<circle cx="51" cy="60" r="4.2" fill="#fff" stroke="'+K+'" stroke-width="1.6"/><circle cx="69" cy="60" r="4.2" fill="#fff" stroke="'+K+'" stroke-width="1.6"/><circle cx="51" cy="60" r="2" fill="'+K+'"/><circle cx="69" cy="60" r="2" fill="'+K+'"/>';
+  else h+=eye(51)+eye(69);
+  h+='<circle cx="45" cy="67" r="3.2" fill="#F08A7E" opacity="'+(f==="joy"||f==="laugh"||o.blush?.75:.45)+'"/><circle cx="75" cy="67" r="3.2" fill="#F08A7E" opacity="'+(f==="joy"||f==="laugh"||o.blush?.75:.45)+'"/>';
+  var M={none:'<path d="M55 70q5 4 10 0" stroke="'+K+'" stroke-width="2" fill="none" stroke-linecap="round"/>',
+    rival:'<path d="M54 72q6-4 12-1" stroke="'+K+'" stroke-width="2" fill="none" stroke-linecap="round"/>',
+    angry:'<path d="M53 72h14" stroke="'+K+'" stroke-width="2.4" stroke-linecap="round"/><path d="M55 71h10v3H55z" fill="#fff" stroke="'+K+'" stroke-width="1.2"/>',
+    determined:'<path d="M55 71h10" stroke="'+K+'" stroke-width="2.4" stroke-linecap="round"/>',
+    sad:'<path d="M55 73q5-4 10 0" stroke="'+K+'" stroke-width="2" fill="none" stroke-linecap="round"/>',
+    cry:'<path d="M54 74q6-6 12 0" stroke="'+K+'" stroke-width="2" fill="#7A3A3A" stroke-linecap="round"/>',
+    worry:'<path d="M54 72q2-2 4 0t4 0 4 0" stroke="'+K+'" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
+    surprise:'<ellipse cx="60" cy="72" rx="3.2" ry="4" fill="#7A3A3A" stroke="'+K+'" stroke-width="1.4"/>',
+    joy:'<path d="M54 69q6 7 12 0z" fill="#7A3A3A" stroke="'+K+'" stroke-width="1.6" stroke-linejoin="round"/>',
+    laugh:'<path d="M52 68q8 11 16 0z" fill="#7A3A3A" stroke="'+K+'" stroke-width="1.6" stroke-linejoin="round"/><path d="M55 72q5 3 10 0" stroke="#E07A7A" stroke-width="2" fill="none"/>',
+    sleep:'<path d="M57 71q3 2 6 0" stroke="'+K+'" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
+    smile:'<path d="M54 69q6 6 12 0" stroke="'+K+'" stroke-width="2.2" fill="none" stroke-linecap="round"/>'};
+  if(!o.beard||f!=="none")h+=(o.beard&&f!=="none")?'<g transform="translate(0 2)">'+(M[f]||M.none)+'</g>':(M[f]||M.none);
+  if(f==="cry")h+='<path d="M47 63q-2 8 0 12M73 63q2 8 0 12" stroke="#7FC4F0" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+  if(f==="worry")h+='<path d="M82 46q4 5 0 8q-4-3 0-8z" fill="#7FC4F0" stroke="'+K+'" stroke-width=".8"/>';
+  return h;}
 function p74Person(o){
   o=o||{};var skin=o.skin||"#F3C9A0",hair=o.hair||"#5A3A22",s="";
   if(o.aura)s+='<circle cx="60" cy="86" r="56" fill="'+o.aura+'" opacity=".22"/><circle cx="60" cy="86" r="44" fill="'+o.aura+'" opacity=".18"/>';
@@ -12330,9 +12356,15 @@ function p74Person(o){
   s+='<path d="M41 144q0-6 9-6h4v8H42zM79 144q0-6-9-6h-4v8h12z" fill="'+boot+'" '+P74_OUT+'/>';
   s+=P74_HAND[o.hand||"none"]?P74_HAND[o.hand]():"";
   s+=p74Body(o.body||{type:"tunic"});
+  /* 既婚女性の巻きスカート（ベルデムチ）、マナスの白い戦衣（アク・オルポク） */
+  if(o.beld)s+='<path d="M38 108h44l5 32H33z" fill="'+o.beld+'" '+P74_OUT+'/><path d="M60 108v32" stroke="'+p74Shade(o.beld,.35)+'" stroke-width="1.6"/><path d="M35 134q6-4 12 0t12 0 12 0 12 0" stroke="#E8B923" stroke-width="2" fill="none"/>';
+  if(o.olpok)s+='<path d="M44 84q16-7 32 0l3 34H41z" fill="#F4F1E6" '+P74_OUT+'/><path d="M46 94h28M45 104h30M60 84v34" stroke="#C9C2AE" stroke-width="1.4"/>';
   /* 腕と手 */
   var sl=(o.body&&o.body.sleeve)||(o.body&&o.body.c)||"#7E9C5A";
-  var AR={none:["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104],wave:["M42 88q-10 6-12 18",30,108,"M78 88q12-8 12-26",90,60],both:["M42 88q-12-8-12-26",30,60,"M78 88q12-8 12-26",90,60],pray:["M42 88q2 12 14 12",56,100,"M78 88q-2 12-14 12",64,100],shrug:["M42 88q-12 2-18-8",22,78,"M78 88q12 2 18-8",98,78],point:["M42 88q-10 6-12 18",30,108,"M78 88q12 0 24-4",102,84],heart:["M42 88q-10 6-12 18",30,108,"M78 88q-2 10-14 10",64,98],chin:["M42 88q-10 6-12 18",30,108,"M78 88q4 4-10 -8",68,76]}[o.pose||"none"]||null;
+  var AR={none:["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104],wave:["M42 88q-10 6-12 18",30,108,"M78 88q12-8 12-26",90,60],both:["M42 88q-12-8-12-26",30,60,"M78 88q12-8 12-26",90,60],pray:["M42 88q2 12 14 12",56,100,"M78 88q-2 12-14 12",64,100],shrug:["M42 88q-12 2-18-8",22,78,"M78 88q12 2 18-8",98,78],point:["M42 88q-10 6-12 18",30,108,"M78 88q12 0 24-4",102,84],heart:["M42 88q-10 6-12 18",30,108,"M78 88q-2 10-14 10",64,98],chin:["M42 88q-10 6-12 18",30,108,"M78 88q4 4-10 -8",68,76],
+    fist:["M42 88q-10 6-12 18",30,108,"M78 88q10-6 10-28",88,58],carry:["M42 88q-2 14 12 16",54,104,"M78 88q2 14-12 16",66,104],reach:["M42 88q-10 6-12 18",30,108,"M78 88q14-2 28-2",106,86],
+    hip:["M42 88q-12 6-4 22",40,108,"M78 88q12 6 4 22",80,108],toast:["M42 88q-10 6-12 18",30,108,"M78 88q10-2 12-18",90,68],cover:["M42 88q-2-14 10-26",52,62,"M78 88q2-14-10-26",68,62],
+    hold:["M42 88q-4 12 6 18",48,104,"M78 88q4 12-6 18",72,104],run:["M42 88q-14 0-16 14",26,102,"M78 88q10-10 20-12",98,76]}[o.pose||"none"]||null;
   if(!AR)AR=["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104];
   s+='<path d="'+AR[0]+'" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/><path d="'+AR[3]+'" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/>';
   s+=P74_OFF[o.off||"none"]();
@@ -12343,18 +12375,15 @@ function p74Person(o){
   s+='<circle cx="60" cy="58" r="23" fill="'+skin+'" '+P74_OUT+'/>';
   s+='<path d="M37 56q0-22 23-22t23 22q-6-10-14-12q-4 6-12 6q-10 0-14 6q-4 0-6 0z" fill="'+hair+'" '+P74_OUT+'/>';
   if(o.beard)s+='<path d="M44 66q2 18 16 18t16-18q-6 6-16 6t-16-6z" fill="'+o.beard+'" '+P74_OUT+'/>';
-  /* 顔：まっすぐ前を見る目、きりっとした眉 */
-  s+=o.rival?'<path d="M46 49l10 5M74 49l-10 5" stroke="#2B2233" stroke-width="3" stroke-linecap="round"/>':'<path d="M47 52l8 2M73 52l-8 2" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/>';
-  s+='<ellipse cx="51" cy="60" rx="3" ry="3.8" fill="#2B2233"/><ellipse cx="69" cy="60" rx="3" ry="3.8" fill="#2B2233"/><circle cx="52" cy="58.6" r="1.1" fill="#fff"/><circle cx="70" cy="58.6" r="1.1" fill="#fff"/>';
-  s+='<circle cx="45" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/><circle cx="75" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/>';
-  if(!o.beard)s+=o.rival?'<path d="M54 72q6-4 12-1" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>':'<path d="M55 70q5 4 10 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
-  else if(o.rival)s+='<path d="M54 73q6-3 12 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  /* 顔：o.face で表情、o.look で目線（l/r/u/d） */
+  s+=p74Face(o);
   if(o.mask)s+='<path d="M38 55q22-6 44 0v9q-22-5-44 0z" fill="'+o.mask+'" '+P74_OUT+'/><ellipse cx="51" cy="60" rx="3" ry="3" fill="#fff"/><ellipse cx="69" cy="60" rx="3" ry="3" fill="#fff"/><circle cx="51" cy="60" r="1.8" fill="#2B2233"/><circle cx="69" cy="60" r="1.8" fill="#2B2233"/>';
   if(o.eyepatch)s+='<path d="M40 50l40 12" stroke="#2B2233" stroke-width="1.6"/><ellipse cx="69" cy="60" rx="6" ry="5.5" fill="#2B2233"/>';
   if(o.visor)s+='<path d="M38 52q22-8 44 0v16q-22 6-44 0z" fill="'+o.visor+'" '+P74_OUT+'/><path d="M44 60h32" stroke="#2B2233" stroke-width="3"/><path d="M48 60h8M64 60h8" stroke="'+(o.eyec||"#E2483B")+'" stroke-width="2.4" stroke-linecap="round"/>';
   if(o.scar)s+='<path d="M71 64l5 6" stroke="#B5523F" stroke-width="1.6"/>';
   if(o.glasses)s+='<circle cx="51" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><circle cx="69" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><path d="M57 60h6" stroke="#2B2233" stroke-width="1.6"/>';
   var hd=o.head||"none";s+=P74_HEAD[hd]?P74_HEAD[hd](o.headc):"";
+  if(o.braid)s+='<path d="M80 54q10 14 4 34" stroke="#2B2233" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M80 54q10 14 4 34" stroke="'+o.braid+'" stroke-width="4.4" fill="none" stroke-linecap="round"/><path d="M84 64h5M86 74h5M85 84h5" stroke="#8A5A2B" stroke-width="1.4"/>';
   if(o.spark)s+='<path d="M18 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3zM104 50l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#FFD34D"/>';
   return s;
 }
@@ -13773,7 +13802,9 @@ p74SceneHtml=function(P,i,noTitle){var rd=p75Rd(),s=P&&P.story&&P.story[i];if(!s
   else{h=h.replace(/<div class="p74-scimg">[\s\S]*?<\/svg><\/div>/,cm);}
   return h;};
 function p75RdBar(){var rd=p75Rd(),b=function(v,t){return '<button type="button" class="'+(rd===v?"on":"")+'" data-act="p75rd" data-val="'+v+'">'+t+'</button>';};
-  return '<div class="p75-rdbar"><span>読み方</span>'+b("both","4コマ＋文章")+b("comic","4コマ")+b("text","文章")+'</div>';}
+  return '<div class="p75-rdbar"><span>読み方を選ぶ</span>'+b("comic","4コマ漫画で読む")+b("text","文章で読む")+b("both","両方")+'</div>';}
+var _p75Tab=p74StoryTab;
+p74StoryTab=function(){return p75RdBar()+_p75Tab.apply(this,arguments);};
 var _p75Reader=p74Reader;
 p74Reader=function(){return p75RdBar()+_p75Reader.apply(this,arguments);};
 document.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="p75rd"]'):null;if(!el)return;
@@ -13784,6 +13815,204 @@ document.addEventListener("click",function(e){var el=e.target&&e.target.closest?
 '.p75-comic{display:flex;flex-direction:column;gap:10px;margin:8px 0 10px}.p75-pan{position:relative;border:2.5px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--card)}.p75-pan>i{position:absolute;left:6px;top:6px;z-index:1;width:22px;height:22px;border-radius:50%;background:#fff;color:#2B2233;border:1.5px solid #2B2233;font:800 12px/19px system-ui,sans-serif;text-align:center;font-style:normal}'+
 '.p75-pimg{line-height:0}.p75-pimg svg{width:100%;height:auto;display:block;aspect-ratio:240/140}.p75-pan p{margin:0;padding:8px 10px;font-size:14.5px;line-height:1.65;border-top:2px solid var(--ink);color:var(--ink)}';
 document.head.appendChild(st);}catch(_){}})();
+
+/* ===== Phase76：物語の4コマ漫画（コマごとの描き下ろし） =====
+   1コマずつ、背景・人物（表情 face・動き pose・向き）・小物・効果（集中線・汗・きらめき）・ふきだしを組み立てて描く。
+   人物・馬・ユルト・小物はすべてこのアプリのオリジナルの絵（既存の絵や写真をなぞっていない）。
+   服装は資料で確かめた特徴だけを、簡単な形で表す（HANDOVER の phase76 の欄に資料を記録）。
+   データ：P76[道id] = [ [コマ1,コマ2,コマ3,コマ4], …(話ごと) ]。コマ = {d:function(){return svgの中身}, t:"コマの下の文"}。
+   P76 にない道・話は、phase75_comic の自動4コマ（場面の絵のアップと引き）を使う。 */
+var P76={},P76_N=0;
+var M6={
+ /* ---------- 背景（240×140） ---------- */
+ sky:function(k){var c={day:["#BFE3F2","#E4F4FA"],dusk:["#F2B48C","#F8DCC0"],night:["#24304F","#34446B"],dark:["#4A3E4E","#6E5A62"],dawn:["#F4C6A8","#CFE3F0"]}[k||"day"];P76_N++;var id="m6g"+P76_N;
+   return '<defs><linearGradient id="'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient></defs><rect width="240" height="140" fill="url(#'+id+')"/>'+
+     (k==="night"?'<circle cx="198" cy="24" r="10" fill="#F6F1E1"/><circle cx="192" cy="21" r="10" fill="#34446B" opacity=".0"/>'+[[30,18],[70,30],[120,12],[150,34],[88,8],[222,48],[14,44]].map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="1.3" fill="#fff"/>';}).join(""):"")+
+     (k==="day"?'<circle cx="206" cy="24" r="11" fill="#FFD34D"/>':'')+(k==="dawn"||k==="dusk"?'<circle cx="40" cy="70" r="14" fill="#FFB84D" opacity=".9"/>':'');},
+ mts:function(k){var far=k==="night"?"#3E4C70":k==="dusk"?"#B88A8A":k==="dark"?"#5E5266":"#9FB7C9";
+   return '<path d="M0 84l30-34 22 20 34-44 30 36 26-22 40 34 30-26 28 24v52H0z" fill="'+far+'"/><path d="M86 26l-10 12 7-1 3 5 4-5 7 2zM30 50l-7 8 5-1 2 3 3-3 4 1z" fill="#fff" opacity=".9"/>';},
+ grass:function(k){var a=k==="night"?"#2F4A33":k==="dark"?"#4E5A3A":k==="dusk"?"#9A9A5A":"#8DBF6A",b=k==="night"?"#284028":k==="dark"?"#434E32":k==="dusk"?"#86884E":"#7AAE57";
+   return '<path d="M0 92q60-12 120-4t120-4v56H0z" fill="'+a+'"/><path d="M0 112q80-10 240 0v28H0z" fill="'+b+'"/>';},
+ steppe:function(k){return M6.sky(k)+M6.mts(k)+M6.grass(k);},
+ /* ユルトの中：壁の格子（ケレゲ）、天井の骨（ウーク）、天窓（トゥンドゥク）、床のフェルトじゅうたん */
+ yurtIn:function(night){var w=night?"#6E3A2E":"#B85A3A",bg=night?"#3A2A22":"#F2E3C6";
+   var s='<rect width="240" height="140" fill="'+bg+'"/>';
+   for(var i=0;i<14;i++){s+='<path d="M120 -6L'+(i*20-10)+' 62" stroke="'+w+'" stroke-width="2.4"/>';}
+   s+='<circle cx="120" cy="-6" r="22" fill="'+(night?"#24304F":"#BFE3F2")+'" stroke="'+w+'" stroke-width="3"/><path d="M104 -6h32M120 -22v32M108 -18l24 24M132 -18l-24 24" stroke="'+w+'" stroke-width="2"/>';
+   s+='<rect y="58" width="240" height="46" fill="'+(night?"#4A3428":"#EAD7B0")+'"/>';
+   for(var j=0;j<26;j++){s+='<path d="M'+(j*10-10)+' 58l20 46M'+(j*10+10)+' 58l-20 46" stroke="'+w+'" stroke-width="1.6" opacity=".7"/>';}
+   s+='<path d="M0 58h240" stroke="#B3202B" stroke-width="4"/><rect y="100" width="240" height="40" fill="'+(night?"#5A2A2A":"#B3202B")+'"/><path d="M10 112q10-8 20 0t20 0M70 112q10-8 20 0t20 0M130 112q10-8 20 0t20 0M190 112q10-8 20 0t20 0" stroke="#F2D28A" stroke-width="3" fill="none"/><path d="M0 100h240" stroke="#2B2233" stroke-width="1.4"/>';
+   s+='<g transform="translate(176 66)"><rect width="46" height="10" fill="#8A5A2B" stroke="#2B2233"/><rect y="-10" width="46" height="10" fill="#2C5D8F" stroke="#2B2233"/><rect y="-20" width="46" height="10" fill="#B3202B" stroke="#2B2233"/><rect y="-28" width="46" height="8" fill="#E8D5A8" stroke="#2B2233"/></g>';
+   return s;},
+ /* ユルト（外から） */
+ yurt:function(x,y,s,c){s=s||1;c=c||"#B3202B";return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-26 0v-18q26-22 52 0v18z" fill="#F4EBD8" stroke="#2B2233" stroke-width="1.6"/><path d="M-26 -18q26-26 52 0" fill="#E8DCC0" stroke="#2B2233" stroke-width="1.6"/><path d="M-22 -10h44" stroke="'+c+'" stroke-width="3.4"/><path d="M-22 -10q4-4 8 0t8 0 8 0 8 0 8 0" stroke="#F4EBD8" stroke-width="1.2" fill="none"/><path d="M-6 0v-12h12v12" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.2"/><path d="M-5 -31h10" stroke="#8A5A2B" stroke-width="3"/></g>';},
+ fire:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><ellipse cx="0" cy="8" rx="22" ry="6" fill="#FFB84D" opacity=".25"/><path d="M-12 6l24-4M-12 2l24 4" stroke="#5A3A1E" stroke-width="4" stroke-linecap="round"/><path d="M0 4q-12-12 0-26q2 9 7 9q5 9-7 17z" fill="#F2A541"/><path d="M0 4q-5-7 0-14q5 7 0 14z" fill="#FFE36B"/></g>';},
+ flag:function(x,y,c){return '<path d="M'+x+' '+y+'v-34" stroke="#6E4A22" stroke-width="2"/><path d="M'+x+' '+(y-34)+'q10 4 20 0v12q-10 4-20 0z" fill="'+(c||"#B3202B")+'" stroke="#2B2233" stroke-width="1"/>';},
+ rock:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-20 0q-4-18 10-24q16-6 26 6q8 12-2 18z" fill="#9AA4AE" stroke="#2B2233" stroke-width="1.6"/><path d="M-6 -16q6-2 10 2" stroke="#C9D3DD" stroke-width="2" fill="none"/></g>';},
+ dust:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')" fill="#E8D5A8" opacity=".8"><circle cx="0" cy="0" r="8"/><circle cx="10" cy="-4" r="6"/><circle cx="-10" cy="-2" r="5"/></g>';},
+ /* ---------- 人物 ---------- */
+ /* o＝p74Person の指定。x＝足もとの中心、y＝足もと、h＝高さ（px） */
+ P:function(o,x,y,h,opt){opt=opt||{};var sc=h/150,inner=p74Person(o);if(opt.flip)inner='<g transform="translate(120 0) scale(-1 1)">'+inner+'</g>';if(opt.rot)inner='<g transform="rotate('+opt.rot+' 60 140)">'+inner+'</g>';
+   return '<g transform="translate('+(x-60*sc).toFixed(1)+' '+(y-148*sc).toFixed(1)+') scale('+sc.toFixed(3)+')"'+(opt.op?' opacity="'+opt.op+'"':'')+'>'+inner+'</g>';},
+ /* 上半身だけ（アップのコマ用）：h＝頭から腰までの高さ */
+ Up:function(o,x,top,h,opt){opt=opt||{};P76_N++;var id="m6c"+P76_N,cut=opt.cut||120,sc=h/(cut+4),inner=p74Person(o);if(opt.flip)inner='<g transform="translate(120 0) scale(-1 1)">'+inner+'</g>';
+   return '<defs><clipPath id="'+id+'"><rect x="-30" y="-4" width="180" height="'+cut+'"/></clipPath></defs><g transform="translate('+(x-60*sc).toFixed(1)+' '+(top+4*sc).toFixed(1)+') scale('+sc.toFixed(3)+')"><g clip-path="url(#'+id+')">'+inner+'</g></g>';},
+ /* 横になって眠る人（頭が左）。x＝体の中心、y＝床 */
+ lie:function(o,x,y,h){var sc=h/150;return '<g transform="translate('+x+' '+y+') rotate(-90) scale('+sc.toFixed(3)+') translate(-60 -100)">'+p74Person(o)+'</g><path d="M'+(x-h*.1)+' '+(y-14)+'q'+(h*.3)+' -10 '+(h*.62)+' 0v14h-'+(h*.62)+'z" fill="#C7823E" stroke="#2B2233" stroke-width="1.4"/>';},
+ /* 馬（横向き、右を向く）。x＝体の中心、y＝ひづめ。rider があれば乗せる。run で走る形 */
+ horse:function(x,y,s,c,opt){opt=opt||{};s=s||1;c=c||"#E9D9B8";var d=p74Shade(c,-.25),m=opt.mane||"#5A3A22",run=opt.run,O=' stroke="#2B2233" stroke-width="1.6" stroke-linejoin="round"';
+   var leg=function(px,a){return '<path d="M'+px+' -26q'+(a*6)+' 12 '+(a*10)+' 24" stroke="'+d+'" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M'+(px+a*10-3)+' -2h7" stroke="#2B2233" stroke-width="3.4" stroke-linecap="round"/>';};
+   var g=(run?leg(-22,-1.6)+leg(-14,-1)+leg(18,1.6)+leg(26,1):leg(-22,0)+leg(-12,0)+leg(16,0)+leg(26,0));
+   g+='<path d="M-34 -40q-14 4-16 22q8-10 16-16" fill="'+m+'"'+O+'/>';
+   g+='<path d="M-32 -46q0-14 30-14h22q14 0 16 16q2 14-18 16h-34q-16 0-16-18z" fill="'+c+'"'+O+'/>';
+   g+='<path d="M14 -50q4-26 20-36l12 8q-8 12-10 30z" fill="'+c+'"'+O+'/>';
+   g+='<path d="M30 -90q10-8 22 0l16 16q5 6-1 10q-6 3-11-1l-24-12q-6-6-2-13z" fill="'+c+'"'+O+'/><path d="M34 -92l0-9 7 6z" fill="'+c+'"'+O+'/><ellipse cx="45" cy="-84" rx="2" ry="2.4" fill="#2B2233"/><circle cx="64" cy="-71" r="1.3" fill="#2B2233"/><path d="M58 -66q4 2 8 0" stroke="#2B2233" stroke-width="1" fill="none"/>';
+   g+='<path d="M30 -92q-14 6-18 40q4-4 6-8q2-16 14-26z" fill="'+m+'"'+O+'/>';
+   g+='<path d="M-8 -60q10-8 22 0l-2 10h-18z" fill="#8A3A2A"'+O+'/><path d="M-6 -50q8 4 16 0" stroke="#E8B923" stroke-width="2" fill="none"/>';
+   var rd='';if(opt.rider){P76_N++;var id="m6r"+P76_N,ro=opt.rider,sc=(opt.rs||.5);
+     rd='<defs><clipPath id="'+id+'"><rect x="-20" y="-40" width="160" height="152"/></clipPath></defs><g transform="translate('+(2-60*sc)+' '+(-58-112*sc)+') scale('+sc+')"><g clip-path="url(#'+id+')">'+p74Person(ro)+'</g></g>'+
+       '<path d="M4 -56q-4 12 2 20" stroke="'+(ro.pants||"#5C5470")+'" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M2 -36h9" stroke="'+(ro.boot||"#5A3A22")+'" stroke-width="5" stroke-linecap="round"/>';}
+   var all=g+rd;if(opt.flip)all='<g transform="scale(-1 1)">'+all+'</g>';
+   return '<g transform="translate('+x+' '+y+') scale('+s+')">'+all+'</g>'+(run?M6.dust(x-(opt.flip?-50:50)*s,y-6,s*.9):'');},
+ /* ゆりかご（ベシク） */
+ beshik:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-22 0l4-14h36l4 14z" fill="#B0773C" stroke="#2B2233" stroke-width="1.4"/><path d="M-16 -14q16-24 32 0" stroke="#8A5A2B" stroke-width="3" fill="none"/><path d="M-18 -14h36v-4h-36z" fill="#B3202B"/><circle cx="0" cy="-20" r="6" fill="#F3C9A0" stroke="#2B2233" stroke-width="1.2"/><path d="M-3 -20q3 2 6 0" stroke="#2B2233" stroke-width="1" fill="none"/></g>';},
+ /* だっこされた赤ちゃん（白い布でくるむ） */
+ baby:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-14 4q-2-14 12-16q14 0 14 12q0 10-14 10z" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.4"/><circle cx="-2" cy="-6" r="6" fill="#F3C9A0" stroke="#2B2233" stroke-width="1.2"/><path d="M-5 -6q1-1.6 2 0M0 -6q1-1.6 2 0" stroke="#2B2233" stroke-width="1" fill="none"/><path d="M-3 -3q1.6 1.4 3 0" stroke="#2B2233" stroke-width="1" fill="none"/></g>';},
+ bowl:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-9 0h18q-2 8-9 8t-9-8z" fill="#F4EBD8" stroke="#2B2233" stroke-width="1.2"/><path d="M-4 -3q2-3 0-6M2 -3q2-3 0-6" stroke="#9AA4AE" stroke-width="1" fill="none"/></g>';},
+ eagle:function(x,y,s,flip){s=s||1;var g='<path d="M0 0q-20-14-34-6q14 0 22 10q-16 0-24 8q16-2 26 2z" fill="#6E4A22" stroke="#2B2233" stroke-width="1.2"/><path d="M0 0q8-6 16-4l6 2-6 2q-6 6-16 4z" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.2"/><circle cx="14" cy="-3" r="1.4" fill="#2B2233"/><path d="M22 -2l4 1-4 2" fill="#E8B923"/>';return '<g transform="translate('+x+' '+y+') scale('+(flip?-s:s)+' '+s+')">'+g+'</g>';},
+ /* ---------- 効果 ---------- */
+ speed:function(cx,cy,c){var s='';for(var i=0;i<36;i++){var a=i/36*Math.PI*2,r1=58+(i%3)*8,r2=160;s+='<path d="M'+(cx+Math.cos(a)*r1).toFixed(1)+' '+(cy+Math.sin(a)*r1*.7).toFixed(1)+'L'+(cx+Math.cos(a)*r2).toFixed(1)+' '+(cy+Math.sin(a)*r2*.7).toFixed(1)+'" stroke="'+(c||"#2B2233")+'" stroke-width="'+(i%2?1:2)+'" opacity=".55"/>';}return s;},
+ lines:function(x,y,n,dir){var s='';for(var i=0;i<(n||5);i++)s+='<path d="M'+x+' '+(y+i*7)+'h'+(dir||-1)*(18+(i%2)*10)+'" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".9"/>';return s;},
+ spark:function(x,y,s,c){s=s||1;return '<path transform="translate('+x+' '+y+') scale('+s+')" d="M0-8l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="'+(c||"#F5B301")+'"/>';},
+ bang:function(x,y){return '<g transform="translate('+x+' '+y+')"><path d="M0 0l3 12h-6z" fill="#E2483B" stroke="#2B2233" stroke-width=".8"/><circle cy="16" r="2.2" fill="#E2483B"/></g>';},
+ sweat:function(x,y){return '<path d="M'+x+' '+y+'q4 5 0 8q-4-3 0-8z" fill="#7FC4F0" stroke="#2B2233" stroke-width=".8"/>';},
+ heart:function(x,y,s){s=s||1;return '<path transform="translate('+x+' '+y+') scale('+s+')" d="M0 6q-9-6-9-11a4.5 4.5 0 0 1 9-1a4.5 4.5 0 0 1 9 1q0 5-9 11z" fill="#E2483B"/>';},
+ note:function(x,y){return '<path transform="translate('+x+' '+y+')" d="M0 0v-12l8-2v12" stroke="#2B2233" stroke-width="1.6" fill="none"/><ellipse cx="'+(x-2)+'" cy="'+y+'" rx="3" ry="2.2" fill="#2B2233"/><ellipse cx="'+(x+6)+'" cy="'+(y-2)+'" rx="3" ry="2.2" fill="#2B2233"/>';},
+ zz:function(x,y){return '<text x="'+x+'" y="'+y+'" font-size="12" font-weight="800" fill="#7E8CB8" font-family="system-ui,sans-serif">z<tspan dy="-6" font-size="9">z</tspan></text>';},
+ /* 考え・夢の雲（中身は svg） */
+ dream:function(x,y,w,h,inner){return '<g><ellipse cx="'+x+'" cy="'+y+'" rx="'+w/2+'" ry="'+h/2+'" fill="#fff" stroke="#2B2233" stroke-width="1.4"/><circle cx="'+(x-w/2+10)+'" cy="'+(y+h/2+6)+'" r="4" fill="#fff" stroke="#2B2233" stroke-width="1.2"/><circle cx="'+(x-w/2+4)+'" cy="'+(y+h/2+14)+'" r="2.4" fill="#fff" stroke="#2B2233" stroke-width="1.2"/>'+inner+'</g>';},
+ /* ふきだし：t は短い日本語（1〜2行、\n で改行） */
+ bub:function(x,y,t,tx,ty,shout){var L=String(t).split("\n"),w=Math.max.apply(null,L.map(function(l){return l.length;}))*11+16,h=L.length*13+10,x0=x-w/2,y0=y-h/2;
+   var tail='<path d="M'+(x-5)+' '+(y0+h-1)+'L'+tx+' '+ty+'L'+(x+6)+' '+(y0+h-1)+'z" fill="#fff" stroke="#2B2233" stroke-width="1.4" stroke-linejoin="round"/><path d="M'+(x-4)+' '+(y0+h-1)+'h9" stroke="#fff" stroke-width="2.6"/>';
+   if(ty<y0)tail='<path d="M'+(x-5)+' '+(y0+1)+'L'+tx+' '+ty+'L'+(x+6)+' '+(y0+1)+'z" fill="#fff" stroke="#2B2233" stroke-width="1.4" stroke-linejoin="round"/><path d="M'+(x-4)+' '+(y0+1)+'h9" stroke="#fff" stroke-width="2.6"/>';
+   return '<g><rect x="'+x0+'" y="'+y0+'" width="'+w+'" height="'+h+'" rx="'+(shout?4:10)+'" fill="#fff" stroke="#2B2233" stroke-width="'+(shout?2.2:1.4)+'"/>'+tail+L.map(function(l,i){return '<text x="'+x+'" y="'+(y0+15+i*13)+'" text-anchor="middle" font-size="11" font-weight="800" fill="#2B2233" font-family="system-ui,sans-serif">'+esc(l)+'</text>';}).join("")+'</g>';},
+ /* 文字の効果音 */
+ sfx:function(x,y,t,c,r){return '<text x="'+x+'" y="'+y+'" transform="rotate('+(r||-8)+' '+x+' '+y+')" font-size="18" font-weight="900" fill="'+(c||"#E2483B")+'" stroke="#fff" stroke-width="3" paint-order="stroke" font-family="system-ui,sans-serif">'+esc(t)+'</text>';},
+ svg:function(b){return '<svg class="p76-svg" viewBox="0 0 240 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+b+'</svg>';}
+};
+/* 人物の指定をもとに、表情・動きなどを変えたコピーを作る */
+function m6(o,ex){var c=JSON.parse(JSON.stringify(o||{}));for(var k in ex)c[k]=ex[k];return c;}
+/* 4コマを描く（P76 にあれば） */
+function p76Has(P,i){return !!(P76[P.id]&&P76[P.id][i]);}
+function p76Comic(P,i){var A=P76[P.id][i];
+  return '<div class="p75-comic p76" role="img" aria-label="4コマ漫画：'+esc(P.story[i].t)+'">'+A.map(function(k,n){var sv="";try{sv=M6.svg(k.d());}catch(e){sv=M6.svg(M6.steppe());}
+    return '<div class="p75-pan"><i>'+(n+1)+'</i><div class="p75-pimg">'+sv+'</div>'+(k.t?'<p>'+esc(k.t)+'</p>':'')+'</div>';}).join("")+'</div>';}
+var _p76Comic=p75Comic;
+p75Comic=function(P,i){if(P&&p76Has(P,i))return p76Comic(P,i);return _p76Comic.apply(this,arguments);};
+(function(){try{var st=document.createElement("style");st.textContent='.p76 .p75-pimg svg{aspect-ratio:240/140}';document.head.appendChild(st);}catch(_){}})();
+
+/* ===== Phase76：マナスの道の4コマ（9話×4コマ、すべて描き下ろし） =====
+   コマの下の文は、phase74_hist のマナスの本文を4つに分けて言いかえたもの（内容は本文と同じ。創作の台詞は入れない）。
+   ふきだしの言葉は、場面の気持ちを表す短い言葉だけ。 */
+(function(){
+var P=null;P74_PATHS.forEach(function(x){if(x.id==="manas")P=x;});if(!P)return;
+var S=function(k){return P.st[Math.max(0,Math.min(8,k))];},A=function(k){return P.al[k].o;};
+var N=P74_NPC,J=m6(N.jakyp,{hand:"none"}),C=m6(N.chiyirdy,{beld:"#2B2233"}),BK=A(1),AL=m6(A(2),{braid:"#E8B923"}),KN=m6(N.kanykey,{beld:"#3A2A4A"}),CB=A(4),SAR="#D8B36A";
+/* 資料：アク・クラは白っぽい灰色、アルマンベトの馬サラルは黄色みのある馬、アルマンベトは「金の三つ編み」、マナスは白い戦衣アク・オルポク、既婚女性はエレチェク＋巻きスカート（ベルデムチ） */
+var listener1=m6(N.people1,{}),listener2=m6(N.people2,{off:"none"}),kid=m6(N.child,{});
+var elder2=m6(N.elder,{hand:"none",body:{type:"chapan",c:"#5E4A7E",t:"#E8B923",fur:1}});
+var bokmurun=m6(N.people1,{head:"tebetei",headc:"#7A1F2B",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923",fur:1}});
+var KO=m6(N.rival,{});
+var friend=function(c,h){return {hand:"spear",off:"none",head:h||"kalpak",body:{type:"chapan",c:c,t:"#E8D5A8"},hair:"#2B2233"};};
+var semChild=m6(N.child,{body:{type:"chapan",c:"#2C5D8F",t:"#E8B923"}});
+P76.manas=[
+ /* 序章 語り手マナスチ */
+ [{t:"「マナス」は、キルギスに伝わるとても長い叙事詩（英雄の物語を語る詩）です。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.yurt(206,100,.9)+M6.P(m6(N.manaschy,{pose:"both",face:"determined"}),120,104,70)+M6.fire(120,124,1.1)+M6.P(m6(listener1,{face:"smile"}),46,132,58,{})+M6.P(m6(kid,{face:"surprise"}),78,134,44)+M6.P(m6(listener2,{face:"smile"}),174,132,56,{flip:1});}},
+  {t:"本に書かれるずっと前から、語り手マナスチが、声の調子や身ぶりをまじえて語り伝えてきました。",
+   d:function(){return M6.sky("night")+M6.speed(120,80,"#F2D28A")+M6.Up(m6(N.manaschy,{pose:"both",face:"laugh"}),116,18,128)+M6.note(30,40)+M6.note(206,56)+M6.bub(196,24,"いざ\n語ろう！",160,44,1);}},
+  {t:"三部作をつづけて語ると、13時間ほどかかることもあるといわれます。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(listener1,{face:"surprise"}),56,132,74)+M6.P(m6(kid,{face:"sleep"}),118,134,54)+M6.zz(128,74)+M6.P(m6(listener2,{face:"joy"}),182,132,72,{flip:1})+M6.bub(186,24,"まだ\nつづく！",170,42);}},
+  {t:"語り手によって細かい筋は少しずつ違います。この道では、多くの語りに共通する流れを「物語ではこう語られる」として紹介します。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.fire(60,116,.9)+M6.P(m6(N.manaschy,{pose:"point",face:"smile"}),60,104,72)+M6.dream(160,56,130,84,M6.horse(160,92,.5,"#F2EEE4",{rider:m6(S(5),{face:"determined"}),run:1})+M6.spark(110,30,.8)+M6.spark(206,36,.8));}}],
+ /* 第1話 待ちのぞまれた子 */
+ [{t:"ジャクプと妻のチユルドゥには、長いあいだ子どもがいませんでした。",
+   d:function(){return M6.yurtIn()+M6.P(m6(J,{face:"worry"}),78,130,104)+M6.P(m6(C,{face:"sad"}),156,130,100,{flip:1})+M6.beshik(206,128,.9);}},
+  {t:"二人は、子どもをさずかるように祈りつづけました。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.yurt(206,104,.8)+M6.P(m6(J,{pose:"pray",face:"sleep"}),88,130,96)+M6.P(m6(C,{pose:"pray",face:"sleep"}),146,130,92)+M6.spark(118,30,.9,"#F6F1E1")+M6.spark(60,22,.6,"#F6F1E1");}},
+  {t:"すると、すばらしい息子が生まれることを知らせる夢が届きます。",
+   d:function(){return M6.yurtIn(1)+M6.lie(m6(J,{face:"sleep"}),80,124,92)+M6.zz(50,80)+M6.dream(160,52,120,84,'<circle cx="160" cy="52" r="26" fill="#FFF3B0"/>'+M6.baby(160,62,1.6)+M6.spark(130,30)+M6.spark(192,34)+M6.spark(176,80,.7));}},
+  {t:"やがて生まれた男の子がマナスです。小さいころから人並みはずれて強い子でした。",
+   d:function(){return M6.yurtIn()+M6.P(m6(C,{pose:"carry",face:"joy"}),92,130,104)+M6.baby(94,104,1.4)+M6.P(m6(J,{pose:"both",face:"laugh"}),166,130,106)+M6.heart(124,26)+M6.spark(40,30)+M6.spark(206,26)+M6.sfx(10,104,"ぎゅっ！","#E2483B",-12);}}],
+ /* 第2話 力自慢の少年 */
+ [{t:"少年マナスは力が強く、元気にあふれていました。",
+   d:function(){return M6.steppe("day")+M6.yurt(206,104,.8)+M6.P(m6(S(1),{pose:"hold",face:"laugh",hand:"none"}),96,132,96)+M6.rock(100,118,1.05)+M6.sfx(140,48,"よいしょ！","#E2483B",-10)+M6.lines(46,40,4,-1);}},
+  {t:"まわりの大人たちは、その力におどろきます。",
+   d:function(){return M6.steppe("day")+M6.speed(120,70,"#9AA4AE")+M6.Up(m6(listener1,{face:"surprise"}),64,24,118)+M6.Up(m6(J,{face:"surprise"}),170,20,122,{flip:1})+M6.bang(116,22)+M6.bang(132,30)+M6.sweat(90,40)+M6.sweat(196,36);}},
+  {t:"とても小さいころから、すぐれた馬に乗れるようになったとも語られます。",
+   d:function(){return M6.steppe("day")+M6.horse(150,126,.95,"#F2EEE4",{mane:"#8A6A4A"})+M6.P(m6(S(1),{pose:"reach",face:"joy",hand:"none"}),62,130,80)+M6.heart(120,40,.9)+M6.spark(170,30);}},
+  {t:"遊牧の暮らしでは、馬は家族のように大切な仲間。愛馬アク・クラは、物語の中で何度も活やくします。",
+   d:function(){return M6.steppe("day")+M6.lines(40,60,6,-1)+M6.horse(120,128,1.05,"#F2EEE4",{mane:"#8A6A4A",run:1,rider:m6(S(2),{face:"laugh",pose:"fist",hand:"none"})})+M6.sfx(140,40,"アク・クラ！","#2C5D8F",-6);}}],
+ /* 第3話 四十人の仲間 */
+ [{t:"マナスはまだ若いうちに、自分の「四十人の仲間（クルク・チョロ）」をつくります。",
+   d:function(){var s=M6.steppe("day")+M6.flag(200,106,"#B3202B")+M6.flag(36,104,"#2C5D8F");var cs=["#6B8E4E","#C7823E","#2C5D8F","#7A1F2B","#5E4A7E","#3E6E4A"];for(var i=0;i<6;i++)s+=M6.P(m6(friend(cs[i]),{face:"joy",pose:"fist"}),24+i*38,108,40);
+     return s+M6.P(m6(S(3),{pose:"fist",face:"laugh"}),120,136,74);}},
+  {t:"仲間たちは一生マナスを助け、最後までともに戦ったと語られます。",
+   d:function(){return M6.steppe("day")+M6.speed(120,70,"#F2D28A")+M6.Up(m6(CB,{face:"laugh",pose:"fist"}),70,22,120)+M6.Up(m6(friend("#7A1F2B"),{face:"joy",pose:"fist",hand:"none"}),168,30,112,{flip:1})+M6.bub(120,20,"マナスと\nともに！",96,40,1);}},
+  {t:"マナスたちの大きな目的は、ばらばらになっていた部族をまとめ、一つの民にすることです。",
+   d:function(){return M6.steppe("day")+M6.yurt(36,96,.7,"#2C5D8F")+M6.yurt(204,96,.7,"#3E6E4A")+M6.yurt(60,126,.7,"#C7823E")+M6.yurt(184,128,.7,"#5E4A7E")+'<path d="M50 92Q120 64 190 92M74 120Q120 96 168 120" stroke="#E8B923" stroke-width="3" stroke-dasharray="6 5" fill="none"/>'+M6.P(m6(S(3),{pose:"both",face:"determined"}),120,124,70)+M6.spark(120,18);}},
+  {t:"知恵のある相談役バカイも、マナスを支えます。",
+   d:function(){return M6.yurtIn()+M6.P(m6(BK,{pose:"point",face:"smile",hand:"none"}),78,130,102)+M6.P(m6(S(3),{face:"determined",look:"l"}),164,130,104,{flip:1})+M6.bub(70,22,"まず\n話し合おう",88,42);}}],
+ /* 第4話 友アルマンベト */
+ [{t:"アルマンベトは、もともとは別の国で育った勇者です。",
+   d:function(){return M6.sky("dusk")+M6.mts("dusk")+M6.grass("dusk")+M6.horse(120,126,.95,SAR,{mane:"#8A5A2B",rider:m6(AL,{face:"determined",hand:"none"})});}},
+  {t:"長い旅のすえに、マナスのもとへやって来ます。",
+   d:function(){return M6.steppe("day")+M6.yurt(206,100,.9)+M6.yurt(160,92,.6)+M6.P(m6(AL,{face:"smile",hand:"none"}),56,130,88)+M6.P(m6(S(4),{pose:"wave",face:"joy"}),176,130,92,{flip:1})+M6.bub(176,24,"よく来た！",170,40);}},
+  {t:"マナスはアルマンベトを兄弟のように大切にし、アルマンベトもマナスのいちばんの友として力をつくします。",
+   d:function(){return M6.steppe("day")+M6.speed(120,70,"#F2D28A")+M6.P(m6(S(4),{pose:"reach",face:"laugh"}),82,134,110)+M6.P(m6(AL,{pose:"reach",face:"laugh",hand:"none"}),158,134,110,{flip:1})+M6.heart(120,30,1.2)+M6.spark(40,26)+M6.spark(206,26);}},
+  {t:"生まれた場所が違っても固い友情を結べる、という物語としても読まれています。",
+   d:function(){return M6.sky("dawn")+M6.mts()+M6.grass()+M6.horse(86,124,.82,"#F2EEE4",{mane:"#8A6A4A",rider:m6(S(4),{face:"determined"})})+M6.horse(168,126,.82,SAR,{mane:"#8A5A2B",rider:m6(AL,{face:"determined"})})+M6.flag(220,120,"#B3202B");}}],
+ /* 第5話 かしこいカヌケイ */
+ [{t:"マナスの妻カヌケイは、かしこく、人をもてなす心をもった女性として描かれます。",
+   d:function(){return M6.yurtIn()+M6.P(m6(KN,{pose:"hold",face:"smile"}),86,130,102)+M6.bowl(86,104,1.3)+M6.P(m6(listener1,{face:"joy"}),168,130,90,{flip:1})+M6.P(m6(elder2,{face:"smile"}),214,130,86,{flip:1});}},
+  {t:"夫が人々をまとめる戦いにも、自分から力を貸しました。物語では、大遠征の前に四十人の仲間の帽子や服を縫ったと語られます。",
+   d:function(){var k='';for(var i=0;i<3;i++)k+='<g transform="translate('+(146+i*24)+' 92) scale(.4)">'+P74_HEAD.kalpak()+'</g>';
+     return M6.yurtIn()+M6.P(m6(KN,{pose:"hold",face:"determined",look:"r"}),78,130,104)+'<path d="M64 104l30-6" stroke="#9AA4AE" stroke-width="1.6"/><path d="M94 98q10 4 6 14" stroke="#B3202B" stroke-width="1.2" fill="none"/>'+
+       '<g transform="translate(140 120)"><path d="M0 0h80v10H0z" fill="#8A5A2B" stroke="#2B2233"/><path d="M6 0l4-16h18l4 16zM44 0l4-16h18l4 16z" fill="#F4F1E6" stroke="#2B2233" stroke-width="1.2"/></g>'+k+M6.spark(206,40)+M6.bub(160,26,"四十人の分を\n縫いましょう",104,52);}},
+  {t:"のちに、息子セメテイを守り育てるのもカヌケイです。",
+   d:function(){return M6.yurtIn(1)+M6.beshik(170,128,1.2)+M6.P(m6(KN,{pose:"carry",face:"smile"}),88,130,104)+M6.baby(90,104,1.4)+M6.heart(130,40)+M6.note(200,50);}},
+  {t:"物語の中で、女性の知恵と強さがたいせつにされている人物として知られています。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.Up(m6(KN,{face:"smile"}),120,14,130)+M6.spark(50,30)+M6.spark(190,40)+M6.spark(70,100,.7);}}],
+ /* 第6話 コケトイの追悼の宴 */
+ [{t:"長老コケトイが亡くなり、あとをついだボクムルンは、各地の部族を呼び集めます。",
+   d:function(){return M6.yurtIn()+M6.P(m6(bokmurun,{face:"sad"}),80,130,100)+M6.P(m6(elder2,{face:"sad",pose:"pray"}),160,130,96,{flip:1});}},
+  {t:"盛大な追悼の宴（アシ）が開かれ、遠くからも人々が集まります。",
+   d:function(){var s=M6.steppe("day");for(var i=0;i<6;i++)s+=M6.yurt(20+i*40,96-(i%2)*4,.55,["#B3202B","#2C5D8F","#3E6E4A"][i%3]);return s+M6.flag(120,108,"#B3202B")+M6.horse(60,130,.6,"#8A5A3A",{mane:"#2B2233",rider:m6(listener1,{face:"joy"})})+M6.horse(180,132,.6,"#E9D9B8",{flip:1,mane:"#5A3A22",rider:m6(friend("#7A1F2B"),{face:"joy",hand:"none"})});}},
+  {t:"宴では競馬などの競技が行われ、マナスも愛馬アク・クラで駆けます。",
+   d:function(){return M6.steppe("day")+M6.lines(30,60,6,-1)+M6.horse(76,128,.7,"#8A5A3A",{mane:"#2B2233",run:1,rider:m6(friend("#6B8E4E"),{face:"worry",hand:"none"})})+M6.horse(160,124,.9,"#F2EEE4",{mane:"#8A6A4A",run:1,rider:m6(S(6),{face:"laugh",hand:"none"})})+M6.sfx(150,34,"はやい！","#E2483B",-8);}},
+  {t:"力くらべも行われ、この宴をきっかけに人々のまとまりが強くなったともいわれます。",
+   d:function(){return M6.steppe("day")+M6.yurt(206,98,.7)+M6.P(m6(CB,{pose:"reach",face:"angry",hand:"none",off:"none"}),100,132,84,{rot:12})+M6.P(m6(friend("#5E4A7E"),{pose:"reach",face:"angry",hand:"none"}),142,132,84,{flip:1,rot:-12})+M6.P(m6(listener1,{pose:"both",face:"laugh"}),34,132,62)+M6.P(m6(listener2,{pose:"both",face:"joy"}),206,134,58,{flip:1})+M6.sfx(96,40,"がんばれ！","#E2483B",-6);}}],
+ /* 第7話 大遠征 */
+ [{t:"宴のあと、マナスは仲間たちをひきいて大遠征に出ます。",
+   d:function(){var s=M6.sky("dawn")+M6.mts()+M6.grass();for(var i=0;i<4;i++)s+=M6.horse(36+i*36,108-(i%2)*2,.42,["#8A5A3A","#E9D9B8","#5A3A22","#C7823E"][i],{rider:friend(["#6B8E4E","#C7823E","#7A1F2B","#3E6E4A"][i])});
+     return s+M6.flag(196,120,"#B3202B")+M6.horse(170,130,.8,"#F2EEE4",{mane:"#8A6A4A",rider:m6(S(7),{face:"determined",olpok:1})});}},
+  {t:"強敵コヌルバイとのたたかいは、よく知られた場面です。",
+   d:function(){return M6.sky("dark")+M6.speed(120,70,"#2B2233")+M6.Up(m6(KO,{face:"angry"}),120,12,132);}},
+  {t:"叙事詩の中でも、特に長く、はげしい戦いが続く部分です。",
+   d:function(){return M6.sky("dark")+M6.mts("dark")+M6.grass("dark")+M6.dust(120,120,2)+M6.P(m6(S(7),{face:"angry",pose:"run",olpok:1}),76,134,104,{rot:8})+M6.P(m6(KO,{face:"angry"}),168,134,104,{flip:1,rot:-8})+M6.sfx(104,40,"ガキン！","#F5B301",-10)+M6.spark(120,60,1.4,"#FFE36B");}},
+  {t:"アルマンベトやチュバクたち仲間も、それぞれ見せ場をもって活やくします。",
+   d:function(){return M6.sky("dark")+M6.mts("dark")+M6.grass("dark")+M6.P(m6(AL,{face:"determined",pose:"run"}),76,132,98,{rot:6})+M6.P(m6(CB,{face:"angry",pose:"fist"}),164,132,98,{flip:1})+M6.lines(36,70,5,-1)+M6.sfx(150,30,"いくぞ！","#F5B301",8);}}],
+ /* 第8話 英雄のあとをつぐ者 */
+ [{t:"多くの語りでは、マナスは遠征で深い傷を負い、そのために亡くなります。",
+   d:function(){return M6.sky("dusk")+M6.mts("dusk")+M6.grass("dusk")+M6.P(m6(S(8),{face:"sad",look:"d",olpok:1}),110,134,96,{rot:-6})+M6.P(m6(BK,{face:"cry",hand:"none"}),46,132,84)+M6.P(m6(KN,{face:"cry"}),190,132,88,{flip:1});}},
+  {t:"カヌケイとバカイたちは、英雄の体を人に知られない場所へ運んで葬ったと語られます。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.P(m6(BK,{face:"sad",pose:"pray"}),80,128,78)+M6.P(m6(KN,{face:"sad",pose:"pray"}),150,128,76)+M6.spark(120,24,1,"#F6F1E1")+M6.spark(40,40,.6,"#F6F1E1");}},
+  {t:"けれども物語は終わりません。カヌケイは幼い息子セメテイを連れて逃れ、セメテイは守られて育ちます。",
+   d:function(){return M6.sky("dawn")+M6.mts()+M6.grass()+M6.yurt(206,100,.8)+M6.P(m6(KN,{face:"determined",pose:"hold"}),92,130,104)+M6.P(m6(semChild,{face:"smile",pose:"wave"}),142,132,60)+M6.spark(40,30);}},
+  {t:"そして孫セイテクの物語へと続きます。この3つをあわせて「マナス三部作」と呼びます。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+[["マナス",48],["セメテイ",120],["セイテク",192]].map(function(q,k){return '<g><rect x="'+(q[1]-34)+'" y="30" width="68" height="84" rx="6" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.6"/><rect x="'+(q[1]-34)+'" y="30" width="68" height="16" rx="6" fill="'+["#B3202B","#2C5D8F","#3E6E4A"][k]+'"/><text x="'+q[1]+'" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#fff" font-family="system-ui,sans-serif">'+q[0]+'</text></g>'+M6.P(m6([S(8),semChild,m6(N.child,{body:{type:"chapan",c:"#3E6E4A",t:"#E8D5A8"}})][k],{face:"smile"}),q[1],110,[56,48,42][k]);}).join("");}}]
+];
+})();
 
 /* ===== Phase75：文法解説書の「読んだ」マーク・しおり・クイズからの案内、「日本語訳とずれるところ」の章 =====
    記録：settings.p72g = {read:{章id:日付}, bm:{id:章id, y:スクロール位置}}（この端末と、クラウド保存の設定に入る。個人情報は含まない）。

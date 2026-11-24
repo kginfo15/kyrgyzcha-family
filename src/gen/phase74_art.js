@@ -98,6 +98,32 @@ function p74Body(o){
   return s;
 }
 /* ---------- 主人公・仲間の全身 ---------- */
+function p74Face(o){var f=o.face||(o.rival?"rival":"none"),L={l:-2,r:2}[o.look]||0,U={u:-2,d:2}[o.look]||0,K="#2B2233",h="";
+  var eye=function(x){return '<ellipse cx="'+(x+L)+'" cy="'+(60+U)+'" rx="3" ry="3.8" fill="'+K+'"/><circle cx="'+(x+1+L)+'" cy="'+(58.6+U)+'" r="1.1" fill="#fff"/>';};
+  var arc=function(x){return '<path d="M'+(x-4)+' 61q4-5 8 0" stroke="'+K+'" stroke-width="2.4" fill="none" stroke-linecap="round"/>';};
+  var shut=function(x){return '<path d="M'+(x-4)+' 60q4 3 8 0" stroke="'+K+'" stroke-width="2.2" fill="none" stroke-linecap="round"/>';};
+  var B={none:'M47 52l8 2M73 52l-8 2',rival:'M46 49l10 5M74 49l-10 5',angry:'M46 49l10 5M74 49l-10 5',determined:'M46 51l10 3M74 51l-10 3',sad:'M47 53l8-3M73 53l-8-3',cry:'M47 53l8-3M73 53l-8-3',worry:'M47 52l8-3M73 52l-8-3',surprise:'M47 48q4-3 8 0M65 48q4-3 8 0',joy:'M47 51q4-2 8 0M65 51q4-2 8 0',laugh:'M47 51q4-2 8 0M65 51q4-2 8 0',sleep:'M47 53h8M65 53h8',smile:'M47 52l8 1M73 52l-8 1'}[f]||'M47 52l8 2M73 52l-8 2';
+  h+='<path d="'+B+'" stroke="'+K+'" stroke-width="'+(f==="rival"||f==="angry"?3:2.4)+'" stroke-linecap="round" fill="none"/>';
+  if(f==="joy"||f==="laugh")h+=arc(51)+arc(69);else if(f==="sleep"||f==="cry")h+=shut(51)+shut(69);
+  else if(f==="surprise")h+='<circle cx="51" cy="60" r="4.2" fill="#fff" stroke="'+K+'" stroke-width="1.6"/><circle cx="69" cy="60" r="4.2" fill="#fff" stroke="'+K+'" stroke-width="1.6"/><circle cx="51" cy="60" r="2" fill="'+K+'"/><circle cx="69" cy="60" r="2" fill="'+K+'"/>';
+  else h+=eye(51)+eye(69);
+  h+='<circle cx="45" cy="67" r="3.2" fill="#F08A7E" opacity="'+(f==="joy"||f==="laugh"||o.blush?.75:.45)+'"/><circle cx="75" cy="67" r="3.2" fill="#F08A7E" opacity="'+(f==="joy"||f==="laugh"||o.blush?.75:.45)+'"/>';
+  var M={none:'<path d="M55 70q5 4 10 0" stroke="'+K+'" stroke-width="2" fill="none" stroke-linecap="round"/>',
+    rival:'<path d="M54 72q6-4 12-1" stroke="'+K+'" stroke-width="2" fill="none" stroke-linecap="round"/>',
+    angry:'<path d="M53 72h14" stroke="'+K+'" stroke-width="2.4" stroke-linecap="round"/><path d="M55 71h10v3H55z" fill="#fff" stroke="'+K+'" stroke-width="1.2"/>',
+    determined:'<path d="M55 71h10" stroke="'+K+'" stroke-width="2.4" stroke-linecap="round"/>',
+    sad:'<path d="M55 73q5-4 10 0" stroke="'+K+'" stroke-width="2" fill="none" stroke-linecap="round"/>',
+    cry:'<path d="M54 74q6-6 12 0" stroke="'+K+'" stroke-width="2" fill="#7A3A3A" stroke-linecap="round"/>',
+    worry:'<path d="M54 72q2-2 4 0t4 0 4 0" stroke="'+K+'" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
+    surprise:'<ellipse cx="60" cy="72" rx="3.2" ry="4" fill="#7A3A3A" stroke="'+K+'" stroke-width="1.4"/>',
+    joy:'<path d="M54 69q6 7 12 0z" fill="#7A3A3A" stroke="'+K+'" stroke-width="1.6" stroke-linejoin="round"/>',
+    laugh:'<path d="M52 68q8 11 16 0z" fill="#7A3A3A" stroke="'+K+'" stroke-width="1.6" stroke-linejoin="round"/><path d="M55 72q5 3 10 0" stroke="#E07A7A" stroke-width="2" fill="none"/>',
+    sleep:'<path d="M57 71q3 2 6 0" stroke="'+K+'" stroke-width="1.8" fill="none" stroke-linecap="round"/>',
+    smile:'<path d="M54 69q6 6 12 0" stroke="'+K+'" stroke-width="2.2" fill="none" stroke-linecap="round"/>'};
+  if(!o.beard||f!=="none")h+=(o.beard&&f!=="none")?'<g transform="translate(0 2)">'+(M[f]||M.none)+'</g>':(M[f]||M.none);
+  if(f==="cry")h+='<path d="M47 63q-2 8 0 12M73 63q2 8 0 12" stroke="#7FC4F0" stroke-width="2.4" fill="none" stroke-linecap="round"/>';
+  if(f==="worry")h+='<path d="M82 46q4 5 0 8q-4-3 0-8z" fill="#7FC4F0" stroke="'+K+'" stroke-width=".8"/>';
+  return h;}
 function p74Person(o){
   o=o||{};var skin=o.skin||"#F3C9A0",hair=o.hair||"#5A3A22",s="";
   if(o.aura)s+='<circle cx="60" cy="86" r="56" fill="'+o.aura+'" opacity=".22"/><circle cx="60" cy="86" r="44" fill="'+o.aura+'" opacity=".18"/>';
@@ -109,9 +135,15 @@ function p74Person(o){
   s+='<path d="M41 144q0-6 9-6h4v8H42zM79 144q0-6-9-6h-4v8h12z" fill="'+boot+'" '+P74_OUT+'/>';
   s+=P74_HAND[o.hand||"none"]?P74_HAND[o.hand]():"";
   s+=p74Body(o.body||{type:"tunic"});
+  /* 既婚女性の巻きスカート（ベルデムチ）、マナスの白い戦衣（アク・オルポク） */
+  if(o.beld)s+='<path d="M38 108h44l5 32H33z" fill="'+o.beld+'" '+P74_OUT+'/><path d="M60 108v32" stroke="'+p74Shade(o.beld,.35)+'" stroke-width="1.6"/><path d="M35 134q6-4 12 0t12 0 12 0 12 0" stroke="#E8B923" stroke-width="2" fill="none"/>';
+  if(o.olpok)s+='<path d="M44 84q16-7 32 0l3 34H41z" fill="#F4F1E6" '+P74_OUT+'/><path d="M46 94h28M45 104h30M60 84v34" stroke="#C9C2AE" stroke-width="1.4"/>';
   /* 腕と手 */
   var sl=(o.body&&o.body.sleeve)||(o.body&&o.body.c)||"#7E9C5A";
-  var AR={none:["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104],wave:["M42 88q-10 6-12 18",30,108,"M78 88q12-8 12-26",90,60],both:["M42 88q-12-8-12-26",30,60,"M78 88q12-8 12-26",90,60],pray:["M42 88q2 12 14 12",56,100,"M78 88q-2 12-14 12",64,100],shrug:["M42 88q-12 2-18-8",22,78,"M78 88q12 2 18-8",98,78],point:["M42 88q-10 6-12 18",30,108,"M78 88q12 0 24-4",102,84],heart:["M42 88q-10 6-12 18",30,108,"M78 88q-2 10-14 10",64,98],chin:["M42 88q-10 6-12 18",30,108,"M78 88q4 4-10 -8",68,76]}[o.pose||"none"]||null;
+  var AR={none:["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104],wave:["M42 88q-10 6-12 18",30,108,"M78 88q12-8 12-26",90,60],both:["M42 88q-12-8-12-26",30,60,"M78 88q12-8 12-26",90,60],pray:["M42 88q2 12 14 12",56,100,"M78 88q-2 12-14 12",64,100],shrug:["M42 88q-12 2-18-8",22,78,"M78 88q12 2 18-8",98,78],point:["M42 88q-10 6-12 18",30,108,"M78 88q12 0 24-4",102,84],heart:["M42 88q-10 6-12 18",30,108,"M78 88q-2 10-14 10",64,98],chin:["M42 88q-10 6-12 18",30,108,"M78 88q4 4-10 -8",68,76],
+    fist:["M42 88q-10 6-12 18",30,108,"M78 88q10-6 10-28",88,58],carry:["M42 88q-2 14 12 16",54,104,"M78 88q2 14-12 16",66,104],reach:["M42 88q-10 6-12 18",30,108,"M78 88q14-2 28-2",106,86],
+    hip:["M42 88q-12 6-4 22",40,108,"M78 88q12 6 4 22",80,108],toast:["M42 88q-10 6-12 18",30,108,"M78 88q10-2 12-18",90,68],cover:["M42 88q-2-14 10-26",52,62,"M78 88q2-14-10-26",68,62],
+    hold:["M42 88q-4 12 6 18",48,104,"M78 88q4 12-6 18",72,104],run:["M42 88q-14 0-16 14",26,102,"M78 88q10-10 20-12",98,76]}[o.pose||"none"]||null;
   if(!AR)AR=["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104];
   s+='<path d="'+AR[0]+'" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/><path d="'+AR[3]+'" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/>';
   s+=P74_OFF[o.off||"none"]();
@@ -122,18 +154,15 @@ function p74Person(o){
   s+='<circle cx="60" cy="58" r="23" fill="'+skin+'" '+P74_OUT+'/>';
   s+='<path d="M37 56q0-22 23-22t23 22q-6-10-14-12q-4 6-12 6q-10 0-14 6q-4 0-6 0z" fill="'+hair+'" '+P74_OUT+'/>';
   if(o.beard)s+='<path d="M44 66q2 18 16 18t16-18q-6 6-16 6t-16-6z" fill="'+o.beard+'" '+P74_OUT+'/>';
-  /* 顔：まっすぐ前を見る目、きりっとした眉 */
-  s+=o.rival?'<path d="M46 49l10 5M74 49l-10 5" stroke="#2B2233" stroke-width="3" stroke-linecap="round"/>':'<path d="M47 52l8 2M73 52l-8 2" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/>';
-  s+='<ellipse cx="51" cy="60" rx="3" ry="3.8" fill="#2B2233"/><ellipse cx="69" cy="60" rx="3" ry="3.8" fill="#2B2233"/><circle cx="52" cy="58.6" r="1.1" fill="#fff"/><circle cx="70" cy="58.6" r="1.1" fill="#fff"/>';
-  s+='<circle cx="45" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/><circle cx="75" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/>';
-  if(!o.beard)s+=o.rival?'<path d="M54 72q6-4 12-1" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>':'<path d="M55 70q5 4 10 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
-  else if(o.rival)s+='<path d="M54 73q6-3 12 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  /* 顔：o.face で表情、o.look で目線（l/r/u/d） */
+  s+=p74Face(o);
   if(o.mask)s+='<path d="M38 55q22-6 44 0v9q-22-5-44 0z" fill="'+o.mask+'" '+P74_OUT+'/><ellipse cx="51" cy="60" rx="3" ry="3" fill="#fff"/><ellipse cx="69" cy="60" rx="3" ry="3" fill="#fff"/><circle cx="51" cy="60" r="1.8" fill="#2B2233"/><circle cx="69" cy="60" r="1.8" fill="#2B2233"/>';
   if(o.eyepatch)s+='<path d="M40 50l40 12" stroke="#2B2233" stroke-width="1.6"/><ellipse cx="69" cy="60" rx="6" ry="5.5" fill="#2B2233"/>';
   if(o.visor)s+='<path d="M38 52q22-8 44 0v16q-22 6-44 0z" fill="'+o.visor+'" '+P74_OUT+'/><path d="M44 60h32" stroke="#2B2233" stroke-width="3"/><path d="M48 60h8M64 60h8" stroke="'+(o.eyec||"#E2483B")+'" stroke-width="2.4" stroke-linecap="round"/>';
   if(o.scar)s+='<path d="M71 64l5 6" stroke="#B5523F" stroke-width="1.6"/>';
   if(o.glasses)s+='<circle cx="51" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><circle cx="69" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><path d="M57 60h6" stroke="#2B2233" stroke-width="1.6"/>';
   var hd=o.head||"none";s+=P74_HEAD[hd]?P74_HEAD[hd](o.headc):"";
+  if(o.braid)s+='<path d="M80 54q10 14 4 34" stroke="#2B2233" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M80 54q10 14 4 34" stroke="'+o.braid+'" stroke-width="4.4" fill="none" stroke-linecap="round"/><path d="M84 64h5M86 74h5M85 84h5" stroke="#8A5A2B" stroke-width="1.4"/>';
   if(o.spark)s+='<path d="M18 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3zM104 50l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#FFD34D"/>';
   return s;
 }
