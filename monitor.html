@@ -881,6 +881,13 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
 .sv-mx td.dc:has(.sv-cell):hover{box-shadow:inset 0 0 0 2px var(--st)}
 @media screen{.sv-mx td.dc:has(.sv-cell){position:relative}.sv-mx td.dc .sv-cell{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;min-height:0}}
 .sv-nc{font-size:9.5px;color:var(--sm)}
+.sv-gst{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 4px}
+.sv-gst button{font:inherit;font-size:13px;color:var(--sn);background:#fff;border:1px solid var(--sl);border-radius:999px;padding:6px 12px;min-height:34px;cursor:pointer}
+.sv-gst button.on{background:var(--sn);color:#fff;border-color:var(--sn)}
+.sv-gyr{display:inline-flex;flex-wrap:wrap;gap:4px;margin-left:6px}.sv-gyr button{font-size:12px;padding:5px 10px;min-height:32px}
+.sv-gp{display:none;font-size:11px;color:var(--sm)}
+.sv-gnote{font-size:12px;color:var(--sm);margin:2px 0 6px;line-height:1.6}
+@media print{.sv-gst button{display:none}.sv-gp{display:inline}.sv-gnote{font-size:6.8pt;margin:0 0 3px}}
 .sv-tot{text-align:right;padding:0}.sv-tot:hover b{text-decoration:underline}
 .sv-pop{position:fixed;z-index:70;background:#fff;color:var(--si);border:1px solid var(--sl);border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.28);overflow-y:auto;-webkit-overflow-scrolling:touch;font-size:12.5px;line-height:1.5}
 .sv-pop.sheet{left:0!important;right:0;bottom:0;top:auto!important;width:auto!important;max-height:70vh!important;border-radius:12px 12px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -1385,7 +1392,7 @@ $("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:"", sm:"", bt:"", mp:"", og:"", ou:"", rm:"", rq:"", rd:"", re:"", rs:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:"", sm:"", bt:"", mp:"", og:"", ou:"", rm:"", rq:"", rd:"", re:"", rs:"", gst:"", gyr:"", sv:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 // ym: new = started that year, ongoing = running that year, cum = everything started up to that year
 const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov", sscope:"my"}, lsGet("km-charts", {}));
@@ -1453,7 +1460,11 @@ let projLoading = null;
 function loadProjects(){
   if(PROJECTS) return Promise.resolve(PROJECTS);
   if(!projLoading) projLoading = getJSON("projects.json").then(d=>{
-    PROJECTS = (d.projects||[]).map(p=>{ p.c=p.c||[]; p.k=((p.t||"")+" "+(p.tj||"")+" "+(p.x||"")+" "+(p.org||"")+" "+(p.impl||"")).toLowerCase(); return p; });
+    // AidData republishes old World Bank projects (ids "...-SG-P123456") and the collector files them under China:
+    // they are the World Bank's, so they go back to it, and a copy of a project the World Bank lists itself is dropped
+    const wbIds = new Set((d.projects||[]).filter(p=>/^WB-P\d+$/.test(p.id)).map(p=>p.id));
+    PROJECTS = (d.projects||[]).filter(p=>{ const m = String(p.id).match(/-SG-(P\d{5,7})$/); if(!m) return true; if(wbIds.has("WB-"+m[1])) return false; p.donor = "wb"; return true; })
+      .map(p=>{ p.c=p.c||[]; p.k=((p.t||"")+" "+(p.tj||"")+" "+(p.x||"")+" "+(p.org||"")+" "+(p.impl||"")).toLowerCase(); return p; });
     PROJECTS.meta = d;
   }).catch(e=>{ PROJECTS = []; PROJECTS.err = String(e.message||e); }).then(()=>{ render(); return PROJECTS; });
   return projLoading;
@@ -3317,7 +3328,7 @@ function rpRefs(refs){
 }
 function rpRefHTML(list){
   const refs = list.split(" "), k = refs[0].split(":")[0];
-  if(k==="row") return refs.map(r=>sumCellHTML(r.slice(4)+"|")).join("");
+  if(k==="row") return refs.map(r=>sumCellHTML(r.slice(4)+"|", SUM_LAST)).join("");
   const li = r => {
     const [, a, b] = r.split(":");
     if(k==="news"){ const x = RP.items.get(a); return `<li><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.tj||x.t)}</a><div class="m">${esc(fmtDay(x.ts))}${x.s?" · "+esc(x.s):""}${x.g?" · 政府の発表":""}</div>${x.tj&&x.t&&x.t!==x.tj?`<div class="x">${esc(x.t)}</div>`:""}</li>`; }
@@ -3422,13 +3433,18 @@ const sumMD = ts => { const d = new Date(ts); return (d.getMonth()+1)+"/"+d.getD
 // every project goes on every row whose branch words appear in its name (a project can sit on several rows);
 // the description is used only when the name matches no branch at all (a weaker match). why: project -> {f, w}
 const sumCandCache = new Map();
-function sumTreeCand(tn){
-  const key = tn+"|"+SHOW_JP+"|"+(PROJECTS?PROJECTS.length:0);
+// which projects a table counts: "active" (default), "closed" or "all" (both). Closed projects are counted from
+// CLOSED_FROM (by end year): before that the public data has many gaps. S.gyr==="all" lifts that limit.
+const CLOSED_FROM = 2010;
+const stYr = p => S.gyr==="all" || !p.e || +String(p.e).slice(0,4) >= CLOSED_FROM;
+const stOK = (p, st) => p.st==="active" ? st!=="closed" : p.st==="closed" && st!=="active" && stYr(p);
+function sumTreeCand(tn, st="active"){
+  const key = tn+"|"+st+"|"+S.gyr+"|"+SHOW_JP+"|"+(PROJECTS?PROJECTS.length:0);
   if(sumCandCache.has(key)) return sumCandCache.get(key);
   const t = TREES[tn], rules = t.rules.map(([n, rx])=>[n, new RegExp(rx, "i")]), skip = t.exclude ? new RegExp(t.exclude) : null;
   const only = t.only ? new RegExp(t.only, "i") : null, secs = [].concat(t.sector), out = [];
   for(const p of projects()){
-    if(p.st!=="active" || !p.c.some(c=>secs.includes(c))) continue;
+    if(!stOK(p, st) || !p.c.some(c=>secs.includes(c))) continue;
     if(skip && skip.test((p.t||"")+" "+(p.x||""))) continue;
     if(only && !only.test((p.t||"")+" "+(p.x||""))) continue;
     const pk = t.pick && t.pick[p.id];   // read and placed by hand: that branch only, or none
@@ -3442,7 +3458,7 @@ function sumTreeCand(tn){
   sumCandCache.set(key, out);
   return out;
 }
-function sumRowProjects(sid, r){
+function sumRowProjects(sid, r, st="active"){
   const why = new Map();
   if(r.tn){
     const skip = new Set(r.x||[]);
@@ -3451,19 +3467,19 @@ function sumRowProjects(sid, r){
       const n = treeNode(t, id); if(!n) continue;
       const ids = new Set(), walk = k => { if(skip.has(k.id)) return; ids.add(k.id); (k.kids||[]).forEach(walk); };
       walk(n);
-      for(const c of sumTreeCand(t)){ const h = c.hits.find(h=>ids.has(h[0])); if(h && !why.has(c.p)) why.set(c.p, {f:h[1], w:h[2]}); }
+      for(const c of sumTreeCand(t, st)){ const h = c.hits.find(h=>ids.has(h[0])); if(h && !why.has(c.p)) why.set(c.p, {f:h[1], w:h[2]}); }
     }
   } else if(r.kw){
     const rx = new RegExp(r.kw, "i");
-    for(const p of projects()){ if(p.st!=="active" || !p.c.includes(sid)) continue; const m = ((p.tj||"")+" "+(p.t||"")).match(rx); if(m) why.set(p, {f:"t", w:m[0]}); }
+    for(const p of projects()){ if(!stOK(p, st) || !p.c.includes(sid)) continue; const m = ((p.tj||"")+" "+(p.t||"")).match(rx); if(m) why.set(p, {f:"t", w:m[0]}); }
   }
   return {ps:[...why.keys()], why};
 }
-function sumData(sid){
+function sumData(sid, st="active"){
   const sp = SUM_SPEC[sid], tx = (SUM_TEXT.sectors||{})[sid] || {};
   const now = Date.now(), news = items().filter(x=>x.c.includes(sid) && x.ts>=now-75*DAY);
   const rows = sp.rows.map(r=>{
-    const {ps, why} = sumRowProjects(sid, r), by = {}, cnt = {};
+    const {ps, why} = sumRowProjects(sid, r, st), by = {}, cnt = {};
     for(const p of ps){ by[p.donor] = (by[p.donor]||0) + shareAmt(p); cnt[p.donor] = (cnt[p.donor]||0)+1; }
     const a = ps.reduce((v,p)=>v+shareAmt(p), 0);
     const nrx = new RegExp(r.nk, "i"), nxr = r.nx ? new RegExp(r.nx, "i") : null;
@@ -3482,7 +3498,7 @@ function sumData(sid){
   for(const r of rows) for(const p of r.ps){ if(seenP.has(p)) continue; seenP.add(p); tot[p.donor] = (tot[p.donor]||0) + (shareAmt(p)||0.001); }
   const order = Object.keys(tot).sort((a,b)=>tot[b]-tot[a]), cols = order.slice(0, order.length>10 ? 9 : 10), rest = new Set(order.slice(cols.length));
   const act = sectorProjects(sid).filter(p=>p.st==="active");
-  return {sp, tx, rows, cols, rest, news, act, rowsOf};
+  return {sp, tx, rows, cols, rest, news, act, rowsOf, st};
 }
 function sumHTML(sid){
   const s = SEC[sid], D = sumData(sid), {sp, tx, rows, cols, rest, act} = D;
@@ -3519,27 +3535,39 @@ function sumHTML(sid){
       <div class="sv-tree">${sp.pil.map(([k,l])=>`<div class="sv-pc"><h4>${esc(l)}</h4>${rows.filter(r=>r.p===k).map(node).join("")}</div>`).join("")}</div>
     </div></div>
     ${foot(`出典:サイトの国の戦略・協力案件・ニュース。金額は契約・約束額のドル換算で概算。${textNote}`, 1)}</section>`;
-  // ---- page 2: strategy x donor x recent news
+  // ---- page 2: strategy x donor x recent news; the buttons switch the table to closed projects or everything so far
   const dn = d => SUM_DN[d] || donorName(d).replace(/（.*?）/,"");
+  const D2 = S.gst ? sumData(sid, S.gst) : D;
+  SUM_LAST2 = D2;
+  const mxHTML = X => {
+  const {rows, cols, rest} = X, live = X.st==="active", extra = live ? 4 : 2;
   const th = cols.map(d=>`<th class="dc">${esc(dn(d))}</th>`).join("") + (rest.size ? '<th class="dc">他</th>' : "");
   let body = "", cur = null;
   for(const r of rows){
-    if(r.p!==cur){ cur = r.p; body += `<tr class="sv-pil"><td colspan="${cols.length+(rest.size?1:0)+4}"><span>${esc(pil[cur]||"")}</span></td></tr>`; }
+    if(r.p!==cur){ cur = r.p; body += `<tr class="sv-pil"><td colspan="${cols.length+(rest.size?1:0)+extra}"><span>${esc(pil[cur]||"")}</span></td></tr>`; }
     const other = [...rest].reduce((v,d)=>v+(r.by[d]||0), 0);
     const cell = (d, v, n) => n ? `<td class="dc ${sumShade(v)}"><button class="sv-cell" data-svcell="${esc(r.id)}|${esc(d)}" aria-label="${esc(r.n)}・${esc(d==="*"?"その他":dn(d))}の案件 ${n}件">${sumM(v)||`<span class="sv-nc">${n}件</span>`}</button></td>` : '<td class="dc"></td>';
     const cells = cols.map(d=>cell(d, r.by[d]||0, r.cnt[d]||0)).join("") + (rest.size ? cell("*", other, [...rest].reduce((v,d)=>v+(r.cnt[d]||0), 0)) : "");
     const nw = r.nw.length ? r.nw.map(x=>`<div><span>${sumMD(x.ts)}</span><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc((x.tj||x.t||"").slice(0,40))}</a></div>`).join("") : '<span>—</span>';
+    const yrs = live || !r.ps.length ? "" : (()=>{ const a = r.ps.map(p=>+String(p.a||"").slice(0,4)).filter(Boolean), e = r.ps.map(p=>+String(p.e||"").slice(0,4)).filter(Boolean); return a.length ? `${Math.min(...a)}〜${e.length?Math.max(...e):""}年` : ""; })();
     body += `<tr><td><div class="sv-lbl">${esc(r.n)}</div><div class="sv-st">${esc(r.st)}<span class="sv-cf ${/案|目標|推定/.test(r.cf)?"an":""}">${esc(r.cf)}</span></div></td>
       ${cells}<td class="sv-num">${r.ps.length?`<button class="sv-cell sv-tot" data-svcell="${esc(r.id)}|">`:""}<b>${sumM(r.a)||"0"}</b> <span style="color:var(--sm)">${r.ps.length}件</span>${r.ps.length?"</button>":""}</td>
-      <td class="sv-nw">${nw}</td><td>${lvTag(r)} ${esc(r.cm)}</td></tr>`;
+      ${live ? `<td class="sv-nw">${nw}</td><td>${lvTag(r)} ${esc(r.cm)}</td>` : `<td class="sv-nw"><span>${esc(yrs)}</span></td>`}</tr>`;
   }
   const dw = cols.length+(rest.size?1:0);
-  const p2 = `<section class="sv-sheet">${head("図表 2 ・ 戦略 × ドナー × 最近の動き", tx.h2 || "戦略の分野ごとのドナーの動きとギャップ")}
+  const stLab = {active:"実施中", closed:"終了済み", all:"実施中+終了済み"}[X.st];
+  return `<div class="sv-gst" role="group" aria-label="表に数える案件">${[["","実施中"],["closed","終了済み"],["all","これまでの合計"]].map(([v,l])=>`<button type="button" data-gst="${v}" class="${S.gst===v?"on":""}" aria-pressed="${S.gst===v}">${l}</button>`).join("")}
+      ${live ? "" : `<span class="sv-gyr">${[["",`${CLOSED_FROM}年以降に終わった案件`],["all","全期間"]].map(([v,l])=>`<button type="button" data-gyr="${v}" class="${S.gyr===v?"on":""}" aria-pressed="${S.gyr===v}">${l}</button>`).join("")}</span>`}
+      <span class="sv-gp">表示中:${stLab}${live?"":S.gyr==="all"?"・全期間":`・終了済みは${CLOSED_FROM}年以降`}</span></div>
+    ${live ? "" : `<p class="sv-gnote">終了済みの案件は、公開データがそろっている${CLOSED_FROM}年以降(終了年)を数えています。${S.gyr==="all"?"全期間にすると2000年代以前も入りますが、その頃の案件はかなり抜けています。":""}金額は契約・約束額で、実際に使われた額とは違うことがあります。</p>`}
     <div class="sv-swipe">表は横にスクロールできます →(横向きにすると全体が見やすくなります)</div>
-    <div class="sv-mxw"><table class="sv-mx"><colgroup><col style="width:21%">${cols.map(()=>`<col style="width:${(32/dw).toFixed(2)}%">`).join("")}${rest.size?`<col style="width:${(32/dw).toFixed(2)}%">`:""}<col style="width:6%"><col style="width:22%"><col style="width:19%"></colgroup>
-    <thead><tr><th>戦略の分野 / 国の戦略・制度</th>${th}<th class="sv-num">合計</th><th>最近の動き(ニュース)</th><th>評価</th></tr></thead><tbody>${body}</tbody></table></div>
-    <div class="sv-legend"><span>色=実施中の案件額(百万ドル、複数分野は按分):</span><span><i class="sv-h1"></i>〜1</span><span><i class="sv-h2"></i>1〜5</span><span><i class="sv-h3"></i>5〜20</span><span><i class="sv-h4"></i>20以上</span>
-      <span class="sv-scr">マスを押すと案件と置いた理由が出ます。</span><span>複数の行にまたがる案件は各行に数えます(合計は重複あり)。</span><span>評価の色は金額から自動(要注意は文章で指定)。</span><span class="sv-cf an" style="margin:0">案</span><span>=まだ案・目標のみ</span></div>
+    <div class="sv-mxw"><table class="sv-mx"><colgroup><col style="width:21%">${cols.map(()=>`<col style="width:${((live?32:58)/dw).toFixed(2)}%">`).join("")}${rest.size?`<col style="width:${((live?32:58)/dw).toFixed(2)}%">`:""}<col style="width:${live?6:9}%">${live?'<col style="width:22%"><col style="width:19%">':'<col style="width:12%">'}</colgroup>
+    <thead><tr><th>戦略の分野 / 国の戦略・制度</th>${th}<th class="sv-num">合計</th>${live?"<th>最近の動き(ニュース)</th><th>評価</th>":"<th>期間</th>"}</tr></thead><tbody>${body}</tbody></table></div>
+    <div class="sv-legend"><span>色=${stLab}の案件額(百万ドル、複数分野は按分):</span><span><i class="sv-h1"></i>〜1</span><span><i class="sv-h2"></i>1〜5</span><span><i class="sv-h3"></i>5〜20</span><span><i class="sv-h4"></i>20以上</span>
+      <span class="sv-scr">マスを押すと案件と置いた理由が出ます。</span><span>複数の行にまたがる案件は各行に数えます(合計は重複あり)。</span><span>評価の色は金額から自動(要注意は文章で指定)。</span><span class="sv-cf an" style="margin:0">案</span><span>=まだ案・目標のみ</span></div>`;
+  };
+  const p2 = `<section class="sv-sheet">${head("図表 2 ・ 戦略 × ドナー × 最近の動き", tx.h2 || "戦略の分野ごとのドナーの動きとギャップ")}
+    ${mxHTML(D2)}
     ${foot(`出典:協力案件データ(世界銀行・IATI・JICA)を戦略の分野にキーワードで当てはめたもの(分類は目安)、ニュースは直近75日。${textNote}`, 2)}</section>`;
   // ---- page 3: recent moves
   const tagOf = x => { const s2 = (x.tj||"")+" "+(x.t||""); const r = rows.find(r=>new RegExp(r.nk,"i").test(s2) && !(r.nx && new RegExp(r.nx,"i").test(s2))); return r ? r.n.replace(/[(（].*$/,"") : ""; };
@@ -3565,10 +3593,10 @@ function sumHTML(sid){
     ${foot(`出典:サイトのニュース(直近75日)と協力案件データの終了予定日。${textNote}`, 3)}</section>`;
   return repHTML(sid, D, head) + p1 + p2 + p3;
 }
-let SUM_LAST = null;
+let SUM_LAST = null, SUM_LAST2 = null;   // the summary data (active) and the data behind the table on page 2 (switchable)
 // the projects behind one cell of the table (row id | donor id, "*" = the other donors, "" = the whole row) and why each is there
-function sumCellHTML(key){
-  const D = SUM_LAST; if(!D) return "";
+function sumCellHTML(key, D=SUM_LAST2){
+  if(!D) return "";
   const [rid, d] = key.split("|"), r = D.rows.find(x=>x.id===rid); if(!r) return "";
   const list = r.ps.filter(p=>!d || (d==="*" ? D.rest.has(p.donor) : p.donor===d)).sort((a,b)=>shareAmt(b)-shareAmt(a));
   const who = !d ? "全ドナー" : d==="*" ? "その他のドナー" : (SUM_DN[d] || donorName(d));
@@ -3576,7 +3604,7 @@ function sumCellHTML(key){
     const w = r.why.get(p), also = (D.rowsOf.get(p)||[]).filter(x=>x!==r).map(x=>x.n.replace(/[(（].*$/,""));
     const desc = (p.xj || "").slice(0, 140);
     return `<li class="${w&&w.f==="x"?"weak":""}"><a href="${esc(p.u)}" target="_blank" rel="noopener">${esc(p.tj||p.t)}</a>
-      <div class="m">${esc(donorName(p.donor))}${hasAmt(p)?" · "+money(p.amt):""}${p.c.length>1?`(${p.c.length}分野で按分)`:""}${p.e?" · 終了 "+esc(ymd(p.e)):""}</div>
+      <div class="m">${esc(donorName(p.donor))}${hasAmt(p)?" · "+money(p.amt):""}${p.c.length>1?`(${p.c.length}分野で按分)`:""}${p.st==="closed"?` · <b>終了済み</b>(${esc(ymd(p.a)||"?")}〜${esc(ymd(p.e)||"?")})`:p.e?" · 終了 "+esc(ymd(p.e)):""}</div>
       ${w?`<div class="w">${w.f==="r"?`<b>ここに置いた理由</b>:${esc(w.w)}`:`<b>${w.f==="t"?"仮置きの理由(自動)":"仮置きの理由(自動・要確認)"}</b>:${w.f==="t"?"案件名":"説明文"}に「${esc(w.w)}」`}</div>`:""}
       ${also.length?`<div class="w">ほかの行にも:${esc(also.join("、"))}</div>`:""}
       ${desc?`<div class="x">${esc(desc)}${(p.xj||"").length>140?"…":""}</div>`:""}</li>`;
@@ -3617,6 +3645,8 @@ document.addEventListener("click", e=>{
   if(e.target.closest("[data-sumprint]")){ window.print(); return; }
   if(e.target.closest("[data-svpopx]")){ sumPop(null); return; }
   const rf = e.target.closest("[data-rpref]"); if(rf){ const k = "rp:"+rf.dataset.rpref, el = document.getElementById("svpop"); el && el.dataset.key===k ? sumPop(null) : sumPop(rf, rpRefHTML(rf.dataset.rpref), k); return; }
+  const gs = e.target.closest("[data-gst]"); if(gs){ sumPop(null); go({gst:gs.dataset.gst}, false); return; }
+  const gy = e.target.closest("[data-gyr]"); if(gy){ sumPop(null); go({gyr:gy.dataset.gyr}, false); return; }
   const rg = e.target.closest("[data-rpgo]"); if(rg){ sumPop(null); rpScroll(rg.dataset.rpgo); return; }
   const st = e.target.closest("[data-st]"); if(st){ sumPop(null); go({st:st.dataset.st}, false); if(st.dataset.tnode) showTreeNode(st.dataset.tnode); return; }
   const c = e.target.closest("[data-svcell]"); if(c){ const el = document.getElementById("svpop"); sumPop(el && el.dataset.key===c.dataset.svcell ? null : c); return; }
