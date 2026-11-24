@@ -491,6 +491,8 @@ details.about .foot{margin-top:8px}
 .spot .sd{font-size:11.5px;color:var(--ink-2)}
 .spot .sc{font-size:11px;color:var(--ink-3)}
 .spot .sc b{color:var(--accent);font-weight:700}
+.spot{cursor:pointer;text-align:left}
+.spot .smore{margin-top:auto;padding-top:4px;font-size:11.5px;font-weight:800;color:var(--accent)}
 :root[data-layout="sharp"] .spot,:root[data-layout="sharp"] .spot .se{border-radius:3px}
 /* calendar */
 .calbox{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
@@ -1023,7 +1025,7 @@ function render(){
   document.getElementById("updated").textContent = state ? fmtUpdated(state.t) : (loading ? "読み込み中…" : "データなし");
   if(!state){ if(!loading){ document.getElementById("favs").innerHTML=""; document.getElementById("list").innerHTML=""; } return; }
   renderFavs(); renderList(); renderSpots();
-  if(openIdx!=null) renderSheet(openIdx);
+  if(openIdx!=null && typeof openIdx!=="string") renderSheet(openIdx);
 }
 
 function renderFavs(){
@@ -1684,8 +1686,8 @@ async function loadSpots(){
   try{
     const j = asArr(await getJSON("https://api.open-meteo.com/v1/forecast?" + qs({
       latitude:SPOTS.map(p=>p.lat).join(","), longitude:SPOTS.map(p=>p.lon).join(","), elevation:SPOTS.map(p=>p.el).join(","),
-      timezone:TZ, forecast_days:1, current:"temperature_2m,weather_code,is_day",
-      daily:"temperature_2m_max,temperature_2m_min,precipitation_probability_max,snowfall_sum"})));
+      timezone:TZ, forecast_days:7, current:"temperature_2m,weather_code,is_day",
+      daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,snowfall_sum"})));
     spotWx = {t:Date.now(), data:j}; lsSet("kg-spots"+CFG.suffix, spotWx);
   }catch(e){}
   renderSpots();
@@ -1700,12 +1702,51 @@ function renderSpots(){
     const w = data && data[i], cur = w && w.current, dl = w && w.daily;
     const diff = cur && capT!=null ? Math.round(cur.temperature_2m - capT) : null;
     const snow = dl && dl.snowfall_sum && dl.snowfall_sum[0], pop = dl && dl.precipitation_probability_max && dl.precipitation_probability_max[0];
-    return `<div class="spot"><div class="sn">${p.ja}</div><div class="sr">${p.area}</div>
+    return `<div class="spot" role="button" tabindex="0" data-spot="${i}" aria-label="${p.ja}の週間天気"><div class="sn">${p.ja}</div><div class="sr">${p.area}</div>
       <span class="se ${p.el>=2000?"hi":""}">⛰ 標高 ${p.el.toLocaleString()}m</span>
       <div class="stw num"><span class="i">${cur?wIcon(cur.weather_code,cur.is_day):"–"}</span><span class="t">${cur?r(cur.temperature_2m)+"°":""}</span></div>
       <div class="sd num">${dl?`↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°`:""}${snow?`　❄${Math.round(snow*10)/10}cm`:pop!=null?`　☔${pop}%`:""}</div>
-      ${diff!=null&&diff!==0?`<div class="sc num">${CAPITAL.ja}より <b>${diff>0?"+":""}${diff}°</b></div>`:""}</div>`;
+      ${diff!=null&&diff!==0?`<div class="sc num">${CAPITAL.ja}より <b>${diff>0?"+":""}${diff}°</b></div>`:""}<div class="smore">週間天気 ›</div></div>`;
   }).join("");
+  if(typeof openIdx==="string" && openIdx.startsWith("spot:")) renderSpotSheet(+openIdx.slice(5));
+}
+// weekly forecast of one tourist spot, in the same sheet the cities use
+function renderSpotSheet(k){
+  const p = SPOTS[k]; if(!p) return;
+  const w = spotWx && spotWx.data && spotWx.data[k], cur = w && w.current, dl = w && w.daily;
+  let days = `<div class="nempty">予報を取得できませんでした。電波を確認して右上の更新ボタンを押してください。</div>`;
+  if(dl && dl.time){
+    const lo = Math.min(...dl.temperature_2m_min), hi = Math.max(...dl.temperature_2m_max), span = Math.max(1, hi-lo);
+    days = dl.time.map((t,j)=>{
+      const dt = new Date(t+"T12:00:00");
+      const label = j===0 ? "今日" : j===1 ? "明日" : WD[dt.getDay()]+"曜";
+      const mn = dl.temperature_2m_min[j], mx = dl.temperature_2m_max[j], pp = (dl.precipitation_probability_max||[])[j], sn = (dl.snowfall_sum||[])[j];
+      return `<div class="day num">
+        <div class="dn">${label}<small>${dt.getMonth()+1}/${dt.getDate()}</small></div>
+        <div class="di">${wIcon((dl.weather_code||[])[j])}</div>
+        <div class="dp">${sn>=0.1?"❄"+(sn<1?"<1":Math.round(sn))+"cm":pp>=10?"☔"+pp+"%":""}</div>
+        <div class="lo">${r(mn)}°</div>
+        <div class="bar"><i style="left:${(mn-lo)/span*100}%;right:${(hi-mx)/span*100}%"></i></div>
+        <div class="hi">${r(mx)}°</div>
+        <div class="dot"></div>
+      </div>`;
+    }).join("");
+  }
+  const diff = p.el - CAPITAL.el;
+  document.getElementById("sheetBody").innerHTML = `
+    <div class="shead">
+      <button class="iconbtn" id="back" aria-label="戻る"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <h2>${p.ja}<small>${p.ru}</small></h2>
+    </div>
+    ${cur?`<div class="now num">
+      <div class="bicon">${wIcon(cur.weather_code,cur.is_day)}</div>
+      <div class="big">${r(cur.temperature_2m)}°</div>
+      <div class="desc"><div>${wName(cur.weather_code)}</div>
+        ${dl?`<div>↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°</div>`:""}</div>
+    </div>`:""}
+    <div class="sec"><h3>7日間</h3>${days}</div>
+    <div class="sec"><h3>場所と高さ</h3><div style="font-size:13px;line-height:1.7;color:var(--ink-2)">${p.area}。標高 <b>${p.el.toLocaleString()}m</b>${diff>60?`で、${CAPITAL.ja}より${diff.toLocaleString()}m高く、気温はおよそ${(diff*0.6/100).toFixed(1)}°低くなりがちです（100mで約0.6°下がる）`:""}。
+      山の天気は変わりやすいので、出かける前にもう一度確認してください。予報はこの場所の高さで計算しています（Open-Meteo）。</div></div>`;
 }
 
 /* ---------- holidays & events ---------- */
@@ -1946,7 +1987,7 @@ function renderWeekly(){
 /* ---------- detail sheet ---------- */
 let openIdx = null;
 function openSheet(i){
-  openIdx = i; renderSheet(i);
+  openIdx = i; if(typeof i==="string" && i.startsWith("spot:")) renderSpotSheet(+i.slice(5)); else renderSheet(i);
   const s = document.getElementById("sheet"); s.scrollTop = 0; s.classList.add("open");
   try{ history.pushState({sheet:i}, ""); }catch(e){}
 }
@@ -2056,6 +2097,8 @@ document.addEventListener("click", e=>{
   if(op){ openSheet(+op.dataset.open); return; }
   const city = e.target.closest(".city");
   if(city){ openSheet(+city.dataset.i); return; }
+  const spot = e.target.closest("[data-spot]");
+  if(spot){ openSheet("spot:"+spot.dataset.spot); return; }
   const sb = e.target.closest("#sortbar button");
   if(sb){ prefs.sort = sb.dataset.s; lsSet(PREF_KEY, prefs); renderList(); return; }
   const nt = e.target.closest("#newsTabs button");
@@ -2118,6 +2161,8 @@ document.addEventListener("keydown", e=>{
   if(e.key==="Escape" && !document.getElementById("skinPicker").hidden){ document.getElementById("skinPicker").hidden = true; document.body.style.overflow=""; return; }
   const city = e.target.closest && e.target.closest(".city");
   if(city && (e.key==="Enter"||e.key===" ") && !e.target.closest("[data-fav]")){ e.preventDefault(); openSheet(+city.dataset.i); }
+  const spot = e.target.closest && e.target.closest("[data-spot]");
+  if(spot && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); openSheet("spot:"+spot.dataset.spot); }
 });
 document.getElementById("refresh").onclick = refresh;
 function maybeRefresh(){
