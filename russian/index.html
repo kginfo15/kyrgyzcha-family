@@ -12219,6 +12219,542 @@ var P73_SPK='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
   var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
 })();
 
+/* ===== Phase74 絵：冒険の主人公・仲間・モンスター・ボス（このアプリのために一から描いたオリジナルの SVG） ===== */
+/* 座標は 120×160。主人公は正面向きで、右手（画面の右）に武器・道具、左手（画面の左）に盾や本を持つ。 */
+function p74Shade(hex,k){ /* k>0 で明るく、k<0 で暗く */
+  var n=parseInt(hex.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;
+  function f(c){return Math.max(0,Math.min(255,Math.round(k>=0?c+(255-c)*k:c*(1+k))));}
+  return "#"+((1<<24)+(f(r)<<16)+(f(g)<<8)+f(b)).toString(16).slice(1);
+}
+var P74_OUT='stroke="#2B2233" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"';
+/* ---------- 手に持つ物 ---------- */
+var P74_HAND={
+  hoe:function(){return '<path d="M88 66L84 136" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M80 64q10-8 20-2l-4 7q-8-3-14 1z" fill="#9AA4AE" '+P74_OUT+'/>';},
+  stick:function(){return '<path d="M90 56L84 138" stroke="#7A4E26" stroke-width="6" stroke-linecap="round"/><circle cx="90" cy="56" r="4" fill="#7A4E26"/>';},
+  sword:function(){return '<path d="M88 40l5 4-3 52-5 0z" fill="#DCE3EA" '+P74_OUT+'/><path d="M80 96h16" stroke="#7A5A2E" stroke-width="5" stroke-linecap="round"/><path d="M88 99v10" stroke="#5A3A1E" stroke-width="5"/>';},
+  bigsword:function(){return '<path d="M87 18l7 6-2 72h-8z" fill="#EEF3F8" '+P74_OUT+'/><path d="M89 26v66" stroke="#B9C6D3" stroke-width="2"/><path d="M76 96h24" stroke="#C99A2E" stroke-width="6" stroke-linecap="round"/><circle cx="88" cy="96" r="4" fill="#E2483B" '+P74_OUT+'/><path d="M88 100v12" stroke="#5A3A1E" stroke-width="5"/>';},
+  lightsword:function(){return '<g><path d="M86 8l9 8-2 80h-10z" fill="#FFF7D6" '+P74_OUT+'/><path d="M89 16v76" stroke="#FFD34D" stroke-width="3"/><path d="M72 96h32" stroke="#E8B923" stroke-width="7" stroke-linecap="round"/><path d="M88 90l6 6-6 6-6-6z" fill="#4FB3E8" '+P74_OUT+'/><path d="M88 102v12" stroke="#5A3A1E" stroke-width="5"/></g>';},
+  staff:function(){return '<path d="M88 46L84 140" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M88 46q-8-6-2-14q8 2 6 12" fill="none" stroke="#8A5A2B" stroke-width="4" stroke-linecap="round"/>';},
+  crystal:function(){return '<path d="M88 50L84 140" stroke="#6B4A8A" stroke-width="5" stroke-linecap="round"/><path d="M88 22l9 14-9 16-9-16z" fill="#8FD3F4" '+P74_OUT+'/><path d="M88 26l4 10-4 10" fill="none" stroke="#fff" stroke-width="1.6" opacity=".8"/>';},
+  bigstaff:function(){return '<path d="M88 44L84 142" stroke="#E8B923" stroke-width="5" stroke-linecap="round"/><circle cx="88" cy="30" r="12" fill="#FFF3B0" '+P74_OUT+'/><circle cx="88" cy="30" r="6" fill="#FFD34D"/><path d="M74 30a14 14 0 0 1 28 0" fill="none" stroke="#E8B923" stroke-width="4"/><path d="M70 18l4 4M106 18l-4 4M88 10v5" stroke="#FFD34D" stroke-width="2.5" stroke-linecap="round"/>';},
+  flag:function(){return '<path d="M88 30L86 140" stroke="#7A4E26" stroke-width="4" stroke-linecap="round"/><path d="M88 32h24l-6 9 6 9H88z" fill="#3E8E5A" '+P74_OUT+'/><circle cx="99" cy="41" r="3" fill="#F5E6A8"/>';},
+  key:function(){return '<path d="M88 64v40" stroke="#C99A2E" stroke-width="5" stroke-linecap="round"/><circle cx="88" cy="58" r="7" fill="none" stroke="#C99A2E" stroke-width="4"/><path d="M88 96h7M88 102h5" stroke="#C99A2E" stroke-width="3"/>';},
+  scepter:function(){return '<path d="M88 46L85 132" stroke="#C99A2E" stroke-width="5" stroke-linecap="round"/><circle cx="88" cy="38" r="9" fill="#E2483B" '+P74_OUT+'/><path d="M80 46h16" stroke="#E8B923" stroke-width="4" stroke-linecap="round"/><path d="M88 26v4M84 28h8" stroke="#E8B923" stroke-width="2.5" stroke-linecap="round"/>';},
+  bigscepter:function(){return '<path d="M88 40L85 136" stroke="#E8B923" stroke-width="6" stroke-linecap="round"/><path d="M76 34l12-14 12 14-12 10z" fill="#9B7BEA" '+P74_OUT+'/><path d="M88 24v14" stroke="#fff" stroke-width="1.6" opacity=".7"/><path d="M78 44h20" stroke="#E8B923" stroke-width="5" stroke-linecap="round"/>';},
+  bamboo:function(){return '<path d="M90 24L84 140" stroke="#8DB255" stroke-width="5" stroke-linecap="round"/><path d="M90 24l3-10 1 10z" fill="#C8D9A0" '+P74_OUT+'/><path d="M86 70h6M85 100h6" stroke="#5E7F2F" stroke-width="2"/>';},
+  katana:function(){return '<path d="M84 98q4-40 14-60l2 2q-8 22-10 58z" fill="#E6ECF2" '+P74_OUT+'/><ellipse cx="87" cy="99" rx="7" ry="2.6" fill="#2B2233"/><path d="M87 101v12" stroke="#3A2A55" stroke-width="5"/><path d="M85 103l4 3M85 108l4 3" stroke="#E8B923" stroke-width="1.4"/>';},
+  meito:function(){return '<g><path d="M83 98q4-46 17-70l3 2q-10 26-12 68z" fill="#F4F8FB" '+P74_OUT+'/><path d="M88 92q3-30 12-58" stroke="#9FB6CC" stroke-width="1.4" fill="none"/><ellipse cx="87" cy="99" rx="8" ry="3" fill="#C99A2E" '+P74_OUT+'/><path d="M87 101v13" stroke="#7A1F2B" stroke-width="5"/></g>';},
+  saihai:function(){return '<path d="M88 70v40" stroke="#2B2233" stroke-width="4" stroke-linecap="round"/><path d="M88 70q-12-8-14-24M88 70q-4-14 0-28M88 70q8-10 14-24M88 70q-10-2-18-12M88 70q12-4 18-14" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M88 70q-12-8-14-24M88 70q8-10 14-24" stroke="#C9D3DD" stroke-width="1" fill="none"/>';},
+  rod:function(){return '<path d="M86 132L100 30" stroke="#8A5A2B" stroke-width="4" stroke-linecap="round"/><path d="M100 30q12 30 6 56" fill="none" stroke="#C9D3DD" stroke-width="1.2"/><circle cx="106" cy="86" r="3" fill="#E2483B"/>';},
+  oar:function(){return '<path d="M90 40L84 128" stroke="#9A6A36" stroke-width="5" stroke-linecap="round"/><path d="M84 124q-6 10 0 22q8 2 8-10z" fill="#B98247" '+P74_OUT+'/>';},
+  cutlass:function(){return '<path d="M86 96q0-34 12-50q4 4 2 8q-8 16-8 42z" fill="#E6ECF2" '+P74_OUT+'/><path d="M80 98q8 8 16 0" fill="none" stroke="#C99A2E" stroke-width="4"/><path d="M88 100v12" stroke="#5A3A1E" stroke-width="5"/>';},
+  scope:function(){return '<path d="M82 104l18-40" stroke="#B98247" stroke-width="7" stroke-linecap="round"/><path d="M95 74l7-16" stroke="#C99A2E" stroke-width="9" stroke-linecap="round"/><circle cx="102" cy="58" r="3" fill="#8FD3F4"/>';},
+  admflag:function(){return '<path d="M88 22L86 140" stroke="#C99A2E" stroke-width="4" stroke-linecap="round"/><path d="M88 24q14-4 26 2v24q-12-6-26-2z" fill="#1F4E8C" '+P74_OUT+'/><path d="M101 30l2 5h5l-4 3 2 5-5-3-4 3 2-5-4-3h5z" fill="#FFD34D"/>';}
+};
+var P74_OFF={
+  none:function(){return "";},
+  basket:function(){return '<path d="M18 104h22l-3 18H21z" fill="#C99A5B" '+P74_OUT+'/><path d="M20 104q9-12 18 0" fill="none" stroke="#8A5A2B" stroke-width="3"/><circle cx="25" cy="102" r="3" fill="#E2483B"/><circle cx="32" cy="101" r="3" fill="#F2A541"/>';},
+  roundshield:function(){return '<circle cx="28" cy="106" r="15" fill="#A0703C" '+P74_OUT+'/><circle cx="28" cy="106" r="5" fill="#C9D3DD" '+P74_OUT+'/>';},
+  kiteshield:function(){return '<path d="M14 90h28v16q0 16-14 24q-14-8-14-24z" fill="#D8DEE6" '+P74_OUT+'/><path d="M28 94v30M18 104h20" stroke="#1F4E8C" stroke-width="4"/>';},
+  holyshield:function(){return '<path d="M12 88h32v18q0 18-16 26q-16-8-16-26z" fill="#F6F1E1" '+P74_OUT+'/><path d="M28 92v34M16 104h24" stroke="#E8B923" stroke-width="5"/><circle cx="28" cy="104" r="4" fill="#4FB3E8"/>';},
+  book:function(){return '<rect x="14" y="96" width="26" height="20" rx="2" fill="#7A3B2E" '+P74_OUT+'/><path d="M18 100h18" stroke="#E8B923" stroke-width="2"/><circle cx="27" cy="108" r="3" fill="#E8B923"/>';},
+  orb:function(){return '<circle cx="26" cy="104" r="10" fill="#B9A6F2" '+P74_OUT+'/><circle cx="23" cy="101" r="3" fill="#fff" opacity=".8"/>';},
+  scroll:function(){return '<rect x="14" y="98" width="26" height="14" rx="3" fill="#F5E6C4" '+P74_OUT+'/><path d="M18 103h18M18 107h12" stroke="#B38A55" stroke-width="1.6"/>';},
+  lantern:function(){return '<path d="M27 88v6" stroke="#2B2233" stroke-width="2"/><rect x="19" y="94" width="16" height="20" rx="4" fill="#FFD34D" '+P74_OUT+'/><path d="M19 100h16M19 108h16" stroke="#C99A2E" stroke-width="1.5"/>';},
+  compass:function(){return '<circle cx="26" cy="106" r="10" fill="#E8D5A8" '+P74_OUT+'/><path d="M26 98l3 8-3 8-3-8z" fill="#E2483B"/>';},
+  map:function(){return '<path d="M12 96l9 3 9-3 9 3v18l-9-3-9 3-9-3z" fill="#F0DFB2" '+P74_OUT+'/><path d="M17 106q6-4 10 2t10-2" stroke="#E2483B" stroke-width="1.6" fill="none" stroke-dasharray="2 2"/>';},
+  gunbai:function(){return '<path d="M28 116v12" stroke="#2B2233" stroke-width="3"/><path d="M16 102q12-20 24 0q-2 14-12 16q-10-2-12-16z" fill="#1F1F1F" '+P74_OUT+'/><circle cx="28" cy="104" r="5" fill="#E2483B"/>';}
+};
+/* ---------- 頭の上 ---------- */
+var P74_HEAD={
+  none:function(){return "";},
+  straw:function(){return '<ellipse cx="60" cy="40" rx="34" ry="8" fill="#E9C46A" '+P74_OUT+'/><path d="M42 40q2-16 18-16t18 16z" fill="#F2D488" '+P74_OUT+'/><path d="M43 36h34" stroke="#C0392B" stroke-width="3"/>';},
+  bandana:function(c){return '<path d="M36 46q2-22 24-22t24 22q-24-8-48 0z" fill="'+(c||"#C0392B")+'" '+P74_OUT+'/><path d="M83 44l8 6-6 2" fill="'+(c||"#C0392B")+'" '+P74_OUT+'/><circle cx="50" cy="36" r="1.6" fill="#fff"/><circle cx="66" cy="33" r="1.6" fill="#fff"/>';},
+  hood:function(c){return '<path d="M32 62q-2-38 28-38t28 38q-6-24-28-24t-28 24z" fill="'+(c||"#7A6A55")+'" '+P74_OUT+'/>';},
+  leathercap:function(){return '<path d="M36 48q0-24 24-24t24 24z" fill="#9A6A36" '+P74_OUT+'/><path d="M36 48h48" stroke="#6E4A22" stroke-width="4"/>';},
+  helmet:function(){return '<path d="M34 54q0-32 26-32t26 32z" fill="#C9D3DD" '+P74_OUT+'/><path d="M60 22v32" stroke="#8C9AA8" stroke-width="3"/><path d="M34 54h52" stroke="#8C9AA8" stroke-width="4"/>';},
+  plume:function(c){return '<path d="M60 22q16-16 30-6q-12 0-18 12" fill="'+(c||"#E2483B")+'" '+P74_OUT+'/><path d="M34 54q0-32 26-32t26 32z" fill="#DCE3EA" '+P74_OUT+'/><path d="M34 54h52" stroke="#E8B923" stroke-width="4"/><path d="M60 24v30" stroke="#E8B923" stroke-width="3"/>';},
+  holyhelm:function(){return '<path d="M60 10l6 12h-12z" fill="#FFD34D" '+P74_OUT+'/><path d="M32 54q0-34 28-34t28 34z" fill="#F6F1E1" '+P74_OUT+'/><path d="M32 54h56" stroke="#E8B923" stroke-width="5"/><path d="M40 34q20-10 40 0" fill="none" stroke="#E8B923" stroke-width="3"/><path d="M28 40l-10-12 14 4M92 40l10-12-14 4" fill="#F6F1E1" '+P74_OUT+'/>';},
+  wizard:function(c){return '<path d="M36 46h48l-14-40q-2-6 4-8q-14-2-20 8z" fill="'+(c||"#4A3F8C")+'" '+P74_OUT+'/><ellipse cx="60" cy="46" rx="30" ry="6" fill="'+(c||"#4A3F8C")+'" '+P74_OUT+'/>';},
+  starhat:function(c){return '<path d="M34 46h52l-16-42q-4-4 6-6q-20-4-26 10z" fill="'+(c||"#2C3E80")+'" '+P74_OUT+'/><ellipse cx="60" cy="46" rx="32" ry="7" fill="'+(c||"#2C3E80")+'" '+P74_OUT+'/><path d="M56 26l2 4 4 .5-3 3 1 4-4-2-4 2 1-4-3-3 4-.5z" fill="#FFD34D"/><circle cx="68" cy="16" r="2" fill="#FFD34D"/><circle cx="48" cy="38" r="1.6" fill="#FFD34D"/>';},
+  sagehat:function(){return '<path d="M32 46h56l-18-44q-6-2 2-8q-22-2-30 14z" fill="#F6F1E1" '+P74_OUT+'/><ellipse cx="60" cy="46" rx="34" ry="7" fill="#F6F1E1" '+P74_OUT+'/><path d="M40 42q20-6 40 0" stroke="#E8B923" stroke-width="3" fill="none"/><circle cx="60" cy="30" r="4" fill="#4FB3E8" '+P74_OUT+'/>';},
+  circlet:function(){return '<path d="M36 40q24-8 48 0" fill="none" stroke="#C99A2E" stroke-width="4"/><circle cx="60" cy="36" r="3" fill="#4FB3E8"/>';},
+  crown:function(){return '<path d="M42 40l2-16 8 8 8-12 8 12 8-8 2 16z" fill="#E8B923" '+P74_OUT+'/><circle cx="60" cy="32" r="2.5" fill="#E2483B"/>';},
+  bigcrown:function(){return '<path d="M38 42l0-22 10 10 12-18 12 18 10-10 0 22z" fill="#FFD34D" '+P74_OUT+'/><path d="M38 42h44" stroke="#C99A2E" stroke-width="4"/><circle cx="60" cy="28" r="3.5" fill="#E2483B" '+P74_OUT+'/><circle cx="46" cy="36" r="2.2" fill="#4FB3E8"/><circle cx="74" cy="36" r="2.2" fill="#3E8E5A"/>';},
+  jingasa:function(){return '<path d="M24 46q36-26 72 0z" fill="#2B2233" '+P74_OUT+'/><circle cx="60" cy="38" r="3" fill="#E2483B"/>';},
+  hachigane:function(){return '<path d="M36 44q24-8 48 0" fill="none" stroke="#F6F1E1" stroke-width="6"/><rect x="54" y="38" width="12" height="6" rx="1" fill="#9AA4AE" '+P74_OUT+'/>';},
+  kabuto:function(){return '<path d="M32 52q0-30 28-30t28 30z" fill="#3A3F58" '+P74_OUT+'/><path d="M28 52q4 10 12 12M92 52q-4 10-12 12" fill="none" stroke="#3A3F58" stroke-width="6" stroke-linecap="round"/><path d="M60 22v-4" stroke="#C99A2E" stroke-width="3"/><path d="M50 22q10-12 20 0" fill="none" stroke="#C99A2E" stroke-width="4"/>';},
+  greatkabuto:function(){return '<path d="M30 52q0-32 30-32t30 32z" fill="#7A1F2B" '+P74_OUT+'/><path d="M26 52q4 12 14 14M94 52q-4 12-14 14" fill="none" stroke="#7A1F2B" stroke-width="7" stroke-linecap="round"/><path d="M60 22l-14-18q8 4 14 12q6-8 14-12z" fill="#E8B923" '+P74_OUT+'/><circle cx="60" cy="30" r="4" fill="#E8B923" '+P74_OUT+'/>';},
+  sailorcap:function(){return '<path d="M38 44q0-18 22-18t22 18z" fill="#F6F7FA" '+P74_OUT+'/><path d="M38 44h44" stroke="#1F4E8C" stroke-width="4"/>';},
+  tricorn:function(c){return '<path d="M28 44q10-18 32-18t32 18q-10-6-32-6t-32 6z" fill="'+(c||"#2B2233")+'" '+P74_OUT+'/><path d="M34 42q26-8 52 0" stroke="#E8B923" stroke-width="2.5" fill="none"/>';},
+  admiral:function(){return '<path d="M24 44q12-22 36-22t36 22q-10-8-36-8t-36 8z" fill="#1A2B4C" '+P74_OUT+'/><path d="M32 40q28-10 56 0" stroke="#E8B923" stroke-width="3" fill="none"/><path d="M60 26l3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1z" fill="#FFD34D"/><path d="M84 30q10-10 14-4q-6 0-10 8" fill="#F6F1E1" '+P74_OUT+'/>';}
+};
+/* ---------- 服 ---------- */
+function p74Body(o){
+  var c=o.c||"#7E9C5A",d=p74Shade(c,-.25),t=o.t||"#E8B923",s="";
+  if(o.type==="tunic"){ /* 農民の服 */
+    s+='<path d="M42 84q18-8 36 0l4 38H38z" fill="'+c+'" '+P74_OUT+'/><path d="M48 92h24v30H48z" fill="'+(o.apron||"#C9A66B")+'" '+P74_OUT+'/><path d="M48 92l-4-8M72 92l4-8" stroke="'+(o.apron||"#C9A66B")+'" stroke-width="3"/><path d="M40 118h40" stroke="#6E4A22" stroke-width="4"/>';
+    if(o.patch)s+='<rect x="64" y="104" width="7" height="7" fill="#B07A47" '+P74_OUT+'/>';
+  }else if(o.type==="armor"){
+    s+='<path d="M40 84q20-10 40 0l4 38H36z" fill="'+c+'" '+P74_OUT+'/><path d="M46 88q14-6 28 0v20q-14 6-28 0z" fill="'+p74Shade(c,.35)+'" '+P74_OUT+'/><path d="M60 88v26" stroke="'+d+'" stroke-width="2"/><path d="M38 116h44" stroke="'+t+'" stroke-width="5"/>';
+    s+='<ellipse cx="40" cy="88" rx="8" ry="6" fill="'+p74Shade(c,.2)+'" '+P74_OUT+'/><ellipse cx="80" cy="88" rx="8" ry="6" fill="'+p74Shade(c,.2)+'" '+P74_OUT+'/>';
+    if(o.emblem)s+='<path d="M60 92l5 6-5 8-5-8z" fill="'+t+'" '+P74_OUT+'/>';
+  }else if(o.type==="robe"){
+    s+='<path d="M42 84q18-8 36 0l10 62H32z" fill="'+c+'" '+P74_OUT+'/><path d="M60 86v60" stroke="'+t+'" stroke-width="3"/><path d="M34 140h52" stroke="'+t+'" stroke-width="4"/><path d="M42 106h36" stroke="'+(o.belt||"#6E4A22")+'" stroke-width="4"/>';
+    if(o.stars)s+='<path d="M48 124l1.5 3 3 .4-2.2 2 .6 3-2.9-1.5-2.9 1.5.6-3-2.2-2 3-.4z" fill="'+t+'"/><circle cx="72" cy="120" r="1.8" fill="'+t+'"/><circle cx="66" cy="132" r="1.5" fill="'+t+'"/>';
+  }else if(o.type==="royal"){
+    s+='<path d="M40 84q20-10 40 0l8 62H32z" fill="'+c+'" '+P74_OUT+'/><path d="M40 84q20 10 40 0" fill="none" stroke="#F6F1E1" stroke-width="7"/><path d="M60 92v54" stroke="#F6F1E1" stroke-width="6"/><circle cx="60" cy="100" r="1.4" fill="#2B2233"/><circle cx="60" cy="116" r="1.4" fill="#2B2233"/><circle cx="60" cy="132" r="1.4" fill="#2B2233"/><path d="M42 108h36" stroke="'+t+'" stroke-width="4"/>';
+  }else if(o.type==="samurai"){
+    s+='<path d="M42 84q18-8 36 0l4 38H38z" fill="'+(o.under||"#3A3F58")+'" '+P74_OUT+'/>';
+    s+='<path d="M44 88h32v26H44z" fill="'+c+'" '+P74_OUT+'/><path d="M44 96h32M44 104h32" stroke="'+d+'" stroke-width="2"/>';
+    s+='<path d="M30 86h14v18H32z" fill="'+c+'" '+P74_OUT+'/><path d="M90 86H76v18h12z" fill="'+c+'" '+P74_OUT+'/><path d="M31 92h13M31 98h13M76 92h13M76 98h13" stroke="'+t+'" stroke-width="1.5"/>';
+    s+='<path d="M40 114l-2 14h44l-2-14z" fill="'+c+'" '+P74_OUT+'/><path d="M50 114v14M60 114v14M70 114v14" stroke="'+d+'" stroke-width="2"/>';
+    if(o.haori)s+='<path d="M38 84l-6 40h10l4-36M82 84l6 40H78l-4-36" fill="'+o.haori+'" '+P74_OUT+'/>';
+  }else if(o.type==="sailor"){
+    s+='<path d="M42 84q18-8 36 0l4 38H38z" fill="'+c+'" '+P74_OUT+'/><path d="M42 84l18 14 18-14" fill="none" stroke="'+t+'" stroke-width="4"/><path d="M38 118h44" stroke="#6E4A22" stroke-width="4"/><path d="M44 100h32M44 108h32" stroke="'+p74Shade(c,.4)+'" stroke-width="3"/>';
+  }else if(o.type==="coat"){
+    s+='<path d="M40 84q20-10 40 0l8 58H32z" fill="'+c+'" '+P74_OUT+'/><path d="M52 86l8 16 8-16" fill="#F6F1E1" '+P74_OUT+'/><path d="M56 102v40M64 102v40" stroke="'+t+'" stroke-width="2.5"/><circle cx="54" cy="112" r="2" fill="'+t+'"/><circle cx="66" cy="112" r="2" fill="'+t+'"/><circle cx="54" cy="124" r="2" fill="'+t+'"/><circle cx="66" cy="124" r="2" fill="'+t+'"/>';
+    if(o.epaulet)s+='<path d="M34 86q6-6 12 0" stroke="'+t+'" stroke-width="5" fill="none"/><path d="M74 86q6-6 12 0" stroke="'+t+'" stroke-width="5" fill="none"/>';
+  }
+  return s;
+}
+/* ---------- 主人公・仲間の全身 ---------- */
+function p74Person(o){
+  o=o||{};var skin=o.skin||"#F3C9A0",hair=o.hair||"#5A3A22",s="";
+  if(o.aura)s+='<circle cx="60" cy="86" r="56" fill="'+o.aura+'" opacity=".22"/><circle cx="60" cy="86" r="44" fill="'+o.aura+'" opacity=".18"/>';
+  s+='<ellipse cx="60" cy="150" rx="30" ry="5" fill="#000" opacity=".18"/>';
+  if(o.cape)s+='<path d="M40 84q-14 30-10 62h60q4-32-10-62z" fill="'+o.cape+'" '+P74_OUT+'/><path d="M40 84q20 8 40 0" fill="none" stroke="'+p74Shade(o.cape,-.3)+'" stroke-width="3"/>';
+  /* 足 */
+  var boot=o.boot||"#5A3A22";
+  if(!(o.body&&(o.body.type==="robe"||o.body.type==="royal")))s+='<path d="M48 120v22M72 120v22" stroke="'+(o.pants||"#5C5470")+'" stroke-width="10" stroke-linecap="round"/>';
+  s+='<path d="M41 144q0-6 9-6h4v8H42zM79 144q0-6-9-6h-4v8h12z" fill="'+boot+'" '+P74_OUT+'/>';
+  s+=P74_HAND[o.hand||"none"]?P74_HAND[o.hand]():"";
+  s+=p74Body(o.body||{type:"tunic"});
+  /* 腕と手 */
+  var sl=(o.body&&o.body.sleeve)||(o.body&&o.body.c)||"#7E9C5A";
+  s+='<path d="M42 88q-10 6-12 18" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M78 88q8 4 10 14" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/>';
+  s+=P74_OFF[o.off||"none"]();
+  s+='<circle cx="30" cy="108" r="5" fill="'+skin+'" '+P74_OUT+'/><circle cx="88" cy="104" r="5" fill="'+skin+'" '+P74_OUT+'/>';
+  /* 頭 */
+  s+='<path d="M54 78h12v8H54z" fill="'+skin+'"/>';
+  if(o.longhair)s+='<path d="M38 50q-6 24 0 38h12q-8-14-4-36zM82 50q6 24 0 38H70q8-14 4-36z" fill="'+hair+'" '+P74_OUT+'/>';
+  s+='<circle cx="60" cy="58" r="23" fill="'+skin+'" '+P74_OUT+'/>';
+  s+='<path d="M37 56q0-22 23-22t23 22q-6-10-14-12q-4 6-12 6q-10 0-14 6q-4 0-6 0z" fill="'+hair+'" '+P74_OUT+'/>';
+  if(o.beard)s+='<path d="M44 66q2 18 16 18t16-18q-6 6-16 6t-16-6z" fill="'+o.beard+'" '+P74_OUT+'/>';
+  /* 顔：まっすぐ前を見る目、きりっとした眉 */
+  s+='<path d="M47 52l8 2M73 52l-8 2" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/>';
+  s+='<ellipse cx="51" cy="60" rx="3" ry="3.8" fill="#2B2233"/><ellipse cx="69" cy="60" rx="3" ry="3.8" fill="#2B2233"/><circle cx="52" cy="58.6" r="1.1" fill="#fff"/><circle cx="70" cy="58.6" r="1.1" fill="#fff"/>';
+  s+='<circle cx="45" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/><circle cx="75" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/>';
+  if(!o.beard)s+='<path d="M55 70q5 4 10 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  if(o.scar)s+='<path d="M71 64l5 6" stroke="#B5523F" stroke-width="1.6"/>';
+  if(o.glasses)s+='<circle cx="51" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><circle cx="69" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><path d="M57 60h6" stroke="#2B2233" stroke-width="1.6"/>';
+  var hd=o.head||"none";s+=P74_HEAD[hd]?P74_HEAD[hd](o.headc):"";
+  if(o.spark)s+='<path d="M18 30l3 7 7 3-7 3-3 7-3-7-7-3 7-3zM104 50l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#FFD34D"/>';
+  return s;
+}
+/* 動物の仲間（ネコ・フクロウ・タカ・カモメ・オオカミ・キツネ） */
+function p74Animal(kind,c){
+  var s='<ellipse cx="60" cy="150" rx="26" ry="5" fill="#000" opacity=".18"/>';c=c||"#8C8C9A";var d=p74Shade(c,-.3),l=p74Shade(c,.45);
+  if(kind==="cat"||kind==="fox"||kind==="wolf"){
+    var tail=kind==="fox"?'<path d="M86 132q30-6 22-40q-4 20-24 28z" fill="'+c+'" '+P74_OUT+'/><path d="M106 96q2 8-4 14" stroke="#fff" stroke-width="5" stroke-linecap="round"/>':'<path d="M84 134q26-4 24-34" fill="none" stroke="'+c+'" stroke-width="8" stroke-linecap="round"/>';
+    s+=tail+'<path d="M38 146q-4-40 22-44q26 4 22 44z" fill="'+c+'" '+P74_OUT+'/><path d="M50 146q-2-24 10-28q12 4 10 28z" fill="'+l+'"/>';
+    var ear=kind==="wolf"?'<path d="M36 70l2-30 18 18zM84 70l-2-30-18 18z" fill="'+c+'" '+P74_OUT+'/>':'<path d="M38 66l4-26 16 16zM82 66l-4-26-16 16z" fill="'+c+'" '+P74_OUT+'/>';
+    s+=ear+'<ellipse cx="60" cy="76" rx="26" ry="22" fill="'+c+'" '+P74_OUT+'/>';
+    if(kind!=="cat")s+='<path d="M48 82q12 18 24 0q-12 6-24 0z" fill="'+l+'" '+P74_OUT+'/>';
+    s+='<ellipse cx="50" cy="72" rx="3.6" ry="4.4" fill="#2B2233"/><ellipse cx="70" cy="72" rx="3.6" ry="4.4" fill="#2B2233"/><circle cx="51" cy="70.5" r="1.3" fill="#fff"/><circle cx="71" cy="70.5" r="1.3" fill="#fff"/><path d="M57 80l3 3 3-3z" fill="#2B2233"/>';
+    if(kind==="cat")s+='<path d="M40 80h-12M40 84l-11 3M80 80h12M80 84l11 3" stroke="#2B2233" stroke-width="1.2"/>';
+  }else{ /* 鳥 */
+    var gull=kind==="gull";
+    s+='<path d="M60 148l-6-8M64 148l6-8" stroke="#E8A33D" stroke-width="3" stroke-linecap="round"/>';
+    s+='<ellipse cx="60" cy="108" rx="28" ry="34" fill="'+c+'" '+P74_OUT+'/><ellipse cx="60" cy="118" rx="18" ry="22" fill="'+l+'"/>';
+    s+='<path d="M34 100q-16 14-6 34q10-6 12-20z" fill="'+d+'" '+P74_OUT+'/><path d="M86 100q16 14 6 34q-10-6-12-20z" fill="'+d+'" '+P74_OUT+'/>';
+    if(kind==="owl")s+='<path d="M40 76l6-14 8 10M80 76l-6-14-8 10" fill="'+c+'" '+P74_OUT+'/><circle cx="50" cy="88" r="9" fill="#FFF7D6" '+P74_OUT+'/><circle cx="70" cy="88" r="9" fill="#FFF7D6" '+P74_OUT+'/><circle cx="50" cy="88" r="4" fill="#2B2233"/><circle cx="70" cy="88" r="4" fill="#2B2233"/><path d="M57 96l3 6 3-6z" fill="#E8A33D" '+P74_OUT+'/>';
+    else s+='<circle cx="50" cy="86" r="3.6" fill="#2B2233"/><circle cx="70" cy="86" r="3.6" fill="#2B2233"/><circle cx="51" cy="85" r="1.2" fill="#fff"/><circle cx="71" cy="85" r="1.2" fill="#fff"/><path d="M54 94l6 '+(gull?'6':'10')+' 6-'+(gull?'6':'10')+'z" fill="'+(gull?"#F2B33D":"#E8A33D")+'" '+P74_OUT+'/>';
+  }
+  return s;
+}
+function p74Svg(inner,cls,vb){return '<svg class="'+(cls||"")+'" viewBox="'+(vb||"0 0 120 160")+'" aria-hidden="true">'+inner+'</svg>';}
+
+/* ---------- モンスター（8つの形 × 色。テーマごとに違う姿になる） ---------- */
+var P74_MKIND=["けだまろ","いわごろ","よるばね","きのこぼう","もやもや","かぶとん","にょろり","つぼみん"];
+var P74_MCOL=[["#E36D5B","あかい"],["#4F8FD8","あおい"],["#5BAE6B","みどりの"],["#E5B53B","きいろい"],["#9A6BD6","むらさきの"],["#E58AB0","ももいろの"],["#5CB8B2","みずいろの"],["#C7823E","ちゃいろの"],["#8C93A8","はいいろの"]];
+function p74Rng(seed){var x=(seed*9301+49297)%233280;return function(){x=(x*9301+49297)%233280;return x/233280;};}
+function p74Eyes(cx,cy,gap,r,angry,glow){
+  var e=glow?"#FFE36B":"#fff",p=glow?"#C0392B":"#2B2233",s="";
+  [-1,1].forEach(function(k){var x=cx+k*gap/2;s+='<ellipse cx="'+x+'" cy="'+cy+'" rx="'+r+'" ry="'+(r*1.15)+'" fill="'+e+'" '+P74_OUT+'/><circle cx="'+(x+k*.6)+'" cy="'+(cy+r*.2)+'" r="'+(r*.5)+'" fill="'+p+'"/>';
+    if(angry)s+='<path d="M'+(x-k*r*1.2)+' '+(cy-r*1.6)+'L'+(x+k*r*1.1)+' '+(cy-r*.9)+'" stroke="#2B2233" stroke-width="2.6" stroke-linecap="round"/>';});
+  return s;
+}
+function p74Mouth(x,y,w,kind){
+  if(kind===0)return '<path d="M'+(x-w)+' '+y+'q'+w+' '+(w*.8)+' '+(w*2)+' 0" fill="#7A1F2B" '+P74_OUT+'/><path d="M'+(x-w*.6)+' '+(y+.5)+'l2 4 2-4M'+(x+w*.2)+' '+(y+.5)+'l2 4 2-4" fill="#fff"/>';
+  if(kind===1)return '<path d="M'+(x-w)+' '+y+'h'+(w*2)+'" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/><path d="M'+(x-w*.7)+' '+y+'l2.5 4 2.5-4M'+(x+w*.2)+' '+y+'l2.5 4 2.5-4" fill="#fff" '+P74_OUT+'/>';
+  return '<ellipse cx="'+x+'" cy="'+(y+2)+'" rx="'+(w*.6)+'" ry="'+(w*.5)+'" fill="#7A1F2B" '+P74_OUT+'/>';
+}
+function p74Monster(ti,boss){
+  var r=p74Rng(ti*7+3),kind=ti%8,col=P74_MCOL[(ti*5+Math.floor(ti/8))%P74_MCOL.length][0];
+  var c=col,d=p74Shade(c,-.28),l=p74Shade(c,.45),s='<ellipse cx="60" cy="150" rx="34" ry="5" fill="#000" opacity=".2"/>',mk=Math.floor(r()*3),angry=r()>.35;
+  if(kind===0){ /* 毛玉 */
+    var pts=[];for(var i=0;i<26;i++){var a=i/26*Math.PI*2,R=i%2?34:40;pts.push((60+Math.cos(a)*R).toFixed(1)+' '+(104+Math.sin(a)*R*.92).toFixed(1));}
+    s+='<path d="M'+pts.join("L")+'z" fill="'+c+'" '+P74_OUT+'/><ellipse cx="60" cy="112" rx="20" ry="16" fill="'+l+'" opacity=".55"/>';
+    s+='<path d="M44 144v6h6v-6M70 144v6h6v-6" fill="'+d+'" '+P74_OUT+'/>'+p74Eyes(60,96,22,6.5,angry)+p74Mouth(60,116,8,mk);
+  }else if(kind===1){ /* 岩 */
+    s+='<path d="M28 146l6-52 18-18h20l18 22 4 48z" fill="'+p74Shade(c,-.1)+'" '+P74_OUT+'/><path d="M38 100l10 6M76 92l-8 10M44 130l12-4" stroke="'+d+'" stroke-width="2.4" stroke-linecap="round"/>';
+    s+='<path d="M24 110q-10 10-6 22l12-4z" fill="'+d+'" '+P74_OUT+'/><path d="M96 110q10 10 6 22l-12-4z" fill="'+d+'" '+P74_OUT+'/><path d="M46 78l4-12 8 8z" fill="'+l+'" '+P74_OUT+'/>'+p74Eyes(60,100,24,5.5,true)+p74Mouth(60,120,9,1);
+  }else if(kind===2){ /* コウモリのような羽 */
+    s+='<path d="M48 100L8 78q4 18 6 30q8-6 12 2q6-8 12 0z" fill="'+d+'" '+P74_OUT+'/><path d="M72 100l40-22q-4 18-6 30q-8-6-12 2q-6-8-12 0z" fill="'+d+'" '+P74_OUT+'/>';
+    s+='<ellipse cx="60" cy="104" rx="22" ry="24" fill="'+c+'" '+P74_OUT+'/><path d="M44 86l-4-16 12 10zM76 86l4-16-12 10z" fill="'+c+'" '+P74_OUT+'/><path d="M50 140l4-12 6 12 6-12 4 12" fill="none" stroke="'+d+'" stroke-width="3"/>'+p74Eyes(60,100,18,5.5,angry)+p74Mouth(60,116,6,0);
+  }else if(kind===3){ /* きのこ */
+    s+='<path d="M44 108h32l4 38H40z" fill="#F5E6C4" '+P74_OUT+'/><path d="M18 108q0-46 42-46t42 46z" fill="'+c+'" '+P74_OUT+'/><circle cx="40" cy="90" r="6" fill="#fff" opacity=".85"/><circle cx="64" cy="76" r="7" fill="#fff" opacity=".85"/><circle cx="84" cy="96" r="5" fill="#fff" opacity=".85"/>';
+    s+=p74Eyes(60,124,16,4.6,angry)+p74Mouth(60,136,5,mk);
+  }else if(kind===4){ /* もやもや（雲の霊） */
+    s+='<path d="M30 126q-14-4-8-20q-6-18 14-22q4-18 24-14q18-8 28 8q18 2 14 20q10 12-4 22q4 14-14 12q-6 12-20 4q-14 8-22-4q-16 4-12-6z" fill="'+l+'" '+P74_OUT+'/><path d="M44 128q4 14-6 20M60 132q2 12-4 18M76 128q6 12 0 20" stroke="'+c+'" stroke-width="4" fill="none" stroke-linecap="round"/>';
+    s+=p74Eyes(60,102,22,6,angry)+p74Mouth(60,118,7,2);
+  }else if(kind===5){ /* かぶと虫 */
+    s+='<path d="M36 140l-10 8M84 140l10 8M34 120l-14 4M86 120l14 4" stroke="#2B2233" stroke-width="3" stroke-linecap="round"/>';
+    s+='<ellipse cx="60" cy="118" rx="30" ry="28" fill="'+c+'" '+P74_OUT+'/><path d="M60 92v52" stroke="'+d+'" stroke-width="2.4"/><ellipse cx="48" cy="108" rx="6" ry="9" fill="'+l+'" opacity=".5"/>';
+    s+='<ellipse cx="60" cy="86" rx="18" ry="12" fill="'+d+'" '+P74_OUT+'/><path d="M60 76q-2-20 14-32q-4 14-6 30z" fill="'+d+'" '+P74_OUT+'/>'+p74Eyes(60,86,16,4.2,true);
+  }else if(kind===6){ /* にょろり（へび） */
+    s+='<path d="M24 140q10-24 36-10t36-14" stroke="'+c+'" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M24 140q10-24 36-10t36-14" stroke="'+l+'" stroke-width="6" fill="none" stroke-dasharray="4 8" stroke-linecap="round"/>';
+    s+='<ellipse cx="88" cy="94" rx="20" ry="18" fill="'+c+'" '+P74_OUT+'/><path d="M100 104l10 4-10 2" stroke="#E2483B" stroke-width="2.4" fill="none"/>'+p74Eyes(86,90,14,4.5,angry);
+  }else{ /* つぼみ（植物） */
+    s+='<path d="M60 146V110" stroke="#3E8E5A" stroke-width="7"/><path d="M60 132q-22-2-30 10q16 6 30-4zM60 126q22-4 30 8q-16 6-30-2z" fill="#5BAE6B" '+P74_OUT+'/>';
+    s+='<path d="M60 116q-30-4-28-34q14 6 28 0q14 6 28 0q2 30-28 34z" fill="'+c+'" '+P74_OUT+'/><path d="M34 84q6-20 26-24q20 4 26 24q-12 6-26 2q-14 4-26-2z" fill="'+l+'" '+P74_OUT+'/>'+p74Eyes(60,96,20,5,angry)+p74Mouth(60,108,6,mk);
+  }
+  return s;
+}
+function p74MonsterName(ti){var kind=ti%8,col=P74_MCOL[(ti*5+Math.floor(ti/8))%P74_MCOL.length][1];return col+" "+P74_MKIND[kind];}
+
+/* ---------- ボス（8体。後ろほど強い） 名前はロシア語の単語から ---------- */
+var P74_BOSS=[
+  {n:"トゥマン",ru:"тума́н",ja:"霧",t:"霧の番人",c:"#9AAEC2"},
+  {n:"カーメニ",ru:"ка́мень",ja:"石",t:"石の巨人",c:"#8C7A68"},
+  {n:"ブーリャ",ru:"бу́ря",ja:"嵐",t:"嵐の大コウモリ",c:"#4E5B8C"},
+  {n:"メチェーリ",ru:"мете́ль",ja:"吹雪",t:"吹雪の大ジカ",c:"#BFE3F2"},
+  {n:"ヴォールク",ru:"волк",ja:"オオカミ",t:"夜のオオカミ王",c:"#4A4F63"},
+  {n:"アゴーニ",ru:"ого́нь",ja:"火",t:"炎の大トカゲ",c:"#E0603A"},
+  {n:"グローム",ru:"гром",ja:"雷",t:"雷の大ワシ",c:"#E5B53B"},
+  {n:"チェーニ",ru:"тень",ja:"影",t:"影の竜",c:"#3A2E5C"}
+];
+function p74Boss(bi){
+  var B=P74_BOSS[bi],c=B.c,d=p74Shade(c,-.35),l=p74Shade(c,.4),s='';
+  s+='<circle cx="60" cy="92" r="58" fill="'+c+'" opacity=".16"/><ellipse cx="60" cy="151" rx="44" ry="6" fill="#000" opacity=".25"/>';
+  if(bi===0){ /* 霧の番人：ランタンを持つ大きな霧のかたまり */
+    s+='<path d="M22 146q-10-30 4-56q-4-34 34-40q38 6 34 40q14 26 4 56q-10-8-14 0q-8-10-14 0q-6-10-14 0q-8-8-14 0q-6-8-20 0z" fill="'+l+'" '+P74_OUT+'/><path d="M30 100q30 12 60 0" stroke="'+c+'" stroke-width="4" fill="none"/>';
+    s+='<path d="M96 96v10" stroke="#2B2233" stroke-width="2"/><rect x="90" y="106" width="14" height="18" rx="4" fill="#FFD34D" '+P74_OUT+'/>'+p74Eyes(60,78,24,6.5,true,true)+p74Mouth(60,96,8,2);
+  }else if(bi===1){ /* 石の巨人 */
+    s+='<path d="M14 92l14-12 10 4-4 34-16 6z" fill="'+d+'" '+P74_OUT+'/><path d="M106 92l-14-12-10 4 4 34 16 6z" fill="'+d+'" '+P74_OUT+'/>';
+    s+='<path d="M30 148l4-70 14-18h24l14 18 4 70z" fill="'+c+'" '+P74_OUT+'/><path d="M44 50h32l4 22H40z" fill="'+l+'" '+P74_OUT+'/><path d="M40 96l12 8M80 92l-10 12M48 130l14-6M72 126l6 10" stroke="'+d+'" stroke-width="3" stroke-linecap="round"/>';
+    s+='<path d="M52 104l8-8 8 8-8 8z" fill="#7FE0C8" '+P74_OUT+'/>'+p74Eyes(60,62,18,4.4,true,true);
+  }else if(bi===2){ /* 嵐の大コウモリ */
+    s+='<path d="M50 90L2 50q2 30 8 48q10-8 14 4q8-10 14 2q6-8 12 0z" fill="'+d+'" '+P74_OUT+'/><path d="M70 90l48-40q-2 30-8 48q-10-8-14 4q-8-10-14 2q-6-8-12 0z" fill="'+d+'" '+P74_OUT+'/>';
+    s+='<ellipse cx="60" cy="100" rx="26" ry="32" fill="'+c+'" '+P74_OUT+'/><path d="M40 76l-6-24 18 14zM80 76l6-24-18 14z" fill="'+c+'" '+P74_OUT+'/><path d="M28 30l6 10-4 2 6 10M92 24l-6 12 4 2-6 10" stroke="#FFD34D" stroke-width="2.6" fill="none" stroke-linecap="round"/>';
+    s+=p74Eyes(60,94,20,6,true,true)+p74Mouth(60,114,9,0)+'<path d="M48 146l4-16 8 14 8-14 4 16" fill="none" stroke="'+d+'" stroke-width="4"/>';
+  }else if(bi===3){ /* 吹雪の大ジカ */
+    s+='<path d="M44 52q-14-16-10-34M44 40l-10-6M40 28l-8 0M76 52q14-16 10-34M76 40l10-6M80 28l8 0" stroke="#E8F6FC" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M44 52q-14-16-10-34M76 52q14-16 10-34" stroke="#2B2233" stroke-width="1.4" fill="none"/>';
+    s+='<path d="M34 148l2-36q-6-30 24-34q30 4 24 34l2 36z" fill="'+l+'" '+P74_OUT+'/><ellipse cx="60" cy="68" rx="18" ry="20" fill="'+c+'" '+P74_OUT+'/><ellipse cx="60" cy="80" rx="9" ry="7" fill="#fff" '+P74_OUT+'/><circle cx="60" cy="78" r="3" fill="#2B2233"/>';
+    s+='<path d="M18 60l3 5-3 5-3-5zM102 90l3 5-3 5-3-5zM24 116l3 5-3 5-3-5z" fill="#fff" stroke="#9FD3EA"/>'+p74Eyes(60,62,16,4.2,true,true);
+  }else if(bi===4){ /* 夜のオオカミ王 */
+    s+='<path d="M40 60l-4-34 22 20zM80 60l4-34-22 20z" fill="'+c+'" '+P74_OUT+'/><path d="M26 148q-8-50 34-60q42 10 34 60z" fill="'+c+'" '+P74_OUT+'/><path d="M42 148q0-30 18-36q18 6 18 36z" fill="'+l+'"/>';
+    s+='<ellipse cx="60" cy="72" rx="28" ry="24" fill="'+c+'" '+P74_OUT+'/><path d="M46 80q14 24 28 0q-14 8-28 0z" fill="'+l+'" '+P74_OUT+'/><path d="M56 84l4 4 4-4z" fill="#2B2233"/><path d="M50 90l2 6 2-6M66 90l2 6 2-6" fill="#fff"/>';
+    s+='<path d="M44 40l4-12 6 8 6-12 6 12 6-8 4 12z" fill="#C99A2E" '+P74_OUT+'/>'+p74Eyes(60,68,22,4.6,true,true);
+  }else if(bi===5){ /* 炎の大トカゲ */
+    s+='<path d="M88 130q26 0 24-30q-6 14-22 16" fill="'+c+'" '+P74_OUT+'/><path d="M30 148l4-28q-2-40 26-44q28 4 26 44l4 28z" fill="'+c+'" '+P74_OUT+'/><path d="M44 148q0-22 16-28q16 6 16 28z" fill="#F7C873"/>';
+    s+='<path d="M40 56q2-20 20-22q18 2 20 22q0 18-20 22q-20-4-20-22z" fill="'+c+'" '+P74_OUT+'/><path d="M46 34l4-10 4 8 6-12 6 12 4-8 4 10" fill="#FFD34D" '+P74_OUT+'/>';
+    s+='<path d="M50 66q10 8 20 0" stroke="#2B2233" stroke-width="2.6" fill="none"/><path d="M68 70q14 6 24-2q-6 10 2 16q-14 0-20-8" fill="#FFB23E" '+P74_OUT+'/>'+p74Eyes(60,52,18,4.4,true,true);
+  }else if(bi===6){ /* 雷の大ワシ */
+    s+='<path d="M48 92L4 66q10 30 20 44q8-4 12 4q6-6 12 2zM72 92l44-26q-10 30-20 44q-8-4-12 4q-6-6-12 2z" fill="'+c+'" '+P74_OUT+'/><path d="M10 72l10 6M18 86l10 4M110 72l-10 6M102 86l-10 4" stroke="'+d+'" stroke-width="2"/>';
+    s+='<ellipse cx="60" cy="108" rx="24" ry="34" fill="'+p74Shade(c,-.15)+'" '+P74_OUT+'/><ellipse cx="60" cy="68" rx="18" ry="18" fill="#F6F1E1" '+P74_OUT+'/><path d="M56 72l14 4-12 8z" fill="#E8A33D" '+P74_OUT+'/>';
+    s+='<path d="M98 20l-10 18h8l-8 18" stroke="#FFD34D" stroke-width="4" fill="none" stroke-linejoin="round"/><path d="M52 144l-4 6M60 144v6M68 144l4 6" stroke="#E8A33D" stroke-width="3"/>'+p74Eyes(60,64,16,4,true,true);
+  }else{ /* 影の竜 */
+    s+='<path d="M44 84L0 40q4 40 18 58q8-8 14 2q8-8 14 4zM76 84l44-44q-4 40-18 58q-8-8-14 2q-8-8-14 4z" fill="'+p74Shade(c,.15)+'" '+P74_OUT+'/>';
+    s+='<path d="M92 136q26-6 22-40q-6 18-22 22" fill="'+c+'" '+P74_OUT+'/><path d="M28 150l4-34q-4-34 28-40q32 6 28 40l4 34z" fill="'+c+'" '+P74_OUT+'/><path d="M44 150q0-26 16-32q16 6 16 32z" fill="#7B6AA8"/>';
+    s+='<path d="M38 58q0-26 22-28q22 2 22 28q-2 18-22 20q-20-2-22-20z" fill="'+c+'" '+P74_OUT+'/><path d="M42 36l-8-18 14 10zM78 36l8-18-14 10z" fill="#C9B8F2" '+P74_OUT+'/><path d="M50 70l3 6 3-6M64 70l3 6 3-6" fill="#fff"/>';
+    s+='<path d="M60 22l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#B48CF2" opacity=".9"/>'+p74Eyes(60,54,20,4.6,true,true);
+  }
+  return s;
+}
+
+/* ===== Phase74 データ：5つの成り上がりの道（名前・装備・技・仲間はこのアプリのオリジナル） ===== */
+/* 呼び名はここだけ変えれば全体が変わる */
+var P74_NAME="冒険";
+/* st[0..8]：ボスを倒した数ごとの姿。gear[0..16]：はじめの持ち物＋手に入る装備（中ボス前と各ボス後）。sk[0..7]：ボスごとに覚える技。al[0..4]：仲間 */
+var P74_PATHS=[
+ {id:"sword",name:"剣の道",goal:"農民 → 剣の英雄",verb:"倒した",color:"#C0392B",
+  lead:"畑を守るために剣をとった若者が、仲間と国いちばんの剣士をめざします。",
+  titles:["農民","見習い剣士","村の守り手","旅の剣士","一人前の剣士","騎士","銀の騎士","騎士団長","剣の英雄"],
+  st:[
+   {hand:"hoe",off:"basket",head:"straw",body:{type:"tunic",c:"#7E9C5A",patch:1}},
+   {hand:"stick",off:"none",head:"bandana",body:{type:"tunic",c:"#6C8E9E"}},
+   {hand:"sword",off:"roundshield",head:"leathercap",body:{type:"tunic",c:"#5E7F9A",apron:"#9A6A36"}},
+   {hand:"sword",off:"roundshield",head:"leathercap",body:{type:"armor",c:"#8A6A4A",t:"#6E4A22"},cape:"#7A4E26"},
+   {hand:"sword",off:"kiteshield",head:"helmet",body:{type:"armor",c:"#A7B1BC",t:"#6E4A22"},cape:"#2C5D8F"},
+   {hand:"bigsword",off:"kiteshield",head:"plume",body:{type:"armor",c:"#C9D3DD",t:"#E8B923",emblem:1},cape:"#1F4E8C"},
+   {hand:"bigsword",off:"holyshield",head:"plume",headc:"#1F4E8C",body:{type:"armor",c:"#DCE3EA",t:"#E8B923",emblem:1},cape:"#7A1F2B"},
+   {hand:"bigsword",off:"holyshield",head:"holyhelm",body:{type:"armor",c:"#EEF2F6",t:"#E8B923",emblem:1},cape:"#7A1F2B",aura:"#FFD34D"},
+   {hand:"lightsword",off:"holyshield",head:"holyhelm",body:{type:"armor",c:"#F6F1E1",t:"#E8B923",emblem:1},cape:"#B3202B",aura:"#FFD34D",spark:1}],
+  gear:["古いくわ","木の棒","布のバンダナ","革の帽子","鉄の剣","丸い木の盾","革のよろい","旅のマント","鉄のかぶと","銀の盾","羽根かざりのかぶと","鋼の大剣","騎士のよろい","赤いマント","白銀のかぶと","聖なる盾","夜明けの光剣"],
+  sk:["ふみこみ斬り","盾はじき","二段斬り","風切りの突き","鉄壁のかまえ","つむじ斬り","雷光の一閃","夜明けの大斬撃"],
+  al:[{n:"ソーニャ",r:"弓使い",o:{hand:"none",off:"none",head:"hood",headc:"#3E8E5A",body:{type:"tunic",c:"#3E8E5A",apron:"#8A5A2B"},hair:"#C98A3A",longhair:1}},
+      {n:"イワン",r:"盾の大男",o:{hand:"none",off:"kiteshield",head:"helmet",body:{type:"armor",c:"#8C9AA8",t:"#6E4A22"},beard:"#6B3E1E",hair:"#6B3E1E"}},
+      {n:"ヴェーラ",r:"薬師",o:{hand:"staff",off:"lantern",head:"none",body:{type:"robe",c:"#5CB8B2",t:"#F6F1E1"},hair:"#2B2233",longhair:1}},
+      {n:"ヤーストレプ",r:"相棒のタカ",animal:"hawk",c:"#9A6A36"},
+      {n:"ミーシャ",r:"旅の歌い手",o:{hand:"none",off:"scroll",head:"tricorn",headc:"#7A1F2B",body:{type:"coat",c:"#C0392B",t:"#E8B923"},hair:"#E5B53B"}}]},
+ {id:"magic",name:"魔法の道",goal:"農民 → 大賢者",verb:"封じた",color:"#5B4BB7",
+  lead:"薬草つみの少女（少年）が古い魔導書を見つけ、世界を照らす大賢者をめざします。",
+  titles:["農民","薬草つみ","魔法の弟子","見習い魔法使い","魔法使い","上級魔法使い","星読み","大魔導士","大賢者"],
+  st:[
+   {hand:"hoe",off:"basket",head:"straw",body:{type:"tunic",c:"#9A7DB8",patch:1},longhair:1},
+   {hand:"stick",off:"basket",head:"hood",headc:"#6B8E4E",body:{type:"tunic",c:"#6B8E4E"},longhair:1},
+   {hand:"staff",off:"book",head:"hood",headc:"#5B4BB7",body:{type:"robe",c:"#7A6AC7",t:"#E8D5A8"},longhair:1},
+   {hand:"staff",off:"book",head:"wizard",headc:"#4A3F8C",body:{type:"robe",c:"#4A3F8C",t:"#E8B923"},longhair:1},
+   {hand:"crystal",off:"book",head:"wizard",headc:"#3A3478",body:{type:"robe",c:"#3A3478",t:"#E8B923",stars:1},cape:"#2B2668",longhair:1},
+   {hand:"crystal",off:"orb",head:"starhat",body:{type:"robe",c:"#2C3E80",t:"#FFD34D",stars:1},cape:"#1A2B5C",longhair:1},
+   {hand:"crystal",off:"orb",head:"starhat",headc:"#1A2B5C",body:{type:"robe",c:"#1A2B5C",t:"#FFD34D",stars:1},cape:"#5B4BB7",aura:"#8FD3F4",longhair:1},
+   {hand:"bigstaff",off:"orb",head:"sagehat",body:{type:"robe",c:"#F6F1E1",t:"#E8B923",stars:1},cape:"#5B4BB7",aura:"#B9A6F2",longhair:1},
+   {hand:"bigstaff",off:"orb",head:"sagehat",body:{type:"robe",c:"#FFFFFF",t:"#E8B923",stars:1},cape:"#3A2E8C",aura:"#FFD34D",spark:1,longhair:1}],
+  gear:["古いくわ","薬草かご","木の杖","古い魔導書","弟子のフード","弟子のローブ","とんがり帽子","水晶の杖","夜空のマント","光る玉","星の帽子","月の指輪","星くずのローブ","賢者のまき物","白い賢者の帽子","光の大杖","夜明けの冠石"],
+  sk:["小さな火花","水のまく","風のささやき","氷の矢","光のくさり","雷の雨","星ふり","白夜の大魔法"],
+  al:[{n:"コーシカ",r:"使い魔のネコ",animal:"cat",c:"#3A3F58"},
+      {n:"パーシャ",r:"見習い神官",o:{hand:"staff",off:"book",head:"none",body:{type:"robe",c:"#F6F1E1",t:"#4FB3E8"},hair:"#C98A3A"}},
+      {n:"リーパ",r:"森の弓使い",o:{hand:"none",off:"none",head:"hood",headc:"#3E8E5A",body:{type:"tunic",c:"#5BAE6B",apron:"#3E8E5A"},hair:"#E5B53B",longhair:1}},
+      {n:"サヴァー",r:"物知りフクロウ",animal:"owl",c:"#9A7B5A"},
+      {n:"ヴォールチク",r:"雪オオカミ",animal:"wolf",c:"#C9D3DD"}]},
+ {id:"king",name:"王の道",goal:"農民 → 王",verb:"退けた",color:"#B8860B",
+  lead:"小さな村の世話役から始めて、町をつくり、国をおさめる王をめざします。",
+  titles:["農民","村の世話役","村長","町長","領主","辺境伯","大公","王","大王"],
+  st:[
+   {hand:"hoe",off:"basket",head:"straw",body:{type:"tunic",c:"#A0703C",patch:1}},
+   {hand:"flag",off:"none",head:"none",body:{type:"tunic",c:"#3E8E5A",apron:"#E8D5A8"}},
+   {hand:"flag",off:"scroll",head:"leathercap",body:{type:"coat",c:"#3E6E4A",t:"#C99A2E"}},
+   {hand:"key",off:"scroll",head:"none",body:{type:"coat",c:"#2C5D8F",t:"#E8B923"},cape:"#7A4E26"},
+   {hand:"key",off:"map",head:"circlet",body:{type:"royal",c:"#2C5D8F",t:"#E8B923"},cape:"#1F4E8C"},
+   {hand:"scepter",off:"map",head:"circlet",body:{type:"royal",c:"#5E2A7E",t:"#E8B923"},cape:"#7A1F2B"},
+   {hand:"scepter",off:"scroll",head:"crown",body:{type:"royal",c:"#7A1F2B",t:"#E8B923"},cape:"#5E2A7E",beard:"#6B3E1E"},
+   {hand:"scepter",off:"orb",head:"crown",body:{type:"royal",c:"#9B1B30",t:"#FFD34D"},cape:"#4A1F6E",aura:"#FFD34D",beard:"#6B3E1E"},
+   {hand:"bigscepter",off:"orb",head:"bigcrown",body:{type:"royal",c:"#B3202B",t:"#FFD34D"},cape:"#3A1F6E",aura:"#FFD34D",spark:1,beard:"#6B3E1E"}],
+  gear:["古いくわ","村の旗","みんなの名簿","木の印章","町の門のかぎ","長い上着","領主のマント","国の地図","金の髪かざり","銀の王しゃく","紫のローブ","重いまき物","金の冠","赤い王のマント","星の玉","紫水晶の王しゃく","大王の冠"],
+  sk:["畑を広げる","市場をひらく","橋をかける","学校をたてる","守りの兵をととのえる","となり町と手を結ぶ","城をきずく","大いなる治世"],
+  al:[{n:"アンナ",r:"しっかり者の大臣",o:{hand:"none",off:"scroll",head:"none",body:{type:"coat",c:"#2C5D8F",t:"#C9D3DD"},hair:"#5A3A22",longhair:1,glasses:1}},
+      {n:"ボリス",r:"たのもしい将軍",o:{hand:"sword",off:"roundshield",head:"helmet",body:{type:"armor",c:"#8C9AA8",t:"#7A1F2B"},beard:"#3A2A1E"}},
+      {n:"ナースチャ",r:"町の料理長",o:{hand:"none",off:"basket",head:"bandana",headc:"#F6F1E1",body:{type:"tunic",c:"#E36D5B",apron:"#F6F1E1"},hair:"#C98A3A",longhair:1}},
+      {n:"リサ",r:"かしこいキツネ",animal:"fox",c:"#E0803A"},
+      {n:"グリーシャ",r:"旅の商人",o:{hand:"none",off:"map",head:"tricorn",headc:"#3E6E4A",body:{type:"coat",c:"#C7823E",t:"#E8B923"},beard:"#5A3A22"}}]},
+ {id:"samurai",name:"武士の道",goal:"百姓 → 天下人",verb:"討ち取った",color:"#7A1F2B",
+  lead:"戦の世、村の百姓が足軽から身を起こし、天下をおさめる大将をめざします。",
+  titles:["百姓","足軽","足軽組頭","侍","侍大将","城代","城主","大名","天下人"],
+  st:[
+   {hand:"hoe",off:"basket",head:"straw",body:{type:"tunic",c:"#5E6E7E",patch:1}},
+   {hand:"bamboo",off:"none",head:"jingasa",body:{type:"samurai",c:"#5A4A3A",t:"#8A7A6A",under:"#4A5A6A"}},
+   {hand:"bamboo",off:"none",head:"jingasa",body:{type:"samurai",c:"#4A3A2A",t:"#C99A2E",under:"#3A4A5A"}},
+   {hand:"katana",off:"none",head:"hachigane",body:{type:"samurai",c:"#3A3F58",t:"#C99A2E",under:"#2B3248"}},
+   {hand:"katana",off:"none",head:"kabuto",body:{type:"samurai",c:"#3A3F58",t:"#E8B923",under:"#7A1F2B"}},
+   {hand:"katana",off:"gunbai",head:"kabuto",body:{type:"samurai",c:"#2B2233",t:"#E8B923",under:"#7A1F2B",haori:"#5E7F9A"}},
+   {hand:"meito",off:"gunbai",head:"greatkabuto",body:{type:"samurai",c:"#7A1F2B",t:"#E8B923",under:"#2B2233",haori:"#2B2233"}},
+   {hand:"meito",off:"gunbai",head:"greatkabuto",body:{type:"samurai",c:"#9B1B30",t:"#FFD34D",under:"#2B2233",haori:"#1F1F2E"},aura:"#E2483B"},
+   {hand:"saihai",off:"gunbai",head:"greatkabuto",body:{type:"samurai",c:"#B3202B",t:"#FFD34D",under:"#1F1F2E",haori:"#F6F1E1"},aura:"#FFD34D",spark:1}],
+  gear:["古いくわ","竹やり","陣がさ","はちがね","打ち刀","胴丸","かぶと","黒い陣羽織","軍配","赤いよろい","金のくわ形かぶと","名刀「月影」","城の門のかぎ","紅のよろい","大将の軍配","白い陣羽織","天下の采配"],
+  sk:["ひと突き","一の太刀","二段突き","はやての太刀","鉄砲隊の号令","山のごとき守り","月下の一閃","天下ひとつの号令"],
+  al:[{n:"弥七",r:"槍の名人",o:{hand:"bamboo",off:"none",head:"hachigane",body:{type:"samurai",c:"#4A3A2A",t:"#C99A2E",under:"#3A4A5A"},hair:"#2B2233"}},
+      {n:"小雪",r:"しのびの者",o:{hand:"none",off:"none",head:"hood",headc:"#2B2233",body:{type:"tunic",c:"#2B2233",apron:"#3A3F58"},hair:"#2B2233",longhair:1}},
+      {n:"宗玄",r:"軍師",o:{hand:"none",off:"gunbai",head:"none",body:{type:"robe",c:"#3E6E4A",t:"#E8D5A8"},hair:"#5A5A5A",beard:"#8A8A8A"}},
+      {n:"千代",r:"弓の名人",o:{hand:"none",off:"none",head:"hachigane",body:{type:"samurai",c:"#7A1F2B",t:"#E8B923",under:"#F6F1E1"},hair:"#2B2233",longhair:1}},
+      {n:"鉄之助",r:"刀かじ",o:{hand:"none",off:"none",head:"bandana",headc:"#5E6E7E",body:{type:"tunic",c:"#5E6E7E",apron:"#6E4A22"},beard:"#2B2233",hair:"#2B2233"}}]},
+ {id:"sea",name:"海の道",goal:"漁村の若者 → 大提督",verb:"追いはらった",color:"#1F6E8C",
+  lead:"小さな漁村の若者が船に乗りこみ、七つの港をむすぶ大船団の提督をめざします。",
+  titles:["漁村の若者","見習い水夫","水夫","甲板長","航海士","船長","船団長","提督","大提督"],
+  st:[
+   {hand:"rod",off:"basket",head:"straw",body:{type:"tunic",c:"#5CB8B2",patch:1}},
+   {hand:"oar",off:"none",head:"bandana",headc:"#1F4E8C",body:{type:"sailor",c:"#F6F7FA",t:"#1F4E8C"}},
+   {hand:"oar",off:"compass",head:"sailorcap",body:{type:"sailor",c:"#F6F7FA",t:"#1F4E8C"}},
+   {hand:"cutlass",off:"compass",head:"bandana",headc:"#C0392B",body:{type:"sailor",c:"#2C5D8F",t:"#F6F7FA"}},
+   {hand:"scope",off:"map",head:"tricorn",body:{type:"coat",c:"#2C5D8F",t:"#E8B923"}},
+   {hand:"cutlass",off:"map",head:"tricorn",headc:"#1A2B4C",body:{type:"coat",c:"#1A2B4C",t:"#E8B923",epaulet:1},cape:"#7A1F2B"},
+   {hand:"scope",off:"compass",head:"tricorn",headc:"#1A2B4C",body:{type:"coat",c:"#1A3A6C",t:"#FFD34D",epaulet:1},cape:"#1F4E8C"},
+   {hand:"cutlass",off:"compass",head:"admiral",body:{type:"coat",c:"#14244A",t:"#FFD34D",epaulet:1},cape:"#7A1F2B",aura:"#8FD3F4"},
+   {hand:"admflag",off:"compass",head:"admiral",body:{type:"coat",c:"#0F1C3A",t:"#FFD34D",epaulet:1},cape:"#B3202B",aura:"#FFD34D",spark:1}],
+  gear:["つりざお","木のオール","水夫の服","水夫の帽子","古い羅針盤","片刃の剣","赤いバンダナ","遠めがね","三角帽子","海図","船長のコート","金のかたかざり","風のマント","提督の帽子","星の羅針盤","海の宝剣","大提督の旗"],
+  sk:["網なげ","帆をはれ","風を読む","いかり落とし","大波がえし","星の航路","あらし突破","七つの港の号令"],
+  al:[{n:"カーチャ",r:"見張り役",o:{hand:"scope",off:"none",head:"bandana",headc:"#E2483B",body:{type:"sailor",c:"#F6F7FA",t:"#C0392B"},hair:"#C98A3A",longhair:1}},
+      {n:"フョードル",r:"船大工",o:{hand:"none",off:"none",head:"none",body:{type:"tunic",c:"#9A6A36",apron:"#6E4A22"},beard:"#8A5A2B",hair:"#8A5A2B"}},
+      {n:"チャイカ",r:"カモメの相棒",animal:"gull",c:"#E8EEF4"},
+      {n:"ターニャ",r:"船の料理番",o:{hand:"none",off:"basket",head:"bandana",headc:"#5CB8B2",body:{type:"tunic",c:"#5CB8B2",apron:"#F6F1E1"},hair:"#2B2233",longhair:1}},
+      {n:"レフ",r:"老いた航海士",o:{hand:"none",off:"map",head:"tricorn",headc:"#3A3F58",body:{type:"coat",c:"#3A3F58",t:"#C9D3DD"},beard:"#E8EEF4",hair:"#E8EEF4",glasses:1}}]}
+];
+
+/* ===== Phase74：道のりを「冒険」に（5つの成り上がりの道・モンスター・ボス・装備・技・仲間）。ストーリーなし（今までの路線図）も選べる =====
+   記録：settings.p74 = {mode:"story"|"plain", path:"sword"…}。進み具合そのものはレッスンの記録（settings.p71.done）から毎回計算するので、
+   道を変えても進み具合は消えず、同じ段階の姿・装備・技・仲間がその道のものに置きかわる。 */
+if(!settings.p74||typeof settings.p74!=="object")settings.p74={};
+function p74S(){if(!settings.p74||typeof settings.p74!=="object")settings.p74={};return settings.p74;}
+function p74Story(){return p74S().mode!=="plain";}
+function p74Path(){var id=p74S().path;for(var i=0;i<P74_PATHS.length;i++)if(P74_PATHS[i].id===id)return P74_PATHS[i];return null;}
+var P74_CH=8;
+function p74Chapters(n){var out=[],a=0;for(var c=0;c<P74_CH;c++){var b=Math.round((c+1)*n/P74_CH);out.push([a,b]);a=b;}return out;}
+/* 進み具合をまとめて計算 */
+function p74State(){
+  var R=p70Road(),L=R.list,CH=p74Chapters(L.length),lessons=0,half=0,boss=0,chs=[];
+  L.forEach(function(x){lessons+=Math.min(x.ld||0,x.ln||0);});
+  CH.forEach(function(r,c){var th=L.slice(r[0],r[1]),dn=th.filter(function(x){return x.done;}).length,need=th.length;
+    var h=dn>=Math.ceil(need/2),d=dn>=need;if(h)half++;if(d)boss++;chs.push({c:c,from:r[0],to:r[1],themes:th,done:dn,need:need,half:h,beat:d});});
+  var cur=R.cur>=0?L[R.cur]:null,cc=cur?chs.filter(function(ch){return R.cur>=ch.from&&R.cur<ch.to;})[0]:null;
+  return {R:R,list:L,ch:chs,lessons:lessons,lv:1+lessons,stage:boss,boss:boss,gear:Math.min(17,1+half+boss),skills:boss,allies:[1,2,4,6,8].filter(function(k){return boss>=k;}).length,cur:cur,curCh:cc};
+}
+function p74Hero(P,stage,cls){return p74Svg(p74Person(P.st[Math.max(0,Math.min(8,stage))]),cls||"p74-hero");}
+function p74AllyArt(a,cls){return p74Svg(a.animal?p74Animal(a.animal,a.c):p74Person(a.o),cls||"p74-ally");}
+function p74Bar(v,max,cls){var p=max?Math.max(0,Math.min(100,Math.round(v/max*100))):0;return '<span class="p74-hp '+(cls||"")+'"><i style="width:'+p+'%"></i></span>';}
+function p74BossLv(c){return 8+c*9;}
+/* ---------- ホームのカード ---------- */
+var _p74RoadCard=p70RoadCard;
+p70RoadCard=function(){
+  var h=String(_p74RoadCard.apply(this,arguments));if(!p74Story())return h;
+  var P=p74Path(),S=p74State(),card;
+  h=h.replace("<b>道のり</b>","<b>"+P74_NAME+"</b>");
+  if(!P){
+    card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>5つの道から、なりたい姿を選ぼう</b><em>剣・魔法・王・武士・海</em></span><span class="p70-rcgo">›</span></button>';
+  }else{
+    var c=S.cur,ti=c?c.i:0,mon=c?p74MonsterName(ti):"";var li=c?p71NextIn(ti):-1;
+    var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74MonsterName(ti);li=p71NextIn(ti);}});
+    card='<button type="button" class="p74-card" data-act="p71go" data-val="'+ti+'"><span class="p74-cart p74-duel">'+p74Hero(P,S.stage,"p74-cimg")+(c?p74Svg(p74Monster(ti),"p74-cimg p74-cmon"):'')+'</span>'+
+      '<span class="p74-ctxt"><small>'+P74_NAME+'を続きから ・ '+esc(P.titles[S.stage])+' Lv '+S.lv+'</small>'+
+      (c?'<b>'+esc(mon)+'とたたかう</b><em>'+esc(c.cat)+' ・ レッスン '+(li+1)+' / '+c.ln+'</em>'+p74Bar(c.ln-c.ld,c.ln,"red"):'<b>すべての敵を'+P.verb+'！</b><em>'+esc(P.titles[8])+'になりました</em>')+'</span><span class="p70-rcgo">›</span></button>';
+  }
+  return h.replace(/<button type="button" class="p70-roadcard"[\s\S]*?<\/button>/,card);
+};
+/* ---------- 冒険のページ ---------- */
+var _p74Open=p70OpenRoad,P74_VIEW=null;
+function p74Page(inner){
+  var m=document.getElementById("p70page");if(!m){m=document.createElement("div");m.id="p70page";document.body.appendChild(m);}
+  m.innerHTML='<div class="p70-phead"><b>'+P74_NAME+'</b><button type="button" class="p70-x" data-act="p70close" aria-label="閉じる">✕</button></div><div class="p70-pbody p74-page">'+inner+'</div>';
+  m.className="show";document.body.classList.add("p70-noscroll");return m;
+}
+function p74Chooser(){
+  var cur=p74S().path,h='<p class="p70-lead">なりたい姿を1つ選んでください。レッスンを終えるたびに敵にダメージを与え、テーマを終えると敵を倒せます。ボスを倒すたびに姿が変わり、装備・技・仲間が増えていきます。道はあとから変えられます（進み具合はそのまま）。</p><div class="p74-paths">';
+  P74_PATHS.forEach(function(P){
+    h+='<button type="button" class="p74-pathc'+(cur===P.id?" on":"")+'" data-act="p74pick" data-val="'+P.id+'" style="--pc:'+P.color+'"><span class="p74-pfig">'+p74Hero(P,0,"p74-pimg")+'<i>›</i>'+p74Hero(P,8,"p74-pimg big")+'</span><span class="p74-ptx"><b>'+esc(P.name)+'</b><small>'+esc(P.goal)+'</small><span>'+esc(P.lead)+'</span></span></button>';});
+  h+='</div><button type="button" class="p74-plain" data-act="p74plain"><b>ストーリーなしで進める</b><small>物語や敵は出さず、今までの路線図（テーマの一覧）だけで進めます。</small></button>';
+  return h;
+}
+function p74Main(){
+  var P=p74Path(),S=p74State(),st=S.stage,h='';
+  h+='<div class="p74-me" style="--pc:'+P.color+'"><div class="p74-mefig">'+p74Hero(P,st,"p74-big")+'</div><div class="p74-meinfo"><small>'+esc(P.name)+'</small><b>'+esc(P.titles[st])+'</b><span class="p74-lv">Lv '+S.lv+'</span>'+
+     '<div class="p74-stats"><span><b>'+S.gear+'</b>/17 装備</span><span><b>'+S.skills+'</b>/8 技</span><span><b>'+S.allies+'</b>/5 仲間</span></div>'+
+     (st<8?'<small class="p74-next">次の姿「'+esc(P.titles[st+1])+'」まで：ボス「'+esc(P74_BOSS[S.ch.filter(function(c){return !c.beat;})[0]?S.ch.filter(function(c){return !c.beat;})[0].c:7].t)+'」を倒す</small>':'<small class="p74-next">最終形に到達しました！</small>')+'</div></div>';
+  /* 仲間の列 */
+  if(S.allies)h+='<div class="p74-party">'+P.al.slice(0,S.allies).map(function(a){return '<span>'+p74AllyArt(a,"p74-aimg")+'<small>'+esc(a.n)+'</small></span>';}).join("")+'</div>';
+  /* 今たたかっている敵 */
+  var c=S.cur;
+  if(c){var li=p71NextIn(c.i);
+    h+='<div class="p74-battle"><div class="p74-bfig">'+p74Hero(P,st,"p74-bimg")+'<span class="p74-vs">VS</span>'+p74Svg(p74Monster(c.i),"p74-bimg p74-mon")+'</div>'+
+       '<div class="p74-btx"><small>Lv '+(c.i+3)+' ・ テーマ「'+esc(c.cat)+'」</small><b>'+esc(p74MonsterName(c.i))+'</b>'+p74Bar(c.ln-c.ld,c.ln,"red")+'<small>のこり HP '+(c.ln-c.ld)+' / '+c.ln+'（レッスン1つで1ダメージ）</small></div>'+
+       '<button type="button" class="p74-go" data-act="p71go" data-val="'+c.i+'">レッスン '+(li+1)+' でたたかう</button></div>';}
+  /* タブ */
+  var v=P74_VIEW||"map";
+  h+='<div class="p74-tabs">'+[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]].map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
+  if(v==="map"){
+    S.ch.forEach(function(ch){var B=P74_BOSS[ch.c];
+      h+='<div class="p74-ch"><div class="p74-chh"><small>第'+(ch.c+1)+'章</small><b>'+esc(B.t)+'の地</b></div>';
+      ch.themes.forEach(function(x){var st2=x.done?"d":(S.cur&&x.i===S.cur.i?"c":"");
+        h+='<button type="button" class="p74-row '+st2+'" data-act="p71go" data-val="'+x.i+'"'+(st2==="c"?' id="p70cur"':'')+'><span class="p74-rimg">'+p74Svg(p74Monster(x.i))+(x.done?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><b>'+esc(p74MonsterName(x.i))+'</b><small>'+esc(x.cat)+' ・ '+(x.done?P.verb:'HP '+(x.ln-x.ld)+' / '+x.ln)+'</small>'+(x.done?'':p74Bar(x.ln-x.ld,x.ln,"red sm"))+'</span></button>';});
+      h+='<div class="p74-boss'+(ch.beat?" beat":"")+'"><span class="p74-bsimg">'+p74Svg(p74Boss(ch.c))+(ch.beat?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><small>ボス ・ Lv '+p74BossLv(ch.c)+'</small><b>'+esc(B.t)+' '+esc(B.n)+'</b><small class="p74-ru">名前はロシア語の '+esc(B.ru)+'（'+esc(B.ja)+'）から</small>'+
+        (ch.beat?'<small>'+P.verb+'！ 技「'+esc(P.sk[ch.c])+'」を覚えた</small>':p74Bar(ch.need-ch.done,ch.need,"red")+'<small>この章の敵を全部倒すと、ボスも倒れます（のこり '+(ch.need-ch.done)+'）</small>')+'</span></div></div>';});
+  }else if(v==="gear"){
+    h+='<div class="p74-list">'+P.gear.map(function(g,i){var on=i<S.gear;var how=i===0?"はじめの持ち物":(i%2?"第"+((i+1)/2)+"章の敵を半分倒す":"第"+(i/2)+"章のボスを倒す");
+      return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'★':'？')+'</span><span><b>'+(on?esc(g):'？？？')+'</b><small>'+how+'</small></span></div>';}).join("")+'</div>';
+  }else if(v==="skill"){
+    h+='<div class="p74-list">'+P.sk.map(function(k,i){var on=i<S.skills;return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'✦':'？')+'</span><span><b>'+(on?esc(k):'？？？')+'</b><small>ボス「'+esc(P74_BOSS[i].t)+'」を倒すと覚える</small></span></div>';}).join("")+'</div>';
+  }else{
+    var need=[1,2,4,6,8];
+    h+='<div class="p74-allies">'+P.al.map(function(a,i){var on=i<S.allies;return '<div class="p74-ac'+(on?"":" off")+'">'+p74AllyArt(a,"p74-aimg2")+'<b>'+(on?esc(a.n):'？？？')+'</b><small>'+(on?esc(a.r):'ボスを'+need[i]+'体倒すと仲間に')+'</small></div>';}).join("")+'</div>';
+  }
+  h+='<div class="p74-foot"><button type="button" data-act="p74choose">道を選びなおす</button><button type="button" data-act="p74plain">ストーリーなしにする</button></div>';
+  return h;
+}
+function p74Open(choose){
+  if(!p74Story()){_p74Open();var m0=document.getElementById("p70page");
+    if(m0){var b=m0.querySelector(".p70-pbody");if(b)b.insertAdjacentHTML("afterbegin",'<button type="button" class="p74-plain p74-toq" data-act="p74story"><b>'+P74_NAME+'モードにする</b><small>レッスンで敵を倒し、装備・技・仲間を集めながら進みます。</small></button>');}return;}
+  var m=p74Page(choose||!p74Path()?p74Chooser():p74Main());
+  setTimeout(function(){var c=document.getElementById("p70cur");if(c&&c.scrollIntoView&&(P74_VIEW||"map")==="map"&&!choose)c.scrollIntoView({block:"center"});},60);
+}
+p70OpenRoad=function(){p74Open(false);};
+/* ---------- レッスン結果に戦いの様子を出す ---------- */
+var P74_SNAP=null;
+var _p74Start=p71Start;
+p71Start=function(ti,li){try{P74_SNAP=p74State();}catch(_){P74_SNAP=null;}return _p74Start.apply(this,arguments);};
+var _p74Result=p71Result;
+p71Result=function(){
+  var h=String(_p74Result.apply(this,arguments)),P=p74Path();
+  if(!p74Story()||!P||!P71||P71.fav)return h;
+  var A=P74_SNAP,B=p74State(),ti=P71.ti,x=B.list[ti];if(!x)return h;
+  var dead=x.done,sk=B.skills?P.sk[(P71.li+ti)%B.skills]:null;
+  var g='<div class="p74-res" style="--pc:'+P.color+'"><div class="p74-bfig">'+p74Hero(P,B.stage,"p74-bimg")+'<span class="p74-hit">'+(dead?"KO!":"−1")+'</span>'+p74Svg(p74Monster(ti),"p74-bimg p74-mon"+(dead?" ko":""))+'</div>';
+  g+='<p>'+(sk?'技「'+esc(sk)+'」！ ':'')+esc(p74MonsterName(ti))+'に 1 ダメージ。'+(dead?'<b>'+esc(p74MonsterName(ti))+'を'+P.verb+'！</b>':'のこり HP '+(x.ln-x.ld)+' / '+x.ln)+'</p>'+(dead?'':p74Bar(x.ln-x.ld,x.ln,"red"));
+  var news=[];
+  if(A){
+    for(var i=A.gear;i<B.gear;i++)news.push('<li><span>装備</span>'+esc(P.gear[i])+'</li>');
+    for(var j=A.skills;j<B.skills;j++)news.push('<li><span>技</span>'+esc(P.sk[j])+'</li>');
+    for(var k=A.allies;k<B.allies;k++)news.push('<li><span>仲間</span>'+esc(P.al[k].n)+'（'+esc(P.al[k].r)+'）が仲間になった！</li>');
+    for(var b=0;b<B.ch.length;b++)if(B.ch[b].beat&&!(A.ch[b]&&A.ch[b].beat))g+='<div class="p74-bossko">'+p74Svg(p74Boss(b),"p74-bimg ko")+'<b>ボス「'+esc(P74_BOSS[b].t)+'」を'+P.verb+'！</b></div>';
+    if(B.stage>A.stage)g+='<div class="p74-up">'+p74Hero(P,B.stage,"p74-big")+'<b>「'+esc(P.titles[B.stage])+'」になった！</b></div>';
+  }
+  if(news.length)g+='<div class="p74-news"><small>手に入れたもの</small><ul>'+news.join("")+'</ul></div>';
+  g+='</div>';
+  return h.replace('<div class="p71-body">','<div class="p71-body">'+g);
+};
+/* ---------- 「道のり」という呼び名を冒険モードでは置きかえる ---------- */
+function p74Relabel(root){
+  if(!p74Story()||!root||!document.createTreeWalker)return;
+  var tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),n,L=[];while((n=tw.nextNode()))if(n.nodeValue.indexOf("道のり")>=0)L.push(n);
+  L.forEach(function(n){n.nodeValue=n.nodeValue.replace(/道のり/g,P74_NAME);});
+}
+(function(){
+  var _r=render;render=function(){var o=_r.apply(this,arguments);try{p74Relabel(document.getElementById("app")||document.body);}catch(_){}return o;};
+  var _pr=p71Render;p71Render=function(){var o=_pr.apply(this,arguments);try{p74Relabel(document.getElementById("p71"));}catch(_){}return o;};
+})();
+/* ---------- 操作 ---------- */
+window.addEventListener("click",function(e){
+  var el=e.target&&e.target.closest?e.target.closest("[data-act]"):null;if(!el)return;var a=el.getAttribute("data-act"),v=el.getAttribute("data-val");
+  if(!/^p74/.test(a))return;e.stopImmediatePropagation();e.preventDefault();var s=p74S();
+  if(a==="p74pick"){var was=s.path;s.mode="story";s.path=v;try{saveAll();}catch(_){}P74_VIEW="map";p74Open(false);try{render();}catch(_){}
+    var P=p74Path();toast(was&&was!==v?"「"+P.name+"」に変えました。進み具合はそのままです":"「"+P.name+"」で"+P74_NAME+"をはじめます");}
+  else if(a==="p74plain"){s.mode="plain";try{saveAll();}catch(_){}p74Open(false);try{render();}catch(_){}toast("ストーリーなしにしました");}
+  else if(a==="p74story"){s.mode="story";try{saveAll();}catch(_){}p74Open(!s.path);try{render();}catch(_){}}
+  else if(a==="p74choose"){p74Open(true);}
+  else if(a==="p74tab"){P74_VIEW=v;var m=document.getElementById("p70page"),sc=m&&m.querySelector(".p70-pbody"),y=sc?sc.scrollTop:0;p74Open(false);var sc2=document.querySelector("#p70page .p70-pbody");if(sc2)sc2.scrollTop=y;}
+},true);
+/* ---------- 見た目（色はテーマ変数を使い、ダーク・ライトどちらでも読める） ---------- */
+(function(){var css=
+'.p74-card{display:flex;align-items:center;gap:12px;width:100%;padding:12px 12px 12px 10px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer;margin-bottom:10px}'+
+'.p74-cart{flex:none;width:96px;height:74px;border-radius:14px;background:linear-gradient(180deg,#BFE3F2,#E7F3D8 70%,#B9D99A);display:flex;align-items:flex-end;justify-content:center;overflow:hidden;position:relative}'+
+'.p74-cimg{width:50px;height:68px}.p74-duel .p74-cimg{width:46px;height:62px}.p74-duel .p74-cmon{margin-left:-4px}'+
+'.p74-ctxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.p74-ctxt small{font-size:11.5px;color:var(--muted)}.p74-ctxt b{font-size:15.5px;line-height:1.35}.p74-ctxt em{font-style:normal;font-size:12px;color:var(--muted)}'+
+'.p74-hp{display:block;height:7px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:3px}.p74-hp i{display:block;height:100%;background:#3FA46A;border-radius:4px}.p74-hp.red i{background:#E2483B}.p74-hp.sm{height:5px}'+
+'.p74-page{padding-bottom:40px}'+
+'.p74-paths{display:flex;flex-direction:column;gap:10px}.p74-pathc{display:flex;gap:10px;align-items:center;padding:10px;border-radius:16px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p74-pathc.on{border-color:var(--pc);box-shadow:inset 0 0 0 1px var(--pc)}'+
+'.p74-pfig{flex:none;display:flex;align-items:center;background:linear-gradient(180deg,#DDEFF7,#F3EEDD);border-radius:12px;padding:2px 4px}.p74-pfig i{font-style:normal;color:#7A6A55;font-weight:800;margin:0 -2px}.p74-pimg{width:44px;height:60px}.p74-pimg.big{width:58px;height:78px}'+
+'.p74-ptx{display:flex;flex-direction:column;gap:2px;min-width:0}.p74-ptx b{font-size:16px;color:var(--pc)}html.p72-dark .p74-ptx b{filter:brightness(1.6)}.p74-ptx small{font-size:12px;font-weight:700}.p74-ptx span{font-size:12.5px;color:var(--muted);line-height:1.5}'+
+'.p74-plain{display:flex;flex-direction:column;gap:2px;width:100%;margin-top:12px;padding:12px;border-radius:14px;border:1px dashed var(--line);background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p74-plain small{color:var(--muted);font-size:12px}.p74-toq{margin:0 0 12px;border-style:solid}'+
+'.p74-me{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--line)}.p74-mefig{flex:none;width:112px;height:140px;border-radius:14px;background:linear-gradient(180deg,#BFE3F2,#E7F3D8 70%,#B9D99A);display:flex;align-items:flex-end;justify-content:center}.p74-big{width:104px;height:138px}'+
+'.p74-meinfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.p74-meinfo>small{font-size:12px;color:var(--muted)}.p74-meinfo>b{font-size:20px}.p74-lv{font-weight:800;font-size:13px}.p74-stats{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.p74-stats span{font-size:11.5px;padding:3px 8px;border-radius:999px;border:1px solid var(--line)}.p74-stats b{font-size:13px}.p74-next{font-size:11.5px!important;line-height:1.5;margin-top:4px}'+
+'.p74-party{display:flex;gap:6px;margin:10px 0 0;overflow-x:auto}.p74-party span{flex:none;display:flex;flex-direction:column;align-items:center;width:58px}.p74-aimg{width:52px;height:66px}.p74-party small{font-size:10.5px;color:var(--muted);white-space:nowrap}'+
+'.p74-battle,.p74-res{margin-top:12px;padding:12px;border-radius:18px;border:1px solid var(--line);background:var(--card)}.p74-bfig{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:120px;border-radius:14px;background:linear-gradient(180deg,#2E3A5C,#55708F 60%,#6E8F5A 61%,#58764A);position:relative}'+
+'.p74-bimg{width:84px;height:112px}.p74-mon{transform:scaleX(-1)}.p74-vs{font-weight:900;color:#FFD34D;font-size:18px;align-self:center;text-shadow:0 2px 0 #2B2233}'+
+'.p74-btx{display:flex;flex-direction:column;gap:2px;margin-top:8px}.p74-btx small{font-size:12px;color:var(--muted)}.p74-btx b{font-size:16px}'+
+'.p74-go{width:100%;margin-top:10px;min-height:48px;border-radius:14px;border:none;background:var(--accent);color:#fff;font:inherit;font-weight:800;font-size:15px;cursor:pointer}'+
+'.p74-tabs{display:flex;gap:6px;margin:14px 0 10px}.p74-tabs button{flex:1;min-height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:700;cursor:pointer}.p74-tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}'+
+'.p74-ch{margin-bottom:14px}.p74-chh{display:flex;align-items:baseline;gap:8px;margin:6px 2px 6px}.p74-chh small{font-size:12px;color:var(--muted);font-weight:700}.p74-chh b{font-size:15px}'+
+'.p74-row,.p74-boss{display:flex;gap:10px;align-items:center;width:100%;padding:6px 10px;margin-bottom:6px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p74-row.c{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.p74-row.d{opacity:.7}'+
+'.p74-rimg,.p74-bsimg{flex:none;position:relative;width:44px;height:58px}.p74-rimg svg,.p74-bsimg svg{width:100%;height:100%}.p74-bsimg{width:66px;height:86px}.p74-ko{position:absolute;right:-4px;bottom:2px;width:20px;height:20px;border-radius:50%;background:#3FA46A;color:#fff;font-style:normal;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}'+
+'.p74-rtx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.p74-rtx b{font-size:14.5px}.p74-rtx small{font-size:11.5px;color:var(--muted)}.p74-ru{font-style:italic}'+
+'.p74-boss{cursor:default;border-width:2px;border-color:#B48C3A;background:linear-gradient(90deg,rgba(180,140,58,.14),transparent)}.p74-boss.beat{opacity:.8}'+
+'.p74-list{display:flex;flex-direction:column;gap:6px}.p74-li{display:flex;gap:10px;align-items:center;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card)}.p74-li b{display:block;font-size:14.5px}.p74-li small{font-size:11.5px;color:var(--muted)}.p74-li.off b{color:var(--muted)}.p74-gi{flex:none;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(232,185,35,.2);color:#B7791F;font-weight:800}.p74-li.off .p74-gi{background:var(--line);color:var(--muted)}'+
+'.p74-allies{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}.p74-ac{display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-radius:14px;border:1px solid var(--line);background:var(--card);text-align:center}.p74-aimg2{width:76px;height:100px}.p74-ac b{font-size:13.5px}.p74-ac small{font-size:11px;color:var(--muted);line-height:1.4}.p74-ac.off svg{filter:brightness(0) opacity(.25)}'+
+'.p74-foot{display:flex;gap:8px;margin-top:16px}.p74-foot button{flex:1;min-height:42px;border-radius:12px;border:1px solid var(--line);background:none;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}'+
+'.p74-res p{margin:10px 0 4px;font-size:14.5px;line-height:1.6}.p74-hit{position:absolute;left:50%;top:14px;transform:translateX(-50%);font-weight:900;font-size:22px;color:#FFD34D;text-shadow:0 2px 0 #7A1F2B;animation:p74pop .6s ease-out}.p74-mon.ko{opacity:.45;transform:scaleX(-1) rotate(-12deg) translateY(10px)}'+
+'@keyframes p74pop{0%{transform:translateX(-50%) scale(.3);opacity:0}60%{transform:translateX(-50%) scale(1.25);opacity:1}100%{transform:translateX(-50%) scale(1)}}'+
+'.p74-bossko,.p74-up{display:flex;align-items:center;gap:10px;margin-top:10px;padding:8px 10px;border-radius:14px;background:rgba(232,185,35,.15);border:1px solid rgba(232,185,35,.5)}.p74-bossko .p74-bimg{width:60px;height:80px;opacity:.6}.p74-up .p74-big{width:70px;height:94px}.p74-bossko b,.p74-up b{font-size:15px}'+
+'.p74-news{margin-top:10px}.p74-news small{font-size:12px;color:var(--muted);font-weight:700}.p74-news ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}.p74-news li{font-size:14px;font-weight:700}.p74-news li span{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;margin-right:6px;border-radius:999px;background:var(--accent);color:#fff}';
+var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);})();
+
 /* ===== init ===== */
 try{ if(!ui.view)ui.view="word"; if(!ui.bnav)ui.bnav="home"; applyDisplayPrefs(); render(); }catch(err){ showFatal((err&&err.stack)||err); }
 /*JS_END*/
