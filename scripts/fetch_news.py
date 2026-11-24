@@ -220,11 +220,13 @@ def local_feed(source, url):
 # next round (2 hours later), so nothing is lost.
 TR_STATE = {"fails": 0, "off": False, "done": 0, "failed": 0, "skipped": 0, "borrowed": 0}
 TR_MAX_FAILS = 4  # refusals in a row before giving up for this round
+# Countries added later (Uzbekistan, Tajikistan) ask for at most "tr_cap" translations per round, so the
+# free translator is not worn out by them; what is left is translated in the next rounds (2 hours later).
 
 
 def translate_retry(texts):
     """translate_batch with waiting on refusals. Returns None when it gave up."""
-    if TR_STATE["off"]:
+    if TR_STATE["off"] or (TR_STATE.get("cap") and TR_STATE["done"] + TR_STATE["failed"] >= TR_STATE["cap"]):
         TR_STATE["skipped"] += 1
         return None
     for wait in (0, 5, 15):
@@ -964,18 +966,113 @@ COUNTRIES = {
 }
 
 
+# Uzbekistan and Tajikistan (added 2026-11-24). To add another country, copy one of these blocks,
+# then add the country to weather.html (COUNTRY_CFG and the lists next to it) and to
+# .github/workflows/update-news.yml (the "for c in ..." line).
+UZ_STREETS = {
+    # Tashkent, central streets and avenues
+    "tashkent": [
+        ("ta_amirtemur", r"амир\w* темур"), ("ta_navoi", r"алишер\w* навои|(?:ул\.|улиц\w*)\s*навои"),
+        ("ta_rustaveli", "руставели"), ("ta_mustakillik", "мустакиллик"), ("ta_bobur", "бабур|бобур"),
+        ("ta_shakhrisabz", "шахрисабзск"), ("ta_yusufkhos", r"юсуф\w* хос хо[жд]"), ("ta_oybek", "ойбек|айбек"),
+        ("ta_afrosiyob", "афросиаб|афросиёб"), ("ta_buyukipak", "буюк ипак йул"), ("ta_beruni", "беруни"),
+        ("ta_farobi", "фароби|фараби"), ("ta_mirobod", "мирабадск|миробод"), ("ta_nukus", "нукусск"),
+        ("ta_bunyodkor", "бунёдкор|бунедкор"), ("ta_shevchenko", "шевченко"), ("ta_mukimi", "мукими"),
+        ("ta_labzak", "лабзак"), ("ta_kichikhalka", r"кичик халка йул|мал\w* кольцев"),
+    ],
+}
+
+TJ_STREETS = {
+    # Dushanbe, central streets and avenues ("район Рудаки" is a district outside the city)
+    "dushanbe": [
+        ("du_rudaki", r"(?<!район )(?<!района )(?<!районе )рудаки"), ("du_somoni", r"исмоил\w* сомони|исмаил\w* самани"),
+        ("du_sherozi", "шерози|ширази"), ("du_aini", r"айни(?![а-яё])"), ("du_shotemur", "шотемур"),
+        ("du_tursunzoda", "мирзо турсунзод"), ("du_pushkin", "пушкин"), ("du_dusti", "дусти халкхо|дӯстии халқҳо"),
+        ("du_sino", "ибни сино|ибн сино"), ("du_karamov", "карамов"), ("du_shamsi", "шамси"),
+        ("du_karabaev", "карабаев"), ("du_lohuti", "лохути|лоҳутӣ"), ("du_chekhov", "чехов"),
+        ("du_bukhoro", "бухоро"), ("du_rumi", r"джалолиддин\w* руми|мавлоно"), ("du_borbad", "борбад"),
+        ("du_firdavsi", "фирдавси"),
+    ],
+}
+
+# Extra words for the news categories, per country (the base lists were written for Kyrgyzstan).
+CAT_EXTRA = {
+    "uz": {"politics": ["мирзиёев", "олий мажлис", "сенат", "хоким", "хокимият", "законодательн палат"],
+           "economy": ["сум", "сума", "сумов", "алмалык"]},
+    "tj": {"politics": ["рахмон", "маджлиси", "маджлис", "хукумат"],
+           "economy": ["сомони", "рогун", "нурек", "талко"]},
+}
+
+COUNTRIES["uz"] = dict(
+    # Russian-language editions; all checked from GitHub's runners on 2026-11-24
+    feeds=[("Gazeta.uz", "https://www.gazeta.uz/ru/rss/"), ("Kun.uz", "https://kun.uz/ru/news/rss"),
+           ("Daryo", "https://daryo.uz/ru/feed/"), ("Sputnik Узбекистан", "https://uz.sputniknews.ru/export/rss2/archive/index.xml"),
+           ("UzDaily", "https://www.uzdaily.uz/ru/rss/"), ("Spot", "https://www.spot.uz/ru/rss/"),
+           ("Kursiv Uzbekistan", "https://uz.kursiv.media/feed/"), ("UPL", "https://upl.uz/rss.xml")],
+    national=["узбек", "ўзбек", "ташкент", "тошкент", "мирзиёев", "самарканд", "бухар", "андижан", "наманган",
+              "ферган", "хорезм", "ургенч", "нукус", "каракалпак", "карши", "кашкадар", "сурхандар", "термез",
+              "джизак", "навои", "гулистан", "сырдар", "хоким", "хокимият", "олий мажлис", "руз", "сум", "сумов",
+              "хива", "хиве", "шахрисабз", "чирчик", "ангрен", "алмалык"],
+    city_words={"tashkent": ["ташкент", "тошкент", "столиц"], "samarkand": ["самарканд"], "bukhara": ["бухар"],
+                "khiva": ["хива", "хиве", "хиву", "хивы", "хивинск"], "nukus": ["нукус"], "urgench": ["ургенч"],
+                "andijan": ["андижан"], "namangan": ["наманган"], "fergana": ["фергана", "фергане", "ферганы", "ферганск"],
+                "karshi": ["карши"], "termez": ["термез"], "jizzakh": ["джизак"], "navoi": ["навои"]},
+    region="UZ",
+    infra_queries=["(отключение OR отключат OR без) (света OR электричества OR электроэнергии) Ташкент when:2d",
+                   "(отключение OR отключат OR без) (воды OR газа OR отопления) Ташкент when:2d",
+                   "(перекроют OR ограничат движение) Ташкент when:2d",
+                   "(МЧС OR сель OR оползень OR лавина OR землетрясение OR паводок OR штормовое предупреждение OR перевал закрыт) Узбекистан when:3d"],
+    watch=UZ_STREETS,
+    village=r"(?<![а-яё])(сел[оа]|с\.|поселк|пос\.|кишлак|ташкентск\w* област)",
+    postcode=r"(?<!\d)1\d{5}(?!\d)",
+    ja_keywords=("ウズベク", "タシケント", "サマルカンド", "ブハラ", "ヒヴァ", "ミルジヨエフ"),
+    ja_queries=["ウズベキスタン ({sites}) when:90d", "ウズベキスタン when:14d", "タシケント OR サマルカンド when:30d"],
+    mofa="0998", prev="news-uz.json", tz_hours=5,
+    world_queries=["Uzbekistan when:30d", "Tashkent OR Samarkand OR Mirziyoyev when:30d", ("Uzbekistan when:30d", "en-GB"),
+                   ("Узбекистан when:14d", "ru"), ("Ташкент OR Мирзиёев when:14d", "ru")],
+    tr_cap=80)
+
+COUNTRIES["tj"] = dict(
+    feeds=[("Asia-Plus", "https://asiaplustj.info/ru/rss"), ("Sputnik Таджикистан", "https://tj.sputniknews.ru/export/rss2/archive/index.xml"),
+           ("Avesta", "https://avesta.tj/feed/"), ("Ховар", "https://khovar.tj/rus/feed/"),
+           ("Озоди", "https://rus.ozodi.org/api/epiqq"), ("Вечерка", "https://vecherka.tj/feed/")],
+    national=["таджик", "тоҷик", "душанбе", "рахмон", "худжанд", "хуҷанд", "куляб", "кулоб", "бохтар", "курган-тюб",
+              "гбао", "памир", "хорог", "согд", "хатлон", "истаравшан", "турсунзад", "вахдат", "рогун", "пенджикент",
+              "панджакент", "сомони", "маджлис", "хукумат", "рт", "нурек", "исфар", "канибадам", "гиссар"],
+    city_words={"dushanbe": ["душанбе", "столиц"], "khujand": ["худжанд", "хуҷанд"], "bokhtar": ["бохтар", "курган-тюб"],
+                "kulob": ["куляб", "кулоб"], "khorog": ["хорог"], "istaravshan": ["истаравшан"],
+                "panjakent": ["пенджикент", "панджакент"], "tursunzoda": ["турсунзаде", "турсунзода"], "murghab": ["мургаб"]},
+    region="TJ",
+    infra_queries=["(отключение OR отключат OR без) (света OR электричества OR электроэнергии) Душанбе when:2d",
+                   "(отключение OR отключат OR без) (воды OR газа OR отопления) Душанбе when:2d",
+                   "(перекроют OR ограничат движение) Душанбе when:2d",
+                   "(КЧС OR сель OR оползень OR лавина OR землетрясение OR паводок OR штормовое предупреждение OR перевал закрыт) Таджикистан when:3d"],
+    watch=TJ_STREETS,
+    village=r"(?<![а-яё])(сел[оа]|с\.|поселк|пос\.|кишлак|джамоат|район\w* рудаки|рудакинск|варзоб|гиссар)",
+    postcode=r"(?<!\d)73[45]\d{3}(?!\d)",
+    ja_keywords=("タジク", "ドゥシャンベ", "ラフモン", "パミール"),
+    ja_queries=["タジキスタン ({sites}) when:90d", "タジキスタン when:14d", "ドゥシャンベ when:30d"],
+    mofa="0992", prev="news-tj.json", tz_hours=5,
+    world_queries=["Tajikistan when:30d", "Dushanbe OR Rahmon when:30d", ("Tajikistan when:30d", "en-GB"),
+                   ("Таджикистан when:14d", "ru"), ("Душанбе OR Рахмон when:14d", "ru")],
+    tr_cap=80)
+
+
 def use_country(code):
     """Point the module-level settings used by the collectors at one country."""
     global COUNTRY, LOCAL_FEEDS, KG_RE, CITY_RES, INFRA_QUERIES, GN_REGION, WATCH_CITIES, STREET_RES_BY_CITY
-    global VILLAGE_RE, POSTCODE_RE, JA_KEYWORDS, JA_QUERIES, MOFA_CODE, PREV_URL, TZ_HOURS, WORLD_QUERIES
+    global VILLAGE_RE, POSTCODE_RE, JA_KEYWORDS, JA_QUERIES, MOFA_CODE, PREV_URL, TZ_HOURS, WORLD_QUERIES, CAT_RES
     c = COUNTRIES[code]
+    extra = CAT_EXTRA.get(code, {})
+    CAT_RES = [(cat, word_re(words + extra.get(cat, []))) for cat, words in CATEGORIES]
+    TR_STATE["cap"] = c.get("tr_cap")
     COUNTRY = code
     LOCAL_FEEDS = c["feeds"]
     KG_RE = word_re(c["national"])
     CITY_RES = {cid: word_re(ws) for cid, ws in c["city_words"].items()}
     INFRA_QUERIES, GN_REGION = c["infra_queries"], c["region"]
     WATCH_CITIES = {city: ws for city, ws in c["watch"].items()}
-    STREET_RES_BY_CITY = {city: [(sid, re.compile(r"(?<![а-яёәіңғүұқөһ])(?:" + rx + ")")) for sid, rx in ws]
+    STREET_RES_BY_CITY = {city: [(sid, re.compile(r"(?<![а-яёәіңғүұқөһўҳҷӣӯ])(?:" + rx + ")")) for sid, rx in ws]
                           for city, ws in WATCH_CITIES.items()}
     VILLAGE_RE, POSTCODE_RE = re.compile(c["village"]), re.compile(c["postcode"])
     JA_KEYWORDS, JA_QUERIES, MOFA_CODE = c["ja_keywords"], c["ja_queries"], c["mofa"]
@@ -1030,7 +1127,8 @@ def main():
     archive_out = sys.argv[2] if len(sys.argv) > 2 else None
     try:
         try:
-            archive = json.loads(get(PREV_URL.replace(".json", "-archive.json").replace("news-kz-archive", "news-archive-kz")))
+            # news.json -> news-archive.json, news-kz.json -> news-archive-kz.json
+            archive = json.loads(get(re.sub(r"news(-\w+)?\.json$", r"news-archive\1.json", PREV_URL)))
         except Exception as e:
             log(f"no previous archive: {e}")
             archive = None
