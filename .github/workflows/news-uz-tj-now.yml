@@ -1,0 +1,74 @@
+name: News for Uzbekistan and Tajikistan now (one-off)
+
+# One-off helper on a work branch (not on main): the regular "Update Kyrgyz news"
+# run that started before Uzbekistan and Tajikistan were added still loops over
+# kg kz only, until it ends and starts its successor (which includes uz tj).
+# Until then this job collects uz and tj, adds them to the news-data branch
+# next to the files already there, and adds them again whenever that run's next
+# round replaces the branch. It does not start, stop or queue the regular run.
+on:
+  push:
+    branches: [claude/project-thread-5ct4y3]
+    paths:
+      - .github/workflows/news-uz-tj-now.yml
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: news-uz-tj-now
+  cancel-in-progress: true
+
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      OLD_RUN: "45426571524"
+      GH_TOKEN: ${{ github.token }}
+      TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Collect and publish until the old run hands over
+        run: |
+          repo="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          collect() {
+            for c in uz tj; do
+              rm -f "$RUNNER_TEMP/a.json"
+              if python3 scripts/fetch_news.py "$c" "$RUNNER_TEMP/a.json" > "$RUNNER_TEMP/n.json"; then
+                mv "$RUNNER_TEMP/n.json" "$RUNNER_TEMP/news-$c.json"
+                [ -s "$RUNNER_TEMP/a.json" ] && mv "$RUNNER_TEMP/a.json" "$RUNNER_TEMP/news-archive-$c.json"
+              else
+                echo "fetch $c failed"
+              fi
+            done
+          }
+          publish() {
+            for try in 1 2 3 4 5; do
+              rm -rf "$RUNNER_TEMP/pub" && mkdir "$RUNNER_TEMP/pub" && cd "$RUNNER_TEMP/pub"
+              git init -q && git fetch -q --depth 1 "$repo" news-data && git checkout -q FETCH_HEAD
+              base=$(git rev-parse HEAD)
+              git checkout -q --orphan pub
+              cp "$RUNNER_TEMP"/news-uz.json "$RUNNER_TEMP"/news-tj.json . 2>/dev/null || true
+              cp "$RUNNER_TEMP"/news-archive-uz.json "$RUNNER_TEMP"/news-archive-tj.json . 2>/dev/null || true
+              git add -A
+              git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update news"
+              # only replace the branch if nobody published in between
+              if git push -q --force-with-lease="news-data:$base" "$repo" pub:news-data; then cd "$GITHUB_WORKSPACE"; echo "published"; return 0; fi
+              cd "$GITHUB_WORKSPACE"; sleep 20
+            done
+            echo "publish failed"
+          }
+          collect; publish
+          while [ "$(gh run view "$OLD_RUN" -R "$GITHUB_REPOSITORY" --json status -q .status)" != "completed" ]; do
+            sleep 300
+            # the old run's round rebuilt news-data without uz/tj: collect fresh and add them again
+            if ! git ls-remote --exit-code "$repo" news-data >/dev/null || ! git fetch -q --depth 1 "$repo" news-data || ! git cat-file -e FETCH_HEAD:news-uz.json 2>/dev/null; then
+              git fetch -q origin main && git checkout -q FETCH_HEAD -- scripts || true
+              collect; publish
+            fi
+          done
+          echo "old run finished; the regular run now collects uz and tj"
