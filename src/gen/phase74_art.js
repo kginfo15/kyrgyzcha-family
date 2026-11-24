@@ -121,10 +121,14 @@ function p74Person(o){
   s+='<path d="M37 56q0-22 23-22t23 22q-6-10-14-12q-4 6-12 6q-10 0-14 6q-4 0-6 0z" fill="'+hair+'" '+P74_OUT+'/>';
   if(o.beard)s+='<path d="M44 66q2 18 16 18t16-18q-6 6-16 6t-16-6z" fill="'+o.beard+'" '+P74_OUT+'/>';
   /* 顔：まっすぐ前を見る目、きりっとした眉 */
-  s+='<path d="M47 52l8 2M73 52l-8 2" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/>';
+  s+=o.rival?'<path d="M46 49l10 5M74 49l-10 5" stroke="#2B2233" stroke-width="3" stroke-linecap="round"/>':'<path d="M47 52l8 2M73 52l-8 2" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/>';
   s+='<ellipse cx="51" cy="60" rx="3" ry="3.8" fill="#2B2233"/><ellipse cx="69" cy="60" rx="3" ry="3.8" fill="#2B2233"/><circle cx="52" cy="58.6" r="1.1" fill="#fff"/><circle cx="70" cy="58.6" r="1.1" fill="#fff"/>';
   s+='<circle cx="45" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/><circle cx="75" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/>';
-  if(!o.beard)s+='<path d="M55 70q5 4 10 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  if(!o.beard)s+=o.rival?'<path d="M54 72q6-4 12-1" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>':'<path d="M55 70q5 4 10 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  else if(o.rival)s+='<path d="M54 73q6-3 12 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  if(o.mask)s+='<path d="M38 55q22-6 44 0v9q-22-5-44 0z" fill="'+o.mask+'" '+P74_OUT+'/><ellipse cx="51" cy="60" rx="3" ry="3" fill="#fff"/><ellipse cx="69" cy="60" rx="3" ry="3" fill="#fff"/><circle cx="51" cy="60" r="1.8" fill="#2B2233"/><circle cx="69" cy="60" r="1.8" fill="#2B2233"/>';
+  if(o.eyepatch)s+='<path d="M40 50l40 12" stroke="#2B2233" stroke-width="1.6"/><ellipse cx="69" cy="60" rx="6" ry="5.5" fill="#2B2233"/>';
+  if(o.visor)s+='<path d="M38 52q22-8 44 0v16q-22 6-44 0z" fill="'+o.visor+'" '+P74_OUT+'/><path d="M44 60h32" stroke="#2B2233" stroke-width="3"/><path d="M48 60h8M64 60h8" stroke="'+(o.eyec||"#E2483B")+'" stroke-width="2.4" stroke-linecap="round"/>';
   if(o.scar)s+='<path d="M71 64l5 6" stroke="#B5523F" stroke-width="1.6"/>';
   if(o.glasses)s+='<circle cx="51" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><circle cx="69" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><path d="M57 60h6" stroke="#2B2233" stroke-width="1.6"/>';
   var hd=o.head||"none";s+=P74_HEAD[hd]?P74_HEAD[hd](o.headc):"";
@@ -169,8 +173,8 @@ function p74Mouth(x,y,w,kind){
   if(kind===1)return '<path d="M'+(x-w)+' '+y+'h'+(w*2)+'" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/><path d="M'+(x-w*.7)+' '+y+'l2.5 4 2.5-4M'+(x+w*.2)+' '+y+'l2.5 4 2.5-4" fill="#fff" '+P74_OUT+'/>';
   return '<ellipse cx="'+x+'" cy="'+(y+2)+'" rx="'+(w*.6)+'" ry="'+(w*.5)+'" fill="#7A1F2B" '+P74_OUT+'/>';
 }
-function p74Monster(ti,boss){
-  var r=p74Rng(ti*7+3),kind=ti%8,col=P74_MCOL[(ti*5+Math.floor(ti/8))%P74_MCOL.length][0];
+function p74Monster(ti,boss,k2,c2){
+  var r=p74Rng(ti*7+3),kind=ti%8,col=P74_MCOL[(ti*5+Math.floor(ti/8))%P74_MCOL.length][0];if(k2!=null&&!isNaN(k2)){kind=k2;col=c2||col;r=p74Rng(k2*11+5);}
   var c=col,d=p74Shade(c,-.28),l=p74Shade(c,.45),s='<ellipse cx="60" cy="150" rx="34" ry="5" fill="#000" opacity=".2"/>',mk=Math.floor(r()*3),angry=r()>.35;
   if(kind===0){ /* 毛玉 */
     var pts=[];for(var i=0;i<26;i++){var a=i/26*Math.PI*2,R=i%2?34:40;pts.push((60+Math.cos(a)*R).toFixed(1)+' '+(104+Math.sin(a)*R*.92).toFixed(1));}
@@ -287,7 +291,8 @@ function p74Scene(figs,opt){
   if(opt.night)s+='<circle cx="200" cy="26" r="10" fill="#F6F1E1"/><circle cx="40" cy="20" r="1.4" fill="#fff"/><circle cx="90" cy="34" r="1.2" fill="#fff"/><circle cx="150" cy="16" r="1.4" fill="#fff"/>';
   else s+='<circle cx="204" cy="28" r="12" fill="#FFD34D"/>';
   s+='<path d="M0 84l40-44 30 30 34-46 40 50 30-30 66 60v40H0z" fill="'+(opt.night?"#4A5878":"#9FB7C9")+'"/><path d="M104 24l-12 14 8-2 4 6 4-6 8 2z" fill="#fff" opacity=".9"/><path d="M40 40l-8 10 6-1 2 4 3-4 5 1z" fill="#fff" opacity=".9"/>';
-  s+='<path d="M0 92q60-14 120-4t120-6v58H0z" fill="'+(opt.night?"#3E5A3E":"#8DBF6A")+'"/><path d="M0 108q80-10 240 0v32H0z" fill="'+(opt.night?"#35502F":"#7AAE57")+'"/>';
+  if(opt.sea)s+='<path d="M0 92h240v48H0z" fill="'+(opt.night?"#1F3A5C":"#4F8FD8")+'"/><path d="M0 108q30-6 60 0t60 0 60 0 60 0v32H0z" fill="'+(opt.night?"#1A3050":"#3E7BC2")+'"/><path d="M20 100q8-4 16 0M150 98q8-4 16 0M90 120q8-4 16 0" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/><path d="M0 128h240v12H0z" fill="#E8D5A8"/>';
+  else s+='<path d="M0 92q60-14 120-4t120-6v58H0z" fill="'+(opt.night?"#3E5A3E":"#8DBF6A")+'"/><path d="M0 108q80-10 240 0v32H0z" fill="'+(opt.night?"#35502F":"#7AAE57")+'"/>';
   if(opt.yurt!==false)s+='<g transform="translate('+(opt.yx||176)+' 70)"><path d="M0 34V18q22-14 44 0v16z" fill="#F4EBD8" stroke="#2B2233" stroke-width="1.6"/><path d="M0 18q22-24 44 0" fill="#E8DCC0" stroke="#2B2233" stroke-width="1.6"/><path d="M4 24h36" stroke="#B3202B" stroke-width="3"/><path d="M18 34V24h8v10" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.2"/></g>';
   if(opt.fire)s+='<g transform="translate(118 108)"><path d="M-10 6h20" stroke="#5A3A1E" stroke-width="4"/><path d="M0 4q-10-10 0-22q2 8 6 8q4 8-6 14z" fill="#F2A541"/><path d="M0 4q-4-6 0-12q4 6 0 12z" fill="#FFE36B"/></g>';
   (figs||[]).forEach(function(f){s+='<g transform="translate('+f.x+' '+(f.y||36)+') scale('+(f.s||.62)+')">'+f.svg+'</g>';});

@@ -12077,10 +12077,14 @@ function p74Person(o){
   s+='<path d="M37 56q0-22 23-22t23 22q-6-10-14-12q-4 6-12 6q-10 0-14 6q-4 0-6 0z" fill="'+hair+'" '+P74_OUT+'/>';
   if(o.beard)s+='<path d="M44 66q2 18 16 18t16-18q-6 6-16 6t-16-6z" fill="'+o.beard+'" '+P74_OUT+'/>';
   /* 顔：まっすぐ前を見る目、きりっとした眉 */
-  s+='<path d="M47 52l8 2M73 52l-8 2" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/>';
+  s+=o.rival?'<path d="M46 49l10 5M74 49l-10 5" stroke="#2B2233" stroke-width="3" stroke-linecap="round"/>':'<path d="M47 52l8 2M73 52l-8 2" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/>';
   s+='<ellipse cx="51" cy="60" rx="3" ry="3.8" fill="#2B2233"/><ellipse cx="69" cy="60" rx="3" ry="3.8" fill="#2B2233"/><circle cx="52" cy="58.6" r="1.1" fill="#fff"/><circle cx="70" cy="58.6" r="1.1" fill="#fff"/>';
   s+='<circle cx="45" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/><circle cx="75" cy="67" r="3.2" fill="#F08A7E" opacity=".45"/>';
-  if(!o.beard)s+='<path d="M55 70q5 4 10 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  if(!o.beard)s+=o.rival?'<path d="M54 72q6-4 12-1" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>':'<path d="M55 70q5 4 10 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  else if(o.rival)s+='<path d="M54 73q6-3 12 0" stroke="#2B2233" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  if(o.mask)s+='<path d="M38 55q22-6 44 0v9q-22-5-44 0z" fill="'+o.mask+'" '+P74_OUT+'/><ellipse cx="51" cy="60" rx="3" ry="3" fill="#fff"/><ellipse cx="69" cy="60" rx="3" ry="3" fill="#fff"/><circle cx="51" cy="60" r="1.8" fill="#2B2233"/><circle cx="69" cy="60" r="1.8" fill="#2B2233"/>';
+  if(o.eyepatch)s+='<path d="M40 50l40 12" stroke="#2B2233" stroke-width="1.6"/><ellipse cx="69" cy="60" rx="6" ry="5.5" fill="#2B2233"/>';
+  if(o.visor)s+='<path d="M38 52q22-8 44 0v16q-22 6-44 0z" fill="'+o.visor+'" '+P74_OUT+'/><path d="M44 60h32" stroke="#2B2233" stroke-width="3"/><path d="M48 60h8M64 60h8" stroke="'+(o.eyec||"#E2483B")+'" stroke-width="2.4" stroke-linecap="round"/>';
   if(o.scar)s+='<path d="M71 64l5 6" stroke="#B5523F" stroke-width="1.6"/>';
   if(o.glasses)s+='<circle cx="51" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><circle cx="69" cy="60" r="6" fill="none" stroke="#2B2233" stroke-width="1.6"/><path d="M57 60h6" stroke="#2B2233" stroke-width="1.6"/>';
   var hd=o.head||"none";s+=P74_HEAD[hd]?P74_HEAD[hd](o.headc):"";
@@ -12125,8 +12129,8 @@ function p74Mouth(x,y,w,kind){
   if(kind===1)return '<path d="M'+(x-w)+' '+y+'h'+(w*2)+'" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/><path d="M'+(x-w*.7)+' '+y+'l2.5 4 2.5-4M'+(x+w*.2)+' '+y+'l2.5 4 2.5-4" fill="#fff" '+P74_OUT+'/>';
   return '<ellipse cx="'+x+'" cy="'+(y+2)+'" rx="'+(w*.6)+'" ry="'+(w*.5)+'" fill="#7A1F2B" '+P74_OUT+'/>';
 }
-function p74Monster(ti,boss){
-  var r=p74Rng(ti*7+3),kind=ti%8,col=P74_MCOL[(ti*5+Math.floor(ti/8))%P74_MCOL.length][0];
+function p74Monster(ti,boss,k2,c2){
+  var r=p74Rng(ti*7+3),kind=ti%8,col=P74_MCOL[(ti*5+Math.floor(ti/8))%P74_MCOL.length][0];if(k2!=null&&!isNaN(k2)){kind=k2;col=c2||col;r=p74Rng(k2*11+5);}
   var c=col,d=p74Shade(c,-.28),l=p74Shade(c,.45),s='<ellipse cx="60" cy="150" rx="34" ry="5" fill="#000" opacity=".2"/>',mk=Math.floor(r()*3),angry=r()>.35;
   if(kind===0){ /* 毛玉 */
     var pts=[];for(var i=0;i<26;i++){var a=i/26*Math.PI*2,R=i%2?34:40;pts.push((60+Math.cos(a)*R).toFixed(1)+' '+(104+Math.sin(a)*R*.92).toFixed(1));}
@@ -12243,7 +12247,8 @@ function p74Scene(figs,opt){
   if(opt.night)s+='<circle cx="200" cy="26" r="10" fill="#F6F1E1"/><circle cx="40" cy="20" r="1.4" fill="#fff"/><circle cx="90" cy="34" r="1.2" fill="#fff"/><circle cx="150" cy="16" r="1.4" fill="#fff"/>';
   else s+='<circle cx="204" cy="28" r="12" fill="#FFD34D"/>';
   s+='<path d="M0 84l40-44 30 30 34-46 40 50 30-30 66 60v40H0z" fill="'+(opt.night?"#4A5878":"#9FB7C9")+'"/><path d="M104 24l-12 14 8-2 4 6 4-6 8 2z" fill="#fff" opacity=".9"/><path d="M40 40l-8 10 6-1 2 4 3-4 5 1z" fill="#fff" opacity=".9"/>';
-  s+='<path d="M0 92q60-14 120-4t120-6v58H0z" fill="'+(opt.night?"#3E5A3E":"#8DBF6A")+'"/><path d="M0 108q80-10 240 0v32H0z" fill="'+(opt.night?"#35502F":"#7AAE57")+'"/>';
+  if(opt.sea)s+='<path d="M0 92h240v48H0z" fill="'+(opt.night?"#1F3A5C":"#4F8FD8")+'"/><path d="M0 108q30-6 60 0t60 0 60 0 60 0v32H0z" fill="'+(opt.night?"#1A3050":"#3E7BC2")+'"/><path d="M20 100q8-4 16 0M150 98q8-4 16 0M90 120q8-4 16 0" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/><path d="M0 128h240v12H0z" fill="#E8D5A8"/>';
+  else s+='<path d="M0 92q60-14 120-4t120-6v58H0z" fill="'+(opt.night?"#3E5A3E":"#8DBF6A")+'"/><path d="M0 108q80-10 240 0v32H0z" fill="'+(opt.night?"#35502F":"#7AAE57")+'"/>';
   if(opt.yurt!==false)s+='<g transform="translate('+(opt.yx||176)+' 70)"><path d="M0 34V18q22-14 44 0v16z" fill="#F4EBD8" stroke="#2B2233" stroke-width="1.6"/><path d="M0 18q22-24 44 0" fill="#E8DCC0" stroke="#2B2233" stroke-width="1.6"/><path d="M4 24h36" stroke="#B3202B" stroke-width="3"/><path d="M18 34V24h8v10" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.2"/></g>';
   if(opt.fire)s+='<g transform="translate(118 108)"><path d="M-10 6h20" stroke="#5A3A1E" stroke-width="4"/><path d="M0 4q-10-10 0-22q2 8 6 8q4 8-6 14z" fill="#F2A541"/><path d="M0 4q-4-6 0-12q4 6 0 12z" fill="#FFE36B"/></g>';
   (figs||[]).forEach(function(f){s+='<g transform="translate('+f.x+' '+(f.y||36)+') scale('+(f.s||.62)+')">'+f.svg+'</g>';});
@@ -12384,10 +12389,10 @@ var P74_NPC={
 /* 例文に出る固有名詞など（単語帳にない語）：表層形|見出し|意味|形 */
 var P74_NAMES=[
  "манасчы|манасчы|マナスチ（『マナス』の語り手）|","манас|Мана́с|マナス（叙事詩の英雄）|主格「〜は」","манасе|Мана́с|マナス（叙事詩の英雄）|前置格「〜について」","манаса|Мана́с|マナス（叙事詩の英雄）|生格「〜の」",
- "жакыпа|Жакы́п|ジャクプ（マナスの父）|生格「〜の」","алмамбет|Алмамбе́т|アルマンベト（マナスの友）|主格「〜は」","каныкей|Каныке́й|カヌケイ（マナスの妻）|主格「〜は」",
+ "жакып|Жакы́п|ジャクプ（マナスの父）|主格「〜は」","жакыпа|Жакы́п|ジャクプ（マナスの父）|生格「〜の」","алмамбет|Алмамбе́т|アルマンベト（マナスの友）|主格「〜は」","каныкей|Каныке́й|カヌケイ（マナスの妻）|主格「〜は」",
  "бухару|Бухара́|ブハラ（町の名）|対格「〜へ」","семетей|Семете́й|セメテイ（マナスの息子）|主格「〜は」","семетею|Семете́й|セメテイ（マナスの息子）|与格「〜に」","семетея|Семете́й|セメテイ（マナスの息子）|生格「〜の」",
  "бакай|Бака́й|バカイ（知恵のある相談役）|主格「〜は」","талас|Тала́с|タラス（地名）|対格「〜へ」","кулчоро|Кулчоро́|クルチョロ（アルマンベトの息子）|主格「〜は」","айчурек|Айчуре́к|アイチュレク（セメテイの妻）|主格「〜は」",
- "курманжан|Курманжа́н|クルマンジャン（人の名）|","алымбека|Алымбе́к|アリムベク（クルマンジャンの夫）|生格・対格","датка|да́тка|ダトカ（地域を治める人の位）|",
+ "курманжан|Курманжа́н|クルマンジャン（人の名）|","алымбек|Алымбе́к|アリムベク（クルマンジャンの夫）|主格「〜は」","алымбека|Алымбе́к|アリムベク（クルマンジャンの夫）|生格・対格","датка|да́тка|ダトカ（地域を治める人の位）|",
  "акын|акы́н|アクン（即興で歌う詩人）|主格「〜は」","комузе|кому́з|コムズ（キルギスの弦楽器）|前置格「〜で」","токтогул|Токтогу́л|トクトグル（人の名）|主格「〜は」","токтогула|Токтогу́л|トクトグル（人の名）|生格・対格","сибирь|Сиби́рь|シベリア（地名）|対格「〜へ」",
  /* 単語帳の語の、自動では見つからない形 */
  "друзьям|друг|友だち|与格・複数「友だちに」（друг の複数は друзья と特別な形）","людям|лю́ди|人々|与格・複数「人々に」","людях|лю́ди|人々|前置格・複数「人々について」（о＋前置格）","матери|мать|母|生格「母の」（для＋生格で「母にとって」）。与格・前置格も同じ形"
@@ -12415,23 +12420,23 @@ P74_PATHS.push({id:"manas",hist:1,name:"マナスの道",goal:"少年 → 英雄
       {n:"カヌケイ",r:"かしこい妻",o:P74_NPC.kanykey},
       {n:"チュバク",r:"勇ましい仲間",o:{hand:"spear",off:"roundshield",head:"batyr",body:{type:"chapan",c:"#C7823E",t:"#E8B923"},hair:"#5A3A22"}}],
   story:[
-   {t:"序章　語り手マナスチ",fig:["npc:manaschy@96"],fire:1,night:1,ex:["Манасчы рассказывает длинную историю о Манасе.","マナスチがマナスについての長い物語を語ります。"],
+   {t:"序章　語り手マナスチ",fig:["npc:manaschy@96"],fire:1,night:1,ex:["Это манасчы. Он поёт.","これはマナスチです。彼は歌います。"],
     x:"「マナス」は、キルギスに伝わるとても長い叙事詩（英雄の物語を語る詩）です。本に書かれるずっと前から、マナスチ（манасчы）と呼ばれる語り手が、声の調子や身ぶりをまじえて語り伝えてきました。三部作をつづけて語ると、13時間ほどかかることもあるといわれます。\n語り手によって、場面や細かい筋が少しずつ違います。この道では、多くの語りに共通する大きな流れをやさしく紹介します。歴史の記録ではなく、「物語ではこう語られる」というお話として読んでください。"},
-   {t:"第1話　待ちのぞまれた子",fig:["npc:jakyp@40","npc:chiyirdy@96","h@156"],ex:["У старого Жакыпа долго не было детей.","年老いたジャクプには、長いあいだ子どもがいませんでした。"],
+   {t:"第1話　待ちのぞまれた子",fig:["npc:jakyp@40","npc:chiyirdy@96","h@156"],ex:["Это Жакып. Он старый.","これはジャクプです。彼は年をとっています。"],
     x:"物語では、ジャクプ（Жакып）と妻のチユルドゥ（Чыйырды）には、長いあいだ子どもがいませんでした。祈りつづけた二人に、すばらしい息子が生まれることを知らせる夢が届き、やがて生まれた男の子がマナスです。\n生まれるときにも不思議なことが起きたと語られ、マナスは小さいころから人並みはずれて強い子でした。"},
-   {t:"第2話　力自慢の少年",fig:["h@70","a0@140"],ex:["Маленький Манас был очень сильный.","小さなマナスはとても力が強かった。"],
+   {t:"第2話　力自慢の少年",fig:["h@70","a0@140"],ex:["Манас — сильный мальчик.","マナスは力の強い男の子です。"],
     x:"少年マナスは力が強く、元気にあふれていて、まわりの大人をおどろかせます。とても小さいころから、すぐれた馬に乗れるようになったとも語られます。\n遊牧の暮らしでは、馬は家族のように大切な仲間でした。マナスの愛馬アク・クラ（Аккула）は、物語の中で何度も活やくします。"},
-   {t:"第3話　四十人の仲間",fig:["a4@20","h@90","a1@160"],ex:["У Манаса было сорок друзей.","マナスには40人の仲間がいました。"],
+   {t:"第3話　四十人の仲間",fig:["a4@20","h@90","a1@160"],ex:["Это Манас и его друзья.","これはマナスと彼の仲間たちです。"],
     x:"マナスはまだ若いうちに、自分の「四十人の仲間（кырк чоро）」をつくります。仲間たちは一生マナスを助け、最後までともに戦ったと語られます。\nマナスたちの大きな目的は、ばらばらになっていた部族をまとめ、一つの民にすることです。知恵のある相談役バカイ（Бакай）も、マナスを支えます。"},
-   {t:"第4話　友アルマンベト",fig:["h@50","a2@130"],ex:["Алмамбет стал другом Манаса.","アルマンベトはマナスの友になりました。"],
+   {t:"第4話　友アルマンベト",fig:["h@50","a2@130"],ex:["Алмамбет — друг Манаса.","アルマンベトはマナスの友です。"],
     x:"アルマンベト（Алмамбет）は、もともとは別の国で育った勇者です。長い旅のすえにマナスのもとへやって来て、四十人の仲間に加わります。\nマナスはアルマンベトを兄弟のように大切にし、アルマンベトもマナスのいちばんの友として力をつくします。生まれた場所が違っても固い友情を結べる、という物語としても読まれています。"},
-   {t:"第5話　かしこいカヌケイ",fig:["h@50","a3@130"],ex:["Каныкей — умная и добрая жена.","カヌケイはかしこくてやさしい妻です。"],
+   {t:"第5話　かしこいカヌケイ",fig:["h@50","a3@130"],ex:["Каныкей умная и добрая.","カヌケイはかしこくて、やさしいです。"],
     x:"マナスの妻カヌケイ（Каныкей）は、かしこく、人をもてなす心をもった女性として描かれます。夫が人々をまとめる戦いにも、自分から力を貸しました。\nのちに、息子セメテイを守り育てるのもカヌケイです。物語の中で、女性の知恵と強さがたいせつにされている人物として知られています。"},
-   {t:"第6話　コケトイの追悼の宴",fig:["npc:elder@30","h@100","a0@160"],fire:1,ex:["На большом празднике люди играли и пели.","大きな祭りで、人々は競い合い、歌いました。"],
+   {t:"第6話　コケトイの追悼の宴",fig:["npc:elder@30","h@100","a0@160"],fire:1,ex:["Это большой праздник.","これは大きな祭りです。"],
     x:"長老コケトイ（Көкөтөй）が亡くなり、あとをついだボクムルン（Бокмурун）は、各地の部族を呼び集めて盛大な追悼の宴（アシ）を開きます。\n宴では競馬や力くらべなどの競技が行われ、マナスも愛馬アク・クラで駆けます。遊牧の人々の祭りやもてなしの様子がいきいきと語られ、この宴をきっかけに人々のまとまりが強くなったともいわれます。"},
-   {t:"第7話　大遠征",fig:["a2@10","h@80","npc:rival@170"],night:1,ex:["Манас и его друзья поехали в другую страну.","マナスと仲間たちは、ほかの国へ向かいました。"],
+   {t:"第7話　大遠征",fig:["a2@10","h@80","npc:rival@170"],night:1,ex:["Манас едет далеко.","マナスは遠くへ行きます。"],
     x:"宴のあと、マナスは仲間たちをひきいて大遠征（Чоң казат）に出ます。叙事詩の中でも特に長く、はげしい戦いが続く部分です。\n強敵コヌルバイ（Коңурбай）とのたたかいは、よく知られた場面です。アルマンベトやチュバクたち仲間も、それぞれ見せ場をもって活やくします。"},
-   {t:"第8話　英雄のあとをつぐ者",fig:["npc:kanykey@50","npc:child@120"],ex:["Каныкей рассказала сыну о его отце.","カヌケイは息子に、その父のことを話しました。"],
+   {t:"第8話　英雄のあとをつぐ者",fig:["npc:kanykey@50","npc:child@120"],ex:["Это сын Манаса.","これはマナスの息子です。"],
     x:"多くの語りでは、マナスは遠征で深い傷を負い、そのために亡くなります。仲間たちは、英雄の体を人に知られない場所へ運んで葬ったと語られます。\nけれども物語はここで終わりません。カヌケイに守られて育つ息子セメテイ（Семетей）、そして孫セイテク（Сейтек）の物語へと続きます。この3つをあわせて「マナス三部作」と呼びます。"}],
   about:{t:"マナスを全部たどったあなたへ",
    x:"・「マナス」は世界でもとても長い叙事詩の1つで、語り手の版によっては約50万行になるといわれます。いちばん有名なのは、語り手サヤクバイ・カララエフ（Саякбай Каралаев）の版です。\n・サグンバイ・オロズバコフ（Сагымбай Орозбаков）も、三部作すべてを語った名高い語り手です。\n・2013年、「キルギスの叙事詩三部作：マナス・セメテイ・セイテク」はユネスコの無形文化遺産に登録されました。\n・首都ビシケクの国際空港の名前も「マナス」です。\n・叙事詩は歴史の記録そのものではなく、語り手によって内容が違うところがあります。もっと知りたいときは、日本語や英語に訳された本を探してみてください。"}
@@ -12458,23 +12463,23 @@ P74_PATHS.push({id:"semetey",hist:1,name:"セメテイの道",goal:"羊飼いの
       {n:"クルチョロ",r:"アルマンベトの息子",o:{hand:"sword",off:"roundshield",head:"batyr",headc:"#C99A2E",body:{type:"armor",c:"#5E7F9A",t:"#E8B923"},hair:"#2B2233"}},
       {n:"アイチュレク",r:"ふしぎな力をもつ妻",o:{hand:"none",off:"orb",head:"circlet",body:{type:"chapan",c:"#5B4BB7",t:"#E8B923",fur:1},hair:"#2B2233",longhair:1}}],
   story:[
-   {t:"序章　英雄の息子の物語",fig:["npc:manaschy@96"],fire:1,night:1,ex:["Это история о сыне Манаса.","これはマナスの息子の物語です。"],
+   {t:"序章　英雄の息子の物語",fig:["npc:manaschy@96"],fire:1,night:1,ex:["Семетей — сын Манаса.","セメテイはマナスの息子です。"],
     x:"「セメテイ」は、マナス三部作の2つめの物語です。主人公は、英雄マナスと妻カヌケイの息子セメテイ（Семетей）です。\nこの道でも、語り手によって筋が違うところがあります。多くの紹介に共通する流れを、やさしくまとめています。"},
-   {t:"第1話　母と子の旅",fig:["npc:kanykey@60","npc:child@130"],ex:["Каныкей взяла маленького сына и уехала в Бухару.","カヌケイは幼い息子を連れて、ブハラへ去りました。"],
+   {t:"第1話　母と子の旅",fig:["npc:kanykey@60","npc:child@130"],ex:["Мама и сын едут далеко.","母と息子は遠くへ行きます。"],
     x:"マナスが亡くなったあと、マナスの親族のなかには、その地位をねらう者たちがいました。カヌケイは幼いセメテイを守るため、息子を連れて自分の父の国ブハラへのがれます。\n母が子どもを守りぬく、物語のはじまりの大切な場面です。"},
-   {t:"第2話　何も知らない少年",fig:["h@80","a0@150"],ex:["Семетей жил в другом городе и не знал об отце.","セメテイはほかの町で暮らし、父のことを知りませんでした。"],
+   {t:"第2話　何も知らない少年",fig:["h@80","a0@150"],ex:["Семетей — маленький мальчик.","セメテイは小さな男の子です。"],
     x:"セメテイは、自分が英雄マナスの息子だとは知らないまま、ふつうの羊飼いの子として育ちます。\nどこで生まれたかより、どう生きるかが大事。そう感じさせる、静かな少年時代の場面です。"},
-   {t:"第3話　明かされた真実",fig:["a1@30","h@100","a2@170"],ex:["Бакай рассказал Семетею правду.","バカイはセメテイに本当のことを話しました。"],
+   {t:"第3話　明かされた真実",fig:["a1@30","h@100","a2@170"],ex:["Бакай говорит правду.","バカイは本当のことを話します。"],
     x:"大きくなったセメテイに、母カヌケイと、マナスの相談役だったバカイが、本当のことを打ち明けます。\nセメテイは父の武器とよろい、そして父の馬タイブールル（Тайбуурул）を受けつぎ、ふるさとへ帰る決心をします。"},
-   {t:"第4話　ふるさとタラスへ",fig:["a1@20","h@90","a2@160"],ex:["Семетей вернулся домой в Талас.","セメテイはふるさとのタラスへ帰りました。"],
+   {t:"第4話　ふるさとタラスへ",fig:["a1@20","h@90","a2@160"],ex:["Семетей едет домой.","セメテイは家へ帰ります。"],
     x:"セメテイはカヌケイとバカイといっしょに、父の地タラス（Талас）へ向かいます。そこでは、マナスの親族が力をにぎっていました。\nセメテイはまず、内側の争いをおさめて、人々の暮らしを取りもどさなければなりません。"},
-   {t:"第5話　友クルチョロ",fig:["h@50","a3@130"],ex:["Кулчоро — хороший друг Семетея.","クルチョロはセメテイのよい友です。"],
+   {t:"第5話　友クルチョロ",fig:["h@50","a3@130"],ex:["Кулчоро — хороший друг.","クルチョロはよい友だちです。"],
     x:"アルマンベトの息子クルチョロ（Кулчоро）が、セメテイの仲間になります。父どうしが固い友だったように、息子どうしも力を合わせます。\n親から子へ受けつがれる友情が、この物語の見どころの一つです。"},
-   {t:"第6話　アイチュレク",fig:["h@50","a4@130"],ex:["Айчурек стала женой Семетея.","アイチュレクはセメテイの妻になりました。"],
+   {t:"第6話　アイチュレク",fig:["h@50","a4@130"],ex:["Айчурек умная и красивая.","アイチュレクはかしこくて、美しいです。"],
     x:"セメテイの妻アイチュレク（Айчүрөк）は、ふしぎな力をもつ女性として語られます。\nマナスの物語のカヌケイと同じように、アイチュレクも物語の中で大きな役わりを果たします。"},
-   {t:"第7話　外からの危機",fig:["a3@10","h@80","npc:rival@170"],night:1,ex:["Семетей и его друзья защищали своих людей.","セメテイと仲間たちは、自分たちの人々を守りました。"],
+   {t:"第7話　外からの危機",fig:["a3@10","h@80","npc:rival@170"],night:1,ex:["Семетей и друзья вместе.","セメテイと仲間たちはいっしょです。"],
     x:"国の外からも、危険がせまります。父マナスと戦った強敵コヌルバイは、セメテイの時代になっても人々をおびやかします。\nさらに、思いがけない人の裏切りもあり、セメテイは難しい戦いを続けることになります。"},
-   {t:"第8話　次の世代へ",fig:["h@60","npc:child@130"],ex:["Семетей оставил маленького сына друзьям.","セメテイは幼い息子を仲間たちに託しました。"],
+   {t:"第8話　次の世代へ",fig:["h@60","npc:child@130"],ex:["Это новая история.","これは新しい物語です。"],
     x:"物語の終わり方は、語り手によって違います。セメテイがふしぎな形で姿を消すと語る版もあれば、国を去らなければならなくなると語る版もあります。\nそのまえにセメテイは、幼い息子セイテク（Сейтек）を信頼できる人たちに託します。物語は三部作の最後「セイテク」へと続きます。"}],
   about:{t:"セメテイを全部たどったあなたへ",
    x:"・「マナス」「セメテイ」「セイテク」の三部作は、ばらばらだった部族が一つにまとまっていく物語として語られます。\n・三部作は、2013年にユネスコの無形文化遺産に登録されました。\n・物語では、父から子、子から孫へと、勇気と友情が受けつがれていきます。\n・語り手によって筋が大きく違う部分もあります。いろいろな版を読みくらべるのも楽しみ方の一つです。"}
@@ -12501,23 +12506,23 @@ P74_PATHS.push({id:"kurmanjan",hist:1,name:"クルマンジャン・ダトカの
       {n:"タカのボルクト",r:"鷹匠のタカ",animal:"hawk",c:"#8A5A2B"},
       {n:"書記ナルギザ",r:"手紙を書く人（この道のオリジナルの人物）",o:{hand:"none",off:"scroll",head:"elechek",body:{type:"chapan",c:"#5CB8B2",t:"#E8D5A8"},hair:"#2B2233",glasses:1}}],
   story:[
-   {t:"序章　アライの山々",fig:["h@100"],ex:["Курманжан родилась в горах в 1811 году.","クルマンジャンは1811年に山あいの地で生まれました。"],
+   {t:"序章　アライの山々",fig:["h@100"],ex:["Курманжан живёт в горах.","クルマンジャンは山で暮らしています。"],
     x:"クルマンジャン・ダトカ（Курманжан датка）は、1811年5月22日、今のキルギス南部オシ州のアライ地方に生まれた、実在の女性です。当時この地域はコーカンド・ハン国という国の一部でした。\nこの道では、記録で確かめられる出来事をもとに、彼女の人生を紹介します。"},
-   {t:"第1話　自分で選んだ道",fig:["h@60","npc:jakyp@140"],ex:["Курманжан ушла домой к отцу.","クルマンジャンは父のいる家へ帰りました。"],
+   {t:"第1話　自分で選んだ道",fig:["h@60","npc:jakyp@140"],ex:["Курманжан идёт домой.","クルマンジャンは家へ帰ります。"],
     x:"18歳のころ、クルマンジャンは会ったこともない男性と結婚させられそうになります。その人を好きになれなかった彼女は、いったん家を出たあと、父マンバトバイのもとで暮らすことを選びました。\n親が結婚相手を決めるのがふつうだった時代に、自分の気持ちで道を選んだことは、とてもめずらしいことでした。"},
-   {t:"第2話　アリムベクとの結婚",fig:["h@60","npc:alymbek@130"],ex:["В 1832 году Курманжан вышла замуж за Алымбека.","1832年、クルマンジャンはアリムベクと結婚しました。"],
+   {t:"第2話　アリムベクとの結婚",fig:["h@60","npc:alymbek@130"],ex:["Алымбек — её муж.","アリムベクは彼女の夫です。"],
     x:"1832年、クルマンジャンは、アライ地方を治めていたアリムベク（Алымбек）と結婚します。アリムベクは「ダトカ」という位をもつ有力者でした。\nクルマンジャンは夫を支えながら、人々の暮らしや政治のことを学んでいきます。"},
-   {t:"第3話　突然の別れ",fig:["h@90"],night:1,ex:["После смерти мужа Курманжан помогала людям.","夫が亡くなったあと、クルマンジャンは人々を助けました。"],
+   {t:"第3話　突然の別れ",fig:["h@90"],night:1,ex:["Курманжан много работает.","クルマンジャンはたくさん働きます。"],
     x:"1862年、夫アリムベクは宮廷の争いの中で命を落とします。\n深い悲しみの中でも、クルマンジャンはアライの人々を見捨てませんでした。ここから、彼女自身が人々を率いる時代が始まります。"},
-   {t:"第4話　ダトカと呼ばれて",fig:["npc:people1@20","h@100","npc:people2@170"],ex:["У Курманжан было новое имя — датка.","クルマンジャンには新しい呼び名「ダトカ」がつきました。"],
+   {t:"第4話　ダトカと呼ばれて",fig:["npc:people1@20","h@100","npc:people2@170"],ex:["Её новое имя — датка.","彼女の新しい呼び名は「ダトカ」です。"],
     x:"夫を失ったクルマンジャンは、ブハラとコーカンドの君主たちから、アライの統治者として認められ、「ダトカ」の位をあたえられました。\n女性が地域を治めるのは、当時としてはとてもめずらしいことでした。"},
-   {t:"第5話　時代の大きな変化",fig:["h@60","npc:officer@140"],ex:["Курманжан решила говорить о мире.","クルマンジャンは平和について話し合うことを決めました。"],
+   {t:"第5話　時代の大きな変化",fig:["h@60","npc:officer@140"],ex:["Курманжан говорит спокойно.","クルマンジャンは落ち着いて話します。"],
     x:"1876年、アライ地方はロシア帝国に組みこまれます。クルマンジャンは、争いを続けるのではなく、人々を説得して新しい支配を受け入れる道を選びました。\n多くの命を守るための、つらく難しい決断だったと考えられています。"},
-   {t:"第6話　母としての悲しみ",fig:["h@100"],night:1,ex:["Это был очень трудный день для матери.","それは母にとって、とてもつらい日でした。"],
+   {t:"第6話　母としての悲しみ",fig:["h@100"],night:1,ex:["Это очень трудный день.","これはとてもつらい日です。"],
     x:"1893年、クルマンジャンの息子たちと孫たちが、密輸と役人殺害の罪に問われます。いちばんかわいがっていた息子カムチベクには死刑が言いわたされました。\n彼女は、力ずくで息子を助け出そうという人々の声を受け入れず、1895年、公開の処刑の場に立ち会いました。のちに彼女は、オシで息子のとなりに葬られています。"},
-   {t:"第7話　遠くからの訪問者",fig:["h@60","npc:officer@140"],ex:["Люди из других стран хотели увидеть её.","ほかの国の人々も、彼女に会いたがりました。"],
+   {t:"第7話　遠くからの訪問者",fig:["h@60","npc:officer@140"],ex:["Все знают Курманжан.","みんながクルマンジャンを知っています。"],
     x:"晩年のクルマンジャンのもとには、遠くからも人が訪ねてきました。1906年には、旅をしていたロシア軍の大佐マンネルヘイムが彼女に会い、写真をとっています。\nその写真は、今も彼女の姿を伝える大切な記録になっています。"},
-   {t:"第8話　アライの女王",fig:["npc:people1@20","h@100","npc:people2@170"],ex:["Сегодня её лицо можно увидеть на деньгах.","今では、彼女の顔をお金の上で見ることができます。"],
+   {t:"第8話　アライの女王",fig:["npc:people1@20","h@100","npc:people2@170"],ex:["Мы помним Курманжан.","わたしたちはクルマンジャンを覚えています。"],
     x:"クルマンジャン・ダトカは、1907年2月1日に亡くなりました。人々は彼女を「アライの女王」と呼んで敬いました。\n今ではキルギスの50ソム紙幣に彼女の肖像がえがかれ、2004年にはビシケクに記念像が建てられました。"}],
   about:{t:"クルマンジャン・ダトカを全部たどったあなたへ",
    x:"・クルマンジャン・ダトカ（1811〜1907年）は、キルギスで最も知られた女性指導者の一人です。\n・生誕200年にあたる2011年は、キルギスで「クルマンジャン・ダトカの年」とされました。\n・2014年には、彼女の生涯をえがいた映画『クルマンジャン・ダトカ』が作られました。\n・50ソム紙幣の表に肖像、裏にはウズゲンの歴史的な建物がえがかれています。\n・この道の仲間（アイダ、トゥルスン、ナルギザ、タカのボルクト）は、学習を楽しむためのオリジナルの登場人物で、実在の人物ではありません。また、モンスターやボスはゲームのための想像上の生きもので、実在の国や人々を表すものではありません。"}
@@ -12544,27 +12549,312 @@ P74_PATHS.push({id:"toktogul",hist:1,name:"トクトグルの道",goal:"村の�
       {n:"雪ギツネ",r:"旅でなかよくなったキツネ",animal:"fox",c:"#E8EEF4"},
       {n:"アイベク",r:"歌を書き留める若者（この道のオリジナルの人物）",o:{hand:"none",off:"book",head:"none",body:{type:"coat",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233",glasses:1}}],
   story:[
-   {t:"序章　歌で語る人アクン",fig:["h@100"],fire:1,night:1,ex:["Акын поёт и играет на комузе.","アクンはコムズを弾きながら歌います。"],
+   {t:"序章　歌で語る人アクン",fig:["h@100"],fire:1,night:1,ex:["Акын поёт и играет.","アクンは歌い、演奏します。"],
     x:"キルギスには、その場で言葉を考えながら歌う詩人「アクン（акын）」がいます。トクトグル・サトゥルガノフ（Токтогул Сатылганов）は、アクンであり作曲家、そしてコムズ（3本の弦の楽器）の弾き手として知られる実在の人物です。\nこの道では、記録で確かめられる出来事をもとに、彼の人生を紹介します。"},
-   {t:"第1話　ケトメン・トベの村",fig:["npc:mother@60","h@140"],ex:["Токтогул родился в маленьком селе в 1864 году.","トクトグルは1864年に小さな村で生まれました。"],
+   {t:"第1話　ケトメン・トベの村",fig:["npc:mother@60","h@140"],ex:["Токтогул — маленький мальчик.","トクトグルは小さな男の子です。"],
     x:"トクトグルは1864年、ケトメン・トベの谷にあるクシュチュ・スウ村の、まずしい農家に生まれました。この村は、今ではトクトグル貯水池の水の下にしずんでいます。\nそのころ、この地域はコーカンド・ハン国の一部でした。"},
-   {t:"第2話　最初の先生は母",fig:["npc:mother@60","h@140"],ex:["Мама Токтогула тоже пела песни.","トクトグルの母も歌をうたっていました。"],
+   {t:"第2話　最初の先生は母",fig:["npc:mother@60","h@140"],ex:["Мама поёт песню.","お母さんが歌をうたいます。"],
     x:"母のブルマは、悲しみの歌をうたう「コショクチュ」として知られた人でした。トクトグルにとって、母が最初の先生だったと伝えられています。\n言葉とメロディーで気持ちを伝える力は、この母から受けついだものでした。"},
-   {t:"第3話　人々のための歌",fig:["npc:people1@20","h@100","npc:people2@170"],fire:1,ex:["Его песни говорили о бедных людях.","彼の歌はまずしい人々のことを語りました。"],
+   {t:"第3話　人々のための歌",fig:["npc:people1@20","h@100","npc:people2@170"],fire:1,ex:["Люди слушают его песни.","人々は彼の歌を聞きます。"],
     x:"若いトクトグルは、歌い手として名前を知られるようになります。彼は歌の中で、お金持ちのぜいたくや不正をするどく、ときにはユーモアをこめて批判しました。\nそのため、まずしい人々からは愛されましたが、力をもつ人々の中には彼をきらう者もいました。"},
-   {t:"第4話　えん罪",fig:["h@90"],night:1,ex:["В 1898 году Токтогула отправили в Сибирь.","1898年、トクトグルはシベリアへ送られました。"],
+   {t:"第4話　えん罪",fig:["h@90"],night:1,ex:["Это очень плохой год.","これはとても悪い年です。"],
     x:"1898年、アンディジャンで反乱が起きます。トクトグルをきらう有力者が、彼がこの反乱に加わったといううその訴えを出しました。\nトクトグルはとらえられ、重い刑を言いわたされたあと、シベリアでの強制労働に送られます。"},
-   {t:"第5話　遠いシベリア",fig:["h@100"],night:1,ex:["Там было очень холодно.","そこはとても寒かった。"],
+   {t:"第5話　遠いシベリア",fig:["h@100"],night:1,ex:["Там очень холодно.","そこはとても寒いです。"],
     x:"トクトグルが送られたのは、イルクーツクの近くの、ふるさとから遠くはなれた土地でした。\nきびしい寒さと労働の中でも、ふるさとと家族を思う気持ちは消えませんでした。"},
-   {t:"第6話　ふるさとへの長い道",fig:["h@60","a3@150"],ex:["Через много лет Токтогул вернулся домой.","何年もたって、トクトグルは家に帰りました。"],
+   {t:"第6話　ふるさとへの長い道",fig:["h@60","a3@150"],ex:["Токтогул идёт домой.","トクトグルは家へ帰ります。"],
     x:"トクトグルはやがてシベリアから故郷へもどります。帰った年は、資料によって1905年とも1910年とも書かれています。\n帰る旅のあいだには、キルギスの人だけでなく、ウズベクやカザフの人々とも交流し、友だちになったと伝えられています。"},
-   {t:"第7話　帰ってきた歌い手",fig:["npc:people1@20","h@100","npc:people2@170"],fire:1,ex:["Люди любили его песни.","人々は彼の歌を愛しました。"],
+   {t:"第7話　帰ってきた歌い手",fig:["npc:people1@20","h@100","npc:people2@170"],fire:1,ex:["Люди любят его песни.","人々は彼の歌が好きです。"],
     x:"故郷にもどると、息子はすでに亡くなり、家族もばらばらになっていました。それでもトクトグルは歌いつづけ、「まずしい人々の声」と呼ばれる、最も有名なアクンになりました。\n1928年には首都（当時のフルンゼ、今のビシケク）に招かれ、18曲の器楽曲が記録されました。"},
-   {t:"第8話　名前が残る町",fig:["h@100"],ex:["Сегодня город носит его имя.","今では、町が彼の名前をもっています。"],
+   {t:"第8話　名前が残る町",fig:["h@100"],ex:["Это город Токтогул.","これはトクトグルの町です。"],
     x:"トクトグルは1933年、ふるさとの村で亡くなり、そこに葬られました。お墓には記念碑が建てられ、村には博物館もできました。\nジャララバード州のトクトグル町は彼の名前から付けられ、ビシケクには彼の名前の通りや記念像があります。"}],
   about:{t:"トクトグルを全部たどったあなたへ",
    x:"・トクトグル・サトゥルガノフ（1864〜1933年）は、キルギスを代表するアクンであり、作曲家です。\n・1930年代の終わりごろから、人々の記憶をもとに彼の歌が集められ、本にまとめられ、研究されてきました。\n・キルギスの紙幣にも、アクンでありコムズの弾き手である彼の姿がえがかれています。\n・この道の仲間（アセル、ベク、アイベク）は、学習を楽しむためのオリジナルの登場人物で、実在の人物ではありません。また、モンスターやボスはゲームのための想像上の生きもので、実在の国や人々を表すものではありません。"}
 });
+
+/* ===== Phase74 道ごとの敵・ボス・物語の出来事 =====
+   P74_FOES[道のid] = 8章ぶん。各章 {f:[[名前, 絵],[名前, 絵]], b:{n:ボス名, t:ひとこと, a:絵}}。
+   テーマ（敵）は章の中で f[0] と f[1] を交互に使い、章の最後のボスは b。
+   絵の書き方：
+     "m:種類:色"   いままでのモンスター（種類 0〜7）
+     "b:番号"      いままでのボスの絵（0〜7）
+     "sea:種類:色" 海の生きもの（kraken / crab / jelly / shark / serpent）
+     "ev:種類"     出来事のアイコン（river / pass / storm / road / boulder / crowd / scroll / moon / star / yurt / snow / komuz / sheep / camera / fire / whirl）
+     "an:種類:色"  動物（wolf / fox / cat / hawk / owl / gull / horse）
+     "npc:名前"    P74_NPC の人物
+     {…}           人物の部品をそのまま（rival:1 で敵らしい顔、mask / eyepatch / visor も使える）
+   hist の道（物語・歴史）は「たたかい」ではなく「出来事」を順にたどる（P.ev=1）。
+   実在の人物の道の出来事は、場面の解説（資料で確かめた内容）に書かれていることだけを使う。 ===== */
+
+/* ---------- 海の生きもの ---------- */
+function p74Sea(kind,c){
+  c=c||"#7A5AA8";var d=p74Shade(c,-.3),l=p74Shade(c,.45),s='<ellipse cx="60" cy="150" rx="34" ry="5" fill="#000" opacity=".2"/>';
+  if(kind==="kraken"){
+    [[22,150,8,118],[40,152,30,124],[80,152,90,124],[98,150,112,118]].forEach(function(t){s+='<path d="M'+(t[0]+14)+' 112Q'+t[2]+' '+t[3]+' '+t[0]+' 146q8 4 12-4q-4-14 '+(t[0]<60?6:-6)+'-26z" fill="'+c+'" '+P74_OUT+'/>';});
+    s+='<path d="M24 112q-4-64 36-64t36 64q-36 10-72 0z" fill="'+c+'" '+P74_OUT+'/><circle cx="42" cy="72" r="5" fill="'+l+'"/><circle cx="76" cy="66" r="4" fill="'+l+'"/>'+p74Eyes(60,94,24,6,true)+p74Mouth(60,108,8,1);
+  }else if(kind==="crab"){
+    s+='<path d="M30 132l-12 12M38 136l-8 12M90 132l12 12M82 136l8 12" stroke="'+d+'" stroke-width="4" stroke-linecap="round"/>';
+    s+='<path d="M28 110q-16-10-14-30q10 4 14 12q4-10 12-10q2 16-12 28z" fill="'+c+'" '+P74_OUT+'/><path d="M92 110q16-10 14-30q-10 4-14 12q-4-10-12-10q-2 16 12 28z" fill="'+c+'" '+P74_OUT+'/>';
+    s+='<ellipse cx="60" cy="120" rx="32" ry="20" fill="'+c+'" '+P74_OUT+'/><path d="M50 102V86M70 102V86" stroke="'+d+'" stroke-width="3"/><circle cx="50" cy="84" r="6" fill="#fff" '+P74_OUT+'/><circle cx="70" cy="84" r="6" fill="#fff" '+P74_OUT+'/><circle cx="51" cy="85" r="2.6" fill="#2B2233"/><circle cx="69" cy="85" r="2.6" fill="#2B2233"/>'+p74Mouth(60,124,8,1);
+  }else if(kind==="jelly"){
+    s+='<path d="M38 112q-4 20 4 36M50 114q4 18-2 34M62 114q-4 18 2 34M74 112q6 20-2 36M84 110q4 16 0 30" stroke="'+d+'" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>';
+    s+='<path d="M24 112q0-50 36-50t36 50q-8 6-12 0q-6 6-12 0q-6 6-12 0q-6 6-12 0q-6 6-12 0q-6 6-12 0z" fill="'+c+'" opacity=".85" '+P74_OUT+'/><path d="M40 80q10-10 24-8" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>'+p74Eyes(60,94,20,5,false)+p74Mouth(60,104,6,0);
+  }else if(kind==="shark"){
+    s+='<path d="M8 104q30-34 76-20l24-16-6 26 8 22-24-10q-44 18-78-2z" fill="'+c+'" '+P74_OUT+'/><path d="M14 108q36 14 74 0" fill="'+l+'" opacity=".6"/><path d="M52 82l8-22 12 22z" fill="'+c+'" '+P74_OUT+'/>';
+    s+='<path d="M14 110l6 4 4-4 4 4 4-4 4 4 4-4" stroke="#fff" stroke-width="2" fill="none"/><path d="M28 98l8-2" stroke="#2B2233" stroke-width="2.6" stroke-linecap="round"/><circle cx="32" cy="102" r="3" fill="#2B2233"/>';
+    s+='<path d="M0 132q20-10 40 0t40 0 40 0v18H0z" fill="#4F8FD8" opacity=".55"/>';
+  }else{ /* serpent：海の大へび */
+    s+='<path d="M0 134q20-10 40 0t40 0 40 0v16H0z" fill="#4F8FD8" opacity=".55"/>';
+    s+='<path d="M14 136q4-26 22-26t18 26M62 136q4-30 24-36" stroke="'+c+'" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M14 136q4-26 22-26t18 26" stroke="'+l+'" stroke-width="4" fill="none" stroke-dasharray="3 7" stroke-linecap="round"/>';
+    s+='<path d="M76 104q2-30 24-30q14 4 10 20l-8 2 8 6q-10 12-34 2z" fill="'+c+'" '+P74_OUT+'/><path d="M82 76l-6-14 14 10zM98 72l2-14 8 14z" fill="'+d+'" '+P74_OUT+'/>'+p74Eyes(94,86,12,4,true);
+  }
+  return s;
+}
+/* ---------- 出来事のアイコン ---------- */
+function p74Ev(kind){
+  var s='',O=P74_OUT;
+  var mt=function(snow){return '<path d="M4 120l30-40 18 18 24-34 40 56z" fill="#9FB7C9" '+O+'/>'+(snow?'<path d="M64 74l12-10 10 14-8-2-6 6-4-4z" fill="#fff"/>':'');};
+  if(kind==="river"){s+=mt(1)+'<path d="M0 118h120v34H0z" fill="#8DBF6A"/><path d="M0 124q30-8 60 0t60 0v18q-30 8-60 0t-60 0z" fill="#4F8FD8" '+O+'/><path d="M14 132q10-4 20 0M64 134q10-4 20 0" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/><circle cx="96" cy="148" r="5" fill="#9AA4AE" '+O+'/>';}
+  else if(kind==="pass"){s+='<path d="M0 140l34-80 26 30 18-24 42 74z" fill="#8C9AA8" '+O+'/><path d="M24 84l10-24 10 12-6 2-4-4-4 8zM70 72l8-6 8 10-6-1z" fill="#fff"/><path d="M56 140q-10-14 6-24t-2-24" stroke="#E8D5A8" stroke-width="5" fill="none" stroke-linecap="round"/>';}
+  else if(kind==="storm"){s+='<path d="M24 80q-14-2-12-16t18-12q4-18 26-16q20-2 26 16q18-2 22 14t-14 14z" fill="#5E6E8C" '+O+'/><path d="M58 82l-12 26h12l-8 26 22-34H60l10-18z" fill="#FFD34D" '+O+'/><path d="M30 92l-6 14M90 92l-6 14M40 104l-4 10M98 104l-4 10" stroke="#4F8FD8" stroke-width="3" stroke-linecap="round"/>';}
+  else if(kind==="road"){s+=mt(1)+'<path d="M0 116h120v36H0z" fill="#8DBF6A"/><path d="M46 152q4-20 18-22t6-14h-6q4 8-8 12t-26 24z" fill="#E8D5A8" '+O+'/>';}
+  else if(kind==="boulder"){s+='<ellipse cx="60" cy="150" rx="44" ry="5" fill="#000" opacity=".2"/><path d="M14 148q-6-40 18-62q20-18 46-10q26 10 28 40q2 20-6 32z" fill="#9A8C7E" '+O+'/><path d="M40 96l10 14M74 92l-6 18M54 126l18-6" stroke="#6E6258" stroke-width="3" stroke-linecap="round"/>';}
+  else if(kind==="crowd"){[[22,"#6B8E4E"],[98,"#2C5D8F"],[42,"#B3202B"],[78,"#C7823E"],[60,"#5E4A7E"]].forEach(function(p,i){var y=i<2?104:(i<4?112:120);s+='<path d="M'+(p[0]-16)+' '+(y+40)+'q0-26 16-26t16 26z" fill="'+p[1]+'" '+O+'/><circle cx="'+p[0]+'" cy="'+(y+4)+'" r="11" fill="#F3C9A0" '+O+'/><path d="M'+(p[0]-11)+' '+(y+1)+'q11-16 22 0z" fill="#FBF8F0" '+O+'/>';});}
+  else if(kind==="scroll"){s+='<path d="M26 56h68v84H26z" fill="#F6EBD0" '+O+'/><rect x="20" y="48" width="80" height="10" rx="5" fill="#B5793B" '+O+'/><rect x="20" y="136" width="80" height="10" rx="5" fill="#B5793B" '+O+'/><path d="M36 74h48M36 88h40M36 102h48M36 116h30" stroke="#8A7A5A" stroke-width="3" stroke-linecap="round"/>';}
+  else if(kind==="moon"){s+='<rect x="6" y="40" width="108" height="108" rx="20" fill="#2E3A5C"/><path d="M78 60a30 30 0 1 0 14 48a24 24 0 1 1-14-48z" fill="#F6F1E1"/><circle cx="30" cy="62" r="2" fill="#fff"/><circle cx="44" cy="126" r="1.6" fill="#fff"/><circle cx="96" cy="128" r="2" fill="#fff"/>';}
+  else if(kind==="star"){s+='<circle cx="60" cy="96" r="44" fill="#FFD34D" opacity=".25"/><path d="M60 52l9 34 34 10-34 10-9 34-9-34-34-10 34-10z" fill="#FFD34D" '+O+'/><path d="M98 54l3 8 8 3-8 3-3 8-3-8-8-3 8-3zM22 128l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#FFD34D"/>';}
+  else if(kind==="yurt"){s+='<ellipse cx="60" cy="150" rx="46" ry="5" fill="#000" opacity=".18"/><path d="M16 148v-34q44-30 88 0v34z" fill="#F4EBD8" '+O+'/><path d="M16 114q44-50 88 0" fill="#E8DCC0" '+O+'/><path d="M22 124h76" stroke="#B3202B" stroke-width="5"/><path d="M50 148v-22h20v22" fill="#8A5A2B" '+O+'/><path d="M56 70h8l-2-8h-4z" fill="#8A5A2B"/>';}
+  else if(kind==="snow"){s+='<rect x="6" y="40" width="108" height="108" rx="20" fill="#CFE3F2"/><path d="M6 128q54-14 108 0v20H6z" fill="#fff"/>';[[36,70,10],[80,62,13],[60,104,9],[96,104,7],[24,108,6]].forEach(function(f){var x=f[0],y=f[1],r=f[2];s+='<path d="M'+(x-r)+' '+y+'h'+(2*r)+'M'+x+' '+(y-r)+'v'+(2*r)+'M'+(x-r*.7)+' '+(y-r*.7)+'l'+(1.4*r)+' '+(1.4*r)+'M'+(x+r*.7)+' '+(y-r*.7)+'l'+(-1.4*r)+' '+(1.4*r)+'" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M'+(x-r)+' '+y+'h'+(2*r)+'M'+x+' '+(y-r)+'v'+(2*r)+'" stroke="#7FA8C9" stroke-width="1"/>';});}
+  else if(kind==="komuz"){s+='<ellipse cx="60" cy="150" rx="24" ry="4" fill="#000" opacity=".18"/><path d="M60 102V30" stroke="#8A5A2B" stroke-width="10" stroke-linecap="round"/><path d="M52 34h-8M52 44h-8M68 34h8" stroke="#5A3A1E" stroke-width="4" stroke-linecap="round"/><path d="M60 96q-26 2-24 30q4 22 24 22t24-22q2-28-24-30z" fill="#B5793B" '+O+'/><path d="M56 146V34M60 146V34M64 146V34" stroke="#F6F1E1" stroke-width="1.2"/><circle cx="60" cy="122" r="5" fill="#5A3A1E"/>';}
+  else if(kind==="sheep"){s+='<ellipse cx="60" cy="150" rx="34" ry="5" fill="#000" opacity=".18"/><path d="M40 130v18M80 130v18" stroke="#2B2233" stroke-width="6" stroke-linecap="round"/>';var cl=[[34,110],[46,96],[62,92],[78,98],[88,112],[76,126],[58,130],[42,126]];cl.forEach(function(p){s+='<circle cx="'+p[0]+'" cy="'+p[1]+'" r="14" fill="#FBF8F0" '+O+'/>';});s+='<ellipse cx="60" cy="112" rx="28" ry="18" fill="#FBF8F0"/><ellipse cx="94" cy="102" rx="12" ry="14" fill="#5A4A3E" '+O+'/><circle cx="98" cy="100" r="2" fill="#fff"/>';}
+  else if(kind==="camera"){s+='<path d="M40 150l20-40 20 40M60 110v40" stroke="#6E4A22" stroke-width="4" stroke-linecap="round"/><rect x="34" y="70" width="52" height="40" rx="6" fill="#4A3A2A" '+O+'/><circle cx="60" cy="90" r="12" fill="#2B2233" '+O+'/><circle cx="56" cy="86" r="3" fill="#fff" opacity=".6"/><rect x="40" y="62" width="14" height="8" fill="#8A6A4A" '+O+'/>';}
+  else if(kind==="fire"){s+='<path d="M30 146l60-14M30 132l60 14" stroke="#6E4A22" stroke-width="8" stroke-linecap="round"/><path d="M60 138q-30-14-10-50q4 16 12 16q-4-24 14-40q0 30 12 40q8 26-28 34z" fill="#F2A541" '+O+'/><path d="M60 136q-12-10 0-30q12 14 0 30z" fill="#FFE36B"/>';}
+  else if(kind==="whirl"){s+='<ellipse cx="60" cy="110" rx="54" ry="34" fill="#1F6E8C" '+O+'/><path d="M60 110m-40 0a40 24 0 1 1 80 0a30 18 0 1 1-60 0a20 12 0 1 1 40 0a10 6 0 1 1-20 0" stroke="#BFE3F2" stroke-width="3" fill="none"/>';}
+  return s;
+}
+/* 絵の書き方（上の説明）→ svg の中身 */
+function p74Art(a){
+  if(!a)return "";
+  if(typeof a==="object")return p74Person(a);
+  var q=String(a).split(":");
+  if(q[0]==="m")return p74Monster(0,0,+q[1],q[2]);
+  if(q[0]==="b")return p74Boss(+q[1]);
+  if(q[0]==="sea")return p74Sea(q[1],q[2]);
+  if(q[0]==="ev")return p74Ev(q[1]);
+  if(q[0]==="an")return p74Animal(q[1],q[2]);
+  if(q[0]==="npc")return p74Person(P74_NPC[q[1]]||{});
+  return "";
+}
+
+/* ---------- 敵として出てくる人物（すべてオリジナル。実在の国や人々を表すものではない） ---------- */
+(function(){var R=function(o){o.rival=1;return o;},N=P74_NPC;
+  /* 剣の道：黒騎士団 */
+  N.bandit=R({hand:"stick",off:"none",head:"bandana",headc:"#5A3A22",body:{type:"tunic",c:"#6E5A4A",apron:"#4A3A2A"},hair:"#2B2233",mask:"#2B2233"});
+  N.grom=R({hand:"bigsword",off:"none",head:"leathercap",body:{type:"tunic",c:"#7A3A2A",apron:"#4A3A2A"},beard:"#C0392B",hair:"#C0392B",scar:1});
+  N.bk=R({hand:"sword",off:"roundshield",head:"helmet",headc:"#3A3F58",body:{type:"armor",c:"#3A3F58",t:"#B3202B"},hair:"#2B2233"});
+  N.bkarcher=R({hand:"none",off:"quiver",head:"hood",headc:"#3A3F58",body:{type:"tunic",c:"#3A3F58",apron:"#2B2233"},hair:"#2B2233"});
+  N.voron=R({hand:"sword",off:"none",head:"hood",headc:"#2B2233",body:{type:"coat",c:"#2B2233",t:"#8C93A8"},hair:"#2B2233",cape:"#2B2233"});
+  N.twins=R({hand:"lightsword",off:"kiteshield",head:"plume",headc:"#8C93A8",body:{type:"armor",c:"#8C93A8",t:"#3A3F58"},hair:"#E5B53B"});
+  N.zheleza={hand:"bigsword",off:"kiteshield",head:"helmet",headc:"#5A5A6A",body:{type:"armor",c:"#5A5A6A",t:"#B3202B"},visor:"#5A5A6A",longhair:1,hair:"#C9D3DD",cape:"#7A1F2B"};
+  N.nochi={hand:"bigsword",off:"kiteshield",head:"helmet",headc:"#2B2233",body:{type:"armor",c:"#2B2233",t:"#9A6BD6",emblem:1},visor:"#2B2233",eyec:"#C9A8FF",cape:"#3A2E5C",aura:"#3A2E5C"};
+  N.nochi2={hand:"none",off:"none",head:"none",body:{type:"armor",c:"#5A5A6A",t:"#9A6BD6"},hair:"#C9D3DD",beard:"#C9D3DD",cape:"#3A2E5C"};
+  /* 魔法の道：灰の魔導士 */
+  N.ashapp=R({hand:"staff",off:"none",head:"hood",headc:"#6E6E78",body:{type:"robe",c:"#6E6E78",t:"#2B2233"},hair:"#2B2233"});
+  N.zvezda=R({hand:"crystal",off:"book",head:"wizard",headc:"#2C5D8F",body:{type:"robe",c:"#2C5D8F",t:"#E5B53B"},hair:"#E5B53B"});
+  N.zvezda2=R({hand:"crystal",off:"book",head:"wizard",headc:"#4A4A55",body:{type:"robe",c:"#4A4A55",t:"#9A9AA8"},hair:"#9A9AA8",aura:"#6E6E78"});
+  N.zvezda3={hand:"crystal",off:"book",head:"wizard",headc:"#2C5D8F",body:{type:"robe",c:"#2C5D8F",t:"#E5B53B"},hair:"#E5B53B"};
+  N.ashknight={hand:"sword",off:"roundshield",head:"helmet",headc:"#6E6E78",body:{type:"armor",c:"#8C8C96",t:"#4A4A55"},visor:"#6E6E78",eyec:"#FFD34D"};
+  N.towerguard=R({hand:"bigstaff",off:"none",head:"starhat",headc:"#3A2E5C",body:{type:"robe",c:"#3A2E5C",t:"#C9D3DD"},hair:"#2B2233"});
+  N.pepel=R({hand:"bigstaff",off:"orb",head:"sagehat",headc:"#4A4A55",body:{type:"robe",c:"#4A4A55",t:"#9A9AA8"},beard:"#C9C9D3",hair:"#C9C9D3",aura:"#6E6E78",cape:"#2B2233"});
+  N.pepel2={hand:"staff",off:"none",head:"sagehat",headc:"#7A5A3A",body:{type:"robe",c:"#7A5A3A",t:"#E8D5A8"},beard:"#F6F7FA",hair:"#F6F7FA"};
+  /* 王の道：金の男爵と影の宰相 */
+  N.taxman=R({hand:"none",off:"scroll",head:"tricorn",headc:"#5A4A3E",body:{type:"coat",c:"#5A4A3E",t:"#C99A2E"},hair:"#2B2233",glasses:1});
+  N.landlord=R({hand:"key",off:"none",head:"none",body:{type:"coat",c:"#7A5A2A",t:"#E5B53B"},beard:"#5A3A22",hair:"#5A3A22"});
+  N.roadchief=R({hand:"cutlass",off:"none",head:"leathercap",body:{type:"tunic",c:"#4A5A3A",apron:"#2B2233"},beard:"#2B2233",hair:"#2B2233",eyepatch:1});
+  N.guild=R({hand:"none",off:"map",head:"tricorn",headc:"#B8860B",body:{type:"coat",c:"#B8860B",t:"#7A1F2B"},beard:"#2B2233",hair:"#2B2233"});
+  N.baronsol=R({hand:"sword",off:"kiteshield",head:"helmet",headc:"#B8860B",body:{type:"armor",c:"#C99A2E",t:"#5A3A22"},hair:"#5A3A22"});
+  N.baroncap=R({hand:"bigsword",off:"kiteshield",head:"plume",headc:"#B8860B",body:{type:"armor",c:"#C99A2E",t:"#7A1F2B"},beard:"#5A3A22",hair:"#5A3A22",cape:"#7A1F2B"});
+  N.zoloto=R({hand:"scepter",off:"none",head:"circlet",body:{type:"royal",c:"#C99A2E",t:"#7A1F2B"},beard:"#E5B53B",hair:"#E5B53B",cape:"#7A1F2B"});
+  N.zoloto2={hand:"none",off:"scroll",head:"circlet",body:{type:"royal",c:"#C99A2E",t:"#7A1F2B"},beard:"#E5B53B",hair:"#E5B53B"};
+  N.spy=R({hand:"none",off:"lantern",head:"hood",headc:"#2B2233",body:{type:"tunic",c:"#2B2233",apron:"#3A3F58"},mask:"#3A3F58"});
+  N.shadowsol={hand:"sword",off:"none",head:"hood",headc:"#3A2E5C",body:{type:"armor",c:"#3A2E5C",t:"#2B2233"},visor:"#3A2E5C",eyec:"#C9A8FF"};
+  N.teni=R({hand:"none",off:"book",head:"sagehat",headc:"#2B2233",body:{type:"robe",c:"#2B2233",t:"#9A6BD6"},hair:"#8A8A8A",beard:"#8A8A8A",aura:"#3A2E5C"});
+  /* 武士の道：嵐堂家（架空の家） */
+  N.nobushi=R({hand:"katana",off:"none",head:"bandana",headc:"#5A5A5A",body:{type:"tunic",c:"#5A4A3E",apron:"#3A2A1E"},hair:"#2B2233",beard:"#2B2233"});
+  N.gonta=R({hand:"bigsword",off:"none",head:"hachigane",body:{type:"tunic",c:"#4A3A2A",apron:"#2B2233"},hair:"#2B2233",beard:"#2B2233",eyepatch:1});
+  N.ashigaru=R({hand:"bamboo",off:"none",head:"jingasa",headc:"#3A4A6A",body:{type:"samurai",c:"#3A4A6A",t:"#C9D3DD",under:"#2B2233"},hair:"#2B2233"});
+  N.ashitaisho=R({hand:"katana",off:"none",head:"kabuto",headc:"#3A4A6A",body:{type:"samurai",c:"#3A4A6A",t:"#E5B53B",under:"#2B2233"},hair:"#2B2233",beard:"#2B2233"});
+  N.kiba=R({hand:"katana",off:"none",head:"kabuto",headc:"#2B2233",body:{type:"samurai",c:"#2B3A5A",t:"#C99A2E",under:"#7A1F2B"},hair:"#2B2233"});
+  N.okuma=R({hand:"bigsword",off:"none",head:"greatkabuto",headc:"#5A3A22",body:{type:"samurai",c:"#5A3A22",t:"#C99A2E",under:"#2B2233"},beard:"#2B2233",hair:"#2B2233"});
+  N.eshinobi=R({hand:"katana",off:"none",head:"hood",headc:"#3A4A6A",body:{type:"tunic",c:"#3A4A6A",apron:"#2B2233"},mask:"#3A4A6A"});
+  N.toride=R({hand:"bamboo",off:"none",head:"kabuto",headc:"#9AB8D0",body:{type:"samurai",c:"#5E7F9A",t:"#E8EEF4",under:"#2B2233"},beard:"#E8EEF4",hair:"#E8EEF4"});
+  N.sakon=R({hand:"katana",off:"none",head:"hachigane",body:{type:"samurai",c:"#E8EEF4",t:"#9AA4AE",under:"#3A4A6A"},hair:"#E8EEF4",longhair:1});
+  N.hatamoto=R({hand:"bamboo",off:"none",head:"kabuto",headc:"#2B2233",body:{type:"samurai",c:"#2B2233",t:"#E5B53B",under:"#3A4A6A"},hair:"#2B2233"});
+  N.sekisho=R({hand:"bigsword",off:"none",head:"greatkabuto",headc:"#C99A2E",body:{type:"samurai",c:"#4A3A6A",t:"#FFD34D",under:"#2B2233"},beard:"#2B2233",hair:"#2B2233"});
+  N.tesshin=R({hand:"meito",off:"gunbai",head:"greatkabuto",headc:"#2B2233",body:{type:"samurai",c:"#2B2233",t:"#E5B53B",haori:"#3A4A6A",under:"#7A1F2B"},beard:"#2B2233",hair:"#2B2233",aura:"#3A4A6A"});
+  N.tesshin2={hand:"none",off:"none",head:"none",body:{type:"samurai",c:"#2B2233",t:"#E5B53B",haori:"#3A4A6A",under:"#7A1F2B"},beard:"#2B2233",hair:"#2B2233"};
+  /* 海の道：黒帆団（架空の海賊団） */
+  N.pirate=R({hand:"cutlass",off:"none",head:"bandana",headc:"#2B2233",body:{type:"sailor",c:"#3A3F58",t:"#2B2233"},hair:"#2B2233"});
+  N.sam=R({hand:"cutlass",off:"none",head:"tricorn",headc:"#2B2233",body:{type:"coat",c:"#3A3F58",t:"#C9D3DD"},beard:"#5A3A22",hair:"#5A3A22",eyepatch:1});
+  N.gunner=R({hand:"none",off:"lantern",head:"bandana",headc:"#7A1F2B",body:{type:"sailor",c:"#2B2233",t:"#7A1F2B"},beard:"#2B2233",hair:"#2B2233"});
+  N.karina={hand:"cutlass",off:"compass",head:"tricorn",headc:"#C0392B",body:{type:"coat",c:"#C0392B",t:"#E5B53B"},hair:"#7A1F2B",longhair:1};
+  N.karinaR=R({hand:"cutlass",off:"compass",head:"tricorn",headc:"#C0392B",body:{type:"coat",c:"#C0392B",t:"#E5B53B"},hair:"#7A1F2B",longhair:1});
+  N.pnav=R({hand:"scope",off:"none",head:"tricorn",headc:"#3A3F58",body:{type:"coat",c:"#2B2233",t:"#5CB8B2"},hair:"#2B2233"});
+  N.kryuk=R({hand:"cutlass",off:"none",head:"bandana",headc:"#2B2233",body:{type:"coat",c:"#2B2233",t:"#8C93A8"},beard:"#2B2233",hair:"#2B2233",scar:1});
+  N.volna=R({hand:"cutlass",off:"compass",head:"tricorn",headc:"#1E2433",body:{type:"coat",c:"#1E2433",t:"#9A6BD6"},beard:"#2B2233",hair:"#2B2233",cape:"#2B2233",eyepatch:1,aura:"#1F2A44"});
+  N.volna2={hand:"none",off:"map",head:"tricorn",headc:"#1E2433",body:{type:"coat",c:"#1E2433",t:"#9A6BD6"},beard:"#2B2233",hair:"#2B2233",eyepatch:1};
+  /* 物語の道：叙事詩の中の人物 */
+  N.relative=R({hand:"whip",off:"none",head:"tebetei",headc:"#3A3F58",body:{type:"chapan",c:"#3A3F58",t:"#C99A2E",fur:1},beard:"#2B2233",hair:"#2B2233"});
+  N.kulchoro={hand:"bow",off:"quiver",head:"batyr",body:{type:"chapan",c:"#5E7F9A",t:"#E8B923"},hair:"#2B2233"};
+  N.aichurek={hand:"none",off:"none",head:"elechek",body:{type:"chapan",c:"#2C8F8A",t:"#FFD34D",fur:1},hair:"#2B2233",longhair:1,spark:1};
+})();
+
+/* ---------- 道ごとの敵（8章） ---------- */
+var P74_FOES={
+ sword:[
+  {f:[["畑あらしのけだまろ","m:0:#C7823E"],["盗賊の見張り","npc:bandit"]],b:{n:"盗賊のかしら 赤ひげのグロム",a:"npc:grom"}},
+  {f:[["街道のいわごろ","m:1:#8C7A68"],["黒騎士団の見習い兵","npc:bk"]],b:{n:"斥候隊長 ヴォーロン",a:"npc:voron"}},
+  {f:[["鉱山のよるばね","m:2:#4A4F63"],["黒騎士団の弓兵","npc:bkarcher"]],b:{n:"鉱山を守る石の巨人",a:"b:1"}},
+  {f:[["峠のもやもや","m:4:#9AAEC2"],["黒騎士団の騎士","npc:bk"]],b:{n:"双子の騎士 ザーパドとヴォストーク",a:"npc:twins"}},
+  {f:[["夜の森のオオカミ","an:wolf:#4A4F63"],["黒騎士団の弓兵","npc:bkarcher"]],b:{n:"夜のオオカミ王",a:"b:4"}},
+  {f:[["火山のかぶとん","m:5:#E0603A"],["黒騎士団の重装兵","npc:bk"]],b:{n:"鉄仮面の副団長 ジェレーザ",a:"npc:zheleza"}},
+  {f:[["雷雲のよるばね","m:2:#E5B53B"],["黒騎士団の親衛隊","npc:twins"]],b:{n:"雷の大ワシ",a:"b:6"}},
+  {f:[["影のにょろり","m:6:#3A2E5C"],["影にのまれた騎士","npc:shadowsol"]],b:{n:"黒騎士団長 ノーチ",a:"npc:nochi"}}],
+ magic:[
+  {f:[["森のきのこぼう","m:3:#9A6BD6"],["灰色のもやもや","m:4:#9A9AA8"]],b:{n:"灰の番人",a:"b:0"}},
+  {f:[["魔導書をねらうタカ","an:hawk:#4A4A55"],["灰の弟子","npc:ashapp"]],b:{n:"兄弟子 ズヴェズダー",a:"npc:zvezda"}},
+  {f:[["塔のいわごろ","m:1:#8C93A8"],["灰の弟子","npc:ashapp"]],b:{n:"塔を守る石の巨人",a:"b:1"}},
+  {f:[["氷のつぼみん","m:7:#5CB8B2"],["雪のもやもや","m:4:#BFE3F2"]],b:{n:"吹雪の大ジカ",a:"b:3"}},
+  {f:[["灰の騎士","npc:ashknight"],["夜のよるばね","m:2:#3A3F58"]],b:{n:"灰にのまれたズヴェズダー",a:"npc:zvezda2"}},
+  {f:[["炎のかぶとん","m:5:#E0603A"],["灰の騎士","npc:ashknight"]],b:{n:"炎の大トカゲ",a:"b:5"}},
+  {f:[["雷のよるばね","m:2:#E5B53B"],["星の塔の番人","npc:towerguard"]],b:{n:"雷の大ワシ",a:"b:6"}},
+  {f:[["灰の分身","m:4:#4A4A55"],["灰の騎士","npc:ashknight"]],b:{n:"灰の魔導士 ペーペル",a:"npc:pepel"}}],
+ king:[
+  {f:[["畑あらしのかぶとん","m:5:#5BAE6B"],["いじわるな徴税人","npc:taxman"]],b:{n:"欲ばり地主",a:"npc:landlord"}},
+  {f:[["川のにょろり","m:6:#4F8FD8"],["地主の手下","npc:bandit"]],b:{n:"春のあばれ川",a:"ev:river"}},
+  {f:[["街道の盗賊","npc:bandit"],["夜のよるばね","m:2:#4A4F63"]],b:{n:"街道の盗賊団長",a:"npc:roadchief"}},
+  {f:[["値上げの使い","npc:taxman"],["倉庫のきのこぼう","m:3:#C7823E"]],b:{n:"男爵の大商人 ジェーニギ",a:"npc:guild"}},
+  {f:[["男爵の兵","npc:baronsol"],["森のオオカミ","an:wolf:#8C93A8"]],b:{n:"男爵の騎士隊長",a:"npc:baroncap"}},
+  {f:[["男爵の兵","npc:baronsol"],["炎のかぶとん","m:5:#E0603A"]],b:{n:"金の男爵 ゾーロト",a:"npc:zoloto"}},
+  {f:[["宰相のスパイ","npc:spy"],["雷雲のもやもや","m:4:#E5B53B"]],b:{n:"雷の大ワシ",a:"b:6"}},
+  {f:[["影の兵","npc:shadowsol"],["宰相のスパイ","npc:spy"]],b:{n:"影の宰相 テーニ",a:"npc:teni"}}],
+ samurai:[
+  {f:[["野盗","npc:nobushi"],["山のいわごろ","m:1:#8C7A68"]],b:{n:"野盗のかしら 片目の権太",a:"npc:gonta"}},
+  {f:[["嵐堂の足軽","npc:ashigaru"],["夜霧のもやもや","m:4:#9AAEC2"]],b:{n:"嵐堂の足軽大将",a:"npc:ashitaisho"}},
+  {f:[["嵐堂の足軽","npc:ashigaru"],["嵐堂の騎馬武者","npc:kiba"]],b:{n:"猪武者 大熊",a:"npc:okuma"}},
+  {f:[["雪山のもやもや","m:4:#BFE3F2"],["嵐堂のしのび","npc:eshinobi"]],b:{n:"雪の砦の守将",a:"npc:toride"}},
+  {f:[["嵐堂の槍隊","npc:ashigaru"],["夜のオオカミ","an:wolf:#4A4F63"]],b:{n:"白狐の左近",a:"npc:sakon"}},
+  {f:[["嵐堂の騎馬武者","npc:kiba"],["火の粉のかぶとん","m:5:#E0603A"]],b:{n:"炎に包まれた城",a:"ev:fire"}},
+  {f:[["嵐堂の旗本","npc:hatamoto"],["雷雲のよるばね","m:2:#E5B53B"]],b:{n:"雷鳴の関所の守将",a:"npc:sekisho"}},
+  {f:[["嵐堂の旗本","npc:hatamoto"],["嵐堂のしのび","npc:eshinobi"]],b:{n:"嵐堂家の当主 鉄心",a:"npc:tesshin"}}],
+ sea:[
+  {f:[["網をからめるにょろり","sea:serpent:#5BAE6B"],["黒帆団の見張り","npc:pirate"]],b:{n:"大ダコ",a:"sea:kraken:#9A6BD6"}},
+  {f:[["港のカニ","sea:crab:#E36D5B"],["黒帆団の下っぱ","npc:pirate"]],b:{n:"ほら吹きサム",a:"npc:sam"}},
+  {f:[["光るクラゲ","sea:jelly:#E58AB0"],["黒帆団の砲手","npc:gunner"]],b:{n:"霧の海の番人",a:"b:0"}},
+  {f:[["はらぺこのサメ","sea:shark:#8C93A8"],["黒帆団の切りこみ隊","npc:pirate"]],b:{n:"赤帆のカリーナ",a:"npc:karinaR"}},
+  {f:[["氷のクラゲ","sea:jelly:#BFE3F2"],["黒帆団の航海士","npc:pnav"]],b:{n:"氷海の大うみへび",a:"sea:serpent:#9AB8D0"}},
+  {f:[["火山島のカニ","sea:crab:#E0603A"],["黒帆団の砲手長","npc:gunner"]],b:{n:"鉄フックのクリューク",a:"npc:kryuk"}},
+  {f:[["嵐のよるばね","m:2:#4E5B8C"],["黒帆団の精鋭","npc:pnav"]],b:{n:"嵐の大うず",a:"ev:whirl"}},
+  {f:[["深海の大ザメ","sea:shark:#3A3F58"],["黒帆団の親衛隊","npc:kryuk"]],b:{n:"黒帆のヴォルナ",a:"npc:volna"}}],
+ /* 物語・歴史の道は「出来事」。章の出来事のあとに、その場面（story[章+1]）が開く */
+ manas:[
+  {f:[["ジャクプとチユルドゥの祈り","npc:jakyp"],["ふしぎな夢のしらせ","ev:moon"]],b:{n:"マナスの誕生",a:"ev:star"}},
+  {f:[["子馬に乗る練習","an:horse:#9A6A36"],["大人もおどろく力","ev:boulder"]],b:{n:"アク・クラと草原をかける",a:"an:horse:#E9D9B8"}},
+  {f:[["仲間を集める","npc:people1"],["相談役バカイの知恵","npc:elder"]],b:{n:"四十人の仲間がそろう",a:"ev:crowd"}},
+  {f:[["遠くから来た勇者","ev:road"],["長い旅の話","ev:fire"]],b:{n:"アルマンベトとの友情",a:{hand:"sword",off:"none",head:"batyr",headc:"#C99A2E",body:{type:"armor",c:"#5E7F9A",t:"#E8B923"},hair:"#2B2233",cape:"#2C5D8F"}}},
+  {f:[["カヌケイのもてなし","ev:yurt"],["かしこい助言","ev:scroll"]],b:{n:"妻カヌケイ",a:"npc:kanykey"}},
+  {f:[["宴の知らせが広がる","ev:road"],["競馬のしたく","an:horse:#E9D9B8"]],b:{n:"ボクムルンの追悼の宴",a:"ev:crowd"}},
+  {f:[["大遠征への出発","ev:road"],["けわしい山道","ev:pass"]],b:{n:"強敵コヌルバイとのたたかい",a:"npc:rival"}},
+  {f:[["深い傷","ev:moon"],["仲間たちの別れ","ev:crowd"]],b:{n:"物語は息子へ",a:"npc:child"}}],
+ semetey:[
+  {f:[["マナスが亡くなったあと","ev:moon"],["地位をねらう親族","npc:relative"]],b:{n:"ブハラへのがれる旅",a:"ev:road"}},
+  {f:[["羊飼いの子として育つ","ev:sheep"],["ふつうの少年の日々","ev:yurt"]],b:{n:"父を知らない少年",a:"ev:moon"}},
+  {f:[["母カヌケイの思い","npc:kanykey"],["相談役バカイ","npc:elder"]],b:{n:"明かされた真実",a:"ev:scroll"}},
+  {f:[["父の馬タイブールル","an:horse:#9AA4AE"],["ふるさとへの長い道","ev:road"]],b:{n:"タラスの争いをおさめる",a:"ev:crowd"}},
+  {f:[["アルマンベトの息子","npc:kulchoro"],["父どうしの友情","ev:fire"]],b:{n:"友クルチョロ",a:"npc:kulchoro"}},
+  {f:[["ふしぎな力をもつ女性","ev:star"],["アイチュレク","npc:aichurek"]],b:{n:"アイチュレクが妻に",a:"npc:aichurek"}},
+  {f:[["外からせまる危険","ev:storm"],["思いがけない裏切り","ev:moon"]],b:{n:"強敵コヌルバイ",a:"npc:rival"}},
+  {f:[["幼い息子セイテク","npc:child"],["信頼できる人たち","ev:crowd"]],b:{n:"物語は「セイテク」へ",a:"ev:star"}}],
+ kurmanjan:[
+  {f:[["アライの山の暮らし","ev:pass"],["決められた結婚の話","ev:scroll"]],b:{n:"父のもとで暮らす決心",a:"ev:yurt"}},
+  {f:[["アライを治めるアリムベク","npc:alymbek"],["暮らしと政治を学ぶ","ev:scroll"]],b:{n:"アリムベクとの結婚（1832年）",a:"npc:alymbek"}},
+  {f:[["宮廷の争い","ev:storm"],["悲しい知らせ","ev:moon"]],b:{n:"夫を失う（1862年）",a:"ev:moon"}},
+  {f:[["人々を見捨てない","ev:crowd"],["君主たちとの話し合い","ev:scroll"]],b:{n:"「ダトカ」の位を受ける",a:"ev:star"}},
+  {f:[["時代の大きな変化","ev:storm"],["人々の声を聞く","ev:crowd"]],b:{n:"争いを続けない決断（1876年）",a:"ev:scroll"}},
+  {f:[["息子たちへの訴え","ev:scroll"],["力ずくを止める","ev:crowd"]],b:{n:"母としてのつらい日（1895年）",a:"ev:moon"}},
+  {f:[["遠くからの客","ev:road"],["記録に残る写真","ev:camera"]],b:{n:"マンネルヘイムの訪問（1906年）",a:"npc:officer"}},
+  {f:[["人々の敬意","ev:crowd"],["長い人生","ev:moon"]],b:{n:"「アライの女王」として記憶される",a:"ev:star"}}],
+ toktogul:[
+  {f:[["ケトメン・トベの谷","ev:pass"],["まずしい農家の暮らし","ev:yurt"]],b:{n:"トクトグルの誕生（1864年）",a:"ev:star"}},
+  {f:[["母ブルマの歌","npc:mother"],["コムズの音","ev:komuz"]],b:{n:"最初の先生は母",a:"npc:mother"}},
+  {f:[["歌い手として知られる","ev:crowd"],["不正を歌で批判する","ev:scroll"]],b:{n:"まずしい人々の声になる",a:"npc:people1"}},
+  {f:[["アンディジャンの反乱（1898年）","ev:storm"],["うその訴え","ev:scroll"]],b:{n:"とらえられる",a:"ev:moon"}},
+  {f:[["ふるさとから遠い道","ev:road"],["イルクーツクの近く","ev:snow"]],b:{n:"きびしい寒さと労働",a:"ev:snow"}},
+  {f:[["ふるさとへの思い","ev:moon"],["ウズベクやカザフの人々との交流","ev:crowd"]],b:{n:"故郷へもどる長い旅",a:"ev:road"}},
+  {f:[["家族の悲しい知らせ","ev:moon"],["歌いつづける","ev:komuz"]],b:{n:"首都で記録された曲（1928年）",a:"ev:scroll"}},
+  {f:[["ふるさとの村","ev:yurt"],["人々の記憶","ev:crowd"]],b:{n:"名前が残る町",a:"ev:star"}}]
+};
+
+/* ---------- 5つの冒険の道の物語（オリジナル）。story[0]＝序章、story[i]＝ボスを i 体倒したあと。nx＝次回予告 ---------- */
+var P74_TALES={
+ sword:[
+  {t:"序章　畑を荒らす影",night:1,fig:["h@90"],x:"小さな村の畑が、夜になるたびに荒らされます。農民の若者は古いくわを手に、見張りに立つことにしました。\n暗やみの中で光る、いくつもの目。そのうしろに、黒い旗が見えた気がしました。",nx:"畑を荒らしていたのは、ただのモンスターではなかった！"},
+  {t:"第1話　森の盗賊",fig:["h@20","a0@90","npc:grom@164"],x:"森の盗賊のかしら、赤ひげのグロムを追いはらいました。助けてくれたのは、弓使いのソーニャ。ソーニャは仲間になりました。\nグロムは逃げながら叫びます。「おれたちは、黒い騎士さまに鉄をとどけていただけだ！」",nx:"国中の村から鉄を集める、なぞの騎士たちとは？"},
+  {t:"第2話　黒騎士団",fig:["h@20","a1@90","npc:voron@164"],x:"黒騎士団の斥候隊長ヴォーロンをたおし、盾の大男イワンが仲間に加わりました。\nヴォーロンの地図には、山の鉱山に赤い印。黒騎士団は、そこで人々をむりやり働かせているようです。",nx:"山の鉱山で、とらわれた人々を助け出せ！"},
+  {t:"第3話　山の鉱山",fig:["a0@10","h@80","a1@150"],x:"鉱山を守る石の巨人をたおし、とらわれていた人々を助け出しました。\n助けた鉱夫が教えてくれます。「黒騎士団の団長の名はノーチ。昔は、国いちばんの騎士だったそうだ」",nx:"ノーチの過去を知る、双子の騎士が立ちはだかる。"},
+  {t:"第4話　双子の騎士",fig:["h@20","a2@90","npc:twins@164"],x:"双子の騎士ザーパドとヴォストークとの勝負に勝ちました。けがをした仲間を、薬師のヴェーラが治してくれます。ヴェーラも旅に加わりました。\n双子は言います。「団長は、ある日から人が変わった。黒い影に、心をのまれたように」",nx:"オオカミの遠ぼえが、王都の夜にひびく。"},
+  {t:"第5話　王都の夜",night:1,fig:["h@60","a1@130"],x:"王都をおそった夜のオオカミ王を追いはらい、あなたは騎士に任命されました。\n王さまは静かに話します。「ノーチは、かつてわたしの命を守った英雄だ。どうか、彼を止めてほしい」",nx:"黒騎士団の副団長が、ついに姿を現す。"},
+  {t:"第6話　鉄仮面",fig:["h@20","a3@90","npc:zheleza@160"],x:"鉄仮面の副団長ジェレーザとの戦いのあと、仮面の下から現れたのは、ノーチの妹でした。相棒のタカ、ヤーストレプも仲間になります。\n「兄は、影の竜の力で国を守れると信じてしまった。お願い、兄を助けて」",nx:"ノーチの城へ続く峠を、雷の大ワシが守っている。"},
+  {t:"第7話　雷の峠",night:1,fig:["a2@10","h@80","npc:nochi@160"],x:"雷の大ワシをしずめ、ついにノーチの城の前に立ちました。あなたは騎士団長として、仲間をひきいています。\n城の上から、ノーチの声がひびきます。「影の竜の力があれば、だれも国をおそえない。じゃまをするな！」",nx:"最終回。影にのまれた英雄を、取りもどせるか。"},
+  {t:"最終回　夜明けの剣",fig:["h@30","npc:nochi2@100","a4@166"],x:"夜明けの光とともに、ノーチをおおっていた影が消えました。ノーチは剣を置き、国をもう一度立て直す手伝いをすると約束します。\n旅の歌い手ミーシャが仲間に加わり、この旅を歌にしました。畑を守るためにくわを持った若者は、剣の英雄になったのです。"}],
+ magic:[
+  {t:"序章　光る魔導書",night:1,fig:["h@90"],x:"薬草をつみに入った森で、古い魔導書を見つけました。本はひとりでに開き、一行だけ光ります。「灰が来る。光を守れ」\nその夜から、森の色が少しずつ灰色に変わりはじめました。",nx:"森の色をうばっているのは、だれ？"},
+  {t:"第1話　灰色の森",fig:["h@60","a0@130"],x:"灰をまとった番人を封じると、森に少し色がもどりました。黒ネコのコーシカが、魔導書のにおいをかいでついて来ます。使い魔として仲間になりました。\n魔導書の次のページには、魔法学校の地図がかかれていました。",nx:"魔法学校で待っていたのは、きびしいライバル。"},
+  {t:"第2話　兄弟子",fig:["h@20","a1@90","npc:zvezda@164"],x:"魔法学校の試験の決闘で、兄弟子のズヴェズダーに勝ちました。見習い神官のパーシャが「すごい！」と仲間になります。\n負けたズヴェズダーは、くやしそうに言い残して去りました。「もっと力がほしい。灰の魔導士なら、それをくれる」",nx:"古い塔に、灰の魔導士の秘密がねむる。"},
+  {t:"第3話　石の塔",fig:["a1@20","h@90","a0@156"],x:"古い塔を守る石の巨人を封じ、塔の書庫に入りました。\n古い記録には、灰の魔導士ペーペルの名前。昔、大賢者になれなかった魔法使いで、「光をひとりじめにすれば、だれにも負けない」と考えたそうです。",nx:"吹雪の谷で、なつかしい顔が苦しんでいる。"},
+  {t:"第4話　吹雪の谷",fig:["h@20","a2@90","npc:zvezda2@164"],x:"吹雪の大ジカを封じた谷で、森の弓使いリーパが仲間になりました。\n谷の奥で見たのは、灰色のローブを着たズヴェズダー。目から光が消え、灰の力に苦しんでいるようでした。",nx:"灰にのまれたライバルを、助けられるか。"},
+  {t:"第5話　灰にのまれた兄弟子",fig:["h@40","npc:zvezda3@120"],x:"灰の力にのまれたズヴェズダーを封じ、呪いをときました。正気にもどったズヴェズダーは、頭を下げます。\n「ペーペルは、世界中の光を一つの玉に集めている。全部集まったら、世界は灰色になってしまう」",nx:"光の玉のありかを知る者をさがせ。"},
+  {t:"第6話　炎の山",fig:["h@50","a3@130"],x:"炎の大トカゲを封じた山で、物知りフクロウのサヴァーと出会い、仲間になりました。\nサヴァーは言います。「光の玉は、星の塔のてっぺんじゃ。塔は雷に守られておる」",nx:"雷の向こうで、ペーペルが待っている。"},
+  {t:"第7話　星の塔",night:1,fig:["a2@10","h@80","npc:pepel@160"],x:"雷の大ワシを封じ、星の塔のてっぺんにたどり着きました。そこには、光の玉を手にしたペーペルがいました。\n「わたしも昔は、おまえのように光を守ろうとした。だが、だれもわたしを認めなかった」",nx:"最終回。世界の光を取りもどせ！"},
+  {t:"最終回　白夜の大魔法",fig:["h@30","npc:pepel2@100","a4@166"],x:"光の玉が開き、世界に色がもどりました。灰が消えると、ペーペルは小さな老人にもどり、静かに「ありがとう」と言いました。\n雪オオカミのヴォールチクが仲間になり、あなたは大賢者と呼ばれるようになりました。ペーペルは今、魔法学校で子どもたちに薬草を教えています。"}],
+ king:[
+  {t:"序章　足りない冬じたく",fig:["npc:people1@40","h@110"],x:"小さな村は、冬をこすための食べ物が足りません。村人たちは、まじめな農民のあなたに「世話役になってくれ」とたのみました。\nそのころ村には、税を二倍にするという知らせが届いていました。",nx:"税を上げたのは、いったいだれ？"},
+  {t:"第1話　欲ばり地主",fig:["h@20","a0@90","npc:landlord@164"],x:"畑を独りじめしていた欲ばり地主を、村の話し合いで退けました。帳簿にくわしいアンナが「数字はうそをつかない」と言って、大臣役を引き受けてくれます。\n畑はみんなで分けられ、村は冬をこせました。",nx:"春の大水が、村をおそう！"},
+  {t:"第2話　あばれ川",fig:["h@50","a1@130"],x:"あばれ川の大水から村を守るため、みんなで堤防と橋をつくりました。元兵士のボリスが力仕事をまとめ、将軍として仲間になります。\n橋ができると人が集まり、村は町になりました。",nx:"にぎわう町を、ねらう者がいる。"},
+  {t:"第3話　金の手紙",fig:["a0@20","h@90","a1@156"],x:"街道の盗賊団を退け、市場はますますにぎわいます。\nそんなある日、となりの領地の金の男爵ゾーロトから、金色の手紙が届きました。「その町を、わたしに売りなさい」",nx:"男爵の大商人が、市場を乗っとりにくる。"},
+  {t:"第4話　お金の戦い",fig:["h@20","a2@90","npc:guild@164"],x:"男爵の大商人ジェーニギは、物の値段を上げて市場を乗っとろうとしました。料理長のナースチャが、安くておいしい料理で町の祭りを開き、人々を集めます。ナースチャも仲間になりました。\nジェーニギは負けを認め、帰っていきました。",nx:"男爵が、とうとう兵を動かす。"},
+  {t:"第5話　国境の騎士",fig:["a1@20","h@90","npc:baroncap@164"],x:"国境をこえてきた男爵の騎士隊を、ボリスの守りで退けました。あなたは辺境伯としてみとめられます。\nけれど、つかまえた騎士がつぶやきました。「男爵さまも、本当は命令されているだけなんだ」",nx:"男爵に命令しているのは、だれ？"},
+  {t:"第6話　金の男爵",fig:["h@20","a3@90","npc:zoloto2@160"],x:"金の男爵ゾーロトを退けると、男爵は手紙のたばを見せました。差出人は、王国の宰相テーニ。かしこいキツネのリサが手紙のうそを見やぶり、仲間になりました。\n宰相は、国を二つに分けて自分のものにしようとしていたのです。",nx:"宰相が呼んだ大ワシが、都をおそう。"},
+  {t:"第7話　雷の夜",night:1,fig:["a0@10","h@80","npc:teni@160"],x:"雷の大ワシから都を守り、人々はあなたを王にえらびました。\nしかし宰相テーニは姿を消し、「影の兵」を集めているといううわさが広がります。",nx:"最終回。影の宰相との、最後の対決。"},
+  {t:"最終回　大いなる治世",fig:["h@30","npc:zoloto2@100","a4@166"],x:"影の宰相テーニを退け、国は一つにまとまりました。金の男爵ゾーロトとも、平和の約束を結びます。\n旅の商人グリーシャが仲間になり、七つの町を結ぶ道ができました。小さな村の世話役だったあなたは、人々にしたわれる大王になったのです。"}],
+ samurai:[
+  {t:"序章　戦の世",night:1,fig:["h@90"],x:"戦の世。村は野盗におびえて暮らしています。百姓の若者は、村を守るために竹やりを手に取り、足軽になる決心をしました。",nx:"野盗のかしらが、村をねらっている！"},
+  {t:"第1話　片目の権太",fig:["h@20","a0@90","npc:gonta@164"],x:"野盗のかしら、片目の権太を討ち取り、村を守りました。いっしょに戦った槍の名人、弥七が「おまえについていく」と仲間になります。\n権太の持っていた旗には、嵐の紋。となりの国、嵐堂家のものでした。",nx:"嵐堂家が、ついに動きだす。"},
+  {t:"第2話　嵐の紋",night:1,fig:["h@20","a1@90","npc:ashitaisho@164"],x:"嵐堂家の足軽大将を討ち取り、手柄を立てました。その夜、しのびの者の小雪があらわれ、「嵐堂がこの城をねらっている」と知らせて仲間になります。",nx:"嵐堂家いちばんの暴れ者が、先頭に立つ。"},
+  {t:"第3話　猪武者",fig:["a0@20","h@90","npc:okuma@160"],x:"嵐堂の先鋒、猪武者の大熊を討ち取り、あなたは侍に取り立てられました。\n大熊は最後に言いました。「鉄心さまは、戦を終わらせるために天下をとると言っておられる」",nx:"敵の大将の考えを知る者が、山の砦にいる。"},
+  {t:"第4話　雪の砦",fig:["h@40","a2@120"],x:"雪の砦を落とし、軍師の宗玄が仲間になりました。宗玄は、昔は鉄心に仕えていたといいます。\n「鉄心どのは、本気で戦のない世を作りたいのだ。ただ、そのやり方が強すぎる」",nx:"鉄心の右腕、剣の天才が立ちはだかる。"},
+  {t:"第5話　白狐の左近",fig:["h@40","npc:sakon@120"],x:"白狐の左近との一騎打ちに勝ち、城代になりました。左近は刀をおさめ、「鉄心さまに、おまえのことを伝えよう」と去りました。",nx:"主君の城が、炎に包まれる。"},
+  {t:"第6話　炎の城",night:1,fire:1,fig:["h@30","a3@140"],x:"燃える城から人々を救い出しました。弓の名人、千代が仲間になります。\n主君は深い傷を負い、あなたに城をたくしました。こうして、あなたは城主になりました。",nx:"鉄心のもとへ続く道は、ただ一つ。"},
+  {t:"第7話　雷鳴の関所",fig:["a2@10","h@80","npc:tesshin@160"],x:"雷鳴の関所を守る将を討ち取り、あなたは大名となりました。\nそこへ、鉄心からの使者がきます。「これ以上、兵を死なせたくない。大将どうし、一騎打ちで決めよう」",nx:"最終回。二人の大将の、最後の勝負。"},
+  {t:"最終回　天下ひとつ",fig:["h@30","npc:tesshin2@100","a4@166"],x:"長い一騎打ちのあと、鉄心は刀を置きました。「おまえとなら、戦のない世が作れる」\n刀かじの鉄之助が仲間になり、これからは刀ではなく、くわやすきを打つと笑います。百姓から身を起こしたあなたは、天下をおさめる人になりました。"}],
+ sea:[
+  {t:"序章　黒い帆",fig:["h@90"],x:"小さな漁村の沖に、黒い帆の船があらわれました。それからというもの、村の網が次々に切られていきます。\n若者はつりざおを置き、海へ出る決心をしました。",nx:"網を切っていたのは…？"},
+  {t:"第1話　大ダコ",fig:["h@20","a0@90","sea:kraken:#9A6BD6@164"],x:"網を切っていた大ダコを追いはらいました。見張りのとくいなカーチャが、遠めがねで黒い帆の船を見つけ、仲間になります。\n大ダコは、黒帆団の船に飼われていたのです。",nx:"黒帆団の小船長が、港にやってくる。"},
+  {t:"第2話　ほら吹きサム",fig:["h@20","a1@90","npc:sam@164"],x:"黒帆団の小船長、ほら吹きサムを追いはらいました。船大工のフョードルがこわれた船を直してくれて、自分たちの船が手に入りました。\nサムは逃げながら言いました。「ヴォルナ船長は、七つの港の宝の地図を探しているんだぞ！」",nx:"霧の中から、なぞの船があらわれる。"},
+  {t:"第3話　霧の海",night:1,fig:["h@30","npc:volna@140"],x:"霧の海の番人を追いはらうと、霧の向こうに黒帆団の大きな船が見えました。船首に立つのは、黒帆のヴォルナ。\n港のうわさでは、ヴォルナは昔、正直な船乗りだったそうです。",nx:"宝の地図をねらうのは、黒帆団だけではなかった。"},
+  {t:"第4話　赤い帆",fig:["h@20","a2@90","npc:karinaR@164"],x:"赤帆のカリーナとの勝負に勝ちました。カリーナも宝の地図を追う、もう一人の船長です。カモメのチャイカが、こちらの船に飛び移って仲間になりました。\nカリーナは笑います。「次は負けないよ。でも、ヴォルナに地図をわたすのは、もっといや」",nx:"ライバルと、まさかの協力！"},
+  {t:"第5話　氷の海",fig:["h@40","npc:karina@120"],x:"カリーナの船と力を合わせ、氷の海の大うみへびを追いはらいました。あなたは船長になります。\nカリーナが地図の半分を見せてくれました。「もう半分は、ヴォルナが持っている」",nx:"黒帆団の副船長が、待ちぶせしている。"},
+  {t:"第6話　鉄フック",fig:["h@20","a3@90","npc:kryuk@164"],x:"黒帆団の副船長、鉄フックのクリュークを追いはらいました。船の料理番ターニャが「おなかがすいては戦えない」と仲間になります。\nクリュークは言います。「船長は、宝で黒帆団の仲間を食べさせたいだけなんだ」",nx:"ヴォルナの船へ行くには、大うずをこえなければ。"},
+  {t:"第7話　大うず",night:1,fig:["a0@10","h@80","npc:volna@160"],x:"嵐の大うずをこえ、あなたは船団をひきいる提督になりました。\n目の前に、黒帆のヴォルナの船。ヴォルナは叫びます。「この海で生きるには、宝が必要なんだ！」",nx:"最終回。地図の本当のなぞが明らかに。"},
+  {t:"最終回　七つの港",fig:["h@30","npc:volna2@100","a4@166"],x:"ヴォルナを追いはらい、二つに分かれた地図を合わせると、それは宝のありかではなく、七つの港を安全に結ぶ航路図でした。\n地図をかいたのは、老いた航海士レフ。レフが仲間になり、ヴォルナの船も港を結ぶ船団に加わります。漁村の若者は、大提督になりました。"}]
+};
+P74_PATHS.forEach(function(P){if(P74_TALES[P.id])P.story=P74_TALES[P.id];if(P.hist){P.ev=1;P.verb="クリア";}});
+/* 章の番号（テーマ番号から） */
+function p74ChOf(ti){var CH=p74Chapters(P47_THEMES.length);for(var c=0;c<CH.length;c++)if(ti>=CH[c][0]&&ti<CH[c][1])return c;return CH.length-1;}
+function p74FoeOf(P,ti){var D=P&&P74_FOES[P.id];if(!D)return null;var c=p74ChOf(ti),CH=p74Chapters(P47_THEMES.length);return D[c].f[(ti-CH[c][0])%2];}
+function p74FoeName(P,ti){var f=p74FoeOf(P,ti);return f?f[0]:p74MonsterName(ti);}
+function p74FoeArt(P,ti){var f=p74FoeOf(P,ti);return f?p74Art(f[1]):p74Monster(ti);}
+function p74BossName(P,c){var D=P&&P74_FOES[P.id];return D?D[c].b.n:P74_BOSS[c].t+" "+P74_BOSS[c].n;}
+function p74BossArt(P,c){var D=P&&P74_FOES[P.id];return D?p74Art(D[c].b.a):p74Boss(c);}
 
 /* ===== Phase74：道のりを「冒険」に（5つの成り上がりの道・モンスター・ボス・装備・技・仲間）。ストーリーなし（今までの路線図）も選べる =====
    記録：settings.p74 = {mode:"story"|"plain", path:"sword"…}。進み具合そのものはレッスンの記録（settings.p71.done）から毎回計算するので、
@@ -12603,11 +12893,11 @@ p70RoadCard=function(){
   if(!P){
     card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>なりたい姿を選んで冒険しよう</b><em>剣・魔法・王・武士・海／マナスなど物語と歴史</em></span><span class="p70-rcgo">›</span></button>';
   }else{
-    var c=S.cur,ti=c?c.i:0,mon=c?p74MonsterName(ti):"";var li=c?p74Next(ti):-1;
-    var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74MonsterName(ti);li=p74Next(ti);}});
-    card='<button type="button" class="p74-card" data-act="p71go" data-val="'+ti+'"><span class="p74-cart p74-duel">'+p74Hero(P,S.stage,"p74-cimg")+(c?p74Svg(p74Monster(ti),"p74-cimg p74-cmon"):'')+'</span>'+
+    var c=S.cur,ti=c?c.i:0,mon=c?p74FoeName(P,ti):"";var li=c?p74Next(ti):-1;
+    var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74FoeName(P,ti);li=p74Next(ti);}});
+    card='<button type="button" class="p74-card" data-act="p71go" data-val="'+ti+'"><span class="p74-cart p74-duel">'+p74Hero(P,S.stage,"p74-cimg")+(c?p74Svg(p74FoeArt(P,ti),"p74-cimg p74-cmon"):'')+'</span>'+
       '<span class="p74-ctxt"><small>'+P74_NAME+'を続きから ・ '+esc(P.titles[S.stage])+' Lv '+S.lv+'</small>'+
-      (c?'<b>'+esc(mon)+'とたたかう</b><em>'+esc(c.cat)+' ・ レッスン '+(li+1)+' / '+c.ln+'</em>'+p74Bar(c.ln-c.ld,c.ln,"red"):'<b>すべての敵を'+P.verb+'！</b><em>'+esc(P.titles[8])+'になりました</em>')+'</span><span class="p70-rcgo">›</span></button>';
+      (c?'<b>'+(P.ev?'「'+esc(mon)+'」へ進む':esc(mon)+'とたたかう')+'</b><em>'+esc(c.cat)+' ・ レッスン '+(li+1)+' / '+c.ln+'</em>'+p74Bar(c.ln-c.ld,c.ln,"red"):'<b>'+(P.ev?'すべての出来事をクリア！':'すべての敵を'+P.verb+'！')+'</b><em>'+esc(P.titles[8])+'になりました</em>')+'</span><span class="p70-rcgo">›</span></button>';
   }
   return h.replace(/<button type="button" class="p70-roadcard"[\s\S]*?<\/button>/,card);
 };
@@ -12622,7 +12912,7 @@ function p74Chooser(){
   var cur=p74S().path,h=(cur&&p74Path()?'<p class="p74-curp">いまの道：<b>'+esc(p74Path().name)+'</b>。同じ道を押すと「続きから／最初から」を選べます。</p>':'')+'<p class="p70-lead">なりたい姿を1つ選んでください。レッスンを終えるたびに敵にダメージを与え、テーマを終えると敵を倒せます。ボスを倒すたびに姿が変わり、装備・技・仲間が増えていきます。道はあとから変えられます（進み具合はそのまま）。</p><div class="p74-paths">';
   var pc=function(P){return '<button type="button" class="p74-pathc'+(cur===P.id?" on":"")+'" data-act="p74pick" data-val="'+P.id+'" style="--pc:'+P.color+'"><span class="p74-pfig">'+p74Hero(P,0,"p74-pimg")+'<i>›</i>'+p74Hero(P,8,"p74-pimg big")+'</span><span class="p74-ptx"><b>'+esc(P.name)+'</b><small>'+esc(P.goal)+'</small><span>'+esc(P.lead)+'</span></span></button>';};
   P74_PATHS.forEach(function(P){if(!P.hist)h+=pc(P);});
-  h+='</div><div class="p74-sech"><b>物語と歴史の道（キルギス）</b><small>ボスを倒すたびに次の場面が開き、解説と「〜で学ぶ例文」が読めます。全部クリアすると、その物語や人物の歴史がひととおりわかります。</small></div><div class="p74-paths">';
+  h+='</div><div class="p74-sech"><b>物語と歴史の道（キルギス）</b><small>章をクリアするたびに次の場面が開き、解説と「〜で学ぶ例文」が読めます。全部クリアすると、その物語や人物の歴史がひととおりわかります。</small></div><div class="p74-paths">';
   P74_PATHS.forEach(function(P){if(P.hist)h+=pc(P);});
   h+='</div><button type="button" class="p74-plain" data-act="p74plain"><b>ストーリーなしで進める</b><small>物語や敵は出さず、今までの路線図（テーマの一覧）だけで進めます。</small></button>';
   return h;
@@ -12631,36 +12921,36 @@ function p74Main(){
   var P=p74Path(),S=p74State(),st=S.stage,h='';
   h+='<div class="p74-me" style="--pc:'+P.color+'"><div class="p74-mefig">'+p74Hero(P,st,"p74-big")+'</div><div class="p74-meinfo"><small>'+esc(P.name)+'</small><b>'+esc(P.titles[st])+'</b><span class="p74-lv">Lv '+S.lv+'</span>'+
      '<button type="button" class="p74-chg" data-act="p74choose">道を変える・最初から ›</button><div class="p74-stats"><span><b>'+S.gear+'</b>/17 装備</span><span><b>'+S.skills+'</b>/8 技</span><span><b>'+S.allies+'</b>/5 仲間</span></div>'+
-     (st<8?'<small class="p74-next">次の姿「'+esc(P.titles[st+1])+'」まで：ボス「'+esc(P74_BOSS[S.ch.filter(function(c){return !c.beat;})[0]?S.ch.filter(function(c){return !c.beat;})[0].c:7].t)+'」を倒す</small>':'<small class="p74-next">最終形に到達しました！</small>')+'</div></div>';
-  if(P.hist)h+=p74StoryHint(P,S,true);
+     (st<8?'<small class="p74-next">次の姿「'+esc(P.titles[st+1])+'」まで：'+(P.ev?'「':'ボス「')+esc(p74BossName(P,S.ch.filter(function(c){return !c.beat;})[0]?S.ch.filter(function(c){return !c.beat;})[0].c:7))+(P.ev?'」をクリアする':'」を倒す')+'</small>':'<small class="p74-next">最終形に到達しました！</small>')+'</div></div>';
+  if(P.story)h+=p74StoryHint(P,S,true);
   /* 仲間の列 */
   if(S.allies)h+='<div class="p74-party">'+P.al.slice(0,S.allies).map(function(a){return '<span>'+p74AllyArt(a,"p74-aimg")+'<small>'+esc(a.n)+'</small></span>';}).join("")+'</div>';
   /* 今たたかっている敵 */
   var c=S.cur;
   if(c){var li=p74Next(c.i);
-    h+='<div class="p74-battle"><div class="p74-bfig">'+p74Hero(P,st,"p74-bimg")+'<span class="p74-vs">VS</span>'+p74Svg(p74Monster(c.i),"p74-bimg p74-mon")+'</div>'+
-       '<div class="p74-btx"><small>Lv '+(c.i+3)+' ・ テーマ「'+esc(c.cat)+'」</small><b>'+esc(p74MonsterName(c.i))+'</b>'+p74Bar(c.ln-c.ld,c.ln,"red")+'<small>のこり HP '+(c.ln-c.ld)+' / '+c.ln+'（レッスン1つで1ダメージ）</small></div>'+
-       '<button type="button" class="p74-go" data-act="p71go" data-val="'+c.i+'">レッスン '+(li+1)+' でたたかう</button></div>';}
+    h+='<div class="p74-battle"><div class="p74-bfig">'+p74Hero(P,st,"p74-bimg")+'<span class="p74-vs">'+(P.ev?'›':'VS')+'</span>'+p74Svg(p74FoeArt(P,c.i),"p74-bimg p74-mon")+'</div>'+
+       '<div class="p74-btx"><small>'+(P.ev?'第'+(p74ChOf(c.i)+1)+'章の出来事':'Lv '+(c.i+3))+' ・ テーマ「'+esc(c.cat)+'」</small><b>'+esc(p74FoeName(P,c.i))+'</b>'+p74Bar(c.ln-c.ld,c.ln,"red")+'<small>'+(P.ev?'のこり '+(c.ln-c.ld)+' / '+c.ln+' レッスン（レッスン1つで1歩前進）':'のこり HP '+(c.ln-c.ld)+' / '+c.ln+'（レッスン1つで1ダメージ）')+'</small></div>'+
+       '<button type="button" class="p74-go" data-act="p71go" data-val="'+c.i+'">レッスン '+(li+1)+(P.ev?' で進む':' でたたかう')+'</button></div>';}
   /* タブ */
   var v=P74_VIEW||"map";
-  h+='<div class="p74-tabs">'+(P.hist?[["map","地図"],["story","物語"],["ex","例文"],["gear","装備"],["skill","技"],["ally","仲間"]]:[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]]).map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
+  h+='<div class="p74-tabs">'+(P.hist?[["map","地図"],["story","物語"],["ex","例文"],["gear","装備"],["skill","技"],["ally","仲間"]]:P.story?[["map","地図"],["story","物語"],["gear","装備"],["skill","技"],["ally","仲間"]]:[["map","地図"],["gear","装備"],["skill","技"],["ally","仲間"]]).map(function(t){return '<button type="button" data-act="p74tab" data-val="'+t[0]+'" class="'+(v===t[0]?"on":"")+'">'+t[1]+'</button>';}).join("")+'</div>';
   if(v==="map"){
-    S.ch.forEach(function(ch){var B=P74_BOSS[ch.c];
-      h+='<div class="p74-ch"><div class="p74-chh"><small>第'+(ch.c+1)+'章</small><b>'+esc(B.t)+'の地</b></div>';
+    S.ch.forEach(function(ch){var B=P74_BOSS[ch.c],ct=P.story&&P.story[ch.c+1]?P.story[ch.c+1].t.replace(/^[^　]+　/,""):B.t+"の地",bn=p74BossName(P,ch.c);
+      h+='<div class="p74-ch"><div class="p74-chh"><small>第'+(ch.c+1)+'章</small><b>'+esc(ct)+'</b></div>';
       ch.themes.forEach(function(x){var st2=x.done?"d":(S.cur&&x.i===S.cur.i?"c":"");
-        h+='<button type="button" class="p74-row '+st2+'" data-act="p71go" data-val="'+x.i+'"'+(st2==="c"?' id="p70cur"':'')+'><span class="p74-rimg">'+p74Svg(p74Monster(x.i))+(x.done?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><b>'+esc(p74MonsterName(x.i))+'</b><small>'+esc(x.cat)+' ・ '+(x.done?P.verb:'HP '+(x.ln-x.ld)+' / '+x.ln)+'</small>'+(x.done?'':p74Bar(x.ln-x.ld,x.ln,"red sm"))+'</span></button>';});
-      h+='<div class="p74-boss'+(ch.beat?" beat":"")+'"><span class="p74-bsimg">'+p74Svg(p74Boss(ch.c))+(ch.beat?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><small>ボス ・ Lv '+p74BossLv(ch.c)+'</small><b>'+esc(B.t)+' '+esc(B.n)+'</b><small class="p74-ru">名前はキルギス語の '+esc(B.ru)+'（'+esc(B.ja)+'）から</small>'+
-        (ch.beat?'<small>'+P.verb+'！ 技「'+esc(P.sk[ch.c])+'」を覚えた</small>':p74Bar(ch.need-ch.done,ch.need,"red")+'<small>この章の敵を全部倒すと、ボスも倒れます（のこり '+(ch.need-ch.done)+'）</small>')+'</span></div></div>';});
-  }else if(v==="story"&&P.hist){h+=p74StoryTab(P,S);
+        h+='<button type="button" class="p74-row '+st2+'" data-act="p71go" data-val="'+x.i+'"'+(st2==="c"?' id="p70cur"':'')+'><span class="p74-rimg">'+p74Svg(p74FoeArt(P,x.i))+(x.done?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><b>'+esc(p74FoeName(P,x.i))+'</b><small>'+esc(x.cat)+' ・ '+(x.done?P.verb:(P.ev?'のこり ':'HP ')+(x.ln-x.ld)+' / '+x.ln)+'</small>'+(x.done?'':p74Bar(x.ln-x.ld,x.ln,"red sm"))+'</span></button>';});
+      h+='<div class="p74-boss'+(ch.beat?" beat":"")+'"><span class="p74-bsimg">'+p74Svg(p74BossArt(P,ch.c))+(ch.beat?'<i class="p74-ko">✓</i>':'')+'</span><span class="p74-rtx"><small>'+(P.ev?'この章の大きな出来事':'ボス ・ Lv '+p74BossLv(ch.c))+'</small><b>'+esc(bn)+'</b>'+(P74_FOES[P.id]?'':'<small class="p74-ru">名前はキルギス語の '+esc(B.ru)+'（'+esc(B.ja)+'）から</small>')+
+        (ch.beat?'<small>'+P.verb+'！ 技「'+esc(P.sk[ch.c])+'」を覚えた</small>':p74Bar(ch.need-ch.done,ch.need,"red")+'<small>'+(P.ev?'この章のテーマを全部終えると、クリアできます':'この章の敵を全部倒すと、ボスも倒れます')+'（のこり '+(ch.need-ch.done)+'）</small>')+'</span></div></div>';});
+  }else if(v==="story"&&P.story){h+=p74StoryTab(P,S);
   }else if(v==="ex"&&P.hist){h+=p74ExTab(P,S);
   }else if(v==="gear"){
-    h+='<div class="p74-list">'+P.gear.map(function(g,i){var on=i<S.gear;var how=i===0?"はじめの持ち物":(i%2?"第"+((i+1)/2)+"章の敵を半分倒す":"第"+(i/2)+"章のボスを倒す");
+    h+='<div class="p74-list">'+P.gear.map(function(g,i){var on=i<S.gear;var how=i===0?"はじめの持ち物":(i%2?"第"+((i+1)/2)+"章"+(P.ev?"の出来事を半分クリア":"の敵を半分倒す"):"第"+(i/2)+"章"+(P.ev?"をクリア":"のボスを倒す"));
       return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'★':'？')+'</span><span><b>'+(on?esc(g):'？？？')+'</b><small>'+how+'</small></span></div>';}).join("")+'</div>';
   }else if(v==="skill"){
-    h+='<div class="p74-list">'+P.sk.map(function(k,i){var on=i<S.skills;return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'✦':'？')+'</span><span><b>'+(on?esc(k):'？？？')+'</b><small>ボス「'+esc(P74_BOSS[i].t)+'」を倒すと覚える</small></span></div>';}).join("")+'</div>';
+    h+='<div class="p74-list">'+P.sk.map(function(k,i){var on=i<S.skills;return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'✦':'？')+'</span><span><b>'+(on?esc(k):'？？？')+'</b><small>'+(P.ev?'「':'ボス「')+esc(p74BossName(P,i))+(P.ev?'」をクリアすると覚える':'」を倒すと覚える')+'</small></span></div>';}).join("")+'</div>';
   }else{
     var need=[1,2,4,6,8];
-    h+='<div class="p74-allies">'+P.al.map(function(a,i){var on=i<S.allies;return '<div class="p74-ac'+(on?"":" off")+'">'+p74AllyArt(a,"p74-aimg2")+'<b>'+(on?esc(a.n):'？？？')+'</b><small>'+(on?esc(a.r):'ボスを'+need[i]+'体倒すと仲間に')+'</small></div>';}).join("")+'</div>';
+    h+='<div class="p74-allies">'+P.al.map(function(a,i){var on=i<S.allies;return '<div class="p74-ac'+(on?"":" off")+'">'+p74AllyArt(a,"p74-aimg2")+'<b>'+(on?esc(a.n):'？？？')+'</b><small>'+(on?esc(a.r):(P.ev?need[i]+'つの章をクリアすると仲間に':'ボスを'+need[i]+'体倒すと仲間に'))+'</small></div>';}).join("")+'</div>';
   }
   h+='<div class="p74-foot"><button type="button" data-act="p74choose">道を選びなおす</button><button type="button" data-act="p74plain">ストーリーなしにする</button></div>';
   return h;
@@ -12688,17 +12978,17 @@ p71Result=function(){
   if(!p74Story()||!P||!P71||P71.fav)return h;
   var A=P74_SNAP,B=p74State(),ti=P71.ti,x=B.list[ti];if(!x)return h;
   var dead=x.done,sk=B.skills?P.sk[(P71.li+ti)%B.skills]:null;
-  var g='<div class="p74-res" style="--pc:'+P.color+'"><div class="p74-bfig">'+p74Hero(P,B.stage,"p74-bimg")+'<span class="p74-hit">'+(dead?"KO!":"−1")+'</span>'+p74Svg(p74Monster(ti),"p74-bimg p74-mon"+(dead?" ko":""))+'</div>';
-  g+='<p>'+(sk?'技「'+esc(sk)+'」！ ':'')+esc(p74MonsterName(ti))+'に 1 ダメージ。'+(dead?'<b>'+esc(p74MonsterName(ti))+'を'+P.verb+'！</b>':'のこり HP '+(x.ln-x.ld)+' / '+x.ln)+'</p>'+(dead?'':p74Bar(x.ln-x.ld,x.ln,"red"));
+  var g='<div class="p74-res" style="--pc:'+P.color+'"><div class="p74-bfig">'+p74Hero(P,B.stage,"p74-bimg")+'<span class="p74-hit">'+(dead?(P.ev?"クリア!":"KO!"):(P.ev?"+1":"−1"))+'</span>'+p74Svg(p74FoeArt(P,ti),"p74-bimg p74-mon"+(dead&&!P.ev?" ko":""))+'</div>';
+  var fn=p74FoeName(P,ti);g+='<p>'+(P.ev?'「'+esc(fn)+'」へ 1歩前進。'+(dead?'<b>「'+esc(fn)+'」をクリア！</b>':'のこり '+(x.ln-x.ld)+' / '+x.ln+' レッスン'):(sk?'技「'+esc(sk)+'」！ ':'')+esc(fn)+'に 1 ダメージ。'+(dead?'<b>'+esc(fn)+'を'+P.verb+'！</b>':'のこり HP '+(x.ln-x.ld)+' / '+x.ln))+'</p>'+(dead?'':p74Bar(x.ln-x.ld,x.ln,"red"));
   var news=[];
   if(A){
     for(var i=A.gear;i<B.gear;i++)news.push('<li><span>装備</span>'+esc(P.gear[i])+'</li>');
     for(var j=A.skills;j<B.skills;j++)news.push('<li><span>技</span>'+esc(P.sk[j])+'</li>');
     for(var k=A.allies;k<B.allies;k++)news.push('<li><span>仲間</span>'+esc(P.al[k].n)+'（'+esc(P.al[k].r)+'）が仲間になった！</li>');
-    for(var b=0;b<B.ch.length;b++)if(B.ch[b].beat&&!(A.ch[b]&&A.ch[b].beat))g+='<div class="p74-bossko">'+p74Svg(p74Boss(b),"p74-bimg ko")+'<b>ボス「'+esc(P74_BOSS[b].t)+'」を'+P.verb+'！</b></div>';
+    for(var b=0;b<B.ch.length;b++)if(B.ch[b].beat&&!(A.ch[b]&&A.ch[b].beat))g+='<div class="p74-bossko">'+p74Svg(p74BossArt(P,b),"p74-bimg"+(P.ev?"":" ko"))+'<b>'+(P.ev?'「'+esc(p74BossName(P,b))+'」をクリア！':'ボス「'+esc(p74BossName(P,b))+'」を'+P.verb+'！')+'</b></div>';
     if(B.stage>A.stage)g+='<div class="p74-up">'+p74Hero(P,B.stage,"p74-big")+'<b>「'+esc(P.titles[B.stage])+'」になった！</b></div>';
   }
-  if(P.hist){if(A&&B.stage>A.stage)g+='<div class="p74-newsc"><small>新しい場面が開いた！</small>'+p74SceneHtml(P,B.stage,true)+'<button type="button" class="p74-go" data-act="p74read">'+esc(p74Short(P))+'の物語をひらく</button></div>';else g+=p74StoryHint(P,B,false);}
+  if(P.story){if(A&&B.stage>A.stage)g+='<div class="p74-newsc"><small>'+(P.hist?'新しい場面が開いた！':'新しい話が開いた！')+'</small>'+p74SceneHtml(P,B.stage,true)+'<button type="button" class="p74-go" data-act="p74read">'+esc(p74Short(P))+'の物語をひらく</button></div>';else g+=p74StoryHint(P,B,false);}
   if(news.length)g+='<div class="p74-news"><small>手に入れたもの</small><ul>'+news.join("")+'</ul></div>';
   g+='</div>';
   return h.replace('<div class="p71-body">','<div class="p71-body">'+g);
@@ -12720,21 +13010,22 @@ function p74Fig(P,f,i){var m=/^(.+?)@(-?\d+)$/.exec(f),k=m?m[1]:f,x=m?+m[2]:90,s
   if(k==="h")svg=p74Person(P.st[Math.min(8,i)]);
   else if(/^a\d$/.test(k)){var a=P.al[+k.slice(1)];if(a)svg=a.animal?p74Animal(a.animal,a.c):p74Person(a.o);}
   else if(/^npc:/.test(k)&&P74_NPC[k.slice(4)])svg=p74Person(P74_NPC[k.slice(4)]);
+  else svg=p74Art(k);
   return {x:x,y:38,s:.62,svg:svg};}
 function p74ExHtml(ex,lab){return '<div class="p71-ex p74-ex">'+(lab?'<small class="p74-exl">'+esc(lab)+'</small>':'')+'<div><span class="p74-exru">'+esc(ex[0])+'</span>'+p71Spk(ex[0],"p74-exspk")+'</div><small>'+esc(ex[1])+'</small></div>';}
 function p74SceneHtml(P,i,noTitle){var s=P.story[i];if(!s)return "";
-  return '<div class="p74-sc"><div class="p74-scimg">'+p74Scene(s.fig.map(function(f){return p74Fig(P,f,i);}),{night:s.night,fire:s.fire})+'</div>'+(noTitle?'<b class="p74-sct">'+esc(s.t)+'</b>':'')+
-    '<div class="p74-scx">'+p74Paras(s.x)+'</div>'+(s.ex?p74ExHtml(s.ex,p74Short(P)+"で学ぶ例文"):'')+'</div>';}
+  return '<div class="p74-sc"><div class="p74-scimg">'+p74Scene(s.fig.map(function(f){return p74Fig(P,f,i);}),{night:s.night,fire:s.fire,yurt:P.hist?undefined:false,sea:P.id==="sea"})+'</div>'+(noTitle?'<b class="p74-sct">'+esc(s.t)+'</b>':'')+
+    '<div class="p74-scx">'+p74Paras(s.x)+'</div>'+(s.ex?p74ExHtml(s.ex,p74Short(P)+"で学ぶ例文"):'')+(s.nx?'<p class="p74-nx"><b>次回予告</b>'+esc(s.nx)+'</p>':'')+'</div>';}
 /* 次の場面まであと何テーマか */
 function p74StoryHint(P,S,btn){var st=S.stage;
-  if(st>=8)return '<div class="p74-hint"><span><small>'+esc(p74Short(P))+'の物語</small><b>すべての場面を読めます</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">読む</button>':'')+'</div>';
+  if(st>=8)return '<div class="p74-hint"><span><small>'+esc(p74Short(P))+'の物語</small><b>すべての'+(P.hist?'場面':'話')+'を読めます</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">読む</button>':'')+'</div>';
   var ch=S.ch.filter(function(c){return !c.beat;})[0],left=ch?ch.need-ch.done:0;
-  return '<div class="p74-hint"><span><small>次の場面「'+esc(P.story[st+1].t)+'」まで</small><b>あと '+left+' テーマ（ボス「'+esc(P74_BOSS[ch?ch.c:7].t)+'」）</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">物語</button>':'')+'</div>';}
-function p74StoryTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">ボスを倒すたびに、次の場面が開きます。場面ごとに解説と例文があり、例文の単語はタップすると意味が出ます。</p>';
+  return '<div class="p74-hint"><span><small>次の'+(P.hist?'場面':'話')+'「'+esc(P.story[st+1].t)+'」まで</small><b>あと '+left+' テーマ（'+(P.ev?'':'ボス')+'「'+esc(p74BossName(P,ch?ch.c:7))+'」）</b></span>'+(btn?'<button type="button" data-act="p74tab" data-val="story">物語</button>':'')+'</div>';}
+function p74StoryTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+(P.hist?'章をクリアするたびに、次の場面が開きます。場面ごとに解説と例文があり、例文の単語はタップすると意味が出ます。':'ボスを倒すたびに、次の話が開きます。')+'</p>';
   P.story.forEach(function(s,i){
     if(i<=st)h+='<details class="p74-scd"'+(i===st?' open id="p74newest"':'')+'><summary><b>'+esc(s.t)+'</b></summary>'+p74SceneHtml(P,i,false)+'</details>';
-    else h+='<div class="p74-sclock"><b>'+esc(s.t)+'</b><small>ボス「'+esc(P74_BOSS[i-1].t)+'」を倒すと開きます</small></div>';});
-  if(P.about)h+=S.stage>=8?'<div class="p74-about"><b>'+esc(P.about.t)+'</b>'+p74Paras(P.about.x)+'</div>':'<div class="p74-sclock"><b>'+esc(P.about.t)+'</b><small>すべてのボスを倒すと読めます</small></div>';
+    else h+='<div class="p74-sclock"><b>'+esc(s.t)+'</b><small>'+(P.ev?'「':'ボス「')+esc(p74BossName(P,i-1))+(P.ev?'」をクリアすると開きます':'」を倒すと開きます')+'</small></div>';});
+  if(P.about)h+=S.stage>=8?'<div class="p74-about"><b>'+esc(P.about.t)+'</b>'+p74Paras(P.about.x)+'</div>':'<div class="p74-sclock"><b>'+esc(P.about.t)+'</b><small>すべての章をクリアすると読めます</small></div>';
   return h;}
 function p74ExTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+esc(p74Short(P))+'で学ぶ例文です。スピーカーで読み上げ、単語をタップすると意味と形（格など）が出ます。場面が開くたびに増えます。</p>';
   P.story.forEach(function(s,i){if(i<=st&&s.ex)h+=p74ExHtml(s.ex,s.t);});
@@ -12744,7 +13035,7 @@ function p74ExTab(P,S){var st=Math.min(8,S.stage),h='<p class="p70-lead">'+esc(p
 function p74Dlg(pid,confirm){
   var P=P74_PATHS.filter(function(x){return x.id===pid;})[0];if(!P)return;
   var S=p74State(pid),own=p74Own(pid),h;
-  var now='Lv '+S.lv+' ・ ボス '+S.boss+' / 8 体 ・ 「'+esc(P.titles[S.stage])+'」';
+  var now='Lv '+S.lv+' ・ '+(P.ev?'章 '+S.boss+' / 8':'ボス '+S.boss+' / 8 体')+' ・ 「'+esc(P.titles[S.stage])+'」';
   if(!confirm){
     h='<b class="p74-dt">'+esc(P.name)+'</b><p>どちらから始めますか？</p>'+
       '<button type="button" class="p74-dbtn main" data-act="p74cont" data-pid="'+pid+'"><b>続きから</b><small>'+(own?'この道の冒険の続き：':'これまでのレッスンの進み具合を引きつぎます：')+now+'</small></button>'+
@@ -12777,6 +13068,8 @@ window.addEventListener("click",function(e){
 },true);
 /* ---------- 見た目（色はテーマ変数を使い、ダーク・ライトどちらでも読める） ---------- */
 (function(){var css=
+'.p74-nx{margin:10px 0 4px;padding:10px 12px;border-radius:12px;background:var(--card2,rgba(127,127,127,.1));font-size:14px;line-height:1.7}.p74-nx b{display:inline-block;margin-right:8px;padding:1px 8px;border-radius:999px;background:var(--accent);color:#fff;font-size:12px}'+
+
 '#p74dlg{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;padding:16px;box-sizing:border-box}.p74-dbox{width:100%;max-width:420px;background:var(--card);color:var(--ink);border-radius:18px;padding:16px;box-sizing:border-box;margin-bottom:max(8px,env(safe-area-inset-bottom))}.p74-dt{display:block;font-size:17px}.p74-dbox p{font-size:14px;line-height:1.7;margin:6px 0 10px;color:var(--ink)}'+
 '.p74-dbtn{display:block;width:100%;text-align:left;margin-top:8px;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:none;color:var(--ink);font:inherit;cursor:pointer}.p74-dbtn b{display:block;font-size:15px}.p74-dbtn small{display:block;font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:2px}.p74-dbtn.main{border:2px solid var(--accent)}.p74-dbtn.warn{background:#C0392B;border-color:#C0392B;color:#fff}.p74-dbtn.x{text-align:center;border:0;color:var(--muted)}'+
 '.p74-chg{display:inline-block;margin:6px 0 2px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--accent);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}.p74-curp{font-size:13.5px;color:var(--muted);margin:0 0 8px}'+
