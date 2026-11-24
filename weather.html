@@ -1680,7 +1680,7 @@ const SPOTS = {
     {id:"arslanbob", ja:"アルスランボブ", ru:"Арсланбоб", area:"ジャララバード州・クルミの森", lat:41.333, lon:72.935, el:1600},
   ],
 }[COUNTRY] || [];
-let spotWx = lsGet("kg-spots"+CFG.suffix);
+let spotWx = lsGet("kg-spots7"+CFG.suffix);
 async function loadSpots(){
   if(!SPOTS.length) return;
   try{
@@ -1688,7 +1688,7 @@ async function loadSpots(){
       latitude:SPOTS.map(p=>p.lat).join(","), longitude:SPOTS.map(p=>p.lon).join(","), elevation:SPOTS.map(p=>p.el).join(","),
       timezone:TZ, forecast_days:7, current:"temperature_2m,weather_code,is_day",
       daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,snowfall_sum"})));
-    spotWx = {t:Date.now(), data:j}; lsSet("kg-spots"+CFG.suffix, spotWx);
+    spotWx = {t:Date.now(), data:j}; lsSet("kg-spots7"+CFG.suffix, spotWx);
   }catch(e){}
   renderSpots();
 }
@@ -1714,7 +1714,7 @@ function renderSpots(){
 function renderSpotSheet(k){
   const p = SPOTS[k]; if(!p) return;
   const w = spotWx && spotWx.data && spotWx.data[k], cur = w && w.current, dl = w && w.daily;
-  let days = `<div class="nempty">予報を取得できませんでした。電波を確認して右上の更新ボタンを押してください。</div>`;
+  let days = `<div class="nempty">予報を取得できませんでした。電波を確認して、戻るボタンで一覧に戻り、右上の更新ボタンを押してください。</div>`;
   if(dl && dl.time){
     const lo = Math.min(...dl.temperature_2m_min), hi = Math.max(...dl.temperature_2m_max), span = Math.max(1, hi-lo);
     days = dl.time.map((t,j)=>{
