@@ -1537,7 +1537,7 @@ function renderInfra(nd){
       ? `<span class="tmain"><b>${KIND[(first.kinds||[])[0]]||"⚠️"}</b><i>${dayLabel(first.date)||""}${fh.time?" "+esc(fh.time):""}</i>${esc(hitLabel(first,fh))}：${esc(fh.text_ja||first.title_ja||"")}</span>`
         + `<span class="tsub">${items.length>1?`ほかに${items.length-1}件・`:""}タップで詳しく</span>`
     : sel.size
-      ? `<span class="tmain ok">今は何もありません（断水・停電・ガス・暖房）</span><span class="tsub">最終確認 ${checked}・${ms.checked||0}件のお知らせを確認・タップで詳しく</span>`
+      ? `<span class="tmain ok">今は何もありません</span><span class="tsub">断水・停電・ガス・暖房・最終確認 ${checked}・${ms.checked||0}件のお知らせを確認・タップで詳しく</span>`
       : `<span class="tmain">「通りを選ぶ・変える」から、気になる通りを選んでください</span>`;
   el.innerHTML = `<div class="mh"><span class="grow">📍 <b>MY STREET</b>　わたしの通り</span><span class="num">${news&&news.updated?ago(Date.parse(news.updated))+"に確認":""}</span></div>
     <div class="msel"><button class="pick" id="openPicker">📍 通りを選ぶ・変える ›</button>${myStreets.map(id=>`<span class="stag">${esc(shortSt(id))}</span>`).join("")}</div>
