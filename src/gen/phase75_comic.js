@@ -48,7 +48,7 @@ var _p75Tab=p74StoryTab;
 p74StoryTab=function(){return p75RdBar()+_p75Tab.apply(this,arguments);};
 var _p75Reader=p74Reader;
 p74Reader=function(){return p75RdBar()+_p75Reader.apply(this,arguments);};
-document.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="p75rd"]'):null;if(!el)return;
+window.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="p75rd"]'):null;if(!el)return;
   e.stopImmediatePropagation();e.preventDefault();p74S().rd=el.getAttribute("data-val");try{saveAll();}catch(_){}
   var m=document.getElementById("p70page"),sc=m&&m.querySelector(".p70-pbody"),y=sc?sc.scrollTop:0;p74Open(false);var sc2=document.querySelector("#p70page .p70-pbody");if(sc2)sc2.scrollTop=y;},true);
 (function(){try{var st=document.createElement("style");st.textContent=

@@ -86,6 +86,8 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 | phase76_manga / phase76_manas | 4コマの描き下ろし。M6（背景・ユルトの中・馬と乗り手・ゆりかご・ふきだし・集中線などの部品）と m6(人物,{face,pose,…})。p74Person に face（表情10種）・look・pose（fist/carry/hold/run など）・beld（既婚女性の巻きスカート）・olpok（マナスの白い戦衣）・braid（アルマンベトの金の三つ編み）を追加。P76[道] があれば p75Comic の自動4コマの代わりに使う（マナス・セメテイ・クルマンジャン・トクトグルは各9話×4コマ：phase76_semetey/kurmanjan/toktogul.js。実在の人物は本文の事実だけを描き、処刑やとらえられる場面は強く描かない。剣・魔法・王・武士・海も phase76_sword/magic/king/samurai/sea.js で9話×4コマ。M6.P は人物のかわりに p74Art のキー（"b:1" "an:cat:#色" "sea:kraken:#色"）も描ける）。服装の資料：UNESCO（ak-kalpak, elechek, shyrdak）、encyclocraftsapr.com、central-asia.guide、advantour、factsanddetails、Moldobaev 1979（アク・オルポク）、beutel.narod.ru・orexca（カヌケイ・アルマンベト・バカイ・チュバク）。絵は資料の写しではなく特徴だけを使ったオリジナル。 |
 | phase77_hear | 辞書を「耳で聞いた音」で引く。入力と単語帳の発音カナ（w.kana）を音のかぎ（p77Key：長音・っを消す、o→a、e→i、w/v→b、子音のあとの u/o を消す）にして編集距離で比べ、p73Score に「聞こえた音で一致」として足す。 |
 | phase77_entry | ホームの「学び方を選ぶ」（1 文法から学ぶ／2 冒険で1から全部〔進行中のストーリー名つき〕／3 まとめて周回）＋辞書・お気に入り。冒険の画面の上に「いま進行中のストーリー」と「ほかのストーリーを選ぶ（全9つ）」。文法解説書の各章に「この文法の練習問題を解く」（p77GpStart：その章の文法が出るレッスンの問題を10問。章専用の問題がない章は P77_GFB の近い章から）。「？」ボタン（p77Tip／P77_TIPS）で押すと出る注釈。 |
+| phase78_long1/long2 | 物語を「文章で読む」「両方」のときの少し長めの本文（P78_LONG[道][話]、s.xl）。実在の人物・叙事詩は phase74_hist の事実だけ＋文化の説明。本文の文字は17px・行間1.95。 |
+| phase78_dress / phase78_back | エレチェクの女性に巻きスカートを自動でつける。セメテイの少年時代はカルパク。冒険の画面の左上に「‹」（読む→一覧→地図→ホーム、選ぶ画面→冒険）。冒険・文法書から始めたレッスンはやめたら元の画面へ。phase75_comic の読み方ボタンは window のキャプチャで受ける（document だと先に止められて効かなかった）。 |
 | phase60 | クイズの出し方（ミックス／外国語→日本語／日本語→外国語）、記録画面の簡素化 |
 
 新しい機能は `src/gen/phase59.js` のように新しいファイルを作り、`build.py` の phase を連結している行に追加するのが安全です。
