@@ -36,7 +36,8 @@ p70RoadCard=function(){
     card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>なりたい姿を選んで冒険しよう</b><em>剣・魔法・王・武士・海／マナスなど物語と歴史</em></span><span class="p70-rcgo">›</span></button>';
   }else{
     var c=S.cur,ti=c?c.i:0,mon=c?p74FoeName(P,ti):"";var li=c?p74Next(ti):-1;
-    var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74FoeName(P,ti);li=p74Next(ti);}});
+    var ls=p71St().last,lx=-1;if(ls)S.list.forEach(function(x,k){if(x.cat===ls)lx=k;});
+    if(lx>=0){var pk=null;for(var q=0;q<S.list.length&&!pk;q++){var y=S.list[(lx+q)%S.list.length];if(!y.done)pk=y;}if(pk){c=pk;ti=pk.i;mon=p74FoeName(P,ti);li=p74Next(ti);}}
     card='<button type="button" class="p74-card" data-act="p71go" data-val="'+ti+'"><span class="p74-cart p74-duel">'+p74Hero(P,S.stage,"p74-cimg")+(c?p74Svg(p74FoeArt(P,ti),"p74-cimg p74-cmon"):'')+'</span>'+
       '<span class="p74-ctxt"><small>'+P74_NAME+'を続きから ・ '+esc(P.titles[S.stage])+' Lv '+S.lv+'</small>'+
       (c?'<b>'+(P.ev?'「'+esc(mon)+'」へ進む':esc(mon)+'とたたかう')+'</b><em>'+esc(c.cat)+' ・ 完了 '+c.ld+' / '+c.ln+' レッスン</em>'+p74Bar(c.ln-c.ld,c.ln,"red"):'<b>'+(P.ev?'すべての出来事をクリア！':'すべての敵を'+P.verb+'！')+'</b><em>'+esc(P.titles[8])+'になりました</em>')+'</span><span class="p70-rcgo">›</span></button>';
@@ -197,9 +198,13 @@ function p74Dlg(pid,confirm){
     h='<b class="p74-dt">'+esc(P.name)+'</b><p>どちらから始めますか？</p>'+
       '<button type="button" class="p74-dbtn main" data-act="p74cont" data-pid="'+pid+'"><b>続きから</b><small>'+(own?'この道の冒険の続き：':'これまでのレッスンの進み具合を引きつぎます：')+now+'</small></button>'+
       '<button type="button" class="p74-dbtn" data-act="'+(S.lessons?"p74fresh":"p74fresh2")+'" data-pid="'+pid+'"><b>最初から</b><small>この道の冒険を Lv 1 から始めます。単語の学習記録やお気に入りは消えません。</small></button>';
+  }else if(confirm!==2){
+    h='<b class="p74-dt">本当に最初からにしますか？（確認 1 / 2）</b><p>「'+esc(P.name)+'」の冒険の進み具合（'+now+'）が 0 に戻ります。<br>単語の学習記録、覚えた単語、お気に入りはそのまま残ります。</p>'+
+      '<button type="button" class="p74-dbtn warn" data-act="p74freshB" data-pid="'+pid+'"><b>最初から始める</b></button>'+
+      '<button type="button" class="p74-dbtn" data-act="p74cont" data-pid="'+pid+'"><b>やめて、続きから進める</b></button>';
   }else{
-    h='<b class="p74-dt">本当に最初からにしますか？</b><p>「'+esc(P.name)+'」の冒険の進み具合（'+now+'）が 0 に戻ります。<br>単語の学習記録、覚えた単語、お気に入りはそのまま残ります。</p>'+
-      '<button type="button" class="p74-dbtn warn" data-act="p74fresh2" data-pid="'+pid+'"><b>最初から始める</b></button>'+
+    h='<b class="p74-dt">最後の確認です（確認 2 / 2）</b><p>「'+esc(P.name)+'」の冒険を、本当に最初に戻しますか？<br>戻すと、いまの進み具合（'+now+'）には戻せません。</p>'+
+      '<button type="button" class="p74-dbtn warn" data-act="p74fresh2" data-pid="'+pid+'"><b>はい、最初に戻す</b></button>'+
       '<button type="button" class="p74-dbtn" data-act="p74cont" data-pid="'+pid+'"><b>やめて、続きから進める</b></button>';
   }
   h+='<button type="button" class="p74-dbtn x" data-act="p74dlgx">キャンセル</button>';
@@ -215,9 +220,10 @@ window.addEventListener("click",function(e){
   else if(a==="p74story"){s.mode="story";try{saveAll();}catch(_){}p74Open(!s.path);try{render();}catch(_){}}
   else if(a==="p74choose"){p74Open(true);}
   else if(a==="p74dlgx"){var d=document.getElementById("p74dlg");if(d)d.remove();}
+  else if(a==="p74freshB"){p74Dlg(el.getAttribute("data-pid"),2);}
   else if(a==="p74cont"||a==="p74fresh"||a==="p74fresh2"){var pid=el.getAttribute("data-pid");
-    if(a==="p74fresh"){p74Dlg(pid,true);return;}
-    var was=s.path;s.mode="story";s.path=pid;if(!s.own||typeof s.own!=="object")s.own={};if(a==="p74fresh2")s.own[pid]={};
+    if(a==="p74fresh"){p74Dlg(pid,1);return;}
+    var was=s.path;s.mode="story";s.path=pid;if(!s.own||typeof s.own!=="object")s.own={};if(a==="p74fresh2"){var lk=(+s.lvl||1)>1?pid+"@"+(+s.lvl):pid;s.own[lk]={};try{var rr=JSON.parse(localStorage.getItem(K.set+"_p71run")||"null");if(rr&&rr.ctx&&rr.ctx.indexOf(pid+"@")===0)localStorage.removeItem(K.set+"_p71run");}catch(_){}}
     try{saveAll();}catch(_){}var d2=document.getElementById("p74dlg");if(d2)d2.remove();P74_VIEW="map";p74Open(false);try{render();}catch(_){}
     var P2=p74Path();toast(a==="p74fresh2"?"「"+P2.name+"」を最初から始めます":(was&&was!==pid?"「"+P2.name+"」に変えました（続きから）":"「"+P2.name+"」を続きから進めます"));}
   else if(a==="p74read"){P74_VIEW="read";P74_RI=+(v||0);try{if(P71)p71Close();}catch(_){}p74Open(false);p74Top();}
@@ -257,7 +263,7 @@ window.addEventListener("click",function(e){
 '.p74-plain{display:flex;flex-direction:column;gap:2px;width:100%;margin-top:12px;padding:12px;border-radius:14px;border:1px dashed var(--line);background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p74-plain small{color:var(--muted);font-size:12px}.p74-toq{margin:0 0 12px;border-style:solid}'+
 '.p74-me{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--line)}.p74-mefig{flex:none;width:112px;height:140px;border-radius:14px;background:linear-gradient(180deg,#BFE3F2,#E7F3D8 70%,#B9D99A);display:flex;align-items:flex-end;justify-content:center}.p74-big{width:104px;height:138px}'+
 '.p74-meinfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.p74-meinfo>small{font-size:12px;color:var(--muted)}.p74-meinfo>b{font-size:20px}.p74-lv{font-weight:800;font-size:13px}.p74-stats{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.p74-stats span{font-size:11.5px;padding:3px 8px;border-radius:999px;border:1px solid var(--line)}.p74-stats b{font-size:13px}.p74-next{font-size:11.5px!important;line-height:1.5;margin-top:4px}'+
-'.p74-party{display:flex;gap:6px;margin:10px 0 0;overflow-x:auto}.p74-party span{flex:none;display:flex;flex-direction:column;align-items:center;width:58px}.p74-aimg{width:52px;height:66px}.p74-party small{font-size:10.5px;color:var(--muted);white-space:nowrap}'+
+'.p74-party{display:flex;gap:6px;margin:10px 0 0;overflow-x:auto}.p74-party span{flex:none;display:flex;flex-direction:column;align-items:center;width:58px}.p74-aimg{width:52px;height:66px}.p74-party small{font-size:10px;line-height:1.25;color:var(--muted);text-align:center;white-space:normal;overflow-wrap:anywhere;max-width:58px}'+
 '.p74-battle,.p74-res{margin-top:12px;padding:12px;border-radius:18px;border:1px solid var(--line);background:var(--card)}.p74-bfig{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:120px;border-radius:14px;background:linear-gradient(180deg,#2E3A5C,#55708F 60%,#6E8F5A 61%,#58764A);position:relative}'+
 '.p74-bimg{width:84px;height:112px}.p74-mon{transform:scaleX(-1)}.p74-vs{font-weight:900;color:#FFD34D;font-size:18px;align-self:center;text-shadow:0 2px 0 #2B2233}'+
 '.p74-btx{display:flex;flex-direction:column;gap:2px;margin-top:8px}.p74-btx small{font-size:12px;color:var(--muted)}.p74-btx b{font-size:16px}'+

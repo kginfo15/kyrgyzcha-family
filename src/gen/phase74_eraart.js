@@ -38,6 +38,14 @@ var P74_ROLES={
      oldman:{head:"tricorn",headc:"#3A3F58",body:{type:"coat",c:"#3A3F58",t:"#C9D3DD"},beard:"#E8EEF4",hair:"#E8EEF4"},
      oldwoman:{head:"bandana",headc:"#8C93A8",body:{type:"robe",c:"#5E6E7E",t:"#F6F1E1"},hair:"#C9D3DD",longhair:1}}
 };
+/* 道ごとに色と背景を変える（同じ時代の道でも、周回のたびに同じ絵にならないように）。男女のかぶり物の決まりは変えない */
+var P74_VAR="";
+var P74_PAL={
+ semetey:{man:"#7A2E3A",man2:"#3E5C76",woman:"#2C4A8F",woman2:"#9B5DA8",girl:"#3E8E5A",boy:"#B0632A",oldman:"#2F5E57",oldwoman:"#7E4A3E",hw2:"#7A2E3A",hg:"#2C4A8F"},
+ kurmanjan:{man:"#6E4A22",man2:"#4A6B3A",woman:"#5E3A7E",woman2:"#C25A3A",girl:"#2F7E8F",boy:"#7E6B2A",oldman:"#3A4A6E",oldwoman:"#6E5A4A",hw2:"#5E3A7E",hg:"#2F7E8F"},
+ toktogul:{man:"#2F5E3A",man2:"#5A3A6E",woman:"#8F2C4A",woman2:"#2C6E8F",girl:"#C7823E",boy:"#3A4A8F",oldman:"#6E3A2A",oldwoman:"#4A5A6E",hw2:"#8F2C4A",hg:"#3A4A8F"},
+ king:{man:"#2C4A8F",man2:"#8F2C2C",woman:"#5B4BB7",woman2:"#2E9E8F",girl:"#E5B53B",boy:"#8F2C2C",oldman:"#4A3A6E",oldwoman:"#6E5A4A"},
+ magic:{man:"#4A3A8F",man2:"#2E6E6E",woman:"#7E3A8F",woman2:"#3A6E8F",girl:"#5CB8B2",boy:"#6E4A8F",oldman:"#2E2E5E",oldwoman:"#5E3A5E"}};
 function p74EraOf(P){if(!P)return "";if(P.hist)return "kg";return {sword:"med",king:"med",magic:"med",samurai:"jp",sea:"sea"}[P.id]||"";}
 /* 背景（96×96） */
 function p74EraBg(era,o){o=o||{};var s='';
@@ -46,16 +54,26 @@ function p74EraBg(era,o){o=o||{};var s='';
   if(o.sun==="low")s+='<circle cx="18" cy="56" r="10" fill="#FFB84D"/><path d="M18 40v-6M6 46l-4-4M30 46l4-4" stroke="#FFB84D" stroke-width="2.4" stroke-linecap="round"/>';
   if(o.sun==="high")s+='<circle cx="48" cy="14" r="9" fill="#FFD34D"/><path d="M48 0v2M34 14h-4M62 14h4M38 4l-3-3M58 4l3-3" stroke="#FFD34D" stroke-width="2.4" stroke-linecap="round"/>';
   if(era==="sea")s+='<path d="M0 60h96v36H0z" fill="'+(o.night?"#1F3A5C":"#4F8FD8")+'"/><path d="M0 78h96v18H0z" fill="#E8D5A8"/><path d="M10 68q5-3 10 0M60 66q5-3 10 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/>';
-  else{s+='<path d="M0 62l18-20 12 10 16-18 20 22 12-10 18 16v38H0z" fill="'+(o.night?"#4A5878":(era==="kg"?"#9FB7C9":"#A9C3B0"))+'"/>';
-    if(era==="kg")s+='<path d="M42 38l4-4 4 6-3-1-1 2z" fill="#fff"/>';
-    s+='<path d="M0 70q48-8 96 0v26H0z" fill="'+(o.night?"#35502F":"#8DBF6A")+'"/>';}
+  else{var v=P74_VAR;
+    if(!o.night&&v==="toktogul")s+='<rect width="96" height="40" fill="#F6D9C9"/>';
+    if(!o.night&&v==="magic")s+='<rect width="96" height="44" fill="#DCD3F2"/><circle cx="14" cy="10" r="1.2" fill="#fff"/><circle cx="84" cy="16" r="1.2" fill="#fff"/>';
+    s+='<path d="M0 62l18-20 12 10 16-18 20 22 12-10 18 16v38H0z" fill="'+(o.night?"#4A5878":(v==="kurmanjan"?"#B7A9C9":v==="toktogul"?"#B9A3B8":v==="magic"?"#A79BC9":era==="kg"?"#9FB7C9":"#A9C3B0"))+'"/>';
+    if(era==="kg")s+='<path d="M42 38l4-4 4 6-3-1-1 2z" fill="#fff"/>'+(v==="kurmanjan"?'<path d="M60 36l6-8 6 10-4-2-2 3z" fill="#fff"/>':'');
+    if(v==="king")s+='<path d="M64 52v-12h4v-4h3v4h4v-4h3v4h4v12z" fill="#8C93A8" opacity=".8"/><path d="M71 52v-6h4v6" fill="#6E7890"/>';
+    if(v==="magic")s+='<path d="M14 54v-16h6v16zM13 38l4-9 4 9z" fill="#7E6EA8"/>';
+    s+='<path d="M0 70q48-8 96 0v26H0z" fill="'+(o.night?"#35502F":(v==="kurmanjan"?"#C9B45A":v==="toktogul"?"#9BBF7A":v==="magic"?"#7FAF8A":"#8DBF6A"))+'"/>';
+    if(v==="semetey"&&!o.night)s+='<path d="M0 66q48-6 96 0v5q-48-6-96 0z" fill="#4F8FD8"/>';
+    if(v==="toktogul"&&!o.night)s+='<path d="M60 96q4-14 22-26l4 2q-16 12-18 24z" fill="#6FAEDC"/>';
+    if(v==="sword")s+='<g fill="#4E7A3A"><path d="M6 72l6-16 6 16z"/><path d="M84 72l6-14 6 14z"/></g><path d="M11 72v4M89 72v4" stroke="#6E4A22" stroke-width="2"/>';
+    if(v==="samurai")s+='<path d="M80 74v-14" stroke="#6E4A22" stroke-width="2.4"/><path d="M70 62q10-8 20 0zM72 56q8-6 16 0z" fill="#3E7A4A"/>';}
   return s;}
 /* 人物を置く：x＝中心、高さ h（足もとは y=90） */
 function p74EraFig(o,x,h,opt){opt=opt||{};var sc=h/160,tx=x-60*sc,ty=90-150*sc;var inner=p74Person(o);
   if(opt.flip)inner='<g transform="translate(120 0) scale(-1 1)">'+inner+'</g>';
   if(opt.bow)inner='<g transform="rotate(16 60 146)">'+inner+'</g>';
   return '<g transform="translate('+tx.toFixed(1)+' '+ty.toFixed(1)+') scale('+sc.toFixed(3)+')"'+(opt.dim?' opacity=".45"':'')+'>'+inner+'</g>'+(opt.mark?'<path d="M'+(x-5)+' '+(ty+2)+'h10l-5 7z" fill="#F5B301" stroke="#2B2233" stroke-width="1"/>':'');}
-function p74R(era,role,pose){var o=JSON.parse(JSON.stringify(P74_ROLES[era][role]));if(pose)o.pose=pose;o.hand="none";o.off="none";return o;}
+function p74R(era,role,pose){var o=JSON.parse(JSON.stringify(P74_ROLES[era][role])),pl=P74_PAL[P74_VAR];
+  if(pl){if(pl[role])o.body.c=pl[role];if(o.head==="tebetei"){if(role==="woman2"&&pl.hw2)o.headc=pl.hw2;if(role==="girl"&&pl.hg)o.headc=pl.hg;}}if(pose)o.pose=pose;o.hand="none";o.off="none";return o;}
 /* 小さな記号 */
 var P74_IC={
  q:function(x,y){return '<circle cx="'+x+'" cy="'+y+'" r="8" fill="#3B82F6"/><text x="'+x+'" y="'+(y+4.5)+'" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" font-family="system-ui,sans-serif">?</text>';},
@@ -131,4 +149,4 @@ var P74_ERA_KEYS={
 };
 /* 差しかえた絵の svg（なければ null） */
 var P74_ERA_CACHE={};
-function p74EraArt(key,P){var e=p74EraOf(P),f=P74_ERA_KEYS[key];if(!e||!f)return null;var k=e+":"+key;if(!P74_ERA_CACHE[k])P74_ERA_CACHE[k]=p74EraSvg(f(e));return P74_ERA_CACHE[k];}
+function p74EraArt(key,P){var e=p74EraOf(P),f=P74_ERA_KEYS[key];if(!e||!f)return null;var k=P.id+":"+key;if(!P74_ERA_CACHE[k]){P74_VAR=P.id;try{P74_ERA_CACHE[k]=p74EraSvg(f(e));}finally{P74_VAR="";}}return P74_ERA_CACHE[k];}

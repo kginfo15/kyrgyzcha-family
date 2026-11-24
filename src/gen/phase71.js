@@ -210,7 +210,7 @@ function p71Render(){
   var S=P71;if(!S){m.className="";m.innerHTML="";document.body.classList.remove("p70-noscroll");return;}
   document.body.classList.add("p70-noscroll");
   var h='',foot='',x=S.steps[S.pos];
-  if(S.confirm){h='<div class="p71-body p71-center"><div class="p71-note"><h3>レッスンをやめますか？</h3><p>このレッスンの答えは記録されません。次はこのレッスンの最初から始まります。</p></div></div>';
+  if(S.confirm){h='<div class="p71-body p71-center"><div class="p71-note"><h3>レッスンをやめますか？</h3><p>ここまでの進み具合はこの端末に残ります。次にこのレッスンを開くと、やめたところから再開できます（レッスンを終えるまで、答えは学習記録には入りません）。</p></div></div>';
     foot='<button type="button" class="p71-sec" data-act="p71stay">続ける</button><button type="button" class="p71-main" data-act="p71close">やめる</button>';}
   else if(!x){h=p71Result();foot='<button type="button" class="p71-sec" data-act="p71close">ホームへ</button><button type="button" class="p71-main" data-act="p71again">道のりの続きへ</button>';}
   else{var w=WMAP[x.id];

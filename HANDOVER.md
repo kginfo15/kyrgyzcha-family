@@ -80,6 +80,9 @@ python3 -I src/kg/build_kg.py russian/index.html index.html kyrgyz/index.html
 | phase74_foes | 道ごとの敵とボス P74_FOES[道]（8章×{f:[敵2種], b:ボス}、絵は p74Art の書き方）、5つの冒険の道の物語 P74_TALES（序章＋8話、nx＝次回予告）、敵役の人物（P74_NPC に追加、rival:1）、海の生きもの p74Sea、出来事アイコン p74Ev。物語・歴史の道は P.ev=1 で「出来事をクリア」表示。実在の人物の出来事は場面の解説にある事実だけ |
 | phase74_eraart | 冒険モードのレッスンで、よく出る単語の絵（あいさつ・人・家族・家・村など46種、P74_ERA_KEYS）を道の時代の絵に差しかえる（p74EraArt(key,P)）。時代は kg（キルギスの歴史の道）・med（剣・魔法・王）・jp（武士）・sea（海）。役（man/man2/woman/woman2/girl/boy/oldman/oldwoman）ごとに男女で衣装を分ける：キルギスは男性＝カルパク、既婚女性＝エレチェク、若い女性・女の子＝テベテイ。動き（wave/bow など）で意味を出す。絵は1つだけ。それ以外の絵（車・電話など現代の物も）は元のまま。差しかえは phase74_quest.js の末尾の p66Fill の包み（#p71 の中・冒険モードのときだけ）。 |
 | phase74_quest | 冒険モード：settings.p74 {mode:"story"/"plain", path}。進み具合はレッスン記録から計算（テーマ＝敵、レッスン1つ＝1ダメージ、8章ごとにボス、ボス撃破数＝姿の段階）。道を変えても進み具合はそのまま。ストーリーなし＝従来の路線図 。hist の道は「物語」「例文」タブ、ボスを倒すとレッスン結果に新しい場面と解説（p74SceneHtml・p74StoryTab・p74ExTab・p74StoryHint）。道を選ぶと「続きから／最初から」。最初からは settings.p74.own[道] にその道だけの記録（学習記録は消さない、確認あり）。末尾で p66Fill を包み、冒険モードのレッスンの絵を時代の絵に差しかえる（phase74_eraart 参照、会話の場面 p74Talk は v52 で廃止）|
+| phase75_levels | 冒険モードの難易度（1見て選ぶ／2聞いて選ぶ／3文字を並べて書く／4聞いて書く／5文の形を書く）。p71Build を包んで pick→m:"hear"/"type"/"dict"、cloze/form→m:"ctype"（難易度5）に変え、x.m のある問題は p75Render で描く（文字タイル＋パソコンのキー入力）。settings.p74.lvl／clr（1周した最高の難易度、1周で次が開く・未開放も確認つきで選べる）。難易度2以上の進み具合は settings.p74.own["道@難易度"]。レッスンの途中再開：localStorage K.set+"_p71run" に P71 を保存、同じレッスンを開くと続きから。「道のりの続きへ」は冒険モードでは p74Road/p74Next で選ぶ。 |
+| phase75_comic | 物語の4コマ漫画（p75Comic：場面の fig からカメラ位置を変えた4コマ＋本文を4つに分けた文）。settings.p74.rd = both／comic／text（読む画面の上で切りかえ）。 |
+| phase75_guide | 文法解説書：settings.p72g {read:{章:日付}, bm:{id,y}}（読んだ✓・しおり）。新しい章「日本語の訳とずれるところ」(jpdiff、前置格の次)。穴埋め・形の問題で答える前に「文法解説書「〜」を読む」案内（p72Topics から）。クイズ中に開くと「クイズにもどる」。 |
 | phase60 | クイズの出し方（ミックス／外国語→日本語／日本語→外国語）、記録画面の簡素化 |
 
 新しい機能は `src/gen/phase59.js` のように新しいファイルを作り、`build.py` の phase を連結している行に追加するのが安全です。

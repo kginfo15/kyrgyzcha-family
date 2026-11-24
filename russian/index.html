@@ -10899,7 +10899,7 @@ function p71Render(){
   var S=P71;if(!S){m.className="";m.innerHTML="";document.body.classList.remove("p70-noscroll");return;}
   document.body.classList.add("p70-noscroll");
   var h='',foot='',x=S.steps[S.pos];
-  if(S.confirm){h='<div class="p71-body p71-center"><div class="p71-note"><h3>レッスンをやめますか？</h3><p>このレッスンの答えは記録されません。次はこのレッスンの最初から始まります。</p></div></div>';
+  if(S.confirm){h='<div class="p71-body p71-center"><div class="p71-note"><h3>レッスンをやめますか？</h3><p>ここまでの進み具合はこの端末に残ります。次にこのレッスンを開くと、やめたところから再開できます（レッスンを終えるまで、答えは学習記録には入りません）。</p></div></div>';
     foot='<button type="button" class="p71-sec" data-act="p71stay">続ける</button><button type="button" class="p71-main" data-act="p71close">やめる</button>';}
   else if(!x){h=p71Result();foot='<button type="button" class="p71-sec" data-act="p71close">ホームへ</button><button type="button" class="p71-main" data-act="p71again">道のりの続きへ</button>';}
   else{var w=WMAP[x.id];
@@ -12659,6 +12659,7 @@ var P74_NPC={
   child:{hand:"none",off:"none",head:"kalpak",body:{type:"chapan",c:"#2C5D8F",t:"#E8D5A8"},hair:"#2B2233"},
   alymbek:{hand:"whip",off:"none",head:"tebetei",headc:"#2C5D8F",body:{type:"chapan",c:"#2C5D8F",t:"#E8B923",fur:1},beard:"#2B2233",hair:"#2B2233"},
   officer:{hand:"none",off:"scroll",head:"none",body:{type:"coat",c:"#3A4A3A",t:"#C99A2E",epaulet:1},hair:"#8A6A4A",beard:"#8A6A4A"},
+  manbat:{hand:"staff",off:"none",head:"kalpak",body:{type:"chapan",c:"#4A5A6E",t:"#E8D5A8",fur:1},beard:"#C9D3DD",hair:"#C9D3DD"},
   mother:{hand:"none",off:"none",head:"elechek",body:{type:"chapan",c:"#5E6E7E",t:"#E8D5A8"},hair:"#2B2233"},
   people1:{hand:"none",off:"none",head:"kalpak",body:{type:"chapan",c:"#6B8E4E",t:"#E8D5A8"},hair:"#2B2233"},
   people2:{hand:"none",off:"basket",head:"bandana",headc:"#F6F1E1",body:{type:"chapan",c:"#C7823E",t:"#E8D5A8"},hair:"#2B2233",longhair:1}
@@ -12777,15 +12778,15 @@ P74_PATHS.push({id:"kurmanjan",hist:1,name:"クルマンジャン・ダトカの
    {hand:"bigscepter",off:"scroll",head:"elechek",body:{type:"royal",c:"#9B1B30",t:"#FFD34D"},hair:"#C9D3DD",cape:"#3A1F6E",aura:"#FFD34D",spark:1}],
   gear:["羊毛のかご","乗馬のむち","赤い毛皮の帽子","赤いチャパン","白い頭布エレチェク","銀の耳かざり","青いマント","刺しゅうの上着","指導者の杖","毛皮のえりの上着","紫のローブ","約束を書いたまき物","重みのある黒い上着","民からの贈り物の帯","金の帯どめ","アライの杖","女王の赤いローブ"],
   sk:["自分で決める勇気","馬上の早がけ","人をつなぐことば","落ち着いた判断","部族をまとめる声","争いを止める交渉","涙を見せない強さ","アライの知恵"],
-  al:[{n:"白い愛馬",r:"いつもいっしょの馬",animal:"horse",c:"#F2EEE4"},
-      {n:"アイダ",r:"若い騎手（この道のオリジナルの人物）",o:{hand:"whip",off:"none",head:"tebetei",headc:"#2C5D8F",body:{type:"chapan",c:"#2C5D8F",t:"#E8D5A8"},hair:"#2B2233",longhair:1}},
-      {n:"長老トゥルスン",r:"相談役（この道のオリジナルの人物）",o:P74_NPC.elder},
-      {n:"タカのボルクト",r:"鷹匠のタカ",animal:"hawk",c:"#8A5A2B"},
-      {n:"書記ナルギザ",r:"手紙を書く人（この道のオリジナルの人物）",o:{hand:"none",off:"scroll",head:"elechek",body:{type:"chapan",c:"#5CB8B2",t:"#E8D5A8"},hair:"#2B2233",glasses:1}}],
+  al:[{n:"父マンバトバイ",r:"父。家を出たクルマンジャンは、父のもとで暮らすことを選んだ（第1話）",o:P74_NPC.manbat},
+      {n:"夫アリムベク",r:"夫（1832年に結婚）。「ダトカ」の称号をもつアライの指導者。1862年に亡くなる",o:P74_NPC.alymbek},
+      {n:"息子カムチュベク",r:"とくにかわいがった息子。1895年、オシで処刑される（第6話）",o:{hand:"whip",off:"none",head:"kalpak",body:{type:"chapan",c:"#7A2E3A",t:"#E8B923"},hair:"#2B2233"}},
+      {n:"白い愛馬",r:"遊牧の暮らしと旅を支えた馬（名前はなく、この道で描いた馬）",animal:"horse",c:"#F2EEE4"},
+      {n:"鷹狩りのワシ",r:"キルギスに今も伝わる鷹狩りの文化から（この道で描いたワシ）",animal:"hawk",c:"#8A5A2B"}],
   story:[
    {t:"序章　アライの山々",fig:["h@100"],ex:["Курманжан живёт в горах.","クルマンジャンは山で暮らしています。"],
     x:"クルマンジャン・ダトカ（Курманжан датка）は、1811年5月22日、今のキルギス南部オシ州のアライ地方に生まれた、実在の女性です。当時この地域はコーカンド・ハン国という国の一部でした。\nこの道では、記録で確かめられる出来事をもとに、彼女の人生を紹介します。"},
-   {t:"第1話　自分で選んだ道",fig:["h@60","npc:jakyp@140"],ex:["Курманжан идёт домой.","クルマンジャンは家へ帰ります。"],
+   {t:"第1話　自分で選んだ道",fig:["h@60","npc:manbat@140"],ex:["Курманжан идёт домой.","クルマンジャンは家へ帰ります。"],
     x:"18歳のころ、クルマンジャンは会ったこともない男性と結婚させられそうになります。その人を好きになれなかった彼女は、いったん家を出たあと、父マンバトバイのもとで暮らすことを選びました。\n親が結婚相手を決めるのがふつうだった時代に、自分の気持ちで道を選んだことは、とてもめずらしいことでした。"},
    {t:"第2話　アリムベクとの結婚",fig:["h@60","npc:alymbek@130"],ex:["Алымбек — её муж.","アリムベクは彼女の夫です。"],
     x:"1832年、クルマンジャンは、アライ地方を治めていたアリムベク（Алымбек）と結婚します。アリムベクは「ダトカ」という位をもつ有力者でした。\nクルマンジャンは夫を支えながら、人々の暮らしや政治のことを学んでいきます。"},
@@ -12818,13 +12819,13 @@ P74_PATHS.push({id:"toktogul",hist:1,name:"トクトグルの道",goal:"村の�
    {hand:"komuz",off:"none",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#E8B923",fur:1},hair:"#2B2233",beard:"#2B2233"},
    {hand:"komuz",off:"scroll",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#FFD34D",fur:1},hair:"#8A8A8A",beard:"#8A8A8A",aura:"#5BAE6B"},
    {hand:"komuz",off:"scroll",head:"kalpak",body:{type:"royal",c:"#3E6E4A",t:"#FFD34D"},hair:"#E8EEF4",beard:"#E8EEF4",cape:"#7A1F2B",aura:"#FFD34D",spark:1}],
-  gear:["羊飼いのむち","小さなコムズ","白いカルパク","緑のチャパン","新しい弦","歌の手帳","旅の上着","青いチャパン","刺しゅうの帯","赤いチャパン","厚いフード","丈夫な旅の杖","毛皮のえりの上着","よく鳴るコムズ","金の糸の帯","記録された歌","人々のアクンの上着"],
+  gear:["羊飼いのむち","小さなコムズ","白いカルパク","緑のチャパン","新しい弦","コムズの袋","旅の上着","青いチャパン","刺しゅうの帯","赤いチャパン","厚いフード","丈夫な旅の杖","毛皮のえりの上着","よく鳴るコムズ","金の糸の帯","記録された歌","人々のアクンの上着"],
   sk:["母ゆずりの歌声","即興のひとふし","笑いの歌","まっすぐな歌","人の心をつかむ節","遠い空の歌","ふるさとの歌","人々の声の大合唱"],
-  al:[{n:"白い子馬",r:"村の子馬",animal:"horse",c:"#E9D9B8"},
-      {n:"アセル",r:"コムズ職人（この道のオリジナルの人物）",o:{hand:"none",off:"none",head:"bandana",headc:"#C7823E",body:{type:"chapan",c:"#C7823E",t:"#E8D5A8"},hair:"#2B2233",longhair:1}},
-      {n:"ベク",r:"旅の羊飼い（この道のオリジナルの人物）",o:{hand:"stick",off:"none",head:"kalpak",body:{type:"chapan",c:"#7E9C5A",t:"#E8D5A8"},hair:"#5A3A22"}},
-      {n:"雪ギツネ",r:"旅でなかよくなったキツネ",animal:"fox",c:"#E8EEF4"},
-      {n:"アイベク",r:"歌を書き留める若者（この道のオリジナルの人物）",o:{hand:"none",off:"book",head:"none",body:{type:"coat",c:"#2C5D8F",t:"#E8B923"},hair:"#2B2233",glasses:1}}],
+  al:[{n:"母ブルマ",r:"悲しみの歌をうたうコショクチュ。トクトグルの最初の先生（第2話）",o:P74_NPC.mother},
+      {n:"白い子馬",r:"村の暮らしの中の子馬（名前はなく、この道で描いた馬）",animal:"horse",c:"#E9D9B8"},
+      {n:"歌を聞く村の人々",r:"まずしい人々。トクトグルの歌を愛した（第3話）",o:P74_NPC.people1},
+      {n:"帰り道の友",r:"故郷へ帰る旅で友だちになったウズベクやカザフの人々（第6話）",o:{hand:"stick",off:"none",head:"bandana",headc:"#F6F1E1",body:{type:"robe",c:"#2C5D8F",t:"#E8D5A8"},hair:"#2B2233",beard:"#2B2233"}},
+      {n:"息子ババジャン",r:"2度目の結婚で生まれた息子。のちにトクトグル地区の画家になった",o:{hand:"none",off:"book",head:"kalpak",body:{type:"chapan",c:"#3E6E4A",t:"#E8D5A8"},hair:"#2B2233"}}],
   story:[
    {t:"序章　歌で語る人アクン",fig:["h@100"],fire:1,night:1,ex:["Акын поёт и играет.","アクンは歌い、演奏します。"],
     x:"キルギスには、その場で言葉を考えながら歌う詩人「アクン（акын）」がいます。トクトグル・サトゥルガノフ（Токтогул Сатылганов）は、アクンであり作曲家、そしてコムズ（3本の弦の楽器）の弾き手として知られる実在の人物です。\nこの道では、記録で確かめられる出来事をもとに、彼の人生を紹介します。"},
@@ -13173,6 +13174,14 @@ var P74_ROLES={
      oldman:{head:"tricorn",headc:"#3A3F58",body:{type:"coat",c:"#3A3F58",t:"#C9D3DD"},beard:"#E8EEF4",hair:"#E8EEF4"},
      oldwoman:{head:"bandana",headc:"#8C93A8",body:{type:"robe",c:"#5E6E7E",t:"#F6F1E1"},hair:"#C9D3DD",longhair:1}}
 };
+/* 道ごとに色と背景を変える（同じ時代の道でも、周回のたびに同じ絵にならないように）。男女のかぶり物の決まりは変えない */
+var P74_VAR="";
+var P74_PAL={
+ semetey:{man:"#7A2E3A",man2:"#3E5C76",woman:"#2C4A8F",woman2:"#9B5DA8",girl:"#3E8E5A",boy:"#B0632A",oldman:"#2F5E57",oldwoman:"#7E4A3E",hw2:"#7A2E3A",hg:"#2C4A8F"},
+ kurmanjan:{man:"#6E4A22",man2:"#4A6B3A",woman:"#5E3A7E",woman2:"#C25A3A",girl:"#2F7E8F",boy:"#7E6B2A",oldman:"#3A4A6E",oldwoman:"#6E5A4A",hw2:"#5E3A7E",hg:"#2F7E8F"},
+ toktogul:{man:"#2F5E3A",man2:"#5A3A6E",woman:"#8F2C4A",woman2:"#2C6E8F",girl:"#C7823E",boy:"#3A4A8F",oldman:"#6E3A2A",oldwoman:"#4A5A6E",hw2:"#8F2C4A",hg:"#3A4A8F"},
+ king:{man:"#2C4A8F",man2:"#8F2C2C",woman:"#5B4BB7",woman2:"#2E9E8F",girl:"#E5B53B",boy:"#8F2C2C",oldman:"#4A3A6E",oldwoman:"#6E5A4A"},
+ magic:{man:"#4A3A8F",man2:"#2E6E6E",woman:"#7E3A8F",woman2:"#3A6E8F",girl:"#5CB8B2",boy:"#6E4A8F",oldman:"#2E2E5E",oldwoman:"#5E3A5E"}};
 function p74EraOf(P){if(!P)return "";if(P.hist)return "kg";return {sword:"med",king:"med",magic:"med",samurai:"jp",sea:"sea"}[P.id]||"";}
 /* 背景（96×96） */
 function p74EraBg(era,o){o=o||{};var s='';
@@ -13181,16 +13190,26 @@ function p74EraBg(era,o){o=o||{};var s='';
   if(o.sun==="low")s+='<circle cx="18" cy="56" r="10" fill="#FFB84D"/><path d="M18 40v-6M6 46l-4-4M30 46l4-4" stroke="#FFB84D" stroke-width="2.4" stroke-linecap="round"/>';
   if(o.sun==="high")s+='<circle cx="48" cy="14" r="9" fill="#FFD34D"/><path d="M48 0v2M34 14h-4M62 14h4M38 4l-3-3M58 4l3-3" stroke="#FFD34D" stroke-width="2.4" stroke-linecap="round"/>';
   if(era==="sea")s+='<path d="M0 60h96v36H0z" fill="'+(o.night?"#1F3A5C":"#4F8FD8")+'"/><path d="M0 78h96v18H0z" fill="#E8D5A8"/><path d="M10 68q5-3 10 0M60 66q5-3 10 0" stroke="#fff" stroke-width="1.4" fill="none" opacity=".8"/>';
-  else{s+='<path d="M0 62l18-20 12 10 16-18 20 22 12-10 18 16v38H0z" fill="'+(o.night?"#4A5878":(era==="kg"?"#9FB7C9":"#A9C3B0"))+'"/>';
-    if(era==="kg")s+='<path d="M42 38l4-4 4 6-3-1-1 2z" fill="#fff"/>';
-    s+='<path d="M0 70q48-8 96 0v26H0z" fill="'+(o.night?"#35502F":"#8DBF6A")+'"/>';}
+  else{var v=P74_VAR;
+    if(!o.night&&v==="toktogul")s+='<rect width="96" height="40" fill="#F6D9C9"/>';
+    if(!o.night&&v==="magic")s+='<rect width="96" height="44" fill="#DCD3F2"/><circle cx="14" cy="10" r="1.2" fill="#fff"/><circle cx="84" cy="16" r="1.2" fill="#fff"/>';
+    s+='<path d="M0 62l18-20 12 10 16-18 20 22 12-10 18 16v38H0z" fill="'+(o.night?"#4A5878":(v==="kurmanjan"?"#B7A9C9":v==="toktogul"?"#B9A3B8":v==="magic"?"#A79BC9":era==="kg"?"#9FB7C9":"#A9C3B0"))+'"/>';
+    if(era==="kg")s+='<path d="M42 38l4-4 4 6-3-1-1 2z" fill="#fff"/>'+(v==="kurmanjan"?'<path d="M60 36l6-8 6 10-4-2-2 3z" fill="#fff"/>':'');
+    if(v==="king")s+='<path d="M64 52v-12h4v-4h3v4h4v-4h3v4h4v12z" fill="#8C93A8" opacity=".8"/><path d="M71 52v-6h4v6" fill="#6E7890"/>';
+    if(v==="magic")s+='<path d="M14 54v-16h6v16zM13 38l4-9 4 9z" fill="#7E6EA8"/>';
+    s+='<path d="M0 70q48-8 96 0v26H0z" fill="'+(o.night?"#35502F":(v==="kurmanjan"?"#C9B45A":v==="toktogul"?"#9BBF7A":v==="magic"?"#7FAF8A":"#8DBF6A"))+'"/>';
+    if(v==="semetey"&&!o.night)s+='<path d="M0 66q48-6 96 0v5q-48-6-96 0z" fill="#4F8FD8"/>';
+    if(v==="toktogul"&&!o.night)s+='<path d="M60 96q4-14 22-26l4 2q-16 12-18 24z" fill="#6FAEDC"/>';
+    if(v==="sword")s+='<g fill="#4E7A3A"><path d="M6 72l6-16 6 16z"/><path d="M84 72l6-14 6 14z"/></g><path d="M11 72v4M89 72v4" stroke="#6E4A22" stroke-width="2"/>';
+    if(v==="samurai")s+='<path d="M80 74v-14" stroke="#6E4A22" stroke-width="2.4"/><path d="M70 62q10-8 20 0zM72 56q8-6 16 0z" fill="#3E7A4A"/>';}
   return s;}
 /* 人物を置く：x＝中心、高さ h（足もとは y=90） */
 function p74EraFig(o,x,h,opt){opt=opt||{};var sc=h/160,tx=x-60*sc,ty=90-150*sc;var inner=p74Person(o);
   if(opt.flip)inner='<g transform="translate(120 0) scale(-1 1)">'+inner+'</g>';
   if(opt.bow)inner='<g transform="rotate(16 60 146)">'+inner+'</g>';
   return '<g transform="translate('+tx.toFixed(1)+' '+ty.toFixed(1)+') scale('+sc.toFixed(3)+')"'+(opt.dim?' opacity=".45"':'')+'>'+inner+'</g>'+(opt.mark?'<path d="M'+(x-5)+' '+(ty+2)+'h10l-5 7z" fill="#F5B301" stroke="#2B2233" stroke-width="1"/>':'');}
-function p74R(era,role,pose){var o=JSON.parse(JSON.stringify(P74_ROLES[era][role]));if(pose)o.pose=pose;o.hand="none";o.off="none";return o;}
+function p74R(era,role,pose){var o=JSON.parse(JSON.stringify(P74_ROLES[era][role])),pl=P74_PAL[P74_VAR];
+  if(pl){if(pl[role])o.body.c=pl[role];if(o.head==="tebetei"){if(role==="woman2"&&pl.hw2)o.headc=pl.hw2;if(role==="girl"&&pl.hg)o.headc=pl.hg;}}if(pose)o.pose=pose;o.hand="none";o.off="none";return o;}
 /* 小さな記号 */
 var P74_IC={
  q:function(x,y){return '<circle cx="'+x+'" cy="'+y+'" r="8" fill="#3B82F6"/><text x="'+x+'" y="'+(y+4.5)+'" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" font-family="system-ui,sans-serif">?</text>';},
@@ -13266,7 +13285,7 @@ var P74_ERA_KEYS={
 };
 /* 差しかえた絵の svg（なければ null） */
 var P74_ERA_CACHE={};
-function p74EraArt(key,P){var e=p74EraOf(P),f=P74_ERA_KEYS[key];if(!e||!f)return null;var k=e+":"+key;if(!P74_ERA_CACHE[k])P74_ERA_CACHE[k]=p74EraSvg(f(e));return P74_ERA_CACHE[k];}
+function p74EraArt(key,P){var e=p74EraOf(P),f=P74_ERA_KEYS[key];if(!e||!f)return null;var k=P.id+":"+key;if(!P74_ERA_CACHE[k]){P74_VAR=P.id;try{P74_ERA_CACHE[k]=p74EraSvg(f(e));}finally{P74_VAR="";}}return P74_ERA_CACHE[k];}
 
 /* ===== Phase74：道のりを「冒険」に（5つの成り上がりの道・モンスター・ボス・装備・技・仲間）。ストーリーなし（今までの路線図）も選べる =====
    記録：settings.p74 = {mode:"story"|"plain", path:"sword"…}。進み具合そのものはレッスンの記録（settings.p71.done）から毎回計算するので、
@@ -13306,7 +13325,8 @@ p70RoadCard=function(){
     card='<button type="button" class="p74-card" data-act="p70road"><span class="p74-cart">'+p74Svg(p74Person(P74_PATHS[0].st[0]),"p74-cimg")+'</span><span class="p74-ctxt"><small>'+P74_NAME+'をはじめる</small><b>なりたい姿を選んで冒険しよう</b><em>剣・魔法・王・武士・海／マナスなど物語と歴史</em></span><span class="p70-rcgo">›</span></button>';
   }else{
     var c=S.cur,ti=c?c.i:0,mon=c?p74FoeName(P,ti):"";var li=c?p74Next(ti):-1;
-    var ls=p71St().last;if(ls)S.list.forEach(function(x){if(x.cat===ls&&!x.done){c=x;ti=x.i;mon=p74FoeName(P,ti);li=p74Next(ti);}});
+    var ls=p71St().last,lx=-1;if(ls)S.list.forEach(function(x,k){if(x.cat===ls)lx=k;});
+    if(lx>=0){var pk=null;for(var q=0;q<S.list.length&&!pk;q++){var y=S.list[(lx+q)%S.list.length];if(!y.done)pk=y;}if(pk){c=pk;ti=pk.i;mon=p74FoeName(P,ti);li=p74Next(ti);}}
     card='<button type="button" class="p74-card" data-act="p71go" data-val="'+ti+'"><span class="p74-cart p74-duel">'+p74Hero(P,S.stage,"p74-cimg")+(c?p74Svg(p74FoeArt(P,ti),"p74-cimg p74-cmon"):'')+'</span>'+
       '<span class="p74-ctxt"><small>'+P74_NAME+'を続きから ・ '+esc(P.titles[S.stage])+' Lv '+S.lv+'</small>'+
       (c?'<b>'+(P.ev?'「'+esc(mon)+'」へ進む':esc(mon)+'とたたかう')+'</b><em>'+esc(c.cat)+' ・ 完了 '+c.ld+' / '+c.ln+' レッスン</em>'+p74Bar(c.ln-c.ld,c.ln,"red"):'<b>'+(P.ev?'すべての出来事をクリア！':'すべての敵を'+P.verb+'！')+'</b><em>'+esc(P.titles[8])+'になりました</em>')+'</span><span class="p70-rcgo">›</span></button>';
@@ -13467,9 +13487,13 @@ function p74Dlg(pid,confirm){
     h='<b class="p74-dt">'+esc(P.name)+'</b><p>どちらから始めますか？</p>'+
       '<button type="button" class="p74-dbtn main" data-act="p74cont" data-pid="'+pid+'"><b>続きから</b><small>'+(own?'この道の冒険の続き：':'これまでのレッスンの進み具合を引きつぎます：')+now+'</small></button>'+
       '<button type="button" class="p74-dbtn" data-act="'+(S.lessons?"p74fresh":"p74fresh2")+'" data-pid="'+pid+'"><b>最初から</b><small>この道の冒険を Lv 1 から始めます。単語の学習記録やお気に入りは消えません。</small></button>';
+  }else if(confirm!==2){
+    h='<b class="p74-dt">本当に最初からにしますか？（確認 1 / 2）</b><p>「'+esc(P.name)+'」の冒険の進み具合（'+now+'）が 0 に戻ります。<br>単語の学習記録、覚えた単語、お気に入りはそのまま残ります。</p>'+
+      '<button type="button" class="p74-dbtn warn" data-act="p74freshB" data-pid="'+pid+'"><b>最初から始める</b></button>'+
+      '<button type="button" class="p74-dbtn" data-act="p74cont" data-pid="'+pid+'"><b>やめて、続きから進める</b></button>';
   }else{
-    h='<b class="p74-dt">本当に最初からにしますか？</b><p>「'+esc(P.name)+'」の冒険の進み具合（'+now+'）が 0 に戻ります。<br>単語の学習記録、覚えた単語、お気に入りはそのまま残ります。</p>'+
-      '<button type="button" class="p74-dbtn warn" data-act="p74fresh2" data-pid="'+pid+'"><b>最初から始める</b></button>'+
+    h='<b class="p74-dt">最後の確認です（確認 2 / 2）</b><p>「'+esc(P.name)+'」の冒険を、本当に最初に戻しますか？<br>戻すと、いまの進み具合（'+now+'）には戻せません。</p>'+
+      '<button type="button" class="p74-dbtn warn" data-act="p74fresh2" data-pid="'+pid+'"><b>はい、最初に戻す</b></button>'+
       '<button type="button" class="p74-dbtn" data-act="p74cont" data-pid="'+pid+'"><b>やめて、続きから進める</b></button>';
   }
   h+='<button type="button" class="p74-dbtn x" data-act="p74dlgx">キャンセル</button>';
@@ -13485,9 +13509,10 @@ window.addEventListener("click",function(e){
   else if(a==="p74story"){s.mode="story";try{saveAll();}catch(_){}p74Open(!s.path);try{render();}catch(_){}}
   else if(a==="p74choose"){p74Open(true);}
   else if(a==="p74dlgx"){var d=document.getElementById("p74dlg");if(d)d.remove();}
+  else if(a==="p74freshB"){p74Dlg(el.getAttribute("data-pid"),2);}
   else if(a==="p74cont"||a==="p74fresh"||a==="p74fresh2"){var pid=el.getAttribute("data-pid");
-    if(a==="p74fresh"){p74Dlg(pid,true);return;}
-    var was=s.path;s.mode="story";s.path=pid;if(!s.own||typeof s.own!=="object")s.own={};if(a==="p74fresh2")s.own[pid]={};
+    if(a==="p74fresh"){p74Dlg(pid,1);return;}
+    var was=s.path;s.mode="story";s.path=pid;if(!s.own||typeof s.own!=="object")s.own={};if(a==="p74fresh2"){var lk=(+s.lvl||1)>1?pid+"@"+(+s.lvl):pid;s.own[lk]={};try{var rr=JSON.parse(localStorage.getItem(K.set+"_p71run")||"null");if(rr&&rr.ctx&&rr.ctx.indexOf(pid+"@")===0)localStorage.removeItem(K.set+"_p71run");}catch(_){}}
     try{saveAll();}catch(_){}var d2=document.getElementById("p74dlg");if(d2)d2.remove();P74_VIEW="map";p74Open(false);try{render();}catch(_){}
     var P2=p74Path();toast(a==="p74fresh2"?"「"+P2.name+"」を最初から始めます":(was&&was!==pid?"「"+P2.name+"」に変えました（続きから）":"「"+P2.name+"」を続きから進めます"));}
   else if(a==="p74read"){P74_VIEW="read";P74_RI=+(v||0);try{if(P71)p71Close();}catch(_){}p74Open(false);p74Top();}
@@ -13527,7 +13552,7 @@ window.addEventListener("click",function(e){
 '.p74-plain{display:flex;flex-direction:column;gap:2px;width:100%;margin-top:12px;padding:12px;border-radius:14px;border:1px dashed var(--line);background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p74-plain small{color:var(--muted);font-size:12px}.p74-toq{margin:0 0 12px;border-style:solid}'+
 '.p74-me{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;background:var(--card);border:1px solid var(--line)}.p74-mefig{flex:none;width:112px;height:140px;border-radius:14px;background:linear-gradient(180deg,#BFE3F2,#E7F3D8 70%,#B9D99A);display:flex;align-items:flex-end;justify-content:center}.p74-big{width:104px;height:138px}'+
 '.p74-meinfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.p74-meinfo>small{font-size:12px;color:var(--muted)}.p74-meinfo>b{font-size:20px}.p74-lv{font-weight:800;font-size:13px}.p74-stats{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.p74-stats span{font-size:11.5px;padding:3px 8px;border-radius:999px;border:1px solid var(--line)}.p74-stats b{font-size:13px}.p74-next{font-size:11.5px!important;line-height:1.5;margin-top:4px}'+
-'.p74-party{display:flex;gap:6px;margin:10px 0 0;overflow-x:auto}.p74-party span{flex:none;display:flex;flex-direction:column;align-items:center;width:58px}.p74-aimg{width:52px;height:66px}.p74-party small{font-size:10.5px;color:var(--muted);white-space:nowrap}'+
+'.p74-party{display:flex;gap:6px;margin:10px 0 0;overflow-x:auto}.p74-party span{flex:none;display:flex;flex-direction:column;align-items:center;width:58px}.p74-aimg{width:52px;height:66px}.p74-party small{font-size:10px;line-height:1.25;color:var(--muted);text-align:center;white-space:normal;overflow-wrap:anywhere;max-width:58px}'+
 '.p74-battle,.p74-res{margin-top:12px;padding:12px;border-radius:18px;border:1px solid var(--line);background:var(--card)}.p74-bfig{display:flex;align-items:flex-end;justify-content:center;gap:4px;height:120px;border-radius:14px;background:linear-gradient(180deg,#2E3A5C,#55708F 60%,#6E8F5A 61%,#58764A);position:relative}'+
 '.p74-bimg{width:84px;height:112px}.p74-mon{transform:scaleX(-1)}.p74-vs{font-weight:900;color:#FFD34D;font-size:18px;align-self:center;text-shadow:0 2px 0 #2B2233}'+
 '.p74-btx{display:flex;flex-direction:column;gap:2px;margin-top:8px}.p74-btx small{font-size:12px;color:var(--muted)}.p74-btx b{font-size:16px}'+
@@ -13555,6 +13580,305 @@ var st=document.createElement("style");st.textContent=css;document.head.appendCh
       if(sv){d.textContent="";d.innerHTML=sv;d.classList.add("p66-img","p67-art");return;}}
   }catch(_){}return _f.apply(this,arguments);};
 })();
+
+/* ===== Phase75：冒険モードの「難易度（5段階）」と「レッスンの途中から再開」 =====
+   難易度：単語とレッスンは同じまま、問題の形だけを難しくする。
+     1 見て選ぶ（今まで通り）／2 聞いて選ぶ／3 文字を並べて書く／4 聞いて書く／5 文の形を書く
+   基本は難易度1から。どこかの道を1周（全テーマ完了）すると次の難易度が開く。まだ開いていない難易度も、確認のうえで選べる。
+   難易度ごとに道の進み具合は別（settings.p74.own["道@難易度"]）。難易度1は今までの記録のまま。
+   記録：settings.p74.lvl（いまの難易度）、settings.p74.clr（1周した最高の難易度）。
+   途中再開：レッスンの途中でやめても、その端末の localStorage（K.set+"_p71run"）に問題と答えの状態を残し、
+   同じレッスンを開くと続きから始まる。個人情報は含まない（単語のIDと正誤だけ）。 */
+var P75_LV=[
+ {n:"見て選ぶ",d:"絵と意味を見て、言葉を4つから選びます（今まで通り）"},
+ {n:"聞いて選ぶ",d:"文字は見ずに音だけを聞いて、意味を選びます"},
+ {n:"文字を並べて書く",d:"絵と意味を見て、文字を並べて言葉を自分で書きます"},
+ {n:"聞いて書く",d:"音だけを聞いて、文字を並べて言葉を書きます（書き取り）"},
+ {n:"文の形を書く",d:"聞いて書く＋文の空欄に入る形（格・活用）を選ばずに自分で書きます"}];
+function p75Lv(){var s=p74S(),v=+s.lvl||1;return p74Story()&&p74Path()?Math.max(1,Math.min(5,v)):1;}
+function p75Clr(){return Math.max(0,Math.min(5,+p74S().clr||0));}
+function p75Open(l){return l<=p75Clr()+1;}
+/* 難易度2以上は、道と難易度ごとの記録で数える */
+var _p75Own=p74Own;
+p74Own=function(pid){var s=p74S();pid=pid||s.path;var l=(+s.lvl||1);if(!p74Story()||l<2)return _p75Own(pid);
+  if(!s.own||typeof s.own!=="object")s.own={};var k=pid+"@"+l;if(!s.own[k]||typeof s.own[k]!=="object")s.own[k]={};return s.own[k];};
+/* ---------- 問題の形を難易度に合わせて変える ---------- */
+var P75_EXTRA="абвгдеёжзийклмнопрстуфхцчшщыьэюя";
+function p75Tiles(t){var a=p71Plain(t).toLowerCase().split("").filter(function(c){return c!==" ";}),ex=[];
+  for(var i=0;i<Math.min(3,Math.max(2,Math.round(a.length/3)));i++)ex.push(P75_EXTRA[Math.floor(Math.random()*P75_EXTRA.length)]);
+  var sp=/ /.test(t)?[" "]:[];return shuffle(a.concat(ex,sp));}
+var _p75Build=p71Build;
+p71Build=function(ti,li){var S=_p75Build.apply(this,arguments);var l=p75Lv();if(!S||l<2||S.fav)return S;S.lv=l;
+  S.steps.forEach(function(x){
+    if(x.t==="pick"){x.m=l===2?"hear":(l===3?"type":"dict");}
+    else if(l===5&&(x.t==="cloze"||x.t==="form")&&x.c&&x.c.f){x.m="ctype";}
+    if(x.m&&x.m!=="hear"){var w=WMAP[x.id];x.ans=p71Plain(x.m==="ctype"?x.c.f.surface:(w.accent||w.word));x.tiles=p75Tiles(x.ans);}});
+  return S;};
+/* ---------- 描画 ---------- */
+function p75Eq(a,b){var f=function(t){return p71N(t).replace(/\s+/g,"");};return f(a)===f(b);}
+function p75Built(S){return (S.inp||[]).map(function(i){return S.cur.tiles[i];}).join("");}
+function p75Render(m,S,x){
+  var w=WMAP[x.id],h='',foot='',done=S.picked!==null;
+  if(S._said!==S.pos&&(x.m==="hear"||x.m==="dict")){S._said=S.pos;setTimeout(function(){try{speak(w.accent||w.word);}catch(_){}},250);}
+  var big='<button type="button" class="p75-play" data-act="p75say" aria-label="もう一度聞く"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8q3 4 0 8M18.5 5.5q5 6.5 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><small>もう一度聞く</small></button>';
+  var tag='<div class="p71-tag">'+(x.rev?'おさらい・':'')+'難易度'+S.lv+' ・ ';
+  if(x.m==="hear"){
+    h='<div class="p71-body">'+tag+'聞こえた言葉の意味は？</div><div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean"><b>'+esc(w.accent||w.word)+'</b></div>':big)+(done?p71Stamp(S.picked===x.id?1:0):'')+'</div><div class="p71-opts">'+
+      x.opts.map(function(o,i){var st=done?(o===x.id?"right":(o===S.picked?"wrong":"dim")):"";var W=WMAP[o];
+        return '<div class="p71-orow"><button type="button" class="p71-opt '+st+'" data-act="p71pick" data-val="'+i+'"><span>'+esc(W.meaning||"")+'</span>'+(done&&(o===x.id||o===S.picked)?'<small>'+esc(W.accent||W.word)+'</small>':'')+'</button></div>';}).join("")+'</div></div>';
+    foot=done?'<button type="button" class="p71-main" data-act="p71next">次へ</button>':'<div class="p71-wait">選んでください</div>';
+  }else{
+    S.cur=x;var b=p75Built(S),ok=done&&p75Eq(S.picked,x.ans);
+    var q='';
+    if(x.m==="type")q='<div class="p71-q">'+p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>'+(done?p71Stamp(ok?1:0):'')+'</div>';
+    else if(x.m==="dict")q='<div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>':big)+(done?p71Stamp(ok?1:0):'')+'</div>';
+    else{var c=x.c;q='<div class="p71-paper"><div class="p71-sent">'+p71Sentence(c,done?p71Plain(c.f.surface):null,done?(ok?"ok":"ng"):"")+'</div><div class="p71-ja">'+esc(c.ja)+'</div>'+(done?p71Spk(p71Plain(c.f.toks.join("")))+p71Stamp(ok?1:0):(p71N(c.f.surface)!==p71N(w.word)?'<p class="p75-hint">使う言葉：<b>'+esc(w.accent||w.word)+'</b>（'+esc(w.meaning||"")+'）を、文に合う形にして書きます</p>':'<p class="p75-hint">空欄の意味：<b>'+esc(w.meaning||"")+'</b></p>'))+'</div>';}
+    h='<div class="p71-body">'+tag+(x.m==="type"?'絵と意味に合う言葉を書こう':x.m==="dict"?'聞こえた言葉を書こう':'空欄に入る形を書こう')+'</div>'+q+
+      '<div class="p75-ans'+(done?(ok?" ok":" ng"):"")+'">'+(b?esc(b).replace(/ /g,"&nbsp;"):'<span>下の文字をタップ</span>')+'</div>';
+    if(!done){h+='<div class="p75-tiles">'+x.tiles.map(function(t,i){var u=(S.inp||[]).indexOf(i)>=0;return '<button type="button" class="p75-tile'+(u?" used":"")+'" data-act="p75tile" data-val="'+i+'"'+(u?" disabled":"")+'>'+(t===" "?"␣":esc(t))+'</button>';}).join("")+'</div>'+
+      '<div class="p75-row"><button type="button" class="p75-sm" data-act="p75back">1文字けす</button><button type="button" class="p75-sm" data-act="p75clear">全部けす</button></div><p class="p71-small">余分な文字も混ざっています。アクセント記号は気にしなくて大丈夫です。</p>';
+      foot='<button type="button" class="p71-main" data-act="p75check"'+(b?'':' disabled')+'>答え合わせ</button>';}
+    else{h+=(ok?'':'<div class="p71-exp"><p>正解：<b>'+esc(x.m==="ctype"?x.ans:(w.accent||w.word))+'</b>　'+esc(w.meaning||"")+'</p>'+(w.simpleExp&&x.m!=="ctype"?'<p class="p71-det">'+esc(w.simpleExp)+'</p>':'')+'</div>')+(x.m==="ctype"?p71Explain(x,w):'');
+      foot='<button type="button" class="p71-main" data-act="p71next">次へ</button>';}
+    h+='</div>';
+  }
+  m.innerHTML='<div class="p71-wrap">'+p71Head()+'<div class="p71-scroll">'+h+'</div><div class="p71-foot">'+foot+'</div></div>';
+  m.className="show";document.body.classList.add("p70-noscroll");p71FillPics(m);try{p72Wrap(m);}catch(_){}
+  var sc=m.querySelector(".p71-scroll");if(sc&&S._top!==S.pos+"/"+S.stage){sc.scrollTop=0;S._top=S.pos+"/"+S.stage;}
+}
+var _p75Render=p71Render;
+p71Render=function(){var S=P71,x=S&&!S.confirm&&S.steps[S.pos];
+  if(x&&x.m){var m=document.getElementById("p71");if(!m){m=document.createElement("div");m.id="p71";document.body.appendChild(m);}try{p72PopClose();}catch(_){}p75Render(m,S,x);}
+  else _p75Render.apply(this,arguments);
+  p75Save();};
+var _p75Next=p71Next;
+p71Next=function(){if(P71){P71.inp=[];}return _p75Next.apply(this,arguments);};
+function p75Check(){var S=P71,x=S&&S.steps[S.pos];if(!x||!x.m||S.picked!==null)return;var b=p75Built(S);if(!b)return;
+  S.picked=b;var ok=p75Eq(b,x.ans);p71Grade(x,ok);var cp=S.steps[S.steps.length-1];if(!ok&&cp&&cp.again&&cp.id===x.id&&cp.tiles)cp.tiles=shuffle(cp.tiles.slice());
+  try{speak(x.m==="ctype"?p71Plain(x.c.f.toks.join("")):x.ans);}catch(_){}p71Render();}
+document.addEventListener("click",function(e){
+  var el=e.target&&e.target.closest?e.target.closest("[data-act]"):null;if(!el)return;var a=el.getAttribute("data-act"),v=el.getAttribute("data-val");
+  if(!/^p75/.test(a))return;e.stopImmediatePropagation();e.preventDefault();var S=P71,x=S&&S.steps[S.pos];
+  if(a==="p75say"){if(x)try{speak(WMAP[x.id].accent||WMAP[x.id].word);}catch(_){}}
+  else if(a==="p75tile"){if(!S||S.picked!==null)return;S.inp=S.inp||[];if(S.inp.indexOf(+v)<0)S.inp.push(+v);p71Render();}
+  else if(a==="p75back"){if(S&&S.inp&&S.picked===null){S.inp.pop();p71Render();}}
+  else if(a==="p75clear"){if(S&&S.picked===null){S.inp=[];p71Render();}}
+  else if(a==="p75check")p75Check();
+  else if(a==="p75lv")p75Dlg(0);
+  else if(a==="p75set"){var l=+v;if(!p75Open(l)&&el.getAttribute("data-ok")!=="1"){p75Dlg(l);return;}
+    p74S().lvl=l;try{saveAll();}catch(_){}var d=document.getElementById("p74dlg");if(d)d.remove();p74Open(false);try{render();}catch(_){}toast("難易度"+l+"「"+P75_LV[l-1].n+"」にしました");}
+},true);
+/* パソコンのキーボードでも入力できる（ロシア語の文字・Backspace・Enter） */
+document.addEventListener("keydown",function(e){var S=P71,x=S&&!S.confirm&&S.steps[S.pos];if(!x||!x.m||x.m==="hear"||S.picked!==null)return;
+  if(e.target&&/input|textarea/i.test(e.target.tagName))return;
+  if(e.key==="Backspace"){e.preventDefault();(S.inp=S.inp||[]).pop();p71Render();return;}
+  if(e.key==="Enter"){e.preventDefault();p75Check();return;}
+  var k=String(e.key||"").toLowerCase();if(k.length!==1)return;if(k===" ")e.preventDefault();
+  S.inp=S.inp||[];for(var i=0;i<x.tiles.length;i++){if(x.tiles[i]===k&&S.inp.indexOf(i)<0){S.inp.push(i);p71Render();return;}}});
+/* ---------- 難易度を選ぶ ---------- */
+function p75Dlg(ask){
+  var cur=p75Lv(),h;
+  if(!ask){h='<b class="p74-dt">難易度を選ぶ</b><p>単語とレッスンは同じで、問題の形が変わります。難易度ごとに、道の進み具合は別に記録されます。どこかの道を1周すると、次の難易度が開きます。</p>'+
+    P75_LV.map(function(L,i){var l=i+1,op=p75Open(l);return '<button type="button" class="p74-dbtn'+(l===cur?" main":"")+'" data-act="p75set" data-val="'+l+'"><b>'+'★'.repeat(l)+'　'+esc(L.n)+(l===cur?'（いま）':'')+(op?'':' 🔒')+'</b><small>'+esc(L.d)+'</small></button>';}).join("");}
+  else{h='<b class="p74-dt">難易度'+ask+'はまだ開いていません</b><p>ふつうは、難易度'+(ask-1)+'でどこかの道を1周すると開きます。それでも難易度'+ask+'「'+esc(P75_LV[ask-1].n)+'」で始めますか？</p>'+
+    '<button type="button" class="p74-dbtn warn" data-act="p75set" data-val="'+ask+'" data-ok="1"><b>難易度'+ask+'で始める</b></button><button type="button" class="p74-dbtn" data-act="p75lv"><b>もどる</b></button>';}
+  h+='<button type="button" class="p74-dbtn x" data-act="p74dlgx">キャンセル</button>';
+  var d=document.getElementById("p74dlg");if(!d){d=document.createElement("div");d.id="p74dlg";document.body.appendChild(d);}
+  d.innerHTML='<div class="p74-dbox" role="dialog" aria-modal="true">'+h+'</div>';}
+var _p75Main=p74Main;
+p74Main=function(){var h=_p75Main.apply(this,arguments);var l=p75Lv();
+  return '<button type="button" class="p75-lvbar" data-act="p75lv"><span>難易度</span><b>'+'★'.repeat(l)+'<i>'+'★'.repeat(5-l)+'</i></b><em>'+esc(P75_LV[l-1].n)+'</em><small>変える ›</small></button>'+h;};
+/* 1周したら次の難易度を開く */
+var _p75Fin=p71Finish;
+p71Finish=function(){var S=P71,o=_p75Fin.apply(this,arguments);
+  try{if(S&&!S.fav&&p74Story()&&p74Path()){var st=p74State();if(!st.cur){var s=p74S(),l=p75Lv();if(l>(+s.clr||0)){s.clr=l;try{saveAll();}catch(_){}if(l<5)setTimeout(function(){toast("1周クリア！難易度"+(l+1)+"「"+P75_LV[l].n+"」が開きました");},600);}}}}catch(_){}
+  try{localStorage.removeItem(P75_RKEY);}catch(_){}return o;};
+/* ---------- レッスンの途中から再開 ---------- */
+var P75_RKEY=K.set+"_p71run";
+function p75Ctx(){return (p74Story()&&p74Path()?p74S().path:"plain")+"@"+p75Lv();}
+function p75Save(){var S=P71;try{
+  if(!S||S.fav||S.fin)return;if(S.pos>=S.steps.length)return;if(S.pos===0&&S.picked===null)return;
+  var c={};for(var k in S)if(k!=="confirm"&&k!=="cur"&&k!=="_top"&&k!=="_said")c[k]=S[k];
+  localStorage.setItem(P75_RKEY,JSON.stringify({ctx:p75Ctx(),S:c}));}catch(_){}}
+function p75Load(){try{var r=JSON.parse(localStorage.getItem(P75_RKEY)||"null");if(r&&r.S&&r.ctx===p75Ctx()&&r.S.steps&&r.S.steps.length)return r.S;}catch(_){}return null;}
+var _p75Start=p71Start;
+p71Start=function(ti,li){var R=p75Load();
+  if(R&&(ti==null||ti<0||+ti===R.ti)&&(li==null||li<0||+li===R.li)&&P47_THEMES[R.ti]){
+    try{P74_SNAP=p74State();}catch(_){P74_SNAP=null;}
+    R.picked=null;R.picked2=null;R.stage=0;R.inp=[];R.confirm=false;R.fin=0;try{p70ClosePage();}catch(_){}
+    P71=R;p71Render();toast("前回やめたところから再開します");return;}
+  return _p75Start.apply(this,arguments);};
+/* 「道のりの続きへ」：冒険モードでは、この道（と難易度）の記録で次を選ぶ */
+window.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="p71again"]'):null;if(!el||!P71||P71.fav||!p74Story()||!p74Path())return;
+  e.stopImmediatePropagation();e.preventDefault();var S=P71;P71=null;var R=p74Road(),ti=p74Next(S.ti)>=0?S.ti:(R.cur<0?S.ti:R.cur);
+  if(S.cele)setTimeout(function(){try{p53Celebrate();}catch(_){}},300);p71Start(ti);},true);
+/* ホーム：途中のレッスンがあれば、そのテーマへ */
+var _p75Card=p70RoadCard;
+p70RoadCard=function(){var h=String(_p75Card.apply(this,arguments)),R=p75Load();
+  if(p74Story()&&p74Path()){var l=p75Lv();h=h.replace(P74_NAME+'を続きから ・ ',P74_NAME+'を続きから ・ ★'+l+' ・ ');}
+  if(R){h=h.replace(/(class="p7[04]-(?:road)?card" data-act="p71go" data-val=")\d+(")/,"$1"+R.ti+"$2").replace(/を続きから ・ /,'を続きから（レッスン '+(R.li+1)+' の途中から） ・ ');}
+  return h;};
+(function(){try{var st=document.createElement("style");st.textContent=
+'.p75-play{display:flex;flex-direction:column;align-items:center;gap:4px;margin:10px auto;padding:18px 26px;border-radius:20px;border:2px solid var(--accent);background:transparent;color:var(--accent);font:inherit;font-weight:800;cursor:pointer}.p75-play small{font-size:12px}'+
+'.p75-ans{min-height:52px;margin:12px 0 8px;padding:10px 14px;border-radius:14px;border:2px dashed var(--line);font-size:26px;font-weight:800;text-align:center;color:var(--ink);letter-spacing:.04em;word-break:break-all}.p75-ans span{font-size:14px;font-weight:600;color:var(--muted);letter-spacing:0}.p75-ans.ok{border:2px solid #2E9E5B}.p75-ans.ng{border:2px solid #D0473A}'+
+'.p75-tiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.p75-tile{min-width:44px;height:48px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 2px 0 var(--line)}.p75-tile.used{opacity:.25}'+
+'.p75-row{display:flex;gap:8px;justify-content:center;margin-top:10px}.p75-sm{border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer}'+
+'.p75-hint{font-size:13px;color:var(--muted);margin:8px 0 0}.p75-hint b{color:var(--ink)}'+
+'.p75-lvbar{display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box;margin:0 0 12px;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer;text-align:left}.p75-lvbar span{font-size:12px;color:var(--muted);font-weight:700}.p75-lvbar b{color:#E0A100;letter-spacing:1px}.p75-lvbar b i{font-style:normal;color:var(--line)}.p75-lvbar em{flex:1;font-style:normal;font-weight:800;font-size:14px}.p75-lvbar small{color:var(--accent);font-weight:800;font-size:13px}'+
+'.p71-main[disabled]{opacity:.45}';
+document.head.appendChild(st);}catch(_){}})();
+
+/* ===== Phase75：物語を「4コマ漫画風」でも読めるようにする =====
+   それぞれの話の場面（P.story[i].fig）から、カメラの位置を変えた4コマを作る。
+   1コマ目＝場面全体、2コマ目＝相手の顔のアップ、3コマ目＝主人公のアップ（動きをつける）、4コマ目＝しめの場面。
+   本文は4つに分けて、各コマの下に入れる。絵はすべてこのアプリのオリジナル（p74Person など）。
+   読み方：settings.p74.rd = "both"（4コマ＋文章・最初の設定）／"comic"（4コマだけ）／"text"（文章だけ）。 */
+function p75Rd(){var v=p74S().rd;return v==="text"||v==="comic"?v:"both";}
+function p75Split(x){
+  var ss=[];String(x||"").split("\n").forEach(function(par){var buf="",q=0;
+    for(var k=0;k<par.length;k++){var ch=par[k];buf+=ch;if(ch==="「")q++;if(ch==="」")q=Math.max(0,q-1);if((ch==="。"||ch==="！"||ch==="？")&&q===0&&par[k+1]!=="」"){ss.push(buf);buf="";}}
+    if(buf.trim())ss.push(buf);});
+  ss=ss.map(function(t){return t.trim();}).filter(Boolean);
+  if(ss.length<=4){while(ss.length<4)ss.push("");return ss;}
+  /* 文字数がなるべく均等になるように4つに分ける */
+  var tot=ss.reduce(function(a,t){return a+t.length;},0),out=["","","",""],acc=0,g=0;
+  ss.forEach(function(t,k){var left=ss.length-k;if(g<3&&acc>=tot*(g+1)/4&&out[g])g++;if(3-g>=left&&out[g])g++;g=Math.min(3,g);out[g]+=t;acc+=t.length;});
+  return out;}
+function p75Comic(P,i){var s=P.story[i];if(!s)return "";
+  var figs=(s.fig||[]).map(function(f){var m=/^(.+?)@(-?\d+)$/.exec(f);return {k:m?m[1]:f,x:m?+m[2]:90};});
+  var hero=figs.filter(function(f){return f.k==="h";})[0],other=figs.filter(function(f){return f.k!=="h";})[0];
+  var build=function(pose){return figs.map(function(f){var o=p74Fig(P,(f.k)+"@"+f.x,i);
+      if(f.k==="h"&&pose){var hp=JSON.parse(JSON.stringify(P.st[Math.min(8,i)]));hp.pose=pose;o.svg=p74Person(hp);}return o;});};
+  var opt={night:s.night,fire:s.fire,yurt:P.hist?undefined:false,sea:P.id==="sea"};
+  var cam=function(svg,vb,extra){svg=svg.replace('viewBox="0 0 240 140"','viewBox="'+vb+'" preserveAspectRatio="xMidYMid slice"');if(extra)svg=svg.replace("</svg>",extra+"</svg>");return svg;};
+  var zc=function(f){return Math.max(60,Math.min(180,f.x+37));},zoom=function(f){var cx=zc(f);return (cx-60)+" 34 120 70";};
+  var first=other||hero||figs[0],main=hero||figs[figs.length-1]||first;
+  var poses=["point","both","wave","heart","shrug","pray"],pz=poses[(i+P.id.length)%poses.length];
+  var fx=function(x,y,kind){if(kind==="!")return '<g transform="translate('+x+' '+y+')"><path d="M0 0l3 12h-6z" fill="#E2483B"/><circle cy="16" r="2" fill="#E2483B"/></g>';
+    return '<g transform="translate('+x+' '+y+')" fill="#F5B301"><path d="M0-6l1.6 4.4 4.4 1.6-4.4 1.6L0 6l-1.6-4.4-4.4-1.6 4.4-1.6z"/></g>';};
+  var p1=p74Scene(build(null),opt),
+      p2=first?cam(p74Scene(build(null),opt),zoom(first),fx(zc(first)+26,38,"!")):p1,
+      p3=main?cam(p74Scene(build(pz),opt),zoom(main)):p1,
+      p4=cam(p74Scene(build(hero?"wave":null),opt),"12 14 216 126",fx(40,40,"*")+fx(200,52,"*"));
+  var tx=p75Split(s.x),pan=[p1,p2,p3,p4];
+  return '<div class="p75-comic" role="img" aria-label="4コマ漫画：'+esc(s.t)+'">'+pan.map(function(sv,k){return '<div class="p75-pan"><i>'+(k+1)+'</i><div class="p75-pimg">'+sv+'</div>'+(tx[k]?'<p>'+esc(tx[k])+'</p>':'')+'</div>';}).join("")+'</div>';}
+/* 物語の場面の出し方を、読み方の設定に合わせる */
+var _p75Scene=p74SceneHtml;
+p74SceneHtml=function(P,i,noTitle){var rd=p75Rd(),s=P&&P.story&&P.story[i];if(!s||rd==="text")return _p75Scene.apply(this,arguments);
+  var h=_p75Scene.apply(this,arguments);
+  var cm=p75Comic(P,i);
+  if(rd==="comic"){/* 4コマだけ：場面の絵と本文を4コマに置きかえる（例文・次回予告は残す） */
+    h=h.replace(/<div class="p74-scimg">[\s\S]*?<\/svg><\/div>/,"").replace(/<div class="p74-scx">[\s\S]*?<\/div>(?=<div class="p74-ex|<p class="p74-nx|<\/div>$)/,cm);
+    if(h.indexOf("p75-comic")<0)h=h.replace('<div class="p74-sc">','<div class="p74-sc">'+cm);}
+  else{h=h.replace(/<div class="p74-scimg">[\s\S]*?<\/svg><\/div>/,cm);}
+  return h;};
+function p75RdBar(){var rd=p75Rd(),b=function(v,t){return '<button type="button" class="'+(rd===v?"on":"")+'" data-act="p75rd" data-val="'+v+'">'+t+'</button>';};
+  return '<div class="p75-rdbar"><span>読み方</span>'+b("both","4コマ＋文章")+b("comic","4コマ")+b("text","文章")+'</div>';}
+var _p75Reader=p74Reader;
+p74Reader=function(){return p75RdBar()+_p75Reader.apply(this,arguments);};
+document.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="p75rd"]'):null;if(!el)return;
+  e.stopImmediatePropagation();e.preventDefault();p74S().rd=el.getAttribute("data-val");try{saveAll();}catch(_){}
+  var m=document.getElementById("p70page"),sc=m&&m.querySelector(".p70-pbody"),y=sc?sc.scrollTop:0;p74Open(false);var sc2=document.querySelector("#p70page .p70-pbody");if(sc2)sc2.scrollTop=y;},true);
+(function(){try{var st=document.createElement("style");st.textContent=
+'.p75-rdbar{display:flex;align-items:center;gap:6px;margin:0 0 10px;flex-wrap:wrap}.p75-rdbar span{font-size:12px;color:var(--muted);font-weight:700;margin-right:2px}.p75-rdbar button{border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border-radius:999px;cursor:pointer}.p75-rdbar button.on{background:var(--accent);border-color:var(--accent);color:#fff}'+
+'.p75-comic{display:flex;flex-direction:column;gap:10px;margin:8px 0 10px}.p75-pan{position:relative;border:2.5px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--card)}.p75-pan>i{position:absolute;left:6px;top:6px;z-index:1;width:22px;height:22px;border-radius:50%;background:#fff;color:#2B2233;border:1.5px solid #2B2233;font:800 12px/19px system-ui,sans-serif;text-align:center;font-style:normal}'+
+'.p75-pimg{line-height:0}.p75-pimg svg{width:100%;height:auto;display:block;aspect-ratio:240/140}.p75-pan p{margin:0;padding:8px 10px;font-size:14.5px;line-height:1.65;border-top:2px solid var(--ink);color:var(--ink)}';
+document.head.appendChild(st);}catch(_){}})();
+
+/* ===== Phase75：文法解説書の「読んだ」マーク・しおり・クイズからの案内、「日本語訳とずれるところ」の章 =====
+   記録：settings.p72g = {read:{章id:日付}, bm:{id:章id, y:スクロール位置}}（この端末と、クラウド保存の設定に入る。個人情報は含まない）。
+   新しい章の文章と例文は、このアプリのために書いたオリジナル。使う単語は単語帳（VOCAB）にある語とその変化形だけ。 */
+(function(){if(!window.P72_GUIDE||P47_LANG==="ky")return;
+var ch={id:"jpdiff",t:"日本語の訳とずれるところ",s:"до́ма は「家で」なのに、訳すと「家にいる」。こうしたずれを、理由といっしょに。",b:
+ '<p>ロシア語を日本語に訳すと、<b>単語の意味と、自然な日本語の訳がずれる</b>ことがよくあります。ずれる理由はだいたい次の3つです。</p>'+
+ '<ol><li><b>「です・いる」に当たる動詞を言わない</b>（今のことを言うとき）</li><li><b>「に」「を」「が」の分け方が日本語と違う</b></li><li><b>「私は」ではなく「私に」「私のところに」と言う決まった言い方がある</b></li></ol>'+
+ '<p class="p72-n">この章の見方：<br>・<b>直訳</b>＝1語ずつ日本語にしたもの（不自然でOK）<br>・<b>自然な訳</b>＝ふつうの日本語にしたもの<br>直訳を見ると、ロシア語が「どう考えているか」がわかります。</p>'+
+ '<h4>1. до́ма は「家で」。でも訳すと「家にいる」</h4>'+
+ '<p>до́ма は「家で・家に（いる）」という、<b>場所を表す1語の言葉</b>です（形は変わりません）。</p>'+
+ '<p class="p72-eg">Я до́ма.<br>直訳：私は ／ 家で<br>自然な訳：私は家にいます。</p>'+
+ '<p><b>なぜ「いる」が出てくるの？</b>　ロシア語では、今のことを言うとき「です・いる・ある」に当たる動詞を<b>言わない</b>のがふつうです。だから「私は＋家で」の2語だけで文になります。日本語は動詞がないと文にならないので、訳すときに「いる」を<b>補います</b>。</p>'+
+ '<p><b>過去なら動詞が出てくる</b>：「いた」は言います。</p>'+
+ '<p class="p72-eg">Вчера́ я был до́ма.<br>直訳：昨日 ／ 私は ／ いた ／ 家で<br>自然な訳：昨日、私は家にいました。</p>'+
+ '<p class="p72-n">был は быть（いる・ある）の過去の形（男性が主語のとき）。女性なら была́ です。</p>'+
+ '<h4>2. 日本語の「家に」は、ロシア語では2つに分かれる</h4>'+
+ '<p>日本語の「に」は、<b>いる場所</b>（家にいる）にも、<b>行く先</b>（家に帰る）にも使います。ロシア語はここをはっきり分けます。</p>'+
+ '<ul class="p72-tbl2"><li><b>до́ма</b><span>家で（いる場所）→「家にいる」</span></li><li><b>домо́й</b><span>家へ（行く先）→「家に帰る・家へ行く」</span></li></ul>'+
+ '<p class="p72-eg">Я иду́ домо́й.<br>直訳：私は ／ 歩いて行く ／ 家へ<br>自然な訳：私は家に帰ります。</p>'+
+ '<p>ほかの場所でも同じです。<b>в＋前置格</b>（語尾 -е など）は「〜で・〜にいる」、<b>в＋対格</b>（語尾 -у など）は「〜へ」。</p>'+
+ '<ul class="p72-ex"><li><b>Я в шко́ле.</b><span>私は学校にいます。（шко́ле＝前置格：いる場所）</span></li><li><b>Я иду́ в шко́лу.</b><span>私は学校へ行きます。（шко́лу＝対格：行く先）</span></li></ul>'+
+ '<p class="p72-n">見分け方：日本語の「に」を「で」に言いかえて通じれば<b>いる場所</b>（学校に<u>いる</u>→学校で過ごす）、「へ」に言いかえて通じれば<b>行く先</b>（学校に<u>行く</u>→学校へ行く）です。</p>'+
+ '<h4>3. 「私は猫を飼っている」は「私のところに猫がいる」</h4>'+
+ '<p>「持っている・いる（家族・ペットなど）」は、ロシア語では <b>у меня́ есть</b> と言います。</p>'+
+ '<p class="p72-eg">У меня́ есть ко́шка.<br>直訳：私のところに ／ ある・いる ／ 猫が<br>自然な訳：私は猫を飼っています。</p>'+
+ '<p><b>ここがずれる</b>：日本語では「猫<b>を</b>」ですが、ロシア語の ко́шка は<b>主格（〜が）</b>のままです。ロシア語の文では「猫<b>が</b>いる」と考えているからです。「私は」も、ロシア語では у меня́（私のところに）です。</p>'+
+ '<ul class="p72-ex"><li><b>У меня́ есть брат.</b><span>私には兄弟がいます。</span></li></ul>'+
+ '<h4>4. 「ない」ときは生格（〜の形）になる</h4>'+
+ '<p>「〜がない・いない」と言うときは <b>нет＋生格</b> です。есть（ある）のときは主格だったものが、нет になると<b>生格</b>に変わります。</p>'+
+ '<p class="p72-eg">У меня́ нет ко́шки.<br>直訳：私のところに ／ ない ／ 猫の（生格）<br>自然な訳：私は猫を飼っていません。</p>'+
+ '<p class="p72-n">ко́шка → ко́шки：女性名詞の生格は語尾 -а が -и（または -ы）に変わります。日本語の「猫を」「猫が」のどちらとも違う形なので、<b>「нет のあとは生格」</b>とセットで覚えましょう。</p>'+
+ '<h4>5. 「好き」は2つの言い方がある</h4>'+
+ '<p><b>(1) люби́ть＋対格</b>：「〜を好む」。日本語は「〜<b>が</b>好き」ですが、ロシア語は<b>対格（〜を）</b>です。</p>'+
+ '<p class="p72-eg">Я люблю́ ма́му.<br>直訳：私は ／ 大好き・愛する ／ 母を<br>自然な訳：私は母が大好きです。</p>'+
+ '<p><b>(2) нра́виться</b>：「〜が（人に）気に入る」。好きな物が<b>主格（〜が）</b>、好きな人が<b>与格（〜に）</b>になります。</p>'+
+ '<p class="p72-eg">Мне нра́вится му́зыка.<br>直訳：私に ／ 気に入る ／ 音楽が<br>自然な訳：私は音楽が好きです。</p>'+
+ '<p class="p72-n">日本語の「私は」が、ロシア語では мне（私に・与格）になります。「音楽が私の気に入る」という考え方です。</p>'+
+ '<h4>6. 「寒い・退屈だ」は「私に寒い」</h4>'+
+ '<p>体や気持ちで感じることは、<b>感じる人を与格（〜に）</b>にして言います。</p>'+
+ '<ul class="p72-ex"><li><b>Мне хо́лодно.</b><span>私は寒いです。（直訳：私に ／ 寒い）</span></li><li><b>Мне ску́чно.</b><span>私は退屈です。（直訳：私に ／ 退屈だ）</span></li></ul>'+
+ '<p class="p72-n">Я хо́лодно とは言いません。「寒さが私にやって来ている」というイメージで覚えると、мне がなぜ与格なのかがわかります。</p>'+
+ '<h4>7. 「〜しなければならない」も「私に必要だ」</h4>'+
+ '<p class="p72-eg">Мне на́до рабо́тать.<br>直訳：私に ／ 必要だ ／ 働くこと<br>自然な訳：私は働かなければなりません。</p>'+
+ '<p class="p72-n">на́до・ну́жно（必要だ）、мо́жно（〜してよい）も、する人を与格にします：Мне мо́жно?（私はしてもいいですか？）</p>'+
+ '<h4>まとめ：訳がずれたら「直訳」にもどる</h4>'+
+ '<ul class="p72-tbl2"><li><b>до́ма／домо́й</b><span>いる場所／行く先。日本語はどちらも「家に」</span></li><li><b>у меня́ есть ＋主格</b><span>「私は〜を持っている」。物は「〜が」の形</span></li><li><b>нет ＋生格</b><span>「〜がない」。物は生格</span></li><li><b>люби́ть ＋対格</b><span>「〜が好き」。物は「〜を」の形</span></li><li><b>мне ＋ нра́вится／хо́лодно／на́до</b><span>日本語の「私は」が「私に（与格）」</span></li></ul>'};
+var k=-1;P72_GUIDE.forEach(function(g,i){if(g.id==="pre")k=i;});P72_GUIDE.splice(k>=0?k+1:P72_GUIDE.length,0,ch);
+})();
+function p75G(){if(!settings.p72g||typeof settings.p72g!=="object")settings.p72g={};var g=settings.p72g;if(!g.read||typeof g.read!=="object")g.read={};return g;}
+var _p75GR=p72GuideRender;
+p72GuideRender=function(){_p75GR.apply(this,arguments);var m=document.getElementById("p72g");if(!m||!P72G)return;var g=p75G(),G=window.P72_GUIDE||[];
+  try{
+  if(!P72G.id){/* 目次：読んだ章に ✓、しおりの章へのボタン */
+    var n=0;m.querySelectorAll('.p72-toc button[data-act="p72guide"]').forEach(function(b){var id=b.getAttribute("data-val");if(g.read[id]){n++;b.classList.add("p75-read");b.insertAdjacentHTML("beforeend",'<i class="p75-ck" aria-label="読んだ">✓</i>');}if(g.bm&&g.bm.id===id)b.insertAdjacentHTML("beforeend",'<i class="p75-bmk" aria-label="しおり">🔖</i>');});
+    var toc=m.querySelector(".p72-toc"),bm=g.bm&&G.filter(function(x){return x.id===g.bm.id;})[0];
+    if(toc)toc.insertAdjacentHTML("beforebegin",'<div class="p75-gstat"><span>読んだ章 <b>'+n+'</b> / '+G.length+'</span>'+(bm?'<button type="button" data-act="p75gbm">🔖 しおりの所へ：'+esc(bm.t)+' ›</button>':'<small>章の中で「しおり」を押すと、ここからすぐ飛べます</small>')+'</div>');
+  }else{
+    var id=P72G.id,on=!!g.read[id],isb=g.bm&&g.bm.id===id;
+    var sub=m.querySelector(".p72-gsub");if(sub)sub.insertAdjacentHTML("afterend",'<div class="p75-gbar"><button type="button" class="'+(isb?"on":"")+'" data-act="p75gbmset">🔖 '+(isb?"しおりをはさんでいます（外す）":"しおりをはさむ")+'</button>'+(on?'<span class="p75-ck2">✓ 読んだ</span>':'')+'</div>');
+    var nav=m.querySelector(".p72-gnav");if(nav)nav.insertAdjacentHTML("beforebegin",'<button type="button" class="p75-readbtn'+(on?" on":"")+'" data-act="p75gread">'+(on?'✓ 読んだ（押すと取り消し）':'この章を読んだ ✓')+'</button>');
+    if(P72G.y){var sc=m.querySelector(".p71-scroll");if(sc){var y=P72G.y;P72G.y=0;setTimeout(function(){sc.scrollTop=y;},30);}}
+  }
+  if(P71){/* クイズの途中で開いたとき：すぐ戻れるボタン */
+    var body=m.querySelector(".p72-gbody");if(body){body.insertAdjacentHTML("afterbegin",'<button type="button" class="p75-back" data-act="p72gx">‹ クイズにもどる</button>');body.insertAdjacentHTML("beforeend",'<button type="button" class="p75-back big" data-act="p72gx">‹ クイズにもどる</button>');}}
+  }catch(_){}};
+window.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest("[data-act]"):null;if(!el)return;var a=el.getAttribute("data-act");if(!/^p75g/.test(a))return;
+  e.stopImmediatePropagation();e.preventDefault();var g=p75G();
+  if(a==="p75gread"&&P72G&&P72G.id){if(g.read[P72G.id])delete g.read[P72G.id];else{g.read[P72G.id]=todayKey();toast("「読んだ」にしました");}try{saveAll();}catch(_){}var sc=document.querySelector("#p72g .p71-scroll"),y=sc?sc.scrollTop:0;P72G.y=y;p72GuideRender();}
+  else if(a==="p75gbmset"&&P72G&&P72G.id){var sc2=document.querySelector("#p72g .p71-scroll");if(g.bm&&g.bm.id===P72G.id){delete g.bm;toast("しおりを外しました");}else{g.bm={id:P72G.id,y:sc2?sc2.scrollTop:0};toast("しおりをはさみました。目次からすぐ飛べます");}try{saveAll();}catch(_){}P72G.y=sc2?sc2.scrollTop:0;p72GuideRender();}
+  else if(a==="p75gbm"&&g.bm){P72G={id:g.bm.id,y:g.bm.y||0};p72GuideRender();}
+},true);
+/* しおりの位置は、章を読みながらスクロールしたら更新する */
+document.addEventListener("scroll",function(e){var t=e.target;if(!t||!t.classList||!t.classList.contains("p71-scroll")||!t.closest("#p72g"))return;var g=p75G();if(P72G&&g.bm&&g.bm.id===P72G.id){g.bm.y=t.scrollTop;clearTimeout(p75G._t);p75G._t=setTimeout(function(){try{saveAll();}catch(_){}},800);}},true);
+/* ---------- 穴埋め問題で：わからないときの案内 ---------- */
+function p75HintTopic(x){var w=WMAP[x.id],fm=x.c&&x.c.forms,lab=fm&&fm.lab?fm.lab[fm.key]:"";var t=[];try{t=p72Topics(w,lab,x.c.f);}catch(_){}
+  var c=(x.c&&x.c.f&&x.c.f.toks?x.c.f.toks.join(""):"").toLowerCase().replace(/́/g,"");
+  if(/(^|[^а-яё])(дома|домой)([^а-яё]|$)/.test(c)||/(^|[^а-яё])(мне|тебе|ему|ей|нам|вам|им) (нравится|нравятся|холодно|скучно|надо|нужно|можно)/.test(c)||/у (меня|тебя|него|неё|нас|вас|них) (есть|нет)/.test(c))t.push("jpdiff");
+  var out=[];t.forEach(function(k){var g=k==="jpdiff"?(P72_GUIDE||[]).filter(function(q){return q.id==="jpdiff";})[0]:p72GuideFor(k);if(g&&out.indexOf(g)<0)out.push(g);});return out.slice(0,2);}
+var _p75HR=p71Render;
+p71Render=function(){var o=_p75HR.apply(this,arguments);try{var S=P71,x=S&&!S.confirm&&S.steps[S.pos];
+  if(x&&!x.m&&(x.t==="cloze"||x.t==="form")&&p72Ru()){var open=x.t==="form"?S.picked2===null:(S.picked===null||(S.picked===x.id&&x.c.forms&&S.picked2===null));
+    var m=document.getElementById("p71"),pp=m&&m.querySelector(".p71-paper");
+    if(open&&pp&&!m.querySelector(".p75-ghint")){var gs=p75HintTopic(x);if(gs.length)pp.insertAdjacentHTML("afterend",'<div class="p75-ghint"><small>文法がわからないときは</small>'+gs.map(function(g){return '<button type="button" data-act="p72guide" data-val="'+g.id+'">文法解説書「'+esc(g.t)+'」を読む ›</button>';}).join("")+'<em>読んだら「クイズにもどる」で、この問題に戻れます</em></div>');}}
+  }catch(_){}return o;};
+(function(){try{var st=document.createElement("style");st.textContent=
+'.p75-ck{font-style:normal;color:#2E9E5B;font-weight:900;font-size:16px;margin-left:4px}.p75-bmk{font-style:normal;margin-left:2px}.p72-toc button.p75-read b{opacity:.75}'+
+'.p75-gstat{display:flex;flex-direction:column;gap:6px;margin:0 0 10px}.p75-gstat span{font-size:13px;color:var(--muted);font-weight:700}.p75-gstat span b{color:var(--ink);font-size:16px}.p75-gstat small{font-size:12px;color:var(--muted)}'+
+'.p75-gstat button,.p75-gbar button,.p75-back,.p75-ghint button{border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:13.5px;font-weight:800;padding:8px 12px;border-radius:12px;cursor:pointer;text-align:left}'+
+'.p75-gbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:6px 0 10px}.p75-gbar button.on{border-color:#E0A100;background:rgba(224,161,0,.14)}.p75-ck2{color:#2E9E5B;font-weight:800;font-size:13px}'+
+'.p75-readbtn{display:block;width:100%;margin:16px 0 10px;padding:12px;border-radius:14px;border:2px solid #2E9E5B;background:transparent;color:#2E9E5B;font:inherit;font-size:15px;font-weight:800;cursor:pointer}.p75-readbtn.on{background:#2E9E5B;color:#fff}'+
+'.p75-back{display:block;margin:0 0 10px;color:var(--accent)}.p75-back.big{width:100%;text-align:center;margin:14px 0 4px;background:var(--accent);border-color:var(--accent);color:#fff;font-size:15px;padding:12px}'+
+'.p75-ghint{margin:10px 0 0;padding:10px 12px;border-radius:14px;border:1px dashed var(--line);display:flex;flex-direction:column;gap:6px}.p75-ghint small{font-size:12px;color:var(--muted);font-weight:700}.p75-ghint button{color:var(--accent)}.p75-ghint em{font-style:normal;font-size:11.5px;color:var(--muted)}'+
+'.p72-tbl2{list-style:none;padding:0;margin:8px 0;display:flex;flex-direction:column;gap:6px}.p72-tbl2 li{display:flex;gap:10px;padding:8px 10px;border-radius:10px;border:1px solid var(--line)}.p72-tbl2 li b{min-width:7.5em}.p72-tbl2 li span{flex:1;font-size:14px}';
+document.head.appendChild(st);}catch(_){}})();
 
 /* ===== init ===== */
 try{ if(!ui.view)ui.view="word"; if(!ui.bnav)ui.bnav="home"; applyDisplayPrefs(); render(); }catch(err){ showFatal((err&&err.stack)||err); }
