@@ -276,9 +276,25 @@ window.addEventListener("click",function(e){
 '.p74-bossko,.p74-up{display:flex;align-items:center;gap:10px;margin-top:10px;padding:8px 10px;border-radius:14px;background:rgba(232,185,35,.15);border:1px solid rgba(232,185,35,.5)}.p74-bossko .p74-bimg{width:60px;height:80px;opacity:.6}.p74-up .p74-big{width:70px;height:94px}.p74-bossko b,.p74-up b{font-size:15px}'+
 '.p74-news{margin-top:10px}.p74-news small{font-size:12px;color:var(--muted);font-weight:700}.p74-news ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:4px}.p74-news li{font-size:14px;font-weight:700}.p74-news li span{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;margin-right:6px;border-radius:999px;background:var(--accent);color:#fff}';
 var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);})();
-/* ---------- 冒険モードのレッスン：単語の絵を道の時代に合わせる（帽子・紙の背景） ---------- */
+/* ---------- 冒険モードのレッスン：新しい言葉を、その道の主人公と仲間の会話の場面で見せる ----------
+   単語の絵そのものは変えない（絵が意味を伝える役目を守るため）。会話の場面の人物は、この道の衣装の人物（男女で衣装が違う）。 */
+function p74Cast(P){var L=[];(P.al||[]).forEach(function(a){if(a.o)L.push({n:a.n,o:a.o});});
+  var X={manas:["kanykey","jakyp","chiyirdy","elder"],semetey:["kanykey","elder","kulchoro","aichurek"],kurmanjan:["alymbek","people1","people2"],toktogul:["mother","people1","people2"]}[P.id]||[];
+  var NM={kanykey:"カヌケイ",jakyp:"ジャクプ",chiyirdy:"チユルドゥ",elder:"長老",kulchoro:"クルチョロ",aichurek:"アイチュレク",alymbek:"アリムベク",people1:"村の人",people2:"村の人",mother:"母ブルマ"};
+  X.forEach(function(k){if(P74_NPC[k])L.push({n:NM[k]||"",o:P74_NPC[k]});});return L;}
+function p74Talk(P,stage,word,seed){
+  var cast=p74Cast(P);if(!cast.length)return "";var who=cast[Math.abs(seed)%cast.length];
+  var t=String(word),w=Math.min(200,Math.max(60,t.length*8.6+26)),bx=Math.max(8,Math.min(232-w,62-w/2+30));
+  var bub='<g><rect x="'+bx+'" y="4" width="'+w+'" height="26" rx="13" fill="#fff" stroke="#2B2233" stroke-width="1.6"/><path d="M'+(bx+22)+' 29l-6 10 14-10z" fill="#fff" stroke="#2B2233" stroke-width="1.6" stroke-linejoin="round"/><path d="M'+(bx+17)+' 29h14" stroke="#fff" stroke-width="3"/><text x="'+(bx+w/2)+'" y="22" text-anchor="middle" font-size="14" font-weight="700" fill="#2B2233" font-family="system-ui,sans-serif">'+esc(t)+'</text></g>';
+  var sc=p74Scene([{x:14,y:40,s:.6,svg:p74Person(P.st[Math.max(0,Math.min(8,stage))])},{x:156,y:40,s:.6,svg:'<g transform="translate(120 0) scale(-1 1)">'+p74Person(who.o)+'</g>'}],{yurt:P.hist?false:false,sea:P.id==="sea"});
+  sc=sc.replace('</svg>',bub+'</svg>');
+  return '<div class="p74-talk">'+sc+'<small>'+esc(P.titles[Math.max(0,Math.min(8,stage))])+'と'+esc(who.n)+'の会話から</small></div>';}
 (function(){
-  var _f=p66Fill;p66Fill=function(d){var o=_f.apply(this,arguments);try{if(d&&d.closest&&d.closest("#p71")&&p74Story()){var P=p74Path();if(P)p74Costume(d,P);}}catch(_){}return o;};
-  var _r=p71Render;p71Render=function(){var o=_r.apply(this,arguments);try{var P=p74Story()?p74Path():null;document.body.classList.toggle("p74-era",!!P);}catch(_){}return o;};
-  try{var st=document.createElement("style");st.textContent='body.p74-era #p71 .p59-pic.p67-art{background:#F4EAD0;border-radius:14px;box-shadow:inset 0 0 0 2px #CDB27A}body.p74-era #p71 .p59-pic.p67-art svg{filter:sepia(.18)}';document.head.appendChild(st);}catch(_){}
+  var _r=p71Render;p71Render=function(){var o=_r.apply(this,arguments);try{
+    var P=p74Story()?p74Path():null,S=P71,x=S&&S.steps&&S.steps[S.pos];
+    if(P&&x&&x.t==="card"&&!S.fav){var c=document.querySelector("#p71 .p71-card");if(c&&!c.querySelector(".p74-talk")){var w=WMAP[x.id];var st=0;try{st=p74State().stage;}catch(_){}
+      var seed=0;String(x.id).split("").forEach(function(ch){seed=(seed*31+ch.charCodeAt(0))|0;});
+      c.insertAdjacentHTML("afterbegin",p74Talk(P,st,w.accent||w.word,seed));}}
+  }catch(_){}return o;};
+  try{var st=document.createElement("style");st.textContent='.p74-talk{margin:-4px 0 10px;text-align:center}.p74-talk .p74-scene{width:100%;max-width:340px;height:auto;border-radius:14px;display:block;margin:0 auto}.p74-talk small{display:block;font-size:12px;color:var(--muted);margin-top:4px}';document.head.appendChild(st);}catch(_){}
 })();

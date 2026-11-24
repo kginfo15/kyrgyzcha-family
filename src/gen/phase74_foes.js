@@ -282,30 +282,3 @@ function p74FoeName(P,ti){var f=p74FoeOf(P,ti);return f?f[0]:p74MonsterName(ti);
 function p74FoeArt(P,ti){var f=p74FoeOf(P,ti);return f?p74Art(f[1]):p74Monster(ti);}
 function p74BossName(P,c){var D=P&&P74_FOES[P.id];return D?D[c].b.n:P74_BOSS[c].t+" "+P74_BOSS[c].n;}
 function p74BossArt(P,c){var D=P&&P74_FOES[P.id];return D?p74Art(D[c].b.a):p74Boss(c);}
-
-/* ---------- 冒険モードのレッスンでは、単語の絵の人物に、その道の時代の帽子をかぶせる ----------
-   絵の意味（何をしている人か・何の物か）は変えない。顔のアップ（体の部分の単語）には付けない。
-   バスや電話など、現代の物そのものを表す絵はそのまま。 */
-var P74_HAT={
- kg:'<path d="M-11 -3Q-7 -20 0 -24Q7 -20 11 -3Z" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.2"/><path d="M-11.5 -3.5Q0 -8 11.5 -3.5" stroke="#2B2233" stroke-width="2.6" fill="none"/><path d="M-4 -8Q-1 -16 0 -22M4 -8Q1 -16 0 -22" stroke="#B9A878" stroke-width=".9" fill="none"/><circle cx="0" cy="-24" r="1.4" fill="#2B2233"/>',
- med:'<path d="M-11 -4Q-12 -16 0 -16Q13 -16 12 -5Q4 -9 -11 -4Z" fill="#8A4B2A" stroke="#2B2233" stroke-width="1"/><path d="M6 -14Q14 -24 18 -22Q12 -18 8 -12Z" fill="#E8D5A8" stroke="#2B2233" stroke-width=".8"/>',
- wiz:'<path d="M-11 -4L2 -30L10 -5Z" fill="#5B4BB7" stroke="#2B2233" stroke-width="1"/><path d="M-14 -4Q0 -9 14 -4Q0 0 -14 -4Z" fill="#4A3C9A" stroke="#2B2233" stroke-width="1"/><path d="M1 -19l1.2 2.4 2.6.3-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.3z" fill="#FFD34D"/>',
- jp:'<path d="M-17 -4L0 -16L17 -4Q0 -1 -17 -4Z" fill="#7A5A3A" stroke="#2B2233" stroke-width="1"/><path d="M-6 -12L0 -16L6 -12" stroke="#C99A2E" stroke-width="1.2" fill="none"/>',
- sea:'<path d="M-10.5 -2Q-11 -14 0 -14Q11 -14 10.5 -2Q0 -7 -10.5 -2Z" fill="#C0392B" stroke="#2B2233" stroke-width="1"/><circle cx="-4" cy="-9" r="1" fill="#fff"/><circle cx="3" cy="-11" r="1" fill="#fff"/><path d="M10 -5l6 3-5 2z" fill="#C0392B" stroke="#2B2233" stroke-width=".8"/>'
-};
-function p74Era(P){if(!P)return "";if(P.hist)return "kg";return {sword:"med",king:"med",magic:"wiz",samurai:"jp",sea:"sea"}[P.id]||"";}
-function p74Costume(d,P){
-  var era=p74Era(P),hat=P74_HAT[era];if(!hat||!d)return;var svg=d.querySelector("svg");if(!svg||svg.getAttribute("data-era")===era)return;
-  svg.setAttribute("data-era",era);var NS="http://www.w3.org/2000/svg";
-  Array.prototype.slice.call(svg.querySelectorAll("circle,ellipse")).forEach(function(el){
-    if(String(el.getAttribute("fill")||"").toUpperCase()!=="#F2C39A")return;
-    var cx=+(el.getAttribute("cx")||0),cy=+(el.getAttribute("cy")||0),r=+(el.getAttribute("r")||el.getAttribute("rx")||0);
-    if(el.tagName.toLowerCase()==="ellipse"&&+el.getAttribute("ry")<r*.75)return;
-    if(!(r>=5&&r<=16))return;
-    var g=document.createElementNS(NS,"g");g.setAttribute("transform","translate("+cx+" "+cy+") scale("+(r/10).toFixed(3)+")");g.innerHTML=hat;
-    /* 髪や顔の部品（頭のすぐ後ろに描かれているもの）の上にかぶせる */
-    var at=el,nx=el.nextElementSibling,k=0;
-    while(nx&&k<4){var b=null;try{b=nx.getBBox();}catch(_){}if(!b||b.width>r*3||b.height>r*3||Math.abs(b.x+b.width/2-cx)>r*1.3||Math.abs(b.y+b.height/2-cy)>r*1.6)break;at=nx;nx=nx.nextElementSibling;k++;}
-    at.parentNode.insertBefore(g,at.nextSibling);
-  });
-}
