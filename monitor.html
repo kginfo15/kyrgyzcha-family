@@ -884,7 +884,6 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
 .sv-gst{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 4px}
 .sv-gst button{font:inherit;font-size:13px;color:var(--sn);background:#fff;border:1px solid var(--sl);border-radius:999px;padding:6px 12px;min-height:34px;cursor:pointer}
 .sv-gst button.on{background:var(--sn);color:#fff;border-color:var(--sn)}
-.sv-gyr{display:inline-flex;flex-wrap:wrap;gap:4px;margin-left:6px}.sv-gyr button{font-size:12px;padding:5px 10px;min-height:32px}
 .sv-gp{display:none;font-size:11px;color:var(--sm)}
 .sv-gnote{font-size:12px;color:var(--sm);margin:2px 0 6px;line-height:1.6}
 @media print{.sv-gst button{display:none}.sv-gp{display:inline}.sv-gnote{font-size:6.8pt;margin:0 0 3px}}
@@ -1392,7 +1391,7 @@ $("#cur").onclick = ()=>{ CUR = CURS[(CURS.indexOf(CUR)+1)%CURS.length]; lsSet("
 $("#jica").onclick = ()=>{ SHOW_JP = !SHOW_JP; lsSet("km-jp", SHOW_JP); syncJP(); toast(SHOW_JP?"JICA・日本の協力を表示":"JICA・日本の協力を非表示"); render(); };
 
 /* ---------- state & routing ---------- */
-const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:"", sm:"", bt:"", mp:"", og:"", ou:"", rm:"", rq:"", rd:"", re:"", rs:"", gst:"", gyr:"", sv:""};
+const DEF = {v:"home", s:"", t:"all", p:90, d:"", q:"", ps:"active", psort:"start", sub:"pa", k:"", my:"", ua:"", st:"", doc:"", g:"", qr:"", sm:"", bt:"", mp:"", og:"", ou:"", rm:"", rq:"", rd:"", re:"", rs:"", gst:"", sv:""};
 // chart switches (not part of the address): donut scope/metric/range, year chart metric
 // ym: new = started that year, ongoing = running that year, cum = everything started up to that year
 const CH = Object.assign({scope:"donor", metric:"amt", range:"active", ym:"new", ymet:"amt", ysel:0, side:"gov", sscope:"my"}, lsGet("km-charts", {}));
@@ -3434,12 +3433,12 @@ const sumMD = ts => { const d = new Date(ts); return (d.getMonth()+1)+"/"+d.getD
 // the description is used only when the name matches no branch at all (a weaker match). why: project -> {f, w}
 const sumCandCache = new Map();
 // which projects a table counts: "active" (default), "closed" or "all" (both). Closed projects are counted from
-// CLOSED_FROM (by end year): before that the public data has many gaps. S.gyr==="all" lifts that limit.
-const CLOSED_FROM = 2010;
-const stYr = p => S.gyr==="all" || !p.e || +String(p.e).slice(0,4) >= CLOSED_FROM;
+// CLOSED_FROM (by end year): before that the main donors' records are missing from the public data (checked by end year, 2026-11-24).
+const CLOSED_FROM = 2017;
+const stYr = p => !!p.e && +String(p.e).slice(0,4) >= CLOSED_FROM;
 const stOK = (p, st) => p.st==="active" ? st!=="closed" : p.st==="closed" && st!=="active" && stYr(p);
 function sumTreeCand(tn, st="active"){
-  const key = tn+"|"+st+"|"+S.gyr+"|"+SHOW_JP+"|"+(PROJECTS?PROJECTS.length:0);
+  const key = tn+"|"+st+"|"+SHOW_JP+"|"+(PROJECTS?PROJECTS.length:0);
   if(sumCandCache.has(key)) return sumCandCache.get(key);
   const t = TREES[tn], rules = t.rules.map(([n, rx])=>[n, new RegExp(rx, "i")]), skip = t.exclude ? new RegExp(t.exclude) : null;
   const only = t.only ? new RegExp(t.only, "i") : null, secs = [].concat(t.sector), out = [];
@@ -3557,9 +3556,8 @@ function sumHTML(sid){
   const dw = cols.length+(rest.size?1:0);
   const stLab = {active:"実施中", closed:"終了済み", all:"実施中+終了済み"}[X.st];
   return `<div class="sv-gst" role="group" aria-label="表に数える案件">${[["","実施中"],["closed","終了済み"],["all","これまでの合計"]].map(([v,l])=>`<button type="button" data-gst="${v}" class="${S.gst===v?"on":""}" aria-pressed="${S.gst===v}">${l}</button>`).join("")}
-      ${live ? "" : `<span class="sv-gyr">${[["",`${CLOSED_FROM}年以降に終わった案件`],["all","全期間"]].map(([v,l])=>`<button type="button" data-gyr="${v}" class="${S.gyr===v?"on":""}" aria-pressed="${S.gyr===v}">${l}</button>`).join("")}</span>`}
-      <span class="sv-gp">表示中:${stLab}${live?"":S.gyr==="all"?"・全期間":`・終了済みは${CLOSED_FROM}年以降`}</span></div>
-    ${live ? "" : `<p class="sv-gnote">終了済みの案件は、公開データがそろっている${CLOSED_FROM}年以降(終了年)を数えています。${S.gyr==="all"?"全期間にすると2000年代以前も入りますが、その頃の案件はかなり抜けています。":""}金額は契約・約束額で、実際に使われた額とは違うことがあります。</p>`}
+      <span class="sv-gp">表示中:${stLab}${live?"":`(終了済みは${CLOSED_FROM}年以降に終了)`}</span></div>
+    ${live ? "" : `<p class="sv-gnote">終了済みは${CLOSED_FROM}年以降に終了した案件です。それより前は主なドナーの記録が欠けているため含めていません。${CLOSED_FROM}年以降でも、ADBは2020年以降、UNICEF・UNDPは2021年以降の分しかほぼなく、日本の終了済みの案件はほとんど入っていません。金額は契約・約束額です。</p>`}
     <div class="sv-swipe">表は横にスクロールできます →(横向きにすると全体が見やすくなります)</div>
     <div class="sv-mxw"><table class="sv-mx"><colgroup><col style="width:21%">${cols.map(()=>`<col style="width:${((live?32:58)/dw).toFixed(2)}%">`).join("")}${rest.size?`<col style="width:${((live?32:58)/dw).toFixed(2)}%">`:""}<col style="width:${live?6:9}%">${live?'<col style="width:22%"><col style="width:19%">':'<col style="width:12%">'}</colgroup>
     <thead><tr><th>戦略の分野 / 国の戦略・制度</th>${th}<th class="sv-num">合計</th>${live?"<th>最近の動き(ニュース)</th><th>評価</th>":"<th>期間</th>"}</tr></thead><tbody>${body}</tbody></table></div>
@@ -3646,7 +3644,6 @@ document.addEventListener("click", e=>{
   if(e.target.closest("[data-svpopx]")){ sumPop(null); return; }
   const rf = e.target.closest("[data-rpref]"); if(rf){ const k = "rp:"+rf.dataset.rpref, el = document.getElementById("svpop"); el && el.dataset.key===k ? sumPop(null) : sumPop(rf, rpRefHTML(rf.dataset.rpref), k); return; }
   const gs = e.target.closest("[data-gst]"); if(gs){ sumPop(null); go({gst:gs.dataset.gst}, false); return; }
-  const gy = e.target.closest("[data-gyr]"); if(gy){ sumPop(null); go({gyr:gy.dataset.gyr}, false); return; }
   const rg = e.target.closest("[data-rpgo]"); if(rg){ sumPop(null); rpScroll(rg.dataset.rpgo); return; }
   const st = e.target.closest("[data-st]"); if(st){ sumPop(null); go({st:st.dataset.st}, false); if(st.dataset.tnode) showTreeNode(st.dataset.tnode); return; }
   const c = e.target.closest("[data-svcell]"); if(c){ const el = document.getElementById("svpop"); sumPop(el && el.dataset.key===c.dataset.svcell ? null : c); return; }
