@@ -3609,7 +3609,7 @@ function anaAuto(sid, D){
   const topD = bd.slice(0,3).map(([d,v])=>`${dn(d)}(${usd(v)})`);
   const rowsN = ids => ids.map(id=>{ const r = D.rows.find(x=>x.id===id); return r ? r.n.replace(/[(（].*$/,"") : id; });
   const big = [...D.rows].filter(r=>r.ps.length && r.a>=1e4).sort((a,b)=>b.a-a.a).slice(0,3);
-  const tot = bd.reduce((v,[,x])=>v+x, 0), top4 = bd.slice(0,4).reduce((v,[,x])=>v+x, 0);
+  const tot = bd.reduce((v,[,x])=>v+x, 0), top3 = bd.slice(0,3).reduce((v,[,x])=>v+x, 0);
   const endM = F["end_"+y+"_musd"], endN = F["end_"+y+"_n"];
   const P = INDS[sid], inds = P ? P.pillars.flatMap(p=>p.inds.map((ind,i)=>[p.id+":"+i, ind])).slice(0, 8) : [];
   const indSt = st => inds.filter(([,ind])=>ind.status===st).map(([,ind])=>ind.name);
@@ -3623,7 +3623,7 @@ function anaAuto(sid, D){
         {v:tile(endM)[0], u:tile(endM)[1], k:`${y}年末までに終わる額`, ref:`fact:end_${y}_musd`, hot:endM>0},
         {v:String(F.empty_rows.length), u:"分野", k:"実施中の案件がない戦略の分野", ref:"fact:empty_rows", hot:F.empty_rows.length>0},
         {v:String(F.closed_n), u:"件", k:`${CLOSED_FROM}年以降に終わった案件`, ref:"fact:closed_n"}]},
-      paras:[ topD.length ? f(bd.length===1 ? `ドナーは${topD[0]}だけ。` : bd.length<=4 ? `ドナーは${bd.length}者で、${topD.join("、")}の順に大きい。` : `ドナー別では${topD.join("、")}が大きく、上位4者で全体の約${Math.round(top4/(tot||1)*100)}%を占める。`, ["fact:by_donor"], `上位:${bd.slice(0,3).map(([d])=>dn(d)).join("・")}`) : null,
+      paras:[ topD.length ? f(bd.length===1 ? `ドナーは${topD[0]}だけ。` : bd.length<=4 ? `ドナーは${bd.length}者で、${topD.join("、")}の順に大きい。` : `ドナー別では${topD.join("、")}が大きく、上位3者で全体の約${Math.round(top3/(tot||1)*100)}%を占める。`, ["fact:by_donor"], `上位:${bd.slice(0,3).map(([d])=>dn(d)).join("・")}`) : null,
         big.length ? f(`金額が大きい戦略の分野は${big.map(r=>`${r.n.replace(/[(（].*$/,"")}(${usd(r.a/1e6)})`).join("、")}。`, big.map(r=>"row:"+r.id), `大きい分野:${big.map(r=>r.n.replace(/[(（].*$/,"")).join("・")}`) : null,
         F.empty_rows.length ? f(`実施中の案件が当てはまらない戦略の分野:${rowsN(F.empty_rows).join("、")}。`, ["fact:empty_rows"].concat(F.empty_rows.map(id=>"row:"+id)), `空白:${rowsN(F.empty_rows).join("・")}`) : null,
         endN ? f(`${y}年末までに${endN}件・${usd(endM)}分の協力が終わる予定。`, [`fact:end_${y}_n`, `fact:end_${y}_musd`], `${y}年末に${endN}件・${usd(endM)}が終了予定`) : null,
