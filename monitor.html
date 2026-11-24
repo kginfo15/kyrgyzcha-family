@@ -2268,7 +2268,7 @@ function viewHome(){
       <span class="drs">${top3 || '<span class="note">金額の分かる実施中案件なし</span>'}</span>
       ${jicaLine}
       <span class="tf"><span>政府の動き <b>${m.filter(x=>x.g).length}</b></span><span>協力ニュース <b>${m.filter(x=>x.d.length).length}</b></span></span>
-      ${acts?`<span class="tacts">${SUM_SPEC[id]?`<button class="tact" data-sumgo="${id}">分析レポート</button>`:""}<button class="tact" data-sectree="${id}">樹形図</button></span>`:""}
+      ${acts?`<span class="tacts">${SUM_SPEC[id]?`<button class="tact" data-sumgo="${id}">分析レポート</button><button class="tact" data-sumgo="${id}" data-sumsv="quick">クイックギャップ分析</button>`:""}<button class="tact" data-sectree="${id}">樹形図</button></span>`:""}
     </div>`;
   };
   // my sectors come first (and stay in the full list below); the overview charts can be folded away
@@ -2349,7 +2349,7 @@ function viewSector(){
   return `<div class="layout"><div class="mainc">
     <div class="shead2"><div class="sh-l"><div class="sh-k">分野 ${s.no} / 20</div>
       <h2>${esc(s.ja)} ${favStar(s.id)}</h2>${jica}</div>
-      <div class="sh-r">${SUM_SPEC[s.id]?`<button class="shb primary" data-sumopen title="戦略の分野ごとに、どのドナーが動いていて、どこが空白かを1つの画面に(PDFで保存できます)"><b>分析レポート</b><small>文章・スライド・図表</small></button>`:""}<button class="shb" data-sectree="${s.id}" title="国の戦略・プログラムの構成と援助機関の案件を1枚の樹形図で"><b><span class="lg">国家戦略を</span>樹形図で見る</b><small>戦略の構成と当てはまる案件</small></button></div></div>
+      <div class="sh-r">${SUM_SPEC[s.id]?`<button class="shb primary" data-sumopen title="戦略の分野ごとに、どのドナーが動いていて、どこが空白かを1つの画面に(PDFで保存できます)"><b>分析レポート</b><small>文章・スライド・図表</small></button><button class="shb" data-sumopen="quick" title="以前のギャップ分析:戦略×ドナー×最近の動きを3枚でさっと見る(PDFで保存できます)"><b>クイックギャップ分析</b><small>戦略×ドナー×最近の動き</small></button>`:""}<button class="shb" data-sectree="${s.id}" title="国の戦略・プログラムの構成と援助機関の案件を1枚の樹形図で"><b><span class="lg">国家戦略を</span>樹形図で見る</b><small>戦略の構成と当てはまる案件</small></button></div></div>
     ${weekHTML([s.id], {title:s.ja+" 今週の重要ニュース", more:`<button class="linkbtn" data-gofeed="all" data-wksec="${s.id}">この分野のニュースをすべて見る →</button>`})}
     ${ready?overviewKPIs(s.id):""}
     ${orgsFor(s.id).length?`<div class="orgl" style="margin:10px 0"><span class="note">この分野を担当する省庁（組織図）</span>${orgsFor(s.id).map(o=>orgBtn(o, null)).join("")}</div>`:""}
@@ -2365,6 +2365,10 @@ function viewSector(){
 // the overview opens by default on a PC and stays folded on a phone, until the viewer chooses
 function ovOpen(){ const v = lsGet("km-ov", null); return v==null ? matchMedia("(min-width:1100px)").matches : v; }
 document.addEventListener("toggle", e=>{ if(e.target.id==="ov") lsSet("km-ov", e.target.open); }, true);
+// the rest of a long project list is built only when it is opened (keeps the report light to open and to print)
+let ANA_MORE = [];
+function anaMore(build){ ANA_MORE.push(build); return ANA_MORE.length-1; }
+document.addEventListener("toggle", e=>{ const d = e.target; if(d && d.open && d.dataset && d.dataset.anmore!=null && !d.dataset.built){ const f = ANA_MORE[+d.dataset.anmore]; if(f){ d.insertAdjacentHTML("beforeend", f()); d.dataset.built = "1"; } } }, true);
 const uaBtn = () => `<button class="btn ${S.ua?"on":""}" data-set="ua" data-val="${S.ua?"":"1"}">${S.ua?"✓ ":""}金額不明のみ</button>`;
 function viewProjects(){
   setTitle("案件");
@@ -3683,7 +3687,7 @@ function anaHTML(sid, D, mx, mode){
     const tr = ([p, rs]) => `<tr><td><a href="${esc(p.u)}" target="_blank" rel="noopener">${esc(p.tj||p.t)}</a></td><td class="r">${sumM(shareAmt(p))||"—"}</td><td class="nw">${esc(yr(p.a))}〜${esc(yr(p.e))}</td><td>${esc(rs.map(r=>r.n.replace(/[(（].*$/,"")).join("、"))}</td></tr>`;
     const tb = l => `<table class="an-t an-pt"><colgroup><col><col style="width:12%"><col style="width:17%"><col style="width:22%"></colgroup><thead><tr><th>案件</th><th class="r">百万ドル</th><th>期間</th><th>表の行</th></tr></thead><tbody>${l.map(tr).join("")}</tbody></table>`;
     return head + g.map(x=>`<div class="an-pg"><h5>${esc(SUM_DN[x.d]||donorName(x.d))}<span>${x.l.length}件・${x.a>=5e4 ? sumM(x.a)+"百万ドル" : x.a>0 ? "10万ドル未満" : "金額の記録なし"}</span></h5>${tb(x.l.slice(0, lim))}
-      ${x.l.length>lim ? `<details class="an-more"><summary>残り${x.l.length-lim}件を見る</summary>${tb(x.l.slice(lim))}</details><p class="an-prn">ほか${x.l.length-lim}件(画面の「残り${x.l.length-lim}件を見る」で一覧が見られます)</p>` : ""}</div>`).join("");
+      ${x.l.length>lim ? `<details class="an-more" data-anmore="${anaMore(()=>tb(x.l.slice(lim)))}"><summary>残り${x.l.length-lim}件を見る</summary></details><p class="an-prn">ほか${x.l.length-lim}件(画面の「残り${x.l.length-lim}件を見る」で一覧が見られます)</p>` : ""}</div>`).join("");
   };
   const fig = (f, sec={}) => {
     if(!f) return "";
@@ -3979,6 +3983,8 @@ function sumHTML(sid){
       ${ending.length ? `<table class="sv-tl">${ending.map(p=>`<tr><td style="width:22%">${esc(dn(p.donor))}</td><td>${esc((p.tj||p.t||"").slice(0,40))}</td><td class="sv-num">${esc((p.e||"").slice(0,7).replace("-","年"))}月</td><td>${rowOfP(p)?`<span class="sv-tag">${esc(rowOfP(p).slice(0,8))}</span>`:""}</td></tr>`).join("")}</table>` : '<p class="sv-empty">該当なし</p>'}
     </div></div>
     ${foot(`出典:サイトのニュース(直近75日)と協力案件データの終了予定日。${textNote}`, 3)}</section>`;
+  ANA_MORE = [];
+  if(S.sv==="quick") return p1 + p2 + p3;   // クイックギャップ分析: the earlier 3-sheet gap analysis, on its own
   if(S.sv!=="fig") return anaHTML(sid, D, mxHTML(D2), S.sv);
   return repHTML(sid, D, head) + p1 + p2 + p3;
 }
@@ -4026,8 +4032,8 @@ function renderSummary(){
   if(!el){ el = document.createElement("div"); el.id = "sumv"; document.body.appendChild(el); }
   const bar = `<div class="sv-bar"><button data-sumclose>← 閉じる</button>
     <select data-sumsec aria-label="分野">${SECTORS.filter(([id])=>SUM_SPEC[id]).map(([id,ja])=>`<option value="${id}" ${id===S.s?"selected":""}>${esc(ja)}</option>`).join("")}</select>
-    ${SUM_SPEC[S.s] ? `<span class="sv-mode" role="group" aria-label="見せ方">${[["","文章版"],["slide","スライド版"],["fig","図表"]].map(([v,l])=>`<button type="button" data-svm="${v}" class="${(S.sv||"")===v?"on":""}" aria-pressed="${(S.sv||"")===v}">${l}</button>`).join("")}</span>` : ""}
-    <span class="sp"></span><span class="sv-hint">${S.sv!=="fig" ? (S.sv==="slide" ? "横長A4・1枚1スライド" : "縦長A4") : `横長A4・${(REP_TEXT.sectors||{})[S.s]?"文章+図表3枚":"3枚"}`}</span><button class="sv-pdf" data-sumprint>PDFで保存・印刷</button></div>`;
+    ${SUM_SPEC[S.s] ? `<span class="sv-mode" role="group" aria-label="見せ方">${[["","文章版"],["slide","スライド版"],["fig","図表"],["quick","クイックギャップ分析"]].map(([v,l])=>`<button type="button" data-svm="${v}" class="${(S.sv||"")===v?"on":""}" aria-pressed="${(S.sv||"")===v}">${l}</button>`).join("")}</span>` : ""}
+    <span class="sp"></span><span class="sv-hint">${S.sv==="quick" ? "横長A4・3枚" : S.sv!=="fig" ? (S.sv==="slide" ? "横長A4・1枚1スライド" : "縦長A4") : `横長A4・${(REP_TEXT.sectors||{})[S.s]?"文章+図表3枚":"3枚"}`}</span><button class="sv-pdf" data-sumprint>PDFで保存・印刷</button></div>`;
   el.innerHTML = bar + (projReady() ? (()=>{ try{ return sumHTML(S.s); }catch(e){ return `<section class="sv-sheet"><p class="sv-empty">分析レポートを作れませんでした(${esc(e.message)})。</p></section>`; } })()
     : '<section class="sv-sheet"><p class="sv-empty">案件データを読み込み中…</p></section>');
   document.body.classList.add("svopen", "noscroll");
@@ -4058,15 +4064,16 @@ document.addEventListener("scroll", e=>{
 // opened with the button: the phone's back gesture closes it; opened from a shared address: closing stays on the sector page
 let SUM_PUSHED = false;
 let SUM_FROM = "";
-function sumOpen(){ SUM_PUSHED = !EMBED; SUM_FROM = S.s; go({sm:"1"}); }
+function sumOpen(sv){ SUM_PUSHED = !EMBED; SUM_FROM = S.s; go({sm:"1", sv: sv || (S.sv==="quick" ? "" : S.sv)}); }
 function sumClose(){ if(SUM_PUSHED && S.s===SUM_FROM){ SUM_PUSHED = false; history.back(); } else { SUM_PUSHED = false; go({sm:""}, false); } }
 window.addEventListener("popstate", ()=>{ if(!S.sm) SUM_PUSHED = false; });
 
+let MAIN_LAST = "";
 function render(keep=null){
   document.querySelectorAll("#tabs button").forEach(b=>{ const v = b.dataset.v; b.classList.toggle("on", v===S.v || (v==="home"&&S.v==="sector") || (v==="donors"&&S.v==="donor") || (v==="feed"&&(S.v==="gov"||S.v==="coop")) || (v==="strategy"&&S.v==="doc")); });
   const m = $("#main");
   if(!INDEX){
-    m.innerHTML = loadErr ? `<div class="feed"><div class="empty">データをまだ読み込めません（${esc(loadErr)}）。<br>初回の収集が終わると表示されます。</div></div>` : `<div class="empty">読み込み中…</div>`;
+    MAIN_LAST = ""; m.innerHTML = loadErr ? `<div class="feed"><div class="empty">データをまだ読み込めません（${esc(loadErr)}）。<br>初回の収集が終わると表示されます。</div></div>` : `<div class="empty">読み込み中…</div>`;
     return;
   }
   if(S.v==="gov"||S.v==="coop"){ S.t = S.v; S.v = "feed"; }
@@ -4074,7 +4081,8 @@ function render(keep=null){
              projects:viewProjects, report:viewReport, donors:viewDonors, donor:viewDonor, saved:viewSaved, strategy:viewStrategy, doc:viewDoc, org:viewOrg}[S.v] || viewHome;
   const html = f() + (S.v==="doc" ? "" : footer());
   document.body.classList.toggle("arview", S.v==="report");
-  if(!(keep && m.contains(keep) && renderAround(m, html, keep))) m.innerHTML = html;
+  // the page under an open report is the same while only the report changes (mode, print): leave it as it is
+  if(html !== MAIN_LAST || !m.firstChild){ if(!(keep && m.contains(keep) && renderAround(m, html, keep))) m.innerHTML = html; MAIN_LAST = html; }
   renderSheet();
   renderSummary();
   renderBigTree();
@@ -4329,8 +4337,8 @@ main.addEventListener("click", e=>{
   const t = e.target;
   if(t.closest("[data-go-strategy]")){ go({v:"strategy"}); return; }
   const stree = t.closest("[data-sectree]"); if(stree){ BT_PUSHED = !EMBED; go({v:"strategy", s:stree.dataset.sectree, bt:stree.dataset.sectree}); return; }
-  if(t.closest("[data-sumopen]")){ sumOpen(); return; }
-  const sg = t.closest("[data-sumgo]"); if(sg){ SUM_PUSHED = !EMBED; SUM_FROM = sg.dataset.sumgo; go({v:"sector", s:sg.dataset.sumgo, sub:"pa", d:"", q:"", k:"", sm:"1"}); return; }
+  if(t.closest("[data-sumopen]")){ sumOpen(t.closest("[data-sumopen]").dataset.sumopen); return; }
+  const sg = t.closest("[data-sumgo]"); if(sg){ SUM_PUSHED = !EMBED; SUM_FROM = sg.dataset.sumgo; go({v:"sector", s:sg.dataset.sumgo, sub:"pa", d:"", q:"", k:"", sm:"1", sv:sg.dataset.sumsv || (S.sv==="quick" ? "" : S.sv)}); return; }
   const im = t.closest("[data-indmore]");
   if(im){ const id = im.dataset.indmore, d = document.getElementById("idet-"+id), open = !IND_OPEN.has(id);
     if(open) IND_OPEN.add(id); else IND_OPEN.delete(id);

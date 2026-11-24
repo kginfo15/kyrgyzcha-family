@@ -28,7 +28,7 @@ search	sanitary	санитарно-эпидемиологического бла
 search	health-concept	Концепции развития здравоохранения
 search	health-strategy	Стратегии развития здравоохранения
 search	health-programs	Программы Кабинета Министров Кыргызской Республики по
-# ブルクト's follow-up (21:10)
+# Follow-up queries
 chain	immunoprophylaxis-2025	иммунопрофилактики на 2025
 text	immunization-program-2025	Программа иммунопрофилактики на 2025-2030
 chain	state-guarantees	государственных гарантий
