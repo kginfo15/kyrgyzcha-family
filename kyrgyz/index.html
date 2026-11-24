@@ -9313,6 +9313,94 @@ var P67_ART=(function(){
   K.reg(_pre);
 })(P67_ART);
 
+/* ===== PHASE67-ART12: 見直しで「意味が伝わりにくい」とした絵の描き直し（このアプリ用に一から描いたSVG） ===== */
+(function(A){
+  var K=window.P67KIT;if(!K||!K.reg)return;
+  var fig=K.fig,card=K.card,T=K.T,bubble=K.bubble,desk=K.desk,arr=K.arr,house=K.house,door=K.door,clock=K.clock,bed=K.bed,cal=K.cal,heart=K.heart,paper=K.paper,tree=K.tree,sweat=K.sweat,g=K.g,check=K.check,cross=K.cross,sparkle=K.sparkle,cloud=K.cloud,leaf=K.leaf,think=K.think,box=K.box,coin=K.coin,building=K.building,table=K.table,plate=K.plate,cup=K.cup,glass=K.glass,steam=K.steam,apple=K.apple,car=K.car,counter=K.counter,rain=K.rain,mtn=K.mtn;
+  var SK="#F2C39A",SKL="#C9935F";
+  function okc(x,y,r){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="none" stroke="#16A34A" stroke-width="'+(r/4)+'"/>';}
+  function ngx(x,y,r){return '<path d="M'+(x-r)+' '+(y-r)+'L'+(x+r)+' '+(y+r)+'M'+(x+r)+' '+(y-r)+'L'+(x-r)+' '+(y+r)+'" stroke="#DC2626" stroke-width="'+(r/3)+'" stroke-linecap="round"/>';}
+  function thumb(x,y,s,down,cuff){return g(x,y,s||1,'<g'+(down?' transform="rotate(180)"':'')+'><path d="M-12 -2h6l4-10q2-6 6-4 3 2 1 8l-2 6h12q5 0 4 5l-3 16q-1 4-5 4h-23z" fill="'+SK+'" stroke="'+SKL+'" stroke-width="1.2"/><path d="M4 4h10M4 10h9M4 16h8" stroke="'+SKL+'" stroke-width="1"/><rect x="-20" y="-3" width="9" height="28" rx="2" fill="'+(cuff||"#E5332A")+'"/></g>');}
+  function face(x,y,r,mood,c){var m=mood==="sad"?'<path d="M-5 6q5-5 10 0" stroke="#1F2937" stroke-width="1.6" fill="none"/>':mood==="sick"?'<path d="M-5 5q2.5-3 5 0t5 0" stroke="#1F2937" stroke-width="1.6" fill="none"/>':'<path d="M-5 3q5 5 10 0" stroke="#1F2937" stroke-width="1.6" fill="none"/>';
+    return g(x,y,r/10,'<circle r="10" fill="'+(c||SK)+'"/><circle cx="-3.5" cy="-2" r="1.2" fill="#1F2937"/><circle cx="3.5" cy="-2" r="1.2" fill="#1F2937"/>'+m);}
+  function pencil(x,y,len,c,rot){return g(x,y,1,'<rect x="0" y="-4" width="'+len+'" height="8" fill="'+(c||"#FACC15")+'"/><rect x="0" y="-4" width="'+len+'" height="2.6" fill="rgba(255,255,255,.35)"/><path d="M'+len+' -4l10 4-10 4z" fill="#F5D0A9"/><path d="M'+(len+7)+' -1.2l3 1.2-3 1.2z" fill="#1F2937"/><rect x="-6" y="-4" width="6" height="8" rx="1" fill="#F472B6"/>',rot||0);}
+  function hl(x,y,w,h){return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="8" fill="none" stroke="#F59E0B" stroke-width="2.4" stroke-dasharray="5 3"/>';}
+  function star(x,y,s,c){return '<path d="M0 -10l2.9 6 6.6.9-4.8 4.6 1.2 6.5L0 4.9-5.9 8l1.2-6.5L-9.5-3.1l6.6-.9z" transform="translate('+x+' '+y+') scale('+(s||1)+')" fill="'+(c||"#FBBF24")+'"/>';}
+  function sun(x,y,r){var s='<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#FBBF24"/>';for(var i=0;i<8;i++){var a=i*Math.PI/4;s+='<path d="M'+(x+Math.cos(a)*(r+3)).toFixed(1)+' '+(y+Math.sin(a)*(r+3)).toFixed(1)+'L'+(x+Math.cos(a)*(r+7)).toFixed(1)+' '+(y+Math.sin(a)*(r+7)).toFixed(1)+'" stroke="#FBBF24" stroke-width="2.4" stroke-linecap="round"/>';}return s;}
+  var done={};function put(k,v){A[k]=v;done[k]=1;}
+
+  /* 良い・悪い */
+  put("h_good",card("out",thumb(46,48,1.7,0,"#16A34A")+okc(80,22,9)+sparkle(16,22,0.9)));
+  put("h_bad",card("cool",thumb(46,42,1.7,1,"#64748B")+ngx(80,70,7)));
+  /* なぜ：床にこぼれた牛乳を見て首をかしげる */
+  put("q_pochemu",card("wall",fig(32,30,0.8,{shirt:"#7C3AED",pose:"hip"})+'<path d="M26 12q-2-6 4-8" stroke="#334155" stroke-width="1.4" fill="none"/>'+'<path d="M58 80q10-8 30 0z" fill="#F8FAFC" stroke="#CBD5E1"/>'+g(70,70,1,'<path d="M-6 -8h12l2 14h-16z" fill="#E0F2FE" stroke="#94A3B8"/>',70)+T(72,40,"?",26,"#E5332A",900)+T(56,30,"?",14,"#93C5FD",900)));
+  /* 砂糖：角砂糖とスプーン、紅茶 */
+  put("sugar",card("wall",table()+[[22,48],[36,48],[29,36],[60,52]].map(function(p){return g(p[0],p[1],1,'<path d="M-7 -4l7-4 7 4v9l-7 4-7-4z" fill="#fff" stroke="#CBD5E1"/><path d="M-7 -4l7 4 7-4M0 0v9" stroke="#E2E8F0" fill="none"/>');}).join("")+cup(76,64,"#fff","#B45309")+'<path d="M52 40l10 8" stroke="#94A3B8" stroke-width="3" stroke-linecap="round"/><ellipse cx="50" cy="38" rx="5" ry="3.4" fill="#CBD5E1"/>'+arr(58,30,70,44,"#94A3B8",1)));
+  /* 古い：ひびが入り、つぎはぎで傾いた木の小屋 */
+  put("w2_old",card("out",'<g transform="rotate(-5 48 76)"><rect x="20" y="40" width="54" height="36" fill="#A16207"/><path d="M20 48h54M20 58h54M20 68h54" stroke="#78350F" stroke-width="1.2"/><path d="M14 42l34-22 34 22z" fill="#78716C"/><path d="M30 30l6 2M54 26l4 4" stroke="#57534E" stroke-width="2"/><rect x="28" y="50" width="14" height="12" fill="#1F2937"/><path d="M28 50l14 12M42 50l-14 12" stroke="#A8A29E" stroke-width="1.4"/><rect x="50" y="56" width="12" height="20" fill="#57534E"/><rect x="60" y="44" width="10" height="7" fill="#D6D3D1" transform="rotate(12 65 47)"/></g>'+'<path d="M78 14l12 12M78 14h8M78 14v8M82 22l4-4" stroke="#fff" stroke-width=".9" fill="none" opacity=".9"/>'+T(82,46,"…",10,"#57534E",900)));
+  /* 脚 */
+  put("b_leg",card("cool",fig(40,14,1,{shirt:"#E5332A",pose:"down"})+'<rect x="26" y="44" width="28" height="36" rx="8" fill="none" stroke="#F59E0B" stroke-width="2.6" stroke-dasharray="5 3"/>'+arr(80,60,60,60,"#F59E0B")));
+  /* 値段：商品と値札 */
+  put("k_price",card("wall",counter(58)+'<path d="M16 56l4-26h26l4 26z" fill="#60A5FA"/><path d="M24 30q9-12 18 0" stroke="#1E40AF" stroke-width="2" fill="none"/>'+g(64,34,1.3,'<path d="M-16 -9h22l10 9-10 9h-22z" fill="#FDE68A" stroke="#B45309" stroke-width="1.2"/><circle cx="7" cy="0" r="2" fill="#fff" stroke="#B45309"/>'+T(-6,4,"500₽",6.4,"#7C2D12",900),-10)+'<path d="M44 40l8-4" stroke="#B45309" stroke-width="1"/>'));
+  /* 取る：手でりんごを取る */
+  put("v_brat",card("wall",table()+apple(34,60,1)+apple(58,44,1.1)+'<rect x="49" y="-2" width="16" height="24" rx="3" fill="#F97316"/><path d="M47 22h20q3 0 3 4v8q0 4-4 4h-2q-2 6-8 6h-4q-5 0-5-6z" fill="'+SK+'" stroke="'+SKL+'" stroke-width="1.2"/><path d="M52 30v6M57 30v6M62 30v6" stroke="'+SKL+'" stroke-width="1"/>'+arr(82,46,82,22,"#16A34A")));
+  /* 長い・短い：鉛筆 */
+  put("a_dlinnyy",card("plain",pencil(10,34,66,"#FACC15")+pencil(10,64,24,"#CBD5E1")+hl(4,24,90,20)));
+  put("a_korotkiy",card("plain",pencil(10,34,66,"#CBD5E1")+pencil(10,64,24,"#60A5FA")+hl(2,54,44,20)));
+  /* きれい・汚い：シャツ */
+  function tee(x,y,c,dirty){return g(x,y,1.3,'<path d="M-8 -16l-12 6 4 9 5-2v23h22v-23l5 2 4-9-12-6q-2 5-8 5t-8-5z" fill="'+c+'"/>'+(dirty?'<circle cx="-4" cy="2" r="3.4" fill="#78350F" opacity=".8"/><circle cx="5" cy="10" r="2.6" fill="#92400E" opacity=".8"/><circle cx="2" cy="-6" r="2" fill="#78350F" opacity=".7"/><path d="M-6 14q4-2 8 2" stroke="#78350F" stroke-width="2" fill="none" opacity=".7"/>':''));}
+  put("a_chistyy",card("cool",tee(48,46,"#F8FAFC",0)+sparkle(20,22,1.2,"#F2B705")+sparkle(78,26,1,"#F2B705")+sparkle(80,64,0.7,"#F2B705")+'<circle cx="22" cy="68" r="5" fill="#fff" stroke="#BAE6FD"/><circle cx="30" cy="74" r="3" fill="#fff" stroke="#BAE6FD"/>'));
+  put("a_gryaznyy",card("cool",tee(48,46,"#F8FAFC",1)+'<path d="M24 26q2-6 0-10M70 24q2-6 0-10" stroke="#84CC16" stroke-width="1.4" fill="none"/>'+'<path d="M16 80q8-6 18 0 10-6 18 0" fill="#92400E" opacity=".6"/>'));
+  /* 変える：壁を赤から青に塗り替える */
+  put("v_izmenit",card("wall",'<rect x="10" y="16" width="40" height="52" fill="#EF4444"/><rect x="50" y="16" width="34" height="52" fill="#3B82F6"/>'+fig(60,30,0.7,{shirt:"#F8FAFC",pose:"point",hair:"cap",capc:"#F59E0B"})+'<path d="M76 14l8-8" stroke="#8B5E3C" stroke-width="3"/><rect x="72" y="12" width="10" height="6" rx="1" fill="#3B82F6" transform="rotate(-45 77 15)"/>'+arr(24,80,72,80,"#16A34A")));
+  /* 理由：「遅刻した」←「バスが故障した」から */
+  put("w3_reason",card("city",'<rect y="74" width="96" height="22" fill="#9CA3AF"/>'+g(30,62,0.8,'<rect x="-26" y="-18" width="52" height="26" rx="5" fill="#E5332A"/><rect x="-22" y="-14" width="10" height="9" rx="1.5" fill="#E0F2FE"/><rect x="-8" y="-14" width="10" height="9" rx="1.5" fill="#E0F2FE"/><rect x="6" y="-14" width="10" height="9" rx="1.5" fill="#E0F2FE"/><circle cx="-14" cy="10" r="5" fill="#1F2937"/><circle cx="14" cy="10" r="5" fill="#1F2937"/>')+'<path d="M40 38q-4-8 2-14 2 6 6 2 0 8-8 12z" fill="#94A3B8"/>'+T(28,30,"!",12,"#DC2626",900)+arr(52,48,64,48,"#F59E0B")+fig(78,30,0.6,{shirt:"#F97316",pose:"hip",sad:1})+clock(78,14,7,9,30,1)));
+  /* 経験：道具と賞状に囲まれたベテラン */
+  put("w3_experience",card("wall",'<rect x="8" y="12" width="80" height="4" fill="#8B5E3C"/>'+[14,30,46,62,78].map(function(x,i){return '<rect x="'+(x-6)+'" y="18" width="12" height="15" fill="#FEF3C7" stroke="#B45309"/>'+(i<3?star(x,25,0.4,"#F59E0B"):'<circle cx="'+x+'" cy="25" r="3" fill="#DC2626"/>');}).join("")+fig(36,46,0.6,{shirt:"#334155",pose:"point",hair:"bald",hairc:"#CBD5E1",beard:1,glasses:1})+fig(70,56,0.44,{shirt:"#F97316",pose:"down"})+T(52,48,"!",8,"#F59E0B",900)));
+  /* 失敗：崩れた積み木 */
+  put("u_fail",card("wall",table()+[[20,58,"#EF4444",-20],[34,60,"#3B82F6",10],[44,52,"#F59E0B",40],[28,46,"#10B981",-50]].map(function(b){return '<rect x="'+(b[0]-6)+'" y="'+(b[1]-6)+'" width="12" height="12" rx="2" fill="'+b[2]+'" transform="rotate('+b[3]+' '+b[0]+' '+b[1]+')"/>';}).join("")+fig(70,32,0.68,{shirt:"#64748B",pose:"hold",sad:1})+'<path d="M64 16q4-6 8 0t8 0" stroke="#94A3B8" stroke-width="1.6" fill="none"/>'+ngx(16,20,6)));
+  /* とても：メーターが最大まで */
+  put("m_ochen",card("cool",'<path d="M14 66a34 34 0 0 1 68 0" stroke="#E2E8F0" stroke-width="12" fill="none"/><path d="M14 66a34 34 0 0 1 10-24" stroke="#86EFAC" stroke-width="12" fill="none"/><path d="M24 42a34 34 0 0 1 24-10" stroke="#FDE047" stroke-width="12" fill="none"/><path d="M48 32a34 34 0 0 1 34 34" stroke="#EF4444" stroke-width="12" fill="none"/><path d="M48 66L78 52" stroke="#1F2937" stroke-width="3.4" stroke-linecap="round"/><circle cx="48" cy="66" r="5" fill="#1F2937"/>'+T(84,24,"!!",14,"#DC2626",900)+T(48,88,"MAX",9,"#DC2626",900)));
+  /* ～すぎる：あふれるコップ */
+  put("c_slishkom",card("wall",table()+'<path d="M36 26h26l-4 40h-18z" fill="#F2B705" stroke="#64748B" stroke-width="1.4"/><path d="M33 26q16-8 32 0" fill="#F2B705" stroke="#0EA5E9" stroke-width="2"/><path d="M36 26q-5 12-3 38M62 26q6 12 4 38" stroke="#0EA5E9" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M18 67q14-5 24 0 12-5 24 0 10-4 20 0" fill="#7DD3FC"/>'+g(49,4,1,'<rect x="-4" y="-6" width="8" height="8" fill="#94A3B8"/><path d="M0 2v14" stroke="#0EA5E9" stroke-width="4"/>')+T(80,40,"!!",16,"#DC2626",900)));
+  /* する価値がある：値段より大きな喜び */
+  put("vb_worth",card("stage",fig(30,32,0.76,{shirt:"#F59E0B",pose:"both"})+'<path d="M56 44l10-14h20l10 14-20 22z" fill="#A5F3FC" stroke="#0891B2" stroke-width="1.4" transform="translate(-6 0)"/>'+sparkle(84,20,1,"#FDE68A")+sparkle(56,22,0.7,"#FDE68A")+coin(62,76,6)+'<path d="M50 80h-8" stroke="#94A3B8"/>'+T(30,14,"!",10,"#FDE68A",900)));
+  /* 静かな：図書館で「しーっ」、寝ている赤ちゃん */
+  put("w2_quiet",card("cool",'<rect x="6" y="12" width="30" height="62" fill="#8B5E3C"/>'+[0,1,2,3].map(function(r){return [0,1,2].map(function(c){return '<rect x="'+(9+c*9)+'" y="'+(15+r*15)+'" width="7" height="12" fill="'+["#EF4444","#3B82F6","#10B981","#F59E0B"][(r+c)%4]+'"/>';}).join("");}).join("")+fig(62,30,0.78,{shirt:"#7C3AED",hair:"long",skirt:"#334155",pose:"hold"})+'<path d="M62 30v8" stroke="'+SK+'" stroke-width="3" stroke-linecap="round"/>'+'<path d="M70 26h0" stroke="#000"/>'+T(84,24,"シー",6,"#64748B",900)+'<g transform="translate(84 46)"><path d="M-8 -4q8-8 16 0" stroke="#94A3B8" stroke-width="1.6" fill="none"/><path d="M-6 -6l12 8" stroke="#DC2626" stroke-width="2"/></g>'));
+  /* 生活リズム：時計の周りに起床・食事・仕事・就寝 */
+  put("w3_routine",card("cool",clock(48,48,20,7,0)+sun(48,12,4)+g(84,48,1,'<ellipse rx="8" ry="3" fill="#fff" stroke="#CBD5E1"/><path d="M-4 -2q4-4 8 0" fill="#F59E0B"/>')+g(48,86,1,'<path d="M-5 -6a6 6 0 1 0 6 8 5 5 0 1 1-6-8z" fill="#6366F1"/>')+g(12,48,1,'<rect x="-7" y="-5" width="14" height="10" rx="1.5" fill="#334155"/><rect x="-5" y="-3" width="10" height="6" fill="#93C5FD"/>')+'<path d="M48 22a26 26 0 1 1 -0.1 0" stroke="#F59E0B" stroke-width="1.6" fill="none" stroke-dasharray="3 3"/>'));
+  /* 皮膚：腕の肌を虫めがねで */
+  put("b_skin",card("cool",'<path d="M4 70q20-14 60-16 20 0 24 10-4 10-24 10-40 2-60 10z" fill="'+SK+'" stroke="'+SKL+'"/><circle cx="56" cy="48" r="22" fill="#FFE4CC" stroke="#475569" stroke-width="3"/>'+[[48,42],[56,50],[62,40],[50,56],[64,54]].map(function(p){return '<path d="M'+(p[0]-3)+' '+p[1]+'q3-2 6 0" stroke="#D9A066" stroke-width="1" fill="none"/>';}).join("")+'<path d="M72 64l12 12" stroke="#475569" stroke-width="5" stroke-linecap="round"/>'));
+  /* 薄い・細い */
+  put("w2_thin",card("wall",table()+[0,1,2,3,4].map(function(i){return '<rect x="58" y="'+(56-i*8)+'" width="30" height="8" rx="1" fill="'+["#E5332A","#DC2626","#16A34A","#F59E0B","#7C3AED"][i]+'"/>';}).join("")+'<rect x="8" y="58" width="40" height="3.4" rx="1" fill="#F472B6"/>'+hl(4,50,48,18)+arr(28,30,28,48,"#F59E0B")));
+  /* 吐き気 */
+  put("m_nausea",card("wall",fig(48,30,0.84,{shirt:"#64748B",pose:"hold",sad:1,skin:"#C7E8B5"})+'<path d="M28 12q4-4 8 0t8 0" stroke="#22C55E" stroke-width="1.8" fill="none"/>'+'<path d="M64 14a6 6 0 1 1 6 6 3 3 0 1 1-3-3" stroke="#84CC16" stroke-width="1.8" fill="none"/>'+sweat(60,24)+'<circle cx="48" cy="48" r="7" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="3 2"/>'));
+  /* 歩道 */
+  put("sidewalk",card("city",'<rect y="66" width="96" height="30" fill="#4B5563"/><path d="M0 82h96" stroke="#F3F4F6" stroke-width="2" stroke-dasharray="8 6"/><rect y="56" width="96" height="12" fill="#D6D3D1"/><rect y="66" width="96" height="2.4" fill="#A8A29E"/>'+[0,1,2,3,4,5].map(function(i){return '<path d="M'+(i*16)+' 56v12" stroke="#A8A29E"/>';}).join("")+fig(24,24,0.5,{shirt:"#F97316",walk:1})+fig(56,24,0.5,{shirt:"#E5332A",walk:1,hair:"long",skirt:"#7C3AED"})+car(80,80,0.5,"#EF4444")+'<rect x="2" y="54" width="92" height="16" rx="3" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4 3"/>'));
+  /* 忙しい */
+  put("a_zanyat",card("wall",desk(8,64,80)+fig(48,26,0.72,{shirt:"#F97316",pose:"both",sit:1})+'<rect x="10" y="48" width="18" height="16" fill="#fff" stroke="#CBD5E1"/><rect x="12" y="44" width="18" height="16" fill="#fff" stroke="#CBD5E1"/><rect x="66" y="40" width="14" height="24" rx="2" fill="#1F2937"/><rect x="68" y="43" width="10" height="16" fill="#93C5FD"/>'+sweat(62,18)+sweat(34,16)+clock(84,16,8,11,50,1)+'<path d="M72 34l4-6M78 36l6-4" stroke="#DC2626" stroke-width="1.6"/>'));
+  /* 恥ずかしさ：赤い顔を手で隠す */
+  put("e_shame",card("wall",fig(48,30,0.86,{shirt:"#E11D48",pose:"both",skin:"#F8B4A0"})+'<rect x="38" y="20" width="20" height="10" rx="4" fill="'+SK+'" stroke="'+SKL+'"/>'+'<circle cx="40" cy="33" r="3" fill="#F43F5E" opacity=".7"/><circle cx="56" cy="33" r="3" fill="#F43F5E" opacity=".7"/>'+'<path d="M28 18l-6-4M68 18l6-4M26 26h-7M70 26h7" stroke="#F43F5E" stroke-width="1.8" stroke-linecap="round"/>'+'<path d="M18 74q8-4 16 0" fill="#7DD3FC"/>'+g(16,68,1,'<path d="M-4 -6h8l1 10h-10z" fill="#fff" stroke="#94A3B8"/>',80)));
+  /* 控えめ：ほめられても「いえいえ」 */
+  put("e_modest",card("wall",fig(28,30,0.74,{shirt:"#10B981",pose:"both"})+bubble(28,10,24,12,star(28,10,0.45),1)+fig(68,30,0.74,{shirt:"#7C3AED",pose:"wave"})+bubble(70,10,30,12,T(70,13,"いえいえ",5.4,"#64748B",900),-1)+'<path d="M84 56l-4 6h8z" fill="#FBBF24"/><rect x="78" y="62" width="12" height="4" fill="#B45309"/>'));
+  /* 影響する：一人の言葉で相手の表情が変わる */
+  put("vb_influence",card("cool",fig(24,32,0.72,{shirt:"#E5332A",pose:"point"})+'<path d="M40 30q8-6 16 0M40 38q10-4 20 2" stroke="#F59E0B" stroke-width="2" fill="none"/>'+arr(58,34,62,34,"#F59E0B")+face(72,22,7,"sad","#BFDBFE")+arr(72,32,72,44,"#16A34A")+face(72,56,9,"happy")+sparkle(86,46,0.6)));
+  /* 伝統的な：ユルトと民族衣装の模様 */
+  put("a_traditsionnyy",card("out",'<path d="M10 72v-20q22-26 44 0v20z" fill="#F8FAFC" stroke="#94A3B8"/><path d="M10 52q22-16 44 0" stroke="#DC2626" stroke-width="2.6" fill="none"/><path d="M14 60h36" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="4 2"/><rect x="26" y="58" width="12" height="14" fill="#7C4A2D"/><path d="M32 26v-6" stroke="#94A3B8" stroke-width="2"/>'+fig(74,32,0.62,{shirt:"#B91C1C",hair:"bald",hairc:"#E5E7EB",beard:1})+'<path d="M66 20l8-12 8 12z" fill="#fff" stroke="#94A3B8"/><path d="M66 20h16" stroke="#1F2937" stroke-width="2"/>'+'<path d="M64 46l4 4 4-4 4 4 4-4 4 4" stroke="#FDE047" stroke-width="1.4" fill="none"/>'));
+  /* 人生：赤ちゃんからお年寄りまでの道 */
+  put("l_life",card("out",'<path d="M4 84q30-4 44-24t44-30" stroke="#D6A86C" stroke-width="7" fill="none" stroke-linecap="round"/>'+g(12,74,1,'<ellipse cy="2" rx="6" ry="4" fill="#FDE68A"/><circle cx="5" cy="-2" r="3.4" fill="'+SK+'"/>')+fig(30,58,0.34,{shirt:"#F97316"})+fig(54,42,0.44,{shirt:"#E5332A",tie:"#DC2626"})+fig(80,24,0.44,{shirt:"#7C3AED",hair:"bald",hairc:"#E5E7EB",beard:1})+'<path d="M88 34v14" stroke="#8B5E3C" stroke-width="2"/>'+sun(84,10,4)));
+  /* 簡単な・素朴な：2ピースのパズルがすぐにはまる */
+  put("a_prostoy",card("cool",'<path d="M14 28h28v10a6 6 0 1 0 0 12v10H14z" fill="#60A5FA"/><path d="M46 28h28v32H46v-10a6 6 0 1 1 0-12z" fill="#FBBF24"/>'+check(78,72,1)+T(30,84,"1+1=2",8,"#334155",900)));
+  /* 昔の・古風な：振り子時計とクモの巣 */
+  put("a_starinnyy",card("wall",'<path d="M34 10h28l4 8v62H30V18z" fill="#7C2D12"/><circle cx="48" cy="30" r="11" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/><path d="M48 30v-7M48 30l5 3" stroke="#1F2937" stroke-width="1.6"/><rect x="38" y="46" width="20" height="28" fill="#451A03"/><path d="M48 46v18" stroke="#FBBF24" stroke-width="1.4"/><circle cx="48" cy="66" r="4" fill="#FBBF24"/>'+'<path d="M66 18l20 0M66 18l20 16M66 18l10 18M66 18v16" stroke="#94A3B8" stroke-width=".8"/><path d="M72 18q2 4 0 6M78 18q2 6 0 10" stroke="#94A3B8" stroke-width=".8" fill="none"/>'+T(16,22,"100",7,"#B45309",900)+T(16,30,"年",6,"#B45309",900)));
+  /* ほんの少し：指でつまむ小さなすき間 */
+  put("w3_little",card("cool",'<path d="M34 18h30l-4 52h-22z" fill="rgba(255,255,255,.7)" stroke="#64748B" stroke-width="1.6"/><path d="M38.6 62h21l-.6 8h-22z" fill="#F97316"/><path d="M36 18v50M62 18v50" stroke="#CBD5E1" stroke-width="0" />'+arr(84,40,66,62,"#E5332A")+T(84,30,"…",14,"#E5332A",900)));
+  /* 引き起こす：ボールがドミノを倒し始める */
+  put("vb_cause",card("cool",fig(16,32,0.6,{shirt:"#F97316",pose:"side"})+'<circle cx="34" cy="62" r="5" fill="#EF4444"/>'+arr(28,54,32,58,"#94A3B8")+[0,1,2,3].map(function(i){return '<rect x="'+(44+i*12)+'" y="44" width="6" height="26" rx="1" fill="#3B82F6" transform="rotate('+(i<2?(-50+i*25):0)+' '+(47+i*12)+' 70)"/>';}).join("")+'<path d="M40 76h50" stroke="#64748B" stroke-width="2"/>'+T(80,30,"!",14,"#DC2626",900)));
+
+  window.P67SC=window.P67SC||{};for(var k in done)P67SC[k]=1;
+})(P67_ART);
+
 /* ===== PHASE67: 操作性とデザインの見直し =====
    - 学習中のサブ画面では上の「Русский」帯を隠し、戻るボタン付きの見出しだけにする
    - 単語カード：単語が長いときに音声ボタンと並んで不自然に折り返す問題を直す
