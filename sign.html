@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Жесты — ロシア語手話（РЖЯ）レッスン帳（v2.0・3人で使う復習アプリ）
+  ロシア語手話（РЖЯ）レッスン帳（v2.0・3人で使う復習アプリ）
   ============================================================
   方針メモ:
   - キルギス語アプリ（index.html）とは別アプリ。仕組み（カード・3段階評価・
@@ -23,8 +23,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Жесты">
-<title>Жесты — 手話レッスン帳</title>
+<meta name="apple-mobile-web-app-title" content="ロシア語手話">
+<title>ロシア語手話 — レッスン帳</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%233B5BDB'/%3E%3Cpath d='M38 72V40a5 5 0 0 1 10 0v-8a5 5 0 0 1 10 0v6a5 5 0 0 1 10 0v24c0 8-6 14-14 14h-4c-6 0-9-3-12-8L30 56a5 5 0 0 1 8-6z' fill='%23fff'/%3E%3C/svg%3E">
 <style>
   :root{
@@ -247,6 +247,10 @@
   .toast{bottom:calc(96px + env(safe-area-inset-bottom))}
   .tag.own{background:#E7F8F1;color:#0B8A63}
   .bar>i{background:var(--accent)}
+  .vbox{display:block;width:100%;margin-top:12px;padding:22px 12px;border:2px dashed #C5C9E6;border-radius:16px;background:#FAFAFE;color:var(--ink);font-family:inherit;cursor:pointer;text-align:center}
+  .vbox .plus{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#EEF0FF;color:var(--accentDeep);font-size:22px;font-weight:800;margin-bottom:6px}
+  .vbox b{display:block;font-size:15px}
+  .vbox span:last-child{display:block;font-size:12px;color:var(--muted);margin-top:2px}
 </style>
 </head>
 <body>
@@ -257,8 +261,8 @@
       <path d="M38 72V40a5 5 0 0 1 10 0v-8a5 5 0 0 1 10 0v6a5 5 0 0 1 10 0v24c0 8-6 14-14 14h-4c-6 0-9-3-12-8L30 56a5 5 0 0 1 8-6z" fill="#fff"/>
     </svg>
     <div>
-      <h1>Жесты</h1>
-      <p>ロシア語手話（РЖЯ）レッスン帳</p>
+      <h1>ロシア語手話</h1>
+      <p>レッスン帳・復習アプリ</p>
     </div>
     <button class="gear" data-act="settings" aria-label="設定">設定</button>
   </div>
@@ -500,7 +504,7 @@ rebuildMap();
 
 /* ===== 保存 ===== */
 var K={custom:"signApp_v1_custom",prog:"signApp_v1_progress",notes:"signApp_v1_notes",set:"signApp_v1_settings",hist:"signApp_v1_history",sess:"signApp_v1_session"};
-var APP_VERSION="2.0";
+var APP_VERSION="2.2";
 var LADDER_DAYS=[1,3,7,14,30,60];
 var memStore={};
 function lget(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return (k in memStore)?memStore[k]:d;}}
@@ -550,7 +554,7 @@ function isWeak(id){var p=progress[id];if(!p)return false;var tot=p.correctCount
 function dailyRemaining(){var r=settings.dailyNew-(dayRec().newIntro||0);return r>0?r:0;}
 
 function hasOwn(c){var n=notes[c.id];return !!(n&&(n.hasAnim||n.hasVideo));}
-function isReady(c){return cardHasAnyVideo(c)||!!FIGS[c.id]||!!c.desc;}
+function isReady(c){return cardHasAnyVideo(c)||!!c.desc;}
 function newCandidates(){
   var cs=CARDS.filter(function(c){return !hasProg(c.id);});
   if(settings.newScope!=="all")cs=cs.filter(isReady);
@@ -697,84 +701,11 @@ function videoBlock(c,opts){
   h+='<div class="links">'+searchLinks(c)+'</div></div>';
   return h;
 }
-/* ===== 動きの模式図（文章解説を図にしたもの） ===== */
-var FC={skin:"#F1F3F5",line:"#ADB5BD",hand:"#3B5BDB",hand2:"#91A7FF",arrow:"#E8590C",txt:"#1E2230"};
-function svgWrap(id,inner){
-  return '<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="動きの模式図">'+
-    '<defs><marker id="ah_'+id+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">'+
-    '<path d="M0 0L10 5L0 10z" fill="'+FC.arrow+'"/></marker></defs>'+
-    '<path d="M70 220Q78 128 160 122Q242 128 250 220Z" fill="'+FC.skin+'" stroke="'+FC.line+'" stroke-width="1.5"/>'+
-    '<rect x="150" y="98" width="20" height="26" fill="'+FC.skin+'"/>'+
-    '<ellipse cx="160" cy="62" rx="34" ry="42" fill="'+FC.skin+'" stroke="'+FC.line+'" stroke-width="1.5"/>'+
-    '<circle cx="148" cy="58" r="2.5" fill="'+FC.line+'"/><circle cx="172" cy="58" r="2.5" fill="'+FC.line+'"/>'+
-    '<path d="M151 84Q160 89 169 84" stroke="'+FC.line+'" stroke-width="2" fill="none" stroke-linecap="round"/>'+
-    inner+'</svg>';
-}
-function palm(x,y,rot,fill,dash){
-  var st=dash?' stroke-dasharray="3 3"':'', f=fill||FC.hand, g='<g transform="translate('+x+' '+y+') rotate('+(rot||0)+')">';
-  [[-10,-21,15],[-4.6,-25,19],[0.8,-24,18],[6.2,-20,14]].forEach(function(a){
-    g+='<rect x="'+a[0]+'" y="'+a[1]+'" width="4.6" height="'+a[2]+'" rx="2.3" fill="'+f+'" stroke="#fff" stroke-width=".8"'+st+'/>';});
-  g+='<rect x="-11" y="-8" width="22" height="22" rx="7" fill="'+f+'" stroke="#fff" stroke-width=".8"'+st+'/>';
-  g+='<rect x="-19" y="-3" width="5" height="13" rx="2.5" fill="'+f+'" stroke="#fff" stroke-width=".8" transform="rotate(-35 -16 3)"'+st+'/>';
-  return g+'</g>';
-}
-function fist(x,y,fill,dash){
-  var st=dash?' stroke-dasharray="3 3"':'', f=fill||FC.hand;
-  return '<g transform="translate('+x+' '+y+')"><rect x="-13" y="-11" width="26" height="22" rx="8" fill="'+f+'" stroke="#fff" stroke-width="1"'+st+'/>'+
-    '<path d="M-6 -11v5M0 -11v5M6 -11v5" stroke="#fff" stroke-width="1.4"/></g>';
-}
-function arr(d,id,both){return '<path d="'+d+'" fill="none" stroke="'+FC.arrow+'" stroke-width="3" stroke-linecap="round" marker-end="url(#ah_'+id+')"'+(both?' marker-start="url(#ah_'+id+')"':'')+'/>';}
-function lab(x,y,t,anchor,col,size){return '<text x="'+x+'" y="'+y+'" font-size="'+(size||13)+'" font-weight="700" fill="'+(col||FC.txt)+'" text-anchor="'+(anchor||"start")+'" font-family="system-ui,sans-serif">'+esc(t)+'</text>';}
-function arm(x1,y1,x2,y2){return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+FC.hand2+'" stroke-width="12" stroke-linecap="round"/>';}
-
-var FIGS={
-  g09:function(id){ // спасибо
-    return svgWrap(id, fist(160,26)+fist(160,104,FC.hand2,true)+
-      arr("M128 32Q104 66 128 100",id)+
-      lab(204,22,"① こぶしの背で")+lab(204,38,"おでこ「スパ」")+
-      lab(204,104,"② 下ろして")+lab(204,120,"あご「シーバ」"));
-  },
-  g02:function(id){ // привет
-    return svgWrap(id, arm(92,210,92,140)+palm(92,128,0)+
-      arr("M62 92Q92 76 122 92",id,true)+lab(92,72,"左右に振る","middle")+
-      lab(16,200,"肘を曲げて","start",FC.txt,12)+lab(16,215,"右手を上げる","start",FC.txt,12));
-  },
-  g06:function(id){ // до свидания
-    return svgWrap(id, arm(52,212,52,162)+palm(52,140,0)+fist(108,150,FC.hand2)+
-      arr("M66 118Q88 106 102 132",id)+arr("M100 168Q82 184 64 166",id)+
-      lab(16,96,"開く・握るを","start",FC.txt,12)+lab(16,111,"くり返す","start",FC.txt,12)+
-      lab(204,150,"ゴムボールを","start",FC.txt,12)+lab(204,165,"握るように","start",FC.txt,12)+
-      lab(204,195,"× 左右に振らない","start","#C92A2A",12));
-  },
-  g01:function(id){ // здравствуйте
-    return svgWrap(id, palm(118,168,30)+palm(202,168,-30)+
-      arr("M96 196Q84 150 132 140",id)+arr("M224 196Q236 150 188 140",id)+
-      lab(16,30,"胸の高さで","start",FC.txt,12)+lab(16,45,"両手で1回","start",FC.txt,12)+lab(16,60,"内側へ円を描く","start",FC.txt,12));
-  },
-  g11:function(id){ // извините
-    return svgWrap(id, '<rect x="122" y="172" width="76" height="16" rx="8" fill="'+FC.hand2+'"/>'+
-      '<rect x="130" y="156" width="60" height="14" rx="7" fill="'+FC.hand+'"/>'+
-      arr("M120 140H200",id,true)+lab(160,130,"手のひら同士をこする","middle")+
-      lab(16,30,"見えない何かを","start",FC.txt,12)+lab(16,45,"拭き取るように","start",FC.txt,12));
-  }
-};
-FIGS.g07=FIGS.g06; // пока（同じ動きと紹介されている）
-FIGS.i01=function(id){ // меня зовут
-  var box='<rect x="218" y="22" width="96" height="140" rx="10" fill="#fff" stroke="'+FC.line+'" stroke-dasharray="4 3"/>'+
-    '<rect x="254" y="44" width="10" height="56" rx="5" fill="'+FC.hand2+'"/>'+
-    '<rect x="230" y="96" width="44" height="10" rx="5" fill="'+FC.hand2+'"/>'+
-    '<circle cx="260" cy="101" r="9" fill="none" stroke="'+FC.arrow+'" stroke-width="2"/>'+
-    '<rect x="268" y="112" width="38" height="12" rx="6" fill="'+FC.hand+'"/>'+
-    arr("M300 140Q276 132 262 116",id)+lab(266,40,"② 親指と人差し指の","middle",FC.txt,9.5)+lab(266,154,"付け根をなでる","middle",FC.txt,10);
-  return svgWrap(id, '<g transform="translate(112 168)"><rect x="-12" y="-9" width="24" height="20" rx="7" fill="'+FC.hand+'"/>'+
-    '<rect x="10" y="-6" width="22" height="6" rx="3" fill="'+FC.hand+'"/></g>'+
-    arr("M140 165H156",id)+lab(16,150,"① 自分を指す","start")+box+
-    lab(16,30,"③ 名前は","start",FC.txt,12)+lab(16,45,"指文字で綴る","start",FC.txt,12));
-};
-function figBlock(c){
-  var f=FIGS[c.id]; if(!f) return "";
-  return '<div class="fig">'+f(c.id)+'<div class="cap">模式図：下の文章解説を図にしたものです（向かい合った相手から見た形。相手の右手は図の左側）。'+
-    (c.desc&&c.desc.level==="single"?'<b>解説が1つの資料だけなので、特に動画で確認を。</b>':'細かい手の形・向きは動画で確認してください。')+'</div></div>';
+/* ===== 動画を入れる箱（まだ収録していないカードに出す） ===== */
+function videoBox(c){
+  if(hasOwn(c))return "";
+  return '<button class="vbox" data-act="mkanim" data-val="'+c.id+'"><span class="plus">＋</span><b>ここに動画を入れる</b>'+
+    '<span>レッスンで習ったら、撮影するか動画を選んでください</span></button>';
 }
 function descBlock(c,quiet){
   if(c.desc){
@@ -1172,8 +1103,8 @@ function renderStudy(){
   }else{
     h+='<div class="jp" style="font-size:20px;margin-top:4px">'+esc(c.ja)+'</div><div style="margin-top:6px">'+wordBlock(c,true)+'</div>';
     var kids=childrenOf(id);if(kids.length)h+='<div style="margin-top:10px;text-align:left"><div class="small muted" style="font-weight:800;margin-bottom:4px">例文</div>'+kids.map(cardRow).join("")+'</div>';
-    if(dir==="sign2ja")h+=figBlock(c)+descBlock(c,true);
-    else h+=ownBlock(c)+figBlock(c)+descBlock(c,true)+videoBlock(c,{skipOwn:true});
+    if(dir==="sign2ja")h+=(hasOwn(c)?"":descBlock(c,true));
+    else h+=ownBlock(c)+videoBox(c)+(hasOwn(c)?"":descBlock(c,true))+videoBlock(c,{skipOwn:true});
     h+=memoPreview(c);
     if(c.note)h+='<div class="note">'+esc(c.note)+'</div>';
     h+='<div style="display:flex;gap:8px;margin-top:12px"><button class="btn sm" style="flex:1" data-act="opencard" data-val="'+id+'">'+(hasOwn(c)?"メモ・収録を編集":"＋ 動画を入れる・メモ")+'</button></div></div>';
@@ -1300,7 +1231,7 @@ function cardSheet(id){
        '<input class="search" id="ex-en" placeholder="英語の意味（なくてもOK）" style="margin-bottom:8px">'+
        '<button class="btn pri full sm" data-act="newex" data-val="'+id+'">例文を作って収録へ</button></div></details></div>';
   }
-  h+=figBlock(c)+descBlock(c,true)+(c.parent?'':videoBlock(c,{noAuto:true,skipOwn:true}));
+  h+=(hasOwn(c)?'':descBlock(c,true))+(c.parent?'':videoBlock(c,{noAuto:true,skipOwn:true}));
   if(c.note)h+='<div class="note">'+esc(c.note)+'</div>';
   h+='<div class="setrow" style="margin-top:16px"><div class="lab">メモ（動きのコツ・先生に言われたことなど）</div>'+
      '<textarea class="memo" data-memo="'+id+'" placeholder="例）右手を…。先生は○○と言っていた。">'+esc(n.memo)+'</textarea></div>';
@@ -1445,7 +1376,7 @@ function settingsSheet(){
      '<div class="small muted" style="margin-top:-6px">「ロシア語→手話」はロシア語の単語も一緒に覚えたい時に。「手話→意味」は自分のアニメや動画を見て意味を当てる読み取り練習。</div></div>';
   h+='<div class="setrow"><div class="lab">1日の新しいカード数</div>'+seg("daily",[[5,"5"],[10,"10"],[15,"15"],[20,"20"]],settings.dailyNew)+'</div>';
   h+='<div class="setrow"><div class="lab">新しいカードに出すもの</div>'+seg("newscope",[["ready","見本があるカードだけ"],["all","すべて"]],settings.newScope)+
-     '<div class="small muted" style="margin-top:-6px">「見本があるカードだけ」は、自分のアニメ・動画か、短い見本動画・図があるカードだけを出します（収録したものが優先）。</div></div>';
+     '<div class="small muted" style="margin-top:-6px">「見本があるカードだけ」は、自分のアニメ・動画か、短い見本動画・解説があるカードだけを出します（収録したものが優先）。</div></div>';
   h+='<div class="setrow"><div class="lab">YouTubeの見本動画を自動で表示</div>'+seg("auto",[["true","ON"],["false","OFF"]],settings.autoVideo)+'</div>';
   h+='<div class="setrow"><div class="lab">ロシア語の読み（カタカナ）</div>'+seg("kana",[["true","表示"],["false","非表示"]],settings.showKana)+'</div>';
   h+='<div class="setrow"><div class="lab">データ管理</div>'+
@@ -1467,7 +1398,7 @@ function aboutSheet(){
     '<li><b>アニメ</b>は、動画から手・腕・顔の位置だけをこの端末の中で読み取って作ります。動画そのものは外に送信しません。認識用のプログラムとデータだけ、最初にネットから読み込みます。</li>'+
     '<li>アニメには<b>表情や口の形は入りません</b>。手話では表情も大事なので、必要なら「元の動画も残す」や メモ を使ってください。手が顔や体に重なる動き・速い動きはうまく読み取れないことがあります。</li>'+
     '<li>先生やほかの人が映った動画を入れる時は、本人に一言ことわっておくと安心です。</li>'+
-    '<li>最初から入っている動きの解説・図・見本動画は、一般向けの記事や検索で見つけたもので、正確さは未確認です。レッスンで習った形と違ったら、レッスンの方を優先してください。</li>'+
+    '<li>最初から入っている動きの解説・見本動画は、一般向けの記事や検索で見つけたもので、正確さは未確認です。レッスンで習った形と違ったら、レッスンの方を優先してください。</li>'+
     '<li>キルギスではロシア語手話が広く使われていますが、地域の言い方もあります。キルギス語の欄は参考です。</li>'+
     '</ul>'+
     '<p><b>データの保存場所</b>：アニメ・動画・メモ・練習の記録は、すべて<b>このスマホのブラウザの中</b>だけに保存されます（サーバーには送られません）。'+
