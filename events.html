@@ -14,7 +14,7 @@
   --bg:#F5F6F8; --card:#FFFFFF; --line:#E3E6EB; --ink:#16191E; --ink-2:#4D5562; --ink-3:#7B8492;
   --accent:#C2410C; --on-accent:#FFFFFF; --accent-soft:#FFEDD5; --chip:#EEF0F3; --link:#1D4ED8;
   --c-concert:#7C3AED; --c-theatre:#B91C1C; --c-comedy:#CA8A04; --c-kids:#0891B2;
-  --c-exhibit:#047857; --c-festival:#DB2777; --c-other:#4B5563;
+  --c-exhibit:#047857; --c-festival:#DB2777; --c-circus:#EA580C; --c-other:#4B5563;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
@@ -22,7 +22,7 @@
     --bg:#0E1116; --card:#171B22; --line:#272D37; --ink:#F1F3F6; --ink-2:#AEB6C2; --ink-3:#7D8796;
     --accent:#FB923C; --on-accent:#1A1206; --accent-soft:#3A2414; --chip:#222833; --link:#7DB3FF;
     --c-concert:#A78BFA; --c-theatre:#F87171; --c-comedy:#FACC15; --c-kids:#22D3EE;
-    --c-exhibit:#34D399; --c-festival:#F472B6; --c-other:#9CA3AF;
+    --c-exhibit:#34D399; --c-festival:#F472B6; --c-circus:#FDBA74; --c-other:#9CA3AF;
     color-scheme:dark;
   }
 }
@@ -66,6 +66,8 @@ h1{font-size:24px;margin:0;line-height:1.25}
 .acts a{font-size:13.5px;text-decoration:none;padding:6px 12px;border-radius:9px;background:var(--chip);color:var(--ink)}
 .acts a.buy{background:var(--accent);color:var(--on-accent)}
 .empty{padding:28px 8px;text-align:center;color:var(--ink-3)}
+.hint{margin:8px 0 4px;padding:10px 12px;border:1px dashed var(--line);border-radius:10px;font-size:14px;color:var(--ink-2);line-height:1.6}
+.hint a{color:var(--link)}
 section.block{margin:30px 0}
 section.block h2{font-size:18px;margin:0 0 4px}
 section.block p.lead{font-size:13px;color:var(--ink-3);margin:0 0 10px}
@@ -131,7 +133,9 @@ footer{font-size:12px;color:var(--ink-3);padding:20px 0 40px;border-top:1px soli
   <div class="links">
     <a href="https://ticket.kg/" target="_blank" rel="noopener"><b>Ticket.kg</b><span>最大手のチケットサイト。この一覧の元データ</span></a>
     <a href="https://sxodim.com/bishkek/afisha" target="_blank" rel="noopener"><b>Давай сходим! (sxodim.com)</b><span>催し物の告知サイト。展示・スタンドアップなども多い</span></a>
-    <a href="https://kassir.kg/" target="_blank" rel="noopener"><b>Kassir.kg</b><span>コンサート・サーカスなど。規約により自動取り込みはしていません</span></a>
+    <a href="https://sxodim.com/bishkek/events/cirk" target="_blank" rel="noopener"><b>サーカス(sxodim.com)</b><span>国立サーカスや来訪サーカスの公演日程</span></a>
+    <a href="https://sxodim.com/bishkek/events/koncert" target="_blank" rel="noopener"><b>コンサート・ライブ(sxodim.com)</b><span>バーやクラブのライブも載っていることが多い</span></a>
+    <a href="https://kassir.kg/" target="_blank" rel="noopener"><b>Kassir.kg</b><span>サーカスの切符はここが中心。規約により自動取り込みはしていません</span></a>
     <a href="https://ticketon.kz/" target="_blank" rel="noopener"><b>Ticketon</b><span>カザフスタン系。イシク・クル湖の大型フェスなど</span></a>
     <a href="https://24.kg/" target="_blank" rel="noopener"><b>24.kg</b><span>毎週「Афиша Бишкека」を掲載</span></a>
     <a href="https://kaktus.media/" target="_blank" rel="noopener"><b>Kaktus.media</b><span>週刊「Афиша Kaktus」、オペラ座の月間演目</span></a>
@@ -177,9 +181,10 @@ footer{font-size:12px;color:var(--ink-3);padding:20px 0 40px;border-top:1px soli
 "use strict";
 var DATA_URL = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/events-data/events.json";
 var CAT = {
-  concert:  {ja:"コンサート", ic:"🎵"},
+  concert:  {ja:"コンサート・ライブ", ic:"🎵"},
   theatre:  {ja:"演劇・オペラ・バレエ", ic:"🎭"},
   comedy:   {ja:"お笑い・スタンドアップ", ic:"😂"},
+  circus:   {ja:"サーカス", ic:"🤹"},
   kids:     {ja:"子ども向け", ic:"🧸"},
   exhibit:  {ja:"展示", ic:"🖼"},
   festival: {ja:"フェス・祭り", ic:"🎪"},
@@ -203,7 +208,9 @@ var VENUES = [
   [/кукол/i, "人形劇場"],
   [/органн/i, "オルガンホール"],
   [/консерватор/i, "国立音楽院(コンセルヴァトーリヤ)"],
-  [/цирк/i, "国立サーカス"],
+  [/Super ?Star/i, "国際サーカス「スーパースター」"],
+  [/Изибаев|государственный цирк|^цирк$/i, "国立サーカス(イジバエフ記念)"],
+  [/шапито/i, "サーカス・テント(シャピト)"],
   [/изобразительных искусств|Айтиев/i, "国立美術館(アイチエフ記念)"],
   [/исторический музей/i, "国立歴史博物館"],
   [/Bishkek Arena|Бишкек Арена/i, "ビシュケク・アリーナ"],
@@ -326,7 +333,9 @@ function render(){
     if(k!==cur){ cur=k; h+='<h3 class="day'+(k===today?' today':'')+'">'+md(k)+'('+WD[wday(k)]+')'+(k===today?' <small>今日</small>':'')+'</h3>'; }
     h+=cardHTML(r.e, r.d, state.p==="today"||state.p==="weekend"?r.others:[]);
   });
-  document.getElementById("list").innerHTML = h || '<div class="empty">この条件のイベントは見つかりませんでした。<br>期間を「すべて」にするか、分類を変えてみてください。</div>';
+  var hint = state.cat==="circus" ? '<div class="hint">🤹 サーカスの切符は主に Kassir.kg や sxodim.com で売られていて、ここには自動では入りにくい分類です。'
+    +'下の「イベント記事」に出るサーカスの記事か、<a href="https://sxodim.com/bishkek/events/cirk" target="_blank" rel="noopener">sxodim.com のサーカス一覧</a>・<a href="https://kassir.kg/" target="_blank" rel="noopener">Kassir.kg</a> も見てください。</div>' : '';
+  document.getElementById("list").innerHTML = (h || '<div class="empty">この条件のイベントは見つかりませんでした。<br>期間を「すべて」にするか、分類を変えてみてください。</div>') + hint;
   document.getElementById("count").textContent = rows.length ? rows.length+"件"+(rows.length>limit?"(先頭"+limit+"件を表示)":"")+" ・ "+md(a)+(a!==b&&b<"9999"?"〜"+md(b):b>="9999"?"以降":"") : "";
   Array.prototype.forEach.call(document.querySelectorAll("#periods button"),function(x){x.setAttribute("aria-pressed", x.dataset.p===state.p?"true":"false");});
   Array.prototype.forEach.call(document.querySelectorAll("#cats button"),function(x){x.setAttribute("aria-pressed", x.dataset.c===state.cat?"true":"false");});
@@ -350,6 +359,7 @@ function renderArticles(arts){
   document.getElementById("articles").innerHTML = arts.slice(0,20).map(function(x){
     return '<div class="art"><a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.title_ja||x.title)+'</a>'
       +(x.afisha?'<span class="badge">アフィシャ</span>':'')
+      +(x.kind==="circus"?'<span class="badge">🤹 サーカス</span>':x.kind==="live"?'<span class="badge">🎵 ライブ</span>':'')
       +(x.title_ja?'<div class="orig">'+esc(x.title)+'</div>':'')
       +'<div class="meta">'+esc(x.src)+' ・ '+esc(md(x.date.slice(0,10)))+'</div></div>';
   }).join("");

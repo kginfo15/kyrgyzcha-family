@@ -10,7 +10,8 @@ Sources
                descriptions are copied. Its terms allow personal,
                non-commercial use, which is what this site is.
   24.kg / kaktus.media - their RSS feeds; we keep weekly "afisha"
-               (what's on) articles and festival news as links.
+               (what's on) articles and festival, circus and concert news
+               as links.
 Not used: kassir.kg (its terms forbid robots), Instagram (Meta's terms),
 sxodim.com (its event lists are loaded by script, so only a link is shown).
 
@@ -61,6 +62,12 @@ TYPE_CAT = {"MusicEvent": "concert", "TheaterEvent": "theatre", "DanceEvent": "t
             "Festival": "festival", "VisualArtsEvent": "exhibit", "LiteraryEvent": "other"}
 SKIP_TYPES = {"SportsEvent", "EducationEvent", "BusinessEvent", "ScreeningEvent"}
 FEST_RE = re.compile(r"фестивал|festival|\bfest\b|фест\b", re.I)
+# Circus has no category of its own on ticket.kg (it turns up under kids or
+# other), so it is picked out by words in the title or the venue.
+CIRCUS_RE = re.compile(r"цирк|шапито|circus|cirque|акробат|клоун|Изибаев", re.I)
+# Live music in bars/clubs is often filed under "other" on ticket.kg.
+LIVE_RE = re.compile(r"\blive\b|лайв|концерт|кавер|cover band|джаз|jazz|\bрок\b|rock|блюз|blues|"
+                     r"акустик|acoustic|dj\b|диджей|группа|band\b|трибьют|tribute", re.I)
 
 # Where an event is, from its coordinates (Bishkek first; more can be added).
 CITIES = [  # (code, lat_min, lat_max, lon_min, lon_max)
@@ -185,6 +192,11 @@ def collect_ticketkg():
         cat = cat_of.get(slug) or TYPE_CAT.get(ev["type"], "other")
         if FEST_RE.search(ev["title"]):
             cat = "festival"
+        elif CIRCUS_RE.search(ev["title"]) or (cat in ("other", "kids") and CIRCUS_RE.search(ev["venue"])):
+            # a concert held in the circus building stays a concert
+            cat = "circus"
+        elif cat == "other" and LIVE_RE.search(ev["title"]):
+            cat = "concert"
         ev["cat"] = cat
         out.append(ev)
     log(f"ticket.kg: {len(out)} upcoming events kept")
@@ -194,8 +206,11 @@ def collect_ticketkg():
 # ------------------------------------------------------------- news articles
 
 ARTICLE_FEEDS = [("24.kg", "https://24.kg/rss/"), ("Kaktus.media", "https://kaktus.media/?rss")]
-ARTICLE_RE = re.compile(r"афиш|куда сходить|фестивал|фест\b|концерт|гастрол|спектакл|премьер|выставк|нооруз|ноорүз", re.I)
-ARTICLE_SKIP = re.compile(r"отключ|дтп|задерж|суд\b|погиб", re.I)
+ARTICLE_RE = re.compile(r"афиш|куда сходить|фестивал|фест\b|концерт|гастрол|спектакл|премьер|выставк|нооруз|ноорүз|"
+                        r"цирк|шапито|\blive\b|лайв|джаз|\bрок\b", re.I)
+ARTICLE_KIND = [("circus", re.compile(r"цирк|шапито", re.I)),
+                ("live", re.compile(r"концерт|гастрол|\blive\b|лайв|джаз|\bрок\b", re.I))]
+ARTICLE_SKIP = re.compile(r"отключ|дтп|задерж|арест|суд\b|погиб|вице-премьер|премьер-министр", re.I)
 ARTICLE_DAYS = 21
 
 
@@ -221,6 +236,8 @@ def collect_articles(prev):
             keep[it["link"]] = {"src": source, "url": it["link"], "title": title,
                                 "afisha": bool(re.search(r"афиш|куда сходить", title, re.I)),
                                 "date": d.isoformat()}
+    for x in keep.values():  # older saved articles get the tag too
+        x["kind"] = next((k for k, rx in ARTICLE_KIND if rx.search(x["title"])), "")
     return sorted(keep.values(), key=lambda x: x["date"], reverse=True)[:40]
 
 
