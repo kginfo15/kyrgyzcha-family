@@ -34,7 +34,7 @@ var M6={
  dust:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')" fill="#E8D5A8" opacity=".8"><circle cx="0" cy="0" r="8"/><circle cx="10" cy="-4" r="6"/><circle cx="-10" cy="-2" r="5"/></g>';},
  /* ---------- 人物 ---------- */
  /* o＝p74Person の指定。x＝足もとの中心、y＝足もと、h＝高さ（px） */
- P:function(o,x,y,h,opt){opt=opt||{};var sc=h/150,inner=p74Person(o);if(opt.flip)inner='<g transform="translate(120 0) scale(-1 1)">'+inner+'</g>';if(opt.rot)inner='<g transform="rotate('+opt.rot+' 60 140)">'+inner+'</g>';
+ P:function(o,x,y,h,opt){opt=opt||{};var sc=h/150,inner=typeof o==="string"?p74Art(o):p74Person(o);if(opt.flip)inner='<g transform="translate(120 0) scale(-1 1)">'+inner+'</g>';if(opt.rot)inner='<g transform="rotate('+opt.rot+' 60 140)">'+inner+'</g>';
    return '<g transform="translate('+(x-60*sc).toFixed(1)+' '+(y-148*sc).toFixed(1)+') scale('+sc.toFixed(3)+')"'+(opt.op?' opacity="'+opt.op+'"':'')+'>'+inner+'</g>';},
  /* 上半身だけ（アップのコマ用）：h＝頭から腰までの高さ */
  Up:function(o,x,top,h,opt){opt=opt||{};P76_N++;var id="m6c"+P76_N,cut=opt.cut||120,sc=h/(cut+4),inner=p74Person(o);if(opt.flip)inner='<g transform="translate(120 0) scale(-1 1)">'+inner+'</g>';
