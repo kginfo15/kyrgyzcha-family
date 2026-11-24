@@ -134,6 +134,8 @@ function p72FormName(w,tok){
   if(!m)return "";var out="";Object.keys(m).forEach(function(k){if(p71N(k)===n)out=m[k].join("・");});return out;
 }
 
+/* ---------- 画面の明るさに合わせて色を選ぶ ---------- */
+function p72Theme(){try{document.documentElement.classList.toggle("p72-dark",!document.body.classList.contains("p69-light"));}catch(_){}}
 /* ---------- 単語の説明（性・形・理由） ---------- */
 var P72_GEX={"папа":"m","дядя":"m","дедушка":"m","мужчина":"m","юноша":"m","кофе":"m","время":"n","имя":"n"};
 function p72GenderInfo(w,g0){
@@ -177,9 +179,9 @@ function p72InfoHtml(tok,ctx,full){
 /* ---------- 単語ポップアップ ---------- */
 function p72Wrap(root){
   if(!root)return;
-  root.querySelectorAll(".p71-sent,.p71-ex>div,.p71-gl-ru,.p72-art,.p72-ban").forEach(function(el){
+  root.querySelectorAll(".p71-sent,.p71-ex>div,.p71-gl-ru,.p72-art,.p72-ban,.p72-gru").forEach(function(el){
     var tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),list=[],nd;
-    while((nd=tw.nextNode()))if(!(nd.parentNode.closest&&nd.parentNode.closest("button,.p72-w,svg"))&&/[А-Яа-яЁёҢңӨөҮү]/.test(nd.nodeValue))list.push(nd);
+    while((nd=tw.nextNode()))if(!(nd.parentNode.closest&&nd.parentNode.closest("button,.p72-w,svg,em"))&&/[А-Яа-яЁёҢңӨөҮү]/.test(nd.nodeValue))list.push(nd);
     list.forEach(function(t){var parts=t.nodeValue.split(/([А-Яа-яЁёҢңӨөҮү́\-]*[А-Яа-яЁёҢңӨөҮү][А-Яа-яЁёҢңӨөҮү́\-]*)/),fr=document.createDocumentFragment();
       parts.forEach(function(p,i){if(!p)return;if(i%2&&(/^-/.test(p)||/[＋+]\s*$/.test(parts[i-1]||""))&&el.closest(".p72-art")){var e2=document.createElement("em");e2.className="p72-endg";e2.textContent=p;fr.appendChild(e2);return;}if(i%2){var s=document.createElement("span");s.className="p72-w";s.setAttribute("data-act","p72w");s.setAttribute("data-val",p);s.textContent=p;
           if(t.parentNode.classList&&t.parentNode.classList.contains("p71-blank"))s.setAttribute("data-hit","1");fr.appendChild(s);}else fr.appendChild(document.createTextNode(p));});
@@ -314,7 +316,7 @@ function p72GuideRender(){
   var h='<div class="p71-wrap"><div class="p72-gtop">'+(idx>=0?'<button type="button" class="p71-x" data-act="p72gtoc" aria-label="目次へ">‹</button>':'<span style="width:44px"></span>')+'<b>'+(idx>=0?esc(G[idx].t):'文法解説書')+'</b><button type="button" class="p71-x" data-act="p72gx" aria-label="閉じる">✕</button></div><div class="p71-scroll"><div class="p71-body p72-gbody">';
   if(idx<0){h+='<p class="p72-glead">このアプリのために書いた、はじめての人向けの文法ガイドです。上から順に読むのがおすすめです。</p><div class="p72-how"><b>使い方</b><span>ロシア語の<u>単語を押す</u>と、意味・性（男性／女性／中性）・なぜその形かが出ます。例文は<u>カードを押す</u>と読み上げます。<em>赤い文字</em>は語尾が変わったところ、<b class="p72-mk">黄色の線</b>は大事なところです。</span></div><div class="p72-toc">'+
       G.map(function(g,i){return '<button type="button" data-act="p72guide" data-val="'+g.id+'">'+p72TocIcon(g.id,i)+'<span><b>'+esc(g.t)+'</b><small>'+esc(g.s)+'</small></span><em>›</em></button>';}).join("")+'</div>';}
-  else{var g=G[idx];h+='<p class="p72-gsub">'+esc(g.s)+'</p>'+p72Banner(g.id)+'<div class="p72-art">'+g.b+'</div>';
+  else{var g=G[idx];h+='<p class="p72-gsub">'+esc(g.s)+'</p>'+p72Banner(g.id)+p72Goal(g.id)+'<div class="p72-art">'+g.b+'</div>';
     var t=g.id;if(P72_TOPIC_NAME[t]&&!/^(aspect|motion|imper)$/.test(t)){var wh=p72Where(t),u=p72UnitNames(t);
       h+='<div class="p72-where"><div class="p71-tblh">このアプリで練習できる場所</div>';
       if(wh.total)h+='<p>道のり（次の一歩）の '+wh.total+' レッスンに出てきます。いま '+wh.done+' レッスン通過。'+(wh.next?'次は '+p72LName(wh.next)+'。':'')+'</p>'+(wh.next&&!P71?'<button type="button" class="p72-glink" data-act="p72gol" data-val="'+wh.next.ti+'|'+wh.next.li+'">そのレッスンを始める ›</button>':'');
@@ -324,7 +326,7 @@ function p72GuideRender(){
     h+='<div class="p72-gnav">'+(idx>0?'<button type="button" data-act="p72guide" data-val="'+G[idx-1].id+'">‹ '+esc(G[idx-1].t)+'</button>':'<span></span>')+(idx<G.length-1?'<button type="button" data-act="p72guide" data-val="'+G[idx+1].id+'">'+esc(G[idx+1].t)+' ›</button>':'<span></span>')+'</div>';
     h+='<p class="p72-mut p72-gnote">この解説書の文章と例文は、このアプリのために書いたオリジナルです。</p>';}
   h+='</div></div></div>';
-  m.innerHTML=h;m.className="show";var sc=m.querySelector(".p71-scroll");if(sc)sc.scrollTop=0;
+  p72Theme();m.innerHTML=h;m.className="show";var sc=m.querySelector(".p71-scroll");if(sc)sc.scrollTop=0;
   p72GuidePost(m);
 }
 
@@ -353,6 +355,16 @@ var P72_SVG={
       h+=(q[2]===5?ball+box:box+ball)+'<text x="'+(x+50)+'" y="'+(y+90)+'" text-anchor="middle" font-size="12.5" fill="currentColor"><tspan font-weight="800">'+q[0]+'</tspan> '+q[1]+'</text>';});
     return h+'</svg>';}
 };
+var P72_GOAL={basics:["Я студе́нт.","「私は学生です」なのに「です」に当たる言葉がない理由がわかります。"],gender:["мой па́па／моя́ ма́ма","同じ「私の」が мой と моя́ に分かれる理由がわかります。"],
+  cases:["ма́ма → ма́му・ма́ме・ма́мой","同じ「母」なのに語尾が変わる理由がわかります。"],nom:["Ма́ма до́ма.","主語は辞書の形のまま使えばいいことがわかります。"],
+  gen:["У меня́ нет вре́мени.","вре́мя（時間）が вре́мени になる理由がわかります。"],dat:["Я звоню́ ма́ме.","「母に」が ма́ме になる理由がわかります。"],
+  acc:["Я чита́ю кни́гу.","кни́га（本）が кни́гу になる理由がわかります。"],ins:["чай с молоко́м","молоко́（牛乳）が молоко́м になる理由がわかります。"],
+  pre:["Я живу́ в Москве́.","Москва́ が Москве́ になる理由がわかります。"],num:["два со́ма／пять со́мов","数によって сом の形が変わる理由がわかります。"],
+  adj:["но́вый дом／но́вая маши́на","「新しい」の語尾が変わる理由がわかります。"],pres:["я чита́ю／ты чита́ешь","主語によって動詞の語尾が変わるしくみがわかります。"],
+  past:["он чита́л／она́ чита́ла","過去形の -л と -ла の使い分けがわかります。"],aspect:["чита́ть／прочита́ть","「読む」に2つの言葉がある理由がわかります。"],
+  imper:["Повтори́те, пожа́луйста.","「〜してください」の作り方がわかります。"],motion:["я иду́／я е́ду","「行く」が2つある理由がわかります。"],
+  prep:["в шко́ле／в шко́лу","同じ в でも、あとの語尾が変わる理由がわかります。"],plural:["кни́га → кни́ги","複数形の作り方がわかります。"]};
+function p72Goal(id){var q=P72_GOAL[id];if(!q)return "";return '<div class="p72-goal" data-act="p72say" data-val="'+esc(p71Plain(q[0]).replace(/→|／/g,","))+'"><div><small>この章を読むと</small><b class="p72-gru">'+esc(q[0])+'</b><span>'+esc(q[1])+'</span></div>'+p71Spk(p71Plain(q[0]).replace(/→|／/g,","),"p72-exspk")+'</div>';}
 function p72Banner(id){
   var b=P72_BAN[id];if(!b)return "";
   if(typeof b==="string")return '<div class="p72-ban p72-bsvg">'+P72_SVG[b]()+'</div>';
@@ -382,9 +394,9 @@ function p72GuidePost(m){
   p71FillPics(m);
   p72Wrap(m);
   /* 赤い語尾：例文・バナー・単語ごとの説明 */
-  m.querySelectorAll(".p72-exru .p72-w,.p72-cap .p72-w,.p72-bw .p72-w").forEach(function(sp){var r=p72Look(sp.getAttribute("data-val"));if(r&&r.base)p72Mark(sp,r.base);});
+  m.querySelectorAll(".p72-exru .p72-w,.p72-cap .p72-w,.p72-bw .p72-w,.p72-gru .p72-w").forEach(function(sp){var r=p72Look(sp.getAttribute("data-val"));if(r&&r.base)p72Mark(sp,r.base);});
   /* 「A → B」の B の語尾を赤に */
-  m.querySelectorAll(".p72-art .p72-w").forEach(function(sp){var pv=sp.previousSibling;if(pv&&pv.nodeType===3&&/^\s*→\s*$/.test(pv.nodeValue)){var a=pv.previousSibling;if(a&&a.classList&&a.classList.contains("p72-w"))p72Mark(sp,a.getAttribute("data-val"));}});
+  m.querySelectorAll(".p72-art .p72-w,.p72-gru .p72-w").forEach(function(sp){var pv=sp.previousSibling;if(pv&&pv.nodeType===3&&/^\s*→\s*$/.test(pv.nodeValue)){var a=pv.previousSibling;if(a&&a.classList&&a.classList.contains("p72-w"))p72Mark(sp,a.getAttribute("data-val"));}});
   /* 変化表：同じ列の1行目と比べて赤に */
   m.querySelectorAll(".p72-art table.p72-t").forEach(function(tb){var R=tb.rows;if(R.length<3)return;
     for(var j=1;j<R[1].cells.length;j++){var c0=R[1].cells[j],w0=c0&&c0.querySelectorAll(".p72-w");if(!w0||w0.length!==1)continue;var base=w0[0].getAttribute("data-val");
@@ -438,7 +450,7 @@ p71Finish=function(){var S=P71;if(!S.fav)return _p72Finish();if(S.fin)return;S.f
 /* ---------- 描画のあとに追加する ---------- */
 var _p72Render=p71Render;
 p71Render=function(){
-  p72PopClose();_p72Render();var m=document.getElementById("p71"),S=P71;if(!m||!S)return;
+  p72PopClose();p72Theme();_p72Render();var m=document.getElementById("p71"),S=P71;if(!m||!S)return;
   var x=S.steps[S.pos];
   if(x&&!S.confirm&&(x.t==="pick"||x.t==="cloze"||x.t==="form")){var tag=m.querySelector(".p71-tag");
     if(tag){var on=!!p72St().fav[p72FavKey(x)],row=document.createElement("div");row.className="p72-tagrow";tag.parentNode.insertBefore(row,tag);row.appendChild(tag);
@@ -480,7 +492,9 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(document
 
 /* ---------- 見た目 ---------- */
 (function(){try{var st=document.createElement("style");st.textContent=[
-'.p72-w{cursor:pointer;border-radius:4px;text-decoration:underline dotted rgba(127,127,127,.55);text-underline-offset:5px;text-decoration-thickness:1.5px;-webkit-tap-highlight-color:transparent}.p72-w.on{background:rgba(46,156,143,.22);text-decoration:none}',
+':root{--p72u:rgba(46,156,143,.6);--p72mkbg:#FFEC8A;--p72mkfg:#2B2100;--p72red:#D63B27;--p72ptbg:#FFF7D6;--p72ptbd:#EBCB6A;--p72ptlb:#8A5D00;--p72on:rgba(46,156,143,.2)}',
+'html.p72-dark{--p72mkbg:rgba(255,214,64,.2);--p72mkfg:#FFE27A;--p72red:#FF8A72;--p72ptbg:rgba(255,214,64,.08);--p72ptbd:rgba(255,214,64,.32);--p72ptlb:#FFD54A;--p72on:rgba(120,220,200,.22)}',
+'.p72-w{cursor:pointer;border-radius:3px;text-decoration:none;border-bottom:2px solid var(--p72u);padding-bottom:0;-webkit-tap-highlight-color:transparent}.p72-w.on{background:var(--p72on);border-bottom-color:transparent}',
 '#p72pop{position:fixed;z-index:160;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.28);padding:10px 12px 12px;font-size:14px;line-height:1.6}',
 '.p72-ph{display:flex;align-items:center;gap:6px}.p72-ph b{font-size:19px;flex:1;min-width:0;overflow-wrap:anywhere}.p72-px{width:36px;height:36px;border:none;background:none;color:var(--muted);font-size:15px}',
 '.p72-pb{display:flex;gap:8px;align-items:baseline;font-size:13px}.p72-pb span{color:var(--muted)}.p72-pb b{font-size:15px}.p72-pm{font-size:15.5px;font-weight:700;margin:2px 0}.p72-pf{font-size:12.5px;color:var(--accent);font-weight:700}',
@@ -504,19 +518,21 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(document
 '.p72-t{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 10px}.p72-t th,.p72-t td{border:1px solid var(--line);padding:6px 6px;text-align:left;vertical-align:top}.p72-t th{background:rgba(127,127,127,.1);font-size:12px}',
 '.p72-ex{list-style:none;padding:0}.p72-ex li{padding:8px 10px;border-radius:10px;background:var(--card);border:1px solid var(--line);margin-bottom:6px}.p72-ex b{display:block;font-size:15.5px}.p72-ex li>span,.p72-exb>span{display:block;font-size:13px;color:var(--muted)}.p72-t td:first-child{min-width:3.2em}',
 '.p72-n{font-size:13px;background:rgba(59,130,196,.12);border-radius:10px;padding:8px 10px}',
-'.p72-how{display:flex;flex-direction:column;gap:4px;background:rgba(255,206,0,.12);border:1px solid rgba(201,138,18,.35);border-radius:12px;padding:10px 12px;margin:0 0 14px;font-size:13px;line-height:1.7}.p72-how>b{font-size:12px;color:#C98A12}.p72-how em{font-style:normal;color:#E0503F;font-weight:800}.p72-how u{text-decoration:none;font-weight:800}',
-'.p72-mk,.p72-art b{font-weight:800;background:linear-gradient(transparent 58%,rgba(255,206,0,.42) 58%);padding:0 1px;border-radius:2px}',
-'.p72-art em,.p72-endg{font-style:normal;color:#E0503F;font-weight:800}.p71-chg b em,.p72-pb em{font-style:normal;color:#E0503F}',
+'.p72-how{display:flex;flex-direction:column;gap:4px;background:var(--p72ptbg);border:1px solid var(--p72ptbd);border-radius:12px;padding:10px 12px;margin:0 0 14px;font-size:13px;line-height:1.7}.p72-how>b{font-size:12px;color:var(--p72ptlb);background:none;padding:0}.p72-how em{font-style:normal;color:var(--p72red);font-weight:800}.p72-how u{text-decoration:none;font-weight:800}',
+'.p72-mk,.p72-art b{font-weight:800;background:var(--p72mkbg);color:var(--p72mkfg);padding:1px 4px;border-radius:5px;-webkit-box-decoration-break:clone;box-decoration-break:clone}.p72-art b .p72-w{border-bottom-color:currentColor}',
+'.p72-art em,.p72-endg,.p72-goal em,.p72-ban em{font-style:normal;color:var(--p72red);font-weight:800}.p71-chg b em,.p72-pb em{font-style:normal;color:var(--p72red)}',
 '.p72-art h4{position:relative;padding-left:12px;font-size:15px!important;color:var(--ink)!important;margin:22px 0 8px!important}.p72-art h4:before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:5px;border-radius:3px;background:var(--accent)}',
 '.p72-art{font-size:15.5px!important;line-height:1.9!important}.p72-art p{margin:0 0 12px}.p72-art li{margin-bottom:6px}',
-'.p72-art .p72-n{position:relative;background:rgba(255,206,0,.12);border:1px solid rgba(201,138,18,.35);padding:28px 12px 10px;font-size:14px;line-height:1.8}.p72-art .p72-n:before{content:"ポイント";position:absolute;left:12px;top:7px;font-size:11.5px;font-weight:800;color:#C98A12;letter-spacing:.08em}',
+'.p72-art .p72-n{position:relative;background:var(--p72ptbg);border:1px solid var(--p72ptbd);padding:28px 12px 10px;font-size:14px;line-height:1.85;color:var(--ink)}.p72-art .p72-n:before{content:"ポイント";position:absolute;left:12px;top:7px;font-size:11.5px;font-weight:800;color:var(--p72ptlb);letter-spacing:.08em}',
+'.p72-art .p72-eg{position:relative;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:28px 12px 10px;font-size:14.5px;line-height:1.85;margin:0 0 12px}.p72-art .p72-eg:before{content:"たとえば";position:absolute;left:12px;top:7px;font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.08em}',
+'.p72-goal{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:10px 0 4px}.p72-goal>div{flex:1;min-width:0}.p72-goal small{display:block;font-size:11.5px;font-weight:800;color:var(--accent)}.p72-goal b{display:block;font-size:17px;margin:2px 0;line-height:1.6}.p72-goal>div>span{display:block;font-size:13px;color:var(--muted);line-height:1.6}.p72-goal .p72-w{display:inline}.p72-exru .p72-w,.p72-bd .p72-w{border-bottom-color:var(--p72u)!important}.p72-ex .p71-pic,.p72-bi .p71-pic{min-height:0!important;max-height:72px;overflow:hidden;aspect-ratio:1/1;padding:0!important}.p72-ex .p71-pic{height:56px!important;max-height:56px}',
 '.p72-t tr:nth-child(even) td{background:rgba(127,127,127,.06)}.p72-t td:first-child{font-weight:700}.p72-t th{color:var(--accent)}',
 '.p72-ban{display:flex;gap:8px;margin:0 0 6px;overflow-x:auto}.p72-bi{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 6px}.p72-bi .p71-pic{width:72px;height:72px}.p72-cap{font-size:14px;font-weight:700;text-align:center}.p72-bi small{font-size:11px;font-weight:800}',
 '.p72-bsvg{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px}.p72-svg{display:block;width:100%;height:auto;color:var(--ink)}',
 '.p72-gm,.p72-gbm{border-color:#3B82C4!important}.p72-gf,.p72-gbf{border-color:#E0503F!important}.p72-gn,.p72-gbn{border-color:#2E9C8F!important}i.p72-gm,b.p72-gm,small.p72-gm{color:#3B82C4}i.p72-gf,b.p72-gf,small.p72-gf{color:#E0503F}i.p72-gn,b.p72-gn,small.p72-gn{color:#2E9C8F}.p72-bd i{font-style:normal;font-weight:800}',
 '.p72-art .p72-ex li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;cursor:pointer;transition:background .2s}.p72-art .p72-ex li.say{background:rgba(46,156,143,.16)}.p72-ex .p72-exp{flex:none;width:56px;height:56px;margin-top:2px}.p72-exb{flex:1;min-width:0}',
-'.p72-exru{display:flex;align-items:center;gap:6px;justify-content:space-between}.p72-exru>b{background:none!important;font-size:17px;font-weight:700;padding:0}.p72-exspk{flex:none;width:36px;height:36px}.p72-exb>span{display:block;font-size:13px;color:var(--muted)}',
-'.p72-bd{margin-top:6px;border-top:1px dashed var(--line);padding-top:4px}.p72-bd>div{display:flex;gap:8px;font-size:12.5px;line-height:1.6;padding:1px 0}.p72-bd b{flex:none;min-width:78px;background:none!important;font-weight:700;padding:0}.p72-bd span{color:var(--muted)}.p72-bd small{font-size:11px}',
+'.p72-exru{display:flex;align-items:center;gap:6px;justify-content:space-between}.p72-exru>b{background:none!important;color:var(--ink)!important;font-size:17px;font-weight:700;padding:0}.p72-exspk{flex:none;width:36px;height:36px}.p72-exb>span{display:block;font-size:13px;color:var(--muted)}',
+'.p72-bd{margin-top:6px;border-top:1px dashed var(--line);padding-top:4px}.p72-bd>div{display:flex;gap:8px;font-size:12.5px;line-height:1.6;padding:1px 0}.p72-bd b{flex:none;min-width:78px;background:none!important;color:var(--ink)!important;font-weight:700;padding:0}.p72-bd span{color:var(--muted)}.p72-bd small{font-size:11px}',
 '.p72-ti{position:relative;width:44px!important;height:44px!important;background:none!important;padding:0}.p72-ti .p71-pic{width:44px;height:44px}.p72-ti u{position:absolute;right:-4px;bottom:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:#fff;font-size:10.5px;text-decoration:none;display:flex;align-items:center;justify-content:center}',
 '.p72-prow{margin-top:6px;border-top:1px solid var(--line);padding-top:6px}.p72-prow>div{display:flex;gap:8px;padding:2px 0;font-size:13px}.p72-prow>div>span{flex:none;width:28px;color:var(--muted);font-size:12px;padding-top:1px}.p72-prow small{display:block;color:var(--muted);font-size:12px;line-height:1.55}.p72-pnote{margin-top:6px;font-size:12.5px;color:var(--muted);line-height:1.6;background:rgba(127,127,127,.08);border-radius:8px;padding:6px 8px}.p72-pb i{font-style:normal;color:var(--muted)}',
 '.p72-gnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px}.p72-gnav button{flex:1;min-width:0;min-height:44px;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:12.5px}.p72-gnav span{flex:1}.p72-gnote{margin-top:14px;text-align:center}'
