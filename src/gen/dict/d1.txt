@@ -1,0 +1,400 @@
+A1-001|hello (formal); good day|
+A1-002|hi; hello|
+A1-003|good morning|
+A1-004|good afternoon; hello|
+A1-005|good evening|
+A1-006|goodbye|
+A1-007|bye; see you|
+A1-008|thank you; thanks|
+A1-009|thank you very much|
+A1-010|please; here you are|おねがいします
+A1-011|excuse me; sorry|
+A1-012|I'm sorry; forgive me|
+A1-013|it's okay; nothing|だいじょうぶです／なにも
+A1-014|yes|
+A1-015|no|
+A1-016|good; okay|
+A1-017|understood; got it|わかりました
+A1-018|may I; can I; possible|
+A1-019|not allowed; must not|
+A1-020|of course; certainly|
+A1-021|I don't understand|わかりません
+A1-022|I understand|わかります
+A1-023|I don't know|わかりません
+A1-024|please repeat|くりかえしてください
+A1-025|slowly|
+A1-026|slowly please|ゆっくりおねがいします
+A1-027|how do you say|どういいますか
+A1-028|what is this|これはなんですか
+A1-029|who is this|これはだれですか
+A1-030|where is it|
+A1-031|I; me|わたし
+A1-032|you (informal)|
+A1-033|you (formal; plural)|
+A1-034|he; him|かれ
+A1-035|she; her|かのじょ
+A1-036|we; us|わたしたち
+A1-037|you (plural)|
+A1-038|they; them|かれら／かのじょら
+A1-039|this; that; it|
+A1-040|this (masculine)|このだんせい
+A1-041|this (feminine)|このじょせい
+A1-042|these|
+A1-043|that (masculine)|あのだんせい
+A1-044|there; over there|
+A1-045|here|
+A1-046|here (to here)|
+A1-047|who|だれ
+A1-048|what|なに
+A1-049|where|
+A1-050|where to|
+A1-051|where from|
+A1-052|when|
+A1-053|why|
+A1-054|how|
+A1-055|what kind; which|
+A1-056|what kind (feminine)|
+A1-057|what kind (plural)|
+A1-058|how many; how much|
+A1-059|whose|だれの
+A1-060|my (masculine)|わたしの
+A1-061|my (feminine)|わたしの
+A1-062|my (neuter)|わたしの
+A1-063|my (plural)|わたしの
+A1-064|your (masculine)|
+A1-065|your (feminine)|
+A1-066|your (plural)|
+A1-067|zero|ぜろ
+A1-068|one|いち
+A1-069|two|に
+A1-070|three|さん
+A1-071|four|よん
+A1-072|five|ご
+A1-073|six|ろく
+A1-074|seven|なな
+A1-075|eight|はち
+A1-076|nine|きゅう
+A1-077|ten|じゅう
+A1-078|eleven|じゅういち
+A1-079|twelve|じゅうに
+A1-080|thirteen|じゅうさん
+A1-081|fourteen|じゅうよん
+A1-082|fifteen|じゅうご
+A1-083|sixteen|じゅうろく
+A1-084|seventeen|じゅうなな
+A1-085|eighteen|じゅうはち
+A1-086|nineteen|じゅうきゅう
+A1-087|twenty|にじゅう
+A1-088|thirty|さんじゅう
+A1-089|forty|よんじゅう
+A1-090|fifty|ごじゅう
+A1-091|sixty|ろくじゅう
+A1-092|seventy|ななじゅう
+A1-093|eighty|はちじゅう
+A1-094|ninety|きゅうじゅう
+A1-095|hundred|ひゃく
+A1-096|thousand|せん
+A1-097|time|じかん
+A1-098|hour; o'clock|じ／いちじかん
+A1-099|minute|ふん
+A1-100|second|びょう
+A1-101|day; daytime|ひ／ひる
+A1-102|week|しゅう
+A1-103|month|つき
+A1-104|year|とし／ねん
+A1-105|today|きょう
+A1-106|tomorrow|あした
+A1-107|yesterday|きのう
+A1-108|morning|あさ
+A1-109|evening|ゆうがた／よる
+A1-110|night|よる
+A1-111|Monday|げつようび
+A1-112|Tuesday|かようび
+A1-113|Wednesday|すいようび
+A1-114|Thursday|もくようび
+A1-115|Friday|きんようび
+A1-116|Saturday|どようび
+A1-117|Sunday|にちようび
+A1-118|January|いちがつ
+A1-119|February|にがつ
+A1-120|March|さんがつ
+A1-121|April|しがつ
+A1-122|May|ごがつ
+A1-123|June|ろくがつ
+A1-124|July|しちがつ
+A1-125|August|はちがつ
+A1-126|September|くがつ
+A1-127|October|じゅうがつ
+A1-128|November|じゅういちがつ
+A1-129|December|じゅうにがつ
+A1-130|spring|はる
+A1-131|summer|なつ
+A1-132|autumn; fall|あき
+A1-133|winter|ふゆ
+A1-134|person; human|ひと
+A1-135|people|ひとびと
+A1-136|man|だんせい
+A1-137|woman|じょせい
+A1-138|child; kid|こども
+A1-139|children; kids|こどもたち
+A1-140|boy|おとこのこ
+A1-141|girl|おんなのこ
+A1-142|family|かぞく
+A1-143|mother|はは
+A1-144|father|ちち
+A1-145|mom; mum|はは
+A1-146|dad|ちち
+A1-147|parents|りょうしん
+A1-148|daughter|むすめ
+A1-149|son|むすこ
+A1-150|brother|きょうだい
+A1-151|sister|しまい
+A1-152|wife|つま
+A1-153|husband|おっと
+A1-154|grandfather|そふ
+A1-155|grandmother|そぼ
+A1-156|friend (male)|ゆうじん
+A1-157|friend (female)|ゆうじん
+A1-158|neighbor (male)|りんじん
+A1-159|neighbor (female)|りんじん
+A1-160|guest|きゃく
+A1-161|teacher|せんせい
+A1-162|pupil; student|せいと
+A1-163|student (university)|がくせい
+A1-164|doctor|いし
+A1-165|nurse|かんごし
+A1-166|driver|うんてんしゅ
+A1-167|seller; shop assistant|はんばいいん
+A1-168|colleague|どうりょう
+A1-169|boss|じょうし
+A1-170|employee; staff|しょくいん
+A1-171|interpreter; translator|つうやく
+A1-172|guard; security|けいびいん
+A1-173|house; home|いえ
+A1-174|apartment; flat|あぱーと／じゅうこ
+A1-175|room|へや
+A1-176|kitchen|だいどころ
+A1-177|toilet|
+A1-178|bathroom|よくしつ
+A1-179|door|
+A1-180|window|まど
+A1-181|table; desk|てーぶる／つくえ
+A1-182|chair|いす
+A1-183|bed|
+A1-184|shelf; wardrobe; closet|たな／くろーぜっと
+A1-185|city; town|とし
+A1-186|street|とおり
+A1-187|road; way|みち
+A1-188|park|こうえん
+A1-189|shop; store|みせ
+A1-190|market; bazaar|いちば
+A1-191|supermarket|
+A1-192|pharmacy; drugstore|やっきょく
+A1-193|hospital|びょういん
+A1-194|clinic|
+A1-195|school|がっこう
+A1-196|kindergarten; nursery|ようちえん／ほいくえん
+A1-197|office|じむしょ
+A1-198|bank|ぎんこう
+A1-199|post office; mail|ゆうびんきょく／ゆうびん
+A1-200|restaurant|
+A1-201|cafe|
+A1-202|bus stop; stop|ていりゅうじょ
+A1-203|airport|くうこう
+A1-204|station|えき
+A1-205|hotel|
+A1-206|embassy|たいしかん
+A1-207|entrance|いりぐち
+A1-208|exit|でぐち
+A1-209|floor; storey|かい
+A1-210|elevator; lift|
+A1-211|stairs|かいだん
+A1-212|taxi|
+A1-213|car|くるま
+A1-214|bus|
+A1-215|marshrutka; minibus|
+A1-216|train|でんしゃ／れっしゃ
+A1-217|airplane; plane|ひこうき
+A1-218|bicycle; bike|じてんしゃ
+A1-219|ticket|
+A1-220|address|じゅうしょ
+A1-221|map; card|ちず／かーど
+A1-222|to the left; left|ひだりへ
+A1-223|to the right; right|みぎへ
+A1-224|straight|
+A1-225|near; close|ちかい
+A1-226|far|とおい
+A1-227|quickly; fast|はやく
+A1-228|food|たべもの
+A1-229|water|みず
+A1-230|tea|おちゃ
+A1-231|coffee|
+A1-232|juice|
+A1-233|milk|ぎゅうにゅう
+A1-234|bread|
+A1-235|rice|こめ
+A1-236|meat|にく
+A1-237|chicken|とりにく
+A1-238|fish|さかな
+A1-239|egg|たまご
+A1-240|cheese|
+A1-241|oil; butter|あぶら／ばたー
+A1-242|soup|
+A1-243|salad|
+A1-244|potato|
+A1-245|carrot|
+A1-246|onion|たまねぎ
+A1-247|tomato|
+A1-248|cucumber|
+A1-249|apple|
+A1-250|banana|
+A1-251|orange|
+A1-252|salt|しお
+A1-253|sugar|さとう
+A1-254|hot|あつい
+A1-255|cold|つめたい
+A1-256|spicy; hot|からい
+A1-257|sweet|あまい
+A1-258|tasty; delicious|
+A1-259|price|ねだん
+A1-260|money|おかね
+A1-261|som (currency)|
+A1-262|ruble|
+A1-263|cash|げんきん
+A1-264|receipt|
+A1-265|bag; package|ふくろ
+A1-266|change (money)|おつり
+A1-267|discount|わりびき
+A1-268|expensive|たかい
+A1-269|cheap|やすい
+A1-270|new|あたらしい
+A1-271|old|ふるい
+A1-272|small; little|ちいさい
+A1-273|big; large|おおきい
+A1-274|other; another; different|べつの
+A1-275|all; everything|ぜんぶ
+A1-276|head|あたま
+A1-277|eye|め
+A1-278|ear|みみ
+A1-279|nose|はな
+A1-280|mouth|くち
+A1-281|tooth|は
+A1-282|throat|のど
+A1-283|hand; arm|て／うで
+A1-284|leg; foot|あし
+A1-285|stomach; belly|おなか
+A1-286|back|せなか
+A1-287|heart|しんぞう
+A1-288|fever; temperature|ねつ／たいおん
+A1-289|cough|せき
+A1-290|runny nose|はなみず
+A1-291|pain|いたみ
+A1-292|medicine|くすり
+A1-293|pill; tablet|じょうざい
+A1-294|test; analysis|けんさ
+A1-295|appointment; reception|しんさつ／うけつけ
+A1-296|it hurts; painful|いたい
+A1-297|feel sick; unwell|ぐあいがわるい
+A1-298|tired (masculine)|つかれた
+A1-299|tired (feminine)|つかれた
+A1-300|kindergarten; nursery|ようちえん／ほいくえん
+A1-301|class; grade|
+A1-302|lesson|じゅぎょう
+A1-303|kindergarten teacher; caregiver|ほいくし
+A1-304|toy|
+A1-305|book|ほん
+A1-306|notebook|
+A1-307|pen|
+A1-308|pencil|えんぴつ
+A1-309|bag|
+A1-310|clothes|ふく
+A1-311|shoes|くつ
+A1-312|breakfast|ちょうしょく
+A1-313|lunch|ちゅうしょく
+A1-314|dinner; supper|ゆうしょく
+A1-315|sleep|すいみん
+A1-316|game; play|あそび
+A1-317|to be; there is|
+A1-318|to eat; there is|たべる／ある
+A1-319|to drink|のむ
+A1-320|to live|すむ
+A1-321|to know|しっている
+A1-322|to understand|りかいする
+A1-323|to say; to speak|いう
+A1-324|to listen; to hear|きく
+A1-325|to read|よむ
+A1-326|to write|かく
+A1-327|to do; to make|する
+A1-328|to work|はたらく
+A1-329|to study; to learn|まなぶ
+A1-330|to go (on foot); to walk|あるいていく
+A1-331|to go (by vehicle); to ride|のりものでいく
+A1-332|to come|くる
+A1-333|to buy|かう
+A1-334|to pay|しはらう
+A1-335|to give|あたえる
+A1-336|to take|とる
+A1-337|to look; to watch|みる
+A1-338|to see|みる
+A1-339|to wait|まつ
+A1-340|to call; to phone|でんわする
+A1-341|to send|おくる
+A1-342|to receive; to get|うけとる
+A1-343|to open|あける
+A1-344|to close; to shut|しめる
+A1-345|to help|てつだう
+A1-346|to ask|たずねる
+A1-347|to answer; to reply|こたえる
+A1-348|to love; to like|すきである
+A1-349|to want|ほしい／したい
+A1-350|can; to be able|
+A1-351|need; necessary|ひつようとする
+A1-352|good|よい
+A1-353|bad|わるい
+A1-354|long|ながい
+A1-355|short|みじかい
+A1-356|expensive; dear|たかい／しんあいなる
+A1-357|cheap|やすい
+A1-358|warm|あたたかい
+A1-359|clean|せいけつな
+A1-360|dirty|きたない
+A1-361|fast; quick|はやい
+A1-362|slow|おそい
+A1-363|light; easy|かるい／かんたんな
+A1-364|difficult; hard|むずかしい
+A1-365|important|じゅうような
+A1-366|necessary; needed|ひつような
+A1-367|ready|じゅんびできた
+A1-368|early|はやい
+A1-369|late|おそい
+A1-370|now|いま
+A1-371|later; afterwards|あとで
+A1-372|already|
+A1-373|still; yet; more|
+A1-374|often|
+A1-375|sometimes|ときどき
+A1-376|always|
+A1-377|never|けっしてない
+A1-378|again|ふたたび
+A1-379|together|いっしょに
+A1-380|in; into|なかに
+A1-381|on; at|うえに
+A1-382|at (someone's place); by|
+A1-383|to; towards|
+A1-384|from (out of)|
+A1-385|with; from (off)|
+A1-386|from (a person)|
+A1-387|until; up to; before|
+A1-388|for|
+A1-389|without|
+A1-390|after|あとで
+A1-391|before; in front of|まえに
+A1-392|and|
+A1-393|and; while; but|いっぽうで
+A1-394|but|
+A1-395|or|
+A1-396|because|
+A1-397|so; therefore|
+A1-398|if|
+A1-399|I live|わたしはすんでいます
+A1-400|I work|わたしははたらいています

@@ -1,0 +1,400 @@
+A1-962|your (informal)|きみの
+A1-963|our|わたしたちの
+A1-964|their|かれらの
+A1-965|his; its|かれの／それの
+A1-966|her (possessive)|かのじょの
+A1-967|glad; happy|
+A1-968|advice|じょげん
+A1-969|it's a pity; sorry|ざんねんだ
+A1-970|maybe; perhaps|
+A1-971|okay; normal; fine|ふつうだ／もんだいない
+A1-972|right; correct|ただしい
+A1-973|wrong; incorrect|まちがっている
+A1-974|important|じゅうようだ
+A1-975|easy; simple|かんたんだ
+A1-976|pleasant; nice|ここちよい
+A1-977|earlier; before|いぜん／よりはやく
+A1-978|later|よりおそく
+A1-979|nowadays; now|いまでは
+A1-980|then; at that time|そのとき
+A1-983|beginning; start|はじまり
+A1-984|end|おわり
+A1-985|ago; before|まえに
+A1-986|in the morning|あさに
+A1-987|in the afternoon|ひるに
+A1-988|in the evening|ゆうがたに
+A1-989|at night|よるに
+A1-990|long ago|ずっとまえに
+A1-991|recently; lately|さいきん
+A1-993|what for; why|なんのために
+A1-994|what happened|なにがおきたのか
+A1-995|too (much)|
+A1-996|more|よりおおく
+A1-997|less|よりすくなく
+A1-998|whole; all|ぜんぶの
+A1-999|white|しろい
+A1-1000|first|いちばんめの
+A1-1001|second|にばんめの
+A1-1002|third|さんばんめの
+A1-1003|last|さいごの
+A1-1004|must; have to|
+A1-1005|to happen|おこる
+A1-1006|to hear|きこえる
+A1-1007|to look for; to search|さがす
+A1-1008|to take (once)|とる
+A1-1009|to open|あける
+A1-1010|to go regularly (on foot); to attend|あるいてかよう／いききする
+A1-1012|young|わかい
+A1-1013|uncle|
+A1-1014|love|あい
+A1-1015|help|たすけ
+A1-1016|professor|きょうじゅ
+A1-1017|director; head|しょちょう／しゃちょう
+A1-1018|usually|
+A1-1019|first; at first|さいしょに
+A1-1020|finally; at last|
+A1-1021|soon; immediately|
+A1-1022|interesting|おもしろい
+A1-1023|fun; cheerful|たのしい
+A1-1024|to play|あそぶ／ひく
+A1-1025|music|おんがく
+A1-1026|song|うた
+A1-1027|cinema; movie theater|えいが／えいがかん
+A1-1028|film; movie|えいが
+A1-1029|sun|たいよう
+A1-1030|sea|うみ
+A1-1031|dog|いぬ
+A1-1032|health|けんこう
+A1-1033|queue; line; turn|じゅんばん／ぎょうれつ
+A1-1034|face|かお
+A1-1035|light|ひかり／あかり
+A1-1036|center; centre|ちゅうしん
+A1-1038|to pay (once)|しはらう
+A1-1039|to sell|うる
+A1-1040|to taste; to try|あじわう／ためす
+A1-1041|to reply; to answer|へんじする
+A1-1042|to be visible; can be seen|みえる
+A2-746|in order to; so that|
+A2-747|although; though|
+A2-748|likewise; also|どうように
+A2-749|except|のぞいて
+A2-750|instead of|かわりに
+A2-751|thanks to|
+A2-752|because of; due to|
+A2-753|during; between|あいだに
+A2-754|among; in the middle of|なかで
+A2-755|around|まわりに
+A2-756|inside|ないぶに
+A2-757|outside|そとがわに
+A2-758|above; up|うえに
+A2-759|below; under|したに
+A2-760|ahead; in front|ぜんぽうに
+A2-761|oneself; self|じぶんじしん
+A2-762|oneself (object)|じぶんを
+A2-764|nothing|なにもない
+A2-765|someone; somebody|だれか
+A2-766|something|なにか
+A2-767|some; some kind of|なんらかの
+A2-768|somewhere|
+A2-769|someday; sometime|
+A2-770|everywhere|
+A2-771|exactly; just|
+A2-772|in general; at all|いっぱんに
+A2-773|by the way|
+A2-774|for example|
+A2-775|that is; i.e.|
+A2-776|in short|ようするに
+A2-777|actually; in fact|じっさいに
+A2-778|one's own|じぶんの
+A2-779|no (none at all)|
+A2-780|feeling; emotion|かんじょう
+A2-781|to believe|しんじる
+A2-782|meaning; sense|いみ
+A2-783|really; truly|ほんとうに
+A2-784|apparently; it seems|
+A2-785|strange; weird; funny|きみょうだ
+A2-786|complicated; complex|ふくざつだ
+A2-787|possible; probably|かのうだ
+A2-788|impossible|ふかのうだ
+A2-789|dangerous|きけんだ
+A2-790|to continue|つづける
+A2-794|once; one time|
+A2-795|how; in what way|
+A2-796|what does it mean|
+A2-797|to what extent; how much|ていど
+A2-798|several; a few|
+A2-799|enough; sufficiently|じゅうぶんに
+A2-800|whole; entire|
+A2-801|any; whatever|
+A2-803|can; to be able|
+A2-804|may I; is it allowed|
+A2-805|to have to; be forced|をえない
+A2-806|worth (doing)|かちがある
+A2-807|had better; should|ほうがよい
+A2-808|to stay; to remain|のこる
+A2-809|to hand over; to return|かえす／わたす
+A2-810|to put (upright); to place|たてておく
+A2-811|to have; to possess|もっている
+A2-812|to take off; to rent|ぬぐ／へやをかりる
+A2-813|to throw; to quit|なげる
+A2-814|to leave; to go away|さる
+A2-815|main; chief|しゅような
+A2-816|real; present; current|ほんものの／げんざいの
+A2-817|birthplace; homeland|しゅっしょうち
+A2-818|fat; full|ふとった／みちた
+A2-819|relation; attitude|かんけい
+A2-820|translation|ほんやく
+A2-821|constantly|たえず
+A2-822|season|きせつ
+A2-823|field|のはら
+A2-824|land; earth|とち／ちきゅう
+A2-825|license; driver's license|めんきょしょう
+A2-826|view|ながめ
+A2-827|call; ring|でんわ／よびだし
+A1-1043|surname; last name|せい
+A1-1044|Russian|ろしあじん
+A1-1045|older; senior|としうえの
+A1-1046|younger; junior|としたの
+A1-1047|tall; high|たかい／せがたかい
+A1-1048|strong|つよい
+A1-1049|weak|よわい
+A1-1050|smart; clever|かしこい
+A1-1051|aunt|
+A1-1052|university|だいがく
+A1-1053|institute; college|がくいん／だいがく
+A1-1054|year (of study); course|がくねん
+A1-1055|education|きょういく／がくれき
+A1-1056|exam|しけん
+A1-1057|task; homework|かだい
+A1-1058|vacation; leave|きゅうか
+A1-1059|timetable; schedule|じかんわり／よていひょう
+A1-1060|break|きゅうけい
+A1-1062|to have lunch|ちゅうしょくをとる
+A1-1063|to have dinner|ゆうしょくをとる
+A1-1064|to cook|りょうりする
+A1-1065|to clean; to tidy up|かたづける／そうじする
+A1-1066|to get up|おきる
+A1-1067|to rest; to relax|やすむ
+A1-1068|to hurry|いそぐ
+A1-1070|hobby|しゅみ
+A1-1071|to like; to love|すきである
+A1-1072|boring|たいくつだ
+A1-1073|leisure; rest|きゅうそく
+A1-1074|to take a walk|さんぽする
+A1-1075|sport; sports|
+A1-1076|to run|はしる
+A1-1077|to swim|およぐ
+A1-1078|soccer; football|
+A1-1079|swimming pool|
+A1-1080|mountain|やま
+A1-1081|to sing|うたう
+A1-1082|to dance|おどる
+A1-1083|concert|
+A1-1084|theater|げきじょう
+A1-1085|museum|はくぶつかん
+A1-1086|magazine|ざっし
+A1-1087|newspaper|しんぶん
+A1-1088|story; short story|ものがたり／たんぺん
+A1-1089|photograph|しゃしん
+A1-1090|to draw; to paint|えをかく
+A1-1091|TV; television|
+A1-1092|warm (weather)|あたたかい
+A1-1093|cold (weather)|さむい
+A1-1094|hot (weather)|あつい
+A1-1095|rain|あめ
+A1-1097|snow|ゆき
+A1-1099|wind|かぜ
+A1-1100|ice|こおり
+A1-1101|in spring|はるに
+A1-1102|in summer|なつに
+A1-1103|in winter|ふゆに
+A1-1104|nature|しぜん
+A1-1105|river|かわ
+A1-1106|lake|みずうみ
+A1-1107|forest; woods|もり
+A1-1108|tree|き
+A1-1109|flower|はな
+A1-1110|bird|とり
+A1-1111|cat|ねこ
+A1-1112|sky|そら
+A1-1113|to shine (sun)|ひがてっている
+A1-1114|healthy|けんこうな
+A1-1115|sick; patient|びょうきの／かんじゃ
+A1-1116|illness; disease|びょうき
+A1-1118|finger|ゆび
+A1-1119|district; area|ちく
+A1-1120|bridge|はし
+A1-1121|sofa; couch|
+A1-1122|mirror|かがみ
+A1-1123|fridge; refrigerator|れいぞうこ
+A1-1124|garbage; trash|ごみ
+A1-1125|transport|こうつうきかん
+A1-1126|metro; subway|ちかてつ
+A1-1127|on foot|とほで
+A1-1128|railway station|えき
+A1-1129|to get off; to go out|おりる／でる
+A1-1130|to turn|まがる
+A1-1131|for free|むりょうで
+A1-1132|dollar|
+A1-1133|euro|
+A1-1134|to cost|ねだんである
+A1-1135|size|
+A1-1136|dish; plate|りょうり／さら
+A1-1137|menu|
+A1-1138|dessert|
+A1-1139|vegetables|やさい
+A1-1140|fruit|くだもの
+A1-1141|fresh|しんせんな
+A1-1142|waiter|
+A1-1143|order|ちゅうもん
+A1-1144|table (in a restaurant)|てーぶるせき
+A1-1145|quiet|しずかな
+A1-1146|trip; business trip|りょこう／しゅっちょう
+A1-1147|mobile; cell (phone)|けいたいの
+A1-1149|to call back|かけなおす
+A1-1150|password|
+A1-1151|website; site|
+A1-1152|file|
+A1-1153|laptop|
+A1-1154|screen|がめん
+A1-1155|to hear; to be heard|きこえる
+A1-1156|happiness|しあわせ
+A1-1157|happy|しあわせな
+A1-1158|angry|おこっている
+A1-1159|to worry|しんぱいする
+A1-1160|to be afraid; to fear|おそれる
+A1-1161|to hope; to wish|のぞむ
+A1-1162|luck; good luck|こううん
+A1-1163|date; number|ひづけ／かず
+A1-1164|the day after tomorrow|
+A1-1165|day off; holiday|きゅうじつ
+A1-1166|to begin; to start|はじめる
+A1-1167|half|はんぶん
+A1-1168|thick; fat|あつい／ふとい
+A1-1169|heavy|おもい
+A1-1170|empty|からの
+A1-1171|open|ひらいている
+A1-1172|color|いろ
+A1-1173|black|くろい
+A1-1174|red|あかい
+A1-1175|blue (dark blue)|あおい
+A1-1176|light blue|みずいろの
+A1-1177|green|みどりの
+A1-1178|pink|
+A1-1179|nowhere|
+A1-1180|fourth|よんばんめの
+A1-1181|fifth|ごばんめの
+A1-1182|sixth|ろくばんめの
+A1-1183|seventh|ななばんめの
+A1-1184|to go regularly (by vehicle); to commute|のりものでかよう／いききする
+A1-1185|to enter; to come in|はいる
+A1-1186|beautiful|うつくしい
+A1-1187|interesting|おもしろい
+A1-1188|usual; ordinary|
+A1-1189|last; past; previous|かこの／さきの
+A1-1190|to end; to finish|おわる
+A1-1191|to try; to make an effort|どりょくする
+A1-1192|to make it in time|まにあう
+A1-1193|to remember; to memorize|おぼえる
+A1-1194|to choose|えらぶ
+A1-1195|to put; to place|おく
+A1-1196|to close|しめる
+A1-1197|to turn on; to switch on|
+A1-1198|to turn off; to switch off|けす
+A1-1199|to wear; to carry|みにつける／はこぶ
+A1-1200|to put on (clothes)|きる
+A1-1201|to tidy up; to put away|かたづける
+A1-1202|to disturb; to bother|じゃまする
+A1-1203|to ask; to request|たのむ
+A2-828|age|ねんれい
+A2-829|character; personality|せいかく
+A2-830|appearance; looks|がいけん
+A2-831|height|しんちょう
+A2-832|adult; grown-up|おとなの／せいじん
+A2-833|married (woman)|きこん
+A2-834|single; lonely|ひとりの／こどくな
+A2-835|serious|
+A2-836|honest|しょうじきな
+A2-837|relative|しんせき
+A2-838|grandson|まご
+A2-839|nephew|おい
+A2-840|fiancee; bride|こんやくしゃ
+A2-841|fiance; groom|こんやくしゃ
+A2-842|wedding|けっこんしき
+A2-843|divorce|りこん
+A2-844|twins|ふたご
+A2-845|acquaintance|ちじん
+A2-846|family (adj)|かぞくの
+A2-847|friendship|ゆうじょう
+A2-848|trust|しんらい
+A2-849|care|せわ／きづかい
+A2-850|specialist; expert|せんもんか
+A2-851|position; post|やくしょく
+A2-852|career|
+A2-853|negotiations|こうしょう
+A2-854|resume; CV|りれきしょ
+A2-855|interview|めんせつ
+A2-856|duty; responsibilities|ぎむ／しょくせき
+A2-857|responsibility|せきにん
+A2-859|regime; routine|せいかつりずむ／たいせい
+A2-860|interest|きょうみ
+A2-861|to hate; to dislike|きらう
+A2-862|hike; outing|えんそく
+A2-863|play (theater)|えんげき
+A2-864|novel|ちょうへんしょうせつ
+A2-865|poem; poetry|し
+A2-866|to collect; to gather|あつめる
+A2-867|program; show|ばんぐみ
+A2-868|journey; travel|りょこう
+A2-869|fog|きり
+A2-870|lightning|いなずま
+A2-871|grass|くさ
+A2-872|animal|どうぶつ
+A2-873|horse|うま
+A2-874|cow|うし
+A2-875|high fever|こうねつ
+A2-876|weakness|だつりょくかん
+A2-877|injury|
+A2-878|fracture|こっせつ
+A2-879|surgery; operation|しゅじゅつ
+A2-880|patient|かんじゃ
+A2-881|diagnosis|しんだん
+A2-882|drops (eye, nose)|てんがんやく／てんびやく
+A2-883|injection; shot|ちゅうしゃ
+A2-884|neck|くび
+A2-885|shoulder|かた
+A2-886|lungs|はい
+A2-887|stomach|い
+A2-888|skin|ひふ
+A2-889|furniture|かぐ
+A2-890|broken|こわれた
+A2-891|owner; landlord|おおや／もちぬし
+A2-892|flight|びん
+A2-893|delay|ちえん
+A2-894|direction|ほうこう
+A2-895|route|けいろ
+A2-896|row; line|れつ
+A2-897|luggage; baggage|てにもつ
+A2-898|gasoline; petrol|
+A2-899|fine (penalty)|ばっきん
+A2-900|accident|じこ
+A2-901|department; section|うりば／ぶもん
+A2-902|cost|ひよう
+A2-903|quality|ひんしつ
+A2-904|exchange|こうかん
+A2-905|deposit|よきん
+A2-906|loan; credit|
+A2-908|bedding|しんぐ
+A2-909|linen; underwear|したぎ
+A2-910|request; favor|たのみ／いらい
+A2-911|citizen|しみん
+A2-912|to travel|りょこうする
+A2-914|network|
+A2-916|joy|よろこび
+A2-917|fear|おそれ
+A2-918|anger|いかり
+A2-919|surprised|おどろいている
+A2-920|calm|おちついている
+A2-921|satisfied; pleased|まんぞくしている
+A2-922|disappointed|
+A2-923|to doubt|うたがう

@@ -1,0 +1,400 @@
+B1-026|state; nation|こっか
+B1-027|government|せいふ
+B1-028|law|ほうりつ
+B1-029|election|せんきょ
+B1-030|population; residents|じんこう／じゅうみん
+B1-031|event; incident|できごと／じけん
+B1-032|to report; to inform (ongoing)|しらせる／ほうじる
+B1-033|mass media|
+B1-034|event; occasion|できごと／ぎょうじ
+B1-035|meeting; assembly|しゅうかい
+B1-036|right (legal)|けんり
+B1-037|to participate (ongoing)|さんかする
+B1-038|participation|さんか
+B1-039|poll; survey; questionnaire|よろんちょうさ／あんけーと
+B1-040|to support (ongoing)|ささえる／しじする
+B1-041|against|はんたいして
+B1-042|majority|だいたすう
+B1-043|minimum|さいていげん
+B1-044|average; medium|へいきんの／ちゅうくらいの
+B1-045|world (adj); global|せかいの
+B1-046|local|じもとの／そのとちの
+B1-047|resident; inhabitant|じゅうみん
+B1-048|healthcare|ほけんいりょう
+B1-049|treatment|ちりょう
+B1-050|to treat (ongoing)|ちりょうする
+B1-051|to cure (once)|なおす
+B1-052|to fall ill (once)|びょうきになる
+B1-053|to catch a cold (once)|かぜをひく
+B1-054|to sneeze (ongoing)|くしゃみをする
+B1-055|to spin; to feel dizzy|まわる／あたまがくらくらする
+B1-056|immunity|めんえき
+B1-057|diet; nutrition|しょくじ／えいよう
+B1-058|diet (restriction)|しょくじせいげん／だいえっと
+B1-059|weight|たいじゅう／おもさ
+B1-060|to lose weight (once)|やせる
+B1-061|medical|いりょうの／いがくの
+B1-062|surgeon|げかい
+B1-063|ambulance; emergency|きゅうきゅうしゃ／きゅうきゅう
+B1-064|healthy lifestyle|けんこうてきなせいかつしゅうかん
+B1-065|harmful; bad for health|からだにわるい／ゆうがいだ
+B1-066|healthy; useful|からだにいい／やくにたつ
+B1-067|to take care of; to protect (ongoing)|だいじにする／まもる
+B1-068|to get worse (ongoing)|あっかする
+B1-069|condition; state|じょうたい／ようだい
+B1-070|housing; dwelling|すまい／じゅうきょ
+B1-071|residential|きょじゅうようの
+B1-072|to move (house, ongoing)|ひっこす
+B1-073|to move (house, once)|ひっこす
+B1-074|neighborhood; neighbors|きんじょ／となりどうし
+B1-075|utilities (power, water)|こうきょうりょうきん
+B1-076|to turn off; to cut off (once)|とめる／きる
+B1-077|everyday life; housework|にちじょうせいかつ／かじ
+B1-078|home appliances|かでんせいひん
+B1-079|dishwasher|しょくせんき
+B1-080|to repair; to renovate (ongoing)|しゅうりする／かいそうする
+B1-081|coziness; comfort|いごこちのよさ
+B1-082|cozy; comfortable|いごこちのよい
+B1-083|housekeeping; household|かじ／かけい
+B1-084|expense; spending|しゅっぴ
+B1-085|to save; to economize (ongoing)|せつやくする
+B1-086|to spend (once)|つかう／ついやす
+B1-087|to lend (once)|かす
+B1-088|to borrow; to take (a seat, time) (once)|かりる／とる
+B1-089|tourism|かんこう／りょこうぎょう
+B1-090|tour package; voucher|りょこうぱっく
+B1-091|foreign; for travel abroad|がいこくの／こくがいようの
+B1-092|abroad|がいこくで
+B1-093|road (adj); travel|どうろの／たびの
+B1-094|to change; to transfer (once)|のりかえる
+B1-095|to be late for; to miss|のりおくれる／おくれる
+B1-096|to depart (ongoing)|しゅっぱつする
+B1-097|to arrive (ongoing)|とうちゃくする
+B1-098|sights; attractions|めいしょ
+B1-099|to look around; to sightsee (ongoing)|けんぶつする／みてまわる
+B1-100|to stay; to stop (once)|とまる
+B1-101|to get lost (once)|まいごになる
+B1-102|GPS; navigator app|かーなび
+B1-103|mileage; distance|そうこうきょり
+B1-104|driver's license|うんてんめんきょしょう
+B1-105|travel companion; fellow traveler|たびのみちづれ／あいのりのひと
+B1-106|educational|きょういくの
+B1-107|to enter (a school, once)|にゅうがくする
+B1-108|to graduate; to finish (once)|そつぎょうする／おえる
+B1-109|to pass an exam|しけんにごうかくする
+B1-110|to fail (an exam, once)|おちる／しっぱいする
+B1-111|scholarship; stipend|しょうがくきん
+B1-112|discipline; subject|きりつ／かもく
+B1-113|subject; object; thing|かもく／もの
+B1-114|knowledge|ちしき
+B1-115|skill|ぎのう／すきる
+B1-116|ability; talent|のうりょく／さいのう
+B1-117|talented|さいのうのある
+B1-118|to review; to repeat (ongoing)|ふくしゅうする／くりかえす
+B1-119|to memorize (ongoing)|おぼえる
+B1-120|explanation|せつめい
+B1-121|clear; understandable|わかりやすい
+B1-122|foreign language|がいこくご
+B1-123|fluently; freely|りゅうちょうに／じゆうに
+B1-124|to make mistakes (ongoing)|まちがえる
+B1-125|to feel (ongoing)|かんじる
+B1-126|to worry (ongoing)|しんぱいする／きにやむ
+B1-127|to calm down (once)|おちつく
+B1-128|to be offended; to sulk (ongoing)|きをわるくする
+B1-129|to irritate (ongoing)|
+B1-130|to be surprised (ongoing)|おどろく
+B1-131|to be glad; to rejoice (ongoing)|よろこぶ
+B1-132|to be proud (ongoing)|ほこりにおもう
+B1-133|to be shy; to be embarrassed (ongoing)|はずかしがる／えんりょする
+B1-134|hope|きぼう
+B1-135|patience|にんたい
+B1-136|shame; embarrassment|はずかしさ
+B1-137|resentment; offense|うらみ／こころのきず
+B1-138|generous|きまえのよい
+B1-139|stingy; greedy|よくばりな
+B1-140|stubborn|がんこな
+B1-141|nervous; irritable|しんけいしつな
+B1-142|sociable; outgoing|ひとづきあいのよい
+B1-143|modest|ひかえめな／しっそな
+B1-144|to count on; to expect|あてにする／きたいする
+B1-145|in my opinion|わたしのかんがえでは
+B1-146|on the one hand|いっぽうでは
+B1-147|thirdly|だいさんに
+B1-148|on the contrary|ぎゃくに／はんたいに
+B1-149|of course; naturally|
+B1-150|according to|はなしによると
+B1-151|to consider; to think; to count (ongoing)|かんがえる／かぞえる
+B1-152|to claim; to insist (ongoing)|しゅちょうする
+B1-153|to object (ongoing)|はんたいする／いぎをとなえる
+B1-154|to convince; to persuade (once)|せっとくする／なっとくさせる
+B1-155|sure; confident|かくしんしている
+B1-156|point of view|かんてん／みかた
+B1-157|argument; reason|ろんきょ／りゆう
+B1-158|first of all; above all|なによりもまず
+B1-159|in the end; finally|けっきょく／さいしゅうてきに
+B1-160|thus; therefore|
+B1-161|despite; in spite of|
+B1-162|thanks to|
+B1-163|depends on|しだいだ
+B1-164|environment; surroundings|かんきょう
+B1-165|ecology; environment|かんきょう／せいたいけい
+B1-166|pollution|おせん
+B1-167|recycling|りさいくる／さいしょり
+B1-168|to throw away (ongoing)|すてる
+B1-169|natural|しぜんの
+B1-170|glacier|ひょうが
+B1-171|warming|おんだんか
+B1-172|drought|かんばつ
+B1-173|flood|こうずい
+B1-174|earthquake|じしん
+B1-175|wildlife; fauna|どうぶつのせかい／どうぶつそう
+B1-176|to protect (ongoing)|まもる／ほごする
+B1-177|source; spring|みなもと／いずみ
+B1-178|energy|
+B1-179|shore; coast|きし／かいがん
+B1-180|valley|たに
+B1-181|summit; peak|ちょうじょう
+B1-182|desert|さばく
+B1-183|economy|けいざい
+B1-184|prices go up|ぶっかがあがる
+B1-185|foreign currency|がいか／つうか
+B1-186|to exchange (money, once)|りょうがえする／こうかんする
+B1-187|to withdraw money|おかねをひきだす
+B1-188|bank account|ぎんこうこうざ
+B1-189|savings|ちょきん
+B1-190|to save up (ongoing)|ためる
+B1-191|income|しゅうにゅう
+B1-192|rich; wealthy|ゆたかな／かねもちの
+B1-193|poor|まずしい
+B1-194|paid (not free)|ゆうりょうの
+B1-195|profitable; advantageous|とくだ／ゆうりだ
+B1-196|debt; duty|しゃっきん／ぎむ
+B1-197|to take out a loan|ろーんをくむ
+B1-198|art|げいじゅつ
+B1-199|literature|ぶんがく
+B1-200|writer|さっか
+B1-201|poet|しじん
+B1-202|work (of art)|さくひん
+B1-203|entertainment|ごらく
+B1-204|to celebrate (ongoing)|いわう
+B1-205|custom; tradition|しゅうかん／しきたり
+B1-206|heritage; legacy|いさん
+B1-207|stage|ぶたい
+B1-208|actor|はいゆう
+B1-209|audience; spectator|かんきゃく
+B1-210|report; live coverage|るぽ／ちゅうけい
+B1-211|festival|
+B1-212|impression|いんしょう
+B1-213|to set off; to head out (once)|でかける／しゅっぱつする
+B1-214|to be keen on (ongoing)|むちゅうになる
+B1-215|to reach; to achieve (ongoing)|たっする／たっせいする
+B1-216|to achieve (once)|たっせいする
+B1-217|to develop (ongoing)|はってんする
+B1-218|to increase; to grow (ongoing)|ふえる
+B1-219|to decrease (ongoing)|へる
+B1-220|to compare (ongoing)|くらべる
+B1-221|to differ; to stand out (ongoing)|ことなる／きわだつ
+B1-222|to consist of|からなる
+B1-223|to belong to (ongoing)|ぞくする
+B1-224|to exist (ongoing)|そんざいする
+B1-225|to influence; to affect (ongoing)|えいきょうする
+B1-226|to get used to (ongoing)|なれる
+B1-227|to get used to (once)|なれる
+B1-228|to decide (ongoing)|けっしんする
+B1-229|to avoid (ongoing)|さける
+B1-230|to cope with (ongoing)|
+B1-231|to cope; to manage (once)|やりとげる
+B1-232|to look after; to care for (ongoing)|せわをする
+B1-233|to turn out to be (ongoing)|だとわかる
+B1-234|to turn out; to find oneself (once)|だとわかる／いあわせる
+B1-235|to doubt|うたがう
+B1-236|to admit; to confess (ongoing)|みとめる／はくじょうする
+B1-237|to warn (once)|まえもってしらせる／けいこくする
+B1-238|to remind (ongoing)|おもいださせる
+B1-239|to replace; to substitute (ongoing)|かわりをする
+B1-240|to allow; to forgive (ongoing)|ゆるす／きょかする
+B1-241|to forbid (ongoing)|きんしする
+B1-242|to distinguish (ongoing)|みわける
+B1-243|to try; to taste (ongoing)|ためす／あじみする
+B1-244|to sympathize (ongoing)|どうじょうする
+B1-245|to support; to encourage (once)|ささえる／はげます
+B1-246|to risk (ongoing)|きけんをおかす
+B1-247|to strive; to aim (ongoing)|めざす／つとめる
+B1-248|to apply to; to treat (ongoing)|といあわせる／あつかう
+B1-249|to express an opinion|いけんをのべる
+B1-250|to pay attention; to devote time|ちゅういをはらう／じかんをさく
+B1-251|to apologize (once)|あやまる
+B1-252|modern; latest|げんだいの／さいしんの
+B1-253|traditional|でんとうてきな
+B1-254|obvious; clear|あきらかな
+B1-255|main; basic|おもな／きほんの
+B1-256|additional; extra|ついかの
+B1-257|permanent; constant|つねの／こていの
+B1-258|temporary|いちじてきな
+B1-259|compulsory; mandatory|ひっすの
+B1-260|affordable; accessible|てのとどく／りようしやすい
+B1-261|reliable|しんらいできる
+B1-262|bright; vivid|あかるい／あざやかな
+B1-263|unusual; rare|めずらしい／かわった
+B1-264|suitable; appropriate|
+B1-265|former; previous|もとの／いぜんの
+B1-266|completely|かんぜんに
+B1-267|gradually; little by little|すこしずつ
+B1-268|unexpectedly; suddenly|おもいがけず／とつぜん
+B1-269|in advance|まえもって
+B1-270|quite; entirely|じゅうぶんに
+B1-271|extremely|きわめて
+B1-272|finally; at last|
+B1-273|so far; for now|いまのところ
+B1-274|as soon as|
+B1-275|before (doing)|まえに
+B1-276|after (doing)|あとで
+B1-277|while; whereas|あいだに／いっぽうで
+B1-278|whether; if|
+B1-279|really?; can it be|
+B1-280|really?; is it true|ほんとうに
+B1-281|to come out of|からでる
+B1-282|to drop in (ongoing)|たちよる
+B1-283|to approach|ちかづく
+B1-284|to move away from|からはなれる
+B1-285|to get to; to reach|までいきつく
+B1-286|to pass by|とおりすぎる
+B1-287|to arrive (by vehicle, ongoing)|のりものでくる／つく
+B1-288|to get to (by vehicle, ongoing)|のりものでいく
+B1-289|to bring (by vehicle, once)|のりものではこんでくる
+B1-290|to drive (someone) somewhere (once)|のりものでおくっていく
+B1-291|to fly away; to depart by plane (once)|ひこうきでしゅっぱつする
+B1-292|to arrive by plane (once)|ひこうきでとうちゃくする
+B1-293|communication|こうりゅう
+B1-294|to socialize; to communicate (ongoing)|つきあう／こうりゅうする
+B1-295|to quarrel (ongoing)|
+B1-296|to make up; to reconcile (ongoing)|なかなおりする
+B1-297|to trust (ongoing)|しんらいする
+B1-298|to respect (ongoing)|そんけいする
+B1-299|respect|そんけい／けいい
+B1-300|invitation|しょうたい
+B1-301|to thank (once)|おれいをいう
+B1-302|to agree; to arrange (once)|とりきめる／やくそくする
+B1-303|to meet (once)|あう
+B1-304|politely|ていねいに／れいぎただしく
+B1-305|rude|しつれいな／らんぼうな
+B1-306|quarrel; argument|こうろん
+B1-307|mutual|おたがいの
+B1-308|social media|
+B1-309|to download (once)|
+B1-310|to upload; to load (once)|よみこむ
+B1-311|charging; charger; exercises|じゅうでん／じゅうでんき／たいそう
+B1-312|to charge (once)|じゅうでんする
+B1-313|account|
+B1-314|search|けんさく／さがすこと
+B1-315|subscription|こうどく
+B1-316|online|
+B1-317|connection problems|つうしんのふぐあい
+B1-318|to fry (ongoing)|やく／いためる
+B1-319|to boil; to cook (ongoing)|にる
+B1-320|to bake (ongoing)|やく
+B1-321|to cut (ongoing)|きる
+B1-322|to make; to prepare (once)|つくる／よういする
+B1-323|taste|あじ／このみ
+B1-324|ingredients|ざいりょう
+B1-325|to taste|あじみする
+B1-326|to order delivery|でまえをたのむ
+B1-327|delivery|はいたつ
+B1-328|vegetarian|さいしょくしゅぎしゃ
+B1-329|appetite|しょくよく
+B1-330|to have a snack (once)|かるくたべる
+B1-331|institution; establishment|きかん／しせつ
+B1-332|application form|もうしこみようし
+B1-333|to fill in (once)|きにゅうする
+B1-334|to submit documents|しょるいをていしゅつする
+B1-335|to review; to consider (ongoing)|しんさする／けんとうする
+B1-336|passport copy|ぱすぽーとのこぴー
+B1-337|extension; renewal|えんちょう／こうしん
+B1-338|confirmation; proof|かくにん／しょうめい
+B1-339|notification; notice|つうち
+B1-340|opening hours|えいぎょうじかん
+B1-341|office hours; reception hours|うけつけじかん
+A2-1168|to understand (once)|りかいする
+A2-1169|to see; to notice (once)|みかける／めにする
+A2-1170|to watch (once)|みる
+A2-1171|to hear (once)|きこえる／みみにする
+A2-1172|to think (once)|かんがえる
+A2-1173|to offer; to suggest (once)|ていあんする／すすめる
+A2-1174|to advise (once)|
+A2-1175|to promise (once)|やくそくする
+A2-1176|to inform (once)|しらせる
+A2-1177|to discuss (once)|はなしあう
+A2-1178|to congratulate (once)|いわう
+A2-1179|to try (once)|こころみる
+A2-1180|to try hard (once)|どりょくする
+A2-1181|to gather; to intend (once)|あつまる
+A2-1182|to sit down (once)|すわる
+A2-1183|to lie down (once)|よこになる／ねる
+A2-1184|to get up; to stand up (once)|おきる／たちあがる
+A2-1185|to eat up (once)|たべてしまう
+A2-1186|to drink up (once)|のんでしまう／いっぱいのむ
+A2-1187|to wash (once)|あらう
+A2-1188|to recognize; to find out (ongoing)|しる／みわける
+A2-1189|to notice (ongoing)|きづく
+A2-1190|to sell (ongoing)|うる
+A2-1191|to find (ongoing)|みつける
+A2-1192|to lose (ongoing)|
+A2-1193|to collect; to pack (once)|あつめる
+A2-1194|to change; to exchange (once)|かえる／こうかんする
+A2-1195|to spend (money, time; ongoing)|つかう
+A2-1196|to repeat (once)|くりかえす
+A2-1197|to take (an exam); to hand in (ongoing)|しけんをうける／あずける
+A2-1198|to end (ongoing)|おわる
+A2-1199|to finish (ongoing)|おえる
+A2-1200|to continue; to last (ongoing)|つづく
+A2-1201|to stop; to stay (ongoing)|とまる
+A2-1202|to fly (one direction)|とんでいく
+A2-1203|to swim; to sail (one direction)|およいでいく／ふねでいく
+A2-1204|to run (one direction)|はしっていく
+A2-1205|to carry (by hand, one direction)|てではこぶ／もっていく
+A2-1206|to transport (by vehicle, one direction)|のりものではこぶ
+A2-1207|to approach (once)|ちかづく
+A2-1208|to pass; to go through (once)|とおりすぎる／とおる
+A2-1209|to cross (once)|わたる
+A2-1210|to worry (ongoing)|しんぱいする
+A2-1211|to take offense (once)|きをわるくする
+A2-1212|to be angry (ongoing)|おこる
+A2-1213|to be bored; to miss (ongoing)|たいくつする／こいしくおもう
+A2-1214|to get tired (once)|つかれる
+A2-1215|to rest; to take a break (once)|やすむ／きゅうけいする
+A2-1216|to cry (ongoing)|なく
+A2-1217|to be nervous (ongoing)|きんちょうする
+A2-1218|to feel (once)|かんじる
+A2-1219|to sleep (ongoing)|ねむる／ねている
+A2-1220|to fall asleep (once)|ねつく
+A2-1221|to wake up (once)|めがさめる
+A2-1222|to get dressed (once)|ふくをきる
+A2-1223|to undress (once)|ふくをぬぐ
+A2-1224|to smoke (ongoing)|たばこをすう
+A2-1225|to die; to pass away (once)|しぬ／なくなる
+A2-1226|to shout; to yell (ongoing)|さけぶ／おおごえをだす
+A2-1227|to be silent (ongoing)|だまっている
+A2-1228|to joke (ongoing)|じょうだんをいう
+B1-342|to appear (once)|あらわれる
+B1-343|to disappear (once)|きえる
+B1-344|to happen (once)|おこる
+B1-345|to arise (once)|しょうじる
+B1-346|to be (ongoing)|
+B1-347|to believe (once)|しんじる
+B1-348|to imagine; to introduce (once)|そうぞうする／しょうかいする
+B1-349|to imagine; to represent (ongoing)|そうぞうする／だいひょうする
+B1-350|to expect (ongoing)|まつ／よそうする
+B1-351|to guess (once)|さっする／けんとうがつく
+B1-352|to argue; to debate (ongoing)|いいあらそう／ぎろんする
+B1-353|to complain (once)|くじょうをいう
+B1-354|to build (ongoing)|たてる
+B1-355|to create (ongoing)|つくりだす
+B1-356|to have to (ongoing)|
+B1-357|to protect (ongoing)|まもる
+B1-358|to protect (once)|まもる
+B1-359|to save; to rescue (once)|すくう
+B1-360|to hinder; to bother (once)|じゃまする
+B1-361|to be friends (ongoing)|なかよくする／ともだちでいる
+B1-362|to quarrel (once)|
+B1-363|to marry (said of a woman)|じょせいがけっこんする
+B1-364|to divorce (once)|りこんする

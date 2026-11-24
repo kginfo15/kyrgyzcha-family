@@ -1,0 +1,400 @@
+A2-924|to dream|ゆめみる
+A2-925|agreement; consent|どうい
+A2-926|refusal|きょひ
+A2-927|gratitude; thanks|かんしゃ
+A2-928|safe|あんぜんだ
+A2-929|unpleasant|ふかいだ
+A2-930|day (24 hours)|にじゅうよじかん／いちにち
+A2-931|century|せいき
+A2-932|noon; midday|しょうご
+A2-933|midnight|まよなか
+A2-935|quantity; amount; number|りょう／かず
+A2-936|quarter|よんぶんのいち
+A2-937|deep|ふかい
+A2-938|opposite; across from|むかいに
+A2-939|behind; at the back|こうほうに
+A2-940|firstly; first of all|だいいちに
+A2-941|secondly|だいにに
+A2-942|obliged; must|ぎむがある
+A2-943|to fly|とぶ／ひこうきでかよう
+A2-944|to drive|うんてんする
+A2-945|to depart; to leave|しゅっぱつする
+A2-946|to pass by; to go past|とおりすぎる
+A2-949|right after; soon after|すぐあとに
+A2-950|nice; pleasant (person)|かんじのよい
+A2-951|famous; well-known|ゆうめいな
+A2-952|special|とくべつな
+A2-953|to become|
+A2-954|to be located|ばしょにある
+A2-955|to appear|あらわれる
+A2-956|to try; to attempt|こころみる
+A2-957|to discuss|はなしあう
+A2-958|to notice|きづく
+A2-960|to hang|
+A2-961|to press; to push|おす
+A2-962|to break; to destroy|こわす
+A2-963|to build|たてる
+A2-964|to create|つくる
+A2-965|to allow; to permit|きょかする
+A2-966|to thank|かんしゃする
+A2-967|to apologize|あやまる
+A2-968|to promise|やくそくする
+A2-969|to complain|くじょうをいう
+A2-970|to bother; to disturb|しんぱいさせる／めいわくをかける
+A1-1204|profession; occupation|しょくぎょう
+A1-1205|Japanese (man)|にほんじん
+A1-1206|Japanese (woman)|にほんじん
+A1-1207|Japanese (adj)|にほんの
+A1-1208|low; short|ひくい
+A1-1209|cheerful; merry|ようきな
+A1-1210|calm|おちついた
+A1-1211|student (female)|がくせい
+A1-1212|lecturer; teacher|こうし／きょういん
+A1-1213|salary|きゅうりょう
+A1-1214|lecture|こうぎ
+A1-1215|seminar|
+A1-1216|grade; mark|ひょうか／せいせき
+A1-1217|textbook|きょうかしょ
+A1-1218|dictionary|じしょ
+A1-1219|grammar|ぶんぽう
+A1-1220|pronunciation|はつおん
+A1-1221|exercise|れんしゅうもんだい
+A1-1222|alarm clock|めざましどけい
+A1-1223|to wash one's face|かおをあらう
+A1-1225|to get dressed|ふくをきる
+A1-1226|to have breakfast|ちょうしょくをとる
+A1-1227|to do the laundry|せんたくする
+A1-1228|to wash|あらう
+A1-1230|to wake up|めがさめる
+A1-1231|to get tired|つかれる
+A1-1232|to be late|ちこくする
+A1-1233|to make it in time|まにあう
+A1-1234|walk|さんぽ
+A1-1235|gym|
+A1-1236|guitar|
+A1-1237|exhibition|てんらんかい
+A1-1238|souvenir|みやげ
+A1-1239|degree|ど
+A1-1240|it's sunny; clear|はれている
+A1-1241|cloud|くも
+A1-1242|umbrella|かさ
+A1-1243|cold (illness)|かぜ
+A1-1244|square (in a city)|ひろば
+A1-1245|bedroom|しんしつ
+A1-1246|living room|いま
+A1-1247|balcony|
+A1-1248|corridor; hallway|ろうか
+A1-1249|shelf|たな
+A1-1250|lamp|
+A1-1252|cashier; ticket window|まどぐち／れじ
+A1-1253|visa|
+A1-1254|traffic jam|じゅうたい
+A1-1255|to get on; to board|のる
+A1-1256|to get to; to reach|たどりつく
+A1-1257|kiosk|ばいてん
+A1-1259|shopping; purchase|かいもの
+A1-1260|yen|えん
+A1-1262|to try on|しちゃくする
+A1-1263|ATM|
+A1-1265|flatbread; lepyoshka|ひらやきぱん
+A1-1266|plov; pilaf|
+A1-1267|lamb; mutton|ひつじにく
+A1-1268|beef|ぎゅうにく
+A1-1269|pork|ぶたにく
+A1-1270|sour cream|
+A1-1271|kefir|
+A1-1272|cottage cheese|
+A1-1273|cabbage|
+A1-1274|grapes|
+A1-1275|watermelon|
+A1-1276|nuts|
+A1-1277|pepper|
+A1-1278|compote (fruit drink)|
+A1-1280|salty|しおからい
+A1-1281|sour|すっぱい
+A1-1282|bitter|にがい
+A1-1283|hungry|くうふくの
+A1-1284|full (not hungry)|まんぷくの
+A1-1285|portion; serving|ひとりぶん
+A1-1286|cleaning|せいそう
+A1-1287|noisy|さわがしい
+A1-1288|tourist|かんこうきゃく
+A1-1289|guide|
+A1-1290|to take a photo|しゃしんをとる
+A1-1291|Wi-Fi|
+A1-1293|link|
+A1-1294|app; attachment|あぷり／てんぷ
+A1-1295|printer|
+A1-1296|to print|いんさつする
+A1-1297|scan|
+A1-1298|sad|かなしい
+A1-1299|calendar|
+A1-1300|the day before yesterday|
+A1-1301|to finish|おえる
+A1-1302|various; different|
+A1-1303|wide; broad|ひろい
+A1-1304|narrow|せまい
+A1-1305|thin|うすい／ほそい
+A1-1306|soft|やわらかい
+A1-1307|wet|ぬれた
+A1-1308|dry|かわいた
+A1-1309|closed|しまっている
+A1-1310|yellow|きいろい
+A1-1311|orange (color)|
+A1-1312|brown|ちゃいろの
+A1-1313|gray; grey|はいいろの
+A1-1314|bright; light|あかるい
+A1-1315|dark|くらい
+A1-1316|to begin; to start|はじまる
+A1-1317|to work out; to succeed|
+A1-1318|to meet; to welcome|でむかえる／であう
+A1-1319|to advise|じょげんする
+A1-1320|eighth|はちばんめの
+A1-1321|to approach; to suit; to fit|ちかづく
+A1-1322|to cross; to move|わたる／うつる
+A1-1323|useful|やくにたつ
+A1-1324|boring|たいくつな
+A1-1325|future|みらいの
+A2-971|patronymic|ふしょう
+A2-972|nationality; ethnicity|こくせき／みんぞく
+A2-973|citizenship|しみんけん／こくせき
+A2-974|specialty; major|せんもん
+A2-975|homeland; motherland|こきょう／そこく
+A2-976|foreigner|がいこくじん
+A2-977|Kyrgyz (person)|きるぎすじん
+A2-978|Kyrgyz (adj)|きるぎすの
+A2-979|married (man)|きこんの
+A2-980|single; unmarried (man)|どくしんの
+A2-981|thin; slim|やせた
+A2-982|active|かつどうてきな
+A2-983|polite|れいぎただしい
+A2-984|granddaughter|まご
+A2-985|niece|めい
+A2-986|cousin|
+A2-987|mother-in-law (husband's mother)|おっとのはは
+A2-988|father-in-law (wife's father)|つまのちち
+A2-989|pregnant|にんしんしている
+A2-990|faculty (university)|がくぶ
+A2-991|department; chair|こうざ／がっか
+A2-992|graduate student|だいがくいんせい
+A2-993|subordinate|ぶか
+A2-994|intern; trainee|けんしゅうせい
+A2-995|diploma|そつぎょうしょうしょ
+A2-996|certification exam; attestation|にんていしけん
+A2-997|business trip|しゅっちょう
+A2-998|to undress|ふくをぬぐ
+A2-999|to iron|あいろんをかける
+A2-1000|to water|みずをやる
+A2-1001|passion; hobby|ねっちゅうしていること
+A2-1002|to prefer|よりこのむ
+A2-1003|training; workout|
+A2-1004|skiing; skis|
+A2-1005|tent|
+A2-1006|fishing|つり
+A2-1008|excursion; tour|けんがく／えんそく
+A2-1010|cool|すずしい
+A2-1011|heat wave|もうしょ
+A2-1012|frost; severe cold|げんかん
+A2-1013|cloudy; overcast|くもっている
+A2-1014|storm cloud|くろくも
+A2-1015|windy|かぜがつよい
+A2-1016|thunderstorm|らいう
+A2-1017|thunder|らいめい
+A2-1018|black ice; icy roads|ろめんとうけつ
+A2-1019|climate|きこう
+A2-1020|sheep|ひつじ
+A2-1021|flu; influenza|
+A2-1022|nausea|はきけ
+A2-1023|vaccination|よぼうせっしゅ
+A2-1024|general practitioner; GP|いっぱんないかい
+A2-1025|queue ticket; appointment slip|うけつけけん／せいりけん
+A2-1026|insurance card; policy|ほけんしょう
+A2-1027|ointment|ぬりぐすり
+A2-1028|village|むら
+A2-1029|avenue|おおどおり
+A2-1030|lane; alley|ろじ
+A2-1031|crossroads; intersection|こうさてん
+A2-1032|sidewalk; pavement|ほどう
+A2-1033|entrance (of an apartment block)|いりぐち／かいだんしつ
+A2-1034|dormitory|りょう
+A2-1035|vacuum cleaner|そうじき
+A2-1036|to leak; leaking|もれている
+A2-1037|rent (payment)|やちん
+A2-1038|neighboring; next|となりの
+A2-1039|outskirts; suburbs|こうがい／はずれ
+A2-1040|trolleybus|
+A2-1041|tram; streetcar|しでん
+A2-1042|departure|しゅっぱつ
+A2-1043|arrival|とうちゃく
+A2-1044|delay|おくれ
+A2-1045|transfer; change|のりかえ
+A2-1046|passenger|じょうきゃく
+A2-1048|customs|ぜいかん
+A2-1049|border|こっきょう
+A2-1050|boarding|とうじょう
+A2-1051|takeoff|りりく
+A2-1052|to change (trains, buses); to transfer|のりかえる
+A2-1053|customer; client|きゃく
+A2-1054|sale|
+A2-1055|promotion; special offer|
+A2-1056|guarantee; warranty|ほしょう
+A2-1057|return (of goods); refund|へんぴん
+A2-1058|commission; fee|てすうりょう
+A2-1059|power of attorney|いにんじょう
+A2-1060|tax|ぜいきん
+A2-1061|appetizer; starter|ぜんさい
+A2-1062|side dish|つけあわせ
+A2-1063|spice; seasoning|こうしんりょう
+A2-1064|to book; to reserve|よやくする
+A2-1065|reservation|よやく
+A2-1066|reservation; booking|よやく
+A2-1067|check-in|
+A2-1068|check-out; departure|しゅっぱつ
+A2-1069|receptionist|ふろんとがかり
+A2-1070|single (room)|
+A2-1071|twin; double (room)|
+A2-1073|equipment; facilities|せつび
+A2-1074|complaint|くじょう
+A2-1075|residence registration|きょじゅうとうろく
+A2-1076|review; feedback|かんそう
+A2-1077|sights; tourist attraction|めいしょ
+A2-1078|handset; receiver|じゅわき
+A2-1079|correspondence; chat|
+A2-1080|keyboard|
+A2-1081|to connect|せつぞくする
+A2-1082|sadness; grief|かなしみ
+A2-1083|surprise|おどろき
+A2-1084|apology|しゃざい
+A2-1085|congratulation|おいわい
+A2-1086|weekday|へいじつ
+A2-1087|middle|なかごろ
+A2-1088|to last; to continue|つづく
+A2-1090|same|おなじ
+A2-1091|similar; alike|にている
+A2-1092|hard; firm|かたい
+A2-1093|smooth|なめらかな
+A2-1094|to disappear|きえる
+A2-1095|to change (become different)|かわる
+A2-1096|to happen; to occur|おこる
+A2-1097|to succeed|せいこうする
+A2-1098|to hide|かくす
+A2-1099|to forbid; to prohibit|きんしする
+A2-1100|to invite|しょうたいする
+A2-1101|to see off|みおくる
+A2-1102|to demand; to require|ようきゅうする
+A2-1103|to offer; to suggest|ていあんする
+A2-1104|to agree|どういする
+A2-1105|to refuse|ことわる
+A2-1106|previous; former|まえの
+A2-1107|to drive (someone); to carry by vehicle|のりものではこぶ
+A2-1108|to move away; to leave|はなれる
+A2-1109|every night|よごとに
+A2-1110|neat; tidy|
+A2-1111|dirtyish; a bit dirty|ややきたない
+A2-1112|successful|うまくいった
+A2-1113|unsuccessful; failed|しっぱいの
+A2-1114|harmful|ゆうがいな
+A2-1115|essential; indispensable|ひつようふかけつな
+A1-1326|language; tongue|げんご／した
+A1-1327|country|くに
+A1-1328|library|としょかん
+A1-1329|to give (once)|あたえる／わたす
+A1-1330|to stand; to be (upright)|たっている／たてにおいてある
+A1-1331|to lie; to be (lying flat)|よこになっている／ひらたくおいてある
+A1-1332|to sit; to be sitting|すわっている
+A1-1333|to remember|おぼえている
+A1-1334|to learn; to study (memorize)|おぼえる／べんきょうする
+A1-1335|to study (a subject)|がくもんとしてまなぶ
+A1-1336|native; dear; one's own|うまれそだった／ぼごの／みうちの
+A1-1337|foreign|がいこくの
+A1-1338|soon|
+A1-1339|busy; occupied|いそがしい
+A1-1340|sick; ill|びょうきだ
+A1-1341|ready|じゅんびができた
+A1-1342|right (a person is right)|ただしい
+A1-1343|artist; painter|がか
+A1-1344|engineer|ぎじゅつしゃ／えんじにあ
+A1-1345|programmer|
+A1-1346|journalist|きしゃ
+A1-1347|athlete|すぽーつせんしゅ
+A1-1348|school holidays; vacation|ながきやすみ
+A1-1349|capital (city)|しゅと
+A1-1350|village; countryside|むら／いなか
+A1-1351|picture; painting|え
+A2-1116|which; who; that (relative)|かんけいだいめいし
+A2-1117|the most|もっとも
+A2-1118|to be engaged in; to do (sports)|とりくむ
+A2-1119|to be interested in|きょうみがある
+A2-1120|to become (once)|
+A2-1121|can; know how to|
+A2-1122|to get acquainted (ongoing)|しりあう
+A2-1123|to get acquainted; to meet (once)|しりあう
+A2-1124|to meet; to see each other|あう／まちあわせる
+A2-1125|to return; to come back (once)|もどる
+A2-1126|to return; to come back (ongoing)|もどる
+A2-1127|to leave (on foot, once)|あるいてたちさる
+A2-1128|to go out; to exit (once)|なかからそとへでる
+A2-1129|to leave (by vehicle, once)|のりものでさる
+A2-1130|to take (someone) on foot|あるいてつれていく
+A2-1131|to be born|うまれる
+A2-1132|to begin (something starts)|はじまる
+A2-1133|to end (something ends)|おわる
+A2-1134|to open (a shop opens)|ひらく／かいてんする
+A2-1135|to close (a shop closes)|しまる／へいてんする
+A2-1136|to smile|ほほえむ
+A2-1137|to laugh|わらう
+A2-1138|to wash oneself|からだをあらう
+A2-1139|to lie down; to go to bed|よこになる／とこにつく
+A2-1140|to be going to; to gather|あつまる
+A2-1141|to prepare; to cook|じゅんびする
+A2-1142|to stay; to remain (once)|のこる
+A2-1143|to use|りようする
+A2-1144|to like (once)|きにいる
+A2-1145|to forget (ongoing)|わすれる
+A2-1146|to tell (a story, once)|はなしてきかせる
+A2-1147|to tell (a story, ongoing)|はなしてきかせる
+A2-1148|to put (lying flat)|ひらたくおく
+A2-1149|to put (upright)|たてておく
+A2-1150|to hang; to be hanging|かかっている
+A2-1151|to translate; to transfer money (once)|ほんやくする／そうきんする
+A2-1152|to translate (ongoing)|ほんやくする
+A2-1153|to learn by heart (once)|おぼえてしまう
+A2-1154|to teach (a lesson)|じゅぎょうとしておしえる
+A2-1155|to celebrate|いわう
+A2-1156|to wish|ねがう／いのる
+A2-1157|to marry (said of a man)|だんせいがけっこんする
+A2-1158|some; certain|いちぶの
+A2-1159|million|ひゃくまん
+A2-1160|tenth|じゅうばんめの
+A2-1161|instead; on the other hand|そのかわり
+A2-1162|past; by (going past)|とおって
+A2-1163|cheaper|よりやすい
+A2-1164|higher; more expensive|よりたかい
+A2-1165|than|
+A2-1166|nowhere (to)|
+A2-1167|half an hour; 30 minutes|さんじゅっぷん
+B1-001|enterprise; company|きぎょう／じぎょうしょ
+B1-002|organization|そしき／だんたい
+B1-003|cooperation; partnership|きょうりょく／ていけい
+B1-004|competition|きょうそう
+B1-005|office (adj)|じむしょの
+B1-006|vacancy; job opening|きゅうじん／あきぽすと
+B1-007|earnings; income|かせぎ／しゅうにゅう
+B1-008|pension|ねんきん
+B1-009|to quit; to resign (once)|たいしょくする／やめる
+B1-010|to hire (once)|やとう
+B1-011|promotion; raise|しょうしん／ひきあげ
+B1-012|paid|ゆうきゅうの／しはらわれる
+B1-013|team; staff|しょくばのなかま
+B1-014|management; leadership|けいえいじん／しどう
+B1-015|urgent; fixed-term|いそぎの／きげんつきの
+B1-016|to carry out; to fulfill (ongoing)|じっこうする／はたす
+B1-017|to follow; to obey (ongoing)|したがう
+B1-018|to earn (once)|かせぐ
+B1-019|length of service; work experience|きんぞくねんすう／しょくれき
+B1-020|entrepreneur; self-employed|きぎょうか／じえいぎょうしゃ
+B1-021|profit|りえき／もうけ
+B1-022|loss; deficit|そんしつ／あかじ
+B1-023|training; education|けんしゅう／きょういく
+B1-024|letter of resignation|たいしょくとどけ
+B1-025|society|しゃかい

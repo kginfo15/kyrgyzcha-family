@@ -1,0 +1,340 @@
+B1-365|to break up; to part (once)|わかれる
+B1-366|to send (once)|おくる
+B1-367|to save; to keep (once)|ほぞんする／たもつ
+B1-368|to delete (once)|さくじょする
+B1-369|to connect (once)|せつぞくする
+B1-370|to grow (ongoing)|そだつ／ふえる
+B1-371|to grow up (once)|そだつ／おおきくなる
+B1-372|to increase (once)|ふえる
+B1-373|to decrease (once)|へる
+B1-374|to improve (once)|かいぜんする
+B1-375|to get worse (once)|わるくなる
+B1-376|to change (ongoing)|かわる
+B1-377|to develop (ongoing)|はってんさせる／のばす
+B1-378|to depend on (ongoing)|しだいである
+B1-379|to influence (once)|えいきょうをあたえる
+B1-380|to organize|きかくする
+B1-381|to spend (time); to hold (once)|すごす／おこなう
+B1-382|to spend (time); to hold (ongoing)|すごす／おこなう
+A2-1229|coat|
+A2-1230|jacket|
+A2-1231|fur coat|けがわのこーと
+A2-1232|raincoat; trench coat|
+A2-1233|suit; costume|いしょう
+A2-1234|dress|
+A2-1235|skirt|
+A2-1236|trousers; pants|
+A2-1237|jeans|
+A2-1238|blouse|
+A2-1239|sweater; pullover|
+A2-1240|T-shirt|
+A2-1241|hat; cap|ぼうし
+A2-1242|scarf|
+A2-1243|gloves|てぶくろ
+A2-1244|ankle boots; shoes|たんぐつ
+A2-1245|shoes; pumps|くつ
+A2-1246|boots|ながぐつ
+A2-1247|sneakers; trainers|
+A2-1248|backpack|
+A2-1249|glasses; spectacles|
+A2-1250|watch; clock|とけい
+A2-1251|ring|ゆびわ
+A2-1252|cup|
+A2-1253|spoon|
+A2-1254|fork|
+A2-1255|knife|ないふ／ほうちょう
+A2-1256|pot; saucepan|なべ
+A2-1257|frying pan|
+A2-1258|stove|
+A2-1259|armchair|ひじかけいす
+A2-1260|wall|かべ
+A2-1261|ceiling|てんじょう
+A2-1262|roof|やね
+A2-1263|bottle|びん／ぼとる
+A2-1264|jar; can|びんづめ／かん
+A2-1265|box|はこ
+A2-1266|package; pack|ほうそう
+A2-1267|groceries; food products|しょくりょうひん
+A2-1268|berry|きのみ
+A2-1269|porridge; oatmeal|
+A2-1270|pie|
+A2-1271|cake|
+A2-1272|candy; sweets|ちょこがし
+A2-1273|chocolate|
+A2-1274|ice cream|
+A2-1275|wine|
+A2-1276|beer|
+A2-1277|smell; scent|におい／かおり
+A2-1278|cook; chef|りょうりにん
+A2-1279|tip (money)|
+A2-1280|kilogram|
+A2-1281|gram|
+A2-1282|liter|
+A2-1283|piece; item|こ／ほん
+A2-1284|choice; selection|せんたく／しなぞろえ
+A2-1285|life|じんせい／せいかつ／いのち
+A2-1286|childhood|こどもじだい
+A2-1287|youth|せいしゅん／わかいころ
+A2-1288|old age|ろうねん／ろうご
+B1-383|adolescence; youth|せいねんき
+B1-384|generation|せだい
+A2-1289|pensioner; retiree|ねんきんせいかつしゃ
+A2-1290|teenager|じゅうだいのわかもの
+A2-1291|baby; little one|あかちゃん
+B1-385|ancestor|そせん
+A2-1292|eyes|め／りょうめ
+A2-1293|lips|くちびる
+A2-1294|hair|かみ
+B1-386|figure; person|からだつき／じんぶつ
+A2-1295|hostess; housewife|おんなしゅじん／しゅふ
+A2-1296|traveler|りょこうしゃ
+A2-1297|accountant|けいりたんとうしゃ／かいけいし
+A2-1298|lawyer|べんごし／ほうりつか
+A2-1299|manager|まねーじゃー／たんとうしゃ
+A2-1300|construction worker; builder|けんせつさぎょういん
+A2-1301|police officer|けいさつかん
+A2-1302|soldier; military|ぐんじん
+A2-1303|singer (female)|かしゅ
+A2-1304|musician|おんがくか
+A2-1305|farmer|のうか
+A2-1306|worker|ろうどうしゃ
+A2-1307|company; group of friends|かいしゃ／なかま
+A2-1308|company; firm|かいしゃ
+A2-1309|factory; plant|こうじょう
+A2-1310|factory (light industry)|こうじょう
+B1-387|business|じぎょう
+B1-388|contract|けいやく
+B1-389|bonus; prize|しょう
+B1-390|dismissal; resignation|かいこ／たいしょく
+B1-391|unemployment|しつぎょう
+A2-1311|traffic light|しんごうき
+A2-1312|turn; corner|まがりかど
+A2-1313|parking lot|ちゅうしゃじょう
+A2-1314|speed|そくど
+A2-1315|suburban train|きんこうでんしゃ
+A2-1316|automobile; car|じどうしゃ
+A2-1317|ship|ふね
+A2-1318|monument|きねんひ／どうぞう
+A2-1319|cathedral|だいせいどう
+A2-1320|church|きょうかい
+A2-1321|temple|じいん／せいどう
+A2-1322|palace|きゅうでん
+A2-1323|zoo|どうぶつえん
+A2-1324|beach|かいすいよくじょう
+A2-1325|resort|ほようち
+A2-1326|dacha; country house|べっそう
+A2-1327|vegetable garden|かていさいえん
+A2-1328|fence|へい
+A2-1329|suburbs; out of town|こうがい
+A2-1330|island|しま
+A2-1331|ocean|たいよう／うみ
+A2-1332|moon|つき
+A2-1333|star|ほし
+A2-1334|fire|ひ
+A2-1335|forecast|よほう
+A2-1336|cold; the cold|さむさ
+A2-1337|sunny|はれた／ひあたりのいい
+A2-1338|cloudy|くもった
+A2-1339|rainy|あめのおおい
+A2-1340|snowy|ゆきの／ゆきのおおい
+A2-1341|windy|かぜのつよい
+B1-392|plant|しょくぶつ
+A2-1342|study; studies|べんきょう／がくぎょう
+A2-1343|homework|しゅくだい
+A2-1344|quiz; short test|しょうてすと
+A2-1345|essay; composition|さくぶん
+A2-1346|topic; theme|てーま／わだい
+A2-1347|mathematics; math|すうがく
+A2-1348|physics|ぶつり
+A2-1349|chemistry|かがく
+A2-1350|biology|せいぶつがく
+A2-1351|geography|ちり
+A2-1352|success; progress|せいこう／じょうたつ
+B1-393|failure; bad luck|しっぱい／ふうん
+B1-394|talent|さいのう
+B1-395|ability; skill|のうりょく／ぎのう
+A2-1353|schoolchild; pupil|しょうちゅうこうせい
+B1-396|science|かがく／がくもん
+B1-397|research; study|けんきゅう／ちょうさ
+A2-1354|news|
+A2-1355|article|きじ
+A2-1356|advertisement; ad|こうこく
+A2-1357|radio|
+A2-1358|program; show|ばんぐみ
+A2-1359|ice hockey|
+A2-1360|tennis|
+A2-1361|swimming|すいえい
+A2-1362|running|はしること
+A2-1363|competition; match|きょうぎかい／しあい
+A2-1364|team|
+A2-1365|victory; win|しょうり
+A2-1366|defeat; loss|はいぼく
+A2-1367|champion|
+A2-1368|coach; trainer|
+B1-398|world; peace|せかい／へいわ
+B1-399|president|だいとうりょう
+B1-400|power; authorities|けんりょく／とうきょく
+B1-401|politics; policy|せいじ／ほうしん
+B1-402|party (political); game|せいとう／いっきょく
+B1-403|war|せんそう
+B1-404|army|ぐんたい
+A2-1369|police|けいさつ
+B1-405|court; trial|さいばんしょ／さいばん
+B1-406|crime|はんざい
+A2-1370|fire (blaze)|かじ
+B1-407|disaster; catastrophe|だいじこ／だいさんじ
+B1-408|danger|きけん
+B1-409|rescuer|きゅうじょたいいん
+A2-1371|birthday|たんじょうび
+A2-1372|New Year|しんねん／おしょうがつ
+A2-1373|Christmas|
+B1-410|anniversary; jubilee|きねんび
+B1-411|anniversary (years)|しゅうねん
+B1-412|stranger|みしらぬひと
+A2-1374|customer; client|きゃく／こきゃく
+A2-1375|simple|かんたんな／そぼくな
+A2-1376|complicated; difficult|ふくざつな／むずかしい
+A2-1377|possible|かのうな
+A2-1378|impossible|ふかのうな
+A2-1379|satisfied|まんぞくした
+A2-1380|stupid; silly|おろかな
+A2-1381|strict|きびしい
+A2-1382|funny|わらえる
+A2-1383|strange; weird|へんな／きみょうな
+A2-1384|popular|にんきのある
+B1-413|famous; well-known|ゆうめいな
+B1-414|old; old-fashioned|むかしの／こふうな
+B1-415|ancient|こだいの
+A2-1385|hot (temperature)|あつい
+A2-1386|loud|おおきい
+B1-416|common; general|きょうつうの／ぜんたいの
+B1-417|separate; individual|べつべつの／こべつの
+B1-418|private|してきな／みんかんの
+B1-419|personal|こじんの
+B1-420|state; national|くにの／こくりつの
+B1-421|international|こくさいてきな
+A2-1387|free (of charge)|むりょうの
+A2-1388|busy; occupied|いそがしい
+A2-1389|alive; lively|いきている／いきいきした
+B1-422|dead|しんだ
+A2-1390|right; correct|ただしい
+A2-1391|wrong; incorrect|まちがった
+A2-1392|exact; accurate|せいかくな
+A2-1393|inconvenient; awkward|ふべんな／きまずい
+A2-1394|dangerous|きけんな
+A2-1395|safe|あんぜんな
+A2-1396|nice; pleasant|かんじのいい／ここちよい
+A2-1397|unpleasant|いやな／ふかいな
+A2-1398|ugly; not pretty|
+A2-1399|home; homemade|いえの／てづくりの
+A2-1400|city; urban|まちの／とかいの
+A2-1401|village; rural|むらの／いなかの
+B1-423|rural; agricultural|のうそんの
+B1-424|capital (adj); metropolitan|しゅとの
+B1-425|central|ちゅうしんの
+A2-1402|north; northern|きたの
+A2-1403|south; southern|みなみの
+A2-1404|west; western|にしの
+A2-1405|east; eastern|ひがしの
+A2-1406|quite; rather|
+A2-1407|just a little|すこし
+A2-1408|suddenly|とつぜん
+A2-1409|again; also|
+A2-1410|then; after that|
+A2-1411|there (to there)|
+A2-1412|here (to here)|
+A2-1413|from there|
+A2-1414|from here|
+B1-426|separately|べつべつに
+A2-1415|it seems; I think|
+A2-1416|especially; particularly|とくに
+A2-1417|just; exactly|
+A2-1418|about; approximately|
+B1-427|approximately; roughly|
+A2-1419|higher; above|よりたかく／うえに
+A2-1420|lower; below|よりひくく／したに
+B1-428|anyone; somebody|だれか
+B1-429|anything; something|なにか
+B1-430|somewhere (to)|
+B1-431|someone's|だれかの
+B1-432|there is no one to|あいて
+B1-433|there is nothing to|
+B1-434|other; another; different|べつの／ほかの
+A2-1421|such; like this|
+A2-1422|many; many people|おおくのひと／おおくの
+B1-435|however; but|
+B1-436|or|
+B1-437|not only... but also|
+B1-438|nevertheless|
+B1-439|since; as|
+B1-440|during; in between|あいだに
+B1-441|along|そって
+B1-442|relationship; attitude|かんけい／たいど
+B1-443|contact; connection|れんらく／せっしょく
+A2-1423|conversation; talk|かいわ／はなし
+B1-444|dialogue; talk|たいわ／こんだん
+B1-445|argument; dispute|ぎろん／いいあらそい
+B1-446|agreement|きょうてい／ごうい
+A2-1424|promise|やくそく
+A2-1425|offer; proposal; sentence|ていあん／ぶん
+A2-1426|moment|しゅんかん／じてん
+B1-447|era; epoch|じだい
+B1-448|period; term|きかん／じき
+A2-1427|case; event; incident|ばあい／できごと
+B1-449|way; method|ほうほう
+B1-450|means; remedy|しゅだん／くすり
+B1-451|death|し
+B1-452|region; field; area|しゅう／ぶんや
+A2-1428|road; way; journey|みち／みちのり
+B1-453|thought; idea|かんがえ／おもい
+B1-454|glance; view|しせん／みかた
+B1-455|meaning; importance|いみ／じゅうようせい
+A2-1429|truth|ほんとう／しんじつ
+A2-1430|lie|
+A2-1431|order|じゅんじょ／ちつじょ
+B1-456|system|せいど
+A2-1432|history; story|れきし／はなし
+A2-1433|dream (wish)|ゆめ／ねがい
+A2-1434|pleasure; joy|たのしみ／よろこび
+A2-1435|memory|きおく／きおくりょく
+A2-1436|attention|ちゅうい
+B1-457|expenses; spending|ししゅつ
+A2-1437|to meet; to welcome (once)|であう／でむかえる
+B1-458|to visit (a sick person, once)|みまう／たずねる
+B1-459|to visit (once)|おとずれる
+B1-460|to visit; to attend (ongoing)|おとずれる／かよう
+B1-461|to arrive (once)|とうちゃくする
+B1-462|to leave; to go away (once)|さる／はなれる
+A2-1438|to leave (behind, once)|のこす／おいていく
+B1-463|to leave (behind, ongoing)|のこす
+B1-464|to throw; to quit (ongoing)|なげる
+B1-465|to catch (once)|つかまえる
+B1-466|to catch; to fish (ongoing)|つかまえる／つる
+B1-467|to fight; to struggle (ongoing)|たたかう／とりくむ
+A2-1439|to win (once)|かつ
+A2-1440|to lose (a game, once)|まける
+A2-1441|to win (a prize); to guess right (once)|かつ／あてる
+B1-468|to train; to work out (ongoing)|
+B1-469|to compete (ongoing)|きそう
+B1-470|to plan (ongoing)|けいかくする
+B1-471|to suppose; to plan (ongoing)|すいそくする／よていする
+B1-472|to count on (ongoing)|あてにする
+B1-473|to force; to make (someone do, once)|むりにさせる
+B1-474|to persuade (once)|せっとくする
+B1-475|to describe (once)|びょうしゃする／せつめいする
+B1-476|to describe (ongoing)|びょうしゃする
+B1-477|to appreciate; to evaluate (once)|ひょうかする／ありがたくおもう
+B1-478|to prove (once)|しょうめいする
+B1-479|to prove; to insist (ongoing)|しょうめいする／いいはる
+B1-480|to turn to; to apply to (once)|といあわせる／たよる
+B1-481|to indicate; to specify (once)|さししめす／きにゅうする
+B1-482|to distinguish (ongoing)|みわける
+A2-1442|to remind (once)|おもいださせる
+B1-483|to be useful; to come in handy (once)|やくにたつ
+B1-484|to call; to cause (ongoing)|よぶ／ひきおこす
+B1-485|to spoil; to ruin (once)|だいなしにする
+B1-486|to correct; to fix (once)|なおす／ていせいする
+B1-487|to correct; to fix (ongoing)|なおす
+A2-1443|to comb one's hair (ongoing)|かみをとかす
+A2-1444|to shave (ongoing)|ひげをそる
+A2-1445|to put on makeup (ongoing)|けしょうをする
