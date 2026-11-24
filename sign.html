@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Жесты — ロシア語手話（РЖЯ）レッスン帳（個人用 v1.0）
+  Жесты — ロシア語手話（РЖЯ）レッスン帳（v2.0・3人で使う復習アプリ）
   ============================================================
   方針メモ:
   - キルギス語アプリ（index.html）とは別アプリ。仕組み（カード・3段階評価・
@@ -191,6 +191,62 @@
   .rng{width:100%;margin:2px 0 8px}
   .chk{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;margin-top:4px}
   .chk input{width:18px;height:18px;margin-top:2px}
+  /* ===== v2 デザイン ===== */
+  :root{--accent:#5B5BF0;--accentDeep:#3F3FD1;--ink:#12142B;--paper:#F3F4FA;--line:#E4E6F1;--muted:#6B7088;--teal:#0E9F8E;--gold:#F5B700;--good:#12A150;--warn:#F2711C}
+  body{padding-bottom:calc(86px + env(safe-area-inset-bottom));letter-spacing:.01em}
+  header.app{background:radial-gradient(130% 160% at 0% 0%,#34379A 0%,#1A1C45 45%,#12142B 100%);padding-bottom:14px}
+  header.app h1{font-size:21px;letter-spacing:.3px}
+  header.app p{opacity:.7}
+  .gear{background:rgba(255,255,255,.12);border-radius:12px;font-weight:700}
+  nav.tabs{position:fixed;top:auto;bottom:0;left:0;right:0;z-index:30;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+    border-top:1px solid var(--line);border-bottom:none;padding-bottom:env(safe-area-inset-bottom)}
+  nav.tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10.5px;font-weight:700;padding:9px 2px 7px;border-bottom:none;min-height:56px;color:#9498AE}
+  nav.tabs button svg{width:23px;height:23px}
+  nav.tabs button.on{color:var(--accent);border-bottom-color:transparent}
+  main{padding-top:14px}
+  .btn{border-radius:14px;border-color:var(--line);font-weight:700}
+  .btn.pri{background:linear-gradient(135deg,#5B5BF0,#8B5CF6);border-color:transparent;color:#fff;box-shadow:0 8px 20px rgba(91,91,240,.28)}
+  .btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.rec{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 10px 24px rgba(18,20,43,.25)}
+  .hero{background:linear-gradient(135deg,#5B5BF0 0%,#8B5CF6 100%);border-radius:20px;padding:14px 6px;gap:0;color:#fff;box-shadow:0 12px 28px rgba(91,91,240,.3)}
+  .hero>div{background:none;border:none;border-radius:0;padding:2px 4px;border-right:1px solid rgba(255,255,255,.18)}
+  .hero>div:last-child{border-right:none}
+  .hero b{font-size:24px;font-weight:800}
+  .hero span{color:rgba(255,255,255,.82);font-size:10.5px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+  .row3 .btn{padding:11px 4px;font-size:14px;min-height:44px;border-color:transparent;box-shadow:0 1px 2px rgba(18,20,43,.05),0 6px 18px rgba(18,20,43,.05)}
+  .h2{font-size:12.5px;letter-spacing:.06em;color:#8A8FA8;margin:22px 2px 9px}
+  .card,.tile,.lrow,.lesson,.stat .b,.reviewcat{border-color:transparent;box-shadow:0 1px 2px rgba(18,20,43,.05),0 6px 18px rgba(18,20,43,.05)}
+  .tile{border-radius:18px;padding:13px}
+  .tile .ic{font-size:14px;font-weight:800;letter-spacing:0}
+  .lesson{background:#fff;border-radius:18px;padding:12px 12px 6px;margin-bottom:10px}
+  .lesson .lh{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+  .lesson .lh b{font-size:14.5px}
+  .lesson .lh span{font-size:12px;color:var(--muted);margin-left:8px}
+  .lesson .la button,.subh button{border:none;background:#EEF0FF;color:var(--accentDeep);border-radius:99px;padding:6px 12px;font-size:12px;font-weight:800;font-family:inherit;cursor:pointer;margin-left:4px}
+  .lesson .chips{margin-bottom:4px}
+  .chips button{border:none;background:#F3F4FA;border-radius:12px}
+  .chips.cat button{background:#fff;border:1.5px solid var(--line)}
+  .lrow{border-radius:14px;padding:12px 13px}
+  .lrow.ex{margin-left:16px;background:#FAFAFE}
+  .lrow .a .en,.en{font-size:12px;color:var(--muted);font-weight:600}
+  .lrow .a .en{display:block;margin-top:1px}
+  .qcard .en,.sheet .en{font-size:14px;margin-top:3px}
+  .sheet .lrow .a .en{font-size:12px;margin-top:1px}
+  .ru{color:var(--accentDeep)} .lrow .b{color:var(--accentDeep)}
+  .spk{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;border:none;background:#EEF0FF;color:var(--accentDeep);
+    margin-left:8px;vertical-align:middle;cursor:pointer}
+  .spk:active{background:#DADDFB}
+  .seg button{border-color:var(--line)}
+  .search{border-color:var(--line);border-radius:14px}
+  .search:focus,textarea.memo:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(91,91,240,.15)}
+  .notice{background:#EEF0FF;border-color:transparent;border-radius:16px}
+  .recbox{background:#EEF0FF;border-color:transparent;border-radius:16px}
+  .sheet{border-radius:24px 24px 0 0}
+  .ovl{z-index:60;background:rgba(18,20,43,.5)}
+  .toast{bottom:calc(96px + env(safe-area-inset-bottom))}
+  .tag.own{background:#E7F8F1;color:#0B8A63}
+  .bar>i{background:var(--accent)}
 </style>
 </head>
 <body>
@@ -208,10 +264,10 @@
   </div>
 </header>
 <nav class="tabs"><div class="inner">
-  <button data-act="tab" data-val="learn" id="tab-learn">ホーム</button>
-  <button data-act="tab" data-val="list" id="tab-list">カード</button>
-  <button data-act="tab" data-val="review" id="tab-review">復習</button>
-  <button data-act="tab" data-val="progress" id="tab-progress">進捗</button>
+  <button data-act="tab" data-val="learn" id="tab-learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>ホーム</button>
+  <button data-act="tab" data-val="list" id="tab-list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18M9 4v16"/></svg>カード</button>
+  <button data-act="tab" data-val="review" id="tab-review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg>復習</button>
+  <button data-act="tab" data-val="progress" id="tab-progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>進捗</button>
 </div></nav>
 <main id="main"></main>
 <div id="modal"></div>
@@ -239,14 +295,14 @@ function LINK(url,label){return {type:"link",url:url,label:label};}
 
 /* ===== カテゴリ ===== */
 var CATS=[
-  {id:"greet", name:"挨拶",          icon:"👋", color:"#3B5BDB", sub:"こんにちは・ありがとう"},
-  {id:"intro", name:"自己紹介",      icon:"🙋", color:"#0C8599", sub:"名前・出身・勉強中です"},
-  {id:"help",  name:"会話のたすけ",  icon:"💬", color:"#E8590C", sub:"分かりません・もう一度"},
-  {id:"abc",   name:"指文字",        icon:"🔤", color:"#7048E8", sub:"А〜Я と キルギス語の文字"},
-  {id:"num",   name:"数字",          icon:"🔢", color:"#2F9E44", sub:"1〜100"},
-  {id:"color", name:"色",            icon:"🎨", color:"#D6336C", sub:"赤・青・黄色…"},
-  {id:"cal",   name:"曜日・月・時",  icon:"📅", color:"#1971C2", sub:"月〜日曜、1〜12月、年・週"},
-  {id:"lesson",name:"レッスン・その他",icon:"📒", color:"#5F3DC4", sub:"自分で追加した単語"}
+  {id:"greet", name:"挨拶",          icon:"", g:"Hi", color:"#5B5BF0", sub:"こんにちは・ありがとう"},
+  {id:"intro", name:"自己紹介",      icon:"", g:"Я",  color:"#0E9F8E", sub:"名前・出身・勉強中です"},
+  {id:"help",  name:"会話のたすけ",  icon:"", g:"?",  color:"#E8590C", sub:"分かりません・もう一度"},
+  {id:"abc",   name:"指文字",        icon:"", g:"Аб", color:"#8B5CF6", sub:"А〜Я と キルギス語の文字"},
+  {id:"num",   name:"数字",          icon:"", g:"12", color:"#12A150", sub:"1〜100"},
+  {id:"color", name:"色",            icon:"", g:"●",  color:"#E64980", sub:"赤・青・黄色…"},
+  {id:"cal",   name:"曜日・月・時",  icon:"", g:"Пн", color:"#1C7ED6", sub:"月〜日曜、1〜12月、年・週"},
+  {id:"lesson",name:"レッスン・その他",icon:"", g:"＋", color:"#5F3DC4", sub:"自分で追加した単語"}
 ];
 var CATMAP={}; CATS.forEach(function(c){CATMAP[c.id]=c;});
 
@@ -394,25 +450,69 @@ var CARDS=[
     ["今日","Сегодня","シヴォードニャ","Бүгүн"],["明日","Завтра","ザーフトラ","Эртең"],["昨日","Вчера","フチラー","Кечээ"],["今","Сейчас","シチャース","Азыр"],["時間","Время","ヴリェーミャ","Убакыт"]
   ],"t");
 })();
+/* ===== 英語の意味・例文 ===== */
+function insertCard(c){
+  if(c.parent){
+    var at=-1;CARDS.forEach(function(x,i){if(x.id===c.parent||x.parent===c.parent)at=i;});
+    if(at>=0){CARDS.splice(at+1,0,c);return;}
+  }
+  CARDS.push(c);
+}
+(function(){
+  var EN={g01:"Hello (formal)",g02:"Hi",g03:"Good morning",g04:"Good afternoon",g05:"Good evening",g06:"Goodbye",g07:"Bye",g08:"See you",g09:"Thank you",
+    g10:"Please / You're welcome",g11:"Excuse me / Sorry",g12:"How are you?",g13:"Good / Fine",g14:"So-so",g15:"Nice to meet you",
+    i01:"My name is …",i02:"What is your name?",i03:"I",i04:"You",i05:"Name",i06:"Japan",i07:"Kyrgyzstan",i08:"I am from Japan",i09:"Hearing (person)",i10:"Deaf",
+    i11:"Sign language",i12:"I am learning sign language",i13:"Family",i14:"Friend",i15:"Work",
+    h01:"Yes",h02:"No",h03:"I understand",h04:"I don't understand",h05:"Please repeat",h06:"Slower, please",h07:"Please write it down",h08:"Help",
+    h09:"Allowed / You may",h10:"Not allowed",h11:"What?",h12:"Where?",a07:"Spell my name"};
+  var LIST={c:["Color","Red","Orange","Yellow","Green","Light blue","Blue","Purple","Pink","White","Black","Gray","Brown"],
+    d:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    m:["January","February","March","April","May","June","July","August","September","October","November","December"],
+    t:["Day","Week","Month","Year","Today","Tomorrow","Yesterday","Now","Time"]};
+  var ONES=["","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+  var TENS=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+  function enNum(n){if(n===100)return "one hundred";if(n<20)return ONES[n];return TENS[Math.floor(n/10)]+(n%10?"-"+ONES[n%10]:"");}
+  CARDS.forEach(function(c){
+    var m;
+    if(EN[c.id])c.en=EN[c.id];
+    else if((m=/^n(\d+)$/.exec(c.id)))c.en=enNum(+m[1]);
+    else if(/^lk\d+$/.test(c.id))c.en="Kyrgyz letter "+c.ru.charAt(0);
+    else if(/^l\d+$/.test(c.id))c.en="Letter "+c.ru.charAt(0);
+    else if((m=/^([cdmt])(\d+)$/.exec(c.id))&&LIST[m[1]])c.en=LIST[m[1]][+m[2]-1]||"";
+  });
+  // 例文（親カードのすぐ後ろに並ぶ子カード）
+  var PREP=["январе","феврале","марте","апреле","мае","июне","июле","августе","сентябре","октябре","ноябре","декабре"];
+  var NOTE="ロシア語の文です。手話では語順や表し方が変わることがあるので、レッスンで確認して動画を撮ろう。";
+  var ex=[];
+  CARDS.forEach(function(c){
+    var m;
+    if((m=/^d(\d+)$/.exec(c.id)))ex.push({p:c,ru:"Сегодня "+c.ru.toLowerCase()+".",ja:"今日は"+c.ja+"です。",en:"Today is "+c.en+"."});
+    else if((m=/^m(\d+)$/.exec(c.id)))ex.push({p:c,ru:"Мой день рождения в "+PREP[+m[1]-1]+".",ja:"私の誕生日は"+c.ja+"です。",en:"My birthday is in "+c.en+"."});
+    else if((m=/^c(\d+)$/.exec(c.id))&&+m[1]>1)ex.push({p:c,ru:"Мой любимый цвет — "+c.ru.toLowerCase()+".",ja:"私の好きな色は"+c.ja+"です。",en:"My favorite color is "+c.en.toLowerCase()+"."});
+  });
+  ex.push({p:{id:"g12",cat:"greet"},ru:"Привет! Как дела?",ja:"やあ！元気？",en:"Hi! How are you?"});
+  ex.push({p:{id:"i10",cat:"intro"},ru:"Я не глухой, я слышащий.",ja:"私はろう者ではなく、聴者です。",en:"I am not deaf, I am hearing."});
+  ex.forEach(function(e){insertCard({id:e.p.id+"x1",cat:e.p.cat,sub:e.p.sub||"",parent:e.p.id,ja:e.ja,ru:e.ru,en:e.en,kana:"",ky:"",note:NOTE});});
+})();
 var CMAP={};
 function rebuildMap(){CMAP={};CARDS.forEach(function(c){CMAP[c.id]=c;});}
 rebuildMap();
 
 /* ===== 保存 ===== */
 var K={custom:"signApp_v1_custom",prog:"signApp_v1_progress",notes:"signApp_v1_notes",set:"signApp_v1_settings",hist:"signApp_v1_history",sess:"signApp_v1_session"};
-var APP_VERSION="1.0";
+var APP_VERSION="2.0";
 var LADDER_DAYS=[1,3,7,14,30,60];
 var memStore={};
 function lget(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return (k in memStore)?memStore[k]:d;}}
 function lset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){memStore[k]=v;}}
 
-var settings=Object.assign({dailyNew:10,direction:"ja2sign",autoVideo:true,showKana:true,newScope:"ready",animSpeed:1,animMirror:false},lget(K.set,{}));
+var settings=Object.assign({dailyNew:10,direction:"ja2sign",autoVideo:true,showKana:true,userName:"",newScope:"ready",animSpeed:1,animMirror:false},lget(K.set,{}));
 var progress=lget(K.prog,{});
 var notes=lget(K.notes,{});     // {id:{memo, verified, hasVideo}}
 var hist=lget(K.hist,{streak:{count:0,last:null},days:{}});
 var ui=lget(K.sess,{view:"learn",session:null,listCat:"all"});
 var custom=lget(K.custom,[]);
-custom.forEach(function(c){if(c&&c.id&&!CMAP[c.id]){c.custom=true;CARDS.push(c);}});rebuildMap();
+custom.forEach(function(c){if(c&&c.id&&!CMAP[c.id]){c.custom=true;insertCard(c);rebuildMap();}});
 
 function saveAll(){lset(K.prog,progress);lset(K.notes,notes);lset(K.set,settings);lset(K.hist,hist);lset(K.sess,ui);}
 function saveUI(){lset(K.sess,ui);}
@@ -502,7 +602,7 @@ function fillOwnVideos(root){
   (root||document).querySelectorAll("video[data-own]").forEach(function(v){
     var id=v.getAttribute("data-own");
     if(urlCache[id]){v.src=urlCache[id];return;}
-    vidGet(id).then(function(b){if(b){urlCache[id]=URL.createObjectURL(b);v.src=urlCache[id];}})
+    vidGet(id).then(function(b){if(b){blobCache[id]=b;urlCache[id]=URL.createObjectURL(b);v.src=urlCache[id];}})
       .catch(function(){});
   });
 }
@@ -512,7 +612,7 @@ function recordVideo(id){
     if(f.size>80*1024*1024&&!confirm("動画が大きめです（"+Math.round(f.size/1048576)+"MB）。保存しますか？"))return;
     vidPut(id,f).then(function(){
       if(urlCache[id]){URL.revokeObjectURL(urlCache[id]);delete urlCache[id];}
-      N(id).hasVideo=true;N(id).addedAt=now();saveAll();toast("動画を保存しました");refresh();
+      N(id).hasVideo=true;N(id).addedAt=now();markLearned(id);delete blobCache[id];saveAll();toast("動画を保存しました");refresh();
     }).catch(function(){toast("保存できませんでした（容量不足の可能性）");});
   };
   inp.click();
@@ -690,12 +790,43 @@ function memoPreview(c){
   var n=N(c.id); if(!n.memo) return "";
   return '<div class="desc" style="background:#FFF0F6;border-color:#FCC2D7"><div class="h" style="color:#C2255C">自分のメモ</div><div class="b">'+esc(n.memo)+'</div></div>';
 }
+/* ===== ロシア語の音声（端末の読み上げ機能） ===== */
+function speakText(c){
+  if(/^lk?\d+$/.test(c.id))return c.ru.charAt(0).toLowerCase();
+  return String(c.ru||"").replace(/[…—]/g," ").replace(/\s*\/\s*/g,", ").replace(/\s+/g," ").trim();
+}
+function speak(id){
+  var c=CMAP[id];if(!c)return;
+  if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){toast("この端末では音声を再生できません");return;}
+  var t=speakText(c);if(!t||t==="—"){toast("ロシア語が入っていません");return;}
+  speechSynthesis.cancel();
+  var u=new SpeechSynthesisUtterance(t);u.lang="ru-RU";u.rate=0.85;
+  var v=(speechSynthesis.getVoices()||[]).filter(function(x){return /^ru/i.test(x.lang);})[0];if(v)u.voice=v;
+  speechSynthesis.speak(u);
+}
+var SPK_SVG='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+function spkBtn(c){return (c.ru&&c.ru!=="—")?'<button class="spk" data-act="speak" data-val="'+c.id+'" aria-label="ロシア語を聞く">'+SPK_SVG+'</button>':'';}
 function wordBlock(c,showKy){
-  var h='<div class="ru">'+esc(c.ru)+'</div>';
-  if(settings.showKana) h+='<div class="kana">'+esc(c.kana)+'</div>';
+  var h='<div class="ru">'+esc(c.ru)+spkBtn(c)+'</div>';
+  if(settings.showKana&&c.kana) h+='<div class="kana">'+esc(c.kana)+'</div>';
+  if(c.en) h+='<div class="en">'+esc(c.en)+'</div>';
   if(showKy&&c.ky) h+='<div class="ky">キルギス語（参考）：<b>'+esc(c.ky)+'</b></div>';
   return h;
 }
+/* ===== 習った日 ===== */
+var WD=["日","月","火","水","木","金","土"],lessonDate=null,blobCache={};
+function fmtDate(k){var p=String(k).split("-");if(p.length<3)return k;var d=new Date(+p[0],+p[1]-1,+p[2]);return (+p[0])+"年"+(+p[1])+"月"+(+p[2])+"日（"+WD[d.getDay()]+"）";}
+function learnedOf(c){return (notes[c.id]||{}).learnedAt||"";}
+function lessonDates(){
+  var m={};CARDS.forEach(function(c){var d=learnedOf(c);if(d)(m[d]=m[d]||[]).push(c);});
+  return Object.keys(m).sort().reverse().map(function(d){return {date:d,cards:m[d]};});
+}
+function markLearned(id){
+  var n=N(id);if(!n.learnedAt)n.learnedAt=lessonDate||todayKey();
+  if(settings.userName)n.by=settings.userName;
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();}catch(e){}
+}
+function childrenOf(id){return CARDS.filter(function(c){return c.parent===id;});}
 function cardHasVideo(c){return hasOwn(c)||(c.vids||[]).some(function(v){return v.type==="yt"&&!isLong(v);});}
 function cardHasAnyVideo(c){return cardHasVideo(c)||!!ST[c.id];}
 /* ===== 自分の動画 → 線のアニメ（手と体の動きだけを保存） =====
@@ -939,7 +1070,7 @@ function animFailSheet(id,e){
 function saveOwnVideo(id,file){
   return vidPut(id,file).then(function(){
     if(urlCache[id]){URL.revokeObjectURL(urlCache[id]);delete urlCache[id];}
-    var n=N(id);n.hasVideo=true;n.addedAt=now();saveAll();
+    var n=N(id);n.hasVideo=true;n.addedAt=now();markLearned(id);delete blobCache[id];saveAll();
   });
 }
 function animSave(){
@@ -948,7 +1079,7 @@ function animSave(){
   var a={v:1,fps:j.anim.fps,ar:r3(j.anim.ar),frames:j.anim.frames.slice(rg[0],rg[1]+1),savedAt:now()};
   var keep=document.getElementById("keepvid"),keepV=keep&&keep.checked;
   vidPut("anim:"+j.id,a).then(function(){
-    animCache[j.id]=a;var n=N(j.id);n.hasAnim=true;n.addedAt=now();saveAll();
+    animCache[j.id]=a;var n=N(j.id);n.hasAnim=true;n.addedAt=now();markLearned(j.id);saveAll();
     return keepV?saveOwnVideo(j.id,j.file):null;
   }).then(function(){
     var id=j.id;animJob=null;previewAnim=null;toast("アニメを保存しました");render();cardSheet(id);
@@ -982,26 +1113,30 @@ function render(){
 function refresh(){render();var sh=document.querySelector(".sheet");if(sh&&sh.getAttribute("data-card")&&CMAP[sh.getAttribute("data-card")])cardSheet(sh.getAttribute("data-card"));}
 function catCards(id){return CARDS.filter(function(c){return c.cat===id;});}
 
+function chipBtn(c){return '<button data-act="opencard" data-val="'+c.id+'"><b>'+esc(c.ja)+'</b><span>'+esc(c.ru)+'</span></button>';}
 function renderLearn(){
-  var due=dueIds().length,nw=buildQueue({type:"new"}).length,ownC=CARDS.filter(hasOwn);
+  var due=dueIds().length,ownC=CARDS.filter(hasOwn).length,ld=lessonDates();
   function hs(n,l){return '<div><b>'+n+'</b><span>'+l+'</span></div>';}
-  var h='<div class="hero">'+hs(due,"今日の復習")+hs(nw,"新しいカード")+hs(ownC.length,"収録済み")+hs(hist.streak.count||0,"連続日数")+'</div>';
-  h+='<button class="btn pri full big" data-act="starttoday">▶ 今日の練習を始める</button>';
-  h+='<button class="btn full addbtn" data-act="addlesson">＋ レッスンで習った手話を追加</button>';
-  if(!ownC.length){
-    h+='<div class="notice" style="margin-top:14px"><b>はじめに</b><br>レッスンで習った手話を動画に撮る（または先生の動画を選ぶ）と、<b>手と体の動きだけを線のアニメ</b>にしてカードに保存できます。'+
-       'アニメは軽いので、バックアップにも入ります。まずは「＋ レッスンで習った手話を追加」から。</div>';
-  }else{
-    var rec=ownC.slice().sort(function(a,b){return ((notes[b.id]||{}).addedAt||0)-((notes[a.id]||{}).addedAt||0);}).slice(0,8);
-    h+='<div class="h2">最近収録した手話</div><div class="chips">'+rec.map(function(c){
-      return '<button data-act="opencard" data-val="'+c.id+'"><b>'+esc(c.ja)+'</b><span>'+esc(c.ru)+'</span></button>';}).join("")+'</div>';
+  var h='<div class="hero">'+hs(ownC,"収録した手話")+hs(ld.length,"レッスン日数")+hs(due,"今日の復習")+hs(hist.streak.count||0,"連続日数")+'</div>';
+  h+='<button class="btn full big rec" data-act="addlesson">＋ 習った手話を記録する</button>';
+  h+='<div class="row3"><button class="btn" data-act="starttoday">今日の練習</button><button class="btn" data-act="gosearch">検索</button><button class="btn" data-act="sharesheet">共有</button></div>';
+  h+='<div class="h2">レッスンの記録</div>';
+  if(!ld.length){
+    h+='<div class="notice">まだ記録がありません。レッスンで習った手話を<b>動画に撮る</b>（または先生の動画を選ぶ）と、習った日ごとにここに並びます。'+
+       '動画は手と体の動きだけの<b>線のアニメ</b>にして保存でき、ほかの人にも送れます。</div>';
   }
-  h+='<div class="h2">カテゴリ</div><div class="grid">';
+  ld.slice(0,5).forEach(function(g){
+    h+='<div class="lesson"><div class="lh"><div><b>'+fmtDate(g.date)+'</b><span>'+g.cards.length+'件</span></div>'+
+       '<div class="la"><button data-act="startdate" data-val="'+g.date+'">復習</button><button data-act="sharedate" data-val="'+g.date+'">共有</button></div></div>'+
+       '<div class="chips">'+g.cards.map(chipBtn).join("")+'</div></div>';
+  });
+  if(ld.length>5)h+='<button class="btn full sm" data-act="godates" style="margin-bottom:6px">すべての記録を見る（'+ld.length+'日分）</button>';
+  h+='<div class="h2">カテゴリから探す</div><div class="grid">';
   CATS.forEach(function(cat){
-    var cs=catCards(cat.id),l=cs.filter(function(c){return hasProg(c.id);}).length,o=cs.filter(hasOwn).length;
-    h+='<div class="tile" data-act="opencat" data-val="'+cat.id+'"><div class="ic" style="background:'+cat.color+'1A">'+cat.icon+'</div>'+
+    var cs=catCards(cat.id),o=cs.filter(hasOwn).length;
+    h+='<div class="tile" data-act="opencat" data-val="'+cat.id+'"><div class="ic" style="background:'+cat.color+'1F;color:'+cat.color+'">'+esc(cat.g)+'</div>'+
        '<div class="nm">'+esc(cat.name)+'</div><div class="ct">'+esc(cat.sub)+'</div>'+
-       '<div class="ct2">収録 <b>'+o+'</b> / '+cs.length+'　練習 '+l+'</div>'+
+       '<div class="ct2">収録 <b>'+o+'</b> / '+cs.length+'</div>'+
        '<div class="bar"><i style="width:'+(cs.length?Math.round(o/cs.length*100):0)+'%;background:'+cat.color+'"></i></div></div>';
   });
   return h+'</div>';
@@ -1024,11 +1159,11 @@ function renderStudy(){
      '<button class="star '+(p.favorite?"on":"")+'" data-act="fav" data-val="'+id+'">'+(p.favorite?"★":"☆")+'</button><div style="height:26px"></div>';
   if(!s.revealed){
     if(dir==="ja2sign"){
-      h+='<div class="jp" style="margin-top:6px">'+esc(c.ja)+'</div><div style="margin-top:8px"><div class="ru sm">'+esc(c.ru)+'</div>'+
+      h+='<div class="jp" style="margin-top:6px">'+esc(c.ja)+'</div>'+(c.en?'<div class="en">'+esc(c.en)+'</div>':'')+'<div style="margin-top:8px"><div class="ru sm">'+esc(c.ru)+spkBtn(c)+'</div>'+
          (settings.showKana&&c.kana?'<div class="kana">'+esc(c.kana)+'</div>':'')+'</div>'+
          '<div class="small muted" style="margin-top:14px">手話でやってみよう（実際に手を動かす）</div>';
     }else if(dir==="ru2sign"){
-      h+='<div class="ru" style="margin-top:6px">'+esc(c.ru)+'</div>'+
+      h+='<div class="ru" style="margin-top:6px">'+esc(c.ru)+spkBtn(c)+'</div>'+
          '<div class="small muted" style="margin-top:14px">ロシア語の意味を思い出して、手話でやってみよう</div>';
     }else{
       h+='<div class="small muted" style="margin-top:4px">この手話の意味は？（読み取り練習）</div>'+videoBlock(c,{prompt:true});
@@ -1036,6 +1171,7 @@ function renderStudy(){
     h+='</div><button class="btn full" data-act="reveal" style="margin-top:14px;background:var(--gold);border-color:var(--gold);color:var(--ink)">答えを見る</button>';
   }else{
     h+='<div class="jp" style="font-size:20px;margin-top:4px">'+esc(c.ja)+'</div><div style="margin-top:6px">'+wordBlock(c,true)+'</div>';
+    var kids=childrenOf(id);if(kids.length)h+='<div style="margin-top:10px;text-align:left"><div class="small muted" style="font-weight:800;margin-bottom:4px">例文</div>'+kids.map(cardRow).join("")+'</div>';
     if(dir==="sign2ja")h+=figBlock(c)+descBlock(c,true);
     else h+=ownBlock(c)+figBlock(c)+descBlock(c,true)+videoBlock(c,{skipOwn:true});
     h+=memoPreview(c);
@@ -1066,33 +1202,47 @@ function listCards(){
     if(cat!=="all"&&c.cat!==cat)return false;
     if(f==="own"&&!hasOwn(c))return false;
     if(f==="none"&&hasOwn(c))return false;
-    if(q&&(c.ja+" "+c.ru+" "+(c.kana||"")+" "+(c.ky||"")).toLowerCase().indexOf(q)<0)return false;
+    if(q&&(c.ja+" "+c.ru+" "+(c.en||"")+" "+(c.kana||"")+" "+(c.ky||"")+" "+((notes[c.id]||{}).memo||"")).toLowerCase().indexOf(q)<0)return false;
     return true;
   });
 }
+function cardRow(c){
+  return '<div class="lrow'+(c.parent?" ex":"")+'" data-act="opencard" data-val="'+c.id+'"><div class="m"><div class="a">'+esc(c.ja)+(c.en?' <span class="en">'+esc(c.en)+'</span>':'')+'</div><div class="b">'+esc(c.ru)+'</div></div>'+
+     '<div class="st">'+(c.parent?'<span class="tag unv">例文</span>':'')+statusTags(c)+(!hasOwn(c)&&cardHasAnyVideo(c)?'<span class="tag yt">見本あり</span>':'')+'</div></div>';
+}
 function listBody(){
-  var cs=listCards(),h='<div style="display:flex;gap:8px;margin-bottom:10px">'+
-    '<button class="btn pri sm" style="flex:1" data-act="startlist"'+(cs.length?'':' disabled')+'>表示中の '+cs.length+'枚を練習</button>'+
-    '<button class="btn sm" data-act="addlesson">＋ カードを追加</button></div>';
-  if(!cs.length)return h+'<div class="empty">当てはまるカードがありません。</div>';
+  var cs=listCards(),byDate=(ui.listSort==="date");
+  if(byDate)cs=cs.filter(function(c){return learnedOf(c);});
+  var h='<div style="display:flex;gap:8px;margin-bottom:10px">'+
+    '<button class="btn pri sm" style="flex:1" data-act="startlist"'+(cs.length?'':' disabled')+'>表示中の '+cs.length+'件を練習</button>'+
+    '<button class="btn sm" data-act="addlesson">＋ 記録する</button></div>';
+  if(!cs.length)return h+'<div class="empty">'+(byDate?"習った日が入っているカードがまだありません。\n動画を入れると、その日の日付で記録されます。":"当てはまるカードがありません。")+'</div>';
+  if(byDate){
+    var m={};cs.forEach(function(c){var d=learnedOf(c);(m[d]=m[d]||[]).push(c);});
+    Object.keys(m).sort().reverse().forEach(function(d){
+      h+='<div class="subh"><span>'+fmtDate(d)+'　'+m[d].length+'件</span><span><button data-act="startdate" data-val="'+d+'">復習</button> <button data-act="sharedate" data-val="'+d+'">共有</button></span></div>'+m[d].map(cardRow).join("");
+    });
+    return h;
+  }
   var lastCat=null,lastSub=null;
   cs.forEach(function(c){
-    if(c.cat!==lastCat){var cat=CATMAP[c.cat]||CATS[0];h+='<div class="h2">'+cat.icon+' '+esc(cat.name)+'</div>';lastCat=c.cat;lastSub=null;}
+    if(c.cat!==lastCat){var cat=CATMAP[c.cat]||CATS[0];h+='<div class="h2">'+esc(cat.name)+'</div>';lastCat=c.cat;lastSub=null;}
     if((c.sub||"")!==(lastSub||"")&&c.sub){
       h+='<div class="subh"><span>'+esc(c.sub)+'</span><button data-act="startsub" data-cat="'+c.cat+'" data-sub="'+esc(c.sub)+'">ここを練習</button></div>';
     }
     lastSub=c.sub||"";
-    h+='<div class="lrow" data-act="opencard" data-val="'+c.id+'"><div class="m"><div class="a">'+esc(c.ja)+'</div><div class="b">'+esc(c.ru)+'</div></div>'+
-       '<div class="st">'+statusTags(c)+(!hasOwn(c)&&cardHasAnyVideo(c)?'<span class="tag yt">見本あり</span>':'')+'</div></div>';
+    h+=cardRow(c);
   });
   return h;
 }
 function renderList(){
-  var cur=ui.listCat||"all",f=ui.listFilter||"all";
-  var h='<input class="search" id="q" type="search" placeholder="検索（日本語・ロシア語）" value="'+esc(ui.q||"")+'">';
-  h+='<div class="chips cat">'+[{id:"all",name:"すべて",icon:""}].concat(CATS).map(function(c){
-    return '<button class="'+(cur===c.id?"on":"")+'" data-act="listcat" data-val="'+c.id+'">'+(c.icon?c.icon+" ":"")+esc(c.name)+'</button>';}).join("")+'</div>';
-  h+='<div class="seg">'+[["all","すべて"],["own","収録済み"],["none","まだ収録していない"]].map(function(o){
+  var cur=ui.listCat||"all",f=ui.listFilter||"all",so=ui.listSort||"std";
+  var h='<input class="search" id="q" type="search" placeholder="検索（日本語・ロシア語・英語・メモ）" value="'+esc(ui.q||"")+'">';
+  h+='<div class="chips cat">'+[{id:"all",name:"すべて"}].concat(CATS).map(function(c){
+    return '<button class="'+(cur===c.id?"on":"")+'" data-act="listcat" data-val="'+c.id+'">'+esc(c.name)+'</button>';}).join("")+'</div>';
+  h+='<div class="seg">'+[["std","カテゴリ順"],["date","習った日順"]].map(function(o){
+    return '<button class="'+(so===o[0]?"on":"")+'" data-act="listsort" data-val="'+o[0]+'">'+o[1]+'</button>';}).join("")+'</div>';
+  h+='<div class="seg">'+[["all","すべて"],["own","収録済み"],["none","未収録"]].map(function(o){
     return '<button class="'+(f===o[0]?"on":"")+'" data-act="listfilter" data-val="'+o[0]+'">'+o[1]+'</button>';}).join("")+'</div>';
   return h+'<div id="listbody">'+listBody()+'</div>';
 }
@@ -1128,63 +1278,169 @@ function toast(msg){var t=document.getElementById("toast");t.textContent=msg;t.c
 function cardSheet(id){
   var c=CMAP[id],n=N(id),cat=CATMAP[c.cat]||CATS[0];
   var sh=document.querySelector(".sheet"),keep=(sh&&sh.getAttribute("data-card")===id)?sh.scrollTop:0;
-  var h='<div class="small" style="font-weight:800;color:'+cat.color+'">'+cat.icon+' '+esc(cat.name)+(c.sub?' › '+esc(c.sub):'')+'</div>';
+  var h='<div class="small" style="font-weight:800;color:'+cat.color+'">'+esc(cat.name)+(c.sub?' › '+esc(c.sub):'')+(c.parent?' › 例文':'')+'</div>';
   h+='<h3 style="margin-bottom:4px">'+esc(c.ja)+'</h3>'+wordBlock(c,true);
+  if(c.parent&&CMAP[c.parent])h+='<button class="btn sm ghost" style="margin-top:8px" data-act="opencard" data-val="'+c.parent+'">‹ 元のカード「'+esc(CMAP[c.parent].ja)+'」へ</button>';
   h+=ownBlock(c);
   h+='<div class="recbox"><div class="lab">'+(hasOwn(c)?"収録を追加・差し替え":"レッスンで習った動きを入れる")+'</div>'+
-     '<button class="btn pri full" data-act="mkanim" data-val="'+id+'">🎬 動画からアニメを作る'+(n.hasAnim?"（差し替え）":"")+'</button>'+
-     '<div style="display:flex;gap:8px;margin-top:8px"><button class="btn sm" style="flex:1" data-act="rec" data-val="'+id+'">動画のまま保存'+(n.hasVideo?"（差し替え）":"")+'</button>'+
+     '<button class="btn pri full" data-act="mkanim" data-val="'+id+'">動画からアニメを作る'+(n.hasAnim?"（差し替え）":"")+'</button>'+
+     '<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap"><button class="btn sm" style="flex:1" data-act="rec" data-val="'+id+'">動画のまま保存'+(n.hasVideo?"（差し替え）":"")+'</button>'+
+     (n.hasVideo?'<button class="btn sm" data-act="sharevid" data-val="'+id+'">動画を送る</button>':'')+
      (n.hasAnim?'<button class="btn sm" style="color:var(--red);border-color:#f0c2c2" data-act="delanim" data-val="'+id+'">アニメ削除</button>':'')+
      (n.hasVideo?'<button class="btn sm" style="color:var(--red);border-color:#f0c2c2" data-act="delvid" data-val="'+id+'">動画削除</button>':'')+'</div>'+
      '<div class="small muted" style="margin-top:6px">その場で撮影するか、先生にもらった動画・自分で撮った動画を選べます。3〜10秒くらい、上半身と両手が映っている動画が向いています。</div></div>';
-  h+=figBlock(c)+descBlock(c,true)+videoBlock(c,{noAuto:true,skipOwn:true});
+  h+='<div class="setrow" style="margin-top:14px"><div class="lab">習った日</div><input type="date" class="search" data-date="'+id+'" value="'+esc(n.learnedAt||"")+'" style="margin-bottom:4px">'+
+     '<div class="small muted">'+(n.addedAt?'収録した日：'+fmtDate(todayKey(new Date(n.addedAt))):'まだ収録していません')+(n.by?'　収録した人：'+esc(n.by):'')+'</div></div>';
+  if(!c.parent){
+    var kids=childrenOf(id);
+    h+='<div class="setrow"><div class="lab">例文</div>'+(kids.length?kids.map(cardRow).join(""):'<div class="small muted" style="margin-bottom:6px">まだ例文がありません。</div>')+
+       '<details class="longv"><summary>＋ 例文を追加する</summary><div class="inner">'+
+       '<input class="search" id="ex-ru" placeholder="ロシア語の文（例：Сегодня понедельник.）" style="margin-bottom:8px">'+
+       '<input class="search" id="ex-ja" placeholder="日本語の意味（例：今日は月曜日です。）" style="margin-bottom:8px">'+
+       '<input class="search" id="ex-en" placeholder="英語の意味（なくてもOK）" style="margin-bottom:8px">'+
+       '<button class="btn pri full sm" data-act="newex" data-val="'+id+'">例文を作って収録へ</button></div></details></div>';
+  }
+  h+=figBlock(c)+descBlock(c,true)+(c.parent?'':videoBlock(c,{noAuto:true,skipOwn:true}));
   if(c.note)h+='<div class="note">'+esc(c.note)+'</div>';
-  h+='<div class="setrow" style="margin-top:16px"><div class="lab">メモ（動きのコツ・先生に言われたこと・キルギスでの違いなど）</div>'+
+  h+='<div class="setrow" style="margin-top:16px"><div class="lab">メモ（動きのコツ・先生に言われたことなど）</div>'+
      '<textarea class="memo" data-memo="'+id+'" placeholder="例）右手を…。先生は○○と言っていた。">'+esc(n.memo)+'</textarea></div>';
   h+='<div class="setrow"><div class="lab">確認状態</div><div class="seg">'+
      '<button class="'+(!n.verified?"on":"")+'" data-act="verify" data-id="'+id+'" data-val="0">未確認</button>'+
-     '<button class="'+(n.verified?"on":"")+'" data-act="verify" data-id="'+id+'" data-val="1">先生・ろう者に確認済み</button></div></div>';
+     '<button class="'+(n.verified?"on":"")+'" data-act="verify" data-id="'+id+'" data-val="1">先生に確認済み</button></div></div>';
   h+='<div style="display:flex;gap:8px"><button class="btn pri" style="flex:1" data-act="studyone" data-val="'+id+'">このカードを練習</button>'+
-     '<button class="btn" style="flex:1;background:var(--ink);color:#fff;border-color:var(--ink)" data-act="closesheet">閉じる</button></div>';
+     '<button class="btn dark" style="flex:1" data-act="closesheet">閉じる</button></div>';
   if(c.custom)h+='<button class="btn ghost full sm" style="margin-top:10px;color:var(--red)" data-act="delcard" data-val="'+id+'">このカードを削除</button>';
   openSheet(h,id);
-  var ns=document.querySelector(".sheet");if(ns&&keep)ns.scrollTop=keep;
+  var ns=document.querySelector(".sheet");if(ns)ns.scrollTop=keep;
 }
 
+function addResults(q){
+  q=(q||"").trim().toLowerCase();if(!q)return '<div class="small muted">単語を入れると、用意されているカードから探します。</div>';
+  var cs=CARDS.filter(function(c){return (c.ja+" "+c.ru+" "+(c.en||"")).toLowerCase().indexOf(q)>=0;}).slice(0,8);
+  return cs.length?cs.map(cardRow).join(""):'<div class="small muted">見つかりません。下の「新しい単語として作る」から追加できます。</div>';
+}
 function addSheet(){
   var cur=(ui.listCat&&ui.listCat!=="all")?ui.listCat:"lesson";
-  var h='<h3>レッスンで習った手話を追加</h3>';
-  h+='<div class="setrow"><div class="lab">① 用意されているカードに入れる</div><div class="small muted" style="margin-bottom:8px">カテゴリを選ぶと、まだ収録していないカードが並びます。カードを開いて「動画からアニメを作る」。</div>'+
-     '<div class="chips cat wrap">'+CATS.filter(function(c){return c.id!=="lesson";}).map(function(c){
-       return '<button data-act="pickcat" data-val="'+c.id+'">'+c.icon+' '+esc(c.name)+'</button>';}).join("")+'</div></div>';
-  h+='<div class="setrow"><div class="lab">② 新しい単語のカードを作る</div>'+
+  var h='<h3>習った手話を記録する</h3>';
+  h+='<div class="setrow"><div class="lab">習った日</div><input type="date" class="search" id="lessondate" value="'+(lessonDate||todayKey())+'" style="margin-bottom:0"></div>';
+  h+='<div class="setrow"><div class="lab">① 単語を探して、動画を入れる</div>'+
+     '<input class="search" id="addq" type="search" placeholder="例：月曜日 / красный / red">'+
+     '<div id="addres">'+addResults("")+'</div>'+
+     '<div class="chips cat wrap" style="margin-top:8px">'+CATS.filter(function(c){return c.id!=="lesson";}).map(function(c){
+       return '<button data-act="pickcat" data-val="'+c.id+'">'+esc(c.name)+'</button>';}).join("")+'</div></div>';
+  h+='<div class="setrow"><div class="lab">② 新しい単語として作る</div>'+
      '<input class="search" id="nc-ja" placeholder="日本語の意味（例：学校）" style="margin-bottom:8px">'+
-     '<input class="search" id="nc-ru" placeholder="ロシア語（例：Школа）※あとからでもOK" style="margin-bottom:8px">'+
+     '<input class="search" id="nc-ru" placeholder="ロシア語（例：Школа）" style="margin-bottom:8px">'+
+     '<input class="search" id="nc-en" placeholder="英語（例：School）なくてもOK" style="margin-bottom:8px">'+
      '<select class="search" id="nc-cat" style="margin-bottom:8px">'+CATS.map(function(c){return '<option value="'+c.id+'"'+(c.id===cur?" selected":"")+'>'+esc(c.name)+'</option>';}).join("")+'</select>'+
      '<button class="btn pri full" data-act="newcard">カードを作って収録へ</button></div>';
-  h+='<button class="btn full" data-act="closesheet" style="background:var(--ink);color:#fff;border-color:var(--ink)">閉じる</button>';
+  h+='<button class="btn dark full" data-act="closesheet">閉じる</button>';
   openSheet(h);
 }
+function newId(){return "u"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function addCustom(c){c.custom=true;custom.push(c);lset(K.custom,custom);insertCard(c);rebuildMap();}
+function val(id){var el=document.getElementById(id);return el?(el.value||"").trim():"";}
 function newCard(){
-  var ja=(document.getElementById("nc-ja").value||"").trim(),ru=(document.getElementById("nc-ru").value||"").trim(),cat=document.getElementById("nc-cat").value;
+  var ja=val("nc-ja"),ru=val("nc-ru"),cat=val("nc-cat")||"lesson";
   if(!ja){toast("日本語の意味を入れてください");return;}
-  var c={id:"u"+Date.now().toString(36),cat:cat,sub:cat==="lesson"?"":"自分で追加",ja:ja,ru:ru||"—",kana:"",ky:"",custom:true};
-  custom.push(c);lset(K.custom,custom);CARDS.push(c);rebuildMap();
-  render();cardSheet(c.id);toast("カードを作りました");
+  var c={id:newId(),cat:cat,sub:cat==="lesson"?"":"自分で追加",ja:ja,ru:ru||"—",en:val("nc-en"),kana:"",ky:""};
+  addCustom(c);render();cardSheet(c.id);toast("カードを作りました");
+}
+function newExample(pid){
+  var p=CMAP[pid],ru=val("ex-ru"),ja=val("ex-ja");
+  if(!ru&&!ja){toast("ロシア語か日本語を入れてください");return;}
+  var c={id:newId(),cat:p.cat,sub:p.sub||"",parent:pid,ja:ja||ru,ru:ru||"—",en:val("ex-en"),kana:"",ky:""};
+  addCustom(c);render();cardSheet(c.id);toast("例文を作りました");
 }
 function deleteCard(id){
   if(!confirm("このカードを削除しますか？（収録したアニメ・動画・メモも消えます）"))return;
-  custom=custom.filter(function(c){return c.id!==id;});lset(K.custom,custom);
-  CARDS=CARDS.filter(function(c){return c.id!==id;});rebuildMap();
-  delete notes[id];delete progress[id];delete animCache[id];saveAll();
-  vidDel(id).catch(function(){});vidDel("anim:"+id).catch(function(){});
-  closeSheet();render();toast("削除しました");
+  var ids=[id].concat(childrenOf(id).filter(function(c){return c.custom;}).map(function(c){return c.id;}));
+  custom=custom.filter(function(c){return ids.indexOf(c.id)<0;});lset(K.custom,custom);
+  CARDS=CARDS.filter(function(c){return ids.indexOf(c.id)<0;});rebuildMap();
+  ids.forEach(function(x){delete notes[x];delete progress[x];delete animCache[x];vidDel(x).catch(function(){});vidDel("anim:"+x).catch(function(){});});
+  saveAll();closeSheet();render();toast("削除しました");
+}
+
+/* ===== 共有（アニメ入りの共有ファイルを送り合う） ===== */
+var packReady=null;
+function shareSheet(){
+  var ld=lessonDates(),nAnim=CARDS.filter(function(c){return (notes[c.id]||{}).hasAnim;}).length;
+  var h='<h3>みんなと共有する</h3>';
+  h+='<div class="notice">収録した<b>アニメ</b>を1つのファイルにまとめて、LINE・WhatsApp・Telegram・AirDrop などで送れます。受け取った人は、同じアプリで「共有ファイルを読み込む」を押すだけです。</div>';
+  h+='<div class="setrow"><div class="lab">あなたの名前（だれが収録したか分かるように）</div><input class="search" data-set="userName" placeholder="例：ゆうた" value="'+esc(settings.userName||"")+'" style="margin-bottom:0"></div>';
+  h+='<div class="setrow"><div class="lab">送る</div>'+
+     '<button class="btn pri full" data-act="mkpack" data-val="all"'+(nAnim?'':' disabled')+'>収録したアニメを全部まとめる（'+nAnim+'件）</button>'+
+     ld.slice(0,8).map(function(g){var k=g.cards.filter(function(c){return (notes[c.id]||{}).hasAnim;}).length;
+       return k?'<button class="btn full sm" style="margin-top:8px" data-act="mkpack" data-val="'+g.date+'">'+fmtDate(g.date)+' の分だけ（'+k+'件）</button>':'';}).join("")+
+     '<div class="small muted" style="margin-top:6px">「動画のまま保存」した動画はファイルに入りません。動画を送りたい時は、カードの「動画を送る」から1本ずつ送れます。</div></div>';
+  h+='<div class="setrow"><div class="lab">受け取る</div><button class="btn full" data-act="import">共有ファイルを読み込む</button>'+
+     '<div class="small muted" style="margin-top:6px">読み込むと、相手のアニメと追加カードが自分のアプリに足されます。自分の練習の記録やメモは変わりません。</div></div>';
+  h+='<button class="btn dark full" data-act="closesheet">閉じる</button>';
+  openSheet(h);
+}
+function makePack(scope){
+  var cs=CARDS.filter(function(c){return (notes[c.id]||{}).hasAnim&&(scope==="all"||learnedOf(c)===scope);});
+  if(!cs.length){toast("送れるアニメがありません");return;}
+  Promise.all(cs.map(function(c){return animGet(c.id).catch(function(){return null;});})).then(function(as){
+    var defs={},items=[];
+    cs.forEach(function(c,i){
+      if(!as[i])return;var n=notes[c.id]||{};
+      items.push({id:c.id,learnedAt:n.learnedAt||"",by:n.by||settings.userName||"",anim:as[i]});
+      var x=c;while(x){if(x.custom)defs[x.id]={id:x.id,cat:x.cat,sub:x.sub,parent:x.parent,ja:x.ja,ru:x.ru,en:x.en,kana:x.kana,ky:x.ky};x=x.parent?CMAP[x.parent]:null;}
+    });
+    var pack={app:"sign-pack",v:1,by:settings.userName||"",createdAt:new Date().toISOString(),scope:scope,cards:Object.keys(defs).map(function(k){return defs[k];}),items:items};
+    var name="zhesty_"+(scope==="all"?"all_"+todayKey():scope)+".json";
+    packReady={file:new File([JSON.stringify(pack)],name,{type:"application/json"}),n:items.length,scope:scope};
+    var canShare=false;try{canShare=!!(navigator.canShare&&navigator.canShare({files:[packReady.file]}));}catch(e){}
+    openSheet('<h3>共有ファイルができました</h3><div class="notice">'+(scope==="all"?"収録したアニメ全部":fmtDate(scope)+" の分")+'：<b>'+items.length+'件</b>（'+Math.max(1,Math.round(packReady.file.size/1024))+' KB）</div>'+
+      (canShare?'<button class="btn pri full" data-act="sendpack">送る（アプリを選ぶ）</button>':'')+
+      '<button class="btn full" style="margin-top:8px" data-act="savepack">ファイルとして保存する</button>'+
+      '<button class="btn ghost full" style="margin-top:8px" data-act="sharesheet">戻る</button>');
+  });
+}
+function downloadFile(file){
+  var url=URL.createObjectURL(file),a=document.createElement("a");a.href=url;a.download=file.name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);a.remove();},200);
+}
+function shareFile(file,title){
+  try{
+    if(navigator.canShare&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:title}).catch(function(){});return;}
+  }catch(e){}
+  downloadFile(file);toast("ファイルとして保存しました");
+}
+function shareVideo(id){
+  var b=blobCache[id];
+  if(!b){vidGet(id).then(function(x){if(x){blobCache[id]=x;toast("準備できました。もう一度押してください");}});return;}
+  var ext=(/quicktime/.test(b.type)?"mov":/webm/.test(b.type)?"webm":"mp4"),c=CMAP[id];
+  shareFile(new File([b],"sign_"+(c.ru||id).replace(/[^\wА-Яа-яЁё]+/g,"_").slice(0,30)+"."+ext,{type:b.type||"video/mp4"}),c.ja);
+}
+function mergePack(d){
+  var addC=0,addA=0,skip=0;
+  (d.cards||[]).forEach(function(c){if(c&&c.id&&!CMAP[c.id]&&(!c.parent||CMAP[c.parent]||(d.cards||[]).some(function(x){return x.id===c.parent;}))){addCustom(c);addC++;}});
+  var jobs=[];
+  (d.items||[]).forEach(function(it){
+    if(!it||!CMAP[it.id]||!it.anim||!it.anim.frames){return;}
+    var n=N(it.id),mine=animCache[it.id];
+    jobs.push(animGet(it.id).catch(function(){return null;}).then(function(cur){
+      if(cur&&(cur.savedAt||0)>=(it.anim.savedAt||0)){skip++;return;}
+      animCache[it.id]=it.anim;n.hasAnim=true;n.addedAt=n.addedAt||now();
+      if(!n.learnedAt&&it.learnedAt)n.learnedAt=it.learnedAt;
+      if(it.by||d.by)n.by=it.by||d.by;
+      addA++;return vidPut("anim:"+it.id,it.anim);
+    }));
+  });
+  Promise.all(jobs).catch(function(){}).then(function(){
+    saveAll();closeSheet();render();
+    openSheet('<h3>読み込みました</h3><div class="notice">'+(d.by?esc(d.by)+' さんの共有ファイル<br>':'')+'アニメ：<b>'+addA+'件</b> を追加'+(skip?'（'+skip+'件はすでに入っているのでそのまま）':'')+
+      (addC?'<br>新しいカード：<b>'+addC+'件</b>':'')+'</div><button class="btn dark full" data-act="closesheet">閉じる</button>');
+  });
 }
 
 function settingsSheet(){
   function seg(act,opts,cur){return '<div class="seg">'+opts.map(function(o){
     return '<button class="'+(String(cur)===String(o[0])?"on":"")+'" data-act="'+act+'" data-val="'+o[0]+'">'+o[1]+'</button>';}).join("")+'</div>';}
   var h='<h3>設定</h3>';
+  h+='<div class="setrow"><div class="lab">あなたの名前（共有する時に、だれの収録か分かるように）</div><input class="search" data-set="userName" placeholder="例：ゆうた" value="'+esc(settings.userName||"")+'" style="margin-bottom:0"></div>';
   h+='<div class="setrow"><div class="lab">出題のしかた</div>'+seg("dir",[["ja2sign","日本語→手話"],["ru2sign","ロシア語→手話"],["sign2ja","手話→意味"],["random","ミックス"]],settings.direction)+
      '<div class="small muted" style="margin-top:-6px">「ロシア語→手話」はロシア語の単語も一緒に覚えたい時に。「手話→意味」は自分のアニメや動画を見て意味を当てる読み取り練習。</div></div>';
   h+='<div class="setrow"><div class="lab">1日の新しいカード数</div>'+seg("daily",[[5,"5"],[10,"10"],[15,"15"],[20,"20"]],settings.dailyNew)+'</div>';
@@ -1194,7 +1450,8 @@ function settingsSheet(){
   h+='<div class="setrow"><div class="lab">ロシア語の読み（カタカナ）</div>'+seg("kana",[["true","表示"],["false","非表示"]],settings.showKana)+'</div>';
   h+='<div class="setrow"><div class="lab">データ管理</div>'+
      '<button class="btn full" data-act="export" style="margin-bottom:8px">バックアップを書き出す（進捗・メモ・アニメ・追加カード）</button>'+
-     '<button class="btn full" data-act="import" style="margin-bottom:8px">バックアップを読み込む</button>'+
+     '<button class="btn full" data-act="import" style="margin-bottom:8px">バックアップ・共有ファイルを読み込む</button>'+
+     '<button class="btn full" data-act="sharesheet" style="margin-bottom:8px">みんなと共有する</button>'+
      '<button class="btn full" data-act="reset" style="color:var(--red);border-color:#f0c2c2">学習進捗だけ初期化（収録・メモは残す）</button>'+
      '<div class="small muted" style="margin-top:6px">※ アニメはバックアップに入ります。「動画のまま保存」した動画は入りません（この端末の中だけ）。</div></div>';
   h+='<button class="btn full" data-act="about" style="margin-bottom:8px">このアプリについて（方針・注意）</button>';
@@ -1213,6 +1470,10 @@ function aboutSheet(){
     '<li>最初から入っている動きの解説・図・見本動画は、一般向けの記事や検索で見つけたもので、正確さは未確認です。レッスンで習った形と違ったら、レッスンの方を優先してください。</li>'+
     '<li>キルギスではロシア語手話が広く使われていますが、地域の言い方もあります。キルギス語の欄は参考です。</li>'+
     '</ul>'+
+    '<p><b>データの保存場所</b>：アニメ・動画・メモ・練習の記録は、すべて<b>このスマホのブラウザの中</b>だけに保存されます（サーバーには送られません）。'+
+    'そのため、3人それぞれが自分のスマホに自分のデータを持ち、「共有」でアニメ入りのファイルを送り合う形になります。'+
+    'ブラウザのデータを消すと記録も消えるので、<b>ホーム画面に追加</b>して使い、ときどき「バックアップを書き出す」で保存しておくと安心です。</p>'+
+    '<p><b>ロシア語の音声</b>は、スマホに入っている読み上げ機能を使っています。機種によって声や発音が少し違います。</p>'+
     '<p><b>もっと詳しく学ぶための本</b>：Р.Н. Фрадкина『Говорящие руки』（2001）／Д.А. Заварицкий『100 фраз на русском жестовом языке』（2015）／И.Ф. Гейльман『Специфические средства общения глухих』</p>'+
     '<p class="muted">見本の主な参考：ВОГ「Давайте знакомиться!」、Spreadthesign、signflow.ru、Город жестов、surdo.media。手の認識：MediaPipe。</p></div>'+
     '<button class="btn full" data-act="closesheet" style="margin-top:8px;background:var(--ink);color:#fff;border-color:var(--ink)">閉じる</button>';
@@ -1235,11 +1496,11 @@ function importData(){
   var inp=document.createElement("input");inp.type="file";inp.accept="application/json,.json";
   inp.onchange=function(){var f=inp.files[0];if(!f)return;var r=new FileReader();
     r.onload=function(){
-      var d;try{d=JSON.parse(r.result);if(d.app!=="sign")throw 0;}catch(e){toast("このアプリのバックアップではないようです");return;}
+      var d;try{d=JSON.parse(r.result);if(d.app!=="sign"&&d.app!=="sign-pack")throw 0;}catch(e){toast("このアプリのファイルではないようです");return;}
+      if(d.app==="sign-pack"){mergePack(d);return;}
       progress=d.progress||{};hist=d.history||hist;if(d.settings)settings=Object.assign(settings,d.settings);
       if(Array.isArray(d.custom)){
-        d.custom.forEach(function(c){if(c&&c.id&&!CMAP[c.id]){c.custom=true;custom.push(c);CARDS.push(c);}});
-        lset(K.custom,custom);rebuildMap();
+        d.custom.forEach(function(c){if(c&&c.id&&!CMAP[c.id])addCustom(c);});
       }
       var anims=d.anims||{};
       if(d.notes){Object.keys(d.notes).forEach(function(id){var keepV=(notes[id]||{}).hasVideo,keepA=(notes[id]||{}).hasAnim;
@@ -1312,6 +1573,17 @@ document.body.addEventListener("click",function(e){
   if(a==="animspeed"){settings.animSpeed={1:0.5,0.5:0.25,0.25:1}[settings.animSpeed||1]||1;lset(K.set,settings);
     document.querySelectorAll('[data-act="animspeed"]').forEach(function(b){b.textContent=speedLabel();});return;}
   if(a==="animmirror"){settings.animMirror=!settings.animMirror;lset(K.set,settings);return;}
+  if(a==="speak"){speak(V("data-val"));return;}
+  if(a==="gosearch"){ui.view="list";ui.listCat="all";ui.listFilter="all";ui.listSort="std";saveUI();render();window.scrollTo(0,0);var qe=document.getElementById("q");if(qe)qe.focus();return;}
+  if(a==="godates"){ui.view="list";ui.listCat="all";ui.listFilter="all";ui.listSort="date";ui.q="";saveUI();render();window.scrollTo(0,0);return;}
+  if(a==="listsort"){ui.listSort=V("data-val");saveUI();render();return;}
+  if(a==="startdate"){var dd=V("data-val");startSession({type:"ids",ids:CARDS.filter(function(c){return learnedOf(c)===dd;}).map(function(c){return c.id;})},fmtDate(dd));return;}
+  if(a==="sharesheet"){shareSheet();return;}
+  if(a==="sharedate"||a==="mkpack"){makePack(V("data-val"));return;}
+  if(a==="sendpack"){if(packReady)shareFile(packReady.file,"手話レッスンの共有ファイル");return;}
+  if(a==="savepack"){if(packReady){downloadFile(packReady.file);toast("保存しました");}return;}
+  if(a==="sharevid"){shareVideo(V("data-val"));return;}
+  if(a==="newex"){newExample(V("data-val"));return;}
   if(a==="loadyt"){var wrap=document.createElement("div");
     wrap.innerHTML=ytEmbed({id:V("data-id"),start:+V("data-start")},true);t.replaceWith(wrap.firstChild);return;}
 });
@@ -1319,6 +1591,9 @@ document.body.addEventListener("input",function(e){
   var el=e.target;if(!el.getAttribute)return;
   var id=el.getAttribute("data-memo");
   if(id){N(id).memo=el.value;lset(K.notes,notes);return;}
+  if(el.id==="addq"){var ar=document.getElementById("addres");if(ar)ar.innerHTML=addResults(el.value);return;}
+  if(el.id==="lessondate"){lessonDate=el.value||null;return;}
+  if(el.getAttribute("data-set")==="userName"){settings.userName=el.value.trim();lset(K.set,settings);return;}
   if(el.id==="q"){ui.q=el.value;saveUI();var lb=document.getElementById("listbody");if(lb)lb.innerHTML=listBody();return;}
   var tr=el.getAttribute("data-trim");
   if(tr){
@@ -1327,6 +1602,11 @@ document.body.addEventListener("input",function(e){
     if(s>en){if(tr==="s")en=s;else s=en;document.querySelector('[data-trim="s"]').value=s;document.querySelector('[data-trim="e"]').value=en;}
     cv._range=[s,en];
   }
+});
+
+document.body.addEventListener("change",function(e){
+  var id=e.target.getAttribute&&e.target.getAttribute("data-date");
+  if(id){N(id).learnedAt=e.target.value||"";saveAll();render();}
 });
 
 /* ===== 起動 ===== */
