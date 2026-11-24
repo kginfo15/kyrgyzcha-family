@@ -3586,7 +3586,7 @@ const anaM = m => m>=100 ? (m/100).toFixed(1)+"億" : m>=1 ? (Math.round(m*10)/1
 const ANA_CAT = {gov:"国家統計・政府資料", donor:"ドナー・国際機関の報告", paper:"論文"};
 // the numbers of a sector, read live from the site's data (used when the sector's text has no facts block yet)
 function anaFacts(sid, D){
-  const M = v => Math.round(v/1e5)/10, y = new Date().getFullYear();
+  const M = v => Math.round(v/1e4)/100, y = new Date().getFullYear();   // millions of dollars, to 2 decimals so small sectors still add up
   const one = X => { const set = new Set(); for(const r of X.rows) for(const p of r.ps) set.add(p);
     const ps = [...set], by = {}; for(const p of ps) by[p.donor] = (by[p.donor]||0) + shareAmt(p);
     return {ps, n:ps.length, musd:M(ps.reduce((v,p)=>v+shareAmt(p), 0)), by:Object.fromEntries(Object.entries(by).map(([k,v])=>[k,M(v)]).sort((a,b)=>b[1]-a[1])),
@@ -3603,10 +3603,12 @@ function anaAuto(sid, D){
   const F = anaFacts(sid, D), y = new Date().getFullYear(), s = SEC[sid];
   const dn = d => SUM_DN[d] || donorName(d);
   const bd = Object.entries(F.by_donor).filter(([d,v])=>v>0 && (SHOW_JP || !JP_IDS.has(d)));
-  const usd = m => rpUsd(m)+"";
-  const top = bd.slice(0,3).map(([d,v])=>`${dn(d)}(約${usd(v)})`);
+  // money in millions of dollars, rounded for prose: 約1.7億ドル / 約5,500万ドル / 約840万ドル / 約14万ドル / 1万ドル未満
+  const usd = m => m < 0.01 ? "1万ドル未満" : "約" + (m>=100 ? (m/100).toFixed(1)+"億" : (m>=10 ? Math.round(m)*100 : m>=1 ? Math.round(m*10)*10 : Math.round(m*100)).toLocaleString("ja-JP")+"万") + "ドル";
+  const tile = m => m>=100 ? [(m/100).toFixed(1), "億ドル"] : m>=1 ? [String(Math.round(m)), "百万ドル"] : [String(Math.round(m*100)), "万ドル"];
+  const topD = bd.slice(0,3).map(([d,v])=>`${dn(d)}(${usd(v)})`);
   const rowsN = ids => ids.map(id=>{ const r = D.rows.find(x=>x.id===id); return r ? r.n.replace(/[(（].*$/,"") : id; });
-  const big = [...D.rows].filter(r=>r.ps.length).sort((a,b)=>b.a-a.a).slice(0,3);
+  const big = [...D.rows].filter(r=>r.ps.length && r.a>=1e4).sort((a,b)=>b.a-a.a).slice(0,3);
   const tot = bd.reduce((v,[,x])=>v+x, 0), top4 = bd.slice(0,4).reduce((v,[,x])=>v+x, 0);
   const endM = F["end_"+y+"_musd"], endN = F["end_"+y+"_n"];
   const P = INDS[sid], inds = P ? P.pillars.flatMap(p=>p.inds.map((ind,i)=>[p.id+":"+i, ind])).slice(0, 8) : [];
@@ -3614,33 +3616,33 @@ function anaAuto(sid, D){
   const f = (t, ref, b) => ({k:"f", t, ref, b});
   const note = {k:"n", t:"この節の文献に基づく分析(政策の位置づけ・指標の読み)は準備中です。いまはサイトのデータから自動で作った部分だけを出しています。", ref:[]};
   const ch1 = {no:"1", h:"セクターの概観", sections:[
-    {no:"1.1", h:"主な数字", msg:`戦略の分野に当てはまる実施中の協力は${F.mapped_n}件・約${usd(F.mapped_musd)}ドル。`,
+    {no:"1.1", h:"主な数字", msg:`戦略の分野に当てはまる実施中の協力は${F.mapped_n}件・${usd(F.mapped_musd)}。`,
       fig:{type:"tiles", cap:"図1-1 主な数字(表示時点のデータ)", items:[
         {v:String(F.mapped_n), u:"件", k:"戦略の分野に当てはまる実施中の案件", ref:"fact:mapped_n"},
-        {v:(F.mapped_musd/100).toFixed(1), u:"億ドル", k:"その金額(按分後)", ref:"fact:mapped_musd"},
-        {v:String(Math.round(endM)), u:"百万ドル", k:`${y}年末までに終わる額`, ref:`fact:end_${y}_musd`, hot:endM>0},
+        {v:tile(F.mapped_musd)[0], u:tile(F.mapped_musd)[1], k:"その金額(按分後)", ref:"fact:mapped_musd"},
+        {v:tile(endM)[0], u:tile(endM)[1], k:`${y}年末までに終わる額`, ref:`fact:end_${y}_musd`, hot:endM>0},
         {v:String(F.empty_rows.length), u:"分野", k:"実施中の案件がない戦略の分野", ref:"fact:empty_rows", hot:F.empty_rows.length>0},
         {v:String(F.closed_n), u:"件", k:`${CLOSED_FROM}年以降に終わった案件`, ref:"fact:closed_n"}]},
-      paras:[ top.length ? f(`ドナー別では${top.join("、")}が大きく、上位4者で全体の約${Math.round(top4/(tot||1)*100)}%を占める。`, ["fact:by_donor"], `上位:${bd.slice(0,3).map(([d])=>dn(d)).join("・")}`) : null,
-        big.length ? f(`金額が大きい戦略の分野は${big.map(r=>`${r.n.replace(/[(（].*$/,"")}(約${usd(r.a/1e6)})`).join("、")}。`, big.map(r=>"row:"+r.id), `大きい分野:${big.map(r=>r.n.replace(/[(（].*$/,"")).join("・")}`) : null,
+      paras:[ topD.length ? f(bd.length===1 ? `ドナーは${topD[0]}だけ。` : bd.length<=4 ? `ドナーは${bd.length}者で、${topD.join("、")}の順に大きい。` : `ドナー別では${topD.join("、")}が大きく、上位4者で全体の約${Math.round(top4/(tot||1)*100)}%を占める。`, ["fact:by_donor"], `上位:${bd.slice(0,3).map(([d])=>dn(d)).join("・")}`) : null,
+        big.length ? f(`金額が大きい戦略の分野は${big.map(r=>`${r.n.replace(/[(（].*$/,"")}(${usd(r.a/1e6)})`).join("、")}。`, big.map(r=>"row:"+r.id), `大きい分野:${big.map(r=>r.n.replace(/[(（].*$/,"")).join("・")}`) : null,
         F.empty_rows.length ? f(`実施中の案件が当てはまらない戦略の分野:${rowsN(F.empty_rows).join("、")}。`, ["fact:empty_rows"].concat(F.empty_rows.map(id=>"row:"+id)), `空白:${rowsN(F.empty_rows).join("・")}`) : null,
-        endN ? f(`${y}年末までに${endN}件・約${usd(endM)}ドル分の協力が終わる予定。`, [`fact:end_${y}_n`, `fact:end_${y}_musd`], `${y}年末に${endN}件・約${usd(endM)}ドルが終了予定`) : null,
+        endN ? f(`${y}年末までに${endN}件・${usd(endM)}分の協力が終わる予定。`, [`fact:end_${y}_n`, `fact:end_${y}_musd`], `${y}年末に${endN}件・${usd(endM)}が終了予定`) : null,
         note].filter(Boolean)},
     {no:"1.2", h:"戦略の分野と支援の厚さ", msg:`表の戦略の分野は${D.rows.length}。分野ごとの実施中の案件額から、支援の厚さを自動で分けた。`, fig:{type:"rows-tree", cap:"図1-2 戦略の分野ごとの支援の厚さ(実施中)"}, paras:[]},
     {no:"1.3", h:"最近の動き", msg:"直近75日のニュースから、政府・ドナーの動きを優先して並べた。", fig:{type:"news", cap:"表1-1 最近の主なニュース"}, paras:[]}]};
   const ch2 = inds.length ? {no:"2", h:"重要指標", sections:[{no:"2.1", h:"指標の推移", msg:`サイトで追っている指標は${inds.length}つ。${indSt("bad").length?`遅れ:${indSt("bad").slice(0,3).join("、")}。`:""}${indSt("good").length?`順調:${indSt("good").slice(0,3).join("、")}。`:""}`.slice(0,140),
     fig:{type:"indicator", cap:"図2-1 指標の推移(点線=国家目標・国際目標)", inds:inds.map(([k])=>k)}, paras:[{k:"n", t:"指標ごとの読み(目標との差、国の統計で読み取れない項目)は準備中です。", ref:[]}]}]} : null;
   const ch3 = {no:String(ch2?3:2), h:"開発パートナーの支援状況", sections:[
-    {no:(ch2?"3":"2")+".1", h:"ドナー別の金額", msg:top.length ? `実施中の資金は${bd.slice(0,3).map(([d])=>dn(d)).join("、")}の順に大きい。` : "実施中の案件はまだない。", fig:{type:"donor-bar", cap:"図 ドナー別の金額(百万ドル、戦略の分野に当てはまる案件、按分後)"},
-      paras:[f(`${CLOSED_FROM}年以降に終わった協力は${F.closed_n}件・約${usd(F.closed_musd)}ドル。`, ["fact:closed_n", "fact:closed_musd", "fact:closed_by_donor"], `終了済み(${CLOSED_FROM}年〜):${F.closed_n}件・約${usd(F.closed_musd)}ドル`)]},
+    {no:(ch2?"3":"2")+".1", h:"ドナー別の金額", msg:topD.length ? `実施中の資金は${bd.slice(0,3).map(([d])=>dn(d)).join("、")}の順に大きい。` : "実施中の案件はまだない。", fig:{type:"donor-bar", cap:"図 ドナー別の金額(百万ドル、戦略の分野に当てはまる案件、按分後)"},
+      paras:[f(`${CLOSED_FROM}年以降に終わった協力は${F.closed_n}件・${usd(F.closed_musd)}。`, ["fact:closed_n", "fact:closed_musd", "fact:closed_by_donor"], `終了済み(${CLOSED_FROM}年〜):${F.closed_n}件・${usd(F.closed_musd)}`)]},
     {no:(ch2?"3":"2")+".2", h:"実施中の案件一覧(ドナー別)", msg:"実施中の案件は、ドナーごとに金額の大きい順に並べた。", fig:{type:"project-table", st:"active", cap:"表 実施中の案件(表示時点)"}, paras:[]},
     {no:(ch2?"3":"2")+".3", h:"終了済みの案件一覧", msg:`${CLOSED_FROM}年以降に終わった案件を、ドナーごとに並べた。`, fig:{type:"project-table", st:"closed", cap:`表 ${CLOSED_FROM}年以降に終わった案件(ドナーごとに上位5件、残りは開いて見る)`}, paras:[]},
     {no:(ch2?"3":"2")+".4", h:"戦略の分野ごとのギャップ", msg:F.empty_rows.length ? `実施中の協力がない分野:${rowsN(F.empty_rows).join("、")}。` : "どの分野にも実施中の協力がある。", fig:{type:"gap-matrix", cap:"表 戦略の分野 × ドナー(実施中/終了済み/これまでの合計を切り替え)"}, paras:[]}]};
   const ch4 = {no:String(ch2?4:3), h:"今後の注目点", sections:[{no:String(ch2?4:3), h:"今後の注目点", msg:endN ? `${y}年末までに${endN}件が終わる。後継の案件が決まるかが注目点。` : "近く終わる大きな案件を並べた。", fig:{type:"ending", cap:`表 ${y+1}年末までに終わる主な案件`}, paras:[]}]};
-  const sum = [top.length ? f(`戦略の分野に当てはまる実施中の協力は${F.mapped_n}件・約${usd(F.mapped_musd)}ドル。最大は${top[0]}。`, ["fact:mapped_n","fact:mapped_musd","fact:by_donor"]) : null,
+  const sum = [topD.length ? f(`戦略の分野に当てはまる実施中の協力は${F.mapped_n}件・${usd(F.mapped_musd)}。最大は${topD[0]}。`, ["fact:mapped_n","fact:mapped_musd","fact:by_donor"]) : null,
     F.empty_rows.length ? f(`実施中の案件がない分野:${rowsN(F.empty_rows).join("、")}。`, ["fact:empty_rows"]) : null,
-    endN ? f(`${y}年末までに${endN}件・約${usd(endM)}ドル分の協力が終わる。`, [`fact:end_${y}_n`, `fact:end_${y}_musd`]) : null,
-    f(`${CLOSED_FROM}年以降に終わった協力は${F.closed_n}件・約${usd(F.closed_musd)}ドル。`, ["fact:closed_n","fact:closed_musd"])].filter(Boolean).map(p=>({...p, h:p.t.replace(/。$/,"")}));
+    endN ? f(`${y}年末までに${endN}件・${usd(endM)}分の協力が終わる。`, [`fact:end_${y}_n`, `fact:end_${y}_musd`]) : null,
+    f(`${CLOSED_FROM}年以降に終わった協力は${F.closed_n}件・${usd(F.closed_musd)}。`, ["fact:closed_n","fact:closed_musd"])].filter(Boolean).map(p=>({...p, h:p.t.replace(/。$/,"")}));
   return {auto:true, title:`キルギス共和国 ${s.ja}セクター分析レポート`, sub:"開発パートナーの支援と重要指標(データからの自動版・文献に基づく本文は準備中)", label:"データからの自動版(表示時点)",
     summary:sum, chapters:[ch1, ch2, ch3, ch4].filter(Boolean), facts:F, docs:[]};
 }
@@ -3771,7 +3773,7 @@ function anaHTML(sid, D, mx, mode){
   const sl = (kick, title, body, cls="") => `<div class="an-sl ${cls}"><div class="an-slh"><span>${kick}</span><span>${esc(A.title.replace(/^キルギス共和国\s*/,""))}</span></div>${title?`<h3 class="an-slm">${esc(title)}</h3>`:""}<div class="an-slc"><div class="an-slz">${body}</div></div><div class="an-slfoot"><span>${esc(rpDay(A.auto ? F.asof : ED))}</span><span>${++pg}</span></div></div>`;
   const bullets = s => { const l = (s.paras||[]).map(p=>({p, b:anaT(p,"b")})).filter(x=>x.b); return l.length ? `<ul class="an-slp">${l.map(({p,b})=>`<li class="${p.k==="v"?"rp-v":""}">${anaVT(p)}${paperTag(p)}${esc(b)}${rpRefs(p.ref)}</li>`).join("")}</ul>` : ""; };
   const cover = `<div class="an-sl an-slcov"><div class="sv-kick">分析レポート ・ スライド版</div><h1>${esc(A.title)}</h1><div class="an-sub">${esc(A.sub)}</div>${meta}<div class="an-slfoot"><span></span><span>${++pg}</span></div></div>`;
-  const sum = sl("要約", sumItems.length+"つのポイント", `<ol class="an-slsum">${sumItems.map(({p})=>`<li class="${p.k==="v"?"rp-v":""}">${anaVT(p)}<b>${esc(p.h||anaT(p))}</b>${rpRefs(p.ref)}</li>`).join("")}</ol>`);
+  const sum = sl("要約", sumItems.length+"つのポイント", `<ol class="an-slsum">${sumItems.map(({p})=>`<li class="${p.k==="v"?"rp-v":""}">${anaVT(p)}${paperTag(p)}<b>${esc(p.h||anaT(p))}</b>${rpRefs(p.ref)}</li>`).join("")}</ol>`);
   const body = secs.map(({c, s})=>{
     const wide = s.fig && WIDE.has(s.fig.type), f = figure(s.fig), b = bullets(s);
     return sl(`${esc(s.no)} ${esc(s.no===c.no ? c.h : s.h)}`, msgOf(s), `<div class="an-slb ${wide||!b?"wide":""}"><div class="an-slf">${f}</div>${b}</div>`);
