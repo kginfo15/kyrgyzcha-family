@@ -138,6 +138,16 @@ function p74Person(o){
 /* 動物の仲間（ネコ・フクロウ・タカ・カモメ・オオカミ・キツネ） */
 function p74Animal(kind,c){
   var s='<ellipse cx="60" cy="150" rx="26" ry="5" fill="#000" opacity=".18"/>';c=c||"#8C8C9A";var d=p74Shade(c,-.3),l=p74Shade(c,.45);
+  if(kind==="wolf"){ /* オオカミ：長い鼻先・黒い鼻・ふさふさのしっぽ・首まわりのたてがみで、ネコと見分けられるように */
+    s+='<path d="M84 140q34-4 30-46q-10 6-14 18q-6-4-10 4q-4 10-10 14z" fill="'+c+'" '+P74_OUT+'/><path d="M112 98q2 8-6 14" stroke="'+l+'" stroke-width="6" stroke-linecap="round"/>';
+    s+='<path d="M36 146q-6-44 24-48q30 4 24 48z" fill="'+c+'" '+P74_OUT+'/><path d="M50 146q-2-26 10-30q12 4 10 30z" fill="'+l+'"/>';
+    s+='<path d="M28 96l10-6-4-6 12 0 2-8 12 6 12-6 2 8 12 0-4 6 10 6-12 6 4 8-14-2-10 8-10-8-14 2 4-8z" fill="'+l+'" '+P74_OUT+'/>';
+    s+='<path d="M36 64l-2-34 22 20zM84 64l2-34-22 20z" fill="'+c+'" '+P74_OUT+'/><path d="M40 56l-1-18 10 10zM80 56l1-18-10 10z" fill="'+d+'"/>';
+    s+='<path d="M34 72q0-24 26-24t26 24q0 10-8 14l-6 14q-12 8-24 0l-6-14q-8-4-8-14z" fill="'+c+'" '+P74_OUT+'/>';
+    s+='<path d="M48 80q12-6 24 0l-2 16q-10 8-20 0z" fill="'+l+'" '+P74_OUT+'/><path d="M54 86q6-4 12 0q-2 6-6 6t-6-6z" fill="#2B2233"/>';
+    s+='<path d="M42 64l10 4M78 64l-10 4" stroke="#2B2233" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="49" cy="71" rx="3.4" ry="3.6" fill="#E5B53B" stroke="#2B2233" stroke-width="1.4"/><ellipse cx="71" cy="71" rx="3.4" ry="3.6" fill="#E5B53B" stroke="#2B2233" stroke-width="1.4"/><circle cx="49" cy="71" r="1.5" fill="#2B2233"/><circle cx="71" cy="71" r="1.5" fill="#2B2233"/>';
+    return s;
+  }
   if(kind==="cat"||kind==="fox"||kind==="wolf"){
     var tail=kind==="fox"?'<path d="M86 132q30-6 22-40q-4 20-24 28z" fill="'+c+'" '+P74_OUT+'/><path d="M106 96q2 8-4 14" stroke="#fff" stroke-width="5" stroke-linecap="round"/>':'<path d="M84 134q26-4 24-34" fill="none" stroke="'+c+'" stroke-width="8" stroke-linecap="round"/>';
     s+=tail+'<path d="M38 146q-4-40 22-44q26 4 22 44z" fill="'+c+'" '+P74_OUT+'/><path d="M50 146q-2-24 10-28q12 4 10 28z" fill="'+l+'"/>';
