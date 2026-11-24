@@ -4,6 +4,7 @@ for c in ("uz", "tj"):
     p = subprocess.run([sys.executable, "scripts/fetch_news.py", c, f"/tmp/arch-{c}.json"], capture_output=True, text=True, timeout=1500)
     print("=====", c, "exit", p.returncode)
     print(p.stderr[-6000:])
+    open(f"/tmp/news-{c}.json", "w").write(p.stdout)
     try:
         d = json.loads(p.stdout)
     except Exception as e:
