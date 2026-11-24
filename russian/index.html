@@ -5433,7 +5433,7 @@ function p48KyToTr(t){
 function p48TargetLangs(){return P47_LANG==="ky"?["ky","kk","tr","ru"]:["ru"];}
 function p48VoiceScore(v){var n=(v.name||"")+" "+(v.voiceURI||""),s=0,l=(v.lang||"").toLowerCase();
   var langs=p48TargetLangs();var li=langs.indexOf(l.slice(0,2));if(li<0)return -1;s+=(langs.length-li)*10;
-  if(P47_LANG==="ky"&&l.indexOf("tr")===0)s+=25;
+  /* キルギス語版：録音がない文だけ端末の声で読む。キルギス語→カザフ語（同じ文字・近い発音）→トルコ語→ロシア語の順（以前はトルコ語を最優先にしていた） */
   if(/premium|プレミアム/i.test(n))s+=9;if(/enhanced|拡張|natural|neural|online/i.test(n))s+=7;if(/google/i.test(n))s+=5;if(v.localService===false)s+=1;
   return s;}
 function p48Voices(){try{return window.speechSynthesis.getVoices().filter(function(v){return p48VoiceScore(v)>=0;}).sort(function(a,b){return p48VoiceScore(b)-p48VoiceScore(a);});}catch(_){return [];}}
@@ -11732,7 +11732,7 @@ var _p72Result=p71Result;
 p71Result=function(){var S=P71;
   if(!S.fav){var h=_p72Result(),n=p72FavCount();return n?h.replace(/<\/div>$/,'<button type="button" class="p72-glink p72-favgo" data-act="p72fav">☆ お気に入りの問題（'+n+'）を練習する ›</button></div>'):h;}
   var tot=S.ok+S.ng,rate=tot?Math.round(S.ok/tot*100):100,weak=S.ids.filter(function(id){return S.mist[id];});
-  return '<div class="p71-body"><div class="p71-done"><h3>お気に入りの練習 完了</h3><p>'+S.ids.length+' 語・'+S.steps.length+' 問</p></div><div class="p71-sum"><div><b>'+rate+'<small>%</small></b><span>1回目で正解</span></div><div><b>'+S.ids.length+'</b><span>言葉</span></div><div><b>'+weak.length+'</b><span>まちがえた</span></div></div>'+
+  return '<div class="p71-body"><div class="p71-done"><h3>'+(S.gp?'文法の練習 完了':'お気に入りの練習 完了')+'</h3><p>'+S.ids.length+' 語・'+S.steps.length+' 問</p></div><div class="p71-sum"><div><b>'+rate+'<small>%</small></b><span>1回目で正解</span></div><div><b>'+S.ids.length+'</b><span>言葉</span></div><div><b>'+weak.length+'</b><span>まちがえた</span></div></div>'+
     (weak.length?'<div class="p71-note"><div class="p71-tblh">もう一度見ておきたい言葉</div>'+weak.map(function(id){var w=WMAP[id];return '<div class="p71-wrow"><b>'+esc(w.accent||w.word)+'</b><span>'+esc(w.meaning)+'</span></div>';}).join("")+'</div>':'<div class="p71-note"><p>全部正解です。お気に入りは、外すまで何度でも練習できます。</p></div>')+'</div>';};
 var _p72Finish=p71Finish;
 p71Finish=function(){var S=P71;if(!S.fav)return _p72Finish();if(S.fin)return;S.fin=1;var st=p71St(),t=todayKey();
@@ -15060,7 +15060,7 @@ function p77Entrances(){
 }
 if(typeof renderHome==="function"){
   var _p77Home=renderHome;
-  renderHome=function(){var h=String(_p77Home.apply(this,arguments));if(!p72Ru())return h;
+  renderHome=function(){var h=String(_p77Home.apply(this,arguments));
     if(h.indexOf('class="p72-links"')<0)return h;
     h=h.replace(/<div class="p72-links">[\s\S]*?<\/div>/,p77Entrances());
     h=h.replace(/<button type="button" class="p47-card" data-act="p48reinf">[\s\S]*?<\/button>/,"");
@@ -15122,7 +15122,7 @@ if(typeof p71Render==="function"){var _p77R=p71Render;p71Render=function(){var r
 if(typeof p72GuideRender==="function"){
   var _p77GR=p72GuideRender;
   p72GuideRender=function(){_p77GR.apply(this,arguments);var m=document.getElementById("p72g");if(!m||!P72G)return;
-    if(!P72G.id){var lead=m.querySelector(".p72-glead");if(lead&&!m.querySelector(".p77-gtl"))lead.insertAdjacentHTML("afterend",'<p class="p77-gtl">どの章にも「<b>この文法の練習問題を解く</b>」ボタンがあります。読んだらすぐ練習できます。'+p77Tip("grammar")+'</p>');return;}
+    if(!P72G.id){var lead=m.querySelector(".p72-glead");if(lead&&!m.querySelector(".p77-gtl"))lead.insertAdjacentHTML("afterend",'<p class="p77-gtl"><span>どの章にも「<b>この文法の練習問題を解く</b>」ボタンがあります。読んだらすぐ練習できます。</span>'+p77Tip("grammar")+'</p>');return;}
     if(P71)return;var t=P72G.id,n=p77GpCount(t);if(!n)return;
     var b='<div class="p77-gp"><button type="button" class="p77-gpb" data-act="p77gp" data-val="'+t+'"><b>この文法の練習問題を解く</b><small>'+(p77GpTopics(t)[0]===t?'この章の文法が出てくる問題を10問。':'この章だけの問題はまだないので、関係の深い「'+p77GpTopics(t).map(p77GName).join('」「')+'」の問題を10問出します。')+'答えたあとに理由つきの解説が出ます。</small></button>'+p77Tip("gp")+'</div>';
     var sub=m.querySelector(".p72-gsub");if(sub)sub.insertAdjacentHTML("afterend",b);
@@ -15293,6 +15293,373 @@ if(typeof p71Render==="function"){var _p78R=p71Render;p71Render=function(){var x
   var bs=document.querySelectorAll('[data-act="p71close"]');for(var i=0;i<bs.length;i++)if(/ホーム/.test(bs[i].textContent))bs[i].textContent=lab;}}catch(_){}return x;};}
 window.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="p78back"]'):null;if(!el)return;e.stopImmediatePropagation();e.preventDefault();p78Back();},true);
 (function(){try{var st=document.createElement("style");st.textContent='.p78-back{flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:700 24px/1 system-ui,sans-serif;padding:0 0 3px;margin-right:10px;cursor:pointer}.p70-phead{display:flex;align-items:center}.p70-phead>b{flex:1}';document.head.appendChild(st);}catch(_){}})();
+
+/* ===== Phase79-guide：キルギス語版の文法解説書（このアプリのために一から書いた説明と例文）
+   ロシア語版の P72_GUIDE と同じ形 {id,t,s,b}。キルギス語版（P47_LANG==="ky"）のときだけ、中身をこちらに入れかえる。
+   例文の単語は、このアプリの単語帳にある語（とその変化形）だけを使う。
+   u：練習問題に使う作文ユニットの番号、rx：練習に使う「変化した形」の語尾、pos：品詞のしぼりこみ。 ===== */
+var P79_GUIDE=[
+ {id:"basics",t:"キルギス語の文のしくみ",s:"まずはここから。日本語とそっくりの並び方です。",u:[1,2,3],b:
+  '<h4>日本語と同じ順番で並ぶ</h4><p>キルギス語は、<b>「だれが」→「なにを・どこへ」→「どうする」</b>の順に並べます。動詞が文の最後に来るところは、日本語とまったく同じです。</p>'+
+  '<ul class="p72-ex"><li><b>Мен Бишкекке барам.</b><span>私は ビシュケクへ 行きます。</span></li><li><b>Мен нан жейм.</b><span>私は パンを 食べます。</span></li><li><b>Апа чай ичет.</b><span>母は お茶を 飲みます。</span></li></ul>'+
+  '<p class="p72-eg">Мен（私は）＋ Бишкекке（ビシュケクへ）＋ барам（行きます）。<br>日本語の文の上に、そのまま1語ずつ重ねられます。</p>'+
+  '<h4>3つのポイント</h4><ol><li><b>語尾をうしろにくっつける</b>：日本語の「へ・で・を・から」に当たるものを、名詞のうしろに<b>くっつけます</b>。Бишкек（ビシュケク）＋ <em>-ке</em>（へ）で Бишкекке（ビシュケクへ）。くっつけた語尾を<b>接尾辞</b>と呼びます。</li>'+
+  '<li><b>「です」は語尾で言う</b>：「私は学生です」は Мен студентмин. 。студент（学生）に <em>-мин</em>（私は〜です）をくっつけます。</li>'+
+  '<li><b>a / the（冠詞）も、男性・女性の区別もない</b>：китеп は「本」「その本」「ある本」のどれにもなります。名詞によって形の変え方がちがう、ということもありません。</li></ol>'+
+  '<p class="p72-n">くっつける語尾は、前の語の母音によって少しずつ形が変わります（-ке／-га／-го など）。これが次の章の「母音調和」です。ここを知ると、キルギス語の語尾がぐっと読みやすくなります。</p>'},
+
+ {id:"harmony",t:"母音調和（語尾の母音が変わる理由）",s:"同じ語尾なのに -лар と -лер があるのはなぜ？",u:[2,3,4],b:
+  '<h4>キルギス語の母音は8つ</h4><p>日本語の母音は「あいうえお」の5つですが、キルギス語には<b>8つ</b>あります。口の形で、次の4つのグループに分けられます。</p>'+
+  '<table class="p72-t"><tr><th></th><th>くちびるを丸めない</th><th>くちびるを丸める</th></tr><tr><td><b>舌がうしろ</b>（太い音）</td><td>а・ы</td><td>о・у</td></tr><tr><td><b>舌が前</b>（細い音）</td><td>е（э）・и</td><td>ө・ү</td></tr></table>'+
+  '<p>ө は「エ」の舌で口を「オ」の形に丸めた音、ү は「イ」の舌で口を「ウ」の形に丸めた音です。どちらも日本語にない音なので、このアプリのカタカナでは ө を「オ」、ү を「ウ」で書いています（көп コプ、күн クン）。実際の音は録音で確かめてください。</p>'+
+  '<h4>語尾は、直前の母音と同じグループになる</h4><p>語尾の母音は、<b>その語のいちばん最後の母音</b>と同じグループの音に変わります。これを<b>母音調和</b>と呼びます。口の形を変えずに言えるので、発音がなめらかになるのです。</p>'+
+  '<table class="p72-t"><tr><th>語の最後の母音</th><th>「ア」型の語尾</th><th>「ウ」型の語尾</th><th>例（へ）</th></tr><tr><td>а・ы</td><td>а</td><td>ы</td><td>шаар<em>га</em>（町へ）</td></tr><tr><td>о・у</td><td>о</td><td>у</td><td>тоо<em>го</em>（山へ）</td></tr><tr><td>е・и</td><td>е</td><td>и</td><td>мектеп<em>ке</em>（学校へ）</td></tr><tr><td>ө・ү</td><td>ө</td><td>ү</td><td>үй<em>гө</em>（家へ）</td></tr></table>'+
+  '<p class="p72-eg">「ア」型の語尾：へ（-га）、で（-да）、から（-дан）、複数（-лар）など。<br>「ウ」型の語尾：を（-ны）、の（-нын）、私は〜です（-мын）、私の（-ым）など。<br>この解説書では、語尾を代表の形（-га、-ны など）で書きます。実際には上の表のように4通りに変わります。</p>'+
+  '<h4>子音でも変わる</h4><p>語尾の最初の子音も、前の音に合わせて変わります。<b>к・п・с・т・ч・ш</b>（のどがふるえない音）で終わる語のあとでは、語尾もかたい音になります。</p>'+
+  '<ul class="p72-ex"><li><b>шаарда</b><span>町で（р のあと → д）</span></li><li><b>мектепте</b><span>学校で（п のあと → т）</span></li><li><b>Бишкекке</b><span>ビシュケクへ（к のあと → к）</span></li><li><b>үйгө</b><span>家へ（й のあと → г）</span></li></ul>'+
+  '<p class="p72-n">全部を一度に覚える必要はありません。「語尾は前の音に合わせて変わる」とだけ知っておけば、-да と -те が同じ「で」だとすぐわかります。</p>'},
+
+ {id:"pred",t:"「〜です」「〜ではありません」",s:"Мен студентмин.（私は学生です）の -мин の正体。",u:[1],rx:"(мын|мин|мун|мүн|сың|сиң|сыз|сиз|суз|сүз|быз|биз|буз|бүз|пыз|пиз)$",b:
+  '<h4>「です」は、だれが言うかで形が変わる</h4><p>キルギス語では、名詞や形容詞のうしろに<b>「だれが」を表す語尾</b>をつけて「〜です」と言います。主語が「私」なら -мын、「あなた」なら -сыз のように変わります。</p>'+
+  '<table class="p72-t"><tr><th>主語</th><th>語尾</th><th>例：студент（学生）</th></tr><tr><td>мен（私は）</td><td>-мын</td><td>студент<em>мин</em></td></tr><tr><td>сен（きみは）</td><td>-сың</td><td>студент<em>сиң</em></td></tr><tr><td>сиз（あなたは・ていねい）</td><td>-сыз</td><td>студент<em>сиз</em></td></tr><tr><td>ал（彼は・彼女は）</td><td>なし</td><td>студент</td></tr><tr><td>биз（私たちは）</td><td>-быз</td><td>студент<em>пиз</em></td></tr><tr><td>силер（きみたちは）</td><td>-сыңар</td><td>студент<em>сиңер</em></td></tr><tr><td>алар（彼らは）</td><td>なし</td><td>студент</td></tr></table>'+
+  '<p class="p72-n">студент の最後の母音は е なので、語尾は「細い音」の -мин・-сиң になります（前の章の母音調和）。биз の語尾が -пиз になるのは、т のあとで б がかたい п に変わるからです。</p>'+
+  '<ul class="p72-ex"><li><b>Мен студентмин.</b><span>私は 学生です。</span></li><li><b>Сиз мугалимсиз.</b><span>あなたは 先生です。</span></li><li><b>Ал жакшы адам.</b><span>彼は よい人です。（語尾なし）</span></li></ul>'+
+  '<h4>「〜ではありません」は эмес</h4><p>名詞や形容詞を打ち消すときは、うしろに <b>эмес</b>（〜ではない）を置き、人の語尾は эмес のほうにつけます。</p>'+
+  '<ul class="p72-ex"><li><b>Мен мугалим эмесмин.</b><span>私は 先生ではありません。</span></li><li><b>Бул менин китебим эмес.</b><span>これは 私の本では ありません。</span></li></ul>'+
+  '<p class="p72-eg">ал（彼・彼女）には語尾がつかないので、Ал студент. だけで「彼は学生です」。日本語で「彼、学生。」と言うのに少し似ています。</p>'},
+
+ {id:"plural",t:"「たくさん」の語尾 -лар",s:"1つのときはそのまま、2つ以上は -лар。",u:[2,7],rx:"(лар|лер|лор|лөр|дар|дер|дор|дөр|тар|тер|тор|төр)",pos:"noun",b:
+  '<h4>複数は -лар をくっつける</h4><p>2つ以上のものを表すときは、名詞のうしろに <b>-лар</b> をつけます。前の音によって、最初の子音が л・д・т の3通り、母音が а・е・о・ө の4通りに変わります。</p>'+
+  '<table class="p72-t"><tr><th>前の音</th><th>語尾</th><th>例</th></tr><tr><td>母音・й・р</td><td>-лар</td><td>тоо → тоо<em>лор</em>（山々）、үй → үй<em>лөр</em>（家々）</td></tr><tr><td>л・м・н・з などのどがふるえる子音</td><td>-дар</td><td>адам → адам<em>дар</em>（人々）、кыз → кыз<em>дар</em>（女の子たち）</td></tr><tr><td>к・п・с・т・ч・ш</td><td>-тар</td><td>китеп → китеп<em>тер</em>（本）、дос → дос<em>тор</em>（友人たち）</td></tr></table>'+
+  '<h4>数のあとでは -лар をつけない</h4><p>「3冊の本」のように数がついているときは、名詞は<b>1つのときの形のまま</b>です。数で「たくさん」がもうわかるからです。日本語で「3冊の本」と言い、「3冊の本たち」と言わないのと同じです。</p>'+
+  '<ul class="p72-ex"><li><b>үч китеп</b><span>3冊の 本（-тер はつけない）</span></li><li><b>Менин досторум көп.</b><span>私には 友人が たくさん います。</span></li></ul>'+
+  '<p class="p72-n">-лар のうしろに、さらに「私の」「〜で」などの語尾を続けられます：дос＋тор（たち）＋ум（私の）＝ досторум（私の友人たち）。語尾は「複数 → だれの → 格」の順に並びます。</p>'},
+
+ {id:"poss",t:"「私の〜」の語尾（所有）",s:"атым＝ат（名前）＋-ым（私の）。",u:[1,2],rx:"(ым|им|ум|үм|ың|иң|уң|үң|ыңыз|иңиз|уңуз|үңүз|сы|си|су|сү)$",pos:"noun",b:
+  '<h4>「だれの」も名詞のうしろにくっつける</h4><p>日本語は「私の名前」と前に「私の」を置きますが、キルギス語では名詞のうしろに<b>「だれの」の語尾</b>もつけます。前に менин（私の）を置くこともでき、そのときも語尾はつけたままです。</p>'+
+  '<table class="p72-t"><tr><th>だれの</th><th>母音で終わる語：бала（子ども）</th><th>子音で終わる語：ат（名前）</th></tr><tr><td>менин（私の）</td><td>бала<em>м</em></td><td>ат<em>ым</em></td></tr><tr><td>сенин（きみの）</td><td>бала<em>ң</em></td><td>ат<em>ың</em></td></tr><tr><td>сиздин（あなたの）</td><td>бала<em>ңыз</em></td><td>ат<em>ыңыз</em></td></tr><tr><td>анын（彼の・彼女の）</td><td>бала<em>сы</em></td><td>ат<em>ы</em></td></tr><tr><td>биздин（私たちの）</td><td>бала<em>быз</em></td><td>ат<em>ыбыз</em></td></tr></table>'+
+  '<ul class="p72-ex"><li><b>Менин атым Таро.</b><span>私の 名前は タロウです。</span></li><li><b>Сиздин атыңыз ким?</b><span>あなたの お名前は 何ですか。</span></li><li><b>Бул менин китебим.</b><span>これは 私の 本です。</span></li></ul>'+
+  '<p class="p72-n">китеп（本）が китебим になるのは、語尾の母音の前で п が б に変わるからです。同じように к で終わる語は г に変わることがあります。「言いやすい音になる」と覚えておけば十分です。</p>'+
+  '<p class="p72-eg">名前を聞くときは、日本語では「何ですか」ですが、キルギス語では ким（だれ）を使って Атыңыз ким? と言います。</p>'},
+
+ {id:"cases",t:"6つの格（日本語の「が・の・に・を・で・から」）",s:"語尾が助詞の代わり。一覧で見てみよう。",u:[3,4,5,6],rx:"(да|де|до|дө|та|те|то|тө|га|ге|го|гө|ка|ке|ко|кө|ны|ни|ну|нү|ды|ди|ду|дү|ты|ти|ту|тү|дан|ден|дон|дөн|тан|тен|тон|төн|нын|нин|нун|нүн|дын|дин|тын|тин)$",pos:"noun",b:
+  '<h4>格の語尾は、日本語の助詞にそっくり</h4><p>名詞の役割を表す語尾を<b>格</b>と呼びます。キルギス語の格は6つあり、ほとんどが日本語の助詞1つに当たります。しかも助詞と同じく、名詞の<b>うしろ</b>につきます。</p>'+
+  '<table class="p72-t"><tr><th>格</th><th>語尾</th><th>日本語</th><th>例：үй（家）</th></tr><tr><td>主格</td><td>なし</td><td>〜は・〜が</td><td>үй</td></tr><tr><td>属格</td><td>-нын</td><td>〜の</td><td>үй<em>дүн</em></td></tr><tr><td>与格</td><td>-га</td><td>〜に・〜へ</td><td>үй<em>гө</em></td></tr><tr><td>対格</td><td>-ны</td><td>〜を</td><td>үй<em>дү</em></td></tr><tr><td>位格</td><td>-да</td><td>〜で・〜に（ある）</td><td>үй<em>дө</em></td></tr><tr><td>奪格</td><td>-дан</td><td>〜から</td><td>үй<em>дөн</em></td></tr></table>'+
+  '<ul class="p72-ex"><li><b>Мен үйдөмүн.</b><span>私は 家に います。</span></li><li><b>Мен үйгө барам.</b><span>私は 家へ 行きます。</span></li><li><b>Ал үйдөн чыкты.</b><span>彼は 家から 出ました。</span></li></ul>'+
+  '<h4>日本語とずれるところ</h4><ul><li><b>「〜は」「〜が」には何もつけない</b>：Мен（私は）、Апа（母が）。</li><li><b>「〜に」が2つに分かれる</b>：行き先の「に」は -га（Бишкекке барам 私はビシュケクに行く）、ある場所の「に」は -да（Бишкекте жашайм 私はビシュケクに住んでいる）。動きがあれば -га、とどまっていれば -да です。</li><li><b>「〜を」はいつもつくとは限らない</b>：くわしくは「を」と「の」の章で説明します。</li></ul>'+
+  '<p class="p72-n">それぞれの格は、このあとの章で1つずつ例文と練習問題で練習できます。</p>'},
+
+ {id:"loc",t:"「〜で・〜にある」-да と бар／жок",s:"場所と「ある・ない」「持っている」。",u:[2,3],rx:"(да|де|до|дө|та|те|то|тө)$",b:
+  '<h4>-да：とどまっている場所</h4><p>「どこで」「どこにある・いる」を表します。前の音が к・п・с・т・ч・ш なら -та になります。</p>'+
+  '<ul class="p72-ex"><li><b>Мен Бишкекте жашайм.</b><span>私は ビシュケクに 住んでいます。</span></li><li><b>Апа үйдө.</b><span>母は 家に います。</span></li><li><b>Китеп бөлмөдө.</b><span>本は 部屋に あります。</span></li></ul>'+
+  '<h4>бар（ある）と жок（ない）</h4><p>「〜がある・いる」は文の最後に <b>бар</b>、「ない・いない」は <b>жок</b> を置きます。日本語の「ある」「ない」と同じ位置です。</p>'+
+  '<ul class="p72-ex"><li><b>Бул жерде дүкөн бар.</b><span>ここに 店が あります。</span></li><li><b>Бөлмөдө суу жок.</b><span>部屋に 水が ありません。</span></li><li><b>Дүкөн барбы?</b><span>店は ありますか。</span></li></ul>'+
+  '<h4>「私は〜を持っている」は「私のところに〜がある」</h4><p>キルギス語には「持つ」をそのまま使う言い方より、<b>「私に（-да）〜がある（бар）」</b>という言い方がよく使われます。мен（私）に -да をつけると менде（私のところに）です。</p>'+
+  '<ul class="p72-ex"><li><b>Менде машина бар.</b><span>私は 車を 持っています。（直訳：私のところに 車が ある）</span></li><li><b>Менде акча жок.</b><span>私は お金を 持っていません。</span></li><li><b>Сизде телефон барбы?</b><span>あなたは 電話を 持っていますか。</span></li></ul>'+
+  '<p class="p72-eg">日本語の「私には車がある」という言い方とほぼ同じ考え方です。「持っている」を「私には〜がある」に言いかえてから組み立てると簡単です。</p>'},
+
+ {id:"dat",t:"「〜へ・〜に」-га",s:"行き先、あげる相手、必要な人。",u:[4,5,11],rx:"(га|ге|го|гө|ка|ке|ко|кө)$",b:
+  '<h4>-га：動きの向かう先</h4><p>「どこへ行く」「だれにあげる」のように、<b>動きや物が向かう先</b>に -га をつけます。к・п・с・т・ч・ш のあとでは -ка になります。</p>'+
+  '<ul class="p72-ex"><li><b>Мен мектепке барам.</b><span>私は 学校へ 行きます。</span></li><li><b>Биз базарга барабыз.</b><span>私たちは 市場へ 行きます。</span></li><li><b>Досума кат жаздым.</b><span>私は 友人に 手紙を 書きました。</span></li></ul>'+
+  '<h4>「私に」：мага・сага・ага</h4><p>人をさす言葉は形が少し変わります。мен → <b>мага</b>（私に）、сен → <b>сага</b>（きみに）、сиз → <b>сизге</b>（あなたに）、ал → <b>ага</b>（彼に）、биз → <b>бизге</b>（私たちに）。</p>'+
+  '<h4>「〜が必要です」も -га</h4><p>「私には〜が必要だ」は、<b>「私に（мага）〜が必要（керек）」</b>と言います。</p>'+
+  '<ul class="p72-ex"><li><b>Мага суу керек.</b><span>私は 水が 必要です。（直訳：私に 水が 必要）</span></li><li><b>Сизге эмне керек?</b><span>あなたは 何が 必要ですか。</span></li></ul>'+
+  '<p class="p72-n">日本語の「に」は「家にいる」にも「家に行く」にも使いますが、キルギス語では「行く」ほうだけが -га です。迷ったら「へ」に言いかえられるかを考えてください。「家へ行く」は言えるので -га、「家へいる」は言えないので -да です。</p>'},
+
+ {id:"acc",t:"「を」と「の」：-ны と -нын",s:"「を」をつける時とつけない時があるのはなぜ？",u:[5,6,9],rx:"(ны|ни|ну|нү|ды|ди|ду|дү|ты|ти|ту|тү|нын|нин|нун|нүн|дын|дин|дун|дүн|тын|тин|тун|түн)$",b:
+  '<h4>-ны（を）は「その・決まったもの」につける</h4><p>日本語ではいつも「を」をつけますが、キルギス語では<b>話し手と聞き手がどれのことかわかっているもの</b>にだけ -ны をつけます。「なにかパンを食べる」ならつけず、「そのパン・あのパン」ならつけます。</p>'+
+  '<ul class="p72-ex"><li><b>Мен нан жейм.</b><span>私は パンを 食べます。（パンというものを。-ны なし）</span></li><li><b>Мен нанды жедим.</b><span>私は その パンを 食べました。（決まったパン。-ды あり）</span></li><li><b>Бул китепти окудум.</b><span>私は この 本を 読みました。（бул「この」がつくと決まったもの）</span></li></ul>'+
+  '<p class="p72-n">人の名前や「これ・それ」、「私の〜」がついたものは、いつも決まったものなので -ны がつきます：Манасты（マナスを）、муну（これを）、китебимди（私の本を）。</p>'+
+  '<h4>-нын：「〜の」</h4><p>「だれの・なにの」を表します。うしろの名詞には「彼の」の語尾（-сы／-ы）をつけて、2つの語をつなぎます。</p>'+
+  '<ul class="p72-ex"><li><b>Манастын досу</b><span>マナスの 友（дос＋у）</span></li><li><b>баланын китеби</b><span>子どもの 本（китеп＋и）</span></li><li><b>шаардын борбору</b><span>町の 中心（борбор＋у）</span></li></ul>'+
+  '<p class="p72-eg">「AのB」は「A-нын B-сы」。日本語の「の」1つに、キルギス語では前と後ろの2か所に印がつく、と覚えましょう。</p>'},
+
+ {id:"abl",t:"「〜から」-дан",s:"出発点、比べる相手、材料。",u:[1,4,14],rx:"(дан|ден|дон|дөн|тан|тен|тон|төн|нан|нен|нон|нөн)$",b:
+  '<h4>-дан：出発点</h4><p>「どこから来た」「いつから」など、<b>はじまりの点</b>に -дан をつけます。к・п・с・т・ч・ш のあとでは -тан、м・н・ң のあとでは -дан のままです。</p>'+
+  '<ul class="p72-ex"><li><b>Мен Япониядан келдим.</b><span>私は 日本から 来ました。</span></li><li><b>Ал мектептен келди.</b><span>彼は 学校から 来ました。</span></li><li><b>Бул жерден жөө барса болобу?</b><span>ここから 歩いて 行けますか。</span></li></ul>'+
+  '<h4>比べるときの「〜より」も -дан</h4><p>「AはBより大きい」は、<b>「AはBから大きい」</b>という形で言います。くわしくは「比べる」の章で練習します。</p>'+
+  '<ul class="p72-ex"><li><b>Бишкек Оштон чоң.</b><span>ビシュケクは オシュより 大きいです。</span></li></ul>'+
+  '<p class="p72-n">Ош（オシュ）が Оштон になるのは、最後の母音が о なので語尾も о（-дон）になり、ш のあとなので д が т に変わるからです。</p>'},
+
+ {id:"present",t:"「〜します」現在・未来の形",s:"барам（行きます）は、今もこれからも表せる。",u:[1,10,15],rx:"(ам|ем|ом|өм|йм|асың|есиң|айсың|ат|ет|от|өт|йт|абыз|ебиз|йбыз|йбуз|йбиз|шат|шет|шот|шөт)$",pos:"verb",b:
+  '<h4>動詞の形の作り方</h4><p>単語帳の動詞は「〜すること」の形（баруу 行くこと、келүү 来ること）で載っています。<b>-уу／-үү を取った部分</b>が動詞の芯（語幹）です：бар-、кел-、оку-。</p>'+
+  '<p>そこに <b>-а（母音で終わる語幹には -й）</b>と、だれがするかの語尾をつけると「〜します」の形になります。この形は<b>今の習慣にも、これからの予定にも</b>使えます。</p>'+
+  '<table class="p72-t"><tr><th>だれが</th><th>бар-（行く）</th><th>кел-（来る）</th><th>оку-（読む）</th></tr><tr><td>мен</td><td>бар<em>ам</em></td><td>кел<em>ем</em></td><td>оку<em>йм</em></td></tr><tr><td>сен</td><td>бар<em>асың</em></td><td>кел<em>есиң</em></td><td>оку<em>йсуң</em></td></tr><tr><td>сиз</td><td>бар<em>асыз</em></td><td>кел<em>есиз</em></td><td>оку<em>йсуз</em></td></tr><tr><td>ал</td><td>бар<em>ат</em></td><td>кел<em>ет</em></td><td>оку<em>йт</em></td></tr><tr><td>биз</td><td>бар<em>абыз</em></td><td>кел<em>ебиз</em></td><td>оку<em>йбуз</em></td></tr><tr><td>алар</td><td>бар<em>ышат</em></td><td>кел<em>ишет</em></td><td>оку<em>шат</em></td></tr></table>'+
+  '<ul class="p72-ex"><li><b>Мен Бишкекте иштейм.</b><span>私は ビシュケクで 働いています。（ふだんのこと）</span></li><li><b>Эртең Ошко барам.</b><span>明日 オシュへ 行きます。（予定）</span></li><li><b>Ал кыргызча сүйлөйт.</b><span>彼は キルギス語を 話します。</span></li></ul>'+
+  '<h4>「いま〜しているところ」は -ып жатам</h4><p>目の前で進んでいる動作は、<b>-ып жатам</b>（〜して横になっている、がもとの意味）で表します。</p>'+
+  '<ul class="p72-ex"><li><b>Мен китеп окуп жатам.</b><span>私は 本を 読んでいる ところです。</span></li><li><b>Ооруп жатам.</b><span>具合が 悪いです。（いま痛んでいる）</span></li></ul>'+
+  '<p class="p72-n">「〜しない」は語幹のすぐうしろに -ба をはさみます：барам（行きます）→ бар<em>бай</em>м（行きません）、ичем（飲みます）→ ич<em>пей</em>м（飲みません）。к・п・с・т・ч・ш のあとでは -па になります。</p>'},
+
+ {id:"past",t:"「〜しました」過去の形 -ды",s:"бардым＝бар-（行く）＋-ды（した）＋-м（私が）。",u:[9],rx:"(дым|дим|дум|дүм|тым|тим|тум|түм|дың|диң|дуң|дүң|тың|тиң|дыңыз|диңиз|тыңыз|тиңиз|дык|дик|дук|дүк|тык|тик|тук|түк|ды|ди|ду|дү|ты|ти|ту|тү)$",pos:"verb",b:
+  '<h4>語幹に -ды、そのあとに「だれが」</h4><p>「〜しました」は、語幹に <b>-ды</b> をつけ、さらに短い「だれが」の語尾をつけます。к・п・с・т・ч・ш のあとでは -ты です。</p>'+
+  '<table class="p72-t"><tr><th>だれが</th><th>語尾</th><th>бар-（行く）</th><th>ич-（飲む）</th></tr><tr><td>мен</td><td>-ды＋м</td><td>бар<em>дым</em></td><td>ич<em>тим</em></td></tr><tr><td>сен</td><td>-ды＋ң</td><td>бар<em>дың</em></td><td>ич<em>тиң</em></td></tr><tr><td>сиз</td><td>-ды＋ңыз</td><td>бар<em>дыңыз</em></td><td>ич<em>тиңиз</em></td></tr><tr><td>ал</td><td>-ды</td><td>бар<em>ды</em></td><td>ич<em>ти</em></td></tr><tr><td>биз</td><td>-ды＋к</td><td>бар<em>дык</em></td><td>ич<em>тик</em></td></tr><tr><td>алар</td><td>-ышты</td><td>бар<em>ышты</em></td><td>ич<em>ишти</em></td></tr></table>'+
+  '<ul class="p72-ex"><li><b>Кечээ базарга бардым.</b><span>昨日 市場へ 行きました。</span></li><li><b>Мен Япониядан келдим.</b><span>私は 日本から 来ました。</span></li><li><b>Биз чай ичтик.</b><span>私たちは お茶を 飲みました。</span></li></ul>'+
+  '<p class="p72-n">ич- の語尾が -тим と「細い音」になるのは、ич の母音が и だからです（母音調和）。ч のあとなので д が т に変わっています。</p>'+
+  '<h4>「〜しませんでした」</h4><p>-ба をはさんでから -ды をつけます：бар<em>ба</em>дым（行きませんでした）、ич<em>пе</em>дим（飲みませんでした）。</p>'},
+
+ {id:"question",t:"質問のしかた -бы と疑問の言葉",s:"文の最後に -бы をつけると「〜ですか」。",u:[1,5,6,19],rx:"(бы|би|бу|бү|пы|пи|пу|пү)$",b:
+  '<h4>はい・いいえで答える質問は -бы</h4><p>文の最後の語に <b>-бы</b> をつけると「〜ですか」になります。日本語の「か」と同じ位置です。к・п・с・т・ч・ш のあとでは -пы になります。</p>'+
+  '<ul class="p72-ex"><li><b>Сиз студентсизби?</b><span>あなたは 学生ですか。</span></li><li><b>Бул жерде дүкөн барбы?</b><span>ここに 店は ありますか。</span></li><li><b>Туурабы?</b><span>合っていますか。</span></li></ul>'+
+  '<p>答えは <b>Ооба</b>（はい）か <b>Жок</b>（いいえ）。жок は「ない」の意味でも使います。</p>'+
+  '<h4>疑問の言葉があるときは -бы をつけない</h4><p>кайда（どこ）・ким（だれ）・эмне（なに）・качан（いつ）・канча（いくら）を使う質問では、-бы はつけません。疑問の言葉だけで質問だとわかるからです。日本語の「どこ？」に「か」がなくても質問になるのと同じです。</p>'+
+  '<ul class="p72-ex"><li><b>Сиз кайда жашайсыз?</b><span>あなたは どこに 住んでいますか。</span></li><li><b>Бул канча турат?</b><span>これは いくらですか。</span></li><li><b>Бул эмне?</b><span>これは 何ですか。</span></li></ul>'+
+  '<p class="p72-n">疑問の言葉も格の語尾がつきます：кайда（どこで）、кайдан（どこから）、кимдин（だれの）。</p>'},
+
+ {id:"want",t:"「〜したい」「〜できる」「〜しなければ」",s:"-гым келет／-а алам／керек。",u:[11,12],rx:"(гым|гим|гум|гүм|кым|ким|кум|күм|а|е|о|ө|й|ышым|ишим|уушум)$",pos:"verb",b:
+  '<h4>「〜したい」：-гым келет</h4><p>直訳すると<b>「私の〜することが来る」</b>という言い方です。語幹に -гы と「私の」の -м をつけ、そのあとに келет（来る）を置きます。к・п・с・т・ч・ш のあとでは -кы になります。</p>'+
+  '<ul class="p72-ex"><li><b>Мен Ошко баргым келет.</b><span>私は オシュへ 行きたいです。</span></li><li><b>Чай ичким келет.</b><span>お茶が 飲みたいです。</span></li><li><b>Эмне жегиңиз келет?</b><span>何を 食べたいですか。（-гиңиз＝あなたの）</span></li></ul>'+
+  '<h4>「〜できる」：-а алам</h4><p>動詞の語幹に -а（母音のあとは -й）をつけ、そのあとに ал-（取る）の形を続けます。「〜して取れる」が「できる」の意味になりました。</p>'+
+  '<ul class="p72-ex"><li><b>Мен кыргызча аз сүйлөй алам.</b><span>私は キルギス語を 少し 話せます。</span></li><li><b>Эртең келе аласызбы?</b><span>明日 来られますか。</span></li><li><b>Мен бара албайм.</b><span>私は 行けません。</span></li></ul>'+
+  '<h4>「〜してもいいですか」：-са болобу?</h4><p>「〜したら、よいか？」という形です。お店や窓口でとてもよく使います。</p>'+
+  '<ul class="p72-ex"><li><b>Карта менен төлөсө болобу?</b><span>カードで 払えますか。</span></li><li><b>Болот.</b><span>いいですよ。</span></li><li><b>Болбойт.</b><span>だめです。</span></li></ul>'+
+  '<h4>「〜しなければならない」：керек</h4><p>「〜すること」の形のあとに керек（必要だ）を置きます：Мен барышым керек.（私は行かなければなりません）。</p>'},
+
+ {id:"polite",t:"ていねいなお願い -ыңыз・-чы",s:"бериңиз（ください）と айтыңызчы（言ってください）。",u:[1,5,6,7],rx:"(ыңыз|иңиз|уңуз|үңүз|ңыз|ңиз|ңуз|ңүз|чы|чи|чу|чү)$",pos:"verb",b:
+  '<h4>友だちには語幹だけ、目上の人には -ыңыз</h4><p>命令やお願いの形は、相手との関係で変わります。友だちや子どもには<b>語幹そのまま</b>、初対面の人や目上の人、お店の人には<b>-ыңыз</b> をつけます。</p>'+
+  '<table class="p72-t"><tr><th>動詞</th><th>くだけた形</th><th>ていねいな形</th></tr><tr><td>кел-（来る）</td><td>кел</td><td>кел<em>иңиз</em></td></tr><tr><td>бер-（あげる）</td><td>бер</td><td>бер<em>иңиз</em></td></tr><tr><td>отур-（座る）</td><td>отур</td><td>отур<em>уңуз</em></td></tr><tr><td>айт-（言う）</td><td>айт</td><td>айт<em>ыңыз</em></td></tr></table>'+
+  '<ul class="p72-ex"><li><b>Жардам бериңиз.</b><span>助けてください。</span></li><li><b>Отуруңуз.</b><span>お座りください。</span></li></ul>'+
+  '<h4>-чы をつけるとやわらかく</h4><p>お願いの形のうしろに <b>-чы</b> をつけると、「〜してくださいね」「ちょっと〜して」というやわらかい感じになります。</p>'+
+  '<ul class="p72-ex"><li><b>Кайра айтыңызчы.</b><span>もう一度 言って いただけますか。</span></li><li><b>Жайыраак сүйлөңүзчү.</b><span>もう少し ゆっくり 話して いただけますか。</span></li></ul>'+
+  '<p class="p72-n">сиз（あなた・ていねい）と сен（きみ）の使い分けは、日本語の「です・ます」とくだけた言い方の使い分けに近いです。迷ったら сиз と -ыңыз を使えば失礼になりません。</p>'},
+
+ {id:"connect",t:"文をつなぐ：жана・бирок・анткени",s:"「そして」「でも」「なぜなら」「だから」。",u:[13],b:
+  '<h4>文と文をつなぐ言葉</h4><table class="p72-t"><tr><th>言葉</th><th>意味</th><th>置く場所</th></tr><tr><td>жана</td><td>そして・〜と</td><td>つなぐものの間</td></tr><tr><td>бирок</td><td>しかし</td><td>うしろの文の最初</td></tr><tr><td>анткени</td><td>なぜなら</td><td>理由の文の最初</td></tr><tr><td>ошондуктан</td><td>だから・そのため</td><td>結果の文の最初</td></tr></table>'+
+  '<ul class="p72-ex"><li><b>Мен чай жана нан сатып алдым.</b><span>私は お茶と パンを 買いました。</span></li><li><b>Мен барам, бирок кечигем.</b><span>私は 行きます、でも 遅れます。</span></li><li><b>Бүгүн келе албайм, анткени ооруп жатам.</b><span>今日は 来られません、なぜなら 具合が 悪いからです。</span></li></ul>'+
+  '<p class="p72-n">日本語の「〜から（理由）」は文の最後につけますが、анткени は理由の文の<b>最初</b>に置きます。並び方は英語の because に近いところです。</p>'+
+  '<h4>「〜と」の менен</h4><p>人や道具の「〜と・〜で」は、名詞のうしろに менен を置きます：досум менен（友人と）、карта менен（カードで）。</p>'},
+
+ {id:"compare",t:"比べる：-раак と -дан",s:"「もっと〜」「〜より〜」「いちばん〜」。",u:[14],rx:"(раак|рээк|роок|рөөк|ыраак|ирээк|ураак|үрөөк)$",b:
+  '<h4>「もっと〜」は -раак</h4><p>形容詞のうしろに <b>-раак</b>（子音のあとは -ыраак）をつけると「より〜」「もう少し〜」になります。</p>'+
+  '<ul class="p72-ex"><li><b>жакшы → жакшыраак</b><span>よい → よりよい</span></li><li><b>чоң → чоңураак</b><span>大きい → より大きい</span></li><li><b>Жайыраак сүйлөңүзчү.</b><span>もう少し ゆっくり 話して いただけますか。</span></li></ul>'+
+  '<h4>「AはBより〜」：Bに -дан</h4><p>比べる相手に「〜から」の -дан をつけます。形容詞はそのままでも、-раак をつけてもかまいません。</p>'+
+  '<ul class="p72-ex"><li><b>Бул үй тигил үйдөн чоң.</b><span>この 家は あの 家より 大きいです。</span></li><li><b>Чай кофеден жакшыраак.</b><span>お茶は コーヒーより よいです。</span></li></ul>'+
+  '<h4>「いちばん〜」は эң</h4><p>形容詞の前に <b>эң</b> を置きます：эң жакшы（いちばんよい）、эң чоң（いちばん大きい）。</p>'+
+  '<p class="p72-n">程度を表す言葉もいっしょに覚えると便利です：абдан（とても）、бир аз（少し）、көп（たくさん）。</p>'},
+
+ {id:"jpdiff",t:"日本語と同じところ・ちがうところ",s:"日本語を話す人にとって、キルギス語は近い言葉です。",u:[19,20],b:
+  '<h4>同じところ</h4><ol><li><b>語順</b>：「私は 町へ 行く」の順番がそのまま。動詞はいつも最後です。</li><li><b>助詞のような語尾</b>：「で・へ・を・から」に当たる語尾が、名詞のうしろにつきます。</li><li><b>主語を言わなくてもよい</b>：動詞の語尾でだれのことかわかるので、Мен を省いて Барам.（行きます）だけで通じます。</li><li><b>ていねいさの区別</b>：сиз（あなた）と сен（きみ）を、日本語の「です・ます」と同じ感覚で使い分けます。</li></ol>'+
+  '<h4>ちがうところ</h4><ol><li><b>「です」も語尾で言う</b>：студентмин（学生です）のように、だれが言うかで形が変わります。</li><li><b>母音調和</b>：語尾が4通りに変わります。日本語にはないしくみです。</li><li><b>「〜に」が2つ</b>：行き先は -га、いる場所は -да。</li><li><b>「を」をつけないことがある</b>：決まったものだけに -ны をつけます。</li><li><b>「持っている」は「〜がある」</b>：Менде машина бар.（私には車がある）。</li><li><b>理由の言葉が前</b>：анткени（なぜなら）は理由の文の最初に置きます。</li></ol>'+
+  '<p class="p72-eg">つまり「日本語の文の上に、1語ずつキルギス語を重ねる」とほぼ正しい文になります。そのうえで、ちがうところだけを注意していけば大丈夫です。</p>'}
+];
+if(typeof P47_LANG!=="undefined"&&P47_LANG==="ky"&&window.P72_GUIDE){P72_GUIDE.length=0;P79_GUIDE.forEach(function(g){P72_GUIDE.push(g);});}
+
+/* ===== Phase79：キルギス語版をロシア語版と同じ構成にする =====
+   ・ホームの「学び方を選ぶ」（3つの入り口）・辞書（耳で聞いた音でも引ける）・注釈を、キルギス語版でも出す。
+   ・文法解説書はキルギス語の内容（phase79_ky_guide.js）。各章の練習問題は、作文の文（文ごとの解説つき）から作る。
+   ・歴史の道（マナス・セメテイ・クルマンジャン・トクトグル）の例文を、キルギス語の文にする。
+   ロシア語版（P47_LANG!=="ky"）では何もしない。 */
+(function(){
+if(typeof P47_LANG==="undefined"||P47_LANG!=="ky")return;
+
+/* ---------- 歴史の道の例文（キルギス語） ---------- */
+var EX={
+ manas:[["Бул — манасчы. Ал «Манасты» айтат.","これはマナスチです。彼は「マナス」を語ります。"],["Бул — Жакып. Ал кары.","これはジャクプです。彼は年をとっています。"],["Манас — күчтүү бала.","マナスは力の強い子どもです。"],["Бул — Манас жана анын достору.","これはマナスと彼の仲間たちです。"],["Алмамбет — Манастын досу.","アルマンベトはマナスの友です。"],["Каныкей акылдуу жана боорукер.","カヌケイはかしこくて、やさしいです。"],["Бул — чоң той.","これは大きな祝宴です。"],["Манас алыска кетет.","マナスは遠くへ出発します。"],["Бул — Манастын уулу.","これはマナスの息子です。"]],
+ semetey:[["Семетей — Манастын уулу.","セメテイはマナスの息子です。"],["Апа менен уул алыска кетишет.","母と息子は遠くへ出発します。"],["Семетей — кичине бала.","セメテイは小さな子どもです。"],["Бакай чынчыл.","バカイは正直です。"],["Семетей үйүнө кайтат.","セメテイは家へ帰ります。"],["Күлчоро — жакшы дос.","クルチョロはよい友だちです。"],["Айчүрөк акылдуу жана сулуу.","アイチュレクはかしこくて、美しいです。"],["Семетей достору менен бирге.","セメテイは仲間たちといっしょです。"],["Бул — жаңы жол.","これは新しい道です。"]],
+ kurmanjan:[["Курманжан тоодо жашайт.","クルマンジャンは山で暮らしています。"],["Курманжан үйүнө кайтат.","クルマンジャンは家へ帰ります。"],["Алымбек — анын күйөөсү.","アリムベクは彼女の夫です。"],["Курманжан көп иштейт.","クルマンジャンはたくさん働きます。"],["Эми ал — датка.","今や彼女は「ダトカ」です。"],["Курманжан тынч сүйлөйт.","クルマンジャンは落ち着いて話します。"],["Бул — абдан кыйын күн.","これはとてもつらい（難しい）日です。"],["Курманжанды баары билет.","みんながクルマンジャンを知っています。"],["Биз Курманжанды эстейбиз.","わたしたちはクルマンジャンを覚えています。"]],
+ toktogul:[["Акын комуз менен ырдайт.","アクン（即興の歌い手）はコムズをひきながら歌います。"],["Токтогул — кичине бала.","トクトグルは小さな子どもです。"],["Апа ырдайт.","お母さんが歌います。"],["Адамдар анын үнүн угушат.","人々は彼の声を聞きます。"],["Бул — абдан жаман жыл.","これはとても悪い年です。"],["Ал жерде абдан муздак.","そこはとても寒いです。"],["Токтогул үйүнө кайтат.","トクトグルは家へ帰ります。"],["Адамдар аны сүйүшөт.","人々は彼が大好きです。"],["Бул — Токтогул шаары.","これはトクトグルの町です。"]]
+};
+try{(window.P74_PATHS||[]).forEach(function(P){var L=EX[P.id];if(!L)return;P.story.forEach(function(s,i){if(L[i])s.ex=L[i];});});}catch(_){}
+
+/* ---------- ロシア語の辞書データを使わない（id がキルギス語の単語と別物のため） ---------- */
+try{P73_D={};}catch(_){}
+try{P73_U=[];}catch(_){}
+/* 辞書（ひらがな・カタカナ・耳で聞いた音での検索、関連語）をキルギス語版でも使う */
+try{p73Ru=function(){return true;};}catch(_){}
+if(typeof renderWordSearch==="function"){
+  var _ws=renderWordSearch;
+  renderWordSearch=function(){var h=String(_ws.apply(this,arguments));
+    return h.replace(/キルギス語・日本語・英語・ひらがな・カタカナで引けます/g,"キルギス語・日本語・ひらがな・カタカナで引けます")
+      .replace(/placeholder="例：[^"]*"/,'placeholder="例：рахмат、ありがとう、らふまと、ジャクシ、市場"')
+      .replace("（例：すぱしば、ドスビダニヤ）","（例：らふまと、ジャクシ、サラム）");};
+}
+try{P77_TIPS.dict="知らない単語を調べられます。キルギス語・日本語のほか、耳で聞いた音をひらがな・カタカナで入れても探せます（例：らふまと）。";}catch(_){}
+/* 単語の「よみ」の注意（ө・ү は日本語にない音） */
+if(typeof renderWordDetailSheet==="function"){
+  var _wd=renderWordDetailSheet;
+  renderWordDetailSheet=function(){var h=String(_wd.apply(this,arguments));var w=byId(ui.searchDetailId);
+    if(w&&/[өүӨҮ]/.test(w.word)&&h.indexOf("p79-kn")<0){var k='<div class="roma">'+esc(w.roma||"")+'</div>';var i=h.indexOf(k);
+      if(i>=0)h=h.slice(0,i+k.length)+'<div class="p79-kn">カタカナは目安です。ө は「エ」の舌で口を「オ」の形に、ү は「イ」の舌で口を「ウ」の形に丸めた音。録音で確かめてください。</div>'+h.slice(i+k.length);}
+    return h;};
+}
+
+/* ---------- 文法解説書の練習問題（作文の文から） ---------- */
+var BYW=null;
+function byw(){if(BYW)return BYW;BYW={};VOCAB.forEach(function(v){var k=p71N(v.word);if(!BYW[k])BYW[k]=v.id;});return BYW;}
+function unitNo(c){var m=/Unit\s*0*(\d+)/.exec(c.unit||"");return m?+m[1]:0;}
+function guideOf(t){return (window.P79_GUIDE||[]).filter(function(g){return g.id===t;})[0];}
+var CACHE={};
+function cands(t){
+  if(CACHE[t])return CACHE[t];var g=guideOf(t),out={a:[],b:[],c:[]};if(!g){CACHE[t]=out;return out;}
+  var rx=g.rx?new RegExp(g.rx):null,U=g.u||[],B=byw();
+  (window.COMPOSE||[]).forEach(function(c){var inU=U.indexOf(unitNo(c))>=0;
+    (c.breakdown||[]).forEach(function(tk){var id=B[p71N(tk.base)],w=id&&WMAP[id];if(!w)return;
+      var sn=p71N(tk.surface),bn=p71N(tk.base),r={id:id,c:c,tk:tk};
+      if(sn!==bn){if(g.pos&&w.pos!==g.pos)return;var hit=rx?rx.test(sn):inU;if(!hit)return;(inU||!rx?out.a:out.b).push(r);}
+      else if(inU&&!/\s/.test(bn))out.c.push(r);});});
+  CACHE[t]=out;return out;
+}
+p77GpTopics=function(t){return [t];};
+p77GpCount=function(t){var c=cands(t);return c.a.length+c.b.length+c.c.length;};
+p77GpSteps=function(t){
+  var C=cands(t),steps=[],used={},words={};
+  function add(r,kind){if(steps.length>=10||used[r.c.id]||words[r.id])return;
+    var cc=null;try{cc=p71Cloze(r.id,{ru:r.c.accent||r.c.ru,ja:r.c.ja,why:r.tk.why||r.tk.note||"",cid:r.c.id});}catch(_){}
+    if(!cc)return;
+    if(kind==="form"){if(!cc.forms)return;steps.push({t:"form",id:r.id,c:cc,unit:r.c.unit,g:r.c.gDetail||"",ge:r.c.gEasy||""});}
+    else{if(cc.forms)return;var th=null;try{th=P47_THEMES.filter(function(x){return x.ids.indexOf(r.id)>=0;})[0];}catch(_){}
+      var opts=[r.id];try{opts=shuffle([r.id].concat(p71Distract(r.id,th?th.ids:VOCAB.map(function(v){return v.id;}),3)));}catch(_){}
+      steps.push({t:"cloze",id:r.id,c:cc,opts:opts});}
+    used[r.c.id]=1;words[r.id]=1;}
+  shuffle(C.a.slice()).forEach(function(r){add(r,"form");});
+  shuffle(C.b.slice()).forEach(function(r){add(r,"form");});
+  if(steps.length<10)shuffle(C.c.slice()).forEach(function(r){add(r,"cloze");});
+  return shuffle(steps);
+};
+
+/* ---------- キルギス語の語尾の見分け（ロシア語の性・格の判定を使わない） ---------- */
+var KV="аыоуеэиөүяёю";
+function kyVow(s){for(var i=s.length-1;i>=0;i--){var c=s.charAt(i);if(KV.indexOf(c)>=0)return c;}return "а";}
+function kyA(s){var v=kyVow(s);return /[аыя]/.test(v)?"а":/[оуёю]/.test(v)?"о":/[еэи]/.test(v)?"е":"ө";}
+function kyI(s){var v=kyVow(s);return /[аыя]/.test(v)?"ы":/[оуёю]/.test(v)?"у":/[еэи]/.test(v)?"и":"ү";}
+function kyEnd(s){var c=s.charAt(s.length-1);return KV.indexOf(c)>=0?"v":/[кпстфхцчшщ]/.test(c)?"x":"d";}
+/* 名詞の格・複数の形を規則で作る */
+function kyNoun(b){var e=kyEnd(b),A=kyA(b),I=kyI(b),c=b.charAt(b.length-1),m={};
+  m[b+(e==="x"?"к":"г")+A]="与格（〜へ・〜に）";m[b+(e==="x"?"т":"д")+A]="位格（〜で・〜に）";m[b+(e==="x"?"т":"д")+A+"н"]="奪格（〜から）";
+  m[b+(e==="v"?"н":e==="x"?"т":"д")+I]="対格（〜を）";m[b+(e==="v"?"н":e==="x"?"т":"д")+I+"н"]="属格（〜の）";
+  m[b+(e==="v"||/[йр]/.test(c)?"л":e==="x"?"т":"д")+A+"р"]="複数（〜たち）";return m;}
+var KY_CASE=[[/(дан|ден|дон|дөн|тан|тен|тон|төн|нан|нен|нон|нөн)$/,"奪格","から"],[/(нын|нин|нун|нүн|дын|дин|дун|дүн|тын|тин|тун|түн)$/,"属格","の"],
+  [/(да|де|до|дө|та|те|то|тө)$/,"位格","で"],[/(га|ге|го|гө|ка|ке|ко|кө|на|не|но|нө)$/,"与格","へ"],[/(ны|ни|ну|нү|ды|ди|ду|дү|ты|ти|ту|тү)$/,"対格","を"]];
+function kyStemMatch(b,t){if(t.indexOf(b)===0)return t.slice(b.length);
+  var s=b.slice(0,-1),l=b.charAt(b.length-1),alt={"п":"б","к":"г","т":"д"}[l];if(alt&&t.indexOf(s+alt)===0)return t.slice(b.length);return null;}
+/* 名詞の語尾を分ける：{c:格,jp:助詞,pl:複数,ps:所有} */
+function kyNounInfo(b,t){var suf=kyStemMatch(b,t);if(suf===null)return null;var o={c:"",jp:"",pl:false,ps:"",suf:suf,pr:false};if(!suf)return o;var rest=suf;
+  var qm=/(бы|би|бу|бү|пы|пи|пу|пү)$/.exec(rest);if(qm&&rest.length>qm[0].length){o.q=true;rest=rest.slice(0,-qm[0].length);if(KY_PRED.test(rest)){o.pr=true;rest="";}}
+  var pm=/(мын|мин|мун|мүн|сың|сиң|суң|сүң|сыз|сиз|суз|сүз|быз|биз|буз|бүз|пыз|пиз|пуз|пүз)$/.exec(rest);
+  if(pm){var r2=rest.slice(0,-pm[0].length);for(var q=0;q<KY_CASE.length;q++)if(KY_CASE[q][0].test(r2)&&KY_CASE[q][1]!=="対格"){rest=r2;o.pr=true;break;}}
+  for(var i=0;i<KY_CASE.length;i++){var m=KY_CASE[i][0].exec(rest);if(m&&rest.length>=m[0].length){o.c=KY_CASE[i][1];o.jp=KY_CASE[i][2];rest=rest.slice(0,-m[0].length);break;}}
+  if(!o.c&&/^[аеоө]$/.test(rest.slice(-1))&&/(ым|им|ум|үм|м|ың|иң|уң|үң|ң)[аеоө]$/.test(suf)){o.c="与格";o.jp="へ";rest=rest.slice(0,-1);}
+  if(/(ыңыз|иңиз|уңуз|үңүз|ңыз|ңиз|ңуз|ңүз)$/.test(rest)){o.ps="あなたの";rest=rest.replace(/[ыиуү]?ң[ыиуү]з$/,"");}
+  else if(/(ыбыз|ибиз|убуз|үбүз|быз|биз|буз|бүз)$/.test(rest)){o.ps="私たちの";rest=rest.replace(/[ыиуү]?б[ыиуү]з$/,"");}
+  else if(/(ым|им|ум|үм|м)$/.test(rest)){o.ps="私の";rest=rest.replace(/[ыиуү]?м$/,"");}
+  else if(/(ың|иң|уң|үң|ң)$/.test(rest)){o.ps="きみの";rest=rest.replace(/[ыиуү]?ң$/,"");}
+  else if(/(сы|си|су|сү|ы|и|у|ү)$/.test(rest)&&rest.length){o.ps="彼の・その";rest=rest.replace(/с?[ыиуү]$/,"");}
+  if(/(лар|лер|лор|лөр|дар|дер|дор|дөр|тар|тер|тор|төр)$/.test(rest))o.pl=true;
+  return o;}
+var KY_CJ={"位格":"位格（〜で・〜に）","与格":"与格（〜へ・〜に）","奪格":"奪格（〜から）","対格":"対格（〜を）","属格":"属格（〜の）"};
+function kyNounLabel(o,lg){var a=[];if(o.pl)a.push("複数");if(o.ps)a.push("「"+o.ps+"」の語尾");a.push(o.c?(lg?KY_CJ[o.c]:o.c):"主格（語尾なし）");if(o.pr)a.push("「〜です」の語尾");if(o.q)a.push("質問の -бы");return a.join("＋");}
+function kyStem(w){var b=p71Plain(w.word).toLowerCase();if(w.pos!=="verb")return b;if(b==="жеш")return "же";
+  if(/(уу|үү)$/.test(b))return b.slice(0,-2);if(/оо$/.test(b))return b.slice(0,-2)+"а";if(/өө$/.test(b))return b.slice(0,-2)+(/[өү]/.test(b.slice(0,-2))?"ө":"е");return b;}
+function kyVerbLabel(st,t){var suf=t.indexOf(st)===0?t.slice(st.length):null;if(suf===null)return "";
+  if(/^[ыиуү]?(ңыз|ңиз|ңуз|ңүз)(чы|чи|чу|чү)?$/.test(suf))return "ていねいなお願い（〜してください）";
+  if(/^(гы|ги|гу|гү|кы|ки|ку|кү)/.test(suf))return "「〜したい」の形（-гы ＋ келет）";
+  if(/^(ба|бе|бо|бө|па|пе|по|пө)/.test(suf))return "否定（〜しない）";
+  if(/^(ды|ди|ду|дү|ты|ти|ту|тү)/.test(suf))return "過去形（〜した）";
+  if(/^[ыиуү]?п$/.test(suf))return "-ып 形（〜して）";
+  if(/^(са|се|со|сө)/.test(suf))return "条件（〜したら）";
+  if(/^[ыиуү]?ш/.test(suf))return "「〜すること」の形";
+  if(/^(а|е|о|ө|й)/.test(suf)||/^[ыиуү]?й/.test(suf))return "現在・未来形（〜する）";
+  return "";}
+function kyLabel(w,tok){if(!w)return "";var n=p71N(tok),b=p71N(w.word);if(w.pos==="verb"){return kyVerbLabel(kyStem(w),n);}
+  if(/\s/.test(b))return "";var sx=kyStemMatch(b,n);if(sx&&KY_Q.test(sx))return "質問の -бы（〜か）";if(sx&&KY_PRED.test(sx))return "「〜です」の語尾（-мын など）";
+  if(!/^(noun|proper_noun|pronoun)$/.test(w.pos))return "";var o=kyNounInfo(b,n);return o&&o.suf?kyNounLabel(o,1):"";}
+var KY_PRED=/^(мын|мин|мун|мүн|сың|сиң|суң|сүң|сыз|сиз|суз|сүз|быз|биз|буз|бүз|пыз|пиз|пуз|пүз|сыңар|сиңер|суңар|сүңөр)$/;
+var KY_Q=/^(бы|би|бу|бү|пы|пи|пу|пү)$/;
+/* 代名詞の変化形：[日本語, 格, 助詞] */
+var PRONF={};(function(){var P={"мен":["私","мени","мага","менде","менден","менин"],"сен":["きみ","сени","сага","сенде","сенден","сенин"],"сиз":["あなた","сизди","сизге","сизде","сизден","сиздин"],
+  "ал":["彼・彼女","аны","ага","анда","андан","анын"],"биз":["私たち","бизди","бизге","бизде","бизден","биздин"],"силер":["きみたち","силерди","силерге","силерде","силерден","силердин"],
+  "алар":["彼ら","аларды","аларга","аларда","алардан","алардын"],"бул":["これ","муну","буга","мунда","мындан","мунун"]};
+  Object.keys(P).forEach(function(k){var q=P[k];PRONF[k]=[q[0],"",""];PRONF[q[1]]=[q[0],"対格","を"];PRONF[q[2]]=[q[0],"与格","に"];PRONF[q[3]]=[q[0],"位格","のところに"];PRONF[q[4]]=[q[0],"奪格","から"];PRONF[q[5]]=[q[0],"属格","の"];});})();
+/* 単語帳にない変化形を、語尾を外して単語帳の語に結びつける */
+var KY_WL=null;
+function kyFind(n){if(!KY_WL){KY_WL=VOCAB.filter(function(w){return !/[\s\-]/.test(p71N(w.word))&&p71N(w.word).length>=2;}).slice().sort(function(a,b){return p71N(b.word).length-p71N(a.word).length;});}
+  for(var i=0;i<KY_WL.length;i++){var w=KY_WL[i],b=p71N(w.word);
+    if(w.pos==="verb"){var st=kyStem(w);if(st.length>=2&&n.indexOf(st)===0&&n!==b&&kyVerbLabel(st,n))return w;continue;}
+    if(n.length<=b.length)continue;var suf=kyStemMatch(b,n);if(suf===null)continue;
+    if(KY_PRED.test(suf)||KY_Q.test(suf))return w;
+    if(/^(noun|proper_noun|pronoun)$/.test(w.pos)){var o=kyNounInfo(b,n);if(o&&(o.c||o.ps||o.pl||o.pr||o.q)&&o.suf.length<=8)return w;}}
+  return null;}
+if(typeof p72Look==="function"){var _lk=p72Look;
+  p72Look=function(tok,ctx){var n=p71N(tok);if(!n||(ctx&&ctx.w&&ctx.hit)||(p72Index()[n]||[]).length)return _lk.apply(this,arguments);
+    var w=kyFind(n);if(w)return {id:w.id,base:w.accent||w.word,mean:w.meaning,form:kyLabel(w,tok),g:null};
+    return _lk.apply(this,arguments);};}
+p72Short=function(tok){var r=p72Look(tok);if(!r)return null;return {m:r.mean||"",t:"",base:r.base};};
+try{p72GenderInfo=function(){return null;};}catch(_){}
+try{p72FormName=function(w,tok){return kyLabel(w,tok);};}catch(_){}
+/* 名詞の変化形を、練習の選択肢・単語の検索に使えるように足す */
+try{var F=(window.P58_FORMS=window.P58_FORMS||{f:{}}).f=P58_FORMS.f||{};
+  VOCAB.forEach(function(w){if(w.pos!=="noun")return;var b=p71Plain(w.word).toLowerCase();if(/[\s\-]/.test(b)||b.length<2)return;
+    var m=kyNoun(b),k=p71N(b);F[k]=F[k]||{};Object.keys(m).forEach(function(x){F[k][x]=1;});});
+  P72_IX=null;}catch(_){}
+/* 練習の「形を選ぶ」問題に、それぞれの形の説明をつける */
+if(typeof p71Forms==="function"){var _fo=p71Forms;
+  p71Forms=function(w,f){var r=_fo.apply(this,arguments);if(!r)return r;
+    r.opts.forEach(function(x){var l=kyLabel(w,x);if(l)r.lab[p71N(x)]=l;});return r;};}
+/* 文の中の言葉：格に合わせた日本語の助詞 */
+var KY_EXTRA={"атым":["私の名前","ат（名前）＋「私の」の語尾"],"жайыраак":["もっとゆっくり","比較（-ыраак）"],"чоңураак":["もっと大きい","比較（-ураак）"],"турат":["（値段が）する","туруу の現在形"]};
+var PRON={"мен":"私","сен":"きみ","сиз":"あなた","ал":"彼・彼女","биз":"私たち","силер":"きみたち","сиздер":"あなたたち","алар":"彼ら","бул":"これ","ошол":"それ","тигил":"あれ"};
+p72CtxGloss=function(ws,k){
+  var x=ws[k];if(KY_EXTRA[x.n])return {html:esc(KY_EXTRA[x.n][0]),label:KY_EXTRA[x.n][1],note:""};
+  var r=p72Look(x.t);if(!r||!r.id)return null;var w=WMAP[r.id];if(!w)return null;
+  if(/^(эмне|ким|канча|кайда|кайдан|качан)$/.test(x.n))return {html:esc(String(w.meaning).split(/[／\/、,]/)[0]),label:"疑問の言葉",note:""};
+  var mean=String(r.mean||w.meaning||"").split(/[／\/、,]/)[0].replace(/（.*?）/g,"").trim();
+  if(w.pos==="verb"){var l=kyVerbLabel(kyStem(w),x.n),pv=k>0?ws[k-1].n:"";
+    if(/^ал/.test(x.n)&&p71N(w.word)==="алуу"&&/[аеоөй]$/.test(pv))return {html:"できる",label:"「〜できる」の形（-а ＋ ал-）"+(/(бы|би|бу|бү)$/.test(x.n)?"・質問":/ба/.test(x.n)?"・否定":""),note:""};
+    if(/^жат/.test(x.n)&&/[ыиуү]п$/.test(pv))return {html:"〜しているところ",label:"「いま〜している」の形（-ып ＋ жат-）",note:""};return {html:esc(mean),label:l||(p71N(w.word)===x.n?"":"動詞の変化形"),note:""};}
+  if(PRONF[x.n]){var pf=PRONF[x.n],jp0=pf[2];if(!pf[1])jp0=k===0?"は":"";
+    return {html:esc(pf[0])+(jp0?'<b class="p72-pt">'+esc(jp0)+'</b>':''),label:pf[1]?pf[1]:"主格（語尾なし）",note:pf[1]==="位格"&&/^(бар|жок|барбы)$/.test(ws[ws.length-1].n)?"「〜のところに（-да）…がある」で「〜は…を持っている」の意味になります。":pf[1]==="与格"&&/(^| )керек( |$)/.test(ws.map(function(y){return y.n;}).join(" "))?"「〜に（-га）…が必要だ」で「〜は…が必要です」の意味になります。":""};}
+  var sx=kyStemMatch(p71N(w.word),x.n);
+  if(sx&&KY_PRED.test(sx))return {html:esc(mean)+'<b class="p72-pt">です</b>',label:"「〜です」の語尾",note:""};
+  if(sx&&KY_Q.test(sx))return {html:esc(mean)+'<b class="p72-pt">か</b>',label:"質問の -бы",note:""};
+  if(!/^(noun|pronoun|proper_noun)$/.test(w.pos))return null;
+  var o=kyNounInfo(p71N(w.word),x.n);if(!o)return null;
+  var jp=o.jp,note="",nx=ws[k+1]?ws[k+1].n:"";
+  if(!o.c){var first=true;for(var j=0;j<k;j++){var rj=p72Look(ws[j].t),wj=rj&&rj.id&&WMAP[rj.id];if(PRONF[ws[j].n]||(wj&&/^(noun|pronoun|proper_noun)$/.test(wj.pos))){first=false;break;}}
+    if(k===0)first=true;
+    if(k===0&&ws.length===2){var r1=p72Look(ws[1].t);if(r1&&r1.id&&WMAP[r1.id]&&WMAP[r1.id].pos==="verb")first=false;}
+    if(/^(бар|жок|барбы|жокпу|керек)$/.test(nx))jp="が";
+    else if(/^эмес/.test(nx))jp="";
+    else if(/^(эмне|ким|канча)$/.test(x.n))jp="";
+    else if(k===ws.length-1)jp="";
+    else if(first)jp="は";
+    else{var vb=ws.slice(k+1).some(function(y){var ry=p72Look(y.t);return ry&&ry.id&&WMAP[ry.id]&&WMAP[ry.id].pos==="verb";});if(vb){jp="を";note="「〜を」に当たる -ны は、決まったもの（その・この〜）にだけつきます。ここは決まっていないものなので語尾がありません。";}}}
+  if(o.c==="位格"&&/^(бар|жок|барбы)$/.test(ws[ws.length-1].n)&&PRON[p71N(w.word)])note="「〜に（-да）…がある」で「〜は…を持っている」の意味になります。";
+  if(o.c==="与格"&&/(^| )керек( |$)/.test(ws.map(function(y){return y.n;}).join(" ")))note="「〜に（-га）…が必要だ」で「〜は…が必要です」の意味になります。";
+  if(o.c==="与格"&&(o.ps||PRON[p71N(w.word)]))jp="に";
+  var nm=PRON[p71N(w.word)]||mean;
+  if(o.pr&&o.c==="位格")jp="に";
+  if(o.q&&!o.c){jp=o.pr?"ですか":"か";o.prs=o.pr;o.pr=false;}
+  return {html:esc(nm)+(jp?'<b class="p72-pt">'+esc(jp)+'</b>':'')+(o.pr?'<small>（います・です）</small>':''),label:(o.pr=o.pr||o.prs,kyNounLabel(o)),note:note};
+};
+p72SentNotes=function(){return [];};
+
+/* ---------- 文法解説書の見た目（ロシア語用の絵・目標・アイコンを、キルギス語用に） ---------- */
+try{P72_BAN={basics:[["студент","Мен студентмин."],["үй","Бул менин үйүм."]],plural:[["китеп","китеп → китептер"],["дос","дос → достор"]],
+  poss:[["бала","бала → балам"],["китеп","китеп → китебим"]],loc:[["үй","үйдө"],["мектеп","мектепте"]],dat:[["мектеп","мектепке"],["базар","базарга"]],
+  acc:[["нан","нан жейм"],["китеп","китепти окудум"]],abl:[["мектеп","мектептен"],["үй","үйдөн"]],present:[["окуу","окуйм"],["жазуу","жазам"]],past:[["окуу","окудум"],["жазуу","жаздым"]],
+  want:[["чай","чай ичким келет"],["нан","нан жегим келет"]],compare:[["үй","чоңураак үй"],["машина","эң жакшы машина"]]};}catch(_){}
+try{P72_GOAL={basics:["Мен Бишкекке барам.","日本語と同じ順番で文が作れることがわかります。"],harmony:["шаарга／мектепке／үйгө","同じ「へ」の語尾が3つの形になる理由がわかります。"],
+  pred:["Мен студентмин.","「私は学生です」の -мин がどこから来るかわかります。"],plural:["китеп → китептер","複数の -лар が -тер になる理由がわかります。"],
+  poss:["Менин атым Таро.","атым の -ым が「私の」だとわかります。"],cases:["үй → үйдө・үйгө・үйдөн","同じ「家」の語尾が変わる理由がわかります。"],
+  loc:["Менде машина бар.","「持っている」を「私には〜がある」と言う理由がわかります。"],dat:["Мага суу керек.","「私に水が必要」で「水がほしい」になるしくみがわかります。"],
+  acc:["нан жейм／нанды жедим","「を」の -ны をつける時とつけない時がわかります。"],abl:["Мен Япониядан келдим.","「〜から」の -дан の使い方がわかります。"],
+  present:["барам／барасыз／барат","だれが言うかで動詞の語尾が変わるしくみがわかります。"],past:["бардым／бардыңыз／барды","過去形の作り方がわかります。"],
+  question:["Сиз студентсизби?","「〜ですか」の作り方がわかります。"],want:["Чай ичким келет.","「〜したい」「〜できる」の言い方がわかります。"],
+  polite:["Кайра айтыңызчы.","ていねいなお願いの作り方がわかります。"],connect:["…, анткени ооруп жатам.","理由や「でも」の言い方がわかります。"],
+  compare:["Бишкек Оштон чоң.","「〜より大きい」の言い方がわかります。"],jpdiff:["Мен үйгө барам.","日本語と同じところ・ちがうところがまとめてわかります。"]};}catch(_){}
+try{var IC={basics:["Мен","#3B82C4"],harmony:["а/е","#8A63C9"],pred:["-мын","#2E9C8F"],plural:["-лар","#4A9BB0"],poss:["-ым","#C98A12"],cases:["格","#5B8C3A"],loc:["で","#5B8C3A"],dat:["へ","#C98A12"],acc:["を","#E0503F"],abl:["から","#2E9C8F"],
+  present:["-ам","#3B82C4"],past:["-дым","#8A63C9"],question:["-бы?","#E0503F"],want:["-гым","#C98A12"],polite:["-ңыз","#2E9C8F"],connect:["＋","#4A9BB0"],compare:["＞","#5B8C3A"],jpdiff:["日","#E0503F"]};
+  Object.keys(IC).forEach(function(id){var q=IC[id];P72_ICON[id]=function(){var fs=q[0].length>3?10:q[0].length>2?12:16;
+    return '<svg viewBox="0 0 44 44" aria-hidden="true"><rect x="1" y="1" width="42" height="42" rx="11" fill="'+q[1]+'" opacity=".15"/><rect x="6" y="9" width="32" height="26" rx="8" fill="'+q[1]+'"/><text x="22" y="'+(22+fs*0.36)+'" text-anchor="middle" font-size="'+fs+'" font-weight="800" fill="#fff" font-family="system-ui,sans-serif">'+q[0]+'</text></svg>';};});}catch(_){}
+if(typeof p72GuideRender==="function"){var _gr=p72GuideRender;
+  p72GuideRender=function(){_gr.apply(this,arguments);var m=document.getElementById("p72g");if(!m||!P72G)return;
+    var how=m.querySelector(".p72-how span");if(how)how.innerHTML=how.innerHTML.replace("意味・性（男性／女性／中性）・なぜその形か","意味と、どの語尾がついた形か");
+    m.querySelectorAll(".p72-where").forEach(function(e){e.remove();});
+    var g=guideOf(P72G.id);if(g&&g.u&&g.u.length){var names=[];(window.COMPOSE||[]).forEach(function(c){if(g.u.indexOf(unitNo(c))>=0&&names.indexOf(c.unit)<0)names.push(c.unit);});
+      var nav=m.querySelector(".p72-gnav");if(nav&&names.length)nav.insertAdjacentHTML("beforebegin",'<div class="p72-where"><div class="p71-tblh">この文法がたくさん出てくる会話の単元</div><p>その他の練習 › 文法別練習 の「'+names.map(esc).join("」「")+'」</p></div>');}};}
+
+/* ---------- CSS ---------- */
+try{var st=document.createElement("style");st.textContent='.p79-kn{margin-top:6px;font-size:12.5px;line-height:1.6;color:var(--muted)}';document.head.appendChild(st);}catch(_){}
+})();
 
 /* ===== init ===== */
 try{ if(!ui.view)ui.view="word"; if(!ui.bnav)ui.bnav="home"; applyDisplayPrefs(); render(); }catch(err){ showFatal((err&&err.stack)||err); }

@@ -51,7 +51,7 @@ POSJ = {"noun": "名詞", "verb": "動詞", "adjective": "形容詞", "adverb": 
 vocab = []
 for w in kv:
     e = enrich.get(w["id"], {})
-    vocab.append({"id": w["id"], "word": w["word"], "accent": w["word"], "kana": w["kana"], "roma": w["roma"],
+    vocab.append({"id": w["id"], "word": w["word"], "accent": w["word"], "kana": _kana(w["word"]), "roma": w["roma"],
         "meaning": w["meaning"], "lesson": w.get("lesson", 1), "exRu": e.get("exKg", w.get("exKg", "")),
         "exJa": e.get("exJa", w.get("exJa", "")), "detailExp": e.get("detailExp", w.get("detailExp", "")),
         "changeRule": e.get("changeRule", ""), "packTitle": w["packTitle"], "category": w["category"], "pack": w["pack"],
@@ -63,7 +63,7 @@ for c in kc:
     lines = [x for x in g.split("\n") if x.strip()]
     e = cenrich.get(c["id"], {})
     easy = e.get("gEasy") or (lines[1] if len(lines) > 1 else (lines[0] if lines else ""))
-    compose.append({"id": c["id"], "ja": c["ja"], "ru": c["ky"], "accent": c["ky"], "kana": c["kana"], "roma": c["roma"],
+    compose.append({"id": c["id"], "ja": c["ja"], "ru": c["ky"], "accent": c["ky"], "kana": _kana(c["ky"]), "roma": c["roma"],
         "gDetail": g, "gEasy": easy, "pron": "", "unit": c["unit"], "grammarPoint": c["grammarPoint"], "replace": [],
         "level": c.get("level", "A2"), "breakdown": e.get("breakdown", [])})
 # grammar groups = one per grammar point

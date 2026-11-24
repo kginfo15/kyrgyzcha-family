@@ -130,7 +130,7 @@ function p48KyToTr(t){
 function p48TargetLangs(){return P47_LANG==="ky"?["ky","kk","tr","ru"]:["ru"];}
 function p48VoiceScore(v){var n=(v.name||"")+" "+(v.voiceURI||""),s=0,l=(v.lang||"").toLowerCase();
   var langs=p48TargetLangs();var li=langs.indexOf(l.slice(0,2));if(li<0)return -1;s+=(langs.length-li)*10;
-  if(P47_LANG==="ky"&&l.indexOf("tr")===0)s+=25;
+  /* キルギス語版：録音がない文だけ端末の声で読む。キルギス語→カザフ語（同じ文字・近い発音）→トルコ語→ロシア語の順（以前はトルコ語を最優先にしていた） */
   if(/premium|プレミアム/i.test(n))s+=9;if(/enhanced|拡張|natural|neural|online/i.test(n))s+=7;if(/google/i.test(n))s+=5;if(v.localService===false)s+=1;
   return s;}
 function p48Voices(){try{return window.speechSynthesis.getVoices().filter(function(v){return p48VoiceScore(v)>=0;}).sort(function(a,b){return p48VoiceScore(b)-p48VoiceScore(a);});}catch(_){return [];}}

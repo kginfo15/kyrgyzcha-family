@@ -530,7 +530,7 @@ var _p72Result=p71Result;
 p71Result=function(){var S=P71;
   if(!S.fav){var h=_p72Result(),n=p72FavCount();return n?h.replace(/<\/div>$/,'<button type="button" class="p72-glink p72-favgo" data-act="p72fav">☆ お気に入りの問題（'+n+'）を練習する ›</button></div>'):h;}
   var tot=S.ok+S.ng,rate=tot?Math.round(S.ok/tot*100):100,weak=S.ids.filter(function(id){return S.mist[id];});
-  return '<div class="p71-body"><div class="p71-done"><h3>お気に入りの練習 完了</h3><p>'+S.ids.length+' 語・'+S.steps.length+' 問</p></div><div class="p71-sum"><div><b>'+rate+'<small>%</small></b><span>1回目で正解</span></div><div><b>'+S.ids.length+'</b><span>言葉</span></div><div><b>'+weak.length+'</b><span>まちがえた</span></div></div>'+
+  return '<div class="p71-body"><div class="p71-done"><h3>'+(S.gp?'文法の練習 完了':'お気に入りの練習 完了')+'</h3><p>'+S.ids.length+' 語・'+S.steps.length+' 問</p></div><div class="p71-sum"><div><b>'+rate+'<small>%</small></b><span>1回目で正解</span></div><div><b>'+S.ids.length+'</b><span>言葉</span></div><div><b>'+weak.length+'</b><span>まちがえた</span></div></div>'+
     (weak.length?'<div class="p71-note"><div class="p71-tblh">もう一度見ておきたい言葉</div>'+weak.map(function(id){var w=WMAP[id];return '<div class="p71-wrow"><b>'+esc(w.accent||w.word)+'</b><span>'+esc(w.meaning)+'</span></div>';}).join("")+'</div>':'<div class="p71-note"><p>全部正解です。お気に入りは、外すまで何度でも練習できます。</p></div>')+'</div>';};
 var _p72Finish=p71Finish;
 p71Finish=function(){var S=P71;if(!S.fav)return _p72Finish();if(S.fin)return;S.fin=1;var st=p71St(),t=todayKey();

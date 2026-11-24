@@ -46,7 +46,7 @@ function p77Entrances(){
 }
 if(typeof renderHome==="function"){
   var _p77Home=renderHome;
-  renderHome=function(){var h=String(_p77Home.apply(this,arguments));if(!p72Ru())return h;
+  renderHome=function(){var h=String(_p77Home.apply(this,arguments));
     if(h.indexOf('class="p72-links"')<0)return h;
     h=h.replace(/<div class="p72-links">[\s\S]*?<\/div>/,p77Entrances());
     h=h.replace(/<button type="button" class="p47-card" data-act="p48reinf">[\s\S]*?<\/button>/,"");
@@ -108,7 +108,7 @@ if(typeof p71Render==="function"){var _p77R=p71Render;p71Render=function(){var r
 if(typeof p72GuideRender==="function"){
   var _p77GR=p72GuideRender;
   p72GuideRender=function(){_p77GR.apply(this,arguments);var m=document.getElementById("p72g");if(!m||!P72G)return;
-    if(!P72G.id){var lead=m.querySelector(".p72-glead");if(lead&&!m.querySelector(".p77-gtl"))lead.insertAdjacentHTML("afterend",'<p class="p77-gtl">どの章にも「<b>この文法の練習問題を解く</b>」ボタンがあります。読んだらすぐ練習できます。'+p77Tip("grammar")+'</p>');return;}
+    if(!P72G.id){var lead=m.querySelector(".p72-glead");if(lead&&!m.querySelector(".p77-gtl"))lead.insertAdjacentHTML("afterend",'<p class="p77-gtl"><span>どの章にも「<b>この文法の練習問題を解く</b>」ボタンがあります。読んだらすぐ練習できます。</span>'+p77Tip("grammar")+'</p>');return;}
     if(P71)return;var t=P72G.id,n=p77GpCount(t);if(!n)return;
     var b='<div class="p77-gp"><button type="button" class="p77-gpb" data-act="p77gp" data-val="'+t+'"><b>この文法の練習問題を解く</b><small>'+(p77GpTopics(t)[0]===t?'この章の文法が出てくる問題を10問。':'この章だけの問題はまだないので、関係の深い「'+p77GpTopics(t).map(p77GName).join('」「')+'」の問題を10問出します。')+'答えたあとに理由つきの解説が出ます。</small></button>'+p77Tip("gp")+'</div>';
     var sub=m.querySelector(".p72-gsub");if(sub)sub.insertAdjacentHTML("afterend",b);
