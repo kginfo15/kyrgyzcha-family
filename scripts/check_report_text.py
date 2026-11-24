@@ -127,7 +127,7 @@ def main():
               if kind == "rep":
                   return rest if rest in groups else None
               if kind == "doc":
-                  return "" if rest in docs else None
+                  return "" if rest in docs or rest in {d["id"] for d in sec.get("docs", [])} else None
               return None
 
           def check(where, text, refs, kind="f"):
