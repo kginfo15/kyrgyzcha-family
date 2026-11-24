@@ -6,7 +6,7 @@ name: Update Kyrgyz news
 # `news-data` branch (a single force-pushed commit, so main's
 # history stays clean).
 #
-# Refreshes every 2 hours (Yuta's choice, 2026-11-09).
+# Refreshes every 2 hours.
 # GitHub often skips or delays scheduled runs (none fired for hours after the
 # repo became public again), so each run refreshes 3 times, 2 hours apart, and
 # then starts the next run itself. The schedule is only a backup that
