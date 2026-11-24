@@ -102,7 +102,12 @@ def main():
                   return (x.get("tj") or x.get("t") or "") + " " + (x.get("lj") or x.get("l") or "") + " " + x.get("p", "")[:10] if x else None
               if kind == "proj":
                   p = projects.get(rest)
-                  return json.dumps(p, ensure_ascii=False) if p else None
+                  if not p:
+                      return None
+                  # the page shows a project's money split across its sector tags (按分): add that share too
+                  amt = p.get("amt") if isinstance(p.get("amt"), (int, float)) else None
+                  share = " %s" % (amt / max(1, len(p.get("c") or [])),) if amt else ""
+                  return json.dumps(p, ensure_ascii=False) + share
               if kind == "tree":
                   strat, _, node = rest.partition(":")
                   if strat not in tree_cache:
