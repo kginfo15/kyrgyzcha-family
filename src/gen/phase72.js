@@ -98,6 +98,14 @@ function p72Topics(w,lab,f){
 var P72_FN={"я":"私は","меня":"私を・私の（生格／対格）","мне":"私に（与格）","мной":"私と（造格）","ты":"きみは","тебя":"きみを（生格／対格）","тебе":"きみに（与格）","он":"彼は・それは","его":"彼を・彼の","ему":"彼に","она":"彼女は・それは","её":"彼女を・彼女の","ее":"彼女を・彼女の","ей":"彼女に","мы":"私たちは","нас":"私たちを・私たちの","нам":"私たちに","вы":"あなた（たち）は","вас":"あなた（たち）を","вам":"あなた（たち）に","они":"彼らは","их":"彼らを・彼らの","им":"彼らに",
   "это":"これ・それ","и":"そして・〜と","а":"では・一方","но":"しかし","не":"〜ない","да":"はい","нет":"いいえ・〜がない","в":"〜の中で・〜へ","во":"〜の中で・〜へ","на":"〜の上で・〜へ","с":"〜と一緒に・〜から","со":"〜と一緒に","к":"〜のところへ","у":"〜のところに・〜には","из":"〜から","от":"〜から","для":"〜のために","без":"〜なしで","до":"〜まで","после":"〜のあと","о":"〜について","об":"〜について","по":"〜に沿って・〜で","за":"〜の後ろで・〜のために","под":"〜の下で","над":"〜の上方で","перед":"〜の前で","между":"〜の間で","через":"〜を通って・〜後に","что":"何・〜ということ","как":"どのように・〜のように","где":"どこで","куда":"どこへ","когда":"いつ・〜のとき","почему":"なぜ","кто":"誰","уже":"もう","ещё":"まだ・もっと","еще":"まだ・もっと","очень":"とても","тоже":"〜も","мой":"私の","моя":"私の","моё":"私の","мои":"私の","твой":"きみの","твоя":"きみの","наш":"私たちの","наша":"私たちの","ваш":"あなたの","ваша":"あなたの","этот":"この","эта":"この","это́т":"この","один":"1・ひとつ","одна":"1・ひとつ","два":"2","две":"2","три":"3","четыре":"4","пять":"5","шесть":"6","семь":"7","восемь":"8","девять":"9","десять":"10","двадцать":"20","сто":"100","двести":"200","триста":"300","пятьсот":"500","тысяча":"1000","тысячу":"1000（対格）","тысячи":"1000（生格）","тысяч":"1000（生格複数）","здесь":"ここで","там":"そこで","сейчас":"今","бы":"〜だろうに（仮定）","ли":"〜かどうか","же":"（強め）"};
 var P72_IX=null;
+var P72_IRR={"книг":["книга","生格複数"],"мам":["мама","生格複数"],"людей":["люди","生格"],"кого":["кто","生格・対格"],"чего":["что","生格"],"кому":["кто","与格"],"чему":["что","与格"],"ком":["кто","前置格"],"чём":["что","前置格"],"кем":["кто","造格"],"чем":["что","造格"],
+  "еду":["ехать","я の形"],"едешь":["ехать","ты の形"],"едет":["ехать","он・она の形"],"едем":["ехать","мы の形"],"едете":["ехать","вы の形"],"едут":["ехать","они の形"],"пишу":["писать","я の形"],"пишешь":["писать","ты の形"],"пишет":["писать","он・она の形"],
+  "хочу":["хотеть","я の形"],"хочешь":["хотеть","ты の形"],"хочет":["хотеть","он・она の形"],"хотим":["хотеть","мы の形"],"хотите":["хотеть","вы の形"],"хотят":["хотеть","они の形"],
+  "иду":["идти","я の形"],"идёшь":["идти","ты の形"],"идёт":["идти","он・она の形"],"шёл":["идти","男性・過去"],"шла":["идти","女性・過去"],"шло":["идти","中性・過去"],"шли":["идти","複数・過去"],
+  "могу":["мочь","я の形"],"можешь":["мочь","ты の形"],"может":["мочь","он・она の形"],"мог":["мочь","男性・過去"],"могла":["мочь","女性・過去"],"могли":["мочь","複数・過去"],
+  "скажи":["сказать","命令形（親しい相手）"],"скажите":["сказать","命令形（丁寧）"],"покажи":["показать","命令形（親しい相手）"],"покажите":["показать","命令形（丁寧）"],"повтори":["повторить","命令形（親しい相手）"],"повторите":["повторить","命令形（丁寧）"],
+  "читай":["читать","命令形（親しい相手）"],"читайте":["читать","命令形（丁寧）"],"говори":["говорить","命令形（親しい相手）"],"говорите":["говорить","вы の形・命令形（丁寧）"],
+  "хожу":["ходить","я の形"],"езжу":["ездить","я の形"],"живу":["жить","я の形"],"жду":["ждать","я の形"],"пью":["пить","я の形"],"дверью":["дверь","造格"],"рубля":["рубль","生格"],"рублей":["рубль","生格複数"],"времени":["время","生格・与格・前置格"],"временем":["время","造格"],"имени":["имя","生格・与格・前置格"],"одна":["один","女性の形"],"одно":["один","中性の形"],"лет":["год","生格複数（特別な形）"],"года":["год","生格"],"друзья":["друг","主格複数（特別な形）"],"дети":["ребёнок","主格複数（特別な形）"]};
 var P72_PROPER={"москва":["モスクワ（地名）","Москва́","f"],"россия":["ロシア（国名）","Росси́я","f"],"япония":["日本（国名）","Япо́ния","f"],"бишкек":["ビシケク（地名）","Бишке́к","m"],"киргизия":["キルギス（国名）","Кирги́зия","f"]};
 function p72Index(){
   if(P72_IX)return P72_IX;var ix={};function put(k,v){k=p71N(k);if(!k)return;(ix[k]=ix[k]||[]).push(v);}
@@ -105,6 +113,7 @@ function p72Index(){
   var F=(window.P58_FORMS&&P58_FORMS.f)||{},byW={};VOCAB.forEach(function(w){var n=p71N(w.word);if(!byW[n])byW[n]=w;});
   Object.keys(F).forEach(function(lem){var w=byW[p71N(lem)];Object.keys(F[lem]).forEach(function(fm){put(fm,{id:w?w.id:null,base:w?(w.accent||w.word):lem,form:"",mean:w?"":""});});});
   (window.COMPOSE||[]).forEach(function(c){(c.breakdown||[]).forEach(function(t){if(!t.surface||/\s/.test(p71N(t.surface)))return;var w=byW[p71N(t.base)];put(t.surface,{id:w?w.id:null,base:t.base,mean:t.meaning||"",form:""});});});
+  if(p72Ru()){Object.keys(P72_IRR).forEach(function(f){var q=P72_IRR[f],id=p72WId(q[0]),w=id&&WMAP[id];if(w)(ix[p71N(f)]=ix[p71N(f)]||[]).unshift({id:id,base:w.accent||w.word,form:q[1]});});}
   if(p72Ru()){/* 規則で作れる形も引けるようにする（со́ма、Москву́ など） */
     VOCAB.forEach(function(w){var b=p71Plain(w.word).toLowerCase();if(/\s/.test(b))return;var m=null;
       try{if(w.pos==="noun"){m=_p72Noun(b,true)||{};var pl=p72NounPl(b);Object.keys(pl).forEach(function(k){pl[k].forEach(function(l){p71Add(m,k,l);});});}
@@ -181,9 +190,9 @@ function p72Wrap(root){
   if(!root)return;
   root.querySelectorAll(".p71-sent,.p71-ex>div,.p71-gl-ru,.p72-art,.p72-ban,.p72-gru").forEach(function(el){
     var tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),list=[],nd;
-    while((nd=tw.nextNode()))if(!(nd.parentNode.closest&&nd.parentNode.closest("button,.p72-w,svg,em"))&&/[А-Яа-яЁёҢңӨөҮү]/.test(nd.nodeValue))list.push(nd);
+    while((nd=tw.nextNode()))if(!(nd.parentNode.closest&&nd.parentNode.closest("button,.p72-w,svg,em,.p72-nw"))&&/[А-Яа-яЁёҢңӨөҮү]/.test(nd.nodeValue))list.push(nd);
     list.forEach(function(t){var parts=t.nodeValue.split(/([А-Яа-яЁёҢңӨөҮү́\-]*[А-Яа-яЁёҢңӨөҮү][А-Яа-яЁёҢңӨөҮү́\-]*)/),fr=document.createDocumentFragment();
-      parts.forEach(function(p,i){if(!p)return;if(i%2&&(/^-/.test(p)||/[＋+]\s*$/.test(parts[i-1]||""))&&el.closest(".p72-art")){var e2=document.createElement("em");e2.className="p72-endg";e2.textContent=p;fr.appendChild(e2);return;}if(i%2){var s=document.createElement("span");s.className="p72-w";s.setAttribute("data-act","p72w");s.setAttribute("data-val",p);s.textContent=p;
+      parts.forEach(function(p,i){if(!p)return;if(i%2&&(/^-/.test(p)||/[＋+]\s*$/.test(parts[i-1]||""))&&el.closest(".p72-art")){var e2=document.createElement("em");e2.className="p72-endg";e2.textContent=p;fr.appendChild(e2);return;}if(i%2&&p.length===1&&!P72_FN[p71N(p)]&&el.closest(".p72-art")){fr.appendChild(document.createTextNode(p));return;}if(i%2){var s=document.createElement("span");s.className="p72-w";s.setAttribute("data-act","p72w");s.setAttribute("data-val",p);s.textContent=p;
           if(t.parentNode.classList&&t.parentNode.classList.contains("p71-blank"))s.setAttribute("data-hit","1");fr.appendChild(s);}else fr.appendChild(document.createTextNode(p));});
       t.parentNode.replaceChild(fr,t);});
   });
@@ -296,12 +305,16 @@ p71Explain=function(x,w){
   return h+'</div>';
 };
 function p72Gloss(c,w,lab){
-  var f=c.f,rows=[];
+  var f=c.f,rows=[],ru=p72Ru(),ws=[];
   for(var i=0;i<f.toks.length;i++){var t=f.toks[i];if(!/[А-Яа-яЁёҢңӨөҮү]/.test(t))continue;
-    if(i===f.a){rows.push({ru:p71Plain(f.toks.slice(f.a,f.z+1).join("")),m:w.meaning,f:lab,hit:1});i=f.z;continue;}
-    var r=p72Look(t);rows.push({ru:p71Plain(t),m:r?r.mean:"",f:r?r.form:"",b:r&&r.base&&p71N(r.base)!==p71N(t)?p71Plain(r.base):""});}
+    if(i===f.a){var tt=f.toks.slice(f.a,f.z+1).join("");ws.push({t:tt,n:p71N(tt)});rows.push({ru:p71Plain(tt),m:w.meaning,f:lab,hit:1,k:ws.length-1});i=f.z;continue;}
+    ws.push({t:t,n:p71N(t)});var r=p72Look(t);rows.push({ru:p71Plain(t),m:r?r.mean:"",f:r?r.form:"",b:r&&r.base&&p71N(r.base)!==p71N(t)?p71Plain(r.base):"",k:ws.length-1});}
   if(rows.length<2)return "";
-  return '<div class="p72-gl"><div class="p71-tblh">文の中の言葉（押すと詳しく）</div>'+rows.map(function(r){return '<div class="'+(r.hit?"on":"")+'"><b class="p71-gl-ru">'+esc(r.ru)+'</b><span>'+esc(r.m||"―")+(r.b?'<small>（辞書の形 '+esc(r.b)+(r.f?'・'+esc(r.f):'')+'）</small>':r.f?'<small>（'+esc(r.f)+'）</small>':'')+'</span></div>';}).join("")+'</div>';
+  var notes=ru?p72SentNotes(ws):[];
+  return '<div class="p72-gl"><div class="p71-tblh">文の中の言葉（押すと詳しく）</div>'+rows.map(function(r){var g=ru?p72CtxGloss(ws,r.k):null;if(g&&g.note&&notes.indexOf(g.note)<0)notes.push(g.note);
+      var m=g?g.html:esc(r.m||"―"),fl=g?g.label:r.f;
+      return '<div class="'+(r.hit?"on":"")+'"><b class="p71-gl-ru">'+esc(r.ru)+'</b><span>'+m+(r.b?'<small>（辞書の形 '+esc(r.b)+(fl?'・'+esc(fl):'')+'）</small>':fl?'<small>（'+esc(fl)+'）</small>':'')+'</span></div>';}).join("")+
+    (notes.length?'<div class="p72-why">'+notes.map(function(n){return '<p>※ '+esc(n)+'</p>';}).join("")+'</div>':'')+'</div>';
 }
 
 /* ---------- 文法解説書 ---------- */
@@ -330,6 +343,50 @@ function p72GuideRender(){
   p72GuidePost(m);
 }
 
+/* ---------- 文の中での意味（格に合わせた助詞つきの訳） ---------- */
+var P72_PJP={"в":{pre:"で",acc:"へ"},"во":{pre:"で",acc:"へ"},"на":{pre:"で",acc:"へ"},"о":{pre:"について"},"об":{pre:"について"},"при":{pre:"のときに"},"к":{dat:"のところへ"},"ко":{dat:"のところへ"},"по":{dat:"で"},
+  "с":{ins:"と一緒に",gen:"から"},"со":{ins:"と一緒に"},"у":{gen:"のところに"},"из":{gen:"から"},"от":{gen:"から"},"для":{gen:"のために"},"без":{gen:"なしで"},"до":{gen:"まで"},"после":{gen:"のあとで"},"около":{gen:"の近くで"},"кроме":{gen:"以外"},
+  "через":{acc:"を通って・〜後に"},"про":{acc:"について"},"за":{ins:"の後ろで",acc:"のために"},"под":{ins:"の下で",acc:"の下へ"},"над":{ins:"の上の方で"},"перед":{ins:"の前で"},"между":{ins:"の間で"},"нет":{gen:"が（ない）"}};
+var P72_DEFJP={nom:"は",gen:"の",dat:"に",acc:"を",ins:"で（道具）",pre:"で"};
+var P72_CKN={nom:"主格",gen:"生格",dat:"与格",acc:"対格",ins:"造格",pre:"前置格"};
+function p72Words(toks){var o=[];toks.forEach(function(t,i){if(/[А-Яа-яЁё]/.test(t))o.push({t:t,n:p71N(t),i:i});});return o;}
+function p72CtxGloss(ws,k){
+  var x=ws[k];
+  var PR={"меня":"私","тебя":"きみ","него":"彼","неё":"彼女","нее":"彼女","нас":"私たち","вас":"あなた","них":"彼ら"};
+  if(k>0&&ws[k-1].n==="у"&&PR[x.n])return {html:esc(PR[x.n])+'<b class="p72-pt">には</b><small>（у '+esc(x.n)+' で「'+esc(PR[x.n])+'のところに」）</small>',label:"生格",note:""};
+  var r=p72Look(x.t);if(!r)return null;var w=r.id&&WMAP[r.id],isN=(w&&w.pos==="noun")||r.g;
+  if(!isN)return null;
+  var form=r.form||"",cands=[];
+  form.split("・").forEach(function(l){var c=p72CaseOf(l);if(c&&cands.indexOf(c)<0)cands.push(c);});
+  if(!form)cands=["nom","acc"];
+  var pl=/複数/.test(form),pv=null;if(k>0&&ws[k-1].n==="это")pv="это";else for(var j=k-1;j>=0;j--){if(/(ый|ий|ой|ая|яя|ое|ее|ую|юю|ого|его|ому|ему|ым|им|ом|ем|ых|их|ые|ие|мой|моя|моё|мою|моей|твой|наш|ваш|этот|эта|это|эту|этой)$/.test(ws[j].n)&&j===k-1&&!P72_PJP[ws[j].n])continue;pv=ws[j].n;break;}
+  var ck=null,jp="",how="";
+  if(pv==="это"&&cands.indexOf("nom")>=0&&!form){ck="nom";jp="";how="pred";}
+  if(pv&&P72_PJP[pv]){cands.forEach(function(c){if(!ck&&P72_PJP[pv][c])ck=c;});if(ck){jp=P72_PJP[pv][ck];how=pv;}}
+  if(!ck){var nm=null;for(var q=k-1;q>=0&&q>=k-2;q--){var n=ws[q].n;if(P72_FEW.test(n)){nm="few";break;}if(P72_MANY.test(n)||/^\d+$/.test(n)){nm="many";break;}}
+    if(nm&&cands.indexOf("gen")>=0){ck="gen";jp="";how="num";}}
+  if(!ck){var c2=cands.filter(function(c){return c!=="pre";});
+    if(c2.indexOf("nom")>=0&&c2.indexOf("acc")>=0){var verbBefore=ws.slice(0,k).some(function(y){var ry=p72Look(y.t);return ry&&ry.id&&WMAP[ry.id].pos==="verb";});ck=verbBefore?"acc":"nom";}
+    else ck=["dat","gen","acc","ins","nom"].filter(function(c){return c2.indexOf(c)>=0;})[0]||cands[0]||null;
+    if(ck)jp=P72_DEFJP[ck];}
+  if(!ck)return null;
+  var mean=String(r.mean||"").split(/[／\/、,]/)[0].replace(/（.*?）/g,"").trim();
+  var note="",nj="";
+  /* 日本語の助詞と合わないところ */
+  var verbs=ws.map(function(y){return y.n;}).join(" ");
+  if(ck==="acc"&&/(^| )(люблю|любишь|любит|любим|любите|любят|любить)( |$)/.test(verbs)){nj="が";note="日本語では「〜が好き」ですが、ロシア語の любить は「〜を愛する」と考えるので、好きな相手は対格（〜を）になります。";}
+  if(ck==="nom"&&/(^| )(нравится|нравятся|понравился|понравилась|нравилось)( |$)/.test(verbs)){note="нра́вится の文では、好きな「もの」が主語（主格）、好きな「人」が与格（мне＝私に）になります。直訳は「私に〜が気に入る」です。";}
+  if(ck==="gen"&&how==="нет")note="「〜がない」の「〜」は、ロシア語では生格になります。日本語の「が」とは形が合わないので注意。";
+  var label=(P72_CKN[ck]||"")+(pl?"複数":"");
+  var gl=esc(mean)+(jp?'<b class="p72-pt">'+esc(jp)+'</b>':'')+(nj?'<small>（日本語では「'+esc(mean+nj)+'」）</small>':'')+(how==="num"?'<small>（数のあと）</small>':'')+(how==="pred"?'<small>（これは〜です）</small>':'');
+  return {html:gl,label:label,note:note};
+}
+function p72SentNotes(ws){
+  var s=ws.map(function(y){return y.n;}).join(" "),o=[];
+  if(/(^| )у (меня|тебя|него|неё|нее|нас|вас|них)( |$)/.test(s))o.push("у меня́ は直訳すると「私のところに」。「私には（〜がある・ない）」という意味で使います。");
+  if(/^(мне|тебе|ему|ей|нам|вам|им) /.test(s)&&/(лет|год|года|холодно|жарко|нужно|надо|можно|нравится|нравятся|скучно|плохо|хорошо)/.test(s))o.push("「私には〜だ」「私は〜歳だ」のように、感じる人・年齢の人は与格（мне＝私に）で言います。日本語の「は」と形が合わないところです。");
+  return o;
+}
 /* ---------- 解説書の絵・例文カード・色づけ ---------- */
 var P72_BAN={basics:[["студент","Я студе́нт."],["дом","Э́то мой дом."]],gender:[["стол","стол","m"],["мама","ма́ма","f"],["окно","окно́","n"]],cases:"cases",
   nom:[["мама","Ма́ма до́ма."],["книга","Э́то кни́га."]],gen:[["машина","маши́на бра́та"],["чай","ча́шка ча́я"]],dat:[["врач","к врачу́"],["мама","звоню́ ма́ме"]],
@@ -359,7 +416,7 @@ var P72_GOAL={basics:["Я студе́нт.","「私は学生です」なのに�
   cases:["ма́ма → ма́му・ма́ме・ма́мой","同じ「母」なのに語尾が変わる理由がわかります。"],nom:["Ма́ма до́ма.","主語は辞書の形のまま使えばいいことがわかります。"],
   gen:["У меня́ нет вре́мени.","вре́мя（時間）が вре́мени になる理由がわかります。"],dat:["Я звоню́ ма́ме.","「母に」が ма́ме になる理由がわかります。"],
   acc:["Я чита́ю кни́гу.","кни́га（本）が кни́гу になる理由がわかります。"],ins:["чай с молоко́м","молоко́（牛乳）が молоко́м になる理由がわかります。"],
-  pre:["Я живу́ в Москве́.","Москва́ が Москве́ になる理由がわかります。"],num:["два со́ма／пять со́мов","数によって сом の形が変わる理由がわかります。"],
+  pre:["Я рабо́таю в апте́ке.","апте́ка（薬局）が апте́ке になる理由がわかります。"],num:["два со́ма／пять со́мов","数によって сом の形が変わる理由がわかります。"],
   adj:["но́вый дом／но́вая маши́на","「新しい」の語尾が変わる理由がわかります。"],pres:["я чита́ю／ты чита́ешь","主語によって動詞の語尾が変わるしくみがわかります。"],
   past:["он чита́л／она́ чита́ла","過去形の -л と -ла の使い分けがわかります。"],aspect:["чита́ть／прочита́ть","「読む」に2つの言葉がある理由がわかります。"],
   imper:["Повтори́те, пожа́луйста.","「〜してください」の作り方がわかります。"],motion:["я иду́／я е́ду","「行く」が2つある理由がわかります。"],
@@ -417,7 +474,11 @@ function p72GuidePost(m){
     var bEl=li.querySelector("b"),sp=li.querySelector("span");if(!bEl)return;var ru=bEl.textContent,ja=sp?sp.textContent:"";
     var toks=ru.split(/[\s,.!?;:—«»"“”()]+/).filter(function(t){return /[А-Яа-яЁё]/.test(t);}),pic="",rows="";
     toks.forEach(function(t){var r=p72Look(t);if(!pic&&r&&r.id&&WMAP[r.id].pos==="noun"&&p72HasPic(r.id))pic=r.id;});
-    if(toks.length>1)rows=toks.map(function(t){var q=p72Short(t);return '<div><b class="p72-bw">'+esc(p71Plain(t))+'</b><span>'+(q?esc(q.m):"")+(q&&q.t?' <small>'+q.t+'</small>':'')+'</span></div>';}).join("");
+    var ws=toks.map(function(t){return {t:t,n:p71N(t)};}),notes=p72SentNotes(ws);
+    if(toks.length>1)rows=toks.map(function(t,k){var q=p72Short(t),g=p72CtxGloss(ws,k);if(g&&g.note&&notes.indexOf(g.note)<0)notes.push(g.note);
+      var tag=g?(q&&q.t?q.t.replace(/<\/i>.*$/,"</i>"):"")+' '+esc(g.label):(q&&q.t?q.t:"");
+      return '<div><b class="p72-bw">'+esc(p71Plain(t))+'</b><span>'+(g?g.html:(q?esc(q.m):""))+(tag.trim()?' <small>'+tag+'</small>':'')+'</span></div>';}).join("");
+    if(notes.length)rows+='<div class="p72-why">'+notes.map(function(n){return '<p>※ '+esc(n)+'</p>';}).join("")+'</div>';
     li.setAttribute("data-act","p72say");li.setAttribute("data-val",p71Plain(ru));
     li.innerHTML=(pic?p71Pic(pic,"p72-exp"):'')+'<div class="p72-exb"><div class="p72-exru"><b>'+esc(ru)+'</b>'+p71Spk(ru,"p72-exspk")+'</div><span>'+esc(ja)+'</span>'+(rows?'<div class="p72-bd">'+rows+'</div>':'')+'</div>';
     if(pic)li.classList.add("pic");});
@@ -535,7 +596,7 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(document
 '.p71-chg b em,.p72-sec em{font-style:normal;color:#E0503F;font-weight:900}.p72-ans{font-size:15.5px}',
 '.p72-easy{background:var(--card2,rgba(127,127,127,.08));border-radius:10px;padding:8px 10px;font-size:13.5px}.p72-easy span{display:block;font-size:11.5px;font-weight:800;color:var(--muted)}',
 '.p72-end>div{display:flex;gap:10px;padding:5px 6px;font-size:13px;border-radius:8px}.p72-end b{flex:none;min-width:52px}.p72-end span{color:var(--muted)}.p72-end .on{background:rgba(46,156,143,.14)}.p72-end .on span{color:var(--ink)}',
-'.p72-gl{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}.p72-gl>div:not(.p71-tblh){display:flex;gap:10px;padding:4px 0;font-size:13.5px;align-items:baseline}.p72-gl b{flex:none;min-width:92px;font-size:14.5px}.p72-gl span{color:var(--muted)}.p72-gl small{display:block;font-size:11.5px}.p72-gl .on b{color:#2F9E6E}',
+'.p72-gl{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}.p72-gl>div:not(.p71-tblh):not(.p72-why){display:flex;gap:10px;padding:4px 0;font-size:13.5px;align-items:baseline}.p72-gl b{flex:none;min-width:92px;font-size:14.5px}.p72-gl span{color:var(--muted)}.p72-gl small{display:block;font-size:11.5px}.p72-gl .on b{color:#2F9E6E}',
 '.p72-where{margin-top:12px;border-top:1px solid var(--line);padding-top:8px}.p72-wrow{padding:4px 0 8px}.p72-wrow>b{font-size:14px}.p72-where p{font-size:13px;color:var(--muted);margin:2px 0 4px}',
 '.p72-glink{display:block;width:100%;text-align:left;min-height:40px;margin-top:6px;padding:8px 12px;border-radius:10px;border:1px solid var(--accent);background:none;color:var(--accent);font:inherit;font-size:13.5px;font-weight:700}',
 '.p72-favgo{margin-top:12px}',
@@ -562,6 +623,7 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(document
 '.p72-gm,.p72-gbm{border-color:#3B82C4!important}.p72-gf,.p72-gbf{border-color:#E0503F!important}.p72-gn,.p72-gbn{border-color:#2E9C8F!important}i.p72-gm,b.p72-gm,small.p72-gm{color:#3B82C4}i.p72-gf,b.p72-gf,small.p72-gf{color:#E0503F}i.p72-gn,b.p72-gn,small.p72-gn{color:#2E9C8F}.p72-bd i{font-style:normal;font-weight:800}',
 '.p72-art .p72-ex li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;cursor:pointer;transition:background .2s}.p72-art .p72-ex li.say{background:rgba(46,156,143,.16)}.p72-ex .p72-exp{flex:none;width:56px;height:56px;margin-top:2px}.p72-exb{flex:1;min-width:0}',
 '.p72-exru{display:flex;align-items:center;gap:6px;justify-content:space-between}.p72-exru>b{background:none!important;color:var(--ink)!important;font-size:17px;font-weight:700;padding:0}.p72-exspk{flex:none;width:36px;height:36px}.p72-exb>span{display:block;font-size:13px;color:var(--muted)}',
+'.p72-pt{font-weight:800;color:var(--accent);margin-left:1px}.p72-bd .p72-pt{background:none!important;padding:0;min-width:0!important;display:inline;color:var(--accent)!important;font-weight:800}.p72-bd span small{display:inline;margin-left:4px}.p72-why{display:block!important;margin-top:6px;padding:6px 8px;border-radius:8px;background:var(--p72ptbg);border:1px solid var(--p72ptbd)}.p72-why p{margin:0;font-size:12.5px;line-height:1.65;color:var(--ink)}',
 '.p72-bd{margin-top:6px;border-top:1px dashed var(--line);padding-top:4px}.p72-bd>div{display:flex;gap:8px;font-size:12.5px;line-height:1.6;padding:1px 0}.p72-bd b{flex:none;min-width:78px;background:none!important;color:var(--ink)!important;font-weight:700;padding:0}.p72-bd span{color:var(--muted)}.p72-bd small{font-size:11px}',
 '.p72-toc i.p72-ic{width:52px;height:52px;background:none;padding:0;border-radius:0}.p72-ic svg{width:52px;height:52px;display:block}.p72-toc button{gap:14px!important}',
 '.p72-ti{position:relative;width:44px!important;height:44px!important;background:none!important;padding:0}.p72-ti .p71-pic{width:44px;height:44px}.p72-ti u{position:absolute;right:-4px;bottom:-4px;min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:#fff;font-size:10.5px;text-decoration:none;display:flex;align-items:center;justify-content:center}',
