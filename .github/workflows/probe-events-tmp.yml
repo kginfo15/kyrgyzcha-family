@@ -14,17 +14,28 @@ jobs:
         run: |
           set +e
           UA="kyrgyzcha-family-events/1.0 (personal non-commercial event list; +https://github.com/kginfo15/kyrgyzcha-family)"
-          f(){ echo "=== $1"; curl -sL -m 30 -A "$UA" -o /tmp/p -w "code=%{http_code} size=%{size_download}\n" "$1"; }
-          f https://sxodim.com/bishkek/events/cirk
+          curl -sL -m 30 -A "$UA" -o /tmp/cirk https://sxodim.com/bishkek/events/cirk
+          curl -sL -m 30 -A "$UA" -o /tmp/terms https://sxodim.com/polzovatelskoe-soglashenie
           python3 - <<'PY'
-          import re,html
-          p=open('/tmp/p',encoding='utf-8',errors='replace').read()
-          for m in re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>',p,re.S): print('LD',m[:3000])
-          hrefs=sorted(set(re.findall(r'href="([^"]*sxodim[^"]*|/bishkek/[^"]*)"',p)))
-          print('HREFS',len(hrefs)); print('\n'.join(hrefs[:120]))
-          for m in re.finditer(r'window\.__\w*',p): print('WIN',p[m.start():m.start()+300].replace('\n',' '))
-          for m in list(re.finditer(r'[Цц]ирк',p))[:15]: print('CTX',re.sub(r'\s+',' ',p[max(0,m.start()-200):m.start()+200]))
+          import re,urllib.request
+          UA={"User-Agent":"kyrgyzcha-family-events/1.0 (personal non-commercial event list; +https://github.com/kginfo15/kyrgyzcha-family)"}
+          p=open('/tmp/cirk',encoding='utf-8',errors='replace').read()
+          i=p.find('page-posts'); print('POSTS', re.sub(r'\s+',' ',p[i-300:i+2500]))
+          for m in re.findall(r'data-[\w-]+="[^"]{0,200}"',p):
+              if any(k in m for k in ('url','api','endpoint','route','src','category','city')): print('DATA',m)
+          scripts=sorted(set(re.findall(r'src="([^"]+\.js[^"]*)"',p))); print('SCRIPTS',scripts)
+          for s in scripts:
+              u=s if s.startswith('http') else 'https://sxodim.com'+s
+              if 'sxodim' not in u: continue
+              try: js=urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=30).read().decode('utf-8','replace')
+              except Exception as e: print('ERR',u,e); continue
+              print('JS',u,len(js))
+              found=set(re.findall(r'["\'`](/(?:api|ajax|bishkek|[a-z]+/api)[^"\'`\s]{0,80})["\'`]',js))
+              print('  paths',sorted(found)[:60])
+              for m in list(re.finditer(r'page-posts|posts',js))[:6]: print('  CTX',js[max(0,m.start()-200):m.start()+300].replace('\n',' '))
+          t=open('/tmp/terms',encoding='utf-8',errors='replace').read()
+          t=re.sub(r'<[^>]+>',' ',t); t=re.sub(r'\s+',' ',t)
+          for m in re.finditer(r'робот|парс|автоматическ|скрап|копирова|воспроизвед|некоммерч',t,re.I): print('TERMS',t[max(0,m.start()-250):m.start()+250])
           PY
-          for u in https://sxodim.com/bishkek/afisha https://sxodim.com/bishkek/events/koncert https://sxodim.com/bishkek/events/concerts; do f "$u"; grep -o 'href="[^"]*bishkek/events/[^"]*"' /tmp/p | sort -u | head -40; done
-          f https://kassir.kg/robots.txt; head -c 800 /tmp/p; echo
-          f "https://kaktus.media/?rss"; grep -oi '<title>[^<]*' /tmp/p | grep -i 'цирк\|концерт\|шоу\|выступ\|live' | head
+          echo "=== places circus"
+          curl -sL -m 30 -A "$UA" https://sxodim.com/bishkek/places | grep -o 'href="https://sxodim.com/bishkek/places/[^"]*"' | sort -u | head -40
