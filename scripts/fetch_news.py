@@ -856,8 +856,14 @@ HEALTH_DISEASES = [
     (r"пневмони", "肺炎"),
 ]
 # news that names a disease but is about something else (court cases, pay, history)
-HEALTH_SKIP = re.compile(r"компенсац|выплат|суд[аеуы]?\b|судят|уголовн|зарплат|туберкул|фильм|аутизм|"
-                         r"стабил|пенсильван|нью-йорк|канад|мексик|росси|москв|сша\b|американ|штат[аеу]?\b|европ|китай|китае|британ|индии|африк", re.I)
+HEALTH_SKIP = re.compile(r"компенсац|выплат|суд[аеуы]?\b|судят|уголовн|зарплат|туберкул|фильм|аутизм|стабил", re.I)
+# news about another country's outbreak is left out, unless it also names this country
+HEALTH_FOREIGN = re.compile(r"кыргыз|киргиз|бишкек|казах|астан|алмат|узбек|ташкент|таджик|душанбе|туркмен|афган|пакистан|индии|индия|китай|китае|кнр|"
+                            r"япони|корее|корея|монгол|вьетнам|таиланд|индонез|филиппин|иран|турци|израил|"
+                            r"азербайдж|грузи|армени|росси|москв|украин|беларус|европ|германи|франци|итали|"
+                            r"испани|польш|британ|англи|сша\b|американ|штат[аеу]?\b|пенсильван|нью-йорк|канад|"
+                            r"мексик|бразил|африк|австрали", re.I)
+HEALTH_OWN = {"kg": r"кыргыз|киргиз|бишкек", "kz": r"казах|астан|алмат", "uz": r"узбек|ташкент", "tj": r"таджик|душанбе"}
 HEALTH_DAYS = 14
 
 
@@ -874,6 +880,9 @@ def build_health_watch(archive):
             continue
         text = (x.get("title") or "").lower()
         if HEALTH_SKIP.search(text):
+            continue
+        own = HEALTH_OWN.get(COUNTRY)
+        if HEALTH_FOREIGN.search(text) and not (own and re.search(own, text)):
             continue
         labels = [ja for pat, ja in HEALTH_DISEASES if re.search(pat, text)]
         if not labels:
