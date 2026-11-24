@@ -210,3 +210,77 @@ function p73FavBtn(id){
 })();
 if(typeof renderLearnSub==="function"){var _p73Sub=renderLearnSub;
   renderLearnSub=function(){var h=String(_p73Sub.apply(this,arguments));return (p73Ru()&&ui.view==="search"&&!ui.p68bm)?h.replace(">単語検索<",">辞書<"):h.replace(">ブックマーク<",">お気に入り単語<");};}
+
+/* ---------- 似た意味の語の使い分け（src/gen/dict/use.txt） ---------- */
+var P73_URAW=/*P73U*/""/*P73UE*/;
+var P73_U=null;
+function p73UseData(){
+  if(P73_U)return P73_U;P73_U=[];var byN={};
+  VOCAB.forEach(function(w){var n=p71N(w.word);if(!byN[n])byN[n]=w;});
+  String(P73_URAW||"").split("\n").forEach(function(l){l=l.trim();if(!l)return;var kind="t",ws,txt="";
+    if(l.charAt(0)==="@"){kind=l.charAt(1);ws=l.slice(3).split(/\s+/);}else{var i=l.indexOf("|");ws=l.slice(0,i).split(/\s+/);txt=l.slice(i+1);}
+    var W=ws.map(function(x){return byN[p71N(x)];}).filter(function(x){return x;});
+    var u=[];W.forEach(function(w){if(u.indexOf(w)<0)u.push(w);});
+    if(u.length>=2)P73_U.push({k:kind,w:u,t:txt});});
+  return P73_U;
+}
+function p73UseText(n){
+  var a=n.w[0],b=n.w[1];function A(w){return '<b>'+esc(w.accent||w.word)+'</b>';}
+  if(n.k==="a")return A(a)+'（不完了体）は「〜している・いつも〜する・〜しようとする」という、続いている動作やくり返しに使います。'+A(b)+'（完了体）は「〜し終える・1回〜する」という、終わった結果まで言うときに使います。迷ったら「結果まで言うか」で選びます。';
+  if(n.k==="g")return A(a)+' は男性、'+A(b)+' は女性を指すときの形です。意味は同じで、相手の性別で選びます。';
+  if(n.k==="f")return n.w.map(A).join('・')+' は同じ語で、後ろに来る名詞の性（男性・女性・中性）や複数かどうかに合わせて形を変えたものです。';
+  return esc(n.t).replace(/([А-Яа-яЁё́\-]+(?:\s[А-Яа-яЁё́\-]+)*)/g,'<b>$1</b>');
+}
+function p73UseBox(notes,title){
+  if(!notes.length)return "";
+  return '<div class="p73-use"><div class="p73-useh">'+title+'</div>'+notes.map(function(n){
+    return '<div class="p73-usei"><div class="p73-usew">'+n.w.map(function(w){return '<button type="button" data-act="worddetail" data-val="'+w.id+'"><b>'+esc(w.accent||w.word)+'</b><span>'+esc(w.meaning)+'</span></button>';}).join("")+'</div>'+
+      '<p>'+p73UseText(n)+'</p>'+
+      (n.w.filter(function(w){return w.exRu;}).length?'<div class="p73-usex"><small>たとえば</small>'+n.w.filter(function(w){return w.exRu;}).slice(0,4).map(function(w){
+        return '<div class="p73-usexi"><button type="button" class="p73-say" data-act="say" data-say="'+esc(w.exRu)+'" aria-label="読み上げ">'+P73_SPK+'</button><div><div class="p73-usexr">'+esc(w.exRu)+'</div><div class="p73-usexj">'+esc(w.exJa||"")+'</div></div></div>';}).join("")+'</div>':'')+
+      '</div>';}).join("")+'</div>';
+}
+var P73_SPK='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 010 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M18.6 6a8.5 8.5 0 010 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none" opacity=".6"/></svg>';
+/* 辞書の結果に使い分けを足す */
+(function(){
+  var _ws=renderWordSearch;
+  renderWordSearch=function(){
+    var h=String(_ws.apply(this,arguments));if(!p73Ru()||ui.p68bm)return h;
+    var q=String((ui.search||{}).q||"").trim();if(!q||P73_LAST.q!==q)return h;
+    var ids={};var list=searchWords().slice(0,15);list.forEach(function(w){ids[w.id]=1;});
+    var top=list[0];if(!top)return h;
+    var notes=p73UseData().filter(function(n){var c=0;n.w.forEach(function(w){if(ids[w.id])c++;});return c>=2||(n.w.indexOf(top)>=0);});
+    notes.sort(function(a,b){return (b.w.indexOf(top)>=0)-(a.w.indexOf(top)>=0)||(a.k==="t"?-1:1)-(b.k==="t"?-1:1);});
+    var box=p73UseBox(notes.slice(0,3),"使い分け（似た意味の言葉のちがい）");
+    if(box)h=h.replace(/(<div class="p73-rel">|<div class="small muted" style="margin:0 2px 8px">\d+件<\/div>)/,box+'$1');
+    return h;
+  };
+  var _wd=renderWordDetailSheet;
+  renderWordDetailSheet=function(){
+    var h=String(_wd.apply(this,arguments));if(!p73Ru())return h;var w=byId(ui.searchDetailId);if(!w)return h;
+    var k='<div class="accent" style="margin-top:10px;font-size:26px">'+esc(w.accent||w.word)+'</div>';
+    h=h.replace(k,'<div class="p73-dw"><div class="accent" style="font-size:26px">'+esc(w.accent||w.word)+'</div><button type="button" class="p73-say big" data-act="say" data-say="'+esc(w.accent||w.word)+'" aria-label="発音を聞く">'+P73_SPK+'</button></div>');
+    var notes=p73UseData().filter(function(n){return n.w.indexOf(w)>=0;});
+    var box=p73UseBox(notes.slice(0,3),"似た意味の言葉とのちがい");
+    if(box){var m=h.indexOf('<div class="stat"');if(m>=0)h=h.slice(0,m)+box+h.slice(m);else h+=box;}
+    return h;
+  };
+  /* 単語を開いたら発音を自動で再生（タップの中で鳴らすので iPhone でも鳴る） */
+  window.addEventListener("click",function(e){
+    var el=e.target.closest&&e.target.closest('[data-act="worddetail"]');if(!el||!p73Ru())return;
+    var w=byId(el.getAttribute("data-val"));if(!w)return;
+    try{if(settings&&settings.p73NoAuto)return;speak(w.accent||w.word,0.9);}catch(_){}
+  },true);
+  var css='.p73-dw{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px}'+
+  '.p73-say{flex:0 0 auto;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--accent,#2563EB);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;padding:0}'+
+  '.p73-say.big{width:44px;height:44px}'+
+  '.p73-use{margin:0 0 12px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--card)}'+
+  '.p73-useh{font-size:13px;font-weight:800;margin-bottom:8px}'+
+  '.p73-usei+.p73-usei{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}'+
+  '.p73-usew{display:flex;flex-wrap:wrap;gap:6px}.p73-usew button{display:flex;flex-direction:column;align-items:flex-start;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card2,var(--card));color:var(--ink);font:inherit;cursor:pointer;text-align:left}'+
+  '.p73-usew b{font-size:15px}.p73-usew span{font-size:11.5px;color:var(--muted)}'+
+  '.p73-usei p{margin:8px 0 0;font-size:14px;line-height:1.75}'+
+  '.p73-usex{margin-top:8px;display:flex;flex-direction:column;gap:6px}.p73-usex small{font-size:11.5px;font-weight:700;color:var(--muted)}'+
+  '.p73-usexi{display:flex;gap:8px;align-items:flex-start}.p73-usexr{font-size:14px;font-weight:600}.p73-usexj{font-size:12.5px;color:var(--muted)}';
+  var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+})();
