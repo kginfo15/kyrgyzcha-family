@@ -102,7 +102,12 @@ def main():
                   return (x.get("tj") or x.get("t") or "") + " " + (x.get("lj") or x.get("l") or "") + " " + x.get("p", "")[:10] if x else None
               if kind == "proj":
                   p = projects.get(rest)
-                  return json.dumps(p, ensure_ascii=False) if p else None
+                  if not p:
+                      return None
+                  # the page shows a project's money split across its sector tags (按分): add that share too
+                  amt = p.get("amt") if isinstance(p.get("amt"), (int, float)) else None
+                  share = " %s" % (amt / max(1, len(p.get("c") or [])),) if amt else ""
+                  return json.dumps(p, ensure_ascii=False) + share
               if kind == "tree":
                   strat, _, node = rest.partition(":")
                   if strat not in tree_cache:
@@ -149,6 +154,11 @@ def main():
               core = {k: v for k, v in facts.items() if k not in ("asof", "data", "note", "rows")}
               # the facts block counts only for sentences that cite a fact; otherwise numbers must be in the cited data itself
               pool = " ".join(backing) + (" " + json.dumps(core, ensure_ascii=False) if any(r.startswith("fact:") for r in refs) else "")
+              # years of the cited data (project start/end, news dates): a year written in the text must be one of them
+              pool_years = {int(y) for y in re.findall(r'\b((?:19|20)\d\d)-\d\d(?:-\d\d)?', pool)}
+              # counts: "2件" / "3つの行" may give the number of cited projects, or the number of sectors a cited project is split over
+              cited = [projects[r[5:]] for r in refs if r.startswith("proj:") and r[5:] in projects]
+              pool_counts = {len(cited)} | {len(p.get("c") or []) for p in cited}
               pool = re.sub(r'\d{4}-\d\d-\d\d(T[\d:.+Z]+)?', ' ', pool)   # dates are not amounts
               pool_nums = [float(x.replace(",", "")) for x in re.findall(r'\d[\d,]*(?:\.\d+)?', pool)]
               # headlines write 4億3000万 / 3億1,300万: read those as one number too
@@ -163,6 +173,11 @@ def main():
                   if unit == "千":
                       cands |= {v * 1e3}
                   ok = any(abs(c - n) <= max(0.06 * abs(c), 0.051) for c in cands for n in pool_nums)
+                  if not ok and unit == "万" and v < 100:
+                      # amounts under 1 million dollars are written rounded to 10万 (約20万 = 0.19 million after the split)
+                      ok = any(abs(v * 1e4 - n) <= 5.1e4 for n in pool_nums)
+                  if not ok and not unit and v == int(v):
+                      ok = (1990 <= v <= 2045 and int(v) in pool_years) or (0 < v <= 9 and int(v) in pool_counts and len(cited) > 0)
                   if not ok:
                       warns.append(f"[{sid}] {where}: 数字「{shown}」が根拠のデータに見つからない(要確認): {text[:50]}")
 
