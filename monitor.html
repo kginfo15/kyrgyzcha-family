@@ -3854,7 +3854,7 @@ function sumHTML(sid){
   const stLab = {active:"実施中", closed:"終了済み", all:"実施中+終了済み"}[X.st];
   return `<div class="sv-gst" role="group" aria-label="表に数える案件">${[["","実施中"],["closed","終了済み"],["all","これまでの合計"]].map(([v,l])=>`<button type="button" data-gst="${v}" class="${S.gst===v?"on":""}" aria-pressed="${S.gst===v}">${l}</button>`).join("")}
       <span class="sv-gp">表示中:${stLab}${live?"":`(終了済みは${CLOSED_FROM}年以降に終了)`}</span></div>
-    ${live ? "" : `<p class="sv-gnote">終了済みは${CLOSED_FROM}年以降に終了した案件です。それより前は主なドナーの記録が欠けているため含めていません。${CLOSED_FROM}年以降でも、ADBは2020年以降、UNICEF・UNDPは2021年以降の分しかほぼなく${SHOW_JP?"、日本の終了済みの案件はほとんど入っていません":""}。金額は契約・約束額です。</p>`}
+    ${live ? "" : `<p class="sv-gnote">終了済みは${CLOSED_FROM}年以降に終了した案件です。それより前は主なドナーの記録が欠けているため含めていません。${CLOSED_FROM}年以降でも、ADBは2020年以降、UNICEF・UNDPは2021年以降の分しか${SHOW_JP?"ほぼなく、日本の終了済みの案件はほとんど入っていません":"ほぼありません"}。金額は契約・約束額です。</p>`}
     <div class="sv-swipe">表は横にスクロールできます →(横向きにすると全体が見やすくなります)</div>
     <div class="sv-mxw"><table class="sv-mx"><colgroup><col style="width:21%">${cols.map(()=>`<col style="width:${((live?32:58)/dw).toFixed(2)}%">`).join("")}${rest.size?`<col style="width:${((live?32:58)/dw).toFixed(2)}%">`:""}<col style="width:${live?6:9}%">${live?'<col style="width:22%"><col style="width:19%">':'<col style="width:12%">'}</colgroup>
     <thead><tr><th>戦略の分野 / 国の戦略・制度</th>${th}<th class="sv-num">合計</th>${live?"<th>最近の動き(ニュース)</th><th>評価</th>":"<th>期間</th>"}</tr></thead><tbody>${body}</tbody></table></div>
