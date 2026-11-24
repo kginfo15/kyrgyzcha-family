@@ -192,7 +192,8 @@ def collect_ticketkg():
         cat = cat_of.get(slug) or TYPE_CAT.get(ev["type"], "other")
         if FEST_RE.search(ev["title"]):
             cat = "festival"
-        elif CIRCUS_RE.search(ev["title"] + " " + ev["venue"]):
+        elif CIRCUS_RE.search(ev["title"]) or (cat in ("other", "kids") and CIRCUS_RE.search(ev["venue"])):
+            # a concert held in the circus building stays a concert
             cat = "circus"
         elif cat == "other" and LIVE_RE.search(ev["title"]):
             cat = "concert"
@@ -206,9 +207,9 @@ def collect_ticketkg():
 
 ARTICLE_FEEDS = [("24.kg", "https://24.kg/rss/"), ("Kaktus.media", "https://kaktus.media/?rss")]
 ARTICLE_RE = re.compile(r"афиш|куда сходить|фестивал|фест\b|концерт|гастрол|спектакл|премьер|выставк|нооруз|ноорүз|"
-                        r"цирк|шапито|\blive\b|лайв|джаз|рок-|рок\b", re.I)
+                        r"цирк|шапито|\blive\b|лайв|джаз|\bрок\b", re.I)
 ARTICLE_KIND = [("circus", re.compile(r"цирк|шапито", re.I)),
-                ("live", re.compile(r"концерт|гастрол|\blive\b|лайв|джаз|рок-|рок\b", re.I))]
+                ("live", re.compile(r"концерт|гастрол|\blive\b|лайв|джаз|\bрок\b", re.I))]
 ARTICLE_SKIP = re.compile(r"отключ|дтп|задерж|арест|суд\b|погиб|вице-премьер|премьер-министр", re.I)
 ARTICLE_DAYS = 21
 
