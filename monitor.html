@@ -946,7 +946,10 @@ mark.hl{background:var(--gov-soft);color:inherit;border-radius:2px;padding:0 1px
 .an-sec{margin-top:16px;scroll-margin-top:100px}
 .an-h{margin:0 0 4px;font-size:16.5px;color:var(--sn)}
 .an-msg{font-size:15.5px;font-weight:bold;color:var(--st);line-height:1.6;margin:4px 0 8px;padding-left:10px;border-left:4px solid var(--st)}
-.an-p{margin:0 0 10px}
+.an-p{margin:0 0 12px;line-height:1.9;text-align:justify}
+.an-doc .an-sec{max-width:46em}
+.an-doc .an-fig{max-width:none}
+.an-sh{margin:16px 0 6px;font-size:15px;color:var(--sn);border-bottom:1px dashed var(--sl);padding-bottom:2px}
 .an-p.rp-v{background:var(--rvs);border-radius:6px;padding:8px 10px}
 .an-fig{margin:10px 0 14px;padding:10px 12px;background:#fafbfc;border:1px solid var(--sh);border-radius:8px;min-width:0}
 .an-fig figcaption{font-size:12.5px;font-weight:bold;color:var(--sm);margin-bottom:6px}
@@ -3756,7 +3759,7 @@ function anaHTML(sid, D, mx, mode){
   const how = `<div class="rp-legend rp-how"><span><span class="rp-vt">読み</span>= 事実からの解釈</span><span>印のない文 = データや文献に書いてある事実</span><span class="rp-scr"><span class="rp-ref">文献</span>などのボタン = 押すと根拠が開きます</span></div>`;
   if(!slide){
     // ---------- 文章版 (document)
-    const para = p => { const s = anaT(p); return s ? `<p class="an-p ${p.k==="v"?"rp-v":""} ${p.k==="n"?"an-pn":""}">${anaVT(p)}${paperTag(p)}${esc(s)}${rpRefs(p.ref)}</p>` : ""; };
+    const para = p => { const s = anaT(p); if(s && p.k==="h") return `<h5 class="an-sh">${esc(s)}</h5>`; return s ? `<p class="an-p ${p.k==="v"?"rp-v":""} ${p.k==="n"?"an-pn":""}">${anaVT(p)}${paperTag(p)}${esc(s)}${rpRefs(p.ref)}</p>` : ""; };
     const toc = [["an-sum","要約"]].concat(A.chapters.map(c=>["an-c"+c.no, c.no+" "+c.h]), [["an-src","文献"]]);
     return `<section class="sv-sheet sv-rp sv-an an-doc">
       <div class="an-cover"><div class="sv-kick">分析レポート ・ 文章版</div><h1>${esc(A.title)}</h1><div class="an-sub">${esc(A.sub)}</div>${meta}</div>

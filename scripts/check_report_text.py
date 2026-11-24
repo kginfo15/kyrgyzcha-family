@@ -179,6 +179,8 @@ def main():
                   check(f"{ch['h']}・注目{i+1}", w["t"], w.get("ref"), "v")
               for s in ch.get("sections", []):
                   for i, x in enumerate(s.get("paras", [])):
+                      if x.get("k") in ("h", "n"):   # sub-heading / editor's note: no claim to check
+                          continue
                       for f in ("t", "b", "tnj", "bnj"):
                           if x.get(f):
                               check(f"{tag} {s['no']}・{i+1}{'' if f == 't' else '(' + f + ')'}", x[f], x.get("ref"), x.get("k", "f"))
