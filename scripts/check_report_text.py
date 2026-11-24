@@ -173,6 +173,9 @@ def main():
                   if unit == "千":
                       cands |= {v * 1e3}
                   ok = any(abs(c - n) <= max(0.06 * abs(c), 0.051) for c in cands for n in pool_nums)
+                  if not ok and unit == "万" and v < 100:
+                      # amounts under 1 million dollars are written rounded to 10万 (約20万 = 0.19 million after the split)
+                      ok = any(abs(v * 1e4 - n) <= 5.1e4 for n in pool_nums)
                   if not ok and not unit and v == int(v):
                       ok = (1990 <= v <= 2045 and int(v) in pool_years) or (0 < v <= 9 and int(v) in pool_counts and len(cited) > 0)
                   if not ok:
