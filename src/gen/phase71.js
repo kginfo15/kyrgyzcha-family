@@ -185,8 +185,8 @@ function p71Sentence(c,fill,cls){
 function p71Head(){var S=P71,tot=S.steps.length,p=Math.min(S.pos,tot);
   return '<div class="p71-top"><button type="button" class="p71-x" data-act="p71quit" aria-label="やめる">✕</button><div class="p71-meta"><small>'+esc(P47_THEMES[S.ti].cat)+' ・ レッスン '+(S.li+1)+' / '+S.n+'</small><div class="p71-bar"><i style="width:'+Math.round(p/tot*100)+'%"></i></div></div><span class="p71-count">'+p+'<small>/'+tot+'</small></span></div>';}
 function p71WordLine(w){return '<b class="p71-ru">'+esc(w.accent||w.word)+'</b>'+(w.kana?'<small class="p71-kana">'+esc(w.kana)+'</small>':'');}
-function p71Spk(t){return '<button type="button" class="p71-spk" data-act="p71say" data-val="'+esc(p71Plain(t))+'" aria-label="読み上げ"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8q3 4 0 8M18.5 5.5q5 6.5 0 13" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></button>';}
-function p71Opt(label,i,state,sub){return '<button type="button" class="p71-opt '+(state||"")+'" data-act="p71pick" data-val="'+i+'"><span>'+label+'</span>'+(sub?'<small>'+sub+'</small>':'')+'</button>';}
+function p71Spk(t,cls){return '<button type="button" class="p71-spk '+(cls||"")+'" data-act="p71say" data-val="'+esc(p71Plain(t))+'" aria-label="読み上げ"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8q3 4 0 8M18.5 5.5q5 6.5 0 13" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></button>';}
+function p71Opt(label,i,state,sub){return '<div class="p71-orow"><button type="button" class="p71-opt '+(state||"")+'" data-act="p71pick" data-val="'+i+'"><span>'+label+'</span>'+(sub?'<small>'+sub+'</small>':'')+'</button>'+p71Spk(label.replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"').replace(/&#39;/g,"'"),"p71-ospk")+'</div>';}
 function p71Explain(x,w){
   var c=x.c,fm=c.forms,surf=p71Plain(c.f.surface),h='<div class="p71-exp"><div class="p71-exph">解説</div>';
   h+='<p><b>'+esc(w.accent||w.word)+'</b>　'+esc(w.meaning||"")+'</p>';
@@ -236,7 +236,7 @@ function p71Render(){
       else if(inStage2&&two)fill=null;
       h='<div class="p71-body"><div class="p71-tag">'+(x.rev?'おさらい・':'')+(two?(inStage2?'② 文に合う形は？':'① 空欄に入る言葉は？'):'形の穴埋め・文に合う形は？')+'</div>'+
         '<div class="p71-paper"><div class="p71-sent">'+p71Sentence(c,fill,bcls)+'</div><div class="p71-ja">'+esc(c.ja)+'</div>'+(doneAll?p71Spk(p71Plain(c.f.toks.join(""))):'')+(doneAll?p71Stamp(bcls==="ok"):'')+'</div>';
-      if(two&&!inStage2&&S.picked===null){h+='<div class="p71-opts">'+x.opts.map(function(o,i){return p71Opt(esc(WMAP[o].accent||WMAP[o].word),i,"",esc(WMAP[o].meaning));}).join("")+'</div>'+(fm||p71N(c.f.surface)!==p71N(w.word)?'<p class="p71-small">辞書の形で並んでいます。形は次で選びます。</p>':'');}
+      if(two&&!inStage2&&S.picked===null){h+='<div class="p71-opts">'+x.opts.map(function(o,i){return p71Opt(esc(WMAP[o].accent||WMAP[o].word),i,"","");}).join("")+'</div>'+(fm||p71N(c.f.surface)!==p71N(w.word)?'<p class="p71-small">辞書の形で並んでいます。形は次で選びます。</p>':'');}
       else if(two&&S.picked!==x.id){h+='<div class="p71-opts">'+x.opts.map(function(o,i){var s=o===x.id?"right":(o===S.picked?"wrong":"dim");return p71Opt(esc(WMAP[o].accent||WMAP[o].word),i,s,esc(WMAP[o].meaning));}).join("")+'</div>';}
       else if(inStage2){h+='<div class="p71-chosen">'+(two?'<span>選んだ言葉</span><b>'+esc(w.accent||w.word)+'</b><small>'+esc(w.meaning)+'</small>':'<span>この文で使う言葉</span><b>'+esc(w.accent||w.word)+'</b><small>'+esc(w.meaning)+'</small>')+'</div>';
         h+='<div class="p71-opts">'+fm.opts.map(function(o,i){var s=stage2Done?(p71N(o)===fm.key?"right":(o===S.picked2?"wrong":"dim")):"";return p71Opt(esc(o),i,s,stage2Done&&fm.lab[p71N(o)]?esc(fm.lab[p71N(o)]):"");}).join("")+'</div>';}
@@ -354,8 +354,8 @@ p70OpenRoad=function(){
 '.p71-cexp{font-size:13px;color:var(--muted);line-height:1.7;text-align:left;margin:2px 0 0}',
 '.p71-spk{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--accent);display:inline-flex;align-items:center;justify-content:center}',
 '.p71-q{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:12px}.p71-q .p71-pic svg{width:110px!important;height:110px!important}.p71-q .p71-pic{font-size:64px;min-height:90px}',
-'.p71-opts{display:flex;flex-direction:column;gap:8px}',
-'.p71-opt{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:2px;width:100%;min-height:52px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);border-left:4px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:17px;font-weight:600}',
+'.p71-opts{display:flex;flex-direction:column;gap:8px}.p71-orow{display:flex;align-items:stretch;gap:8px}.p71-orow .p71-opt{flex:1;min-width:0}.p71-ospk{align-self:center;width:48px;height:48px}.p71-orow .p71-opt.dim+.p71-ospk{opacity:.6}',
+'.p71-opt{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;gap:2px;width:100%;min-height:52px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);border-left:4px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:17px;font-weight:600}',
 '.p71-opt small{font-size:12px;color:var(--muted);font-weight:500}.p71-opt.right{border-color:#2F9E6E;border-left-color:#2F9E6E}.p71-opt.right span:before{content:"○ ";color:#2F9E6E}',
 '.p71-opt.wrong{border-color:#C8553D;border-left-color:#C8553D}.p71-opt.wrong span:before{content:"× ";color:#C8553D}.p71-opt.dim{opacity:.5}',
 '.p71-paper{position:relative;border-radius:14px;padding:16px 16px 14px 26px;margin-bottom:12px;background-color:var(--card);border:1px solid var(--line);background-image:repeating-linear-gradient(transparent 0 33px,rgba(127,127,127,.18) 33px 34px);background-position:0 12px}',
