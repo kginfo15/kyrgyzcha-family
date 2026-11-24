@@ -1,7 +1,8 @@
 name: Update Kyrgyz news
 
 # Fetches news, lifeline (outage) info and MOFA safety info for Kyrgyzstan
-# (news.json) and Kazakhstan (news-kz.json) and publishes them on the
+# (news.json), Kazakhstan (news-kz.json), Uzbekistan (news-uz.json) and
+# Tajikistan (news-tj.json) and publishes them on the
 # `news-data` branch (a single force-pushed commit, so main's
 # history stays clean).
 #
@@ -50,8 +51,10 @@ jobs:
           # pick up script changes pushed to main since this run started
           git fetch -q --depth 1 origin main && git checkout -q FETCH_HEAD -- scripts || true
           ok=0
-          # one file per country; keep the last good file if a country fails this round
-          for c in kg kz; do
+          # one file per country; keep the last good file if a country fails this round.
+          # Kyrgyzstan goes first, so it gets the free translator before the others.
+          # To add a country: add its code here and in scripts/fetch_news.py / weather.html.
+          for c in kg kz uz tj; do
             f="news.json"; a="news-archive.json"
             [ "$c" = kg ] || { f="news-$c.json"; a="news-archive-$c.json"; }
             rm -f "$RUNNER_TEMP/new-archive.json"

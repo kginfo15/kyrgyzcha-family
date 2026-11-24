@@ -125,7 +125,8 @@ header{position:sticky;top:0;z-index:5;background:rgba(var(--hdr-rgb),.82);-webk
 .hrow{display:flex;align-items:center;gap:10px}
 h1{font-size:23px;margin:0;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
 h1 .h1b{color:var(--accent)}
-:root[data-country="kz"] h1{font-size:19.5px}
+:root[data-longname] h1{font-size:19.5px}
+:root[data-longname="xl"] h1{font-size:17.5px}
 .sub{font-size:12px;color:var(--ink-3);margin-top:2px}
 .notice{margin:10px 0 0;font-size:11.5px;line-height:1.55;color:var(--ink-2)}
 .iconbtn{width:40px;height:40px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);
@@ -310,6 +311,7 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .mapbtn{display:none}
 .ctry{display:flex;gap:4px;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px}
 .ctry button{flex:1;font-size:12.5px;font-weight:700;padding:7px 4px;border-radius:9px;color:var(--ink-3)}
+@media (max-width:360px){ .ctry button{font-size:11.5px;padding:7px 2px;letter-spacing:-.02em} }
 .ctry button.on{background:rgba(var(--accent-rgb),.14);color:var(--accent);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),.6)}
 .skins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
 .skin{text-align:left;border-radius:18px;overflow:hidden;border:1.5px solid var(--line);background:var(--card)}
@@ -539,8 +541,8 @@ details.about .foot{margin-top:8px}
   header .hrow{display:contents}
   header .hrow > div{flex:1;min-width:0;order:0}
   h1{font-size:28px}
-  :root[data-country="kz"] h1{font-size:26px}
-  .ctry{order:1;width:340px;margin-top:0}
+  :root[data-longname] h1{font-size:26px}
+  .ctry{order:1;width:440px;margin-top:0}
   header .iconbtn{order:2}
   .mapbtn{display:inline-flex;align-items:center;gap:4px;order:2;height:40px;padding:0 16px;border-radius:99px;font-size:13px;font-weight:800;
     color:var(--accent-text,#000);background:var(--accent);box-shadow:0 4px 14px rgba(var(--accent-rgb),.3)}
@@ -605,12 +607,12 @@ details.about .foot{margin-top:8px}
       </button>
     </div>
     <div class="ctry" id="ctry" role="tablist" aria-label="国の切り替え">
-      <button data-country="kg" role="tab">🇰🇬 キルギス</button><button data-country="kz" role="tab">🇰🇿 カザフスタン</button>
+      <button data-country="kg" role="tab">🇰🇬 キルギス</button><button data-country="kz" role="tab">🇰🇿 カザフ</button><button data-country="uz" role="tab">🇺🇿 ウズベク</button><button data-country="tj" role="tab">🇹🇯 タジク</button>
     </div>
     <div class="banner" id="banner"></div>
   </header>
   <p class="notice" role="note">このサイトは、開発者が個人的な情報収集のために作成したものです。内容の正確性や最新性は保証していません。</p>
-  <p class="notice"><a href="events.html" style="display:inline-block;padding:10px 0;font-size:14px;color:var(--accent);font-weight:700;text-decoration:none">🎭 ビシュケクの文化イベント一覧(コンサート・演劇・お祭り)→</a></p>
+  <p class="notice" id="eventsLink"><a href="events.html" style="display:inline-block;padding:10px 0;font-size:14px;color:var(--accent);font-weight:700;text-decoration:none">🎭 ビシュケクの文化イベント一覧(コンサート・演劇・お祭り)→</a></p>
 
   <div class="layout">
   <div class="topgrid">
@@ -708,8 +710,11 @@ details.about .foot{margin-top:8px}
 </section>
 
 <script>
+// One entry per country. To add a country: add an entry here (tab = short label on the country
+// switch), then the same country code in STREETS_BY_COUNTRY, QUAKE_BOX, PASSES and HOLIDAYS below,
+// in scripts/fetch_news.py (COUNTRIES) and in .github/workflows/update-news.yml ("for c in ...").
 const COUNTRY_CFG = {
-  kg:{name:"キルギス共和国", short:"キルギス", flag:"🇰🇬", over:"Kyrgyz Republic · Info Hub", tz:"Asia/Bishkek",
+  kg:{name:"キルギス共和国", short:"キルギス", tab:"キルギス", flag:"🇰🇬", over:"Kyrgyz Republic · Info Hub", tz:"Asia/Bishkek",
       news:"news.json", suffix:"", embassy:"在キルギス日本国大使館", capital:"bishkek", favs:["bishkek"],
       media:"24.kg・Kaktus・AKIpress・Kloop・Azattyk", mountainNote:"山の多いキルギスでは",
       streetCities:{bishkek:"ビシュケク"}, streets:["razzakova","orozbekova","panfilova","kievskaya"],
@@ -726,7 +731,7 @@ const COUNTRY_CFG = {
         {id:"tokmok",    ja:"トクモク",       ru:"Токмок",      lat:42.8421, lon:75.3015, el:816},
         {id:"karabalta", ja:"カラ・バルタ",   ru:"Кара-Балта",  lat:42.8142, lon:73.8481, el:750},
       ]},
-  kz:{name:"カザフスタン共和国", short:"カザフスタン", flag:"🇰🇿", over:"Kazakhstan · Info Hub", tz:"Asia/Almaty",
+  kz:{name:"カザフスタン共和国", short:"カザフスタン", tab:"カザフ", flag:"🇰🇿", over:"Kazakhstan · Info Hub", tz:"Asia/Almaty",
       news:"news-kz.json", suffix:"-kz", embassy:"在カザフスタン日本国大使館", capital:"astana", favs:["almaty","astana"],
       media:"Tengrinews・Kazinform・Kursiv・Sputnik・Orda", mountainNote:"高低差の大きいカザフスタンでは",
       streetCities:{almaty:"アルマトイ", astana:"アスタナ"}, streets:[],
@@ -743,6 +748,40 @@ const COUNTRY_CFG = {
         {id:"turkistan", ja:"トルキスタン",   ru:"Туркестан",   lat:43.2973, lon:68.2517, el:210},
         {id:"taraz",     ja:"タラズ",         ru:"Тараз",       lat:42.9000, lon:71.3667, el:630},
         {id:"kostanay",  ja:"コスタナイ",     ru:"Костанай",    lat:53.2198, lon:63.6354, el:170},
+      ]},
+  uz:{name:"ウズベキスタン共和国", short:"ウズベキスタン", tab:"ウズベク", flag:"🇺🇿", over:"Uzbekistan · Info Hub", tz:"Asia/Tashkent",
+      news:"news-uz.json", suffix:"-uz", embassy:"在ウズベキスタン日本国大使館", capital:"tashkent", favs:["tashkent"],
+      media:"Gazeta.uz・Kun.uz・Daryo・Sputnik・UzDaily", mountainNote:"砂漠から山地まで高低差のあるウズベキスタンでは",
+      streetCities:{tashkent:"タシケント"}, streets:[],
+      cities:[
+        {id:"tashkent",  ja:"タシケント",     ru:"Ташкент",     lat:41.2995, lon:69.2401, el:455},
+        {id:"samarkand", ja:"サマルカンド",   ru:"Самарканд",   lat:39.6542, lon:66.9597, el:700},
+        {id:"bukhara",   ja:"ブハラ",         ru:"Бухара",      lat:39.7747, lon:64.4286, el:225},
+        {id:"khiva",     ja:"ヒヴァ",         ru:"Хива",        lat:41.3783, lon:60.3639, el:100},
+        {id:"urgench",   ja:"ウルゲンチ",     ru:"Ургенч",      lat:41.5500, lon:60.6333, el:100},
+        {id:"nukus",     ja:"ヌクス",         ru:"Нукус",       lat:42.4600, lon:59.6100, el:75},
+        {id:"andijan",   ja:"アンディジャン", ru:"Андижан",     lat:40.7821, lon:72.3442, el:480},
+        {id:"namangan",  ja:"ナマンガン",     ru:"Наманган",    lat:40.9983, lon:71.6726, el:450},
+        {id:"fergana",   ja:"フェルガナ",     ru:"Фергана",     lat:40.3864, lon:71.7864, el:580},
+        {id:"karshi",    ja:"カルシ",         ru:"Карши",       lat:38.8606, lon:65.7891, el:375},
+        {id:"termez",    ja:"テルメズ",       ru:"Термез",      lat:37.2242, lon:67.2783, el:300},
+        {id:"jizzakh",   ja:"ジザフ",         ru:"Джизак",      lat:40.1158, lon:67.8422, el:380},
+        {id:"navoi",     ja:"ナヴォイ",       ru:"Навои",       lat:40.0844, lon:65.3792, el:345},
+      ]},
+  tj:{name:"タジキスタン共和国", short:"タジキスタン", tab:"タジク", flag:"🇹🇯", over:"Tajikistan · Info Hub", tz:"Asia/Dushanbe",
+      news:"news-tj.json", suffix:"-tj", embassy:"在タジキスタン日本国大使館", capital:"dushanbe", favs:["dushanbe"],
+      media:"Asia-Plus・Sputnik・Avesta・Ховар・Озоди", mountainNote:"国土の9割が山のタジキスタンでは",
+      streetCities:{dushanbe:"ドゥシャンベ"}, streets:[],
+      cities:[
+        {id:"dushanbe",  ja:"ドゥシャンベ",   ru:"Душанбе",     lat:38.5598, lon:68.7870, el:800},
+        {id:"khujand",   ja:"ホジャンド",     ru:"Худжанд",     lat:40.2833, lon:69.6222, el:320},
+        {id:"bokhtar",   ja:"ボフタル",       ru:"Бохтар",      lat:37.8364, lon:68.7803, el:425},
+        {id:"kulob",     ja:"クリャブ",       ru:"Куляб",       lat:37.9146, lon:69.7845, el:590},
+        {id:"istaravshan",ja:"イスタラフシャン",ru:"Истаравшан", lat:39.9108, lon:69.0064, el:1000},
+        {id:"panjakent", ja:"パンジケント",   ru:"Пенджикент",  lat:39.4952, lon:67.6093, el:1000},
+        {id:"tursunzoda",ja:"トゥルスンゾダ", ru:"Турсунзаде",  lat:38.5108, lon:68.2303, el:750},
+        {id:"khorog",    ja:"ホログ",         ru:"Хорог",       lat:37.4897, lon:71.5531, el:2200},
+        {id:"murghab",   ja:"ムルガブ",       ru:"Мургаб",      lat:38.1700, lon:73.9640, el:3600},
       ]},
 };
 const COUNTRY = (()=>{ try{ const c = localStorage.getItem("kg-country"); return COUNTRY_CFG[c] ? c : "kg"; }catch(e){ return "kg"; } })();
@@ -1079,7 +1118,7 @@ function loadSearchTerms(){
 function loadNewsArchive(){
   if(newsArchive || archiveLoading) return;
   archiveLoading = true;
-  fetch(NEWS_URL.replace(/news(-kz)?\.json$/, `news-archive${CFG.suffix}.json`), {cache:"no-cache"})
+  fetch(NEWS_URL.replace(/news(-\w+)?\.json$/, `news-archive${CFG.suffix}.json`), {cache:"no-cache"})
     .then(r=>r.ok?r.json():null).then(d=>{ newsArchive = (d && d.items) || []; if(newsQ) renderNews(); })
     .catch(()=>{ newsArchive = []; }).finally(()=>{ archiveLoading = false; });
 }
@@ -1274,19 +1313,60 @@ const STREETS_BY_COUNTRY = {kg:[
   {id:"as_kunaeva", ja:"クナエフ通り", ru:"ул. Кунаева", g:"astana"},
   {id:"as_tauelsizdik", ja:"タウエルシズディク大通り", ru:"пр. Тауелсиздик", g:"astana"},
   {id:"as_dostyk", ja:"ドスティク通り", ru:"ул. Достык", g:"astana"},
+], uz:[
+  {id:"ta_amirtemur", ja:"アミール・ティムール通り", ru:"пр. Амира Темура", g:"tashkent"},
+  {id:"ta_navoi", ja:"ナヴォイ通り", ru:"пр. Алишера Навои", g:"tashkent"},
+  {id:"ta_rustaveli", ja:"ルスタヴェリ通り", ru:"ул. Шота Руставели", g:"tashkent"},
+  {id:"ta_mustakillik", ja:"ムスタキリク通り", ru:"пр. Мустакиллик", g:"tashkent"},
+  {id:"ta_bobur", ja:"バーブル通り", ru:"ул. Бабура", g:"tashkent"},
+  {id:"ta_shakhrisabz", ja:"シャフリサブズ通り", ru:"ул. Шахрисабзская", g:"tashkent"},
+  {id:"ta_yusufkhos", ja:"ユスフ・ホス・ホジブ通り", ru:"ул. Юсуфа Хос Ходжиба", g:"tashkent"},
+  {id:"ta_oybek", ja:"オイベク通り", ru:"ул. Ойбека", g:"tashkent"},
+  {id:"ta_afrosiyob", ja:"アフロシヨブ通り", ru:"ул. Афросиаб", g:"tashkent"},
+  {id:"ta_buyukipak", ja:"ブユク・イパク・ヨリ通り", ru:"ул. Буюк Ипак Йули", g:"tashkent"},
+  {id:"ta_beruni", ja:"ベルーニー通り", ru:"ул. Беруни", g:"tashkent"},
+  {id:"ta_farobi", ja:"ファーラービー通り", ru:"ул. Фароби", g:"tashkent"},
+  {id:"ta_mirobod", ja:"ミロボド通り", ru:"ул. Мирабадская", g:"tashkent"},
+  {id:"ta_nukus", ja:"ヌクス通り", ru:"ул. Нукусская", g:"tashkent"},
+  {id:"ta_bunyodkor", ja:"ブニョドコル大通り", ru:"пр. Бунёдкор", g:"tashkent"},
+  {id:"ta_shevchenko", ja:"シェフチェンコ通り", ru:"ул. Шевченко", g:"tashkent"},
+  {id:"ta_mukimi", ja:"ムキミ通り", ru:"ул. Мукими", g:"tashkent"},
+  {id:"ta_labzak", ja:"ラブザク通り", ru:"ул. Лабзак", g:"tashkent"},
+  {id:"ta_kichikhalka", ja:"小環状道路", ru:"Кичик халка йули", g:"tashkent"},
+], tj:[
+  {id:"du_rudaki", ja:"ルダキ大通り", ru:"пр. Рудаки", g:"dushanbe"},
+  {id:"du_somoni", ja:"イスモイル・ソモニ大通り", ru:"пр. Исмоили Сомони", g:"dushanbe"},
+  {id:"du_sherozi", ja:"シェロジ大通り", ru:"пр. Хафиза Шерози", g:"dushanbe"},
+  {id:"du_aini", ja:"アイニ通り", ru:"ул. Айни", g:"dushanbe"},
+  {id:"du_shotemur", ja:"ショテムル通り", ru:"ул. Шотемура", g:"dushanbe"},
+  {id:"du_tursunzoda", ja:"ミルゾ・トゥルスンゾダ通り", ru:"ул. Мирзо Турсунзаде", g:"dushanbe"},
+  {id:"du_pushkin", ja:"プーシキン通り", ru:"ул. Пушкина", g:"dushanbe"},
+  {id:"du_dusti", ja:"ドゥスティ・ハルクホ大通り", ru:"пр. Дусти халкхо", g:"dushanbe"},
+  {id:"du_sino", ja:"イブン・スィーナー大通り", ru:"пр. Абуали ибни Сино", g:"dushanbe"},
+  {id:"du_karamov", ja:"カラモフ通り", ru:"ул. Карамова", g:"dushanbe"},
+  {id:"du_shamsi", ja:"シャムシ通り", ru:"ул. Шамси", g:"dushanbe"},
+  {id:"du_karabaev", ja:"カラバエフ大通り", ru:"пр. Н. Карабаева", g:"dushanbe"},
+  {id:"du_lohuti", ja:"ロフティ通り", ru:"ул. Лохути", g:"dushanbe"},
+  {id:"du_chekhov", ja:"チェーホフ通り", ru:"ул. Чехова", g:"dushanbe"},
+  {id:"du_bukhoro", ja:"ブホロ通り", ru:"ул. Бухоро", g:"dushanbe"},
+  {id:"du_rumi", ja:"ルーミー大通り", ru:"пр. Дж. Руми", g:"dushanbe"},
+  {id:"du_borbad", ja:"ボルバド通り", ru:"ул. Борбад", g:"dushanbe"},
+  {id:"du_firdavsi", ja:"フィルダウスィー通り", ru:"ул. Фирдавси", g:"dushanbe"},
 ]};
 const STREETS = STREETS_BY_COUNTRY[COUNTRY];
 const STREET_KEY = "kg-mystreets"+CFG.suffix;
 let myStreets = lsGet(STREET_KEY);
 if(!Array.isArray(myStreets)) myStreets = [...CFG.streets];
 let pickerCity = Object.keys(CFG.streetCities)[0];
+// Kyrgyzstan groups its streets as main / other central; the other countries group them by city
+const CITY_STREETS = COUNTRY!=="kg";
 const streetJa = id => { const x = STREETS.find(x=>x.id===id); if(!x) return id;
-  return COUNTRY==="kz" ? `${CFG.streetCities[x.g]}・${x.ja}` : x.ja; };
+  return CITY_STREETS ? `${CFG.streetCities[x.g]}・${x.ja}` : x.ja; };
 const shortSt = id => ((STREETS.find(x=>x.id===id)||{}).ja || id).replace(/(通り|大通り|並木道)$/,"");
 // "アルマトイ｜アバイ・ドスティク" (Kazakhstan) or "ラザコバ通り・キエフスカヤ通り" (Kyrgyzstan)
 function hitLabel(x, h){
   const ids = h.streets||[];
-  if(COUNTRY!=="kz") return ids.map(streetJa).join("・");
+  if(!CITY_STREETS) return ids.map(streetJa).join("・");
   const city = CFG.streetCities[x.city] || "";
   return (city?city+"｜":"") + ids.map(shortSt).join("・");
 }
@@ -1299,11 +1379,11 @@ function renderPicker(){
       <button class="sbtn ${sel.has(x.id)?"on":""}" data-st="${x.id}" aria-pressed="${sel.has(x.id)}">
         <span class="sj">${shortSt(x.id)}</span><span class="sr">${x.ru}</span>
         <span class="ck">${CHECK_SVG}</span></button>`).join("")}</div>`;
-  if(COUNTRY==="kz"){
+  if(CITY_STREETS){
     const cities = Object.entries(CFG.streetCities);
     const countIn = g => STREETS.filter(x=>x.g===g && sel.has(x.id)).length;
     document.getElementById("pbody").innerHTML =
-      `<div class="tabs wide" style="margin-top:12px">${cities.map(([g,n])=>`<button data-pcity="${g}" class="${pickerCity===g?"on":""}">${n}${countIn(g)?`（${countIn(g)}）`:""}</button>`).join("")}</div>`
+      (cities.length<2 ? "" : `<div class="tabs wide" style="margin-top:12px">${cities.map(([g,n])=>`<button data-pcity="${g}" class="${pickerCity===g?"on":""}">${n}${countIn(g)?`（${countIn(g)}）`:""}</button>`).join("")}</div>`)
       + group(pickerCity, `<b>${CFG.streetCities[pickerCity]}</b>中心部の主な通り`);
   } else {
     document.getElementById("pbody").innerHTML =
@@ -1364,7 +1444,9 @@ function stillRelevant(x){
 }
 /* ---------- disasters & road closures ---------- */
 const QUAKE_BOX = {kg:{minlatitude:39.1,maxlatitude:43.4,minlongitude:69.2,maxlongitude:80.4,name:"Kyrgyzstan"},
-                   kz:{minlatitude:40.5,maxlatitude:55.5,minlongitude:46.4,maxlongitude:87.4,name:"Kazakhstan"}}[COUNTRY];
+                   kz:{minlatitude:40.5,maxlatitude:55.5,minlongitude:46.4,maxlongitude:87.4,name:"Kazakhstan"},
+                   uz:{minlatitude:37.1,maxlatitude:45.6,minlongitude:55.9,maxlongitude:73.2,name:"Uzbekistan"},
+                   tj:{minlatitude:36.6,maxlatitude:41.1,minlongitude:67.3,maxlongitude:75.2,name:"Tajikistan"}}[COUNTRY];
 let quakes = null, hazAll = false;
 // recent earthquakes from the USGS catalogue (magnitude 3+, last 7 days, inside the country)
 async function loadQuakes(){
@@ -1381,8 +1463,8 @@ async function loadQuakes(){
 // "45 km SSW of Karakol, Kyrgyzstan" -> "カラコルの南南西45km"
 const DIR_JA = {N:"北",NNE:"北北東",NE:"北東",ENE:"東北東",E:"東",ESE:"東南東",SE:"南東",SSE:"南南東",S:"南",SSW:"南南西",SW:"南西",WSW:"西南西",W:"西",WNW:"西北西",NW:"北西",NNW:"北北西"};
 function placeJa(p){
-  const m = /^(\d+) km ([NSEW]+) of (.+?), (Kyrgyzstan|Kazakhstan)$/.exec(p||"");
-  if(!m) return (p||"").replace(", Kyrgyzstan","（キルギス）").replace(", Kazakhstan","（カザフスタン）");
+  const m = /^(\d+) km ([NSEW]+) of (.+?), (\w+)$/.exec(p||"");
+  if(!m || m[4]!==QUAKE_BOX.name) return (p||"").replace(", "+QUAKE_BOX.name, `（${CFG.short}）`);
   const city = CITIES.find(c=>m[3].toLowerCase().startsWith(c.ru.toLowerCase().slice(0,4)) || c.id===m[3].toLowerCase().replace(/[^a-z]/g,""));
   return `${city?city.ja:m[3]}の${DIR_JA[m[2]]||m[2]}${m[1]}km`;
 }
@@ -1486,6 +1568,19 @@ const PASSES = {
     {id:"kokpek", ja:"コクペク峠", ru:"Кокпек", road:"アルマトイ〜チャリン・ケゲン", lat:43.47, lon:78.62, el:1550, words:["кокпек"]},
     {id:"astanakar", ja:"アスタナ〜カラガンダ街道", ru:"трасса Астана — Караганда", road:"草原の幹線道路（吹雪に注意）", lat:50.45, lon:72.6, el:450, words:["астана — караганда","астана-караганда","караганда — астана"]},
   ],
+  uz:[
+    {id:"kamchik", ja:"カムチク峠", ru:"Камчик", road:"タシケント〜フェルガナ盆地", lat:41.07, lon:70.53, el:2267, words:["камчик","камчиқ","резак"]},
+    {id:"takhtakaracha", ja:"タフタカラチャ峠", ru:"Тахтакарача", road:"サマルカンド〜シャフリサブズ", lat:39.29, lon:66.92, el:1675, words:["тахтакарача","тахта-карача"]},
+    {id:"chimgan", ja:"チムガン・アミルソイ", ru:"Чимган", road:"タシケント郊外の山岳リゾート", lat:41.53, lon:70.01, el:1600, words:["чимган","амирсой","бельдерсай"]},
+    {id:"angren", ja:"アングレン〜カムチク道路", ru:"Ангрен", road:"タシケント〜フェルガナ盆地（峠の手前）", lat:41.02, lon:70.15, el:1000, words:["ангрен — пап","ангрен-пап","трасса а-373","а373"]},
+  ],
+  tj:[
+    {id:"anzob", ja:"アンゾブ峠（トンネル）", ru:"Анзоб", road:"ドゥシャンベ〜ホジャンド（北部）", lat:39.08, lon:68.87, el:3372, words:["анзоб","истиклол"]},
+    {id:"shakhristan", ja:"シャフリスタン峠（トンネル）", ru:"Шахристан", road:"ドゥシャンベ〜ホジャンド（北側）", lat:39.62, lon:68.58, el:3378, words:["шахристан"]},
+    {id:"varzob", ja:"ヴァルゾブ渓谷", ru:"Варзоб", road:"ドゥシャンベ〜アンゾブ峠", lat:38.85, lon:68.80, el:1500, words:["варзоб"]},
+    {id:"khaburabot", ja:"ハブラボト峠", ru:"Хабуработ", road:"ドゥシャンベ〜ホログ（パミール北ルート）", lat:38.62, lon:70.46, el:3252, words:["хабуработ"]},
+    {id:"akbaital", ja:"アクバイタル峠", ru:"Акбайтал", road:"パミール・ハイウェイ（ムルガブ〜カラクル）", lat:38.52, lon:73.65, el:4655, words:["акбайтал","ак-байтал"]},
+  ],
 }[COUNTRY];
 let passWx = lsGet("kg-passes"+CFG.suffix);
 async function loadPasses(){
@@ -1538,6 +1633,12 @@ const HOLIDAYS = {
       ["2027-03-21","ナウルズ（春分の新年）"],["2027-03-22","ナウルズ"],["2027-03-23","ナウルズ"],["2027-05-01","カザフスタン民族統一の日"],
       ["2027-05-07","祖国防衛者の日"],["2027-05-09","戦勝記念日"],["2027-05-16","クルバン・アイト（犠牲祭）",1],["2027-07-06","首都の日"],
       ["2027-08-30","憲法記念日"],["2027-10-25","共和国の日"],["2027-12-16","独立記念日"]],
+  uz:[["2026-12-08","憲法記念日"],["2027-01-01","新年"],["2027-03-08","国際女性デー"],["2027-03-10","ラマザン・ハイト（断食明け）",1],
+      ["2027-03-21","ナウルーズ（春分の新年）"],["2027-05-09","追悼と名誉の日"],["2027-05-16","クルバン・ハイト（犠牲祭）",1],
+      ["2027-09-01","独立記念日"],["2027-10-01","教師の日"],["2027-12-08","憲法記念日"]],
+  tj:[["2027-01-01","新年"],["2027-03-08","母の日"],["2027-03-10","イーディ・ラマゾン（断食明け）",1],["2027-03-21","ナウルーズ（春分の新年）"],
+      ["2027-03-22","ナウルーズ"],["2027-03-23","ナウルーズ"],["2027-03-24","ナウルーズ"],["2027-05-09","戦勝記念日"],
+      ["2027-05-16","イーディ・クルボン（犠牲祭）",1],["2027-06-27","国民統一の日"],["2027-09-09","独立記念日"],["2027-11-06","憲法記念日"]],
 }[COUNTRY];
 function renderCalendar(){
   const el = document.getElementById("cal"), today = todayBishkek();
@@ -1942,7 +2043,21 @@ if (window.matchMedia("(display-mode: standalone)").matches || navigator.standal
 applySkin(skin);
 document.title = `${CFG.name} 統合情報`;
 document.documentElement.setAttribute("data-country", COUNTRY);
+// smaller title for long country names (9+ / 10+ characters)
+if(CFG.name.length>=9) document.documentElement.setAttribute("data-longname", CFG.name.length>=10 ? "xl" : "");
+// the culture-events page covers Bishkek only
+if(COUNTRY!=="kg") document.getElementById("eventsLink").hidden = true;
 document.getElementById("cname").textContent = CFG.name;
+// shrink the title a little more if it still does not fit (small phones)
+function fitTitle(){
+  const h = document.querySelector("h1"); if(!h) return;
+  h.style.fontSize = "";
+  let size = parseFloat(getComputedStyle(h).fontSize);
+  while(h.scrollWidth > h.clientWidth + 1 && size > 13){ size -= 0.5; h.style.fontSize = size + "px"; }
+}
+fitTitle();
+addEventListener("resize", fitTitle);
+try{ document.fonts && document.fonts.ready.then(fitTitle); }catch(e){}
 document.getElementById("overline").textContent = CFG.over;
 document.getElementById("mtnNote").textContent = CFG.mountainNote;
 document.getElementById("tzNote").textContent = CAPITAL.ja;
