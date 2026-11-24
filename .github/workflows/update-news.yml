@@ -1,0 +1,90 @@
+name: Update Kyrgyz news
+
+# Fetches news, lifeline (outage) info and MOFA safety info for Kyrgyzstan
+# (news.json), Kazakhstan (news-kz.json), Uzbekistan (news-uz.json) and
+# Tajikistan (news-tj.json) and publishes them on the
+# `news-data` branch (a single force-pushed commit, so main's
+# history stays clean).
+#
+# Refreshes every 2 hours (Yuta's choice, 2026-11-09).
+# GitHub often skips or delays scheduled runs (none fired for hours after the
+# repo became public again), so each run refreshes 3 times, 2 hours apart, and
+# then starts the next run itself. The schedule is only a backup that
+# restarts the chain if it ever breaks. Public repos: Actions minutes are free.
+# If the repo goes private again, pause this (it runs around the clock).
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: update-news
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh every 2 hours
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          publish() {
+            rm -rf "$RUNNER_TEMP/out" && mkdir "$RUNNER_TEMP/out" && cd "$RUNNER_TEMP/out"
+            git init -q
+            git checkout -q --orphan news-data
+            cp "$RUNNER_TEMP"/news*.json .
+            git add news*.json
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Update news"
+            git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" news-data
+            cd "$GITHUB_WORKSPACE"
+          }
+          start=$(date +%s)
+          echo "START=$start" >> "$GITHUB_ENV"
+          for round in 1 2 3; do
+          # pick up script changes pushed to main since this run started
+          git fetch -q --depth 1 origin main && git checkout -q FETCH_HEAD -- scripts || true
+          ok=0
+          # one file per country; keep the last good file if a country fails this round.
+          # Kyrgyzstan goes first, so it gets the free translator before the others.
+          # To add a country: add its code here and in scripts/fetch_news.py / weather.html.
+          for c in kg kz uz tj; do
+            f="news.json"; a="news-archive.json"
+            [ "$c" = kg ] || { f="news-$c.json"; a="news-archive-$c.json"; }
+            rm -f "$RUNNER_TEMP/new-archive.json"
+            if python3 scripts/fetch_news.py "$c" "$RUNNER_TEMP/new-archive.json" > "$RUNNER_TEMP/new.json"; then
+              mv "$RUNNER_TEMP/new.json" "$RUNNER_TEMP/$f"; ok=1
+            else
+              echo "fetch $c failed"
+              curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$f" -o "$RUNNER_TEMP/$f" || rm -f "$RUNNER_TEMP/$f"
+            fi
+            # the week of stored items behind the weekly digest
+            if [ -s "$RUNNER_TEMP/new-archive.json" ]; then
+              mv "$RUNNER_TEMP/new-archive.json" "$RUNNER_TEMP/$a"
+            else
+              curl -fsS "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/news-data/$a" -o "$RUNNER_TEMP/$a" || rm -f "$RUNNER_TEMP/$a"
+            fi
+          done
+          if [ "$ok" = 1 ]; then publish || echo "publish failed"; fi
+          # next refresh 2 hours after this round started
+          wait=$(( start + round*7200 - $(date +%s) ))
+          [ "$round" = 3 ] && wait=$(( wait - 300 ))  # leave time to start the next run
+          if [ "$wait" -gt 0 ]; then sleep "$wait"; fi
+          done
+      - name: Start the next run
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # only chain after a long run, so an early failure can't loop quickly
+          if [ $(( $(date +%s) - ${START:-$(date +%s)} )) -gt 3000 ]; then
+            gh workflow run update-news.yml --ref main -R "$GITHUB_REPOSITORY"
+          else
+            echo "run ended early; leaving the restart to the schedule"
+          fi

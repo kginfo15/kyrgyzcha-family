@@ -1,0 +1,2072 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>キルギス共和国 統合情報</title>
+<meta name="description" content="キルギス共和国の暮らしに必要な情報をひとつに：天気・大気汚染・自分の通りの断水や停電・ニュース・安全情報。">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#07080A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;700;800&family=JetBrains+Mono:wght@300;500;700&family=Oswald:wght@400;500;700&display=swap">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KG統合情報">
+<link rel="manifest" href="weather-manifest.webmanifest">
+<link rel="apple-touch-icon" href="weather-icon-180.png">
+<link rel="icon" type="image/png" href="weather-icon-180.png">
+<script>
+try{ var k = localStorage.getItem("kg-skin"); if(k && k!=="midnight") document.documentElement.setAttribute("data-skin", k);
+  var l = localStorage.getItem("kg-layout"); if(l && l!=="standard") document.documentElement.setAttribute("data-layout", l); }catch(e){}
+</script>
+<style>
+:root{
+  /* MIDNIGHT (default): black + cyan */
+  --bg:#07080A; --card:#111317; --card-2:#1A1D23; --line:#22262E;
+  --ink:#F3F5F8; --ink-2:#A3ACB8; --ink-3:#687280;
+  --accent-rgb:79,209,255; --accent:rgb(var(--accent-rgb)); --brand:var(--accent); --brand-soft:rgba(var(--accent-rgb),.13);
+  --night-rgb:150,120,255; --glow-a:.30;
+  --panel:#0F1115; --hdr-rgb:7,8,10; --fav-a:#13202B; --fav-b:#0A0C10; --raised:#2A2F38; --ring:#3A404B;
+  --num-font:inherit; --radius:20px; --grid:none;
+  --warm:#FF9F5A; --cold:#5AB8FF; --rain:#6EC3FF; --star:#FFCC33;
+  --good:#3DDC97; --mid:#F5C451; --orange:#FF9147; --bad:#FF5C5C; --vbad:#C77DFF;
+  --shadow:none; color-scheme:dark;
+  --on-ink:#000; --fav-ink:#fff; --fav-sub:rgba(255,255,255,.85); --glass:rgba(255,255,255,.06); --hair:rgba(255,255,255,.08);
+  --warn-bg:rgba(255,204,51,.10); --warn-fg:#FFE08A; --banner-fg:#FFB3B3; --pol-fg:#A9B1FF; --evt-fg:#FF8FD0;
+}
+/* HAZARD: deep purple, neon green and warning orange, condensed type, warning stripes */
+:root[data-skin="hazard"]{
+  --bg:#0A0612; --card:#140C20; --card-2:#1E1430; --line:#32204A;
+  --ink:#F3EEFF; --ink-2:#BBA9D9; --ink-3:#7D6B9B;
+  --accent-rgb:150,255,60; --night-rgb:150,80,255; --glow-a:.26;
+  --panel:#100A1A; --hdr-rgb:10,6,18; --fav-a:#2B1452; --fav-b:#0A0612; --raised:#2E1C48; --ring:#4C3468;
+  --num-font:"Oswald","Inter",sans-serif; --radius:10px;
+  --warm:#FF7A1A; --cold:#8A7CFF; --rain:#6FD3FF; --star:#FF8A00; --mid:#FFB000; --orange:#FF6A00; --bad:#FF3B3B; --good:#96FF3C;
+  --pol-fg:#C9B8FF; --evt-fg:#FF9AE0;
+}
+:root[data-skin="hazard"] .over,:root[data-skin="hazard"] h2.sect,:root[data-skin="hazard"] .sec h3,:root[data-skin="hazard"] .myst .mh,:root[data-skin="hazard"] .haz .mh{font-family:"Oswald","Inter",sans-serif;letter-spacing:.18em}
+:root[data-skin="hazard"] .over{color:var(--orange)}
+:root[data-skin="hazard"] header{border-bottom:0;box-shadow:inset 0 -5px 0 0 transparent;background-image:repeating-linear-gradient(135deg,var(--orange) 0 10px,#0A0612 10px 20px);background-size:100% 5px;background-repeat:no-repeat;background-position:bottom}
+:root[data-skin="hazard"] .fav{border-color:rgba(255,106,0,.35)}
+:root[data-skin="hazard"] .ftemp,:root[data-skin="hazard"] .ctemp,:root[data-skin="hazard"] .now .big{font-weight:500;letter-spacing:-.02em}
+:root[data-skin="hazard"] h1{font-family:"Oswald","Hiragino Sans","Noto Sans JP",sans-serif;font-weight:700;letter-spacing:.02em}
+
+/* PAPER: clean white with blue */
+:root[data-skin="paper"]{
+  --bg:#F3F5F8; --card:#FFFFFF; --card-2:#EEF1F5; --line:#E1E6ED;
+  --ink:#0E1726; --ink-2:#4A5568; --ink-3:#8A94A6;
+  --accent-rgb:0,113,227; --night-rgb:110,90,230; --glow-a:.13;
+  --panel:#FFFFFF; --hdr-rgb:243,245,248; --fav-a:#FFFFFF; --fav-b:#EDF2F8; --raised:#FFFFFF; --ring:#C6CFDA;
+  --radius:20px; --shadow:0 1px 2px rgba(14,23,38,.05),0 8px 24px rgba(14,23,38,.06);
+  --rain:#1E78D2; --cold:#2F7FD0; --warm:#E2621B; --good:#11936A; --mid:#A87A00; --orange:#D2601A; --bad:#D3352A; --vbad:#8E3FB0; --star:#E8A400;
+  --on-ink:#fff; --fav-ink:#0E1726; --fav-sub:#4A5568; --glass:rgba(14,23,38,.04); --hair:rgba(14,23,38,.08);
+  --warn-bg:rgba(232,164,0,.12); --warn-fg:#7A5600; --banner-fg:#A3261D; --pol-fg:#4650D0; --evt-fg:#B8327F;
+  color-scheme:light; --accent-text:#fff; --led-bg:#EAF0F7; --led-ink:#0E1726; --led-glow:0; --led-inset:inset 0 1px 2px rgba(14,23,38,.08);
+}
+/* LINEN: warm off-white with terracotta */
+:root[data-skin="linen"]{
+  --bg:#F4F0E8; --card:#FFFDF8; --card-2:#EFE8DC; --line:#E2D8C8;
+  --ink:#29241F; --ink-2:#675D52; --ink-3:#9A8F82;
+  --accent-rgb:183,101,46; --night-rgb:120,110,170; --glow-a:.12;
+  --panel:#FFFDF8; --hdr-rgb:244,240,232; --fav-a:#FFFDF8; --fav-b:#F2EADD; --raised:#FFFFFF; --ring:#CBBFAD;
+  --radius:18px; --shadow:0 1px 2px rgba(41,36,31,.05),0 8px 22px rgba(41,36,31,.06);
+  --rain:#3471B0; --cold:#3E7DB8; --warm:#C8571F; --good:#2E8A5E; --mid:#9A6B00; --orange:#C15A1C; --bad:#C2392D; --vbad:#7E3F9E; --star:#D99400;
+  --on-ink:#FFFDF8; --fav-ink:#29241F; --fav-sub:#675D52; --glass:rgba(41,36,31,.04); --hair:rgba(41,36,31,.08);
+  --warn-bg:rgba(217,148,0,.12); --warn-fg:#6E4B00; --banner-fg:#9C2A1F; --pol-fg:#4A54B8; --evt-fg:#A8336F;
+  color-scheme:light; --accent-text:#fff; --led-bg:#EFE7DA; --led-ink:#29241F; --led-glow:0; --led-inset:inset 0 1px 2px rgba(41,36,31,.08);
+}
+/* TERMINAL: digital green-on-black, monospace numbers */
+:root[data-skin="terminal"]{
+  --bg:#030504; --card:#0A0F0C; --card-2:#111A14; --line:#1C2C21;
+  --ink:#DAFFE7; --ink-2:#8FC19F; --ink-3:#4E7A5D;
+  --accent-rgb:57,255,136; --night-rgb:57,200,255; --glow-a:.22;
+  --panel:#07100B; --hdr-rgb:3,5,4; --fav-a:#0B1D13; --fav-b:#030604; --raised:#17271D; --ring:#2B4434;
+  --num-font:"JetBrains Mono",ui-monospace,Menlo,monospace; --radius:12px;
+  --grid:linear-gradient(rgba(57,255,136,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,136,.035) 1px,transparent 1px);
+  --rain:#5FE3FF; --cold:#5FE3FF; --warm:#FFD15F;
+}
+/* SLATE: calm charcoal with warm sand */
+:root[data-skin="slate"]{
+  --bg:#101317; --card:#171B21; --card-2:#1F242B; --line:#2A3038;
+  --ink:#ECE8E1; --ink-2:#B5AFA4; --ink-3:#7F796F;
+  --accent-rgb:214,184,138; --night-rgb:150,160,190; --glow-a:.14;
+  --panel:#14181D; --hdr-rgb:16,19,23; --fav-a:#1F242B; --fav-b:#13161A; --raised:#2C323B; --ring:#444B55;
+  --radius:18px; --rain:#9DBBD6; --cold:#8FB0CF; --warm:#E3A774; --good:#8CC9A1; --bad:#E47D72;
+}
+/* AURORA: cool deep navy with violet */
+:root[data-skin="aurora"]{
+  --bg:#05060F; --card:#0D0F1E; --card-2:#151834; --line:#23264A;
+  --ink:#EFF0FF; --ink-2:#A9AEDB; --ink-3:#6B70A2;
+  --accent-rgb:146,128,255; --night-rgb:80,200,255; --glow-a:.34;
+  --panel:#0A0C1B; --hdr-rgb:5,6,15; --fav-a:#1A1640; --fav-b:#070815; --raised:#262A55; --ring:#3A3F70;
+  --radius:22px; --rain:#7CC8FF; --cold:#7CC8FF; --warm:#FF8FB1;
+}
+.num,.ftemp,.ctemp,.now .big,.hr .v,.hr .t{font-family:var(--num-font)}
+:root[data-skin="terminal"] .over,:root[data-skin="terminal"] h2.sect,:root[data-skin="terminal"] .sec h3,:root[data-skin="terminal"] .myst .mh{font-family:var(--num-font)}
+:root[data-skin="terminal"] .ftemp,:root[data-skin="terminal"] .ctemp,:root[data-skin="terminal"] .now .big{font-weight:300;letter-spacing:-.06em}
+:root[data-skin="terminal"] .fav,:root[data-skin="terminal"] .myst{box-shadow:0 0 0 1px rgba(57,255,136,.10),0 0 24px rgba(57,255,136,.06)}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+  -webkit-tap-highlight-color:transparent;line-height:1.4;
+  background-image:radial-gradient(90% 40% at 50% -10%,rgba(var(--accent-rgb),.10),transparent 70%),var(--grid);background-size:auto,24px 24px;background-repeat:no-repeat,repeat}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px calc(24px + env(safe-area-inset-bottom))}
+
+/* header */
+header{position:sticky;top:0;z-index:5;background:rgba(var(--hdr-rgb),.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  padding:calc(10px + env(safe-area-inset-top)) 16px 10px;margin:0 -16px;border-bottom:1px solid var(--hair)}
+.over{font-size:10px;font-weight:700;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:2px}
+.hrow{display:flex;align-items:center;gap:10px}
+h1{font-size:23px;margin:0;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+h1 .h1b{color:var(--accent)}
+:root[data-longname] h1{font-size:19.5px}
+:root[data-longname="xl"] h1{font-size:17.5px}
+.sub{font-size:12px;color:var(--ink-3);margin-top:2px}
+.notice{margin:10px 0 0;font-size:11.5px;line-height:1.55;color:var(--ink-2)}
+.iconbtn{width:40px;height:40px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);
+  display:grid;place-items:center;border:1px solid var(--line);flex:0 0 auto}
+.iconbtn svg{width:20px;height:20px;stroke:var(--ink-2)}
+.spin svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.banner{margin:8px 0 0;padding:10px 12px;border-radius:12px;font-size:13px;background:rgba(255,92,92,.12);color:var(--banner-fg);border:1px solid rgba(255,92,92,.3);display:none}
+.banner.show{display:block}
+h2.sect{font-size:11px;color:var(--ink-3);font-weight:700;letter-spacing:.14em;margin:26px 2px 10px;display:flex;align-items:center;gap:8px}
+h2.sect .grow{flex:1}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--card-2);color:var(--ink-2);white-space:nowrap}
+.rainc{color:var(--rain)}
+.aq-good{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+.aq-mid{background:color-mix(in srgb,var(--mid) 18%,transparent);color:var(--mid)}
+.aq-orange{background:color-mix(in srgb,var(--orange) 18%,transparent);color:var(--orange)}
+.aq-bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.aq-vbad{background:color-mix(in srgb,var(--vbad) 18%,transparent);color:var(--vbad)}
+
+/* star */
+.star{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;flex:0 0 auto}
+.star svg{width:22px;height:22px;fill:none;stroke:var(--ink-3);stroke-width:1.8}
+.star.on svg{fill:var(--star);stroke:var(--star)}
+
+/* favorite cards */
+.favs{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.fav{border-radius:calc(var(--radius) + 4px);color:var(--fav-ink);padding:16px 16px 10px;border:1px solid var(--hair);box-shadow:var(--shadow);
+  background:radial-gradient(120% 80% at 100% 0%,rgba(var(--accent-rgb),var(--glow-a)),transparent 55%),linear-gradient(165deg,var(--fav-a),var(--fav-b) 70%)}
+.fav.night{background:radial-gradient(120% 80% at 100% 0%,rgba(var(--night-rgb),var(--glow-a)),transparent 55%),linear-gradient(165deg,var(--fav-a),var(--fav-b) 70%)}
+.fav.grey{background:radial-gradient(120% 80% at 100% 0%,rgba(170,185,200,calc(var(--glow-a)*.7)),transparent 55%),linear-gradient(165deg,var(--card-2),var(--fav-b) 70%)}
+.fav .top{display:flex;align-items:flex-start;gap:8px}
+.fav .nm{flex:1;font-size:19px;font-weight:800}
+.fav .nm small{display:block;font-size:12px;font-weight:500;opacity:.8;margin-top:1px}
+.fav .star svg{stroke:var(--fav-sub)}
+.fav .star.on svg{fill:#FFD54A;stroke:#FFD54A}
+.fav .nowrow{display:flex;align-items:center;gap:12px;margin:4px 0 8px}
+.fav .ficon{font-size:46px;line-height:1}
+.fav .ftemp{font-size:64px;font-weight:200;line-height:1;letter-spacing:-.04em}
+.fav .fdesc{font-size:14px;font-weight:700;line-height:1.5}
+.fav .fdesc span{display:block;font-weight:500;opacity:.85;font-size:13px}
+.fav .air{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--glass);border-radius:14px;padding:8px 10px;font-size:13px}
+.fav .air b{font-size:15px}
+.aqdot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 2px rgba(255,255,255,.6)}
+.fav .hours{margin:8px -14px 0;padding:0 14px 6px}
+.fav .hr.nowh{background:rgba(var(--accent-rgb),.16)}
+.fav .hr .t,.fav .hr .p{color:var(--fav-sub)}
+.fav .hr .p{color:var(--rain)}
+.fav .more{display:block;width:100%;text-align:center;font-size:12px;font-weight:700;letter-spacing:.06em;padding:10px 0 4px;color:var(--accent);border-top:1px solid var(--hair);margin-top:4px}
+.favhint{background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:14px;font-size:13px;color:var(--ink-2);text-align:center}
+
+/* hourly strip (shared) */
+.hours{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hours::-webkit-scrollbar{display:none}
+.hr{flex:0 0 50px;text-align:center;padding:6px 0;border-radius:12px}
+.hr .t{font-size:12px;color:var(--ink-2)}
+.hr .i{font-size:22px;margin:3px 0}
+.hr .v{font-size:15px;font-weight:700}
+.hr .p{font-size:11px;color:var(--rain);height:14px}
+.hr .q{font-size:10px;font-weight:700;margin:3px auto 0;width:32px;border-radius:6px;padding:1px 0}
+.hr .q.aq-good{background:#2E9E6A;color:#fff}.hr .q.aq-mid{background:#E0A81C;color:#1d1d1d}.hr .q.aq-orange{background:#E2701F;color:#fff}
+.hr .q.aq-bad{background:#D9483B;color:#fff}.hr .q.aq-vbad{background:#8E3FB0;color:#fff}
+.hlabel{display:flex;gap:10px;font-size:10px;opacity:.75;margin-top:2px}
+
+/* news */
+.news{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 14px 6px;box-shadow:var(--shadow)}
+.tabs{display:inline-flex;background:var(--card-2);border-radius:10px;padding:2px}
+.tabs button{font-size:12px;font-weight:700;padding:5px 10px;border-radius:8px;color:var(--ink-3)}
+.tabs button.on{background:var(--raised);color:var(--ink);box-shadow:var(--shadow),inset 0 -2px 0 var(--accent)}
+.nitem{display:block;text-decoration:none;padding:10px 0;border-top:1px solid var(--line)}
+.nitem:first-child{border-top:0}
+.nitem .nmain{display:block;text-decoration:none;color:inherit}
+a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
+.mitem a.orig{font-size:11px;font-weight:600;color:var(--ink-3)}
+.nitem .nt{font-size:14px;font-weight:600;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nitem .ns{font-size:11px;color:var(--ink-3);margin-top:3px}
+.nmore{display:block;width:100%;font-size:13px;font-weight:700;color:var(--brand);padding:8px 0;border-top:1px solid var(--line)}
+.nempty{font-size:13px;color:var(--ink-3);padding:12px 0}
+.haz{margin:8px 0 4px;border-radius:var(--radius);background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+.haz[hidden]{display:none}
+.hzbar{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:9px 12px;font-size:12.5px;min-height:38px}
+.hzbar .sv{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--good)}
+.hzbar .sv.s2{background:var(--mid)}.hzbar .sv.s3{background:var(--orange)}.hzbar .sv.s4,.hzbar .sv.s5{background:var(--bad);box-shadow:0 0 8px var(--bad)}
+.hzbar .lb{flex:0 0 auto;font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--ink-3)}
+.hzbar .tx{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.hzbar.ok .tx{color:var(--ink-3);font-weight:500}
+.hzbar .ct{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--ink-3)}
+.hzbar .cv{flex:0 0 auto;color:var(--ink-3);transition:transform .2s}
+.hzbar[aria-expanded="true"] .cv{transform:rotate(90deg)}
+.hzlist{padding:0 12px 4px;border-top:1px solid var(--line)}
+.haz .hz{display:grid;grid-template-columns:20px 1fr;gap:2px 8px;padding:8px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.haz .hz:first-child{border-top:0}
+.haz .hz .hi{font-size:15px;line-height:1.3}
+.haz a.nmain{text-decoration:none;color:inherit}
+.haz .hz .ht{font-size:12.5px;font-weight:600;line-height:1.45}
+.haz .hz .hs{font-size:10.5px;color:var(--ink-3);margin-top:1px}
+.haz .mag{display:inline-block;font-family:var(--num-font);font-weight:700;font-size:11px;padding:0 5px;border-radius:4px;margin-right:5px;color:#fff;background:var(--orange)}
+.haz .ikind{font-size:10px;padding:0 5px}
+.myst{margin:10px 0 4px;border-radius:var(--radius);background:linear-gradient(180deg,var(--card),var(--bg));border:1px solid var(--line);overflow:hidden}
+.myst .mh{display:flex;align-items:center;gap:8px;padding:10px 14px 0;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink-3)}
+.myst .mh b{color:var(--accent);letter-spacing:.12em}
+.myst .mh .grow{flex:1}
+.myst .streets{padding:2px 14px 0;font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ticker{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 12px 12px;overflow:hidden}
+.ticker .lamp{flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 10px var(--good)}
+.ticker.alerting .lamp{background:var(--orange);box-shadow:0 0 12px var(--orange);animation:blink 1.6s ease-in-out infinite}
+@keyframes blink{50%{opacity:.35}}
+.tview{flex:1;overflow:hidden;white-space:nowrap;padding:7px 0;border-radius:8px;border:1px solid var(--line);
+  background:repeating-linear-gradient(0deg,rgba(var(--accent-rgb),.05) 0 1px,transparent 1px 3px),var(--led-bg,#030405);
+  box-shadow:var(--led-inset,inset 0 0 14px rgba(0,0,0,.55));mask-image:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 94%,transparent)}
+.ttrack{display:inline-block;padding-left:4%;font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:12px;font-weight:500;
+  letter-spacing:.03em;color:var(--led-ink,#E8F6FF);text-shadow:0 0 6px rgba(var(--accent-rgb),calc(.45 * var(--led-glow,1)));animation:marquee var(--dur,20s) linear infinite}
+.ttrack .seg{margin-right:10px}
+.ttrack .seg::after{content:"◆";color:rgba(var(--accent-rgb),.55);margin-left:10px;text-shadow:none}
+.ttrack .seg b{color:var(--orange);font-weight:700;margin-right:6px;text-shadow:0 0 6px rgba(255,145,71,.5)}
+.ttrack .seg i{font-style:normal;color:var(--accent);margin-right:6px;text-shadow:0 0 8px rgba(var(--accent-rgb),calc(.7 * var(--led-glow,1)))}
+.ttrack .seg.ok b{color:var(--good);text-shadow:0 0 6px rgba(61,220,151,.5)}
+.ticker:hover .ttrack{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ttrack{animation:none}.tview{white-space:normal}}
+.mdet{border-top:1px solid var(--line);padding:2px 14px 6px}
+.mdet[hidden]{display:none}
+.mitem{padding:10px 0;border-top:1px solid var(--line)}
+.mitem:first-child{border-top:0}
+.mitem .mt{font-size:13px;font-weight:700;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.mitem .mhit{font-size:13px;color:var(--ink-2);line-height:1.6;margin-top:4px;padding-left:10px;border-left:2px solid var(--orange)}
+.mitem .mhit .st{color:var(--accent);font-weight:700;margin-right:6px}
+.mitem .mhit .tm{display:inline-block;font-size:11px;font-weight:800;color:#fff;background:var(--orange);border-radius:5px;padding:0 6px;margin-right:6px}
+.mitem a{font-size:12px;color:var(--accent);text-decoration:none;font-weight:700;display:inline-block;margin-top:6px}
+.myst .msel{display:flex;align-items:center;gap:6px;padding:6px 14px 0;overflow-x:auto;scrollbar-width:none}
+.myst .msel::-webkit-scrollbar{display:none}
+.stag{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--ink-2);background:var(--card-2);border:1px solid var(--line);border-radius:99px;padding:3px 9px;white-space:nowrap}
+.pick{flex:0 0 auto;font-size:11px;font-weight:800;color:var(--accent-text,#000);background:var(--accent);border-radius:99px;padding:4px 10px;white-space:nowrap}
+.picker{position:fixed;inset:0;z-index:40}
+.picker[hidden]{display:none}
+.pback{position:absolute;inset:0;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.ppanel{position:absolute;left:0;right:0;bottom:0;max-height:88vh;overflow-y:auto;background:var(--panel);border-top:1px solid var(--line);
+  border-radius:26px 26px 0 0;padding:8px 16px calc(16px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto;animation:up .26s cubic-bezier(.2,.8,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.pgrip{width:40px;height:4px;border-radius:2px;background:var(--raised);margin:4px auto 10px}
+.phead{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+.phead h2{margin:0;font-size:22px;font-weight:800}
+.plead{font-size:12.5px;color:var(--ink-2);line-height:1.6;margin:8px 0 4px}
+.pgroup{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--ink-3);margin:16px 2px 8px;display:flex;align-items:center;gap:8px}
+.pgroup b{color:var(--accent);font-weight:800}
+.sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.sbtn{position:relative;text-align:left;padding:11px 36px 11px 12px;border-radius:16px;background:var(--card);border:1px solid var(--line);transition:background .15s,border-color .15s}
+.sbtn .sj{display:block;font-size:15px;font-weight:700;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbtn .sr{display:block;font-size:11px;color:var(--ink-3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbtn .ck{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ring);display:grid;place-items:center}
+.sbtn .ck svg{width:12px;height:12px;stroke:var(--accent-text,#000);stroke-width:3;fill:none;opacity:0}
+.sbtn.on{background:rgba(var(--accent-rgb),.10);border-color:rgba(var(--accent-rgb),.55)}
+.sbtn.on .ck{background:var(--accent);border-color:var(--accent)}
+.sbtn.on .ck svg{opacity:1}
+.pfoot{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center;margin-top:16px;padding:12px 0 4px;background:linear-gradient(180deg,transparent,var(--panel) 30%)}
+.pclear{font-size:13px;font-weight:700;color:var(--ink-3);padding:12px 6px}
+.pdone{flex:1;font-size:15px;font-weight:800;color:var(--on-ink);background:var(--ink);border-radius:14px;padding:13px}
+.iconbtn{color:var(--ink-2)}
+.hrow .iconbtn+.iconbtn{margin-left:-2px}
+.wkpill{font-size:11.5px;font-weight:700;letter-spacing:0;color:var(--accent);border:1px solid rgba(var(--accent-rgb),.45);border-radius:99px;padding:3px 10px;white-space:nowrap}
+.wkpill:hover{background:rgba(var(--accent-rgb),.10)}
+.tabs.wide button{font-size:12.5px;padding:8px 2px}
+.wktabs{margin:12px 0 2px}
+.wkhero{padding:4px 2px 2px}
+.wkhero .rng{font-size:13px;color:var(--ink-3)}
+.wkstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.wkstat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.wkstat b{display:block;font-size:22px;font-weight:300;font-family:var(--num-font)}
+.wkstat small{font-size:11px;color:var(--ink-3)}
+.wknote{font-size:12px;color:var(--ink-2);background:var(--brand-soft);border-radius:12px;padding:8px 12px;margin-top:10px;line-height:1.6}
+.story{display:grid;grid-template-columns:30px 1fr;gap:4px 8px;padding:12px 0;border-top:1px solid var(--line)}
+.story:first-of-type{border-top:0}
+.story .rk{font-size:22px;font-weight:200;color:var(--accent);font-family:var(--num-font);line-height:1.1}
+.story .nt{font-size:14.5px;font-weight:700;line-height:1.45}
+.story .nl{font-size:13px;color:var(--ink-2);line-height:1.6;margin-top:3px}
+.story .ns{font-size:11px;color:var(--ink-3);margin-top:4px}
+.story a.nmain{text-decoration:none;color:inherit}
+.covered{display:inline-block;font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;background:var(--ink);color:var(--on-ink);margin-left:4px;vertical-align:1px}
+.kcount{display:flex;flex-wrap:wrap;gap:6px}
+.kcount .ikind{font-size:12px;padding:3px 9px}
+.mapbtn{display:none}
+.ctry{display:flex;gap:4px;margin-top:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px}
+.ctry button{flex:1;font-size:12.5px;font-weight:700;padding:7px 4px;border-radius:9px;color:var(--ink-3)}
+@media (max-width:360px){ .ctry button{font-size:11.5px;padding:7px 2px;letter-spacing:-.02em} }
+.ctry button.on{background:rgba(var(--accent-rgb),.14);color:var(--accent);box-shadow:inset 0 0 0 1.5px rgba(var(--accent-rgb),.6)}
+.skins{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.skin{text-align:left;border-radius:18px;overflow:hidden;border:1.5px solid var(--line);background:var(--card)}
+.skin.on{border-color:var(--accent)}
+.skin .sw{height:96px;padding:12px;display:flex;flex-direction:column;justify-content:space-between}
+.skin .sw .t{font-size:30px;font-weight:200;line-height:1;letter-spacing:-.04em}
+.skin .sw .dots{display:flex;gap:5px}
+.skin .sw .dots i{width:12px;height:12px;border-radius:50%}
+.skin .meta{padding:9px 12px 11px;display:flex;align-items:center;justify-content:space-between;gap:6px}
+.skin .meta b{display:block;font-size:13px}
+.skin .meta small{display:block;font-size:11px;color:var(--ink-3);margin-top:1px}
+.skin .meta .ck{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ring);flex:0 0 auto;display:grid;place-items:center}
+.skin.on .meta .ck{background:var(--accent);border-color:var(--accent)}
+.skin .meta .ck svg{width:12px;height:12px;stroke:var(--accent-text,#000);stroke-width:3;fill:none;opacity:0}
+.skin.on .meta .ck svg{opacity:1}
+.cat-event{background:rgba(255,120,200,.16);color:var(--evt-fg)}
+.dlabel{font-size:11px;font-weight:800;padding:1px 7px;border-radius:6px;background:var(--ink);color:var(--on-ink)}
+.mall{display:block;width:100%;text-align:left;font-size:12px;font-weight:700;color:var(--ink-3);padding:10px 0;border-top:1px solid var(--line)}
+.ikind{display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:800;padding:1px 7px;border-radius:6px;white-space:nowrap}
+.k-water{background:rgba(110,195,255,.14);color:var(--rain)}
+.k-power{background:rgba(245,196,81,.14);color:var(--mid)}
+.k-gas{background:rgba(255,145,71,.14);color:var(--orange)}
+.k-heat{background:rgba(255,92,92,.14);color:var(--bad)}
+.k-road{background:var(--card-2);color:var(--ink-2)}
+.warns{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.warn{font-size:12px;font-weight:700;background:var(--warn-bg);color:var(--warn-fg);border:1px solid rgba(255,204,51,.35);padding:3px 9px;border-radius:99px}
+.sectsub{font-size:11px;font-weight:500;letter-spacing:0;color:var(--ink-3)}
+.sectsub.stale{color:var(--bad);font-weight:700}
+.tabs.wide{display:flex;margin-bottom:8px}
+.tabs.wide button{flex:1;padding:8px 4px;font-size:13px}
+.cats{display:flex;gap:3px;padding:10px 0 4px}
+.cats button{flex:1 1 0;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:11px;font-weight:700;padding:6px 2px;border-radius:8px;background:var(--card-2);color:var(--ink-2);white-space:nowrap}
+.cats button.on{background:var(--ink);color:var(--on-ink)}
+.cat{display:inline-block;font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;margin-right:5px;vertical-align:2px}
+.cat-politics{background:rgba(140,150,255,.16);color:var(--pol-fg)}
+.cat-economy{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.cat-safety{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.cat-major{background:var(--brand-soft);color:var(--brand)}
+.nitem .nl{font-size:13px;color:var(--ink-2);margin-top:3px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.nitem .no{font-size:11px;color:var(--ink-3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nsearch{margin:8px 0}
+.nsbox{display:block;position:relative}
+.nsbox input{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 12px 8px 34px;background:var(--card);color:var(--ink);font-size:16px;-webkit-appearance:none;appearance:none}
+.nsbox input::placeholder{color:var(--ink-3);font-size:13.5px}
+.nsbox input:focus{outline:none;border-color:var(--accent)}
+.nsbox svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;stroke:var(--ink-3);pointer-events:none}
+.nqhead{font-size:12px;color:var(--ink-2);padding:10px 0 6px;line-height:1.5}
+.nqhead .qx{display:block;color:var(--ink-3);margin-top:2px}
+.linkbtn{font-size:inherit;color:var(--brand);text-decoration:underline;text-underline-offset:2px;padding:0}
+.cat-kind{background:var(--card-2);color:var(--ink-2)}
+.nnote{font-size:11px;color:var(--ink-3);padding:6px 0 4px;border-top:1px solid var(--line)}
+.risk{margin:10px 0 6px;padding:12px;border-radius:12px;background:var(--card-2)}
+.risk .lv{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.lvchip{font-size:12px;font-weight:800;padding:3px 8px;border-radius:8px;color:#fff}
+.lv1{background:#F5C451;color:#1d1d1d}.lv2{background:#E2701F}.lv3{background:#D9483B}.lv4{background:#8E1F1F}.lv0{background:var(--good)}
+.risk .rt{font-size:14px;font-weight:700}
+.risk .rl{font-size:12px;color:var(--ink-2);margin-top:4px;line-height:1.6}
+.risk a{font-size:12px;font-weight:700;color:var(--brand);display:inline-block;margin-top:6px;text-decoration:none}
+.alert{display:flex;gap:8px;align-items:flex-start;width:100%;text-align:left;margin:6px 0 4px;padding:10px 12px;border-radius:14px;
+  background:color-mix(in srgb,var(--bad) 12%,var(--card));border:1px solid color-mix(in srgb,var(--bad) 35%,transparent);font-size:13px;line-height:1.5}
+.alert[hidden]{display:none}
+.alert b{color:var(--bad)}
+
+/* city list */
+.list{display:flex;flex-direction:column;gap:8px}
+.city{display:grid;grid-template-columns:40px 1fr auto 36px;align-items:center;gap:8px;
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:10px 6px 10px 12px;
+  box-shadow:var(--shadow);cursor:pointer}
+.city:active{transform:scale(.99)}
+.cicon{font-size:30px;line-height:1;text-align:center}
+.cname{font-weight:700;font-size:16px}
+.cname small{font-weight:500;font-size:12px;color:var(--ink-3);margin-left:4px}
+.cmeta{font-size:12px;color:var(--ink-2);margin-top:3px;display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.cright{text-align:right}
+.ctemp{font-size:30px;font-weight:200;line-height:1;letter-spacing:-.03em}
+.chilo{font-size:12px;color:var(--ink-2);margin-top:4px;white-space:nowrap}
+.sortbar{display:flex;gap:4px;margin:0 0 8px;overflow-x:auto;scrollbar-width:none}
+.sortbar button{font-size:12px;font-weight:700;padding:6px 11px;border-radius:99px;background:var(--card);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+.sortbar button.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.elev{display:inline-flex;align-items:center;gap:2px;color:var(--ink-3)}
+.skel{height:72px;border-radius:16px;background:var(--card);border:1px solid var(--line);animation:pulse 1.2s ease-in-out infinite}
+.skel.big{height:260px;border-radius:20px}
+@keyframes pulse{50%{opacity:.5}}
+.foot{font-size:11px;color:var(--ink-3);margin-top:18px;line-height:1.6}
+.foot a{color:var(--ink-3)}
+.tip{margin-top:12px;font-size:12px;color:var(--ink-2);background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+.tip b{color:var(--ink)}
+
+/* detail sheet */
+.sheet{position:fixed;inset:0;z-index:20;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;
+  transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+.sheet.open{transform:none;visibility:visible}
+.shead{position:sticky;top:0;z-index:2;background:rgba(var(--hdr-rgb),.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:calc(10px + env(safe-area-inset-top)) 0 8px;display:flex;align-items:center;gap:10px}
+.shead h2{margin:0;font-size:20px;flex:1;min-width:0}
+.shead h2 small{font-size:13px;font-weight:500;color:var(--ink-3);margin-left:6px}
+.now{display:flex;align-items:center;gap:14px;padding:6px 2px 4px}
+.now .big{font-size:72px;font-weight:200;line-height:1;letter-spacing:-.04em}
+.now .bicon{font-size:52px}
+.now .desc{font-size:16px;font-weight:700}
+.now .desc div+div{font-size:13px;font-weight:500;color:var(--ink-2);margin-top:2px}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin-top:10px;box-shadow:var(--shadow)}
+.sec h3{margin:0 0 8px;font-size:11px;color:var(--ink-3);font-weight:700;letter-spacing:.12em}
+.sec .hours{margin:0 -14px;padding:0 14px 4px}
+.sec .hr.nowh{background:var(--brand-soft)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px}
+.stat .k{font-size:11px;color:var(--ink-3)}
+.stat .v{font-size:16px;font-weight:700;margin-top:1px}
+.stat .v small{font-size:11px;font-weight:500;color:var(--ink-2)}
+.day{display:grid;grid-template-columns:50px 28px 40px 28px 1fr 30px 12px;align-items:center;gap:6px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.day:first-of-type{border-top:0}
+.day .dn{font-weight:700}
+.day .dn small{display:block;font-size:11px;font-weight:500;color:var(--ink-3)}
+.day .di{font-size:22px;text-align:center}
+.day .dp{font-size:12px;color:var(--rain);text-align:right}
+.day .lo{color:var(--ink-3);text-align:right}
+.day .hi{font-weight:700}
+.bar{position:relative;height:6px;border-radius:3px;background:var(--card-2)}
+.bar i{position:absolute;top:0;bottom:0;border-radius:3px;background:linear-gradient(90deg,var(--cold),var(--warm))}
+.dot{width:9px;height:9px;border-radius:50%;justify-self:center;display:inline-block}
+.c-hi{background:var(--good)}.c-mid{background:var(--mid)}.c-lo{background:var(--bad)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--ink-3);margin-top:8px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.models{width:100%;border-collapse:collapse;font-size:13px}
+.models th,.models td{padding:6px 4px;text-align:right;border-top:1px solid var(--line)}
+.models th:first-child,.models td:first-child{text-align:left}
+.models thead th{border-top:0;font-size:11px;color:var(--ink-3);font-weight:700}
+.note{font-size:12px;color:var(--ink-2);margin-top:8px;line-height:1.6}
+.mtn{display:flex;align-items:flex-end;gap:10px}
+.mtn svg{flex:0 0 auto}
+.mtn .txt{font-size:13px;color:var(--ink-2);line-height:1.6}
+.mtn .txt b{color:var(--ink);font-size:20px}
+
+@media (max-width:1023px){ header{position:relative} }
+.tip{position:relative;padding-right:36px}
+.tipx{position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;color:var(--ink-3);font-size:15px}
+details.about{margin-top:18px}
+details.about summary{cursor:pointer;font-size:12px;font-weight:700;color:var(--ink-3);list-style:none}
+details.about summary::-webkit-details-marker{display:none}
+details.about summary::before{content:"▸ ";}
+details.about[open] summary::before{content:"▾ ";}
+details.about .foot{margin-top:8px}
+
+/* passes */
+.passes{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:2px 14px;box-shadow:var(--shadow)}
+.pass{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-top:1px solid var(--line);align-items:center}
+.pass:first-child{border-top:0}
+.pass .pn{font-size:14px;font-weight:700}
+.pass .pn small{font-size:11px;font-weight:500;color:var(--ink-3);margin-left:6px}
+.pass .pr{font-size:12px;color:var(--ink-2);margin-top:2px}
+.pass .pt{font-family:var(--num-font);font-size:22px;font-weight:300;text-align:right;line-height:1}
+.pass .st{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.pst{font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:5px}
+.pst.ok{background:rgba(61,220,151,.14);color:var(--good)}
+.pst.warn{background:rgba(245,196,81,.16);color:var(--mid)}
+.pst.bad{background:rgba(255,92,92,.15);color:var(--bad)}
+.pass a.pnews{grid-column:1/-1;font-size:12px;color:var(--ink-2);text-decoration:none;margin-top:2px}
+.pass a.pnews b{color:var(--bad)}
+/* calendar */
+.calbox{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.calbox summary{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;list-style:none;font-size:13px}
+.calbox summary::-webkit-details-marker{display:none}
+.calbox .cs-t{font-weight:700;flex:0 0 auto}
+.calbox .cs-n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-3);font-size:12px}
+.calbox .cs-c{color:var(--ink-3);transition:transform .2s}
+.calbox[open] .cs-c{transform:rotate(90deg)}
+.cal{padding:0 14px 4px;border-top:1px solid var(--line)}
+.hday{display:grid;grid-template-columns:54px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.hday:first-child{border-top:0}
+.hday .hd{font-family:var(--num-font);font-size:15px;font-weight:700;line-height:1.1}
+.hday .hd small{display:block;font-size:10.5px;font-weight:500;color:var(--ink-3)}
+.hday .hn{font-size:13px;font-weight:600}
+.hday .hn small{display:block;font-size:11px;font-weight:500;color:var(--ink-3)}
+.hday .hc{font-size:11px;font-weight:700;color:var(--accent);white-space:nowrap}
+.cal .evh{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--ink-3);padding:10px 0 2px;border-top:1px solid var(--line)}
+/* air windows */
+.airwin{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;margin-top:4px}
+.airwin b{font-weight:700}
+/* map */
+.mapsheet{display:flex;flex-direction:column;overflow:hidden}
+.mapsheet .shead{flex:0 0 auto}
+.maplegend{flex:0 0 auto;display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 8px}
+.maplegend button{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink-3)}
+.maplegend button.on{color:var(--ink);border-color:rgba(var(--accent-rgb),.6);background:rgba(var(--accent-rgb),.12)}
+#map{flex:1;min-height:0;background:var(--card-2)}
+.mk-city{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:2px 7px;font:700 12px/1.3 Inter,system-ui,sans-serif;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.mk-city i{font-style:normal;margin-right:3px}
+.mk-pin{font-size:20px;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.leaflet-popup-content{font:13px/1.5 -apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;margin:10px 12px}
+.leaflet-popup-content b{font-size:13.5px}
+.offline{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:30;background:var(--ink);color:var(--on-ink);font-size:12px;font-weight:700;padding:7px 14px;border-radius:99px;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.offline[hidden]{display:none}
+@media (min-width:1024px){ .mapsheet{width:min(980px,100%)} .passes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 22px} .pass:nth-child(-n+3){border-top:0} }
+
+/* ================= layout styles (shape, density, size) ================= */
+:root[data-layout="compact"] .fav{padding:12px 14px 8px}
+:root[data-layout="compact"] .fav .ftemp{font-size:46px}
+:root[data-layout="compact"] .fav .ficon{font-size:34px}
+:root[data-layout="compact"] .fav .nowrow{margin:2px 0 6px}
+:root[data-layout="compact"] .fav .air{padding:5px 8px;font-size:12px}
+:root[data-layout="compact"] .hr{flex-basis:44px;padding:4px 0}
+:root[data-layout="compact"] .hr .i{font-size:18px;margin:1px 0}
+:root[data-layout="compact"] .hlabel{display:none}
+:root[data-layout="compact"] .city{padding:7px 4px 7px 10px}
+:root[data-layout="compact"] .ctemp{font-size:24px}
+:root[data-layout="compact"] .cicon{font-size:24px}
+:root[data-layout="compact"] .nitem{padding:7px 0}
+:root[data-layout="compact"] .nitem .nl{-webkit-line-clamp:1}
+:root[data-layout="compact"] h2.sect{margin:16px 2px 6px}
+:root[data-layout="large"] body{zoom:1.14}
+:root[data-layout="sharp"]{--radius:3px}
+:root[data-layout="sharp"] .city,:root[data-layout="sharp"] .sec,:root[data-layout="sharp"] .news,:root[data-layout="sharp"] .myst,:root[data-layout="sharp"] .haz,
+:root[data-layout="sharp"] .fav,:root[data-layout="sharp"] .sbtn,:root[data-layout="sharp"] .skin,:root[data-layout="sharp"] .tabs,:root[data-layout="sharp"] .tabs button,
+:root[data-layout="sharp"] .ctry,:root[data-layout="sharp"] .ctry button,:root[data-layout="sharp"] .iconbtn,:root[data-layout="sharp"] .wkstat,:root[data-layout="sharp"] .chip,
+:root[data-layout="sharp"] .fav .air,:root[data-layout="sharp"] .hr,:root[data-layout="sharp"] .sortbar button,:root[data-layout="sharp"] .cats button,:root[data-layout="sharp"] .pick,
+:root[data-layout="sharp"] .stag,:root[data-layout="sharp"] .wkpill,:root[data-layout="sharp"] .warn,:root[data-layout="sharp"] .alert,:root[data-layout="sharp"] .ppanel{border-radius:3px}
+.lays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.lay{padding:10px 6px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);text-align:center}
+.lay.on{border-color:var(--accent)}
+.lay .lic{font-size:20px;display:block}
+.lay b{display:block;font-size:12px;margin-top:4px}
+.lay small{display:block;font-size:10px;color:var(--ink-3);margin-top:1px}
+
+/* ================= PC / wide screens ================= */
+@media (min-width:1024px){
+  .wrap{max-width:1320px;padding:0 32px 40px}
+  header{margin:0 -32px;padding:18px 32px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px}
+  header .hrow{display:contents}
+  header .hrow > div{flex:1;min-width:0;order:0}
+  h1{font-size:28px}
+  :root[data-longname] h1{font-size:26px}
+  .ctry{order:1;width:440px;margin-top:0}
+  header .iconbtn{order:2}
+  .mapbtn{display:inline-flex;align-items:center;gap:4px;order:2;height:40px;padding:0 16px;border-radius:99px;font-size:13px;font-weight:800;
+    color:var(--accent-text,#000);background:var(--accent);box-shadow:0 4px 14px rgba(var(--accent-rgb),.3)}
+  .mapbtn:hover{filter:brightness(1.08)}
+  .banner{order:3;flex-basis:100%}
+  .layout{margin-top:14px}
+  .topgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0 28px;align-items:start}
+  /* news column follows the page and scrolls on its own */
+  .col-side{position:sticky;top:92px;max-height:calc(100vh - 108px);display:flex;flex-direction:column}
+  .col-side h2.sect{margin-top:10px}
+  .col-side .news{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin}
+  .favs{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px}
+  .fav{padding:20px 22px 12px}
+  .fav .ftemp{font-size:76px}
+  .fav .ficon{font-size:56px}
+  .fav .hours{margin:10px -22px 0;padding:0 22px 6px}
+  .fav .hr{flex-basis:56px}
+  .myst{margin-top:6px}
+  .list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .sortbar{margin-bottom:12px}
+  .tip{display:none}
+  .foot{max-width:900px}
+  /* hover affordances for mouse users */
+  .city,.nitem .nmain,.sbtn,.skin,.iconbtn,.sortbar button,.cats button,.tabs button,.ctry button{transition:border-color .15s,background .15s,transform .15s}
+  .city:hover{border-color:rgba(var(--accent-rgb),.55);transform:translateY(-1px)}
+  .nitem .nmain:hover .nt{color:var(--accent)}
+  .iconbtn:hover,.sortbar button:hover{border-color:rgba(var(--accent-rgb),.6)}
+  .sbtn:hover,.skin:hover{border-color:rgba(var(--accent-rgb),.6)}
+  /* detail view slides in from the right instead of covering the page */
+  .sheet{left:auto;width:min(620px,100%);border-left:1px solid var(--line);box-shadow:-24px 0 60px rgba(0,0,0,.35);transform:translateX(100%)}
+  .sheet .wrap{padding:0 28px 40px}
+  .shead{margin:0 -28px;padding:18px 28px 12px}
+  /* pickers become centered dialogs */
+  .ppanel{top:50%;bottom:auto;left:50%;right:auto;width:min(720px,calc(100% - 48px));max-width:none;max-height:min(84vh,860px);
+    transform:translate(-50%,-50%);border-radius:24px;border:1px solid var(--line);padding:18px 24px 20px;animation:pop .2s ease-out}
+  @keyframes pop{from{opacity:0;transform:translate(-50%,-48%)}}
+  .pgrip{display:none}
+  .pfoot{bottom:-20px}
+  .sgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .skins{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (min-width:1500px){
+  .list{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hrow">
+      <div style="flex:1;min-width:0">
+        <div class="over" id="overline">Kyrgyz Republic · Info Hub</div>
+        <h1><span id="cname">キルギス共和国</span> <span class="h1b">統合情報</span></h1>
+        <div class="sub num" id="updated">読み込み中…</div>
+      </div>
+      <button class="mapbtn" id="openMap2" aria-label="地図">🗺 地図</button>
+      <button class="iconbtn" id="openSkin" aria-label="テーマ">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor" stroke="none" opacity=".35"/></svg>
+      </button>
+      <button class="iconbtn" id="refresh" aria-label="更新">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+      </button>
+    </div>
+    <div class="ctry" id="ctry" role="tablist" aria-label="国の切り替え">
+      <button data-country="kg" role="tab">🇰🇬 キルギス</button><button data-country="kz" role="tab">🇰🇿 カザフ</button><button data-country="uz" role="tab">🇺🇿 ウズベク</button><button data-country="tj" role="tab">🇹🇯 タジク</button>
+    </div>
+    <div class="banner" id="banner"></div>
+  </header>
+  <p class="notice" role="note">このサイトは、開発者が個人的な情報収集のために作成したものです。内容の正確性や最新性は保証していません。</p>
+  <p class="notice" id="eventsLink"><a href="events.html" style="display:inline-block;padding:10px 0;font-size:14px;color:var(--accent);font-weight:700;text-decoration:none">🎭 ビシュケクの文化イベント一覧(コンサート・演劇・お祭り)→</a></p>
+
+  <div class="layout">
+  <div class="topgrid">
+  <div class="col-main">
+  <button class="alert" id="alert" hidden></button>
+  <section class="myst" id="myst" hidden></section>
+  <section class="haz" id="haz" hidden></section>
+  <section class="favs" id="favs"><div class="skel big"></div></section>
+  </div>
+
+  <aside class="col-side">
+  <h2 class="sect" id="newsHead"><span class="grow">📰 ニュース・安全情報</span><span class="sectsub num" id="newsUpdated"></span><button class="wkpill" id="openWeekly">📅 先週のまとめ</button></h2>
+  <div class="tabs wide" id="newsTabs"><button data-k="local" class="on">現地報道</button><button data-k="japan">日本の報道</button><button data-k="world">世界の報道</button><button data-k="safety">安全情報</button></div>
+  <form class="nsearch" id="nsform" role="search" action="#">
+    <label class="nsbox"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="nq" type="search" placeholder="ニュースを検索（日本語・ロシア語・英語）" autocomplete="off" enterkeyhint="search" aria-label="ニュースを検索"></label>
+  </form>
+  <div class="news" id="news"><div class="nempty">読み込み中…</div></div>
+  </aside>
+  </div>
+
+  <div class="col-wide">
+  <details class="calbox" id="calbox"><summary><span class="cs-t">📅 祝日・行事</span><span class="cs-n" id="calSum"></span><span class="cs-c">›</span></summary>
+    <div class="cal" id="cal"></div></details>
+
+  <h2 class="sect"><span class="grow">⛰️ 峠・山道</span><span class="sectsub">峠の高さでの予報</span></h2>
+  <div class="passes" id="passes"><div class="nempty">読み込み中…</div></div>
+
+  <h2 class="sect"><span class="grow">🗺️ すべての地域</span><button class="wkpill" id="openMap">🗺 地図で見る</button></h2>
+  <div class="sortbar" id="sortbar">
+    <button data-s="def" class="on">標準</button><button data-s="warm">暖かい順</button><button data-s="elev">標高が高い順</button><button data-s="air">空気がきれい順</button>
+  </div>
+  <main class="list" id="list">
+    <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+  </main>
+
+  <div class="tip" id="tip">
+    <button class="tipx" id="tipClose" aria-label="閉じる">✕</button>
+    📱 <b>ホーム画面に追加</b>するとアプリのように1タップで開けます。<br>
+    iPhone：Safariの共有ボタン → 「ホーム画面に追加」<br>
+    Android：Chromeのメニュー（⋮）→「ホーム画面に追加」
+  </div>
+
+  <details class="about"><summary>このアプリについて・データの出典</summary>
+  <div class="foot">
+    ☆をタップするとお気に入りになり、一番上に1時間ごとの天気と大気汚染が出ます（お気に入りはこの端末に保存されます）。<br>
+    予報の確かさ＝ヨーロッパ（ECMWF）・ドイツ（ICON）・アメリカ（GFS）の3つの気象モデルの予報がどれだけ一致しているか。一致しているほど当たりやすい予報です。<br>
+    標高を都市ごとに指定して計算しています（<span id="mtnNote">山の多いキルギスでは</span>標高のずれが誤差の大きな原因になるため）。<br>
+    大気汚染＝米国AQI（0〜50 良い／51〜100 普通／101〜150 敏感な人は注意／151〜200 悪い／201〜 非常に悪い）。<br>
+    データ：天気・大気 <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>（CC BY 4.0）／ニュース・ライフライン情報 現地各紙・Google ニュース・外務省 海外安全ホームページ（30分ごとに自動更新、現地記事は機械翻訳）／時刻は<span id="tzNote">ビシュケク</span>時間
+  </div>
+  </details>
+  </div>
+  </div>
+</div>
+
+<div class="offline" id="offline" hidden>📴 オフラインです。前回の情報を表示しています</div>
+
+<div class="picker" id="picker" hidden>
+  <div class="pback" data-pclose></div>
+  <div class="ppanel" role="dialog" aria-modal="true" aria-labelledby="ptitle">
+    <div class="pgrip"></div>
+    <div class="phead"><div><div class="over">My Street</div><h2 id="ptitle">通りを選ぶ</h2></div>
+      <button class="iconbtn" data-pclose aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="plead">選んだ通りの断水・停電・ガス・暖房のお知らせだけを、いちばん上に表示します。いくつでも選べます。</p>
+    <div id="pbody"></div>
+    <div class="pfoot"><button class="pclear" id="pclear">すべて解除</button><button class="pdone" data-pclose id="pdone">決定</button></div>
+  </div>
+</div>
+
+<div class="picker" id="skinPicker" hidden>
+  <div class="pback" data-sclose></div>
+  <div class="ppanel" role="dialog" aria-modal="true" aria-labelledby="stitle">
+    <div class="pgrip"></div>
+    <div class="phead"><div><div class="over">Theme</div><h2 id="stitle">デザインと配色</h2></div>
+      <button class="iconbtn" data-sclose aria-label="閉じる"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="plead">タップするとすぐに切り替わります。この端末に保存されます。</p>
+    <div class="skins" id="skins"></div>
+  </div>
+</div>
+
+<section class="sheet mapsheet" id="mapSheet" aria-modal="true" role="dialog" aria-label="地図">
+  <div class="shead" style="padding-left:16px;padding-right:16px;margin:0"><button class="iconbtn" id="mapBack" aria-label="戻る"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2>地図<small id="mapSub"></small></h2></div>
+  <div class="maplegend" id="mapLegend"></div>
+  <div id="map"></div>
+</section>
+
+<section class="sheet" id="weekly" aria-modal="true" role="dialog" aria-label="この1週間のまとめ">
+  <div class="wrap" id="weeklyBody"></div>
+</section>
+
+<section class="sheet" id="sheet" aria-modal="true" role="dialog">
+  <div class="wrap" id="sheetBody"></div>
+</section>
+
+<script>
+// One entry per country. To add a country: add an entry here (tab = short label on the country
+// switch), then the same country code in STREETS_BY_COUNTRY, QUAKE_BOX, PASSES and HOLIDAYS below,
+// in scripts/fetch_news.py (COUNTRIES) and in .github/workflows/update-news.yml ("for c in ...").
+const COUNTRY_CFG = {
+  kg:{name:"キルギス共和国", short:"キルギス", tab:"キルギス", flag:"🇰🇬", over:"Kyrgyz Republic · Info Hub", tz:"Asia/Bishkek",
+      news:"news.json", suffix:"", embassy:"在キルギス日本国大使館", capital:"bishkek", favs:["bishkek"],
+      media:"24.kg・Kaktus・AKIpress・Kloop・Azattyk", mountainNote:"山の多いキルギスでは",
+      streetCities:{bishkek:"ビシュケク"}, streets:["razzakova","orozbekova","panfilova","kievskaya"],
+      cities:[
+        {id:"bishkek",   ja:"ビシュケク",     ru:"Бишкек",      lat:42.8746, lon:74.5698, el:800},
+        {id:"osh",       ja:"オシュ",         ru:"Ош",          lat:40.5283, lon:72.7985, el:1000},
+        {id:"jalalabad", ja:"ジャララバード", ru:"Жалал-Абад",  lat:40.9333, lon:73.0017, el:770},
+        {id:"karakol",   ja:"カラコル",       ru:"Каракол",     lat:42.4907, lon:78.3936, el:1770},
+        {id:"cholponata",ja:"チョルポン・アタ",ru:"Чолпон-Ата", lat:42.6491, lon:77.0818, el:1610},
+        {id:"balykchy",  ja:"バリクチ",       ru:"Балыкчы",     lat:42.4603, lon:76.1871, el:1660},
+        {id:"naryn",     ja:"ナリン",         ru:"Нарын",       lat:41.4287, lon:75.9911, el:2040},
+        {id:"talas",     ja:"タラス",         ru:"Талас",       lat:42.5228, lon:72.2427, el:1260},
+        {id:"batken",    ja:"バトケン",       ru:"Баткен",      lat:40.0628, lon:70.8194, el:1050},
+        {id:"tokmok",    ja:"トクモク",       ru:"Токмок",      lat:42.8421, lon:75.3015, el:816},
+        {id:"karabalta", ja:"カラ・バルタ",   ru:"Кара-Балта",  lat:42.8142, lon:73.8481, el:750},
+      ]},
+  kz:{name:"カザフスタン共和国", short:"カザフスタン", tab:"カザフ", flag:"🇰🇿", over:"Kazakhstan · Info Hub", tz:"Asia/Almaty",
+      news:"news-kz.json", suffix:"-kz", embassy:"在カザフスタン日本国大使館", capital:"astana", favs:["almaty","astana"],
+      media:"Tengrinews・Kazinform・Kursiv・Sputnik・Orda", mountainNote:"高低差の大きいカザフスタンでは",
+      streetCities:{almaty:"アルマトイ", astana:"アスタナ"}, streets:[],
+      cities:[
+        {id:"astana",    ja:"アスタナ",       ru:"Астана",      lat:51.1694, lon:71.4491, el:347},
+        {id:"almaty",    ja:"アルマトイ",     ru:"Алматы",      lat:43.2389, lon:76.8897, el:800},
+        {id:"shymkent",  ja:"シムケント",     ru:"Шымкент",     lat:42.3417, lon:69.5901, el:500},
+        {id:"karaganda", ja:"カラガンダ",     ru:"Караганда",   lat:49.8047, lon:73.1094, el:550},
+        {id:"aktobe",    ja:"アクトベ",       ru:"Актобе",      lat:50.2839, lon:57.1670, el:220},
+        {id:"atyrau",    ja:"アティラウ",     ru:"Атырау",      lat:47.0945, lon:51.9238, el:-20},
+        {id:"aktau",     ja:"アクタウ",       ru:"Актау",       lat:43.6532, lon:51.1975, el:10},
+        {id:"pavlodar",  ja:"パブロダル",     ru:"Павлодар",    lat:52.2873, lon:76.9674, el:125},
+        {id:"oskemen",   ja:"ウスチ・カメノゴルスク", ru:"Усть-Каменогорск", lat:49.9483, lon:82.6275, el:290},
+        {id:"turkistan", ja:"トルキスタン",   ru:"Туркестан",   lat:43.2973, lon:68.2517, el:210},
+        {id:"taraz",     ja:"タラズ",         ru:"Тараз",       lat:42.9000, lon:71.3667, el:630},
+        {id:"kostanay",  ja:"コスタナイ",     ru:"Костанай",    lat:53.2198, lon:63.6354, el:170},
+      ]},
+  uz:{name:"ウズベキスタン共和国", short:"ウズベキスタン", tab:"ウズベク", flag:"🇺🇿", over:"Uzbekistan · Info Hub", tz:"Asia/Tashkent",
+      news:"news-uz.json", suffix:"-uz", embassy:"在ウズベキスタン日本国大使館", capital:"tashkent", favs:["tashkent"],
+      media:"Gazeta.uz・Kun.uz・Daryo・Sputnik・UzDaily", mountainNote:"砂漠から山地まで高低差のあるウズベキスタンでは",
+      streetCities:{tashkent:"タシケント"}, streets:[],
+      cities:[
+        {id:"tashkent",  ja:"タシケント",     ru:"Ташкент",     lat:41.2995, lon:69.2401, el:455},
+        {id:"samarkand", ja:"サマルカンド",   ru:"Самарканд",   lat:39.6542, lon:66.9597, el:700},
+        {id:"bukhara",   ja:"ブハラ",         ru:"Бухара",      lat:39.7747, lon:64.4286, el:225},
+        {id:"khiva",     ja:"ヒヴァ",         ru:"Хива",        lat:41.3783, lon:60.3639, el:100},
+        {id:"urgench",   ja:"ウルゲンチ",     ru:"Ургенч",      lat:41.5500, lon:60.6333, el:100},
+        {id:"nukus",     ja:"ヌクス",         ru:"Нукус",       lat:42.4600, lon:59.6100, el:75},
+        {id:"andijan",   ja:"アンディジャン", ru:"Андижан",     lat:40.7821, lon:72.3442, el:480},
+        {id:"namangan",  ja:"ナマンガン",     ru:"Наманган",    lat:40.9983, lon:71.6726, el:450},
+        {id:"fergana",   ja:"フェルガナ",     ru:"Фергана",     lat:40.3864, lon:71.7864, el:580},
+        {id:"karshi",    ja:"カルシ",         ru:"Карши",       lat:38.8606, lon:65.7891, el:375},
+        {id:"termez",    ja:"テルメズ",       ru:"Термез",      lat:37.2242, lon:67.2783, el:300},
+        {id:"jizzakh",   ja:"ジザフ",         ru:"Джизак",      lat:40.1158, lon:67.8422, el:380},
+        {id:"navoi",     ja:"ナヴォイ",       ru:"Навои",       lat:40.0844, lon:65.3792, el:345},
+      ]},
+  tj:{name:"タジキスタン共和国", short:"タジキスタン", tab:"タジク", flag:"🇹🇯", over:"Tajikistan · Info Hub", tz:"Asia/Dushanbe",
+      news:"news-tj.json", suffix:"-tj", embassy:"在タジキスタン日本国大使館", capital:"dushanbe", favs:["dushanbe"],
+      media:"Asia-Plus・Sputnik・Avesta・Ховар・Озоди", mountainNote:"国土の9割が山のタジキスタンでは",
+      streetCities:{dushanbe:"ドゥシャンベ"}, streets:[],
+      cities:[
+        {id:"dushanbe",  ja:"ドゥシャンベ",   ru:"Душанбе",     lat:38.5598, lon:68.7870, el:800},
+        {id:"khujand",   ja:"ホジャンド",     ru:"Худжанд",     lat:40.2833, lon:69.6222, el:320},
+        {id:"bokhtar",   ja:"ボフタル",       ru:"Бохтар",      lat:37.8364, lon:68.7803, el:425},
+        {id:"kulob",     ja:"クリャブ",       ru:"Куляб",       lat:37.9146, lon:69.7845, el:590},
+        {id:"istaravshan",ja:"イスタラフシャン",ru:"Истаравшан", lat:39.9108, lon:69.0064, el:1000},
+        {id:"panjakent", ja:"パンジケント",   ru:"Пенджикент",  lat:39.4952, lon:67.6093, el:1000},
+        {id:"tursunzoda",ja:"トゥルスンゾダ", ru:"Турсунзаде",  lat:38.5108, lon:68.2303, el:750},
+        {id:"khorog",    ja:"ホログ",         ru:"Хорог",       lat:37.4897, lon:71.5531, el:2200},
+        {id:"murghab",   ja:"ムルガブ",       ru:"Мургаб",      lat:38.1700, lon:73.9640, el:3600},
+      ]},
+};
+const COUNTRY = (()=>{ try{ const c = localStorage.getItem("kg-country"); return COUNTRY_CFG[c] ? c : "kg"; }catch(e){ return "kg"; } })();
+const CFG = COUNTRY_CFG[COUNTRY];
+const CITIES = CFG.cities;
+const CAPITAL = CITIES.find(c=>c.id===CFG.capital);
+const MODELS = [
+  {key:"ecmwf_ifs025", name:"ECMWF（欧州）"},
+  {key:"icon_seamless", name:"ICON（ドイツ）"},
+  {key:"gfs_seamless", name:"GFS（米国）"},
+];
+const TZ = CFG.tz;
+const NEWS_URL = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/news-data/" + CFG.news;
+// settings are kept per country (Kyrgyzstan keeps its original keys)
+const CACHE_KEY = "kg-weather-v2"+CFG.suffix, FAV_KEY = "kg-weather-favs"+CFG.suffix, PREF_KEY = "kg-weather-prefs";
+const NEWS_KEY = "kg-news-v1"+CFG.suffix;
+const STALE_MS = 15*60*1000;
+
+const WMO = {
+  0:["快晴","☀️","🌙"],1:["晴れ","🌤️","🌙"],2:["晴れ時々くもり","⛅","☁️"],3:["くもり","☁️","☁️"],
+  45:["霧","🌫️"],48:["霧（着氷）","🌫️"],
+  51:["弱い霧雨","🌦️"],53:["霧雨","🌦️"],55:["強い霧雨","🌧️"],56:["着氷性の霧雨","🌧️"],57:["着氷性の霧雨","🌧️"],
+  61:["小雨","🌦️"],63:["雨","🌧️"],65:["大雨","🌧️"],66:["着氷性の雨","🌧️"],67:["着氷性の強い雨","🌧️"],
+  71:["小雪","🌨️"],73:["雪","🌨️"],75:["大雪","❄️"],77:["霧雪","🌨️"],
+  80:["にわか雨","🌦️"],81:["にわか雨","🌧️"],82:["激しいにわか雨","⛈️"],
+  85:["にわか雪","🌨️"],86:["強いにわか雪","❄️"],
+  95:["雷雨","⛈️"],96:["雷雨・ひょう","⛈️"],99:["激しい雷雨・ひょう","⛈️"],
+};
+const wName = c => (WMO[c]||["—"])[0];
+const wIcon = (c,day=1) => { const w=WMO[c]; if(!w) return "🌡️"; return (!day && w[2]) ? w[2] : w[1]; };
+const r = v => (v==null||isNaN(v)) ? "–" : Math.round(v);
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g, ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+const WD = ["日","月","火","水","木","金","土"];
+const DIRS = ["北","北東","東","南東","南","南西","西","北西"];
+const dirName = d => d==null ? "" : DIRS[Math.round(d/45)%8];
+const STAR_SVG = '<svg viewBox="0 0 24 24" stroke-linejoin="round"><path d="M12 3.2l2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 17l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/></svg>';
+
+function lsGet(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+let state = lsGet(CACHE_KEY);
+let news = lsGet(NEWS_KEY);
+let favs = lsGet(FAV_KEY); if(!Array.isArray(favs)) favs = [...CFG.favs];
+const prefs = Object.assign({sort:"def", newsTab:"local", newsCat:"all"}, lsGet(PREF_KEY)||{});
+if(!["local","japan","world","safety"].includes(prefs.newsTab)) prefs.newsTab = "local";
+let loading = false, newsShowAll = false;
+// news search state (declared early: renderNews can run before the search code below)
+let newsQ = "", newsQRaw = false, newsArchive = null, archiveLoading = false;
+let SEARCH_TERMS = null, termsLoading = false, termsFailed = false, qCache = {};
+
+const idx = id => CITIES.findIndex(c=>c.id===id);
+const isFav = id => favs.includes(id);
+function toggleFav(id){
+  favs = isFav(id) ? favs.filter(f=>f!==id) : [...favs, id];
+  lsSet(FAV_KEY, favs); render(); renderInfra(newsData());
+}
+
+/* ---------- air quality helpers ---------- */
+function aqLevel(a){ return a==null?null : a<=50?"good" : a<=100?"mid" : a<=150?"orange" : a<=200?"bad" : "vbad"; }
+const AQ_LABEL = {good:"良い",mid:"普通",orange:"敏感な人は注意",bad:"悪い",vbad:"非常に悪い"};
+const AQ_ADVICE = {good:"空気はきれいです",mid:"ふつうに過ごせます",orange:"子ども・お年寄り・ぜんそくの人は外出を控えめに",bad:"マスク推奨・換気や屋外の運動は控えめに",vbad:"外出は控えて、マスク必須"};
+const AQ_COLOR = {good:"#2E9E6A",mid:"#E0A81C",orange:"#E2701F",bad:"#D9483B",vbad:"#8E3FB0"};
+const aqCls = a => a==null ? "" : "aq-"+aqLevel(a);
+
+/* ---------- fetching ---------- */
+const qs = p => Object.entries(p).map(([k,v])=>k+"="+encodeURIComponent(v)).join("&");
+const lats = CITIES.map(c=>c.lat).join(","), lons = CITIES.map(c=>c.lon).join(","), els = CITIES.map(c=>c.el).join(",");
+const asArr = j => Array.isArray(j) ? j : [j];
+async function getJSON(url){
+  const res = await fetch(url, {cache:"no-store"});
+  if(!res.ok) throw new Error("HTTP "+res.status);
+  return res.json();
+}
+
+async function refresh(){
+  if(loading) return;
+  loading = true; setSpin(true); showBanner("");
+  const base = "https://api.open-meteo.com/v1/forecast?";
+  const main = base + qs({
+    latitude:lats, longitude:lons, elevation:els, timezone:TZ, forecast_days:7, wind_speed_unit:"ms",
+    current:"temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation",
+    hourly:"temperature_2m,weather_code,precipitation_probability,is_day,precipitation,snowfall,wind_gusts_10m",
+    daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,sunrise,sunset,uv_index_max,wind_speed_10m_max",
+  });
+  const multi = base + qs({
+    latitude:lats, longitude:lons, elevation:els, timezone:TZ, forecast_days:7,
+    daily:"temperature_2m_max,temperature_2m_min,precipitation_sum",
+    models:MODELS.map(m=>m.key).join(","),
+  });
+  const air = "https://air-quality-api.open-meteo.com/v1/air-quality?" + qs({
+    latitude:lats, longitude:lons, timezone:TZ, forecast_days:2,
+    current:"us_aqi,pm2_5", hourly:"us_aqi,pm2_5",
+  });
+  loadNews(); loadPasses();
+  try{
+    const [m, mm, aq] = await Promise.allSettled([getJSON(main), getJSON(multi), getJSON(air)]);
+    if(m.status!=="fulfilled") throw m.reason;
+    state = {
+      t: Date.now(),
+      main: asArr(m.value),
+      multi: mm.status==="fulfilled" ? asArr(mm.value) : (state && state.multi) || null,
+      air: aq.status==="fulfilled" ? asArr(aq.value) : (state && state.air) || null,
+    };
+    lsSet(CACHE_KEY, state);
+  }catch(e){
+    showBanner(state ? "最新データを取得できませんでした。前回のデータを表示しています。（電波を確認して右上の更新ボタンを押してください）"
+                     : "天気データを取得できませんでした。電波を確認して右上の更新ボタンを押してください。");
+  }finally{
+    loading = false; setSpin(false); render();
+  }
+}
+
+async function loadNews(){
+  loadQuakes();
+  try{
+    const j = await getJSON(NEWS_URL + "?t=" + Math.floor(Date.now()/600000));
+    if(j && (j.version>=2 || j.feeds)){ news = j; lsSet(NEWS_KEY, j); }
+  }catch(e){ /* keep cached news */ }
+  renderNews();
+}
+
+function setSpin(on){ document.getElementById("refresh").classList.toggle("spin", on); }
+function showBanner(msg){ const b=document.getElementById("banner"); b.textContent=msg; b.classList.toggle("show", !!msg); }
+
+function ago(t){
+  const mins = Math.round((Date.now()-t)/60000);
+  if(mins<1) return "たった今"; if(mins<60) return mins+"分前";
+  const h = Math.round(mins/60); if(h<24) return h+"時間前";
+  return Math.round(h/24)+"日前";
+}
+function fmtUpdated(t){
+  const s = new Date(t).toLocaleString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"});
+  return "更新 "+s+"（"+ago(t)+"）";
+}
+
+/* ---------- per-city data access ---------- */
+function cityData(i){
+  const w = state && state.main && state.main[i];
+  if(!w || !w.current) return null;
+  const a = state.air && state.air[i];
+  return {w, cur:w.current, dl:w.daily, hr:w.hourly, aqNow:a && a.current, aqHr:a && a.hourly};
+}
+// 24 hourly slots from the current hour, with AQI matched by timestamp
+function hourSlots(d, n=25){
+  const nowHour = d.cur.time.slice(0,13);
+  let start = d.hr.time.findIndex(t=>t.slice(0,13)>=nowHour); if(start<0) start=0;
+  const aqMap = {};
+  if(d.aqHr && d.aqHr.time) d.aqHr.time.forEach((t,k)=>aqMap[t.slice(0,13)] = d.aqHr.us_aqi[k]);
+  const out = [];
+  for(let k=start; k<Math.min(start+n, d.hr.time.length); k++){
+    const t = d.hr.time[k];
+    out.push({first:k===start, h:+t.slice(11,13), code:d.hr.weather_code[k], day:d.hr.is_day[k],
+      temp:d.hr.temperature_2m[k], pop:d.hr.precipitation_probability[k], aqi:aqMap[t.slice(0,13)]});
+  }
+  return out;
+}
+function hoursHTML(d){
+  return hourSlots(d).map(s=>`<div class="hr ${s.first?"nowh":""} num">
+      <div class="t">${s.first?"今":s.h+"時"}</div>
+      <div class="i">${wIcon(s.code, s.day)}</div>
+      <div class="v">${r(s.temp)}°</div>
+      <div class="p">${s.pop>=10?"☔"+s.pop+"%":""}</div>
+      ${s.aqi!=null?`<div class="q ${aqCls(s.aqi)}">${r(s.aqi)}</div>`:""}
+    </div>`).join("");
+}
+
+// Automatic heads-ups for the next 24 hours, from the hourly forecast
+function weatherWarnings(d){
+  const nowHour = d.cur.time.slice(0,13);
+  let st = d.hr.time.findIndex(t=>t.slice(0,13)>=nowHour); if(st<0) st = 0;
+  const end = Math.min(st+24, d.hr.time.length);
+  const pick = k => (d.hr[k]||[]).slice(st,end).filter(v=>v!=null);
+  const sum = a => a.reduce((x,y)=>x+y,0);
+  const gust = Math.max(0,...pick("wind_gusts_10m")), snow = sum(pick("snowfall")), rain = sum(pick("precipitation"));
+  const temps = pick("temperature_2m"), tmin = Math.min(...temps), tmax = Math.max(...temps);
+  const codes = pick("weather_code");
+  const aqi = d.aqHr && d.aqHr.us_aqi ? Math.max(0,...d.aqHr.us_aqi.filter(v=>v!=null).slice(0,30)) : 0;
+  const w = [];
+  if(codes.some(c=>c>=95)) w.push("⛈️ 雷雨のおそれ");
+  if(snow>=5) w.push(`❄️ 大雪 ${r(snow)}cm`); else if(snow>=1) w.push(`🌨️ 積雪 ${r(snow)}cm`);
+  else if(rain>=15) w.push(`☔ 大雨 ${r(rain)}mm`);
+  if(gust>=15) w.push(`💨 強風 突風${r(gust)}m/s`);
+  if(tmin<=-15) w.push(`🥶 厳しい冷え込み ${r(tmin)}°`);
+  else if(tmin<=-1 && (snow>0 || rain>=0.5)) w.push("🧊 路面凍結に注意");
+  if(tmax>=35) w.push(`🥵 猛暑 ${r(tmax)}°`);
+  if(aqi>150) w.push(`😷 大気汚染 最大${r(aqi)}`);
+  return w;
+}
+
+// Agreement between models for a given city/day → "hi" | "mid" | "lo" | null
+function confidence(i, d){
+  const mm = state && state.multi && state.multi[i];
+  if(!mm || !mm.daily) return null;
+  const tmax=[], psum=[];
+  for(const m of MODELS){
+    const a = mm.daily["temperature_2m_max_"+m.key], p = mm.daily["precipitation_sum_"+m.key];
+    if(a && a[d]!=null) tmax.push(a[d]);
+    if(p && p[d]!=null) psum.push(p[d]);
+  }
+  if(tmax.length<2) return null;
+  const tSpread = Math.max(...tmax)-Math.min(...tmax);
+  const rainSplit = psum.some(v=>v>=1) && psum.some(v=>v<0.2);
+  const score = (tSpread<=2 ? 0 : tSpread<=4 ? 1 : 2) + (rainSplit?1:0);
+  return score===0 ? "hi" : score===1 ? "mid" : "lo";
+}
+const CONF_TXT = {hi:"高い", mid:"ふつう", lo:"低い"};
+
+/* ---------- rendering ---------- */
+function render(){
+  if(mapObj && document.getElementById("mapSheet").classList.contains("open")) setTimeout(drawMap, 0);
+  document.getElementById("updated").textContent = state ? fmtUpdated(state.t) : (loading ? "読み込み中…" : "データなし");
+  if(!state){ if(!loading){ document.getElementById("favs").innerHTML=""; document.getElementById("list").innerHTML=""; } return; }
+  renderFavs(); renderList();
+  if(openIdx!=null) renderSheet(openIdx);
+}
+
+function renderFavs(){
+  const el = document.getElementById("favs");
+  const list = favs.map(idx).filter(i=>i>=0);
+  if(!list.length){
+    el.innerHTML = `<div class="favhint">☆ をタップした地域が、ここに<b>1時間ごとの天気</b>と<b>大気汚染</b>つきで大きく表示されます</div>`;
+    return;
+  }
+  el.innerHTML = list.map(i=>{
+    const c = CITIES[i], d = cityData(i); if(!d) return "";
+    const {cur, dl, aqNow} = d;
+    const lv = aqNow && aqLevel(aqNow.us_aqi);
+    const tone = !cur.is_day ? "night" : [3,45,48].includes(cur.weather_code) || cur.weather_code>=51 ? "grey" : "";
+    return `<article class="fav ${tone}">
+      <div class="top">
+        <div class="nm">${c.ja}<small>${c.ru}・⛰ 標高${c.el.toLocaleString()}m</small></div>
+        <button class="star on" data-fav="${c.id}" aria-label="お気に入りから外す">${STAR_SVG}</button>
+      </div>
+      <div class="nowrow num">
+        <div class="ficon">${wIcon(cur.weather_code,cur.is_day)}</div>
+        <div class="ftemp">${r(cur.temperature_2m)}°</div>
+        <div class="fdesc">${wName(cur.weather_code)}<span>体感 ${r(cur.apparent_temperature)}°・↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°</span>
+          <span>☔ ${dl.precipitation_probability_max[0]??"–"}%・風 ${r(cur.wind_speed_10m)}m/s</span></div>
+      </div>
+      ${(()=>{ const ws = weatherWarnings(d); return ws.length ? `<div class="warns">${ws.map(x=>`<span class="warn">${x}</span>`).join("")}</div>` : ""; })()}
+      ${lv?`<div class="air num"><i class="aqdot" style="background:${AQ_COLOR[lv]}"></i>
+        <div>大気汚染 <b>${r(aqNow.us_aqi)}・${AQ_LABEL[lv]}</b>　PM2.5 ${r(aqNow.pm2_5)}µg/m³<br><span style="opacity:.85">${AQ_ADVICE[lv]}</span>${airWinHTML(d)}</div></div>`:""}
+      <div class="hours">${hoursHTML(d)}</div>
+      <div class="hlabel"><span>上から：時刻・天気・気温・降水確率・大気汚染（AQI）</span></div>
+      <button class="more" data-open="${i}">7日間の予報・詳しく見る ›</button>
+    </article>`;
+  }).join("");
+}
+
+function renderList(){
+  let items = CITIES.map((c,i)=>({c,i,d:cityData(i)})).filter(x=>x.d && !isFav(x.c.id));
+  const aqiOf = x => x.d.aqNow && x.d.aqNow.us_aqi!=null ? x.d.aqNow.us_aqi : 999;
+  if(prefs.sort==="warm") items.sort((a,b)=>b.d.cur.temperature_2m-a.d.cur.temperature_2m);
+  if(prefs.sort==="elev") items.sort((a,b)=>b.c.el-a.c.el);
+  if(prefs.sort==="air")  items.sort((a,b)=>aqiOf(a)-aqiOf(b));
+  document.getElementById("list").innerHTML = items.length ? items.map(({c,i,d})=>{
+    const {cur, dl, aqNow} = d, aqi = aqNow && aqNow.us_aqi, pop = dl.precipitation_probability_max[0];
+    return `<div class="city" role="button" tabindex="0" data-i="${i}">
+      <div class="cicon">${wIcon(cur.weather_code,cur.is_day)}</div>
+      <div style="min-width:0">
+        <div class="cname">${c.ja}<small>${c.ru}</small></div>
+        <div class="cmeta num"><span>${wName(cur.weather_code)}</span>
+          ${pop!=null?`<span class="chip rainc">☔${pop}%</span>`:""}
+          ${aqi!=null?`<span class="chip ${aqCls(aqi)}">空気 ${r(aqi)}</span>`:""}
+          <span class="elev">⛰${c.el.toLocaleString()}m</span>
+        </div>
+      </div>
+      <div class="cright num">
+        <div class="ctemp">${r(cur.temperature_2m)}°</div>
+        <div class="chilo">↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°</div>
+      </div>
+      <button class="star" data-fav="${c.id}" aria-label="お気に入りに追加">${STAR_SVG}</button>
+    </div>`;
+  }).join("") : `<div class="favhint">すべての地域がお気に入りに入っています</div>`;
+  document.querySelectorAll("#sortbar button").forEach(b=>b.classList.toggle("on", b.dataset.s===prefs.sort));
+}
+
+// Open a foreign-language article through Google Translate's page proxy, in Japanese.
+// 24.kg/path -> https://24-kg.translate.goog/path?_x_tr_sl=auto&_x_tr_tl=ja...
+function jaLink(url){
+  try{
+    const u = new URL(url);
+    if(!/^https?:$/.test(u.protocol)) return url;
+    // Google News redirect links can't be translated (they redirect with JavaScript): open as-is
+    if(/(^|\.)news\.google\.com$/.test(u.hostname) || /\.translate\.goog$/.test(u.hostname)) return url;
+    const host = u.hostname.replace(/-/g,"--").replace(/\./g,"-") + ".translate.goog";
+    const q = new URLSearchParams(u.search);
+    q.set("_x_tr_sl","auto"); q.set("_x_tr_tl","ja"); q.set("_x_tr_hl","ja"); q.set("_x_tr_pto","wapp");
+    return `https://${host}${u.pathname}?${q.toString()}${u.hash}`;
+  }catch(e){ return url; }
+}
+const origLink = url => `<a class="orig" href="${esc(url)}" target="_blank" rel="noopener">原文</a>`;
+const CAT = {politics:"政治", economy:"経済", safety:"安全", event:"イベント"};
+const LV_TXT = {l4:"レベル4：退避してください", l3:"レベル3：渡航は止めてください", l2:"レベル2：不要不急の渡航は止めてください", l1:"レベル1：十分注意してください"};
+// accept the older {feeds:{ja,local}} format too
+function newsData(){
+  if(!news) return null;
+  if(news.version>=2) return news;
+  return {local:(news.feeds&&news.feeds.local||[]).map(x=>({...x, title_ja:x.title, cat:null})), japan:news.feeds&&news.feeds.ja||[], safety:null};
+}
+const fmtDate = iso => new Date(iso).toLocaleDateString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric"});
+
+/* ---------- news search (same rules as the search on monitor.html) ----------
+   Searches the local, Japanese and world news now on the page plus the stored week of items
+   (news-archive.json). search-terms.json groups the Japanese, Russian and English words for one idea,
+   so 「断水」 also finds "отключение воды". The input itself is never redrawn (the iPhone keyboard stays open). */
+const SW = "0-9a-zа-яөүңәіқғұһ";
+const normQ = s => String(s||"").normalize("NFKC").toLowerCase().replace(/ё/g,"е").replace(/[\-‐–—\/・]/g," ").replace(/\s+/g," ");
+const rxEsc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+function termRx(t, lang){
+  const whole = t.endsWith("!"), s = normQ(t.replace(/!$/,"")).trim(), parts = s.split(" ");
+  if(lang==="ja" && !whole && !/[a-zа-я]/.test(s)) return rxEsc(s);
+  return `(?:^|[^${SW}])` + parts.map(rxEsc).join(`[${SW}]*\\s+`) + (whole ? `(?![${SW}])` : "");
+}
+function loadSearchTerms(){
+  if(SEARCH_TERMS || termsLoading || termsFailed) return;
+  termsLoading = true;
+  fetch("search-terms.json", {cache:"no-cache"}).then(r=>r.ok?r.json():null).then(d=>{
+    if(!d || !Array.isArray(d.groups)){ termsFailed = true; return; }
+    const byId = {}, kids = {}, keys = [];
+    for(const g of d.groups){ byId[g.id] = g; if(g.parent) (kids[g.parent] = kids[g.parent] || []).push(g.id); }
+    for(const g of d.groups) for(const lang of ["ja","ru","en"]) for(const t of g[lang]||[]){
+      const k = normQ(t.replace(/!$/,"")).trim();
+      const stem = lang!=="ja" && !t.endsWith("!") && k.length>=4 ? new RegExp("^"+k.split(" ").map(rxEsc).join(`[${SW}]*\\s+`)) : null;
+      if(k) keys.push({k, flat:k.replace(/ /g,""), id:g.id, stem});
+    }
+    const rx = {}, family = id => [id, ...(kids[id]||[]).flatMap(family)];
+    const groupRx = id => rx[id] || (rx[id] = new RegExp(family(id).flatMap(f=>["ja","ru","en"].flatMap(l=>(byId[f][l]||[]).map(t=>termRx(t,l)))).join("|")));
+    SEARCH_TERMS = {byId, keys, groupRx};
+    qCache = {};
+    if(newsQ) renderNews();
+  }).catch(()=>{ termsFailed = true; }).finally(()=>{ termsLoading = false; });
+}
+function loadNewsArchive(){
+  if(newsArchive || archiveLoading) return;
+  archiveLoading = true;
+  fetch(NEWS_URL.replace(/news(-\w+)?\.json$/, `news-archive${CFG.suffix}.json`), {cache:"no-cache"})
+    .then(r=>r.ok?r.json():null).then(d=>{ newsArchive = (d && d.items) || []; if(newsQ) renderNews(); })
+    .catch(()=>{ newsArchive = []; }).finally(()=>{ archiveLoading = false; });
+}
+function termGroups(word){
+  if(!SEARCH_TERMS) return [];
+  const w = normQ(word).trim(), flat = w.replace(/ /g,"");
+  const exact = SEARCH_TERMS.keys.filter(e=>e.k===w || e.flat===flat);
+  const hit = exact.length ? exact : SEARCH_TERMS.keys.filter(e=>e.stem && e.stem.test(w));
+  return [...new Set(hit.map(e=>e.id))];
+}
+// one matcher per search word (all must match)
+function queryMatchers(q, raw){
+  q = (q||"").trim();
+  if(!q) return [];
+  const key = q+"|"+(raw?1:0);
+  if(qCache[key]) return qCache[key];
+  if(!raw) loadSearchTerms();
+  const words = [], whole = raw ? [] : termGroups(q);
+  if(whole.length) words.push({w:q, ids:whole});
+  else for(const w of normQ(q).trim().split(" ")) words.push({w, ids:raw ? [] : termGroups(w)});
+  const out = words.map(({w, ids})=>{
+    const plain = normQ(w).trim(), rxs = ids.map(id=>SEARCH_TERMS.groupRx(id));
+    return {w, ids, test: rxs.length ? txt => rxs.some(r=>r.test(txt)) : txt => txt.includes(plain)};
+  });
+  if(SEARCH_TERMS || raw) qCache[key] = out;
+  return out;
+}
+// "灌漑 → орошение・irrigation なども含めて検索"
+function qExpandNote(){
+  const qm = queryMatchers(newsQ, newsQRaw), hit = qm.filter(m=>m.ids.length);
+  if(newsQRaw) return `<span class="qx">言い換えなしで検索中 <button class="linkbtn" data-nqraw="">言い換えも含める</button></span>`;
+  if(!hit.length) return "";
+  const ex = m => { const g = SEARCH_TERMS.byId[m.ids[0]], pick = l => (g[l]||[]).map(t=>t.replace(/!$/,"")).find(t=>normQ(t).trim()!==normQ(m.w).trim());
+    return [pick("ja"), ...(g.show||[]).filter(t=>normQ(t).trim()!==normQ(m.w).trim())].filter(Boolean).slice(0,3).join("・"); };
+  return `<span class="qx">${hit.map(m=>`${esc(m.w)} → ${esc(ex(m))}`).join("、")} なども含めて検索 <button class="linkbtn" data-nqraw="1">言い換えなしで探す</button></span>`;
+}
+// every article we have: on the page now + the stored week, newest first, one per link
+function newsPool(nd){
+  const seen = new Set(), out = [];
+  const add = (x, kind) => { if(!x || !x.link || seen.has(x.link)) return; seen.add(x.link);
+    out.push({...x, kind, kn: normQ([x.title, x.title_ja, x.lead, x.lead_ja, x.source].filter(Boolean).join(" "))}); };
+  (nd.local||[]).forEach(x=>add(x,"local")); (nd.japan||[]).forEach(x=>add(x,"japan")); (nd.world||[]).forEach(x=>add(x,"world"));
+  (nd.infra||[]).forEach(x=>add(x,"infra"));
+  (newsArchive||[]).forEach(x=>add(x, {news:"local", world:"world", infra:"infra"}[x.kind] || "local"));
+  return out.sort((a,b)=>(b.published||"").localeCompare(a.published||""));
+}
+const KIND_LBL = {local:"現地", japan:"日本", world:"世界", infra:"ライフライン"};
+function renderNewsSearch(el, nd, more, when){
+  const qm = queryMatchers(newsQ, newsQRaw);
+  const items = newsPool(nd).filter(x=>qm.every(m=>m.test(x.kn)));
+  const shown = newsShowAll ? items : items.slice(0,10);
+  const wait = (!newsArchive && archiveLoading) || (termsLoading && !newsQRaw);
+  el.innerHTML = `<div class="nqhead">「${esc(newsQ)}」の検索結果 <b>${items.length}件</b>${wait?"（読み込み中…）":""}${qExpandNote()}</div>`
+    + (shown.length ? shown.map(n=>{
+        const jp = n.kind==="japan", href = jp ? n.link : jaLink(n.link);
+        return `<div class="nitem"><a class="nmain" href="${esc(href)}" target="_blank" rel="noopener">
+          <div class="nt"><span class="cat ${n.kind==="world"?"cat-major":"cat-kind"}">${KIND_LBL[n.kind]}</span>${esc(n.title_ja||n.title)}</div>
+          ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}</a>
+          <div class="ns">${esc(n.source||"")}${when(n.published)}${jp?"":"・"+origLink(n.link)}</div></div>`; }).join("")
+      : `<div class="nempty">見つかりませんでした。言葉を短くするか、別の言い方で試してください。</div>`)
+    + (items.length>10 ? more(items.length) : "")
+    + `<div class="nnote">現地・日本・世界の報道と、この1週間ほどに集めた記事から探しています（日本語訳・原文の両方が対象）。</div>`;
+}
+
+function renderNews(){
+  document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", !newsQ && b.dataset.k===prefs.newsTab));
+  const el = document.getElementById("news"), nd = newsData();
+  renderAlert(nd); renderInfra(nd); renderHazards(nd); renderCalendar(); renderPasses();
+  if(weeklyOpen) renderWeekly();
+  const nu = document.getElementById("newsUpdated");
+  if(news && news.updated){
+    const age = Date.now()-Date.parse(news.updated);
+    nu.textContent = "更新 " + ago(Date.parse(news.updated));
+    nu.classList.toggle("stale", age > 3*3600*1000);
+  } else nu.textContent = "";
+  if(!nd){ el.innerHTML = `<div class="nempty">ニュースを読み込めませんでした。しばらくしてから更新してください。</div>`; return; }
+  const more = (n)=> n>5 ? `<button class="nmore" id="nmore">${newsShowAll?"閉じる":"もっと見る（"+n+"件）"}</button>` : "";
+  const when = iso => iso ? "・"+ago(Date.parse(iso)) : "";
+  if(newsQ){ renderNewsSearch(el, nd, more, when); return; }
+
+  if(prefs.newsTab==="local"){
+    const all = (nd.local||[]).filter(x=>x.title_ja);
+    const items = prefs.newsCat==="all" ? all : all.filter(x=>x.cat===prefs.newsCat);
+    const count = k => all.filter(x=>x.cat===k).length;
+    const shown = newsShowAll ? items : items.slice(0,5);
+    el.innerHTML = `<div class="cats">${[["all","すべて "+all.length],["politics","政治 "+count("politics")],["economy","経済 "+count("economy")],["safety","安全 "+count("safety")],["event","イベント "+count("event")]]
+        .map(([k,l])=>`<button data-cat="${k}" class="${prefs.newsCat===k?"on":""}">${l}</button>`).join("")}</div>`
+      + (shown.length ? shown.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
+          <div class="nt">${n.cat?`<span class="cat cat-${n.cat}">${CAT[n.cat]}</span>`:""}${esc(n.title_ja||n.title)}</div>
+          ${n.lead_ja?`<div class="nl">${esc(n.lead_ja)}</div>`:""}</a>
+          <div class="ns">${esc(n.source)}${when(n.published)}・${origLink(n.link)}</div></div>`).join("") : `<div class="nempty">この分類のニュースは今はありません。</div>`)
+      + more(items.length)
+      + `<div class="nnote">${CFG.short}の現地メディア（${CFG.media} ほか）の記事を日本語に自動翻訳しています。タップすると記事全体が Google 翻訳で日本語になって開きます（「原文」で元のページ）。</div>`;
+    return;
+  }
+  if(prefs.newsTab==="japan"){
+    const items = nd.japan||[], shown = newsShowAll ? items : items.slice(0,5);
+    el.innerHTML = (shown.length ? shown.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener">
+        <div class="nt">${n.major?`<span class="cat cat-major">${esc(n.major)}</span>`:""}${esc(n.title)}</div>
+        <div class="ns">${esc(n.source)}${when(n.published)}</div></a>`).join("") : `<div class="nempty">最近の${CFG.short}関連の記事はありません。</div>`)
+      + more(items.length)
+      + `<div class="nnote">日本の新聞・テレビ・通信社・ネットメディアの${CFG.short}に関する記事だけを集めています（青いラベル＝大手メディア）。</div>`;
+    return;
+  }
+  if(prefs.newsTab==="world"){
+    const items = nd.world||[], shown = newsShowAll ? items : items.slice(0,5);
+    el.innerHTML = (shown.length ? shown.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
+        <div class="nt"><span class="cat cat-major">${esc(n.source)}</span>${esc(n.title_ja||n.title)}</div></a>
+        <div class="ns">${esc(n.source)}${when(n.published)}・${origLink(n.link)}</div></div>`).join("") : `<div class="nempty">最近の大手メディアの${CFG.short}関連の記事はありません。</div>`)
+      + more(items.length)
+      + `<div class="nnote">海外の主なメディア（Reuters・AP・BBC・Bloomberg・Eurasianet・The Diplomat などの英語メディアと、TASS・Interfax・Kommersant などのロシア語メディア）の${CFG.short}に関する記事を日本語に訳しています。有料の記事は全文を読めないことがあります。</div>`;
+    return;
+  }
+  // safety
+  const sf = nd.safety;
+  if(!sf){ el.innerHTML = `<div class="nempty">安全情報を読み込めませんでした。<a href="https://www.anzen.mofa.go.jp/" target="_blank" rel="noopener">外務省 海外安全ホームページ</a>をご確認ください。</div>`; return; }
+  const lvs = ["l4","l3","l2","l1"].filter(k=>sf.levels && sf.levels[k]>0);
+  const mails = sf.mails||[], shown = newsShowAll ? mails : mails.slice(0,5);
+  el.innerHTML = `<div class="risk">
+      <div class="lv">${lvs.length ? lvs.map(k=>`<span class="lvchip lv${k.slice(1)}">${LV_TXT[k]}</span>`).join("") : `<span class="lvchip lv0">危険情報は出ていません</span>`}</div>
+      ${lvs.length?`<div class="rl" style="margin-top:0">※ 国内の一部地域に出ている危険レベルです（国全体ではありません）。</div>`:""}
+      ${sf.riskTitle?`<div class="rt" style="margin-top:6px">${esc(sf.riskTitle)}</div>`:""}
+      ${sf.riskLead?`<div class="rl">${esc(sf.riskLead)}</div>`:""}
+      <a href="${esc(sf.riskUrl)}" target="_blank" rel="noopener">危険レベルの地図・詳細（外務省）›</a>
+    </div>
+    <div class="ns" style="padding:6px 0 2px;font-weight:700">${CFG.embassy}からのお知らせ</div>`
+    + (shown.length ? shown.map(m=>`<a class="nitem" href="${esc(m.link)}" target="_blank" rel="noopener">
+        <div class="nt">${isRecent(m.published)?`<span class="cat cat-safety">NEW</span>`:""}${esc(m.title)}</div>
+        ${m.lead?`<div class="nl">${esc(m.lead)}</div>`:""}
+        <div class="ns">${esc(m.type)}${m.published?"・"+fmtDate(m.published):""}</div></a>`).join("") : `<div class="nempty">お知らせはありません。</div>`)
+    + more(mails.length)
+    + `<div class="nnote">出典：外務省 海外安全ホームページ（オープンデータ）。<a href="${esc(sf.infoUrl||"https://www.anzen.mofa.go.jp/")}" target="_blank" rel="noopener">お知らせ一覧</a>／<a href="https://www.ezairyu.mofa.go.jp/tabireg/" target="_blank" rel="noopener">たびレジ登録</a>でメールも受け取れます。</div>`;
+}
+const KIND = {water:"🚰 断水", power:"⚡ 停電", gas:"🔥 ガス", heat:"♨️ 暖房", road:"🚧 通行止め・交通",
+  quake:"🌍 地震", slide:"⛰️ 土砂崩れ・土石流", avalanche:"🏔️ 雪崩", flood:"🌊 洪水", wind:"🌪️ 強風・竜巻", storm:"⛈️ 荒天警報", emergency:"🚨 緊急事態"};
+const HAZ_KINDS = ["quake","slide","avalanche","flood","wind","storm","emergency"];
+const kindLabels = ks => (ks||[]).filter(k=>KIND[k]);
+const STREETS_BY_COUNTRY = {kg:[
+  // Bishkek city centre: main streets first, then other central streets
+  {id:"panfilova", ja:"パンフィロバ通り", ru:"ул. Панфилова", g:"main"},
+  {id:"razzakova", ja:"ラザコバ通り", ru:"ул. Раззакова", g:"main"},
+  {id:"kievskaya", ja:"キエフスカヤ通り", ru:"ул. Киевская", g:"main"},
+  {id:"orozbekova", ja:"オロズベコバ通り", ru:"ул. Орозбекова", g:"main"},
+  {id:"toktogula", ja:"トクトグル通り", ru:"ул. Токтогула", g:"main"},
+  {id:"moskovskaya", ja:"モスコフスカヤ通り", ru:"ул. Московская", g:"main"},
+  {id:"chui", ja:"チュイ大通り", ru:"пр. Чуй", g:"main"},
+  {id:"erkindik", ja:"エルキンディク並木道", ru:"б. Эркиндик", g:"center"},
+  {id:"abdrakhmanova", ja:"アブドラフマノバ通り", ru:"ул. Абдрахманова", g:"center"},
+  {id:"tynystanova", ja:"トゥイヌイスタノバ通り", ru:"ул. Тыныстанова", g:"center"},
+  {id:"isanova", ja:"イサノバ通り", ru:"ул. Исанова", g:"center"},
+  {id:"logvinenko", ja:"ログビネンコ通り", ru:"ул. Логвиненко", g:"center"},
+  {id:"togolok", ja:"トゴロク・モルド通り", ru:"ул. Тоголок Молдо", g:"center"},
+  {id:"shopokova", ja:"ショポコバ通り", ru:"ул. Шопокова", g:"center"},
+  {id:"manasa", ja:"マナス大通り", ru:"пр. Манаса", g:"center"},
+  {id:"bokonbaeva", ja:"ボコンバエバ通り", ru:"ул. Боконбаева", g:"center"},
+  {id:"frunze", ja:"フルンゼ通り", ru:"ул. Фрунзе", g:"center"},
+  {id:"jumabek", ja:"ジュマベク通り", ru:"ул. Жумабека", g:"center"},
+], kz:[
+  {id:"al_abaya", ja:"アバイ大通り", ru:"пр. Абая", g:"almaty"},
+  {id:"al_alfarabi", ja:"アル・ファラビ大通り", ru:"пр. аль-Фараби", g:"almaty"},
+  {id:"al_dostyk", ja:"ドスティク大通り", ru:"пр. Достык", g:"almaty"},
+  {id:"al_nazarbaeva", ja:"ナザルバエフ大通り", ru:"пр. Назарбаева (Фурманова)", g:"almaty"},
+  {id:"al_tolebi", ja:"トレビ通り", ru:"ул. Толе би", g:"almaty"},
+  {id:"al_zhibekzholy", ja:"ジベク・ジョリ通り", ru:"ул. Жибек жолы", g:"almaty"},
+  {id:"al_zheltoksan", ja:"ジェルトクサン通り", ru:"ул. Желтоксан", g:"almaty"},
+  {id:"al_seifullina", ja:"セイフリン大通り", ru:"пр. Сейфуллина", g:"almaty"},
+  {id:"al_baitursynova", ja:"バイトゥルスノフ通り", ru:"ул. Байтурсынова", g:"almaty"},
+  {id:"al_auezova", ja:"アウエゾフ通り", ru:"ул. Ауэзова", g:"almaty"},
+  {id:"al_rozybakieva", ja:"ロズィバキエフ通り", ru:"ул. Розыбакиева", g:"almaty"},
+  {id:"al_raiymbeka", ja:"ライムベク大通り", ru:"пр. Райымбека", g:"almaty"},
+  {id:"al_gogolya", ja:"ゴーゴリ通り", ru:"ул. Гоголя", g:"almaty"},
+  {id:"al_kabanbay", ja:"カバンバイ・バトゥル通り", ru:"ул. Кабанбай батыра", g:"almaty"},
+  {id:"al_bogenbay", ja:"ボゲンバイ・バトゥル通り", ru:"ул. Богенбай батыра", g:"almaty"},
+  {id:"al_satpaeva", ja:"サトパエフ通り", ru:"ул. Сатпаева", g:"almaty"},
+  {id:"al_timiryazeva", ja:"ティミリャゼフ通り", ru:"ул. Тимирязева", g:"almaty"},
+  {id:"al_abylaykhana", ja:"アブライ・ハン大通り", ru:"пр. Абылай хана", g:"almaty"},
+  {id:"as_mangilikel", ja:"マンギリク・エル大通り", ru:"пр. Мангилик Ел", g:"astana"},
+  {id:"as_turan", ja:"トゥラン大通り", ru:"пр. Туран", g:"astana"},
+  {id:"as_kabanbay", ja:"カバンバイ・バトゥル大通り", ru:"пр. Кабанбай батыра", g:"astana"},
+  {id:"as_respubliki", ja:"レスプブリカ大通り", ru:"пр. Республики", g:"astana"},
+  {id:"as_abaya", ja:"アバイ大通り", ru:"пр. Абая", g:"astana"},
+  {id:"as_saryarka", ja:"サリアルカ大通り", ru:"пр. Сарыарка", g:"astana"},
+  {id:"as_kenesary", ja:"ケネサリ通り", ru:"ул. Кенесары", g:"astana"},
+  {id:"as_beibitshilik", ja:"ベイビトシリク通り", ru:"ул. Бейбитшилик", g:"astana"},
+  {id:"as_seifullina", ja:"セイフリン通り", ru:"ул. Сейфуллина", g:"astana"},
+  {id:"as_imanova", ja:"イマノフ通り", ru:"ул. Иманова", g:"astana"},
+  {id:"as_auezova", ja:"アウエゾフ通り", ru:"ул. Ауэзова", g:"astana"},
+  {id:"as_zhenis", ja:"ジェニス大通り", ru:"пр. Жеңіс (Победы)", g:"astana"},
+  {id:"as_momyshuly", ja:"モムィシュル大通り", ru:"пр. Момышулы", g:"astana"},
+  {id:"as_syganak", ja:"スィガナク通り", ru:"ул. Сыганак", g:"astana"},
+  {id:"as_ulydala", ja:"ウルィ・ダラ大通り", ru:"пр. Улы Дала", g:"astana"},
+  {id:"as_kunaeva", ja:"クナエフ通り", ru:"ул. Кунаева", g:"astana"},
+  {id:"as_tauelsizdik", ja:"タウエルシズディク大通り", ru:"пр. Тауелсиздик", g:"astana"},
+  {id:"as_dostyk", ja:"ドスティク通り", ru:"ул. Достык", g:"astana"},
+], uz:[
+  {id:"ta_amirtemur", ja:"アミール・ティムール通り", ru:"пр. Амира Темура", g:"tashkent"},
+  {id:"ta_navoi", ja:"ナヴォイ通り", ru:"пр. Алишера Навои", g:"tashkent"},
+  {id:"ta_rustaveli", ja:"ルスタヴェリ通り", ru:"ул. Шота Руставели", g:"tashkent"},
+  {id:"ta_mustakillik", ja:"ムスタキリク通り", ru:"пр. Мустакиллик", g:"tashkent"},
+  {id:"ta_bobur", ja:"バーブル通り", ru:"ул. Бабура", g:"tashkent"},
+  {id:"ta_shakhrisabz", ja:"シャフリサブズ通り", ru:"ул. Шахрисабзская", g:"tashkent"},
+  {id:"ta_yusufkhos", ja:"ユスフ・ホス・ホジブ通り", ru:"ул. Юсуфа Хос Ходжиба", g:"tashkent"},
+  {id:"ta_oybek", ja:"オイベク通り", ru:"ул. Ойбека", g:"tashkent"},
+  {id:"ta_afrosiyob", ja:"アフロシヨブ通り", ru:"ул. Афросиаб", g:"tashkent"},
+  {id:"ta_buyukipak", ja:"ブユク・イパク・ヨリ通り", ru:"ул. Буюк Ипак Йули", g:"tashkent"},
+  {id:"ta_beruni", ja:"ベルーニー通り", ru:"ул. Беруни", g:"tashkent"},
+  {id:"ta_farobi", ja:"ファーラービー通り", ru:"ул. Фароби", g:"tashkent"},
+  {id:"ta_mirobod", ja:"ミロボド通り", ru:"ул. Мирабадская", g:"tashkent"},
+  {id:"ta_nukus", ja:"ヌクス通り", ru:"ул. Нукусская", g:"tashkent"},
+  {id:"ta_bunyodkor", ja:"ブニョドコル大通り", ru:"пр. Бунёдкор", g:"tashkent"},
+  {id:"ta_shevchenko", ja:"シェフチェンコ通り", ru:"ул. Шевченко", g:"tashkent"},
+  {id:"ta_mukimi", ja:"ムキミ通り", ru:"ул. Мукими", g:"tashkent"},
+  {id:"ta_labzak", ja:"ラブザク通り", ru:"ул. Лабзак", g:"tashkent"},
+  {id:"ta_kichikhalka", ja:"小環状道路", ru:"Кичик халка йули", g:"tashkent"},
+], tj:[
+  {id:"du_rudaki", ja:"ルダキ大通り", ru:"пр. Рудаки", g:"dushanbe"},
+  {id:"du_somoni", ja:"イスモイル・ソモニ大通り", ru:"пр. Исмоили Сомони", g:"dushanbe"},
+  {id:"du_sherozi", ja:"シェロジ大通り", ru:"пр. Хафиза Шерози", g:"dushanbe"},
+  {id:"du_aini", ja:"アイニ通り", ru:"ул. Айни", g:"dushanbe"},
+  {id:"du_shotemur", ja:"ショテムル通り", ru:"ул. Шотемура", g:"dushanbe"},
+  {id:"du_tursunzoda", ja:"ミルゾ・トゥルスンゾダ通り", ru:"ул. Мирзо Турсунзаде", g:"dushanbe"},
+  {id:"du_pushkin", ja:"プーシキン通り", ru:"ул. Пушкина", g:"dushanbe"},
+  {id:"du_dusti", ja:"ドゥスティ・ハルクホ大通り", ru:"пр. Дусти халкхо", g:"dushanbe"},
+  {id:"du_sino", ja:"イブン・スィーナー大通り", ru:"пр. Абуали ибни Сино", g:"dushanbe"},
+  {id:"du_karamov", ja:"カラモフ通り", ru:"ул. Карамова", g:"dushanbe"},
+  {id:"du_shamsi", ja:"シャムシ通り", ru:"ул. Шамси", g:"dushanbe"},
+  {id:"du_karabaev", ja:"カラバエフ大通り", ru:"пр. Н. Карабаева", g:"dushanbe"},
+  {id:"du_lohuti", ja:"ロフティ通り", ru:"ул. Лохути", g:"dushanbe"},
+  {id:"du_chekhov", ja:"チェーホフ通り", ru:"ул. Чехова", g:"dushanbe"},
+  {id:"du_bukhoro", ja:"ブホロ通り", ru:"ул. Бухоро", g:"dushanbe"},
+  {id:"du_rumi", ja:"ルーミー大通り", ru:"пр. Дж. Руми", g:"dushanbe"},
+  {id:"du_borbad", ja:"ボルバド通り", ru:"ул. Борбад", g:"dushanbe"},
+  {id:"du_firdavsi", ja:"フィルダウスィー通り", ru:"ул. Фирдавси", g:"dushanbe"},
+]};
+const STREETS = STREETS_BY_COUNTRY[COUNTRY];
+const STREET_KEY = "kg-mystreets"+CFG.suffix;
+let myStreets = lsGet(STREET_KEY);
+if(!Array.isArray(myStreets)) myStreets = [...CFG.streets];
+let pickerCity = Object.keys(CFG.streetCities)[0];
+// Kyrgyzstan groups its streets as main / other central; the other countries group them by city
+const CITY_STREETS = COUNTRY!=="kg";
+const streetJa = id => { const x = STREETS.find(x=>x.id===id); if(!x) return id;
+  return CITY_STREETS ? `${CFG.streetCities[x.g]}・${x.ja}` : x.ja; };
+const shortSt = id => ((STREETS.find(x=>x.id===id)||{}).ja || id).replace(/(通り|大通り|並木道)$/,"");
+// "アルマトイ｜アバイ・ドスティク" (Kazakhstan) or "ラザコバ通り・キエフスカヤ通り" (Kyrgyzstan)
+function hitLabel(x, h){
+  const ids = h.streets||[];
+  if(!CITY_STREETS) return ids.map(streetJa).join("・");
+  const city = CFG.streetCities[x.city] || "";
+  return (city?city+"｜":"") + ids.map(shortSt).join("・");
+}
+let mystOpen = false, mallOpen = false;
+
+const CHECK_SVG = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+function renderPicker(){
+  const sel = new Set(myStreets);
+  const group = (g, title) => `<div class="pgroup">${title}</div><div class="sgrid">${STREETS.filter(x=>x.g===g).map(x=>`
+      <button class="sbtn ${sel.has(x.id)?"on":""}" data-st="${x.id}" aria-pressed="${sel.has(x.id)}">
+        <span class="sj">${shortSt(x.id)}</span><span class="sr">${x.ru}</span>
+        <span class="ck">${CHECK_SVG}</span></button>`).join("")}</div>`;
+  if(CITY_STREETS){
+    const cities = Object.entries(CFG.streetCities);
+    const countIn = g => STREETS.filter(x=>x.g===g && sel.has(x.id)).length;
+    document.getElementById("pbody").innerHTML =
+      (cities.length<2 ? "" : `<div class="tabs wide" style="margin-top:12px">${cities.map(([g,n])=>`<button data-pcity="${g}" class="${pickerCity===g?"on":""}">${n}${countIn(g)?`（${countIn(g)}）`:""}</button>`).join("")}</div>`)
+      + group(pickerCity, `<b>${CFG.streetCities[pickerCity]}</b>中心部の主な通り`);
+  } else {
+    document.getElementById("pbody").innerHTML =
+      group("main", "<b>ビシュケク中心部</b>主な通り") + group("center", "中心部のほかの通り");
+  }
+  document.getElementById("pdone").textContent = sel.size ? `決定（${sel.size}本）` : "決定";
+}
+function openPicker(){ renderPicker(); document.getElementById("picker").hidden = false; document.body.style.overflow="hidden"; }
+const SKINS = [
+  {id:"midnight", name:"ミッドナイト", note:"黒 × シアン。いまの標準", bg:"#07080A", card:"#13202B", accent:"#4FD1FF", ink:"#F3F5F8", dots:["#4FD1FF","#3DDC97","#FF9147"]},
+  {id:"terminal", name:"ターミナル", note:"デジタル感。等幅数字とグリッド", bg:"#030504", card:"#0B1D13", accent:"#39FF88", ink:"#DAFFE7", dots:["#39FF88","#5FE3FF","#FFD15F"], mono:true},
+  {id:"slate", name:"スレート", note:"落ち着いた炭色 × サンド", bg:"#101317", card:"#1F242B", accent:"#D6B88A", ink:"#ECE8E1", dots:["#D6B88A","#9DBBD6","#8CC9A1"]},
+  {id:"aurora", name:"オーロラ", note:"よりクール。深い紺 × バイオレット", bg:"#05060F", card:"#1A1640", accent:"#9280FF", ink:"#EFF0FF", dots:["#9280FF","#7CC8FF","#FF8FB1"]},
+  {id:"hazard", name:"ハザード", note:"紫 × 蛍光グリーン × 警告オレンジ", bg:"#0A0612", card:"#2B1452", accent:"#96FF3C", ink:"#F3EEFF", dots:["#96FF3C","#FF6A00","#9650FF"], cond:true},
+  {id:"paper", name:"ペーパー", note:"白基調 × ブルー。明るく清潔", bg:"#F3F5F8", card:"#FFFFFF", accent:"#0071E3", ink:"#0E1726", dots:["#0071E3","#11936A","#D2601A"], light:true},
+  {id:"linen", name:"リネン", note:"あたたかい白 × テラコッタ", bg:"#F4F0E8", card:"#FFFDF8", accent:"#B7652E", ink:"#29241F", dots:["#B7652E","#3471B0","#2E8A5E"], light:true},
+];
+let layout = (()=>{ try{ return localStorage.getItem("kg-layout") || "standard"; }catch(e){ return "standard"; } })();
+function applyLayout(id){
+  layout = id;
+  if(id==="standard") document.documentElement.removeAttribute("data-layout"); else document.documentElement.setAttribute("data-layout", id);
+  try{ localStorage.setItem("kg-layout", id); }catch(e){}
+}
+let skin = (()=>{ try{ return localStorage.getItem("kg-skin") || "midnight"; }catch(e){ return "midnight"; } })();
+function applySkin(id){
+  skin = id;
+  if(id==="midnight") document.documentElement.removeAttribute("data-skin"); else document.documentElement.setAttribute("data-skin", id);
+  try{ localStorage.setItem("kg-skin", id); }catch(e){}
+  const sk = SKINS.find(x=>x.id===id); const m = document.querySelector('meta[name="theme-color"]'); if(sk && m) m.content = sk.bg;
+}
+function renderSkins(){
+  const card = x=>`
+    <button class="skin ${x.id===skin?"on":""}" data-skin-id="${x.id}" aria-pressed="${x.id===skin}">
+      <div class="sw" style="background:radial-gradient(120% 90% at 100% 0%,${x.accent}55,transparent 60%),linear-gradient(160deg,${x.card},${x.bg} 75%);color:${x.ink}">
+        <span class="t" style="${x.mono?'font-family:"JetBrains Mono",monospace;font-weight:300':x.cond?'font-family:Oswald,sans-serif;font-weight:500':''}">11°</span>
+        <span class="dots">${x.dots.map(c=>`<i style="background:${c}"></i>`).join("")}</span></div>
+      <div class="meta"><span><b>${x.name}</b><small>${x.note}</small></span><span class="ck">${CHECK_SVG}</span></div>
+    </button>`;
+  const LAYS = [["standard","▢","標準","バランス"],["compact","☰","コンパクト","情報を多く"],["large","Aa","大きな文字","読みやすく"],["sharp","◇","シャープ","角ばった形"]];
+  document.getElementById("skins").innerHTML =
+    `<div class="pgroup" style="grid-column:1/-1;margin-top:4px">📐 デザイン（形・大きさ）</div>
+     <div class="lays" style="grid-column:1/-1">${LAYS.map(([id,ic,n,d])=>`<button class="lay ${layout===id?"on":""}" data-layout-id="${id}"><span class="lic">${ic}</span><b>${n}</b><small>${d}</small></button>`).join("")}</div>`
+    + `<div class="pgroup" style="grid-column:1/-1">🌙 ダーク（黒基調）</div>` + SKINS.filter(x=>!x.light).map(card).join("")
+    + `<div class="pgroup" style="grid-column:1/-1">☀️ ライト（白基調）</div>` + SKINS.filter(x=>x.light).map(card).join("");
+}
+function closePicker(){ document.getElementById("picker").hidden = true; document.body.style.overflow=""; renderInfra(newsData()); }
+const todayBishkek = () => new Date().toLocaleDateString("sv-SE",{timeZone:TZ}); // YYYY-MM-DD
+function dayLabel(iso){
+  if(!iso) return "";
+  const t = todayBishkek(), tm = new Date(Date.parse(t+"T12:00:00Z")+864e5).toISOString().slice(0,10);
+  if(iso===t) return "今日"; if(iso===tm) return "明日";
+  const [y,m,d] = iso.split("-"); return `${+m}/${+d}`;
+}
+// outage notices still relevant: dated today or later, or (undated) published in the last 24h
+function stillRelevant(x){
+  if(x.date) return x.date >= todayBishkek();
+  return x.published && Date.now()-Date.parse(x.published) < 24*3600*1000;
+}
+/* ---------- disasters & road closures ---------- */
+const QUAKE_BOX = {kg:{minlatitude:39.1,maxlatitude:43.4,minlongitude:69.2,maxlongitude:80.4,name:"Kyrgyzstan"},
+                   kz:{minlatitude:40.5,maxlatitude:55.5,minlongitude:46.4,maxlongitude:87.4,name:"Kazakhstan"},
+                   uz:{minlatitude:37.1,maxlatitude:45.6,minlongitude:55.9,maxlongitude:73.2,name:"Uzbekistan"},
+                   tj:{minlatitude:36.6,maxlatitude:41.1,minlongitude:67.3,maxlongitude:75.2,name:"Tajikistan"}}[COUNTRY];
+let quakes = null, hazAll = false;
+// recent earthquakes from the USGS catalogue (magnitude 3+, last 7 days, inside the country)
+async function loadQuakes(){
+  try{
+    const since = new Date(Date.now()-7*864e5).toISOString().slice(0,19);
+    const j = await getJSON("https://earthquake.usgs.gov/fdsnws/event/1/query?" + qs({format:"geojson", starttime:since, minmagnitude:3,
+      orderby:"time", minlatitude:QUAKE_BOX.minlatitude, maxlatitude:QUAKE_BOX.maxlatitude, minlongitude:QUAKE_BOX.minlongitude, maxlongitude:QUAKE_BOX.maxlongitude}));
+    quakes = (j.features||[]).filter(f=>(f.properties.place||"").includes(QUAKE_BOX.name)).map(f=>({
+      mag:f.properties.mag, place:f.properties.place, time:f.properties.time, url:f.properties.url,
+      lon:f.geometry && f.geometry.coordinates[0], lat:f.geometry && f.geometry.coordinates[1], depth:f.geometry && f.geometry.coordinates[2]}));
+  }catch(e){ quakes = quakes || []; }
+  renderHazards(newsData());
+}
+// "45 km SSW of Karakol, Kyrgyzstan" -> "カラコルの南南西45km"
+const DIR_JA = {N:"北",NNE:"北北東",NE:"北東",ENE:"東北東",E:"東",ESE:"東南東",SE:"南東",SSE:"南南東",S:"南",SSW:"南南西",SW:"南西",WSW:"西南西",W:"西",WNW:"西北西",NW:"北西",NNW:"北北西"};
+function placeJa(p){
+  const m = /^(\d+) km ([NSEW]+) of (.+?), (\w+)$/.exec(p||"");
+  if(!m || m[4]!==QUAKE_BOX.name) return (p||"").replace(", "+QUAKE_BOX.name, `（${CFG.short}）`);
+  const city = CITIES.find(c=>m[3].toLowerCase().startsWith(c.ru.toLowerCase().slice(0,4)) || c.id===m[3].toLowerCase().replace(/[^a-z]/g,""));
+  return `${city?city.ja:m[3]}の${DIR_JA[m[2]]||m[2]}${m[1]}km`;
+}
+function renderHazards(nd){
+  const el = document.getElementById("haz");
+  // natural hazards, plus road items only when they are actual closures (not bus route changes)
+  const closure = x => /通行止|閉鎖|封鎖|規制|通行禁止|通行できな|峠/.test(x.title_ja||"");
+  const news_ = ((nd && nd.infra)||[]).filter(x=>x.title_ja && (x.kinds||[]).some(k=>HAZ_KINDS.includes(k) || (k==="road" && closure(x))))
+    .filter(x=>!x.published || Date.now()-Date.parse(x.published) < 72*3600*1000);
+  const qs_ = (quakes||[]).slice(0,3);
+  // how serious an item is: decides the one shown on the collapsed line
+  const SEV = {emergency:5, slide:4, avalanche:4, flood:4, wind:3, storm:3, road:2};
+  const rows = [
+    ...qs_.map(q=>({t:q.time, sev:q.mag>=5?5:q.mag>=4?4:2, line:`M${q.mag.toFixed(1)} 地震・${placeJa(q.place)}`, html:`<a class="hz" href="${esc(q.url)}" target="_blank" rel="noopener"><span class="hi">🌍</span><span><span class="ht"><span class="mag">M${q.mag.toFixed(1)}</span>地震　${esc(placeJa(q.place))}</span>
+      <span class="hs" style="display:block">${new Date(q.time).toLocaleString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・深さ${r(q.depth)}km・USGS</span></span></a>`})),
+    ...news_.map(x=>{ const ks = kindLabels(x.kinds).filter(k=>HAZ_KINDS.includes(k)||(k==="road" && closure(x)));
+      return {t:Date.parse(x.published||0)||0, sev:Math.max(...ks.map(k=>SEV[k]||1)), line:`${KIND[ks[0]].split(" ")[1]}・${x.title_ja}`, html:`<div class="hz"><span class="hi">${(KIND[ks[0]]||"⚠️").split(" ")[0]}</span><span>
+      <a class="nmain" href="${esc(jaLink(x.link))}" target="_blank" rel="noopener"><span class="ht">${ks.map(k=>`<span class="ikind k-${HAZ_KINDS.includes(k)?"heat":"road"}" style="margin-right:4px">${KIND[k].split(" ")[1]}</span>`).join("")}${esc(x.title_ja)}</span></a>
+      <span class="hs" style="display:block">${esc(x.source)}${x.published?"・"+ago(Date.parse(x.published)):""}・${origLink(x.link)}</span></span></div>`}; }),
+  ].sort((a,b)=>b.t-a.t);
+  el.hidden = false;
+  if(!rows.length){
+    el.innerHTML = `<div class="hzbar ok"><span class="sv"></span><span class="lb">ALERTS</span><span class="tx">災害・通行止めの報道なし（直近3日）</span></div>`;
+    return;
+  }
+  const top = [...rows].sort((a,b)=>b.sev-a.sev || b.t-a.t)[0];
+  el.innerHTML = `<button class="hzbar" id="hazToggle" aria-expanded="${hazAll}"><span class="sv s${top.sev}"></span><span class="lb">ALERTS</span>
+      <span class="tx">${esc(top.line)}</span>${rows.length>1?`<span class="ct">他${rows.length-1}件</span>`:""}<span class="cv">›</span></button>`
+    + (hazAll ? `<div class="hzlist">${rows.map(x=>x.html).join("")}</div>` : "");
+}
+
+function renderInfra(nd){
+  const el = document.getElementById("myst");
+  const ms = nd && nd.mystreet;
+  if(!ms){ el.hidden = true; return; }
+  el.hidden = false;
+  const sel = new Set(myStreets);
+  // keep only the lines naming a chosen street (older data stored Japanese labels; match those too)
+  const items = (ms.items||[]).filter(stillRelevant).map(x=>{
+    const hits = (x.hits||[]).map(h=>({...h, streets:(h.streets||[]).filter(id=>sel.has(id) || [...sel].some(s=>streetJa(s)===id))}))
+      .filter(h=>h.streets.length);
+    return {...x, hits};
+  }).filter(x=>x.hits.length).sort((a,b)=>(a.date||"9").localeCompare(b.date||"9"));
+  const watched = Object.keys(CFG.streetCities);
+  const others = ((nd.infra)||[]).filter(x=>(x.cities||[]).some(c=>watched.includes(c)) && x.title_ja);
+  const wname = Object.values(CFG.streetCities).join("・");
+  const segs = items.map(x=>{
+    const k = (x.kinds||[])[0], h = (x.hits||[])[0]||{};
+    return `<span class="seg"><b>${KIND[k]||"⚠️"}</b><i>${dayLabel(x.date)||""}${h.time?" "+esc(h.time):""}</i>${esc(hitLabel(x,h))}：${esc(h.text_ja||x.title_ja)}</span>`;
+  }).join("");
+  const checked = news && news.updated ? new Date(news.updated).toLocaleTimeString("ja-JP",{timeZone:TZ,hour:"2-digit",minute:"2-digit"}) : "--:--";
+  const line = items.length ? segs
+    : sel.size
+      ? `<span class="seg ok"><b>● STATUS OK</b>選んだ${sel.size}本の通りに断水・停電・ガス・暖房の予定はありません</span><span class="seg">${esc(myStreets.map(shortSt).join(" / "))}</span><span class="seg"><i>LAST CHECK ${checked}</i>${ms.checked||0}件のお知らせを確認</span>`
+      : `<span class="seg"><b>● SETUP</b>「通りを選ぶ」から、気になる通りを選んでください</span>`;
+  const len = items.length ? items.reduce((n,x)=>n+((x.hits||[])[0]?.text_ja||x.title_ja||"").length+24,0) : 90;
+  el.innerHTML = `<div class="mh"><span class="grow">📍 <b>MY STREET</b>　わたしの通り</span><span class="num">${news&&news.updated?ago(Date.parse(news.updated))+"に確認":""}</span></div>
+    <div class="msel"><button class="pick" id="openPicker">✎ 通りを選ぶ</button>${myStreets.map(id=>`<span class="stag">${esc(shortSt(id))}</span>`).join("")}</div>
+    <button class="ticker ${items.length?"alerting":""}" id="ticker" aria-expanded="${mystOpen}">
+      <span class="lamp"></span>
+      <span class="tview"><span class="ttrack" style="--dur:${Math.max(16, len*0.32)}s">${line}${line}</span></span>
+    </button>
+    <div class="mdet" id="mdet" ${mystOpen?"":"hidden"}>
+      ${items.map(x=>`<div class="mitem">
+        <div class="mt">${kindLabels(x.kinds).map(k=>`<span class="ikind k-${k}">${KIND[k]}</span>`).join("")}${x.date?`<span class="dlabel">${dayLabel(x.date)}</span>`:""}<span>${esc(x.title_ja||"")}</span></div>
+        ${(x.hits||[]).map(h=>`<div class="mhit"><span class="st">${esc(hitLabel(x,h))}</span>${h.time?`<span class="tm num">${esc(h.time)}</span>`:""}${esc(h.text_ja||"")}</div>`).join("")}
+        <a href="${esc(jaLink(x.link))}" target="_blank" rel="noopener">記事を日本語で開く（${esc(x.source)}）›</a>　${origLink(x.link)}</div>`).join("")}
+      ${items.length?"":`<div class="nempty">${wname}の停電・断水のお知らせを${ms.checked||0}件確認しましたが、選んだ${sel.size}本の通りの名前は出ていませんでした。</div>`}
+      <button class="mall" id="mall">${mallOpen?"▲":"▼"} ${wname}全体のライフライン情報（${others.length}件）</button>
+      ${mallOpen?others.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener">
+        <div class="nt">${kindLabels(n.kinds).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]}</span>`).join("")}${esc(n.title_ja)}</div></a>
+        <div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}・${origLink(n.link)}</div></div>`).join(""):""}
+    </div>`;
+}
+const isRecent = iso => iso && Date.now()-Date.parse(iso) < 72*3600*1000;
+
+
+function renderAlert(nd){
+  const a = document.getElementById("alert");
+  const m = nd && nd.safety && (nd.safety.mails||[]).find(x=>isRecent(x.published));
+  if(!m){ a.hidden = true; return; }
+  a.hidden = false;
+  a.innerHTML = `<span>⚠️</span><span><b>大使館から新しい安全情報（${fmtDate(m.published)}）</b><br>${esc(m.title)}</span>`;
+}
+
+/* ---------- mountain passes ---------- */
+// approximate road crossing points; the forecast is computed for the given elevation
+const PASSES = {
+  kg:[
+    {id:"tooashuu", ja:"トー・アシュー峠", ru:"Тоо-Ашуу", road:"ビシュケク〜オシュ（トンネル）", lat:42.336, lon:73.814, el:3200, words:["тоо-ашуу","тоо ашуу"]},
+    {id:"alabel", ja:"アラ・ベル峠", ru:"Ала-Бел", road:"ビシュケク〜オシュ（スサミル〜トクトグル）", lat:42.05, lon:73.13, el:3184, words:["ала-бел","ала бел"]},
+    {id:"dolon", ja:"ドロン峠", ru:"Долон", road:"ビシュケク〜ナリン", lat:41.81, lon:75.66, el:3030, words:["долон"]},
+    {id:"taldyk", ja:"タルディク峠", ru:"Талдык", road:"オシュ〜サリタシュ（パミール方面）", lat:39.86, lon:73.13, el:3615, words:["талдык"]},
+    {id:"torugart", ja:"トルガルト峠", ru:"Торугарт", road:"ナリン〜中国国境", lat:40.56, lon:75.39, el:3752, words:["торугарт"]},
+    {id:"chychkan", ja:"チチカン渓谷", ru:"Чычкан", road:"ビシュケク〜オシュ（トクトグル手前）", lat:41.95, lon:72.95, el:2200, words:["чычкан"]},
+  ],
+  kz:[
+    {id:"kordai", ja:"コルダイ峠", ru:"Кордай", road:"アルマトイ〜ビシュケク", lat:43.09, lon:74.73, el:1170, words:["кордай"]},
+    {id:"shymbulak", ja:"シムブラク", ru:"Шымбулак", road:"アルマトイ郊外の山岳リゾート", lat:43.128, lon:77.08, el:2260, words:["шымбулак","медеу"]},
+    {id:"bao", ja:"ビッグ・アルマトイ湖", ru:"БАО", road:"アルマトイ郊外の山道", lat:43.05, lon:76.985, el:2510, words:["бао","большое алматинское"]},
+    {id:"kokpek", ja:"コクペク峠", ru:"Кокпек", road:"アルマトイ〜チャリン・ケゲン", lat:43.47, lon:78.62, el:1550, words:["кокпек"]},
+    {id:"astanakar", ja:"アスタナ〜カラガンダ街道", ru:"трасса Астана — Караганда", road:"草原の幹線道路（吹雪に注意）", lat:50.45, lon:72.6, el:450, words:["астана — караганда","астана-караганда","караганда — астана"]},
+  ],
+  uz:[
+    {id:"kamchik", ja:"カムチク峠", ru:"Камчик", road:"タシケント〜フェルガナ盆地", lat:41.07, lon:70.53, el:2267, words:["камчик","камчиқ","резак"]},
+    {id:"takhtakaracha", ja:"タフタカラチャ峠", ru:"Тахтакарача", road:"サマルカンド〜シャフリサブズ", lat:39.29, lon:66.92, el:1675, words:["тахтакарача","тахта-карача"]},
+    {id:"chimgan", ja:"チムガン・アミルソイ", ru:"Чимган", road:"タシケント郊外の山岳リゾート", lat:41.53, lon:70.01, el:1600, words:["чимган","амирсой","бельдерсай"]},
+    {id:"angren", ja:"アングレン〜カムチク道路", ru:"Ангрен", road:"タシケント〜フェルガナ盆地（峠の手前）", lat:41.02, lon:70.15, el:1000, words:["ангрен — пап","ангрен-пап","трасса а-373","а373"]},
+  ],
+  tj:[
+    {id:"anzob", ja:"アンゾブ峠（トンネル）", ru:"Анзоб", road:"ドゥシャンベ〜ホジャンド（北部）", lat:39.08, lon:68.87, el:3372, words:["анзоб","истиклол"]},
+    {id:"shakhristan", ja:"シャフリスタン峠（トンネル）", ru:"Шахристан", road:"ドゥシャンベ〜ホジャンド（北側）", lat:39.62, lon:68.58, el:3378, words:["шахристан"]},
+    {id:"varzob", ja:"ヴァルゾブ渓谷", ru:"Варзоб", road:"ドゥシャンベ〜アンゾブ峠", lat:38.85, lon:68.80, el:1500, words:["варзоб"]},
+    {id:"khaburabot", ja:"ハブラボト峠", ru:"Хабуработ", road:"ドゥシャンベ〜ホログ（パミール北ルート）", lat:38.62, lon:70.46, el:3252, words:["хабуработ"]},
+    {id:"akbaital", ja:"アクバイタル峠", ru:"Акбайтал", road:"パミール・ハイウェイ（ムルガブ〜カラクル）", lat:38.52, lon:73.65, el:4655, words:["акбайтал","ак-байтал"]},
+  ],
+}[COUNTRY];
+let passWx = lsGet("kg-passes"+CFG.suffix);
+async function loadPasses(){
+  try{
+    const j = asArr(await getJSON("https://api.open-meteo.com/v1/forecast?" + qs({
+      latitude:PASSES.map(p=>p.lat).join(","), longitude:PASSES.map(p=>p.lon).join(","), elevation:PASSES.map(p=>p.el).join(","),
+      timezone:TZ, forecast_days:2, wind_speed_unit:"ms", current:"temperature_2m,weather_code,wind_gusts_10m",
+      daily:"temperature_2m_min,snowfall_sum,wind_gusts_10m_max"})));
+    passWx = {t:Date.now(), data:j}; lsSet("kg-passes"+CFG.suffix, passWx);
+  }catch(e){}
+  renderPasses();
+}
+// news mentioning a pass in the last 3 days, from the lifeline/hazard collection
+function passNews(p){
+  const nd = newsData(); if(!nd) return null;
+  return ((nd.infra)||[]).find(x=>x.title && p.words.some(w=>x.title.toLowerCase().includes(w))
+    && (!x.published || Date.now()-Date.parse(x.published) < 72*3600*1000));
+}
+function passStatus(p, w){
+  const n = passNews(p), out = [];
+  if(n) out.push(["bad", /закрыт|перекр|огранич/.test((n.title||"").toLowerCase()) ? "通行止め・規制の報道" : "ニュースあり"]);
+  if(!w || !w.daily) return {n, out};
+  const snow = (w.daily.snowfall_sum||[]).reduce((a,b)=>a+(b||0),0), gust = Math.max(...(w.daily.wind_gusts_10m_max||[0])), tmin = Math.min(...(w.daily.temperature_2m_min||[0]));
+  if(snow>=10) out.push(["bad",`大雪 ${r(snow)}cm`]); else if(snow>=2) out.push(["warn",`雪 ${r(snow)}cm`]);
+  if(gust>=20) out.push(["bad",`強風 ${r(gust)}m/s`]); else if(gust>=14) out.push(["warn",`風 ${r(gust)}m/s`]);
+  if(tmin<=-15) out.push(["warn",`最低 ${r(tmin)}°`]);
+  if(!out.length) out.push(["ok","目立った悪条件なし"]);
+  return {n, out, snow, gust, tmin};
+}
+function renderPasses(){
+  const el = document.getElementById("passes");
+  const data = passWx && passWx.data;
+  el.innerHTML = PASSES.map((p,i)=>{
+    const w = data && data[i], cur = w && w.current, st = passStatus(p, w);
+    return `<div class="pass"><div><div class="pn">${p.ja}<small>${p.el.toLocaleString()}m</small></div><div class="pr">${p.road}</div></div>
+      <div class="pt num">${cur?wIcon(cur.weather_code)+" "+r(cur.temperature_2m)+"°":"–"}</div>
+      <div class="st">${st.out.map(([c,t])=>`<span class="pst ${c}">${t}</span>`).join("")}</div>
+      ${st.n?`<a class="pnews" href="${esc(jaLink(st.n.link))}" target="_blank" rel="noopener"><b>●</b> ${esc(st.n.title_ja||st.n.title)}</a>`:""}</div>`;
+  }).join("") + `<div class="pass" style="grid-template-columns:1fr"><div class="pr" style="font-size:11px;color:var(--ink-3)">今日・明日の峠の高さでの予報（雪の量・最大瞬間風速・最低気温）と、直近3日の通行止めニュース。位置と高さは道路が峠を越えるおおよその地点です。出発前は現地の道路情報も確認してください。</div></div>`;
+}
+
+/* ---------- holidays & events ---------- */
+// public holidays; Islamic holidays follow the moon and can shift by a day
+const HOLIDAYS = {
+  kg:[["2026-11-07","歴史と祖先を記念する日"],["2026-11-08","歴史と祖先を記念する日"],["2027-01-01","新年"],["2027-01-07","正教会のクリスマス"],
+      ["2027-02-23","祖国防衛者の日"],["2027-03-08","国際女性デー"],["2027-03-10","オロズ・アイト（断食明け）",1],["2027-03-21","ノールーズ（春分の新年）"],
+      ["2027-04-07","人民四月革命の日"],["2027-05-01","労働者の日"],["2027-05-05","憲法記念日"],["2027-05-09","戦勝記念日"],
+      ["2027-05-16","クルマン・アイト（犠牲祭）",1],["2027-08-31","独立記念日"],["2027-11-07","歴史と祖先を記念する日"],["2027-11-08","歴史と祖先を記念する日"]],
+  kz:[["2026-12-16","独立記念日"],["2027-01-01","新年"],["2027-01-02","新年"],["2027-01-07","正教会のクリスマス"],["2027-03-08","国際女性デー"],
+      ["2027-03-21","ナウルズ（春分の新年）"],["2027-03-22","ナウルズ"],["2027-03-23","ナウルズ"],["2027-05-01","カザフスタン民族統一の日"],
+      ["2027-05-07","祖国防衛者の日"],["2027-05-09","戦勝記念日"],["2027-05-16","クルバン・アイト（犠牲祭）",1],["2027-07-06","首都の日"],
+      ["2027-08-30","憲法記念日"],["2027-10-25","共和国の日"],["2027-12-16","独立記念日"]],
+  uz:[["2026-12-08","憲法記念日"],["2027-01-01","新年"],["2027-03-08","国際女性デー"],["2027-03-10","ラマザン・ハイト（断食明け）",1],
+      ["2027-03-21","ナウルーズ（春分の新年）"],["2027-05-09","追悼と名誉の日"],["2027-05-16","クルバン・ハイト（犠牲祭）",1],
+      ["2027-09-01","独立記念日"],["2027-10-01","教師の日"],["2027-12-08","憲法記念日"]],
+  tj:[["2027-01-01","新年"],["2027-03-08","母の日"],["2027-03-10","イーディ・ラマゾン（断食明け）",1],["2027-03-21","ナウルーズ（春分の新年）"],
+      ["2027-03-22","ナウルーズ"],["2027-03-23","ナウルーズ"],["2027-03-24","ナウルーズ"],["2027-05-09","戦勝記念日"],
+      ["2027-05-16","イーディ・クルボン（犠牲祭）",1],["2027-06-27","国民統一の日"],["2027-09-09","独立記念日"],["2027-11-06","憲法記念日"]],
+}[COUNTRY];
+function renderCalendar(){
+  const el = document.getElementById("cal"), today = todayBishkek();
+  // merge consecutive days with the same name
+  const groups = [];
+  HOLIDAYS.filter(h=>h[0]>=today).forEach(h=>{
+    const g = groups[groups.length-1], prev = g && new Date(Date.parse(g.to+"T12:00:00Z")+864e5).toISOString().slice(0,10);
+    if(g && prev===h[0] && h[1].split("（")[0]===g.name.split("（")[0]) g.to = h[0]; else groups.push({from:h[0], to:h[0], name:h[1], moon:!!h[2]});
+  });
+  const days = d => Math.round((Date.parse(d+"T00:00:00Z")-Date.parse(today+"T00:00:00Z"))/864e5);
+  const dl = d => { const n = days(d); return n===0?"今日":n===1?"明日":`あと${n}日`; };
+  const md = d => { const dt = new Date(d+"T12:00:00Z"); return `${dt.getUTCMonth()+1}/${dt.getUTCDate()}`; };
+  const wd = d => WD[new Date(d+"T12:00:00Z").getUTCDay()];
+  const evs = ((newsData()||{}).local||[]).filter(x=>x.cat==="event" && x.title_ja).slice(0,3);
+  const nx = groups[0];
+  document.getElementById("calSum").textContent = nx ? `次の祝日：${md(nx.from)} ${nx.name.split("（")[0]}（${dl(nx.from)}）` : "";
+  el.innerHTML = groups.slice(0,4).map(g=>`<div class="hday"><div class="hd">${md(g.from)}<small>${wd(g.from)}曜${g.to!==g.from?"〜"+md(g.to):""}</small></div>
+      <div class="hn">${g.name}<small>祝日${g.moon?"・日付は月の見え方で前後することがあります":""}</small></div><div class="hc">${dl(g.from)}</div></div>`).join("")
+    + (evs.length ? `<div class="evh">ニュースに出た行事・イベント</div>` + evs.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt">${esc(n.title_ja)}</div></a><div class="ns">${esc(n.source)}${n.published?"・"+ago(Date.parse(n.published)):""}</div></div>`).join("") : "")
+    + `<div class="nnote">祝日が週末と重なる場合の振替や、臨時の休日は政府の発表で変わることがあります。</div>`;
+}
+
+/* ---------- best / worst air hours ---------- */
+// 3-hour windows between 7:00 and 22:00 in the next 24 hours, from the hourly AQI forecast
+function airWindows(d){
+  if(!d.aqHr || !d.aqHr.time) return null;
+  const now = d.cur.time.slice(0,13);
+  const pts = d.aqHr.time.map((t,k)=>({t, h:+t.slice(11,13), v:d.aqHr.us_aqi[k]})).filter(x=>x.t.slice(0,13)>=now && x.v!=null).slice(0,24);
+  const wins = [];
+  for(let k=0;k+2<pts.length;k++){
+    const w = pts.slice(k,k+3); if(w.some(x=>x.h<7||x.h>21)) continue;
+    wins.push({from:w[0].h, to:(w[2].h+1)%24, v:w.reduce((a,x)=>a+x.v,0)/3});
+  }
+  if(!wins.length) return null;
+  const best = wins.reduce((a,b)=>b.v<a.v?b:a), worst = wins.reduce((a,b)=>b.v>a.v?b:a);
+  return {best, worst, flat: worst.v-best.v < 25};
+}
+function airWinHTML(d){
+  const w = airWindows(d); if(!w) return "";
+  if(w.flat) return `<div class="airwin"><span>🕒 この先の空気は一日を通してほぼ同じです（AQI ${r(w.best.v)}前後）</span></div>`;
+  return `<div class="airwin"><span>🌿 きれいな時間 <b>${w.best.from}〜${w.best.to}時</b>（AQI ${r(w.best.v)}前後）</span><span>😷 悪い時間 <b>${w.worst.from}〜${w.worst.to}時</b>（${r(w.worst.v)}前後）</span></div>`;
+}
+
+/* ---------- map ---------- */
+let mapObj = null, mapLayers = {}, mapShow = {cities:true, alerts:true, passes:true, quakes:true};
+// Leaflet 1.9.4 from cdnjs, falling back to unpkg if that fails
+const LEAFLET_SRC = [
+  ["https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js", "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"],
+  ["https://unpkg.com/leaflet@1.9.4/dist/leaflet.js", "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"],
+];
+function loadLeafletFrom([jsUrl, cssUrl]){
+  return new Promise((ok, fail)=>{
+    const css = document.createElement("link"); css.rel = "stylesheet"; css.crossOrigin = "anonymous"; css.href = cssUrl; document.head.appendChild(css);
+    const js = document.createElement("script"); js.crossOrigin = "anonymous"; js.src = jsUrl;
+    js.onload = ()=> window.L ? ok() : fail(new Error("no L")); js.onerror = ()=>{ js.remove(); css.remove(); fail(new Error("load failed")); };
+    document.head.appendChild(js);
+  });
+}
+async function loadLeaflet(){
+  if(window.L) return;
+  let err;
+  for(const src of LEAFLET_SRC){ try{ await loadLeafletFrom(src); return; }catch(e){ err = e; } }
+  throw err;
+}
+async function openMap(){
+  const sh = document.getElementById("mapSheet"); sh.classList.add("open");
+  try{ history.pushState({map:1}, ""); }catch(e){}
+  document.getElementById("mapSub").textContent = CFG.short;
+  try{ await loadLeaflet(); }catch(e){ document.getElementById("map").innerHTML = `<div class="nempty" style="padding:20px">地図を読み込めませんでした。電波を確認してください。</div>`; return; }
+  if(!mapObj){
+    const light = /paper|linen/.test(skin);
+    mapObj = L.map("map", {zoomControl:true, attributionControl:true});
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/${light?"light_all":"dark_all"}/{z}/{x}/{y}{r}.png`,
+      {subdomains:"abcd", maxZoom:18, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(mapObj);
+    const lats_ = CITIES.map(c=>c.lat), lons_ = CITIES.map(c=>c.lon);
+    mapObj.fitBounds([[Math.min(...lats_)-.3, Math.min(...lons_)-.3],[Math.max(...lats_)+.3, Math.max(...lons_)+.3]]);
+  }
+  setTimeout(()=>{ mapObj.invalidateSize(); drawMap(); }, 60);
+}
+function closeMap(fromPop){
+  document.getElementById("mapSheet").classList.remove("open");
+  try{ if(!fromPop && history.state && history.state.map) history.back(); }catch(e){}
+}
+window.addEventListener("popstate", ()=>{ if(document.getElementById("mapSheet").classList.contains("open")) closeMap(true); });
+function drawMap(){
+  if(!mapObj) return;
+  Object.values(mapLayers).forEach(l=>l.remove()); mapLayers = {};
+  const pin = (html, cls="mk-pin") => L.divIcon({className:"", html:`<div class="${cls}">${html}</div>`, iconSize:null});
+  // cities with current temperature and air quality
+  const cg = L.layerGroup();
+  CITIES.forEach((c,i)=>{ const d = cityData(i); if(!d) return;
+    const aqi = d.aqNow && d.aqNow.us_aqi;
+    L.marker([c.lat,c.lon], {icon:pin(`<i>${wIcon(d.cur.weather_code,d.cur.is_day)}</i>${r(d.cur.temperature_2m)}°`, "mk-city")})
+      .bindPopup(`<b>${c.ja}</b>（${c.ru}・${c.el}m）<br>${wName(d.cur.weather_code)} ${r(d.cur.temperature_2m)}°　↑${r(d.dl.temperature_2m_max[0])}° ↓${r(d.dl.temperature_2m_min[0])}°${aqi!=null?`<br>大気汚染 AQI ${r(aqi)}（${AQ_LABEL[aqLevel(aqi)]}）`:""}`).addTo(cg); });
+  mapLayers.cities = cg;
+  // outage / hazard news, placed at the city they mention
+  const ag = L.layerGroup(), nd = newsData();
+  const seen = {};
+  ((nd && nd.infra)||[]).filter(x=>x.title_ja && (!x.published || Date.now()-Date.parse(x.published) < 72*3600*1000)).forEach(x=>{
+    (x.cities||[]).forEach(cid=>{ const c = CITIES.find(z=>z.id===cid); if(!c) return;
+      const n = seen[cid] = (seen[cid]||0)+1, ang = n*1.9, off = .06 + n*.012;
+      const ks = kindLabels(x.kinds);
+      L.marker([c.lat+Math.sin(ang)*off, c.lon+Math.cos(ang)*off*1.4], {icon:pin((KIND[ks[0]]||"⚠️").split(" ")[0])})
+        .bindPopup(`<b>${esc(x.title_ja)}</b><br>${ks.map(k=>KIND[k]).join("・")}<br>${esc(x.source)}${x.published?"・"+ago(Date.parse(x.published)):""}<br><a href="${esc(jaLink(x.link))}" target="_blank" rel="noopener">記事を日本語で開く ›</a>`).addTo(ag); });
+  });
+  mapLayers.alerts = ag;
+  // passes
+  const pg = L.layerGroup(), data = passWx && passWx.data;
+  PASSES.forEach((p,i)=>{ const w = data && data[i], st = passStatus(p, w), lvl = st.out.some(o=>o[0]==="bad")?"bad":st.out.some(o=>o[0]==="warn")?"warn":"ok";
+    L.marker([p.lat,p.lon], {icon:pin(lvl==="bad"?"⛔":lvl==="warn"?"⚠️":"⛰️")})
+      .bindPopup(`<b>${p.ja}</b>（${p.el}m）<br>${p.road}<br>${w&&w.current?`いま ${r(w.current.temperature_2m)}°・`:""}${st.out.map(o=>o[1]).join("・")}`).addTo(pg); });
+  mapLayers.passes = pg;
+  // earthquakes
+  const qg = L.layerGroup();
+  (quakes||[]).forEach(q=>{ if(!q.lat) return;
+    L.circleMarker([q.lat,q.lon], {radius:4+q.mag*2.2, color:"#FF6A00", weight:2, fillColor:"#FF6A00", fillOpacity:.35})
+      .bindPopup(`<b>M${q.mag.toFixed(1)} 地震</b><br>${esc(placeJa(q.place))}<br>${new Date(q.time).toLocaleString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・深さ${r(q.depth)}km`).addTo(qg); });
+  mapLayers.quakes = qg;
+  Object.entries(mapLayers).forEach(([k,l])=>{ if(mapShow[k]) l.addTo(mapObj); });
+  const LG = [["cities","🌡 都市の天気"],["alerts","⚠️ 停電・災害"],["passes","⛰ 峠"],["quakes","🌍 地震"]];
+  document.getElementById("mapLegend").innerHTML = LG.map(([k,n])=>`<button data-maplayer="${k}" class="${mapShow[k]?"on":""}">${n}</button>`).join("");
+}
+
+/* ---------- offline ---------- */
+function updateOnline(){ document.getElementById("offline").hidden = navigator.onLine !== false; }
+window.addEventListener("online", ()=>{ updateOnline(); maybeRefresh(); });
+window.addEventListener("offline", updateOnline);
+if("serviceWorker" in navigator && location.protocol==="https:"){
+  window.addEventListener("load", ()=>{ navigator.serviceWorker.register("weather-sw.js", {scope:"./weather"}).catch(()=>{}); });
+}
+
+/* ---------- weekly digest ---------- */
+let weeklyOpen = false, weeklyWx = null, weekSel = null;
+const mdShort = iso => { const d = new Date(iso); return d.toLocaleDateString("ja-JP",{timeZone:TZ,month:"numeric",day:"numeric"}); };
+function openWeekly(){
+  weeklyOpen = true; renderWeekly(); loadWeeklyWeather();
+  const s = document.getElementById("weekly"); s.scrollTop = 0; s.classList.add("open");
+  try{ history.pushState({weekly:1}, ""); }catch(e){}
+}
+function closeWeekly(fromPop){
+  document.getElementById("weekly").classList.remove("open"); weeklyOpen = false;
+  try{ if(!fromPop && history.state && history.state.weekly) history.back(); }catch(e){}
+}
+window.addEventListener("popstate", ()=>{ if(weeklyOpen) closeWeekly(true); });
+// last 7 days of observed weather in the capital (Open-Meteo returns past days with the forecast)
+async function loadWeeklyWeather(){
+  if(weeklyWx) return;
+  try{
+    const j = await getJSON("https://api.open-meteo.com/v1/forecast?" + qs({latitude:CAPITAL.lat, longitude:CAPITAL.lon, elevation:CAPITAL.el,
+      timezone:TZ, past_days:14, forecast_days:1, daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum"}));
+    weeklyWx = j.daily; if(weeklyOpen) renderWeekly();
+  }catch(e){}
+}
+function storyHTML(s_, i){
+  const cat = s_.cat ? `<span class="cat cat-${s_.cat}">${CAT[s_.cat]||""}</span>` : "";
+  const range = s_.first && s_.last && mdShort(s_.first)!==mdShort(s_.last) ? `${mdShort(s_.first)}〜${mdShort(s_.last)}` : (s_.last?mdShort(s_.last):"");
+  return `<div class="story"><div class="rk">${i!=null?i+1:"・"}</div><div>
+    <a class="nmain" href="${esc(jaLink(s_.link))}" target="_blank" rel="noopener"><div class="nt">${cat}${esc(s_.title_ja)}${s_.sources>1?`<span class="covered">${s_.sources}社が報道</span>`:""}</div>
+    ${s_.lead_ja?`<div class="nl">${esc(s_.lead_ja)}</div>`:""}</a>
+    <div class="ns">${esc(s_.source)}${range?"・"+range:""}・${origLink(s_.link)}</div></div></div>`;
+}
+const ymd = s_ => { const [y,m,d] = s_.split("-"); return `${+m}/${+d}`; };
+function renderWeekly(){
+  const el = document.getElementById("weeklyBody");
+  const W = news && news.weekly && news.weekly.last ? news.weekly : null;
+  // last full Monday-Sunday week by default; this week (so far) on the second tab
+  if(W && !weekSel) weekSel = (W.last.articles || W.last.complete) ? "last" : "this";
+  const w = W && W[weekSel];
+  const head = `<div class="shead"><button class="iconbtn" id="wkBack" aria-label="戻る"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h2>${weekSel==="this"?"今週":"先週"}のまとめ<small>${CFG.short}</small></h2></div>`;
+  if(!w){ el.innerHTML = head + `<div class="nempty">まとめを準備中です。ニュースの自動更新（30分ごと）で作られます。</div>`; return; }
+  const ic = (w.infra||{}).counts||{};
+  const started = !w.complete;
+  const tabs = `<div class="tabs wide wktabs"><button data-week="last" class="${weekSel==="last"?"on":""}">先週 ${ymd(W.last.from_date)}〜${ymd(W.last.to_date)}</button><button data-week="this" class="${weekSel==="this"?"on":""}">今週 ${ymd(W.this.from_date)}〜（途中）</button></div>`;
+  const catOrder = ["politics","economy","safety","event"];
+  const cityName = id => (CITIES.find(c=>c.id===id)||{}).ja || id;
+  // weather table
+  let wx = "";
+  if(weeklyWx && weeklyWx.time){
+    // only the days of the selected week (and not today, which is still a forecast)
+    const today = todayBishkek();
+    const idx = weeklyWx.time.map((t,k)=>k).filter(k=>weeklyWx.time[k]>=w.from_date && weeklyWx.time[k]<=w.to_date && weeklyWx.time[k]<today);
+    const lo = Math.min(...idx.map(k=>weeklyWx.temperature_2m_min[k])), hi = Math.max(...idx.map(k=>weeklyWx.temperature_2m_max[k])), span = Math.max(1,hi-lo);
+    if(idx.length) wx = `<div class="sec"><h3>${CAPITAL.ja}の天気（実績）</h3>${idx.map(k=>{ const t = weeklyWx.time[k];
+      const dt = new Date(t+"T12:00:00"), mn = weeklyWx.temperature_2m_min[k], mx = weeklyWx.temperature_2m_max[k], pr = weeklyWx.precipitation_sum[k];
+      return `<div class="day num"><div class="dn">${WD[dt.getDay()]}曜<small>${dt.getMonth()+1}/${dt.getDate()}</small></div>
+        <div class="di">${wIcon(weeklyWx.weather_code[k])}</div><div class="dp">${pr>=0.5?(Math.round(pr*10)/10)+"mm":""}</div>
+        <div class="lo">${r(mn)}°</div><div class="bar"><i style="left:${(mn-lo)/span*100}%;right:${(hi-mx)/span*100}%"></i></div><div class="hi">${r(mx)}°</div><div></div></div>`;
+    }).join("")}</div>`;
+  }
+  el.innerHTML = head + tabs + `
+    <div class="wkhero"><div class="rng num">${ymd(w.from_date)}（月）〜${ymd(w.to_date)}${weekSel==="last"?"（日）":""}・${CFG.short}の現地メディア${w.articles}本の記事から</div>
+      <div class="wkstats num">
+        <div class="wkstat"><b>${w.articles}</b><small>記事</small></div>
+        <div class="wkstat"><b>${ic.power||0}</b><small>⚡停電</small></div>
+        <div class="wkstat"><b>${ic.water||0}</b><small>🚰断水</small></div>
+        <div class="wkstat"><b>${(w.mofa||[]).length}</b><small>大使館</small></div>
+      </div>
+      ${started?`<div class="wknote">${weekSel==="last" && !w.articles
+        ? `記事のたくわえを${mdShort(w.since)}から始めたため、この週の記録はありません。来週の月曜日から、先週（月〜日）のまとめがここに表示されます。いまは「今週」のタブで途中までのまとめを見られます。`
+        : `記事のたくわえを${mdShort(w.since)}から始めたため、この週は${mdShort(w.since)}以降の分だけです。`}</div>`:""}
+    </div>
+    <div class="sec"><h3>注目の出来事（多くのメディアが報じた順）</h3>${(w.top||[]).map((s_,i)=>storyHTML(s_,i)).join("") || `<div class="nempty">まだ記事がありません。</div>`}</div>
+    ${catOrder.filter(c=>(w.by_cat||{})[c]&&w.by_cat[c].length).map(c=>`<div class="sec"><h3>${CAT[c]}のそのほかの出来事</h3>${w.by_cat[c].map(s_=>storyHTML(s_,null)).join("")}</div>`).join("")}
+    <div class="sec"><h3>ライフライン（停電・断水・ガス・暖房・交通）</h3>
+      <div class="kcount">${Object.keys(KIND).filter(k=>ic[k]).map(k=>`<span class="ikind k-${k}">${KIND[k]} ${ic[k]}件</span>`).join("") || `<span class="nempty">報道はありませんでした</span>`}</div>
+      ${Object.entries((w.infra||{}).by_city||{}).length?`<div class="note">${Object.entries(w.infra.by_city).map(([c,ks])=>`${esc(cityName(c))}：${Object.entries(ks).filter(([k])=>KIND[k]).map(([k,n])=>`${(KIND[k]||k).split(" ")[1]||k}${n}`).join("・")}`).join("　")}</div>`:""}
+      ${((w.infra||{}).recent||[]).slice(0,5).map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt">${kindLabels(n.kinds).map(k=>`<span class="ikind k-${k}" style="margin-right:4px">${KIND[k]}</span>`).join("")}${esc(n.title_ja)}</div></a>
+        <div class="ns">${esc(n.source)}${n.published?"・"+mdShort(n.published):""}・${origLink(n.link)}</div></div>`).join("")}
+    </div>
+    ${(w.mofa||[]).length?`<div class="sec"><h3>${CFG.embassy}・外務省のお知らせ</h3>${w.mofa.map(m=>`<a class="nitem" href="${esc(m.link)}" target="_blank" rel="noopener"><div class="nt">${esc(m.title)}</div><div class="ns">${esc(m.type)}${m.published?"・"+mdShort(m.published):""}</div></a>`).join("")}</div>`:""}
+    ${(w.world||[]).length?`<div class="sec"><h3>世界の報道</h3>${w.world.map(n=>`<div class="nitem"><a class="nmain" href="${esc(jaLink(n.link))}" target="_blank" rel="noopener"><div class="nt"><span class="cat cat-major">${esc(n.source)}</span>${esc(n.title_ja)}</div></a><div class="ns">${n.published?mdShort(n.published)+"・":""}${origLink(n.link)}</div></div>`).join("")}</div>`:""}
+    ${(w.japan||[]).length?`<div class="sec"><h3>日本の報道</h3>${w.japan.map(n=>`<a class="nitem" href="${esc(n.link)}" target="_blank" rel="noopener"><div class="nt">${n.major?`<span class="cat cat-major">${esc(n.major)}</span>`:""}${esc(n.title)}</div><div class="ns">${esc(n.source)}${n.published?"・"+mdShort(n.published):""}</div></a>`).join("")}</div>`:""}
+    ${wx}
+    <div class="nnote" style="border:0;margin-top:10px">現地の記事は機械翻訳です。「n社が報道」は同じ出来事を報じたメディアの数で、多いほど大きなニュースです。</div>
+    <div style="height:24px"></div>`;
+}
+
+/* ---------- detail sheet ---------- */
+let openIdx = null;
+function openSheet(i){
+  openIdx = i; renderSheet(i);
+  const s = document.getElementById("sheet"); s.scrollTop = 0; s.classList.add("open");
+  try{ history.pushState({sheet:i}, ""); }catch(e){}
+}
+function closeSheet(fromPop){
+  document.getElementById("sheet").classList.remove("open"); openIdx = null;
+  try{ if(!fromPop && history.state && history.state.sheet!=null) history.back(); }catch(e){}
+}
+window.addEventListener("popstate", ()=>{ if(openIdx!=null) closeSheet(true); });
+
+function mountainSVG(el){
+  // tiny elevation gauge: 0–2500 m
+  const h = Math.max(6, Math.min(1, el/2500)*44);
+  return `<svg width="64" height="50" viewBox="0 0 64 50" aria-hidden="true">
+    <path d="M2 48 L22 ${48-h} L32 ${48-h*0.6} L40 ${48-h*0.85} L62 48Z" fill="var(--brand-soft)" stroke="var(--brand)" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M22 ${48-h} l-4 ${Math.min(8,h/3)} h8z" fill="#fff" opacity=".9"/>
+    <line x1="0" y1="${48-Math.max(0,CAPITAL.el)/2500*44}" x2="64" y2="${48-Math.max(0,CAPITAL.el)/2500*44}" stroke="var(--ink-3)" stroke-dasharray="2 3"/>
+  </svg>`;
+}
+function elevNote(c){
+  const cap = CAPITAL.ja;
+  if(c.id===CAPITAL.id) return `${CFG.short}の首都。点線が${cap}の高さ（${CAPITAL.el}m）です。`;
+  if(c.el < 0) return `海面より${-c.el}m低い土地です（カスピ海沿岸の低地）。`;
+  const diff = c.el - CAPITAL.el;
+  if(Math.abs(diff) < 60) return `${cap}とほぼ同じ高さです。`;
+  if(diff < 0) return `${cap}より${-diff}m低い土地です。`;
+  return `${cap}より<b style="font-size:13px">${diff.toLocaleString()}m高い</b>ので、気温はおよそ${(diff*0.6/100).toFixed(1)}°低くなりがち（100mで約0.6°下がる）。`;
+}
+
+function renderSheet(i){
+  const c = CITIES[i], d = cityData(i); if(!d) return;
+  const {cur, dl, aqNow} = d;
+
+  const lo = Math.min(...dl.temperature_2m_min), hi = Math.max(...dl.temperature_2m_max), span = Math.max(1, hi-lo);
+  const days = dl.time.map((t,k)=>{
+    const dt = new Date(t+"T12:00:00");
+    const label = k===0 ? "今日" : k===1 ? "明日" : WD[dt.getDay()]+"曜";
+    const mn = dl.temperature_2m_min[k], mx = dl.temperature_2m_max[k], cf = confidence(i,k), pp = dl.precipitation_probability_max[k];
+    return `<div class="day num">
+      <div class="dn">${label}<small>${dt.getMonth()+1}/${dt.getDate()}</small></div>
+      <div class="di">${wIcon(dl.weather_code[k])}</div>
+      <div class="dp">${pp>=10?"☔"+pp+"%":""}</div>
+      <div class="lo">${r(mn)}°</div>
+      <div class="bar"><i style="left:${(mn-lo)/span*100}%;right:${(hi-mx)/span*100}%"></i></div>
+      <div class="hi">${r(mx)}°</div>
+      <div class="dot ${cf?"c-"+cf:""}" title="予報の確かさ: ${cf?CONF_TXT[cf]:"不明"}"></div>
+    </div>`;
+  }).join("");
+
+  let modelTbl = "";
+  const mm = state.multi && state.multi[i];
+  if(mm && mm.daily){
+    const row = (m,k) => {
+      const a = mm.daily["temperature_2m_max_"+m.key], b = mm.daily["temperature_2m_min_"+m.key], p = mm.daily["precipitation_sum_"+m.key];
+      return `<td>${a&&a[k]!=null?r(a[k])+"° / "+r(b[k])+"°":"–"}</td><td>${p&&p[k]!=null?(Math.round(p[k]*10)/10)+"mm":"–"}</td>`;
+    };
+    modelTbl = `<div class="sec"><h3>モデル別の予報（最高/最低・降水量）</h3>
+      <table class="models num"><thead><tr><th></th><th colspan="2">今日</th><th colspan="2">明日</th></tr></thead><tbody>
+      ${MODELS.map(m=>`<tr><td>${m.name}</td>${row(m,0)}${row(m,1)}</tr>`).join("")}
+      </tbody></table>
+      <div class="note">今日の予報の確かさ：<b>${CONF_TXT[confidence(i,0)]||"不明"}</b>　明日：<b>${CONF_TXT[confidence(i,1)]||"不明"}</b><br>
+      3つのモデルがそろって同じ予報なら当たりやすく、バラバラなら外れやすい日です。</div></div>`;
+  }
+
+  const lv = aqNow && aqLevel(aqNow.us_aqi);
+  const sr = dl.sunrise[0]?dl.sunrise[0].slice(11,16):"–", ss = dl.sunset[0]?dl.sunset[0].slice(11,16):"–";
+  document.getElementById("sheetBody").innerHTML = `
+    <div class="shead">
+      <button class="iconbtn" id="back" aria-label="戻る"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <h2>${c.ja}<small>${c.ru}</small></h2>
+      <button class="star ${isFav(c.id)?"on":""}" data-fav="${c.id}" aria-label="お気に入り">${STAR_SVG}</button>
+    </div>
+    <div class="now num">
+      <div class="bicon">${wIcon(cur.weather_code,cur.is_day)}</div>
+      <div class="big">${r(cur.temperature_2m)}°</div>
+      <div class="desc"><div>${wName(cur.weather_code)}</div>
+        <div>体感 ${r(cur.apparent_temperature)}°</div>
+        <div>↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°</div></div>
+    </div>
+    ${(()=>{ const ws = weatherWarnings(d); return ws.length ? `<div class="sec"><h3>これから24時間の注意</h3><div class="warns" style="margin:0">${ws.map(x=>`<span class="chip" style="font-size:12px;padding:4px 9px">${x}</span>`).join("")}</div></div>` : ""; })()}
+    <div class="sec"><h3>24時間（下の色つき数字は大気汚染 AQI）</h3><div class="hours">${hoursHTML(d)}</div></div>
+    <div class="sec"><h3>7日間</h3>${days}
+      <div class="legend"><span>予報の確かさ：</span><span><i class="dot c-hi"></i>高い</span><span><i class="dot c-mid"></i>ふつう</span><span><i class="dot c-lo"></i>低い</span></div></div>
+    ${lv?`<div class="sec"><h3>大気汚染</h3><div class="num" style="display:flex;align-items:center;gap:10px">
+      <span class="chip ${aqCls(aqNow.us_aqi)}" style="font-size:15px;padding:4px 10px">${r(aqNow.us_aqi)}・${AQ_LABEL[lv]}</span>
+      <span style="font-size:13px;color:var(--ink-2)">PM2.5 ${r(aqNow.pm2_5)}µg/m³</span></div>
+      <div class="note">${AQ_ADVICE[lv]}</div>${airWinHTML(d)}</div>`:""}
+    <div class="sec"><h3>標高</h3><div class="mtn">${mountainSVG(c.el)}
+      <div class="txt"><b class="num">${c.el.toLocaleString()}</b> m<br>${elevNote(c)}</div></div></div>
+    <div class="sec"><h3>いまの様子</h3><div class="stats num">
+      <div class="stat"><div class="k">湿度</div><div class="v">${r(cur.relative_humidity_2m)}%</div></div>
+      <div class="stat"><div class="k">風</div><div class="v">${r(cur.wind_speed_10m)}<small>m/s ${dirName(cur.wind_direction_10m)}</small></div></div>
+      <div class="stat"><div class="k">突風</div><div class="v">${r(cur.wind_gusts_10m)}<small>m/s</small></div></div>
+      <div class="stat"><div class="k">今日の降水量</div><div class="v">${dl.precipitation_sum[0]!=null?Math.round(dl.precipitation_sum[0]*10)/10:"–"}<small>mm</small></div></div>
+      <div class="stat"><div class="k">UV指数</div><div class="v">${r(dl.uv_index_max[0])}</div></div>
+      <div class="stat"><div class="k">日の出 / 日の入</div><div class="v" style="font-size:14px">${sr} / ${ss}</div></div>
+    </div></div>
+    ${modelTbl}
+    <div style="height:20px"></div>`;
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e=>{
+  const star = e.target.closest("[data-fav]");
+  if(star){ e.stopPropagation(); toggleFav(star.dataset.fav); return; }
+  if(e.target.closest("#back")){ closeSheet(false); return; }
+  const op = e.target.closest("[data-open]");
+  if(op){ openSheet(+op.dataset.open); return; }
+  const city = e.target.closest(".city");
+  if(city){ openSheet(+city.dataset.i); return; }
+  const sb = e.target.closest("#sortbar button");
+  if(sb){ prefs.sort = sb.dataset.s; lsSet(PREF_KEY, prefs); renderList(); return; }
+  const nt = e.target.closest("#newsTabs button");
+  if(nt){ prefs.newsTab = nt.dataset.k; newsShowAll = false; lsSet(PREF_KEY, prefs);
+    if(newsQ){ newsQ = ""; document.getElementById("nq").value = ""; } renderNews(); return; }
+  const nr = e.target.closest("[data-nqraw]");
+  if(nr){ newsQRaw = !!nr.dataset.nqraw; newsShowAll = false; renderNews(); return; }
+  const ct = e.target.closest("[data-cat]");
+  if(ct){ prefs.newsCat = ct.dataset.cat; newsShowAll = false; lsSet(PREF_KEY, prefs); renderNews(); return; }
+  if(e.target.closest("#alert")){ prefs.newsTab = "safety"; newsShowAll = false; renderNews();
+    document.getElementById("newsHead").scrollIntoView({behavior:"smooth"}); return; }
+  if(e.target.closest("#openPicker")){ openPicker(); return; }
+  if(e.target.closest("#openWeekly")){ openWeekly(); return; }
+  if(e.target.closest("#openMap") || e.target.closest("#openMap2")){ openMap(); return; }
+  if(e.target.closest("#mapBack")){ closeMap(false); return; }
+  const ml = e.target.closest("[data-maplayer]");
+  if(ml){ const k = ml.dataset.maplayer; mapShow[k] = !mapShow[k]; if(mapShow[k]) mapLayers[k].addTo(mapObj); else mapLayers[k].remove(); ml.classList.toggle("on", mapShow[k]); return; }
+  if(e.target.closest("#tipClose")){ lsSet("kg-tip-hidden", true); document.getElementById("tip").style.display="none"; return; }
+  if(e.target.closest("#hazToggle")){ hazAll = !hazAll; renderHazards(newsData()); return; }
+  if(e.target.closest("#wkBack")){ closeWeekly(false); return; }
+  const wk = e.target.closest("[data-week]");
+  if(wk){ weekSel = wk.dataset.week; renderWeekly(); document.getElementById("weekly").scrollTop = 0; return; }
+  const cb = e.target.closest("#ctry button[data-country]");
+  if(cb){ if(cb.dataset.country!==COUNTRY){ try{ localStorage.setItem("kg-country", cb.dataset.country); }catch(_){}
+    location.reload(); } return; }
+  const pc = e.target.closest("[data-pcity]");
+  if(pc){ pickerCity = pc.dataset.pcity; renderPicker(); return; }
+  if(e.target.closest("#openSkin")){ renderSkins(); document.getElementById("skinPicker").hidden = false; document.body.style.overflow="hidden"; return; }
+  const lyb = e.target.closest("[data-layout-id]");
+  if(lyb){ applyLayout(lyb.dataset.layoutId); renderSkins(); return; }
+  const skb = e.target.closest("[data-skin-id]");
+  if(skb){ applySkin(skb.dataset.skinId); renderSkins(); return; }
+  if(e.target.closest("[data-sclose]")){ document.getElementById("skinPicker").hidden = true; document.body.style.overflow=""; return; }
+  const sb2 = e.target.closest("[data-st]");
+  if(sb2){ const id = sb2.dataset.st; myStreets = myStreets.includes(id) ? myStreets.filter(x=>x!==id) : [...myStreets, id];
+    lsSet(STREET_KEY, myStreets); renderPicker(); return; }
+  if(e.target.closest("#pclear")){ myStreets = []; lsSet(STREET_KEY, myStreets); renderPicker(); return; }
+  if(e.target.closest("[data-pclose]")){ closePicker(); return; }
+  if(e.target.closest("#ticker")){ mystOpen = !mystOpen; renderInfra(newsData()); return; }
+  if(e.target.closest("#mall")){ mallOpen = !mallOpen; renderInfra(newsData()); return; }
+  if(e.target.closest("#nmore")){ newsShowAll = !newsShowAll; renderNews(); return; }
+});
+// news search box: filter as you type (after a short pause; not while a Japanese word is still being composed)
+(()=>{
+  const inp = document.getElementById("nq"); let timer = 0;
+  const run = () => { const v = inp.value.trim(); if(v===newsQ) return; newsQ = v; newsShowAll = false; renderNews(); };
+  inp.addEventListener("focus", ()=>{ loadSearchTerms(); loadNewsArchive(); });
+  inp.addEventListener("input", e=>{ if(e.isComposing) return; clearTimeout(timer); timer = setTimeout(run, 250); });
+  inp.addEventListener("compositionend", ()=>{ clearTimeout(timer); timer = setTimeout(run, 250); });
+  document.getElementById("nsform").addEventListener("submit", e=>{ e.preventDefault(); clearTimeout(timer); run(); inp.blur(); });
+})();
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape" && !document.getElementById("picker").hidden){ closePicker(); return; }
+  if(e.key==="Escape" && openIdx!=null && document.getElementById("skinPicker").hidden){ closeSheet(false); return; }
+  if(e.key==="Escape" && weeklyOpen){ closeWeekly(false); return; }
+  if(e.key==="Escape" && document.getElementById("mapSheet").classList.contains("open")){ closeMap(false); return; }
+  if(e.key==="Escape" && !document.getElementById("skinPicker").hidden){ document.getElementById("skinPicker").hidden = true; document.body.style.overflow=""; return; }
+  const city = e.target.closest && e.target.closest(".city");
+  if(city && (e.key==="Enter"||e.key===" ") && !e.target.closest("[data-fav]")){ e.preventDefault(); openSheet(+city.dataset.i); }
+});
+document.getElementById("refresh").onclick = refresh;
+function maybeRefresh(){
+  if(document.visibilityState!=="visible") return;
+  if(!state || Date.now()-state.t > STALE_MS) refresh();
+  else document.getElementById("updated").textContent = fmtUpdated(state.t);
+}
+document.addEventListener("visibilitychange", maybeRefresh);
+setInterval(maybeRefresh, 60*1000);
+if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone || lsGet("kg-tip-hidden")) document.getElementById("tip").style.display="none";
+
+applySkin(skin);
+document.title = `${CFG.name} 統合情報`;
+document.documentElement.setAttribute("data-country", COUNTRY);
+// smaller title for long country names (9+ / 10+ characters)
+if(CFG.name.length>=9) document.documentElement.setAttribute("data-longname", CFG.name.length>=10 ? "xl" : "");
+// the culture-events page covers Bishkek only
+if(COUNTRY!=="kg") document.getElementById("eventsLink").hidden = true;
+document.getElementById("cname").textContent = CFG.name;
+// shrink the title a little more if it still does not fit (small phones)
+function fitTitle(){
+  const h = document.querySelector("h1"); if(!h) return;
+  h.style.fontSize = "";
+  let size = parseFloat(getComputedStyle(h).fontSize);
+  while(h.scrollWidth > h.clientWidth + 1 && size > 13){ size -= 0.5; h.style.fontSize = size + "px"; }
+}
+fitTitle();
+addEventListener("resize", fitTitle);
+try{ document.fonts && document.fonts.ready.then(fitTitle); }catch(e){}
+document.getElementById("overline").textContent = CFG.over;
+document.getElementById("mtnNote").textContent = CFG.mountainNote;
+document.getElementById("tzNote").textContent = CAPITAL.ja;
+document.querySelectorAll("#ctry button[data-country]").forEach(b=>{ b.classList.toggle("on", b.dataset.country===COUNTRY); b.setAttribute("aria-selected", b.dataset.country===COUNTRY); });
+updateOnline();
+renderPasses(); renderCalendar();
+if(state) render();
+renderNews();
+if(!state || Date.now()-state.t > 60*1000) refresh(); else loadNews();
+</script>
+</body>
+</html>

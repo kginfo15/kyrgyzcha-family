@@ -1,0 +1,42 @@
+name: Fetch indicators
+
+# Pulls Kyrgyzstan's indicator series (World Bank, UN SDG database, WHO) for the
+# per-pillar indicator charts in monitor.html (scripts/fetch_indicators.py).
+# The raw result goes to the `indicators-data` branch as indicators-raw.json.
+# Twice a year (the international databases update slowly) and on demand.
+on:
+  schedule:
+    - cron: "0 2 15 1,7 *"   # 15 January and 15 July
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/fetch_indicators.py
+      - .github/workflows/fetch-indicators.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-indicators
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch
+        run: |
+          mkdir -p "$RUNNER_TEMP/out"
+          python3 scripts/fetch_indicators.py "$RUNNER_TEMP/out"
+      - name: Publish
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/out"
+          git init -q
+          git checkout -q --orphan indicators-data
+          git add -A
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -qm "Indicator series"
+          git push -qf "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" indicators-data
