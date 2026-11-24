@@ -1,5 +1,5 @@
 /* ===== PHASE53: 他アプリの良いところ（穴埋め例文・達成のお祝い・連続日数のおやすみ券・復習予報・到達予測） ===== */
-/* ---- 1) 例文の穴埋めクイズ（Clozemaster式） ---- */
+/* ---- 1) 例文の穴埋めクイズ ---- */
 function p53Strip(s){return String(s||"").replace(/́/g,"").toLowerCase();}
 function p53Cloze(w){
   if(!w||!w.exRu||/\s/.test(w.word.trim()))return null;
@@ -29,7 +29,7 @@ p52Render=function(s){
       '<div class="p52-tag">空欄に入る単語は？</div><div class="p53-cloze">'+esc(q.cloze.sentence).replace("＿＿＿",'<span class="p53-blank">'+(q.pick===null?"？":esc(q.cloze.answer))+'</span>')+'</div><div class="p53-clozeja">'+esc(w.exJa||"")+'</div>');}
   return _p53RenderOpts(s);
 };
-/* ---- 2) 今日の目標を達成したらお祝い（Duolingo式） ---- */
+/* ---- 2) 今日の目標を達成したらお祝い ---- */
 var _p53Advance=p21Advance;
 p21Advance=function(kind){
   var before=p47DoneToday(),t=p47Target();

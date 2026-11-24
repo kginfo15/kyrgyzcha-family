@@ -64,7 +64,7 @@ var P47_IC={
   mountain:'<path d="M2 20l7-11 4 6 3-4 6 9z"/><circle cx="17" cy="6" r="2"/>',smile:'<circle cx="12" cy="12" r="8.5"/><path d="M8.5 14c1 1.5 2.2 2 3.5 2s2.5-.5 3.5-2M9 9.5h.01M15 9.5h.01"/>',
   link:'<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>',hash:'<path d="M5 9h14M5 15h14M10 4L8 20M16 4l-2 16"/>',
   star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',bookmark:'<path d="M6 3h12v18l-6-4-6 4z"/>',check:'<path d="M5 12.5l4.5 4.5L19 7"/>',
-  chev:'<path d="M9 5l7 7-7 7"/>',flame:'<path d="M12 21c4 0 7-2.7 7-6.5 0-3.6-2.6-5.6-3.6-8.5-.4 2-1.6 3.2-2.8 3.6C12.8 6.4 11 4.3 9 3c.4 3.1-4 5.6-4 11.5C5 18.3 8 21 12 21z"/>',
+  chev:'<path d="M9 5l7 7-7 7"/>',flame:'<path d="M12 21v-9"/><path d="M12 12c0-4.2 2.8-7 8-7 0 4.4-3 7-8 7z"/><path d="M12 15c0-3.2-2.3-5.6-7-5.6 0 3.3 2.5 5.6 7 5.6z"/>',
   grid:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
   cards:'<rect x="7" y="3" width="12" height="16" rx="2"/><path d="M5 7v12a2 2 0 002 2h9"/>'
 };
@@ -214,7 +214,7 @@ document.addEventListener("click",function(e){
   '.p47-top{display:flex;justify-content:space-between;align-items:flex-end;margin:6px 2px 16px}'+
   '.p47-date{font-size:13px;color:var(--muted);font-weight:600}.p47-greet{font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:2px}'+
   '.p47-streak{display:flex;align-items:center;gap:4px;padding:7px 12px;border-radius:999px;background:var(--card);color:var(--muted);font-size:12px}'+
-  '.p47-streak b{font-size:16px;color:var(--ink)}.p47-streak.on{color:#FF9F0A}.p47-streak.on b{color:#FF9F0A}'+
+  '.p47-streak b{font-size:16px;color:var(--ink)}.p47-streak.on{color:#2E9C8F}.p47-streak.on b{color:#2E9C8F}'+
   '.p47-hero{display:block;width:100%;padding:0;border:none;border-radius:24px;overflow:hidden;position:relative;background:var(--accent);color:#fff;text-align:left;cursor:pointer;box-shadow:0 12px 32px rgba(0,0,0,.35)}'+
   '.p47-heroart{position:absolute;inset:0}.p47-heroart svg{width:100%;height:100%;display:block}'+
   '.p47-heroart:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.62) 0%,rgba(0,0,0,.35) 50%,rgba(0,0,0,0) 85%),linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.45) 100%)}'+
