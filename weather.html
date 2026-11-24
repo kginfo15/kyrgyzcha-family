@@ -475,6 +475,23 @@ details.about .foot{margin-top:8px}
 .pst.bad{background:rgba(255,92,92,.15);color:var(--bad)}
 .pass a.pnews{grid-column:1/-1;font-size:12px;color:var(--ink-2);text-decoration:none;margin-top:2px}
 .pass a.pnews b{color:var(--bad)}
+/* tourist spots: one row of cards that scrolls sideways, so the page doesn't get longer */
+.spots{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:2px 2px 8px;margin:0 -2px;scrollbar-width:none}
+.spots::-webkit-scrollbar{display:none}
+@media (min-width:1024px){ .spothint{display:none} }
+@media (min-width:1024px){ .spots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible} .spot{flex:none} }
+.spot{flex:0 0 152px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.spot .sn{font-size:13.5px;font-weight:800;line-height:1.3}
+.spot .sr{font-size:11px;color:var(--ink-3);line-height:1.35;min-height:2.7em}
+.spot .se{align-self:flex-start;font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:5px;background:rgba(var(--accent-rgb),.12);color:var(--accent)}
+.spot .se.hi{background:rgba(255,145,71,.15);color:var(--orange)}
+.spot .stw{display:flex;align-items:baseline;gap:6px;margin-top:4px}
+.spot .stw .i{font-size:22px;line-height:1}
+.spot .stw .t{font-family:var(--num-font);font-size:26px;font-weight:300;line-height:1}
+.spot .sd{font-size:11.5px;color:var(--ink-2)}
+.spot .sc{font-size:11px;color:var(--ink-3)}
+.spot .sc b{color:var(--accent);font-weight:700}
+:root[data-layout="sharp"] .spot,:root[data-layout="sharp"] .spot .se{border-radius:3px}
 /* calendar */
 .calbox{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
 .calbox summary{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;list-style:none;font-size:13px}
@@ -643,8 +660,14 @@ details.about .foot{margin-top:8px}
   <details class="calbox" id="calbox"><summary><span class="cs-t">📅 祝日・行事</span><span class="cs-n" id="calSum"></span><span class="cs-c">›</span></summary>
     <div class="cal" id="cal"></div></details>
 
+  <div id="spotsWrap" hidden>
+  <h2 class="sect"><span class="grow">🏞️ 観光地</span><span class="sectsub">その場所の高さでの予報<span class="spothint">・横にスクロール</span></span></h2>
+  <div class="spots" id="spots"><div class="nempty">読み込み中…</div></div>
+  </div>
+
   <h2 class="sect"><span class="grow">⛰️ 峠・山道</span><span class="sectsub">峠の高さでの予報</span></h2>
   <div class="passes" id="passes"><div class="nempty">読み込み中…</div></div>
+
 
   <h2 class="sect"><span class="grow">🗺️ すべての地域</span><button class="wkpill" id="openMap">🗺 地図で見る</button></h2>
   <div class="sortbar" id="sortbar">
@@ -880,7 +903,7 @@ async function refresh(){
     latitude:lats, longitude:lons, timezone:TZ, forecast_days:2,
     current:"us_aqi,pm2_5", hourly:"us_aqi,pm2_5",
   });
-  loadNews(); loadPasses();
+  loadNews(); loadPasses(); loadSpots();
   try{
     const [m, mm, aq] = await Promise.allSettled([getJSON(main), getJSON(multi), getJSON(air)]);
     if(m.status!=="fulfilled") throw m.reason;
@@ -999,7 +1022,7 @@ function render(){
   if(mapObj && document.getElementById("mapSheet").classList.contains("open")) setTimeout(drawMap, 0);
   document.getElementById("updated").textContent = state ? fmtUpdated(state.t) : (loading ? "読み込み中…" : "データなし");
   if(!state){ if(!loading){ document.getElementById("favs").innerHTML=""; document.getElementById("list").innerHTML=""; } return; }
-  renderFavs(); renderList();
+  renderFavs(); renderList(); renderSpots();
   if(openIdx!=null) renderSheet(openIdx);
 }
 
@@ -1640,6 +1663,51 @@ function renderPasses(){
   }).join("") + `<div class="pass" style="grid-template-columns:1fr"><div class="pr" style="font-size:11px;color:var(--ink-3)">今日・明日の峠の高さでの予報（雪の量・最大瞬間風速・最低気温）と、直近3日の通行止めニュース。位置と高さは道路が峠を越えるおおよその地点です。出発前は現地の道路情報も確認してください。</div></div>`;
 }
 
+/* ---------- tourist spots ---------- */
+// Popular sights, forecast at the sight's own height (mountain spots are much colder than the city).
+// Only Kyrgyzstan for now; another country can get a list under its code.
+const SPOTS = {
+  kg:[
+    {id:"alaarcha", ja:"アラ・アルチャ", ru:"Ала-Арча", area:"国立公園・ビシュケクの南の山", lat:42.565, lon:74.482, el:2150},
+    {id:"skazka", ja:"スカズカ渓谷", ru:"Сказка", area:"イシク・クル湖の南岸", lat:42.155, lon:77.360, el:1750},
+    {id:"jetioguz", ja:"ジェティ・オグズ", ru:"Жети-Огуз", area:"カラコルの西・赤い岩山", lat:42.326, lon:78.233, el:2000},
+    {id:"karakolski", ja:"カラコル・スキー場", ru:"Каракол (лыжная база)", area:"カラコルの南の山", lat:42.450, lon:78.530, el:2300},
+    {id:"songkul", ja:"ソン・クル湖", ru:"Сон-Куль", area:"ナリン州の高原の湖", lat:41.850, lon:75.130, el:3016},
+    {id:"tashrabat", ja:"タシュ・ラバト", ru:"Таш-Рабат", area:"ナリン州・シルクロードの隊商宿", lat:40.823, lon:75.289, el:3200},
+    {id:"sarychelek", ja:"サリ・チェレク湖", ru:"Сары-Челек", area:"ジャララバード州の山の湖", lat:41.860, lon:71.970, el:1873},
+    {id:"arslanbob", ja:"アルスランボブ", ru:"Арсланбоб", area:"ジャララバード州・クルミの森", lat:41.333, lon:72.935, el:1600},
+  ],
+}[COUNTRY] || [];
+let spotWx = lsGet("kg-spots"+CFG.suffix);
+async function loadSpots(){
+  if(!SPOTS.length) return;
+  try{
+    const j = asArr(await getJSON("https://api.open-meteo.com/v1/forecast?" + qs({
+      latitude:SPOTS.map(p=>p.lat).join(","), longitude:SPOTS.map(p=>p.lon).join(","), elevation:SPOTS.map(p=>p.el).join(","),
+      timezone:TZ, forecast_days:1, current:"temperature_2m,weather_code,is_day",
+      daily:"temperature_2m_max,temperature_2m_min,precipitation_probability_max,snowfall_sum"})));
+    spotWx = {t:Date.now(), data:j}; lsSet("kg-spots"+CFG.suffix, spotWx);
+  }catch(e){}
+  renderSpots();
+}
+function renderSpots(){
+  const wrap = document.getElementById("spotsWrap");
+  if(!SPOTS.length){ wrap.hidden = true; return; }
+  wrap.hidden = false;
+  const data = spotWx && spotWx.data;
+  const capD = cityData(idx(CFG.capital)), capT = capD && capD.cur.temperature_2m;
+  document.getElementById("spots").innerHTML = SPOTS.map((p,i)=>{
+    const w = data && data[i], cur = w && w.current, dl = w && w.daily;
+    const diff = cur && capT!=null ? Math.round(cur.temperature_2m - capT) : null;
+    const snow = dl && dl.snowfall_sum && dl.snowfall_sum[0], pop = dl && dl.precipitation_probability_max && dl.precipitation_probability_max[0];
+    return `<div class="spot"><div class="sn">${p.ja}</div><div class="sr">${p.area}</div>
+      <span class="se ${p.el>=2000?"hi":""}">⛰ 標高 ${p.el.toLocaleString()}m</span>
+      <div class="stw num"><span class="i">${cur?wIcon(cur.weather_code,cur.is_day):"–"}</span><span class="t">${cur?r(cur.temperature_2m)+"°":""}</span></div>
+      <div class="sd num">${dl?`↑${r(dl.temperature_2m_max[0])}° ↓${r(dl.temperature_2m_min[0])}°`:""}${snow?`　❄${Math.round(snow*10)/10}cm`:pop!=null?`　☔${pop}%`:""}</div>
+      ${diff!=null&&diff!==0?`<div class="sc num">${CAPITAL.ja}より <b>${diff>0?"+":""}${diff}°</b></div>`:""}</div>`;
+  }).join("");
+}
+
 /* ---------- holidays & events ---------- */
 // public holidays; Islamic holidays follow the moon and can shift by a day
 const HOLIDAYS = {
@@ -2084,7 +2152,7 @@ document.getElementById("mtnNote").textContent = CFG.mountainNote;
 document.getElementById("tzNote").textContent = CAPITAL.ja;
 document.querySelectorAll("#ctry button[data-country]").forEach(b=>{ b.classList.toggle("on", b.dataset.country===COUNTRY); b.setAttribute("aria-selected", b.dataset.country===COUNTRY); });
 updateOnline();
-renderPasses(); renderCalendar();
+renderPasses(); renderSpots(); renderCalendar();
 if(state) render();
 renderNews();
 if(!state || Date.now()-state.t > 60*1000) refresh(); else loadNews();
