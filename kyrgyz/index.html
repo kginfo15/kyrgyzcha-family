@@ -12296,6 +12296,12 @@ function p74Scene(figs,opt){
   return '<svg class="p74-scene" viewBox="0 0 240 140" aria-hidden="true">'+s+'</svg>';
 }
 P74_HEAD.elechek=function(){return '<path d="M34 50q-6-14-2-30q2-12 28-14q26 2 28 14q4 16-2 30q-6-6-26-7q-20 1-26 7z" fill="#FBF8F0" '+P74_OUT+'/><path d="M33 22q27-8 54 0M32 32q28-8 56 0M33 42q27-7 54 0" stroke="#D8CFB8" stroke-width="2" fill="none"/><path d="M36 48q-8 22 2 38l7-5q-7-15-3-30z" fill="#FBF8F0" '+P74_OUT+'/><path d="M84 48q8 22-2 38l-7-5q7-15 3-30z" fill="#FBF8F0" '+P74_OUT+'/><path d="M45 80q15 9 30 0l1 6q-16 9-32 0z" fill="#FBF8F0" '+P74_OUT+'/>';};
+/* 未婚の娘の帽子（ウク・トプ）：まるい帽子に、魔よけのフクロウの羽と銀の飾り */
+P74_HEAD.ukutopu=function(c){return '<path d="M40 44q0-22 20-24q20 2 20 24z" fill="'+(c||"#B3202B")+'" '+P74_OUT+'/><path d="M40 44q20 6 40 0" stroke="#E8B923" stroke-width="3" fill="none"/><circle cx="48" cy="46" r="2" fill="#C9D3DD" stroke="#2B2233" stroke-width=".8"/><circle cx="60" cy="48" r="2" fill="#C9D3DD" stroke="#2B2233" stroke-width=".8"/><circle cx="72" cy="46" r="2" fill="#C9D3DD" stroke="#2B2233" stroke-width=".8"/><path d="M60 20q-4-14 4-20q2 10-2 20zM60 20q8-12 16-12q-6 8-14 13z" fill="#8A6A4A" stroke="#2B2233" stroke-width="1"/><path d="M62 4l-1 12M70 11l-7 7" stroke="#F2E3C6" stroke-width="1"/>';};
+/* 花嫁の帽子（シュクル）：赤い高い円すい形、上に羽、うしろにベール、さんごや銀の飾り */
+P74_HEAD.shokulo=function(c){return '<path d="M40 46q-6 30 -4 50l8-2q-2-24 2-44zM80 46q6 30 4 50l-8-2q2-24-2-44z" fill="#F6EFE0" opacity=".9" '+P74_OUT+'/><path d="M42 46l18-40 18 40z" fill="'+(c||"#B3202B")+'" '+P74_OUT+'/><path d="M46 38h28M50 28h20" stroke="#E8B923" stroke-width="2"/><circle cx="52" cy="42" r="1.8" fill="#E2483B"/><circle cx="60" cy="42" r="1.8" fill="#5CB8B2"/><circle cx="68" cy="42" r="1.8" fill="#E2483B"/><path d="M60 6q-6-10 0-16q4 8 0 16zM60 6q8-8 14-6q-6 6-14 6z" fill="#F6F1E1" stroke="#2B2233" stroke-width=".8"/><path d="M40 46q20 6 40 0" stroke="#C9D3DD" stroke-width="2.4" fill="none"/>';};
+/* 19世紀の軍人の帽子（つば付き） */
+P74_HEAD.cap=function(c){return '<path d="M40 40q0-14 20-14t20 14z" fill="'+(c||"#3A4A3A")+'" '+P74_OUT+'/><path d="M38 40h44v5H38z" fill="#B3202B" '+P74_OUT+'/><path d="M40 45q10 6 22 0" fill="#2B2233"/>';};
 P74_HEAD.tebetei=function(c){return '<path d="M40 46q0-24 20-26q20 2 20 26z" fill="'+(c||"#B3202B")+'" '+P74_OUT+'/><path d="M34 48q26-12 52 0q-4 8-26 6q-22 2-26-6z" fill="#6B4A2E" '+P74_OUT+'/><path d="M60 20v-6" stroke="#E8B923" stroke-width="3" stroke-linecap="round"/>';};
 P74_HAND.komuz=function(){return '<path d="M104 92l10-40" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M111 50l6 2M110 55l6 2" stroke="#5A3A1E" stroke-width="2" stroke-linecap="round"/><path d="M88 96q8-8 20-2q8 8 2 20q-8 12-20 6q-10-8-2-24z" fill="#B5793B" '+P74_OUT+'/><path d="M98 118l15-64M102 118l14-64" stroke="#F6F1E1" stroke-width=".9"/><circle cx="98" cy="104" r="3" fill="#5A3A1E"/>';};
 
@@ -12544,7 +12550,7 @@ P74_PATHS.push({id:"kurmanjan",hist:1,name:"クルマンジャン・ダトカの
   sk:["自分で決める勇気","馬上の早がけ","人をつなぐことば","落ち着いた判断","部族をまとめる声","争いを止める交渉","涙を見せない強さ","アライの知恵"],
   al:[{n:"父マンバトバイ",r:"父。家を出たクルマンジャンは、父のもとで暮らすことを選んだ（第1話）",o:P74_NPC.manbat},
       {n:"夫アリムベク",r:"夫（1832年に結婚）。「ダトカ」の称号をもつアライの指導者。1862年に亡くなる",o:P74_NPC.alymbek},
-      {n:"息子カムチュベク",r:"とくにかわいがった息子。1895年、オシで処刑される（第6話）",o:{hand:"whip",off:"none",head:"kalpak",body:{type:"chapan",c:"#7A2E3A",t:"#E8B923"},hair:"#2B2233"}},
+      {n:"息子カムチベク",r:"とくにかわいがった息子。1895年、オシで処刑される（第6話）",o:{hand:"whip",off:"none",head:"kalpak",body:{type:"chapan",c:"#7A2E3A",t:"#E8B923"},hair:"#2B2233"}},
       {n:"白い愛馬",r:"遊牧の暮らしと旅を支えた馬（名前はなく、この道で描いた馬）",animal:"horse",c:"#F2EEE4"},
       {n:"鷹狩りのワシ",r:"キルギスに今も伝わる鷹狩りの文化から（この道で描いたワシ）",animal:"hawk",c:"#8A5A2B"}],
   story:[
@@ -12567,7 +12573,7 @@ P74_PATHS.push({id:"kurmanjan",hist:1,name:"クルマンジャン・ダトカの
    {t:"第8話　アライの女王",fig:["npc:people1@20","h@100","npc:people2@170"],ex:["Мы помним Курманжан.","わたしたちはクルマンジャンを覚えています。"],
     x:"クルマンジャン・ダトカは、1907年2月1日に亡くなりました。人々は彼女を「アライの女王」と呼んで敬いました。\n今ではキルギスの50ソム紙幣に彼女の肖像がえがかれ、2004年にはビシケクに記念像が建てられました。"}],
   about:{t:"クルマンジャン・ダトカを全部たどったあなたへ",
-   x:"・クルマンジャン・ダトカ（1811〜1907年）は、キルギスで最も知られた女性指導者の一人です。\n・生誕200年にあたる2011年は、キルギスで「クルマンジャン・ダトカの年」とされました。\n・2014年には、彼女の生涯をえがいた映画『クルマンジャン・ダトカ』が作られました。\n・50ソム紙幣の表に肖像、裏にはウズゲンの歴史的な建物がえがかれています。\n・この道の仲間（アイダ、トゥルスン、ナルギザ、タカのボルクト）は、学習を楽しむためのオリジナルの登場人物で、実在の人物ではありません。また、モンスターやボスはゲームのための想像上の生きもので、実在の国や人々を表すものではありません。"}
+   x:"・クルマンジャン・ダトカ（1811〜1907年）は、キルギスで最も知られた女性指導者の一人です。\n・生誕200年にあたる2011年は、キルギスで「クルマンジャン・ダトカの年」とされました。\n・2014年には、彼女の生涯をえがいた映画『クルマンジャン・ダトカ』が作られました。\n・50ソム紙幣の表に肖像、裏にはウズゲンの歴史的な建物がえがかれています。\n・この道の仲間のうち、父マンバトバイ、夫アリムベク、息子カムチベクは記録に残る実在の人物です。白い愛馬と鷹狩りのワシは、遊牧の暮らしと文化を表すためにこの道で描いたもので、特定の記録にもとづくものではありません。"}
 });
 
 P74_PATHS.push({id:"toktogul",hist:1,name:"トクトグルの道",goal:"村の少年 → 人々の歌い手",verb:"乗りこえた",color:"#3E6E4A",
@@ -12610,7 +12616,7 @@ P74_PATHS.push({id:"toktogul",hist:1,name:"トクトグルの道",goal:"村の�
    {t:"第8話　名前が残る町",fig:["h@100"],ex:["Это город Токтогул.","これはトクトグルの町です。"],
     x:"トクトグルは1933年、ふるさとの村で亡くなり、そこに葬られました。お墓には記念碑が建てられ、村には博物館もできました。\nジャララバード州のトクトグル町は彼の名前から付けられ、ビシケクには彼の名前の通りや記念像があります。"}],
   about:{t:"トクトグルを全部たどったあなたへ",
-   x:"・トクトグル・サトゥルガノフ（1864〜1933年）は、キルギスを代表するアクンであり、作曲家です。\n・1930年代の終わりごろから、人々の記憶をもとに彼の歌が集められ、本にまとめられ、研究されてきました。\n・キルギスの紙幣にも、アクンでありコムズの弾き手である彼の姿がえがかれています。\n・この道の仲間（アセル、ベク、アイベク）は、学習を楽しむためのオリジナルの登場人物で、実在の人物ではありません。また、モンスターやボスはゲームのための想像上の生きもので、実在の国や人々を表すものではありません。"}
+   x:"・トクトグル・サトゥルガノフ（1864〜1933年）は、キルギスを代表するアクンであり、作曲家です。\n・1930年代の終わりごろから、人々の記憶をもとに彼の歌が集められ、本にまとめられ、研究されてきました。\n・キルギスの紙幣にも、アクンでありコムズの弾き手である彼の姿がえがかれています。\n・この道の仲間のうち、母ブルマと息子ババジャンは記録に残る実在の人物です。村の人々や帰り道の友は、物語に出てくる人たちをまとめて表したもので、白い子馬はこの道で描いた馬です。"}
 });
 
 /* ===== Phase74 道ごとの敵・ボス・物語の出来事 =====
@@ -13615,6 +13621,24 @@ var M6={
  baby:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-14 4q-2-14 12-16q14 0 14 12q0 10-14 10z" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.4"/><circle cx="-2" cy="-6" r="6" fill="#F3C9A0" stroke="#2B2233" stroke-width="1.2"/><path d="M-5 -6q1-1.6 2 0M0 -6q1-1.6 2 0" stroke="#2B2233" stroke-width="1" fill="none"/><path d="M-3 -3q1.6 1.4 3 0" stroke="#2B2233" stroke-width="1" fill="none"/></g>';},
  bowl:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-9 0h18q-2 8-9 8t-9-8z" fill="#F4EBD8" stroke="#2B2233" stroke-width="1.2"/><path d="M-4 -3q2-3 0-6M2 -3q2-3 0-6" stroke="#9AA4AE" stroke-width="1" fill="none"/></g>';},
  eagle:function(x,y,s,flip){s=s||1;var g='<path d="M0 0q-20-14-34-6q14 0 22 10q-16 0-24 8q16-2 26 2z" fill="#6E4A22" stroke="#2B2233" stroke-width="1.2"/><path d="M0 0q8-6 16-4l6 2-6 2q-6 6-16 4z" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.2"/><circle cx="14" cy="-3" r="1.4" fill="#2B2233"/><path d="M22 -2l4 1-4 2" fill="#E8B923"/>';return '<g transform="translate('+x+' '+y+') scale('+(flip?-s:s)+' '+s+')">'+g+'</g>';},
+ /* 羊 */
+ sheep:function(x,y,s,flip){s=s||1;var g='<ellipse cx="0" cy="-10" rx="14" ry="10" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.4"/><path d="M-10 -2v8M-2 -2v8M6 -2v8M12 -4v8" stroke="#2B2233" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="14" cy="-14" rx="6" ry="5" fill="#5A4A42" stroke="#2B2233" stroke-width="1.2"/><circle cx="16" cy="-15" r="1" fill="#fff"/><path d="M10 -18q-4-4 -2-6" stroke="#5A4A42" stroke-width="2.4" fill="none"/>';return '<g transform="translate('+x+' '+y+') scale('+(flip?-s:s)+' '+s+')">'+g+'</g>';},
+ /* 白鳥（飛ぶ） */
+ swan:function(x,y,s,flip){s=s||1;var g='<path d="M0 0q-18-26-40-22q14 6 22 18q-20-4-30 4q20 2 30 10z" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.3"/><path d="M0 0q10 2 18-6q4-10 12-10q4 0 4 4l-6 1q-4 2-6 8q-6 10-22 9z" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.3"/><path d="M34 -12l6 1-6 2z" fill="#E8B923"/><circle cx="31" cy="-13" r="1" fill="#2B2233"/>';return '<g transform="translate('+x+' '+y+') scale('+(flip?-s:s)+' '+s+')">'+g+'</g>';},
+ /* 中央アジアの古い町（丸屋根と門） */
+ city:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M-60 0v-30h120v30z" fill="#E8C98A" stroke="#2B2233" stroke-width="1.4"/><path d="M-14 0v-40h28v40z" fill="#E0B870" stroke="#2B2233" stroke-width="1.4"/><path d="M-8 0v-22q8-10 16 0v22z" fill="#6E4A22"/><path d="M-30 -30q14-22 28 0z" fill="#3E8EB8" stroke="#2B2233" stroke-width="1.4"/><path d="M8 -40q14-24 28 0z" fill="#3E8EB8" stroke="#2B2233" stroke-width="1.4" transform="translate(6 10)"/><path d="M44 0v-56h8v56z" fill="#E0B870" stroke="#2B2233" stroke-width="1.4"/><path d="M42 -56h12l-6-8z" fill="#3E8EB8" stroke="#2B2233" stroke-width="1.2"/><path d="M-56 -20h24M30 -20h10" stroke="#3E8EB8" stroke-width="2"/></g>';},
+ /* 黒いもや（裏切り・あやしさ） */
+ gloom:function(x,y,r){return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#3A2E5C" opacity=".35"/><circle cx="'+x+'" cy="'+y+'" r="'+(r*.7)+'" fill="#3A2E5C" opacity=".3"/>';},
+ /* 巻物（物語の本） */
+ scroll:function(x,y,s,t){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><rect x="-30" y="-20" width="60" height="40" fill="#FBF3DC" stroke="#2B2233" stroke-width="1.4"/><rect x="-34" y="-24" width="6" height="48" rx="3" fill="#8A5A2B" stroke="#2B2233"/><rect x="28" y="-24" width="6" height="48" rx="3" fill="#8A5A2B" stroke="#2B2233"/>'+(t?'<text x="0" y="4" text-anchor="middle" font-size="10" font-weight="800" fill="#2B2233" font-family="system-ui,sans-serif">'+esc(t)+'</text>':'<path d="M-20 -8h40M-20 0h34M-20 8h38" stroke="#9AA4AE" stroke-width="2"/>')+'</g>';},
+ /* 古い写真機（三脚つきの箱） */
+ camera:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><path d="M0 0l-14 34M0 0l14 34M0 0v34" stroke="#6E4A22" stroke-width="2.4"/><rect x="-16" y="-22" width="32" height="22" fill="#6E4A22" stroke="#2B2233" stroke-width="1.4"/><path d="M16 -16h10v10H16z" fill="#2B2233"/><circle cx="26" cy="-11" r="4" fill="#9AA4AE" stroke="#2B2233"/><path d="M-16 -22q-8-6-8 10" fill="#2B2233"/></g>';},
+ /* 額に入った古い写真（中身は svg） */
+ frame:function(x,y,w,h,inner){return '<g><rect x="'+(x-w/2-6)+'" y="'+(y-h/2-6)+'" width="'+(w+12)+'" height="'+(h+12)+'" fill="#8A5A2B" stroke="#2B2233" stroke-width="1.6"/><rect x="'+(x-w/2)+'" y="'+(y-h/2)+'" width="'+w+'" height="'+h+'" fill="#E8D5B0"/><g opacity=".85" style="filter:sepia(1)">'+inner+'</g></g>';},
+ /* 台座の上の像 */
+ statue:function(o,x,y,h){return '<rect x="'+(x-24)+'" y="'+(y-10)+'" width="48" height="'+(140-y+10)+'" fill="#B8B2A6" stroke="#2B2233" stroke-width="1.4"/><rect x="'+(x-30)+'" y="'+(y-14)+'" width="60" height="6" fill="#9A9488" stroke="#2B2233"/><g style="filter:grayscale(1) brightness(1.05)">'+M6.P(o,x,y-14,h)+'</g>';},
+ /* 紙幣の形（実物の図柄はまねない：数字と横顔のシルエットだけ） */
+ note50:function(x,y,s){s=s||1;return '<g transform="translate('+x+' '+y+') scale('+s+')"><rect x="-50" y="-26" width="100" height="52" rx="4" fill="#E9D9F2" stroke="#2B2233" stroke-width="1.4"/><rect x="-44" y="-20" width="88" height="40" rx="3" fill="none" stroke="#9B7BB8" stroke-width="1.2"/><text x="30" y="-4" text-anchor="middle" font-size="16" font-weight="900" fill="#5E3A7E" font-family="system-ui,sans-serif">50</text><text x="30" y="12" text-anchor="middle" font-size="8" font-weight="800" fill="#5E3A7E" font-family="system-ui,sans-serif">сом</text><circle cx="-18" cy="0" r="14" fill="#C9B6DA"/><path d="M-26 -6q8-10 16 0v4q-8-4-16 0z" fill="#F6F1E1"/></g>';},
  /* ---------- 効果 ---------- */
  speed:function(cx,cy,c){var s='';for(var i=0;i<36;i++){var a=i/36*Math.PI*2,r1=58+(i%3)*8,r2=160;s+='<path d="M'+(cx+Math.cos(a)*r1).toFixed(1)+' '+(cy+Math.sin(a)*r1*.7).toFixed(1)+'L'+(cx+Math.cos(a)*r2).toFixed(1)+' '+(cy+Math.sin(a)*r2*.7).toFixed(1)+'" stroke="'+(c||"#2B2233")+'" stroke-width="'+(i%2?1:2)+'" opacity=".55"/>';}return s;},
  lines:function(x,y,n,dir){var s='';for(var i=0;i<(n||5);i++)s+='<path d="M'+x+' '+(y+i*7)+'h'+(dir||-1)*(18+(i%2)*10)+'" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".9"/>';return s;},
@@ -13746,6 +13770,308 @@ P76.manas=[
    d:function(){return M6.sky("dawn")+M6.mts()+M6.grass()+M6.yurt(206,100,.8)+M6.P(m6(KN,{face:"determined",pose:"hold"}),92,130,104)+M6.P(m6(semChild,{face:"smile",pose:"wave"}),142,132,60)+M6.spark(40,30);}},
   {t:"そして孫セイテクの物語へと続きます。この3つをあわせて「マナス三部作」と呼びます。",
    d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+[["マナス",48],["セメテイ",120],["セイテク",192]].map(function(q,k){return '<g><rect x="'+(q[1]-34)+'" y="30" width="68" height="84" rx="6" fill="#FBF8F0" stroke="#2B2233" stroke-width="1.6"/><rect x="'+(q[1]-34)+'" y="30" width="68" height="16" rx="6" fill="'+["#B3202B","#2C5D8F","#3E6E4A"][k]+'"/><text x="'+q[1]+'" y="42" text-anchor="middle" font-size="10.5" font-weight="800" fill="#fff" font-family="system-ui,sans-serif">'+q[0]+'</text></g>'+M6.P(m6([S(8),semChild,m6(N.child,{body:{type:"chapan",c:"#3E6E4A",t:"#E8D5A8"}})][k],{face:"smile"}),q[1],110,[56,48,42][k]);}).join("");}}]
+];
+})();
+
+/* ===== Phase76：セメテイの道の4コマ（9話×4コマ、描き下ろし） =====
+   資料で確かめた特徴：カヌケイは結婚した女性（エレチェク＋巻きスカート）、セメテイの馬タイブールルは灰色がかった馬、
+   未婚の娘の帽子（ウク・トプ）は魔よけのフクロウの羽つき、アイチュレクは白鳥の姿になって飛ぶと語られる。 */
+(function(){
+var P=null;P74_PATHS.forEach(function(x){if(x.id==="semetey")P=x;});if(!P)return;
+var S=function(k){return P.st[Math.max(0,Math.min(8,k))];},A=function(k){return P.al[k].o;};
+var N=P74_NPC,KN=m6(N.kanykey,{beld:"#3A2A4A"}),BK=A(2),KC=A(3),TB="#9AA4AE";
+var AI=m6(A(4),{head:"ukutopu",headc:"#5B4BB7",off:"none"});
+var MN=null;P74_PATHS.forEach(function(x){if(x.id==="manas")MN=x;});
+var manas=MN?MN.st[6]:S(6),alm=MN?m6(MN.al[2].o,{braid:"#E8B923"}):KC;
+var sch1=m6(N.people1,{head:"tebetei",headc:"#3A2E5C",body:{type:"chapan",c:"#4A3A5E",t:"#C99A2E",fur:1},beard:"#2B2233"}),sch2=m6(N.people1,{head:"kalpak",body:{type:"chapan",c:"#5E3A2E",t:"#C99A2E"},beard:"#5A3A22"});
+var boy=S(0),KO=m6(N.rival,{}),trait=m6(N.people1,{head:"tebetei",headc:"#2B2233",body:{type:"chapan",c:"#2B2233",t:"#6E5A4A"}});
+var seitek=m6(N.child,{body:{type:"chapan",c:"#3E6E4A",t:"#E8D5A8"}}),lis1=m6(N.people1,{}),lis2=m6(N.people2,{off:"none"});
+P76.semetey=[
+ /* 序章 */
+ [{t:"「セメテイ」は、マナス三部作の2つめの物語です。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.yurt(30,100,.8)+M6.P(m6(N.manaschy,{pose:"point",face:"smile"}),120,104,70)+M6.fire(120,124,1.1)+M6.P(m6(lis1,{face:"joy"}),190,132,58,{flip:1})+M6.P(m6(lis2,{face:"surprise"}),60,132,56);}},
+  {t:"主人公は、英雄マナスと妻カヌケイの息子セメテイです。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.dream(120,64,200,104,M6.P(m6(manas,{face:"smile"}),76,108,72)+M6.P(m6(KN,{face:"smile",pose:"carry"}),158,110,70)+M6.baby(159,92,1)+M6.heart(118,38));}},
+  {t:"語り手によって、筋が違うところがあります。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(N.manaschy,{pose:"point",face:"laugh"}),64,130,90)+M6.P(m6(N.elder,{pose:"both",face:"determined",hand:"none"}),176,130,90,{flip:1})+M6.bub(64,22,"こう語る！",70,40)+M6.bub(176,22,"いや、こう！",172,40);}},
+  {t:"この道では、多くの紹介に共通する流れを、やさしくまとめています。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.scroll(120,62,1.6,"セメテイ")+M6.P(m6(N.child,{face:"joy",pose:"both"}),44,134,54)+M6.P(m6(lis2,{face:"smile",pose:"wave"}),200,134,58,{flip:1});}}],
+ /* 第1話 母と子の旅 */
+ [{t:"マナスが亡くなったあと、親族のなかには、その地位をねらう者たちがいました。",
+   d:function(){return M6.yurtIn(1)+M6.gloom(120,70,70)+M6.P(m6(sch1,{face:"rival",pose:"hip"}),84,130,100)+M6.P(m6(sch2,{face:"rival",pose:"point"}),156,130,100,{flip:1})+M6.bub(120,20,"ひそひそ…",110,36);}},
+  {t:"カヌケイは、幼いセメテイを守ろうと決めます。",
+   d:function(){return M6.yurtIn(1)+M6.speed(120,70,"#C99A2E")+M6.Up(m6(KN,{face:"determined",pose:"carry"}),120,10,132)+M6.baby(122,118,2);}},
+  {t:"息子を連れて、自分の父の国ブハラへのがれます。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.lines(40,70,5,-1)+M6.horse(126,126,1,"#8A5A3A",{run:1,mane:"#2B2233",rider:m6(KN,{face:"worry",pose:"carry"})})+M6.baby(128,98,.9);}},
+  {t:"母が子どもを守りぬく、物語のはじまりの大切な場面です。",
+   d:function(){return M6.sky("dawn")+M6.grass()+M6.city(160,100,1)+M6.P(m6(KN,{face:"joy",pose:"carry"}),60,130,100)+M6.baby(62,104,1.3)+M6.spark(30,30)+M6.spark(100,24,.8);}}],
+ /* 第2話 何も知らない少年 */
+ [{t:"セメテイは、自分が英雄マナスの息子だとは知らないまま育ちます。",
+   d:function(){return M6.steppe("day")+M6.sheep(40,128,1)+M6.sheep(180,126,1.1,1)+M6.sheep(206,112,.8,1)+M6.P(m6(boy,{face:"smile",hand:"staff"}),112,132,86);}},
+  {t:"ふつうの羊飼いの子として、元気に暮らしていました。",
+   d:function(){return M6.steppe("day")+M6.P(m6(boy,{face:"laugh",pose:"carry",hand:"none"}),110,132,92)+M6.sheep(112,108,.8)+M6.heart(150,40)+M6.sheep(200,128,1,1);}},
+  {t:"どこで生まれたかより、どう生きるかが大事。",
+   d:function(){return M6.sky("dusk")+M6.mts("dusk")+M6.grass("dusk")+M6.P(m6(boy,{face:"worry",look:"u",hand:"none",pose:"chin"}),100,132,92)+M6.bub(170,30,"ぼくは\nだれだろう",130,52);}},
+  {t:"そう感じさせる、静かな少年時代の場面です。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.lie(m6(boy,{face:"sleep",hand:"none"}),126,116,80)+M6.sheep(50,126,.9)+M6.sheep(196,128,.9,1)+M6.zz(80,90)+M6.spark(120,24,1,"#F6F1E1");}}],
+ /* 第3話 明かされた真実 */
+ [{t:"大きくなったセメテイに、母カヌケイと、相談役だったバカイが、本当のことを打ち明けます。",
+   d:function(){return M6.yurtIn()+M6.P(m6(KN,{face:"determined",pose:"point"}),56,130,96)+M6.P(m6(BK,{face:"sad",hand:"none"}),112,130,94)+M6.P(m6(S(2),{face:"surprise"}),190,130,98,{flip:1});}},
+  {t:"自分が英雄マナスの息子だと知り、セメテイはおどろきます。",
+   d:function(){return M6.yurtIn()+M6.speed(120,70,"#F5B301")+M6.Up(m6(S(2),{face:"surprise"}),120,10,132)+M6.bang(178,24)+M6.bang(194,30);}},
+  {t:"セメテイは、父の武器とよろいを受けつぎます。",
+   d:function(){return M6.yurtIn()+M6.P(m6(KN,{face:"smile",pose:"hold"}),70,130,98)+'<g transform="translate(70 100)"><path d="M-14 -8h28l2 20h-32z" fill="#F4F1E6" stroke="#2B2233" stroke-width="1.4"/><path d="M-12 0h24M0 -8v20" stroke="#C9C2AE"/></g>'+M6.P(m6(S(3),{face:"determined",pose:"reach",hand:"spear"}),166,130,100,{flip:1})+M6.spark(120,40);}},
+  {t:"父の馬タイブールルとともに、ふるさとへ帰る決心をします。",
+   d:function(){return M6.sky("dawn")+M6.mts()+M6.grass()+M6.horse(140,126,1,TB,{mane:"#4A4A5A"})+M6.P(m6(S(3),{face:"determined",pose:"fist"}),64,132,96)+M6.spark(206,30);}}],
+ /* 第4話 ふるさとタラスへ */
+ [{t:"セメテイは、カヌケイとバカイといっしょに、父の地タラスへ向かいます。",
+   d:function(){return M6.sky("day")+M6.mts()+M6.grass()+M6.horse(56,122,.6,"#8A5A3A",{mane:"#2B2233",rider:m6(KN,{face:"smile"})})+M6.horse(116,124,.6,"#E9D9B8",{rider:m6(BK,{face:"smile",hand:"none"})})+M6.horse(184,126,.72,TB,{mane:"#4A4A5A",rider:m6(S(4),{face:"determined"})});}},
+  {t:"そこでは、マナスの親族が力をにぎっていました。",
+   d:function(){return M6.yurtIn()+M6.gloom(120,64,80)+M6.P(m6(sch1,{face:"laugh",pose:"hip"}),90,130,104)+M6.P(m6(sch2,{face:"laugh",pose:"toast",hand:"none"}),160,130,100,{flip:1})+M6.bowl(176,82,1);}},
+  {t:"セメテイはまず、内側の争いをおさめなければなりません。",
+   d:function(){return M6.yurtIn()+M6.speed(120,70,"#B3202B")+M6.P(m6(S(4),{face:"angry",pose:"point"}),72,134,112)+M6.P(m6(sch1,{face:"surprise"}),178,134,100,{flip:1})+M6.sweat(196,50);}},
+  {t:"そして、人々の暮らしを取りもどしていきます。",
+   d:function(){return M6.steppe("day")+M6.yurt(40,100,.7)+M6.yurt(200,98,.7,"#2C5D8F")+M6.P(m6(S(4),{face:"smile",pose:"wave"}),120,132,92)+M6.P(m6(lis1,{face:"joy",pose:"both"}),60,134,64)+M6.P(m6(lis2,{face:"joy",pose:"both"}),180,134,62,{flip:1})+M6.sheep(214,130,.8,1);}}],
+ /* 第5話 友クルチョロ */
+ [{t:"アルマンベトの息子クルチョロが、セメテイの仲間になります。",
+   d:function(){return M6.steppe("day")+M6.P(m6(KC,{face:"smile",pose:"wave",hand:"none"}),70,132,96)+M6.P(m6(S(5),{face:"joy"}),168,132,98,{flip:1})+M6.bub(70,22,"よろしく！",76,38);}},
+  {t:"父どうしが、固い友だったように――",
+   d:function(){return M6.sky("dusk")+M6.dream(120,66,210,112,M6.P(m6(manas,{face:"laugh",pose:"reach"}),88,118,84)+M6.P(m6(alm,{face:"laugh",pose:"reach",hand:"none"}),152,118,84,{flip:1})+M6.heart(120,30));}},
+  {t:"息子どうしも、力を合わせます。",
+   d:function(){return M6.steppe("day")+M6.speed(120,70,"#F2D28A")+M6.P(m6(S(5),{face:"laugh",pose:"reach"}),88,134,108)+M6.P(m6(KC,{face:"laugh",pose:"reach",hand:"none"}),152,134,108,{flip:1})+M6.spark(40,30)+M6.spark(200,30);}},
+  {t:"親から子へ受けつがれる友情が、この物語の見どころの一つです。",
+   d:function(){return M6.sky("dawn")+M6.mts()+M6.grass()+M6.horse(86,124,.82,TB,{mane:"#4A4A5A",rider:m6(S(5),{face:"determined"})})+M6.horse(170,126,.82,"#D8B36A",{mane:"#8A5A2B",rider:m6(KC,{face:"determined"})});}}],
+ /* 第6話 アイチュレク */
+ [{t:"セメテイの妻アイチュレクは、ふしぎな力をもつ女性として語られます。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#B9A6F2")+M6.Up(m6(AI,{face:"smile"}),120,10,132)+M6.spark(40,40,1,"#B9A6F2")+M6.spark(200,30,1.2,"#B9A6F2")+M6.spark(60,100,.7,"#B9A6F2");}},
+  {t:"物語では、白鳥の姿になって空を飛ぶとも語られます。",
+   d:function(){return M6.sky("day")+M6.mts()+M6.grass()+M6.swan(110,60,1.4)+M6.lines(64,50,4,-1)+M6.spark(170,30)+M6.spark(40,80,.7);}},
+  {t:"マナスの物語のカヌケイと同じように、",
+   d:function(){return M6.yurtIn()+M6.P(m6(KN,{face:"smile"}),80,130,100)+M6.P(m6(m6(AI,{head:"elechek",beld:"#2C3A6E"}),{face:"smile"}),160,130,100,{flip:1})+M6.heart(120,40);}},
+  {t:"アイチュレクも、物語の中で大きな役わりを果たします。",
+   d:function(){return M6.steppe("day")+M6.P(m6(m6(AI,{head:"elechek",beld:"#2C3A6E"}),{face:"determined",pose:"point"}),84,132,104)+M6.P(m6(S(6),{face:"surprise"}),170,132,100,{flip:1})+M6.bub(84,22,"いい考えが\nあります",100,40);}}],
+ /* 第7話 外からの危機 */
+ [{t:"国の外からも、危険がせまります。",
+   d:function(){var s=M6.sky("dark")+M6.mts("dark")+M6.grass("dark");for(var i=0;i<5;i++)s+=M6.P(m6(KO,{face:"rival"}),30+i*44,104,40,{op:.7});return s+M6.flag(220,110,"#3A2E5C");}},
+  {t:"父マナスと戦った強敵コヌルバイは、セメテイの時代になっても人々をおびやかします。",
+   d:function(){return M6.sky("dark")+M6.speed(120,70,"#2B2233")+M6.Up(m6(KO,{face:"angry"}),120,10,132)+M6.sfx(170,40,"ゴゴゴ","#B9A6F2",0);}},
+  {t:"さらに、思いがけない人の裏切りもありました。",
+   d:function(){return M6.yurtIn(1)+M6.gloom(176,80,50)+M6.P(m6(trait,{face:"rival",look:"l"}),176,130,98,{flip:1})+M6.P(m6(S(7),{face:"surprise"}),68,130,100)+M6.bang(96,30);}},
+  {t:"セメテイは、難しい戦いを続けることになります。",
+   d:function(){return M6.sky("dark")+M6.mts("dark")+M6.grass("dark")+M6.lines(30,70,5,-1)+M6.P(m6(S(7),{face:"angry",pose:"run"}),88,134,104,{rot:8})+M6.P(m6(KC,{face:"determined",pose:"run"}),164,134,96,{rot:8})+M6.sfx(140,34,"負けない！","#F5B301",-6);}}],
+ /* 第8話 次の世代へ */
+ [{t:"物語の終わり方は、語り手によって違います。",
+   d:function(){return M6.sky("day")+'<path d="M120 0v140" stroke="#2B2233" stroke-width="3"/>'+M6.scroll(60,70,1.2,"ある版")+M6.scroll(180,70,1.2,"別の版")+M6.bang(120,14);}},
+  {t:"ふしぎな形で姿を消すと語る版もあれば、国を去らなければならなくなると語る版もあります。",
+   d:function(){return M6.sky("dusk")+M6.mts("dusk")+M6.grass("dusk")+M6.P(m6(S(8),{face:"smile"}),70,132,92,{op:.45})+M6.spark(50,50)+M6.spark(90,40,.7)+M6.horse(180,126,.7,TB,{mane:"#4A4A5A",flip:1,rider:m6(S(8),{face:"sad"})});}},
+  {t:"そのまえにセメテイは、幼い息子セイテクを、信頼できる人たちに託します。",
+   d:function(){return M6.yurtIn()+M6.P(m6(S(8),{face:"sad",pose:"carry"}),70,130,104)+M6.baby(72,104,1.3)+M6.P(m6(N.elder,{face:"determined",pose:"carry",hand:"none"}),170,130,100,{flip:1});}},
+  {t:"物語は、三部作の最後「セイテク」へと続きます。",
+   d:function(){return M6.sky("dawn")+M6.speed(120,70,"#F2D28A")+M6.P(m6(seitek,{face:"laugh",pose:"fist"}),120,132,86)+M6.scroll(46,50,.9,"セイテク")+M6.spark(200,30);}}]
+];
+})();
+
+/* ===== Phase76：クルマンジャン・ダトカの道の4コマ（9話×4コマ、描き下ろし） =====
+   実在の人物なので、本文（phase74_hist）にある事実だけを絵にする。創作の台詞は入れず、ふきだしは気持ちを表す短い言葉だけ。
+   服装：娘のころはテベテイ（未婚）、結婚式は花嫁の帽子シュクル、結婚後はエレチェクと巻きスカート（ベルデムチ）。
+   処刑の場面そのものは描かない。 */
+(function(){
+var P=null;P74_PATHS.forEach(function(x){if(x.id==="kurmanjan")P=x;});if(!P)return;
+var S=function(k){var o=m6(P.st[Math.max(0,Math.min(8,k))],{});if(o.head==="elechek")o.beld=o.beld||"#2B2233";return o;};
+var N=P74_NPC,FA=m6(N.manbat,{hand:"none"}),AB=m6(N.alymbek,{hand:"none"}),KB=m6(P.al[2].o,{hand:"none"});
+var girl=m6(S(1),{hand:"none"}),bride=m6(S(1),{hand:"none",head:"shokulo",body:{type:"chapan",c:"#B3202B",t:"#E8B923"}});
+var p1=m6(N.people1,{}),p2=m6(N.people2,{off:"none"}),eld=m6(N.elder,{hand:"none"});
+var stranger=m6(N.people1,{head:"tebetei",headc:"#5E4A7E",body:{type:"chapan",c:"#5E4A7E",t:"#C99A2E"},beard:"#5A3A22"});
+var envoy=m6(N.people1,{head:"none",body:{type:"robe",c:"#2E7E8F",t:"#E8B923"},beard:"#2B2233",hair:"#2B2233"});
+var off=m6(N.officer,{head:"cap"}),MH=m6(N.officer,{head:"cap",headc:"#3A3F58",body:{type:"coat",c:"#3A3F58",t:"#C99A2E",epaulet:1}});
+var guard=m6(N.officer,{head:"cap",beard:null});
+P76.kurmanjan=[
+ /* 序章 アライの山々 */
+ [{t:"1811年、今のキルギス南部オシ州のアライ地方に、一人の女の子が生まれました。",
+   d:function(){return M6.sky("day")+'<path d="M0 90l40-60 30 34 40-54 36 50 30-30 64 60v50H0z" fill="#9FB7C9"/><path d="M110 10l-14 20 9-2 5 7 5-7 10 3zM40 30l-9 12 6-1 3 4 3-4 6 1z" fill="#fff"/>'+M6.grass()+M6.yurt(196,108,.8)+M6.P(m6(S(0),{face:"joy",pose:"wave",off:"none"}),90,130,64);}},
+  {t:"彼女の名はクルマンジャン。のちに「クルマンジャン・ダトカ」と呼ばれる実在の女性です。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.Up(m6(S(0),{face:"smile",off:"none"}),120,10,132)+M6.spark(40,40)+M6.spark(196,34);}},
+  {t:"当時この地域は、コーカンド・ハン国という国の一部でした。",
+   d:function(){return M6.sky("day")+M6.mts()+M6.grass()+M6.city(120,104,1.2)+M6.P(m6(p1,{face:"smile"}),30,132,50)+M6.P(m6(p2,{face:"smile"}),210,132,48,{flip:1});}},
+  {t:"この道では、記録で確かめられる出来事をもとに、彼女の人生を紹介します。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.scroll(120,64,1.7,"1811〜1907")+M6.spark(50,30)+M6.spark(196,30);}}],
+ /* 第1話 自分で選んだ道 */
+ [{t:"18歳のころ、クルマンジャンは、会ったこともない男性と結婚させられそうになります。",
+   d:function(){return M6.yurtIn()+M6.P(m6(eld,{pose:"point",face:"smile"}),56,130,96)+M6.P(m6(stranger,{face:"smile"}),118,130,96)+M6.P(m6(girl,{face:"worry"}),192,130,92,{flip:1})+M6.sweat(206,40);}},
+  {t:"その人を、どうしても好きになれませんでした。",
+   d:function(){return M6.yurtIn()+M6.speed(120,70,"#9AA4AE")+M6.Up(m6(girl,{face:"sad"}),120,10,132)+M6.sfx(172,40,"…","#2B2233",0);}},
+  {t:"彼女は、いったん家を出ます。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.yurt(52,104,.9)+M6.P(m6(girl,{face:"determined",pose:"run"}),150,132,86,{rot:6})+M6.lines(110,90,4,-1);}},
+  {t:"そして、父マンバトバイのもとで暮らすことを選びました。親が結婚相手を決めるのがふつうだった時代に、とてもめずらしいことでした。",
+   d:function(){return M6.yurtIn()+M6.P(m6(FA,{face:"smile",pose:"reach"}),80,130,100)+M6.P(m6(girl,{face:"joy"}),160,130,92,{flip:1})+M6.heart(120,36);}}],
+ /* 第2話 アリムベクとの結婚 */
+ [{t:"1832年、クルマンジャンは、アライ地方を治めていたアリムベクと結婚します。",
+   d:function(){return M6.yurtIn()+M6.P(m6(bride,{face:"smile",blush:1}),88,130,98)+M6.P(m6(AB,{face:"smile"}),156,130,102,{flip:1})+M6.spark(40,30)+M6.spark(206,30)+M6.heart(122,30);}},
+  {t:"アリムベクは「ダトカ」という位をもつ有力者でした。",
+   d:function(){return M6.steppe("day")+M6.speed(120,70,"#F2D28A")+M6.P(m6(AB,{face:"determined",pose:"hip"}),120,134,110)+M6.P(m6(p1,{face:"smile",pose:"pray"}),36,134,58)+M6.P(m6(p2,{face:"smile",pose:"pray"}),206,134,56,{flip:1})+M6.sfx(150,30,"ダトカ","#B3202B",-6);}},
+  {t:"クルマンジャンは夫を支えながら、",
+   d:function(){return M6.yurtIn()+M6.P(m6(S(2),{face:"smile",pose:"point"}),70,130,98)+M6.P(m6(AB,{face:"surprise",look:"l"}),140,130,100,{flip:1})+M6.P(m6(eld,{face:"smile"}),204,130,90,{flip:1})+M6.bub(70,22,"こうしては\nどうでしょう",88,40);}},
+  {t:"人々の暮らしや、政治のことを学んでいきます。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(S(3),{face:"determined",pose:"hold",cape:null}),100,130,100)+M6.scroll(100,104,.6)+'<circle cx="160" cy="40" r="10" fill="#FFD34D" stroke="#2B2233" stroke-width="1.2"/><rect x="155" y="49" width="10" height="6" fill="#9AA4AE"/><path d="M146 28l-4-4M174 28l4-4M160 24v-5" stroke="#FFD34D" stroke-width="2"/>';}}],
+ /* 第3話 突然の別れ */
+ [{t:"1862年、夫アリムベクは、宮廷の争いの中で命を落とします。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(p1,{face:"cry",pose:"reach"}),70,130,94)+M6.P(m6(S(3),{face:"surprise",cape:null}),164,130,100,{flip:1})+M6.bang(196,24);}},
+  {t:"深い悲しみの中でも――",
+   d:function(){return M6.sky("night")+M6.speed(120,70,"#3A4A6A")+M6.Up(m6(S(3),{face:"cry",pose:"cover",cape:null}),120,10,132);}},
+  {t:"クルマンジャンは、アライの人々を見捨てませんでした。",
+   d:function(){return M6.steppe("day")+M6.P(m6(p1,{face:"worry"}),50,132,74)+M6.P(m6(p2,{face:"worry"}),96,132,70)+M6.P(m6(N.child,{face:"worry"}),132,134,50)+M6.P(m6(S(3),{face:"determined",pose:"reach",cape:null}),196,132,94,{flip:1});}},
+  {t:"ここから、彼女自身が人々を率いる時代が始まります。",
+   d:function(){return M6.sky("dawn")+M6.mts()+M6.grass()+M6.horse(134,126,1,"#F2EEE4",{mane:"#8A6A4A",rider:m6(S(4),{face:"determined",pose:"point",cape:null})})+M6.P(m6(p1,{face:"joy",pose:"fist"}),36,134,52)+M6.spark(206,28);}}],
+ /* 第4話 ダトカと呼ばれて */
+ [{t:"夫を失ったクルマンジャンは、ブハラとコーカンドの君主たちから、",
+   d:function(){return M6.sky("day")+M6.grass()+M6.city(70,100,.8)+M6.P(m6(envoy,{face:"smile",pose:"hold"}),150,132,94)+M6.scroll(150,104,.55)+M6.P(m6(envoy,{face:"smile",body:{type:"robe",c:"#7E3A2E",t:"#E8B923"}}),206,132,90,{flip:1});}},
+  {t:"アライの統治者として認められ、「ダトカ」の位をあたえられました。",
+   d:function(){return M6.yurtIn()+M6.speed(120,70,"#F5B301")+M6.P(m6(S(5),{face:"joy",hand:"none",off:"scroll"}),120,134,114)+M6.sfx(160,34,"ダトカ！","#B3202B",-6)+M6.spark(50,30);}},
+  {t:"人々は、新しい指導者をむかえました。",
+   d:function(){return M6.steppe("day")+M6.flag(120,108,"#7A1F2B")+M6.P(m6(p1,{face:"laugh",pose:"both"}),40,134,70)+M6.P(m6(p2,{face:"laugh",pose:"both"}),90,134,66)+M6.P(m6(eld,{face:"smile",pose:"pray"}),156,134,70)+M6.P(m6(N.child,{face:"joy",pose:"wave"}),206,134,50,{flip:1});}},
+  {t:"女性が地域を治めるのは、当時としてはとてもめずらしいことでした。",
+   d:function(){return M6.yurtIn()+M6.P(m6(S(5),{face:"determined",pose:"point"}),70,130,100)+M6.P(m6(p1,{face:"surprise",look:"l"}),150,130,84,{flip:1})+M6.P(m6(eld,{face:"smile",look:"l"}),204,130,84,{flip:1})+M6.spark(110,40);}}],
+ /* 第5話 時代の大きな変化 */
+ [{t:"1876年、アライ地方はロシア帝国に組みこまれます。",
+   d:function(){var s=M6.sky("dark")+M6.mts("dark")+M6.grass("dark");for(var i=0;i<5;i++)s+=M6.P(m6(guard,{face:"none"}),40+i*40,108,40,{op:.8});return s+M6.P(m6(off,{face:"determined"}),120,136,74);}},
+  {t:"戦おうという声もありました。けれどもクルマンジャンは、争いを続けるのではなく――",
+   d:function(){return M6.yurtIn()+M6.P(m6(p1,{face:"angry",pose:"fist"}),60,130,90)+M6.P(m6(stranger,{face:"angry",pose:"fist"}),110,130,90)+M6.P(m6(S(5),{face:"determined",pose:"reach"}),190,130,100,{flip:1})+M6.bub(190,22,"待ちなさい",186,38);}},
+  {t:"人々を説得して、新しい支配を受け入れる道を選びました。",
+   d:function(){return M6.yurtIn()+M6.P(m6(S(6),{face:"determined",aura:null}),74,130,100)+M6.P(m6(off,{face:"smile"}),164,130,100,{flip:1})+'<rect x="96" y="100" width="48" height="10" fill="#8A5A2B" stroke="#2B2233"/>'+M6.scroll(120,94,.5);}},
+  {t:"多くの命を守るための、つらく難しい決断だったと考えられています。",
+   d:function(){return M6.sky("dusk")+M6.mts("dusk")+M6.grass("dusk")+M6.P(m6(S(6),{face:"sad",look:"d",aura:null}),120,132,100)+M6.yurt(40,104,.7)+M6.yurt(206,106,.7);}}],
+ /* 第6話 母としての悲しみ */
+ [{t:"1893年、クルマンジャンの息子たちと孫たちが、密輸と役人殺害の罪に問われます。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(guard,{face:"determined"}),44,130,92)+M6.P(m6(KB,{face:"sad",look:"d"}),110,130,90)+M6.P(m6(S(7),{face:"surprise"}),190,130,96,{flip:1})+M6.bang(206,26);}},
+  {t:"いちばんかわいがっていた息子カムチベクには、死刑が言いわたされました。",
+   d:function(){return M6.sky("night")+M6.speed(120,70,"#3A4A6A")+M6.Up(m6(S(7),{face:"cry"}),120,10,132);}},
+  {t:"力ずくで息子を助け出そうという人々の声を、彼女は受け入れませんでした。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(p1,{face:"angry",pose:"fist"}),56,130,90)+M6.P(m6(stranger,{face:"angry",pose:"fist"}),106,130,90)+M6.P(m6(S(7),{face:"sad",pose:"reach"}),188,130,96,{flip:1})+M6.bub(188,22,"なりません",184,38);}},
+  {t:"1895年、彼女は公開の処刑の場に立ち会いました。のちに彼女は、オシで息子のとなりに葬られています。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.P(m6(S(7),{face:"sleep",pose:"pray"}),120,130,96)+M6.spark(60,30,.8,"#F6F1E1")+M6.spark(190,24,.8,"#F6F1E1");}}],
+ /* 第7話 遠くからの訪問者 */
+ [{t:"晩年のクルマンジャンのもとには、遠くからも人が訪ねてきました。",
+   d:function(){return M6.steppe("day")+M6.yurt(200,100,.9)+M6.horse(70,128,.72,"#8A5A3A",{mane:"#2B2233",rider:m6(MH,{face:"smile"})})+M6.P(m6(S(7),{face:"smile",pose:"wave"}),160,132,84,{flip:1});}},
+  {t:"1906年には、旅をしていたロシア軍の大佐マンネルヘイムが、彼女に会いました。",
+   d:function(){return M6.yurtIn()+M6.P(m6(MH,{face:"smile",pose:"pray"}),70,130,100)+M6.P(m6(S(7),{face:"smile"}),160,130,96,{flip:1})+M6.bowl(122,104,1.2);}},
+  {t:"そして、彼女の写真をとっています。",
+   d:function(){return M6.steppe("day")+M6.P(m6(S(7),{face:"determined",hand:"staff"}),70,132,96)+M6.camera(170,98,1.2)+M6.P(m6(MH,{face:"determined",pose:"reach"}),214,132,90,{flip:1})+M6.sfx(110,34,"パシャ","#F5B301",-6)+M6.spark(140,60,1.2,"#FFE36B");}},
+  {t:"その写真は、今も彼女の姿を伝える大切な記録になっています。",
+   d:function(){return M6.yurtIn()+M6.frame(120,62,70,84,M6.P(m6(S(7),{face:"determined",hand:"staff"}),120,104,76))+M6.P(m6(N.child,{face:"surprise"}),44,134,54)+M6.P(m6(p2,{face:"smile"}),206,134,62,{flip:1});}}],
+ /* 第8話 アライの女王 */
+ [{t:"クルマンジャン・ダトカは、1907年2月1日に亡くなりました。",
+   d:function(){return M6.sky("dusk")+'<path d="M0 90l40-60 30 34 40-54 36 50 30-30 64 60v50H0z" fill="#B88A8A"/>'+M6.grass("dusk")+M6.P(m6(p1,{face:"sad",pose:"pray"}),70,132,70)+M6.P(m6(p2,{face:"sad",pose:"pray"}),120,132,66)+M6.P(m6(eld,{face:"sad",pose:"pray"}),170,132,70);}},
+  {t:"人々は彼女を「アライの女王」と呼んで敬いました。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.Up(m6(S(8),{face:"smile",aura:null,spark:null}),120,10,132)+M6.spark(40,40)+M6.spark(200,40);}},
+  {t:"今ではキルギスの50ソム紙幣に、彼女の肖像がえがかれています。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#C9B6DA")+M6.note50(120,70,1.6);}},
+  {t:"2004年には、首都ビシケクに記念像が建てられました。",
+   d:function(){return M6.sky("day")+M6.grass()+M6.statue(m6(S(8),{face:"smile",aura:null,spark:null}),120,96,72)+M6.P(m6(N.child,{face:"joy",pose:"point"}),40,134,54)+M6.P(m6(p2,{face:"smile",pose:"wave"}),200,134,60,{flip:1});}}]
+];
+})();
+
+/* ===== Phase76：トクトグルの道の4コマ（9話×4コマ、描き下ろし） =====
+   実在の人物なので、本文（phase74_hist）にある事実だけを絵にする。創作の台詞は入れず、ふきだしは気持ちを表す短い言葉だけ。
+   服装：男性は白いカルパク（黒いふち）とチャパン、結婚した女性（母ブルマ）はエレチェクと巻きスカート（ベルデムチ）。
+   コムズは3本の弦のキルギスの楽器。とらえられる場面やシベリアの労働は、つらさを強く描きすぎない。 */
+(function(){
+var P=null;P74_PATHS.forEach(function(x){if(x.id==="toktogul")P=x;});if(!P)return;
+var S=function(k){return m6(P.st[Math.max(0,Math.min(8,k))],{});};
+var N=P74_NPC,MO=m6(N.mother,{beld:"#3A2A4A"}),boy=m6(S(0),{hand:"none"});
+var p1=m6(N.people1,{}),p2=m6(N.people2,{off:"none"}),eld=m6(N.elder,{hand:"none"});
+var bai=m6(N.people1,{head:"tebetei",headc:"#3A2E5C",body:{type:"chapan",c:"#5E3A7E",t:"#E8B923",fur:1},beard:"#2B2233",hair:"#2B2233"});
+var bai2=m6(bai,{headc:"#2B2233",body:{type:"chapan",c:"#2B2233",t:"#C99A2E",fur:1},beard:"#5A3A22"});
+var off=m6(N.officer,{head:"cap"}),guard=m6(N.officer,{head:"cap",beard:null,off:"none"});
+var fr1=m6(P.al[3].o,{}),fr2=m6(N.people1,{head:"tebetei",headc:"#7A4E26",body:{type:"chapan",c:"#8A5A2B",t:"#E8D5A8",fur:1},beard:"#2B2233",hand:"stick"});
+var clerk=m6(N.people1,{head:"none",body:{type:"coat",c:"#4A5A6E",t:"#C9D3DD"},hair:"#5A3A22",off:"scroll"});
+/* この道だけで使う背景：雪・針葉樹・湖 */
+var snow=function(n){var s="";for(var k=0;k<(n||24);k++){s+='<circle cx="'+((k*53)%240)+'" cy="'+((k*37)%130+4)+'" r="'+(1+(k%3)*.6)+'" fill="#fff" opacity=".9"/>';}return s;};
+var pine=function(x,y,s){return '<g transform="translate('+x+' '+y+') scale('+(s||1)+')"><rect x="-2" y="-6" width="4" height="8" fill="#5A3A22"/><path d="M0-40l-14 20h7l-11 15h36l-11-15h7z" fill="#2E4A3E"/><path d="M0-40l-6 9 6-2 6 2z" fill="#fff" opacity=".85"/></g>';};
+var snowGround='<path d="M0 104q60-8 120 0t120 0v36H0z" fill="#E8EEF4"/><path d="M0 116q70-6 130 2t110-2v24H0z" fill="#D6E0EA"/>';
+var lake='<path d="M0 98q60-6 120 0t120 0v42H0z" fill="#4F8FB8"/><path d="M20 108h40M90 116h50M170 106h40M60 126h60" stroke="#BFE3F2" stroke-width="2" stroke-linecap="round" opacity=".8"/>';
+var road='<path d="M90 140q20-20 60-34t90-10" stroke="#C9B48A" stroke-width="14" fill="none" opacity=".8"/>';
+P76.toktogul=[
+ /* 序章 歌で語る人アクン */
+ [{t:"キルギスには、その場で言葉を考えながら歌う詩人「アクン」がいます。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.fire(120,118,1.2)+M6.P(m6(p1,{face:"smile"}),46,132,64)+M6.P(m6(S(4),{face:"joy",off:"none"}),176,132,72,{flip:1})+M6.note(196,40)+M6.note(214,56);}},
+  {t:"トクトグル・サトゥルガノフは、アクンであり作曲家として知られる実在の人物です。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.Up(m6(S(4),{face:"smile",off:"none"}),120,10,132)+M6.spark(40,36)+M6.spark(200,34);}},
+  {t:"コムズは、3本の弦をもつキルギスの楽器です。",
+   d:function(){return M6.yurtIn()+M6.Up(m6(S(2),{face:"laugh",look:"d"}),120,14,128)+M6.note(56,40)+M6.note(40,64)+M6.note(190,36)+M6.sfx(200,70,"♪","#C99A2E",0);}},
+  {t:"この道では、記録で確かめられる出来事をもとに、彼の人生を紹介します。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.scroll(120,64,1.7,"1864〜1933")+M6.spark(50,30)+M6.spark(196,30);}}],
+ /* 第1話 ケトメン・トベの村 */
+ [{t:"1864年、トクトグルはケトメン・トベの谷にあるクシュチュ・スウ村に生まれました。",
+   d:function(){return M6.sky("day")+M6.mts()+M6.grass()+M6.yurt(70,108,.8)+M6.yurt(178,104,.7)+M6.sheep(130,124,.8)+M6.sheep(150,128,.7,1);}},
+  {t:"まずしい農家でしたが、母のブルマが大切に育てました。",
+   d:function(){return M6.yurtIn()+M6.P(m6(MO,{face:"smile",pose:"hold"}),80,130,96)+M6.P(m6(boy,{face:"joy"}),160,130,62,{flip:1})+M6.heart(118,42);}},
+  {t:"少年は羊の世話を手伝いながら、谷を走りまわりました。",
+   d:function(){return M6.sky("day")+M6.mts()+M6.grass()+M6.P(m6(S(0),{face:"laugh",pose:"run"}),90,132,62)+M6.lines(50,100,4,-1)+M6.sheep(170,124,.9,1)+M6.sheep(200,128,.8,1)+M6.dust(70,128,.8);}},
+  {t:"この村は、今ではトクトグル貯水池の水の下にしずんでいます。当時この地域はコーカンド・ハン国の一部でした。",
+   d:function(){return M6.sky("day")+M6.mts()+lake+M6.spark(60,40,1,"#fff")+M6.sfx(190,40,"いま","#2C5D8F",-6);}}],
+ /* 第2話 最初の先生は母 */
+ [{t:"母のブルマは、悲しみの歌をうたう「コショクチュ」として知られた人でした。",
+   d:function(){return M6.yurtIn(1)+M6.Up(m6(MO,{face:"sad",pose:"pray"}),120,12,128)+M6.note(60,44)+M6.note(186,40);}},
+  {t:"トクトグルは、そのそばで、じっと歌を聞いていました。",
+   d:function(){return M6.yurtIn()+M6.P(m6(MO,{face:"sad"}),70,130,96)+M6.P(m6(boy,{face:"surprise",look:"l"}),168,130,64,{flip:1})+M6.note(108,40)+M6.note(124,56);}},
+  {t:"母は、トクトグルにとって最初の先生だったと伝えられています。",
+   d:function(){return M6.yurtIn()+M6.P(m6(MO,{face:"smile",pose:"point"}),76,130,96)+M6.P(m6(S(1),{face:"determined"}),164,130,68,{flip:1})+M6.note(150,46)+M6.spark(196,38);}},
+  {t:"言葉とメロディーで気持ちを伝える力は、この母から受けついだものでした。",
+   d:function(){return M6.sky("dusk")+M6.speed(120,70,"#F8DCC0")+M6.Up(m6(S(1),{face:"joy"}),120,12,128)+M6.note(46,40)+M6.note(64,64)+M6.note(184,34)+M6.heart(206,62);}}],
+ /* 第3話 人々のための歌 */
+ [{t:"若いトクトグルは、歌い手として名前を知られるようになります。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.fire(120,120,1)+M6.P(m6(p1,{face:"joy",pose:"both"}),36,132,58)+M6.P(m6(S(3),{face:"laugh"}),120,132,76)+M6.P(m6(p2,{face:"joy"}),204,132,56,{flip:1})+M6.note(150,46);}},
+  {t:"歌の中で、お金持ちのぜいたくや不正を、ユーモアをこめて批判しました。",
+   d:function(){return M6.yurtIn()+M6.P(m6(S(3),{face:"laugh",look:"r"}),70,130,94)+M6.P(m6(bai,{face:"angry",pose:"fist"}),176,130,98,{flip:1})+M6.sfx(70,26,"♪","#C99A2E",0)+M6.bang(206,30);}},
+  {t:"そのため、まずしい人々からは愛されました。",
+   d:function(){return M6.sky("day")+M6.mts()+M6.grass()+M6.P(m6(p1,{face:"laugh",pose:"wave"}),40,132,62)+M6.P(m6(eld,{face:"smile"}),92,132,64)+M6.P(m6(p2,{face:"joy",pose:"heart"}),148,132,60,{flip:1})+M6.P(m6(S(3),{face:"smile"}),204,132,70,{flip:1})+M6.heart(118,36)+M6.heart(66,46);}},
+  {t:"けれど、力をもつ人々の中には、彼をきらう者もいました。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(bai,{face:"angry"}),80,130,98)+M6.P(m6(bai2,{face:"rival",pose:"point"}),160,130,98,{flip:1})+M6.gloom(120,40,40);}}],
+ /* 第4話 えん罪 */
+ [{t:"1898年、アンディジャンという町で反乱が起きます。",
+   d:function(){return M6.sky("dark")+M6.city(120,104,1.3)+M6.grass("dark")+M6.dust(60,120,1.2)+M6.dust(180,118,1)+M6.sfx(120,30,"1898","#E2483B",-4);}},
+  {t:"トクトグルをきらう有力者が、彼も加わったといううその訴えを出しました。",
+   d:function(){return M6.yurtIn(1)+M6.P(m6(bai,{face:"rival",pose:"point"}),70,130,98)+M6.P(m6(off,{face:"none"}),168,130,100,{flip:1})+M6.bub(70,24,"あの男です",86,40);}},
+  {t:"トクトグルはとらえられ、重い刑を言いわたされます。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.P(m6(guard,{face:"none"}),56,132,88)+M6.P(m6(S(4),{face:"surprise",off:"none",hand:"none"}),130,132,84)+M6.P(m6(guard,{face:"none"}),200,132,88,{flip:1})+M6.bang(156,36);}},
+  {t:"そして、遠いシベリアでの強制労働に送られることになりました。",
+   d:function(){return M6.sky("night")+M6.speed(120,70,"#5E6E8E")+M6.Up(m6(S(4),{face:"sad",off:"none",hand:"none"}),120,12,128)+M6.sfx(196,44,"…","#E8EEF4",0);}}],
+ /* 第5話 遠いシベリア */
+ [{t:"送られたのは、イルクーツクの近くの、ふるさとから遠くはなれた土地でした。",
+   d:function(){return M6.sky("dark")+pine(40,108,1.1)+pine(80,104,.9)+pine(196,108,1.2)+snowGround+M6.P(m6(S(5),{face:"worry"}),130,132,78)+snow(30);}},
+  {t:"きびしい寒さの中で、毎日はたらきました。",
+   d:function(){return M6.sky("dark")+pine(28,108,1)+pine(214,104,1)+snowGround+M6.P(m6(S(5),{face:"determined",pose:"carry",hand:"none"}),110,132,82)+M6.sweat(134,46)+M6.lines(160,80,3,1)+snow(26);}},
+  {t:"夜になると、ふるさとと家族のことを思い出しました。",
+   d:function(){return M6.sky("night")+pine(34,108,1)+snowGround+M6.P(m6(S(5),{face:"sad",look:"u"}),80,132,80)+M6.dream(170,50,100,62,M6.yurt(150,74,.55)+M6.P(m6(MO,{face:"smile"}),192,78,46))+snow(14);}},
+  {t:"それでも、ふるさとを思う気持ちは消えませんでした。",
+   d:function(){return M6.sky("night")+M6.speed(120,70,"#5E6E8E")+M6.Up(m6(S(5),{face:"determined"}),120,12,128)+M6.spark(48,40,1,"#fff")+M6.spark(194,46,1,"#fff")+snow(12);}}],
+ /* 第6話 ふるさとへの長い道 */
+ [{t:"やがてトクトグルは、シベリアからふるさとへ向かって歩きだします。",
+   d:function(){return M6.sky("dawn")+pine(30,108,1)+pine(64,104,.8)+snowGround+M6.P(m6(S(5),{face:"joy",pose:"run"}),150,132,80)+M6.lines(110,96,4,-1);}},
+  {t:"帰った年は、資料によって1905年とも1910年とも書かれています。",
+   d:function(){return M6.sky("day")+M6.speed(120,70,"#F2D28A")+M6.scroll(80,64,1.2,"1905？")+M6.scroll(170,64,1.2,"1910？")+M6.sfx(124,30,"？","#2C5D8F",0);}},
+  {t:"旅のあいだ、ウズベクやカザフの人々とも出会いました。",
+   d:function(){return M6.sky("day")+M6.steppe()+road+M6.P(m6(S(5),{face:"surprise",pose:"wave"}),60,132,80)+M6.P(m6(fr1,{face:"smile"}),150,132,80,{flip:1})+M6.P(m6(fr2,{face:"smile"}),206,132,80,{flip:1});}},
+  {t:"いっしょに歩くうちに、友だちになったと伝えられています。",
+   d:function(){return M6.sky("dusk")+M6.steppe("dusk")+M6.fire(120,120,.9)+M6.P(m6(fr1,{face:"laugh",pose:"toast"}),50,132,78)+M6.P(m6(S(5),{face:"laugh",pose:"both"}),120,132,80)+M6.P(m6(fr2,{face:"laugh",pose:"toast"}),192,132,78,{flip:1})+M6.heart(86,40)+M6.heart(156,40);}}],
+ /* 第7話 帰ってきた歌い手 */
+ [{t:"ふるさとにもどると、息子はすでに亡くなり、家族もばらばらになっていました。",
+   d:function(){return M6.sky("dark")+M6.mts("dark")+M6.grass("dark")+M6.yurt(180,104,.8)+M6.P(m6(S(6),{face:"cry",pose:"cover",hand:"none"}),90,132,84)+M6.sfx(150,48,"…","#E8EEF4",0);}},
+  {t:"それでもトクトグルは、コムズを手に、また歌いはじめます。",
+   d:function(){return M6.sky("dawn")+M6.speed(120,70,"#F4C6A8")+M6.Up(m6(S(6),{face:"determined"}),120,12,128)+M6.note(48,40)+M6.note(196,36)+M6.sfx(196,74,"♪","#C99A2E",0);}},
+  {t:"「まずしい人々の声」と呼ばれる、最も有名なアクンになりました。",
+   d:function(){return M6.sky("night")+M6.mts("night")+M6.grass("night")+M6.fire(120,120,1.1)+M6.P(m6(p1,{face:"laugh",pose:"both"}),30,132,56)+M6.P(m6(eld,{face:"joy"}),70,132,56)+M6.P(m6(S(7),{face:"laugh",off:"none"}),130,132,78)+M6.P(m6(p2,{face:"joy",pose:"heart"}),214,132,56,{flip:1})+M6.note(160,40)+M6.note(176,58);}},
+  {t:"1928年には首都に招かれ、18曲の器楽曲が記録されました。",
+   d:function(){return M6.yurtIn()+M6.P(m6(S(7),{face:"smile",off:"none"}),74,130,94)+M6.P(m6(clerk,{face:"joy"}),176,130,92,{flip:1})+M6.scroll(176,40,.8,"18")+M6.note(120,40)+M6.note(132,56);}}],
+ /* 第8話 名前が残る町 */
+ [{t:"トクトグルは1933年、ふるさとの村で亡くなり、そこに葬られました。",
+   d:function(){return M6.sky("dusk")+M6.mts("dusk")+M6.grass("dusk")+'<path d="M108 120v-30l12-10 12 10v30z" fill="#C9D3DD" stroke="#8A8A8A" stroke-width="2"/><path d="M120 86v-10" stroke="#8A8A8A" stroke-width="2"/>'+M6.P(m6(p1,{face:"sad",pose:"pray"}),56,132,60)+M6.P(m6(p2,{face:"sad",pose:"pray"}),184,132,58,{flip:1});}},
+  {t:"お墓には記念碑が建てられ、村には博物館もできました。",
+   d:function(){return M6.sky("day")+M6.mts()+M6.grass()+M6.city(80,106,1)+M6.statue(m6(S(8),{aura:null,spark:0,cape:null}),180,126,90);}},
+  {t:"ジャララバード州のトクトグル町は、彼の名前から付けられました。",
+   d:function(){return M6.sky("day")+M6.mts()+lake+M6.city(120,98,1.1)+M6.sfx(120,30,"トクトグル町","#2C5D8F",0);}},
+  {t:"ビシケクには、彼の名前の通りや記念像があり、歌は今も歌われています。",
+   d:function(){return M6.sky("day")+M6.grass()+M6.statue(m6(S(8),{aura:null,spark:0,cape:null}),120,120,100)+M6.P(m6(N.child,{face:"joy",pose:"point"}),44,132,52)+M6.P(m6(p2,{face:"smile"}),204,132,58,{flip:1})+M6.note(170,40)+M6.note(186,58);}}]
 ];
 })();
 
