@@ -227,6 +227,10 @@ a.orig{color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
 .hzbar .cv{flex:0 0 auto;color:var(--ink-3);transition:transform .2s}
 .hzbar[aria-expanded="true"] .cv{transform:rotate(90deg)}
 .hzlist{padding:0 12px 4px;border-top:1px solid var(--line)}
+.hwbar .hwic{flex:0 0 auto;font-size:13px;line-height:1}
+.hwbar .tx{font-weight:500;color:var(--ink-2)}
+.hwnote{font-size:11.5px;color:var(--ink-3);line-height:1.6;padding:8px 0 4px}
+.hwtag{display:inline-block;font-size:11px;font-weight:700;color:var(--ink-2);background:var(--card-2);border:1px solid var(--line);border-radius:99px;padding:1px 8px;margin:4px 4px 0 0}
 .haz .hz{display:grid;grid-template-columns:20px 1fr;gap:2px 8px;padding:8px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
 .haz .hz:first-child{border-top:0}
 .haz .hz .hi{font-size:15px;line-height:1.3}
@@ -620,6 +624,7 @@ details.about .foot{margin-top:8px}
   <button class="alert" id="alert" hidden></button>
   <section class="myst" id="myst" hidden></section>
   <section class="haz" id="haz" hidden></section>
+  <section class="haz hw" id="hw" hidden></section>
   <section class="favs" id="favs"><div class="skel big"></div></section>
   </div>
 
@@ -1186,7 +1191,7 @@ function renderNewsSearch(el, nd, more, when){
 function renderNews(){
   document.querySelectorAll("#newsTabs button").forEach(b=>b.classList.toggle("on", !newsQ && b.dataset.k===prefs.newsTab));
   const el = document.getElementById("news"), nd = newsData();
-  renderAlert(nd); renderInfra(nd); renderHazards(nd); renderCalendar(); renderPasses();
+  renderAlert(nd); renderInfra(nd); renderHazards(nd); renderHealth(nd); renderCalendar(); renderPasses();
   if(weeklyOpen) renderWeekly();
   const nu = document.getElementById("newsUpdated");
   if(news && news.updated){
@@ -1468,6 +1473,20 @@ function placeJa(p){
   const city = CITIES.find(c=>m[3].toLowerCase().startsWith(c.ru.toLowerCase().slice(0,4)) || c.id===m[3].toLowerCase().replace(/[^a-z]/g,""));
   return `${city?city.ja:m[3]}の${DIR_JA[m[2]]||m[2]}${m[1]}km`;
 }
+// quiet notice: illnesses going around, from local news / health ministry posts of the last 2 weeks
+let hwOpen = false;
+function renderHealth(nd){
+  const el = document.getElementById("hw");
+  const hw = nd && nd.health_watch;
+  if(!hw || !hw.total || !(hw.labels||[]).length){ el.hidden = true; el.innerHTML = ""; return; }
+  el.hidden = false;
+  const big = hw.labels.filter(l=>l.n>=2); const names = (big.length?big:hw.labels).slice(0,3).map(l=>l.ja).join("・");
+  el.innerHTML = `<button class="hzbar hwbar" id="hwToggle" aria-expanded="${hwOpen}"><span class="hwic" aria-hidden="true">🤧</span><span class="lb">流行</span>
+      <span class="tx">${esc(names)}の話題</span><span class="ct">${hw.total}件</span><span class="cv">›</span></button>`
+    + (hwOpen ? `<div class="hzlist"><div class="hwnote">最近${hw.days||14}日の現地報道・保健省の発表から、病気の流行に関する記事を集めました。${hw.labels.map(l=>`<span class="hwtag">${esc(l.ja)} ${l.n}</span>`).join("")}</div>`
+      + hw.items.map(x=>`<div class="hz"><span class="hi">🦠</span><div><a class="nmain" href="${esc(jaLink(x.link))}" target="_blank" rel="noopener"><div class="ht">${esc(x.title_ja)}</div></a>
+        <div class="hs">${esc(x.source||"")}${x.published?"・"+ago(Date.parse(x.published)):""}・${origLink(x.link)}</div></div></div>`).join("") + `</div>` : "");
+}
 function renderHazards(nd){
   const el = document.getElementById("haz");
   // natural hazards, plus road items only when they are actual closures (not bus route changes)
@@ -1518,7 +1537,7 @@ function renderInfra(nd){
       ? `<span class="tmain"><b>${KIND[(first.kinds||[])[0]]||"⚠️"}</b><i>${dayLabel(first.date)||""}${fh.time?" "+esc(fh.time):""}</i>${esc(hitLabel(first,fh))}：${esc(fh.text_ja||first.title_ja||"")}</span>`
         + `<span class="tsub">${items.length>1?`ほかに${items.length-1}件・`:""}タップで詳しく</span>`
     : sel.size
-      ? `<span class="tmain ok">今は何もありません（断水・停電・ガス・暖房）</span><span class="tsub">最終確認 ${checked}・${ms.checked||0}件のお知らせを確認・タップで詳しく</span>`
+      ? `<span class="tmain ok">今は何もありません</span><span class="tsub">断水・停電・ガス・暖房・最終確認 ${checked}・${ms.checked||0}件のお知らせを確認・タップで詳しく</span>`
       : `<span class="tmain">「通りを選ぶ・変える」から、気になる通りを選んでください</span>`;
   el.innerHTML = `<div class="mh"><span class="grow">📍 <b>MY STREET</b>　わたしの通り</span><span class="num">${news&&news.updated?ago(Date.parse(news.updated))+"に確認":""}</span></div>
     <div class="msel"><button class="pick" id="openPicker">📍 通りを選ぶ・変える ›</button>${myStreets.map(id=>`<span class="stag">${esc(shortSt(id))}</span>`).join("")}</div>
@@ -1987,6 +2006,7 @@ document.addEventListener("click", e=>{
   const ml = e.target.closest("[data-maplayer]");
   if(ml){ const k = ml.dataset.maplayer; mapShow[k] = !mapShow[k]; if(mapShow[k]) mapLayers[k].addTo(mapObj); else mapLayers[k].remove(); ml.classList.toggle("on", mapShow[k]); return; }
   if(e.target.closest("#tipClose")){ lsSet("kg-tip-hidden", true); document.getElementById("tip").style.display="none"; return; }
+  if(e.target.closest("#hwToggle")){ hwOpen = !hwOpen; renderHealth(newsData()); return; }
   if(e.target.closest("#hazToggle")){ hazAll = !hazAll; renderHazards(newsData()); return; }
   if(e.target.closest("#wkBack")){ closeWeekly(false); return; }
   const wk = e.target.closest("[data-week]");

@@ -255,6 +255,7 @@ def translate_retry(texts):
 # items can borrow them instead of asking the translator again.
 MONITOR_BASE = "https://raw.githubusercontent.com/kginfo15/kyrgyzcha-family/sector-data/"
 MONITOR_TR = {}
+MONITOR_HEALTH = []  # recent health articles the monitor collected (for the disease notice)
 
 
 def link_key(u):
@@ -270,6 +271,10 @@ def load_monitor_tr():
             for x in json.loads(get(MONITOR_BASE + f"items-{y}.json", timeout=60)).get("items", []):
                 if x.get("tj") and x.get("u"):
                     MONITOR_TR[link_key(x["u"])] = (x["t"], x.get("l") or "", x["tj"], x.get("lj") or "")
+                if x.get("tj") and x.get("u") and "health" in (x.get("c") or []) \
+                        and (x.get("p") or "") >= (NOW - timedelta(days=HEALTH_DAYS)).isoformat():
+                    MONITOR_HEALTH.append({"kind": "news", "title": x["t"], "title_ja": x["tj"], "link": x["u"],
+                                           "source": x.get("s") or "", "published": x.get("p")})
         log(f"monitor translations: {len(MONITOR_TR)}")
     except Exception as e:
         log(f"monitor translations: not available: {e}")
@@ -833,6 +838,65 @@ def update_archive(archive, out):
     return {"country": COUNTRY, "since": since, "updated": now, "items": kept}
 
 
+# Infectious-disease watch: a quiet notice when local news talks about an illness going around.
+# (Russian stem, Japanese label). Chronic topics such as tuberculosis are left out on purpose.
+HEALTH_DISEASES = [
+    (r"грипп|орви|респираторн", "インフルエンザ・かぜ"),
+    (r"\bкор[ьиюя]\b|\bкорью\b|кызамык", "はしか"),
+    (r"коклюш", "百日ぜき"),
+    (r"ветрян\w* осп|ветрянк", "水ぼうそう"),
+    (r"менингит", "髄膜炎"),
+    (r"гепатит\w* a\b|гепатит\w* а\b|желтух", "A型肝炎"),
+    (r"кишечн\w* инфекц|ротавирус|норовирус", "おなかの感染症"),
+    (r"ковид|covid|коронавирус", "新型コロナ"),
+    (r"дифтери", "ジフテリア"),
+    (r"бруцеллез", "ブルセラ症"),
+    (r"сибирск\w* язв", "炭疽"),
+    (r"холер", "コレラ"),
+    (r"пневмони", "肺炎"),
+]
+# news that names a disease but is about something else (court cases, pay, history)
+HEALTH_SKIP = re.compile(r"компенсац|выплат|суд[аеуы]?\b|судят|уголовн|зарплат|туберкул|фильм|аутизм|стабил", re.I)
+# news about another country's outbreak is left out, unless it also names this country
+HEALTH_FOREIGN = re.compile(r"кыргыз|киргиз|бишкек|\bош[еа]?\b|казах|\bастан|алмат|узбек|ташкент|таджик|душанбе|туркмен|афган|пакистан|индии|индия|китай|китае|кнр|"
+                            r"япони|корее|корея|монгол|вьетнам|таиланд|индонез|филиппин|иран|турци|израил|"
+                            r"азербайдж|грузи|армени|росси|москв|украин|беларус|европ|германи|франци|итали|"
+                            r"испани|польш|британ|англи|сша\b|американ|штат[аеу]?\b|пенсильван|нью-йорк|канад|"
+                            r"мексик|бразил|африк|австрали|судан|конго|нигери|йемен|в мире|\bвоз\b", re.I)
+HEALTH_OWN = {"kg": r"кыргыз|киргиз|бишкек|\bош[еа]?\b", "kz": r"казах|\bастан|алмат", "uz": r"узбек|ташкент", "tj": r"таджик|душанбе"}
+HEALTH_DAYS = 14
+
+
+def build_health_watch(archive):
+    """Local news of the last two weeks that talk about an illness spreading. Empty when there is none."""
+    cutoff = (NOW - timedelta(days=HEALTH_DAYS)).isoformat()
+    found, counts, seen = [], {}, set()
+    for x in list(archive.get("items", [])) + MONITOR_HEALTH:
+        key = link_key(x.get("link"))
+        if key in seen:
+            continue
+        seen.add(key)
+        if x.get("kind") != "news" or (x.get("published") or "") < cutoff or not x.get("title_ja"):
+            continue
+        text = (x.get("title") or "").lower()
+        if HEALTH_SKIP.search(text):
+            continue
+        own = HEALTH_OWN.get(COUNTRY)
+        if HEALTH_FOREIGN.search(text) and not (own and re.search(own, text)):
+            continue
+        labels = [ja for pat, ja in HEALTH_DISEASES if re.search(pat, text)]
+        if not labels:
+            continue
+        for ja in labels:
+            counts[ja] = counts.get(ja, 0) + 1
+        found.append({"title_ja": x["title_ja"], "link": x["link"], "source": x["source"],
+                      "published": x.get("published"), "labels": labels})
+    found.sort(key=lambda x: x.get("published") or "", reverse=True)
+    order = sorted(counts, key=lambda k: -counts[k])
+    return {"days": HEALTH_DAYS, "labels": [{"ja": k, "n": counts[k]} for k in order],
+            "items": found[:10], "total": len(found)}
+
+
 def week_bounds():
     """(last Monday 00:00, this Monday 00:00) in the country's local time, as UTC datetimes."""
     off = timedelta(hours=TZ_HOURS)
@@ -1137,6 +1201,11 @@ def main():
         out["weekly"] = {"last": build_weekly(archive, out, last_mon, this_mon),
                          "this": build_weekly(archive, out, this_mon, NOW + timedelta(seconds=1)),
                          "since": archive["since"]}
+        try:
+            out["health_watch"] = build_health_watch(archive)
+            log(f"health watch: {out['health_watch']['total']} articles {[l['ja'] for l in out['health_watch']['labels']]}")
+        except Exception as e:
+            log(f"health watch: failed: {e}")
         log(f"weekly: last {out['weekly']['last']['articles']} / this {out['weekly']['this']['articles']} articles, archive {len(archive['items'])}")
         if archive_out:
             with open(archive_out, "w") as fh:
