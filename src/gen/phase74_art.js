@@ -111,9 +111,11 @@ function p74Person(o){
   s+=p74Body(o.body||{type:"tunic"});
   /* 腕と手 */
   var sl=(o.body&&o.body.sleeve)||(o.body&&o.body.c)||"#7E9C5A";
-  s+='<path d="M42 88q-10 6-12 18" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/><path d="M78 88q8 4 10 14" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/>';
+  var AR={none:["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104],wave:["M42 88q-10 6-12 18",30,108,"M78 88q12-8 12-26",90,60],both:["M42 88q-12-8-12-26",30,60,"M78 88q12-8 12-26",90,60],pray:["M42 88q2 12 14 12",56,100,"M78 88q-2 12-14 12",64,100],shrug:["M42 88q-12 2-18-8",22,78,"M78 88q12 2 18-8",98,78],point:["M42 88q-10 6-12 18",30,108,"M78 88q12 0 24-4",102,84],heart:["M42 88q-10 6-12 18",30,108,"M78 88q-2 10-14 10",64,98],chin:["M42 88q-10 6-12 18",30,108,"M78 88q4 4-10 -8",68,76]}[o.pose||"none"]||null;
+  if(!AR)AR=["M42 88q-10 6-12 18",30,108,"M78 88q8 4 10 14",88,104];
+  s+='<path d="'+AR[0]+'" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/><path d="'+AR[3]+'" stroke="'+sl+'" stroke-width="9" stroke-linecap="round" fill="none"/>';
   s+=P74_OFF[o.off||"none"]();
-  s+='<circle cx="30" cy="108" r="5" fill="'+skin+'" '+P74_OUT+'/><circle cx="88" cy="104" r="5" fill="'+skin+'" '+P74_OUT+'/>';
+  s+='<circle cx="'+AR[1]+'" cy="'+AR[2]+'" r="5" fill="'+skin+'" '+P74_OUT+'/><circle cx="'+AR[4]+'" cy="'+AR[5]+'" r="5" fill="'+skin+'" '+P74_OUT+'/>';
   /* 頭 */
   s+='<path d="M54 78h12v8H54z" fill="'+skin+'"/>';
   if(o.longhair)s+='<path d="M38 50q-6 24 0 38h12q-8-14-4-36zM82 50q6 24 0 38H70q8-14 4-36z" fill="'+hair+'" '+P74_OUT+'/>';
@@ -308,6 +310,6 @@ function p74Scene(figs,opt){
   (figs||[]).forEach(function(f){s+='<g transform="translate('+f.x+' '+(f.y||36)+') scale('+(f.s||.62)+')">'+f.svg+'</g>';});
   return '<svg class="p74-scene" viewBox="0 0 240 140" aria-hidden="true">'+s+'</svg>';
 }
-P74_HEAD.elechek=function(){return '<path d="M36 50q-2-30 24-34q26 4 24 34q-4-8-24-10q-20 2-24 10z" fill="#FBF8F0" '+P74_OUT+'/><path d="M38 40q22-10 44 0M40 32q20-8 40 0" stroke="#D8CFB8" stroke-width="1.8" fill="none"/><path d="M36 50q-6 20 2 34l6-4q-6-14-2-28z" fill="#FBF8F0" '+P74_OUT+'/><path d="M84 50q6 20-2 34l-6-4q6-14 2-28z" fill="#FBF8F0" '+P74_OUT+'/>';};
+P74_HEAD.elechek=function(){return '<path d="M34 50q-6-14-2-30q2-12 28-14q26 2 28 14q4 16-2 30q-6-6-26-7q-20 1-26 7z" fill="#FBF8F0" '+P74_OUT+'/><path d="M33 22q27-8 54 0M32 32q28-8 56 0M33 42q27-7 54 0" stroke="#D8CFB8" stroke-width="2" fill="none"/><path d="M36 48q-8 22 2 38l7-5q-7-15-3-30z" fill="#FBF8F0" '+P74_OUT+'/><path d="M84 48q8 22-2 38l-7-5q7-15 3-30z" fill="#FBF8F0" '+P74_OUT+'/><path d="M45 80q15 9 30 0l1 6q-16 9-32 0z" fill="#FBF8F0" '+P74_OUT+'/>';};
 P74_HEAD.tebetei=function(c){return '<path d="M40 46q0-24 20-26q20 2 20 26z" fill="'+(c||"#B3202B")+'" '+P74_OUT+'/><path d="M34 48q26-12 52 0q-4 8-26 6q-22 2-26-6z" fill="#6B4A2E" '+P74_OUT+'/><path d="M60 20v-6" stroke="#E8B923" stroke-width="3" stroke-linecap="round"/>';};
 P74_HAND.komuz=function(){return '<path d="M104 92l10-40" stroke="#8A5A2B" stroke-width="5" stroke-linecap="round"/><path d="M111 50l6 2M110 55l6 2" stroke="#5A3A1E" stroke-width="2" stroke-linecap="round"/><path d="M88 96q8-8 20-2q8 8 2 20q-8 12-20 6q-10-8-2-24z" fill="#B5793B" '+P74_OUT+'/><path d="M98 118l15-64M102 118l14-64" stroke="#F6F1E1" stroke-width=".9"/><circle cx="98" cy="104" r="3" fill="#5A3A1E"/>';};
