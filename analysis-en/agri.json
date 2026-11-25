@@ -1,0 +1,1821 @@
+{
+ "spec": {
+  "pil": {
+   "1": "Agriculture and rural development"
+  },
+  "rows": {
+   "past": {
+    "n": "Pastures and livestock",
+    "st": "Pasture Development Programme 2024–2029"
+   },
+   "mech": {
+    "n": "Agricultural machinery and agri-finance",
+    "st": "(Regional Development Programme 2025–30)"
+   },
+   "value": {
+    "n": "Value chains, processing and exports",
+    "st": "Organic Production Development Programme 2025–29"
+   },
+   "irr": {
+    "n": "Irrigation",
+    "st": "State Irrigation Development Programme to 2026"
+   },
+   "clim": {
+    "n": "Climate change adaptation",
+    "st": "NDC 3.0 / Green Economy 2025–29"
+   },
+   "food": {
+    "n": "Food security",
+    "st": "Food Security and Nutrition Programme"
+   }
+  }
+ },
+ "ind": {
+  "prod": {
+   "name": "① Production and processing",
+   "inds": [
+    {
+     "name": "Food production index (2014–16 = 100)",
+     "unit": "",
+     "st": "✕ Pace too slow; only about 124.9 even by 2030",
+     "src": "World Bank WDI AG.PRD.FOOD.XD (originally FAO)",
+     "t": [
+      "National: +30%"
+     ]
+    },
+    {
+     "name": "Cereal yield",
+     "unit": "kg/ha",
+     "st": "— No target (flat trend)",
+     "src": "World Bank WDI AG.YLD.CREL.KG (originally FAO)",
+     "t": []
+    }
+   ]
+  },
+  "irr": {
+   "name": "② Irrigation and water",
+   "inds": [
+    {
+     "name": "Share of agricultural land that is irrigated",
+     "unit": "%",
+     "st": "— No target (flat trend)",
+     "src": "World Bank WDI AG.LND.IRIG.AG.ZS (originally FAO)",
+     "t": []
+    },
+    {
+     "name": "Water-use efficiency in agriculture",
+     "unit": "USD/m³",
+     "st": "— No target (rising trend)",
+     "src": "UN SDG Database ER_H2O_WUEYST (SDG 6.4.1)",
+     "t": []
+    }
+   ]
+  },
+  "rural": {
+   "name": "③ Rural areas and pastures",
+   "inds": [
+    {
+     "name": "Share of employment in agriculture",
+     "unit": "%",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WDI SL.AGR.EMPL.ZS (ILO estimate)",
+     "t": []
+    },
+    {
+     "name": "Agriculture, forestry and fishing value added (% of GDP)",
+     "unit": "%",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WDI NV.AGR.TOTL.ZS",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Agriculture: large funding for climate adaptation and mechanisation finance; pastures and food security mid-sized",
+  "msgs": [
+   [
+    "Climate adaptation is the largest.",
+    "The GCF \"Glaciers to Farms (G2F)\" programme is large. World Bank and ADB resilience projects are also numerous."
+   ],
+   [
+    "Lending for farm machinery is expanding.",
+    "Islamic Development Bank financing for agricultural mechanisation; concessional loans under Islamic finance begin (November)."
+   ],
+   [
+    "Processing and agro-parks.",
+    "Feasibility study for an agri-food park with support from EDB and UNIDO (5 Nov). Poultry farms and livestock complexes are also under construction."
+   ],
+   [
+    "A new pasture programme.",
+    "A programme for the efficient use of pastures is being developed (6 Nov). It overlaps with the FAO carbon sequestration project."
+   ]
+  ],
+  "h2": "Large funding for climate adaptation and mechanisation finance; pastures and food security mid-sized",
+  "rows": {
+   "past": [
+    "",
+    "Led by FAO and NGOs. The national programme runs to 2029"
+   ],
+   "mech": [
+    "",
+    "Large loans from the Islamic Development Bank, World Bank and ADB"
+   ],
+   "value": [
+    "",
+    "Including the World Bank agri-food clusters project"
+   ],
+   "irr": [
+    "",
+    "Irrigation by ADB, China and the EU"
+   ],
+   "clim": [
+    "",
+    "The GCF G2F programme is the largest"
+   ],
+   "food": [
+    "",
+    "Part of the World Bank cluster project; few dedicated projects"
+   ]
+  },
+  "h3": "Recent themes: \"concessional loans\", \"agro-parks\" and \"livestock expansion\"",
+  "themes": [
+   [
+    "Finance:",
+    "Purchases of farm machinery and concessional loans under Islamic finance begin."
+   ],
+   [
+    "Processing:",
+    "Feasibility study for an agri-food park; construction of agro-industrial complexes; smart-farm cooperation with Korea."
+   ],
+   [
+    "Livestock:",
+    "Plans to build four poultry farms in 2027; testing of livestock vaccines."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "sid": "agri",
+ "title": "Kyrgyz Republic: Agriculture and Rural Development Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "agri-ndp",
+   "t": "National Development Programme 2030, Section 5.3 \"Agriculture and Tourism\" and the agriculture part of Chapter III (Current Situation and Achievements)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "The five target indicators and seven tasks of Section 5.3, and the current situation of agriculture and the food industry in Chapter III (translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "agri-pasture",
+   "t": "Pasture Development Programme 2024–2029",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic (Resolution No. 462 of 9 August 2024)",
+   "y": "2024",
+   "scope": "Full text (machine translation on this site). The text contains no table of numerical targets",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=14287&lang=ru"
+  },
+  {
+   "id": "agri-foodsec",
+   "t": "Food Security and Nutrition Programme 2019–2023",
+   "by": "Government of the Kyrgyz Republic (Resolution No. 320 of 27 June 2019)",
+   "y": "2019",
+   "scope": "Situation assessment (Section 1.2), problems (Chapter 2) and directions (Chapters 3–4) reviewed in machine translation. Indicator matrix (Annex 3) not reviewed",
+   "cat": "gov",
+   "u": "https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf"
+  },
+  {
+   "id": "agri-ifadcspe",
+   "t": "Country Strategy and Programme Evaluation: Kyrgyz Republic",
+   "by": "IFAD Independent Office of Evaluation",
+   "y": "2023",
+   "scope": "First part of the text, about 100,000 characters (summary, background, evaluation, up to paragraph 67 of the main text), reviewed in the original. The final ~15,000 characters (including the rural finance part) not read",
+   "cat": "donor",
+   "u": "https://members.ifad.org/ec/121/docs/en/EC-2023-121-W-P-2.pdf?attach=1"
+  },
+  {
+   "id": "agri-ifadpcrv",
+   "t": "Project Completion Report Validation: Livestock and Market Development Programme",
+   "by": "IFAD Independent Office of Evaluation",
+   "y": "2020",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.ifad.org/documents/38714182/41729064/PCRV_Kyrgyzstan_1100001626.pdf"
+  },
+  {
+   "id": "agri-wb2024",
+   "t": "Kyrgyz Republic to Boost Productivity and Climate Resilience in Agriculture with World Bank Support",
+   "by": "World Bank (press release)",
+   "y": "Apr 2024",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2024/04/08/kyrgyz-republic-to-boost-productivity-and-climate-resilience-in-agriculture-with-world-bank-support"
+  },
+  {
+   "id": "agri-adb2023",
+   "t": "ADB to Help Improve Agribusiness Value Chains in the Kyrgyz Republic",
+   "by": "ADB (press release)",
+   "y": "Dec 2023",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.adb.org/news/adb-help-improve-agribusiness-value-chains-kyrgyz-republic"
+  },
+  {
+   "id": "agri-giews",
+   "t": "GIEWS Country Brief: Kyrgyzstan",
+   "by": "FAO",
+   "y": "May 2026",
+   "scope": "Full text (version dated 5 May 2026)",
+   "cat": "donor",
+   "u": "https://www.fao.org/giews/countrybrief/country.jsp?code=KGZ"
+  },
+  {
+   "id": "agri-pgs",
+   "t": "Organic agriculture in Kyrgyzstan: experiences with implementing participatory guarantee systems",
+   "by": "Frontiers in Sustainable Food Systems (listing page in the FAO agroecology knowledge hub)",
+   "y": "2024",
+   "scope": "Abstract on the listing page only. Main text and figures not reviewed",
+   "cat": "paper",
+   "u": "https://www.fao.org/agroecology/database/detail/en/c/1730546"
+  },
+  {
+   "id": "agri-ndc",
+   "t": "Nationally Determined Contribution (NDC), 2021 update",
+   "by": "Kyrgyz Republic",
+   "y": "2021",
+   "scope": "Mitigation targets, agriculture and forestry measures, and the agriculture chapter on adaptation (machine translation on this site)",
+   "cat": "gov",
+   "u": "https://unfccc.int/sites/default/files/NDC/2022-06/%D0%9E%D0%9D%D0%A3%D0%92%20ENG%20%D0%BE%D1%82%2008102021.pdf"
+  },
+  {
+   "id": "agri-faolivestock",
+   "t": "Low carbon and resilient livestock development in Kyrgyzstan (policy brief)",
+   "by": "IFAD and FAO (jointly with GIZ)",
+   "y": "2023",
+   "scope": "Full text. Only figures stated in the text are used; figures whose correspondence in the charts is unclear are not used",
+   "cat": "donor",
+   "u": "https://www.fao.org/3/cb7436en/cb7436en.pdf"
+  },
+  {
+   "id": "agri-gafsp",
+   "t": "Improving food security and nutrition for a more resilient food system in Batken (project document)",
+   "by": "WFP and GAFSP",
+   "y": "Dec 2023",
+   "scope": "First part of the text (about 100,000 characters, up to p.17) reviewed in the original. Some annexes not read",
+   "cat": "donor",
+   "u": "https://www.gafspfund.org/sites/default/files/inline-files/WFP%20Kyrgyz%20Republic%20-%20Project%20document%20_22.12.2023%20%281%29.pdf"
+  },
+  {
+   "id": "agri-adbwater",
+   "t": "Climate Change- and Disaster-Resilient Water Resources Sector Project - Additional Financing(51081-003)",
+   "by": "ADB (project page)",
+   "y": "Approved Sep 2025",
+   "scope": "Full project page",
+   "cat": "donor",
+   "u": "https://www.adb.org/projects/51081-003/main"
+  },
+  {
+   "id": "agri-ccdr",
+   "t": "Kyrgyz Republic Country Climate and Development Report (launch page)",
+   "by": "World Bank",
+   "y": "Dec 2025",
+   "scope": "Key points of the launch page only. The full report PDF was not opened",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/country/kyrgyzrepublic/publication/ccdr"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Agriculture has fallen to 8.0% of GDP but still employs 15.4% of workers. Agriculture and forestry value added fell from 17.4% (2010) to 8.0% (2025), and the share of employment in agriculture from 23.2% to 15.4%.",
+   "ref": [
+    "ind:rural:0",
+    "ind:rural:1"
+   ],
+   "h": "Agriculture's weight has fallen, but it still employs about 1 in 6 workers"
+  },
+  {
+   "k": "v",
+   "t": "At the current pace, the national target of \"a 30% increase in agricultural output (versus 2024)\" will not be met. The food production index is rising by +1.8 a year, whereas +5.9 a year is needed to reach the target by 2030.",
+   "ref": [
+    "ind:prod:0",
+    "doc:agri-ndp"
+   ],
+   "h": "The 30% output target is out of reach at the current pace"
+  },
+  {
+   "k": "f",
+   "t": "Pastures are the foundation. Pastures cover about 9 million ha, more than 85% of agricultural land, but degradation is advancing: relatively clean pasture shrank from about 3.54 million ha to about 2.74 million ha over 20 years.",
+   "ref": [
+    "doc:agri-pasture",
+    "doc:agri-ifadcspe",
+    "tree:pasture:pasture"
+   ],
+   "h": "Pastures, the foundation, are over 85% of farmland and keep degrading"
+  },
+  {
+   "k": "f",
+   "t": "Active support aligned with the strategy totals 50 projects and about USD 250 million, led by climate funds, the World Bank, the Islamic Development Bank and ADB. It is concentrated in the climate adaptation and machinery/finance rows.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:clim",
+    "row:mech"
+   ],
+   "h": "50 active projects, about USD 250 million, concentrated in climate adaptation and machinery/finance"
+  },
+  {
+   "k": "v",
+   "t": "For the national food security programme, the only verifiable text is the 2019–2023 edition; the text of the 2025–2030 edition has not been obtained. The national irrigation and processing targets have no annual published data, so progress cannot be measured.",
+   "ref": [
+    "tree:food:food",
+    "doc:agri-foodsec",
+    "doc:agri-ndp"
+   ],
+   "h": "New food security plan text not obtained; irrigation and processing targets cannot be measured"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Agriculture and rural overview",
+     "msg": "Agriculture's share of the economy keeps shrinking, yet output value is growing, led by livestock, and rural livelihoods still depend on pastures.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "8.0",
+        "u": "%",
+        "k": "Agriculture and forestry value added, % of GDP (2025)",
+        "ref": "ind:rural:1"
+       },
+       {
+        "v": "15.4",
+        "u": "%",
+        "k": "Share of employment in agriculture (2025, ILO estimate)",
+        "ref": "ind:rural:0"
+       },
+       {
+        "v": "118.5",
+        "u": "",
+        "k": "Food production index, 2014–16 = 100 (2024)",
+        "ref": "ind:prod:0"
+       },
+       {
+        "v": "9.7",
+        "u": "%",
+        "k": "Share of agricultural land that is irrigated (2024)",
+        "ref": "ind:irr:0",
+        "hot": true
+       },
+       {
+        "v": "82",
+        "u": "%",
+        "k": "Share of winter pastures severely degraded (IFAD evaluation)",
+        "ref": "doc:agri-ifadcspe",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Agriculture and forestry value added fell from 17.4% of GDP (2010) to 8.0% (2025). The share of employment in agriculture fell from 23.2% (2010) to 15.4% (2025, ILO estimate).",
+       "ref": [
+        "ind:rural:1",
+        "ind:rural:0"
+       ],
+       "b": "Agriculture and forestry: 8.0% of GDP, 15.4% of employment (2025)"
+      },
+      {
+       "k": "f",
+       "t": "According to the National Development Programme 2030, gross agricultural output rose by 22.0%, from 324.5 billion som (2021) to 395.6 billion som (2024). Growth was driven by livestock (+32.9%).",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "Gross agricultural output up 22.0% in 2021→2024, driven by livestock"
+      },
+      {
+       "k": "f",
+       "t": "Livestock numbers (large and small animals and horses) rose by 2.3% and poultry by 30.5% in 2021–2024. However, low-productivity breeds predominate, a situation said to have persisted for 30 years.",
+       "ref": [
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The food and processing industry accounts for over 20% of industrial output and over 25% of exports. Food production rose from 45.6 billion som (2021) to 87.4 billion som (2024).",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "Food industry: over 20% of industrial output and over 25% of exports"
+      },
+      {
+       "k": "h",
+       "t": "Producers and the rural economy"
+      },
+      {
+       "k": "f",
+       "t": "According to IFAD's country evaluation, agriculture is dominated by smallholders: in 2020 there were 349,159 peasant farms and 112,422 individual entrepreneurs. Rural households produce 98.5% of gross agricultural output and nearly 90% of livestock output. After 1991, the land, livestock and machinery of collective farms were privatised, but unevenly.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The WFP and GAFSP project document states that 98% of farmers hold less than 2 ha and that arable land is only 12% of the country's territory. According to the Food Security Programme (2019), arable land per inhabitant fell from 0.25 ha to 0.20 ha in 2003–2016, and irrigated arable land from 0.16 ha to 0.13 ha.",
+       "ref": [
+        "doc:agri-gafsp",
+        "doc:agri-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Migrant remittances reached USD 2.4 billion in 2019, nearly 30% of GDP, and played a major role in reducing poverty. IFAD's evaluation attributes the growth in livestock, which drove both output growth and pasture degradation, mainly to animals bought with remittances.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Pastures cover about 9 million ha, more than 85% of agricultural land, and are the main source of fodder for livestock. About two-thirds of the population lives in rural areas.",
+       "ref": [
+        "doc:agri-pasture",
+        "doc:agri-ifadcspe"
+       ],
+       "b": "Pastures: about 9 million ha = over 85% of agricultural land"
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation states that livestock accounted for about 48% of gross agricultural output (2020) and that 82% of winter pastures (over 420,000 ha) are severely degraded. In 2016–2020, 94% of pastures were degraded in at least one season.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ],
+       "b": "82% of winter pastures severely degraded (IFAD)"
+      },
+      {
+       "k": "f",
+       "t": "The national poverty rate fell to 20.1% (2019) and then rose to 25.3% (2020). The rural–urban gap has narrowed but persists.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation estimates the 2021 poverty rate at 35% and states that lower remittances due to COVID-19 pushed poverty up. Amid reliance on remittances, the share of rural households headed by women rose from 18% (1997) to 21% (2012).",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Agriculture's weight in the economy is falling, but through livestock it still plays a major role in supporting rural incomes and food. The central challenge of the sector is a structure in which raising output increases pressure on pastures.",
+       "ref": [
+        "doc:agri-pasture",
+        "doc:agri-ifadcspe",
+        "ind:rural:1"
+       ],
+       "b": "Livestock growth increases pressure on pastures"
+      },
+      {
+       "k": "v",
+       "t": "Smallholders store remittances in the form of livestock. Because animals serve as savings and insurance, herd numbers tend to grow rather than productivity per head. This is the root of both pasture pressure and low livestock efficiency.",
+       "ref": [
+        "doc:agri-ifadcspe",
+        "doc:agri-ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Agricultural policy is structured as \"NDP 2030 Section 5.3 → sectoral programmes for pastures, food security, irrigation, etc.\", but there is no national programme covering agriculture as a whole.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Top-level plan: NDP 2030 Section 5.3 \"Agriculture and Tourism\" sets five targets relative to 2024: a 30% increase in agricultural output, a doubling of processing volume, a water loss rate of 15%, 15,000 ha of additional irrigated land, and secured water supply for 93,000 ha.",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "NDP 2030 5.3: five targets incl. output +30% and processing ×2 (vs 2024)"
+      },
+      {
+       "k": "f",
+       "t": "The same section lists seven tasks: modernisation of livestock and crop production; processing and exports; productivity (agro-clusters, digitalisation, mechanisation); expansion of irrigation (including renewal of 5,000 km of canals); efficient water use; human resources; and climate change adaptation.",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "Seven tasks: modernisation, processing/exports, productivity, irrigation, water, human resources, climate"
+      },
+      {
+       "k": "f",
+       "t": "Section 5.3 also lists concrete measures: breed improvement in livestock and mechanisms to reduce livestock greenhouse gases and methane; a certification centre for organic agriculture; promotion of domestic production of socially important imported foods (flour, vegetable oil, macaroni); and digitalisation such as drones, AI and precision agriculture.",
+       "ref": [
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the current-situation chapter of NDP 2030, since 2022 the state has provided 15 billion som to over 7,500 aggregators through \"financing of the agro-industrial complex\", and in 2021–2024 provided 19.1 billion som to farmers and others through \"agricultural financing\". It has also launched \"financing of integrated producers\" for cooperatives. State funds flow mainly in the form of loans.",
+       "ref": [
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation states that a 2021 presidential decree introduced a cluster mechanism for milk, meat, walnuts, wool and leather. NDP 2030 states that clusters have been formed for many products, including meat, milk, sugar and fruit.",
+       "ref": [
+        "doc:agri-ifadcspe",
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Pasture governance"
+      },
+      {
+       "k": "f",
+       "t": "Pastures: the Pasture Development Programme 2024–2029 (Cabinet of Ministers Resolution No. 462 of 9 August 2024) aims to protect and improve pastures under climate change and raise the living standards of rural residents. It has four priority areas (sustainable management, climate change adaptation, training of personnel, and scientific, information and advisory support).",
+       "ref": [
+        "doc:agri-pasture",
+        "tree:pasture:pasture",
+        "tree:pasture:P1",
+        "tree:pasture:P2",
+        "tree:pasture:P3"
+       ],
+       "b": "Pasture Programme 2024–2029: four priority areas"
+      },
+      {
+       "k": "f",
+       "t": "The Pasture Programme proceeds in two phases: Phase 1 (2024–2026) for preparation such as legal development, monitoring and training, and Phase 2 (2027–2029) for improving pastures with science-based technologies.",
+       "ref": [
+        "doc:agri-pasture"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 2009 Law \"On Pastures\" transferred pasture management to local self-government bodies, which in turn entrusted it to pasture users' associations and their pasture committees. The Pasture Programme cites the loss of knowledge through turnover of committee staff as one of the main problems.",
+       "ref": [
+        "doc:agri-pasture",
+        "doc:agri-ifadcspe"
+       ],
+       "b": "Under the 2009 Law on Pastures, local users' associations manage pastures"
+      },
+      {
+       "k": "f",
+       "t": "According to the Pasture Programme, an order of the Ministry of Agriculture dated 15 May 2024 set model rules for pasture management and use plans and annual plans, making it mandatory for local governments to include measures to rest spring pastures. In the administrative-territorial reform pilots (Tüp District of Issyk-Kul Region, and Naryn Region), pasture management powers have been transferred to municipal enterprises of village (aiyl aimak) governments.",
+       "ref": [
+        "doc:agri-pasture",
+        "tree:pasture:P1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same programme lists implementation risks: an incomplete legal framework, weak relations between the government and local governments, shifting economic policy priorities, staff turnover, insufficient funding and high interest rates. IFAD's evaluation also states that government support for pasture reform has been inconsistent owing to turnover of senior officials, and that national ownership is unclear.",
+       "ref": [
+        "doc:agri-pasture",
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Food security and climate"
+      },
+      {
+       "k": "f",
+       "t": "Food security: the Food Security and Nutrition Programme 2019–2023 (Government Resolution No. 320 of 27 June 2019) set five directions: availability, economic access, nutritional status, food safety, and management and evaluation.",
+       "ref": [
+        "doc:agri-foodsec",
+        "tree:food:food",
+        "tree:food:F1",
+        "tree:food:F2",
+        "tree:food:F3",
+        "tree:food:F4",
+        "tree:food:F5"
+       ],
+       "b": "Food Security and Nutrition Programme 2019–2023: five directions"
+      },
+      {
+       "k": "f",
+       "t": "The NDC 2021 (the nationally determined greenhouse gas reduction target) lists agricultural mitigation measures: reducing livestock numbers while improving productivity and breeding, expanding organic farmland, and using manure and biogas. Adaptation measures include strengthening the climate resilience of pasture infrastructure and developing a national programme of climate-oriented agricultural support based on the results of \"agricultural financing\".",
+       "ref": [
+        "doc:agri-ndc",
+        "row:clim"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the site's policy tree, the Soil Fertility Improvement Programme 2024–2028 and the Organic Production Development Programme 2025–2029 are placed under Pillar 1 (pastures) as plans mentioned in the SDG Voluntary National Review 2025.",
+       "ref": [
+        "tree:pasture:soil",
+        "tree:pasture:org"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Note: the texts of the State Irrigation Development Programme (to 2026), the soil fertility and organic production programmes, and the 2025–2030 edition of the Food Security Programme (whose existence is noted in the site's indicator notes) have not been read.",
+       "ref": [
+        "row:irr",
+        "tree:pasture:soil",
+        "tree:pasture:org",
+        "tree:food:food"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national targets (production, processing, irrigation) are in NDP 2030, but apart from pastures, the sectoral plans that deliver them either cannot be verified or have expired. The link between targets and implementation plans is hard to see.",
+       "ref": [
+        "doc:agri-ndp",
+        "tree:food:food",
+        "row:irr"
+       ],
+       "b": "Apart from pastures, the link between targets and implementation plans is unclear"
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "Pastures is the only plan verifiable in legislation; machinery/finance and food security have weak backing from national plans.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active support counted per table row; overlaps exist)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the table's six rows, only pastures and livestock has a national strategy verifiable in legislation. Irrigation, organic and climate rest on secondary documents, agricultural machinery and finance on press reports, and food security on the text of the previous edition.",
+       "ref": [
+        "row:past",
+        "row:irr",
+        "row:value",
+        "row:clim",
+        "row:mech",
+        "row:food"
+       ],
+       "b": "Only pastures is verifiable in legislation"
+      },
+      {
+       "k": "f",
+       "t": "Even the Pasture Programme has no indicator table with baselines and targets. It states only that monitoring and evaluation are carried out by the Ministry of Agriculture and the Department of Livestock Breeding, Pastures and Feed, with frequency set by the Ministry and at least once a year recommended.",
+       "ref": [
+        "doc:agri-pasture",
+        "tree:pasture:pasture"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The two rows with the most donor funding (climate adaptation; agricultural machinery and finance) are also those with the weakest backing from national plans. Donor funding is running ahead of national planning.",
+       "ref": [
+        "row:clim",
+        "row:mech"
+       ],
+       "b": "The rows with the most funding have the weakest backing from national plans"
+      },
+      {
+       "k": "v",
+       "t": "Because even the Pasture Programme, which is verifiable in legislation, has no numerical targets, pasture improvement has been measured by donor project indicators (number of pasture management plans, share of healthy winter pastures, etc.). Aligning how national plans and donor support measure results is the next challenge.",
+       "ref": [
+        "doc:agri-pasture",
+        "doc:agri-ifadpcrv",
+        "row:past"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the five national targets",
+     "msg": "The only national target trackable with annual data is \"output +30%\", and it will not be met at the current pace. Irrigation, processing and water loss cannot be measured.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap against targets (actual pace = average change over the period; required pace = change needed to reach the target by 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "All five agriculture targets of NDP 2030 are expressed relative to 2024 values.",
+       "ref": [
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Measured by the food production index, a 30% output increase requires a rise from 118.5 in 2024 to about 154 in 2030. Growth in 2015–2024 was +1.8 a year, less than one-third of the required +5.9 a year. At this pace the index would reach only about 129 in 2030.",
+       "ref": [
+        "ind:prod:0",
+        "doc:agri-ndp"
+       ],
+       "b": "Output: about 129 in 2030 at this pace (target about 154)"
+      },
+      {
+       "k": "f",
+       "t": "The current-situation chapter of NDP 2030 states that gross agricultural output rose by 22.0% in 2021–2024. This is in som and includes price increases. The food production index, which measures volume, rose about 12% over the same period, from 105.9 to 118.5.",
+       "ref": [
+        "doc:agri-ndp",
+        "ind:prod:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Reaching +30% requires average volume growth of about 4.5% a year in 2024–2030. A single poor harvest year like 2021 wipes out that year's growth. Unless productivity per head in livestock rises, rather than relying on weather-dependent cereals, the gap to the target will be hard to close.",
+       "ref": [
+        "ind:prod:0",
+        "ind:prod:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "IFAD and FAO estimate that planned projects could raise meat and milk output by about 4% without increasing livestock numbers, while cutting emissions by 17%. Productivity gains also reduce emissions, but the effect of a single project is small compared with +30%.",
+       "ref": [
+        "doc:agri-faolivestock",
+        "ind:prod:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Doubling processing volume, a 15% water loss rate, 15,000 ha of new irrigation and water supply for 93,000 ha have no annual published data that the site can track.",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "The four processing, water and irrigation targets have no annual published data"
+      },
+      {
+       "k": "v",
+       "t": "The irrigation target (+15,000 ha) is about one-third of the more than 42,000 ha that NDP 2030 describes as \"unused owing to water shortage\". ADB puts land that could be developed with irrigation at 500,000–700,000 ha, so the target is modest relative to the potential; but because annual results are not published, achievement cannot be assessed.",
+       "ref": [
+        "doc:agri-ndp",
+        "doc:agri-adbwater"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because most national targets cannot be measured, any assessment of achievement must rely on government reports. The measurement system itself is a challenge.",
+       "ref": [
+        "doc:agri-ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Production and processing",
+     "msg": "Output is growing but fluctuates strongly with the weather and is far from the growth the national target requires.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Food production index and cereal yield (dotted line = national target: +30% vs 2024)",
+      "inds": [
+       "prod:0",
+       "prod:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the food production index (2014–16 = 100) rose from 87.1 (2010) to 118.5 (2024). In 2021 it fell to 105.9. Crops stood at 112 and livestock at 123 (2024).",
+       "ref": [
+        "ind:prod:0"
+       ],
+       "b": "Food production index 87.1 (2010) → 118.5 (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Cereal yield was 3,489 kg per ha (2024). It was 2,335 kg in 2021 and 2,799 kg in 2023, varying widely from year to year.",
+       "ref": [
+        "ind:prod:1"
+       ],
+       "b": "Cereal yields fluctuate widely from year to year"
+      },
+      {
+       "k": "f",
+       "t": "According to the FAO country brief, cereal production in 2025 was about 1.9 million tonnes, about 5% above the previous five-year average: wheat 600,000 tonnes, barley 500,000 tonnes and maize 742,000 tonnes.",
+       "ref": [
+        "doc:agri-giews"
+       ],
+       "b": "2025 cereals about 1.9 million tonnes (about 5% above the five-year average)"
+      },
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, production growth in 2021–2024 was driven by livestock (+32.9%). Livestock rose by 2.3% and poultry by 30.5%; state support for new poultry farms, modernisation of slaughterhouses and expanded sugar beet planting raised self-sufficiency in eggs, meat and sugar.",
+       "ref": [
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the IFAD–FAO policy brief, there are about 1.7 million cattle and about 6.3 million sheep and goats; in 2006–2020 sheep and goats increased by 55% and cattle by 46%. Herds grew, but productivity per head did not.",
+       "ref": [
+        "doc:agri-faolivestock"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation attributes low livestock productivity to insufficient quantity and quality of fodder and poor breeding and husbandry practices. It describes a \"vicious circle\" in which overgrazing reduces forage, farmers compensate by keeping more animals, and this accelerates degradation.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For crops, NDP 2030 states that production recovered and yields improved in 2021–2024, but that, owing to climate, technology, finance, planted area and other factors, output of fruit, vegetables, potatoes and sugar beet rose or fell unevenly by product.",
+       "ref": [
+        "doc:agri-ndp",
+        "ind:prod:1"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Challenges in processing and value chains"
+      },
+      {
+       "k": "f",
+       "t": "Processing: according to NDP 2030, agricultural clusters have been formed for many products, including meat, milk, sugar and fruit, and since 2022 loans of 15 billion som have been provided to over 7,500 agricultural aggregators. In 2021–2024, 19.1 billion som was provided to farmers and others through \"agricultural financing\".",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "State agricultural lending: 19.1 billion som in 2021–24"
+      },
+      {
+       "k": "f",
+       "t": "ADB states that about 80% of small businesses rely on informal finance from family, friends and the like.",
+       "ref": [
+        "doc:agri-adb2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "[Academic study — not national statistics] One study finds that in organic agriculture, certification in which farmers verify one another (participatory guarantee systems) helps foster cooperation and pass on traditional knowledge.",
+       "ref": [
+        "doc:agri-pgs",
+        "tree:pasture:org"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation states that support for livestock value chains proceeded without an adequate strategy, with unclear additionality and targeting, and that farmer groups were often formed for project convenience. It also notes that the initial focus on the poor was diluted towards better-off businesses.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Output growth is driven by livestock and poultry. Because cereals fluctuate with the weather, achievement of the output target is also vulnerable to year-to-year weather.",
+       "ref": [
+        "ind:prod:0",
+        "ind:prod:1",
+        "doc:agri-ndp"
+       ],
+       "b": "Cereals fluctuate with the weather, and so does achievement of the target"
+      },
+      {
+       "k": "h",
+       "t": "Related support"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Resilient Agri-Food Clusters Development Project (approved April 2024, to 2029), financed with USD 30 million from IDA and a USD 5 million GAFSP grant, supports lending to dairy and horticulture clusters, training, the seed system, and livestock breeding and information management. It has 8,000 direct beneficiaries. In the site data, about USD 15 million after apportionment falls in the value chain and food security rows.",
+       "ref": [
+        "doc:agri-wb2024",
+        "proj:WB-P178120",
+        "row:value"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's climate-resilient agribusiness value chain project (December 2023), with a USD 20 million loan and a USD 20 million grant, supports horticultural processing, storage and cold-storage facilities through Aiyl Bank and others, contract farming between farmers and processors, and training for women entrepreneurs. On the site, about USD 4 million each of loan and grant after apportionment fall in this row and the climate row.",
+       "ref": [
+        "doc:agri-adb2023",
+        "proj:XM-DAC-46004-51276-001-GRNT0925",
+        "proj:XM-DAC-46004-51276-001-LN4413"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Germany's Value Chains and Agrofinance Phase II (about USD 4.9 million, to 2027) and the EU's IFCA contribution (about USD 2 million, to 2028) also support investment in processing through agricultural finance.",
+       "ref": [
+        "proj:DE-1-201967678",
+        "proj:XI-IATI-EC_INTPA-2015-PCC-371370",
+        "row:value"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related support: 11 projects, about USD 33.8 million in the value chain, processing and export row (World Bank about USD 18 million, ADB about USD 8 million, Germany about USD 5.2 million). The World Bank supports dairy and horticulture clusters; ADB supports horticultural processing and storage facilities.",
+       "ref": [
+        "row:value",
+        "doc:agri-wb2024",
+        "doc:agri-adb2023"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Current support for processing centres on credit lines channelled through banks. How to demonstrate \"who gains what additional benefit\", as IFAD's evaluation put it, will be key to showing how much donor support contributes to the national target of doubling processing.",
+       "ref": [
+        "doc:agri-ifadcspe",
+        "row:value",
+        "doc:agri-ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Irrigation and water",
+     "msg": "The share of irrigated farmland has barely moved in 15 years and water-use efficiency is flat. The state has begun to budget for irrigation.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Share of irrigated agricultural land and water-use efficiency in agriculture",
+      "inds": [
+       "irr:0",
+       "irr:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the share of agricultural land that is irrigated was 9.4% (2010) and 9.7% (2024), almost unchanged. Because most agricultural land is pasture, the share looks low.",
+       "ref": [
+        "ind:irr:0"
+       ],
+       "b": "Irrigated share of farmland flat at 9.7% for 15 years"
+      },
+      {
+       "k": "f",
+       "t": "Water-use efficiency in agriculture (SDG 6.4.1) was USD 0.11 per m³ (2023), almost the same as in 2010.",
+       "ref": [
+        "ind:irr:1"
+       ],
+       "b": "Water-use efficiency flat at USD 0.11/m³"
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, more than 42,000 ha of land is unused because of a shortage of irrigation water. In 2022–2024, 6.6 billion som was allocated to irrigation, with 5 billion som planned for 2025.",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "Over 42,000 ha unused for lack of water; 6.6 billion som for irrigation (2022–24)"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 also states that irrigation measures increased irrigated land from 1,200 ha to 2,724 ha and water supply from 18,553 ha to 59,468 ha.",
+       "ref": [
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB states that the irrigation canal network has not been renewed since the Soviet era and that up to 40% of water seeps into the ground in transit. Of an annual river flow of 47 km³, only about 10 km³ is used, and Chui and Osh regions face severe water shortages.",
+       "ref": [
+        "doc:agri-adbwater"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Food Security Programme (2019) states that of the 10–12 billion m³ of water used domestically, 1.7–2.3 billion m³ is lost between source and point of use.",
+       "ref": [
+        "doc:agri-foodsec"
+       ],
+       "b": "Water losses of 1.7–2.3 billion m³ a year (2019 programme)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Country Climate and Development Report (December 2025) states that without action, up to 24% of irrigation demand could go unmet by mid-century and agricultural income could fall by about 5–10% a year. The first of its seven policy pillars is integrated planning of irrigation and agriculture (land plots, water-saving irrigation, pasture management, extension).",
+       "ref": [
+        "doc:agri-ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The NDC 2021 lists a 10% reduction in water losses and use as an expected result for the water sector. NDP 2030 sets tasks for introducing drip and sprinkler irrigation, digitalising measurement and monitoring of water use, inventorying wells and automating water distribution.",
+       "ref": [
+        "doc:agri-ndc",
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Gap against the target"
+      },
+      {
+       "k": "v",
+       "t": "For NDP 2030's \"15% water loss rate\", there is no annual published loss rate, so even the current level is unknown. The prerequisite for measuring the target is missing.",
+       "ref": [
+        "doc:agri-ndp",
+        "doc:agri-foodsec"
+       ],
+       "b": "For the 15% loss target, even the current level is unknown"
+      },
+      {
+       "k": "v",
+       "t": "ADB's \"up to 40% in transit\" and the 2019 programme's \"1.7–2.3 billion m³ out of 10–12 billion m³\" differ in method and scope. Either way, losses appear larger than the 15% target, but the absence of an agreed baseline itself makes managing the target difficult.",
+       "ref": [
+        "doc:agri-adbwater",
+        "doc:agri-foodsec",
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Related support"
+      },
+      {
+       "k": "f",
+       "t": "Related support: 6 projects, about USD 28.1 million in the irrigation row (EBRD about USD 12.3 million, ADB about USD 11.8 million, EU about USD 4.1 million).",
+       "ref": [
+        "row:irr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's Climate Change- and Disaster-Resilient Water Resources Sector Project – Additional Financing (approved September 2025), with a USD 27 million grant and a USD 20 million loan, advances modernisation of irrigation facilities, automation and water management technology, nature-based solutions and basin planning, and early warning. On the site, about USD 6.8 million of grant and about USD 5 million of loan after apportionment fall in the machinery/finance, irrigation and climate rows.",
+       "ref": [
+        "doc:agri-adbwater",
+        "proj:XM-DAC-46004-51081-003-GRNT1041",
+        "proj:XM-DAC-46004-51081-003-LN4646"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "EBRD's Kyrgyz climate-resilient water supply project (about USD 9 million), the EU's resilient water resources programme for Kyrgyzstan (about USD 4.1 million, to 2031) and EBRD's Chui water resources efficiency project (about USD 3.3 million) also fall in the irrigation row.",
+       "ref": [
+        "proj:XI-IATI-EBRD-49793",
+        "proj:XI-IATI-EC_INTPA-2024-PC-36751",
+        "proj:XI-IATI-EBRD-55372",
+        "row:irr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Support is directed at modernising facilities and measuring water, overlapping with the NDP 2030 tasks (canal renewal, digital measurement). To measure results against the national target (15% loss rate), project-level loss measurement needs to be linked to national statistics.",
+       "ref": [
+        "row:irr",
+        "doc:agri-ndp",
+        "doc:agri-adbwater"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Rural areas and pastures",
+     "msg": "Labour continues to move out of agriculture, while pastures keep degrading as livestock numbers grow, with little evidence of improvement.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Share of employment in agriculture and agriculture and forestry value added (% of GDP)",
+      "inds": [
+       "rural:0",
+       "rural:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the share of employment in agriculture fell from 23.2% (2010) to 15.4% (2025), and agriculture and forestry value added from 17.4% to 8.0% of GDP.",
+       "ref": [
+        "ind:rural:0",
+        "ind:rural:1"
+       ],
+       "b": "Employment in agriculture 23.2% → 15.4%"
+      },
+      {
+       "k": "h",
+       "t": "Pasture degradation"
+      },
+      {
+       "k": "f",
+       "t": "According to the Pasture Programme, toxic, harmful and inedible plants have spread across about one-third of pastures, and relatively clean pasture shrank from 3.545 million ha to 2.741 million ha over the past 20 years.",
+       "ref": [
+        "doc:agri-pasture"
+       ],
+       "b": "Clean pasture 3.545 million ha → 2.741 million ha (20 years)"
+      },
+      {
+       "k": "f",
+       "t": "The IFAD–FAO policy brief cites assessments that 87% of pastures (over 85,500 km²) are degraded in at least one season a year, and that over 40% of summer pastures have been severely degraded since 2000–2004. Winter pastures are the worst, with 82% severely degraded. The main cause is unsustainable grazing, aggravated by climate change.",
+       "ref": [
+        "doc:agri-faolivestock"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "It lists the causes of degradation as weak management, deteriorated roads, bridges and watering points, conflicts, insufficient scientific support, unplanned grazing, climate change, and concentration on spring pastures near villages.",
+       "ref": [
+        "doc:agri-pasture"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation expects temperatures to rise by 1.5–1.9°C and precipitation to fall in 2021–2050, worsening pasture degradation and heat stress in livestock. It assesses seasonal pasture rotation as having been an appropriate climate adaptation measure.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Results of donor support"
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation states that support for pasture management and veterinary services was useful, but that there is little evidence of improved pasture condition because grazing livestock numbers kept rising.",
+       "ref": [
+        "doc:agri-ifadcspe"
+       ],
+       "b": "IFAD: little evidence of improved pasture condition"
+      },
+      {
+       "k": "f",
+       "t": "IFAD's Livestock and Market Development Programme (2013–2019) produced 127 community pasture management plans (target 100), and human brucellosis fell from 4,500 cases (2011) to 787 (2018). However, the increase in household assets was only 10.2% against a target of 25%.",
+       "ref": [
+        "doc:agri-ifadpcrv"
+       ],
+       "b": "IFAD: 127 pasture management plans; brucellosis 4,500 → 787 cases"
+      },
+      {
+       "k": "f",
+       "t": "According to the IFAD–FAO policy brief, the impact assessment of the Livestock and Market Development Programme II (2014–2021) (3,000 households, 157 pasture committees) reported a 69% increase in the value of livestock output, a 43% increase in gross income, a 25% reduction in poverty and a 4% increase in healthy winter pastures.",
+       "ref": [
+        "doc:agri-faolivestock",
+        "proj:XM-DAC-41108-1100001709"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Veterinary services: according to IFAD's evaluation, the dissolution of collective farms ended state veterinary services, and private veterinarians were developed starting with the Sheep Development Project (1996–2002). Farmers are willing to pay private vets, but vets are ageing and young vets are in short supply. Under the Livestock and Market Development Programme, only 37 of the 120 young vets planned for training graduated.",
+       "ref": [
+        "doc:agri-ifadcspe",
+        "doc:agri-ifadpcrv"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same completion validation notes that only 1 of the 127 heads of pasture users' associations was a woman.",
+       "ref": [
+        "doc:agri-ifadpcrv"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Pasture management mechanisms (associations and plans) have spread nationwide with donor support, but growth in livestock numbers is cancelling out improvements. This is why the national programme stresses \"quality over numbers\".",
+       "ref": [
+        "doc:agri-pasture",
+        "doc:agri-ifadcspe"
+       ],
+       "b": "Management mechanisms have spread, but herd growth cancels out improvements"
+      },
+      {
+       "k": "h",
+       "t": "Related support"
+      },
+      {
+       "k": "f",
+       "t": "Main active projects: IFAD's Livestock and Market Development Programme III (about USD 5.3 million, 2025–2031); the climate funds–FAO Carbon Sequestration through Climate Investment in Forests and Rangelands project (CS-FOR; climate funds about USD 9.1 million and FAO about USD 7.5 million, to 2030); and FAO's One Health (human and animal diseases) capacity building (about USD 1 million, to 2027).",
+       "ref": [
+        "proj:XM-DAC-41108-2000005336",
+        "proj:XM-DAC-41317-FP116",
+        "proj:XM-DAC-41301-649257",
+        "proj:XM-DAC-41301-747709"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related support: 7 projects, about USD 23.7 million in the pastures and livestock row (FAO about USD 9.1 million, climate funds about USD 9.1 million, IFAD about USD 5.3 million).",
+       "ref": [
+        "row:past"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Active funding in the pasture row (about USD 23.7 million) is less than half the amount for projects completed since 2017 (about USD 52.6 million). Consolidating \"the results of pasture management and veterinary services\", as IFAD's evaluation recommends, requires mechanisms for handover to national budgets and staff.",
+       "ref": [
+        "row:past",
+        "fact:closed_rows",
+        "doc:agri-ifadcspe"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.4",
+     "h": "Food security",
+     "msg": "Self-sufficiency in key foods has risen, but about half of domestic wheat demand is met by imports, and flour prices are higher than a year earlier.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "According to NDP 2030, over the past two years self-sufficiency rose from 44% to over 80% for eggs and from 77% to 90% for meat, and reached 100% for sugar. Seven of nine basic foods can be covered by domestic production.",
+       "ref": [
+        "doc:agri-ndp"
+       ],
+       "b": "Self-sufficiency: eggs 44% → over 80%, meat 77% → 90%"
+      },
+      {
+       "k": "f",
+       "t": "Even so, the Food Security Programme (2019) states that in 2017 only the top two income quintiles exceeded the minimum average daily energy intake (2,101 kcal). Products whose import dependence exceeded the 20% benchmark were bread and bakery products (60.7%), vegetable oil (71.7%), sugar (33%) and fruit (35.9%).",
+       "ref": [
+        "doc:agri-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the FAO country brief, cereal imports in 2025/26 are forecast at about 350,000 tonnes, about 95% of it wheat. Imports cover nearly half of domestic wheat demand.",
+       "ref": [
+        "doc:agri-giews"
+       ],
+       "b": "Nearly half of domestic wheat demand is imported"
+      },
+      {
+       "k": "f",
+       "t": "The WFP and GAFSP project document puts wheat requirements at about 1.2 million tonnes a year, domestic production at 560,000 tonnes and imports at over 650,000 tonnes (over 55%). The poverty rate is 25.5%, and about 70% of the poor are rural farmers. In 2021 poverty rose to 33.3%, and food inflation reached 16.2% compared with March 2022.",
+       "ref": [
+        "doc:agri-gafsp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Retail prices of first-grade wheat flour rose sharply in March–November 2025 and in March 2026 were up to 6% higher than a year earlier.",
+       "ref": [
+        "doc:agri-giews"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Citing IMF estimates, the FAO country brief states that inflation is expected at 5.1% in 2024, about 6% in 2025 and 6.9% in 2026, driven mainly by rising food prices.",
+       "ref": [
+        "doc:agri-giews"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Food Security Programme (2019) states that in 2017 food accounted for 43% of household expenditure, and 51.0% for the poorest fifth of households.",
+       "ref": [
+        "doc:agri-foodsec"
+       ],
+       "b": "Food share of household spending 43% (2017)"
+      },
+      {
+       "k": "f",
+       "t": "According to the same project document, 41% of the population of Batken Region is poor, a figure that would be 61% without remittances. 15% are severely food insecure.",
+       "ref": [
+        "doc:agri-gafsp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Self-sufficiency has improved in livestock, poultry and sugar, but the staple, wheat, relies on imports. The structure in which price swings directly affect the food of poor households persists.",
+       "ref": [
+        "doc:agri-ndp",
+        "doc:agri-giews",
+        "doc:agri-foodsec"
+       ],
+       "b": "The staple wheat relies on imports; prices directly hit poor households"
+      },
+      {
+       "k": "v",
+       "t": "Sugar import dependence was 33% in 2017, but under NDP 2030 self-sufficiency reached 100%. Focused state support can shift self-sufficiency product by product. Wheat imports, however, remain around half of domestic demand, and stabilising staple prices remains a challenge.",
+       "ref": [
+        "doc:agri-foodsec",
+        "doc:agri-ndp",
+        "doc:agri-giews"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related support: 9 projects, about USD 15.5 million in the food security row, almost all from the World Bank (about USD 15.2 million).",
+       "ref": [
+        "row:food"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The food security row consists almost entirely of the apportioned share of the World Bank cluster project; there are few projects directly targeting food access or price stability. Food security is handled separately through agricultural production support and social protection and nutrition support.",
+       "ref": [
+        "row:food",
+        "proj:WB-P178120"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding is largest from climate funds, the World Bank, the Islamic Development Bank and ADB, in that order; the top four account for about 80%.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects aligned with the strategy areas, after apportionment)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active support aligned with the agriculture strategy totals 50 projects and about USD 250 million. By donor: climate funds (GCF, etc.) about USD 73.2 million, World Bank about USD 57.7 million, Islamic Development Bank about USD 45.1 million, ADB about USD 31.8 million, EBRD about USD 12.3 million, FAO about USD 9.2 million, Germany about USD 8.6 million, EU about USD 6.1 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 50 projects, about USD 250 million"
+      },
+      {
+       "k": "h",
+       "t": "Main active projects"
+      },
+      {
+       "k": "f",
+       "t": "The largest projects are the climate funds' \"Glaciers to Farms\" regional programme (about USD 64.2 million, to 2036) and the Islamic Development Bank's agricultural mechanisation line of financing (about USD 45.1 million, starting 2026).",
+       "ref": [
+        "row:clim",
+        "row:mech",
+        "proj:XM-DAC-41317-FP283",
+        "proj:XM-DAC-46025-ISDB-KGZ1037"
+       ],
+       "b": "Largest: Glaciers to Farms (about USD 64.2 million) and the mechanisation credit line"
+      },
+      {
+       "k": "f",
+       "t": "The \"Glaciers to Farms\" regional programme (climate funds, about USD 64.2 million, 2025–2036) is a regional operation aimed at climate resilience and sustainable development in Central and West Asia, and accounts for more than half of the climate adaptation row.",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "row:clim"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Islamic Development Bank's agricultural mechanisation line of financing (about USD 45.1 million, 2026–2029) accounts for about 40% of the agricultural machinery and finance row and corresponds to the NDP 2030 task \"mechanisation and automation of agriculture and processing\".",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ1037",
+        "row:mech",
+        "doc:agri-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "They are followed by the World Bank's Resilient Agri-Food Clusters Development Project (about USD 15 million), ADB's water resources sector project additional financing (about USD 6.8 million and about USD 5 million), the climate funds–FAO CS-FOR (about USD 9.1 million and about USD 7.5 million), and EBRD's water supply and water resources efficiency projects (about USD 9 million and about USD 3.3 million).",
+       "ref": [
+        "proj:WB-P178120",
+        "proj:XM-DAC-46004-51081-003-GRNT1041",
+        "proj:XM-DAC-41317-FP116",
+        "proj:XI-IATI-EBRD-49793",
+        "proj:XM-DAC-46004-51081-003-LN4646",
+        "proj:XM-DAC-41301-649257",
+        "proj:XI-IATI-EBRD-55372"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Some projects registered as agriculture do not fall in any table row: the World Bank's Regional Economic Development Project (about USD 10 million, ending December 2026), Japan's provision of equipment for the operation and maintenance of irrigation canals (about USD 7.8 million), Korea's Integrated Rural Development Phase II (about USD 5.8 million, 2026–2030), and others.",
+       "ref": [
+        "proj:WB-P167428",
+        "proj:JICA-2360250",
+        "proj:KR-GOV-010-KR-GOV-051-2026070101180"
+       ],
+       "jp": true,
+       "tnj": "Some projects registered as agriculture do not fall in any table row: the World Bank's Regional Economic Development Project (about USD 10 million, ending December 2026), Korea's Integrated Rural Development Phase II (about USD 5.8 million, 2026–2030), and others."
+      },
+      {
+       "k": "f",
+       "t": "Four projects, about USD 3.7 million, end by end-2026, a small amount.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ],
+       "b": "Only 4 projects, about USD 3.7 million, end by end-2026"
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: the agricultural machinery and finance row also includes projects on rural water supply and sanitation, housing finance, heat supply, primary health care and the like (10 of the top 30 projects, about USD 45 million). The row's amount therefore overstates actual agricultural mechanisation and finance.",
+       "ref": [
+        "row:mech"
+       ],
+       "b": "The machinery/finance row includes non-agricultural projects"
+      },
+      {
+       "k": "f",
+       "t": "Of the roughly USD 3.7 million ending by end-2026, about USD 3.4 million is German projects, centred on housing finance (social housing phase III, about USD 3.2 million). The amount ending as agricultural support is smaller still.",
+       "ref": [
+        "fact:end_2026_by_donor",
+        "proj:DE-1-201768183"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: IFAD projects (such as the Livestock and Market Development Programme III) are classified as \"NGOs and civil society\" in the site data.",
+       "ref": [
+        "row:past",
+        "doc:agri-ifadpcrv"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Large projects run until 2029–2036, so near-term funding cliffs are small. The issue is content rather than volume: credit lines from multilateral development banks and regional climate programmes now dominate, while the weight of community pasture management, long led by IFAD, is declining.",
+       "ref": [
+        "fact:by_donor",
+        "row:clim",
+        "row:mech",
+        "row:past"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Over the past decade, completed support was largest in pastures and livestock; the focus has now shifted to climate adaptation and machinery/finance.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed in 2017 or later. Earlier projects are excluded because records for major donors are incomplete. Even after 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Completed since 2017 and aligned with the agriculture strategy: 68 projects, about USD 130 million (after apportionment, no double counting). By donor: IFAD (\"NGOs and civil society\" in the data) about USD 43.6 million, World Bank about USD 22.3 million, Germany about USD 16.1 million, EU about USD 13.1 million, United States about USD 10.9 million, ADB about USD 10.1 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "68 projects, about USD 130 million; IFAD and the World Bank largest"
+      },
+      {
+       "k": "f",
+       "t": "By area (per row, overlaps exist): pastures and livestock about USD 52.6 million, irrigation about USD 29.1 million, food security about USD 27.7 million, agricultural machinery and finance about USD 26.5 million, value chains about USD 16.2 million, climate adaptation about USD 15.5 million.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "In the past, pastures and livestock were the largest"
+      },
+      {
+       "k": "h",
+       "t": "Main completed projects"
+      },
+      {
+       "k": "f",
+       "t": "The largest completed amounts are three IFAD projects: the Access to Markets Project (about USD 17.8 million, 2016–2024), the Livestock and Market Development Programme II (about USD 15.7 million, 2013–2021) and Programme I (about USD 10 million, 2012–2020).",
+       "ref": [
+        "proj:XM-DAC-41108-2000001232",
+        "proj:XM-DAC-41108-1100001709",
+        "proj:XM-DAC-41108-1100001626"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Other completed projects include the EU's Kyrgyz agriculture and food value chains programme (about USD 13.1 million, 2017–2025), the United States' Feed the Future (about USD 7.7 million, 2017–2021), and the World Bank's National Water Resources Management Project (about USD 6.5 million, ended 2024), Pasture and Livestock Management Improvement Project (about USD 5 million, 2014–2019) and Agricultural Productivity and Nutrition Improvement Project (about USD 3.5 million, ended 2023).",
+       "ref": [
+        "proj:XM-DAC-918-3-20140379-84373",
+        "proj:US-GOV-2-FFE116201702400",
+        "proj:XI-IATI-WBTF-P144336",
+        "proj:WB-P145162",
+        "proj:WB-P132754"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation states that in the Access to Markets Project the need for grants for facility investment was unclear because the lead businesses were already established. It also notes that cash contribution requirements made it hard for poor households to participate.",
+       "ref": [
+        "doc:agri-ifadcspe",
+        "proj:XM-DAC-41108-2000001232"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The completion validation of the Livestock and Market Development Programme (I) records total actual project cost of USD 21.3 million and an overall rating of 5 on a six-point scale. However, milk collection points were cut from 30 to 10 at the mid-term review, and the market component was the weakest.",
+       "ref": [
+        "doc:agri-ifadpcrv",
+        "proj:XM-DAC-41108-1100001626"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Over the past decade IFAD's pasture and livestock projects were central, but among active projects climate adaptation (about USD 120 million) and machinery/finance (about USD 110 million) are largest. The centre of gravity of funding has shifted from community pasture management to climate and large-scale lending.",
+       "ref": [
+        "fact:closed_rows",
+        "row:clim",
+        "row:mech"
+       ],
+       "b": "Focus shifted from pasture management to climate and large loans"
+      },
+      {
+       "k": "v",
+       "t": "The lesson from completed projects is that building pasture and veterinary institutions produced lasting results, while market and value chain components were weak. Active support now addresses that weaker market and processing side through large-scale lending.",
+       "ref": [
+        "doc:agri-ifadcspe",
+        "doc:agri-ifadpcrv",
+        "row:value"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "All six rows have active support and there are no empty areas. However, food security depends almost entirely on one donor.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active / completed / cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row is without active support.",
+       "ref": [
+        "fact:empty_rows"
+       ],
+       "b": "No empty rows"
+      },
+      {
+       "k": "f",
+       "t": "Of about USD 15.5 million in the food security row, about USD 15.2 million is from the World Bank. The pastures and livestock row, at about USD 23.7 million, is small relative to other support.",
+       "ref": [
+        "row:food",
+        "row:past"
+       ],
+       "b": "Food security concentrated in a single donor, the World Bank"
+      },
+      {
+       "k": "v",
+       "t": "There are no empty rows, but pastures and livestock and food security receive small active amounts relative to the scale of national challenges. Conversely, the machinery/finance row includes non-agricultural projects and is less substantial than its table amount suggests.",
+       "ref": [
+        "row:past",
+        "row:food",
+        "row:mech"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The next questions are whether output can grow while protecting pastures and water, and whether a system to measure national targets can be built.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "The 30% output target will not be met at the current pace. Livestock, which drives growth, is two sides of the same coin with pasture degradation; the key is raising productivity rather than herd numbers (breeds, veterinary services, fodder).",
+       "ref": [
+        "ind:prod:0",
+        "doc:agri-pasture",
+        "doc:agri-ifadcspe"
+       ],
+       "b": "Grow output through productivity, not herd size"
+      },
+      {
+       "k": "v",
+       "t": "As the IFAD–FAO estimates show, there is a path to raising output without increasing herd numbers. Support that combines fodder, veterinary services and breeding is the entry point for advancing the output target and pasture conservation at the same time.",
+       "ref": [
+        "doc:agri-faolivestock",
+        "doc:agri-ifadcspe"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The irrigation, processing and water loss targets cannot be measured. Now that the state has started budgeting for irrigation, building the data to measure results is an opening for support.",
+       "ref": [
+        "doc:agri-ndp",
+        "row:irr"
+       ],
+       "b": "Building data to measure irrigation and processing targets is an opening for support"
+      },
+      {
+       "k": "v",
+       "t": "In irrigation, water projects by ADB, EBRD and the EU are running in parallel. In line with the \"integrated planning of irrigation and agriculture\" recommended by the World Bank's Country Climate and Development Report, a mechanism is needed to aggregate project-level results against the national targets.",
+       "ref": [
+        "doc:agri-ccdr",
+        "row:irr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The content of the 2025–2030 edition of the national food security programme has not been verified; its targets and division of roles will determine the entry points for support.",
+       "ref": [
+        "tree:food:food",
+        "row:food"
+       ],
+       "b": "The content of the new food security plan determines entry points for support"
+      },
+      {
+       "k": "v",
+       "t": "Many large projects run beyond 2030, so near-term funding gaps are small. The issue is not the volume of funding but the accuracy of mapping to rows and alignment with national plans.",
+       "ref": [
+        "fact:end_2026_musd",
+        "row:mech",
+        "row:clim"
+       ],
+       "b": "Funding gaps are small; the issue is alignment with plans"
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: the text of the Food Security Programme 2025–2030, the successor to the Irrigation Development Programme (to 2026), the evaluation of Phase 1 (2024–2026) of the Pasture Programme, and the 2026 cereal harvest.",
+       "ref": [
+        "tree:food:food",
+        "row:irr",
+        "tree:pasture:pasture",
+        "doc:agri-giews"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Agricultural output +30% (food production index as proxy)",
+   "118.5(2024)",
+   "About 154 (+30% vs 2024)",
+   "+1.8/yr (2015→2024)",
+   "+5.9/yr",
+   "Off track (about 129)",
+   "bad"
+  ],
+  [
+   "Agricultural processing volume ×2",
+   "No published data",
+   "Double the 2024 level",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Water loss rate",
+   "No published data",
+   "15%",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Increase in irrigated area",
+   "No annual published data",
+   "+15,000 ha",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Land with secured water supply",
+   "No annual published data",
+   "93,000 ha",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Pastures and livestock",
+   "Pasture Development Programme 2024–2029",
+   "Cabinet of Ministers Resolution No. 462 of 9 August 2024",
+   "ok",
+   "",
+   "past",
+   "pasture"
+  ],
+  [
+   "1",
+   "Soil",
+   "Soil Fertility Improvement Programme 2024–2028",
+   "Mentioned in the SDG Voluntary National Review 2025 (text not reviewed)",
+   "ok",
+   "",
+   "past",
+   "soil"
+  ],
+  [
+   "1",
+   "Organic and value chains",
+   "Organic Production Development Programme 2025–2029",
+   "Mentioned in the SDG Voluntary National Review 2025 (text not reviewed)",
+   "ok",
+   "",
+   "value",
+   "org"
+  ],
+  [
+   "1",
+   "Irrigation",
+   "State Irrigation Development Programme (to 2026)",
+   "Secondary documents (text not reviewed)",
+   "end",
+   "",
+   "irr",
+   ""
+  ],
+  [
+   "1",
+   "Agricultural machinery and agri-finance",
+   "No stand-alone programme (reported to be part of the Regional Development Programme 2025–30)",
+   "Press reports",
+   "none",
+   "",
+   "mech",
+   ""
+  ],
+  [
+   "1",
+   "Climate change adaptation",
+   "NDC 3.0 / Green Economy 2025–29",
+   "Secondary documents",
+   "ok",
+   "",
+   "clim",
+   ""
+  ],
+  [
+   "1",
+   "Food security",
+   "Food Security and Nutrition Programme 2019–2023",
+   "Government Resolution No. 320 of 27 June 2019 (text of the 2025–2030 edition not obtained)",
+   "end",
+   "",
+   "food",
+   "food"
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Agriculture and rural development"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual values of agricultural processing volume (national target: double the 2024 level)",
+  "Annual values of the water loss rate in irrigation and agricultural water (national target 15%)",
+  "Annual values of the increase in irrigated area and land with secured water supply (national targets 15,000 ha and 93,000 ha)",
+  "Annual values of degraded pasture area (the Pasture Programme has no table of numerical targets)",
+  "Text and numerical targets of the Food Security and Nutrition Programme 2025–2030",
+  "Texts of the State Irrigation Development Programme (to 2026), the Soil Fertility Improvement Programme and the Organic Production Development Programme",
+  "Also not reviewed: the final ~15,000 characters of the IFAD country evaluation, and the main text of the organic agriculture paper (abstract only)",
+  "Also not reviewed (added this time): the full PDF of the World Bank Country Climate and Development Report (launch page only), the PDF of the WFP food security outlook 2024 (could not be opened), and the FAO article on electronic monitoring of irrigation water (only the opening could be read)"
+ ],
+ "lang": "en"
+}

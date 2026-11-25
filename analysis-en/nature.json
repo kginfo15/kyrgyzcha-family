@@ -1,0 +1,1843 @@
+{
+ "sid": "nature",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Nature conservation"
+  },
+  "rows": {
+   "bio": {
+    "n": "Biodiversity and protected areas",
+    "st": "Green Economy Development 2025–29"
+   },
+   "forest": {
+    "n": "Forests",
+    "st": "Concept for the Development of the Forest Sector to 2040"
+   },
+   "past": {
+    "n": "Pastures",
+    "st": "Pasture Development Programme 2024–29"
+   },
+   "lake": {
+    "n": "Lake Issyk-Kul and other tourist site environments",
+    "st": "Sustainable Tourism Development to 2030"
+   },
+   "glac": {
+    "n": "Glaciers and mountain ecosystems",
+    "st": "NDC 3.0"
+   }
+  }
+ },
+ "ind": {
+  "pa": {
+   "name": "① Protected areas",
+   "tag": "Nature reserves and national parks",
+   "inds": [
+    {
+     "name": "Protected area coverage (share of territory)",
+     "unit": "%",
+     "st": "✕ Too slow; only about 6.8 even in 2030",
+     "src": "World Bank WDI ER.LND.PTLD.ZS (original source UNEP-WCMC World Database on Protected Areas)",
+     "t": [
+      "National 10%",
+      "International 30%"
+     ]
+    },
+    {
+     "name": "Share of key biodiversity areas covered by protected areas",
+     "unit": "%",
+     "st": "— No target value (flat trend)",
+     "src": "UN SDG Database ER_PTD_TERR (SDG 15.1.2)",
+     "t": []
+    }
+   ]
+  },
+  "forest": {
+   "name": "② Forests",
+   "tag": "Forest area and management",
+   "inds": [
+    {
+     "name": "Forest area (share of territory)",
+     "unit": "%",
+     "st": "— No target value (flat trend)",
+     "src": "World Bank WDI AG.LND.FRST.ZS (original source FAO Global Forest Resources Assessment)",
+     "note": "Includes walnut-fruit forests and spruce forests. No national numerical target is set in the National Development Programme (afforestation plans are in Chapter 4 of the Action Plan for Emergency Risk Reduction).",
+     "t": []
+    }
+   ]
+  },
+  "bio": {
+   "name": "③ Species and land",
+   "tag": "Extinction risk and land degradation",
+   "inds": [
+    {
+     "name": "Red List Index (1 = no extinction risk)",
+     "unit": "",
+     "st": "△ Slowly declining (snow leopard and others)",
+     "src": "UN SDG Database ER_RSK_LST (SDG 15.5.1; original source IUCN)",
+     "t": [
+      "SDG: halt the decline"
+     ]
+    },
+    {
+     "name": "Share of degraded land",
+     "unit": "%",
+     "st": "— Too few data points to assess",
+     "src": "UN SDG Database AG_LND_DGRD (SDG 15.3.1; only 2 data points)",
+     "note": "Mainly pasture degradation from overgrazing.",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Nature conservation funding goes to glaciers and mountains, forests and pastures; lake and tourist site environments are close to a gap",
+  "msgs": [
+   [
+    "GCF is large in glaciers and mountain ecosystems.",
+    "G2F and a southern mountain ecosystems project."
+   ],
+   [
+    "Carbon sequestration in forests and pastures.",
+    "GCF/FAO CS-FOR (to 2030). An urban greening programme 2027–31 was also approved (11/4)."
+   ],
+   [
+    "Results in snow leopard conservation.",
+    "The UN recognised the conservation success (11/4). About 400 argali were also recorded."
+   ],
+   [
+    "The Red Book has not been revised for 20 years.",
+    "Institutional challenges in biodiversity."
+   ]
+  ],
+  "h2": "Funding for glaciers and mountains, forests and pastures; lake and tourist site environments close to a gap",
+  "rows": {
+   "bio": [
+    "",
+    "Small UNDP and GCF projects"
+   ],
+   "forest": [
+    "",
+    "GCF/FAO CS-FOR"
+   ],
+   "past": [
+    "",
+    "Overlaps with CS-FOR"
+   ],
+   "lake": [
+    "",
+    "Only an NGO project at Lake Son-Kul"
+   ],
+   "glac": [
+    "",
+    "GCF's G2F is large"
+   ]
+  },
+  "h3": "Recent activity: \"snow leopards\", \"protected areas\" and \"urban greening\"",
+  "themes": [
+   [
+    "Conservation:",
+    "Assessment of snow leopard conservation, argali recorded in protected areas, enforcement against hunting rule violations."
+   ],
+   [
+    "Institutions:",
+    "A draft law banning hunting of certain animals; approval of the urban greening programme."
+   ],
+   [
+    "International:",
+    "Preparing proposals for COP31 and the biodiversity conference."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Nature Conservation Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "nat-ndp",
+   "t": "National Development Programme 2030, Section 13.2 \"Environment, Ecology and Adaptation Measures\"",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "The four targets and four tasks of Section 13.2 (translation on the site). Natural resource tasks in Section 5.3 (tourism) also reviewed",
+   "cat": "gov"
+  },
+  {
+   "id": "nat-pasture",
+   "t": "Pasture Development Programme 2024–2029",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic (Resolution No. 462 of 9 August 2024)",
+   "y": "2024",
+   "scope": "Full text (machine translation on the site)",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=14287&lang=ru"
+  },
+  {
+   "id": "nat-tourism",
+   "t": "Action Plan of the Sustainable Tourism Development Programme 2025–2030",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic (Resolution No. 765 of 18 December 2024)",
+   "y": "2024",
+   "scope": "Action Plan Priority 5 (conservation of heritage and the natural environment), regional tourism resources, and the items on tourism infrastructure and green technologies (machine translation on the site)",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=23883&lang=ru"
+  },
+  {
+   "id": "nat-drr",
+   "t": "Action Plan for Emergency Risk Reduction 2025–2030",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic (Resolution No. 601 of 23 September 2025)",
+   "y": "2025",
+   "scope": "Chapter 4 (investment in forest plantations) reviewed via machine translation. The table of numerical afforestation targets could not be read",
+   "cat": "gov",
+   "u": "https://www.cawater-info.net/bk/dam-safety/files/kg-601-2025.pdf"
+  },
+  {
+   "id": "nat-zoi",
+   "t": "Climate Change and Biodiversity Alignment: National Targets and Measures (Kyrgyz Republic Illustrated Analysis)",
+   "by": "Zoï Environment Network and UNITAR",
+   "y": "Nov 2025",
+   "scope": "Full text (figures from the list on p.16; some forest categories could not be fully read from the graphic layout and were not used)",
+   "cat": "donor",
+   "u": "https://zoinet.org/wp-content/uploads/2025/11/KRG-climate-biodiv-alignment-report_EN.pdf"
+  },
+  {
+   "id": "nat-adb",
+   "t": "Issyk-Kul Environmental Management and Sustainable Tourism Development Project(55250-001)",
+   "by": "ADB (project page)",
+   "y": "2024",
+   "scope": "Full project page",
+   "cat": "donor",
+   "u": "https://www.adb.org/projects/55250-001/main"
+  },
+  {
+   "id": "nat-undp",
+   "t": "Collaborative Actions for Biodiversity Conservation: From Western Tian Shan to Pamir-Alai",
+   "by": "UNDP (press release)",
+   "y": "Jan 2024",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.undp.org/kyrgyzstan/press-releases/collaborative-actions-biodiversity-conservation-western-tian-shan-pamir-alai"
+  },
+  {
+   "id": "nat-cbd7",
+   "t": "Kyrgyzstan Finalizes Seventh National Biodiversity Report",
+   "by": "Central Asia Climate Portal",
+   "y": "2026",
+   "scope": "Full text (the report itself not reviewed)",
+   "cat": "donor",
+   "u": "https://centralasiaclimateportal.org/kyrgyzstan-has-completed-the-seventh-national-report-on-the-implementation-of-the-un-convention-on-biological-diversity/"
+  },
+  {
+   "id": "nat-nds",
+   "t": "National Development Strategy 2018–2040",
+   "by": "Kyrgyz Republic (Presidential Decree No. 221 of 2018)",
+   "y": "2018",
+   "scope": "The section on environmental sustainability and the afforestation text in Section 6.2 (practical measures for regional development) (machine translation on the site)",
+   "cat": "gov",
+   "u": "https://adam.edu.kg/media/uploads/2022/04/15/national-strategy-of-kyrgyz-republic-2018-2040.pdf"
+  },
+  {
+   "id": "nat-ndc",
+   "t": "Nationally Determined Contribution (NDC), 2021 update",
+   "by": "Kyrgyz Republic",
+   "y": "2021",
+   "scope": "Mitigation targets, forestry and land-use measures, and the adaptation chapter on \"forests and biodiversity\" (machine translation on the site)",
+   "cat": "gov",
+   "u": "https://unfccc.int/sites/default/files/NDC/2022-06/%D0%9E%D0%9D%D0%A3%D0%92%20ENG%20%D0%BE%D1%82%2008102021.pdf"
+  },
+  {
+   "id": "nat-faolivestock",
+   "t": "Low carbon and resilient livestock development in Kyrgyzstan (policy brief)",
+   "by": "IFAD and FAO (jointly with GIZ)",
+   "y": "2023",
+   "scope": "Full text. Only figures stated in the text were used",
+   "cat": "donor",
+   "u": "https://www.fao.org/3/cb7436en/cb7436en.pdf"
+  },
+  {
+   "id": "nat-ifadcspe",
+   "t": "Country Strategy and Programme Evaluation: Kyrgyz Republic",
+   "by": "IFAD Independent Office of Evaluation",
+   "y": "2023",
+   "scope": "About the first 100,000 characters of the main text reviewed in the original (sections on pastures and climate)",
+   "cat": "donor",
+   "u": "https://members.ifad.org/ec/121/docs/en/EC-2023-121-W-P-2.pdf?attach=1"
+  },
+  {
+   "id": "nat-ccdr",
+   "t": "Kyrgyz Republic Country Climate and Development Report (launch page)",
+   "by": "World Bank",
+   "y": "Dec 2025",
+   "scope": "Key points on the launch page only. The report PDF itself has not been opened",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/country/kyrgyzrepublic/publication/ccdr"
+  }
+ ],
+ "summary": [
+  {
+   "k": "v",
+   "t": "The national target of protected areas covering 10% of the territory (2030) will not be met at the current pace. Protected areas cover 6.8% (2025), up only 0.3 points in ten years.",
+   "ref": [
+    "ind:pa:0",
+    "doc:nat-ndp"
+   ],
+   "h": "The 10% protected area target will not be met at the current pace"
+  },
+  {
+   "k": "f",
+   "t": "Forests have covered 6.5% of the territory for 15 years with no change, and the index of species extinction risk (Red List Index) is slowly declining.",
+   "ref": [
+    "ind:forest:0",
+    "ind:bio:0"
+   ],
+   "h": "Forests flat; Red List Index slowly declining"
+  },
+  {
+   "k": "f",
+   "t": "The main pressures on nature are pastures and climate. Pastures are degraded by overgrazing, and glaciers have shrunk by 15–45% since the 1960s.",
+   "ref": [
+    "doc:nat-pasture",
+    "doc:nat-zoi",
+    "ind:bio:1"
+   ],
+   "h": "Main pressures: pasture degradation and glacier retreat"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation aligned with the strategy totals 16 projects worth about USD 84 million, about 90% of it from climate funds (GCF and others). The largest is the \"Glaciers to Farms\" regional programme (about USD 64.2 million).",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:glac"
+   ],
+   "h": "Active: 16 projects, about USD 84 million, about 90% from climate funds"
+  },
+  {
+   "k": "f",
+   "t": "The protected areas and biodiversity row is thin at about USD 2.7 million. The Lake Issyk-Kul row shows almost 0 because ADB's lake environmental management project (USD 56 million of ADB financing) is not in the site's data.",
+   "ref": [
+    "row:bio",
+    "row:lake",
+    "doc:nat-adb"
+   ],
+   "h": "Support for protected areas is thin; the large Issyk-Kul project is not yet in the data"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Overview of the natural environment",
+     "msg": "The nature of this mountainous country faces three pressures: pasture degradation, glacier retreat and pollution at tourist sites.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "6.8",
+        "u": "%",
+        "k": "Protected areas as share of territory (2025)",
+        "ref": "ind:pa:0",
+        "hot": true
+       },
+       {
+        "v": "6.5",
+        "u": "%",
+        "k": "Forests as share of territory (2024)",
+        "ref": "ind:forest:0"
+       },
+       {
+        "v": "0.888",
+        "u": "",
+        "k": "Red List Index (2025; 1 = no extinction risk)",
+        "ref": "ind:bio:0"
+       },
+       {
+        "v": "9.6",
+        "u": "%",
+        "k": "Share of degraded land (2019)",
+        "ref": "ind:bio:1"
+       },
+       {
+        "v": "15–45",
+        "u": "%",
+        "k": "Glacier loss since the 1960s",
+        "ref": "doc:nat-zoi",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Protected areas, forests and species"
+      },
+      {
+       "k": "f",
+       "t": "Protected areas cover 6.8% of the territory (2025). The share of key biodiversity areas covered by protected areas is 23.6%, unchanged since 2010.",
+       "ref": [
+        "ind:pa:0",
+        "ind:pa:1"
+       ],
+       "b": "Protected areas 6.8% of territory (2025)"
+      },
+      {
+       "k": "f",
+       "t": "Forests cover 6.5% of the territory (2024), almost unchanged from 6.4% in 2010.",
+       "ref": [
+        "ind:forest:0"
+       ],
+       "b": "Forests flat at 6.5% of territory"
+      },
+      {
+       "k": "f",
+       "t": "The Zoï illustrated analysis (2025) puts protected areas at 1.3 million ha (6.5%), forests at 2.8 million ha (spruce and fir 300,000 ha, juniper 260,000 ha, fruit and walnut 100,000 ha, riparian forests 40,000 ha) and annual afforestation at 1,300–1,800 ha.",
+       "ref": [
+        "doc:nat-zoi"
+       ],
+       "b": "Afforestation of 1,300–1,800 ha a year"
+      },
+      {
+       "k": "f",
+       "t": "The NDC 2021 identifies forests and biodiversity as among the sectors most vulnerable to climate change, citing as the main impacts ecosystem degradation and biodiversity loss, shifts in species range boundaries and habitats, and more frequent forest pest outbreaks.",
+       "ref": [
+        "doc:nat-ndc",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The snow leopard is a national symbol and is listed as \"Vulnerable\" on the IUCN Red List and in the national Red Book. The Western Tien Shan population is put at 15–28 animals.",
+       "ref": [
+        "doc:nat-zoi",
+        "doc:nat-undp"
+       ],
+       "b": "Snow leopards: 15–28 in the Western Tien Shan"
+      },
+      {
+       "k": "f",
+       "t": "The UNDP press release describes the snow leopard as an indicator species of ecosystem health. In the Western Tien Shan, corridors linking protected areas have been created to allow wildlife to move naturally.",
+       "ref": [
+        "doc:nat-undp",
+        "row:bio"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Pastures and land"
+      },
+      {
+       "k": "f",
+       "t": "Degraded land fell from 10.6% of the territory (2015) to 9.6% (2019). The pasture programme states that inedible plants have spread over about one third of pastures, and that relatively clean pastures shrank from 3.545 million ha to 2.741 million ha over 20 years.",
+       "ref": [
+        "ind:bio:1",
+        "doc:nat-pasture"
+       ],
+       "b": "Clean pastures 3.545 million ha → 2.741 million ha"
+      },
+      {
+       "k": "f",
+       "t": "The IFAD/FAO policy brief states that 87% of pastures (over 85,500 km²) are degraded in at least one season a year, and that 82% of winter pastures are severely degraded. There are about 1.7 million cattle and about 6.3 million sheep and goats; in 2006–2020, sheep and goats increased by 55% and cattle by 46%.",
+       "ref": [
+        "doc:nat-faolivestock",
+        "row:past"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation finds that the growth in livestock was driven mainly by purchases financed by migrant remittances, producing both higher output and pasture degradation. It also notes that, because grazing numbers kept rising, there is little evidence that pasture condition has improved.",
+       "ref": [
+        "doc:nat-ifadcspe",
+        "row:past"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Glaciers and lakes"
+      },
+      {
+       "k": "f",
+       "t": "Glacier area has shrunk by 15–45% since the 1960s and is projected to shrink by 50–90% by the 2090s. Temperatures rose by 0.28°C per decade in 1980–2022.",
+       "ref": [
+        "doc:nat-zoi"
+       ],
+       "b": "Glaciers down 15–45% since the 1960s"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank Country Climate and Development Report (December 2025) states that storms and landslides will become more frequent and intense, and heatwaves and droughts more severe. Without action, real GDP could fall by 2–3% by 2040 and about 170,000 people could fall into poverty, with rural areas hit hardest.",
+       "ref": [
+        "doc:nat-ccdr",
+        "row:glac"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In Cholpon-Ata on the shore of Lake Issyk-Kul, 43.1% of residents are connected to sewerage, and 30–40% of tourist facilities are not connected. ADB states that the old treatment plant discharges inadequately treated wastewater, and that the lake risks shifting from oligotrophic to mesotrophic.",
+       "ref": [
+        "doc:nat-adb",
+        "row:lake"
+       ],
+       "b": "Issyk-Kul shore: 43.1% connected to sewerage"
+      },
+      {
+       "k": "v",
+       "t": "While the figures for protected areas and forests barely move, pastures, glaciers and the lake are deteriorating. The expansion of protection mechanisms is not keeping pace with rising pressures.",
+       "ref": [
+        "ind:pa:0",
+        "ind:forest:0",
+        "doc:nat-pasture",
+        "doc:nat-zoi"
+       ],
+       "b": "Protection is not keeping pace with rising pressures"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy architecture",
+     "msg": "Nature policy is divided as \"National Development Programme 2030 Section 13.2 → plans for biodiversity, forests, pastures and tourism\", and the core biodiversity strategy is being updated.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy architecture (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Overarching plans"
+      },
+      {
+       "k": "f",
+       "t": "Overarching plan: Section 13.2 of the National Development Programme 2030 sets the nature-related target of \"expanding specially protected natural areas to 10% of the territory\". The section's other targets are a 16% reduction in greenhouse gases, a 3-point improvement in the climate resilience index (ND-GAIN) and a reduction in harmful emissions in Bishkek.",
+       "ref": [
+        "doc:nat-ndp"
+       ],
+       "b": "NDP 2030 13.2: protected areas to 10% of territory"
+      },
+      {
+       "k": "f",
+       "t": "\"Protected areas at 10% of the territory\" is not a new target. The National Development Strategy 2018–2040 had also stated that the ecological network, including protected areas safeguarding Red Book species, would be expanded and specially protected natural areas increased to 10% of the territory.",
+       "ref": [
+        "doc:nat-nds",
+        "doc:nat-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Tasks in the same section: regular ecosystem surveys and expansion of the protected area network, restoration and expansion of forests, revision of the Red Book, support for traditional community practices and community participation in decision-making, and new financing mechanisms such as a biodiversity trust fund.",
+       "ref": [
+        "doc:nat-ndp"
+       ],
+       "b": "Tasks: protected area network, forest restoration, Red Book, new financing"
+      },
+      {
+       "k": "f",
+       "t": "The National Development Strategy 2018–2040 also lists planting of new mountain forests among practical regional measures, with increases of 26,090 ha in Jalal-Abad Region, 13,440 ha in Osh Region, 10,580 ha in Issyk-Kul Region and 10,140 ha in Naryn Region.",
+       "ref": [
+        "doc:nat-nds",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Biodiversity and climate"
+      },
+      {
+       "k": "f",
+       "t": "Biodiversity: the National Biodiversity Strategy and Action Plan (NBSAP) is being updated, and the Zoï illustrated analysis cites, at draft stage, targets of \"10% protected areas\" and \"30% of areas under conservation\" for 2030–2035.",
+       "ref": [
+        "doc:nat-zoi"
+       ],
+       "b": "Biodiversity strategy being updated (10% protected, 30% conserved)"
+      },
+      {
+       "k": "f",
+       "t": "The Seventh National Report to the Convention on Biological Diversity was prepared by the Ministry of Natural Resources, Ecology and Technical Supervision with support from UNDP and others, and validated at a national meeting. The meeting discussed expanding the protected area network, restoring forests and recovering snow leopard numbers, among other issues.",
+       "ref": [
+        "doc:nat-cbd7"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Zoï illustrated analysis states that NDC 3.0 (the third version of the country's greenhouse gas reduction targets), the National Adaptation Plan and the biodiversity strategy were prepared to be as consistent as possible. However, it points out that renewable energy and water adaptation measures could harm birds of prey and endemic fish.",
+       "ref": [
+        "doc:nat-zoi",
+        "row:glac"
+       ],
+       "b": "Climate and biodiversity plans are aligned, but conflicts exist"
+      },
+      {
+       "k": "f",
+       "t": "The Zoï illustrated analysis cites upstream watershed afforestation (reducing river sediment) as an example of synergy, and wind power (harm to birds of prey and migratory birds) as an example of conflict. In a country where hydropower and other renewables account for about 90% of power generation, reconciling energy and nature is a challenge.",
+       "ref": [
+        "doc:nat-zoi",
+        "row:glac"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For forests and biodiversity, the NDC 2021 adaptation measures include research on climate change impacts, mainstreaming adaptation into forest and biodiversity policy, training of forestry and protected area staff, strengthening the resilience of forest ecosystems, and expanding the network of specially protected natural areas to include some glaciers.",
+       "ref": [
+        "doc:nat-ndc",
+        "row:glac",
+        "row:bio"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In forestry and land use, the NDC 2021 cites maintaining and expanding forest area and expanding perennial plantings, and treats forest-related measures as the country's own measures set out in national forest policy. With international support, greenhouse gas reductions could be raised to 43.62% by 2030 (15.97% unconditionally).",
+       "ref": [
+        "doc:nat-ndc",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Plans for pastures, tourist sites and forests"
+      },
+      {
+       "k": "f",
+       "t": "Pastures: the Pasture Development Programme 2024–2029 aims to protect and improve pastures amid climate change and calls for plans for rotational grazing and resting spring pastures.",
+       "ref": [
+        "doc:nat-pasture",
+        "row:past"
+       ],
+       "b": "Pasture programme: rotational grazing and resting spring pastures"
+      },
+      {
+       "k": "f",
+       "t": "The pasture programme's expected results include reducing the area of degraded pastures, reducing greenhouse gas emissions by improving pasture condition, and reducing the adverse effects of hazardous weather events. Biodiversity loss and desertification are listed as environmental risks of the programme.",
+       "ref": [
+        "doc:nat-pasture",
+        "row:past"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Tourist sites: Priority 5 of the Sustainable Tourism Development Programme 2025–2030 includes developing methods to set carrying capacities for visits to natural sites, separate collection and recycling, and treatment of wastewater and exhaust at tourist sites.",
+       "ref": [
+        "doc:nat-tourism",
+        "tree:tourism:tourism",
+        "tree:tourism:T5",
+        "tree:tourism:T8"
+       ],
+       "b": "Tourism programme Priority 5: carrying capacity, waste, wastewater"
+      },
+      {
+       "k": "f",
+       "t": "The same action plan introduces mechanisms to monitor enforcement of environmental law (such as environmental prosecutors) in 2025–2028, and includes legalising local landfills and building waste treatment facilities where tourist sites are concentrated. A programme to conserve and develop protected areas and cultural heritage as tourism resources is also planned for 2025–2030.",
+       "ref": [
+        "doc:nat-tourism",
+        "tree:tourism:T5",
+        "tree:tourism:T7"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Forests: Chapter 4 of the Action Plan for Emergency Risk Reduction 2025–2030 provides for afforestation of foothills to reduce mudflows and erosion, and long-term investment in agroforestry in river floodplains.",
+       "ref": [
+        "doc:nat-drr",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Under the same DRR action plan, a draft Cabinet resolution supporting protective forest planting is to be prepared by 2026, hazard zone mapping and species selection determined in 2027, and planting carried out in pilot areas in 2029–2030. Scaling up afforestation with donors and partners is also mentioned.",
+       "ref": [
+        "doc:nat-drr",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Note: the texts of the Green Economy Development Programme 2025–2029, the Concept for the Development of the Forest Sector to 2040 and NDC 3.0 have not been read.",
+       "ref": [
+        "row:bio",
+        "row:forest",
+        "row:glac"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Nature policy is split across biodiversity (environment ministry), forests and afforestation (DRR and forestry), pastures (agriculture ministry) and tourist sites (tourism), each in its own plan. The only overarching NDP 2030 target is protected area coverage, and no mechanism to measure results across the other areas in one place can be found.",
+       "ref": [
+        "doc:nat-ndp",
+        "doc:nat-pasture",
+        "doc:nat-tourism",
+        "doc:nat-drr"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Positioning of sub-programmes",
+     "msg": "Of the five rows, three — biodiversity, pastures and tourist sites — have plans that can be verified in legal acts. Forests and glaciers rest on documents only.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Sub-programmes (active cooperation by matrix row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Biodiversity and protected areas can be verified against the Green Economy Development Programme, pastures against the Pasture Development Programme, and Lake Issyk-Kul against the Tourism Development Programme in legal acts. Forests and glaciers/mountain ecosystems rest on documents.",
+       "ref": [
+        "row:bio",
+        "row:past",
+        "row:lake",
+        "row:forest",
+        "row:glac"
+       ],
+       "b": "Three can be verified in legal acts"
+      },
+      {
+       "k": "f",
+       "t": "Priority 5 of the Tourism Development Programme corresponds to \"conservation of historical and cultural heritage and the natural environment\" in the policy tree. Green technologies in tourism (Priority 8) and tourism infrastructure (Priority 7) also address wastewater and waste treatment at tourist sites.",
+       "ref": [
+        "tree:tourism:T5",
+        "tree:tourism:T7",
+        "tree:tourism:T8",
+        "row:lake"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The pastures row is mapped to the same Pasture Development Programme 2024–2029 as the pastures and livestock row of the agriculture and rural development sector. On the nature side, pastures are treated as an issue of ecosystems and land degradation.",
+       "ref": [
+        "row:past",
+        "doc:nat-pasture"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The glaciers and mountain ecosystems row, which has the largest funding (about USD 66.1 million), is a row whose national plan rests on documents only. The centre of gravity of donor funding and the robustness of national plans are misaligned.",
+       "ref": [
+        "row:glac"
+       ],
+       "b": "Funding focus and robustness of national plans are misaligned"
+      },
+      {
+       "k": "v",
+       "t": "Conversely, the Lake Issyk-Kul row has a national plan verifiable in legal acts, but shows almost zero cooperation in the site's data. If ADB's large project were included, this row would become one with \"both a plan and funding\".",
+       "ref": [
+        "row:lake",
+        "doc:nat-adb"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: prospects for national and international targets",
+     "msg": "The only national nature target is \"10% protected areas\", and it will not be met at the current pace. Forests, species and land have no national numerical targets.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the period; required pace = change needed to reach the target by 2030)"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Protected areas grew by +0.03 points/year in 2015–2025; reaching 10% by 2030 requires +0.64 points/year. At this pace, coverage would be about 7.0% in 2030.",
+       "ref": [
+        "ind:pa:0",
+        "doc:nat-ndp"
+       ],
+       "b": "Protected areas: about 7.0% by 2030 at this pace (target 10%)"
+      },
+      {
+       "k": "f",
+       "t": "In 2018, when the National Development Strategy 2018–2040 set the 10% target, protected areas covered 6.7% of the territory. In 2025 they covered 6.8%, an increase of just 0.1 points over seven years.",
+       "ref": [
+        "doc:nat-nds",
+        "ind:pa:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The international Kunming-Montreal Global Biodiversity Framework targets 30% of areas under conservation by 2030. The draft national biodiversity strategy also cites \"30% of areas under conservation\".",
+       "ref": [
+        "ind:pa:0",
+        "doc:nat-zoi"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The fact that the draft national strategy lists \"10% protected areas\" and \"30% of areas under conservation\" separately indicates an approach that counts forms of conservation other than protected areas, rather than meeting 30% through strictly protected areas alone. Prospects for reaching 30% therefore cannot be judged until it is decided what counts as \"areas under conservation\".",
+       "ref": [
+        "doc:nat-zoi",
+        "ind:pa:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Forests, the Red List Index and degraded land have no numerical targets in the National Development Programme 2030.",
+       "ref": [
+        "doc:nat-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because forests, species and land have no national numerical targets, these areas can only be monitored for \"whether things are getting worse\". The NDC 2021 projects a numerical increase in forest carbon sinks, but NDP 2030 sets no target for forest area itself.",
+       "ref": [
+        "doc:nat-ndc",
+        "doc:nat-ndp",
+        "ind:forest:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The protected area target is about 3 points away, requiring new designations of several hundred thousand hectares. Reaching it in five years would require designations at 20 times the current pace.",
+       "ref": [
+        "ind:pa:0",
+        "doc:nat-zoi"
+       ],
+       "b": "Designations need to accelerate to 20 times the current pace"
+      },
+      {
+       "k": "v",
+       "t": "Whether 10% is reached depends on whether the biodiversity strategy now being updated fixes the locations and timing of new protected areas. The \"expansion of protected areas to include some glaciers\" cited in the NDC 2021 is one option that could add a large area at once.",
+       "ref": [
+        "doc:nat-zoi",
+        "doc:nat-ndc",
+        "ind:pa:0"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Protected areas",
+     "msg": "Protected areas cover 6.8% of the territory and have barely grown, and three quarters of key biodiversity areas lie outside them.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Protected area coverage (dotted lines = national target 10%, international target 30%) and protection of key biodiversity areas",
+      "inds": [
+       "pa:0",
+       "pa:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trends: protected area coverage rose from 6.5% (2013–2015) to 6.8% (2024–2025).",
+       "ref": [
+        "ind:pa:0"
+       ],
+       "b": "Protected areas 6.5% → 6.8%"
+      },
+      {
+       "k": "f",
+       "t": "From 6.5% in 2013–2015 to 6.7% in 2016 and 6.8% in 2024, increases have come only from small designations every few years. The Zoï illustrated analysis puts current protected areas at 1.3 million ha.",
+       "ref": [
+        "ind:pa:0",
+        "doc:nat-zoi"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The share of key biodiversity areas covered by protected areas is 23.6%, unchanged since 2010 (SDG 15.1.2).",
+       "ref": [
+        "ind:pa:1"
+       ],
+       "b": "Protected area coverage of key areas unchanged at 23.6%"
+      },
+      {
+       "k": "v",
+       "t": "More than three quarters (76.4%) of key biodiversity areas lie outside protected areas. Designating new protected areas to match these key areas, rather than to maximise area, would advance both the 10% target and biodiversity outcomes at once.",
+       "ref": [
+        "ind:pa:1",
+        "ind:pa:0"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "Along with expanding the protected area network, NDP 2030 lists as tasks regular surveys of ecosystem condition, effective conservation arrangements, and scientific activities and monitoring. Improving the quality of management, not just protected area coverage, is required at the same time.",
+       "ref": [
+        "doc:nat-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 also calls for introducing new financial instruments (such as a multilateral biodiversity trust fund) for biodiversity conservation. UNDP's Biodiversity Finance Initiative Phase 2 (BIOFIN, about USD 0.7 million, to 2030) supports the design of such financing mechanisms.",
+       "ref": [
+        "doc:nat-ndp",
+        "proj:XM-DAC-41114-OUTPUT-01003185"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Donor support"
+      },
+      {
+       "k": "f",
+       "t": "UNDP's Western Tien Shan project (ended December 2023) created the Chatkal ecological corridor and buffer zones (89,000 ha in total) linking the Alatai, Sary-Chelek and Padysha-Ata protected areas. A successor project began in the Pamir-Alai in the south in January 2024.",
+       "ref": [
+        "doc:nat-undp",
+        "row:bio"
+       ],
+       "b": "UNDP: Chatkal ecological corridor and others, 89,000 ha"
+      },
+      {
+       "k": "f",
+       "t": "According to the UNDP press release, the Western Tien Shan project also introduced the high conservation value forest (HCVF) approach nationwide, piloted voluntary forest management certification, developed national standards for sustainable forest management, carried out afforestation, and generated income for women and young people in Toktogul and Toguz-Toro villages.",
+       "ref": [
+        "doc:nat-undp",
+        "row:bio",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The project on community management of high-value mountain ecosystems in the south (climate funds about USD 1.3 million, UNDP about USD 0.6 million, to 2028) is the successor to the Western Tien Shan project. A project to strengthen conservation in the Central and Eastern Tien Shan is at the preparation stage (UNDP about USD 0.1 million, to end-2026).",
+       "ref": [
+        "proj:XI-BRIDGE-6385676864-10692",
+        "proj:XM-DAC-41114-OUTPUT-01001366",
+        "proj:XM-DAC-41114-OUTPUT-01004890"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Rather than expanding protected areas themselves, linking them through corridors and buffer zones is advancing. This barely shows up in the figures for the national \"10% area\" target.",
+       "ref": [
+        "doc:nat-undp",
+        "ind:pa:0"
+       ],
+       "b": "Corridors barely show up in the 10% area figure"
+      },
+      {
+       "k": "f",
+       "t": "The UK's Illegal Wildlife Trade Challenge Fund (about USD 0.1 million, to 2029) and a UNESCO project on biodiversity and local knowledge (amount close to 0) are also in this row.",
+       "ref": [
+        "proj:GB-GOV-7-IWTChallengeFund",
+        "proj:XM-DAC-41304-A210224161",
+        "row:bio"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the biodiversity and protected areas row has 8 projects worth about USD 2.7 million (climate funds about USD 1.3 million, UNDP about USD 1.2 million).",
+       "ref": [
+        "row:bio"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Active funding in the biodiversity and protected areas row (about USD 2.7 million) is less than half the amount completed since 2017 (about USD 6.8 million). The national target of expanding protected areas and the trend in cooperation are moving in opposite directions.",
+       "ref": [
+        "row:bio",
+        "fact:closed_rows",
+        "ind:pa:0"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Forests",
+     "msg": "Forest area has remained almost the same for 15 years; afforestation continues but not on a scale that moves the share of the territory.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Forest area (share of territory)",
+      "inds": [
+       "forest:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trends: forests rose from 6.4% of the territory (2010) to 6.5% (2013–2024).",
+       "ref": [
+        "ind:forest:0"
+       ],
+       "b": "Forests 6.4% → 6.5%"
+      },
+      {
+       "k": "f",
+       "t": "The Zoï illustrated analysis breaks forests down into spruce and fir 300,000 ha, juniper 260,000 ha, fruit and walnut 100,000 ha and riparian forests 40,000 ha. Walnut-fruit forests are concentrated in the south and have been supported by projects such as Germany's community management of walnut forests and pastures.",
+       "ref": [
+        "doc:nat-zoi",
+        "proj:DE-1-201720424"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Annual afforestation is 1,300–1,800 ha (Zoï illustrated analysis).",
+       "ref": [
+        "doc:nat-zoi"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "The Action Plan for Emergency Risk Reduction uses the increase in the area of protective forests and agroforestry in hazard zones as its final indicator corresponding to SDG 15.",
+       "ref": [
+        "doc:nat-drr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 lists as tasks the conservation of high conservation value and relict forests, restoration of forest ecosystems, reducing pressure on forests and natural regeneration. The DRR action plan positions foothill afforestation to reduce mudflows and erosion and floodplain agroforestry as disaster risk reduction measures.",
+       "ref": [
+        "doc:nat-ndp",
+        "doc:nat-drr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The NDC 2021 cites increasing forest pest outbreaks as one of the main impacts of climate change. Protecting existing forests from climate change, not just planting new ones, is also a challenge.",
+       "ref": [
+        "doc:nat-ndc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the Zoï illustrated analysis, greenhouse gas emissions in 2023 were 19.4 million t (CO2 equivalent) and natural sinks absorbed 10.3 million t, for net emissions of 9.1 million t. Natural sinks offset about half of emissions.",
+       "ref": [
+        "doc:nat-zoi",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Given the size of these sinks, the condition of forests and pastures also bears directly on the climate targets (NDC). This is the rationale for cooperation in the forest row coming in under the heading of carbon sequestration.",
+       "ref": [
+        "doc:nat-zoi",
+        "doc:nat-ndc",
+        "proj:XM-DAC-41317-FP116"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Gap to targets"
+      },
+      {
+       "k": "f",
+       "t": "Note: forest area is put at 6.5% of the territory by the World Bank indicator (original source FAO) and at 2.8 million ha by the Zoï illustrated analysis; no explanation of the difference in counting methods (such as the treatment of shrubland) has been read.",
+       "ref": [
+        "ind:forest:0",
+        "doc:nat-zoi"
+       ],
+       "b": "Forest area is counted differently by source"
+      },
+      {
+       "k": "f",
+       "t": "Under the DRR action plan, in the pilot phase the Ministry of Emergency Situations, the Ministry of Agriculture and others will plant up to 5 ha per region and municipality. Large-scale afforestation is placed in later phases.",
+       "ref": [
+        "doc:nat-drr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The National Development Strategy's regional afforestation targets (e.g. 26,090 ha in Jalal-Abad Region) are large compared with annual afforestation in the Zoï illustrated analysis (1,300–1,800 ha). Because the target period and official results series cannot be verified, progress cannot be judged.",
+       "ref": [
+        "doc:nat-nds",
+        "doc:nat-zoi"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Annual afforestation (about 1,300–1,800 ha) is tiny relative to the national territory, so the share does not move. It would be more realistic to measure forest targets by restoration, quality and DRR benefits rather than area.",
+       "ref": [
+        "doc:nat-zoi",
+        "ind:forest:0",
+        "doc:nat-drr"
+       ],
+       "b": "Forests are better measured by restoration, quality and DRR benefits than by area"
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the forest row has 4 projects worth about USD 17.2 million (climate funds about USD 9.1 million, FAO about USD 8 million). At its core is the project to increase carbon sequestration in forests and rangelands (CS-FOR, to 2030).",
+       "ref": [
+        "row:forest"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "CS-FOR (carbon sequestration through climate investment in forests and rangelands) is financed by climate funds (about USD 9.1 million) and FAO (about USD 7.5 million) and runs to 2030 (FAO has a separate fee-related project of about USD 0.5 million). It falls into both the forest and pasture rows. There is also Korea's capacity development for nursery systems and pilot afforestation (about USD 0.1 million, 2026–2029).",
+       "ref": [
+        "proj:XM-DAC-41317-FP116",
+        "proj:XM-DAC-41301-649257",
+        "proj:XM-DAC-41301-734302",
+        "proj:KR-GOV-250-1400000_2025_004"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Forest cooperation comes in under the heading of carbon sequestration (climate). This matches the NDC 2021's use of forest sinks as one of the pillars of mitigation, but neither the cooperation side nor the national side has indicators to measure forests' DRR or biodiversity benefits.",
+       "ref": [
+        "doc:nat-ndc",
+        "row:forest"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Species and land",
+     "msg": "Extinction risk is slowly rising, and land degradation centres on overgrazing of pastures.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Red List Index and share of degraded land",
+      "inds": [
+       "bio:0",
+       "bio:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trends: the Red List Index fell from 0.889 (2010–2021) to 0.888 (2022–2025). SDG 15.5 calls for halting this decline.",
+       "ref": [
+        "ind:bio:0"
+       ],
+       "b": "Red List Index 0.889 → 0.888"
+      },
+      {
+       "k": "v",
+       "t": "The decline in the Red List Index is very small, but SDG 15.5 calls for \"halting the decline\", so even a slight fall means the target is missed. Revising the national Red Book (an NDP 2030 task) would give the country a means of knowing the status of each species.",
+       "ref": [
+        "ind:bio:0",
+        "doc:nat-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The share of degraded land has only two data points: 10.6% (2015) and 9.6% (2019). Pasture degradation from overgrazing is the main factor.",
+       "ref": [
+        "ind:bio:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "With only two data points, it cannot be judged whether the 1-point decline between 2015 and 2019 is an improvement or a difference in measurement. The gap between the assessment that 87% of pastures are degraded in some season (IFAD/FAO) and the indicator of 9.6% of the territory is also large, so the figures vary greatly depending on what is counted as \"degraded\".",
+       "ref": [
+        "ind:bio:1",
+        "doc:nat-faolivestock"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Drivers of pasture degradation"
+      },
+      {
+       "k": "f",
+       "t": "The Zoï illustrated analysis puts winter pastures at 2.4 million ha and summer pastures at 3.9 million ha, and states that heavy grazing is driving degradation and feed shortages are killing livestock.",
+       "ref": [
+        "doc:nat-zoi",
+        "row:past"
+       ],
+       "b": "Winter pastures 2.4 million ha; summer pastures 3.9 million ha"
+      },
+      {
+       "k": "f",
+       "t": "The pasture programme cites as major causes of degradation the concentration of livestock on spring pastures near villages and the non-use of remote mountain pastures because roads, bridges and watering points are broken.",
+       "ref": [
+        "doc:nat-pasture"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The pasture programme states that roads, bridges and watering points to remote pastures are being repaired through the public investment programme and subsidies, but that this only partly solves the problem. In 2023, pasture seed was purchased with state budget funds and sowing of perennial grasses was carried out. The Academy of Sciences is studying biodiversity in areas of the Suusamyr Valley where shrubs (Caragana) have spread.",
+       "ref": [
+        "doc:nat-pasture"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IFAD's evaluation states that temperatures are projected to rise by 1.5–1.9°C and precipitation to decrease in 2021–2050, worsening pasture degradation and heat stress on livestock. It assesses seasonal pasture rotation (transhumance) as having been an appropriate adaptation measure.",
+       "ref": [
+        "doc:nat-ifadcspe",
+        "row:past"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The IFAD/FAO policy brief states that the impact assessment of the Livestock and Market Development Programme II (2014–2021) found a 4% increase in healthy winter pastures. However, it notes that while herd numbers grew, productivity per animal did not, and investment in productivity is needed.",
+       "ref": [
+        "doc:nat-faolivestock"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The key to reducing land degradation is access to remote pastures (roads, bridges, watering points) and dispersal of grazing, an issue for both nature conservation and agriculture.",
+       "ref": [
+        "doc:nat-pasture",
+        "ind:bio:1"
+       ],
+       "b": "Access to remote pastures is key"
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the pasture row has 3 projects worth about USD 17.1 million (climate funds about USD 9.1 million, FAO about USD 8 million; the same CS-FOR project as in the forest row).",
+       "ref": [
+        "row:past"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Among pasture cooperation completed since 2017, the largest were the World Bank's Pasture and Livestock Management Improvement Project (about USD 5 million, 2014–2019) and two German projects on community management of walnut forests and pastures (about USD 1.9 million and about USD 1.1 million).",
+       "ref": [
+        "proj:WB-P145162",
+        "proj:DE-1-201720424",
+        "proj:DE-1-201397520"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Pastures receive cooperation from both the agriculture side (IFAD's livestock projects) and the nature side (CS-FOR). Both cite pasture condition as a result, but because the national pasture programme has no numerical targets, there is no common yardstick to measure the combined results.",
+       "ref": [
+        "row:past",
+        "doc:nat-pasture",
+        "proj:XM-DAC-41317-FP116"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.4",
+     "h": "Glaciers and Lake Issyk-Kul",
+     "msg": "Glaciers continue to shrink, and Lake Issyk-Kul risks pollution from wastewater. Neither has annual national figures.",
+     "paras": [
+      {
+       "k": "h",
+       "t": "Glaciers"
+      },
+      {
+       "k": "f",
+       "t": "Glaciers have shrunk by 15–45% since the 1960s and are projected to shrink by 50–90% by the 2090s (Zoï illustrated analysis).",
+       "ref": [
+        "doc:nat-zoi",
+        "row:glac"
+       ],
+       "b": "Glaciers projected to shrink by 50–90% by the 2090s"
+      },
+      {
+       "k": "f",
+       "t": "According to the Zoï illustrated analysis, temperatures rose by 0.28°C per decade in 1980–2022 and are projected to rise by 3.7–6.2°C by 2090 depending on the scenario.",
+       "ref": [
+        "doc:nat-zoi",
+        "row:glac"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The NDC 2021 cites modernisation of hydrological and glacier monitoring systems as an adaptation measure. The World Bank Country Climate and Development Report states that without action, up to 24% of irrigation demand would go unmet by mid-century. Glacier retreat links directly to water for downstream agriculture.",
+       "ref": [
+        "doc:nat-ndc",
+        "doc:nat-ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank Country Climate and Development Report lists among its seven policy pillars integrated irrigation and agriculture planning (including climate-resilient pasture management), resilient transport including nature-based solutions, and disaster monitoring and risk management.",
+       "ref": [
+        "doc:nat-ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the glaciers and mountain ecosystems row has 6 projects worth about USD 66.1 million, almost entirely the climate fund \"Glaciers to Farms\" regional programme (about USD 64.2 million, 2025–2036).",
+       "ref": [
+        "row:glac",
+        "proj:XM-DAC-41317-FP283"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "As its name suggests, \"Glaciers to Farms\" is a regional project linking glaciers with downstream agriculture and is counted in both the nature and agriculture sectors. How much goes to glacier monitoring and ecosystem conservation cannot be known without checking the project's contents.",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "row:glac"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Lake Issyk-Kul"
+      },
+      {
+       "k": "f",
+       "t": "In June 2024, ADB approved a project for wastewater treatment and tourism infrastructure in Cholpon-Ata, with a USD 31 million grant (total USD 39.9 million including the government contribution) and a USD 25 million loan, running to end-2030.",
+       "ref": [
+        "doc:nat-adb",
+        "row:lake"
+       ],
+       "b": "ADB: Issyk-Kul shore wastewater and tourism (USD 31 million grant + USD 25 million loan)"
+      },
+      {
+       "k": "f",
+       "t": "Data note: this ADB project is not in the Lake Issyk-Kul row of the site's cooperation project data. Active funding in this row is almost 0, consisting only of a small project on the wetlands of Lake Son-Kul.",
+       "ref": [
+        "row:lake",
+        "doc:nat-adb"
+       ],
+       "b": "ADB's Issyk-Kul project is not yet in the data"
+      },
+      {
+       "k": "f",
+       "t": "The ADB project has three outputs: climate-resilient wastewater infrastructure, environmentally friendly tourism infrastructure and services, and capacity for inclusive tourism planning and environmental management. It is implemented by the Kyrgyz Ministry of Construction, Architecture, Housing and Communal Services, with Cholpon-Ata City Hall and the water utility responsible for operation and maintenance.",
+       "ref": [
+        "doc:nat-adb",
+        "row:lake"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB cites as major factors the lack of waste facilities, public toilets and sanitation on the lakeshore; pollution of the lake from wastewater discharged into rivers and seepage from septic tanks and pit latrines; and unregulated tourism growth and weak lakeshore management.",
+       "ref": [
+        "doc:nat-adb"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to ADB, Cholpon-Ata's old wastewater treatment plant has no biological treatment and receives only part of its design volume. Poorly maintained septic tanks overflow into channels during heavy rain.",
+       "ref": [
+        "doc:nat-adb"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The national tourism development programme also plans, for 2025–2030, to develop methods to set carrying capacities for visits to natural sites, to list tourist sites where visits are to be regulated, and to advance wastewater treatment and separate collection at tourist sites. The ADB project overlaps with this direction.",
+       "ref": [
+        "doc:nat-tourism",
+        "tree:tourism:T5",
+        "tree:tourism:T8"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The environment of Lake Issyk-Kul will be determined by whether tourism growth or wastewater treatment advances faster. No annual national published figures on the lake's water quality can be found, and a mechanism to measure effects is needed.",
+       "ref": [
+        "doc:nat-adb",
+        "doc:nat-tourism"
+       ],
+       "b": "A mechanism to measure lake water quality annually is needed"
+      },
+      {
+       "k": "f",
+       "t": "The lake row also includes a project on sustainable management and conservation of the wetlands and grasslands of Lake Son-Kul (amount almost 0, started October 2025).",
+       "ref": [
+        "proj:KG-OKPO-27730330-KG-OKPO-27730330-SIDA-CAG-ISDS-2026-KG-ISDS",
+        "row:lake"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "About 90% of active funding comes from climate funds (GCF and others), followed by FAO and UNDP.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects aligned with strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation aligned with the nature strategy totals 16 projects worth about USD 84.2 million. By donor: climate funds about USD 74.6 million, FAO about USD 8 million, UNDP about USD 1.3 million, the UK and Korea about USD 0.1 million each.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 16 projects, about USD 84.2 million"
+      },
+      {
+       "k": "h",
+       "t": "Major active projects"
+      },
+      {
+       "k": "f",
+       "t": "The \"Glaciers to Farms\" regional programme (climate funds, about USD 64.2 million, 2025–2036) accounts for about three quarters of active funding. Next is CS-FOR (climate funds about USD 9.1 million, FAO about USD 7.5 million, to 2030).",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "proj:XM-DAC-41317-FP116",
+        "proj:XM-DAC-41301-649257"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Projects directly targeting biodiversity — community management of mountain ecosystems in the south (climate funds about USD 1.3 million, UNDP about USD 0.6 million), BIOFIN Phase 2 (UNDP about USD 0.7 million), the UK's Illegal Wildlife Trade fund (about USD 0.1 million) and others — total about USD 2.7 million, roughly the same as the biodiversity and protected areas row (about USD 2.7 million).",
+       "ref": [
+        "proj:XI-BRIDGE-6385676864-10692",
+        "proj:XM-DAC-41114-OUTPUT-01001366",
+        "proj:XM-DAC-41114-OUTPUT-01003185",
+        "proj:GB-GOV-7-IWTChallengeFund",
+        "row:bio"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Two projects worth about USD 0.1 million end by late 2026 (UNDP preparatory projects).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "\"Glaciers to Farms\" and CS-FOR are also included in the climate adaptation and pasture rows of agriculture and rural development (overlapping across sectors).",
+       "ref": [
+        "row:glac",
+        "row:forest",
+        "row:past"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Some projects registered as nature projects are not aligned with any table row, such as the climate fund's greening of the financial system (about USD 10.7 million), and the World Bank's air quality improvement project (about USD 8.3 million) and climate-resilient water services (about USD 8.3 million).",
+       "ref": [
+        "proj:XM-DAC-41317-FP253",
+        "proj:WB-P177467",
+        "proj:WB-P173734"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Funding is almost entirely concentrated in climate funds, and nature projects of the World Bank and ADB are not in the table rows (ADB's Issyk-Kul project is not in the data at all). With few donors, the structure is such that a single fund's decisions can substantially change funding flows.",
+       "ref": [
+        "fact:by_donor",
+        "row:lake",
+        "doc:nat-adb"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The National Development Strategy 2018–2040 stated that close cooperation would be established with \"global climate funds\" for the transition to sustainable development.",
+       "ref": [
+        "doc:nat-nds"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The concentration on climate funds can be read not as chance but as the result of following the 2018 national strategy's policy. As a consequence, funding is less likely to reach protected area management and species conservation, which do not qualify under climate headings.",
+       "ref": [
+        "doc:nat-nds",
+        "fact:by_donor",
+        "row:bio"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at the time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Cooperation completed over the past decade centred on forests and biodiversity; the focus has now shifted to large glacier (climate) projects.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage period: projects completed in or after 2017. Earlier projects are excluded because records for major donors are incomplete. Even from 2017, records almost only cover ADB from 2020 onwards and UNICEF and UNDP from 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and aligned with the nature strategy total 24, worth about USD 19.6 million. By donor: climate funds about USD 7.7 million, World Bank about USD 6.5 million, Germany about USD 3 million, FAO about USD 2 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "24 projects, about USD 19.6 million"
+      },
+      {
+       "k": "f",
+       "t": "By donor within each row, completed amounts are: forests — climate funds about USD 6.8 million, Germany about USD 3 million, FAO about USD 1.9 million, World Bank about USD 1.5 million; pastures — World Bank about USD 5 million, Germany about USD 3 million; glaciers and mountains — climate funds about USD 5.7 million, FAO about USD 1.8 million. The Lake Issyk-Kul row has no completed projects either.",
+       "ref": [
+        "fact:closed_rows",
+        "row:forest",
+        "row:past",
+        "row:glac",
+        "row:lake"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): forests about USD 13.4 million, pastures about USD 8 million, glaciers and mountains about USD 7.5 million, biodiversity and protected areas about USD 6.8 million. Major projects include the World Bank's Pasture and Livestock Management Improvement Project (ended 2019), the climate fund/FAO sustainable management of mountain forests (ended 2021) and Germany's community management of walnut forests and pastures (ended 2023).",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "In the past: forests, pastures and biodiversity"
+      },
+      {
+       "k": "h",
+       "t": "Major completed projects"
+      },
+      {
+       "k": "f",
+       "t": "Completed projects include the climate fund/FAO sustainable management of mountain forest and land resources under climate change (about USD 2.7 million and about USD 1.8 million, 2014–2021), the climate fund/World Bank sustainable forest and land management and integrated forest ecosystem management (about USD 2.1 million and about USD 1.5 million, 2015–2022), and the climate fund's conservation of biodiversity in Western Tien Shan forest ecosystems (about USD 2 million, 2017–2024).",
+       "ref": [
+        "proj:XI-BRIDGE-6385676864-4761",
+        "proj:XM-DAC-41301-615696",
+        "proj:XI-BRIDGE-6385676864-9037",
+        "proj:WB-P151102",
+        "proj:XI-BRIDGE-6385676864-6958"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The climate fund project to improve the coverage and management effectiveness of protected areas in the Central Tien Shan (about USD 1 million) ended in 2017. This coincides with the rise in protected area coverage from 6.5% to 6.7% in 2016, suggesting the cooperation may have helped drive designations.",
+       "ref": [
+        "proj:XI-BRIDGE-6385676864-4844",
+        "ind:pa:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Germany's two projects on community management of walnut forests and pastures (about USD 1.9 million and about USD 1.1 million) span three rows: biodiversity, forests and pastures. The World Bank's Pasture and Livestock Management Improvement Project (about USD 5 million) ended in 2019.",
+       "ref": [
+        "proj:DE-1-201720424",
+        "proj:DE-1-201397520",
+        "proj:WB-P145162"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In the past, forest and biodiversity projects of several million dollars each were lined up; now a single regional climate programme accounts for three quarters of active funding. Funding for protected areas and biodiversity themselves has thinned.",
+       "ref": [
+        "fact:closed_rows",
+        "row:glac",
+        "row:bio"
+       ],
+       "b": "Funding for protected areas and biodiversity has thinned"
+      },
+      {
+       "k": "v",
+       "t": "That many completed projects involved community-based forest and pasture management overlaps with \"active participation of local communities in natural resource management\", a task cited in NDP 2030. How far the large climate projects now under way build on that experience cannot be known without checking their contents.",
+       "ref": [
+        "doc:nat-ndp",
+        "fact:closed_rows",
+        "proj:XM-DAC-41317-FP283"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Completed projects were often medium-sized projects advancing forest, land and protected area management through community participation. These have now been replaced by large climate projects, and projects whose main purpose is protected area management or community forest management are limited to a few, such as the southern mountain ecosystems project.",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XI-BRIDGE-6385676864-10692"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Every row has active cooperation, but Lake Issyk-Kul is almost 0 in the data and biodiversity and protected areas are thin.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row is without active cooperation.",
+       "ref": [
+        "fact:empty_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Lake Issyk-Kul and other tourist site environment row has 1 project worth almost 0 (the Lake Son-Kul wetlands project). ADB's Issyk-Kul project is not in the data.",
+       "ref": [
+        "row:lake",
+        "doc:nat-adb"
+       ],
+       "b": "Lake Issyk-Kul row almost 0 in the data"
+      },
+      {
+       "k": "f",
+       "t": "The biodiversity and protected areas row has 8 projects worth about USD 2.7 million: many projects, but small amounts per project. Many UNDP and UNESCO projects have amounts close to 0.",
+       "ref": [
+        "row:bio"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Active donors by row: glaciers and mountains — climate funds (about USD 65.5 million) and UNDP; forests and pastures — climate funds and FAO (CS-FOR); biodiversity and protected areas — climate funds, UNDP, the UK and UNESCO; the lake — one small NGO project.",
+       "ref": [
+        "row:glac",
+        "row:forest",
+        "row:past",
+        "row:bio",
+        "row:lake"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "No row is empty, but the rows with effectively no funding are Lake Issyk-Kul (missing data) and biodiversity and protected areas. The large amount in the glacier row comes from a single regional project, so the differences in depth between rows are very large.",
+       "ref": [
+        "row:lake",
+        "row:bio",
+        "row:glac"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The next issues are new designations towards 10% protected areas and whether the biodiversity strategy now being updated comes with financing mechanisms.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "The 10% protected area target will not be met without designations at 20 times the current pace. Where the biodiversity strategy now being updated places new designations will be the first test.",
+       "ref": [
+        "ind:pa:0",
+        "doc:nat-zoi",
+        "doc:nat-ndp"
+       ],
+       "b": "New protected area designations are the test"
+      },
+      {
+       "k": "v",
+       "t": "Donor funding has converged on climate (glaciers, carbon sinks), while funding for protected areas and species themselves is thin. Establishing the \"biodiversity trust fund\" in NDP 2030 could be the entry point for filling this gap.",
+       "ref": [
+        "row:bio",
+        "row:glac",
+        "doc:nat-ndp"
+       ],
+       "b": "A biodiversity trust fund could be the entry point for filling the gap"
+      },
+      {
+       "k": "v",
+       "t": "Forests have no national numerical target, and cooperation comes in under the heading of carbon sequestration. Building a mechanism to measure the National Development Strategy's regional afforestation targets and the protective forests in the DRR action plan as forest outcomes is a precondition for demonstrating the effects of cooperation.",
+       "ref": [
+        "doc:nat-nds",
+        "doc:nat-drr",
+        "row:forest"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Pasture degradation is a challenge shared by nature conservation and agriculture. The evaluation of Phase 1 of the pasture programme (2024–2026) will set the direction of cooperation in both sectors.",
+       "ref": [
+        "doc:nat-pasture",
+        "row:past"
+       ],
+       "b": "Evaluation of Phase 1 of the pasture programme is key"
+      },
+      {
+       "k": "v",
+       "t": "At Lake Issyk-Kul, ADB's large project has begun, and the national tourism programme points in the same direction. Whether a mechanism is put in place to measure and publish the lake's water quality annually will be key to demonstrating the project's results.",
+       "ref": [
+        "doc:nat-adb",
+        "doc:nat-tourism",
+        "row:lake"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Seventh National Report to the Convention on Biological Diversity is reportedly to be presented at the 2026 Conference of the Parties as the Kyrgyz Republic's contribution to the global stocktake of progress.",
+       "ref": [
+        "doc:nat-cbd7"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "On the data side, incorporating ADB's Issyk-Kul project and deciding how to handle projects registered as nature projects but not in any table row (greening finance, air quality, water services) are preconditions for reading the gaps correctly.",
+       "ref": [
+        "doc:nat-adb",
+        "proj:XM-DAC-41317-FP253",
+        "row:lake"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: adoption of the biodiversity strategy (NBSAP), submission of the Seventh National Report to the Convention on Biological Diversity meeting, designation of new protected areas, and inclusion of ADB's Issyk-Kul project in the data.",
+       "ref": [
+        "doc:nat-cbd7",
+        "doc:nat-zoi",
+        "row:lake"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Protected area coverage (share of territory)",
+   "6.8%(2025)",
+   "10%",
+   "+0.03/yr (2015→2025)",
+   "+0.64/yr",
+   "Off track (about 7.0%)",
+   "bad"
+  ],
+  [
+   "Areas under conservation (Kunming-Montreal Framework, international target)",
+   "6.8% (protected areas only)",
+   "30%",
+   "+0.03/yr",
+   "+4.6/yr",
+   "Off track",
+   "bad"
+  ],
+  [
+   "Red List Index (SDG 15.5: halt the decline)",
+   "0.888(2025)",
+   "Halt the decline",
+   "Almost 0 (−0.001 from 2010→2025)",
+   "0 or above",
+   "Slowly declining",
+   "warn"
+  ],
+  [
+   "Forest area",
+   "6.5%(2024)",
+   "No national numerical target",
+   "Almost 0",
+   "—",
+   "Not measurable (no target)",
+   "na"
+  ],
+  [
+   "Share of degraded land (SDG 15.3)",
+   "9.6%(2019)",
+   "No national numerical target",
+   "(Only 2 data points)",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Lake Issyk-Kul water quality",
+   "No published figure",
+   "—",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Biodiversity and protected areas",
+   "Green Economy Development Programme 2025–2029 / National Biodiversity Strategy and Action Plan (being updated)",
+   "Legal act (Green Economy text not reviewed)",
+   "ok",
+   "",
+   "bio",
+   ""
+  ],
+  [
+   "1",
+   "Forests",
+   "Concept for the Development of the Forest Sector to 2040 / Action Plan for Emergency Risk Reduction 2025–2030, Chapter 4",
+   "Document / Cabinet of Ministers Resolution No. 601 of 2025",
+   "ok",
+   "",
+   "forest",
+   ""
+  ],
+  [
+   "1",
+   "Pastures",
+   "Pasture Development Programme 2024–2029",
+   "Cabinet of Ministers Resolution No. 462 of 9 August 2024",
+   "ok",
+   "",
+   "past",
+   ""
+  ],
+  [
+   "1",
+   "Lake Issyk-Kul and other tourist site environments",
+   "Sustainable Tourism Development Programme 2025–2030 (Priority 5)",
+   "Cabinet of Ministers Resolution No. 765 of 18 December 2024",
+   "ok",
+   "",
+   "lake",
+   "T5"
+  ],
+  [
+   "1",
+   "Glaciers and mountain ecosystems",
+   "NDC 3.0",
+   "Document (text not reviewed)",
+   "ok",
+   "",
+   "glac",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Nature conservation"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "A national numerical target for forest area and an official annual series of afforestation area (NDP 2030 has no target)",
+  "Annual published figures on Lake Issyk-Kul water quality",
+  "Annual national observations of glacier area and volume",
+  "Values for the share of degraded land after 2019",
+  "The difference in counting methods for forest area between the World Bank indicator (6.5%) and the Zoï illustrated analysis (2.8 million ha)",
+  "Other material not verified: the Third Environmental Performance Review (UNECE; only the summary was available and the text could not be opened), the full Seventh National Report to the Convention on Biological Diversity, the texts of the Green Economy Development Programme 2025–2029, the Concept for the Development of the Forest Sector to 2040 and NDC 3.0, the main PDF of the World Bank Country Climate and Development Report (only the launch page reviewed), and the target period of the National Development Strategy 2018–2040's regional afforestation targets"
+ ]
+}

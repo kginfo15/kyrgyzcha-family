@@ -1,0 +1,1864 @@
+{
+ "sid": "transport",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Transport (Concept for the Development of the Road Sector 2023–2030, etc.)"
+  },
+  "rows": {
+   "road": {
+    "n": "Trunk roads",
+    "st": "Concept for the Development of the Road Sector 2023–30"
+   },
+   "bridge": {
+    "n": "Bridges, tunnels and passes",
+    "st": "Concept for the Development of the Road Sector 2023–30"
+   },
+   "corr": {
+    "n": "International corridors, borders and logistics",
+    "st": "Concept for the Development of the Road Sector 2023–30"
+   },
+   "city": {
+    "n": "Urban transport and e-mobility",
+    "st": "\"Smart and Sustainable City of Bishkek\" to 2033"
+   },
+   "rail": {
+    "n": "Railways",
+    "st": "(National Development Programme, Chapter 5)"
+   },
+   "air": {
+    "n": "Aviation",
+    "st": "(National Development Programme, Chapter 5)"
+   }
+  }
+ },
+ "ind": {
+  "road": {
+   "name": "(1) Roads and road safety",
+   "tag": "Road development, traffic accidents",
+   "goals": [
+    [
+     "Build, reconstruct or repair at least 50% of national roads (NDP 2030 Section 5.2)",
+     "Transport ministry reports only"
+    ],
+    [
+     "Raise transport sector value added to USD 1.5 billion (same)",
+     "National Statistical Committee yearbook only"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Road traffic deaths (per 100,000 population)",
+     "unit": "deaths",
+     "st": "△ About 9.6 in 2030 at the current pace",
+     "src": "WHO GHO RS_198 (estimates)",
+     "t": [
+      "SDG: halve"
+     ]
+    }
+   ]
+  },
+  "rail": {
+   "name": "(2) Railways and logistics",
+   "tag": "Freight transport, logistics quality",
+   "goals": [
+    [
+     "Raise rail freight to 15 million tonnes a year (NDP 2030 Section 5.2)",
+     "Tonnage only in the National Statistical Committee yearbook (international data in tonne-km)"
+    ],
+    [
+     "Develop at least 1 million m² of warehouses and logistics facilities (same)",
+     "No public data"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Rail freight transport",
+     "unit": "million tonne-km",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI IS.RRS.GOOD.MT.K6 (to 2021)",
+     "t": []
+    },
+    {
+     "name": "Logistics Performance Index",
+     "unit": "points (out of 5)",
+     "st": "— No target (falling trend)",
+     "src": "World Bank LPI (every few years)",
+     "t": []
+    }
+   ]
+  },
+  "air": {
+   "name": "(3) Aviation",
+   "tag": "Passengers and cargo",
+   "goals": [
+    [
+     "Raise airport passengers to 7 million a year and air cargo to 45,000 tonnes (NDP 2030 Section 5.2)",
+     "Airport user numbers only from announcements by the National Statistical Committee and the airport company"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Passengers carried by Kyrgyz airlines",
+     "unit": "million passengers",
+     "st": "— No target (falling trend)",
+     "src": "World Bank WDI IS.AIR.PSGR (originally ICAO)",
+     "note": "The national target counts airport users (including foreign airlines), which is far higher than this figure.",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Transport funding is concentrated in trunk roads (ADB, Japan, Islamic Development Bank); railways have no donor projects",
+  "msgs": [
+   [
+    "Large projects in trunk roads.",
+    "ADB's CAREC corridors, Japan's international trunk roads, the Islamic Development Bank's Suusamyr–Talas road and EBRD's Issyk-Kul Ring Road."
+   ],
+   [
+    "Bridges: Japan.",
+    "Replacement of the Naryn River and Urmaral River bridges (Japan)."
+   ],
+   [
+    "The China–Kyrgyzstan–Uzbekistan railway moves into full swing.",
+    "Opening reported for 2031. No donor projects."
+   ],
+   [
+    "Public transport in Bishkek.",
+    "Plan to buy 627 buses; talks with BYD on a monorail (6 November). GCF e-mobility as well."
+   ]
+  ],
+  "h2": "Funding is concentrated in trunk roads and international corridors; railways are a gap",
+  "rows": {
+   "road": [
+    "",
+    "ADB, Japan, Islamic Development Bank, EBRD"
+   ],
+   "bridge": [
+    "",
+    "Japan's bridge replacements"
+   ],
+   "corr": [
+    "",
+    "ADB's CAREC corridors"
+   ],
+   "city": [
+    "",
+    "GCF e-mobility"
+   ],
+   "rail": [
+    "",
+    "No donor projects (joint project with China)"
+   ],
+   "air": [
+    "",
+    "Japan's air traffic control"
+   ]
+  },
+  "h3": "Recent news centres on railways, winter roads and urban transport",
+  "themes": [
+   [
+    "Railways:",
+    "Construction of the China–Kyrgyzstan–Uzbekistan railway is in full swing. Accession to a UN railway convention."
+   ],
+   [
+    "Roads:",
+    "Winter traffic restrictions on mountain passes, new bypass roads."
+   ],
+   [
+    "Urban transport:",
+    "Large-scale bus purchases, a monorail concept."
+   ]
+  ]
+ },
+ "proj_t": {
+  "XI-IATI-EC_INTPA-2025-PC-66734": "Kara-Balta – Chaldovar Road Project",
+  "JICA-2561340": "Project for the Replacement of the Naryn River Bridge on the Bishkek–Osh Road for Improved Connectivity with the Caspian Route",
+  "JICA-2260700": "Project for the Improvement of Road Maintenance and Paving Equipment in Batken Region",
+  "JICA-1860640": "Project for Snowdrift Countermeasures on the Bishkek–Osh Road",
+  "JICA-1860380": "Project for the Replacement of the Urmaral River Bridge on the Talas–Taraz Road",
+  "JICA-KYR-P4": "International Trunk Road Improvement Project",
+  "JICA-2460030": "Project for the Improvement of Air Traffic Control Facilities at International Airports",
+  "JICA-1560740": "Project for Avalanche Countermeasures on the Bishkek–Osh Road",
+  "JICA-201400376": "Project for Capacity Enhancement in Road Disaster Management"
+ },
+ "title": "Kyrgyz Republic Transport Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030 (\"NDP 2030\"), Section 5.2 \"Regional Hub\" and the transport and logistics passage of Chapter III (Current Situation and Achievements)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "The five targets and six tasks of Section 5.2, and the transport passage of Chapter III (translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "roads",
+   "t": "Concept for the Development of the Road Sector 2023–2030",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic (Cabinet Resolution No. 71 of 10 February 2023)",
+   "y": "2023",
+   "scope": "First half of Chapter 1 only (institutions, condition of international, regional and local roads, Tables 1–4). The rest is on a paid site and has not been read (machine translation on this site)",
+   "cat": "gov",
+   "u": "https://base.spinform.ru/show_doc.fwx?rgn=148158"
+  },
+  {
+   "id": "cpmm",
+   "t": "CAREC Corridor Performance Measurement and Monitoring 2022: Kyrgyz Republic",
+   "by": "CAREC(ADB)",
+   "y": "2023",
+   "scope": "Full text of the Kyrgyz Republic page",
+   "cat": "donor",
+   "u": "https://cpmm.carecprogram.org/2022-report/kyrgyz-republic/"
+  },
+  {
+   "id": "oecd",
+   "t": "Enhancing the Competitiveness of the Trans-Caspian Transport Corridor in Central Asia: The Kyrgyz Republic",
+   "by": "OECD",
+   "y": "2025",
+   "scope": "Full text of the Kyrgyz Republic chapter",
+   "cat": "donor",
+   "u": "https://www.oecd-ilibrary.org/en/publications/enhancing-the-competitiveness-of-the-trans-caspian-transport-corridor-in-central-asia_f261e7fa-en/full-report/the-kyrgyz-republic_031d8e19"
+  },
+  {
+   "id": "carec",
+   "t": "Overview of CAREC Activities in the Road Sector",
+   "by": "ADB / CAREC (presentation)",
+   "y": "2024",
+   "scope": "All pages. For the Kyrgyz Republic, only the description of road maintenance organisational reform is used; figures in charts that cannot be separated by country are not used",
+   "cat": "donor",
+   "u": "https://www.carecprogram.org/uploads/B9a-TSCC-2024-Cartier-Road-Sector-Overview-EN-amended.pdf"
+  },
+  {
+   "id": "infragov",
+   "t": "Kyrgyz Republic Infrastructure Governance Assessment",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "About the first three-quarters of the PDF (there is no separate transport chapter; descriptions from the investment management chapters are used)",
+   "cat": "donor",
+   "u": "https://thedocs.worldbank.org/en/doc/b38abeabc516d7f3ac1ea83715d8f23a-0080012023/original/Kyrgyz-Republic-InfraGov-Report.pdf"
+  },
+  {
+   "id": "adbtor",
+   "t": "Validation Report: CAREC Transport Corridor 1 (Bishkek–Torugart Road) Project 2",
+   "by": "ADB Independent Evaluation Department",
+   "y": "Dec 2016",
+   "scope": "Summary on the landing page only (the full PDF was not opened)",
+   "cat": "donor",
+   "u": "https://www.adb.org/documents/kyrgyz-republic-carec-transport-corridor-1-bishkek-torugart-road-project-2"
+  },
+  {
+   "id": "nds",
+   "t": "National Development Strategy 2018–2040",
+   "by": "Kyrgyz Republic",
+   "y": "2018",
+   "scope": "Transport (the infrastructure passage of Chapter 4) and the digital transformation passage (machine translation on this site)",
+   "cat": "gov",
+   "u": "https://adam.edu.kg/media/uploads/2022/04/15/national-strategy-of-kyrgyz-republic-2018-2040.pdf"
+  },
+  {
+   "id": "dt",
+   "t": "Digital Transformation Concept 2024–2028 (Chapter 4, §8 Digital Transport)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 90 of 5 April 2024)",
+   "y": "2024",
+   "scope": "Chapter 4, §8 (machine translation on this site)",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=6414&lang=ru"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Transport relies almost entirely on roads. Roads carry about 98% of passengers and over 96% of freight. The share of international roads in good condition rose from 21% to 44%, but 36% of regional and local roads are in poor condition (2019).",
+   "ref": [
+    "doc:roads"
+   ],
+   "h": "Transport depends almost entirely on roads, and the domestic network is deteriorating"
+  },
+  {
+   "k": "f",
+   "t": "None of the five NDP 2030 targets (15 million tonnes of rail freight, 1 million m² of logistics facilities, 50% of roads rehabilitated, USD 1.5 billion of value added, 7 million airport passengers) can be tracked with annual published figures.",
+   "ref": [
+    "doc:ndp"
+   ],
+   "h": "None of the five national targets can be tracked annually"
+  },
+  {
+   "k": "f",
+   "t": "Road traffic deaths rose from 11.5 per 100,000 population (2018) to 13.8 (2023), moving away from the SDG benchmark of 8.4.",
+   "ref": [
+    "ind:road:0"
+   ],
+   "h": "Road traffic deaths are rising again"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation mapped to the transport strategy comprises 26 projects worth about USD 424 million; about USD 365 million is concentrated in the trunk roads row, and railways are a gap.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "row:road",
+    "fact:empty_rows"
+   ],
+   "h": "Funding is concentrated in trunk roads; railways are a gap"
+  },
+  {
+   "k": "v",
+   "t": "The weight of national targets is shifting to railways, logistics, aviation and border procedures. The next issues are reform of border regimes and road maintenance rather than physical assets.",
+   "ref": [
+    "doc:ndp",
+    "doc:oecd",
+    "doc:cpmm"
+   ],
+   "h": "The next issues are border regimes and maintenance reform"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Transport overview",
+     "msg": "Transport relies almost entirely on roads; international roads have been largely rehabilitated, while regional and local roads are deteriorating.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "98",
+        "u": "%",
+        "k": "Share of passenger transport carried by road (freight: over 96%)",
+        "ref": "doc:roads"
+       },
+       {
+        "v": "19,000",
+        "u": "km",
+        "k": "Length of public roads managed by the state",
+        "ref": "doc:roads"
+       },
+       {
+        "v": "36",
+        "u": "%",
+        "k": "Share of regional and local roads in poor condition (2019)",
+        "ref": "doc:roads",
+        "hot": true
+       },
+       {
+        "v": "13.8",
+        "u": "deaths",
+        "k": "Road traffic deaths per 100,000 population (2023)",
+        "ref": "ind:road:0",
+        "hot": true
+       },
+       {
+        "v": "2.3",
+        "u": "points",
+        "k": "Logistics Performance Index (2022, out of 5)",
+        "ref": "ind:rail:1"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Road network size and condition"
+      },
+      {
+       "k": "f",
+       "t": "Public roads carry about 98% of passenger transport and over 96% of freight transport, moving up to 40 million tonnes of freight and 640 million passengers a year.",
+       "ref": [
+        "doc:roads"
+       ],
+       "b": "Roads carry about 98% of passengers and over 96% of freight"
+      },
+      {
+       "k": "f",
+       "t": "Roads and streets total about 34,000 km, of which 19,000 km are public roads managed by the Ministry of Transport and Communications: 4,326 km of roads of international importance, 5,335 km of national roads and 9,149 km of local roads.",
+       "ref": [
+        "doc:roads"
+       ],
+       "b": "19,000 km of public roads are managed by the state"
+      },
+      {
+       "k": "f",
+       "t": "Of public roads, 7,580 km have hard surfaces (5,698 km asphalt concrete, 1,871 km black gravel, etc.). 9,388 km are gravel roads and 1,617 km remain unpaved. There are also 15,190 km of streets and roads belonging to cities, villages and enterprises.",
+       "ref": [
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The share of international roads in good condition rose from 21% (2010) to 44% (2019). Since 1997, 2,043 km have been rehabilitated with donor investment.",
+       "ref": [
+        "doc:roads"
+       ],
+       "b": "International roads in good condition: 21% → 44%"
+      },
+      {
+       "k": "f",
+       "t": "However, the share of international transport corridor roads in good condition fell from 68% (2015) to 58% (2019). Of 14,576 km of regional and local roads, 36% were in poor condition (2019), and the share in good condition fell from 32% (2015) to 24% (2020).",
+       "ref": [
+        "doc:roads"
+       ],
+       "b": "36% of regional and local roads are in poor condition"
+      },
+      {
+       "k": "f",
+       "t": "Regional and local roads in poor condition grew from 2,186 km (2010) and 2,163 km (2015) to 5,210 km (2019), more than doubling in nine years. By road roughness, 46.5% of national roads are \"poor\".",
+       "ref": [
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's infrastructure governance assessment states that road and rail density is low and lags neighbouring countries, and that much of the road network is of poor quality. In the 2019 Global Competitiveness Index, the country ranked 103rd of 140 for infrastructure and 129th for transport infrastructure.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the World Economic Forum report, road quality ranked 113th of 141 countries.",
+       "ref": [
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "From 2021 to 2024, freight volumes across all modes rose by more than 21%, and transport and storage services grew from 28.6 billion som to 46.8 billion som. Forty trade and logistics centres are in operation.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Freight volumes rose by more than 21% in 2021–24"
+      },
+      {
+       "k": "f",
+       "t": "As trade background, the OECD notes that precious metals accounted for 51% of exports in 2018, and that the share of (re-)exports to Russia rose from 14% (2018) to 19% (2023).",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Freight flows and logistics"
+      },
+      {
+       "k": "f",
+       "t": "The main driver of logistics growth is the entry of international online marketplaces and the opening of their branches; more than 30,000 Kyrgyz sellers are registered, three times the 2022 number.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The OECD states that road is the main mode of transport, and that rail from the EU and Türkiye costs about the same as road but takes far longer. Half of survey respondents reported growing delays at the border with Kazakhstan, and queues of up to 400 trucks form in winter at the Caspian port of Aktau.",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "A 132,000 m² logistics hub (IBC Global Hub) on the outskirts of Bishkek is expected to be completed by the end of 2028. NDP 2030 states that 40 logistics centres are in operation.",
+       "ref": [
+        "doc:oecd",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The OECD states that about 3,500 km of roads were paved in the past four years.",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "There is a dual structure: international corridors are being rehabilitated with donor funding, while the domestic road network deteriorates for lack of budget.",
+       "ref": [
+        "doc:roads"
+       ],
+       "b": "International roads improve while the domestic network deteriorates"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Transport policy is structured as NDP 2030 Section 5.2 (Regional Hub) → the Concept for the Development of the Road Sector 2023–2030; the site's policy tree has no separate national plan for railways, aviation or urban transport.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: NDP 2030 Section 5.2 \"Regional Hub\" sets five targets: (1) 15 million tonnes of rail freight a year; (2) at least 1 million m² of warehouses and logistics facilities; (3) construction, reconstruction or repair of at least 50% of national roads; (4) USD 1.5 billion of value added in the transport sector; (5) 7 million airport passengers and 45,000 tonnes of air cargo a year.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 Section 5.2: five targets including 15 million tonnes of rail freight and 50% of roads"
+      },
+      {
+       "k": "f",
+       "t": "Long-term direction: the National Development Strategy 2018–2040 states that transport infrastructure will bring the country out of its \"transport dead end\" and make the Kyrgyz Republic a transit country with safe transit corridors for passengers and freight. It envisages a domestic railway network linking north and south, with public–private partnerships as the main instrument for projects in this area.",
+       "ref": [
+        "doc:nds"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same strategy calls for rehabilitating at least 550 km of trunk roads every year, of which at least 200 km should be domestic roads, and names toll road schemes and procurement of special equipment as sources of finance for maintenance and operation. For aviation, it calls for liberalising the Air Code, introducing the \"fifth freedom\", and making Manas Airport a transit cargo hub linking Southeast Asia and Europe.",
+       "ref": [
+        "doc:nds"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The tasks of Section 5.2 are: reconstructing and building the road network (including the North–South road); the railway network (China–Kyrgyzstan–Uzbekistan railway, electrification); renewing urban transport (electric buses, charging network); civil aviation (airports, air traffic control); transport and logistics centres; and participation in international ports and routes.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Six tasks: roads, railways, urban transport, aviation, logistics, international routes"
+      },
+      {
+       "k": "f",
+       "t": "As international routes, Section 5.2 lists \"Kyrgyzstan–China–Pakistan\", \"Kyrgyzstan–Uzbekistan–Turkmenistan–Russia\" and \"China–Kyrgyzstan–Uzbekistan–Turkmenistan–Iran\", and calls for public–private partnerships and direct investment in port logistics and simplified trade and customs procedures. For building roads and transport hubs, it calls for creating conditions for investment agreements and public–private partnerships (PPPs).",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Road plan: the Concept for the Development of the Road Sector 2023–2030 (Cabinet Resolution No. 71 of 10 February 2023). It replaced the previous Concept 2016–2025 (Government Resolution No. 372).",
+       "ref": [
+        "tree:roads:roads",
+        "doc:roads"
+       ],
+       "b": "Concept for the Development of the Road Sector 2023–2030"
+      },
+      {
+       "k": "f",
+       "t": "As directions for reform, the Concept lists introducing market-based management mechanisms, strengthening the financial base for roads and introducing digital management. External funding for roads accounts for 35–48% of total external investment.",
+       "ref": [
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "External funding for transport (state budget tables) was 5,471 million som (2018) and 8,971 million som (2022, approved), with 15,628 million som projected for 2024. Agricultural, transport, energy and water infrastructure account for 92.3% of public investment in 2023–2025.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Institutional arrangements in the Concept: the Roads Department of the Ministry of Transport and Communications sets policy; the ministry's Road Facilities Directorate acts as the client for road works and is responsible for construction, repair and maintenance; and the Land and Water Transport Department manages transit traffic.",
+       "ref": [
+        "doc:roads",
+        "tree:roads:RD5"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On financing: the budget for road construction, repair and maintenance rose 7.7-fold in 2006–2010, improving the condition of more than 630 km of asphalt and black gravel roads, among others. Budget shortfalls persisted in 2010–2020. The Concept also cites the informal economy (more than 23% according to the National Statistical Committee) as a background factor in budget shortfalls.",
+       "ref": [
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank assessment estimates that roads, water and power need additional spending of 63% of GDP (2018) over 2019–2030, about two-thirds of it for roads. The national public investment programme amounts to only 3–5% of GDP a year.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The site's policy tree groups the Concept into five pillars: (1) roads of international importance; (2) national, regional and local roads; (3) bridges and tunnels; (4) maintenance and road safety; (5) institutions and finance.",
+       "ref": [
+        "tree:roads:RD1",
+        "tree:roads:RD2",
+        "tree:roads:RD3",
+        "tree:roads:RD4",
+        "tree:roads:RD5"
+       ],
+       "b": "Five pillars of the Concept"
+      },
+      {
+       "k": "f",
+       "t": "In road maintenance, 57 regional maintenance units and corridor organisations were merged into a single state enterprise (Kyrgyzavtozhol) with six regional branches, fully funded through annual contracts.",
+       "ref": [
+        "doc:carec",
+        "tree:roads:RD4"
+       ],
+       "b": "Maintenance units were merged into a single state enterprise"
+      },
+      {
+       "k": "f",
+       "t": "The CAREC material states that 57 regional maintenance units, four corridor organisations and the Bishkek–Osh road directorate were merged into one state enterprise, and that the former regional bodies became local offices of the road management department of the Ministry of Transport and Communications.",
+       "ref": [
+        "doc:carec",
+        "tree:roads:RD4"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Note: the chapters of the Concept on targets, measures and expected results are on a paid site and have not been read. The Concept's numerical targets are therefore not covered here.",
+       "ref": [
+        "doc:roads"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the subprogrammes",
+     "msg": "Only roads have a national plan; for four of the five NDP 2030 targets (railways, logistics, value added, aviation), the site's policy tree has no responsible plan.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Subprogrammes (active cooperation by table row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The road Concept covers trunk roads and corridors, national and local roads, bridges, maintenance, and institutions and finance. Urban transport is said to be covered by \"Smart and Sustainable City of Bishkek\" to 2033, but its text has not been checked. Railways and aviation appear only in the text of NDP 2030.",
+       "ref": [
+        "tree:roads:roads",
+        "row:city",
+        "row:rail",
+        "row:air"
+       ],
+       "b": "Only roads have a plan"
+      },
+      {
+       "k": "v",
+       "t": "The weight of the NDP 2030 targets lies in railways, logistics and aviation, yet no national plan to elaborate them can be found. This is where the gap between targets and implementation is widest.",
+       "ref": [
+        "doc:ndp",
+        "row:rail",
+        "row:air"
+       ],
+       "b": "Railways, logistics and aviation have targets but no plans"
+      },
+      {
+       "k": "v",
+       "t": "According to the Concept, international roads were rehabilitated with donor funding, while national and local roads deteriorated amid persistent budget shortfalls. The domestic roads pillar (Pillar 2) and the maintenance pillar (Pillar 4) appear to be where the gap between plans and funding is widest.",
+       "ref": [
+        "doc:roads",
+        "tree:roads:RD2",
+        "tree:roads:RD4"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Concept lists ADB, EBRD, the Export-Import Bank of China, the World Bank, the EU, the Eurasian Development Bank, JICA, the Arab Coordination Group and others as financiers of international road rehabilitation since 1997.",
+       "ref": [
+        "doc:roads"
+       ],
+       "jp": true,
+       "tnj": "The Concept lists ADB, EBRD, the Export-Import Bank of China, the World Bank, the EU, the Eurasian Development Bank, the Arab Coordination Group and others as financiers of international road rehabilitation since 1997."
+      },
+      {
+       "k": "f",
+       "t": "In railways, the first railway public–private partnership (Karakol–Makmal) was signed with a US consortium in early 2025. In roads, the Uzgen bypass PPP will build more than 14 km of new road.",
+       "ref": [
+        "doc:oecd",
+        "row:rail"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank assessment states that feasibility studies for PPP projects are optional, which can undermine quality, and that only USD 1 million of the USD 4 million project preparation fund has been used or committed. Public transport is one of three areas where PPPs are active.",
+       "ref": [
+        "doc:infragov"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the five national targets",
+     "msg": "None of the five NDP 2030 targets can be tracked with annual international data; the only trackable international target, road traffic deaths, is off track.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the past five years; required pace = change needed to reach the target in 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The five targets of NDP 2030 Section 5.2 (rail freight tonnage, warehouse floor area, share of roads rehabilitated, transport value added, airport passengers and cargo) appear only in national yearbooks and announcements by the transport ministry and airport company; there are no figures the site can retrieve automatically each year.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "None of the five targets can be tracked annually"
+      },
+      {
+       "k": "f",
+       "t": "International data on rail freight are in tonne-kilometres (to 2021) and air passengers cover Kyrgyz airlines only, so they use different yardsticks from the national targets (tonnes, and airport users including foreign airlines).",
+       "ref": [
+        "ind:rail:0",
+        "ind:air:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The current-situation passage of NDP 2030 gives the value of transport and storage services as 28.6 billion som (2021) and 46.8 billion som (2024). This is a different yardstick from the target of \"USD 1.5 billion of transport value added\", so progress cannot be read from it.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the five targets, 15 million tonnes of rail freight and 7 million airport passengers are large targets that depend on whether new railway and airport capacity is built. The 50% roads target depends on the volume of domestic road rehabilitation. Because none has annual results, delays cannot be spotted and addressed along the way.",
+       "ref": [
+        "doc:ndp",
+        "row:rail",
+        "row:air",
+        "row:road"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Bringing road traffic deaths down to the benchmark of 8.4 requires a level about 30% below even the 11.5 of 2018. Few active projects have road safety as their main objective, so pairing road rehabilitation with safety measures is a challenge.",
+       "ref": [
+        "ind:road:0",
+        "tree:roads:RD4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Road traffic deaths are 13.8 per 100,000 population (2023). Reaching the SDG benchmark of 8.4 (half the 2010 level) would require a fall of 0.77 a year, but over the past five years they have risen by 0.46 a year.",
+       "ref": [
+        "ind:road:0"
+       ],
+       "b": "Road traffic deaths: rising over the past five years"
+      },
+      {
+       "k": "v",
+       "t": "The long-term strategy's \"rehabilitation of at least 550 km a year\" is a volume target alongside NDP 2030's \"at least 50% of national roads\", but no annual results are published for either. Simply publishing the length rehabilitated each year would make it possible to measure the gap to target.",
+       "ref": [
+        "doc:nds",
+        "doc:ndp",
+        "row:road"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Roads and road safety",
+     "msg": "International roads have been largely rehabilitated, but road traffic deaths have risen again since 2018 and domestic roads are deteriorating.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Road traffic deaths (dotted line = SDG benchmark)",
+      "inds": [
+       "road:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "Trend: road traffic deaths fell from 16.8 per 100,000 population (2010) to 11.5 (2018), then rose to 13.8 (2023).",
+       "ref": [
+        "ind:road:0"
+       ],
+       "b": "Road traffic deaths 11.5 (2018) → 13.8 (2023)"
+      },
+      {
+       "k": "f",
+       "t": "Road traffic deaths peaked at 21.0 in 2014 and fell sharply until 2018. Since then they have fluctuated between 12 and 14 and have not approached half the 2010 level of 16.8 (8.4).",
+       "ref": [
+        "ind:road:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "By road roughness (IRI, International Roughness Index), 59.7% of international roads are good and 19.0% poor; for national roads, 24.1% are good and 46.5% poor.",
+       "ref": [
+        "doc:roads"
+       ],
+       "b": "46.5% of national roads are poor (IRI)"
+      },
+      {
+       "k": "f",
+       "t": "Phase 2 of the Bishkek–Torugart road rehabilitated five sections, dividing sections with other development partners, and included a customs inspection facility in the plan.",
+       "ref": [
+        "doc:adbtor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On international roads, 2,043 km have been rehabilitated since 1997 and 900 km are covered by rehabilitation projects. Phase 2 of ADB's Bishkek–Torugart road (539 km, linking western China with Kazakhstan and Russia) was rated \"successful\" in its evaluation.",
+       "ref": [
+        "doc:roads",
+        "doc:adbtor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 lists improving road traffic safety among its public safety tasks. The pillars of the road Concept include maintenance equipment, measures against winter snowdrifts and avalanches, and road safety facilities.",
+       "ref": [
+        "doc:ndp",
+        "tree:roads:RD4"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "The road budget rose 7.7-fold in 2006–2010, but budget shortfalls persisted in 2010–2020. The Concept cites inefficient work planning as a cause of the budget shortfall.",
+       "ref": [
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national target of \"rehabilitating at least 50% of national roads\" appears to target a domestic network in which more than 40% of sections are in poor condition. Without published annual rehabilitation results, progress cannot be measured.",
+       "ref": [
+        "doc:ndp",
+        "doc:roads"
+       ],
+       "b": "The 50% roads target cannot be measured without published results"
+      },
+      {
+       "k": "f",
+       "t": "The transport section of the Digital Concept 2024–2028 lists a digital map of all roads, a road asset management system (RAMS) to plan maintenance budgets, automated quality monitoring of road construction and GPS on machinery, and automated weighing and measurement of freight vehicles. It states that weight control will remove corruption risks in enforcement and reduce road damage.",
+       "ref": [
+        "doc:dt",
+        "tree:roads:RD4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "A road asset management system is the foundation for the \"planning that includes life-cycle costs\" called for by the World Bank assessment. Annual road condition data would also make it possible to measure progress on NDP 2030's \"50% of roads\".",
+       "ref": [
+        "doc:dt",
+        "doc:infragov",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank assessment states that life-cycle costs, including maintenance, are hardly considered at the project planning stage, and that the 2022 public investment management regulation (No. 714) does not require them either. In 2022, capital investment crowded out recurrent spending, leaving insufficient funds to operate and maintain existing assets.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Citing the Islamic Development Bank-financed rehabilitation of the Osh–Batken–Isfana road (170 million som), the same assessment expresses concern that rehabilitated roads again require external funding.",
+       "ref": [
+        "doc:infragov",
+        "proj:XM-DAC-46025-ISDB-KGZ0048"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On procurement, the 2022 Law on Public Procurement excluded state and municipal enterprises from its scope, raising transparency concerns. The assessment recommends requiring life-cycle cost projections for all public investment and aligning sector investment plans with the medium-term budget.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The deterioration of domestic roads stems not only from the volume of funding but from a system in which funding is skewed towards new construction and rehabilitation and maintenance is deferred. Corporatising maintenance and including life-cycle costs in planning are the reforms that would advance the 50% roads target.",
+       "ref": [
+        "doc:infragov",
+        "doc:roads",
+        "doc:carec"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the trunk roads row has 18 projects worth about USD 365 million (JICA about USD 133 million, ADB about USD 130 million, Islamic Development Bank about USD 52.3 million, EBRD about USD 23.9 million, Japan (Embassy, etc.) about USD 16.5 million, Korea about USD 7 million). Korea's project is for road safety improvement (2026–2030).",
+       "ref": [
+        "row:road"
+       ],
+       "b": "About USD 365 million in the trunk roads row",
+       "jp": true,
+       "tnj": "Related cooperation: the trunk roads row has 18 projects worth about USD 365 million (ADB about USD 130 million, Islamic Development Bank about USD 52.3 million, EBRD about USD 23.9 million, Korea about USD 7 million, and others). Korea's project is for road safety improvement (2026–2030).",
+       "bnj": "About USD 365 million in the trunk roads row"
+      },
+      {
+       "k": "f",
+       "t": "Main trunk road projects: JICA's International Trunk Road Improvement (about USD 85.1 million); ADB's CAREC Corridors 1 and 3 Connector Road (loan about USD 68.5 million, grant about USD 9.5 million, to 2027); the Islamic Development Bank's Susamyr–Talas–Taraz road Phase 4 (about USD 52.3 million, to 2027); ADB's Issyk-Kul Ring Road (Barskoon–Karakol, about USD 29 million and about USD 7.5 million, to 2033); and EBRD's Issyk-Kul Ring Road (about USD 23.9 million).",
+       "ref": [
+        "proj:JICA-KYR-P4",
+        "proj:XM-DAC-46004-48401-007-LN3730",
+        "proj:XM-DAC-46004-48401-007-GRNT0621",
+        "proj:XM-DAC-46025-ISDB-KGZ1027",
+        "proj:XM-DAC-46004-56146-001-LN4485",
+        "proj:XM-DAC-46004-56146-001-GRNT0965",
+        "proj:XI-IATI-EBRD-52367"
+       ],
+       "jp": true,
+       "tnj": "Main trunk road projects: ADB's CAREC Corridors 1 and 3 Connector Road (loan about USD 68.5 million, grant about USD 9.5 million, to 2027); the Islamic Development Bank's Susamyr–Talas–Taraz road Phase 4 (about USD 52.3 million, to 2027); ADB's Issyk-Kul Ring Road (Barskoon–Karakol, about USD 29 million and about USD 7.5 million, to 2033); and EBRD's Issyk-Kul Ring Road (about USD 23.9 million)."
+      },
+      {
+       "k": "f",
+       "t": "Maintenance and safety projects: Korea's road safety improvement on the Bishkek–Issyk-Kul road (about USD 7 million, 2026–2030); JICA's snowdrift countermeasures on the Bishkek–Osh road (about USD 7.4 million); JICA's road maintenance and paving equipment for Batken Region (about USD 5 million); and the EU's Kara-Balta–Chaldovar road (about USD 2.7 million).",
+       "ref": [
+        "proj:KR-GOV-010-KR-GOV-051-2026010100107",
+        "proj:JICA-1860640",
+        "proj:JICA-2260700",
+        "proj:XI-IATI-EC_INTPA-2025-PC-66734"
+       ],
+       "jp": true,
+       "tnj": "Maintenance and safety projects include Korea's road safety improvement on the Bishkek–Issyk-Kul road (about USD 7 million, 2026–2030) and the EU's Kara-Balta–Chaldovar road (about USD 2.7 million)."
+      },
+      {
+       "k": "f",
+       "t": "Bridge projects: JICA's replacement of the Naryn River bridge on the Bishkek–Osh road (about USD 22.8 million, 2025–2032), and Japan (Embassy, etc.) and JICA's Urmaral River bridge on the Talas–Taraz road (about USD 16.5 million and about USD 12.8 million).",
+       "ref": [
+        "proj:JICA-2561340",
+        "proj:XM-DAC-701-2-2019010350",
+        "proj:JICA-1860380",
+        "row:bridge"
+       ],
+       "jp": true,
+       "tnj": "Bridge projects consist of bridge replacements on the Bishkek–Osh and Talas–Taraz roads."
+      },
+      {
+       "k": "v",
+       "t": "Active funding is concentrated in international corridors and major tourist and regional ring roads, with few projects directly targeting regional and local roads, where many sections are in poor condition. Only one project, Korea's, has road safety as its main objective.",
+       "ref": [
+        "row:road",
+        "doc:roads",
+        "ind:road:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The bridges, tunnels and passes row has 4 projects worth about USD 52.1 million (JICA about USD 35.5 million, Japan (Embassy, etc.) about USD 16.5 million).",
+       "ref": [
+        "row:bridge"
+       ],
+       "b": "About USD 52.1 million in the bridges row",
+       "jp": true,
+       "tnj": "The bridges, tunnels and passes row has 4 projects worth about USD 52.1 million.",
+       "bnj": "About USD 52.1 million in the bridges row"
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "International corridors, logistics and railways",
+     "msg": "Border crossing times have shortened, but logistics quality has declined since 2018, and railways, where new line construction has only just begun, are a gap in cooperation.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Logistics Performance Index and rail freight",
+      "inds": [
+       "rail:1",
+       "rail:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "The Logistics Performance Index fell from 2.55 (2018) to 2.30 (2022) (out of 5).",
+       "ref": [
+        "ind:rail:1"
+       ],
+       "b": "Logistics index 2.55 → 2.30"
+      },
+      {
+       "k": "f",
+       "t": "Rail freight went from 738 (2010) to 1,003 million tonne-km (2021), rising and falling repeatedly.",
+       "ref": [
+        "ind:rail:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Rail freight peaked at 1,010 million tonne-km in 2014, fell to 807 in 2016 and recovered to 1,003 in 2021. International data run only to 2021; later values appear only in national yearbooks.",
+       "ref": [
+        "ind:rail:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Rail freight has not grown much in ten years, so NDP 2030's \"15 million tonnes a year\" appears to assume the opening of the China–Kyrgyzstan–Uzbekistan railway rather than an extension of current lines.",
+       "ref": [
+        "ind:rail:0",
+        "doc:ndp",
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank assessment puts the country 108th of 160 on the Logistics Performance Index, with a score of 2.4 out of 5 for trade and transport infrastructure.",
+       "ref": [
+        "doc:infragov",
+        "ind:rail:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "CAREC corridor measurements show road border crossing time falling by 24%, from 3.7 hours (2021) to 2.8 hours (2022). Border crossing costs, however, rose from USD 23 to USD 31. Exit at Torugart, at 50.1 hours (2022), was the longest delay, attributed to China's COVID-19 measures.",
+       "ref": [
+        "doc:cpmm"
+       ],
+       "b": "Border crossing 3.7 → 2.8 hours; exit at Torugart 50 hours"
+      },
+      {
+       "k": "f",
+       "t": "The cost of moving 20 tonnes of freight 500 km was USD 1,888 by road and USD 556 by rail (2022).",
+       "ref": [
+        "doc:cpmm"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Speeds on CAREC corridors (excluding stops) were 51.8 km/h by road (2022), while rail rose from 21.2 km/h to 30.1 km/h. Rail border crossing time fell from 1.6 hours to 1.0 hour.",
+       "ref": [
+        "doc:cpmm"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Delays by border: entry at Torugart rose from 2.3 hours (2020) to 5.1 hours (2022) and exit from 2.4 hours to 50.1 hours. The report attributes this to China's COVID-19 measures requiring trailers to be transloaded in the border buffer zone, and states that the measures ended at the end of 2022. At Chaldovar, entry time fell but costs rose from USD 8 to USD 44.",
+       "ref": [
+        "doc:cpmm"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Construction of the China–Kyrgyzstan–Uzbekistan railway began on 27 December 2024. It is expected to cost USD 8 billion, mostly financed by China. The Kyrgyz Republic plans to contribute USD 130.5 million to the joint venture. Electrification is not planned.",
+       "ref": [
+        "doc:oecd"
+       ],
+       "b": "China–Kyrgyzstan–Uzbekistan railway: construction began in December 2024"
+      },
+      {
+       "k": "f",
+       "t": "According to the OECD, the new railway will run from Kashgar via the Torugart Pass and Jalal-Abad to Andijan, and is expected to shorten transport from China to Europe by up to one week. The Kyrgyz Republic's total investment could reach USD 700 million (14.5% of the 2025 budget).",
+       "ref": [
+        "doc:oecd",
+        "row:rail"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "The OECD cites a shortage and high cost of transit permits (dozvol), paper documents, inadequate border inspection equipment, rest areas and refrigeration, and empty return trips due to low eastbound freight. It recommends extending electronic permits and risk-based customs inspection to all borders.",
+       "ref": [
+        "doc:oecd"
+       ],
+       "b": "OECD: transit permits, paper documents and border facilities are issues"
+      },
+      {
+       "k": "f",
+       "t": "OECD recommendations: make transit permit criteria transparent, lower their price and move to electronic permits; add terminals, inspection equipment and heated driver rest areas at border checkpoints; extend risk-based inspection and colour-coded lanes, including separate lanes for perishables, to all borders; align border operating hours with neighbours; and enable cargo insurance covering the whole corridor.",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "CAREC measurements show the road cost of 20 tonnes over 500 km swinging widely: USD 1,346 (2020), USD 2,194 (2021) and USD 1,888 (2022). Rail rose from USD 413 (2021) to USD 556 (2022).",
+       "ref": [
+        "doc:cpmm"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The OECD states that, with customs' risk-based system, import and export clearance now takes 30 minutes from registration of the declaration and customs procedures at most 3 hours. Electronic queuing has started at Kyzyl-Kiya and Dostuk (Uzbek border). The country's average score on the OECD Trade Facilitation Indicators (2024) is 1.204, second in Central Asia after Kazakhstan.",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On the other hand, the country joined the electronic consignment note (e-CMR) in 2022 and applied for electronic TIR (customs transit for international road transport) in April 2024, but neither is fully operational. More than 60% of respondents want customs declarations to be fully electronic.",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Border reopening: the Kensai border crossing with Kazakhstan reopened at the end of 2024, and four border crossings with Tajikistan also reopened.",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030 lists railway electrification as a task, yet the largest new line is not planned to be electrified, and the relationship between the two is not explained. Railways are the first NDP 2030 target, yet the railway row has no active donor cooperation.",
+       "ref": [
+        "doc:ndp",
+        "doc:oecd",
+        "row:rail"
+       ],
+       "b": "New line not to be electrified; railway cooperation is a gap"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the international corridors, borders and logistics row has 8 projects worth about USD 94.7 million (almost all ADB). The railway row has none.",
+       "ref": [
+        "row:corr",
+        "row:rail"
+       ],
+       "b": "About USD 94.7 million in the corridors row (ADB); no railway projects"
+      },
+      {
+       "k": "f",
+       "t": "Main border projects: ADB's border services improvement for the Almaty–Bishkek Economic Corridor (grant about USD 7.8 million, loan about USD 7.5 million, 2025–2030); ADB's preparation of CAREC transport connectivity (about USD 1 million); civil society's Ready4Trade (about USD 0.2 million); and Korea's integrated logistics centre (preparation stage).",
+       "ref": [
+        "proj:XM-DAC-46004-54439-001-GRNT1039",
+        "proj:XM-DAC-46004-54439-001-LN4637",
+        "proj:XM-DAC-46004-57037-011-GRNT1083",
+        "proj:XM-DAC-45001-C318",
+        "proj:KR-GOV-010-KR-GOV-051-2025070100378",
+        "row:corr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Border times and costs depend more on procedures, permits and neighbouring countries' measures than on facilities. ADB's border services project covers both facilities and procedures. Institutional issues such as transit permits and electronic TIR offer large scope for technical cooperation.",
+       "ref": [
+        "doc:cpmm",
+        "doc:oecd",
+        "row:corr"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Aviation and urban transport",
+     "msg": "Aviation has not returned to pre-COVID levels, and climate finance has begun to flow into the shift of urban transport to electric buses.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Passengers carried by Kyrgyz airlines",
+      "inds": [
+       "air:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Aviation"
+      },
+      {
+       "k": "f",
+       "t": "Passengers carried by Kyrgyz airlines fell from 1.18 million (2018) to 170,000–190,000 in 2020–21 and were 800,000 in 2023. The national target (7 million airport passengers) includes foreign airlines and cannot be compared with this figure.",
+       "ref": [
+        "ind:air:0",
+        "doc:ndp"
+       ],
+       "b": "Domestic airline passengers: 800,000 (2023)"
+      },
+      {
+       "k": "f",
+       "t": "Passengers on Kyrgyz airlines grew from 380,000 (2010) to 1.18 million (2018), fell to 870,000 in 2019, then collapsed with COVID-19.",
+       "ref": [
+        "ind:air:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The long-term strategy calls for modernising air traffic control and airspace in step with the renovation, expansion and construction of airports, and for upgrading radio, radar, navigation and communications equipment.",
+       "ref": [
+        "doc:nds",
+        "row:air"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 lists removing domestic airlines from the ICAO \"blacklist\" as a tourism task.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030's civil aviation tasks: expanding domestic and international routes; building, reconstructing and modernising airports; small aviation including private operators; modernising air navigation systems; flight safety and aviation security to international standards; unmanned aviation technology and regulation; and aviation human resource development.",
+       "ref": [
+        "doc:ndp",
+        "row:air"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The aviation row has one project: JICA's air traffic control facilities at international airports (about USD 15.4 million, 2024–2031).",
+       "ref": [
+        "proj:JICA-2460030",
+        "row:air"
+       ],
+       "jp": true,
+       "tnj": "The aviation row has one project: air traffic control facilities at international airports."
+      },
+      {
+       "k": "h",
+       "t": "Urban transport"
+      },
+      {
+       "k": "f",
+       "t": "For urban transport, NDP 2030 lists electric and hybrid buses, a charging network and cycle lanes.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the urban transport and e-mobility row has 3 projects worth about USD 42.5 million (Green Climate Fund e-mobility about USD 32.5 million, EBRD Bishkek buses about USD 9 million). The aviation row has 1 project worth about USD 15.4 million (JICA air traffic control facilities).",
+       "ref": [
+        "row:city",
+        "row:air"
+       ],
+       "b": "About USD 42.5 million for urban transport; about USD 15.4 million for aviation",
+       "jp": true,
+       "tnj": "Related cooperation: the urban transport and e-mobility row has 3 projects worth about USD 42.5 million (Green Climate Fund e-mobility about USD 32.5 million, EBRD Bishkek buses about USD 9 million). The aviation row has 1 project.",
+       "bnj": "About USD 42.5 million for urban transport"
+      },
+      {
+       "k": "f",
+       "t": "Main urban transport projects: the Green Climate Fund e-mobility programme (about USD 32.5 million, 2024–2029); EBRD Bishkek buses (about USD 9 million); and ADB's preparation of additional financing for urban transport electrification (about USD 1 million). ADB's urban transport electrification (loan and grant of about USD 6.3 million each) ended in June 2026.",
+       "ref": [
+        "proj:XM-DAC-41317-FP225",
+        "proj:XI-IATI-EBRD-51598",
+        "proj:XM-DAC-46004-57037-002-GRNT1105",
+        "proj:XM-DAC-46004-54123-001-LN4149",
+        "proj:XM-DAC-46004-54123-001-GRNT0808",
+        "row:city"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: EBRD's Osh electric public transport (about USD 5.3 million) and Korea's electric vehicle and charging pilot (about USD 0.4 million) are not mapped to the urban transport row in the site's data.",
+       "ref": [
+        "proj:XI-IATI-EBRD-53522",
+        "proj:KR-GOV-010-KR-GOV-051-2024010100115",
+        "row:city"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The OECD recommends supporting low-emission road transport, for example by improving fuel quality. The World Bank assessment lists public transport as one of the areas where PPPs are active.",
+       "ref": [
+        "doc:oecd",
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In urban transport, climate finance and EBRD are funding the shift to electric buses in Bishkek and Osh, a new donor trend. Because the text of the national plan has not been confirmed, it is not possible to tell which targets these projects serve.",
+       "ref": [
+        "row:city",
+        "doc:ndp"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overview",
+     "msg": "JICA, ADB and the Islamic Development Bank are the largest sources of active funding, with the top three accounting for about 80%, most of it in trunk roads.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects mapped to strategy areas, after pro-rata allocation)"
+     },
+     "msgnj": "ADB is the largest source of active funding, followed by the Islamic Development Bank, EBRD and the Green Climate Fund, most of it in trunk roads.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the transport strategy comprises 26 projects worth about USD 424 million. By donor: JICA about USD 148 million, ADB about USD 132 million, Islamic Development Bank about USD 52.3 million, EBRD about USD 32.9 million, Green Climate Fund about USD 32.5 million, Japan (Embassy, etc.) about USD 16.5 million, Korea about USD 7 million, EU about USD 2.7 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "26 active projects worth about USD 424 million",
+       "jp": true,
+       "tnj": "Active cooperation mapped to the transport strategy comprises 26 projects worth about USD 424 million. By donor: ADB about USD 132 million, Islamic Development Bank about USD 52.3 million, EBRD about USD 32.9 million, Green Climate Fund about USD 32.5 million, Korea about USD 7 million, EU about USD 2.7 million.",
+       "bnj": "26 active projects worth about USD 424 million"
+      },
+      {
+       "k": "f",
+       "t": "Two projects worth about USD 16.5 million end at the end of 2026 (reconstruction of a bridge on the Talas–Taraz road).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ],
+       "b": "Two projects worth about USD 16.5 million end at the end of 2026",
+       "jp": true,
+       "tnj": "Two projects end at the end of 2026.",
+       "bnj": "Two projects end at the end of 2026"
+      },
+      {
+       "k": "f",
+       "t": "Focus by row: JICA, ADB, the Islamic Development Bank and EBRD are in the trunk roads row (about USD 365 million); the corridors and borders row (about USD 94.7 million) is almost entirely ADB; urban transport (about USD 42.5 million) is the Green Climate Fund and EBRD; and bridges (about USD 52.1 million) and aviation (about USD 15.4 million) are Japan.",
+       "ref": [
+        "fact:rows",
+        "fact:by_donor"
+       ],
+       "jp": true,
+       "tnj": "Focus by row: ADB, the Islamic Development Bank and EBRD are in the trunk roads row (about USD 365 million); the corridors and borders row (about USD 94.7 million) is almost entirely ADB; and urban transport (about USD 42.5 million) is the Green Climate Fund and EBRD."
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 comprises 33 projects worth about USD 398 million, led by ADB and the Islamic Development Bank.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "33 projects worth about USD 398 million completed since 2017"
+      },
+      {
+       "k": "f",
+       "t": "Of ADB's about USD 132 million, about USD 130 million falls in the trunk roads row and about USD 94.3 million in the corridors and borders row. This is because CAREC corridor connector roads and border services projects are counted in both rows, so row amounts cannot be added up.",
+       "ref": [
+        "fact:rows",
+        "fact:by_donor",
+        "row:corr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Green Climate Fund (about USD 32.5 million) and EBRD (about USD 32.9 million) are in urban transport and ring roads. EBRD funds the Issyk-Kul Ring Road (about USD 23.9 million) and Bishkek buses (about USD 9 million).",
+       "ref": [
+        "fact:by_donor",
+        "row:road",
+        "row:city",
+        "proj:XI-IATI-EBRD-52367",
+        "proj:XI-IATI-EBRD-51598"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Closing dates of main projects: the Islamic Development Bank's Susamyr–Talas–Taraz road and ADB's CAREC Corridors 1 and 3 Connector Road at the end of 2027, ADB's border services in 2030, and ADB's Issyk-Kul Ring Road in 2033.",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ1027",
+        "proj:XM-DAC-46004-48401-007-LN3730",
+        "proj:XM-DAC-46004-54439-001-LN4637",
+        "proj:XM-DAC-46004-56146-001-LN4485"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Two large trunk road projects end at the end of 2027. Whether their successors go to new sections of international corridors or to maintaining the domestic road network will shape the 50% roads target and the condition of domestic roads.",
+       "ref": [
+        "row:road",
+        "doc:ndp",
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank assessment states that the national public investment programme amounts to only 3–5% of GDP a year, far below the needs for roads and other infrastructure. External funding for transport is expected to rise with year-to-year fluctuations, and donor loans are at the centre of road investment.",
+       "ref": [
+        "doc:infragov",
+        "fact:mapped_musd"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and evolution of support",
+     "msg": "Almost all cooperation completed in the past decade was in trunk roads and international corridors (Bishkek–Osh, Bishkek–Torugart, etc.).",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage: projects completed in 2017 or later. The site's data cover the main donors' projects consistently from 2017; earlier records are incomplete. Even after 2017, however, ADB data are largely limited to 2020 onwards and UNICEF and UNDP data to 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the transport strategy number 33, worth about USD 398 million (after pro-rata allocation, without double counting). By donor: ADB about USD 204 million, Islamic Development Bank about USD 117 million, JICA about USD 30.6 million, Japan (Embassy, etc.) about USD 23.5 million, World Bank about USD 22.5 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "33 projects worth about USD 398 million, led by ADB and the Islamic Development Bank",
+       "jp": true,
+       "tnj": "Projects completed since 2017 and mapped to the transport strategy number 33, worth about USD 398 million (after pro-rata allocation, without double counting). By donor: ADB about USD 204 million, Islamic Development Bank about USD 117 million, World Bank about USD 22.5 million, and others.",
+       "bnj": "33 projects worth about USD 398 million, led by ADB and the Islamic Development Bank"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): trunk roads 25 projects worth about USD 385 million; international corridors, borders and logistics 13 projects worth about USD 191 million (ADB CAREC corridor road projects); urban transport 5 projects worth about USD 12.5 million (ADB urban transport electrification). There are no completed projects in bridges, railways or aviation.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Trunk roads and international corridors account for almost all"
+      },
+      {
+       "k": "f",
+       "t": "Main completed projects: ADB's CAREC Corridors 1 and 3 Connector Road (loan about USD 58.4 million, grant about USD 36.7 million, completed 2022); ADB's CAREC Corridor 3 (Bishkek–Osh Road) Phase 4 (about USD 32.5 million and about USD 17.5 million); JICA's avalanche countermeasures on the Bishkek–Osh road (about USD 30.6 million); ADB's Bishkek–Torugart Road Phase 3 (about USD 27.5 million and others); and the Islamic Development Bank's Osh–Batken–Isfana road (about USD 21.3 million) and Issyk-Kul Ring Road (about USD 19.9 million).",
+       "ref": [
+        "proj:XM-DAC-46004-48401-007-LN3432",
+        "proj:XM-DAC-46004-48401-007-GRNT0496",
+        "proj:XM-DAC-46004-45169-001-LN3056",
+        "proj:XM-DAC-46004-45169-001-GRNT0366",
+        "proj:JICA-1560740",
+        "proj:XM-DAC-46004-42399-023-LN2755",
+        "proj:XM-DAC-46025-ISDB-KGZ0048",
+        "proj:XM-DAC-46025-ISDB-KGZ1019"
+       ],
+       "jp": true,
+       "tnj": "Main completed projects: ADB's CAREC Corridors 1 and 3 Connector Road (loan about USD 58.4 million, grant about USD 36.7 million, completed 2022); ADB's CAREC Corridor 3 (Bishkek–Osh Road) Phase 4 (about USD 32.5 million and about USD 17.5 million); ADB's Bishkek–Torugart Road Phase 3 (about USD 27.5 million and others); and the Islamic Development Bank's Osh–Batken–Isfana road (about USD 21.3 million) and Issyk-Kul Ring Road (about USD 19.9 million)."
+      },
+      {
+       "k": "f",
+       "t": "Many Islamic Development Bank road projects began in the 2000s and were recorded as completed in June 2026 (phases of the Taraz–Talas–Suusamyr road, the Osh–Irkeshtam road, the Bishkek–Torugart road, etc.).",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ0014",
+        "proj:XM-DAC-46025-ISDB-KGZ0022",
+        "proj:XM-DAC-46025-ISDB-KGZ0029",
+        "fact:closed_by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Funding over the past decade concentrated on three corridors: Bishkek–Osh (north–south), Bishkek–Torugart (China) and Talas (Kazakhstan). The improvement in international road condition shown in the Concept's tables appears to be the result of this concentration.",
+       "ref": [
+        "fact:closed_rows",
+        "doc:roads"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: the about USD 22.5 million of completed World Bank projects is included in the aggregation used for the site but does not appear in the project-by-project list.",
+       "ref": [
+        "fact:closed_by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Funding has been and remains concentrated in trunk roads. New areas starting to receive funding are urban transport electrification and border services improvement.",
+       "ref": [
+        "fact:closed_rows",
+        "row:city",
+        "row:corr"
+       ],
+       "b": "Funding consistently goes to trunk roads; new flows go to electrification and borders"
+      },
+      {
+       "k": "f",
+       "t": "In urban transport, ADB's urban transport electrification (2021–2026) has ended, and ADB's preparation of additional financing (about USD 1 million, 2025–2029) has begun. The completed urban transport row has 5 projects worth about USD 12.5 million.",
+       "ref": [
+        "proj:XM-DAC-46004-54123-001-LN4149",
+        "proj:XM-DAC-46004-57037-002-GRNT1105",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Apart from the \"successful\" rating of ADB's Bishkek–Torugart road, evaluations of completed projects have not been read this time. On the maintenance of rehabilitated roads, the World Bank assessment only expresses concern; project-by-project ex post checks are needed.",
+       "ref": [
+        "doc:adbtor",
+        "doc:infragov"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Railways are the only area with no active cooperation, though maintenance and institutions and finance have few dedicated projects.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle active / completed / cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Areas with no active cooperation: railways.",
+       "ref": [
+        "fact:empty_rows",
+        "row:rail"
+       ],
+       "b": "Gap: railways"
+      },
+      {
+       "k": "v",
+       "t": "Cooperation addressing the inefficient maintenance and funding shortfalls that the Concept cites as causes of road deterioration is limited to items such as maintenance equipment; most projects are new construction or rehabilitation.",
+       "ref": [
+        "doc:roads",
+        "tree:roads:RD4",
+        "tree:roads:RD5",
+        "row:road"
+       ],
+       "b": "Maintenance and institutions and finance are thinly covered"
+      },
+      {
+       "k": "f",
+       "t": "Of the Concept's pillars, maintenance and road safety (Pillar 4) and institutions and finance (Pillar 5) are counted together with the trunk roads row in the site's table. As a result, the amount of cooperation for maintenance and institutions cannot be separated out from the table.",
+       "ref": [
+        "tree:roads:RD4",
+        "tree:roads:RD5",
+        "row:road"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Railways are the only empty row in the table, but in terms of where funding goes, maintenance, road safety, institution building and regional and local roads are thinly covered. Toll-road financing for maintenance, cited by the long-term strategy, is also not addressed by cooperation.",
+       "ref": [
+        "row:road",
+        "doc:nds",
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The railway row has no projects, either active or completed since 2017. Bridges, tunnels and passes, and aviation, also have no projects completed since 2017.",
+       "ref": [
+        "row:rail",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Railways are the first NDP 2030 target, and besides the China–Kyrgyzstan–Uzbekistan railway, electrification and rolling stock renewal are also listed as tasks, yet no multilateral donor cooperation can be found. Railway operations, safety and human resources offer entry points for technical cooperation.",
+       "ref": [
+        "row:rail",
+        "doc:ndp",
+        "doc:oecd"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "Road investment continues, but the weight of national targets has shifted to railways, logistics and aviation, for which there are neither metrics nor plans.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "None of the five NDP 2030 targets can be tracked with annual published figures. A system to publish rail tonnage, airport passengers and the share of roads rehabilitated every year is needed first.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "A system to measure the five targets is needed first"
+      },
+      {
+       "k": "v",
+       "t": "Donor funding is concentrated in trunk roads and does not adequately reach the deterioration of domestic roads or the rise in road traffic deaths. The results of maintenance reform (corporatisation) are the next issue.",
+       "ref": [
+        "row:road",
+        "ind:road:0",
+        "doc:carec"
+       ],
+       "b": "The results of maintenance reform are the next issue"
+      },
+      {
+       "k": "v",
+       "t": "Large ADB and Islamic Development Bank road projects end at the end of 2027. How far successor projects cover domestic network maintenance, road safety and life-cycle cost planning will shape the indicators for domestic road condition and road deaths.",
+       "ref": [
+        "proj:XM-DAC-46004-48401-007-LN3730",
+        "proj:XM-DAC-46025-ISDB-KGZ1027",
+        "doc:infragov",
+        "ind:road:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Both the long-term strategy and NDP 2030 name PPPs as a main instrument. Making PPPs work requires feasibility studies, contract supervision and regulation, and the World Bank assessment points to weaknesses precisely there (optional feasibility studies, an unused preparation fund).",
+       "ref": [
+        "doc:nds",
+        "doc:ndp",
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Border procedures and transit permits are institutional rather than infrastructure problems, offering large scope for technical cooperation.",
+       "ref": [
+        "doc:oecd",
+        "doc:cpmm",
+        "row:corr"
+       ],
+       "b": "Borders and transit permits offer scope for institutional technical cooperation"
+      },
+      {
+       "k": "v",
+       "t": "PPPs have started in roads, railways and public transport, but project preparation funds remain largely unused. Reforms making life-cycle costs and feasibility studies mandatory would raise the quality of both PPPs and donor projects.",
+       "ref": [
+        "doc:infragov",
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: construction progress on the China–Kyrgyzstan–Uzbekistan railway, implementation reports on the road Concept, new road traffic death figures, and new border digitalisation moves.",
+       "ref": [
+        "doc:oecd",
+        "tree:roads:roads"
+       ],
+       "b": "New railway, road implementation reports, road deaths, border digitalisation"
+      },
+      {
+       "k": "f",
+       "t": "Also to watch next quarter: successors to ADB's CAREC Corridors 1 and 3 Connector Road and the Islamic Development Bank's Susamyr–Talas–Taraz road (due to end at the end of 2027), and progress in introducing electric buses in Bishkek and Osh.",
+       "ref": [
+        "proj:XM-DAC-46004-48401-007-LN3730",
+        "proj:XM-DAC-46025-ISDB-KGZ1027",
+        "row:city"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Rail freight",
+   "National yearbook only (international data in tonne-km, to 2021)",
+   "15 million tonnes a year",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Development of warehouses and logistics facilities",
+   "No published figure",
+   "At least 1 million m²",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Construction, reconstruction and repair of national roads",
+   "Transport ministry reports only",
+   "At least 50%",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Transport sector value added",
+   "National yearbook only",
+   "USD 1.5 billion",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Airport passengers and air cargo",
+   "Airport company announcements only (international data cover Kyrgyz airlines only)",
+   "7 million passengers and 45,000 tonnes a year",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Road traffic deaths (SDG 3.6 benchmark)",
+   "13.8 per 100,000 population (2023)",
+   "8.4 (half the 2010 level)",
+   "+0.46/year (2018–2023)",
+   "−0.77/year",
+   "Off track (moving the wrong way)",
+   "bad"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Roads of international importance (trunk roads and corridors)",
+   "Concept for the Development of the Road Sector 2023–2030",
+   "Cabinet Resolution No. 71 of 10 February 2023",
+   "ok",
+   "(3)",
+   "road",
+   "RD1"
+  ],
+  [
+   "1",
+   "International corridors, borders and logistics",
+   "Concept for the Development of the Road Sector 2023–2030 (international corridors); logistics centres under NDP 2030 Section 5.2",
+   "Cabinet Resolution No. 71 of 2023",
+   "ok",
+   "(2)(4)",
+   "corr",
+   "RD1"
+  ],
+  [
+   "2",
+   "National, regional and local roads",
+   "Concept for the Development of the Road Sector 2023–2030",
+   "Cabinet Resolution No. 71 of 2023",
+   "ok",
+   "(3)",
+   "road",
+   "RD2"
+  ],
+  [
+   "3",
+   "Bridges, tunnels and passes",
+   "Concept for the Development of the Road Sector 2023–2030",
+   "Cabinet Resolution No. 71 of 2023",
+   "ok",
+   "—",
+   "bridge",
+   "RD3"
+  ],
+  [
+   "4",
+   "Maintenance and road safety",
+   "Concept for the Development of the Road Sector 2023–2030",
+   "Cabinet Resolution No. 71 of 2023",
+   "ok",
+   "—",
+   "road",
+   "RD4"
+  ],
+  [
+   "5",
+   "Institutions and finance",
+   "Concept for the Development of the Road Sector 2023–2030",
+   "Cabinet Resolution No. 71 of 2023",
+   "ok",
+   "(4)",
+   "road",
+   "RD5"
+  ],
+  [
+   "Other",
+   "Urban transport and e-mobility",
+   "\"Smart and Sustainable City of Bishkek\" to 2033 (text not checked)",
+   "Document (legal reference number not checked)",
+   "ok",
+   "—",
+   "city",
+   ""
+  ],
+  [
+   "Other",
+   "Railways",
+   "No separate national plan in the site's policy tree (China–Kyrgyzstan–Uzbekistan railway under NDP 2030 Section 5.2)",
+   "—",
+   "none",
+   "(1)",
+   "rail",
+   ""
+  ],
+  [
+   "Other",
+   "Aviation",
+   "No separate national plan in the site's policy tree (NDP 2030 Section 5.2)",
+   "—",
+   "none",
+   "(5)",
+   "air",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Roads of international importance (trunk roads and international corridors)"
+  ],
+  [
+   "2",
+   "National, regional and local roads"
+  ],
+  [
+   "3",
+   "Bridges and tunnels"
+  ],
+  [
+   "4",
+   "Maintenance and road safety"
+  ],
+  [
+   "5",
+   "Institutions and finance"
+  ],
+  [
+   "Other",
+   "Outside the Concept (urban transport, railways, aviation)"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual rail freight tonnage (national target 15 million tonnes a year) (in national yearbooks but not retrievable automatically on the site; unconfirmed; international data are in tonne-km and run to 2021)",
+  "Published figures on the area of warehouses and logistics facilities developed (national target at least 1 million m²)",
+  "Annual results for the share of national roads built, reconstructed or repaired (national target at least 50%)",
+  "Annual values of transport sector value added (national target USD 1.5 billion)",
+  "Annual airport passenger numbers and air cargo (national target 7 million passengers and 45,000 tonnes a year) (counts including foreign airlines)",
+  "The chapters of the Concept for the Development of the Road Sector 2023–2030 on targets, measures and expected results (on a paid site; not read)",
+  "Road condition values (sections in good and poor condition) from 2020 onwards",
+  "The text of \"Smart and Sustainable City of Bishkek\" to 2033 and its legal basis",
+  "Also unconfirmed: about the last quarter of the World Bank's 2023 infrastructure governance assessment, the full PDF of ADB's ex post evaluation of Bishkek–Torugart Road Phase 2 (only the summary was read), and the full text of ADB's Bishkek clean air action plan (no figures on the landing page; the PDF could not be opened)"
+ ]
+}

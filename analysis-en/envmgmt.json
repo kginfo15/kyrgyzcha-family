@@ -1,0 +1,1605 @@
+{
+ "sid": "envmgmt",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Environmental management"
+  },
+  "rows": {
+   "air": {
+    "n": "Air pollution (Bishkek winter)",
+    "st": "\"Bishkek: Smart and Sustainable City\" to 2033"
+   },
+   "water": {
+    "n": "Water, sanitation and wastewater treatment",
+    "st": "Drinking Water Supply and Sanitation Programme"
+   },
+   "waste": {
+    "n": "Waste and recycling",
+    "st": "Green Economy Development 2025–29"
+   },
+   "tail": {
+    "n": "Tailings, uranium and hazardous substances",
+    "st": "Action Plan for Emergency Risk Reduction 2025–30"
+   },
+   "inst": {
+    "n": "Environmental governance and impact assessment",
+    "st": "Green Economy Development 2025–29"
+   }
+  }
+ },
+ "ind": {
+  "air": {
+   "name": "① Air",
+   "tag": "PM2.5 and coal heating",
+   "goals": [
+    [
+     "Reduce harmful emissions in Bishkek by 16% (gasification of housing and better coal quality; National Development Programme 2030, 13.2)",
+     "No published data on Bishkek's emissions (air quality readings are published separately by the city and international organisations)"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "PM2.5 (annual mean, national)",
+     "unit": "µg/m³",
+     "st": "✕ About 4 times the WHO guideline (5 µg)",
+     "src": "UN SDG Database EN_ATM_PM25 (SDG 11.6.2, WHO estimate)",
+     "t": [
+      "WHO interim 15"
+     ]
+    }
+   ]
+  },
+  "waste": {
+   "name": "② Waste and legacy sites",
+   "tag": "Waste and tailings",
+   "goals": [
+    [
+     "Bring 16 former uranium tailings ponds and waste dumps into a safe condition (National Development Programme 2030, 13.1)",
+     "Only reports of the Ministry of Emergency Situations and donor project reports"
+    ],
+    [
+     "Waste collection and treatment (SDG 11.6.1)",
+     "Collection rates exist for only two points: Bishkek 83% (2010) and Osh 80% (2018). A new landfill for Bishkek is being developed under an EBRD project"
+    ]
+   ],
+   "inds": []
+  }
+ },
+ "quick": {
+  "h1": "Environmental funding goes to water, sanitation and waste; air pollution has one World Bank project, and governance is a gap",
+  "msgs": [
+   [
+    "Bishkek's winter air.",
+    "Bans on the sale and use of coal fines and inspections of coal depots continue. World Bank air quality improvement project (to 2030)."
+   ],
+   [
+    "Water, sanitation and waste: EU and EBRD.",
+    "Investment support for water supply and sanitation (EU) and construction of a waste treatment facility in Osh."
+   ],
+   [
+    "Uranium tailings.",
+    "Former uranium tailings sites brought under environmental management (11/6). Few donor projects."
+   ],
+   [
+    "Amendments to the environmental impact assessment law.",
+    "Adopted by Parliament in second reading (10/21)."
+   ]
+  ],
+  "h2": "Funding gathers in water, sanitation and waste; air has one World Bank project, and governance is a gap",
+  "rows": {
+   "air": [
+    "",
+    "Centred on the World Bank's air quality improvement"
+   ],
+   "water": [
+    "",
+    "Water and sanitation by the World Bank, EU and EBRD"
+   ],
+   "waste": [
+    "",
+    "EU investment support and others"
+   ],
+   "tail": [
+    "",
+    "Almost no projects"
+   ],
+   "inst": [
+    "",
+    "No projects"
+   ]
+  },
+  "h3": "Recent activity: \"ban on coal fines\", \"waste enforcement\" and \"environmental law amendments\"",
+  "themes": [
+   [
+    "Air:",
+    "Bans on coal fines and inspections; fines for breaching emission standards."
+   ],
+   [
+    "Waste:",
+    "Crackdowns on illegal dumping; collection of recycling fees."
+   ],
+   [
+    "Institutions:",
+    "Amendments to the environmental impact assessment law and the waste law."
+   ]
+  ]
+ },
+ "proj_t": {
+  "JICA-202313377": "Development of an air pollution assessment system using satellite data and a regional chemical transport model, and establishment of a new hub for countermeasures against air pollution and indoor air pollution"
+ },
+ "title": "Kyrgyz Republic Environmental Management Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 13.1 \"Disaster Risk Reduction\" and Section 13.2 \"Environment, Ecology and Adaptation Measures\"",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Section 13.2 targets and challenges, and the Section 13.1 uranium tailings target (translation on the site)",
+   "cat": "gov"
+  },
+  {
+   "id": "dw2026",
+   "t": "Programme for the Development of Drinking Water Supply and Sanitation Systems until 2026 (Government Decree No. 330 of 2020)",
+   "by": "Government of the Kyrgyz Republic",
+   "y": "2020",
+   "scope": "Sections of Annex 1 on sewerage and wastewater treatment reviewed via machine translation",
+   "cat": "gov"
+  },
+  {
+   "id": "undp2022",
+   "t": "Air Quality in Bishkek: An assessment of emission sources and roadmap for supporting air quality management (presentation)",
+   "by": "UNEP and UNDP",
+   "y": "Oct 2022",
+   "scope": "Full presentation. The report itself has not been read",
+   "cat": "donor",
+   "u": "https://www.undp.org/kyrgyzstan/press-releases/ditch-coal-homes-tackle-air-pollution-bishkek-says-un-report"
+  },
+  {
+   "id": "wbair",
+   "t": "Air Quality Analysis for Bishkek: PM2.5 Source Apportionment and Emission Reduction Measures (report and presentation)",
+   "by": "World Bank",
+   "y": "Dec 2023",
+   "scope": "Full presentation and almost the entire report PDF (summary, heating chapter, emissions inventory) reviewed in the original. Figures in charts could not be read and were not used",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/events/2023/12/12/report-launch-air-quality-analysis-for-bishkek"
+  },
+  {
+   "id": "unclean",
+   "t": "Overview of Clean Air Actions in Kyrgyzstan 2018–2024",
+   "by": "United Nations in the Kyrgyz Republic (Air Quality Working Group of the Development Partners Coordination Council)",
+   "y": "Jun 2025",
+   "scope": "First ~80% of the main PDF (English) reviewed in the original (government measures, monitoring network, donor projects, first half of the recommendations). The second half of the recommendations has not been read",
+   "cat": "donor",
+   "u": "https://kyrgyzstan.un.org/en/295626-overview-clean-air-actions-kyrgyzstan-2018-2024"
+  },
+  {
+   "id": "sdgdb",
+   "t": "UN SDG Database (PM2.5 from WHO estimates)",
+   "by": "United Nations",
+   "y": "Retrieved 2026-11-07",
+   "scope": "Series via the site's indicator data",
+   "cat": "donor"
+  },
+  {
+   "id": "whocase",
+   "t": "Kyrgyzstan – Air quality and health (case study on science–policy dialogue)",
+   "by": "WHO Regional Office for Europe",
+   "y": "Mar 2025",
+   "scope": "Full PDF of the case study. It contains no numerical data",
+   "cat": "donor",
+   "u": "https://www.who.int/europe/publications/m/item/kyrgyzstan-air-quality-and-health"
+  },
+  {
+   "id": "ndc",
+   "t": "Nationally Determined Contribution (NDC), 2021 update (NDC = the country's self-determined targets for greenhouse gas reduction and adaptation)",
+   "by": "Kyrgyz Republic",
+   "y": "2021",
+   "scope": "Tables on emission trends and waste measures reviewed via machine translation",
+   "cat": "gov"
+  },
+  {
+   "id": "carec",
+   "t": "Water sector financing improvement action plan for efficient water sector financing",
+   "by": "CAREC Institute (commissioned by ADB)",
+   "y": "May 2024",
+   "scope": "First ~80% reviewed in the original (including the description of sewerage in Kyrgyzstan)",
+   "cat": "donor",
+   "u": "https://www.carecinstitute.org/wp-content/uploads/2024/05/Report-on-water-sector-financing-improvement-action-plan-for-efficient-water-sector-financing.pdf"
+  },
+  {
+   "id": "aiib",
+   "t": "Kyrgyz Republic, Water Supply and Sanitation Universal Access Program – 1 Project (Project Document at approval)",
+   "by": "Asian Infrastructure Investment Bank (AIIB)",
+   "y": "2025",
+   "scope": "First ~80% reviewed in the original",
+   "cat": "donor",
+   "u": "https://www.aiib.org/en/projects/details/2025/_download/Kyrgyz/Approval-PD_P000915-Kyrgyz-WS-and-Sanitation-Universal-Access-clean-for-public-disclosure.pdf"
+  },
+  {
+   "id": "npd",
+   "t": "Kyrgyzstan makes strides in improving its water resources management within framework of UNECE-supported NPD",
+   "by": "EU (capacity4dev) and UNECE",
+   "y": "Year of publication cannot be confirmed from the text",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://capacity4dev.europa.eu/news/kyrgyzstan-makes-strides-improving-its-water-resources-management-within-framework-unece-supported-npd_en"
+  },
+  {
+   "id": "mdpi2024",
+   "t": "Mapping PM2.5 Sources and Emission Management Options for Bishkek, Kyrgyzstan (Air, Vol. 2)",
+   "by": "Academic paper (MDPI)",
+   "y": "2024",
+   "scope": "Full text reviewed in the original (observations, emissions inventory, source contributions)",
+   "cat": "paper",
+   "u": "https://urbanemissions.info/wp-content/uploads/docs/2024-09-MDPI-air-AQ-Bishkek.pdf"
+  },
+  {
+   "id": "wbaf2",
+   "t": "Second Additional Financing for Sustainable Rural Water Supply and Sanitation Development Project (Project Paper)",
+   "by": "World Bank",
+   "y": "2024",
+   "scope": "First ~80% reviewed in the original",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/099011224150531657/pdf/BOSIB10d100d310881af6818bd8b897c251.pdf"
+  },
+  {
+   "id": "unicefair",
+   "t": "Health and Social Impacts of Air Pollution on Women and Children in Bishkek, Kyrgyzstan: Executive Summary",
+   "by": "UNICEF",
+   "y": "Nov 2022",
+   "scope": "Full executive summary reviewed in the original",
+   "cat": "donor",
+   "u": "https://www.unicef.org/kyrgyzstan/media/8116/file/Executive Summary of Air Pollution report.pdf"
+  },
+  {
+   "id": "drrplan",
+   "t": "Action Plan for Emergency Risk Reduction 2025–2030 (Cabinet of Ministers Resolution No. 601 of 23 September 2025)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2025",
+   "scope": "Chapter 3 of Annex 1 (technosphere safety) reviewed via machine translation",
+   "cat": "gov"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "The most visible environmental problem is winter air pollution in Bishkek. In 2022 the city's annual mean PM2.5 was about 7 times the WHO guideline, and in winter daily means frequently exceed 200 µg/m³.",
+   "ref": [
+    "doc:wbair",
+    "ind:air:0"
+   ],
+   "h": "The biggest environmental problem is Bishkek's winter air pollution"
+  },
+  {
+   "k": "f",
+   "t": "The main cause is household coal heating. In winter months, residential heating accounts for up to nearly 40% of PM2.5, and 70% of homes nationwide are heated with coal.",
+   "ref": [
+    "doc:wbair",
+    "doc:undp2022"
+   ],
+   "h": "Household coal heating is the main cause"
+  },
+  {
+   "k": "f",
+   "t": "National PM2.5 continues to fall but remains about 4 times the WHO guideline (5 µg/m³). The national target of \"a 16% reduction in harmful emissions in Bishkek\" cannot be measured because no emission figures are published.",
+   "ref": [
+    "ind:air:0",
+    "doc:ndp"
+   ],
+   "h": "PM2.5 is falling but still about 4 times the WHO guideline"
+  },
+  {
+   "k": "f",
+   "t": "Donor funding is concentrated on water, sanitation and waste facilities, while uranium tailings, hazardous substances and environmental governance have no active projects. Active cooperation aligned with the environmental management strategy totals 31 projects worth about USD 60.6 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:empty_rows"
+   ],
+   "h": "Funding concentrated on water, sanitation and waste; tailings and governance are gaps"
+  },
+  {
+   "k": "v",
+   "t": "The EU's investment support for water, sanitation and waste (about USD 10.7 million) ends in late 2026. Its successor, and how NDP 2030's waste tasks (modern landfills, extended producer responsibility) are put into practice, will be the key issues for 2027.",
+   "ref": [
+    "fact:end_2026_musd",
+    "fact:end_2026_by_donor",
+    "doc:ndp"
+   ],
+   "h": "The successor to EU investment support is the key issue for 2027"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Environmental overview",
+     "msg": "There are four problems — air, sewerage, waste and legacy sites — and only air can be tracked with figures.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "20.6",
+        "u": "µg/m³",
+        "k": "PM2.5 national annual mean (2023)",
+        "ref": "ind:air:0",
+        "hot": true
+       },
+       {
+        "v": "~7",
+        "u": "×",
+        "k": "Bishkek PM2.5 relative to WHO guideline (2022)",
+        "ref": "doc:wbair",
+        "hot": true
+       },
+       {
+        "v": "70",
+        "u": "%",
+        "k": "Homes heated with coal (national)",
+        "ref": "doc:undp2022"
+       },
+       {
+        "v": "5.1",
+        "u": "%",
+        "k": "Losses from air pollution as share of GDP (national)",
+        "ref": "doc:wbair"
+       },
+       {
+        "v": "29.1",
+        "u": "%",
+        "k": "Access to centralised sewerage",
+        "ref": "doc:dw2026"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Air: the national annual mean PM2.5 fell from 36.1 µg/m³ (2010) to 20.6 µg/m³ (2023), but remains about 4 times the WHO guideline of 5 µg/m³. In urban areas it was 23.6 µg/m³ (2023).",
+       "ref": [
+        "ind:air:0"
+       ],
+       "b": "PM2.5 20.6 µg/m³ (2023), about 4 times the WHO guideline"
+      },
+      {
+       "k": "f",
+       "t": "Bishkek: according to the World Bank, the city's annual mean PM2.5 in 2022 was about 7 times the WHO guideline, and in recent winters daily means have often exceeded 200 µg/m³. During the winter heating season, the city frequently ranks among the five most polluted cities in the world.",
+       "ref": [
+        "doc:wbair",
+        "doc:undp2022"
+       ],
+       "b": "Bishkek: about 7 times the WHO guideline; over 200 µg in winter"
+      },
+      {
+       "k": "f",
+       "t": "[Academic study — not national statistics] A 2024 paper reports an annual mean PM2.5 of 48 µg/m³ at Bishkek monitoring sites in 2019–2021, winter daily means above 75 µg/m³ (peaking at 200 µg/m³), falling to around 10 µg/m³ in summer. These are estimates and observations from a paper, not national statistics.",
+       "ref": [
+        "doc:mdpi2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Monitoring network: according to the UN in the Kyrgyz Republic's overview, there was only one automatic monitoring station in 2018. By 2024 this had grown to low-cost sensors (50 Clarity, 47 BlueSky, 24 AirKaz, 8 PurpleAir) and two reference stations (Kyrgyzhydromet and the US Embassy). Kyrgyzhydromet's long-standing network has 14 sites in 5 cities, 13 of which rely on manual sampling.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "However, following the 2023 rules on registering producers of hydrometeorological data (Cabinet of Ministers Resolution No. 592), civil society groups removed sensors pending certification, and 7 more were removed during inspections. By February 2025, only 10 low-cost sensors remained on the public platform, and the number of operating Kyrgyzhydromet sensors had also fallen to 10.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Monitoring expanded sharply, but tighter regulation then thinned the publicly available data. The basis for verifying the effectiveness of air quality measures has, if anything, weakened.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Health and economy: in 2010–2019, air pollution caused about 4,100–5,000 premature deaths a year, equivalent to 12–13% of annual deaths. The World Bank estimates the cost of air pollution at 5.1% of GDP nationally and 1.2% for Bishkek alone.",
+       "ref": [
+        "doc:undp2022",
+        "doc:wbair"
+       ],
+       "b": "Premature deaths 4,100–5,000 a year; losses 5.1% of GDP"
+      },
+      {
+       "k": "f",
+       "t": "The UNICEF report (2022) estimates the PM2.5 burden in Bishkek in July 2021–June 2022 at 112 deaths (95% confidence interval 97–131) and 3,568 disability-adjusted life years (DALYs, the healthy years lost to illness and premature death). Children bear 22% of the disease burden, and welfare losses amount to 2 billion som (USD 24.9 million).",
+       "ref": [
+        "doc:unicefair"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Sewerage: according to the national water supply programme, 29.1% of the population has access to centralised sewerage (64.1% urban, under 10% rural), and the number of centralised sewerage systems fell from 117 (2013) to 96 (January 2018).",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "Centralised sewerage 29.1%; number of systems falling"
+      },
+      {
+       "k": "f",
+       "t": "Waste: there are only two figures for waste collection rates: Bishkek 83% (2010) and Osh 80% (2018). A new landfill for Bishkek is being developed under an EBRD project.",
+       "ref": [
+        "doc:sdgdb"
+       ],
+       "b": "Only two figures exist for waste collection rates"
+      },
+      {
+       "k": "f",
+       "t": "According to the NDC (2021 update), greenhouse gas emissions in 2017 compared with 1990 fell by 55.53% in the energy sector but rose by 26.92% in the waste sector. The UN overview notes that there is still no national methodology for the air-related SDG indicators 3.9.1 and 11.6.2.",
+       "ref": [
+        "doc:ndc",
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 Section 13.2 has four targets: expanding specially protected natural areas to 10% of the territory, reducing greenhouse gases by 16%, raising ND-GAIN (an index of climate resilience) by at least 3 points, and reducing harmful emissions in Bishkek by 16%. Only the last relates directly to environmental management.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Pollution of water sources: the national water supply programme states that many water sources are contaminated with nitrates, chromium, petroleum products and other substances because of settlement infrastructure, factories, agricultural and industrial waste, solid waste landfills, car washes and the lack of municipal drainage systems. Tackling waterborne diseases costs more than 4.8 billion som a year, with about 30,000 cases of acute intestinal infection annually.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The four problems are linked. Open burning of waste pollutes winter air, and the lack of sewerage pollutes water sources. Pursuing them through separate sectoral plans makes these links harder to see.",
+       "ref": [
+        "doc:dw2026",
+        "doc:mdpi2024",
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Only air can be tracked annually, through estimates by international organisations; sewerage, waste and tailings have no annual figures. The very basis for measuring progress in environmental management is weak.",
+       "ref": [
+        "ind:air:0",
+        "doc:dw2026"
+       ],
+       "b": "No annual figures other than for air"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy architecture",
+     "msg": "Environmental management policy is split into \"NDP 2030 Section 13.2 (and 13.1) → Green Economy Development Programme 2025–29, the Bishkek city strategy, the water supply programme and the DRR action plan\".",
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: Section 13.2 of the National Development Programme 2030 sets as one of its targets \"reducing harmful emissions in Bishkek by 16% through the use of enriched coal and the gasification of housing\". Its tasks include gasification of housing in Bishkek and construction of coal enrichment plants at two sites, Kara-Keche and Min-Kush.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 13.2: 16% reduction in harmful emissions in Bishkek"
+      },
+      {
+       "k": "f",
+       "t": "Waste: Section 13.2 aims to reduce waste generation, promote reprocessing, reuse and safe disposal, introduce extended producer responsibility (under which manufacturers are responsible for products through to disposal) with digitalisation, build modern landfills meeting international standards and remediate unauthorised dumps.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Waste: extended producer responsibility and modern landfills"
+      },
+      {
+       "k": "f",
+       "t": "Environmental safety: Section 13.2 lists regulation of radiation safety, radioecological monitoring of former uranium sites, a chemicals register, disposal of obsolete pesticides and remediation of contaminated soil, and improved air quality monitoring. Section 13.1 sets the target of bringing 16 tailings ponds and waste dumps from the former uranium legacy into a safe condition.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Uranium, chemicals and air monitoring"
+      },
+      {
+       "k": "h",
+       "t": "Air quality institutions and plans"
+      },
+      {
+       "k": "f",
+       "t": "Air: the law on atmospheric air protection dates from 1999. The government plan (2021–2023) contained 43 measures and was revised in 2024 into a 32-item priority plan (2024–2025). An inter-ministerial commission chaired by the Minister of Natural Resources, Ecology and Technical Supervision has met more than 20 times, and Bishkek City Hall was delegated the ministry's air protection powers for two years from 1 January 2024.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the WHO case study, a Cabinet of Ministers order of 17 November 2021 established a temporary inter-ministerial commission chaired by the Mayor of Bishkek, with seven objectives including a study of health impacts, an air quality index and a phased improvement plan. The Ministry of Health's working group (December 2021) faced outdated disease reporting forms, shortages of staff and funding, and slow data collection.",
+       "ref": [
+        "doc:whocase"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Support for monitoring: according to the UN overview, ADB provided Kyrgyzhydromet with 50 Clarity sensors worth USD 90,000 in December 2020. The UNICEF report recommends coordinating measures through the inter-ministerial commission.",
+       "ref": [
+        "doc:unclean",
+        "doc:unicefair"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Waste and climate plans"
+      },
+      {
+       "k": "f",
+       "t": "As waste measures, the NDC cites systems for separate collection and disposal of waste, development of recycling, and biogas facilities at the Bishkek and Osh landfills. However, it does not estimate emission reductions because the investment is not secured. As the legal framework for climate and environment, it cites Presidential Decree No. 77 of 19 March 2021, \"On measures to ensure environmental security and climate sustainability\".",
+       "ref": [
+        "doc:ndc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Sectoral plans: the site's gap table maps air to \"Bishkek: Smart and Sustainable City\" to 2033, water and sanitation to the Water Supply Programme 2026, waste and environmental governance to the Green Economy Development Programme 2025–2029, and tailings to the Action Plan for Emergency Risk Reduction 2025–2030.",
+       "ref": [
+        "row:air",
+        "row:water",
+        "row:waste",
+        "row:tail",
+        "row:inst"
+       ],
+       "b": "Separate plans cover each area"
+      },
+      {
+       "k": "f",
+       "t": "Coordination of cooperation: the Air Quality Working Group of the Development Partners Coordination Council compiled an overview of clean air actions in 2018–2024, and in February 2025 the Ministry of Natural Resources, Ecology and Technical Supervision held a national dialogue with UNEP and the UN.",
+       "ref": [
+        "doc:unclean"
+       ],
+       "b": "Air quality coordinated through the partners' working group"
+      },
+      {
+       "k": "v",
+       "t": "Environmental management has no single consolidated national programme; air, water, waste and tailings each fall under different plans. The texts of the Green Economy Development Programme and the Bishkek city strategy have not been read, and their targets have not been verified.",
+       "ref": [
+        "row:waste",
+        "row:air"
+       ],
+       "b": "No single consolidated national programme"
+      },
+      {
+       "k": "v",
+       "t": "The delegation of air protection powers to Bishkek City Hall covers the two years from 2024 and expires at the end of 2025. Whether the powers are extended or returned will change the division of roles between city measures and national supervision.",
+       "ref": [
+        "doc:unclean"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Positioning of sub-programmes",
+     "msg": "Of the five areas, uranium tailings and hazardous substances, and environmental governance, have national targets but no active cooperation.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Areas (active cooperation by matrix row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Five areas: air pollution; water, sanitation and wastewater treatment; waste and recycling; tailings, uranium and hazardous substances; environmental governance and impact assessment.",
+       "ref": [
+        "row:air",
+        "row:water",
+        "row:waste",
+        "row:tail",
+        "row:inst"
+       ],
+       "b": "Five areas"
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030's \"16 uranium tailings sites\" and \"improved air quality monitoring\" fall under the tailings and environmental governance areas respectively, but neither has any active cooperation. This is where the gap between targets and implementation is widest.",
+       "ref": [
+        "doc:ndp",
+        "row:tail",
+        "row:inst"
+       ],
+       "b": "Tailings and governance: targets exist, but no cooperation"
+      },
+      {
+       "k": "v",
+       "t": "Of the bases for the five areas, the texts of the Green Economy Development Programme and the Bishkek city strategy could not be verified, so even though the table lists them as \"in force\", their targets are unknown. Only the water supply programme and the DRR action plan provide a basis with figures.",
+       "ref": [
+        "row:waste",
+        "row:inst",
+        "row:air"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Of the five areas, water, sanitation and wastewater treatment largely overlaps with the projects in the water supply and sanitation rows of the water resources and water supply sector. Tailings, uranium and hazardous substances overlaps with technosphere safety in the DRR sector (Action Plan Chapter 3).",
+       "ref": [
+        "row:water",
+        "row:tail"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The five areas of environmental management lean on other sectors' plans. In practice, only air has targets and figures that can be tracked independently as an environmental area.",
+       "ref": [
+        "row:air",
+        "ind:air:0"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: prospects for national and international targets",
+     "msg": "Only PM2.5 can be tracked annually; it is on course for the WHO interim target but far from the guideline. National environmental targets cannot be measured.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the period; required pace = change needed to reach the target by 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No annual published figures can be found for NDP 2030's environmental management targets (16% reduction in harmful emissions in Bishkek, 16 uranium tailings sites). Only WHO-estimated PM2.5 can be tracked annually.",
+       "ref": [
+        "doc:ndp",
+        "ind:air:0"
+       ],
+       "b": "National targets have no annual published figures"
+      },
+      {
+       "k": "v",
+       "t": "National PM2.5 fell by −1.5 µg/m³/year in 2015–2023. At this pace, the WHO interim target (15 µg/m³) will be reached by 2030, but the guideline (5 µg/m³) requires −2.2 µg/m³/year and will not be met.",
+       "ref": [
+        "ind:air:0"
+       ],
+       "b": "On course for the 15 µg interim target; far from the 5 µg guideline"
+      },
+      {
+       "k": "v",
+       "t": "National PM2.5 is a WHO population-weighted estimate, at a very different level from observations in Bishkek (annual mean 48 µg/m³, academic paper). Even if the national indicator falls, it cannot measure progress on NDP 2030's \"16% reduction in harmful emissions in Bishkek\".",
+       "ref": [
+        "ind:air:0",
+        "doc:mdpi2024",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The UN overview recommends aligning national air quality standards with the WHO guidelines with interim targets, extending measures to Osh, Jalal-Abad, Karakol and Talas, and having a plan for each city that exceeds the standards.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same overview states that no single measure is sufficient: even by World Bank estimates, clean heating alone would reduce PM2.5 by only about 29%, and a full transition to zero-emission transport by only about 27%.",
+       "ref": [
+        "doc:unclean",
+        "doc:wbair"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because the national target is measured in \"emissions\" and the international indicator in \"concentrations\", the gap to the target cannot be shown in figures without an emissions inventory (how many tonnes come from where) linking the two. The UN overview also recommends building an emissions register.",
+       "ref": [
+        "doc:ndp",
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Bishkek's annual mean varies slightly by source — the World Bank model (51.4 µg/m³, 2018), the paper's observations (48 µg/m³, 2019–21) and UNICEF's measurements (44 µg/m³, 2021–22) — but all are more than twice the national estimate (20.6 µg/m³) and about 9–10 times the WHO guideline.",
+       "ref": [
+        "doc:wbair",
+        "doc:mdpi2024",
+        "doc:unicefair",
+        "ind:air:0"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Air",
+     "msg": "National figures are falling, but Bishkek's winter levels are extremely high because of household coal heating.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Annual mean PM2.5 (national and urban; dotted line = WHO interim target of 15 µg/m³)",
+      "inds": [
+       "air:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "Trends: national PM2.5 was 36.1 µg/m³ (2010), 32.3 (2015), 23.9 (2020) and 20.6 (2023). Urban PM2.5 fell from 40.8 (2010) to 23.6 (2023).",
+       "ref": [
+        "ind:air:0"
+       ],
+       "b": "National 36.1 → 20.6; urban 40.8 → 23.6"
+      },
+      {
+       "k": "f",
+       "t": "Variation within the city: the UNICEF report puts Bishkek's annual mean for July 2021–June 2022 at 44 µg/m³, with annual means by sensor ranging from 17 to 75 µg/m³, a fourfold spread, and the north the highest. The city average was 1.75 times that at the US Embassy monitoring site over the same period.",
+       "ref": [
+        "doc:unicefair"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Gasification: according to the UN overview, 23,127 homes in 52 residential areas of Bishkek were connected to gas, and the city's gas contracts rose from 244,530 to 261,037 (2024). Residential gas use rose from 2.2 million m³ (2018) to 43 million m³ (2024), and coal use fell by 58,000 tonnes. By 2024, 93 public boilers had switched from coal to other energy sources.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Transport and waste: 1,292 new environmentally friendly buses were introduced (1,000 from the state budget, 120 from the city, 124 from EBRD and 48 from KfW), each replacing about 4 diesel minibuses. Fires at the Bishkek landfill were extinguished, which official estimates say reduced smog by 10–15%.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Enforcement: Bishkek city inspections checked 81,694 sites for prohibited burning, issuing 256 reports and 2,928,500 som in fines. Of 346 bathhouses and saunas, 245 used coal and 76 were closed. The Ministry of Natural Resources, Ecology and Technical Supervision carried out 1,002 inspections nationwide in 2024 and found 1,247 violations.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Sources of pollution"
+      },
+      {
+       "k": "f",
+       "t": "Sources: in the World Bank's analysis (2018 data), the largest contributors to the annual mean are residential heating, transport and windblown dust. In winter, residential heating is the largest, approaching 40% in some months. Transport is second in every season.",
+       "ref": [
+        "doc:wbair"
+       ],
+       "b": "Residential heating largest in winter; transport second"
+      },
+      {
+       "k": "f",
+       "t": "Heating: about 40% of Bishkek's population uses individual heating; 98% of detached houses have individual heating, and 75% of those use coal as the main fuel. UNEP and UNDP suggest that the city's thermal power plant may contribute less than 1% of ground-level PM2.5.",
+       "ref": [
+        "doc:wbair",
+        "doc:undp2022"
+       ],
+       "b": "75% of detached-house heating uses coal"
+      },
+      {
+       "k": "f",
+       "t": "[Academic study — not national statistics] A 2024 paper (estimates from a paper, not national statistics) estimates contributions to Bishkek's annual mean PM2.5 as household cooking and heating 29%, transport 27%, transboundary inflows 21%, the combined heat and power plant 11% and dust 9%, with household heating reaching about 40% in January and November. City emissions total about 5,450 tonnes a year: transport 1,750 tonnes, housing 1,400 tonnes, dust 1,100 tonnes, industry 950 tonnes and open burning of waste 150 tonnes.",
+       "ref": [
+        "doc:mdpi2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's emissions inventory (2018) likewise puts Bishkek's PM2.5 emissions at 5,488.6 tonnes a year: transport 1,737.6 tonnes, residential heating 1,424.0 tonnes, urban dust 1,157.8 tonnes, combined heat and power and heat-only boilers 751.7 tonnes, industry 249.2 tonnes and open burning of waste 168.3 tonnes. There are 16 brick kilns around the city.",
+       "ref": [
+        "doc:wbair"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank recommends publishing data on the efficiency of the power plant's electrostatic precipitators and verifying them through independent regular audits.",
+       "ref": [
+        "doc:wbair"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The World Bank analysis and the paper agree that household heating and transport are the two main sources. However, methods produce different results for the power plant's contribution — UNEP and UNDP say it \"may be less than 1%\", while the paper puts it at 11%. The common conclusion is that no single measure is sufficient.",
+       "ref": [
+        "doc:wbair",
+        "doc:mdpi2024",
+        "doc:undp2022"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Power plant: Bishkek's combined heat and power plant was transferred to city management in 2024. Conversion to natural gas is planned, but funding has not yet been secured.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Heating methods: in UNICEF's survey, the main winter heating sources are district heating about 48%, coal stoves 26%, gas 17% and electricity 8%. Coal is used by 40% of the lowest-income group versus 17% of the highest. Compared with MICS 2018, gas rose by more than 12 points and coal fell by 14 points. Children in coal-burning homes have about 33% higher annual exposure than those in homes with district heating.",
+       "ref": [
+        "doc:unicefair"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Coal heating is more common in lower-income households, and the harm from pollution falls heavily on children. Unless subsidies for heating conversion are designed to reach low-income households, both the reduction in pollution and its fairness will be limited.",
+       "ref": [
+        "doc:unicefair",
+        "doc:wbair"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Funding for conversion: according to the UN overview, a subsidised loan scheme of 1 billion som at 8% interest was set up for gas connections, but only 254 users borrowed, totalling just over 32 million som. There are 44 EV charging stations, 3,394 registered electric vehicles (early 2025) and 9 natural gas vehicle filling stations.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Effect of measures: if all coal-using households switched to clean heating, annual mean PM2.5 would fall by 29%, and switching the thermal power plant from coal to gas would reduce it by 9%. No single area alone achieves the required reduction.",
+       "ref": [
+        "doc:wbair"
+       ],
+       "b": "Heating conversion −29%; power plant gasification −9%"
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap to targets"
+      },
+      {
+       "k": "f",
+       "t": "Outlook: UNEP and UNDP project that under business as usual, PM2.5 emissions will increase by 60% by 2040, and recommend affordable alternatives to coal heating such as heat pumps, stricter fuel standards and a monitoring network using low-cost sensors.",
+       "ref": [
+        "doc:undp2022"
+       ],
+       "b": "Under business as usual, emissions up 60% by 2040"
+      },
+      {
+       "k": "f",
+       "t": "UN overview recommendations (heating): give early notice of a ban on coal heating from 2035 and provide subsidised finance for heat pumps and other alternatives. They also include grants for insulating old buildings, strict insulation and airtightness standards for new buildings, financing repaid from energy savings, a tax on coal and tax incentives for clean heating.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Recommendations (transport): collect data on vehicle types, model years and the presence of catalytic converters; raise average speeds with dedicated bus lanes; replace old diesel buses with gas or electric ones; ban the removal of catalytic converters; align standards with EU emission standards (EURO); and establish low-emission zones restricting traffic on high-pollution days.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF recommends designating coal-free zones, phasing out coal combined with affordable alternatives, a health-based air quality index, managing air quality across the whole airshed beyond city boundaries, and regular vehicle emission inspections (not currently carried out).",
+       "ref": [
+        "doc:unicefair"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "National measures (gasification of housing, coal enrichment) point in the same direction as \"household heating conversion\", which donor analyses consider most effective. However, the national target is measured in emissions, and no emission figures are published.",
+       "ref": [
+        "doc:ndp",
+        "doc:wbair"
+       ],
+       "b": "Direction aligned; no figures to measure it"
+      },
+      {
+       "k": "v",
+       "t": "World Bank estimates suggest full household heating conversion would cut concentrations by 29% and power plant gasification by 9%. Emissions and concentrations are not the same, but NDP 2030's \"16% reduction\" is within reach if heating conversion advances substantially. Conversely, it will be hard to achieve with gasification and coal enrichment alone if heating conversion stalls.",
+       "ref": [
+        "doc:wbair",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to donor projects"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the air row has 4 projects worth about USD 8.5 million, almost entirely the World Bank's air quality improvement project. The World Bank states that this analysis formed the basis for the USD 50 million project.",
+       "ref": [
+        "row:air",
+        "doc:wbair"
+       ],
+       "b": "Air about USD 8.5 million (mainly World Bank)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's air quality improvement project is a USD 50 million IDA credit (2024–2030), allocating USD 9.1 million to monitoring, USD 32.3 million to clean heating, USD 7.1 million to greening and USD 1.5 million to implementation support (UN overview). The site counts it as about USD 8.3 million after pro-rata allocation.",
+       "ref": [
+        "doc:unclean",
+        "proj:WB-P177467"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Other cooperation: ADB's electric urban transport (USD 50.65 million, 120 electric buses, 2022–2027), Korea's air quality improvement (USD 10 million, heat pumps and solar power for about 20 schools and kindergartens in Chui Region, 2025–2028), GIZ's heat pump demonstration (about USD 0.35 million) and Finland's monitoring modernisation (FINKMET I–III). The site counts the Korean project as about USD 0.2 million after pro-rata allocation.",
+       "ref": [
+        "doc:unclean",
+        "proj:KR-GOV-010-KR-GOV-051-2025010100049"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Air quality cooperation channels funding into heating conversion, consistent with the measures the World Bank analysis considers most effective. On the other hand, the expansion of monitoring (at least 5 automatic stations per city and a laboratory for sensor calibration) and the emissions register recommended by the UN overview rely on parts of other projects, as the environmental governance row remains empty.",
+       "ref": [
+        "doc:wbair",
+        "doc:unclean",
+        "row:inst"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Sewerage, waste and legacy sites",
+     "msg": "Sewerage and waste facilities are being developed, but there are no figures to measure results annually; tailings have neither funding nor figures.",
+     "paras": [
+      {
+       "k": "h",
+       "t": "Sewerage"
+      },
+      {
+       "k": "f",
+       "t": "Sewerage: only 3% of rural homes, schools and health facilities are connected to sewerage, and 5 towns have no sewerage at all.",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "Rural sewerage connection 3%"
+      },
+      {
+       "k": "f",
+       "t": "The CAREC Institute report (2024) puts the share of people connected to centralised sewerage at 21% (78% in Bishkek, under 10% in the regions) and states that in remote towns and district centres it is falling by 1.5–2% a year as facilities deteriorate. The AIIB document states that rural areas have no centralised sewerage and wastewater is discharged untreated.",
+       "ref": [
+        "doc:carec",
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Impact on rivers: the UNECE water policy dialogue article lists untreated industrial and municipal wastewater, livestock, mining and illegal dumping near settlements as pressures on the Chu River.",
+       "ref": [
+        "doc:npd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Protecting Lake Issyk-Kul: the World Bank's second additional financing for rural water supply will design and build wastewater treatment and disposal systems for social facilities in Kurmentu and Ak-Bulak in Issyk-Kul Region to protect the lake.",
+       "ref": [
+        "doc:wbaf2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The national water supply programme's indicator matrix also lists construction of wastewater treatment plants in two towns, Balykchy and Karakol, and improvement of wastewater treatment in Cholpon-Ata.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Wastewater treatment around Lake Issyk-Kul is better covered than in other regions, with overlapping cooperation from ADB's wastewater management (ended 2025), EBRD's Cholpon-Ata water project and the World Bank's treatment in two villages. By comparison, wastewater treatment in regional towns away from the lake appears thinly covered.",
+       "ref": [
+        "proj:XM-DAC-46004-50176-002-LN3742",
+        "proj:XI-IATI-EBRD-45756",
+        "doc:wbaf2",
+        "row:water"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Waste"
+      },
+      {
+       "k": "f",
+       "t": "Waste: the only waste collection rate figures are Bishkek 83% (2010) and Osh 80% (2018), and the share treated is unknown.",
+       "ref": [
+        "doc:sdgdb"
+       ],
+       "b": "Only two data points for waste collection rates"
+      },
+      {
+       "k": "f",
+       "t": "According to the UN overview, a textile waste incinerator with a capacity of up to 20 tonnes a day was installed in October 2023, and 1,160 garment factories signed formal waste management contracts. On 29 March 2024, a USD 95 million waste-to-energy investment agreement was signed.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UN overview recommendations (waste): extend collection to all settlements, including urban outskirts, to prevent open burning; make separation of metal, glass, plastic and paper mandatory; ban open burning of waste, including textiles, with penalties; convert organic waste into compost and biogas; ban single-use plastic plates and bags in public places so they are not used as fuel; and ventilation and fire prevention at landfills.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Emissions from open burning of waste (168.3 tonnes in the World Bank inventory) are about 3% of the total, but tend to occur on urban outskirts that collection does not reach. Extending collection addresses both waste and air pollution.",
+       "ref": [
+        "doc:wbair",
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Major projects in the waste row: the EU's solid waste in Osh and Jalal-Abad (about USD 0.9 million, to December 2027), EBRD's Osh solid waste (about USD 0.4 million), ADB's preparation for environmental improvement in waste (about USD 0.3 million, 2025–2027) and Switzerland's hospital medical waste management (about USD 0.5 million).",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2016-PCC-375313",
+        "proj:XI-IATI-EBRD-42471",
+        "proj:XM-DAC-46004-57037-007-GRNT1084",
+        "proj:CH-4-2009003606"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Waste cooperation is concentrated in Osh and Jalal-Abad besides Bishkek; among the site's top projects, none targets waste collection and disposal in small and medium regional towns. Nor is there any project supporting the introduction of extended producer responsibility under NDP 2030.",
+       "ref": [
+        "row:waste",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Legacy sites and chemicals"
+      },
+      {
+       "k": "f",
+       "t": "Legacy sites: progress on works at the 16 tailings ponds and waste dumps from the former uranium legacy appears only in reports of the Ministry of Emergency Situations and donor project reports.",
+       "ref": [
+        "doc:ndp",
+        "row:tail"
+       ],
+       "b": "Uranium tailings progress only in project reports"
+      },
+      {
+       "k": "f",
+       "t": "Completed chemicals projects include reducing environmental risks from primary mercury mining at Khaidarkan (about USD 0.5 million, ended 2018), preventing releases of persistent organic pollutants (POPs) and mercury from improper handling of medical waste (about USD 0.7 million, ended 2018), and strengthening implementation of chemicals conventions (UNEP, about USD 0.1 million, ended 2025).",
+       "ref": [
+        "proj:XI-BRIDGE-6385676864-4985",
+        "proj:XI-BRIDGE-6385676864-5068",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 Section 13.2 lists as tasks a chemicals inventory and national register, safe disposal of obsolete pesticides and remediation of contaminated soil, and improved regulation of radioactive materials and waste management.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter 3 of the DRR Action Plan 2025–2030 provides for inter-ministerial working groups by area, such as hazardous production facilities, environmental and radiation monitoring and hydraulic structures (2025–2026), a concept for a technosphere monitoring system (2026), and proposals for a database of hazardous facilities and automated monitoring (2027–2028).",
+       "ref": [
+        "doc:drrplan",
+        "row:tail"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The site's materials state that progress on uranium tailings works appears in project reports of the EU, Russia and others, but in the site's project data the tailings, uranium and hazardous substances row has no active projects. It needs to be checked whether cooperation is missing from the data or whether this is a genuine gap.",
+       "ref": [
+        "row:tail",
+        "fact:empty_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Investment in facilities continues, but with no figures on collection rates, treatment rates or tailings remediation, it is impossible to verify whether investment has produced results.",
+       "ref": [
+        "row:water",
+        "row:waste",
+        "row:tail"
+       ],
+       "b": "No figures to verify results"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the water, sanitation and wastewater treatment row has 20 projects worth about USD 49.8 million (World Bank about USD 19.9 million, EU about USD 15.7 million, EBRD about USD 12.8 million), and the waste row 13 projects worth about USD 18.6 million (almost all EU). The tailings, uranium and hazardous substances row has none.",
+       "ref": [
+        "row:water",
+        "row:waste",
+        "row:tail"
+       ],
+       "b": "Water and sanitation about USD 49.8 million; waste about USD 18.6 million"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding comes almost entirely from three donors: the World Bank, the EU and EBRD.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects aligned with strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation aligned with the environmental management strategy totals 31 projects worth about USD 60.6 million. By donor: World Bank about USD 28.2 million, EU about USD 16.6 million, EBRD about USD 13.2 million, FAO about USD 1 million, Switzerland about USD 0.8 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 31 projects, about USD 60.6 million"
+      },
+      {
+       "k": "h",
+       "t": "Donor focus areas"
+      },
+      {
+       "k": "f",
+       "t": "Each donor's core projects: World Bank, additional financing for rural water supply (about USD 9 million), air quality improvement (about USD 8.3 million) and climate-resilient water services (about USD 8.3 million); EU, investment support for water supply and sanitation (three tranches) and solid waste in Osh and Jalal-Abad; EBRD, city-level water sub-projects such as Cholpon-Ata (about USD 7.2 million).",
+       "ref": [
+        "proj:WB-P162840",
+        "proj:WB-P177467",
+        "proj:WB-P173734",
+        "proj:XI-IATI-EC_INTPA-2019-PCC-399645",
+        "proj:XI-IATI-EBRD-45756"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The about USD 10.7 million ending by late 2026 consists of the first and second tranches of the EU's investment support for water supply and sanitation (about USD 5.4 million and about USD 5.3 million). These two projects are also included in the waste row.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2016-PCC-378430",
+        "proj:XI-IATI-EC_INTPA-2016-PCC-380145",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the about USD 60.6 million active, the water and sanitation row accounts for about USD 49.8 million, or 80%. Funding specific to environmental management is limited to air (about USD 8.5 million) and part of waste.",
+       "ref": [
+        "fact:rows",
+        "row:water",
+        "row:air",
+        "row:waste"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Coordination of air quality cooperation: the UN overview was compiled by the working group of the Development Partners Coordination Council with input from ADB, WHO, UNECE, the Climate and Clean Air Coalition (CCAC), IOM, UNEP, UNICEF, GIZ, the World Bank, Finland, KOICA, civil society and others.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Three projects worth about USD 10.7 million end by late 2026 (almost entirely the EU's investment support for water supply and sanitation).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ],
+       "b": "About USD 10.7 million ends by late 2026"
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 26 projects worth about USD 63.2 million, led by the EU and ADB.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 26 projects, about USD 63.2 million"
+      },
+      {
+       "k": "f",
+       "t": "Data note: many active projects are the same water supply and sanitation projects as in the water sector, so adding across sectors double-counts them. The World Bank's air quality improvement project is counted on the site as about USD 8.3 million after pro-rata allocation, against the USD 50 million stated by the World Bank.",
+       "ref": [
+        "row:water",
+        "row:air",
+        "doc:wbair"
+       ],
+       "b": "Overlap with the water sector; air project counted after pro-rata allocation"
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at the time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Cooperation completed over the past decade was dominated by the EU's water, sanitation and waste support and ADB's Lake Issyk-Kul wastewater management.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage period: projects completed in or after 2017. Earlier projects are excluded because records for major donors are incomplete. Even from 2017, the data almost only cover ADB from 2020 onwards and UNICEF and UNDP from 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and aligned with the environmental management strategy total 26, worth about USD 63.2 million (after pro-rata allocation, without double counting). By donor: EU about USD 35.1 million, ADB about USD 18.3 million, World Bank about USD 5.4 million, climate funds (GEF and others) about USD 2.1 million, Switzerland about USD 1.7 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "26 projects, about USD 63.2 million, led by the EU and ADB"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): water and sanitation, 13 projects worth about USD 59.7 million; waste, 12 projects worth about USD 54.2 million (the EU's water, wastewater and solid waste project and ADB's Issyk-Kul wastewater management fall into both); tailings and hazardous substances, 3 projects worth about USD 1.3 million (e.g. Khaidarkan mercury mining, mercury and POPs from medical waste); environmental governance, 1 project worth about USD 1 million (national environmental monitoring and information management); air, 4 projects worth about USD 0.2 million.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Mostly water, sanitation and waste; small amounts for tailings and governance"
+      },
+      {
+       "k": "f",
+       "t": "Major completed projects: the EU's \"Drinking Water, Wastewater and Solid Waste\" (about USD 34 million, December 2025), ADB's Issyk-Kul wastewater management (about USD 11.8 million and about USD 6.4 million, June 2025), the World Bank's rural water supply (about USD 3.4 million) and national water resources management (about USD 2 million), and the EU's technical contract for solid waste in Osh (about USD 1.1 million, December 2024).",
+       "ref": [
+        "proj:XM-DAC-918-3-20140105-83457",
+        "proj:XM-DAC-46004-50176-002-LN3742",
+        "proj:XM-DAC-46004-50176-002-GRNT0628",
+        "proj:WB-P154778",
+        "proj:WB-P144336",
+        "proj:XI-IATI-EC_INTPA-2024-PC-28815"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The single completed project in the environmental governance row strengthened institutional and legal capacity to improve the national environmental monitoring system and environmental information management (about USD 1 million, ended June 2019).",
+       "ref": [
+        "proj:XI-BRIDGE-6385676864-5715",
+        "row:inst",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Small air quality projects: according to the UN overview, these included UNECE's emissions inventory work (about USD 50,000 each in 2018, 2020–21 and 2023), WHO training on the AirQ+ health risk assessment tool (30 experts, about USD 30,000, December 2023), and two IOM projects (awareness-raising and retrofitting of 12 homes, USD 600,000 in total, 2021–2025).",
+       "ref": [
+        "doc:unclean",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Until around 2023, air quality cooperation consisted mainly of small studies, training and awareness projects; the World Bank's air quality improvement project was the first to bring major funding to heating conversion.",
+       "ref": [
+        "fact:closed_rows",
+        "row:air",
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Tailings and hazardous substances, and environmental governance, had small projects in the past but have no active projects now. Air had almost nothing in the past and has newly received funding through the World Bank project.",
+       "ref": [
+        "fact:closed_rows",
+        "row:tail",
+        "row:inst",
+        "row:air"
+       ],
+       "b": "Tailings and governance discontinued; air newly started"
+      },
+      {
+       "k": "v",
+       "t": "Following its largest completed project, \"Drinking Water, Wastewater and Solid Waste\" (December 2025), the EU's first and second tranches of investment support for water supply and sanitation also end in December 2026. EU funding in environmental management will then centre on the third phase, which runs until 2030.",
+       "ref": [
+        "proj:XM-DAC-918-3-20140105-83457",
+        "proj:XI-IATI-EC_INTPA-2016-PCC-378430",
+        "proj:XI-IATI-EC_INTPA-2019-PCC-399645"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Two areas have no active cooperation: tailings, uranium and hazardous substances, and environmental governance and impact assessment.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Areas with no active cooperation: tailings, uranium and hazardous substances; environmental governance and impact assessment.",
+       "ref": [
+        "fact:empty_rows"
+       ],
+       "b": "Gaps: tailings and hazardous substances; environmental governance"
+      },
+      {
+       "k": "f",
+       "t": "The tailings and hazardous substances row has 0 active and 3 completed projects (about USD 1.3 million), and the environmental governance row 0 active and 1 completed (about USD 1 million). In both rows, cooperation since 2017 is limited to a few completed projects.",
+       "ref": [
+        "fact:closed_rows",
+        "fact:empty_rows",
+        "row:tail",
+        "row:inst"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The environmental governance row is empty, yet the UN overview calls for a sensor calibration laboratory and a national reference laboratory, a real-time public data platform and an emissions register. The WHO case study also cites shortages of staff and data on the health side. This is an area where demand for technical cooperation exceeds demand for funding.",
+       "ref": [
+        "row:inst",
+        "doc:unclean",
+        "doc:whocase"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UN overview recommendations (health): national air quality standards in line with WHO recommendations, training for health workers in recording under the International Classification of Diseases (ICD-10), inclusion of air pollution as a risk factor for non-communicable diseases in national prevention plans, systematic collection of data on air pollution-related illness and death, and development of an air quality index.",
+       "ref": [
+        "doc:unclean"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The tailings and hazardous substances row has had no new projects since the mercury and POPs projects ended in 2018. No corresponding cooperation for NDP 2030's chemicals register and disposal of obsolete pesticides can be found in the site's data.",
+       "ref": [
+        "row:tail",
+        "fact:closed_rows",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF also recommends household use of air purifiers during pregnancy and the first 1,000 days of life (e.g. lending through antenatal and postnatal care), reducing indoor tobacco smoke, and integrating air pollution into school curricula and teacher training.",
+       "ref": [
+        "doc:unicefair"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "No projects corresponding to indoor measures to protect children and pregnant women or to school-based learning can be found in the site's data. These could also be incorporated into health and education cooperation.",
+       "ref": [
+        "doc:unicefair",
+        "row:air"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "2027 will test both the progress of heating conversion in Bishkek and the successors to water, sanitation and waste investment.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "For air, national measures (gasification, coal enrichment) and donor analyses (household heating conversion is most effective) are now aligned. The next step is whether emission and monitoring figures to measure progress can be published.",
+       "ref": [
+        "doc:ndp",
+        "doc:wbair",
+        "row:air"
+       ],
+       "b": "Air: direction aligned; figures to measure it are the next step"
+      },
+      {
+       "k": "v",
+       "t": "With the EU's investment support for water, sanitation and waste partly ending in late 2026, the question is who will fund NDP 2030's waste tasks (modern landfills, extended producer responsibility), and how.",
+       "ref": [
+        "fact:end_2026_by_donor",
+        "row:waste",
+        "doc:ndp"
+       ],
+       "b": "Waste: EU successor and putting national tasks into practice"
+      },
+      {
+       "k": "v",
+       "t": "Uranium tailings and hazardous substances, and environmental governance, have national targets but no active cooperation. Technical cooperation on monitoring systems and registers is likely to be in greater demand than funding.",
+       "ref": [
+        "fact:empty_rows",
+        "doc:ndp"
+       ],
+       "b": "Tailings and governance likely to call for technical cooperation"
+      },
+      {
+       "k": "v",
+       "t": "The thinning of public air quality monitoring data affects the assessment of every measure. Whether certification arrangements for stations and sensors are put in place and data are published again is a precondition for verifying the effectiveness of measures in the 2026–2027 winter.",
+       "ref": [
+        "doc:unclean",
+        "row:inst"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The UN overview's proposed \"ban on coal heating from 2035\" is a long-term target extending beyond the NDP 2030 period. How to connect it with national measures to 2030 (gasification, coal enrichment) will be an issue for the next national air quality plan.",
+       "ref": [
+        "doc:unclean",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In waste, the USD 95 million waste-to-energy investment agreement (March 2024) and the development of Bishkek's new landfill could significantly change waste treatment in Bishkek. The next checkpoints are construction progress and the expansion of collection to eliminate open burning.",
+       "ref": [
+        "doc:unclean",
+        "row:waste"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: Bishkek air quality readings during the winter heating season, implementation reports on the Green Economy Development Programme, EU successor projects, and reports on uranium tailings works.",
+       "ref": [
+        "ind:air:0",
+        "row:waste",
+        "row:tail"
+       ],
+       "b": "Winter air, green economy, EU successor and tailings"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "PM2.5 national annual mean (WHO interim target 3)",
+   "20.6µg/m³(2023)",
+   "15µg/m³",
+   "−1.5/yr (2015–23)",
+   "−0.8/yr",
+   "On track (about 10 µg)",
+   "good"
+  ],
+  [
+   "PM2.5 national annual mean (WHO guideline)",
+   "20.6µg/m³(2023)",
+   "5µg/m³",
+   "−1.5/yr (2015–23)",
+   "−2.2/yr",
+   "Off track",
+   "bad"
+  ],
+  [
+   "16% reduction in harmful emissions in Bishkek (NDP 2030 13.2)",
+   "No published figure",
+   "16% reduction",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "16 former uranium tailings ponds and waste dumps (NDP 2030 13.1)",
+   "No published figure",
+   "Make 16 sites safe",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Waste collection rate (SDG 11.6.1)",
+   "Only Bishkek 83% (2010) and Osh 80% (2018)",
+   "—",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Air pollution (Bishkek winter)",
+   "\"Bishkek: Smart and Sustainable City\" to 2033",
+   "Text not reviewed",
+   "ok",
+   "16% reduction in harmful emissions in Bishkek (13.2)",
+   "air",
+   ""
+  ],
+  [
+   "1",
+   "Water, sanitation and wastewater treatment",
+   "Programme for the Development of Drinking Water Supply and Sanitation Systems 2026",
+   "Government Decree No. 330 of 2020 (expires 2026)",
+   "end",
+   "—",
+   "water",
+   ""
+  ],
+  [
+   "1",
+   "Waste and recycling",
+   "Green Economy Development Programme 2025–2029",
+   "Text not reviewed",
+   "ok",
+   "Waste tasks (13.2, no numerical target)",
+   "waste",
+   ""
+  ],
+  [
+   "1",
+   "Tailings, uranium and hazardous substances",
+   "Action Plan for Emergency Risk Reduction 2025–2030",
+   "Cabinet of Ministers Resolution No. 601 of 2025",
+   "ok",
+   "16 uranium tailings sites (13.1)",
+   "tail",
+   ""
+  ],
+  [
+   "1",
+   "Environmental governance and impact assessment",
+   "Green Economy Development Programme 2025–2029",
+   "Text not reviewed",
+   "ok",
+   "—",
+   "inst",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Environmental management"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Emissions of harmful substances in Bishkek (baseline and annual values for the NDP 2030 target of a 16% reduction)",
+  "The number of the 16 former uranium tailings ponds and waste dumps brought into a safe condition",
+  "Annual values for waste collection and treatment rates (only two data points exist: Bishkek 2010 and Osh 2018)",
+  "Latest figures on access to centralised sewerage and the share of wastewater treated",
+  "Texts and targets of the Green Economy Development Programme 2025–2029 and \"Bishkek: Smart and Sustainable City\" to 2033",
+  "Other material not read or not verified: UNECE's \"Third Environmental Performance Review\" (2025) displayed only the summary, so no figures from it were used. Of the UN \"Overview of Clean Air Actions 2018–2024\", only up to the first half of the recommendations was read, and of the UNICEF air pollution report, only the executive summary"
+ ]
+}

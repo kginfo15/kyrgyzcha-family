@@ -1,0 +1,1852 @@
+{
+ "sid": "private",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Private sector development"
+  },
+  "rows": {
+   "inv": {
+    "n": "Investment climate and special economic zones",
+    "st": "(Regional Development Programme 2025–30)"
+   },
+   "sme": {
+    "n": "SMEs and access to finance",
+    "st": "Programme for Supporting Women's Entrepreneurship 2022–26"
+   },
+   "reg": {
+    "n": "Regional economic development",
+    "st": "Integrated Socio-Economic Development of the Regions 2025–30"
+   },
+   "trade": {
+    "n": "Trade, exports and logistics",
+    "st": "(National Development Programme, Chapter 5)"
+   },
+   "tour": {
+    "n": "Tourism",
+    "st": "Programme for Sustainable Tourism Development to 2030"
+   }
+  }
+ },
+ "ind": {
+  "eco": {
+   "name": "(1) The economy as a whole",
+   "tag": "GDP, growth",
+   "inds": [
+    {
+     "name": "GDP per capita",
+     "unit": "USD",
+     "st": "△ About 3,986 in 2030 at the current pace",
+     "src": "World Bank WDI NY.GDP.PCAP.CD (current USD)",
+     "t": [
+      "National USD 4,500"
+     ]
+    },
+    {
+     "name": "GDP (gross domestic product)",
+     "unit": "USD billion",
+     "st": "△ About 29.9 in 2030 at the current pace",
+     "src": "World Bank WDI NY.GDP.MKTP.CD (current USD)",
+     "t": [
+      "National USD 30 billion"
+     ]
+    },
+    {
+     "name": "Real GDP growth",
+     "unit": "%",
+     "st": "✓ Above 8% every year since 2022",
+     "src": "World Bank WDI NY.GDP.MKTP.KD.ZG",
+     "t": [
+      "National 8% a year"
+     ]
+    }
+   ]
+  },
+  "ind": {
+   "name": "(2) Industry and investment",
+   "tag": "Industrial output, fixed investment, foreign investment",
+   "goals": [
+    [
+     "Raise industry's share of fixed capital investment from 34% to 50% (NDP 2030 Section 5.1)",
+     "National Statistical Committee yearbook only"
+    ],
+    [
+     "Triple SME value added (vs 2024) and raise it to at least 50% of GDP (same, VI)",
+     "National Statistical Committee yearbook only"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Industry (including construction) value added (constant prices)",
+     "unit": "USD billion (2015 prices)",
+     "st": "✕ Pace too slow; about 3.8 even in 2030",
+     "src": "World Bank WDI NV.IND.TOTL.KD",
+     "note": "The national target is \"industrial output\". Industrial value added (2015 prices) is used here as a proxy.",
+     "t": [
+      "National: double"
+     ]
+    },
+    {
+     "name": "Gross fixed capital formation (% of GDP)",
+     "unit": "%",
+     "st": "✓ Target (national: at least 20%) already achieved",
+     "src": "World Bank WDI NE.GDI.FTOT.ZS",
+     "t": [
+      "National: at least 20%"
+     ]
+    },
+    {
+     "name": "Foreign direct investment inflows (% of GDP)",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI BX.KLT.DINV.WD.GD.ZS (originally IMF)",
+     "t": []
+    }
+   ]
+  },
+  "tour": {
+   "name": "(3) Tourism",
+   "tag": "Tourists, tourism receipts",
+   "goals": [
+    [
+     "Raise the tourism industry to 7% of GDP (NDP 2030 Section 5.3)",
+     "Tourism satellite account only in the National Statistical Committee yearbook"
+    ],
+    [
+     "Top 50 countries in the Travel and Tourism Competitiveness Index (tourism programme)",
+     "World Economic Forum report (biennial)"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "International tourist arrivals",
+     "unit": "million people",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI ST.INT.ARVL (originally UN World Tourism Organization, to 2019)",
+     "note": "International data stop in 2019 (counts of border crossings, including day trips from neighbouring countries). Recent figures from the tourism agency and the National Statistical Committee are to be entered manually.",
+     "t": []
+    },
+    {
+     "name": "Tourism receipts (% of exports)",
+     "unit": "%",
+     "st": "— No target (falling trend)",
+     "src": "World Bank WDI ST.INT.RCPT.XP.ZS (to 2020)",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Private sector funding goes to the investment climate and regional economies; trade and logistics are small",
+  "msgs": [
+   [
+    "Selection of investment projects under review.",
+    "The Cabinet of Ministers changed the selection procedure for national investment projects and the terms of five special economic zones (6 November)."
+   ],
+   [
+    "Regional economies: World Bank.",
+    "The Regional Economic Development Project (to the end of 2026) and its second phase."
+   ],
+   [
+    "Tourism leans towards infrastructure.",
+    "The Islamic Development Bank's transmission lines (Issyk-Kul) and ADB's green tourism. Little support for tourism policy itself."
+   ],
+   [
+    "Few trade and export projects.",
+    "SME foreign trade grew by 9% in 2025. Support for logistics and exports is small-scale."
+   ]
+  ],
+  "h2": "Funding goes to the investment climate, SMEs and regional economies; trade and logistics are small-scale",
+  "rows": {
+   "inv": [
+    "",
+    "EU and others, including the BUILD fund and forest carbon"
+   ],
+   "sme": [
+    "",
+    "World Bank, EBRD and ADB SME support"
+   ],
+   "reg": [
+    "Note",
+    "Mainly the World Bank's Regional Economic Development (Phase 1 to the end of 2026)"
+   ],
+   "trade": [
+    "",
+    "Small-scale, such as an NGO trade corridor project"
+   ],
+   "tour": [
+    "",
+    "Islamic Development Bank and ADB; support for tourism policy is a gap"
+   ]
+  },
+  "h3": "Recent news centres on investment regime reviews, antitrust and export growth",
+  "themes": [
+   [
+    "Investment:",
+    "Changes to investment project selection procedures and special economic zone terms; investment proposals to the President."
+   ],
+   [
+    "Regulation:",
+    "Changes to the powers of the antimonopoly authority; wider obligation for shops to connect electronic cash registers (FPO)."
+   ],
+   [
+    "Trade:",
+    "Butter exports up tenfold; SME foreign trade rising."
+   ]
+  ]
+ },
+ "proj_t": {
+  "CH-4-2025-2012007029": "«Bai Alai» Small Business and Income Creation in Alai and Chon-Alai",
+  "CH-4-2024-2012007029": "«Bai Alai» Small Business and Income Creation in Alai and Chon-Alai",
+  "CH-4-2023-2012007029": "«Bai Alai» Small Business and Income Creation in Alai and Chon-Alai",
+  "JICA-201904278": "Project for Regional Development and Tourism Promotion Utilising World Heritage Sites in Chui Region",
+  "JICA-201200282": "Project for the Promotion of Vegetable Seed Production for Export",
+  "XI-IATI-EC_INTPA-2019-PCC-412061": "GREEN TOUR Kyrgyzstan – Replicating tourism industry sustainability best practices into the Kyrgyzstan and wider Central Asian tourism supply chain through an integrated business-led approach"
+ },
+ "title": "Kyrgyz Republic Private Sector Development Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "pr-ndp",
+   "t": "National Development Programme 2030 (Presidential Decree No. 178 of 2025): IV Goals, III Current situation, 5.1 Industrialisation, 5.2 Regional Hub, 5.3 Tourism, VI SME support, 10.4 Regional development",
+   "by": "Kyrgyz Republic",
+   "y": "2025",
+   "scope": "IV, III (macroeconomy, tourism, regions), 5.1, 5.2, 5.3 (tourism), VI and 10.4, reviewed in the translation on this site",
+   "cat": "gov"
+  },
+  {
+   "id": "pr-tour",
+   "t": "Action Plan of the Programme for Sustainable Tourism Development 2025–2030 (Annex 2 to Cabinet Resolution No. 765 of 18 December 2024)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2024",
+   "scope": "Full text of the action plan (machine translation). This annex contains no numerical targets or baselines",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=23883&lang=ru"
+  },
+  {
+   "id": "pr-cpsd",
+   "t": "Country Private Sector Diagnostic: Creating Markets in the Kyrgyz Republic",
+   "by": "IFC (International Finance Corporation)",
+   "y": "2021",
+   "scope": "First half of the PDF (summary, Chapters 1–5, and the recommendations in Tables E.1 and 5.1) reviewed in the original. The text of Chapter 8 on tourism and the annexes have not been read",
+   "cat": "donor",
+   "u": "https://www.ifc.org/content/dam/ifc/doc/mgrt/cpsd-kyrgyz-republic.pdf"
+  },
+  {
+   "id": "pr-cem",
+   "t": "Country Economic Memorandum for the Kyrgyz Republic (landing page)",
+   "by": "World Bank",
+   "y": "Jun 2025",
+   "scope": "Full text of the landing page. The full report PDF has not been read",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/country/kyrgyzrepublic/publication/cem-2025"
+  },
+  {
+   "id": "pr-ebrd",
+   "t": "EBRD approves new country strategy for Kyrgyz Republic (announcement of the country strategy to 2029)",
+   "by": "EBRD (European Bank for Reconstruction and Development)",
+   "y": "2024",
+   "scope": "Full text of the announcement. The strategy itself has not been read",
+   "cat": "donor",
+   "u": "https://www.ebrd.com/home/news-and-events/news/2024/ebrd-approves-new-country-strategy-for-kyrgyz-republic.html"
+  },
+  {
+   "id": "pr-ifccr",
+   "t": "Kyrgyz Republic: Reforming credit infrastructure to increase access to finance for small-scale entrepreneurs",
+   "by": "IFC (International Finance Corporation)",
+   "y": "2024",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://ifc.org/content/dam/ifc/doclink/2024/reforming-credit-infrastructure-kyrgyz-republic-en.pdf"
+  },
+  {
+   "id": "pr-adbik",
+   "t": "Issyk-Kul Environmental Management and Sustainable Tourism Development Project (55250-001), project page",
+   "by": "ADB (Asian Development Bank)",
+   "y": "2024",
+   "scope": "Full text of the project page (descriptions of financing, outcomes and issues, and progress)",
+   "cat": "donor",
+   "u": "https://www.adb.org/projects/55250-001/main"
+  },
+  {
+   "id": "pr-red",
+   "t": "Regional Economic Development Project for the Kyrgyz Republic (loan announcement, March 2020) and the announcement of additional financing for Osh Region (March 2025)",
+   "by": "World Bank",
+   "y": "2020, 2025",
+   "scope": "Full text of both announcements",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2025/03/26/world-bank-approves-additional-financing-to-boost-economic-growth-in-kyrgyz-republic-osh-region"
+  },
+  {
+   "id": "pr-infra",
+   "t": "Kyrgyz Republic Infrastructure Governance Assessment",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "Summary (paragraphs 1–8) reviewed in the original. The second half has not been read",
+   "cat": "donor",
+   "u": "https://thedocs.worldbank.org/en/doc/b38abeabc516d7f3ac1ea83715d8f23a-0080012023/original/Kyrgyz-Republic-InfraGov-Report.pdf"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Growth exceeds the national target, but the industry and SME targets are far off. Real growth has exceeded 8% every year since 2022 (11.1% in 2025), and GDP is on pace to reach USD 30 billion in 2030. Against the target of doubling industrial output from 2024, industrial value added would reach only about 60% of the goal at this pace.",
+   "ref": [
+    "ind:eco:2",
+    "ind:eco:1",
+    "ind:ind:0",
+    "doc:pr-ndp"
+   ],
+   "h": "Growth beats the target, but industry and SME targets are far off"
+  },
+  {
+   "k": "f",
+   "t": "Growth relies on investment and extractives, and about 70% of employment is informal (unregistered work). The World Bank points out that weak competition and the business environment hold back new firm entry and productivity.",
+   "ref": [
+    "doc:pr-cem",
+    "doc:pr-cpsd"
+   ],
+   "h": "Growth relies on investment and extractives; about 70% of jobs are informal"
+  },
+  {
+   "k": "f",
+   "t": "Of the national targets, no annual published figures were found for SMEs (tripling value added, 50% of GDP) or tourism (7% of GDP), so their achievement cannot be measured.",
+   "ref": [
+    "doc:pr-ndp",
+    "ind:tour:0"
+   ],
+   "h": "National SME and tourism targets cannot be measured"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation mapped to the private sector strategy comprises 22 projects worth about USD 63.1 million, led by the World Bank, the Islamic Development Bank and ADB. Trade, exports and logistics are thin, with 2 projects worth about USD 0.4 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:trade"
+   ],
+   "h": "22 active projects worth about USD 63.1 million; trade is thin"
+  },
+  {
+   "k": "v",
+   "t": "Tourism has the most developed national programme (nine areas), and funding is concentrated around Lake Issyk-Kul. The investment climate and trade, by contrast, have no dedicated national plan and are thin in both planning and funding.",
+   "ref": [
+    "tree:tourism:tourism",
+    "row:tour",
+    "row:inv",
+    "row:trade"
+   ],
+   "h": "Tourism is strong in plans and funding; the investment climate and trade are thin"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Private sector overview",
+     "msg": "High growth continues, but it relies on investment and extractives, and most employment remains informal.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "11.1",
+        "u": "%",
+        "k": "Real GDP growth (2025)",
+        "ref": "ind:eco:2"
+       },
+       {
+        "v": "3,081",
+        "u": "USD",
+        "k": "GDP per capita (2025)",
+        "ref": "ind:eco:0"
+       },
+       {
+        "v": "25.8",
+        "u": "%",
+        "k": "Gross fixed capital formation as a share of GDP (2025)",
+        "ref": "ind:ind:1"
+       },
+       {
+        "v": "2.8",
+        "u": "%",
+        "k": "Foreign direct investment inflows as a share of GDP (2025)",
+        "ref": "ind:ind:2",
+        "hot": true
+       },
+       {
+        "v": "~70",
+        "u": "%",
+        "k": "Share of informal employment (World Bank)",
+        "ref": "doc:pr-cem",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Real GDP growth was 9.0% in 2022 and 2023, 11.5% in 2024 and 11.1% in 2025. GDP per capita rose from USD 1,106 (2015) to USD 3,081 (2025).",
+       "ref": [
+        "ind:eco:2",
+        "ind:eco:0"
+       ],
+       "b": "Growth 9.0% (2022) → 11.1% (2025); GDP per capita USD 3,081"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 reports average real growth of 8.0% in 2021–2024, inflation falling from 11.2% (2021) to 6.3% (2024), and external public debt falling from 50.3% of GDP (2021) to 25.9% (2024). Industrial output rose from 370.5 billion som (2021) to 585.3 billion som (2024), accounting for about 17% of GDP on average.",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "Average growth of 8.0% in 2021–24; industry about 17% of GDP"
+      },
+      {
+       "k": "f",
+       "t": "Foreign direct investment averaged more than USD 1.1 billion a year in 2021–2022 but USD 859 million in 2023 and 2024 (preliminary). Mining and manufacturing account for 25.0% and 28.0% of inflows.",
+       "ref": [
+        "doc:pr-ndp",
+        "ind:ind:2"
+       ],
+       "b": "FDI over USD 1.1 billion a year (2021–22) → USD 859 million (2023–24)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Country Economic Memorandum (2025) puts average growth in 2000–2024 at 4.7% and states that growth has relied on investment and capital accumulation centred on the extractive sector, with small contributions from labour and skills. About 70% of employment is informal and low-paid.",
+       "ref": [
+        "doc:pr-cem"
+       ],
+       "b": "Growth relies on extractive-led investment; about 70% of jobs are informal"
+      },
+      {
+       "k": "f",
+       "t": "The IFC Country Private Sector Diagnostic (2021) states that the private sector accounts for 75% of GDP. However, unregistered firms employ 57% of workers, and 24% of surveyed firms named informal competition as their biggest obstacle. There are more than 800 administrative procedures handled by 25 agencies.",
+       "ref": [
+        "doc:pr-cpsd"
+       ],
+       "b": "Private sector 75% of GDP; unregistered firms employ 57%"
+      },
+      {
+       "k": "v",
+       "t": "High growth is supported by accumulated investment centred on the extractive sector. Improving the number and quality of firms (entry, growth, formalisation) is the next challenge for linking growth to jobs and incomes.",
+       "ref": [
+        "doc:pr-cem",
+        "doc:pr-cpsd",
+        "doc:pr-ndp"
+       ],
+       "b": "Linking growth to jobs requires firm entry and formalisation"
+      },
+      {
+       "k": "h",
+       "t": "Economic structure and weaknesses of private firms"
+      },
+      {
+       "k": "f",
+       "t": "The IFC diagnostic gives the composition of GDP at the end of 2019 as services 54%, industry 21%, agriculture 14% and construction 11%. By firm size, large firms account for 66.4% of GDP and 78.8% of employment, while medium-sized firms account for only 4.3% of GDP and 1.5% of employment. The diagnostic identifies the thin layer of medium-sized firms (the \"missing middle\") as a problem.",
+       "ref": [
+        "doc:pr-cpsd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Remittances from abroad were about 28% of GDP (USD 2.1 billion) in 2019, a major pillar supporting household consumption. The diagnostic also notes that one company has a near-monopoly on processing remittance receipts, so competition on fees and accessibility is weak.",
+       "ref": [
+        "doc:pr-cpsd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Among state-owned enterprises, the energy sector accounts for 62% of the assets and 91% of the liabilities of non-financial SOEs, with debt reaching about 18% of GDP at the end of 2018. Household electricity accounts for 52% of consumption, but tariffs cover only 45% of costs. The diagnostic cites this as one of the structures that make it hard to attract private investment.",
+       "ref": [
+        "doc:pr-cpsd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, goods exports in 2024 were 39.1% higher than in 2021, and imports grew 2.2-fold. Forty trade and logistics centres are in operation, and more than 30,000 Kyrgyz sellers are registered on international marketplaces (three times the 2022 number). Revenue of High Technology Park residents was 11.4 billion som in 2024, almost three times the 2022 level, 95% of it from exports to 60 countries.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The sources of growth are consumption supported by remittances, gold and extractives, state investment and expanding trade with neighbouring countries. New exports such as IT and e-commerce are growing but are still small. The failure of medium-sized firms to grow is why growth struggles to translate into better-quality jobs.",
+       "ref": [
+        "doc:pr-cpsd",
+        "doc:pr-ndp",
+        "doc:pr-cem"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Private sector policy is structured as NDP 2030 Sections 5.1 and 5.3 and Chapter VI → national programmes for tourism and the regions, with no dedicated plan for the investment climate or trade.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: NDP 2030 (Presidential Decree No. 178 of 2025) sets eight national goals; those relevant to the private sector are GDP per capita of USD 4,500, GDP of at least USD 30 billion, average real growth of 8% a year, and gross fixed capital formation of at least 20% of GDP.",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "NDP 2030: GDP per capita USD 4,500, GDP USD 30 billion, growth 8%, investment 20%"
+      },
+      {
+       "k": "f",
+       "t": "Industrialisation (5.1): by 2030, double industrial output from 2024, raise industry's share of fixed capital investment from 34% (2024) to 50%, and create at least five industrial and technopark zones in the regions. Tasks include production clusters, development of industrial parks through special economic zones, and export expansion.",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "5.1: double industrial output, 50% industry share of investment, 5 technoparks"
+      },
+      {
+       "k": "f",
+       "t": "Regional Hub (5.2): sets targets of 15 million tonnes of rail freight a year, at least 1 million m² of warehouses and logistics facilities, and USD 1.5 billion of transport sector value added. Tasks also include simplifying trade and customs procedures and creating conditions for public–private partnerships (PPPs: public projects using private finance and management).",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "5.2: 15 million tonnes of rail freight, 1 million m² of logistics facilities"
+      },
+      {
+       "k": "f",
+       "t": "SME support (VI): triple SME value added from 2024 and raise its share of GDP to at least 50%. Tasks include access to finance (concessional loans for women entrepreneurs, collateral-free loans, a state guarantee fund), fewer permits and a single digital window, nationwide rollout of entrepreneur service centres, and simpler access to land and infrastructure connections.",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "VI: triple SME value added, at least 50% of GDP"
+      },
+      {
+       "k": "f",
+       "t": "Tourism (5.3): raise the tourism industry to 7% of GDP, enter the top 50 countries of the World Economic Forum Travel and Tourism Competitiveness Index by 2030, and score at least 70 points in an international ranking of mountain tourism safety. It lists six tasks: accommodation infrastructure, tourist routes, management of natural and cultural resources, human resources, domestic tourism and promotion.",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "5.3: tourism 7% of GDP, top 50 in the competitiveness index"
+      },
+      {
+       "k": "f",
+       "t": "National tourism programme: the Programme for Sustainable Tourism Development 2025–2030 (Cabinet Resolution No. 765 of 18 December 2024) sets nine priority areas in its action plan (tourism policy, consumer markets, digitalisation, safety, heritage and natural environment, regions, infrastructure, green technologies, and medical, sports and wellness tourism). It includes introducing a new methodology for tourism statistics (2025–2026), a concessional lending mechanism for tourism SMEs, and compulsory insurance for adventure tourism.",
+       "ref": [
+        "doc:pr-tour",
+        "tree:tourism:tourism",
+        "tree:tourism:T1",
+        "tree:tourism:T4"
+       ],
+       "b": "Tourism programme 2025–2030: nine priority areas"
+      },
+      {
+       "k": "f",
+       "t": "Regional development (10.4): development will shift to follow spatial planning and regional specialisation under the Programme for Integrated Socio-Economic Development of the Regions 2025–2030. As next steps, it lists the Programme for the Formation and Development of Regional Growth Points 2025–2030 and the Programme of State Grants for Community Initiatives 2024–2027.",
+       "ref": [
+        "doc:pr-ndp",
+        "tree:tourism:regions"
+       ],
+       "b": "10.4: Programme for Integrated Regional Development 2025–2030"
+      },
+      {
+       "k": "f",
+       "t": "Note: the only national programme in the site's policy tree is the tourism programme; no dedicated national plan has been found for the investment climate and special economic zones or for trade. The text of the \"Programme for Supporting Women's Entrepreneurship 2022–2026\" in the SME row has not been read.",
+       "ref": [
+        "row:inv",
+        "row:trade",
+        "row:sme"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of SME support and industrialisation"
+      },
+      {
+       "k": "f",
+       "t": "On SME finance, NDP 2030 Chapter VI lists expanding the \"social contract\" that provides non-repayable grants for start-ups of micro-enterprises in priority industries, legislation allowing intellectual property and contract revenues to be used as collateral, and expanded guarantees from the state guarantee fund. On the administrative burden, it lists remote supervision and a notification-based regime, risk-based inspections focused on preventing violations, and key performance indicators (KPIs) measuring the quality and timeliness of government services for businesses.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Tasks under industrialisation (5.1) include building production clusters in critical minerals, light industry, pharmaceuticals, furniture, food, jewellery, small machinery and construction materials; developing industrial parks through special economic zones; subsidies for R&D; analysis of an import substitution index; and industrial energy efficiency. The current-situation paragraphs list as achievements the adoption of the Law on Innovation Activity and the Law on Technoparks, designation of industrial zones, financial support for joint projects within the Eurasian Economic Union (EAEU, an economic union of five countries including Russia and Kazakhstan), and incentives for the automotive industry.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Action plan of the tourism programme"
+      },
+      {
+       "k": "f",
+       "t": "In tourism policy, the action plan provides for reorganising the National Tourism Council, reviewing the Tourism Development Support Fund (a state-owned joint-stock company), a new Law on Tourism (2025–2027) and organising industry professionals. In consumer markets, it provides for a segmented tourism marketing strategy, new air and rail routes from key markets, and a revamped promotional website.",
+       "ref": [
+        "doc:pr-tour",
+        "tree:tourism:T1",
+        "tree:tourism:T2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In safety, it provides for compulsory insurance for adventure tourists (2025–2030) and occupational standards for mountain rescuers. In regions, it sets out mechanisms for developing destinations such as clusters and geoparks (parks that make use of landforms and geology); in infrastructure, improvements to airports, roads, water and sewerage, waste management and border checkpoints.",
+       "ref": [
+        "doc:pr-tour",
+        "tree:tourism:T4",
+        "tree:tourism:T6",
+        "tree:tourism:T7"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Funding for every measure in the action plan is stated as \"within the annual budgets of the responsible agencies and local governments, and donor, grant and other funds not prohibited by law\", with no cost estimates per measure.",
+       "ref": [
+        "doc:pr-tour"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The tourism programme covers a wide range of measures but has no costs or numerical targets. Since national budget backing is not visible, infrastructure and statistics development appear to depend heavily on donor funding.",
+       "ref": [
+        "doc:pr-tour",
+        "row:tour"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the subprogrammes",
+     "msg": "Of the five areas, only tourism and regional economic development are backed by national plans; for the investment climate and trade, the only basis is the NDP chapters.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Subprogrammes (active cooperation by table row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Tourism has a national programme adopted by Cabinet resolution, and regional economic development a programme adopted by Cabinet resolution in March 2025. The SME programme for women's entrepreneurship expires in 2026. For the investment climate and trade, NDP 2030 Sections 5.1 and 5.2 are the direct basis.",
+       "ref": [
+        "tree:tourism:tourism",
+        "tree:tourism:regions",
+        "row:sme",
+        "row:inv",
+        "row:trade"
+       ],
+       "b": "Tourism and regions have national plans; the investment climate and trade have only NDP chapters"
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030's private sector targets (tripling SME value added, doubling industrial output) have no responsible national programme, and no mechanism to measure progress is visible. This is where the gap between targets and implementation is widest.",
+       "ref": [
+        "doc:pr-ndp",
+        "row:sme",
+        "row:inv"
+       ],
+       "b": "The targets of tripling SMEs and doubling industry have no responsible plan"
+      },
+      {
+       "k": "f",
+       "t": "The strength of the basis in national plans differs by row of the site's table: tourism rests on a plan confirmed in legislation, SMEs on documents, the investment climate and regional economic development on press reports, and trade on the text of NDP 2030.",
+       "ref": [
+        "row:tour",
+        "row:sme",
+        "row:inv",
+        "row:reg",
+        "row:trade"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 Section 10.4 also lists the Programme for the Formation and Development of Regional Growth Points 2025–2030 and the Programme of State Grants for Community Initiatives 2024–2027, but neither is in the site's policy tree.",
+       "ref": [
+        "doc:pr-ndp",
+        "tree:tourism:regions"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Only for tourism could the content be confirmed in legislation; for the other four areas, plan texts and targets have not been read. For each area, it is hard to show which national plan donor projects support.",
+       "ref": [
+        "row:inv",
+        "row:sme",
+        "row:reg",
+        "row:trade"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    },
+    {
+     "no": "1.5",
+     "h": "Alignment with the EBRD country strategy (to 2029)",
+     "msg": "The EBRD strategy puts private sector competitiveness and inclusion as its first pillar, focusing on exports, access to finance for women and young people, and foreign investment.",
+     "fig": {
+      "type": "ccs-table",
+      "cap": "Table 1-2 EBRD's three pillars × rows of the site's table × active donor funding"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "In 2024 EBRD approved a five-year country strategy to 2029. Its pillars are (1) private sector competitiveness and inclusion (productivity and access to export markets, trade facilitation programmes, access to finance for women, young people and remote areas, local capital markets and foreign direct investment); (2) sustainable infrastructure and connectivity; and (3) a green, resilient and well-governed economy (green finance for SMEs and households, governance of state-owned banks and enterprises).",
+       "ref": [
+        "doc:pr-ebrd"
+       ],
+       "b": "EBRD to 2029: (1) private competitiveness and inclusion; (2) infrastructure; (3) green economy"
+      },
+      {
+       "k": "f",
+       "t": "EBRD has invested in 247 projects worth about EUR 979 million to date. It states that SMEs generate more than 35% of GDP.",
+       "ref": [
+        "doc:pr-ebrd"
+       ],
+       "b": "EBRD cumulative: 247 projects, about EUR 979 million"
+      },
+      {
+       "k": "v",
+       "t": "Within EBRD's first pillar, SME access to finance is an area with active funding in the site's table (including EBRD's own lending to local banks), but exports and trade facilitation overlap with areas that have almost no active funding.",
+       "ref": [
+        "row:sme",
+        "row:trade",
+        "doc:pr-ebrd"
+       ],
+       "b": "Exports and trade facilitation are EBRD priorities but thinly funded"
+      },
+      {
+       "k": "f",
+       "t": "The second pillar (sustainable infrastructure and connectivity) covers expanding renewable energy, water security, grid rehabilitation, and roads and railways including parts of the Trans-Caspian transport corridor. The third pillar includes green policymaking, climate risk management, public sector capacity building and governance reform of state-owned banks and enterprises.",
+       "ref": [
+        "doc:pr-ebrd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the site's data, EBRD's active private sector projects centre on lending to MSMEs through local banks (Phase 2 about USD 3.5 million, to 2027; Phase 3 about USD 2.5 million, 2025–2029).",
+       "ref": [
+        "proj:XI-IATI-EBRD-53665",
+        "proj:XI-IATI-EBRD-55274",
+        "row:sme"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the EBRD strategy, SME access to finance is backed by projects, but access to export markets, trade facilitation and local capital markets are not visible as active projects in the site's data. There is a gap between strategy and projects.",
+       "ref": [
+        "doc:pr-ebrd",
+        "row:trade"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the national targets",
+     "msg": "Growth, GDP and investment are on pace to meet their targets, but industry is far off, and the SME and tourism targets have no figures and cannot be measured.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the period; required pace = change needed to reach the target in 2030; simple linear extrapolation as a guide)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the NDP 2030 targets relevant to the private sector, five can be tracked with annual international data: GDP per capita, GDP, growth, gross fixed capital formation and industry. SME value added, industry's share of investment and tourism's share of GDP appear only in National Statistical Committee yearbooks and have not been read this time.",
+       "ref": [
+        "doc:pr-ndp",
+        "ind:eco:0",
+        "ind:ind:1"
+       ],
+       "b": "Five targets can be tracked annually; SMEs and tourism cannot be measured"
+      },
+      {
+       "k": "v",
+       "t": "At the 2015–2025 average of +USD 198 a year, GDP per capita would reach about USD 4,070 in 2030 and miss the target, but it would reach the target if the post-2020 average of +USD 370 a year continues. Because the figures are in dollars, the outlook changes greatly with exchange rate and price movements.",
+       "ref": [
+        "ind:eco:0"
+       ],
+       "b": "GDP per capita: about USD 4,070 at the long-term pace; on track at the recent pace"
+      },
+      {
+       "k": "v",
+       "t": "For industry, the national target is \"industrial output\", while the site uses value added as a proxy. In value-added terms, doubling from 2024 would require +USD 500 million a year, three times the pace to date.",
+       "ref": [
+        "ind:ind:0",
+        "doc:pr-ndp"
+       ],
+       "b": "Doubling industry requires three times the current pace"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 also sets a target of unemployment at or below 5%. Unemployment fell from 5.3% (2021) to 4.1% (2023), and 263,100 jobs were created in 2024, of which 20,300 were in industry.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "At the 2022–2025 average increase (about USD 3.5 billion a year), GDP would far exceed the target. The target requires about USD 1.5 billion a year, so it will be reached unless growth slows sharply. GDP per capita has also grown faster since 2022 than its long-term average. Dollar figures are affected by exchange rates and prices and need to be read together with real growth.",
+       "ref": [
+        "ind:eco:1",
+        "ind:eco:0",
+        "ind:eco:2"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the 12 NDP 2030 targets relevant to the private sector, five can be tracked with annual international data (GDP per capita, GDP, growth, gross fixed capital formation, and value added as a proxy for industry). Seven have no figures to measure them: two for SMEs, three for tourism, industry's share of investment and the number of technoparks. Volume targets can be tracked, but targets for structural change cannot.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "The economy as a whole (growth and incomes)",
+     "msg": "Growth has exceeded 8% every year since 2022, but the long-run average since 2000 is 4.7%, raising questions about the substance of growth.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 GDP per capita and real GDP growth (dotted line = national target)",
+      "inds": [
+       "eco:0",
+       "eco:2"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: after real growth of −7.1% in the COVID-19 year of 2020, growth was 5.5% (2021), 9.0% (2022 and 2023), 11.5% (2024) and 11.1% (2025). GDP (USD billion) rose from 8.3 (2020) to 22.6 (2025).",
+       "ref": [
+        "ind:eco:2",
+        "ind:eco:1"
+       ],
+       "b": "Growth −7.1% (2020) → 11.1% (2025); GDP USD 22.6 billion"
+      },
+      {
+       "k": "f",
+       "t": "Current issues: the World Bank states that productivity has declined and efficiency has not improved. Its four recommendations are a new round of business environment reform (better regulatory impact assessment); competition law, an SOE ownership policy and control of state aid; removing barriers to FDI entry and handling investor complaints; and streamlining non-tariff measures while improving logistics and quality infrastructure.",
+       "ref": [
+        "doc:pr-cem"
+       ],
+       "b": "World Bank: declining productivity; recommends competition, investment and trade reforms"
+      },
+      {
+       "k": "f",
+       "t": "Gap to target: GDP is on pace for about USD 30.5 billion in 2030, reaching the USD 30 billion target. GDP per capita at the long-term pace would be about USD 4,070, short of the USD 4,500 target.",
+       "ref": [
+        "ind:eco:1",
+        "ind:eco:0",
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The growth target is being met, but about 70% of employment remains informal, and national target indicators do not show whether growth is reaching incomes and job quality.",
+       "ref": [
+        "doc:pr-cem",
+        "ind:eco:2"
+       ],
+       "b": "Growth is on target; job quality is not visible in the indicators"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the regional economic development row has 2 projects worth about USD 15.6 million (the World Bank's Regional Economic Development Project).",
+       "ref": [
+        "row:reg",
+        "fact:rows"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background and causes"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, state budget revenue doubled from 209.8 billion som to 463.8 billion som in 2021–2024, with surpluses of 12.7 billion som in 2023 and 36.9 billion som in 2024. External public debt fell from 50.3% to 25.9% of GDP. Fiscal space is supporting the expansion of state capital investment.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On the impact of COVID-19, the IFC diagnostic states that new lending in April 2020 fell by 60% year on year, and that about 70 billion som (USD 875 million), about 50% of the loan portfolio, was restructured for 132,000 borrowers. After −7.1% in 2020, recovery began in 2021.",
+       "ref": [
+        "doc:pr-cpsd",
+        "ind:eco:2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank memorandum finds that growth has relied on investment and capital accumulation centred on the extractive sector, with small contributions from labour and skills. It argues that removing a single obstacle is unlikely to have an effect and reforms need to be pursued together.",
+       "ref": [
+        "doc:pr-cem"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The growth target is being met, but growth is tilted towards state investment, extractives and trade with neighbouring countries. Sustaining 8% to 2030 requires a shift to growth driven by private firms' productivity and investment in place of fiscal and extractive expansion.",
+       "ref": [
+        "doc:pr-cem",
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Regional Economic Development Project targets Osh Region and aims to develop agriculture, tourism and SMEs (initially USD 60 million, with IDA credit and grant of USD 30 million each). In 2025, USD 8.5 million of additional financing was approved to cover a shortfall caused by rising construction material prices. It includes agricultural supply chains, modernisation of urban infrastructure, capacity building for local firms, and restoration of Sulaiman-Too (a World Heritage site) and heritage sites in Uzgen.",
+       "ref": [
+        "doc:pr-red",
+        "proj:WB-P167428"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the site's data, this project is about USD 10 million (after pro-rata allocation) with closure scheduled for December 2026, and the second Regional Economic Development project is about USD 5.6 million, ending in December 2027. The 2025 announcement gives the closing date as November 2028.",
+       "ref": [
+        "proj:WB-P167428",
+        "proj:WB-P175587",
+        "doc:pr-red"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Industry and investment",
+     "msg": "Total investment has exceeded the target, but foreign direct investment has fallen to just under 3% of GDP, far from what doubling industry requires.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Industrial value added and foreign direct investment inflows (dotted line = national target)",
+      "inds": [
+       "ind:0",
+       "ind:2"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: gross fixed capital formation fell from 32.6% of GDP (2015) to 21.5% (2022), then recovered to 25.8% (2025). Industrial value added (2015 prices) went from USD 1.67 billion (2015) to USD 3.32 billion (2025). FDI inflows went from 17.1% of GDP (2015) to −1.4% in 2017 and −4.9% in 2020, and were 2.8% in 2025.",
+       "ref": [
+        "ind:ind:1",
+        "ind:ind:0",
+        "ind:ind:2"
+       ],
+       "b": "FDI 17.1% of GDP (2015) → 2.8% (2025)"
+      },
+      {
+       "k": "f",
+       "t": "Current issues: the IFC diagnostic states that about 40% of foreign investors perceive discrimination against foreign investors, and that the country has one of the highest numbers of investor–state disputes in the region (average award of USD 10.4 million per case). Only 2 PPPs have been signed, compared with more than 800 in Kazakhstan.",
+       "ref": [
+        "doc:pr-cpsd"
+       ],
+       "b": "About 40% of foreign investors perceive discrimination; 2 PPPs"
+      },
+      {
+       "k": "f",
+       "t": "National efforts: NDP 2030 states that under \"100 Industrial Enterprises\", 102 enterprises opened in 2024 (USD 800 million of investment, more than 8,300 jobs), and 128 enterprises (more than USD 1.7 billion of investment) are scheduled to start operating in 2025. It also lists the innovation and technopark laws, designation of industrial zones and tax incentives.",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "\"100 Industrial Enterprises\": 102 enterprises opened in 2024"
+      },
+      {
+       "k": "v",
+       "t": "Total investment (about 26% of GDP) has exceeded the target, but the FDI ratio remains low, suggesting that most investment comes from sources other than FDI. For the target of doubling industry, institutions that attract foreign investment (investor protection, dispute prevention) are key.",
+       "ref": [
+        "ind:ind:1",
+        "ind:ind:2",
+        "doc:pr-cpsd",
+        "doc:pr-cem"
+       ],
+       "b": "Total investment is sufficient; institutions to attract foreign investment are key"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the investment climate and special economic zones row has 4 projects worth about USD 10.3 million (an LDC investment fund from other bilateral donors about USD 9.3 million, UNDP about USD 0.9 million).",
+       "ref": [
+        "row:inv"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background and causes"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, FDI in the financial sector accounted for an average of 13.6% of inflows, and in 2024 was 3.4 times the 2021 level. Investment in trade also averaged 18.7% and grew 1.8-fold. Foreign investment is spreading beyond mining and manufacturing into finance and trade.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The IFC diagnostic estimates that 23 short-term infrastructure projects need USD 500 million and medium- to long-term needs are about USD 5 billion, and states that only about 10% of hydropower potential is used. Its first recommendation is investment in hydropower and its fourth is attracting private investment centred on FDI.",
+       "ref": [
+        "doc:pr-cpsd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's infrastructure governance assessment states that 19 PPP contracts have been signed but only 3 are operating, that PPP feasibility studies are carried out only on a voluntary basis, and that fiscal risk analysis is unclear. About 70% of firms name some aspect of governance as their biggest obstacle.",
+       "ref": [
+        "doc:pr-infra"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Industrial value added grew by USD 410 million from 2024 to 2025, the fastest growth to date. This is close to the USD 500 million a year needed for the target, but it would have to be sustained for five years. Whether the new factories of the national \"100 Industrial Enterprises\" keep operating, and whether that investment can be attracted from abroad, will be decisive.",
+       "ref": [
+        "ind:ind:0",
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Content of related cooperation: a fund supporting investment in least developed countries (other bilateral, about USD 9.3 million, 2022–2037) accounts for most of the investment climate row. A UNDP capacity development project in the environmental field (about USD 0.9 million) is also mapped to this row.",
+       "ref": [
+        "proj:CA-3-P009842001",
+        "proj:XM-DAC-41114-OUTPUT-00108562",
+        "row:inv"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Past projects include ADB's Second Investment Climate Improvement Program (about USD 8.3 million, completed 2018) and a countercyclical expenditure programme in response to the economic downturn (loan and grant of about USD 4.2 million each, completed 2023).",
+       "ref": [
+        "proj:XM-DAC-46004-41544-091-GRNT0563",
+        "proj:XM-DAC-46004-56150-001-LN4241",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The site's data show no active project that squarely addresses building institutions to attract foreign investment, such as investor protection, dispute prevention and PPP management. Active funding is not directed at the area international organisations recommend most strongly.",
+       "ref": [
+        "row:inv",
+        "doc:pr-cem",
+        "doc:pr-cpsd"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "SMEs and access to finance",
+     "msg": "Credit information and collateral systems have improved, but there are no national figures measuring the size of SMEs, so progress on the target is unknown.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: domestic credit to the private sector rose from 12.5% of GDP (2009) to 21.1% (2023). In 2009, about a quarter of SMEs named access to finance as a major obstacle (regional average 16.6%).",
+       "ref": [
+        "doc:pr-ifccr"
+       ],
+       "b": "Private credit 12.5% of GDP (2009) → 21.1% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "Institution building: the Law on Credit Information Sharing was passed in 2016, and by 2023 two credit bureaus were operating commercially. Through electronic collateral registration, 95,700 MSMEs had obtained USD 305 million in financing by 2023.",
+       "ref": [
+        "doc:pr-ifccr"
+       ],
+       "b": "Two credit bureaus; about 96,000 firms financed through collateral registration"
+      },
+      {
+       "k": "f",
+       "t": "Current issues: the IFC diagnostic (2021) puts private credit at 12% of GDP and the share of adults not using financial institutions at 62%, and states that banks find it hard to take on risk with small firms. Medium-sized firms are less than 0.2% of firms but account for 14.5% of exports.",
+       "ref": [
+        "doc:pr-cpsd"
+       ],
+       "b": "62% of adults do not use financial services (2021 diagnostic)"
+      },
+      {
+       "k": "f",
+       "t": "Gap to national target: the national targets of tripling SME value added and reaching at least 50% of GDP are not available from national statistics (no published figures). EBRD's announcement states that SMEs generate more than 35% of GDP.",
+       "ref": [
+        "doc:pr-ndp",
+        "doc:pr-ebrd"
+       ],
+       "b": "SME share of GDP: no national published figure (EBRD: over 35%)"
+      },
+      {
+       "k": "v",
+       "t": "Credit information and collateral systems are now in place as a foundation for access to finance. The next step that would advance the national target is moving informal firms into the registered, bankable side (reducing tax and inspection burdens).",
+       "ref": [
+        "doc:pr-ifccr",
+        "doc:pr-cpsd",
+        "doc:pr-ndp"
+       ],
+       "b": "The next challenge is formalising informal firms"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the SMEs and access to finance row has 9 projects worth about USD 14.4 million (EBRD about USD 6 million, World Bank about USD 5.6 million, ADB about USD 2.4 million).",
+       "ref": [
+        "row:sme"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Why SMEs stay small and informal"
+      },
+      {
+       "k": "f",
+       "t": "The IFC diagnostic states that the simplified \"patent\" tax regime is available to firms with turnover below 8 million som (about USD 110,000), a threshold higher than in most countries of Europe and Central Asia and second only to Russia. The number of patents grew by 37% in 2014–2017, outpacing the 18% growth of non-patent SMEs. Patent holders keep no formal accounts, are hardly inspected and pay no social contributions, so they have little incentive to move to the general tax regime.",
+       "ref": [
+        "doc:pr-cpsd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The agencies firms most often cite as burdensome are four: tax, the Social Fund, fire safety, and sanitation and epidemiology. In the 2019 enterprise survey, 24% of firms named informal competition as their biggest obstacle and 39% as a major obstacle.",
+       "ref": [
+        "doc:pr-cpsd"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Funds are available, but lending is low"
+      },
+      {
+       "k": "f",
+       "t": "According to the diagnostic, banks hold 77% of financial sector assets, with capital adequacy above 25% (minimum requirement 12%) and liquid assets at 28% of total assets. The share of adults using digital payments rose from 14% (2014) to 36% (2017), but only 5% paid or shopped online.",
+       "ref": [
+        "doc:pr-cpsd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the IFC report on credit infrastructure, the previously non-profit credit bureau became a commercial company in 2012, and a second opened in 2018. The Law on Credit Information Sharing was passed in 2016 after being postponed three times amid political turmoil. Collateral reform amended nine laws including the Law on Pledge and the Civil Code, removing restrictions on using movable assets as collateral. Financing through the two credit bureaus reached USD 4.01 billion for 2.1 million individuals and MSMEs by 2019 and more than USD 5.3 billion for more than 4.6 million by 2023.",
+       "ref": [
+        "doc:pr-ifccr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Banks have ample capital and liquidity, yet lending to SMEs is slow to grow. The reasons appear to lie less in the volume of funds than in information gaps, collateral and informality. With credit information and collateral systems in place, the remaining barrier is moving patent-based firms without accounts into the bankable side.",
+       "ref": [
+        "doc:pr-cpsd",
+        "doc:pr-ifccr"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Main active projects in the SME row are the World Bank's additional financing for emergency MSME support (about USD 5.6 million), two EBRD loans through local banks (about USD 3.5 million and about USD 2.5 million) and ADB's SME support bank project (about USD 2.4 million). All are loans channelled through banks.",
+       "ref": [
+        "proj:WB-P177962",
+        "proj:XI-IATI-EBRD-53665",
+        "proj:XI-IATI-EBRD-55274",
+        "proj:XM-DAC-46004-56005-001-LN4336"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Past projects included the United Kingdom's enterprise and innovation programme (about USD 13.1 million, 2015–2024) and the US enterprise competitiveness project (about USD 5.8 million, 2018–2023). Both have ended, and the site's data show no successors.",
+       "ref": [
+        "proj:GB-1-204989-101",
+        "proj:US-GOV-1-72011518D00002",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Current cooperation centres on credit lines to banks, and no project is visible addressing the institutional reforms that would formalise informal firms, such as reviewing the patent regime or inspections. There is a gap between the administrative burden tasks of NDP 2030 Chapter VI and donor support.",
+       "ref": [
+        "row:sme",
+        "doc:pr-ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.4",
+     "h": "Tourism",
+     "msg": "Tourist arrivals at the border have recovered to 8.6 million, but there are no national figures for tourism's share of GDP, so progress on the 7% target is unknown.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 International tourist arrivals and tourism receipts as a share of exports",
+      "inds": [
+       "tour:0",
+       "tour:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: international arrivals rose from 1.22 million (2010) to 8.51 million (2019) (international data run to 2019). Tourism receipts as a share of exports fell from 22.8% (2019) to 8.0% (2020) (data run to 2020).",
+       "ref": [
+        "ind:tour:0",
+        "ind:tour:1"
+       ],
+       "b": "Arrivals 8.51 million (2019); tourism receipts 22.8% → 8.0% of exports (2020)"
+      },
+      {
+       "k": "f",
+       "t": "National figures: foreign entries in 2024 were 8.6 million, mainly from neighbouring countries such as Kazakhstan, Russia and Uzbekistan. Value added of tourism activities rose from 28 billion som (2021) to 58.2 billion som (2024). \"40 Tourist Hubs\" (one tourism facility in each district) began in 2025.",
+       "ref": [
+        "doc:pr-ndp"
+       ],
+       "b": "Entries 8.6 million (2024); tourism value added 58.2 billion som"
+      },
+      {
+       "k": "f",
+       "t": "Current issues: the IFC diagnostic puts pre-COVID tourism at 4% of GDP and 3.6% of employment, and ranks air connectivity 104th of 141 countries. ADB states that in Cholpon-Ata (the town that receives about 80% of Issyk-Kul's tourists), 43.1% of residents are connected to sewerage and 30–40% of tourism facilities are not connected.",
+       "ref": [
+        "doc:pr-cpsd",
+        "doc:pr-adbik"
+       ],
+       "b": "Tourism 4% of GDP (pre-COVID); lakeside sewerage connection 43.1%"
+      },
+      {
+       "k": "f",
+       "t": "Gap to target: the tourism industry's share of GDP (target 7%) is not available from national statistics (the tourism satellite account appears only in the National Statistical Committee yearbook and has not been confirmed). The tourism programme's action plan provides for introducing a new methodology for tourism statistics in 2025–2026.",
+       "ref": [
+        "doc:pr-ndp",
+        "doc:pr-tour"
+       ],
+       "b": "Tourism share of GDP: no published figure; new statistical methodology in preparation"
+      },
+      {
+       "k": "v",
+       "t": "Tourist numbers are growing, but most are entries from neighbouring countries, and how much growth in receipts and value added they generate is not measured. Revising the methodology for tourism statistics is a prerequisite for measuring the target.",
+       "ref": [
+        "ind:tour:0",
+        "doc:pr-ndp",
+        "doc:pr-tour"
+       ],
+       "b": "Visitor numbers have grown, but the effect on receipts cannot be measured"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the tourism row has 6 projects worth about USD 22.7 million (Islamic Development Bank about USD 14.6 million, ADB about USD 8 million). ADB's Issyk-Kul project has three outputs: a new wastewater treatment plant, tourism facilities and planning (grant USD 31 million, loan USD 25 million, scheduled to close in 2030).",
+       "ref": [
+        "row:tour",
+        "doc:pr-adbik"
+       ],
+       "b": "Tourism: 6 projects worth about USD 22.7 million"
+      },
+      {
+       "k": "f",
+       "t": "Note: the Islamic Development Bank project in the tourism row (about USD 14.6 million) is the construction of transmission lines and substations in Tamga and Karakol, Issyk-Kul Region, mapped to tourism.",
+       "ref": [
+        "row:tour"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background and causes"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 identifies the main directions of tourism as mountain tourism (mountaineering, trekking, skiing, rafting), cultural tourism, and wellness tourism such as recreation, resorts, summer pasture (jailoo) tourism and kumis (fermented mare's milk) therapy at Lake Issyk-Kul. It attributes the increase in tourists to tourism products such as the World Nomad Games, airport reconstruction, transport infrastructure, and more accommodation and rest points (roadside rest stops).",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In domestic tourism, flights from Bishkek and Osh to Tamchy and Karakol and premium rail carriages between Bishkek and Balykchy have started, and construction of glamping facilities has begun. Since 2023, investors have been sought for three large ski resorts.",
+       "ref": [
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The IFC diagnostic states that there are only 26 direct routes (mostly to Russia) and 13 airlines, and that all Kyrgyz airlines are banned from the EU for safety reasons. It recommends rehabilitating Manas International Airport through a PPP in the medium term. NDP 2030 Section 5.3 also sets the task of removing domestic airlines from the International Civil Aviation Organization (ICAO) \"blacklist\".",
+       "ref": [
+        "doc:pr-cpsd",
+        "doc:pr-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to ADB, Cholpon-Ata is a town of 14,237 people that received about 350,000 tourists in 2018, with about 380,000 expected in 2028 and about 480,000 in 2038. The roughly 40-year-old wastewater treatment plant has no biological treatment and discharges inadequately treated sewage. If pollution continues, Lake Issyk-Kul risks changing from a clear, nutrient-poor lake to a nutrient-rich one.",
+       "ref": [
+        "doc:pr-adbik"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The tourism market centres on neighbouring countries, and lake tourism is concentrated in Cholpon-Ata and in summer. Aviation constraints on attracting visitors from distant markets and the deterioration of the lake environment appear to be the two main barriers to the target of tourism at 7% of GDP.",
+       "ref": [
+        "doc:pr-ndp",
+        "doc:pr-cpsd",
+        "doc:pr-adbik"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Progress on ADB's Issyk-Kul project: under the grant, USD 16.74 million contracted (54%) and USD 5.11 million disbursed (16%); under the loan, USD 8.97 million contracted (36%) and USD 2.25 million disbursed (9%). It includes a new wastewater treatment plant, sewer extensions, a museum and tourist information centre, promenades and cycle paths, and restoration of heritage sites and parks.",
+       "ref": [
+        "doc:pr-adbik",
+        "proj:XM-DAC-46004-55250-001-GRNT0949",
+        "proj:XM-DAC-46004-55250-001-LN4454"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB also implemented the Issyk-Kul Sustainable Development Project in 2009–2018 (loan about USD 8.3 million, grant about USD 6.8 million). The EU's Green Tour (about USD 0.8 million, 2020–2024) spread sustainability practices through the tourism supply chain.",
+       "ref": [
+        "proj:XM-DAC-46004-41548-013-LN2556",
+        "proj:XM-DAC-46004-41548-013-GRNT0163",
+        "proj:XI-IATI-EC_INTPA-2019-PCC-412061"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Tourism funding is concentrated in infrastructure such as water and sewerage at Lake Issyk-Kul, with almost no active projects in the programme's statistics, safety, human resources and promotion areas. Apart from the World Bank project in Osh Region (heritage restoration), support for tourism in regions other than the lake is also thin.",
+       "ref": [
+        "row:tour",
+        "tree:tourism:T1",
+        "tree:tourism:T4",
+        "proj:WB-P167428"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overview",
+     "msg": "The World Bank, the Islamic Development Bank and ADB are the largest sources of active funding, with the top three accounting for about 70%.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects mapped to strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the private sector strategy comprises 22 projects worth about USD 63.1 million. By donor: World Bank about USD 21.1 million, Islamic Development Bank about USD 14.6 million, ADB about USD 10.4 million, other bilateral about USD 9.3 million, EBRD about USD 6 million, UNDP about USD 0.9 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "22 active projects worth about USD 63.1 million"
+      },
+      {
+       "k": "f",
+       "t": "Five projects worth about USD 10.1 million end at the end of 2026, almost all of it the World Bank's Regional Economic Development Project (scheduled to close in December 2026).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ],
+       "b": "Five projects worth about USD 10.1 million end at the end of 2026"
+      },
+      {
+       "k": "v",
+       "t": "The scale is small compared with health and other sectors, and funding centres on lending from international development banks rather than bilateral grants. The successor to regional economic development (the second phase is scheduled to close in December 2027) will be the largest source of funding from 2027.",
+       "ref": [
+        "fact:by_donor",
+        "row:reg"
+       ],
+       "b": "Development bank lending dominates; the regional development successor is the issue"
+      },
+      {
+       "k": "h",
+       "t": "Project types and durations"
+      },
+      {
+       "k": "f",
+       "t": "In the site's data, active projects tagged as private sector number 93, worth about USD 195 million, of which 22 projects worth about USD 63.1 million map to strategy rows. Projects that do not map include the World Bank's Power Sector Modernisation (about USD 10 million) and modernisation of tax administration and statistics (about USD 7 million).",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "proj:WB-P177871",
+        "proj:WB-P163711"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The largest amounts are the Islamic Development Bank's transmission lines in Issyk-Kul Region (about USD 14.6 million, 2026–2029), the World Bank's Regional Economic Development (about USD 10 million), the LDC investment fund (about USD 9.3 million), the World Bank's emergency MSME support (about USD 5.6 million) and the second Regional Economic Development project (about USD 5.6 million).",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ1007",
+        "proj:WB-P167428",
+        "proj:CA-3-P009842001",
+        "proj:WB-P177962",
+        "proj:WB-P175587"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Excluding what ends at the end of 2026, active funding falls to about USD 53 million. About a quarter of that is the transmission line project, so funding directly targeting the private sector strategy is smaller than it appears.",
+       "ref": [
+        "fact:mapped_musd",
+        "fact:end_2026_musd",
+        "row:tour"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Funding takes the form mostly of development bank loans and credit lines through local banks. Technical cooperation through bilateral grants (institution and capacity building) is small, such as Korea's traditional crafts and cultural tourism (about USD 0.1 million) and Switzerland's SMEs in the Alai area (about USD 0.2 million).",
+       "ref": [
+        "fact:by_donor",
+        "proj:KR-GOV-230-1550000_2023_004",
+        "proj:CH-4-2012004190"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and evolution of support",
+     "msg": "Most cooperation completed in the past decade was in trade and logistics and SMEs, a different focus from today's tourism and regional development.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage: projects completed in 2017 or later. Records before 2017 are excluded because the main donors' records are incomplete. Even after 2017, ADB records are largely limited to 2020 onwards and UNICEF and UNDP records to 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the private sector strategy number 119, worth about USD 157 million (after pro-rata allocation, without double counting). By donor: World Bank about USD 66.8 million, ADB about USD 36.6 million, Islamic Development Bank about USD 19.9 million, United States about USD 14.3 million, United Kingdom about USD 13.1 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "119 projects worth about USD 157 million, led by the World Bank and ADB"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): trade, exports and logistics 44 projects worth about USD 93.1 million; SMEs and access to finance 50 projects worth about USD 22.9 million; investment climate 16 projects worth about USD 20 million; tourism 9 projects worth about USD 17 million; regional economic development 3 projects worth about USD 4.2 million.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Trade and logistics about USD 93.1 million; SMEs about USD 22.9 million"
+      },
+      {
+       "k": "v",
+       "t": "In the past, trade and logistics and UK and US SME and enterprise competitiveness projects were large. After these ended, active funding for trade and exports has fallen to about USD 0.4 million.",
+       "ref": [
+        "fact:closed_rows",
+        "row:trade"
+       ],
+       "b": "Bilateral trade and SME projects have ended; trade is close to a gap"
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: the trade row includes a power transmission project (Central Asia–South Asia Electricity Transmission and Trade Project, CASA-1000).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XM-DAC-46025-ISDB-KGZ0051"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Main completed projects"
+      },
+      {
+       "k": "f",
+       "t": "The largest completed projects are the Islamic Development Bank's Central Asia–South Asia electricity transmission and trade (CASA-1000, about USD 15.4 million, completed June 2026) and additional financing for the same project (about USD 4.5 million), the UK enterprise and innovation programme (about USD 13.1 million), ADB's investment climate improvement (about USD 8.3 million), ADB's Issyk-Kul development (about USD 8.3 million and about USD 6.8 million), and the US enterprise competitiveness (about USD 5.8 million) and agricultural trade (about USD 5 million, completed 2025) projects.",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ0051",
+        "proj:XM-DAC-46025-ISDB-KGZ1032",
+        "proj:GB-1-204989-101",
+        "proj:XM-DAC-46004-41544-091-GRNT0563",
+        "proj:US-GOV-1-72011518D00002",
+        "proj:US-GOV-1-72011520F00004",
+        "proj:XM-DAC-46004-41548-013-LN2556",
+        "proj:XM-DAC-46004-41548-013-GRNT0163"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's CAREC border services improvement (loan and grant of about USD 2.1 million each, 2013–2023) also ended, in the regional economic development row.",
+       "ref": [
+        "proj:XM-DAC-46004-46124-001-GRNT0340",
+        "proj:XM-DAC-46004-46124-001-LN2995"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The US and UK enterprise competitiveness and trade projects all ended in 2023–2025. They followed a model of advising firms and developing markets through grants, a model absent from today's lending-centred portfolio.",
+       "ref": [
+        "fact:closed_by_donor",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: in the site's aggregation, about USD 65.8 million of World Bank funding falls in the completed trade row. However, it could not be confirmed which projects these are from the site's project list (top entries). Care is needed with this amount when reading completed totals.",
+       "ref": [
+        "fact:closed_rows",
+        "fact:closed_musd"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "No area lacks active cooperation, but trade, exports and logistics, with 2 projects worth about USD 0.4 million, is effectively a gap.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle active / completed / cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "All five areas have active projects. The thinnest is trade, exports and logistics (2 projects worth about USD 0.4 million, small NGO and UK projects).",
+       "ref": [
+        "fact:empty_rows",
+        "row:trade"
+       ],
+       "b": "No empty areas, but trade has about USD 0.4 million"
+      },
+      {
+       "k": "f",
+       "t": "In the material assessment, funding for the investment climate, SMEs and tourism is rated \"thick\", regional economic development \"caution\", and trade \"thin\".",
+       "ref": [
+        "row:inv",
+        "row:sme",
+        "row:tour",
+        "row:reg",
+        "row:trade"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Trade, exports and logistics is the \"Regional Hub\" pillar of NDP 2030, and the World Bank memorandum also recommends streamlining non-tariff measures and improving logistics and quality infrastructure, yet active funding is only about USD 0.4 million. It is the area where national priorities, international recommendations and funding are most misaligned.",
+       "ref": [
+        "row:trade",
+        "doc:pr-ndp",
+        "doc:pr-cem"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "There are no empty rows, but the site's data also show no projects on issues that fall outside the table rows (the patent regime, inspection reform, investor protection).",
+       "ref": [
+        "row:sme",
+        "row:inv",
+        "doc:pr-cpsd"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The volume of growth is on target; next, \"measurement systems\" and \"firm quality\" will be tested.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "The growth, GDP and investment targets are on pace, but doubling industry and tripling SME value added have neither a responsible plan nor published figures, leaving the widest gap between targets and implementation.",
+       "ref": [
+        "ind:eco:2",
+        "ind:ind:0",
+        "doc:pr-ndp"
+       ],
+       "b": "Industry and SME targets have neither plans nor published figures"
+      },
+      {
+       "k": "v",
+       "t": "Analyses by international organisations (World Bank, IFC, EBRD) identify competition, protection of foreign investors and the informal economy as common challenges. These are not among the national target indicators, so reform progress needs to be monitored separately.",
+       "ref": [
+        "doc:pr-cem",
+        "doc:pr-cpsd",
+        "doc:pr-ebrd"
+       ],
+       "b": "Competition, investor protection and the informal economy are common challenges"
+      },
+      {
+       "k": "v",
+       "t": "Tourism has both a national programme and development bank funding, but funding is concentrated in infrastructure around Lake Issyk-Kul, and no funding is visible for institutional areas such as statistics, safety and human resources.",
+       "ref": [
+        "row:tour",
+        "tree:tourism:T1",
+        "tree:tourism:T4",
+        "doc:pr-adbik"
+       ],
+       "b": "Tourism funding is concentrated in infrastructure; institutional areas are thin"
+      },
+      {
+       "k": "v",
+       "t": "Trade and exports were the largest area in the past, but now have almost no active funding. This is a gap in support relative to the national \"Regional Hub\" goal and export expansion.",
+       "ref": [
+        "row:trade",
+        "fact:closed_rows"
+       ],
+       "b": "Trade and exports were the largest area in the past but are now a gap"
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: the end of the Regional Economic Development Project and its successor, a successor to the women's entrepreneurship programme (to 2026), progress on the new tourism statistics methodology and amendment of the Law on Tourism, and new published figures on SME value added.",
+       "ref": [
+        "row:reg",
+        "row:sme",
+        "doc:pr-tour"
+       ],
+       "b": "Successor projects, successor programmes, revised tourism statistics"
+      },
+      {
+       "k": "v",
+       "t": "Looking to 2027, two things will shape funding flows: how the Osh Region regional economic development project ends (2026 or 2028) and its successor, and whether the trade facilitation in EBRD's strategy becomes projects.",
+       "ref": [
+        "proj:WB-P167428",
+        "doc:pr-ebrd",
+        "row:trade"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "GDP per capita",
+   "USD 3,081 (2025)",
+   "USD 4,500",
+   "+USD 198/year (2015–2025)",
+   "+USD 284/year",
+   "Off track (about USD 4,070); on track at the post-2020 pace (+USD 370/year)",
+   "warn"
+  ],
+  [
+   "GDP",
+   "USD 22.6 billion (2025)",
+   "At least USD 30 billion",
+   "+USD 1.59 billion/year (2015–2025)",
+   "+USD 1.48 billion/year",
+   "On track (about USD 30.5 billion)",
+   "good"
+  ],
+  [
+   "Real GDP growth",
+   "11.1%(2025)",
+   "Average 8% a year",
+   "Average 10.2% (2022–2025)",
+   "8%",
+   "Exceeding",
+   "good"
+  ],
+  [
+   "Gross fixed capital formation as a share of GDP",
+   "25.8%(2025)",
+   "At least 20%",
+   "21.5%(2022)→25.8%",
+   "Maintain 20%",
+   "Achieved",
+   "good"
+  ],
+  [
+   "Industrial output (industrial value added as a proxy)",
+   "USD 3.32 billion at 2015 prices (2025)",
+   "Double the 2024 level (USD 5.82 billion)",
+   "+USD 165 million/year (2015–2025)",
+   "+USD 500 million/year",
+   "Off track (about USD 4.1 billion)",
+   "bad"
+  ],
+  [
+   "SME value added (tripling, at least 50% of GDP)",
+   "No published figure",
+   "Triple the 2024 level, at least 50% of GDP",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Tourism industry as a share of GDP",
+   "No published figure",
+   "7%",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Travel and Tourism Competitiveness Index",
+   "Not confirmed",
+   "Top 50 countries",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Investment climate and special economic zones",
+   "No dedicated national plan (only press reports on the Regional Development Programme 2025–2030)",
+   "NDP 2030 Section 5.1 (Presidential Decree No. 178 of 2025)",
+   "none",
+   "Goal 7 (investment 20%), 5.1",
+   "inv",
+   ""
+  ],
+  [
+   "2",
+   "SMEs and access to finance",
+   "Programme for Supporting Women's Entrepreneurship 2022–2026",
+   "(text not checked)",
+   "end",
+   "VI (tripling value added, 50% of GDP)",
+   "sme",
+   ""
+  ],
+  [
+   "3",
+   "Regional economic development",
+   "Programme for Integrated Socio-Economic Development of the Regions 2025–2030",
+   "Cabinet Resolution of 25 March 2025",
+   "ok",
+   "10.4",
+   "reg",
+   "regions"
+  ],
+  [
+   "4",
+   "Trade, exports and logistics",
+   "No dedicated national plan (NDP 2030 Section 5.2 \"Regional Hub\")",
+   "NDP 2030 Section 5.2",
+   "none",
+   "5.2",
+   "trade",
+   ""
+  ],
+  [
+   "5",
+   "Tourism",
+   "Programme for Sustainable Tourism Development 2025–2030",
+   "Cabinet Resolution No. 765 of 18 December 2024",
+   "ok",
+   "5.3 (7% of GDP, etc.)",
+   "tour",
+   "tourism"
+  ],
+  [
+   "5",
+   "Tourism (culture and heritage)",
+   "Programme for the Development of Culture and Arts 2026–2030",
+   "Approved by the Cabinet of Ministers in February 2026 (press reports)",
+   "ok",
+   "—",
+   "tour",
+   "cult"
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Investment climate and industrialisation (NDP 5.1)"
+  ],
+  [
+   "2",
+   "SMEs (NDP VI)"
+  ],
+  [
+   "3",
+   "Regional development (NDP 10.4)"
+  ],
+  [
+   "4",
+   "Regional hub and trade (NDP 5.2)"
+  ],
+  [
+   "5",
+   "Tourism (NDP 5.3)"
+  ]
+ ],
+ "ccs": [
+  [
+   "(1) Private sector competitiveness and inclusion (exports, access to finance, foreign investment)",
+   [
+    "sme",
+    "trade",
+    "inv"
+   ]
+  ],
+  [
+   "(2) Sustainable infrastructure and connectivity",
+   [
+    "trade"
+   ]
+  ],
+  [
+   "(3) A green, resilient and well-governed economy (green finance for SMEs)",
+   [
+    "sme"
+   ]
+  ]
+ ],
+ "unread": [
+  "Annual published figures for SME value added and its share of GDP (national targets: triple the 2024 level, at least 50% of GDP) (National Statistical Committee yearbook only; unconfirmed)",
+  "Annual values of industry's share of fixed capital investment (national target: 34% → 50%)",
+  "Industrial output (figures matching the national target's definition; the text uses industrial value added as a proxy)",
+  "The tourism industry's share of GDP (national target 7%) and tourism satellite account values",
+  "Internationally comparable series on international tourist arrivals and tourism receipts from 2020 onwards (international data stop in 2019 and 2020)",
+  "Ranking in the Travel and Tourism Competitiveness Index and score in the international ranking of mountain tourism safety",
+  "Current numbers of industrial and technopark zones (national target: five) and special economic zones",
+  "National statistics on the share of informal employment (the text uses only the World Bank's about 70%)",
+  "The text and numerical targets of the Programme for Supporting Women's Entrepreneurship 2022–2026",
+  "Also unconfirmed: the second half of the IFC Country Private Sector Diagnostic (the text and annexes of Chapter 8 on tourism), the full PDF of the World Bank Country Economic Memorandum, the EBRD country strategy itself, and the EU SWITCH-Asia tourism analysis (not opened)"
+ ]
+}

@@ -1,0 +1,1645 @@
+{
+ "spec": {
+  "pil": {
+   "1": "Public finance and financial system"
+  },
+  "rows": {
+   "pfm": {
+    "n": "Public finance and taxation",
+    "st": "Disaster Risk Finance Strategy 2026–30"
+   },
+   "bs": {
+    "n": "Budget support (sector reform contracts)",
+    "st": "(Sector strategies)"
+   },
+   "msme": {
+    "n": "SME finance (on-lending through banks)",
+    "st": "(National Development Programme, Chapter 5)"
+   },
+   "bank": {
+    "n": "Financial system and central bank",
+    "st": "(National Bank measures)"
+   },
+   "house": {
+    "n": "Housing finance",
+    "st": "(National Development Programme, Chapter 10)"
+   }
+  }
+ },
+ "ind": {
+  "debt": {
+   "name": "① Debt",
+   "inds": [
+    {
+     "name": "External debt stocks (% of GNI)",
+     "unit": "%",
+     "st": "✓ On track to reach the target by 2030 at the current pace",
+     "src": "World Bank WDI DT.DOD.DECT.GN.ZS (includes private external debt)",
+     "t": [
+      "National: 60%"
+     ]
+    },
+    {
+     "name": "Government debt (% of GDP)",
+     "unit": "%",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WDI GC.DOD.TOTL.GD.ZS (originally IMF)",
+     "t": []
+    },
+    {
+     "name": "Debt service (% of export revenue)",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "UN SDG Database DT_TDS_DECT (SDG 17.4.1)",
+     "t": []
+    }
+   ]
+  },
+  "macro": {
+   "name": "② Prices and public finance",
+   "inds": [
+    {
+     "name": "Inflation (consumer prices)",
+     "unit": "%",
+     "st": "△ 8.2% in 2025, above the upper bound of the target",
+     "src": "World Bank WDI FP.CPI.TOTL.ZG",
+     "t": [
+      "NBKR: 5–7%"
+     ]
+    },
+    {
+     "name": "Tax revenue (% of GDP)",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI GC.TAX.TOTL.GD.ZS (originally IMF)",
+     "t": []
+    },
+    {
+     "name": "Fiscal balance (% of GDP, positive = surplus)",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI GC.NLD.TOTL.GD.ZS (originally IMF)",
+     "t": []
+    }
+   ]
+  },
+  "fin": {
+   "name": "③ Access to finance",
+   "inds": [
+    {
+     "name": "Adults with an account at a financial institution or mobile money provider",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank Global Findex (every three years)",
+     "t": []
+    },
+    {
+     "name": "Domestic credit to the private sector (% of GDP)",
+     "unit": "%",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WDI FS.AST.PRVT.GD.ZS",
+     "t": []
+    },
+    {
+     "name": "Bank non-performing loans ratio",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI FB.AST.NPER.ZS (originally IMF)",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Finance support centres on EBRD lending to businesses and EU budget support",
+  "msgs": [
+   [
+    "Fiscal surplus expected.",
+    "The 2026 consolidated fiscal surplus is projected at 1% of GDP (Ministry of Finance, 6 Nov). Digital government bonds are adding to budget resources."
+   ],
+   [
+    "National Bank reforms.",
+    "Digital som, changes to payment rules, bank certification. Some banks are also refusing transactions because of sanctions."
+   ],
+   [
+    "EBRD lending to SMEs.",
+    "On-lending through banks, such as KyrSEFF (energy efficiency), is large."
+   ],
+   [
+    "EU budget support.",
+    "Reform contracts in digitalisation, water supply and education support the budget."
+   ]
+  ],
+  "h2": "Funding goes to SME finance (EBRD) and budget support (EU)",
+  "rows": {
+   "pfm": [
+    "",
+    "EU and World Bank support for tax and statistics"
+   ],
+   "bs": [
+    "",
+    "EU reform contracts"
+   ],
+   "msme": [
+    "",
+    "EBRD on-lending through banks"
+   ],
+   "bank": [
+    "",
+    "EBRD and Germany"
+   ],
+   "house": [
+    "",
+    "ADB housing finance"
+   ]
+  },
+  "h3": "Recent themes: \"digital government bonds\", \"National Bank measures\" and \"impact of sanctions\"",
+  "themes": [
+   [
+    "Public finance:",
+    "Expected surplus; digital government bonds."
+   ],
+   [
+    "Finance:",
+    "Digital som; sanctions on banks; a self-imposed borrowing ban scheme."
+   ],
+   [
+    "Sanctions:",
+    "Banks refusing transactions with hundreds of companies."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "sid": "finance",
+ "title": "Kyrgyz Republic: Public Finance and Financial System Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Chapter IV (targets), Chapter VI \"Support for SMEs\", Chapter VII \"Development of the Financial Market\", Section 10.3 \"Ensuring Macroeconomic Stability\" and Chapter III (macroeconomy and housing)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Full text of the relevant chapters and sections (translation on this site)",
+   "cat": "gov",
+   "u": "https://stat.gov.kg/media/files/be95e086-a299-4be2-8e38-8cc8b90c15d0.pdf"
+  },
+  {
+   "id": "wdi",
+   "t": "World Development Indicators (WDI), UN SDG Database and Global Findex",
+   "by": "World Bank and United Nations",
+   "y": "2026",
+   "scope": "Each series in the site's indicator data (retrieved automatically on 2026-11-07). Originally estimates by international organisations such as the IMF",
+   "cat": "donor"
+  },
+  {
+   "id": "imf26",
+   "t": "Kyrgyz Republic: 2026 Article IV Consultation (Executive Board press release and staff report)",
+   "by": "IMF",
+   "y": "Jun–Jul 2026",
+   "scope": "Press release in full; about 95% of the staff report text (including the outlook tables) reviewed in the original",
+   "cat": "donor",
+   "u": "https://www.imf.org/en/news/articles/2026/06/04/pr26185-kyrgyz-republic-imf-executive-board-concludes-2026-article-iv-consultation"
+  },
+  {
+   "id": "imfsi",
+   "t": "Kyrgyz Republic: Selected Issues(Country Report No. 26/164)",
+   "by": "IMF",
+   "y": "Jul 2026",
+   "scope": "Both chapters (financial conditions, informal economy) reviewed in the original",
+   "cat": "donor",
+   "u": "https://www.imf.org/-/media/files/publications/cr/2026/english/1kgzea2026002.pdf"
+  },
+  {
+   "id": "pefa",
+   "t": "PEFA Performance Assessment Report: Kyrgyz Republic",
+   "by": "PEFA (World Bank and others)",
+   "y": "Aug 2021",
+   "scope": "Covers FY2017–2019. The first ~80%, including the summary and score table, reviewed in the original",
+   "cat": "donor",
+   "u": "https://www.pefa.org:443/sites/pefa/files/2021-10/KG-Aug21-PFMPR-Public%20with%20PEFA%20Check.pdf"
+  },
+  {
+   "id": "dfa",
+   "t": "Kyrgyz Republic Development Finance Assessment",
+   "by": "Presidential Administration of the Kyrgyz Republic and UNDP",
+   "y": "Jul 2023",
+   "scope": "Executive summary and up to Section 2.5 reviewed in the original. Chart values not stated in the text are not used",
+   "cat": "donor",
+   "u": "https://www.undp.org/sites/g/files/zskgke326/files/2023-07/kyrgyz_republic_dfa_fin_july_2023-1.pdf"
+  },
+  {
+   "id": "scd",
+   "t": "Systematic Country Diagnostic Update: From Vulnerability to Resilience (Kyrgyz Republic)",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "Summary and main text up to paragraph 48 (about 80%) reviewed in the original",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/099062123120520664/pdf/BOSIB1cf4714711c50814256196431a9383d7e5012.pdf"
+  },
+  {
+   "id": "ieg",
+   "t": "The World Bank Group in the Kyrgyz Republic — Chapter 4 World Bank Group Support to Improve Governance",
+   "by": "World Bank Independent Evaluation Group (IEG)",
+   "y": "—",
+   "scope": "Full text of Chapter 4. The publication year is not stated in the part read",
+   "cat": "donor",
+   "u": "https://ieg.worldbankgroup.org/node/55994"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Public debt has fallen sharply and is within the NDP 2030 external debt ceiling (60% of GDP). Public external debt fell from 50.3% of GDP (2021) to 25.9% (2024), and government debt from 72.5% (2015) to 38.7% (2024).",
+   "ref": [
+    "doc:ndp",
+    "ind:debt:1"
+   ],
+   "h": "Public debt has fallen sharply and is within the external debt ceiling"
+  },
+  {
+   "k": "f",
+   "t": "Inflation exceeds the National Bank's target (5–7%). Inflation was 8.2% (2025) and, according to the IMF, rose to 11% in March 2026.",
+   "ref": [
+    "ind:macro:0",
+    "doc:imf26"
+   ],
+   "h": "Inflation exceeds the National Bank's target"
+  },
+  {
+   "k": "f",
+   "t": "The budget is projected to return from surpluses in 2023–25 to a deficit in 2026 (−3.8% of GDP), owing to higher public sector wages and capital spending. The IMF assesses government debt as \"sustainable, with a moderate risk of debt distress\".",
+   "ref": [
+    "doc:imf26",
+    "ind:macro:2"
+   ],
+   "h": "The budget is projected to return to deficit in 2026"
+  },
+  {
+   "k": "f",
+   "t": "Adults with an account surged from 45% (2021) to 72% (2024), but only 21.5% of firms have a bank loan, among the lowest in the region. Non-performing loans are high, at around 10%.",
+   "ref": [
+    "ind:fin:0",
+    "ind:fin:2",
+    "doc:imfsi"
+   ],
+   "h": "Accounts surged, but firms' use of credit is low and NPLs are high"
+  },
+  {
+   "k": "f",
+   "t": "Active support totals 44 projects and about USD 156 million, mostly from three partners: EBRD (about USD 66.6 million), the EU (about USD 38.3 million) and ADB (about USD 29.4 million). SME on-lending through banks (about USD 67.4 million) and EU budget support (about USD 38.6 million) are the largest.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:msme",
+    "row:bs"
+   ],
+   "h": "Support concentrated in SME on-lending through banks and budget support"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Macroeconomic, fiscal and financial overview",
+     "msg": "High growth continues and public debt has fallen sharply. However, inflation exceeds the National Bank's target, and the budget is projected to return to deficit from 2026.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "38.7",
+        "u": "%",
+        "k": "Government debt, % of GDP (2024)",
+        "ref": "ind:debt:1"
+       },
+       {
+        "v": "8.2",
+        "u": "%",
+        "k": "Inflation (2025)",
+        "ref": "ind:macro:0",
+        "hot": true
+       },
+       {
+        "v": "19.6",
+        "u": "%",
+        "k": "Tax revenue, % of GDP (2024)",
+        "ref": "ind:macro:1"
+       },
+       {
+        "v": "72.3",
+        "u": "%",
+        "k": "Adults with an account (2024)",
+        "ref": "ind:fin:0"
+       },
+       {
+        "v": "10.1",
+        "u": "%",
+        "k": "Bank non-performing loans ratio (2025)",
+        "ref": "ind:fin:2",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "According to NDP 2030, real growth averaged 8.0% in 2021–2024. Inflation fell from 11.2% (2021) to 6.3% (2024). State budget revenue doubled from 209.8 billion som to 463.8 billion som, producing surpluses of 12.7 billion som in 2023 and 36.9 billion som in 2024.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Growth averaged 8.0%; budget revenue doubled and is in surplus"
+      },
+      {
+       "k": "f",
+       "t": "Public external debt fell from 50.3% of GDP (2021) to 25.9% (2024). NDP 2030 attributes this to higher budget revenue expanding fiscal capacity and strengthening the sustainability of public debt.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Public external debt 50.3% → 25.9%"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that COVID-19 required a large fiscal expansion that significantly eroded macroeconomic buffers. Public debt was 67.7% (2020) and 60.3% (2021), and the fiscal balance was −4.2% (2020).",
+       "ref": [
+        "doc:scd",
+        "ind:debt:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The IMF estimates 2025 growth at about 11%. Inflation was 11% in March 2026, well above the National Bank's 5–7% target. Growth is expected to moderate (6.1% in 2026) as re-exports and trade-related activity plateau.",
+       "ref": [
+        "doc:imf26"
+       ],
+       "b": "Growth about 11% in 2025; 6.1% projected for 2026"
+      },
+      {
+       "k": "f",
+       "t": "According to the Development Finance Assessment (UNDP), remittances were 32.7% of GDP (2021) and about 25% on a ten-year average. Gold production accounts for about 10% of GDP and about 40% of exports (ten-year average). About 40% of budget financing comes from external concessional sources and about 60% from domestic sources.",
+       "ref": [
+        "doc:dfa"
+       ],
+       "b": "Remittances about 30% of GDP; gold about 40% of exports"
+      },
+      {
+       "k": "h",
+       "t": "Economic structure and external financing"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Systematic Country Diagnostic (SCD, 2023) states that remittances were about 33% of GDP (2021), more than 97% of them from Russia, and that the remittances-to-GDP ratio is the second highest in the world after Tonga. The Kumtor gold mine accounts for 8% of GDP and 10% of fiscal revenue. The SCD states that remittances and gold alone are not enough to drive future growth.",
+       "ref": [
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the IMF staff report, gold exports rose from USD 1.284 billion (2024) to USD 2.506 billion (2025). Unrecorded re-exports are estimated at 11.8% of GDP (2025), and net remittance inflows exceeded 14% of GDP (2025).",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Dollarisation is declining. The share of foreign-currency deposits fell from 45.7% to 36.3% (2025) and that of foreign-currency loans from 20.1% to 18.0%. At the time of the SCD (around 2022), dollar deposits were 48.6% of the total.",
+       "ref": [
+        "doc:imf26",
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "International reserves rose to 6.0 months of imports in 2025, but the IMF expects them to fall to 2 months in 2031 after the bullet repayment of the Eurobond in 2030. The National Bank reclassified USD 3.4 billion of gold as monetary gold.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The IMF considers that strong remittances and high gold prices support the external position and that large infrastructure projects underpin growth. It cites downside risks, however: sustained high oil prices would add to inflationary pressure, and there are signs of overheating.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Fiscal and debt figures have improved, but with the shift to deficit from 2026 and high inflation, the buffers for macroeconomic stability are narrowing. The economy remains heavily dependent on remittances, gold and re-exports, and its vulnerability to external shocks is unchanged.",
+       "ref": [
+        "doc:imf26",
+        "doc:dfa"
+       ],
+       "b": "Figures have improved, but buffers are narrowing"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Fiscal and financial policy is set out in NDP 2030 Section 10.3 (macroeconomic stability), Chapter VII (financial market) and Chapter VI (SMEs); no national plan for the sector as a whole could be identified.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026; the site has no policy tree for this national strategy)"
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "NDP 2030 targets and tasks"
+      },
+      {
+       "k": "f",
+       "t": "Top-level targets: of its eight targets, NDP 2030 sets GDP per capita of USD 4,500, GDP of USD 30 billion or more, average real growth of 8% a year, fixed capital investment of 20% of GDP or more, and external debt held to 60% of GDP.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP targets: GDP per capita USD 4,500, growth 8%, external debt within 60%"
+      },
+      {
+       "k": "f",
+       "t": "Section 10.3 cites the peak in principal repayments on past borrowing and high dependence on external markets, and calls for close coordination of fiscal and monetary policy. It sets five tasks: a public finance management strategy and fiscal risk management; open budget data and participatory budgeting; programme budgeting and investment prioritisation; a stabilisation fund and \"green\" budget tagging; and tax policy and administration reform (including AI-based fraud detection).",
+       "ref": [
+        "doc:ndp",
+        "row:pfm"
+       ],
+       "b": "Section 10.3: five tasks including a PFM strategy, open budgets, programme budgeting and taxation"
+      },
+      {
+       "k": "f",
+       "t": "Chapter VII positions banks as the main providers of credit to the real economy and households. Its tasks include access to finance for priority sectors, guarantees, alternative financing such as factoring, expansion of mortgages (a mortgage-backed securities market, interest subsidies), improvement of the sovereign credit rating, strengthening the stock exchange and a municipal bond market, piloting the digital som, a framework for virtual assets, and green and Islamic finance.",
+       "ref": [
+        "doc:ndp",
+        "row:bank",
+        "row:house"
+       ],
+       "b": "Chapter VII: lending, guarantees, mortgages, ratings, securities market, digital currency"
+      },
+      {
+       "k": "f",
+       "t": "Chapter VI sets a target of tripling SME value added from the 2024 level to over 50% of GDP. On finance, it lists expanded guarantees from the State Guarantee Fund, collateral-free lending and concessional loans for women entrepreneurs.",
+       "ref": [
+        "doc:ndp",
+        "row:msme"
+       ],
+       "b": "Chapter VI: triple SME value added; guarantees and collateral-free lending"
+      },
+      {
+       "k": "h",
+       "t": "Fiscal institutions"
+      },
+      {
+       "k": "f",
+       "t": "According to the IMF, transfers from the 2025 budget to the Stabilisation Fund amounted to 87 billion som (4% of GDP), and the fund's spending is outside the consolidated budget. The IMF recommends strengthening the fund's governance or abolishing it, while the government positions it as an extra-budgetary fund supporting socio-economic development. NDP 10.3 also lists a financing mechanism using the Stabilisation Fund as a task.",
+       "ref": [
+        "doc:imf26",
+        "doc:ndp",
+        "row:pfm"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Budget Code had prohibited government guarantees of SOE debt since 2007, but a 2024 amendment opened the possibility of conditional guarantees. Outstanding guarantees of the Guarantee Fund are below 0.2% of GDP.",
+       "ref": [
+        "doc:imf26",
+        "row:msme"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Pensions are a modified pay-as-you-go defined-benefit system with a contribution rate of 17% of wages, the remainder covered by the state budget. The contribution rate for new entrants was cut by 10 percentage points, and in the IMF's baseline projection the pension deficit will exceed 3.3% of GDP by 2035.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Monetary policy institutions"
+      },
+      {
+       "k": "f",
+       "t": "The IMF recommends that a majority of the National Bank's board be non-executive and that profit transfers to the treasury be suspended until its capital is restored, but these have not yet been implemented. It states that the 2022 amendment of the National Bank law did not fully address the 2020 recommendations. Three- and six-month notes were introduced in June 2025, and the overnight deposit rate was raised from 4% to 5%.",
+       "ref": [
+        "doc:imf26",
+        "row:bank"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The de facto exchange rate regime is classified as a \"crawl-like arrangement\" (managed in small steps); in 2025 flexibility was limited and the som was assessed as overvalued. The IMF states that unsterilised gold purchases and large profit transfers to the treasury added to inflationary pressure.",
+       "ref": [
+        "doc:imf26",
+        "ind:macro:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 10.3 calls for close coordination of fiscal and monetary policy, but the IMF's observations show that \"coordination\" through National Bank profit transfers and gold purchases has also added to inflationary pressure. How to combine National Bank independence with fiscal discipline is the condition for returning inflation to target.",
+       "ref": [
+        "doc:ndp",
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Sectoral plans"
+      },
+      {
+       "k": "h",
+       "t": "Development finance framework"
+      },
+      {
+       "k": "f",
+       "t": "The Development Finance Assessment (2023) sets out the four building blocks of an Integrated National Financing Framework (INFF: a framework linking domestic and international, public and private finance to development goals) — assessment and diagnostics, financing strategy, monitoring and review, and governance and coordination — and names agriculture, education and the green economy as priority areas. It proposes annual reporting on implementation of the INFF roadmap and a mid-term review in 2026.",
+       "ref": [
+        "doc:dfa"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same assessment states that the Kyrgyz Republic has made progress on 9 of the 17 SDGs and puts the alignment of national plans with the SDGs at 82% (2020 assessment). On taxation, the corporate income tax rate was cut from 10% to 7% in 2020.",
+       "ref": [
+        "doc:dfa"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Housing: the housing programme \"My Home 2021–2026\" has been revised, and the State Mortgage Company is focusing on housing construction in the regions. 435 buildings with 21,174 units (1.3 million m² in total, approximately 68.6 billion som) are under construction. Housing space per person has not exceeded 15.7 m².",
+       "ref": [
+        "doc:ndp",
+        "row:house"
+       ],
+       "b": "\"My Home 2021–2026\": 21,174 units under construction"
+      },
+      {
+       "k": "f",
+       "t": "The site's table links the public finance row to the \"Disaster Risk Finance Strategy 2026–2030\", but the basis is a press report and the text has not been verified. The national public finance management strategy that Section 10.3 calls for could not be confirmed from the materials used either.",
+       "ref": [
+        "row:pfm",
+        "doc:ndp"
+       ],
+       "b": "The text of the national public finance strategy cannot be confirmed"
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "For the four areas other than housing, no sectoral national plan could be confirmed, and the tasks in NDP 2030 serve as the reference point.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active support counted per table row; overlaps exist)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active support (per row, overlaps exist): SME finance about USD 67.4 million, budget support about USD 38.6 million, public finance and taxation about USD 26.2 million, financial system and central bank about USD 24.7 million, housing finance about USD 19.6 million.",
+       "ref": [
+        "fact:rows",
+        "row:msme",
+        "row:bs",
+        "row:pfm",
+        "row:bank",
+        "row:house"
+       ],
+       "b": "SME finance USD 67.4 million; budget support USD 38.6 million"
+      },
+      {
+       "k": "f",
+       "t": "Budget support consists of the EU's reform performance contract for the digitalisation sector (about USD 6 million, 2020–2028) and its second phase (about USD 10.4 million, 2026–2034), Digitalisation Budget Support-2 (about USD 8.8 million), budget support for the water sector (about USD 7.8 million, 2025–2028) and a water sector reform contract (about USD 4.6 million, 2024–2030).",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2020-ACT-D-42335-00",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63136",
+        "proj:XI-IATI-EC_INTPA-2026-PC-75410",
+        "proj:XI-IATI-EC_INTPA-2025-PC-61997",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-62577",
+        "row:bs"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Budget support is EU funding disbursed against the results of reforms such as digitalisation and water supply, and is attached to sectoral strategies rather than to a fiscal sector plan. Some projects are double-counted with the public finance row.",
+       "ref": [
+        "row:bs",
+        "row:pfm"
+       ],
+       "b": "Budget support is funding attached to sectoral reforms"
+      },
+      {
+       "k": "v",
+       "t": "The housing programme \"My Home\" ends in 2026. NDP 2030 states that the State Mortgage Company's operations were fundamentally reorganised and the programme revised. The successor plan will be the vehicle for housing finance support (about USD 19.6 million).",
+       "ref": [
+        "row:house",
+        "doc:ndp"
+       ],
+       "b": "\"My Home\" ends in 2026"
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for national targets",
+     "msg": "Of the NDP 2030 targets, external debt is within its ceiling. Growth and GDP per capita fall slightly short of the targets in IMF projections, and inflation exceeds the National Bank's target.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap against targets (actual pace = average change over the period; required pace = change needed to reach the target by 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "External debt: public external debt is 25.9% (2024), well below the 60% ceiling. World Bank data on external debt (including private borrowing, % of GNI) fell from 120.3% (2015) to 69.2% (2024), and at this pace will fall below 60% by 2030.",
+       "ref": [
+        "doc:ndp",
+        "ind:debt:0"
+       ],
+       "b": "External debt is within the ceiling"
+      },
+      {
+       "k": "f",
+       "t": "GDP per capita: USD 2,191 (2023) and USD 3,131 (2025) in IMF tables. The IMF projects USD 4,424 in 2030, slightly short of the USD 4,500 target.",
+       "ref": [
+        "doc:imf26",
+        "doc:ndp"
+       ],
+       "b": "GDP per capita: USD 4,424 projected for 2030 (target USD 4,500)"
+      },
+      {
+       "k": "f",
+       "t": "Growth: 9.0%, 11.5% and 11.1% in 2023–2025, above the 8% target, but the IMF projects 6.1% in 2026, 5.8% in 2027 and 5.4% in 2028.",
+       "ref": [
+        "doc:imf26",
+        "doc:ndp"
+       ],
+       "b": "Growth projected to fall below 8% from 2026"
+      },
+      {
+       "k": "f",
+       "t": "Inflation: against the National Bank's medium-term target of 5–7%, inflation exceeded 10% for three consecutive years in 2021–2023, dipped below target once at 5.0% in 2024, and returned to 8.2% in 2025. The IMF expects inflation to stay high until 2027 and to decline gradually with appropriate tightening.",
+       "ref": [
+        "ind:macro:0",
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "GDP per capita is in dollars and moves considerably with the exchange rate and prices. Even if growth falls below 8%, high inflation brings the dollar-denominated target closer, so the two targets need to be viewed separately.",
+       "ref": [
+        "doc:imf26"
+       ],
+       "b": "View GDP per capita and growth separately"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, the main targets of the previous National Development Programme (to 2026) were achieved on the basis of 2024 results. Foreign direct investment averaged over USD 1.1 billion a year in 2021–2022 and USD 859 million on average in 2023 and 2024 (preliminary).",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Development Finance Assessment (2023) cited the targets of the medium-term programme at the time: average real growth of 5.0%, GDP per capita of USD 1,500 (USD 1,224 in 2020), and annual FDI inflows of 15% of GDP or more.",
+       "ref": [
+        "doc:dfa"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The NDP 2030 targets (8% growth, GDP per capita of USD 4,500) were raised substantially from the previous targets (5% growth, USD 1,500). Recent high growth is the basis for this increase, but the IMF's projected increase (about USD 260 a year from 2025 to 2030) is slightly below the required increase (about USD 274 a year).",
+       "ref": [
+        "doc:ndp",
+        "doc:dfa",
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The external debt target is already far exceeded on the national definition (public external debt). What matters for the target is whether debt, which starts rising again in 2026, can stay within the ceiling through the 2030 repayment peak.",
+       "ref": [
+        "doc:ndp",
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Of the Chapter IV targets, total GDP of USD 30 billion or more (target 2) and fixed capital investment of 20% of GDP or more (target 7) are not yet in the site's indicator data, and this report does not assess their outlook.",
+       "ref": [
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Debt",
+     "msg": "Government debt fell from 72.5% of GDP (2015) to 38.7% (2024), but the debt service burden rose to 8.5% of export revenue (2023), and debt is projected to rise again from 2026.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Government debt (% of GDP) and debt service (% of export revenue)",
+      "inds": [
+       "debt:1",
+       "debt:2"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "Trend: government debt was 72.5% of GDP (2015), 68.0% (2020) and 38.7% (2024). Debt service rose from 2.5% of export revenue (2013) to 8.4% (2020) and stood at 8.5% (2023).",
+       "ref": [
+        "ind:debt:1",
+        "ind:debt:2",
+        "doc:wdi"
+       ],
+       "b": "Government debt 72.5% → 38.7%; debt service burden 2.5% → 8.5%"
+      },
+      {
+       "k": "f",
+       "t": "The Development Finance Assessment states that public debt rose by 16.5 percentage points of GDP during COVID-19 to 68%. The 2021 fiscal deficit was about −3.5% of GDP, returning to a surplus of about 1.2% by October 2022.",
+       "ref": [
+        "doc:dfa"
+       ],
+       "b": "Debt rose to 68% during COVID-19"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that the doubling of budget revenue and surpluses strengthened public debt sustainability and lowered the public external debt ratio. In the SCD tables, public debt fell from 67.7% (2020) to 60.3% (2021), with 57.5% projected for 2022.",
+       "ref": [
+        "doc:ndp",
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the IMF, the rise in debt in 2025 (36.2% → 39.4%) was due to higher domestic debt (11.3% → 15.8% of GDP), much of it lending from state-owned banks to the government.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "In IMF projections, government debt is 36.2% (2024), 39.4% (2025) and 41.4% (2026). The IMF considers debt sustainable but gross financing needs large, and assesses the risk of external and overall debt distress as \"moderate\". It notes that Eurobond proceeds were used to recapitalise state-owned banks, raising fiscal costs and risks.",
+       "ref": [
+        "doc:imf26"
+       ],
+       "b": "IMF: debt sustainable, risk moderate"
+      },
+      {
+       "k": "f",
+       "t": "Energy sector liabilities were about 15% of GDP in 2022. In its debt sustainability analysis, the IMF assumes a contingent liability shock of 13% of GDP, combining 8% for off-budget losses and 5% for crisis costs. The power sector aims for full cost recovery by 2030; household tariffs have been raised and further increases are planned.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The SCD puts the energy sector's accumulated debt at 133 billion som and describes it as the largest risk to fiscal sustainability. Because the economy and banks are dollarised, exchange rate risk compounds it.",
+       "ref": [
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Eurobond is a bullet repayment in 2030, after which reserves are projected to fall sharply. The IMF states that there has been \"some progress\" in operationalising the SOE fiscal risk framework, and that it has provided technical assistance.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "PEFA (FY2017–2019) rated debt management (PI-13) A, fiscal risk reporting (PI-10) C, public investment management (PI-11) C+, and expenditure arrears (PI-22) D. Debt management itself is strong, but mechanisms to capture risks arising from SOEs and other sources are weak.",
+       "ref": [
+        "doc:pefa"
+       ],
+       "b": "PEFA: debt management A, fiscal risk reporting C"
+      },
+      {
+       "k": "v",
+       "t": "The debt service burden (% of export revenue) more than tripled from 2.5% in 2013 to 8.5% in 2023. The fact that the burden rose even while the debt ratio fell points in the same direction as the \"peak in principal repayments\" noted in NDP 10.3.",
+       "ref": [
+        "ind:debt:2",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The fall in the debt ratio was driven mainly by growth and rising revenue. With the repayment peak warned of in NDP 10.3 coinciding with deficits from 2026, the decline in the ratio is levelling off.",
+       "ref": [
+        "doc:ndp",
+        "doc:imf26",
+        "ind:debt:2"
+       ],
+       "b": "The decline in the debt ratio is levelling off"
+      },
+      {
+       "k": "h",
+       "t": "Relationship with donor support"
+      },
+      {
+       "k": "f",
+       "t": "The site's table has no active project focused mainly on debt management itself. Among completed projects, ADB's Sustainable Fiscal Management and Governance Improvement Program (Subprogram 1, about USD 8.6 million, ended June 2025) is the largest in the public finance row.",
+       "ref": [
+        "proj:XM-DAC-46004-57193-001-LN4462",
+        "row:pfm"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Prices and public finance",
+     "msg": "Tax revenue rose to about 20% of GDP and surpluses continued, but inflation was in double digits in 2021–23 and still above target at 8.2% in 2025, and the budget returns to deficit in 2026.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Inflation and tax revenue (% of GDP)",
+      "inds": [
+       "macro:0",
+       "macro:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Background to inflation"
+      },
+      {
+       "k": "f",
+       "t": "Inflation: 11.9% (2021), 13.9% (2022), 10.8% (2023), 5.0% (2024) and 8.2% (2025). The NDP 2030 figures (11.2% in 2021, 6.3% in 2024) come from a different source and differ.",
+       "ref": [
+        "ind:macro:0",
+        "doc:ndp"
+       ],
+       "b": "Inflation 13.9% (2022) → 5.0% (2024) → 8.2% (2025)"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 cites COVID-19, disruption and rising costs in import supply chains, and geopolitical instability as causes of high inflation in 2021–2022. It states that in 2023–2024 inflation slowed owing to monetary policy and falling global commodity and imported food prices.",
+       "ref": [
+        "doc:ndp",
+        "ind:macro:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Development Finance Assessment states that inflation from August 2021 to August 2022 was 15.6%, and that core inflation (excluding volatile items) averaged 6.07% in 2012–2023, peaking at 18.40% (October 2022).",
+       "ref": [
+        "doc:dfa",
+        "ind:macro:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The IMF finds that banks' excess liquidity rose from 3.8% of GDP (2021) to 9.2% (recently), weakening the transmission of the policy rate to market rates. It states that financial conditions have eased since early 2024.",
+       "ref": [
+        "doc:imfsi"
+       ],
+       "b": "Excess liquidity has grown, weakening the policy rate"
+      },
+      {
+       "k": "f",
+       "t": "The IMF Selected Issues paper states that broad money has reached about 50% of GDP, interbank rates are well below the policy rate, and the floor of the interest rate corridor sets short-term rates. The real neutral rate is about 2% (about 3% on average in 2014–19), the real policy rate is below it, and financial conditions are accommodative in real terms.",
+       "ref": [
+        "doc:imfsi"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background on taxation and expenditure"
+      },
+      {
+       "k": "f",
+       "t": "Tax revenue: rose from 14.0% of GDP (2020) to 19.6% (2024). The IMF estimates that rationalising VAT exemptions and special regimes, making income tax more progressive and strengthening tax administration could raise up to 4% of GDP more.",
+       "ref": [
+        "ind:macro:1",
+        "doc:imf26"
+       ],
+       "b": "Tax revenue 14.0% → 19.6%; IMF sees up to 4% of GDP more"
+      },
+      {
+       "k": "f",
+       "t": "The IMF attributes the 2026 deficit to investment and a large public sector wage increase (2% of GDP). It recommends revenue mobilisation, containment of energy subsidies and wages, and stronger fiscal, investment and debt management. Because Kumtor's profits go to the state gold company and only partly reach the budget, increasing transfers to the budget would raise revenue.",
+       "ref": [
+        "doc:imf26",
+        "row:pfm"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The SCD identifies high current spending as a challenge for fiscal sustainability and estimates tax exemptions at 3% of GDP. After the large wage increase of 2022, public sector wage spending was projected at 16% of GDP.",
+       "ref": [
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The informal economy accounts for about 65% of workers and an estimated 19% of GDP (IMF). The Development Finance Assessment states that over 70% of workers are in the informal economy. Broadening the tax base overlaps with the NDP 10.3 task of \"legalisation of business and tax discipline\".",
+       "ref": [
+        "doc:imfsi",
+        "doc:dfa",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Tax compliance burden: firms spend over 280 hours a year preparing and paying taxes, more than twice the regional average. The number of days legal entities spend on tax accounting rose from 44.2 days (2021) to 76.3 days (2023).",
+       "ref": [
+        "doc:imfsi"
+       ],
+       "b": "Tax procedures take over 280 hours a year"
+      },
+      {
+       "k": "f",
+       "t": "Fiscal balance: a surplus of 3.2% of GDP (2024) in the World Bank series, and 2.0% (2024), 2.6% (2025) and −3.8% (2026) in the IMF projection tables. Values differ because of definitional differences.",
+       "ref": [
+        "ind:macro:2",
+        "doc:imf26"
+       ],
+       "b": "From surplus to a −3.8% deficit in 2026"
+      },
+      {
+       "k": "f",
+       "t": "Fiscal management: PEFA (FY2017–2019) rated budget classification and documentation, procurement and legislative scrutiny of audit reports A, and public access to fiscal information (PI-9) D, mainly because defence and security spending is not disclosed. Expenditure arrears were rated D and macroeconomic and fiscal forecasting D+.",
+       "ref": [
+        "doc:pefa",
+        "row:pfm"
+       ],
+       "b": "PEFA: budget documentation A, public access to information D"
+      },
+      {
+       "k": "f",
+       "t": "PEFA states that capital spending fell short of the budget in 2018 and 2019, and that expenditure composition outturn was rated D+. Medium-term planning did not adequately cover investment, and assessment of service results was limited. It states that budget transparency, new public investment rules, central management of staffing and expanded internal audit coverage progressed from 2015.",
+       "ref": [
+        "doc:pefa",
+        "row:pfm"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap against targets"
+      },
+      {
+       "k": "v",
+       "t": "Tax revenue has risen to about 20% of GDP, but spending is rising faster with wage increases and investment. Rationalising tax exemptions and special regimes (up to 4% of GDP by IMF estimates) and reducing the tax compliance burden (over 280 hours a year) overlap with the tax reform tasks of NDP 10.3 and are the main tools for containing the deficit.",
+       "ref": [
+        "doc:imf26",
+        "doc:imfsi",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Relationship with donor support"
+      },
+      {
+       "k": "f",
+       "t": "Related support: 13 projects, about USD 26.2 million in the public finance and taxation row (EU about USD 17.2 million, World Bank about USD 7 million (modernisation of tax administration and statistics, to March 2027)). 6 projects, about USD 38.6 million in the budget support row (EU about USD 37.6 million; reform contracts in digitalisation and water supply).",
+       "ref": [
+        "row:pfm",
+        "row:bs",
+        "fact:rows",
+        "proj:WB-P163711"
+       ],
+       "b": "Public finance about USD 26.2 million; budget support about USD 38.6 million"
+      },
+      {
+       "k": "f",
+       "t": "According to the World Bank's independent evaluation, in taxation electronic VAT filing rose from 30% (2017) to 100% (2021), and the share of firms citing tax administration as a major constraint fell from 20.2% (2013) to 14.6% (2019). It attributes the relative continuity of procurement and tax reforms to strong government ownership and stable mid-level managers in the responsible agencies.",
+       "ref": [
+        "doc:ieg",
+        "row:pfm"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because budget support is tied to sectoral reforms, the table shows no support directly conditioned on fiscal transparency (PEFA public access to information: D) or on rationalising tax exemptions. The fiscal transparency evaluation and the SOE fiscal risk framework recommended by the IMF are advancing through IMF technical assistance.",
+       "ref": [
+        "row:bs",
+        "doc:pefa",
+        "doc:imf26"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Access to finance and banking",
+     "msg": "Adults with an account surged from 45% in 2021 to 72% in 2024, but firms' use of bank credit is among the lowest in the region, and non-performing loans are high at around 10%.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Share of adults with an account and bank non-performing loans ratio",
+      "inds": [
+       "fin:0",
+       "fin:2"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Background on access to finance"
+      },
+      {
+       "k": "f",
+       "t": "Accounts: adults with an account at a financial institution or mobile money provider were 3.8% (2011), 39.9% (2017), 45.1% (2021) and 72.3% (2024). Women were at 71.2% (2024), a small gender gap.",
+       "ref": [
+        "ind:fin:0",
+        "doc:wdi"
+       ],
+       "b": "Accounts 45.1% (2021) → 72.3% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Pattern of growth: the share of adults with an account rose by only 5.2 percentage points from 2017 to 2021, but by 27.2 points from 2021 to 2024. Domestic credit to the private sector also recovered from 19.9% of GDP in 2023 to 22.3% in 2024, and the IMF projects 26.7% in 2025.",
+       "ref": [
+        "ind:fin:0",
+        "ind:fin:1",
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Credit: domestic credit to the private sector fell from 26.6% of GDP (2020) to 19.9% (2023) and stood at 22.3% (2024). The IMF states that new bank lending exceeded 25% of GDP and that the household share reached record levels in 2024–25.",
+       "ref": [
+        "ind:fin:1",
+        "doc:imfsi"
+       ],
+       "b": "Credit growth is led by households"
+      },
+      {
+       "k": "f",
+       "t": "The IMF Selected Issues paper states that credit growth outpaced nominal GDP growth and that the household share of new lending in 2024–25 reached record levels. In its estimated financial conditions index, the weight of bank credit (0.403) is larger than that of the policy rate (0.263).",
+       "ref": [
+        "doc:imfsi",
+        "ind:fin:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Firms: 21.5% of firms have a bank loan or line of credit and 13.3% use bank finance for investment, among the lowest in the region. About 65% of workers are in the informal economy.",
+       "ref": [
+        "doc:imfsi",
+        "row:msme"
+       ],
+       "b": "21.5% of firms have a loan"
+      },
+      {
+       "k": "f",
+       "t": "According to the IMF, transactions by virtual asset service providers reached USD 31.3 billion in 2025, about 138% of GDP, and the number of providers rose to 188. Only 2 of the 4 supervisory posts are filled, and expanded issuance of dollar-linked stablecoins (USD 50 million) could weaken monetary policy.",
+       "ref": [
+        "doc:imf26",
+        "row:bank"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The national money laundering risk assessment (2025) identifies fraud, tax evasion and corruption as the top threats, and over 65% of registered companies conduct no economic activity. The IMF calls for operationalising the beneficial ownership register.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Soundness of banks"
+      },
+      {
+       "k": "f",
+       "t": "Non-performing loans: rose from 4.2% (2014) to 12.5% (2022) and stood at 10.1% (2025). The IMF tables show 10.8% (December 2025), and the IMF describes NPLs as \"above 10%, with pockets of weakness\".",
+       "ref": [
+        "ind:fin:2",
+        "doc:imf26"
+       ],
+       "b": "NPLs remain high at around 10%"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that NPLs reached 14% in July 2022, the highest since 2010. According to the IMF, the provisioning ratio fell from 45.9% to 39.0%. The credit gap (deviation of credit from its long-term trend) is still negative but rising.",
+       "ref": [
+        "doc:scd",
+        "doc:imf26",
+        "ind:fin:2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The IMF recommends a countercyclical capital buffer (capital built up in good times), loan-to-value limits and liquidity regulation, but their adoption is not reported. Policy lending by state-owned banks (including for energy projects) obscures commercial standards and creates macro-financial risks. The Development Finance Assessment describes capital markets as underdeveloped.",
+       "ref": [
+        "doc:imf26",
+        "doc:dfa",
+        "row:bank"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "IMF recommendations: strengthen risk-based supervision and macroprudential policy (regulation for the safety of the financial system as a whole), curb policy lending by state-owned banks, AML/CFT, and supervision of virtual asset service providers.",
+       "ref": [
+        "doc:imf26",
+        "row:bank"
+       ],
+       "b": "IMF: stronger supervision; curb policy lending by state-owned banks"
+      },
+      {
+       "k": "v",
+       "t": "The surge in accounts and household lending has occurred at the same time, and NPLs are in the 10% range. The next challenge is reconciling the NDP's direction of expanding SME lending with stronger supervision to protect bank soundness.",
+       "ref": [
+        "ind:fin:0",
+        "ind:fin:2",
+        "doc:ndp"
+       ],
+       "b": "The challenge is reconciling credit expansion with bank soundness"
+      },
+      {
+       "k": "f",
+       "t": "Related support: 18 projects, about USD 67.4 million in the SME finance row (EBRD about USD 54 million, credit lines through commercial banks such as KyrSEFF III and FIF; ADB about USD 13.2 million). 10 projects, about USD 24.7 million in the financial system row (EBRD about USD 13.4 million, Germany about USD 5.2 million, World Bank about USD 2.8 million, ADB about USD 2.4 million). 4 projects, about USD 19.6 million in the housing finance row (ADB about USD 16.3 million, Germany about USD 3.4 million).",
+       "ref": [
+        "row:msme",
+        "row:bank",
+        "row:house",
+        "fact:rows",
+        "proj:XI-IATI-EBRD-57268"
+       ],
+       "b": "SME finance about USD 67.4 million (mainly EBRD)"
+      },
+      {
+       "k": "h",
+       "t": "Relationship with donor support"
+      },
+      {
+       "k": "f",
+       "t": "Among SME credit lines, EBRD's KyrSEFF III (two loans to DKIB, about USD 35 million, 2025–2031) and FIF (SME lending through commercial banks and financial institutions such as KICB and Bailyk Finance; six loans, about USD 15.3 million) are large.",
+       "ref": [
+        "proj:XI-IATI-EBRD-57268",
+        "proj:XI-IATI-EBRD-56215",
+        "proj:XI-IATI-EBRD-53665",
+        "proj:XI-IATI-EBRD-56671",
+        "row:msme",
+        "proj:XI-IATI-EBRD-53653",
+        "proj:XI-IATI-EBRD-55274",
+        "proj:XI-IATI-EBRD-54053",
+        "proj:XI-IATI-EBRD-55596"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the financial system row: EBRD's private equity and mezzanine investment funds (about USD 7.6 million) and the High Asia Central Asia Fund II (about USD 5 million), Germany's agrofinance value chains Phase II (about USD 4.9 million, 2022–2027), and ADB's SME support bank project (about USD 2.4 million).",
+       "ref": [
+        "proj:XI-IATI-EBRD-50336",
+        "proj:XI-IATI-EBRD-54796",
+        "proj:DE-1-201967678",
+        "proj:XM-DAC-46004-56005-001-LN4336",
+        "row:bank"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In housing finance: ADB's strengthening of housing finance for affordable and energy-efficient housing (a loan of about USD 11.3 million and a grant of about USD 5 million, 2025–2032), and Germany's social housing Phase III (about USD 3.2 million, ending December 2026).",
+       "ref": [
+        "proj:XM-DAC-46004-58345-001-LN4647",
+        "proj:XM-DAC-46004-58345-001-GRNT1042",
+        "proj:DE-1-201768183",
+        "row:house"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Credit lines directly address firms' low use of bank credit (21.5%), but assessing their effect requires publication of the number of firms newly borrowing through them and their default rates. Amid the surge in lending, credit lines also need to be viewed together with supervision of bank soundness.",
+       "ref": [
+        "row:msme",
+        "doc:imfsi",
+        "ind:fin:2"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding is largest from EBRD, the EU and ADB, in that order; together they account for about 86%.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects aligned with the strategy areas, after apportionment)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active support aligned with the public finance and financial system strategy totals 44 projects and about USD 156 million. By donor: EBRD about USD 66.6 million, EU about USD 38.3 million, ADB about USD 29.4 million, World Bank about USD 9.8 million, Germany about USD 8.6 million, and UN (other), Switzerland and other bilateral about USD 1 million each.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 44 projects, about USD 156 million"
+      },
+      {
+       "k": "f",
+       "t": "Four projects, about USD 3.4 million, end by end-2026. Almost all of this is Germany's social housing finance Phase III (about USD 3.2 million), coinciding with the end of the \"My Home\" housing programme.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor",
+        "proj:DE-1-201768183"
+       ],
+       "b": "4 projects, about USD 3.4 million, end by end-2026"
+      },
+      {
+       "k": "f",
+       "t": "Support completed since 2017 totals 64 projects and about USD 75.4 million, led by EBRD, Germany and the World Bank. By row, the financial system (about USD 25.7 million) and SME finance (about USD 24.1 million) were largest; the focus was on funding channelled through banks and institution-building in the financial sector.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor",
+        "fact:closed_rows"
+       ],
+       "b": "Completed since 2017: 64 projects, about USD 75.4 million"
+      },
+      {
+       "k": "f",
+       "t": "Areas by donor (per row, overlaps exist): EBRD in SME finance about USD 54 million and the financial system about USD 13.4 million; the EU in budget support about USD 37.6 million and public finance about USD 17.2 million; ADB in housing finance about USD 16.3 million and SME finance about USD 13.2 million; the World Bank in public finance about USD 7 million and the financial system about USD 2.8 million; Germany in the financial system about USD 5.2 million and housing finance about USD 3.4 million.",
+       "ref": [
+        "fact:rows",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Large EBRD projects not mapped to table rows (Kemin–Balykchy power transmission about USD 66.6 million, Issyk-Kul ring road about USD 23.9 million) are energy and transport projects and are not counted under public finance and the financial system.",
+       "ref": [
+        "proj:XI-IATI-EBRD-55367",
+        "proj:XI-IATI-EBRD-52367"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Most active funding consists of credit lines to commercial banks (EBRD, ADB) and EU budget support; technical cooperation for institution-building is small. Support directly addressing the challenges seen in 2.1–2.3 (debt and energy contingent liabilities, the inflation framework, bank supervision) is scarce in the table.",
+       "ref": [
+        "fact:by_donor",
+        "row:msme",
+        "row:bs"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Over the past decade, completed support centred on lending to banks and SMEs and on support for public financial management; the active amount has grown to about twice that.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed in 2017 or later. Earlier projects are excluded because records for major donors are incomplete. Even after 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Completed since 2017 and aligned with the public finance and financial system strategy: 64 projects, about USD 75.4 million (after apportionment, no double counting). By donor: EBRD about USD 24.1 million, Germany about USD 19.8 million, World Bank about USD 12.4 million, ADB about USD 10 million, Switzerland about USD 3.5 million, Islamic Development Bank about USD 3 million, United Kingdom about USD 1.6 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "64 projects, about USD 75.4 million; EBRD, Germany and the World Bank largest"
+      },
+      {
+       "k": "f",
+       "t": "By area: financial system 17 projects, about USD 25.7 million; SME finance 9 projects, about USD 24.1 million; public finance and taxation 41 projects, about USD 20.6 million; housing finance 2 projects, about USD 6.3 million; budget support 14 projects, about USD 3.5 million (Switzerland). The largest projects were EBRD's SME lending (Kompanion V, about USD 10 million), Germany's agrofinance Phase I (about USD 8.8 million) and ADB's Sustainable Fiscal Management and Governance Improvement Program (about USD 8.6 million, ended June 2025).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XI-IATI-EBRD-55000",
+        "proj:DE-1-201365444",
+        "proj:XM-DAC-46004-57193-001-LN4462"
+       ],
+       "b": "Financial system, SME lending and public financial management were central"
+      },
+      {
+       "k": "f",
+       "t": "Donors by area: of the about USD 20.6 million for public finance, ADB about USD 10 million, World Bank about USD 4.5 million, Switzerland about USD 3.5 million, United Kingdom about USD 1.6 million. Of the about USD 25.7 million for the financial system, Germany about USD 13.5 million, World Bank about USD 7.9 million, Islamic Development Bank about USD 3 million. These include the World Bank's financial sector development projects (about USD 2.6 million and about USD 2.2 million) and a trust fund for strengthening auditing and reporting (about USD 3.1 million, ended 2023).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:WB-P125689",
+        "proj:XI-IATI-WBTF-TF072067",
+        "proj:XI-IATI-WBTF-TF072583"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The about USD 24.1 million of completed SME finance was entirely EBRD, centred on phases 3–5 of SME lending to the financial institution Kompanion (about USD 20 million in total, ended 2025–2026). The about USD 6.3 million in housing finance was Germany's housing programme Phase II (about USD 6 million, ended 2023).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XI-IATI-EBRD-55000",
+        "proj:XI-IATI-EBRD-53683",
+        "proj:XI-IATI-EBRD-51709",
+        "proj:DE-1-201567528"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The active amount (about USD 156 million) is about twice the total for projects completed since 2017 (about USD 75.4 million). EU budget support and EBRD credit lines have become new major pillars.",
+       "ref": [
+        "fact:mapped_musd",
+        "fact:closed_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active support is about twice the completed amount; budget support and credit lines are the pillars"
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "No row in the table is empty, but debt management, the inflation framework and the sovereign credit rating, which link directly to national targets, have no row in the table.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active / completed / cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row has zero active projects. All five rows are funded, but each is concentrated in one or two donors (SME finance: EBRD; budget support: EU; housing: ADB).",
+       "ref": [
+        "fact:empty_rows"
+       ],
+       "b": "No empty rows"
+      },
+      {
+       "k": "v",
+       "t": "Debt management, the inflation and monetary policy framework, and improvement of the sovereign credit rating, which link directly to NDP 2030 targets, have no row in the site's table, so whether support exists cannot be read from the table.",
+       "ref": [
+        "doc:ndp",
+        "row:pfm",
+        "row:bank"
+       ],
+       "b": "Debt, inflation and credit rating have no row in the table"
+      },
+      {
+       "k": "v",
+       "t": "Some projects mapped to table rows have weak links to public finance and the financial system (ADB's Naryn rural water supply and sanitation additional financing → SME finance, about USD 10.8 million; the World Bank's power sector modernisation trust fund → financial system, about USD 2.8 million). The mapping to rows needs to be reviewed.",
+       "ref": [
+        "row:msme",
+        "row:bank",
+        "proj:XM-DAC-46004-52256-012-LN4494",
+        "proj:XI-IATI-WBTF-TF073825"
+       ],
+       "b": "The row mapping of some projects needs review"
+      },
+      {
+       "k": "v",
+       "t": "Projects addressing the areas PEFA rated weak (public access to fiscal information D, expenditure arrears D, macroeconomic and fiscal forecasting D+) cannot be identified in the table either. IMF technical assistance on medium-term management of the public wage bill (2026) is among the materials but was not read this time.",
+       "ref": [
+        "doc:pefa",
+        "row:pfm"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Budget support (about USD 38.6 million) flows directly into the state budget, conditioned on the results of sectoral reforms. From a public finance perspective, how this funding relates to financing the deficit cannot be read from the table, and needs to be viewed together with publication of budget documents (where PEFA shows large room for improvement).",
+       "ref": [
+        "row:bs",
+        "doc:pefa"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "In 2027, the question is whether debt and bank soundness can be protected amid the shift to fiscal deficit and high inflation.",
+     "paras": [
+      {
+       "k": "v",
+       "t": "The budget returns to deficit from 2026, coinciding with the principal repayment peak the NDP warns of. Raising additional tax revenue (up to 4% of GDP by IMF estimates) and improving budget transparency (PEFA public access: D) are key to keeping the debt ratio in check.",
+       "ref": [
+        "doc:imf26",
+        "doc:pefa",
+        "doc:ndp"
+       ],
+       "b": "Amid the shift to deficit, tax revenue and budget transparency are key"
+      },
+      {
+       "k": "v",
+       "t": "Inflation is above target and banks hold large excess liquidity. With surging credit alongside NPLs of around 10%, strengthening supervision could become a new entry point for financial sector support.",
+       "ref": [
+        "ind:macro:0",
+        "ind:fin:2",
+        "doc:imfsi"
+       ],
+       "b": "With inflation and surging credit, stronger supervision is an entry point"
+      },
+      {
+       "k": "v",
+       "t": "SME support centres on EBRD and ADB lending through commercial banks. Combined with the NDP's State Guarantee Fund and collateral-free lending, it should be monitored whether the share of firms able to obtain loans (currently 21.5%) rises.",
+       "ref": [
+        "row:msme",
+        "doc:ndp",
+        "doc:imfsi"
+       ],
+       "b": "Monitor bank credit lines together with state guarantees"
+      },
+      {
+       "k": "v",
+       "t": "The cut in pension contributions (10 percentage points for new entrants) and energy sector contingent liabilities (about 15% of GDP) will weigh on public finances into the 2030s. Whether cost recovery in electricity tariffs (by 2030) proceeds as planned will determine the size of fiscal risks.",
+       "ref": [
+        "doc:imf26"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: the 2027 budget and the size of the deficit, the National Bank's policy rate and inflation, the NPL ratio, the successor to the \"My Home\" housing programme, and the next IMF consultation.",
+       "ref": [
+        "doc:imf26",
+        "row:house"
+       ],
+       "b": "Next to watch: 2027 budget, inflation, NPLs, successor housing programme"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Public external debt within 60% of GDP (NDP target 8)",
+   "25.9% (2024, public external debt)",
+   "Within 60%",
+   "−8.1 points/yr (2021→2024)",
+   "Within the ceiling",
+   "Achieved (within the ceiling)",
+   "good"
+  ],
+  [
+   "External debt (World Bank, including private, % of GNI)",
+   "69.2%(2024)",
+   "Within 60% (reference)",
+   "−5.7 points/yr (2015→2024)",
+   "−1.5 points/yr",
+   "On pace",
+   "good"
+  ],
+  [
+   "GDP per capita USD 4,500 (NDP target 1)",
+   "USD 3,131 (2025, IMF)",
+   "USD 4,500",
+   "+USD 470/yr (2023→2025)",
+   "+USD 274/yr",
+   "USD 4,424 in IMF projections (slightly short)",
+   "warn"
+  ],
+  [
+   "Average real growth of 8% a year (NDP target 3)",
+   "11.1%(2025、IMF)",
+   "8%",
+   "9.0〜11.5%(2023〜2025)",
+   "8%",
+   "Below target at 6.1% in 2026 in IMF projections",
+   "warn"
+  ],
+  [
+   "Inflation 5–7% (National Bank medium-term target)",
+   "8.2%(2025)",
+   "5〜7%",
+   "—",
+   "—",
+   "Above the upper bound (11% in March 2026)",
+   "bad"
+  ],
+  [
+   "Improvement of the sovereign credit rating (NDP Chapter VII)",
+   "No value on the site",
+   "Improvement",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "SME value added of 50% of GDP or more (NDP Chapter VI)",
+   "No value on the site",
+   "50% or more",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Public finance and taxation",
+   "National public finance management strategy (required by NDP 10.3) / Disaster Risk Finance Strategy 2026–2030 (press reports only)",
+   "Text not reviewed",
+   "none",
+   "X 10.3",
+   "pfm",
+   ""
+  ],
+  [
+   "1",
+   "Budget support (sector reform contracts)",
+   "No stand-alone plan (attached to sectoral strategies such as digitalisation and water supply)",
+   "—",
+   "none",
+   "—",
+   "bs",
+   ""
+  ],
+  [
+   "1",
+   "SME finance",
+   "No stand-alone plan (tasks in NDP Chapter VI)",
+   "—",
+   "none",
+   "VI",
+   "msme",
+   ""
+  ],
+  [
+   "1",
+   "Financial system and central bank",
+   "No stand-alone plan (tasks in NDP Chapter VII; National Bank measures)",
+   "—",
+   "none",
+   "VII",
+   "bank",
+   ""
+  ],
+  [
+   "1",
+   "Housing finance",
+   "Housing programme \"My Home 2021–2026\"",
+   "(Number not confirmed)",
+   "end",
+   "VII",
+   "house",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Public finance and financial system"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual values of public external debt (the NDP's 25.9% (2024) is not in the site's indicator data; the World Bank series includes private borrowing)",
+  "Sovereign credit rating (NDP Chapter VII target; rating agency data are paid)",
+  "Annual values of SME value added and its share of GDP (NDP Chapter VI targets: tripling, 50% or more)",
+  "Texts of the national public finance management strategy and the Disaster Risk Finance Strategy 2026–2030 (press reports only)",
+  "Text and targets of the housing programme \"My Home 2021–2026\" and its successor plan",
+  "Reasons for the difference between national inflation statistics and the World Bank series (2021: national 11.2%, World Bank 11.9%)",
+  "Annual values of total GDP (NDP target 2: USD 30 billion or more) and fixed capital investment as a share of GDP (target 7: 20% or more) (not yet in the site's indicator data)",
+  "Also not reviewed: the IMF 2023 Article IV staff report, IMF Selected Issues 2025, the World Bank Public Expenditure Review 2020 and Fiscal Risk Management 2022, IMF technical assistance on the public wage bill 2026, and the Report on the Observance of Standards and Codes (ROSC) on accounting and auditing 2022 (not opened this time). The second halves of PEFA and the Development Finance Assessment were not read"
+ ],
+ "lang": "en"
+}
