@@ -1,10 +1,10 @@
 # Builds search-terms.json from the term tables terms-*.json.
-# Run from the repo root: python3 scripts/merge_search_terms.py
-import json,glob,sys
+# Run from the repo root: python3 scripts/merge_search_terms.py <folder with terms-*.json>
+import json,glob,sys,os
 out=[];seen=set()
-ALL='/mnt/project-files/burkut/terms/terms-all.json'
-import os
-files=[ALL] if os.path.exists(ALL) else sorted(f for f in glob.glob('/mnt/project-files/burkut/terms/terms-*.json') if not f.endswith('terms-all.json'))
+TERMS=sys.argv[1] if len(sys.argv)>1 else 'terms'
+ALL=os.path.join(TERMS,'terms-all.json')
+files=[ALL] if os.path.exists(ALL) else sorted(f for f in glob.glob(os.path.join(TERMS,'terms-*.json')) if not f.endswith('terms-all.json'))
 for f in files:
     for g in json.load(open(f))['groups']:
         if g['id'] in seen: print('dup',g['id'],f); g=dict(g,id=g['sec']+'-'+g['id'])

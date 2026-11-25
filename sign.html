@@ -1351,7 +1351,7 @@ function shareSheet(){
   var ld=lessonDates(),nAnim=CARDS.filter(function(c){return (notes[c.id]||{}).hasAnim;}).length;
   var h='<h3>みんなと共有する</h3>';
   h+='<div class="notice">収録した<b>アニメ</b>を1つのファイルにまとめて、LINE・WhatsApp・Telegram・AirDrop などで送れます。受け取った人は、同じアプリで「共有ファイルを読み込む」を押すだけです。</div>';
-  h+='<div class="setrow"><div class="lab">あなたの名前（だれが収録したか分かるように）</div><input class="search" data-set="userName" placeholder="例：ゆうた" value="'+esc(settings.userName||"")+'" style="margin-bottom:0"></div>';
+  h+='<div class="setrow"><div class="lab">あなたの名前（だれが収録したか分かるように）</div><input class="search" data-set="userName" placeholder="例：たろう" value="'+esc(settings.userName||"")+'" style="margin-bottom:0"></div>';
   h+='<div class="setrow"><div class="lab">送る</div>'+
      '<button class="btn pri full" data-act="mkpack" data-val="all"'+(nAnim?'':' disabled')+'>収録したアニメを全部まとめる（'+nAnim+'件）</button>'+
      ld.slice(0,8).map(function(g){var k=g.cards.filter(function(c){return (notes[c.id]||{}).hasAnim;}).length;
@@ -1425,7 +1425,7 @@ function settingsSheet(){
     return '<button class="'+(String(cur)===String(o[0])?"on":"")+'" data-act="'+act+'" data-val="'+o[0]+'">'+o[1]+'</button>';}).join("")+'</div>';}
   var h='<h3>設定</h3>';
   h+=designRows();
-  h+='<div class="setrow"><div class="lab">あなたの名前（共有する時に、だれの収録か分かるように）</div><input class="search" data-set="userName" placeholder="例：ゆうた" value="'+esc(settings.userName||"")+'" style="margin-bottom:0"></div>';
+  h+='<div class="setrow"><div class="lab">あなたの名前（共有する時に、だれの収録か分かるように）</div><input class="search" data-set="userName" placeholder="例：たろう" value="'+esc(settings.userName||"")+'" style="margin-bottom:0"></div>';
   h+='<div class="setrow"><div class="lab">出題のしかた</div>'+seg("dir",[["ja2sign","日本語→手話"],["ru2sign","ロシア語→手話"],["sign2ja","手話→意味"],["random","ミックス"]],settings.direction)+
      '<div class="small muted" style="margin-top:-6px">「ロシア語→手話」はロシア語の単語も一緒に覚えたい時に。「手話→意味」は自分のアニメや動画を見て意味を当てる読み取り練習。</div></div>';
   h+='<div class="setrow"><div class="lab">1日の新しいカード数</div>'+seg("daily",[[5,"5"],[10,"10"],[15,"15"],[20,"20"]],settings.dailyNew)+'</div>';

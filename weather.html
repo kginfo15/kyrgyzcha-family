@@ -747,7 +747,7 @@ const COUNTRY_CFG = {
   kg:{name:"キルギス共和国", short:"キルギス", tab:"キルギス", flag:"🇰🇬", over:"Kyrgyz Republic · Info Hub", tz:"Asia/Bishkek",
       news:"news.json", suffix:"", embassy:"在キルギス日本国大使館", capital:"bishkek", favs:["bishkek"],
       media:"24.kg・Kaktus・AKIpress・Kloop・Azattyk", mountainNote:"山の多いキルギスでは",
-      streetCities:{bishkek:"ビシュケク"}, streets:["razzakova","orozbekova","panfilova","kievskaya"],
+      streetCities:{bishkek:"ビシュケク"}, streets:["chui","manasa","toktogula"],
       cities:[
         {id:"bishkek",   ja:"ビシュケク",     ru:"Бишкек",      lat:42.8746, lon:74.5698, el:800},
         {id:"osh",       ja:"オシュ",         ru:"Ош",          lat:40.5283, lon:72.7985, el:1000},
@@ -1288,13 +1288,13 @@ const HAZ_KINDS = ["quake","slide","avalanche","flood","wind","storm","emergency
 const kindLabels = ks => (ks||[]).filter(k=>KIND[k]);
 const STREETS_BY_COUNTRY = {kg:[
   // Bishkek city centre: main streets first, then other central streets
-  {id:"panfilova", ja:"パンフィロバ通り", ru:"ул. Панфилова", g:"main"},
-  {id:"razzakova", ja:"ラザコバ通り", ru:"ул. Раззакова", g:"main"},
-  {id:"kievskaya", ja:"キエフスカヤ通り", ru:"ул. Киевская", g:"main"},
-  {id:"orozbekova", ja:"オロズベコバ通り", ru:"ул. Орозбекова", g:"main"},
+  {id:"chui", ja:"チュイ大通り", ru:"пр. Чуй", g:"main"},
   {id:"toktogula", ja:"トクトグル通り", ru:"ул. Токтогула", g:"main"},
   {id:"moskovskaya", ja:"モスコフスカヤ通り", ru:"ул. Московская", g:"main"},
-  {id:"chui", ja:"チュイ大通り", ru:"пр. Чуй", g:"main"},
+  {id:"kievskaya", ja:"キエフスカヤ通り", ru:"ул. Киевская", g:"main"},
+  {id:"panfilova", ja:"パンフィロバ通り", ru:"ул. Панфилова", g:"main"},
+  {id:"razzakova", ja:"ラザコバ通り", ru:"ул. Раззакова", g:"main"},
+  {id:"orozbekova", ja:"オロズベコバ通り", ru:"ул. Орозбекова", g:"main"},
   {id:"erkindik", ja:"エルキンディク並木道", ru:"б. Эркиндик", g:"center"},
   {id:"abdrakhmanova", ja:"アブドラフマノバ通り", ru:"ул. Абдрахманова", g:"center"},
   {id:"tynystanova", ja:"トゥイヌイスタノバ通り", ru:"ул. Тыныстанова", g:"center"},

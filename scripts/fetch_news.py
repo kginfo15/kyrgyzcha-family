@@ -464,7 +464,7 @@ def collect_infra(prev_tr):
 WATCH_STREETS = [
     ("panfilova", r"панфилов(?!ск)"), ("razzakova", "раззаков"), ("kievskaya", "киевск"),
     ("orozbekova", "орозбеков"), ("toktogula", "токтогул"), ("moskovskaya", "московск"),
-    ("chui", r"чуй(?![а-яё])"), ("erkindik", "эркиндик"), ("abdrakhmanova", "абдрахманов"),
+    ("chui", r"чуй(?![а-яё])(?!\s*[-–—]\s*\d)"), ("erkindik", "эркиндик"), ("abdrakhmanova", "абдрахманов"),
     ("tynystanova", "тыныстанов"), ("isanova", "исанов"), ("logvinenko", "логвиненко"),
     ("togolok", "тоголок молдо"), ("shopokova", "шопоков"), ("manasa", "манаса"),
     ("bokonbaeva", "боконбаев"), ("frunze", "фрунзе"), ("jumabek", "жумабек"),
