@@ -395,14 +395,14 @@
    "t": "National Development Programme 2030, Section 9.4 \"Accessible and Sustainable Health Care\"",
    "by": "Kyrgyz Republic",
    "y": "2025",
-   "scope": "Section 9.4 targets and challenges, and the current state of the social sector (Japanese translation on this site)",
+   "scope": "Section 9.4 targets and challenges, and the current state of the social sector (translation on this site)",
    "cat": "gov"
   },
   {
    "id": "hsia",
    "t": "Health Systems in Action Insights: Kyrgyzstan 2024",
    "by": "European Observatory on Health Systems and Policies (WHO Europe)",
-   "y": "December 2024",
+   "y": "Dec 2024",
    "scope": "Full text read in the original (PDF hosted on ecoi.net). Figures in charts whose exact values could not be read (HIV values by care-cascade stage) were not used",
    "cat": "donor",
    "u": "https://www.ecoi.net/en/file/local/2121521/9789289059817-eng.pdf"
@@ -411,7 +411,7 @@
    "id": "who2019",
    "t": "Kyrgyzstan adopts new health strategy for 2019–2030",
    "by": "WHO Europe (press release)",
-   "y": "January 2019",
+   "y": "Jan 2019",
    "scope": "Full text",
    "cat": "donor"
   },
@@ -427,7 +427,7 @@
    "id": "who2023",
    "t": "Strengthening primary health care financing (press release, in Russian)",
    "by": "WHO Europe",
-   "y": "September 2023",
+   "y": "Sep 2023",
    "scope": "Full text",
    "cat": "donor"
   },
@@ -435,7 +435,7 @@
    "id": "whoeval",
    "t": "WHO Country Office Evaluation: Kyrgyzstan (evaluation of 2014–2019)",
    "by": "WHO",
-   "y": "April 2020",
+   "y": "Apr 2020",
    "scope": "First half read in the original",
    "cat": "donor"
   },
@@ -443,7 +443,7 @@
    "id": "kabar",
    "t": "\"Health and prevention: priorities of Programme 2030 discussed\" (final meeting of the Joint Annual Review)",
    "by": "Kabar",
-   "y": "October 2025",
+   "y": "Oct 2025",
    "scope": "Full text",
    "cat": "gov"
   },
@@ -451,7 +451,7 @@
    "id": "ccs",
    "t": "Announcement of the signing of the WHO Country Cooperation Strategy 2024–2030, and WHO Country Office Kyrgyzstan Annual Report 2024",
    "by": "UN Kyrgyzstan / WHO",
-   "y": "November 2023 / 2025",
+   "y": "Nov 2023 / 2025",
    "scope": "Announcement read in full; first half of the annual report read in the original. The PDF of the strategy itself could not be opened",
    "cat": "donor"
   },
@@ -459,7 +459,7 @@
    "id": "wb2019",
    "t": "Kyrgyz Republic to Gain Better Primary Health Care",
    "by": "World Bank (press release)",
-   "y": "June 2019",
+   "y": "Jun 2019",
    "scope": "Full text",
    "cat": "donor"
   },
@@ -467,7 +467,7 @@
    "id": "mics",
    "t": "Multiple Indicator Cluster Survey (MICS) 2023 Statistical Snapshots",
    "by": "National Statistical Committee / UNICEF",
-   "y": "July 2024",
+   "y": "Jul 2024",
    "scope": "First 16 pages read in the original",
    "cat": "gov"
   },
@@ -475,7 +475,7 @@
    "id": "cdc",
    "t": "HIV and TB Overview: Kyrgyz Republic",
    "by": "US CDC",
-   "y": "Updated September 2026",
+   "y": "Updated Sep 2026",
    "scope": "Full text",
    "cat": "donor"
   },
