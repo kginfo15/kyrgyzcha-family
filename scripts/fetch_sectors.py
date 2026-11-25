@@ -541,6 +541,17 @@ BILATERAL_RE = stem_re(["встретил", "встреча", "перегово�
                         "agreement", "memorandum", "visit"])
 
 
+# spam planted on hacked sites (a panorama viewer fed a "xml=data:" link): adult videos and fake live streams
+# that show up in news search as pages of a ministry or an exchange. Dropped on arrival and from the archive.
+# or an old file browser (fckeditor) told to load a list from another site ("CONNECTOR=//...")
+SPAM_URL_RE = re.compile(r"[?&]xml=data:|[?&]connector=(?:%2f|/|https?:)", re.I)
+SPAM_TITLE_RE = re.compile(r"pornhub|xnxx|xvideos|vlxxx|порно\s*-?\s*видео|sex\W{0,3}video", re.I)
+
+
+def is_spam(x):
+    return bool(SPAM_URL_RE.search(x.get("u") or "") or SPAM_TITLE_RE.search(x.get("t") or ""))
+
+
 def sector_filter(sectors, text, link, donors, title=""):
     """Drop sectors named only in passing (see INCIDENT_RE, ANIMAL_RE, FOREIGN_RE)."""
     if not sectors or donors:
@@ -771,6 +782,8 @@ def merge(store, new):
     added = 0
     by_title = {norm_title(x["t"]): k for k, x in store.items()}
     for x in new:
+        if is_spam(x):
+            continue
         k = x["i"]
         dup = by_title.get(norm_title(x["t"]))
         if k not in store and dup:
@@ -1570,6 +1583,11 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
     fn.use_country("kg")
     store, meta = load_prev()
+    spam = [k for k, x in store.items() if is_spam(x)]
+    for k in spam:
+        del store[k]
+    if spam:
+        log(f"spam: removed {len(spam)} items from the archive")
 
     new = collect(archive_empty=not store)
     log(f"live: {len(new)} items, {merge(store, new)} new")
