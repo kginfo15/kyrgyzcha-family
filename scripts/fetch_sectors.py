@@ -543,7 +543,8 @@ BILATERAL_RE = stem_re(["встретил", "встреча", "перегово�
 
 # spam planted on hacked sites (a panorama viewer fed a "xml=data:" link): adult videos and fake live streams
 # that show up in news search as pages of a ministry or an exchange. Dropped on arrival and from the archive.
-SPAM_URL_RE = re.compile(r"[?&]xml=data:", re.I)
+# or an old file browser (fckeditor) told to load a list from another site ("CONNECTOR=//...")
+SPAM_URL_RE = re.compile(r"[?&]xml=data:|[?&]connector=(?:%2f|/|https?:)", re.I)
 SPAM_TITLE_RE = re.compile(r"pornhub|xnxx|xvideos|vlxxx|порно\s*-?\s*видео|sex\W{0,3}video", re.I)
 
 
