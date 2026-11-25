@@ -15494,8 +15494,8 @@ function corner(p,V,t,frac,ratio){var best={side:"tl",mf:frac<.7?.64:.76,fw:.6,f
   ["tl","tr","bl","br"].forEach(function(k,ki){var x0=V.x+(k.charAt(1)==="l"?0:V.vw*(1-fw)),y0=V.y+(k.charAt(0)==="t"?0:V.vh*(1-fh)),x1=x0+V.vw*fw,y1=y0+V.vh*fh,sc=(k.charAt(0)==="b"?V.vw*V.vh*.03:0)+ki+mi*V.vw*V.vh*.01+(fh>.7?V.vw*V.vh*.2:0);
     var hd=0,ov=function(a,b,c,d,wt){var w=Math.min(x1,c)-Math.max(x0,a),h=Math.min(y1,d)-Math.max(y0,b);if(w>0&&h>0){sc+=w*h*wt;return w*h/((c-a)*(d-b));}return 0;};
     (p.rec||[]).forEach(function(r){if(r.bub){ov(r.x-r.w/2,r.y-r.h/2,r.x+r.w/2,r.y+r.h/2,r.sfx?2:3);return;}var hh=r.h;
-      if(r.x+.16*hh<V.x||r.x-.16*hh>V.x+V.vw)return;
-      hd=Math.max(hd,ov(r.x-.17*hh,r.y-.9*hh,r.x+.17*hh,r.y-.42*hh,5));ov(r.x-.2*hh,r.y-.42*hh,r.x+.2*hh,r.y,1);});
+      if(r.x+.2*hh<V.x||r.x-.2*hh>V.x+V.vw)return;
+      var hw=r.up?.27:.17;hd=Math.max(hd,ov(r.x-hw*hh,r.y-.9*hh,r.x+hw*hh,r.y-.42*hh,5));ov(r.x-.2*hh,r.y-.42*hh,r.x+.2*hh,r.y,1);});
     if(sc<bs){bs=sc;best={side:k,mf:mf,fw:fw,fh:fh,hd:hd};}});});
   return best;}
 /* 本文の「」をセリフとして取り出す */
