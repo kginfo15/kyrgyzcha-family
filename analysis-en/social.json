@@ -1,0 +1,1720 @@
+{
+ "sid": "social",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Social protection, disability and development"
+  },
+  "rows": {
+   "assist": {
+    "n": "Social assistance, poverty and pensions",
+    "st": "(National Development Programme, Chapter 9)"
+   },
+   "labor": {
+    "n": "Employment and labour market",
+    "st": "(National Development Programme, Chapter 9)"
+   },
+   "dis": {
+    "n": "Persons with disabilities",
+    "st": "(National Development Programme, Chapter 9)"
+   },
+   "mig": {
+    "n": "Labour migrants and returnees",
+    "st": "Migration Policy Concept 2021–2030"
+   },
+   "child": {
+    "n": "Child protection",
+    "st": "(National Development Programme, Chapter 9)"
+   }
+  }
+ },
+ "ind": {
+  "pov": {
+   "name": "① Poverty",
+   "tag": "Low-income people and inequality",
+   "inds": [
+    {
+     "name": "Poverty rate (national poverty line)",
+     "unit": "%",
+     "st": "✓ On track to reach the target by 2030 at the current pace",
+     "src": "World Bank WDI SI.POV.NAHC (originally National Statistical Committee; new methodology from 2023)",
+     "t": [
+      "National 20%"
+     ],
+     "note": "The poverty line calculation method changed in 2023, so the series is not comparable with earlier figures. The UN SDG Database gives 25.7% (2024)."
+    },
+    {
+     "name": "People living on less than USD 4.20 a day (international poverty line)",
+     "unit": "%",
+     "st": "— No target (falling trend)",
+     "src": "World Bank WDI SI.POV.LMIC (2021 PPP)",
+     "t": [],
+     "note": "World Bank standard that allows comparison across countries."
+    }
+   ]
+  },
+  "job": {
+   "name": "② Employment",
+   "tag": "Workers and informal work",
+   "goals": [
+    [
+     "Employment rate of persons with disabilities 60% or more (National Development Programme 2030, 9.1)",
+     "Only in the National Statistical Committee yearbook"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Employment rate (people aged 15 and over in work)",
+     "unit": "%",
+     "st": "✕ Flat and not approaching the target",
+     "src": "World Bank WDI SL.EMP.TOTL.SP.ZS (ILO estimate)",
+     "t": [
+      "National 60%"
+     ],
+     "note": "Most people working abroad as labour migrants are not counted in domestic figures."
+    },
+    {
+     "name": "Share of workers in informal employment",
+     "unit": "%",
+     "st": "✓ Target (national 58%) already achieved",
+     "src": "UN SDG Database SL_ISV_IFEM (SDG 8.3.1, ILO)",
+     "t": [
+      "National 58%"
+     ],
+     "note": "The national target refers to employment in the \"informal sector\", which is measured slightly differently from the ILO's \"informal employment\"."
+    },
+    {
+     "name": "Unemployment rate",
+     "unit": "%",
+     "st": "✓ Target (national 5% or less) already achieved",
+     "src": "World Bank WDI SL.UEM.TOTL.ZS (ILO estimate)",
+     "t": [
+      "National 5% or less"
+     ]
+    }
+   ]
+  },
+  "sp": {
+   "name": "③ Social protection",
+   "tag": "Benefits, pensions and migrant remittances",
+   "goals": [
+    [
+     "Child poverty rate 25% (National Development Programme 2030, 9.2)",
+     "Only in the National Statistical Committee yearbook"
+    ],
+    [
+     "Coverage of state benefits for children in poor families 30%",
+     "Only in Ministry of Social Development reports"
+    ],
+    [
+     "Family-based care for 55% of children without parental care",
+     "Same as above"
+    ],
+    [
+     "Digitised social passports 98% or more",
+     "Same as above"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Share of people covered by social protection and labour programmes",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank ASPIRE per_allsp.cov_pop_tot (from household surveys, up to 2020)",
+     "t": []
+    },
+    {
+     "name": "Remittances from abroad (% of GDP)",
+     "unit": "%",
+     "st": "— No target (falling trend)",
+     "src": "World Bank WDI BX.TRF.PWKR.DT.GD.ZS",
+     "t": [],
+     "note": "Remittances from labour migrants in Russia and elsewhere. They support households but make the economy dependent on conditions abroad, so it is hard to say which direction is desirable."
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Social protection projects are small and centred on employment (WFP); pensions and returning migrants dominate the national agenda",
+  "msgs": [
+   [
+    "Pension increases.",
+    "Military pensions are being raised (December), and doubling pensions has been proposed, among other measures."
+   ],
+   [
+    "Returning migrants.",
+    "Returning migrants are increasing demand for school places (6 Nov). Germany is considering easing employment procedures."
+   ],
+   [
+    "Disability.",
+    "The \"Umut\" programme to reduce childhood disability, running to 2030 (5 Nov)."
+   ],
+   [
+    "Donor projects are small.",
+    "Apart from the WFP labour market programme, projects are small."
+   ]
+  ],
+  "h2": "Apart from employment (WFP), projects are small; social assistance and child protection are thinly covered",
+  "rows": {
+   "assist": [
+    "",
+    "Only small UNICEF projects"
+   ],
+   "labor": [
+    "",
+    "WFP active labour market programme"
+   ],
+   "dis": [
+    "",
+    "Small UN, UNICEF and EU projects"
+   ],
+   "mig": [
+    "",
+    "Small projects, including UN funds"
+   ],
+   "child": [
+    "",
+    "UNICEF children's rights monitoring"
+   ]
+  },
+  "h3": "Recent topics: pensions, returning migrants and a new disability programme",
+  "themes": [
+   [
+    "Pensions:",
+    "A series of decisions and proposals on increases."
+   ],
+   [
+    "Migration:",
+    "An employment agreement with Germany, and demand created by returning migrants."
+   ],
+   [
+    "Disability:",
+    "The Umut programme and a draft law on the protection of women with disabilities."
+   ]
+  ]
+ },
+ "proj_t": {
+  "CH-4-2000003843": "Legal assistance for Kyrgyz farmers: more law, less poverty",
+  "DK-CVR-36980214-1010238-10": "Rural voices – poverty alleviation through community-driven business initiatives"
+ },
+ "title": "Kyrgyz Republic Social Protection Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 9.1 \"Human Potential and Decent Work\", Section 9.2 \"Fair Social Protection\" and Chapter III \"Current Situation and Achievements\" (social sector)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Target indicators and tasks in Sections 9.1 and 9.2, and the social sector paragraphs of Chapter III (translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "tree",
+   "t": "National strategy on the site (tree diagram tree-migration)",
+   "by": "Checked against the SDG Voluntary National Review 2025 and other sources",
+   "y": "2026-11",
+   "scope": "Name and pillars of the Migration Policy Concept (pillars are an estimate constructed from its scope)",
+   "cat": "gov"
+  },
+  {
+   "id": "unicef2026",
+   "t": "Analysis of Social Sector Spending in the Kyrgyz Republic",
+   "by": "UNICEF Kyrgyzstan Country Office",
+   "y": "Mar 2026",
+   "scope": "Full text (summary in article format)",
+   "cat": "donor",
+   "u": "https://www.unicef.org/kyrgyzstan/stories/analysis-social-sector-spending-kyrgyz-republic"
+  },
+  {
+   "id": "scd2023",
+   "t": "Systematic Country Diagnostic Update: From Vulnerability to Resilience (Kyrgyz Republic)",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "Main text of the PDF checked in the original (figures inside charts could not be read and were not used)",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/099062123120520664/pdf/BOSIB1cf4714711c50814256196431a9383d7e5012.pdf"
+  },
+  {
+   "id": "undp2025",
+   "t": "Presentation of Final Results of the UN Global Disability Fund Project in Kyrgyzstan",
+   "by": "UNDP (press release)",
+   "y": "Dec 2025",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.undp.org/kyrgyzstan/press-releases/presentation-final-results-un-global-disability-fund-project-kyrgyzstan"
+  },
+  {
+   "id": "wdi",
+   "t": "World Bank WDI, ASPIRE and UN SDG Database (originally from the National Statistical Committee and ILO)",
+   "by": "World Bank and United Nations",
+   "y": "Retrieved 2026-11-07",
+   "scope": "Via the site's indicator data; series for each indicator",
+   "cat": "donor"
+  },
+  {
+   "id": "proj",
+   "t": "Cooperation project data (World Bank, IATI and JICA project data aggregated on the site)",
+   "by": "—",
+   "y": "2026-11-24",
+   "scope": "Amounts after pro-rata allocation",
+   "cat": "donor"
+  },
+  {
+   "id": "unicefdis2021",
+   "t": "Situation Analysis: Children and Adolescents with Disabilities in Kyrgyzstan",
+   "by": "UNICEF Kyrgyzstan Country Office",
+   "y": "Oct 2021",
+   "scope": "About 80% of the main text (up to part of the education section) and the summary checked in the original",
+   "cat": "donor",
+   "u": "https://www.unicef.org/kyrgyzstan/media/7256/file/Situation%20Analysis%20of%20Children%20and%20Adolescents%20with%20Disabilities%20in%20Kyrgyzstan.pdf"
+  },
+  {
+   "id": "innocenti2025",
+   "t": "Learning is For Everyone: Paving the pathway for inclusive education for children with disabilities in Kyrgyzstan",
+   "by": "UNICEF Innocenti – Global Office of Research and Foresight",
+   "y": "2025",
+   "scope": "About 80% of the main text checked in the original",
+   "cat": "donor",
+   "u": "https://www.eenet.org.uk/resources/docs/UNICEF-Innocenti-Learning-Is-for-Everyone-Kyrgyzstan-report-2025.pdf"
+  },
+  {
+   "id": "imf2025",
+   "t": "Kyrgyz Republic: Selected Issues (Country Report 2025/119)",
+   "by": "IMF",
+   "y": "Jun 2025",
+   "scope": "Summary page only; the full report was not read",
+   "cat": "donor",
+   "u": "https://www.imf.org/en/publications/cr/issues/2025/06/04/kyrgyz-republic-selected-issues-567399"
+  },
+  {
+   "id": "oecd2018",
+   "t": "Social Protection System Review of Kyrgyzstan",
+   "by": "OECD",
+   "y": "2018",
+   "scope": "Overview (executive summary) only; the main text could not be opened",
+   "cat": "donor",
+   "u": "https://www.oecd.org/en/publications/social-protection-system-review-of-kyrgyzstan_9789264302273-en.html"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Poverty is falling and on track for the national target of 20%. The national poverty rate fell from 29.8% (2023) to 24.0% (2025). Child poverty, however, remains high at 36.7%.",
+   "ref": [
+    "ind:pov:0",
+    "doc:ndp"
+   ],
+   "h": "Poverty is on track for the target, but child poverty is high"
+  },
+  {
+   "k": "f",
+   "t": "The employment target (60% employment rate) is not getting closer. The employment rate for ages 15 and over is 55.3% (2025) and has been flat for about a decade. About 30% of the working-age population works abroad.",
+   "ref": [
+    "ind:job:0",
+    "doc:scd2023"
+   ],
+   "h": "Employment is flat; about 30% of workers are abroad"
+  },
+  {
+   "k": "v",
+   "t": "Social spending is large but struggles to reach children and poor families. Social spending is 13.2% of GDP (2024), dominated by pensions. Even the national target for coverage of child benefits is only 30%.",
+   "ref": [
+    "doc:unicef2026",
+    "doc:ndp"
+   ],
+   "h": "Social spending is large but struggles to reach children"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation is small at 19 projects and about USD 13.1 million, three-quarters of which is a WFP labour market programme. Cooperation on social assistance and pensions is about USD 0.4 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "row:labor",
+    "row:assist"
+   ],
+   "h": "Cooperation is small, with very little for social assistance"
+  },
+  {
+   "k": "v",
+   "t": "None of the five national targets for children and social protection has annual published values, so progress cannot be measured.",
+   "ref": [
+    "doc:ndp"
+   ],
+   "h": "The five social protection targets cannot be measured"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Poverty, employment and social protection at a glance",
+     "msg": "Poverty is falling and unemployment is low, but domestic jobs are not growing, and households depend on labour migration abroad.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "24.0",
+        "u": "%",
+        "k": "Poverty rate, national poverty line (2025)",
+        "ref": "ind:pov:0"
+       },
+       {
+        "v": "36.7",
+        "u": "%",
+        "k": "Child poverty rate (NDP 2030 text)",
+        "ref": "doc:ndp",
+        "hot": true
+       },
+       {
+        "v": "55.3",
+        "u": "%",
+        "k": "Employment rate, ages 15+ (2025)",
+        "ref": "ind:job:0",
+        "hot": true
+       },
+       {
+        "v": "17.6",
+        "u": "%",
+        "k": "Remittances from abroad, % of GDP (2024)",
+        "ref": "ind:sp:1"
+       },
+       {
+        "v": "13.2",
+        "u": "%",
+        "k": "Social spending, % of GDP (2024)",
+        "ref": "doc:unicef2026"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Poverty: the national poverty rate is 29.8%, and the child poverty rate is 36.7%. The share of people below the international poverty line (USD 4.20 a day) fell from 32.9% (2010) to 12.5% (2024).",
+       "ref": [
+        "doc:ndp",
+        "ind:pov:1"
+       ],
+       "b": "Poverty rate 29.8%; children 36.7%"
+      },
+      {
+       "k": "f",
+       "t": "Social spending: spending on the social sector increased 1.7-fold, from 105.6 billion som (2021) to 178.5 billion som (2024). According to UNICEF, social spending is 13.2% of GDP (2024).",
+       "ref": [
+        "doc:ndp",
+        "doc:unicef2026"
+       ],
+       "b": "Social spending up 1.7-fold (2021→2024), 13.2% of GDP"
+      },
+      {
+       "k": "f",
+       "t": "Employment: the working-age population is 4.1 million (2024). The unemployment rate fell from 5.3% (2021) to 4.1% (2023), the lowest since independence. In 2024, 263,100 jobs were created.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Unemployment at a record low of 4.1% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "Labour migration: the World Bank's diagnostic (2023) puts the number working abroad at about 1.2 million, equivalent to 31% of the working-age population and 17% of the total population. Remittances were about 33% of GDP in 2021, the second-highest share in the world after Tonga (2020 data).",
+       "ref": [
+        "doc:scd2023"
+       ],
+       "b": "About 1.2 million work abroad (31% of the working-age population)"
+      },
+      {
+       "k": "f",
+       "t": "Job quality: the World Bank reports that only about one-third of the employed are wage earners in formal firms, and that self-employment rose from 42% (2013) to 52% (2020). Informal work raises the probability of falling into poverty by 20% compared with formal work.",
+       "ref": [
+        "doc:scd2023"
+       ],
+       "b": "Formal wage employment is about one-third of the employed"
+      },
+      {
+       "k": "f",
+       "t": "Older people: there were 407,900 people aged 65 and over (2024). In 2023–2024 pensions were indexed to inflation and doubled.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The fall in poverty and the low unemployment rate owe more to remittances and higher pensions and benefits than to growth in domestic employment. As remittances fall as a share of GDP, domestic job creation becomes the next challenge.",
+       "ref": [
+        "ind:sp:1",
+        "doc:scd2023",
+        "doc:ndp"
+       ],
+       "b": "Falling poverty is supported by remittances and benefits; domestic jobs are next"
+      },
+      {
+       "k": "h",
+       "t": "Features of the social protection system"
+      },
+      {
+       "k": "f",
+       "t": "The summary of the OECD Social Protection System Review (2018) states that pension coverage of today's older people is almost universal. There are many contributory and non-contributory schemes; Soviet-era benefits have been retained while schemes suited to a market economy were added, but fiscal constraints have limited the coverage of the new schemes.",
+       "ref": [
+        "doc:oecd2018"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same summary states that the system struggles to adapt to three challenges: poverty, widespread informal work and migration abroad.",
+       "ref": [
+        "doc:oecd2018"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF's analysis of social spending states that social protection spending is heavily skewed towards pensions and that about one-third of children live below the national poverty line.",
+       "ref": [
+        "doc:unicef2026"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Labour migration and the economy"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's diagnostic (2023) states that about 1.2 million of a population of about 7 million are labour migrants abroad, mostly working in Russia and Kazakhstan. High remittances are said to push up the wage people require to work at home (the reservation wage).",
+       "ref": [
+        "doc:scd2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The summary of the IMF Selected Issues paper (2025) estimates potential growth at 5.3% and identifies labour force expansion as one of the main sources of growth. It also cites the inflow of migrants from Russia since 2022 as a notable factor in recent growth.",
+       "ref": [
+        "doc:imf2025"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The National Development Programme 2030 states that in 2020–2023 rising prices and falling real incomes left older people particularly vulnerable, making socially important goods, medicines and services harder to obtain. The response was the indexation and doubling of pensions in 2023–2024.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Poverty, informal work and labour migration are interlinked. Because formal domestic jobs are scarce, people migrate abroad for work, and their remittances support households. State benefits are generous for pensions but thin for children and working-age households.",
+       "ref": [
+        "doc:scd2023",
+        "doc:oecd2018",
+        "doc:unicef2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Following the increase in social sector spending, NDP 2030 states that in the medium term the social sector financing mechanism needs to be revised to improve efficiency and service quality.",
+       "ref": [
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy structure",
+     "msg": "Social protection has no overarching national programme; individual plans for migration, children and disability sit under Sections 9.1 and 9.2 of the National Development Programme 2030.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy structure (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Employment (Section 9.1): four targets (informal sector employment 58%, poverty 20%, employment level 60%, employment of persons with disabilities 60% or more). The tasks are a new national employment policy, transition from informal to formal work, skills training, and migration management and reintegration of returnees.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 9.1: informality 58%, poverty 20%, employment 60%, disability employment 60%"
+      },
+      {
+       "k": "f",
+       "t": "Social protection (Section 9.2): five targets (child poverty 25%; coverage of benefits for children in poor families 30%; family-based care for children without parental care 55%; digitised social passports 98% or more; at least 3 gerontology centres for older people).",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 9.2: five targets including child poverty at 25%"
+      },
+      {
+       "k": "f",
+       "t": "Tasks in Section 9.2: expanding benefit coverage (especially in high-mountain and remote areas), social passports on the \"Sanarip Aimak\" digital platform, proxy means testing of assets (targeting), a shift from waiting for applications to identifying and meeting needs proactively, and a unified information system for labour, social protection and migration.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Migration: the Migration Policy Concept 2021–2030 (Government Decision). The site's tree diagram divides it into four pillars: pre-departure preparation and rights protection, reintegration of returnees, migration management and data, and internal migration (the pillars are an estimate constructed from the scope of the Concept).",
+       "ref": [
+        "tree:migration:migration",
+        "tree:migration:M1",
+        "tree:migration:M2",
+        "tree:migration:M3",
+        "tree:migration:M4"
+       ],
+       "b": "Migration Policy Concept 2021–2030 (four pillars)"
+      },
+      {
+       "k": "f",
+       "t": "Children: the Family Support and Child Protection Programme 2018–2028 is being implemented. More than 500 full-time social worker posts have been created, and an Ombudsperson for Children's Rights was appointed in June 2021.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Family Support and Child Protection Programme 2018–2028"
+      },
+      {
+       "k": "f",
+       "t": "Disability: Kyrgyzstan has ratified the Convention on the Rights of Persons with Disabilities and adopted the state programme \"Accessible Country\" 2023–2030.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Disability: state programme \"Accessible Country\" 2023–2030"
+      },
+      {
+       "k": "f",
+       "t": "Main schemes include \"Kelechekke Salym\" (a state deposit of 500,000 som for children who have lost parental care), \"Bala Bereke\" (2024, payments of 100,000 to 2,000,000 som for births in high-mountain and remote areas), the \"social contract\" (2022, through which 32,200 households started self-employment in three years) and \"personal assistant\" services.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Social contract: 32,200 households started self-employment in three years"
+      },
+      {
+       "k": "v",
+       "t": "There is no national programme covering social protection as a whole, and the national targets sit in two sections of NDP 2030. The texts of the individual plans for migration, children and disability have not yet been read on the site.",
+       "ref": [
+        "doc:ndp",
+        "tree:migration:migration"
+       ],
+       "b": "No programme covers the sector as a whole"
+      },
+      {
+       "k": "h",
+       "t": "What the schemes contain"
+      },
+      {
+       "k": "f",
+       "t": "Under the \"social contract\", the most successful participants can expand their businesses with interest-free loans (up to 200,000 som). Persons with disabilities who need assistance and supervision receive \"personal assistant\" services, and the monthly allowance rose by about 23%.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The employment tasks in Section 9.1 include digitising labour relations through electronic contracts and electronic employment records, expanding social insurance coverage, formalising platform and freelance work, and setting a minimum share of nationals employed by foreign-owned companies.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The migration tasks in Section 9.1 are international standards protecting the rights of those recruited through private employment agencies, pre-departure preparation (vocational training, legal information and cultural adaptation), a comprehensive reintegration programme for returnees, consular protection, and intergovernmental agreements on pension insurance for migrants and the transfer of pensions abroad.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Section 9.2 also lists as tasks a system for assessing the quality and safety of services for families and children in difficult situations, development of adoption, foster care and guardianship, modernisation of medical and social disability assessment and of prosthetic and orthopaedic services, creation of a rehabilitation market through public–private partnership, and development of gerontology.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On gender, a National Gender Equality Strategy to 2030 and a state programme supporting women's leadership have been adopted, and Kyrgyzstan became the first country in Central Asia to ratify ILO Convention No. 190 on eliminating violence and harassment in the world of work.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "While new cash benefits (Bala Bereke, Kelechekke Salym) and benefit increases keep being added, the targeting mechanism (proxy means testing of assets) and the unified information system are still at the task stage. Whether administrative systems can keep pace with the expansion of benefits is the key.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Section 9.2 also lists piloting vouchers to cover pre-school education costs for children from socially vulnerable, low-income and extremely poor households, measures to reduce violence against women and children, and the creation of local social service markets and strengthening of the status of social workers.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Legal protection against domestic violence has also been strengthened: prevention mechanisms have been expanded, the duration of protection orders extended, and correctional programmes for perpetrators introduced.",
+       "ref": [
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "There are individual plans for migration, children and disability, but no stand-alone plans for social assistance and pensions or for employment.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active cooperation by table row)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "For social assistance, pensions and employment, the NDP 2030 text only lists \"developing a new national employment policy\" as a task; no stand-alone plan has been confirmed.",
+       "ref": [
+        "doc:ndp",
+        "row:assist",
+        "row:labor"
+       ],
+       "b": "No stand-alone plan for social assistance or employment"
+      },
+      {
+       "k": "v",
+       "t": "The children's area, which carries the most national targets (benefits, care and poverty), receives little donor funding (about USD 1.3 million).",
+       "ref": [
+        "row:child",
+        "doc:ndp"
+       ],
+       "b": "The children's area has many targets but little funding"
+      },
+      {
+       "k": "f",
+       "t": "The four pillars of the Migration Policy Concept 2021–2030 (pre-departure preparation and rights protection, reintegration of returnees, management and data, internal migration) broadly overlap with the migration tasks in Section 9.1 of NDP 2030.",
+       "ref": [
+        "tree:migration:M1",
+        "tree:migration:M2",
+        "tree:migration:M3",
+        "tree:migration:M4",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On disability, Kyrgyzstan ratified the Convention on the Rights of Persons with Disabilities on 16 May 2019.",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "There is not yet a national employment policy to deliver the employment targets (60% employment, 58% informality); NDP 2030 merely lists \"developing and introducing a new national employment policy\" as a task. The gap between targets and implementation plans is widest in employment.",
+       "ref": [
+        "doc:ndp",
+        "row:labor"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the national targets",
+     "msg": "Of the targets that can be tracked with annual data, poverty and unemployment are on track and the employment level is not; the children and social protection targets cannot be measured.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to target (actual pace = average change over the period; required pace = change needed to reach the target in 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the nine targets in Sections 9.1 and 9.2 of the National Development Programme 2030, only three can be tracked with annual data: poverty, the employment level and informal work. No published values were found for the employment of persons with disabilities or for the five targets in Section 9.2.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Only three of the nine targets can be tracked annually"
+      },
+      {
+       "k": "v",
+       "t": "The poverty rate fell by −2.9 points a year in 2023–2025, far faster than the −0.8 points a year needed to reach the 20% target. However, the calculation method changed in 2023, and the series covers only three years.",
+       "ref": [
+        "ind:pov:0"
+       ],
+       "b": "Poverty: on track (but the series covers only three years)"
+      },
+      {
+       "k": "v",
+       "t": "The employment rate fell slightly from 57.0% (2015) to 55.3% (2025). Reaching 60% requires +0.94 points a year.",
+       "ref": [
+        "ind:job:0"
+       ],
+       "b": "Employment level: off track"
+      },
+      {
+       "k": "v",
+       "t": "Poverty is 4 points away from the 20% target. If the 2024→2025 decline (−1.7 points a year) continues, the target would be reached around 2027–2028. However, if the increases in benefits and wages were a one-off effect, the decline will slow.",
+       "ref": [
+        "ind:pov:0",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "On the ILO figure (57.5%), informal work is below the 58% target. However, because the national target is to \"reduce to 58%\", the figure under the national definition is presumably above 58%. Unless the national figure is published, achievement cannot be judged.",
+       "ref": [
+        "ind:job:1",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "All five targets in Section 9.2 are measured with administrative data of the Ministry of Social Development. Once the digital social passport and unified information system promoted by the NDP are in place, the system for measuring the targets will sit on the same platform.",
+       "ref": [
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Poverty and social assistance",
+     "msg": "Poverty has fallen, but social assistance is skewed towards pensions, and benefits for children and poor families are thin.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Poverty rate (national poverty line) and share of people below the international poverty line",
+      "inds": [
+       "pov:0",
+       "pov:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the national poverty rate was 29.8% (2023), 25.7% (2024) and 24.0% (2025). The poverty line calculation method changed in 2023, so the series is not comparable with earlier years.",
+       "ref": [
+        "ind:pov:0"
+       ],
+       "b": "Poverty rate 29.8% → 24.0% (2023→2025)"
+      },
+      {
+       "k": "f",
+       "t": "The share of people receiving social protection and labour programmes rose from 44.8% (2015) to 55.2% (2020) (from household surveys, up to 2020).",
+       "ref": [
+        "ind:sp:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF reports that social protection spending is dominated by pensions and that the coverage of targeted support for children is very low. It calls the introduction of a universal benefit for children up to age three \"a positive step\" and recommends shifting allocations to child and family benefits.",
+       "ref": [
+        "doc:unicef2026"
+       ],
+       "b": "UNICEF: pension-heavy, with thin child benefits"
+      },
+      {
+       "k": "f",
+       "t": "In 2021–2024, 111,000 low-income households received state benefits. Benefit amounts increased by up to 200% depending on the recipient category.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank reports that in 2020 the share of benefits in the disposable income of the extremely poor rose to 15% (6.7% in 2019), while benefits for families with one or two children and single-parent families fell. Pension increases reduce the risk of falling into poverty by about 30%.",
+       "ref": [
+        "doc:scd2023"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national target of \"30% coverage of child benefits\" is the mirror image of the low coverage that UNICEF highlights. No figures to measure the target are published.",
+       "ref": [
+        "doc:ndp",
+        "doc:unicef2026"
+       ],
+       "b": "No figures to measure coverage of child benefits"
+      },
+      {
+       "k": "h",
+       "t": "Background: why poverty fell"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, social sector spending increased 1.7-fold between 2021 and 2024. Incomes of those working under the new pay system in the budget sector rose substantially, state benefits increased by up to 200% depending on category, and pensions were indexed and doubled in 2023–2024.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The share of people below the international poverty line (USD 4.20 a day) fell from 23.3% (2021) to 12.5% (2024). Over the same period, remittances from abroad fell from 32.6% to 17.6% of GDP.",
+       "ref": [
+        "ind:pov:1",
+        "ind:sp:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because poverty fell sharply while remittances fell as a share of GDP, the decline since 2021 appears to owe much to higher domestic benefits, pensions and wages. However, growth in GDP itself also contributes to the fall in the remittance-to-GDP ratio.",
+       "ref": [
+        "ind:pov:1",
+        "ind:sp:1",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Challenge: reaching children"
+      },
+      {
+       "k": "f",
+       "t": "UNICEF recommends redirecting social assistance towards child and family benefits, especially in early childhood. This requires better targeting and wider coverage through an integrated social registry, administrative capacity and digitalisation.",
+       "ref": [
+        "doc:unicef2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Section 9.2 of NDP 2030 lists as tasks a shift from waiting for applications to identifying and meeting needs proactively, targeting through proxy means testing of assets, and improving the digital social passport.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The universal benefit up to age three is distributed by age rather than targeted by income, and is proceeding alongside the NDP's direction of \"targeting through proxy means testing of assets\". How the two approaches are combined will determine progress on the 25% child poverty target.",
+       "ref": [
+        "doc:unicef2026",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Trends in social protection coverage"
+      },
+      {
+       "k": "f",
+       "t": "The share of people receiving social protection and labour programmes fell from 60.0% (2011) to 44.9% (2014) and recovered to 55.2% (2020). The series is estimated from household surveys and ends in 2020.",
+       "ref": [
+        "ind:sp:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's diagnostic states that in 2020 direct benefits per poor person were unchanged from 2019, while benefits for families with one or two children and single-parent families fell.",
+       "ref": [
+        "doc:scd2023"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The reason for the 2014 dip cannot be read from the materials on the site. Nor can it be confirmed how far the expansion of benefits since 2021 has widened coverage, as there are no recent figures.",
+       "ref": [
+        "ind:sp:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the social assistance and pensions row has 4 projects and about USD 0.4 million (UNICEF social protection system, ILO social protection floor and others). Cooperation completed since 2017 totals 13 projects and about USD 29.1 million, most of it the World Bank's health and social protection project and the Social Assistance and Labour Market Programmes Strengthening Project (completed September 2025).",
+       "ref": [
+        "row:assist",
+        "fact:closed_rows"
+       ],
+       "b": "Social assistance: about USD 0.4 million active, about USD 29.1 million in the past"
+      },
+      {
+       "k": "f",
+       "t": "Social assistance cooperation completed since 2017 centred on the World Bank's Second Health and Social Protection Project (about USD 10.7 million, plus two trust-fund operations of about USD 6 million each, completed in 2019) and the Social Assistance and Labour Market Programmes Strengthening Project (about USD 3.3 million, 2022–2025).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:WB-P126278",
+        "proj:XI-IATI-WBTF-P126278",
+        "proj:XI-IATI-WBTF-TF072031",
+        "proj:WB-P179024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Active cooperation consists mainly of UNICEF's social protection system and public finance for children project (about USD 0.3 million, 2025–2027) and the ILO's social protection floor project (2026–2027).",
+       "ref": [
+        "row:assist",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/001/004",
+        "proj:XM-DAC-41302-PMR26-KGZ154"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "No World Bank follow-on project appears in the site's data, so there is currently no large cooperation supporting the national tasks of benefit targeting and digitalisation.",
+       "ref": [
+        "row:assist",
+        "fact:closed_rows"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Employment, labour market and migration",
+     "msg": "Unemployment is low, but the employment rate is flat, informal work is widespread, and many workers are abroad.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Employment rate and remittances from abroad (% of GDP)",
+      "inds": [
+       "job:0",
+       "sp:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The employment rate (ages 15 and over, ILO estimate) fell from 60.2% (2010) to 55.3% (2025). The unemployment rate (ILO estimate) is 3.5% (2025), meeting the national target of \"5% or less\".",
+       "ref": [
+        "ind:job:0",
+        "ind:job:2"
+       ],
+       "b": "Employment rate 55.3%; unemployment rate 3.5%"
+      },
+      {
+       "k": "f",
+       "t": "57.5% of workers are in informal employment (2023, ILO). The national target is 58% for informal sector employment, which is measured slightly differently.",
+       "ref": [
+        "ind:job:1",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Remittances fell from 32.6% of GDP (2021) to 17.6% (2024).",
+       "ref": [
+        "ind:sp:1"
+       ],
+       "b": "Remittances 32.6% of GDP (2021) → 17.6% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank states that over five years the working-age population grew by an average of 1.5% a year, while jobs grew by less than 1% a year, with only 20,000 new jobs on average (2023 diagnostic).",
+       "ref": [
+        "doc:scd2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Note: the unemployment rates in the World Bank diagnostic's table (6.9%–9.1%, 2018–2021) differ from the site's indicator (ILO estimate, 5.1% in 2021) and the national figure (5.3% in 2021). Values vary widely by source.",
+       "ref": [
+        "doc:scd2023",
+        "ind:job:2",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The low unemployment rate despite a stagnant employment rate suggests that many of those not working are either not looking for work or are abroad. People working abroad are not counted in domestic figures.",
+       "ref": [
+        "ind:job:0",
+        "ind:job:2",
+        "doc:scd2023"
+       ],
+       "b": "Low unemployment is the flip side of labour migration"
+      },
+      {
+       "k": "h",
+       "t": "Background: why domestic employment is not growing"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's diagnostic states that the number of people neither working nor looking for work is rising, especially among women. Wage earners in formal firms make up about one-third of the employed, a share that has barely changed.",
+       "ref": [
+        "doc:scd2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that, as the working-age population keeps growing (4.1 million in 2024), the return of labour migrants and changing labour market demand will affect the economy's growth potential. It says investment in human capital could deliver up to a quarter of the country's economic development.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "High wages and remittances from abroad raise the wages people expect at home, making low-paid domestic jobs hard to fill. With the working-age population growing while formal jobs do not, the employment rate is not rising.",
+       "ref": [
+        "doc:scd2023",
+        "ind:job:0"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Indicator trends"
+      },
+      {
+       "k": "f",
+       "t": "The employment rate fell to 53.9% in 2020 and recovered to 55.3% (2025), but has not returned to the 60.2% of 2010. The unemployment rate (ILO estimate) rose from 3.5% (2010) to 5.9% (2020) and fell back to 3.5% from 2023.",
+       "ref": [
+        "ind:job:0",
+        "ind:job:2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The share of workers in informal employment (ILO) rose from 52.8% (2012) to 58.3% (2021), and stands at 57.5% (2023).",
+       "ref": [
+        "ind:job:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Informal work has been increasing over the long term, running counter to the NDP's \"transition from informal to formal work\". Revising the tax and social insurance arrangements that govern the move into formal employment is a precondition for the target.",
+       "ref": [
+        "ind:job:1",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Remittances rose from 26.4% of GDP (2010) to 32.6% (2021), then declined from 2022 to 17.6% (2024).",
+       "ref": [
+        "ind:sp:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The reason for the sharp fall in the remittance-to-GDP ratio since 2022 cannot be read from the materials on the site. Assessing the impact on households requires figures on the amount of remittances itself and the share of households receiving them.",
+       "ref": [
+        "ind:sp:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the employment row has 4 projects and about USD 10.5 million (WFP labour market programme about USD 9.8 million, 2026–2027). The migration and returnees row has 4 projects and about USD 1.1 million.",
+       "ref": [
+        "row:labor",
+        "row:mig",
+        "proj:XM-DAC-41140-KG02.01.012.HIS1"
+       ],
+       "b": "Employment: about USD 10.5 million (almost all WFP); migration: about USD 1.1 million"
+      },
+      {
+       "k": "f",
+       "t": "Cooperation in the employment row is almost entirely one project, the WFP labour market programme (about USD 9.8 million, 2026–2027). There is also Swiss skills development (about USD 0.4 million) and an EU policy dialogue on inclusive education and employment practices (about USD 0.3 million).",
+       "ref": [
+        "row:labor",
+        "proj:XM-DAC-41140-KG02.01.012.HIS1",
+        "proj:CH-4-2025-2022016710",
+        "proj:XI-IATI-EC_INTPA-2025-PC-62094"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The migration row includes a UN project for women and girls affected by migration (about USD 0.7 million) and a German project for children and families in internal migrant settlements (about USD 0.2 million, 2025–2028).",
+       "ref": [
+        "row:mig",
+        "proj:XI-IATI-UNPF-00118849",
+        "proj:DE-1-202574820"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Among completed projects, the largest were Germany's three vocational education and employment promotion projects (about USD 5.3 million, 3.4 million and 3.1 million), a UN project creating jobs through building materials production (about USD 1.7 million) and a US safe migration project in Central Asia (about USD 1.3 million, completed August 2026).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:DE-1-201321512",
+        "proj:DE-1-201520204",
+        "proj:DE-1-201921345",
+        "proj:XM-DAC-41123-PROJECT-140116",
+        "proj:US-GOV-1-72011519CA00002"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Employment cooperation is concentrated in a single WFP project, and cooperation targeting the reintegration of returnees and pre-departure preparation, as listed in the NDP, is small. With the end of the US safe migration project, cooperation in migration has thinned further.",
+       "ref": [
+        "row:labor",
+        "row:mig",
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Persons with disabilities and child protection",
+     "msg": "Institutions for persons with disabilities are being developed, but there are no figures measuring employment or school environments, and cooperation is small.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "NDP 2030 states that disability is increasing, especially among children. The national target is employment of 60% or more for persons with disabilities, but annual figures exist only in the national statistical yearbook.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Disability among children is increasing (NDP 2030)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank states that while enterprises with 20 or more employees are required to employ at least 5% persons with disabilities, 71% of employers show discriminatory attitudes towards applicants with disabilities, and only 8% of schools have the facilities needed by children with disabilities.",
+       "ref": [
+        "doc:scd2023"
+       ],
+       "b": "Only 8% of schools have facilities for children with disabilities"
+      },
+      {
+       "k": "f",
+       "t": "The UN Partnership on the Rights of Persons with Disabilities project (2024–2025, UNDP, UNICEF and UNFPA) strengthened the capacity of the Council on Disability Affairs and organisations of persons with disabilities and examined barriers in civil protection, health and domestic violence, and an inter-agency working group was set up under the Ministry of Emergency Situations.",
+       "ref": [
+        "doc:undp2025"
+       ],
+       "b": "UN disability rights project (2024–2025) completed"
+      },
+      {
+       "k": "f",
+       "t": "Children: the national target is family-based care for 55% of children without parental care. Annual figures exist only in Ministry of Social Development reports.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Identifying children with disabilities"
+      },
+      {
+       "k": "f",
+       "t": "According to UNICEF's situation analysis (2021), children with disabilities receiving state benefits increased from 20,660 (2007) to 32,013 (2019). The report says this reflects an increase in benefit recipients rather than a real change in the number of children with disabilities. It is equivalent to about 1.3% of children of the relevant age.",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same analysis notes that the household survey (MICS 2018) reported 8.7% of children as having functional difficulties: 8.9% at ages 5–17, with 9.6% in rural and 7.5% in urban areas.",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The gap between benefit registration (about 1.3%) and the survey (about 8.7%) shows that identification of disability relies on benefit registration. For the NDP's \"60% employment of persons with disabilities\", deciding whom to count comes first.",
+       "ref": [
+        "doc:unicefdis2021",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Barriers in services and education"
+      },
+      {
+       "k": "f",
+       "t": "UNICEF's situation analysis identifies as barriers a legal definition of disability that is medically focused and not aligned with the Convention on the Rights of Persons with Disabilities, fragmented early detection and intervention, parents' reports of being asked for bribes at disability assessments, non-compliance with the employment quota system, and the quality of and waiting times for assistive devices.",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the same analysis, official statistics showed 305 school-age children with disabilities attending mainstream schools. UNICEF Innocenti's 2025 report states that of the 6,575 pupils recognised as having a disability in the 2023/24 school year, 46% attended mainstream schools.",
+       "ref": [
+        "doc:unicefdis2021",
+        "doc:innocenti2025"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF's recommendations include unified identification based on the International Classification of Functioning, Disability and Health (ICF), inclusive community day care, questions on functional limitations in the next census, and adoption and monitoring of an action plan for the Convention on the Rights of Persons with Disabilities.",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Institutions and environment for persons with disabilities"
+      },
+      {
+       "k": "f",
+       "t": "According to UNICEF's situation analysis, 57,204 people (0.87% of the population) receive disability benefits, of whom 31,688 have had a disability since childhood. There are 14 special pre-school facilities (11 of them in Bishkek), attended by 1,775 children.",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF Innocenti's report states that only 8% of public buildings are accessible to persons with disabilities.",
+       "ref": [
+        "doc:innocenti2025"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to a UNDP press release, the UN Partnership on the Rights of Persons with Disabilities project prepared draft regulatory amendments to strengthen the role of the Council on Disability Affairs, broaden regional representation, enable remote participation and formalise its role in reviewing draft laws. An independent evaluation found that institutional capacity and government–civil society coordination had improved.",
+       "ref": [
+        "doc:undp2025"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In the disability area, UN cooperation has advanced the Council and legislation, but figures for the education, employment and built environment remain low. The next step is whether institutional development leads to more services.",
+       "ref": [
+        "doc:undp2025",
+        "doc:innocenti2025",
+        "doc:scd2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Disability assessment is carried out by 27 medical and social expert commissions under the ministry responsible for labour and social protection, while assessment of children's educational needs is handled by 24 regional commissions and two standing commissions under the Ministry of Education and Science (as of the 2021 situation analysis).",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF's recommendations also call for examining the situation of families during the COVID-19 pandemic to plan the return of children in institutions to their families and deinstitutionalisation, establishing child protection procedures in institutions, and monitoring of the Convention's implementation by an independent body such as the Ombudsperson.",
+       "ref": [
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The NDP 2030 target of \"family-based care for 55% of children without parental care\" points in the same direction as the deinstitutionalisation UNICEF recommends. As no published figures exist for the number of children living in institutions, the starting point is unknown.",
+       "ref": [
+        "doc:ndp",
+        "doc:unicefdis2021"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the disability row has 7 projects and about USD 1.4 million, and the child protection row 6 projects and about USD 1.3 million (UNICEF, other bilateral donors, Germany). Disability cooperation completed since 2017 numbers 53 projects, but totals only about USD 1.6 million, so each project is small.",
+       "ref": [
+        "row:dis",
+        "row:child",
+        "fact:closed_rows"
+       ],
+       "b": "Disability about USD 1.4 million; children about USD 1.3 million"
+      },
+      {
+       "k": "f",
+       "t": "Active child protection cooperation includes UNICEF child protection funded by other bilateral donors (about USD 0.5 million, 2022–2027) and UNICEF children's rights monitoring (about USD 0.3 million).",
+       "ref": [
+        "row:child",
+        "proj:SE-0-SE-6-12228-12228A0102",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/001/002"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Completed disability cooperation consists of many small projects: 53 projects and about USD 1.6 million. No cooperation of a scale aimed at systems such as assessment mechanisms or statistical reform can be found.",
+       "ref": [
+        "row:dis",
+        "fact:closed_rows",
+        "doc:unicefdis2021"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding is small at about USD 13.1 million, three-quarters of which is WFP.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects mapped to strategy areas; after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the social protection strategy totals 19 projects and about USD 13.1 million. By donor: WFP about USD 9.8 million, UNICEF about USD 0.9 million, UN (other) about USD 0.7 million, other bilateral about USD 0.5 million, Switzerland about USD 0.4 million, Germany about USD 0.4 million, EU about USD 0.3 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 19 projects, about USD 13.1 million"
+      },
+      {
+       "k": "f",
+       "t": "One project of about USD 0.1 million (Germany) ends by end-2026.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 98 projects and about USD 47.4 million, with the World Bank and Germany the largest.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 98 projects, about USD 47.4 million"
+      },
+      {
+       "k": "f",
+       "t": "By donor, WFP (about USD 9.8 million) is in the employment row, while UNICEF (about USD 0.9 million) spans the social assistance, disability and child protection rows. UN (other) is a Peacebuilding Fund project (about USD 0.7 million) in the migration and disability rows.",
+       "ref": [
+        "fact:by_donor",
+        "proj:XM-DAC-41140-KG02.01.012.HIS1",
+        "proj:XI-IATI-UNPF-00118849"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Compared with national spending on the social sector (178.5 billion som, 2024), donor cooperation is smaller by orders of magnitude. Its role lies less in adding money than in technical cooperation on systems such as targeting, digitalisation and statistics.",
+       "ref": [
+        "doc:ndp",
+        "fact:mapped_musd"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Over the past decade, World Bank social assistance and German employment and vocational training support were central, but both have ended without a large successor.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed since 2017. Earlier projects are excluded because records from major donors are missing in the site's data. Even since 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the social protection strategy total 98 projects and about USD 47.4 million (after pro-rata allocation, no double counting). By donor: World Bank about USD 25.9 million, Germany about USD 16.1 million, UN (other) about USD 1.8 million, United States about USD 1.4 million, UNICEF about USD 1 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "98 projects, about USD 47.4 million; World Bank and Germany the largest"
+      },
+      {
+       "k": "f",
+       "t": "By area: social assistance and pensions about USD 29.1 million; employment about USD 17 million (German vocational education and employment promotion about USD 11.8 million); child protection about USD 2.3 million; migration about USD 2.1 million (including the US safe migration project in Central Asia); disability about USD 1.6 million.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Social assistance and employment account for most"
+      },
+      {
+       "k": "v",
+       "t": "With the large social assistance (World Bank) and employment (Germany) operations completed, active funding is about one-quarter of its past scale. No large cooperation is aimed at the national tasks of benefit targeting and digitalisation.",
+       "ref": [
+        "fact:closed_rows",
+        "row:assist",
+        "doc:ndp"
+       ],
+       "b": "Large operations have ended without successors"
+      },
+      {
+       "k": "f",
+       "t": "Most completed social assistance funding was the World Bank's combined health and social protection sector support (2013–2019), which overlaps with the health sector.",
+       "ref": [
+        "fact:closed_rows",
+        "proj:WB-P126278",
+        "proj:XI-IATI-WBTF-TF072031"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In addition to vocational education and employment (2014–2024), Germany also had projects reducing poverty through community management of walnut forests and pastures (about USD 1.9 million and about USD 1.1 million).",
+       "ref": [
+        "fact:closed_by_donor",
+        "proj:DE-1-201720424",
+        "proj:DE-1-201397520"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "All five rows have active cooperation, but all except employment are at about USD 1.5 million or less.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row is without active cooperation. Apart from employment (about USD 10.5 million): disability about USD 1.4 million, child protection about USD 1.3 million, migration about USD 1.1 million, social assistance about USD 0.4 million.",
+       "ref": [
+        "fact:empty_rows",
+        "row:labor",
+        "row:dis",
+        "row:child",
+        "row:mig",
+        "row:assist"
+       ],
+       "b": "No empty rows, but everything except employment is thin"
+      },
+      {
+       "k": "v",
+       "t": "Against the NDP targets, the three child targets (poverty, benefits, family-based care) correspond to about USD 1.3 million in the child protection row, the social passport to about USD 0.4 million in the social assistance row, and employment of persons with disabilities to about USD 1.4 million in the disability row. All are small relative to the scale of the targets.",
+       "ref": [
+        "row:child",
+        "row:assist",
+        "row:dis",
+        "doc:ndp"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The next issues are domestic employment as remittances decline, and re-orienting social assistance so that it reaches children.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Remittances are falling as a share of GDP, and the external income that has underpinned the fall in poverty is shrinking. Domestic job creation (a 60% employment rate) will determine whether the poverty target can be held.",
+       "ref": [
+        "ind:sp:1",
+        "ind:job:0",
+        "ind:pov:0"
+       ],
+       "b": "With remittances declining, domestic job creation is key"
+      },
+      {
+       "k": "v",
+       "t": "Social spending is already large, so the challenge is allocation (from pensions towards children and families) and targeting rather than volume. UNICEF's technical cooperation and the development of the digital social passport are the entry points.",
+       "ref": [
+        "doc:unicef2026",
+        "doc:ndp"
+       ],
+       "b": "The challenge is allocation and targeting, not volume"
+      },
+      {
+       "k": "v",
+       "t": "There are no figures to measure the five social protection targets. A system for publishing figures on benefit coverage, family-based care and social passports is an opening for support.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Building systems to measure the targets is an opening for support"
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: development of the new national employment policy, implementation of the universal benefit for children up to age three, moves towards a World Bank social assistance successor, and the 2026 poverty rate.",
+       "ref": [
+        "doc:ndp",
+        "doc:unicef2026",
+        "fact:closed_rows"
+       ],
+       "b": "Next to watch: employment policy, child benefit and successor cooperation"
+      },
+      {
+       "k": "v",
+       "t": "Now that benefits have been increased through the national budget, the focus of cooperation shifts to the efficiency and targeting of benefits. A World Bank social assistance successor and UNICEF's technical cooperation on child benefits would have the most direct effect on the 25% child poverty target.",
+       "ref": [
+        "fact:closed_rows",
+        "doc:unicef2026",
+        "doc:ndp"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Poverty rate (national poverty line)",
+   "24.0%(2025)",
+   "20%",
+   "−2.9 points/yr (2023–25)",
+   "−0.8 points/yr",
+   "On track (series covers three years)",
+   "good"
+  ],
+  [
+   "Employment level (employment rate, ILO estimate)",
+   "55.3%(2025)",
+   "60%",
+   "−0.17 points/yr (2015–25)",
+   "+0.94 points/yr",
+   "Off track",
+   "bad"
+  ],
+  [
+   "Informal sector employment",
+   "57.5% (2023, ILO informal employment)",
+   "58%",
+   "—",
+   "—",
+   "Achieved on paper (measured differently)",
+   "warn"
+  ],
+  [
+   "Unemployment rate (overall target 6)",
+   "3.5% (2025, ILO estimate)",
+   "5% or less",
+   "—",
+   "—",
+   "Achieved",
+   "good"
+  ],
+  [
+   "Employment of persons with disabilities",
+   "No published value",
+   "60% or more",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Child poverty rate",
+   "36.7% (NDP 2030 text, year not stated)",
+   "25%",
+   "(one data point only)",
+   "—",
+   "Cannot be measured (no series)",
+   "na"
+  ],
+  [
+   "Coverage of benefits for children in poor families",
+   "No published value",
+   "30%",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Family-based care for children without parental care",
+   "No published value",
+   "55%",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Digitised social passports; gerontology centres",
+   "No published value",
+   "98% or more; 3 centres",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "9.2",
+   "Social assistance and pensions",
+   "No stand-alone plan (NDP 2030 9.2 tasks)",
+   "—",
+   "none",
+   "",
+   "assist",
+   ""
+  ],
+  [
+   "9.1",
+   "Employment and labour market",
+   "No stand-alone plan (developing a new national employment policy is a task)",
+   "—",
+   "none",
+   "",
+   "labor",
+   ""
+  ],
+  [
+   "9.1",
+   "Labour migrants and returnees",
+   "Migration Policy Concept 2021–2030",
+   "Government Decision",
+   "ok",
+   "",
+   "mig",
+   "migration"
+  ],
+  [
+   "9.2",
+   "Persons with disabilities",
+   "State programme \"Accessible Country\" 2023–2030",
+   "Name confirmed in the NDP 2030 text (legal act number not confirmed)",
+   "ok",
+   "",
+   "dis",
+   ""
+  ],
+  [
+   "9.2",
+   "Child protection",
+   "Family Support and Child Protection Programme 2018–2028",
+   "Name confirmed in the NDP 2030 text (legal act number not confirmed)",
+   "ok",
+   "",
+   "child",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "9.1",
+   "Human potential and decent work"
+  ],
+  [
+   "9.2",
+   "Fair social protection"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual values for the employment rate of persons with disabilities (national target 60% or more)",
+  "Series and year for the child poverty rate (national target 25%) (the 36.7% in the NDP 2030 text has no year)",
+  "Annual values for coverage of state benefits for children in poor families (target 30%), family-based care for children without parental care (target 55%) and digitised social passports (target 98% or more)",
+  "Values for the \"employment level\" and \"informal sector employment\" under national definitions (the site's figures are ILO estimates, measured differently)",
+  "Poverty rates on the new methodology for years before 2023",
+  "Annual national statistics on the number of people working abroad",
+  "Texts and indicator tables of the Migration Policy Concept, the Family Support and Child Protection Programme and \"Accessible Country\" (not read)",
+  "Not yet checked: the OECD Social Protection System Review (2018), the UNICEF situation analysis of children with disabilities (2021), the IOM diaspora survey (2021) and the IMF Selected Issues paper (2025) were read only as summary pages with no figures and were not used"
+ ]
+}

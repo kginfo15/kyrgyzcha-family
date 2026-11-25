@@ -1,0 +1,1684 @@
+{
+ "spec": {
+  "pil": {
+   "1": "Governance"
+  },
+  "rows": {
+   "ac": {
+    "n": "Anti-corruption and justice",
+    "st": "Legal Policy Concept 2023–2026"
+   },
+   "pa": {
+    "n": "Public administration reform and e-government",
+    "st": "Digital Transformation Concept 2024–28"
+   },
+   "lsg": {
+    "n": "Local self-government and citizen participation",
+    "st": "Local Self-Government Development Programme 2024–2028"
+   },
+   "elect": {
+    "n": "Elections, parliament and politics",
+    "st": "(National Development Programme, Chapter 11)"
+   },
+   "proc": {
+    "n": "Public procurement and public investment management",
+    "st": "(National Development Programme, Chapter 11)"
+   }
+  }
+ },
+ "ind": {
+  "gov": {
+   "name": "① Quality of public administration",
+   "inds": [
+    {
+     "name": "Government effectiveness",
+     "unit": "Score (−2.5 to +2.5)",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WGI GE.EST",
+     "t": []
+    },
+    {
+     "name": "Regulatory quality",
+     "unit": "Score (−2.5 to +2.5)",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WGI RQ.EST",
+     "t": []
+    },
+    {
+     "name": "Statistical capacity",
+     "unit": "Score (out of 100)",
+     "st": "— No target (flat trend)",
+     "src": "World Bank Statistical Performance Indicators IQ.SPI.OVRL",
+     "t": []
+    }
+   ]
+  },
+  "law": {
+   "name": "② Rule of law and anti-corruption",
+   "inds": [
+    {
+     "name": "Rule of law",
+     "unit": "Score (−2.5 to +2.5)",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WGI RL.EST",
+     "t": []
+    },
+    {
+     "name": "Control of corruption",
+     "unit": "Score (−2.5 to +2.5)",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WGI CC.EST",
+     "t": []
+    }
+   ]
+  },
+  "voice": {
+   "name": "③ Citizens' voice",
+   "inds": [
+    {
+     "name": "Voice and accountability",
+     "unit": "Score (−2.5 to +2.5)",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WGI VA.EST",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Governance support centres on local self-government (Switzerland) and justice (EU); public administration reform is a gap",
+  "msgs": [
+   [
+    "Towards the 2027 presidential election.",
+    "The opposition announced a joint candidate; submission of nomination documents has begun (November)."
+   ],
+   [
+    "Local self-government: Switzerland.",
+    "Citizen participation projects predominate."
+   ],
+   [
+    "Judicial reform: EU.",
+    "JUST4ALL (judicial reform and digitalisation). Introduction of digital evidence is also under consideration."
+   ],
+   [
+    "No projects on public administration reform.",
+    "There is activity on the civil service and the local self-government agency, but no donor projects were found."
+   ]
+  ],
+  "h2": "Funding goes to local self-government and justice; public administration reform is a gap",
+  "rows": {
+   "ac": [
+    "",
+    "EU judicial reform predominates"
+   ],
+   "pa": [
+    "",
+    "No projects"
+   ],
+   "lsg": [
+    "",
+    "Swiss citizen-participation support predominates"
+   ],
+   "elect": [
+    "",
+    "US and Swiss support to politics and parliament"
+   ],
+   "proc": [
+    "",
+    "Korean e-procurement"
+   ]
+  },
+  "h3": "Recent themes: \"presidential election\", \"anti-corruption\" and \"legal amendments\"",
+  "themes": [
+   [
+    "Elections:",
+    "Opposition joint candidate; registration of candidates."
+   ],
+   [
+    "Anti-corruption:",
+    "Review of corruption prevention measures in ministries; revision of criminal liability for smuggling."
+   ],
+   [
+    "Legal system:",
+    "Draft laws continue to be published in the state language."
+   ]
+  ]
+ },
+ "proj_t": {
+  "XI-IATI-EC_INTPA-2016-ACT-D-38224-00": "The Rule of Law Programme in the Kyrgyz Republic  2nd phase (ROLPRO 2)",
+  "DK-CVR-36980214-1010238-10": "Rural voices - poverty alleviation through community driven business initiatives",
+  "XI-IATI-EC_INTPA-2015-ACT-D-38149-00": "Strengthening Democracy through Electoral Reform  Sector Reform Contract"
+ },
+ "sid": "governance",
+ "title": "Kyrgyz Republic: Governance Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Chapter X \"Public Administration Reform\", Chapter XI \"Development of the Legal System\", Chapter III (state governance part) and Chapter XIV",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "All sections of Chapters X and XI, the digital development and state governance parts of Chapter III, the targets in Chapter IV, and Chapter XIV (translation on this site)",
+   "cat": "gov",
+   "u": "https://stat.gov.kg/media/files/be95e086-a299-4be2-8e38-8cc8b90c15d0.pdf"
+  },
+  {
+   "id": "dig",
+   "t": "Digital Transformation Concept 2024–2028",
+   "by": "Kyrgyz Republic",
+   "y": "2024",
+   "scope": "Chapters 1 and 2 (administrative reform, data interoperability). Machine translation on this site",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=6414&lang=ru"
+  },
+  {
+   "id": "lsg",
+   "t": "Local Self-Government Development Programme 2024–2028 (Cabinet of Ministers Resolution No. 80 of 22 February 2024)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2024",
+   "scope": "Cover page and amendment history of the resolution only (the text is on a paid site and could not be read). Machine translation on this site",
+   "cat": "gov",
+   "u": "https://base.spinform.ru/show_doc.fwx?rgn=158417"
+  },
+  {
+   "id": "wgi",
+   "t": "Worldwide Governance Indicators (WGI) and Statistical Performance Indicators",
+   "by": "World Bank",
+   "y": "2026",
+   "scope": "Each series in the site's indicator data (retrieved automatically on 2026-11-07). These are international organisation indicators, not national statistics",
+   "cat": "donor"
+  },
+  {
+   "id": "scd",
+   "t": "Systematic Country Diagnostic Update: From Vulnerability to Resilience (Kyrgyz Republic)",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "Summary and main text up to paragraph 48 (about 80%) reviewed in the original",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/099062123120520664/pdf/BOSIB1cf4714711c50814256196431a9383d7e5012.pdf"
+  },
+  {
+   "id": "bti",
+   "t": "BTI 2026 Country Report — Kyrgyzstan",
+   "by": "Bertelsmann Stiftung",
+   "y": "2026",
+   "scope": "Review period February 2023 – January 2025. About 90% of the PDF text (including the score table) reviewed in the original. The last ~12,000 characters not read",
+   "cat": "donor",
+   "u": "https://bti-project.org/fileadmin/api/content/en/downloads/reports/country_report_2026_KGZ.pdf"
+  },
+  {
+   "id": "ieg",
+   "t": "The World Bank Group in the Kyrgyz Republic — Chapter 4 World Bank Group Support to Improve Governance",
+   "by": "World Bank Independent Evaluation Group (IEG)",
+   "y": "—",
+   "scope": "Full text of Chapter 4 (evaluation of the FY14–17 Country Partnership Strategy and the FY19–22 Country Partnership Framework). The publication year is not stated in the part read",
+   "cat": "donor",
+   "u": "https://ieg.worldbankgroup.org/node/55994"
+  },
+  {
+   "id": "infra",
+   "t": "Kyrgyz Republic Infrastructure Governance Assessment",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "Summary, recommendations table and part of Chapter I (about the first 70% of the PDF) reviewed in the original",
+   "cat": "donor",
+   "u": "https://thedocs.worldbank.org/en/doc/b38abeabc516d7f3ac1ea83715d8f23a-0080012023/original/Kyrgyz-Republic-InfraGov-Report.pdf"
+  },
+  {
+   "id": "pbf",
+   "t": "UNDP in the Kyrgyz Republic: Partnership with the Peacebuilding Fund",
+   "by": "UNDP",
+   "y": "Feb 2026",
+   "scope": "Full text (used to verify project implementation periods)",
+   "cat": "donor",
+   "u": "https://www.undp.org/sites/g/files/zskgke326/files/2026-02/undp_pbf_2026.pdf"
+  },
+  {
+   "id": "oecd",
+   "t": "Baseline Report of the Fifth Round of Monitoring of Anti-Corruption Reforms in Kyrgyzstan",
+   "by": "OECD (Istanbul Anti-Corruption Action Plan)",
+   "y": "Nov 2024",
+   "scope": "Landing page only. The PDF was refused on connection and could not be read; ratings are not used",
+   "cat": "donor",
+   "u": "https://www.oecd.org/en/publications/2024/11/baseline-report-of-the-fifth-round-of-monitoring-of-anti-corruption-reforms-in-kyrgyzstan_9180017b.html"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "International governance indicators declined from around 2020, bottomed out in 2022–23 and have recovered slightly. Government effectiveness fell from −0.47 (2018) to −1.07 (2022) and stands at −0.85 (2025). Control of corruption is −1.10 (2025), the lowest of the indicators tracked on the site.",
+   "ref": [
+    "ind:gov:0",
+    "ind:law:1",
+    "doc:wgi"
+   ],
+   "h": "International governance indicators declined from around 2020, bottoming out in 2022–23 and recovering slightly"
+  },
+  {
+   "k": "f",
+   "t": "Only voice and accountability keeps falling: from −0.14 (2018) to −0.84 (2025), seven consecutive years of decline.",
+   "ref": [
+    "ind:voice:0",
+    "doc:wgi"
+   ],
+   "h": "Only voice and accountability keeps falling"
+  },
+  {
+   "k": "f",
+   "t": "The public administration and legal chapters of the National Development Programme 2030 contain no numerical targets. Achievement cannot be measured against national targets, and direction can only be gauged through international indicators.",
+   "ref": [
+    "doc:ndp"
+   ],
+   "h": "No national numerical targets in the administration and legal chapters"
+  },
+  {
+   "k": "f",
+   "t": "Reform results are concentrated in budget transparency, procurement and tax administration, and procurement has seen backsliding. The Open Budget Index rose from 20 (2012) to 62 (2021), but a 2022 amendment removed state-owned enterprises from the scope of the procurement law.",
+   "ref": [
+    "doc:ieg",
+    "doc:infra"
+   ],
+   "h": "Reform results are concentrated in budget transparency, procurement and tax, with backsliding in procurement"
+  },
+  {
+   "k": "f",
+   "t": "Active support totals 38 projects and about USD 39.6 million, with Switzerland and the EU accounting for about two-thirds. It is concentrated in anti-corruption and justice (mainly EU) and local self-government (mainly Switzerland), while public administration reform and e-government has 1 project and almost USD 0.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:ac",
+    "row:lsg",
+    "row:pa"
+   ],
+   "h": "Support is concentrated in anti-corruption/justice and local self-government; public administration reform and e-government is almost empty"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Governance overview",
+     "msg": "Consolidation of government bodies and digitalisation have advanced, but on international indicators government effectiveness, rule of law and control of corruption are well below the global average.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures (WGI ranges from −2.5 to +2.5; 0 is the global average)",
+      "items": [
+       {
+        "v": "−0.85",
+        "u": "Score",
+        "k": "Government effectiveness (2025)",
+        "ref": "ind:gov:0"
+       },
+       {
+        "v": "−0.93",
+        "u": "Score",
+        "k": "Rule of law (2025)",
+        "ref": "ind:law:0"
+       },
+       {
+        "v": "−1.10",
+        "u": "Score",
+        "k": "Control of corruption (2025)",
+        "ref": "ind:law:1",
+        "hot": true
+       },
+       {
+        "v": "−0.84",
+        "u": "Score",
+        "k": "Voice and accountability (2025)",
+        "ref": "ind:voice:0",
+        "hot": true
+       },
+       {
+        "v": "452→217",
+        "u": "",
+        "k": "Number of aiyl aimaks (village municipalities) (2024 reform)",
+        "ref": "doc:bti"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The National Development Programme 2030 (NDP 2030) states that under the previous National Development Programme (to 2026) the Presidential Administration and the government apparatus were merged into the Presidential Administration, and many administrative bodies were moved under ministries, reducing the number of state bodies.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Presidential Administration and government apparatus merged; number of state bodies reduced"
+      },
+      {
+       "k": "f",
+       "t": "The interagency electronic interaction system \"Tunduk\" has so far processed about 4 billion data exchanges and delivered more than 25 million online services.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "\"Tunduk\": about 4 billion data exchanges, over 25 million online services"
+      },
+      {
+       "k": "f",
+       "t": "BTI 2026 (covering February 2023 – January 2025) states that the 2021 Constitution expanded executive powers relative to parliament. Parliament has 90 seats. There were no national elections in 2023–2024; local council elections were held in October 2024, and women won over 30% of local council seats.",
+       "ref": [
+        "doc:bti"
+       ],
+       "b": "2021 Constitution expanded executive powers; local council elections in October 2024"
+      },
+      {
+       "k": "f",
+       "t": "An administrative-territorial reform began in 2024, reducing aiyl aimaks (village municipalities) from 452 to 217. BTI assesses that centralisation since 2021 has weakened the autonomy of local self-government.",
+       "ref": [
+        "doc:bti",
+        "tree:lsg:L1"
+       ],
+       "b": "Village municipalities merged from 452 to 217"
+      },
+      {
+       "k": "f",
+       "t": "The 2025 values of the Worldwide Governance Indicators (WGI: scores from −2.5 to +2.5, 0 = global average) are: government effectiveness −0.85, regulatory quality −0.40, rule of law −0.93, control of corruption −1.10, and voice and accountability −0.84.",
+       "ref": [
+        "ind:gov:0",
+        "ind:gov:1",
+        "ind:law:0",
+        "ind:law:1",
+        "ind:voice:0"
+       ],
+       "b": "All five WGI indicators are below the global average"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that the role of the state remains ill-defined and that little progress has been made in redefining it towards efficient public services and growth. It also states that guaranteeing the rule of law and reducing expropriation risk are prerequisites for private sector confidence.",
+       "ref": [
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Bodies have been consolidated and digitalisation has advanced, but on international indicators government effectiveness (−0.47 in 2018) and rule of law (−0.69 in 2018) have not returned to late-2010s levels.",
+       "ref": [
+        "ind:gov:0",
+        "ind:law:0",
+        "doc:ndp"
+       ],
+       "b": "Organisational reform has advanced, but international indicators have not returned to 2018 levels"
+      },
+      {
+       "k": "h",
+       "t": "Government stability and state capacity"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Systematic Country Diagnostic (SCD, 2023) states that the government has changed 11 times since 2011 and the average cabinet tenure is less than a year. Turnover in senior posts is also high: about 30% of the cabinet was replaced in the first year of the current term. It argues that political volatility has undermined policy predictability and investor confidence.",
+       "ref": [
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that weak institutions and low state capacity have hindered social and economic development, and that a large gap between regulatory frameworks and actual practice creates delays and opportunities for rent-seeking. In the Corruption Perceptions Index (2022) the country ranked 140th of 180, and it is in the bottom 20% for rule of law and control of corruption.",
+       "ref": [
+        "doc:scd",
+        "ind:law:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The SCD notes several reforms that were reversed after parliamentary approval. It describes the 2022 amendment removing state-owned enterprises from the Public Procurement Law as a major reversal, and states that pension modernisation, fiscal rules and a conflict-of-interest law failed to win parliamentary support.",
+       "ref": [
+        "doc:scd",
+        "row:proc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI 2026 cites increased government implementation capacity as the reason for an implementation score of 5, while identifying weak qualifications and competence of appointees and frequent ministerial changes, including in education, as weaknesses. It assesses that parliament has become a weak branch led by the executive, that political parties are numerous but have been largely unstable since independence, and that civil society has shrunk in numbers and activity under restrictive laws and lawsuits.",
+       "ref": [
+        "doc:bti"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In the 2010s frequent changes of government hindered the continuity of reform; since 2021 government stability has improved implementation capacity, while the roles of parliament and civil society have diminished. Both periods share a common problem: weak mechanisms to institutionalise reforms.",
+       "ref": [
+        "doc:scd",
+        "doc:bti"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "State-owned enterprises and local administration"
+      },
+      {
+       "k": "f",
+       "t": "According to the SCD, the state owns 136 enterprises at the national level and more than 600 at the municipal level. SOE revenues are equivalent to 22.6% of GDP (2018), and about half of SOE assets are in the energy sector. In 2018 all SOEs together paid 5.7 billion som in taxes and dividends and received roughly the same amount in subsidies.",
+       "ref": [
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that nearby aiyl aimaks and settlements were incorporated into 14 cities, and that at the end of 2024 an administrative reform transferring some ministerial powers to the district level was piloted in Ysyk-Ata District of Chui Region and Uzgen District of Osh Region.",
+       "ref": [
+        "doc:ndp",
+        "tree:lsg:L1"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Governance policy has two tiers, \"NDP 2030 Chapter X (public administration reform) and Chapter XI (legal system) → sectoral strategies, concepts and programmes\", and neither chapter contains numerical targets.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "NDP 2030's approach to public administration reform"
+      },
+      {
+       "k": "f",
+       "t": "Chapter X \"Public Administration Reform\" has five sections: 10.1 state and municipal service (merit-based personnel management, appraisal and remuneration, a unified HR platform); 10.2 the strategic planning system; 10.3 macroeconomic stability (public finance, covered in the finance sector); 10.4 regional development; and 10.5 debureaucratisation.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Chapter X: five sections on civil service, strategic planning, public finance, regions and debureaucratisation"
+      },
+      {
+       "k": "f",
+       "t": "Section 10.2 on the strategic planning system states that all national strategic programmes will be strictly aligned with NDP 2030, their number \"optimised\", linked to the budget, and monitored on a unified digital platform.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "10.2: all programmes linked to the NDP and the budget, with digital monitoring"
+      },
+      {
+       "k": "f",
+       "t": "Section 10.4 on regional development lists the State Programme for Comprehensive Socio-Economic Development of the Regions (2025–2030), the programme for creating growth points (2025–2030) and the programme of state grants for local community initiatives (2024–2027), and proposes \"urban districts\" built around regional cities that include nearby aiyl aimaks.",
+       "ref": [
+        "doc:ndp",
+        "tree:lsg:lsg"
+       ],
+       "b": "10.4: three regional programmes and \"urban districts\""
+      },
+      {
+       "k": "f",
+       "t": "Section 10.5 on debureaucratisation lists elimination of excessive regulation, public participation in draft laws (online surveys, public hearings), AI analysis of legislation and full transition to interagency data exchange, and proposes institutionalising a 100-day reform cycle, the \"Government Accelerator\".",
+       "ref": [
+        "doc:ndp",
+        "row:pa"
+       ],
+       "b": "10.5: deregulation, data exchange and 100-day reforms"
+      },
+      {
+       "k": "f",
+       "t": "Section 10.5 also lists a mechanism to protect honest civil servants from criminal prosecution under the principle of \"the right of civil servants to make unbiased errors\", improved anti-corruption, social, economic, human rights, gender and environmental review of draft laws, and a public digital portal presenting current legislation in an accessible form.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter XIV establishes a \"Programme Implementation Office\" responsible for monitoring and evaluation of NDP 2030 and coordination of stakeholders, and introduces project management. Implementation issues are to be reviewed regularly at Cabinet meetings, and analytical information on implementation published annually.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter XI \"Development of the Legal System\" has three sections: 11.1 rule of law and access to justice (legal education, judicial independence, ombudsman and mediation, reform of judicial appointments); 11.2 public security; and 11.3 the fight against corruption.",
+       "ref": [
+        "doc:ndp",
+        "tree:legal:LG1",
+        "tree:legal:LG2"
+       ],
+       "b": "Chapter XI: access to justice, public security and anti-corruption"
+      },
+      {
+       "k": "h",
+       "t": "Sectoral strategies and concepts"
+      },
+      {
+       "k": "f",
+       "t": "Anti-corruption: the National Anti-Corruption Strategy 2025–2030 was approved by Presidential Decree (No. 137 of 5 June 2024). It provides for legal amendments in line with international standards, transparency and accountability of state bodies, reduction of corruption risks through digitalisation of administration, and a stronger role for civil society. The NDP lists adoption of a whistleblower protection law, full digitalisation of licences and permits, and automation of inspections.",
+       "ref": [
+        "doc:ndp",
+        "row:ac"
+       ],
+       "b": "National Anti-Corruption Strategy 2025–2030 (Presidential Decree No. 137)"
+      },
+      {
+       "k": "f",
+       "t": "Section 11.3 further provides for a ban on business inspections without an electronic order, a \"one-stop shop\" for administrative services to businesses, and, under the principle of the inevitability of punishment, mechanisms for the extradition of corrupt offenders and the return of illicitly acquired assets.",
+       "ref": [
+        "doc:ndp",
+        "row:ac"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI assesses that anti-corruption efforts are heavily weighted towards punishment and asset recovery, with prevention neglected. A 2024 law permanently banned convicted officials from returning to public office, but BTI states that the effectiveness of such measures has yet to be demonstrated.",
+       "ref": [
+        "doc:bti",
+        "row:ac"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Local self-government: the Local Self-Government Development Programme 2024–2028 (Cabinet of Ministers Resolution No. 80 of 22 February 2024, amended by No. 808 of 27 December 2024) and its action plan were approved. Its predecessor was the 2018–2023 programme.",
+       "ref": [
+        "doc:lsg",
+        "tree:lsg:lsg"
+       ],
+       "b": "Local Self-Government Development Programme 2024–2028 (Cabinet Resolution No. 80)"
+      },
+      {
+       "k": "f",
+       "t": "Digital: the Digital Transformation Concept 2024–2028 sets \"complete digital reform\" of public administration as one of its strategic goals, citing \"digital first\", a ban on requiring citizens to provide data already held in state information systems, and digital training for civil servants.",
+       "ref": [
+        "doc:dig",
+        "row:pa"
+       ],
+       "b": "Digital Concept 2024–2028: complete digital reform of public administration"
+      },
+      {
+       "k": "f",
+       "t": "The Digital Concept further lists a ban on charging citizens for access to their data, use of the personal identification number (PIN) and taxpayer identification number (TIN) as common identifiers across public and private information systems, and data analysts in every state body. It states that local governments register households and residents in information systems.",
+       "ref": [
+        "doc:dig",
+        "row:pa"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Legal Policy Concept 2023–2026 has so far only been confirmed to exist through the SDG Voluntary National Review 2025 in the site's national strategy map; its text has not been read. The text of the local self-government programme is also on a paid site, and only its cover page and amendment history could be read. The pillars of the policy tree were built from secondary documents and inference.",
+       "ref": [
+        "tree:legal:legal",
+        "doc:lsg"
+       ],
+       "b": "The texts of the Legal Policy Concept and the local self-government programme have not been read"
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "Of the five areas, public administration reform (civil service), elections and parliament, and public procurement and public investment have no stand-alone national plan.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active support counted per table row)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "National plans exist for anti-corruption and justice (Legal Policy Concept 2023–2026, National Anti-Corruption Strategy 2025–2030), local self-government (Local Self-Government Development Programme 2024–2028) and e-government (Digital Concept 2024–2028).",
+       "ref": [
+        "tree:legal:legal",
+        "tree:lsg:lsg",
+        "row:ac",
+        "row:lsg",
+        "row:pa"
+       ],
+       "b": "National plans exist for justice, anti-corruption, local self-government and e-government"
+      },
+      {
+       "k": "f",
+       "t": "Active support (per row): anti-corruption and justice about USD 15.5 million, local self-government and citizen participation about USD 12.2 million, elections, parliament and politics about USD 8.1 million, public procurement and public investment about USD 3.8 million, public administration reform and e-government almost USD 0.",
+       "ref": [
+        "fact:rows",
+        "row:ac",
+        "row:lsg",
+        "row:elect",
+        "row:proc",
+        "row:pa"
+       ],
+       "b": "Support: justice USD 15.5 million, local self-government USD 12.2 million, elections USD 8.1 million"
+      },
+      {
+       "k": "v",
+       "t": "The Legal Policy Concept expires in 2026, and no successor plan has yet been confirmed. Elections and parliament have no section in either Chapter X or Chapter XI of NDP 2030, and no document shows how donor support (about USD 8.1 million) corresponds to national plans.",
+       "ref": [
+        "tree:legal:legal",
+        "row:elect",
+        "doc:ndp"
+       ],
+       "b": "The Legal Policy Concept expires in 2026; elections and parliament are outside national plans"
+      },
+      {
+       "k": "f",
+       "t": "Pillars of the policy tree: for the Legal Policy Concept, \"rule of law and access to justice\", \"protection of human rights\" and \"quality of law-making\"; for the local self-government programme, \"local powers and finances\", \"quality of public services\", \"citizen participation and accountability\" and \"capacity of municipal staff\". Because neither text could be read, they were built from secondary documents and inference.",
+       "ref": [
+        "tree:legal:LG1",
+        "tree:legal:LG2",
+        "tree:legal:LG3",
+        "tree:lsg:L1",
+        "tree:lsg:L2",
+        "tree:lsg:L3",
+        "tree:lsg:L4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The civil service and debureaucratisation are only described as tasks in NDP 10.1 and 10.5, with almost no dedicated plan or donor projects. The focus of administrative reform has shifted to the Digital Concept and the \"Government Accelerator\" 100-day reforms.",
+       "ref": [
+        "doc:ndp",
+        "row:pa"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: national targets and international indicators",
+     "msg": "Governance has no numerical targets in NDP 2030, so achievement against national targets cannot be measured. International indicators are at about the same level as ten years ago, and only citizens' voice keeps falling.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap against targets (actual pace = average change over the period; \"not measurable\" where there is no national numerical target)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Chapters X and XI of NDP 2030 have no \"target indicators\" section, and no numerical targets are set for administration, justice or corruption. Of the programme-wide targets, a place among the world's top 30 countries in SDG achievement (target 4) and a 10-place rise in the Human Development Index ranking (target 5) relate to the quality of administration, but annual values are not yet on the site.",
+       "ref": [
+        "doc:ndp",
+        "ind:gov:0"
+       ],
+       "b": "No numerical targets in the administration and legal chapters"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that implementation will be monitored on a single digital platform and that analytical information on implementation will be published annually.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "The NDP commits to publishing analytical information on implementation annually"
+      },
+      {
+       "k": "f",
+       "t": "Changes over the ten years from 2015 to 2025: government effectiveness −0.77 → −0.85, rule of law −0.87 → −0.93, control of corruption −1.19 → −1.10, voice and accountability −0.16 → −0.84.",
+       "ref": [
+        "ind:gov:0",
+        "ind:law:0",
+        "ind:law:1",
+        "ind:voice:0"
+       ],
+       "b": "Broadly flat over ten years; only citizens' voice fell sharply"
+      },
+      {
+       "k": "v",
+       "t": "Because there are no national targets, this report looks only at the direction of WGI trends. The WGI are international organisation indicators, not national statistics, and do not explain the reasons for improvement or deterioration.",
+       "ref": [
+        "doc:wgi"
+       ],
+       "b": "Direction can only be gauged through the WGI"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that the percentile rank for voice and accountability (position in the world) fell from 34.8 (2018) to 31.9 (2020).",
+       "ref": [
+        "doc:scd",
+        "ind:voice:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the World Bank's independent evaluation, most governance objectives in the World Bank's country strategies were also not achieved. Of the five objectives in the 2014–17 strategy, one was achieved, and the single objective of the 2019–22 framework (electronic filing of VAT) was achieved. It states that results framework indicators were vaguely defined and poorly tracked.",
+       "ref": [
+        "doc:ieg"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 10.2 requires target indicators and monitoring for all state programmes, yet the administration and legal chapters themselves have no targets. Whether national indicators such as satisfaction with public services, time taken for procedures and length of court proceedings are set is a precondition for demonstrating the results of reform and support.",
+       "ref": [
+        "doc:ndp",
+        "doc:ieg"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Quality of administration (government effectiveness, regulation, public investment)",
+     "msg": "Government effectiveness is recovering from −1.07 in 2022 but has not reached the −0.47 of 2018. In public investment, weak links between strategy and projects have been noted.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Government effectiveness and regulatory quality (WGI)",
+      "inds": [
+       "gov:0",
+       "gov:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "Trend: government effectiveness rose from −0.77 (2015) to −0.47 (2018), then fell to −1.07 (2022), and stands at −0.85 (2025). Regulatory quality was −0.65 (2015), −0.32 (2017), −0.46 (2021–2024) and −0.40 (2025).",
+       "ref": [
+        "ind:gov:0",
+        "ind:gov:1"
+       ],
+       "b": "Government effectiveness −0.47 (2018) → −1.07 (2022) → −0.85 (2025)"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that COVID-19 and the political instability of 2020 severely paralysed government operations. This coincides with the sharp fall in government effectiveness from −0.58 (2020) to −1.07 (2022).",
+       "ref": [
+        "doc:scd",
+        "ind:gov:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The recovery in government effectiveness since 2023 (−1.01 → −0.85) is in the same direction as the improvement in implementation capacity noted by BTI. However, it remains far from −0.47 in 2018, and returning to the level of the 2017–2018 improvement will require better personnel and planning systems.",
+       "ref": [
+        "ind:gov:0",
+        "doc:bti"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "Statistical capacity (out of 100) rose from 81.1 (2016) to 84.7 (2022), then fell to 77.8 (2023), and stands at 79.1 (2024). The 2023 fall is the largest single-year drop in the series.",
+       "ref": [
+        "ind:gov:2"
+       ],
+       "b": "Statistical capacity 84.7 → 77.8 → 79.1"
+      },
+      {
+       "k": "f",
+       "t": "Civil service: the World Bank's independent evaluation states that engagement in the civil service area was limited almost entirely to policy advice from FY14, and that many initiatives stopped after 2017 before producing concrete results.",
+       "ref": [
+        "doc:ieg"
+       ],
+       "b": "Support for civil service reform almost stopped after 2017"
+      },
+      {
+       "k": "f",
+       "t": "The SCD identifies the efficiency of public financial management as a challenge, noting that the 2021 PEFA (Public Expenditure and Financial Accountability assessment) found weak control of expenditure commitments, no monitoring of expenditure arrears and weak fiscal risk management. Public investment fell to about 4% of GDP on average in 2018–20, below the Europe and Central Asia average.",
+       "ref": [
+        "doc:scd",
+        "row:proc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The infrastructure governance assessment states that the Ministry of Economy approves projects on an ad hoc basis and that domestically financed projects are decided through direct negotiation between line ministries and the Ministry of Finance. PPP feasibility studies are only optional. Its recommendations include an independent infrastructure coordination body, a legal requirement for life-cycle cost estimates for all public investment projects, and improved procurement rules for state-owned enterprises.",
+       "ref": [
+        "doc:infra",
+        "row:proc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI assesses that key managers tend to be appointed on the basis of personal trust rather than expertise (efficient use of resources score: 4). The SCD also cites high turnover in senior posts.",
+       "ref": [
+        "doc:bti",
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Public investment: the public investment programme remains at 3–5% of GDP a year. Project prioritisation is not standardised, and links between higher-level strategies and actual projects are weak. In 2023–2025, 95.1% of public investment was externally financed, and only 3 of 19 PPP contracts are operational.",
+       "ref": [
+        "doc:infra",
+        "row:proc"
+       ],
+       "b": "95.1% of public investment externally financed; only 3 of 19 PPPs operational"
+      },
+      {
+       "k": "f",
+       "t": "Procurement: in the World Bank's evaluation, the PEFA score for procurement management rose from B (2014) to A (2021), but later amendments brought back paper-based procurement, and an April 2022 amendment removed state-owned enterprises from the scope of the procurement law. The infrastructure governance assessment also states that the 2022 procurement reform may pose risks to value for money and fairness.",
+       "ref": [
+        "doc:ieg",
+        "doc:infra",
+        "row:proc"
+       ],
+       "b": "Procurement backslid after improving (2022 amendment)"
+      },
+      {
+       "k": "f",
+       "t": "According to the World Bank's independent evaluation, tax administration achieved quarterly filing for SMEs (2015), risk-based tax audits (2014) and transfer of social insurance contribution collection to the State Tax Service. The share of firms citing tax administration as a major constraint fell from 20.2% (2013) to 14.6% (2019), and electronic VAT filing rose from 30% (2017) to 100% (2021). However, the December 2021 amendment of the Tax Code was made without consultation with the private sector, and some reforms were reversed.",
+       "ref": [
+        "doc:ieg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the same evaluation, the Open Budget Index rose from 20 (2012) to 62 (2021), external audit by the Accounts Chamber improved from D+ (2009) to B+ (2021), and payroll controls from D+ to B+. Revenue administration fell from B (2015) to C+ (2021).",
+       "ref": [
+        "doc:ieg",
+        "row:proc"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap against targets"
+      },
+      {
+       "k": "f",
+       "t": "BTI 2026 scores (out of 10): basic administration 7, implementation 5, policy coordination 5, prioritisation 4, efficient use of resources 4, and policy learning 4. On policy learning, it cites the failure to actively seek outside knowledge from domestic experts and analysts.",
+       "ref": [
+        "doc:bti"
+       ],
+       "b": "BTI: basic administration 7; prioritisation and resource use 4"
+      },
+      {
+       "k": "v",
+       "t": "NDP 10.2's \"link all plans to the budget\" addresses the same problem as the \"weak links between strategy and projects\" identified by the infrastructure governance assessment. This is the entry point for improvement.",
+       "ref": [
+        "doc:ndp",
+        "doc:infra"
+       ],
+       "b": "\"Linking plans and budgets\" is the entry point for improvement"
+      },
+      {
+       "k": "v",
+       "t": "The NDP sets \"linking plans and budgets\" and \"prioritisation of public investment\" as tasks but has no target values. Whether the recommendations of the infrastructure governance assessment (life-cycle cost estimates, an independent coordination body) are incorporated into national systems is the concrete path to moving the quality-of-administration indicators.",
+       "ref": [
+        "doc:infra",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Relationship with donor support"
+      },
+      {
+       "k": "f",
+       "t": "Related support: 3 projects, about USD 3.8 million in the public procurement and public investment row (Korea's e-procurement strengthening about USD 3.5 million, Germany about USD 0.2 million). The public administration reform and e-government row has 1 project and almost USD 0.",
+       "ref": [
+        "row:proc",
+        "row:pa",
+        "fact:rows"
+       ],
+       "b": "Procurement about USD 3.8 million; public administration reform and e-government almost USD 0"
+      },
+      {
+       "k": "f",
+       "t": "Korea's strengthening of public e-procurement (about USD 3.5 million, 2025–2028) accounts for almost the entire public procurement row. Germany also has capacity development in planning, monitoring and evaluation (about USD 0.2 million, 2024–2028).",
+       "ref": [
+        "proj:KR-GOV-500-1230000_2025_001",
+        "proj:DE-1-202473742",
+        "row:proc"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The World Bank's independent evaluation attributes the relative continuity of procurement and tax reforms to strong government ownership and stable mid-level managers in the responsible agencies. E-procurement support falls in an area with these conditions, but as long as state-owned enterprises remain outside the procurement law, the scope that e-procurement can make transparent is limited.",
+       "ref": [
+        "doc:ieg",
+        "doc:scd",
+        "row:proc"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Rule of law and anti-corruption",
+     "msg": "Rule of law and control of corruption improved in the late 2010s and then declined, and in 2025 remain well below the global average. A national anti-corruption strategy exists, but its numerical targets have not been confirmed.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Rule of law and control of corruption (WGI)",
+      "inds": [
+       "law:0",
+       "law:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "Trend: rule of law rose from −1.20 (2010) to −0.69 (2018), then fell to −1.00 (2023), and stands at −0.93 (2025). Control of corruption was −1.19 (2015), −0.99 (2019), −1.21 (2022) and −1.10 (2025).",
+       "ref": [
+        "ind:law:0",
+        "ind:law:1"
+       ],
+       "b": "Rule of law −0.69 (2018) → −0.93; control of corruption −1.10 (2025)"
+      },
+      {
+       "k": "f",
+       "t": "According to the World Bank's independent evaluation, the FY2014 development policy operation supported an anti-corruption programme and a conflict-of-interest law, but implementation support was limited. The conflict-of-interest law was not enforced and carried no penalties for violations. The target for the indicator on experience of corruption (from 15% to 10%) was not achieved, and data collection stopped.",
+       "ref": [
+        "doc:ieg",
+        "row:ac"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the judiciary, the World Bank's judicial development project was cancelled in 2016 midway through preparation. Subsequent EBRD support for judicial reform was also assessed as having had a \"negligible\" impact on the quality of judicial services.",
+       "ref": [
+        "doc:ieg",
+        "row:ac"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's independent evaluation states that in 2013–2021 the country was in the bottom 15–20 percentiles on the rule of law indicator. In 2011–2020, 93–96% of respondents were concerned about corruption, and the conflict-of-interest law has not been enforced.",
+       "ref": [
+        "doc:ieg"
+       ],
+       "b": "Respondents concerned about corruption: 93–96% (2011–2020)"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that serious weaknesses in the functioning of the judiciary persist. The country ranked 134th of 190 in enforcing contracts (2020), and its civil justice fairness score of 0.34 is below the regional average of 0.45. In investor disputes, arbitration has awarded an average of USD 10.4 million in damages per case, and there is no mechanism to stop investor grievances from escalating into international disputes.",
+       "ref": [
+        "doc:scd",
+        "tree:legal:LG1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI assesses that anti-corruption is carried out mainly by the security services, with weak accountability. Rules on campaign finance exist but are not strictly enforced. The SCD cites excessive bureaucracy, widespread corruption and a weak regulatory framework as constraints on private business.",
+       "ref": [
+        "doc:bti",
+        "doc:scd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Judiciary: BTI states that the President appoints the chairs of the Supreme Court and Constitutional Court and selects judges at all levels. An October 2023 amendment allowed the President or the chair of the Constitutional Court to request review of Constitutional Court decisions. BTI scores: judicial independence 3, prosecution of office abuse 3, anti-corruption policy 3.",
+       "ref": [
+        "doc:bti",
+        "tree:legal:LG1"
+       ],
+       "b": "BTI: judicial independence 3, anti-corruption policy 3"
+      },
+      {
+       "k": "f",
+       "t": "Institutions: a new anti-corruption law was adopted at the end of 2024 (BTI). A National Anti-Corruption Strategy 2025–2030 exists (NDP 2030).",
+       "ref": [
+        "doc:bti",
+        "doc:ndp"
+       ],
+       "b": "New anti-corruption law at the end of 2024"
+      },
+      {
+       "k": "f",
+       "t": "The OECD Istanbul Anti-Corruption Action Plan issued its 5th round monitoring baseline report in November 2024. It assesses nine areas, including anti-corruption policy, prevention and enforcement of criminal liability, using indicators and benchmarks. The PDF could not be opened, and its ratings are not used.",
+       "ref": [
+        "doc:oecd"
+       ],
+       "b": "OECD 5th round monitoring (November 2024) assesses nine areas"
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap against targets"
+      },
+      {
+       "k": "v",
+       "t": "The National Anti-Corruption Strategy 2025–2030 emphasises prevention, transparency and digitalisation. Whether \"prevention\" (conflict-of-interest management, asset declarations, whistleblower protection), which assessments describe as neglected, can be made to work institutionally is key to bringing the control of corruption indicator (−1.10) closer to the global average.",
+       "ref": [
+        "doc:ndp",
+        "doc:bti",
+        "ind:law:1"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Relationship with donor support"
+      },
+      {
+       "k": "v",
+       "t": "Because the national strategy's numerical targets cannot be confirmed, progress will for now be tracked through the WGI and the OECD's next monitoring. Since the OECD scores nine areas against indicators and benchmarks, if the text can be read, area-specific weaknesses can be matched against the tasks in the national strategy.",
+       "ref": [
+        "doc:oecd",
+        "ind:law:1"
+       ],
+       "b": "Progress will be tracked through international indicators and the OECD assessment"
+      },
+      {
+       "k": "f",
+       "t": "Related support: 11 projects, about USD 15.5 million in the anti-corruption and justice row (EU about USD 11.8 million, UNDP about USD 2.1 million, UN about USD 1.6 million). The EU's judicial reform and digitalisation (JUST4ALL 2) started in 2026. UNDP's human rights protection and equal access to justice (phase 3, about USD 2.1 million) ends in December 2026.",
+       "ref": [
+        "row:ac",
+        "fact:rows",
+        "proj:XI-IATI-EC_INTPA-2026-PC-69185",
+        "proj:XM-DAC-41114-OUTPUT-00133442"
+       ],
+       "b": "Justice about USD 15.5 million, of which EU about USD 11.8 million"
+      },
+      {
+       "k": "f",
+       "t": "The EU's \"Justice for All\" (JUST4ALL, about USD 4.3 million, 2021–2029) and its second phase on judicial reform and digitalisation (two projects of about USD 4.7 million and about USD 2.8 million, starting 2026) are at the core of the anti-corruption and justice row.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2020-ACT-D-41694-00",
+        "proj:XI-IATI-EC_INTPA-2026-PC-69185",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63092",
+        "row:ac"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Among completed projects, the largest are the EU's Rule of Law Programme Phase 2 (about USD 11.9 million, 2017–2025), the United States' rule of law and anti-corruption project (about USD 8.4 million, 2021 – July 2026) and the United States' project to increase public trust in the judiciary (about USD 3.2 million, 2018–2025).",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2016-ACT-D-38224-00",
+        "proj:US-GOV-1-72011521CA00001",
+        "proj:US-GOV-1-72011518IO00001"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "US justice and anti-corruption projects ended in 2025–26, and active support is now led by the EU and UNDP. Active projects focus on judicial digitalisation and people-centred reform; no project in the table mainly addresses corruption prevention (conflict of interest, asset declarations).",
+       "ref": [
+        "row:ac",
+        "fact:rows"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Citizens' voice, elections and local self-government",
+     "msg": "Voice and accountability has fallen for seven consecutive years, from −0.14 in 2018 to −0.84 in 2025, the largest decline among the WGI tracked on the site.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Voice and accountability (WGI)",
+      "inds": [
+       "voice:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "Trend: voice and accountability rose from −0.60 (2010) to −0.14 (2018), then fell every year to −0.84 (2025).",
+       "ref": [
+        "ind:voice:0"
+       ],
+       "b": "−0.14 (2018) → −0.84 (2025), seven consecutive years of decline"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that citizens' trust in government is low and distrust of various local government actors is high. BTI states that many civil society organisations were preoccupied in 2023–2024 with responding to restrictive draft laws, and that surveys show nearly half the population supports democracy as the best form of government.",
+       "ref": [
+        "doc:scd",
+        "doc:bti",
+        "ind:voice:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Civil society and media: according to BTI, amendments to the Law on Non-Profit Organisations were signed in April 2024, introducing the designation of \"foreign representatives\". A draft media law was withdrawn after criticism and, after revision, was awaiting parliamentary consideration in early 2025. BTI scores: freedom of expression 3, association and assembly rights 4, free and fair elections 5.",
+       "ref": [
+        "doc:bti"
+       ],
+       "b": "2024 amendments to the NPO law; draft media law awaiting consideration"
+      },
+      {
+       "k": "h",
+       "t": "Challenges in local self-government"
+      },
+      {
+       "k": "f",
+       "t": "Elections: the Digital Concept 2024–2028 states that elections at all levels are conducted using voters' biometric data.",
+       "ref": [
+        "doc:dig",
+        "row:elect"
+       ],
+       "b": "Elections are conducted with biometric data"
+      },
+      {
+       "k": "f",
+       "t": "Local self-government: the World Bank's independent evaluation rated participatory planning in village investment projects as \"not effective\". It states that interventions were small and poorly connected, did not continue after grants ended, and did not address problems of municipal powers, finances and technical capacity.",
+       "ref": [
+        "doc:ieg",
+        "row:lsg",
+        "tree:lsg:L3"
+       ],
+       "b": "Participatory village investment \"not effective\" (World Bank evaluation)"
+      },
+      {
+       "k": "f",
+       "t": "The SCD states that local public services have serious deficiencies, such as water supply outside the capital being intermittent and unsafe, and recommends clearly separating roles across levels of government and designing intergovernmental fiscal transfers separately. BTI states that while electricity reaches almost the entire population, safely managed water reached only slightly over 75% in 2022.",
+       "ref": [
+        "doc:scd",
+        "doc:bti",
+        "tree:lsg:L2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 10.4 states that the programme of state grants for local community initiatives (2024–2027) will involve residents in local development. According to UNDP documents, a June 2025 legal amendment (No. 109) added the prevention of social tensions to the role of local governments; under a Peacebuilding Fund project, 155 municipal staff were trained and local governments funded 25 youth initiatives.",
+       "ref": [
+        "doc:ndp",
+        "doc:pbf",
+        "tree:lsg:L3"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Citizen participation and accountability is a pillar of the local self-government programme, but the national indicator is moving in the opposite direction. Local participation mechanisms and national civic space need to be viewed separately.",
+       "ref": [
+        "tree:lsg:L3",
+        "ind:voice:0"
+       ],
+       "b": "Local participation mechanisms and national civic space should be viewed separately"
+      },
+      {
+       "k": "f",
+       "t": "Related support: 14 projects, about USD 12.2 million in the local self-government and citizen participation row (Switzerland about USD 10.3 million, EU about USD 1 million, ADB about USD 0.6 million). 9 projects, about USD 8.1 million in the elections, parliament and politics row (United States about USD 5 million, Switzerland about USD 2.5 million, Korea about USD 0.5 million).",
+       "ref": [
+        "row:lsg",
+        "row:elect",
+        "fact:rows"
+       ],
+       "b": "Local self-government about USD 12.2 million (mainly Switzerland), elections about USD 8.1 million"
+      },
+      {
+       "k": "h",
+       "t": "Relationship with donor support"
+      },
+      {
+       "k": "f",
+       "t": "The local self-government row centres on Switzerland's \"Civic Engagement for Development\" (four records totalling about USD 8.7 million, 2022 – June 2027) and Switzerland's \"Strengthening Voice and Accountability in Local Self-Government\" (about USD 1.6 million).",
+       "ref": [
+        "proj:CH-4-2023-2022016771",
+        "proj:CH-4-2025-2022016771",
+        "proj:CH-4-2011004065",
+        "row:lsg",
+        "proj:CH-4-2025-2022017040",
+        "proj:CH-4-2023-2022016772"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The elections row comprises the United States' \"Trusted and Accountable Politics\" (about USD 5 million, 2022 – September 2027), Switzerland's strengthening of democratic practices in electoral processes (three records, about USD 2.4 million), and Korea's digitalisation of parliament (about USD 0.5 million, 2023–2027).",
+       "ref": [
+        "proj:US-GOV-1-72011522LA00001",
+        "proj:CH-4-2015001460",
+        "proj:KR-GOV-010-KR-GOV-051-2023010100027",
+        "row:elect",
+        "proj:CH-4-2015001458",
+        "proj:CH-4-2015001459"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI states that projects of a political nature, such as civil society and media, were funded mainly by the United States, Switzerland and the EU. It also states that several draft laws concerning civil society were amended with encouragement from international partners.",
+       "ref": [
+        "doc:bti",
+        "row:elect"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of those three, the United States' active project ends in 2027. Without a successor, the elections and civil society area will become even more dependent on Switzerland and the EU.",
+       "ref": [
+        "row:elect",
+        "proj:US-GOV-1-72011522LA00001"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding is largest from Switzerland and the EU, which together account for about two-thirds.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects aligned with the strategy areas, after apportionment)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active support aligned with the governance strategy totals 38 projects and about USD 39.6 million. By donor: Switzerland about USD 12.8 million, EU about USD 12.7 million, United States about USD 5 million, Korea about USD 4 million, UNDP about USD 2.4 million, UN (other) about USD 1.6 million, ADB about USD 0.6 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 38 projects, about USD 39.6 million"
+      },
+      {
+       "k": "f",
+       "t": "Four projects, about USD 2.1 million, end by end-2026. Almost all of this is UNDP's human rights protection and equal access to justice (phase 3, about USD 2.1 million, 2022 – December 2026), after which UNDP funding in the anti-corruption and justice row ends.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor",
+        "proj:XM-DAC-41114-OUTPUT-00133442"
+       ],
+       "b": "4 projects, about USD 2.1 million, end by end-2026"
+      },
+      {
+       "k": "f",
+       "t": "Support completed since 2017 totals 155 projects and about USD 115 million, led by the United States and the EU.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 155 projects, about USD 115 million"
+      },
+      {
+       "k": "f",
+       "t": "Areas by donor: Switzerland in local self-government (about USD 10.3 million) and elections (about USD 2.5 million); the EU in justice (about USD 11.8 million) and local self-government (about USD 1 million); the United States in elections (about USD 5 million); Korea in procurement (about USD 3.5 million) and parliament (about USD 0.5 million); UNDP in justice (about USD 2.1 million).",
+       "ref": [
+        "fact:rows",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI states that the government left long-term vision-setting to donors and focused on securing funding for near-term projects. The World Bank's independent evaluation states that after the 2014–17 strategy the World Bank became more risk-averse, donor support was fragmented, and the governance agenda narrowed.",
+       "ref": [
+        "doc:bti",
+        "doc:ieg"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The active amount (about USD 39.6 million) is about one-third of the total for projects completed since 2017 (about USD 115 million). The periods differ in length, so a simple comparison is not possible, but the scale of governance support is smaller than in the late 2010s.",
+       "ref": [
+        "fact:mapped_musd",
+        "fact:closed_musd"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Over the past decade, completed support was largest in anti-corruption and justice and in elections and parliament, with the United States and the EU accounting for about two-thirds.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed in 2017 or later. Earlier projects are excluded because records for major donors are incomplete. Even after 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Completed since 2017 and aligned with the governance strategy: 155 projects, about USD 115 million (after apportionment, no double counting). By donor: United States about USD 45.9 million, EU about USD 31.9 million, NGOs and civil society about USD 8.2 million, United Kingdom about USD 6.6 million, other bilateral about USD 5.3 million, Germany about USD 5.2 million, Switzerland about USD 4.3 million, World Bank about USD 4.2 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "155 projects, about USD 115 million; United States and EU largest"
+      },
+      {
+       "k": "f",
+       "t": "By area: anti-corruption and justice 52 projects, about USD 50.1 million; elections, parliament and politics 40 projects, about USD 36.2 million; local self-government and citizen participation 56 projects, about USD 27.6 million; public administration reform and e-government 5 projects, about USD 0.8 million; public procurement 3 projects, about USD 0.1 million. The largest projects were the EU's sector reform contract on electoral reform (about USD 13.1 million, ended 2021), the EU's Rule of Law Programme Phase 2 (about USD 11.9 million, ended 2025) and the United States' rule of law and anti-corruption project (about USD 8.4 million, ended July 2026).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XI-IATI-EC_INTPA-2015-ACT-D-38149-00",
+        "proj:XI-IATI-EC_INTPA-2016-ACT-D-38224-00",
+        "proj:US-GOV-1-72011521CA00001"
+       ],
+       "b": "Justice and elections were large; public administration reform and procurement very small"
+      },
+      {
+       "k": "f",
+       "t": "Donors by area: of the about USD 50.1 million for anti-corruption and justice, EU about USD 17.7 million, United States about USD 15.9 million, NGOs and civil society about USD 7.5 million, other bilateral about USD 4.8 million. Of the about USD 36.2 million for elections and parliament, EU about USD 13.9 million, United States about USD 12.9 million, United Kingdom about USD 5.4 million. Of the about USD 27.6 million for local self-government, United States about USD 16.9 million, World Bank about USD 4.1 million, Germany about USD 3.1 million.",
+       "ref": [
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Large completed local self-government projects include the United States' \"Active Communities\" (about USD 8.1 million, 2019–2024) and the United States' community and municipal governance project (CAMI, about USD 3.2 million, 2016–2021). In elections, there was the United Kingdom's strengthening of the political system (about USD 3.9 million, 2014–2024).",
+       "ref": [
+        "proj:US-GOV-1-72011519CA00005",
+        "proj:US-GOV-1-AID-176-C-16-00002",
+        "proj:GB-1-204613-101"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The United States was the largest donor among completed projects, at about USD 45.9 million, but has about USD 5 million in active projects. The providers of elections and justice support are shifting to the EU and Switzerland. The World Bank's evaluation also states that under the framework from 2019 its governance support was narrowed almost entirely to public financial management, withdrawing from anti-corruption and rule of law.",
+       "ref": [
+        "fact:closed_by_donor",
+        "fact:by_donor",
+        "doc:ieg"
+       ],
+       "b": "Lead providers shifting from the United States to the EU and Switzerland"
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: some Swiss projects have blank start and end dates, and UN Peacebuilding Fund projects carry the period of the fund as a whole (2006–2030). The Peacebuilding Fund project in the anti-corruption and justice row (inclusive governance and justice reform, about USD 1.5 million) was a 2017–2021 project according to UNDP documents and has already ended.",
+       "ref": [
+        "fact:rows",
+        "doc:pbf",
+        "proj:XI-IATI-UNPF-00108334"
+       ],
+       "b": "Period data are missing for some projects"
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "No row in the table is empty, but public administration reform and e-government has 1 project and almost USD 0, a de facto gap.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active / completed / cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row has zero active projects. However, public administration reform and e-government has 1 project (Korea) and almost USD 0, and even completed projects amount to only 5 projects and about USD 0.8 million. Support addressing the civil service and debureaucratisation tasks of NDP 10.1 and 10.5 is barely visible in the table.",
+       "ref": [
+        "fact:empty_rows",
+        "row:pa",
+        "fact:closed_rows",
+        "doc:ndp"
+       ],
+       "b": "Public administration reform and e-government is a de facto gap"
+      },
+      {
+       "k": "f",
+       "t": "Large active projects not mapped to any table row include the EU's support to the National Preventive Mechanism against torture and the Ombudsperson (about USD 3.2 million, 2025–2028) and US media support (about USD 3.1 million). These correspond to human rights protection (Pillar 2 of the Legal Policy Concept), but the site's table has no such row.",
+       "ref": [
+        "tree:legal:LG2",
+        "proj:XI-IATI-EC_INTPA-2024-PC-42711",
+        "proj:US-GOV-1-72011522LA00002"
+       ],
+       "b": "Human rights protection and media support fall outside the table rows"
+      },
+      {
+       "k": "v",
+       "t": "Some projects mapped to table rows have weak links to governance (ADB's low-carbon building retrofits in Bishkek → local self-government; WHO's planning and budget management → public procurement). The mapping to rows needs to be reviewed.",
+       "ref": [
+        "row:lsg",
+        "row:proc",
+        "proj:XM-DAC-46004-57037-005-LN4689",
+        "proj:XM-DAC-928-KG-2026-27-07.001.EU01.KGZ03"
+       ],
+       "b": "The row mapping of some projects needs review"
+      },
+      {
+       "k": "v",
+       "t": "Three areas receive thin support relative to national tasks and evaluation recommendations: the civil service and debureaucratisation, corruption prevention (conflict of interest, asset declarations), and public investment management (recommendations of the infrastructure governance assessment). Public investment management is covered only by Germany's capacity development in planning, monitoring and evaluation (about USD 0.2 million).",
+       "ref": [
+        "row:pa",
+        "row:ac",
+        "row:proc",
+        "proj:DE-1-202473742",
+        "doc:infra"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "In 2027, the drafting of a successor to the Legal Policy Concept coincides with the end of large local self-government and elections projects.",
+     "paras": [
+      {
+       "k": "v",
+       "t": "The Legal Policy Concept 2023–2026 expires in 2026. Whether its successor includes numerical targets will determine whether progress in justice and anti-corruption can be measured with national figures.",
+       "ref": [
+        "tree:legal:legal",
+        "doc:ndp"
+       ],
+       "b": "Will the Legal Policy Concept's successor include numerical targets?"
+      },
+      {
+       "k": "v",
+       "t": "Switzerland's \"Civic Engagement for Development\" (about USD 8.7 million in total) ends in June 2027 and the United States' \"Trusted and Accountable Politics\" (about USD 5 million) in September 2027. These account for most active funding in the local self-government and elections areas, and whether successors follow will determine the scale of support.",
+       "ref": [
+        "row:lsg",
+        "row:elect",
+        "proj:CH-4-2023-2022016771",
+        "proj:US-GOV-1-72011522LA00001"
+       ],
+       "b": "Large local self-government and elections projects end in 2027"
+      },
+      {
+       "k": "v",
+       "t": "Public administration reform and e-government receives almost no donor funding. The reforms set out in NDP 10.2 and 10.5 and the Digital Concept are being advanced with the national budget and national digitalisation systems. The World Bank's finding that reforms lasted longest in areas with stable national counterparts, such as procurement and public investment, offers a guide for choosing entry points for support.",
+       "ref": [
+        "row:pa",
+        "doc:ndp",
+        "doc:ieg"
+       ],
+       "b": "Public administration reform is driven by the state itself; choose entry points for technical cooperation carefully"
+      },
+      {
+       "k": "v",
+       "t": "The lesson of the World Bank's independent evaluation was that pushing politically difficult reforms through loan conditions alone had little effect, and that cancelled or interrupted projects lost earlier gains. In areas such as justice, where support providers change, long-running project design and staff stability in national counterpart agencies are conditions for results.",
+       "ref": [
+        "doc:ieg",
+        "row:ac"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: the successor to the Legal Policy Concept, the indicators of the National Anti-Corruption Strategy, progress of the administrative-territorial reform (merger of village municipalities), the OECD's next monitoring, and the next WGI update.",
+       "ref": [
+        "tree:legal:legal",
+        "doc:oecd",
+        "tree:lsg:L1"
+       ],
+       "b": "Next to watch: successor plan, anti-corruption indicators, administrative-territorial reform"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Among the world's top 30 countries in SDG achievement (NDP target 4)",
+   "No value on the site",
+   "Top 30 countries",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Raise Human Development Index ranking by 10 places (NDP target 5)",
+   "No value on the site",
+   "Up 10 places",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Government effectiveness (WGI)",
+   "−0.85(2025)",
+   "No national numerical target",
+   "−0.01/yr (2015→2025)",
+   "—",
+   "Not measurable (no target)",
+   "na"
+  ],
+  [
+   "Rule of law (WGI)",
+   "−0.93(2025)",
+   "No national numerical target",
+   "−0.01/yr (2015→2025)",
+   "—",
+   "Not measurable (no target)",
+   "na"
+  ],
+  [
+   "Control of corruption (WGI)",
+   "−1.10(2025)",
+   "No national numerical target (targets of the 2025–2030 strategy not confirmed)",
+   "+0.01/yr (2015→2025)",
+   "—",
+   "Not measurable (no target)",
+   "na"
+  ],
+  [
+   "Voice and accountability (WGI)",
+   "−0.84(2025)",
+   "No national numerical target",
+   "−0.07/yr (2015→2025)",
+   "—",
+   "Not measurable (no target). Seven consecutive years of decline",
+   "na"
+  ],
+  [
+   "Statistical capacity (World Bank)",
+   "79.1(2024)",
+   "No national numerical target",
+   "−0.25/yr (2016→2024)",
+   "—",
+   "Not measurable (no target)",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Anti-corruption and justice",
+   "Legal Policy Concept 2023–2026",
+   "Confirmed in the SDG Voluntary National Review 2025",
+   "end",
+   "XI 11.1",
+   "ac",
+   "legal"
+  ],
+  [
+   "1",
+   "Anti-corruption",
+   "National Anti-Corruption Strategy 2025–2030",
+   "Presidential Decree No. 137 of 5 June 2024",
+   "ok",
+   "XI 11.3",
+   "ac",
+   ""
+  ],
+  [
+   "1",
+   "E-government",
+   "Digital Transformation Concept 2024–2028",
+   "Presidential Decree, 2024",
+   "ok",
+   "X 10.5",
+   "pa",
+   ""
+  ],
+  [
+   "1",
+   "Public administration reform (civil service, debureaucratisation)",
+   "No stand-alone plan (tasks in NDP Chapter X only)",
+   "—",
+   "none",
+   "X 10.1 and 10.5",
+   "pa",
+   ""
+  ],
+  [
+   "1",
+   "Local self-government and citizen participation",
+   "Local Self-Government Development Programme 2024–2028",
+   "Cabinet of Ministers Resolution No. 80 of 22 February 2024",
+   "ok",
+   "X 10.4",
+   "lsg",
+   "lsg"
+  ],
+  [
+   "1",
+   "Elections, parliament and politics",
+   "No stand-alone plan",
+   "—",
+   "none",
+   "—",
+   "elect",
+   ""
+  ],
+  [
+   "1",
+   "Public procurement and public investment management",
+   "No stand-alone plan (tasks in NDP 10.2 and 10.3)",
+   "—",
+   "none",
+   "X 10.2 and 10.3",
+   "proc",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Governance"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "National numerical targets for administration, justice and corruption (Chapters X and XI of NDP 2030 have no \"target indicators\" section)",
+  "Annual values of the SDG achievement ranking (NDP target 4) and the Human Development Index ranking (target 5) (not yet on the site)",
+  "Indicators and target values of the National Anti-Corruption Strategy 2025–2030 (text not read)",
+  "Text and action plan of the Local Self-Government Development Programme 2024–2028 (only the cover page and amendment history on a paid site)",
+  "Text of the Legal Policy Concept 2023–2026 and its successor plan",
+  "National statistics on the quality of administration and justice, such as the number of civil servants, satisfaction with public services and the number of court cases",
+  "Also not reviewed: the PDF of the OECD 5th round monitoring baseline report (connection refused; only the landing page read), the last ~12,000 characters of BTI 2026, and the 2023 update of the World Bank Systematic Country Diagnostic (not opened this time)"
+ ],
+ "lang": "en"
+}

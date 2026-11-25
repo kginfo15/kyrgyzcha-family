@@ -1,0 +1,1738 @@
+{
+ "sid": "climate",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Climate change"
+  },
+  "rows": {
+   "adapt": {
+    "n": "Adaptation (water, agriculture, glaciers)",
+    "st": "NDC 3.0"
+   },
+   "drr": {
+    "n": "DRR and resilience",
+    "st": "Action Plan for Emergency Risk Reduction 2025–30"
+   },
+   "re": {
+    "n": "Renewables and energy efficiency (mitigation)",
+    "st": "Renewable Energy Development 2026–30 / Energy Efficiency Policy 2023–27"
+   },
+   "mob": {
+    "n": "Transport decarbonisation (e-mobility)",
+    "st": "(NDC 3.0)"
+   },
+   "cfin": {
+    "n": "Climate finance and green finance",
+    "st": "Green Economy Development 2025–29"
+   }
+  }
+ },
+ "ind": {
+  "ghg": {
+   "name": "① Greenhouse gas reduction",
+   "tag": "Emissions",
+   "inds": [
+    {
+     "name": "Greenhouse gas emissions (excluding land use)",
+     "unit": "million tonnes (CO2 equivalent)",
+     "st": "— Not assessed, as the target is relative to BAU",
+     "src": "World Bank WDI EN.GHG.ALL.MT.CE.AR5 (original source EDGAR)",
+     "t": []
+    },
+    {
+     "name": "Per capita emissions",
+     "unit": "tonnes (CO2 equivalent)",
+     "st": "— Less than half the global average (about 6.6 tonnes)",
+     "src": "World Bank WDI EN.GHG.ALL.PC.CE.AR5",
+     "t": []
+    }
+   ]
+  },
+  "adapt": {
+   "name": "② Adaptation to climate change",
+   "tag": "Climate resilience",
+   "goals": [
+    [
+     "Improve the ND-GAIN climate resilience index by at least 3 points (National Development Programme 2030, 13.2)",
+     "Published free of charge by the University of Notre Dame (CSV). No API, so to be entered manually once a year"
+    ]
+   ],
+   "inds": []
+  }
+ },
+ "quick": {
+  "h1": "Climate change: large funding for adaptation (glaciers, water, agriculture) and renewables",
+  "msgs": [
+   [
+    "Adaptation is the largest.",
+    "GCF's G2F and resilience projects by the World Bank and ADB."
+   ],
+   [
+    "USD 35 million from the World Bank for emission reductions.",
+    "Results-based financing for emission reductions from the energy transition (11/4)."
+   ],
+   [
+    "Agreement on priorities for regional projects.",
+    "Priorities for regional climate projects towards 2027 (11/6). Preparations for COP31 are also under way."
+   ],
+   [
+    "Consultations with the GCF continue.",
+    "Consultations on scaling up climate finance (10/7)."
+   ]
+  ],
+  "h2": "Large funding for adaptation and renewables; transport decarbonisation through GCF e-mobility",
+  "rows": {
+   "adapt": [
+    "",
+    "GCF, World Bank, ADB"
+   ],
+   "drr": [
+    "",
+    "ADB water resources sector resilience"
+   ],
+   "re": [
+    "",
+    "World Bank renewable energy development"
+   ],
+   "mob": [
+    "",
+    "GCF e-mobility and others"
+   ],
+   "cfin": [
+    "",
+    "Green finance by the World Bank, ADB and GCF"
+   ]
+  },
+  "h3": "Recent activity: \"COP31 preparations\", \"emission reduction finance\" and \"glaciers\"",
+  "themes": [
+   [
+    "International negotiations:",
+    "Preparing the COP31 delegation; agreement on regional priorities."
+   ],
+   [
+    "Finance:",
+    "World Bank emission reduction financing; consultations with the GCF."
+   ],
+   [
+    "Glaciers:",
+    "A resolution on glacier conservation; rule changes by the Ministry of Emergency Situations."
+   ]
+  ]
+ },
+ "proj_t": {
+  "XI-IATI-EC_INTPA-2019-PCC-412061": "GREEN TOUR Kyrgyzstan – Replicating tourism industry sustainability best practices into the Kyrgyzstan and wider Central Asian tourism supply chain through an integrated business led approach"
+ },
+ "title": "Kyrgyz Republic Climate Change Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Chapter XIII \"Resilience to Climate Change\" (13.1 Disaster Risk Reduction; 13.2 Environment, Ecology and Adaptation) and Section 5.4 \"Green Energy\"",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Full text of Chapter XIII, the Section 5.4 targets, the \"green budget\" paragraph of Section 10.3 and the irrigation paragraph of Section 5.3 (translation on the site)",
+   "cat": "gov"
+  },
+  {
+   "id": "ndc3",
+   "t": "Nationally Determined Contribution 3.0 of the Kyrgyz Republic (NDC 3.0, English version)",
+   "by": "Kyrgyz Republic (submitted to the UNFCCC)",
+   "y": "Dated Sep 2025",
+   "scope": "All extractable text (about 124,000 characters: summary, inventory, reduction targets and sectoral reductions, BAU in Table 4, finance, sectoral adaptation targets) reviewed in the original",
+   "cat": "gov",
+   "u": "https://unfccc.int/sites/default/files/2025-10/NDC3.0_Kyrgyzstan_English_30-09-2025%20%282%29.pdf"
+  },
+  {
+   "id": "ndc21",
+   "t": "Nationally Determined Contribution (NDC), 2021 update",
+   "by": "Kyrgyz Republic",
+   "y": "2021",
+   "scope": "First half of the text (overview, inventory, reduction targets, mitigation and adaptation costs, monitoring, gender) reviewed via machine translation on the site",
+   "cat": "gov"
+  },
+  {
+   "id": "ee",
+   "t": "Energy Saving and Energy Efficiency Policy Programme 2023–2027",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2023",
+   "scope": "Chapters on the situation analysis and targets (machine translation on the site)",
+   "cat": "gov"
+  },
+  {
+   "id": "drrplan",
+   "t": "Action Plan for Emergency Risk Reduction 2025–2030 (Cabinet of Ministers Resolution No. 601 of 23 September 2025)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2025",
+   "scope": "Text of the resolution (machine translation on the site). The action plan and indicator matrix in the annexes are covered in the DRR sector",
+   "cat": "gov"
+  },
+  {
+   "id": "ccdr",
+   "t": "Kyrgyz Republic Country Climate and Development Report (CCDR), overview page",
+   "by": "World Bank",
+   "y": "Dec 2025",
+   "scope": "Full overview page (key estimates and the seven policy packages) and the whole summary deck (slide-format PDF). The report text itself has not been opened",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/country/kyrgyzrepublic/publication/ccdr"
+  },
+  {
+   "id": "crcp",
+   "t": "Climate Risk Country Profile: Kyrgyz Republic",
+   "by": "World Bank and ADB",
+   "y": "Jun 2021",
+   "scope": "All 26 pages (PDF)",
+   "cat": "donor",
+   "u": "https://www.adb.org/sites/default/files/publication/706596/climate-risk-country-profile-kyrgyz-republic.pdf"
+  },
+  {
+   "id": "wbre",
+   "t": "The Kyrgyz Republic to Boost its Renewable Energy Potential with Support from the World Bank and the Green Climate Fund",
+   "by": "World Bank (press release)",
+   "y": "Jun 2023",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2023/06/28/the-kyrgyz-republic-to-boost-its-renewable-energy-potential-with-support-from-the-world-bank-and-the-green-climate-fund"
+  },
+  {
+   "id": "zoi",
+   "t": "Climate Change and Biodiversity Alignment: National Targets and Measures (Kyrgyz Republic Illustrated Analysis)",
+   "by": "Zoï Environment Network and UNITAR",
+   "y": "Nov 2025",
+   "scope": "Full text (illustrated analysis; figures on p.16 are cited from national sources)",
+   "cat": "donor",
+   "u": "https://zoinet.org/wp-content/uploads/2025/11/KRG-climate-biodiv-alignment-report_EN.pdf"
+  },
+  {
+   "id": "ndgain",
+   "t": "ND-GAIN Country Index: Kyrgyzstan",
+   "by": "University of Notre Dame (research institute index)",
+   "y": "2023 values",
+   "scope": "Country page (trends in overall score and rank). The annual score series is not shown on screen and has not been read",
+   "cat": "paper",
+   "u": "https://gain-new.crc.nd.edu/country/kyrgyzstan"
+  },
+  {
+   "id": "gcfcp",
+   "t": "Country Programme: Kyrgyz Republic (GCF country programme)",
+   "by": "Green Climate Fund (GCF) and Kyrgyz Republic",
+   "y": "Sep 2026",
+   "scope": "First ~100,000 characters (portfolio, priorities, pipeline, barriers to accessing finance, alignment with the NDC) reviewed in the original. Annex 3 onwards not read",
+   "cat": "donor",
+   "u": "https://www.greenclimate.fund/sites/default/files/documents/2026-09/kyrgyz-republic-country-programme.pdf"
+  },
+  {
+   "id": "baef",
+   "t": "Barriers Analysis and Enabling Framework Report, Part I: Technologies Needs Assessment for Climate Change Adaptation",
+   "by": "Ministry of Natural Resources, Ecology and Technical Supervision of the Kyrgyz Republic; UNEP-CCC",
+   "y": "Aug 2023",
+   "scope": "First ~100,000 characters (summary tables of technologies and barriers for agriculture and water resources, current figures) reviewed in the original",
+   "cat": "donor",
+   "u": "https://unepccc.org/wp-content/uploads/2023/08/kyrgyzstan-baef-report-adaptation-final-aug-2023-part-1.pdf"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Emissions are small, and on paper they are below the national reduction target (relative to BAU). However, the assessment depends on how BAU (the no-action projection) is set. Net emissions were 9.07 million tonnes (2023), below the level of an 18% reduction from the 2030 BAU of 17.78 million tonnes (about 14.6 million tonnes).",
+   "ref": [
+    "doc:ndc3",
+    "ind:ghg:0"
+   ],
+   "h": "Emissions are small and below the target on paper, but this depends on the BAU assumption"
+  },
+  {
+   "k": "f",
+   "t": "Climate threats are concentrated on the adaptation side. Without action, GDP would be 2–3% lower in 2040, 170,000 people would fall into poverty, and up to 24% of irrigation demand would go unmet by mid-century. Glaciers have shrunk by 15–45% since the 1960s.",
+   "ref": [
+    "doc:ccdr",
+    "doc:zoi"
+   ],
+   "h": "Climate threats concentrate on adaptation (water, agriculture, disasters)"
+  },
+  {
+   "k": "f",
+   "t": "Financing needs far exceed the scale of public finances, and international support is assumed. NDC 3.0 needs about USD 23 billion, of which about USD 9.3 billion is not secured.",
+   "ref": [
+    "doc:ndc3"
+   ],
+   "h": "Needs of about USD 23 billion; about USD 9.3 billion not secured"
+  },
+  {
+   "k": "f",
+   "t": "Donor funding is concentrated on adaptation, and transport decarbonisation is a gap. Of the 46 active projects aligned with the strategy (about USD 200 million), the adaptation row accounts for about USD 150 million, while the e-mobility row has none.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "row:adapt",
+    "fact:empty_rows"
+   ],
+   "h": "Donor funding concentrated on adaptation; transport decarbonisation is a gap"
+  },
+  {
+   "k": "v",
+   "t": "The institutional cornerstones — the National Adaptation Plan, a climate action law and a long-term low-carbon concept — are not yet in place. Long-term large projects from climate funds (GCF) have become the mainstay of funding, and the institutions to absorb them are lagging.",
+   "ref": [
+    "doc:ndp",
+    "doc:ndc3",
+    "fact:by_donor"
+   ],
+   "h": "Institutional cornerstones (adaptation plan, climate action law) not yet in place"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Climate change overview",
+     "msg": "Emissions are small and power is almost entirely hydro, but the country is highly exposed to climate impacts through glacier retreat and disasters.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "9.07",
+        "u": "million t",
+        "k": "Net emissions (CO2 equivalent, 2023, national inventory)",
+        "ref": "doc:ndc3"
+       },
+       {
+        "v": "3.1",
+        "u": "t",
+        "k": "Per capita emissions (2024, estimate)",
+        "ref": "ind:ghg:1"
+       },
+       {
+        "v": "~90",
+        "u": "%",
+        "k": "Renewables in power generation (mainly hydro, 2023)",
+        "ref": "doc:zoi"
+       },
+       {
+        "v": "15–45",
+        "u": "%",
+        "k": "Glacier retreat (since the 1960s)",
+        "ref": "doc:zoi",
+        "hot": true
+       },
+       {
+        "v": "~9.3",
+        "u": "USD billion",
+        "k": "Unsecured share of NDC 3.0 financing",
+        "ref": "doc:ndc3",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "In the national greenhouse gas inventory, gross emissions in 2023 were 19.38 million tonnes (CO2 equivalent) and removals by forests and other sinks 10.31 million tonnes, giving net emissions of 9.07 million tonnes. By sector, energy accounts for about 55%, agriculture about 30%, industrial processes about 10% and waste about 5%.",
+       "ref": [
+        "doc:ndc3"
+       ],
+       "b": "Net emissions 9.07 million tonnes (2023); energy about 55%"
+      },
+      {
+       "k": "f",
+       "t": "According to the World Bank indicator (EDGAR estimate, excluding land use), emissions rose from 14.4 million tonnes (2010) to 22.4 million tonnes (2024). Per capita emissions were 3.1 tonnes (2024).",
+       "ref": [
+        "ind:ghg:0",
+        "ind:ghg:1"
+       ],
+       "b": "Estimated emissions 14.4 million tonnes (2010) → 22.4 million tonnes (2024)"
+      },
+      {
+       "k": "f",
+       "t": "In 2017 the country's emissions were 0.032% of the global total, reflecting extensive use of hydropower. About 90% of power generation is renewable (mainly hydro).",
+       "ref": [
+        "doc:ndc21",
+        "doc:zoi"
+       ],
+       "b": "0.032% of global emissions; about 90% of power from renewables"
+      },
+      {
+       "k": "f",
+       "t": "Temperatures rose by about 1.1°C in 1960–2010. Under a high-emission scenario (RCP8.5), they are projected to rise by about 2.6°C in 2040–2059 and about 5.6°C in 2080–2099 relative to 1986–2005.",
+       "ref": [
+        "doc:crcp"
+       ],
+       "b": "Temperature +1.1°C (1960–2010); +5.6°C by century's end under high emissions"
+      },
+      {
+       "k": "f",
+       "t": "Glaciers have shrunk by 15–45% since the 1960s and are projected to shrink by 50–90% by the 2090s. River flows are expected to increase with glacier melt until around 2040 and then fall sharply.",
+       "ref": [
+        "doc:zoi",
+        "doc:crcp"
+       ],
+       "b": "Glaciers −15–45% (since the 1960s); flows to fall from around 2040"
+      },
+      {
+       "k": "f",
+       "t": "Disasters: flood losses are about USD 36 million a year (0.5% of GDP, 2014 estimate). In the eastern Fergana Valley, landslides kill about 30 people a year. Agricultural losses from drought, water shortages and other causes exceed USD 14 million a year (1991–2011).",
+       "ref": [
+        "doc:crcp"
+       ],
+       "b": "Flood losses about USD 36 million a year (0.5% of GDP)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank Country Climate and Development Report (CCDR) estimates that without action, real GDP would be 2–3% lower in 2040, 170,000 people would fall into poverty, up to 24% of irrigation demand would go unmet by mid-century, and agricultural income would fall by 5–10% each year.",
+       "ref": [
+        "doc:ccdr"
+       ],
+       "b": "Without action, GDP 2–3% lower in 2040 and 170,000 pushed into poverty"
+      },
+      {
+       "k": "v",
+       "t": "The scope for reducing emissions is small, while adaptation in water, agriculture and disasters bears directly on the economy and livelihoods. Even hydro-dependent power will become unstable in the long term as glaciers retreat.",
+       "ref": [
+        "doc:crcp",
+        "doc:ccdr"
+       ],
+       "b": "Adaptation, more than mitigation, bears directly on the economy and livelihoods"
+      },
+      {
+       "k": "h",
+       "t": "Climate change and the spread of its impacts"
+      },
+      {
+       "k": "f",
+       "t": "Warming is accelerating. According to NDC 3.0, temperatures rose by about 0.01°C a year in 1885–2010, 0.024°C a year in 1960–2010 and about 0.07°C a year in 1990–2010, with the largest rise in March. In high-mountain basins, peak flow has shifted about 50 days later, towards late July.",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The CCDR projects glacier volume to fall by a further 44–46% in 2020–2050. 42% of pastures were in poor condition in 2020, and soil erosion would increase by about 8% under a wetter, warmer climate. The CCDR country report was reviewed through the material presented as the summary of the main report (slide format).",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Disaster risks are regionally concentrated. According to the CCDR, 64% of the population of Talas city, 48.6% of Kochkor district and 37.5% of Toguz-Toro district are exposed to extreme flood risk. Landslide risk is rising in Talas, Jalal-Abad and Chui regions, and up to 60% of bridges could be affected by rare extreme events.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Employment impacts: under a dry, hot climate, total employment would fall by about 1% (25,000–30,000 people) by 2030, putting about 15,000 agricultural jobs at risk. On the other hand, adaptation infrastructure could create about 20,000 jobs and decarbonisation 20,000–25,000.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The economic base is vulnerable to climate. Agriculture, forestry and fisheries account for 13.5% of GDP (2020), 66% of the population lives in rural areas, and the rural poverty rate is 29.3% (urban 18.3%). Livestock and pastures account for 49% of agricultural GDP, and household farms produce 98.5% of gross agricultural output.",
+       "ref": [
+        "doc:baef"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy architecture",
+     "msg": "Climate policy is structured in three tiers: \"NDP 2030 Chapter XIII and Section 5.4 → NDC 3.0 and the Green Economy Development Programme 2025–2029 → sectoral plans\".",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy architecture (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: Section 13.2 of the National Development Programme 2030 sets four targets: expanding specially protected natural areas to 10% of the territory, reducing greenhouse gases by 16%, improving the ND-GAIN climate resilience index by at least 3 points, and reducing harmful emissions in Bishkek by 16%.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 13.2: four targets, including 16% emission cut and ND-GAIN +3 points"
+      },
+      {
+       "k": "f",
+       "t": "Key tasks in Section 13.2 include adopting a long-term concept for low-carbon development and a National Adaptation Plan, building the national climate statistics and MRV (measurement, reporting and verification of emissions) system now under development, and gasification of residential areas in Bishkek.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Tasks: adopt a long-term low-carbon concept and National Adaptation Plan; MRV"
+      },
+      {
+       "k": "f",
+       "t": "Section 5.4 (green energy) targets a 92% renewable share in power generation, renewable generation of 7.5 billion kWh a year, transmission losses of 10%, and emission reductions (16% without international support, 44% with it). Section 13.1 (DRR) targets an early warning system, adoption of risk reduction strategies by 100% of local governments, making 16 sites such as former uranium tailings safe, and achievement of the Sendai Framework.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "5.4: 92% renewables; 13.1: early warning, 100% of municipalities"
+      },
+      {
+       "k": "f",
+       "t": "NDC 3.0 (NDC = the country's self-determined greenhouse gas reduction targets; submitted to the UN dated September 2025): a 16% reduction in net emissions relative to BAU by 2035 (unconditional), or 39% with international support; for 2030, 18% and 30%. The base year is 2017 (net emissions of 6.24 million tonnes). Carbon neutrality by 2050 is pursued under the \"Carbon Neutrality Concept\".",
+       "ref": [
+        "doc:ndc3",
+        "tree:ndc:ndc"
+       ],
+       "b": "NDC 3.0: 16% below BAU by 2035 (39% with support); carbon neutral by 2050"
+      },
+      {
+       "k": "f",
+       "t": "NDC 3.0's adaptation priorities are water resources and agriculture, energy, infrastructure and cities, forests and biodiversity, and health and disaster risk reduction.",
+       "ref": [
+        "doc:ndc3",
+        "tree:ndc:N3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The previous NDC (2021 update) set a 15.97% reduction from BAU by 2030 (43.62% with international support), and estimated mitigation and adaptation costs at about USD 10 billion (37% from own resources, 63% from international support).",
+       "ref": [
+        "doc:ndc21"
+       ],
+       "b": "2021 NDC: 15.97% by 2030 (43.62% with support)"
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030's \"16%/44%\" are the 2021 NDC figures and do not match the 2030 targets of the later NDC 3.0 (18%/30%). It needs to be decided which is measured as the national target.",
+       "ref": [
+        "doc:ndp",
+        "doc:ndc3",
+        "doc:ndc21"
+       ],
+       "b": "NDP 2030 and NDC 3.0 differ on the 2030 reduction target"
+      },
+      {
+       "k": "f",
+       "t": "Institutions: a draft climate action law was put out for public consultation in January 2025. The first Biennial Transparency Report (BTR = international reporting on emissions and measures) was submitted in 2025, but NDC 3.0 itself states that the MRV system is still insufficient.",
+       "ref": [
+        "doc:ndc3",
+        "tree:ndc:N4"
+       ],
+       "b": "Climate action law at draft stage (January 2025); MRV still insufficient"
+      },
+      {
+       "k": "f",
+       "t": "The Green Economy Development Programme 2025–2029 (Cabinet of Ministers Resolution of 1 September 2025) is organised in the site's policy tree into six areas (green energy and energy efficiency; sustainable agriculture; green industry, waste and chemicals; green finance; ecosystems and biodiversity; sustainable cities and transport). The text has not been read, and the three areas of green finance, ecosystems, and cities and transport are inferred from its scope.",
+       "ref": [
+        "tree:green:green",
+        "tree:green:G4",
+        "tree:green:G5",
+        "tree:green:G6"
+       ],
+       "b": "Green Economy Development Programme 2025–2029: six areas (partly inferred)"
+      },
+      {
+       "k": "f",
+       "t": "Sectoral plans: the Energy Saving and Energy Efficiency Policy Programme 2023–2027 targets a reduction of up to 15% in transmission and distribution losses and an increase of at least 10% in the renewable share of power generation by 2027. DRR is covered by the Action Plan for Emergency Risk Reduction 2025–2030 (Cabinet of Ministers Resolution No. 601 of 23 September 2025).",
+       "ref": [
+        "doc:ee",
+        "doc:drrplan"
+       ],
+       "b": "Sectoral: energy efficiency 2023–27, DRR action plan 2025–30"
+      },
+      {
+       "k": "h",
+       "t": "Implementation arrangements and results to date"
+      },
+      {
+       "k": "f",
+       "t": "NDC 3.0 was adopted by Cabinet of Ministers Resolution No. 397 of 3 July 2025. Climate policy is the responsibility of the Ministry of Natural Resources, Ecology and Technical Supervision, and the political forum is the \"Coordinating Council on Ecology, Climate Change and Green Economy Development\", chaired by the Chairman of the Cabinet of Ministers. It was prepared by an inter-ministerial working group of more than 50 experts, with technical support from UNDP.",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDC 3.0 reports that 71.4% of the previous NDC's adaptation measures have been fully or partly implemented. Examples include 5,680 ha of new irrigated land, 23 automatic weather stations, warnings through 36 sirens and the \"112\" app, 11,988 ha of afforestation in 2017–2024, and approval of a forestry development plan to 2040.",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The GCF country programme (2026) designates the Ministry of Natural Resources, Ecology and Technical Supervision as the GCF National Designated Authority (NDA) and the Cabinet of Ministers' Climate Finance Centre as the working-level focal point, and sets three priorities: (1) the built environment and infrastructure (including energy efficiency), (2) the water–energy–food nexus, and (3) conservation of mountain ecosystems and livelihoods.",
+       "ref": [
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Arrangements are taking shape, but planning documents sit side by side — NDP 2030, NDC 3.0, the National Adaptation Plan (preparation stage), the Green Economy Development Programme and sectoral plans — and from outside it is hard to see which are linked to the budget. The GCF country programme also recommends consolidating the NDC and the draft adaptation plan to make climate finance easier to access.",
+       "ref": [
+        "doc:gcfcp",
+        "doc:ndc3"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Positioning of sub-programmes",
+     "msg": "Mitigation, DRR and the green economy have plans, but the National Adaptation Plan and a plan for transport decarbonisation are not in place.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Sub-programmes (active cooperation by matrix row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Reduction targets are covered by NDC 3.0, DRR by the Action Plan 2025–2030, energy efficiency by the Policy Programme 2023–2027 and green finance by the Green Economy Development Programme 2025–2029. Transport decarbonisation is part of the NDC's mitigation measures (such as electric buses) and has no separate plan.",
+       "ref": [
+        "tree:ndc:N1",
+        "row:mob",
+        "row:drr",
+        "row:cfin",
+        "doc:ndc3",
+        "doc:drrplan",
+        "doc:ee"
+       ],
+       "b": "Transport decarbonisation has no separate plan"
+      },
+      {
+       "k": "f",
+       "t": "Renewable Energy Development 2026–2030 has been confirmed in the site's table only through press reports, and its text has not been read.",
+       "ref": [
+        "row:re"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Adaptation receives the most donor funding, yet NDP 2030 treats adoption of the National Adaptation Plan as \"a task ahead\", and NDC 3.0 does not say whether it has been adopted. This is where the gap between funding and national plans is widest.",
+       "ref": [
+        "doc:ndp",
+        "doc:ndc3",
+        "row:adapt"
+       ],
+       "b": "Adaptation gets the most funding; National Adaptation Plan not adopted"
+      },
+      {
+       "k": "h",
+       "t": "Adaptation content of NDC 3.0"
+      },
+      {
+       "k": "f",
+       "t": "NDC 3.0's adaptation chapter lists, for water resources, 7 problems and 6 targets (impact assessment, early warning, integration of climate risk, irrigation modernisation, drinking water, capacity). For agriculture it sets out climate-resilient crops, water-saving irrigation and land restoration, and plans a national digital soil map, a pilot of \"field passports\" and an agricultural insurance mechanism.",
+       "ref": [
+        "doc:ndc3",
+        "tree:ndc:N3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Adaptation in energy includes up to 3 GW of solar and wind, storage, phased renewal of transmission lines and energy certification of state and municipal buildings. In health, it includes amending public health law, digitalising infectious disease surveillance, and energy efficiency and backup power at health facilities, with annual monitoring of NDC and National Adaptation Plan implementation.",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Even without formal adoption of the National Adaptation Plan, NDC 3.0 has sectoral adaptation targets and serves as the interim adaptation plan. However, it has almost no numerical targets, making it difficult to track results in figures.",
+       "ref": [
+        "doc:ndc3",
+        "row:adapt"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "paras": []
+    },
+    {
+     "no": "1.5",
+     "h": "Alignment with the World Bank Country Climate and Development Report (CCDR)",
+     "msg": "The CCDR sets out seven policy packages; resilient transport infrastructure has no corresponding row in the site's table.",
+     "fig": {
+      "type": "ccs-table",
+      "cap": "Table 1-2 CCDR's seven packages × site matrix rows × active donor funding"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The CCDR (December 2025) lists seven policy packages: (1) integrated irrigation and agriculture planning (including pasture management); (2) resilient transport infrastructure; (3) disaster risk management (monitoring and emergency financing); (4) energy efficiency (cost-reflective tariffs, building retrofits); (5) energy security (hydro, solar and transmission); (6) reforms to promote private investment and competition; and (7) cross-cutting institutional reforms (resilience legislation, financial mechanisms).",
+       "ref": [
+        "doc:ccdr"
+       ],
+       "b": "CCDR's seven packages"
+      },
+      {
+       "k": "f",
+       "t": "Reaching net zero by 2050 requires investment of about USD 400 million a year over the next 25 years, mainly in power, buildings and transport. Private finance such as green bonds is seen as key.",
+       "ref": [
+        "doc:ccdr"
+       ],
+       "b": "Net zero needs about USD 400 million a year × 25 years"
+      },
+      {
+       "k": "v",
+       "t": "Of the seven, (2) resilient transport infrastructure has no matching row in the site's climate table (it is covered in the transport sector). (3) Disaster risk management and (1) irrigation and agriculture overlap with rows that have substantial active funding.",
+       "ref": [
+        "doc:ccdr",
+        "row:adapt",
+        "row:drr"
+       ],
+       "b": "Resilient transport infrastructure has no row in the table"
+      },
+      {
+       "k": "h",
+       "t": "Scale and sharing of financing in the CCDR"
+      },
+      {
+       "k": "f",
+       "t": "Under a high-growth scenario, the CCDR projects investment of USD 27 billion in 2025–2030 and a further USD 61 billion in 2031–2050. The climate-related portion is about USD 9.76 billion for mitigation in 2025–2050 (2.3% of GDP) and about USD 950 million for adaptation (0.2% of GDP). Mitigation breaks down into non-hydro power USD 3.63 billion, hydropower USD 3 billion, transport USD 1.6 billion and buildings USD 1.47 billion.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "About 70% of adaptation needs can be met from public expenditure, and about 80% of new hydropower is expected to be publicly financed. Most mitigation finance is expected to come from the private sector, and decarbonisation would raise the debt-to-GDP ratio by about 4.6% by 2050. Funding sources cited include a carbon tax, green tax incentives and public procurement, joint hydropower projects with neighbouring countries, international financial institutions and global climate funds.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The CCDR treats adaptation as \"broadly affordable from public finances\" and mitigation as \"dependent on private finance\". The current pattern of active donor funding skewed towards adaptation runs counter to this division, and support for mechanisms to attract private finance on the mitigation side is thin.",
+       "ref": [
+        "doc:ccdr",
+        "fact:rows"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: prospects for national targets",
+     "msg": "The reduction target is on track on paper, but there are no figures to measure the ND-GAIN index or Bishkek's air.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the period; required pace = change that keeps the target level in 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the four targets in NDP 2030 Section 13.2, only greenhouse gas reduction can be tracked with annual figures, and even then only relative to BAU (the no-action projection). The ND-GAIN index target states no base year for improvement, and no published figures can be found for harmful emissions in Bishkek.",
+       "ref": [
+        "doc:ndp",
+        "doc:ndgain"
+       ],
+       "b": "Of the four targets, only emissions can be tracked annually"
+      },
+      {
+       "k": "v",
+       "t": "Net emissions in the national inventory rose from 6.24 million tonnes (2017) to 9.07 million tonnes (2023), by about 470,000 tonnes a year. NDC 3.0's 2030 BAU is 17.78 million tonnes, so an 18% reduction means about 14.6 million tonnes. Even if the current rate of increase continues, 2030 emissions would be around 12.4 million tonnes, below the level of the unconditional target.",
+       "ref": [
+        "doc:ndc3"
+       ],
+       "b": "Net emissions on course to stay below the 2030 target level"
+      },
+      {
+       "k": "v",
+       "t": "However, BAU assumes a sharp increase to 11.83 million tonnes in 2025 and 17.78 million tonnes in 2030, well above actual emissions (9.07 million tonnes in 2023). Whether the target is \"met\" depends largely on how BAU is set.",
+       "ref": [
+        "doc:ndc3"
+       ],
+       "b": "\"On track\" depends largely on the BAU assumption"
+      },
+      {
+       "k": "v",
+       "t": "Gross emissions also differ by about 10% between the national inventory (19.38 million tonnes, 2023) and the World Bank indicator (EDGAR estimate, 21.7 million tonnes, 2023). The site's chart uses the estimate, so it cannot be compared directly with the national target.",
+       "ref": [
+        "doc:ndc3",
+        "ind:ghg:0"
+       ],
+       "b": "Gross emissions differ by about 10% between the national inventory and international estimates"
+      },
+      {
+       "k": "h",
+       "t": "Content of the reduction target"
+      },
+      {
+       "k": "f",
+       "t": "Of NDC 3.0's unconditional reduction for 2030 (about 3.28 million tonnes, 18.44% below BAU), energy accounts for about 2.74 million tonnes, or more than 80%, forests and other land use about 490,000 tonnes and agriculture about 50,000 tonnes. With international support, energy would cut a further about 4.89 million tonnes, for a total of about 8.55 million tonnes (48.10% below BAU).",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Most reductions depend on plans for hydro, solar and other power sources. Delays in building generation would delay achievement, while commissioning a large plant would move the figures significantly. Progress in power generation plans is a better guide to prospects than actual emissions.",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "What unmeasurable targets mean"
+      },
+      {
+       "k": "f",
+       "t": "The ND-GAIN index stood at 54.2 points and 61st place in 2023 (vulnerability 0.311, readiness 0.394). NDC 3.0, however, gives 70th place and readiness of 0.334 for the same year, so the figures do not match.",
+       "ref": [
+        "doc:ndgain",
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030's adaptation target is a single external index, with no base year stated. Values change with index versions, and the index does not directly reflect the effects of national adaptation measures. If used as a national target, the base year and version need to be fixed and supplemented with national figures such as irrigation and disaster damage.",
+       "ref": [
+        "doc:ndp",
+        "doc:ndgain"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Mitigation",
+     "msg": "Emissions have grown about 1.6 times since 2010, but per capita emissions are flat at around 3 tonnes. The pillars of mitigation are hydro, solar and reducing coal.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Greenhouse gas emissions and per capita emissions (World Bank indicator, EDGAR estimate)",
+      "inds": [
+       "ghg:0",
+       "ghg:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trends: emissions (excluding land use) were 14.4 million tonnes (2010), 19.9 million tonnes (2015) and 22.4 million tonnes (2024). Per capita emissions rose from 2.6 tonnes (2010) to 3.1 tonnes (2024).",
+       "ref": [
+        "ind:ghg:0",
+        "ind:ghg:1"
+       ],
+       "b": "Emissions 14.4 million (2010) → 22.4 million tonnes (2024)"
+      },
+      {
+       "k": "f",
+       "t": "National inventory: gross emissions rose from 16.46 million tonnes (2017) to 19.38 million tonnes (2023), and net emissions from 6.24 million to 9.07 million tonnes. Reductions from NDC 2.0 measures were about 1.48 million tonnes, equivalent to 16.3% of 2023 net emissions.",
+       "ref": [
+        "doc:ndc3"
+       ],
+       "b": "NDC 2.0 measures cut about 1.48 million tonnes"
+      },
+      {
+       "k": "f",
+       "t": "Main reduction measures: the Tor-Aygyr solar power plant (300 MW), modernisation of the Toktogul and Uch-Kurgan hydropower plants, household gasification, energy-efficient street lighting, phase-down of hydrofluorocarbons (HFCs), organic farming, forest restoration and rotational grazing.",
+       "ref": [
+        "doc:ndc3",
+        "tree:ndc:N1",
+        "tree:ndc:N2"
+       ],
+       "b": "300 MW solar, hydro modernisation, gasification and more"
+      },
+      {
+       "k": "f",
+       "t": "Power losses in low-voltage distribution fell from 12.7% (2018) to 11.9% (2021), but remain above the 10% norm. Energy saving potential is estimated at 30–35% of total energy consumption.",
+       "ref": [
+        "doc:ee"
+       ],
+       "b": "Distribution losses 11.9% (norm 10%); 30–35% saving potential"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's renewable energy development project had USD 67.7 million approved for Phase 1, within a 10-year envelope of USD 125.7 million. The Green Climate Fund (GCF) provides USD 12.5 million. Phase 1 (2024–2028) adds at least 20 MW of hydropower and builds transmission to connect at least 100 MW of solar, wind and other sources.",
+       "ref": [
+        "doc:wbre"
+       ],
+       "b": "World Bank renewables project: Phase 1 USD 67.7 million, hydro +20 MW"
+      },
+      {
+       "k": "v",
+       "t": "Because most power is hydro, the scope for reductions lies in coal for heating, transport and agriculture. NDP's \"92% renewables\" is close to the current level (about 90%) and matters more for resolving winter power shortages than for mitigation.",
+       "ref": [
+        "doc:zoi",
+        "doc:ndp",
+        "doc:ee"
+       ],
+       "b": "Reduction potential lies in heating coal, transport and agriculture"
+      },
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "The 2021 NDC noted an upward trend in emissions in 2007–2017 and called for a long-term low-carbon strategy. Compared with 1990, emissions in 2017 were down 55.53% in energy and 21.18% in agriculture, and up 23.69% in industrial processes and 26.92% in waste.",
+       "ref": [
+        "doc:ndc21"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The CCDR expects emissions to roughly double with growth absent action, driven mainly by transport. Transport energy demand would more than double, and electrification of transport could cut energy use by up to 73%. Under net zero by 2050, renewables' share of energy use would rise from 37% in 2019 to about 50%.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Buildings and heat: the energy efficiency policy programme states that more than 80% of buildings were built with outdated technologies and standards, using 1978 standards for heat source design and 1991 standards for heating and ventilation. Depreciation of power plant fixed assets has reached 80%.",
+       "ref": [
+        "doc:ee"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Transport and projects"
+      },
+      {
+       "k": "f",
+       "t": "NDC 3.0's transport reductions for 2030 are small at about 230,000 tonnes (about 70,000 tonnes unconditionally). The GCF country programme puts the Kyrgyz share of ADB's e-mobility project (including electric buses in Bishkek) at USD 78 million, but the e-mobility row of the site's climate table has no active projects. Which row or sector it is counted under has not been checked.",
+       "ref": [
+        "doc:ndc3",
+        "doc:gcfcp",
+        "row:mob"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's renewable energy development project (about USD 26.7 million, to 2028) targets winter power shortages by expanding hydropower and strengthening transmission. The GCF's renewable energy risk mitigation facility (SRMI, about USD 19.1 million) works with this World Bank project to lower risks for private renewable investment.",
+       "ref": [
+        "proj:WB-P178286",
+        "proj:XM-DAC-41317-FP204",
+        "doc:wbre"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's power sector modernisation and sustainability project (about USD 10 million, to 2027) carries a climate marker but is not in any table row.",
+       "ref": [
+        "proj:WB-P177871"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Donor mitigation funding is concentrated on power generation. Projects directly targeting heating coal, building energy efficiency and transport electrification — emphasised by the NDC and the CCDR — are almost invisible in this table.",
+       "ref": [
+        "row:re",
+        "row:mob",
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the renewables and energy efficiency row has 3 projects worth about USD 45.9 million (World Bank about USD 26.7 million, GCF about USD 19.1 million). The transport decarbonisation (e-mobility) row has no active projects.",
+       "ref": [
+        "row:re",
+        "row:mob"
+       ],
+       "b": "Renewables and energy efficiency about USD 45.9 million; e-mobility none"
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Adaptation (water, agriculture, glaciers)",
+     "msg": "Glacier retreat and water shortages threaten agriculture and hydropower, and about three quarters of donor funding is concentrated here.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "Water: peak flows are expected to come up to one month earlier, with more water in spring and less in summer. Water storage declined in 2003–2013.",
+       "ref": [
+        "doc:crcp"
+       ],
+       "b": "Peak flows up to one month earlier"
+      },
+      {
+       "k": "f",
+       "t": "Agriculture: 60% of the rural population works in agriculture. Grassland productivity has been adversely affected by climate change across 96% of the territory. Livestock accounts for 48% of agricultural value added (2016). The poorest fifth of households are more than twice as likely to be exposed to drought.",
+       "ref": [
+        "doc:crcp"
+       ],
+       "b": "60% of rural people in agriculture; grassland productivity hit across 96%"
+      },
+      {
+       "k": "f",
+       "t": "Irrigation: more than 42,000 ha of land are unused for lack of water. 6.6 billion som in 2022–2024 and 5 billion som in 2025 are allocated to irrigation.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "42,000 ha unused for lack of irrigation water"
+      },
+      {
+       "k": "f",
+       "t": "Planning: NDC 3.0 states that preparation of the National Adaptation Plan (NAP) has laid the foundations for adaptation and that sectoral targets will drive the plan. It does not say whether the NAP has been adopted. UNDP's NAP formulation project (about USD 1.2 million) ended in April 2025.",
+       "ref": [
+        "doc:ndc3",
+        "proj:XM-DAC-41114-OUTPUT-00117233"
+       ],
+       "b": "NAP preparation complete; adoption and implementation next"
+      },
+      {
+       "k": "v",
+       "t": "The national indicator for measuring adaptation results (the ND-GAIN index under the NDP target) has no annual published values, so it is hard to verify the effects of donor funding with national figures.",
+       "ref": [
+        "doc:ndp",
+        "doc:ndgain"
+       ],
+       "b": "Adaptation results are hard to measure with national figures"
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "The Technology Needs Assessment by UNEP-CCC and the Ministry of Natural Resources states that up to 25% of water is lost in conveyance because of degraded irrigation infrastructure. Investment in pastures is low; drip irrigation equipment is expensive and depends on electricity for pumping, with no concessional finance. There was no national pasture policy, no strategy document on organic farming and no drip irrigation policy.",
+       "ref": [
+        "doc:baef"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Barriers in water supply include low drinking water tariffs, legacy debts of municipal water utilities and weak capacity to apply for funding. There is no tariff regulation law or national programme for the rational use of water under climate change, and building codes (SNiP) are outdated. Shortages of engineers and electricians and repeated reorganisation of departments are also cited.",
+       "ref": [
+        "doc:baef"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Progress: according to NDC 3.0, 215 municipal pasture management entities have been established, along with 5,680 ha of new irrigated land, improved water supply for 28,423 ha, rehabilitation of 12,253 ha and two water storage facilities (125,000 m³ in total).",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The CCDR expects irrigation demand to rise by 2–6%, with demand continuing to exceed supply even with planned efficiency gains. Hydropower generation would increase by 1–11% depending on the climate, but sediment inflow into reservoirs such as Kambarata-1 would rise.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to projects"
+      },
+      {
+       "k": "f",
+       "t": "Major adaptation projects are the GCF's \"Glaciers to Farms\" (about USD 64.2 million, 2025–2036), EBRD's climate-resilient water supply (about USD 9 million), the World Bank's climate-resilient water services (about USD 8.3 million, to 2028), WFP's resilience project (about USD 8.2 million, 2026–2027) and ADB's additional financing for climate- and disaster-resilient water resources (about USD 6.8 million and about USD 5 million, to 2031).",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "proj:XI-IATI-EBRD-49793",
+        "proj:WB-P173734",
+        "proj:XM-DAC-41140-KG02.04.033.CAR1",
+        "proj:XM-DAC-46004-51081-003-GRNT1041",
+        "proj:XM-DAC-46004-51081-003-LN4646"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In agriculture and glaciers, there are ADB's climate-resilient agricultural value chains (grant and loan of about USD 4 million each, to 2029), the EU's resilient water resources programme (about USD 4.1 million, to 2031) and UNESCO's glacier assessment and glacial lake outburst flood projects (about USD 0.5 million and about USD 0.3 million).",
+       "ref": [
+        "proj:XM-DAC-46004-51276-001-GRNT0925",
+        "proj:XM-DAC-46004-51276-001-LN4413",
+        "proj:XI-IATI-EC_INTPA-2024-PC-36751",
+        "proj:XM-DAC-41304-RAS0122395",
+        "proj:XM-DAC-41304-728RAS2002"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Investment in water and irrigation infrastructure is substantial, but projects addressing the tariff, debt, staffing and regulatory problems identified in the barrier analysis are hard to see in the table. If operating arrangements do not change, building infrastructure will do little to reduce water losses.",
+       "ref": [
+        "doc:baef",
+        "row:adapt"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the adaptation row has 32 projects worth about USD 151 million: GCF about USD 83.3 million (of which the Central and West Asia regional programme \"Glaciers to Farms\" accounts for about USD 64.2 million, to 2036), World Bank about USD 21.3 million, ADB about USD 19.8 million, EBRD about USD 9 million, WFP about USD 8.2 million.",
+       "ref": [
+        "row:adapt",
+        "proj:XM-DAC-41317-FP283"
+       ],
+       "b": "Adaptation: 32 projects, about USD 151 million (GCF over half)"
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "DRR and resilience",
+     "msg": "DRR has the most concrete targets in the NDP. Detailed indicator analysis is covered in the DRR sector.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "NDP 2030 Section 13.1 targets building an early warning system, adoption of risk reduction strategies by 100% of local governments, making 16 sites such as former uranium tailings safe, and achieving the Sendai Framework. Based on Presidential Decree No. 68 of February 2025, the Action Plan 2025–2030 and its indicator matrix were approved in September 2025.",
+       "ref": [
+        "doc:ndp",
+        "doc:drrplan"
+       ],
+       "b": "DRR Action Plan 2025–30 approved with an indicator matrix"
+      },
+      {
+       "k": "f",
+       "t": "With 2°C of warming, a 1-in-100-year drought would occur about once every 15 years. The Tien Shan has many hazardous high-mountain (glacial) lakes, and outburst floods have caused damage.",
+       "ref": [
+        "doc:crcp"
+       ],
+       "b": "1-in-100-year drought to occur about once every 15 years"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the DRR and resilience row has 8 projects worth about USD 31.8 million (GCF about USD 19.1 million, ADB about USD 11.8 million).",
+       "ref": [
+        "row:drr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to NDC 3.0, 10 hydrological stations have been modernised, 23 automatic weather stations installed, snow monitoring software (MODSNOW) introduced, and warnings put in place through 36 sirens and the \"112\" app. DRR adaptation measures focus on multi-hazard early warning, integrating climate risk into legislation and risk mapping.",
+       "ref": [
+        "doc:ndc3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The CCDR's DRR package covers disaster monitoring, climate-informed land-use zoning, resilient standards and rapid disaster financing. The GCF country programme pipeline includes nature-based adaptation and disaster risk management (USD 47.5 million requested from GCF, implemented by ARIS).",
+       "ref": [
+        "doc:ccdr",
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In March 2024, ARIS (the Community Development and Investment Agency) became the first entity in the region to be accredited for GCF direct access (for projects of USD 10–50 million).",
+       "ref": [
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Projects in the DRR row include ADB's additional financing for climate- and disaster-resilient water resources, Switzerland's disaster risk and climate resilience in rural areas (Phase 2, about USD 0.6 million, to 2027) and UNICEF's DRR and climate project (about USD 0.3 million).",
+       "ref": [
+        "proj:XM-DAC-46004-51081-003-GRNT1041",
+        "proj:CH-4-2025-2022000935",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/004/004"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The GCF's renewable energy risk mitigation facility (about USD 19.1 million) is counted in three rows at once: adaptation, DRR and renewables. Adding amounts across rows overstates the actual total.",
+       "ref": [
+        "row:drr",
+        "row:re",
+        "proj:XM-DAC-41317-FP204"
+       ],
+       "b": "One project in three rows; row totals double-count"
+      }
+     ]
+    },
+    {
+     "no": "2.4",
+     "h": "Climate finance and green finance",
+     "msg": "About USD 9.3 billion of financing needs remains unsecured. The green finance row includes many additional financings whose main purpose is not climate.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "NDC 3.0 estimates mitigation and adaptation needs at about USD 23 billion, of which about USD 13.7 billion has identified funding sources and about USD 9.3 billion is a shortfall.",
+       "ref": [
+        "doc:ndc3"
+       ],
+       "b": "Needs about USD 23 billion; shortfall about USD 9.3 billion"
+      },
+      {
+       "k": "f",
+       "t": "The 2021 NDC had estimated about USD 7.2 billion for mitigation (60% from international support) and about USD 2.8 billion for adaptation (71% from international support).",
+       "ref": [
+        "doc:ndc21"
+       ],
+       "b": "2021 version: mitigation USD 7.2 billion, adaptation USD 2.8 billion"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 calls for introducing a \"green\" budget tagging system to track public spending on environment and climate.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the climate finance and green finance row has 13 projects worth about USD 47.8 million (World Bank about USD 24.7 million, ADB about USD 11.8 million, GCF about USD 10.7 million). The GCF project provides climate finance through financial institutions (to 2038).",
+       "ref": [
+        "row:cfin",
+        "proj:XM-DAC-41317-FP253"
+       ],
+       "b": "Green finance: 13 projects, about USD 47.8 million"
+      },
+      {
+       "k": "f",
+       "t": "Data note: the World Bank's share in this row includes projects whose main purpose is not climate, such as additional financing for emergency support to MSMEs (about USD 5.6 million), dairy productivity (about USD 2.8 million), the COVID-19 response under village investment (about USD 2.4 million) and primary health care quality (about USD 1.4 million).",
+       "ref": [
+        "row:cfin",
+        "proj:WB-P177962",
+        "proj:WB-P174318",
+        "proj:WB-P174316",
+        "proj:WB-P178856"
+       ],
+       "b": "Includes many non-climate additional financings"
+      },
+      {
+       "k": "v",
+       "t": "Actual funding for green finance is smaller than this row's amount. Active donor climate funding (about USD 200 million) is only about one fiftieth of the financing gap (about USD 9.3 billion).",
+       "ref": [
+        "row:cfin",
+        "doc:ndc3",
+        "fact:mapped_musd"
+       ],
+       "b": "Donor funding is about one fiftieth of the gap"
+      },
+      {
+       "k": "h",
+       "t": "Barriers to accessing finance"
+      },
+      {
+       "k": "f",
+       "t": "The GCF country programme cites as barriers to accessing finance: limited knowledge of the funds and their procedures, weak project development skills, few national accredited entities, long and complex applications, insufficient incentives for private climate investment, the absence of a comprehensive climate action plan and coordinating body, and the lack of systems for aggregating climate data and monitoring the NDC.",
+       "ref": [
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "GCF funding in the Kyrgyz Republic is put at USD 78.1 million across 4 approved projects and 5 readiness grants, equivalent to about 1.4% of Asia-Pacific and 15% of Central Asia. Readiness support includes UNDP's adaptation planning (about USD 2.61 million, 2021–2024).",
+       "ref": [
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The pipeline includes low-carbon investment in public buildings (USD 25 million), residential emission reductions (USD 25 million requested), integrated water management in Batken Region (USD 25 million requested), ecosystem resilience in Issyk-Kul (USD 50 million requested) and climate finance for SMEs and households (USD 20 million requested, through domestic banks).",
+       "ref": [
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Filling the unsecured about USD 9.3 billion will hinge on direct access through national accredited entities (ARIS, domestic banks) and mechanisms for private finance. That the green finance row currently looks inflated by additional financing for other sectors can also be read as a sign that finance mechanisms with climate as their main purpose are still small.",
+       "ref": [
+        "doc:gcfcp",
+        "row:cfin"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Climate funds (GCF and others) and the World Bank account for about three quarters of active funding, and very little ends by late 2026.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects aligned with strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation aligned with the climate strategy totals 46 projects worth about USD 200 million. By donor: climate funds (GCF and others) about USD 94 million, World Bank about USD 61.6 million, ADB about USD 19.8 million, EBRD about USD 9 million, WFP about USD 8.2 million, EU about USD 4.1 million, Switzerland about USD 3.6 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 46 projects, about USD 200 million"
+      },
+      {
+       "k": "f",
+       "t": "Only 2 projects worth about USD 0.1 million end by late 2026.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ],
+       "b": "Only about USD 0.1 million ends by late 2026"
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 49 projects worth about USD 48.6 million, with ADB the largest at about USD 28.5 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 49 projects, about USD 48.6 million"
+      },
+      {
+       "k": "f",
+       "t": "Large projects not aligned with any table row include the carbon sequestration project in forests and rangelands (GCF about USD 9.1 million, FAO about USD 7.5 million). This is because the table has no row corresponding to the NDC mitigation area \"agriculture, forestry and waste\".",
+       "ref": [
+        "tree:ndc:N2",
+        "proj:XM-DAC-41317-FP116",
+        "proj:XM-DAC-41301-649257"
+       ],
+       "b": "Forest carbon sequestration project falls outside the table rows"
+      },
+      {
+       "k": "h",
+       "t": "Major projects and division of labour among donors"
+      },
+      {
+       "k": "f",
+       "t": "In descending order of amount: the GCF's \"Glaciers to Farms\" about USD 64.2 million, the World Bank's renewable energy development about USD 26.7 million, the GCF's SRMI about USD 19.1 million, the GCF's greening of the financial system about USD 10.7 million, EBRD's climate-resilient water supply about USD 9 million, the World Bank's climate-resilient water services about USD 8.3 million, and WFP's resilience project about USD 8.2 million.",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "proj:WB-P178286",
+        "proj:XM-DAC-41317-FP204",
+        "proj:XM-DAC-41317-FP253",
+        "proj:XI-IATI-EBRD-49793",
+        "proj:WB-P173734",
+        "proj:XM-DAC-41140-KG02.04.033.CAR1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The division of labour is clear: the GCF handles long-term, regional large projects and finance; the World Bank, power and water services; ADB, water resources and agriculture; EBRD, water supply; and WFP, Switzerland and UNESCO, local livelihoods and glacier monitoring.",
+       "ref": [
+        "fact:by_donor",
+        "fact:rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Duration: three GCF projects run to 2035–2038, EBRD's water supply to 2039 and ADB's water resources additional financing to 2031.",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "proj:XM-DAC-41317-FP204",
+        "proj:XM-DAC-41317-FP253",
+        "proj:XI-IATI-EBRD-49793"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Many climate fund projects are long-term, running into the 2030s, so a funding cliff is not as close as in health. The challenge lies less in the volume of funding than in national absorptive arrangements (plans, laws, MRV).",
+       "ref": [
+        "fact:by_donor",
+        "doc:ndc3"
+       ],
+       "b": "The challenge is national absorptive capacity, not funding volume"
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at the time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "ADB's water resources and resilience loans accounted for about 60% of cooperation completed over the past decade.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage period: projects completed in or after 2017. Earlier projects are excluded because records for major donors are incomplete. Even from 2017, records almost only cover ADB from 2020 onwards and UNICEF and UNDP from 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and aligned with the climate strategy total 49, worth about USD 48.6 million (after pro-rata allocation, without double counting). By donor: ADB about USD 28.5 million, Germany about USD 8 million, World Bank about USD 2.8 million, EU about USD 2.3 million, WFP about USD 1.6 million, UK about USD 1.4 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): adaptation, 31 projects worth about USD 39.2 million; climate finance and green finance, 14 projects worth about USD 19.2 million; DRR, 9 projects worth about USD 10.4 million. Renewables and energy efficiency and e-mobility are almost 0.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Completed projects centred on adaptation"
+      },
+      {
+       "k": "f",
+       "t": "Major projects: ADB's green investment and resilient economic growth (about USD 10 million, ended March 2026), ADB's climate- and disaster-resilient water resources (about USD 9.7 million, ended September 2025), ADB's resilience through stimulus spending (about USD 8.4 million, ended 2023), and Germany's strengthening livelihoods through adaptation (about USD 4.1 million, ended 2019) and green economy and private sector (about USD 3.9 million, ended August 2026).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XM-DAC-46004-58326-001-LN4651",
+        "proj:XM-DAC-46004-58326-001-GRNT1044",
+        "proj:XM-DAC-46004-51081-002-LN3746",
+        "proj:XM-DAC-46004-51081-002-GRNT0632",
+        "proj:XM-DAC-46004-56150-001-GRNT0860",
+        "proj:XM-DAC-46004-56150-001-LN4241",
+        "proj:DE-1-201398338",
+        "proj:DE-1-201921337"
+       ],
+       "b": "Centred on ADB water resources and resilience loans"
+      },
+      {
+       "k": "v",
+       "t": "Compared with active projects, past projects were mostly small adaptation projects, and large renewables and green finance projects began only in the last few years. The focus is broadening from \"local adaptation\" to \"power and financial systems\".",
+       "ref": [
+        "fact:closed_rows",
+        "fact:rows"
+       ],
+       "b": "Focus broadening from local adaptation to power and finance"
+      },
+      {
+       "k": "f",
+       "t": "ADB's climate- and disaster-resilient water resources project ended in September 2025 but continues as additional financing that began in November 2025 (to 2031). The completed project has been carried forward into a new one.",
+       "ref": [
+        "proj:XM-DAC-46004-51081-002-LN3746",
+        "proj:XM-DAC-46004-51081-003-GRNT1041"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNDP's NAP formulation (about USD 1.2 million) ran from August 2020 to April 2025. The GCF country programme puts the readiness support for UNDP's adaptation planning at about USD 2.61 million (2021–2024).",
+       "ref": [
+        "proj:XM-DAC-41114-OUTPUT-00117233",
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data note: the completed adaptation row includes a Mongolian pastoralism project (UK, about USD 0.7 million), apparently assigned to the wrong country.",
+       "ref": [
+        "fact:closed_rows"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Only transport decarbonisation (e-mobility) has no active projects.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × active/completed cooperation"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Area with no active cooperation: transport decarbonisation (e-mobility). Completed projects number only 2, worth almost USD 0.",
+       "ref": [
+        "fact:empty_rows",
+        "row:mob",
+        "fact:closed_rows"
+       ],
+       "b": "E-mobility almost empty, active and completed"
+      },
+      {
+       "k": "v",
+       "t": "NDC 3.0's main reduction measures are gasification, solar, forests and the like, so the transport gap is consistent with its low national priority. Forest carbon sequestration, which has no row in the table, and support for MRV and reporting (BTR) need to be looked at separately.",
+       "ref": [
+        "doc:ndc3",
+        "tree:ndc:N2",
+        "tree:ndc:N4"
+       ],
+       "b": "Look at forest and MRV support outside the table"
+      },
+      {
+       "k": "f",
+       "t": "The carbon sequestration project in forests and rangelands (CS-FOR) is listed in the GCF country programme as a USD 30 million GCF grant (implemented by FAO). In the site's data, about USD 9.1 million (GCF) and about USD 7.5 million (FAO) are active, but it is not in any table row.",
+       "ref": [
+        "doc:gcfcp",
+        "proj:XM-DAC-41317-FP116",
+        "proj:XM-DAC-41301-649257"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The table has five rows, and of the NDC's mitigation areas, \"agriculture, forestry and waste\" and \"reporting and carbon markets\" have no rows. The table shows only one empty row, but viewed by strategy area the gaps are larger.",
+       "ref": [
+        "tree:ndc:N2",
+        "tree:ndc:N4",
+        "fact:empty_rows"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The focus in 2027 will be \"whether the National Adaptation Plan and the climate action law are adopted\" and \"whether the large climate fund projects get moving\".",
+     "paras": [
+      {
+       "k": "v",
+       "t": "The reduction target is met on paper, but achievement cannot be judged until the BAU assumptions and the discrepancy between the NDP 2030 and NDC 3.0 targets are resolved.",
+       "ref": [
+        "doc:ndp",
+        "doc:ndc3"
+       ],
+       "b": "The reduction target first needs the figures sorted out"
+      },
+      {
+       "k": "v",
+       "t": "Adaptation receives the most donor funding, yet there is no National Adaptation Plan or indicators to measure results. Adopting the plan is the entry point for linking funding to national priorities.",
+       "ref": [
+        "row:adapt",
+        "doc:ndc3"
+       ],
+       "b": "Adopting the National Adaptation Plan is the entry point"
+      },
+      {
+       "k": "v",
+       "t": "Against a financing gap of about USD 9.3 billion, active donor funding is about USD 200 million. Building mechanisms for private and green finance (climate action law, green budgeting, MRV) will be the main means of closing the gap in volume.",
+       "ref": [
+        "doc:ndc3",
+        "doc:ccdr",
+        "fact:mapped_musd"
+       ],
+       "b": "Mechanisms for private finance will close the volume gap"
+      },
+      {
+       "k": "v",
+       "t": "Transport decarbonisation and forest carbon sequestration are either gaps or outside the scope of the table. There is room to review how national reduction measures map to table rows.",
+       "ref": [
+        "row:mob",
+        "tree:ndc:N2"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Institutionally, the climate action law will underpin MRV, reporting and carbon markets. If direct access through the national accredited entity (ARIS) gets going, climate finance not channelled through international agencies will increase, strengthening links with national plans.",
+       "ref": [
+        "doc:ndc3",
+        "doc:gcfcp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Transport electrification accounts for only small reductions in the NDC, but the CCDR sees transport as the main driver of long-term emissions growth. The large difference in transport's weight between current reduction targets and the long-term emissions outlook warrants attention when setting support priorities.",
+       "ref": [
+        "doc:ndc3",
+        "doc:ccdr",
+        "row:mob"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: adoption of the climate action law, approval of the National Adaptation Plan, the NDC 3.0 implementation plan, the text of Renewable Energy Development 2026–2030, and new GCF project approvals.",
+       "ref": [
+        "doc:ndc3",
+        "row:re"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Net emissions (national inventory)",
+   "9.07 million tonnes (2023)",
+   "18% below the 2030 BAU of 17.78 million tonnes (about 14.6 million tonnes); 30% with international support (about 12.4 million tonnes)",
+   "+470,000 tonnes/yr (2017–2023)",
+   "Within +790,000 tonnes/yr (within +480,000 tonnes/yr for the internationally supported target)",
+   "Below the target level (depends on BAU assumption)",
+   "warn"
+  ],
+  [
+   "Emissions (World Bank indicator, EDGAR estimate)",
+   "22.4 million tonnes (2024)",
+   "(Not directly comparable, as the target is relative to BAU)",
+   "+280,000 tonnes/yr (2015–2024)",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "ND-GAIN climate resilience index",
+   "54.2 points, 61st (2023)",
+   "Improvement of at least 3 points",
+   "Rank flat at 59th–62nd (2017–2023)",
+   "No base year stated",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Renewables in power generation",
+   "About 90% (2023)",
+   "92%",
+   "—",
+   "—",
+   "Close",
+   "warn"
+  ],
+  [
+   "Harmful emissions in Bishkek",
+   "No published figure",
+   "16% reduction",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Reduction targets (overall)",
+   "NDC 3.0 (16% below BAU by 2035; 39% with support)",
+   "Submitted to the UN, dated September 2025",
+   "ok",
+   "13.2 (2)",
+   "",
+   "ndc"
+  ],
+  [
+   "1",
+   "Adaptation (water, agriculture, glaciers)",
+   "NDC 3.0 adaptation / National Adaptation Plan",
+   "National Adaptation Plan prepared; adoption not confirmed",
+   "draft",
+   "13.2 (3)",
+   "adapt",
+   "N3"
+  ],
+  [
+   "1",
+   "DRR and resilience",
+   "Action Plan for Emergency Risk Reduction 2025–2030",
+   "Cabinet of Ministers Resolution No. 601 of 23 September 2025",
+   "ok",
+   "13.1 (1)–(4)",
+   "drr",
+   ""
+  ],
+  [
+   "1",
+   "Renewables and energy efficiency (mitigation)",
+   "Energy Saving and Energy Efficiency Policy Programme 2023–2027 (Renewable Energy Development 2026–2030 confirmed only through press reports)",
+   "Cabinet of Ministers Resolution, 2023",
+   "ok",
+   "5.4 (1), (2), (4), (5)",
+   "re",
+   "G1"
+  ],
+  [
+   "1",
+   "Transport decarbonisation (e-mobility)",
+   "No separate plan (part of NDC mitigation measures)",
+   "—",
+   "none",
+   "—",
+   "mob",
+   "N1"
+  ],
+  [
+   "1",
+   "Climate finance and green finance",
+   "Green Economy Development Programme 2025–2029",
+   "Cabinet of Ministers Resolution of 1 September 2025",
+   "ok",
+   "—",
+   "cfin",
+   "G4"
+  ],
+  [
+   "1",
+   "Institutions (reporting and carbon markets)",
+   "Climate action law (draft) / MRV and Biennial Transparency Report",
+   "Draft put out for public consultation in January 2025",
+   "draft",
+   "—",
+   "",
+   "N4"
+  ],
+  [
+   "1",
+   "Long-term low-carbon concept",
+   "Long-term concept for low-carbon development (Carbon Neutrality Concept)",
+   "NDP 2030 lists its adoption as a task",
+   "none",
+   "—",
+   "",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Climate change"
+  ]
+ ],
+ "ccs": [
+  [
+   "(1) Integrated irrigation and agriculture planning (including pastures)",
+   [
+    "adapt"
+   ]
+  ],
+  [
+   "(2) Resilient transport infrastructure",
+   []
+  ],
+  [
+   "(3) Disaster risk management (monitoring, emergency financing)",
+   [
+    "drr"
+   ]
+  ],
+  [
+   "(4) Energy efficiency (tariffs, building retrofits)",
+   [
+    "re"
+   ]
+  ],
+  [
+   "(5) Energy security (hydro, solar, transmission)",
+   [
+    "re"
+   ]
+  ],
+  [
+   "(6) Reforms to promote private investment and competition",
+   [
+    "cfin"
+   ]
+  ],
+  [
+   "(7) Cross-cutting institutional reforms (resilience legislation, finance)",
+   [
+    "cfin"
+   ]
+  ]
+ ],
+ "unread": [
+  "For the BAU (no-action projection) underlying the NDC targets, only the 2025, 2030 and 2035 values can be read, and there is no national published series to compare with annual actuals.",
+  "For annual values of the national greenhouse gas inventory (1990–2023), NDC 3.0 gives only the 2017 and 2023 values, and no published series from the National Statistical Committee can be found.",
+  "The base year and annual scores for improvement in the ND-GAIN index (national target: at least 3 points).",
+  "The baseline and annual values for harmful emissions in Bishkek (national target: 16% reduction).",
+  "National indicators tracking adaptation results annually (irrigation water shortages, damage from climate disasters, etc.).",
+  "National budget expenditure on climate (the \"green\" budget tagging system has not yet been introduced).",
+  "Literature not read: the CCDR report text (only the summary material reviewed), the second halves of the GCF country programme and the UNEP-CCC barrier analysis, and the texts of the Green Economy Development Programme 2025–2029 and Renewable Energy Development 2026–2030."
+ ]
+}

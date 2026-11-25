@@ -1,0 +1,1763 @@
+{
+ "sid": "water",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "W": "Drinking Water Supply and Sanitation Programme to 2026",
+   "U": "Related water strategies"
+  },
+  "rows": {
+   "W1": {
+    "n": "Policy and institutional reform (Water Code and tariffs)",
+    "st": "Water Code / Programme Component 1"
+   },
+   "W2": {
+    "n": "Water supply and sanitation investment projects",
+    "st": "Programme Component 2"
+   },
+   "W3": {
+    "n": "Operating capacity and investment attractiveness",
+    "st": "Programme Component 3"
+   },
+   "nws": {
+    "n": "Water resources and basin management (National Water Strategy to 2040)",
+    "st": "National Water Strategy to 2040"
+   },
+   "irr": {
+    "n": "Irrigation",
+    "st": "State Programme for Irrigation Development to 2026"
+   }
+  }
+ },
+ "ind": {
+  "dw": {
+   "name": "① Drinking water",
+   "tag": "People using safely managed water",
+   "inds": [
+    {
+     "name": "Share of people using safely managed drinking water",
+     "unit": "%",
+     "st": "✕ Too slow; only about 78.1 even in 2030",
+     "src": "Blue: national / orange: rural (World Bank WDI SH.H2O.SMDW; original source WHO/UNICEF JMP)",
+     "note": "Declining since the 2021 peak. 81% urban vs. 69% rural, a wide gap.",
+     "t": [
+      "SDG: universal"
+     ]
+    },
+    {
+     "name": "Share of people using at least basic drinking water",
+     "unit": "%",
+     "st": "△ About 98.5 in 2030 at the current pace",
+     "src": "World Bank WDI SH.H2O.BASW.ZS (original source JMP)",
+     "t": [
+      "SDG: universal"
+     ]
+    }
+   ]
+  },
+  "san": {
+   "name": "② Sanitation and handwashing",
+   "tag": "Toilets and handwashing facilities",
+   "inds": [
+    {
+     "name": "Share of people using safely managed sanitation facilities",
+     "unit": "%",
+     "st": "✕ Too slow; only about 94.4 even in 2030",
+     "src": "World Bank WDI SH.STA.SMSS.ZS (original source JMP)",
+     "note": "Most rural households use outdoor pit latrines, which count as \"safely managed\" under the international definition. The share of people connected to sewerage is far lower.",
+     "t": [
+      "SDG: universal"
+     ]
+    },
+    {
+     "name": "Share of people with a handwashing facility with soap and water",
+     "unit": "%",
+     "st": "✓ On course to reach the target by 2030 at the current pace",
+     "src": "World Bank WDI SH.STA.HYGN.ZS (original source JMP)",
+     "t": [
+      "SDG: universal"
+     ]
+    }
+   ]
+  },
+  "iwrm": {
+   "name": "③ Water resources management",
+   "tag": "Basin management and water-use efficiency",
+   "goals": [
+    [
+     "Reduce water losses in conveyance to 15% (National Development Programme 2030, 5.3)",
+     "No statistics publishing an annual loss rate have been found"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Degree of integrated water resources management (IWRM) implementation",
+     "unit": "points (out of 100)",
+     "st": "△ 31 points in 2020 → 38 points in 2023; far from 100",
+     "src": "UN SDG Database ER_H2O_IWRMD (original source UNEP; triennial survey)",
+     "t": [
+      "SDG: 100 points"
+     ]
+    },
+    {
+     "name": "Water stress (share of available water that is withdrawn)",
+     "unit": "%",
+     "st": "△ At about 50%, a level classed as \"water stressed\"",
+     "src": "UN SDG Database ER_H2O_STRESS (original source FAO AQUASTAT)",
+     "note": "Over 90% of withdrawals are for agriculture (irrigation). Levels above 25% are considered water stress.",
+     "t": [
+      "FAO 25%"
+     ]
+    },
+    {
+     "name": "Water-use efficiency (economic value per m³ of water)",
+     "unit": "USD/m³",
+     "st": "— No target value (rising trend)",
+     "src": "UN SDG Database ER_H2O_WUEYST (SDG 6.4.1; original source FAO)",
+     "note": "SDG 6.4 only calls for \"substantial improvement\" and sets no numerical target. Agriculture alone is particularly low at USD 0.11/m³.",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Water funding is concentrated on water supply and sanitation investment projects; EU budget support underpins the institutional side (tariffs, Water Code)",
+  "msgs": [
+   [
+    "Large water supply and sanitation projects dominate.",
+    "ADB (Naryn rural water supply), EBRD, the World Bank and the EU are implementing investment projects. Drinking water reaches only about 36% of villages (Ministry of Agriculture, 9/29)."
+   ],
+   [
+    "Many direct instructions from the President.",
+    "The President issued specific instructions on water supply and sewerage problems in Kara-Jygach district, Moldovanovka village and elsewhere (November)."
+   ],
+   [
+    "Tariff policy under discussion.",
+    "The Ministry of Finance discussed tariff policy for the water sector (11/4), linked to the EU's water sector budget support and reform performance contract."
+   ],
+   [
+    "Few projects on water resources management (basins, Water Code).",
+    "Almost no donor projects correspond to the National Water Strategy to 2040."
+   ]
+  ],
+  "h2": "Funding gathers in water supply and sanitation investment and irrigation; water resources (basin) management is a gap",
+  "rows": {
+   "W1": [
+    "",
+    "Centred on the EU's water sector budget support and reform performance contract"
+   ],
+   "W2": [
+    "",
+    "Large projects by ADB, EBRD, the World Bank and the EU concentrated here"
+   ],
+   "W3": [
+    "",
+    "A few operating capacity support projects by EBRD and ADB"
+   ],
+   "nws": [
+    "",
+    "No projects corresponding to basin management or the National Water Strategy"
+   ],
+   "irr": [
+    "",
+    "ADB, China and the EU support irrigation"
+   ]
+  },
+  "h3": "Recent activity centres on \"village water supply\", \"tariffs\" and \"management of irrigation infrastructure\"",
+  "themes": [
+   [
+    "Village water supply:",
+    "Investment projects are being completed in quick succession, such as the opening of water supply systems for 70 settlements (Karakol)."
+   ],
+   [
+    "Tariffs:",
+    "Revisions to the drinking water tariff methodology and tariff policy are under discussion."
+   ],
+   [
+    "Irrigation:",
+    "Moves to return management of irrigation reservoirs to local administrations, and plans under the state investment programme."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Water Resources and Water Supply Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 5.3 \"Agriculture and Tourism\" and Section 9.4 \"Accessible and Sustainable Healthcare\" (drinking water and wastewater issues)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Targets and issues in Section 5.3, the irrigation paragraph of the situation analysis, and the issues in Section 9.4 (translation on the site)",
+   "cat": "gov"
+  },
+  {
+   "id": "dw2026",
+   "t": "Programme for the Development of Drinking Water Supply and Sanitation Systems until 2026 (Government Decree No. 330 of 12 June 2020)",
+   "by": "Government of the Kyrgyz Republic",
+   "y": "2020",
+   "scope": "Chapters 1–9 of Annex 1 (main text) reviewed via machine translation; for the action plan and indicator matrix (Annexes 2 and 3), headings only",
+   "cat": "gov"
+  },
+  {
+   "id": "wcode",
+   "t": "Water Code (Law No. 128 of 27 June 2025)",
+   "by": "Kyrgyz Republic",
+   "y": "2025",
+   "scope": "Chapters 1–4 (general provisions, powers of state bodies, state regulation, water use) reviewed via machine translation",
+   "cat": "gov"
+  },
+  {
+   "id": "aiib",
+   "t": "Kyrgyz Republic, Water Supply and Sanitation Universal Access Program – 1 Project (Project Document at approval)",
+   "by": "Asian Infrastructure Investment Bank (AIIB)",
+   "y": "2025",
+   "scope": "First ~80% reviewed in the original (background, objectives, financing, implementation period)",
+   "cat": "donor",
+   "u": "https://www.aiib.org/en/projects/details/2025/_download/Kyrgyz/Approval-PD_P000915-Kyrgyz-WS-and-Sanitation-Universal-Access-clean-for-public-disclosure.pdf"
+  },
+  {
+   "id": "wbaf2",
+   "t": "Second Additional Financing for Sustainable Rural Water Supply and Sanitation Development Project (Project Paper)",
+   "by": "World Bank",
+   "y": "2024",
+   "scope": "First ~80% reviewed in the original (background, results, financing, closing date)",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/099011224150531657/pdf/BOSIB10d100d310881af6818bd8b897c251.pdf"
+  },
+  {
+   "id": "unicef",
+   "t": "Water, sanitation and hygiene | UNICEF Kyrgyzstan",
+   "by": "UNICEF",
+   "y": "2024",
+   "scope": "Full text (figures cited from MICS 2023)",
+   "cat": "donor",
+   "u": "https://www.unicef.org/kyrgyzstan/water-sanitation-hygiene"
+  },
+  {
+   "id": "adb",
+   "t": "Climate Change- and Disaster-Resilient Water Resources Sector Project – Additional Financing (project page 51081-003)",
+   "by": "Asian Development Bank (ADB)",
+   "y": "2025 (including implementation status as of Jun 2026)",
+   "scope": "Full project page",
+   "cat": "donor",
+   "u": "https://www.adb.org/projects/51081-003/main"
+  },
+  {
+   "id": "npd",
+   "t": "Kyrgyzstan makes strides in improving its water resources management within framework of UNECE-supported NPD",
+   "by": "EU (capacity4dev) and UNECE",
+   "y": "Year of publication cannot be confirmed from the text (listed as 2024 on the site)",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://capacity4dev.europa.eu/news/kyrgyzstan-makes-strides-improving-its-water-resources-management-within-framework-unece-supported-npd_en"
+  },
+  {
+   "id": "wdi",
+   "t": "World Bank WDI and UN SDG Database (original sources: WHO/UNICEF Joint Monitoring Programme (JMP), FAO AQUASTAT, UNEP)",
+   "by": "World Bank and United Nations",
+   "y": "Retrieved 2026-11-07",
+   "scope": "Each series, via the site's indicator data",
+   "cat": "donor"
+  },
+  {
+   "id": "carec",
+   "t": "Water sector financing improvement action plan for efficient water sector financing",
+   "by": "CAREC Institute (commissioned by ADB)",
+   "y": "May 2024",
+   "scope": "First ~80% reviewed in the original (Kyrgyz institutions, financing and wastewater). The chapter on Kyrgyzstan's financing needs has not been read",
+   "cat": "donor",
+   "u": "https://www.carecinstitute.org/wp-content/uploads/2024/05/Report-on-water-sector-financing-improvement-action-plan-for-efficient-water-sector-financing.pdf"
+  },
+  {
+   "id": "tna",
+   "t": "Barriers Analysis and Enabling Framework Report, Part I: Technologies Needs Assessment for Climate Change Adaptation",
+   "by": "Ministry of Natural Resources, Ecology and Technical Supervision of the Kyrgyz Republic; UNEP-CCC",
+   "y": "Aug 2023",
+   "scope": "First ~70% (summary and barrier tables) reviewed in the original. The detailed water chapter has not been read",
+   "cat": "gov",
+   "u": "https://unepccc.org/wp-content/uploads/2023/08/kyrgyzstan-baef-report-adaptation-final-aug-2023-part-1.pdf"
+  },
+  {
+   "id": "ndc",
+   "t": "Nationally Determined Contribution (NDC), 2021 update (NDC = the country's self-determined targets for greenhouse gas reduction and adaptation)",
+   "by": "Kyrgyz Republic",
+   "y": "2021",
+   "scope": "Water resources table in the adaptation chapter reviewed via machine translation",
+   "cat": "gov"
+  },
+  {
+   "id": "ccdr",
+   "t": "Kyrgyz Republic Country Climate and Development Report (CCDR), overview page",
+   "by": "World Bank",
+   "y": "Dec 2025",
+   "scope": "Full overview page. The report itself has not been read",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/country/kyrgyzrepublic/publication/ccdr"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Safe drinking water peaked in 2021 and has since slipped back, leaving it the furthest of all water indicators from the SDG goal of \"universal access by 2030\". The share of people using safely managed drinking water fell from 77.6% (2021) to 73.9% (2024), and stands at only 69.5% in rural areas.",
+   "ref": [
+    "ind:dw:0",
+    "doc:wdi"
+   ],
+   "h": "Safe drinking water has slipped back since its 2021 peak"
+  },
+  {
+   "k": "f",
+   "t": "Sewerage reaches only about 30% of the population, and less than 10% in rural areas. According to national statistics, 29.1% of people have access to centralised sewerage (64.1% urban, under 10% rural).",
+   "ref": [
+    "doc:dw2026",
+    "doc:unicef",
+    "ind:san:0"
+   ],
+   "h": "Sewerage covers about 30% of the population, under 10% in rural areas"
+  },
+  {
+   "k": "f",
+   "t": "The largest structural problem is the performance of water utilities. Non-revenue water exceeds 50%, and only 9% of utilities are financially sustainable (AIIB 2025).",
+   "ref": [
+    "doc:aiib",
+    "doc:dw2026",
+    "tree:water:W3"
+   ],
+   "h": "Utility performance is the largest structural problem"
+  },
+  {
+   "k": "f",
+   "t": "Donor funding is concentrated on building water supply and sanitation infrastructure, leaving utility operating capacity and basin management thinly covered. Active cooperation aligned with the water strategy totals 54 projects worth about USD 140 million, of which about USD 98.3 million goes to water supply and sanitation investment projects.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "row:W2",
+    "row:W3",
+    "row:nws"
+   ],
+   "h": "Funding concentrated on construction; operating capacity and basin management thin"
+  },
+  {
+   "k": "v",
+   "t": "The national water supply programme expires in 2026, so its successor plan and how national targets will be measured become the key issues for 2027. NDP 2030's \"15% water loss\" target also has no annual published figures.",
+   "ref": [
+    "tree:water:water",
+    "doc:ndp"
+   ],
+   "h": "Water supply programme expires in 2026; its successor is the key issue for 2027"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Water use, water supply and sanitation: overview",
+     "msg": "Basic water now reaches almost everyone, but safe water, sewerage and utility performance lag far behind.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "73.9",
+        "u": "%",
+        "k": "Safely managed drinking water (2024)",
+        "ref": "ind:dw:0",
+        "hot": true
+       },
+       {
+        "v": "94.9",
+        "u": "%",
+        "k": "At least basic drinking water (2024)",
+        "ref": "ind:dw:1"
+       },
+       {
+        "v": "29.1",
+        "u": "%",
+        "k": "Access to centralised sewerage (national statistics)",
+        "ref": "doc:dw2026"
+       },
+       {
+        "v": "50",
+        "u": "%+",
+        "k": "Non-revenue water (AIIB 2025)",
+        "ref": "doc:aiib",
+        "hot": true
+       },
+       {
+        "v": "49.7",
+        "u": "%",
+        "k": "Water stress (2023)",
+        "ref": "ind:iwrm:1"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The share of people using at least basic drinking water rose from 86.5% (2010) to 94.9% (2024). By contrast, safely managed drinking water (located on premises, available when needed and free from contamination) stood at 73.9% (2024), down from 77.6% in 2021.",
+       "ref": [
+        "ind:dw:1",
+        "ind:dw:0"
+       ],
+       "b": "Basic water 94.9%; safe water down to 73.9%"
+      },
+      {
+       "k": "f",
+       "t": "Citing MICS 2023, UNICEF reports basic drinking water coverage of 100% in urban areas and 94% in rural areas; by region, Batken is lowest at 82%, and about 4% of the population uses water from open sources.",
+       "ref": [
+        "doc:unicef"
+       ],
+       "b": "Rural 94%, Batken Region 82% (MICS 2023)"
+      },
+      {
+       "k": "f",
+       "t": "According to the national water supply programme, 29.1% of the population has access to centralised sewerage (64.1% urban, under 10% rural). Only 3% of rural homes, schools and health facilities are connected to sewerage. UNICEF puts the average share of households connected to centralised sewerage at about 20%.",
+       "ref": [
+        "doc:dw2026",
+        "doc:unicef"
+       ],
+       "b": "Centralised sewerage 29.1% (under 10% rural)"
+      },
+      {
+       "k": "h",
+       "t": "How people obtain water, and regional differences"
+      },
+      {
+       "k": "f",
+       "t": "National Statistical Committee figures cited in the national water supply programme show that 29.1% of the household population receives water from a centralised network, 55.4% from standpipes, 6.6% each from wells and irrigation canals, and 2.3% from springs. 55.3% use water from sources more than 100 m from home; women carry 60% of the water, and children are involved in up to 14% of households.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The CAREC Institute report (2024) states that about 40% of the rural population lacks access to clean drinking water, and that in remote towns and district centres, access to sewerage is falling by 1.5–2% a year as facilities deteriorate. It puts the share of people connected to centralised sewerage at 21%, with 78% in Bishkek against under 10% in the regions.",
+       "ref": [
+        "doc:carec"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Sewerage figures differ across sources: the national programme (29.1%, 2017–2018 data), UNICEF (about 20% of households) and CAREC (21%). The counting basis (population vs. households) and the reference years differ, and with no annual published figures it is impossible to tell whether coverage is rising or falling.",
+       "ref": [
+        "doc:dw2026",
+        "doc:unicef",
+        "doc:carec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Water supply infrastructure is old: 262 villages have systems built before 1970, and 567 before 1990. At the end of 2017, of the 320.75 million m³ supplied through water networks, 67.3 million m³ was lost to leaks and other causes.",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "Losses of 67.3 million m³ (of 320.75 million m³ supplied, 2017)"
+      },
+      {
+       "k": "f",
+       "t": "Utility performance: of 742 rural Community Drinking Water Users' Unions (CDWUU), 68% function with the necessary funds and staff. The average tariff collection rate is 67.8%, and about 7% of households have water meters (2017).",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "Only 68% of users' unions functioning; collection rate 67.8%"
+      },
+      {
+       "k": "f",
+       "t": "The AIIB project document (2025) states that non-revenue water (water for which no charge is collected) exceeds 50%, fewer than one in three utilities is fully operational, and only 9% are financially sustainable. More than 85% of water supply depends on groundwater.",
+       "ref": [
+        "doc:aiib"
+       ],
+       "b": "Non-revenue water over 50%; only 9% of utilities sustainable"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank estimates that poor water and sanitation services cost about USD 120 million a year (1.64% of GDP). The national programme states that tackling waterborne diseases costs more than 4.8 billion som every year, with about 30,000 cases of acute intestinal infection annually.",
+       "ref": [
+        "doc:wbaf2",
+        "doc:dw2026"
+       ],
+       "b": "Poor services cost about USD 120 million a year"
+      },
+      {
+       "k": "f",
+       "t": "Link to disease: according to the national programme, 70–86% of registered typhoid cases are concentrated in Mailuu-Suu town and Nooken District of Jalal-Abad Region, mainly because of inadequate access to safe drinking water. In some rural areas, 20–50% of children have intestinal parasitic infections. Conversely, in villages in Issyk-Kul, Naryn and Talas regions where rural water supply projects included hygiene education, giardiasis fell by 76%.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Climate impacts: the AIIB document states that the probability of drought is expected to double from 14% to 31% in the 2020s, and that severe winters cause infrastructure failures. More than 85% of water supply depends on groundwater, over a third of groundwater reserves are already developed, and some utilities cannot supply water for more than 8 hours a day.",
+       "ref": [
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The \"access to water\" stage is largely complete; the challenges now are \"water safety\" and \"management that keeps systems running\". When infrastructure deteriorates because of weak management, the result shows up as a falling share of safe water.",
+       "ref": [
+        "ind:dw:0",
+        "doc:aiib",
+        "doc:dw2026"
+       ],
+       "b": "The challenge shifts from \"access\" to \"safety\" and \"management\""
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy architecture",
+     "msg": "Water policy is structured as \"NDP 2030 (Sections 5.3 and 9.4) → Water Code and National Water Strategy 2040 → Water Supply Programme 2026 and Irrigation Programme 2026\".",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy architecture (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: under Section 5.3 \"Agriculture\", the National Development Programme 2030 sets the targets of \"reducing water losses to 15%\", \"expanding irrigated area by 15,000 ha\" and \"securing water supply for 93,000 ha of land\", and lists as tasks the rehabilitation of 5,000 km of canals, digitalisation of water-use metering and an inventory of water intake wells. Section 9.4 includes \"development of drinking water supply and wastewater treatment systems\" among its tasks.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030: 15% water loss, +15,000 ha irrigation"
+      },
+      {
+       "k": "f",
+       "t": "The NDP 2030 situation analysis states that more than 42,000 ha of land are unused for lack of irrigation water, and that 6.6 billion som in 2022–2024 and 5 billion som in 2025 are allocated to irrigation measures.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Irrigation measures: 6.6 billion som (2022–24)"
+      },
+      {
+       "k": "f",
+       "t": "Framework law: the new Water Code (Law No. 128 of 27 June 2025) establishes basin-based management (the basin approach). The President establishes a National Council on Water and Land Resources, and a basin council for each major basin prepares a basin plan. The National Water Strategy is approved by the President after endorsement by the Council. Water-use permits are issued in principle for 15 years.",
+       "ref": [
+        "doc:wcode",
+        "tree:water:wcode",
+        "tree:watercode:WC1",
+        "tree:watercode:WC2"
+       ],
+       "b": "Water Code 2025: basin councils, basin plans and use permits"
+      },
+      {
+       "k": "f",
+       "t": "Long-term strategy: the National Water Strategy to 2040 (Presidential Decree No. 23 of 10 February 2023) is the long-term strategy for the water sector as a whole, covering drinking water, irrigation and water resources management.",
+       "ref": [
+        "tree:water:nws"
+       ],
+       "b": "National Water Strategy to 2040 (2023)"
+      },
+      {
+       "k": "h",
+       "t": "Actors and institutional fragmentation"
+      },
+      {
+       "k": "f",
+       "t": "Water supply is provided by municipal and private companies in cities and by rural Community Drinking Water Users' Unions (CDWUU) in villages. According to the national programme, ownership of most rehabilitated and new facilities was transferred to users' unions, but subsequent decentralisation shifted ownership of and responsibility for public water and sanitation facilities to local governments, creating legal contradictions.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "State bodies: according to the AIIB document (2025), most rural water supply investment is still managed by the Community Development and Investment Agency (ARIS), while the national drinking water and sanitation department is gradually taking over its role. On 7 March 2025 this department was moved under the Water Resources Service of the Ministry of Water Resources, Agriculture and Processing Industry to consolidate water management.",
+       "ref": [
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Tariffs: water tariffs are agreed with the Antimonopoly Regulation Service under the Ministry of Economy and approved by local councils. The World Bank notes that the tariff policy, methodology and procedures for rural utilities have not yet been established and are vulnerable to local political influence. AIIB reports that a new law on drinking water supply and sanitation is awaiting government approval and that a draft tariff methodology is under discussion.",
+       "ref": [
+        "doc:aiib",
+        "doc:wbaf2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The CAREC Institute report points out that responsibility for water is fragmented — irrigation under the agriculture ministry, drinking water under the construction agency, groundwater under the geology department of the natural resources ministry, and the Naryn River and reservoirs under the energy ministry — and that there is no unified national water policy. It also notes that Soviet-era standards (such as per-capita water volumes) persist, leading to oversized facility designs.",
+       "ref": [
+        "doc:carec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Water supply plan: the Programme for the Development of Drinking Water Supply and Sanitation Systems until 2026 (Government Decree No. 330 of 2020) was prepared with donor support to achieve SDG 6. It has three components: (1) policy and institutions, (2) high-quality implementation of financed projects, and (3) investment attractiveness and operating capacity.",
+       "ref": [
+        "doc:dw2026",
+        "tree:water:water",
+        "tree:water:W1",
+        "tree:water:W2",
+        "tree:water:W3"
+       ],
+       "b": "Water Supply Programme 2026: three components"
+      },
+      {
+       "k": "f",
+       "t": "Targets to 2026: centralised water supply meeting standards in over 95% of major cities; centralised water supply for over 2 million rural residents; sewerage for over 70% of the population of district centres with village status; and training coverage for over 80% of sector workers. Water supply systems are to be rebuilt in 1,184 villages.",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "Targets: cities 95%, 2 million rural residents, sewerage 70%"
+      },
+      {
+       "k": "f",
+       "t": "The programme's indicator matrix envisages building new water supply systems in 715 villages in 2020–2023, rehabilitating systems built in 1970–1991 in 448 villages, upgrading water networks in 25 cities, and improving sanitation in schools and other social facilities in 50 villages. It also plans 4 water quality laboratories and 17 municipal water utilities in district centres by 2026.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Financing: since 2015 the state budget has allocated 100–500 million som a year to water supply facilities, but the programme states that \"the state budget lacks the funds for the necessary investment, and donor support is required\". Sewerage in 26 district centres is estimated to need 4.048 billion som, and rehabilitation of urban water supply more than 20.162 billion som.",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "State budget falls short of needs; reliance on donors"
+      },
+      {
+       "k": "f",
+       "t": "Borrowing terms: the programme cites World Bank loans at 38 years (6-year grace period) and 0.75% interest, and ADB loans at 32 years (8-year grace period). Under EBRD projects, borrowing municipalities repay the loans themselves by revising tariffs; this model operates in 16 cities. Loans for rural water supply projects are repaid by the state budget from taxes and other revenue. State budget co-financing is, in principle, 20–25% of the following year's funding.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Climate targets: as adaptation measures for water resources, the NDC (2021 update) aims to strengthen the climate resilience of irrigation and drinking water and sanitation infrastructure, promote efficient water use, and reduce water losses and water use by 10%.",
+       "ref": [
+        "doc:ndc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Policy dialogue: under the EU Water Initiative, UNECE and OECD have conducted a National Policy Dialogue (NPD) on water since 2008. Its steering committee approved the preparation of a basin management plan for the Chu River, which is shared with Kazakhstan.",
+       "ref": [
+        "doc:npd",
+        "tree:watercode:WC1"
+       ],
+       "b": "Chu River basin plan under the UNECE/OECD policy dialogue"
+      },
+      {
+       "k": "v",
+       "t": "The irrigation plan (State Programme for Irrigation Development to 2026) has been confirmed on the site only through the Voluntary National Review on the SDGs 2025; its text has not been read. The water supply and irrigation plans both expire in 2026.",
+       "ref": [
+        "tree:water:irr",
+        "tree:water:water"
+       ],
+       "b": "Water supply and irrigation plans both expire in 2026"
+      },
+      {
+       "k": "v",
+       "t": "Institutions are moving towards \"a single water administration\", with basin management under the Water Code 2025 and the transfer of the water supply department to the Water Resources Service. However, until the tariff methodology and the new water supply and sanitation law are adopted, the preconditions for restoring utility finances will not be in place.",
+       "ref": [
+        "doc:wcode",
+        "doc:aiib",
+        "doc:wbaf2"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Positioning of sub-programmes",
+     "msg": "The three components of the water supply programme and the irrigation plan expire in 2026, and no successor plans are visible in the materials reviewed.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Sub-programmes (active cooperation by matrix row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The sub-programme table places the three components of the Water Supply Programme 2026 under Pillar W, and the National Water Strategy to 2040 and the irrigation plan under Pillar U. The Water Code 2025 is both the legal basis for institutional reform under Pillar W and the foundation for basin management and water-use permits.",
+       "ref": [
+        "tree:water:W1",
+        "tree:water:wcode",
+        "tree:watercode:WC1",
+        "tree:watercode:WC2",
+        "tree:watercode:WC3",
+        "tree:watercode:WC4"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Pillar W (Water Supply Programme 2026) has three rows: institutional reform (Water Code and tariffs), water supply and sanitation investment projects, and operating capacity and investment. Pillar U (related water strategies) has rows for basin management under the National Water Strategy to 2040 and for irrigation.",
+       "ref": [
+        "tree:water:W1",
+        "tree:water:W2",
+        "tree:water:W3",
+        "tree:water:nws",
+        "tree:water:irr"
+       ],
+       "b": "Pillar W: three water supply components; Pillar U: basin management and irrigation"
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030's water targets (15% losses, irrigated area) fall under irrigation and basin management in Pillar U, but neither has annual published figures. This is where the gap between targets and implementation is widest.",
+       "ref": [
+        "doc:ndp",
+        "row:irr",
+        "row:nws"
+       ],
+       "b": "NDP 2030 water targets have no published figures"
+      },
+      {
+       "k": "v",
+       "t": "Although the Water Code was renewed in 2025, AIIB's 2025 document states that \"the Water Code was revised in 2005\" and that a new water supply and sanitation law is awaiting government approval. Donor documents may not yet reflect the new Code.",
+       "ref": [
+        "doc:aiib",
+        "doc:wcode"
+       ],
+       "b": "Donor documents do not yet reflect the new Water Code"
+      },
+      {
+       "k": "f",
+       "t": "On the irrigation plan, the Technology Needs Assessment (2023) by the Ministry of Natural Resources and UNEP-CCC refers to the \"State Programme for Irrigation Development 2017–2026\" and lists it alongside the National Water Strategy to 2040 (No. 23 of 10 February 2023) and the Water Supply Programme 2026 as the main policy documents for the water sector.",
+       "ref": [
+        "doc:tna",
+        "tree:water:irr",
+        "tree:water:nws"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "While successors to the two national plans are not visible, the universal access programme led by the World Bank, AIIB and others targets \"universal access to water supply and sanitation by 2030\" and is designed in three phases (2025–2029, 2028–2032, 2031–2034). Donor plans are shaping the long-term framework ahead of national plans.",
+       "ref": [
+        "doc:aiib",
+        "tree:water:water"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: national targets and prospects for achieving SDG 6",
+     "msg": "Of the indicators tracked annually, only handwashing is on course; national water targets cannot be measured because no figures are published.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the period; required pace = change needed to reach the target by 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No annual published figures can be found for NDP 2030's water targets (15% losses, +15,000 ha irrigated area, water supply for 93,000 ha) or the Water Supply Programme 2026 targets (cities 95%, 2 million rural residents, sewerage 70%). Only the international SDG 6 indicators can be tracked annually.",
+       "ref": [
+        "doc:ndp",
+        "doc:dw2026"
+       ],
+       "b": "National water targets have no annual published figures"
+      },
+      {
+       "k": "v",
+       "t": "Safely managed drinking water rose by +0.6 points/year in 2015–2024, whereas reaching universal coverage by 2030 requires +4.4 points/year. At this pace, coverage would be about 77.5% in 2030.",
+       "ref": [
+        "ind:dw:0"
+       ],
+       "b": "Safe water: about 77.5% by 2030 at this pace"
+      },
+      {
+       "k": "v",
+       "t": "The degree of integrated water resources management (IWRM) implementation rose by +2.3 points/year in 2020–2023; reaching 100 points requires +8.9 points/year. At this pace, it would reach about 54 points in 2030.",
+       "ref": [
+        "ind:iwrm:0"
+       ],
+       "b": "IWRM: about 54 points by 2030 at this pace"
+      },
+      {
+       "k": "v",
+       "t": "For sanitation facilities (93.0%), the required pace is about 5 times the actual pace; for IWRM, about 4 times. Only handwashing facilities exceed the required pace. Water stress is about twice the FAO threshold (25%) and has remained at the same value since 2017, suggesting a carried-forward estimate rather than annual measurement.",
+       "ref": [
+        "ind:san:0",
+        "ind:san:1",
+        "ind:iwrm:0",
+        "ind:iwrm:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Regional differences: according to the notes to the site's indicators, safely managed drinking water stands at 81% in urban and 69% in rural areas, a wide gap. IWRM implementation is measured by UNEP's triennial survey, so the next value must await the 2026 survey.",
+       "ref": [
+        "ind:dw:0",
+        "ind:iwrm:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "For safe water, the required pace is about 7 times the actual pace. Building new facilities alone will not close the gap; what moves this indicator is water quality management (laboratories and disinfection) and better operations that keep water available when needed.",
+       "ref": [
+        "ind:dw:0",
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Donor results targets: by 2029, Phase 1 of the universal access programme aims to deliver at least basic water to 450,000 people and basic sanitation to 19,000, and to achieve 100% operating cost recovery at 80% of utilities.",
+       "ref": [
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because national targets cannot be measured, these donor results indicators have become the de facto yardstick of progress. Enabling national statistics to track national targets is a precondition for country-led planning.",
+       "ref": [
+        "doc:aiib",
+        "doc:ndp",
+        "doc:dw2026"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Drinking water",
+     "msg": "Basic water reaches almost everyone, but safe water has slipped back since 2021, with a wide rural–urban gap.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Safely managed drinking water (national and rural) and basic drinking water",
+      "inds": [
+       "dw:0",
+       "dw:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends"
+      },
+      {
+       "k": "f",
+       "t": "Trends: safely managed drinking water rose from 58.3% (2010) to 77.6% (2021), then fell to 73.9% (2024). In rural areas it rose from 42.1% to 72.4% (2021), then fell to 69.5% (2024).",
+       "ref": [
+        "ind:dw:0"
+       ],
+       "b": "Safe water 77.6% (2021) → 73.9% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Basic drinking water is at 94.9% (2024) and rising every year. According to UNICEF, coverage is 100% urban, 94% rural and 82% in Batken Region.",
+       "ref": [
+        "ind:dw:1",
+        "doc:unicef"
+       ],
+       "b": "Basic water 94.9%; Batken Region 82%"
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "Water quality: the national programme states that at many water supply systems drawing on surface water, more than 20% of samples tested fail microbiological standards. Most water treatment plants are not operating, and systems rely on simple chlorination.",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "Over 20% of samples from surface-water systems fail standards"
+      },
+      {
+       "k": "f",
+       "t": "The Technology Needs Assessment (2023) lists the barriers to safe water as tariffs that do not cover operating costs, legacy debts of municipal water utilities, the absence of water quality control at most facilities, shortages of engineers, managers, mechanics and plumbers, frequent organisational restructuring, and failure to protect sanitary protection zones around water sources.",
+       "ref": [
+        "doc:tna"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Water volume standards: according to the national programme, actual water consumption is 60–125 litres per person per day, while design capacities far exceed this. In December 2018, a new building standard was adopted under which villages of 3,000 people or fewer are designed for 80 litres per person per day.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data sources: the World Bank project document puts safe water at 77% nationally and 67% in rural areas (2022), which differs for rural areas from the site's indicators (76.9% national, 72.3% rural).",
+       "ref": [
+        "doc:wbaf2",
+        "ind:dw:0"
+       ],
+       "b": "Rural figures differ by source: 67% vs. 72%"
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap to targets"
+      },
+      {
+       "k": "v",
+       "t": "The fall in safe water while basic water rises shows that more people have infrastructure but receive water whose quality or availability falls short of standards. Weak operation and maintenance is starting to show in the figures.",
+       "ref": [
+        "ind:dw:0",
+        "ind:dw:1",
+        "doc:aiib"
+       ],
+       "b": "Infrastructure exists, but safety is declining"
+      },
+      {
+       "k": "v",
+       "t": "About 37% of rural areas that received investment over the past 20 years are reported to need rehabilitation, and non-revenue water exceeds 50%; these can be read as the backdrop to the decline since 2021. Unless reaching new villages and maintaining existing systems proceed in parallel, the national coverage rate will struggle to rise.",
+       "ref": [
+        "doc:aiib",
+        "ind:dw:0"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to donor projects"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the water supply and sanitation investment row has 36 projects worth about USD 98.3 million (ADB about USD 32.6 million, World Bank about USD 19.9 million, EU about USD 16.3 million, EBRD about USD 15 million, Islamic Development Bank about USD 14.1 million).",
+       "ref": [
+        "row:W2"
+       ],
+       "b": "Water supply and sanitation investment: 36 projects, about USD 98.3 million"
+      },
+      {
+       "k": "f",
+       "t": "ADB's rural water supply and sanitation programme in Naryn Region uses results-based lending (finance disbursed against results), which the CAREC Institute describes as the only example in Central Asia. On the site it is split into several loans and grants from 2019 to 2029, totalling about USD 33 million after pro-rata allocation (e.g. additional financing of about USD 9 million).",
+       "ref": [
+        "doc:carec",
+        "proj:XM-DAC-46004-52256-012-LN4494",
+        "proj:XM-DAC-46004-52256-001-GRNT0676",
+        "proj:XM-DAC-46004-52256-001-LN3854",
+        "proj:XM-DAC-46004-52256-001-LN4494"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Costs of the World Bank's rural water supply project additional financing (about USD 9 million and about USD 2.5 million after pro-rata allocation) rose because of post-COVID material price increases, Russia's invasion of Ukraine and exchange-rate losses. The cost of two schemes (Gulbaar and Otuz-Adyr) rose from USD 6.13 million to USD 17.2 million, with a delay of about 12 months. The second additional financing covers this shortfall (USD 7.64 million).",
+       "ref": [
+        "doc:wbaf2",
+        "proj:WB-P162840",
+        "proj:WB-P181421"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's rural water supply project has supplied water to 58 villages and 138,104 people through 34 schemes (72% of target). It closes on 30 June 2026. As its successor, Phase 1 of the universal access programme (2025–2029, 126 villages and small towns), worth about USD 200 million and financed by the World Bank, AIIB, the OPEC Fund and Switzerland, has begun.",
+       "ref": [
+        "doc:wbaf2",
+        "doc:aiib"
+       ],
+       "b": "Phase 1 of the universal access programme (about USD 200 million) has begun"
+      },
+      {
+       "k": "f",
+       "t": "Other major projects: the Islamic Development Bank's water supply and sanitation in Jalal-Abad Region, Phase 2 (about USD 14.1 million, starting September 2026), the World Bank's climate-resilient water services project (about USD 8.3 million, to December 2028), and EBRD's city-level water sub-projects (e.g. Cholpon-Ata, about USD 7.2 million). AIIB states that it will apply the experience of output-based subsidies under the two World Bank projects to the universal access programme.",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ1033",
+        "proj:WB-P173734",
+        "proj:XI-IATI-EBRD-45756",
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Large rural projects are divided among Naryn Region (ADB), Jalal-Abad Region (Islamic Development Bank) and Chui, Issyk-Kul and Osh regions (universal access programme). For Batken Region, where basic water coverage is lowest, the only project among the site's top projects is a small EBRD sub-project (about USD 0.4 million).",
+       "ref": [
+        "doc:unicef",
+        "doc:aiib",
+        "proj:XI-IATI-EBRD-45160",
+        "row:W2"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Sanitation and sewerage",
+     "msg": "Toilet and handwashing indicators are high, but sewerage and wastewater treatment are limited to parts of cities.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Safely managed sanitation facilities and handwashing facilities",
+      "inds": [
+       "san:0",
+       "san:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends"
+      },
+      {
+       "k": "f",
+       "t": "Trends: safely managed sanitation facilities rose from 89.1% (2010) to 93.0% (2024), and facilities for handwashing with soap and water from 87.1% to 97.2%.",
+       "ref": [
+        "ind:san:0",
+        "ind:san:1"
+       ],
+       "b": "Sanitation 93.0%, handwashing 97.2%"
+      },
+      {
+       "k": "f",
+       "t": "A note on definitions: most rural households use outdoor pit latrines, which count as \"safely managed\" under the international definition. The share of people connected to sewerage is far lower.",
+       "ref": [
+        "ind:san:0"
+       ],
+       "b": "The definition counts outdoor latrines as \"safe\""
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "Sewerage: the number of centralised sewerage systems fell from 117 (2013) to 96 (January 2018). 23% of the urban population lacks access to sewerage, and 5 towns have no sewerage at all.",
+       "ref": [
+        "doc:dw2026"
+       ],
+       "b": "Sewerage networks down from 117 to 96"
+      },
+      {
+       "k": "f",
+       "t": "The national programme notes that better rural water supply increases wastewater, requiring treatment technologies that do not pollute water sources. It identifies a need to build or rehabilitate sewerage in 26 district centres, and states that access to sewerage is falling year by year in remote towns and district centres as facilities age.",
+       "ref": [
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the AIIB document, rural areas have no centralised sewerage, and wastewater is discharged untreated. The universal access programme will support on-premises sanitation for vulnerable households and public facilities, sludge management and behaviour change in all 126 settlements, benefiting more than 300 schools and hospitals and about 115,000 people (mostly children).",
+       "ref": [
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Schools: according to UNICEF, most rural schools have no indoor toilets; most toilets are outside the main building, and handwashing points are far away. No policy or coordinating body is responsible for water and sanitation in schools.",
+       "ref": [
+        "doc:unicef"
+       ],
+       "b": "Most rural schools have no indoor toilets"
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap to targets"
+      },
+      {
+       "k": "v",
+       "t": "The international indicator of \"93% sanitation\" measures something different from the national figure of \"29% sewerage\". Measuring the programme target (70% sewerage in district centres) requires tracking national sewerage statistics annually.",
+       "ref": [
+        "ind:san:0",
+        "doc:dw2026"
+       ],
+       "b": "International and national sewerage figures measure different things"
+      },
+      {
+       "k": "h",
+       "t": "Link to donor projects"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's rural water supply project has rehabilitated water and sanitation at 44 of 99 planned social facilities. The remainder were scheduled as 21 schools (December 2023), 8 schools and 12 kindergartens (December 2024), and 4 kindergartens and 10 rural health centres (December 2025). Household sanitation subsidies reached only 509 households against a plan of 1,350, and the subsidy was doubled from about USD 200 to USD 400 per household.",
+       "ref": [
+        "doc:wbaf2"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The World Bank attributes the uptake of household subsidies at under 40% of plan to the limited ability of poor households to pay. Sanitation is not a sector where building facilities guarantees their use; household cost-sharing and connection costs determine progress.",
+       "ref": [
+        "doc:wbaf2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: sewerage falls mainly under the water supply and sanitation investment row. The large active projects are rural water supply and sanitation in Naryn Region (ADB) and water supply and sanitation in Jalal-Abad Region, Phase 2 (Islamic Development Bank, about USD 14.1 million).",
+       "ref": [
+        "row:W2",
+        "proj:XM-DAC-46025-ISDB-KGZ1033",
+        "proj:XM-DAC-46004-52256-001-GRNT0676",
+        "proj:XM-DAC-46004-52256-012-LN4494"
+       ],
+       "b": "Naryn Region (ADB), Jalal-Abad Region (IsDB)"
+      },
+      {
+       "k": "f",
+       "t": "Around Lake Issyk-Kul: ADB's Issyk-Kul wastewater management project (about USD 11.8 million and about USD 6.4 million after pro-rata allocation) ended in June 2025. The national programme's indicator matrix also lists treatment plants in Balykchy and Karakol and wastewater treatment in Cholpon-Ata, and EBRD's Cholpon-Ata water project (about USD 7.2 million, to 2031) is under way.",
+       "ref": [
+        "proj:XM-DAC-46004-50176-002-LN3742",
+        "proj:XM-DAC-46004-50176-002-GRNT0628",
+        "proj:XI-IATI-EBRD-45756",
+        "doc:dw2026"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Water resources management and irrigation",
+     "msg": "With about half of available water withdrawn, the country is in a state of \"water stress\", and irrigation losses and slow progress in basin management persist.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Water stress and degree of IWRM implementation",
+      "inds": [
+       "iwrm:1",
+       "iwrm:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends"
+      },
+      {
+       "k": "f",
+       "t": "Water stress (the share of available water that is withdrawn) was 49.7% (2023), far above the FAO threshold of 25%. Over 90% of withdrawals are for agriculture (irrigation).",
+       "ref": [
+        "ind:iwrm:1"
+       ],
+       "b": "Water stress 49.7%; over 90% of withdrawals for irrigation"
+      },
+      {
+       "k": "f",
+       "t": "Water-use efficiency rose from USD 0.62/m³ (2010) to USD 1.01/m³ (2023), but agriculture alone is particularly low at USD 0.11/m³.",
+       "ref": [
+        "ind:iwrm:2"
+       ],
+       "b": "Water efficiency USD 1.01/m³; agriculture 0.11"
+      },
+      {
+       "k": "f",
+       "t": "The degree of IWRM implementation rose from 31 points (2020) to 38 points (2023).",
+       "ref": [
+        "ind:iwrm:0"
+       ],
+       "b": "IWRM 31 → 38 points"
+      },
+      {
+       "k": "f",
+       "t": "Irrigation results: according to the NDP 2030 situation analysis, irrigation measures in 2021–2024 increased newly irrigated land from 1,200 ha to 2,724 ha and land with improved water supply from 18,553 ha to 59,468 ha. This is said to have raised crop production by 14.8 billion som and horticulture by 5.7 billion som.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "Irrigation: ADB states that old irrigation systems lose up to 40% of water in conveyance and that the network has not been renewed since the Soviet era. In 2023, summer heat cut the wheat harvest by 26.5% from the previous year. Water shortages are severe in Chui and Osh regions.",
+       "ref": [
+        "doc:adb"
+       ],
+       "b": "Up to 40% lost in irrigation conveyance"
+      },
+      {
+       "k": "f",
+       "t": "Loss estimates vary by source: ADB cites up to 40% in conveyance, while the Technology Needs Assessment (2023) cites up to 25% in conveyance through degraded irrigation systems. The Technology Needs Assessment lists as barriers the absence of regulations encouraging irrigation efficiency, weak accounting and economic analysis at pumping stations, and high equipment costs.",
+       "ref": [
+        "doc:adb",
+        "doc:tna"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Climate outlook: the World Bank CCDR (2025) states that up to 24% of irrigation demand could go unmet by mid-century. The NDC identifies the main climate impacts as changes in river basin flows, reduced water supply to people and the economy, and deteriorating surface water and groundwater quality.",
+       "ref": [
+        "doc:ccdr",
+        "doc:ndc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Basin pollution: the UNECE water policy dialogue article lists untreated industrial and municipal wastewater, livestock, mining and illegal dumping near settlements as pressures on the Chu River. Baseline studies for setting water and health targets are to proceed through pilots in the Chu and Issyk-Kul basins.",
+       "ref": [
+        "doc:npd"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap to targets"
+      },
+      {
+       "k": "f",
+       "t": "ADB's additional financing (approved September 2025; USD 27 million grant and USD 20 million loan) covers modernisation and automation of irrigation systems, basin management plans and early warning, but as of June 2026 only 4% of the grant had been disbursed.",
+       "ref": [
+        "doc:adb"
+       ],
+       "b": "ADB additional financing USD 47 million; 4% disbursed"
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030's \"15% losses\" target implies a sharp reduction from the \"up to 40%\" cited by ADB. With no annual loss rate published, there is no way to verify progress.",
+       "ref": [
+        "doc:ndp",
+        "doc:adb"
+       ],
+       "b": "Progress on the 15% loss target cannot be measured"
+      },
+      {
+       "k": "v",
+       "t": "Irrigated land increased by about 1,500 ha over the four years 2021–2024; NDP 2030's \"+15,000 ha of irrigated area\" is about 10 times that. The target will not be reached without a large increase in the annual rate. Land with improved water supply grew by about 41,000 ha in four years, but even at the same pace it would grow by only about 60,000 ha over six years, short of the 93,000 ha target.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Basin management arrangements: the basin councils under the Water Code include basin-level bodies for water management, environment, disaster risk reduction, hydrometeorology and sanitation, as well as local administrations and NGOs. They meet at least once a year, are chaired by the head of the basin water resources management body, and members serve without pay.",
+       "ref": [
+        "doc:wcode",
+        "tree:watercode:WC1"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to donor projects"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the irrigation row has 6 projects worth about USD 28.1 million (EBRD about USD 12.3 million, ADB about USD 11.8 million, EU about USD 4.1 million). The basin management row has only FAO's project of about USD 1 million.",
+       "ref": [
+        "row:irr",
+        "row:nws"
+       ],
+       "b": "Irrigation about USD 28.1 million; basin management about USD 1 million"
+      },
+      {
+       "k": "f",
+       "t": "Major irrigation projects: EBRD's climate-resilient water supply project (about USD 9 million, placed in the irrigation row on the site) and Chui water resources efficiency project (about USD 3.3 million); ADB's water resources additional financing (about USD 6.8 million and about USD 5 million after pro-rata allocation); and the EU's resilient water resources programme (about USD 4.1 million, 2025–2031). The basin management row contains only FAO's Syr Darya basin project (about USD 1 million, 2026–2030).",
+       "ref": [
+        "proj:XI-IATI-EBRD-49793",
+        "proj:XI-IATI-EBRD-55372",
+        "proj:XM-DAC-46004-51081-003-GRNT1041",
+        "proj:XM-DAC-46004-51081-003-LN4646",
+        "proj:XI-IATI-EC_INTPA-2024-PC-36751",
+        "proj:XM-DAC-41301-744064"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The Water Code established basin councils and basin plans, but only one active FAO project supports them. Drafting implementing regulations for the Code and preparing plans for major basins such as the Chu River are candidates for technical cooperation.",
+       "ref": [
+        "doc:wcode",
+        "row:nws",
+        "doc:npd"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding comes from ADB, the EU, EBRD, the World Bank and the Islamic Development Bank, in that order, with the top three accounting for about three quarters.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects aligned with strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation aligned with the water strategy totals 54 projects worth about USD 140 million. By donor: ADB about USD 45.7 million, EU about USD 32.8 million, EBRD about USD 27.3 million, World Bank about USD 19.9 million, Islamic Development Bank about USD 14.1 million, FAO about USD 1 million, UNICEF about USD 0.6 million, Switzerland about USD 0.5 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 54 projects, about USD 140 million"
+      },
+      {
+       "k": "f",
+       "t": "Three projects worth about USD 10.8 million end by late 2026 (almost entirely the EU's investment support for water supply and sanitation).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ],
+       "b": "3 projects worth about USD 10.8 million end by late 2026"
+      },
+      {
+       "k": "h",
+       "t": "Donor focus areas"
+      },
+      {
+       "k": "f",
+       "t": "Each donor's core projects: ADB, the rural water supply and sanitation programme in Naryn Region; the EU, investment support for water supply and sanitation (three tranches) and budget support for the water sector; EBRD, a framework of urban water sub-projects; the World Bank, rural water supply and climate-resilient water services; the Islamic Development Bank, water supply and sanitation in Jalal-Abad Region.",
+       "ref": [
+        "fact:by_donor",
+        "proj:XM-DAC-46004-52256-012-LN4494",
+        "proj:XI-IATI-EC_INTPA-2019-PCC-399645",
+        "proj:XI-IATI-EBRD-45756",
+        "proj:WB-P173734",
+        "proj:XM-DAC-46025-ISDB-KGZ1033"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Funding for institutional reform: the EU's water sector budget support (about USD 7.8 million, December 2025 to November 2028) and water sector reform contract (about USD 4.6 million, 2024–2030) account for almost the whole institutional reform row. Budget support is a form of cooperation that channels funds into the state budget according to progress on national reforms.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2025-PC-61997",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-62577",
+        "row:W1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Almost all of the about USD 10.8 million ending by late 2026 (about USD 10.7 million) consists of the first and second tranches of the EU's investment support for water supply and sanitation (about USD 5.4 million and about USD 5.3 million). The third phase (about USD 4.9 million) continues until March 2030.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2016-PCC-378430",
+        "proj:XI-IATI-EC_INTPA-2016-PCC-380145",
+        "proj:XI-IATI-EC_INTPA-2019-PCC-399645",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Borrowing space: the CAREC Institute notes that international financial institution funding is split roughly equally between loans and grants, and that the government's large external debt constrains new lending for the water sector. The national programme also states that the state budget lacks funds for the necessary investment.",
+       "ref": [
+        "doc:carec",
+        "doc:dw2026"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Construction is financed mainly by loans, whose repayment falls back on the state budget and tariffs. Piling up loans before the tariff system is settled leaves the repayment burden on both utilities and the state budget.",
+       "ref": [
+        "doc:dw2026",
+        "doc:wbaf2",
+        "doc:carec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 46 projects worth about USD 96.7 million, led by the EU, ADB and the World Bank.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 46 projects, about USD 96.7 million"
+      },
+      {
+       "k": "f",
+       "t": "Data note: of the active projects tagged to the water sector on the site, 54 are aligned with strategy rows. Some, such as the Green Climate Fund's regional programme \"Glaciers to Farms\" (about USD 64.2 million), are not aligned with any row.",
+       "ref": [
+        "fact:mapped_n",
+        "proj:XM-DAC-41317-FP283"
+       ],
+       "b": "Some projects are not aligned with any row"
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at the time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "About 70% of cooperation completed over the past decade was for water supply and sanitation construction, with irrigation accounting for most of the rest.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage period: projects completed in or after 2017. Earlier projects are excluded because records for major donors are incomplete. Even from 2017, the data almost only cover ADB from 2020 onwards and UNICEF and UNDP from 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and aligned with the water strategy total 46, worth about USD 96.7 million (after pro-rata allocation, without double counting). By donor: EU about USD 34 million, ADB about USD 28.4 million, World Bank about USD 16.5 million, Islamic Development Bank about USD 10.7 million, other bilateral donors including Nordic about USD 4.1 million, Switzerland about USD 2.7 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "46 projects, about USD 96.7 million, led by the EU, ADB and the World Bank"
+      },
+      {
+       "k": "f",
+       "t": "By area: water supply and sanitation investment, 31 projects worth about USD 66 million (e.g. the EU's water, wastewater and waste support and ADB's Issyk-Kul wastewater management); irrigation, 12 projects worth about USD 29.1 million (e.g. the World Bank's national water resources management); institutional reform, 4 projects worth about USD 1.8 million (Switzerland's water-use permits). The operating capacity and basin management rows have no projects.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Water supply and sanitation about USD 66 million; irrigation about USD 29.1 million"
+      },
+      {
+       "k": "f",
+       "t": "Large completed projects: the EU's \"Drinking Water, Wastewater and Solid Waste\" (about USD 34 million, 2016–2025), ADB's Issyk-Kul wastewater management (about USD 11.8 million and about USD 6.4 million, June 2025), the World Bank's national water resources management (about USD 6.5 million, August 2024), ADB's climate change- and disaster-resilient water resources project (about USD 5.5 million and about USD 4.2 million, September 2025), and the Islamic Development Bank's local water supply and sanitation improvement (about USD 5 million).",
+       "ref": [
+        "proj:XM-DAC-918-3-20140105-83457",
+        "proj:XM-DAC-46004-50176-002-LN3742",
+        "proj:XM-DAC-46004-50176-002-GRNT0628",
+        "proj:XI-IATI-WBTF-P144336",
+        "proj:XM-DAC-46004-51081-002-LN3746",
+        "proj:XM-DAC-46004-51081-002-GRNT0632",
+        "proj:XM-DAC-46025-ISDB-KGZ1013"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The only completed project in the institutional reform row is Switzerland's water-use permit project (4 projects, about USD 1.8 million). The Water Code sets water-use permits at, in principle, 15 years and lays down procedures for applying for, amending and revoking permits.",
+       "ref": [
+        "proj:CH-4-2024-2022016837",
+        "doc:wcode"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Several large projects ended in 2025. ADB continued through its water resources additional financing (approved 2025), while the EU's support for water, wastewater and waste shifted to a third phase and budget support. The focus is moving from direct investment in facilities to creating the conditions for reform.",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XM-DAC-46004-51081-003-GRNT1041",
+        "proj:XI-IATI-EC_INTPA-2025-PC-61997"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Past and present funding has centred on construction, with almost no funding, completed or active, for utility operating capacity or basin management.",
+       "ref": [
+        "fact:closed_rows",
+        "row:W3",
+        "row:nws"
+       ],
+       "b": "Operating capacity and basin management thin, past and present"
+      },
+      {
+       "k": "f",
+       "t": "Data note: the Islamic Development Bank's \"220 kV transmission line\" (1998–2024) is placed in the irrigation row; its classification needs to be checked.",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XM-DAC-46025-ISDB-KGZ0007"
+       ],
+       "b": "A transmission line project is placed under irrigation"
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Every row has active cooperation, but operating capacity (about USD 1.3 million) and basin management (about USD 1 million) are effectively gaps.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "All five strategy rows have active cooperation. However, operating capacity and investment attractiveness has only 2 projects worth about USD 1.3 million (ADB), and basin management 4 projects worth about USD 1 million (FAO).",
+       "ref": [
+        "fact:empty_rows",
+        "row:W3",
+        "row:nws"
+       ],
+       "b": "Operating capacity and basin management receive small amounts"
+      },
+      {
+       "k": "f",
+       "t": "The institutional reform row has 6 projects worth about USD 13.2 million, almost entirely the EU's water sector budget support (2025–2028) and water sector reform contract.",
+       "ref": [
+        "row:W1",
+        "proj:XI-IATI-EC_INTPA-2025-PC-61997",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-62577"
+       ],
+       "b": "Institutional reform centres on EU budget support"
+      },
+      {
+       "k": "f",
+       "t": "Active amounts across the five strategy rows, in descending order: water supply and sanitation investment about USD 98.3 million, irrigation about USD 28.1 million, institutional reform about USD 13.2 million, operating capacity about USD 1.3 million, basin management about USD 1 million. The investment row alone accounts for about 70% of the total.",
+       "ref": [
+        "fact:rows",
+        "row:W2",
+        "row:irr",
+        "row:W1",
+        "row:W3",
+        "row:nws"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Active projects in the operating capacity and investment attractiveness row consist of 2 projects, including preparatory support for ADB's Naryn Region programme (about USD 0.8 million, to June 2027).",
+       "ref": [
+        "proj:XM-DAC-46004-52256-007-GRNT0783",
+        "row:W3"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The thinness of the operating capacity row runs directly against the driver identified in Section 2.1 (only 9% of utilities financially sustainable). The universal access programme's output-based subsidies and vocational training (Component 3) are designed to fill this gap, but are not yet in the site's data.",
+       "ref": [
+        "row:W3",
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In the basin management row too, although the Water Code established basin councils and basin plans, only one FAO project is active. Support for putting the new Code into operation is thin.",
+       "ref": [
+        "row:nws",
+        "doc:wcode"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "2027 will test both the successors to the water supply and irrigation plans and the mechanisms for restoring utility finances.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "The Water Supply Programme 2026 and the Irrigation Programme 2026 expire together. Whether their successors are aligned with the new Water Code and the National Water Strategy 2040 will be the entry point for donors' next round of support.",
+       "ref": [
+        "tree:water:water",
+        "tree:water:irr",
+        "tree:water:wcode"
+       ],
+       "b": "Successors to the two plans are the entry point for support"
+      },
+      {
+       "k": "v",
+       "t": "The decline in safe water can be read as a sign of weak utility management (tariffs, collection, maintenance) rather than a shortage of construction. The biggest misalignment is that funding is skewed towards construction while the operating capacity row is almost empty.",
+       "ref": [
+        "ind:dw:0",
+        "row:W3",
+        "doc:aiib"
+       ],
+       "b": "Skewed funding and weak management are the biggest misalignment"
+      },
+      {
+       "k": "f",
+       "t": "Evidence check: under the World Bank's rural project, utility operating cost recovery rose from 0.17 (2016) to 1.71 (2023). The 30 completed schemes introduced per-m³ tariffs, billing systems and customer service desks. The universal access programme targets 100% operating cost recovery at 80% of utilities by 2029.",
+       "ref": [
+        "doc:wbaf2",
+        "doc:aiib"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "None of NDP 2030's water targets (15% losses, irrigated area) or the water supply programme targets have annual published figures. Building the measurement system itself is an area for support.",
+       "ref": [
+        "doc:ndp",
+        "doc:dw2026"
+       ],
+       "b": "Building systems to measure targets is an area for support"
+      },
+      {
+       "k": "f",
+       "t": "For reference: the CAREC Institute recommends public investment planning that prioritises cost-effective projects, integration into the medium-term expenditure framework, transparent expenditure management, and consolidating water policy under a single agency.",
+       "ref": [
+        "doc:carec"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "With moves to bring water supply, irrigation and basin management under one administration, and the long-term framework of the donors' universal access programme, now both in place, whether the next national plan can integrate them into a single system of targets will determine the quality of cooperation from 2027 onwards.",
+       "ref": [
+        "doc:aiib",
+        "doc:wcode",
+        "tree:water:nws"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: announcement of successor water supply and irrigation plans, approval of the new water supply and sanitation law, disbursement progress of the universal access programme and the ADB additional financing, and new JMP data.",
+       "ref": [
+        "doc:aiib",
+        "doc:adb"
+       ],
+       "b": "Successor plans, new law and progress of large projects"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Safely managed drinking water (SDG 6.1)",
+   "73.9%(2024)",
+   "100%",
+   "+0.6/yr (2015–24)",
+   "+4.4/yr",
+   "Off track (about 77.5%)",
+   "bad"
+  ],
+  [
+   "At least basic drinking water",
+   "94.9%(2024)",
+   "100%",
+   "+0.59/yr",
+   "+0.85/yr",
+   "Off track (about 98.4%)",
+   "warn"
+  ],
+  [
+   "Safely managed sanitation facilities (SDG 6.2)",
+   "93.0%(2024)",
+   "100%",
+   "+0.23/yr",
+   "+1.17/yr",
+   "Off track (about 94.4%)",
+   "bad"
+  ],
+  [
+   "Handwashing facilities (SDG 6.2)",
+   "97.2%(2024)",
+   "100%",
+   "+0.71/yr",
+   "+0.47/yr",
+   "On track",
+   "good"
+  ],
+  [
+   "Degree of IWRM implementation (SDG 6.5.1)",
+   "38 points (2023)",
+   "100 points",
+   "+2.3/yr (2020–23)",
+   "+8.9/yr",
+   "Off track (about 54 points)",
+   "bad"
+  ],
+  [
+   "Water loss rate (NDP 2030 5.3)",
+   "No published figure",
+   "15%",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Irrigated area +15,000 ha; water supply for 93,000 ha (NDP 2030 5.3)",
+   "No published figure",
+   "+15,000 ha; 93,000 ha",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Water Supply Programme 2026 (cities 95%, 2 million rural residents, sewerage 70%)",
+   "No published figure",
+   "2026",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "W",
+   "Institutional reform (Water Code and tariffs)",
+   "Water Code / Water Supply Programme Component 1",
+   "Law No. 128 of 27 June 2025 / Government Decree No. 330 of 2020",
+   "ok",
+   "15% water loss (5.3)",
+   "W1",
+   "wcode"
+  ],
+  [
+   "W",
+   "Water supply and sanitation investment projects",
+   "Water Supply Programme 2026 Component 2",
+   "Government Decree No. 330 of 2020 (expires 2026)",
+   "end",
+   "Development of drinking water and wastewater systems (9.4)",
+   "W2",
+   "W2"
+  ],
+  [
+   "W",
+   "Operating capacity and investment attractiveness",
+   "Water Supply Programme 2026 Component 3",
+   "Government Decree No. 330 of 2020 (expires 2026)",
+   "end",
+   "—",
+   "W3",
+   "W3"
+  ],
+  [
+   "U",
+   "Water resources management and basins",
+   "National Water Strategy to 2040",
+   "Presidential Decree No. 23 of 10 February 2023",
+   "ok",
+   "15% water loss (5.3)",
+   "nws",
+   "nws"
+  ],
+  [
+   "U",
+   "Irrigation",
+   "State Programme for Irrigation Development to 2026",
+   "Cited in the Voluntary National Review on the SDGs 2025 (text not reviewed)",
+   "end",
+   "Irrigation +15,000 ha; water supply for 93,000 ha (5.3)",
+   "irr",
+   "irr"
+  ]
+ ],
+ "ten": [
+  [
+   "W",
+   "Drinking Water Supply and Sanitation Programme to 2026"
+  ],
+  [
+   "U",
+   "Related water strategies"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual published figures for water losses in conveyance (NDP 2030 target: 15%) — the programme gives only the 2017 loss volume",
+  "Annual figures for the increase in irrigated area and the area of land with secured water supply (NDP 2030 targets)",
+  "Progress on the Water Supply Programme 2026 targets (cities 95%, 2 million rural residents, 70% sewerage in district centres, 80% training)",
+  "The latest share of people with access to centralised sewerage (the national programme's 29.1% is a 2017–2018 figure)",
+  "Successor plans to the Water Supply Programme 2026 and the Irrigation Programme 2026 (not found in the materials and translations)",
+  "Text and targets of the State Programme for Irrigation Development to 2026",
+  "Other material not read or not verified: the World Bank's \"Water Security Diagnostic\" (2024) was not used, as only the bibliographic record on the literature page was available and the PDF could not be opened. In the CAREC Institute report, the chapter on Kyrgyzstan's financing needs, and in the Technology Needs Assessment, the detailed water chapter, have not been read. The GCF FP309 gender assessment and FAO's article on electronic monitoring of irrigation water have not been opened. A paper (on the sustainability of community-managed rural water supply, Waterlines 2022) was not used, as its abstract contains no figures"
+ ]
+}

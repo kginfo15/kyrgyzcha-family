@@ -1,0 +1,1798 @@
+{
+ "sid": "gender",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "G": "National Strategy for Achieving Gender Equality to 2030"
+  },
+  "rows": {
+   "G1": {
+    "n": "Women's economic opportunities",
+    "st": "Women's Entrepreneurship Support Programme 2022–26"
+   },
+   "G2": {
+    "n": "Cultural policy and education",
+    "st": "Strategy task 2"
+   },
+   "G3": {
+    "n": "Protection from violence and discrimination",
+    "st": "Strategy task 3 / Anti-trafficking (expired)"
+   },
+   "G4": {
+    "n": "Participation in decision-making",
+    "st": "Women's Leadership Support to 2030"
+   },
+   "G5": {
+    "n": "Legal framework development",
+    "st": "Strategy task 5"
+   }
+  }
+ },
+ "ind": {
+  "eco": {
+   "name": "① Women's economic opportunities",
+   "tag": "Women in work and in management",
+   "note": "Only the resolution text of the National Gender Equality Strategy has been obtained, so numerical targets have not been confirmed. Comparison is made with international targets (SDG 5).",
+   "inds": [
+    {
+     "name": "Female labour force participation rate",
+     "unit": "%",
+     "st": "— No target (flat trend)",
+     "src": "World Bank WDI SL.TLF.CACT.FE.ZS (ILO estimate)",
+     "t": [],
+     "note": "About 60% of the male level (female-to-male ratio 61.8%)."
+    },
+    {
+     "name": "Women's share of management positions",
+     "unit": "%",
+     "st": "△ Down from 47% in 2020",
+     "src": "UN SDG Database IC_GEN_MGTL (SDG 5.5.2, ILO)",
+     "t": [
+      "SDG: parity"
+     ]
+    }
+   ]
+  },
+  "vio": {
+   "name": "② Protection from violence and early marriage",
+   "tag": "Domestic violence and marriage before 18",
+   "inds": [
+    {
+     "name": "Women (aged 20–24) married before 18",
+     "unit": "%",
+     "st": "△ About 3.3 in 2030 at the current pace",
+     "src": "World Bank WDI SP.M18.2024.FE.ZS (survey years only; latest is MICS 2023)",
+     "t": [
+      "SDG: eliminate"
+     ]
+    },
+    {
+     "name": "Women subjected to violence by a husband or partner in the past year",
+     "unit": "%",
+     "st": "— Only one survey",
+     "src": "UN SDG Database VC_VAW_MARR (SDG 5.2.1, 2023 survey only)",
+     "t": [
+      "SDG: eliminate"
+     ],
+     "note": "17.1% in the 2012 Demographic and Health Survey (definition slightly different)."
+    }
+   ]
+  },
+  "dec": {
+   "name": "③ Participation in decision-making",
+   "tag": "Parliament and local councils",
+   "inds": [
+    {
+     "name": "Women's share of seats in parliament",
+     "unit": "%",
+     "st": "✕ Pace too slow; about 33.3 even in 2030",
+     "src": "World Bank WDI SG.GEN.PARL.ZS (originally Inter-Parliamentary Union)",
+     "t": [
+      "SDG: parity",
+      "Electoral law 30%"
+     ],
+     "note": "The electoral law sets a 30% quota for women on proportional representation candidate lists."
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Gender funding is concentrated in women's economic opportunities; support for participation in decision-making is small",
+  "msgs": [
+   [
+    "Women's economic opportunities are the largest area.",
+    "Centred on women's entrepreneurship and lending projects by ADB and others. The Women's Entrepreneurship Support Programme expires in 2026."
+   ],
+   [
+    "Protection from violence is led by the EU.",
+    "Domestic violence prevention training, and discussion of a draft law to protect women with disabilities from violence (30 Oct)."
+   ],
+   [
+    "Participation projects are small.",
+    "The Speaker took part in a national dialogue on women's leadership. The Council on Women, Children and Gender Equality has a new line-up."
+   ],
+   [
+    "The anti-trafficking programme has expired.",
+    "No successor plan is in sight."
+   ]
+  ],
+  "h2": "Funding goes to women's economic opportunities and protection; participation in decision-making is small",
+  "rows": {
+   "G1": [
+    "",
+    "ADB support for women's entrepreneurship and others. The national programme expires in 2026"
+   ],
+   "G2": [
+    "",
+    "Education and awareness by UNICEF, the EU and Switzerland"
+   ],
+   "G3": [
+    "",
+    "Centred on EU violence prevention. The trafficking plan has expired"
+   ],
+   "G4": [
+    "",
+    "Only small Swedish projects"
+   ],
+   "G5": [
+    "",
+    "Institutional support from UNDP and others"
+   ]
+  },
+  "h3": "Recent discussion has focused on violence prevention and women's leadership",
+  "themes": [
+   [
+    "Protection:",
+    "A draft law to protect women and girls with disabilities from violence, and domestic violence training."
+   ],
+   [
+    "Participation:",
+    "A national dialogue on women's leadership and parliamentarians' participation in international conferences."
+   ],
+   [
+    "Economy:",
+    "Women's social advancement through \"One Village One Product\" (Japanese press reports)."
+   ]
+  ]
+ },
+ "proj_t": {
+  "CH-4-2025-2012007029": "\"Bai Alai\" Small Business and Income Creation in Alai and Chon-Alai",
+  "CH-4-2024-2012007029": "\"Bai Alai\" Small Business and Income Creation in Alai and Chon-Alai",
+  "CH-4-2023-2012007029": "\"Bai Alai\" Small Business and Income Creation in Alai and Chon-Alai",
+  "XI-IATI-EC_INTPA-2023-PC-32123": "Afghan Women's Education and Training in the Kyrgyz Republic or abroad"
+ },
+ "title": "Kyrgyz Republic Gender Equality Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 9.2 \"Fair Social Protection\" and the gender paragraphs of Chapter III (Current Situation and Achievements)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Targets and tasks of Section 9.2, the gender policy paragraphs of Chapter III, and tasks concerning women in Chapters VI and VIII (translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "gstrat",
+   "t": "Cabinet of Ministers Resolution on approval of the National Strategy for Achieving Gender Equality to 2030 and the Action Plan 2022–2024 (No. 513 of 16 September 2022)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2022",
+   "scope": "Text of the resolution only (machine translation held on the site). The strategy text and action plan in the annexes have not been read",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1189693&lang=ru"
+  },
+  {
+   "id": "b30",
+   "t": "National Review of the Kyrgyz Republic on the Implementation of the Beijing Declaration and Platform for Action (summary of the Beijing+30 national review)",
+   "by": "Government of the Kyrgyz Republic (published by UN Women)",
+   "y": "2024",
+   "scope": "Full text of the summary version",
+   "cat": "gov",
+   "u": "https://www.unwomen.org/sites/default/files/2025-08/b30_summary_kyrgyzstan_final.pdf"
+  },
+  {
+   "id": "cgep",
+   "t": "Country Gender Equality Profile of Kyrgyzstan",
+   "by": "UN Women",
+   "y": "Dec 2025",
+   "scope": "Full text (economy, care, assets, finance, ICT, political participation, violence, harmful practices, education, health, policy and institutions, recommendations) checked in the original",
+   "cat": "donor",
+   "u": "https://eca.unwomen.org/sites/default/files/2025-12/cgep_web.pdf"
+  },
+  {
+   "id": "spot",
+   "t": "Spotlight Initiative Kyrgyzstan Final Narrative Programme Report, 2020–2023",
+   "by": "EU and United Nations",
+   "y": "2024",
+   "scope": "First 100,000 or so characters (budget; results on legislation, institutions, services and prevention) checked in the original. The second half (including the challenges and responses sections) not read",
+   "cat": "donor",
+   "u": "https://spotlightinitiative.org/sites/default/files/publication/2024-09/Spotlight%20Initiative%20Kyrgyzstan%20Final%20Annual%20Report.pdf"
+  },
+  {
+   "id": "gcf309",
+   "t": "Gender Assessment and Action Plan: FP309 Resilient Water Systems for All (RWS4All)",
+   "by": "Green Climate Fund (GCF) and EBRD",
+   "y": "Jun 2026",
+   "scope": "Sections on Kyrgyzstan (gender gap indicators, access to and burden of water, decision-making)",
+   "cat": "donor",
+   "u": "https://www.greenclimate.fund/sites/default/files/documents/2026-07/gender-assessment-fp309-resilient-water-systems-all-rws4all-deep-adaptation-pathways-water-infrastructure-kyrgyz-republic-and-tajikistan.pdf"
+  },
+  {
+   "id": "sdgg",
+   "t": "Sustainable Development Goals and Gender in Kyrgyzstan (statistical compendium)",
+   "by": "National Statistical Committee and UN Women",
+   "y": "2023",
+   "scope": "Whole English PDF (official statistics and MICS 2014 and 2018, up to end-2021). Values in some charts could not be read and were not used",
+   "cat": "gov",
+   "u": "https://eca.unwomen.org/sites/default/files/2023-06/SDG%20gender%20eng_WEB.pdf"
+  },
+  {
+   "id": "undp25",
+   "t": "Driving Women's Economic Empowerment in Kyrgyzstan",
+   "by": "UNDP (article)",
+   "y": "Feb 2025",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.undp.org/kyrgyzstan/stories/driving-womens-economic-empowerment-kyrgyzstan"
+  },
+  {
+   "id": "ndc3",
+   "t": "Nationally Determined Contribution 3.0 of the Kyrgyz Republic (NDC 3.0, English version): gender content",
+   "by": "Kyrgyz Republic (submitted to the UN Framework Convention on Climate Change)",
+   "y": "Dated Sep 2025",
+   "scope": "Passages of the main text on gender, youth and social inclusion (original)",
+   "cat": "gov",
+   "u": "https://unfccc.int/sites/default/files/2025-10/NDC3.0_Kyrgyzstan_English_30-09-2025%20%282%29.pdf"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Laws and institutions have advanced, but the share of women in work keeps falling. The female labour force participation rate fell from 51.4% (2010) to 44.1% (2025), about 60% of the male level.",
+   "ref": [
+    "ind:eco:0",
+    "doc:ndp"
+   ],
+   "h": "Laws and institutions have advanced, but women's labour participation keeps falling"
+  },
+  {
+   "k": "f",
+   "t": "The roots of inequality lie in assets and unpaid domestic work. Women hold only 29% of real estate and 18.5% of land titles, and spend 4 hours 20 minutes a day on housework (men 55 minutes). Men earn about 25% more.",
+   "ref": [
+    "doc:cgep"
+   ],
+   "h": "Inequality is rooted in assets and unpaid domestic work"
+  },
+  {
+   "k": "f",
+   "t": "Women's share of parliament rose to 33.3% (2025), but women are extremely scarce in appointed posts: one of 21 ministers is a woman, and there are no women among 32 mayors and 40 district heads.",
+   "ref": [
+    "ind:dec:0",
+    "doc:cgep"
+   ],
+   "h": "More women in parliament, but extremely few in appointed posts"
+  },
+  {
+   "k": "f",
+   "t": "Donor funding is small and fragmented. Active cooperation mapped to the strategy totals 55 projects and about USD 29.9 million, led by the EU (about USD 8.5 million) and UN funds (about USD 6.7 million). Legal framework development receives about USD 0.5 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:G5"
+   ],
+   "h": "Donor funding is small and fragmented"
+  },
+  {
+   "k": "v",
+   "t": "The text and numerical targets of the national strategy are not available in published form, and the action plan has not been formally monitored. Combined with the abolition of mandatory gender analysis (2025), the biggest weakness is that progress cannot be measured with national figures.",
+   "ref": [
+    "doc:gstrat",
+    "doc:cgep"
+   ],
+   "h": "The biggest weakness: progress cannot be measured with national figures"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Gender gaps at a glance",
+     "msg": "Legal frameworks have advanced, but women's labour participation has fallen into the 40s, and gaps in assets, wages and decision-making are large.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "44.1",
+        "u": "%",
+        "k": "Female labour force participation rate (2025, ILO estimate)",
+        "ref": "ind:eco:0",
+        "hot": true
+       },
+       {
+        "v": "33.3",
+        "u": "%",
+        "k": "Women's share of seats in parliament (2025)",
+        "ref": "ind:dec:0"
+       },
+       {
+        "v": "~25",
+        "u": "%",
+        "k": "Margin by which men's average wages exceed women's",
+        "ref": "doc:cgep",
+        "hot": true
+       },
+       {
+        "v": "18.5",
+        "u": "%",
+        "k": "Women's share of land titles",
+        "ref": "doc:cgep"
+       },
+       {
+        "v": "12.8",
+        "u": "%",
+        "k": "Women subjected to violence by a husband or partner in the past year (2023)",
+        "ref": "ind:vio:1"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The female labour force participation rate fell from 51.4% (2010) to 44.1% (2025), about 60% of the male level (female-to-male ratio 61.8%). The UN Women profile gives 44.7% for women and 73.5% for men in 2023.",
+       "ref": [
+        "ind:eco:0",
+        "doc:cgep"
+       ],
+       "b": "Female labour force participation 51.4% (2010) → 44.1% (2025)"
+      },
+      {
+       "k": "f",
+       "t": "Men's average wages are about 25% higher than women's. Women make up 77% of education and health workers, while men account for 99% of construction, 96% of transport and storage and 93% of mining workers.",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Men earn about 25% more; strong occupational segregation"
+      },
+      {
+       "k": "f",
+       "t": "Unpaid domestic work: in the 2021 time-use survey, women spent 4 hours 20 minutes a day on housework and men 55 minutes; rural women spent 5 hours 25 minutes. 56.8% of women aged 15 and over are mainly responsible for household water.",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Housework: women 4 h 20 min a day, men 55 min"
+      },
+      {
+       "k": "f",
+       "t": "Assets: women hold 29% of real estate and 18.5% of land titles. Of just over 428,000 farms, 20.2% are headed by women. 27% of entrepreneurs are women, and 28% of female entrepreneurs versus 45% of male entrepreneurs obtained business loans (2021).",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Women hold 18.5% of land titles and are 27% of entrepreneurs"
+      },
+      {
+       "k": "f",
+       "t": "The poverty rate rose from 20.1% (2019) to 33.2%, and 62.2% of the poor live in rural areas. Kyrgyzstan ranks 90th of 146 countries in the Global Gender Gap Index.",
+       "ref": [
+        "doc:b30"
+       ],
+       "b": "Poverty 20.1% → 33.2%; 90th in the Gender Gap Index"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 cites as achievements the adoption of the National Gender Equality Strategy and the national programme on women's leadership, ratification of ILO Convention No. 190 on eliminating violence and harassment in the world of work (the first in Central Asia), and longer protection orders and correctional programmes for perpetrators of domestic violence.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030: ILO Convention No. 190 ratified; protection orders extended"
+      },
+      {
+       "k": "h",
+       "t": "Background to the gaps"
+      },
+      {
+       "k": "f",
+       "t": "As reasons why female employment is not rising, the UN Women profile cites employers' preference for men because of the costs of maternity and childcare, stereotypes that women should devote themselves to the home, and a lack of affordable childcare. Most domestic workers are informal and lack legal protection. In 2022, 40.5% of emigrants were women.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "As causes of the wage gap, it cites occupational segregation, inadequate legal provision for equal pay for work of equal value, and men's income from property, pensions and remittances in addition to wages. As a result, rising wages do little to change women's economic position.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In national statistics, women's share of the poor rose from 51.3% (2015) to 52.5% (2021). 61.8% of poor women live in rural areas, and the poverty rate is highest among women aged 25–54 (33.4%).",
+       "ref": [
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Finance: women's use of financial institutions rose by 0.3% nationwide and 2.5% in urban areas but fell by 1.1% in rural areas. The country's first gender bond was issued in November 2022. IFC estimates that a women-focused finance segment could generate 45.3 billion som (USD 431.5 million) in revenue a year.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Health and rights"
+      },
+      {
+       "k": "f",
+       "t": "According to the UN Women profile, only 35.3% of women have health insurance. Maternal mortality is 46.5 per 100,000 live births, the highest in Central Asia, and 73% of deaths occur in rural areas. 59% of married women use modern contraception, a large gap from the share who know about it (99.4%).",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "26% of women with disabilities said they cannot leave home without permission. The Ministry of Health's maternal and child health budget was 1.4% of the ministry's budget in 2024, and the law on reproductive rights was repealed in 2024.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "While laws and institutions move forward, gaps in work, assets and housework have not narrowed. Institutional achievements are not showing up in figures on people's lives.",
+       "ref": [
+        "doc:ndp",
+        "ind:eco:0",
+        "doc:cgep"
+       ],
+       "b": "Institutional gains are not showing up in living conditions"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy structure",
+     "msg": "Gender policy is built on \"NDP 2030 Section 9.2 → National Strategy for Achieving Gender Equality to 2030 → action plans and two national programmes\", but NDP 2030 sets no numerical targets.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy structure (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Top-level plan: NDP 2030 Section 9.2 (fair social protection) has five target indicators, such as child poverty, but no numerical gender targets. Its tasks include \"measures to reduce violence against women and children\" and \"measures to ensure equal rights and opportunities for women in political and public life\".",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 9.2: no numerical gender targets"
+      },
+      {
+       "k": "f",
+       "t": "Other chapters of NDP 2030 also set tasks such as preferential loans, grants, microfinance and collateral-free lending for women entrepreneurs (Chapter VI) and expanding women's economic opportunities in IT (Chapter VIII).",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "National strategy: the National Strategy for Achieving Gender Equality to 2030 and the Action Plan 2022–2024 were approved by Cabinet of Ministers Resolution No. 513 of 16 September 2022. Agencies submit progress every six months to the Ministry of Labour, Social Security and Migration, which reports to the Cabinet of Ministers and proposes revisions based on annual monitoring.",
+       "ref": [
+        "doc:gstrat",
+        "tree:gender:gender"
+       ],
+       "b": "National Strategy to 2030 (Cabinet of Ministers Resolution No. 513 of 2022)"
+      },
+      {
+       "k": "f",
+       "t": "Note: the strategy text has not been read, so the number of priority areas and target values cannot be confirmed. Sources describe it differently: the site's tree diagram has five areas, the UN Women profile four priorities (economy, cultural transformation, prevention of violence, parity in decision-making), and the Spotlight final report 13 objectives, 42 tasks, 197 activities and an Action Plan 2022–2025.",
+       "ref": [
+        "tree:gender:gender",
+        "doc:cgep",
+        "doc:spot"
+       ],
+       "b": "Strategy text not obtained; sources describe it differently"
+      },
+      {
+       "k": "f",
+       "t": "Action plans: the 2022–2024 plan was not formally monitored. The 2025–2027 draft has 5 areas, 13 objectives, 49 tasks and 144 measures.",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Action Plan 2025–2027 is a draft (144 measures)"
+      },
+      {
+       "k": "f",
+       "t": "National programmes: the Programme for Support and Development of Women's Entrepreneurship 2022–2026 and the Programme for Support of Women's Leadership to 2030 are reported to be under implementation. UN Women writes that the women's entrepreneurship programme was not reflected in the 2024 budget.",
+       "ref": [
+        "doc:b30",
+        "doc:cgep",
+        "tree:gender:wbiz",
+        "tree:gender:wlead"
+       ],
+       "b": "Women's entrepreneurship programme not reflected in the 2024 budget"
+      },
+      {
+       "k": "f",
+       "t": "Institutions: the Ministry of Labour, Social Security and Migration leads. A National Council on Family, Gender, Social Protection and Children's Rights (33 members) was established in November 2024, and 51 gender focal points were appointed in 2024.",
+       "ref": [
+        "doc:cgep",
+        "doc:b30"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Setbacks: the requirement for gender analysis of legal acts and other documents was abolished in 2025, and the law on reproductive rights was repealed in 2024. The new Labour Code, in force since January 2025, contains no provisions on harassment.",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Mandatory gender analysis abolished in 2025"
+      },
+      {
+       "k": "v",
+       "t": "The strategic framework exists, but the implementation mechanisms (budgeting, monitoring and analysis) are actually weakening. The government's own Beijing+30 review states that plans and budgets are not linked.",
+       "ref": [
+        "doc:cgep",
+        "doc:b30"
+       ],
+       "b": "Implementation mechanisms (budget, monitoring, analysis) are weakening"
+      },
+      {
+       "k": "h",
+       "t": "Institutional history and weaknesses"
+      },
+      {
+       "k": "f",
+       "t": "The core law is the 2008 Law on State Guarantees of Equal Rights and Equal Opportunities for Men and Women. Kyrgyzstan ratified CEDAW in 1997 and its Optional Protocol in 2002. The 2017 law on protection from family violence added \"economic violence\" and widened the number of responsible bodies to 17.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The government's Beijing+30 review itself identifies as weaknesses fragile institutional memory, poor linkage between national and local strategy management, plans not tied to budgets, and almost no programme budget used for gender equality.",
+       "ref": [
+        "doc:b30"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Spotlight final report states that the responsible Deputy Prime Minister changed six times from March 2020 and that the national steering committee did not meet in 2022. Civil society organisations expressed concern about the NGO law and the \"foreign agents\" bill.",
+       "ref": [
+        "doc:spot"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Frequent changes of responsible officials and years without coordination meetings suggest that the institutional set-up to sustain the strategy is weak, which is one reason monitoring reports are not produced.",
+       "ref": [
+        "doc:spot",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter XI of NDP 2030 (development of the legal system) lists as a task improving the legislative process through better anti-corruption, social, economic, legal, human rights, gender and environmental reviews of draft laws.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "While NDP 2030 calls for better gender review of draft laws, the requirement for gender analysis of legal acts was abolished in 2025. The top-level plan and actual institutional developments are moving in opposite directions.",
+       "ref": [
+        "doc:ndp",
+        "doc:cgep"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "Of the five areas, only the economy and decision-making have national programmes; in the violence area, the anti-trafficking programme has expired.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active cooperation by table row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Women's economic opportunities are covered by the Women's Entrepreneurship Programme 2022–2026, and participation in decision-making by the Women's Leadership Programme to 2030. Cultural policy and education and legal framework development have no stand-alone programme, and for protection from violence and discrimination, the Anti-Trafficking Programme 2022–2025 has expired.",
+       "ref": [
+        "tree:gender:wbiz",
+        "tree:gender:wlead",
+        "tree:gender:traf",
+        "tree:gender:G2",
+        "tree:gender:G5"
+       ],
+       "b": "National programmes exist only for the economy and decision-making"
+      },
+      {
+       "k": "v",
+       "t": "In the violence area, the national programme has lapsed, while active donor funding is the second-largest at about USD 9 million, centred on EU projects. Work on a new domestic violence law also continues, with donor projects filling the gap left by the national plan.",
+       "ref": [
+        "row:G3",
+        "tree:gender:traf",
+        "doc:spot"
+       ],
+       "b": "In the violence area the national plan has lapsed and donors fill the gap"
+      },
+      {
+       "k": "f",
+       "t": "The Spotlight final report describes the strategy as 13 objectives, 42 tasks and 197 activities, with a funding gap of less than 10%. UN Women, by contrast, writes that the women's entrepreneurship programme was not reflected in the 2024 budget.",
+       "ref": [
+        "doc:spot",
+        "doc:cgep",
+        "tree:gender:wbiz"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Cultural policy and education has no stand-alone national programme, but there are 11 active donor projects worth about USD 6.3 million (UNICEF about USD 3.9 million). Most are education system or youth projects, and few have changing perceptions of gender roles as their main objective.",
+       "ref": [
+        "row:G2",
+        "tree:gender:G2"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Current situation in cultural policy and education"
+      },
+      {
+       "k": "f",
+       "t": "In education, women are progressing further. In national statistics, 36% of women aged 18 and over have completed higher or secondary vocational education, versus less than 27% of men (2021). Women account for 51.0% of university students, 65.2% of doctoral students and 85.9% of teachers (2021/22 school year).",
+       "ref": [
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "However, subject segregation is pronounced. Women make up 33.9% of ICT students and 31.3% of university graduates in science and engineering. 21% of women aged 15–49 have basic ICT skills, and 30% of women versus 50% of men have received technical training (2020).",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Although women exceed men in the quantity of education, segregation by field of study and occupation translates into wage and employment gaps. The challenge in this area is less \"opportunities to learn\" than fixed views of \"what to study and where to work\".",
+       "ref": [
+        "doc:sdgg",
+        "doc:cgep",
+        "tree:gender:G2"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "paras": []
+    },
+    {
+     "no": "1.5",
+     "h": "Alignment with the priorities of the Beijing+30 national review",
+     "msg": "Of the five priorities the government set for 2030, gender equality in environment and climate has no corresponding row in the site's table.",
+     "fig": {
+      "type": "ccs-table",
+      "cap": "Table 1-2 Five Beijing+30 priorities × site table rows × active donor funding"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The government's Beijing+30 review lists five priorities to 2030: (1) education, vocational training and lifelong learning for women and girls; (2) women's entrepreneurship and women-led businesses; (3) gender equality in environmental sustainability and climate strategies; (4) eliminating violence against women and girls; and (5) political participation and representation. It also calls for gender budgeting at all levels and better collection of gender indicators.",
+       "ref": [
+        "doc:b30"
+       ],
+       "b": "Five Beijing+30 priorities"
+      },
+      {
+       "k": "f",
+       "t": "On climate, the gender assessment for the GCF–EBRD water systems adaptation project (FP309) states that 56.8% of women aged 15 and over are responsible for household water and that 10.8% of rural people spend more than an hour a day fetching water.",
+       "ref": [
+        "doc:gcf309"
+       ],
+       "b": "56.8% of women are responsible for household water"
+      },
+      {
+       "k": "v",
+       "t": "The intersection of climate and gender sits in the site's table among climate sector projects (such as women's adaptation in the Fergana Valley) and has no row in the gender table.",
+       "ref": [
+        "doc:b30",
+        "doc:gcf309"
+       ],
+       "b": "Climate × gender has no row in the table"
+      },
+      {
+       "k": "f",
+       "t": "As care-related achievements, the government review states that as of 1 June 2024, 14,436 carers (mostly women) were caring for 14,741 children and persons with disabilities, that 523.3 million som was allocated from the national budget, and that social workers' salaries rose by 85%.",
+       "ref": [
+        "doc:b30"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the five priorities, (1) education and (4) violence have relatively substantial active funding, and (2) entrepreneurship corresponds to the economy row. (3) Climate and gender has no row in the table, and (5) political participation is thin at about USD 2.2 million.",
+       "ref": [
+        "row:G1",
+        "row:G2",
+        "row:G3",
+        "row:G4"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDC 3.0 states that rural women have limited access to resources, technology and decision-making and weaker adaptive capacity, and commits to gender-responsive adaptation policies. In agricultural adaptation, women and smallholders are to be supported through microfinance, grants and training. Of 241 participants in government training, 62% were women.",
+       "ref": [
+        "doc:ndc3"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the targets",
+     "msg": "National numerical targets cannot be read. Against the SDGs, parliament, management positions and early marriage are all off track for 2030.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to target (compared with SDG targets because the national strategy's target values cannot be read)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "NDP 2030 has no numerical gender targets, and the target values of the National Strategy to 2030 cannot be confirmed because the text has not been read. The comparison is therefore made with the SDG 5 targets and the electoral law's quota for women (30%).",
+       "ref": [
+        "doc:ndp",
+        "doc:gstrat",
+        "ind:dec:0"
+       ],
+       "b": "National targets cannot be read; compared with the SDGs"
+      },
+      {
+       "k": "v",
+       "t": "Women's share of parliament has risen by about 1.4 points a year since 2015, but SDG parity (50%) would require about 3.3 points a year. The electoral law's 30% was met in 2025.",
+       "ref": [
+        "ind:dec:0"
+       ],
+       "b": "Parliament: 30% met, 50% out of reach"
+      },
+      {
+       "k": "v",
+       "t": "Marriage before 18 has fallen from 21.2% in 1997 but rose from 7.8% in 2012 to 9.2% in 2023, moving against the SDG goal of elimination.",
+       "ref": [
+        "ind:vio:0"
+       ],
+       "b": "Early marriage has risen again since 2012"
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gaps"
+      },
+      {
+       "k": "f",
+       "t": "The parliamentary quota applies to the 54 proportional seats but not to the 36 single-member constituency seats. Women's share of parliament rose from 21.1% (2024) to 33.3% (2025).",
+       "ref": [
+        "doc:cgep",
+        "ind:dec:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because the quota applies only to proportional seats, whether women win single-member constituencies is decisive for reaching 50% in parliament as a whole. The 30% quota is a \"floor\" and aims at a different level from SDG parity.",
+       "ref": [
+        "doc:cgep",
+        "ind:dec:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Women in management positions: 39.8% (2023) in the UN SDG Database, 42.9% (2021) in the national statistical compendium, and 42.1% (2023) in the UN Women profile.",
+       "ref": [
+        "ind:eco:1",
+        "doc:sdgg",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Marriage before 18 is 7.8% (2012) to 9.2% (2023) in the World Bank series, but the MICS values cited in the UN Women profile are 12.9% (2018) to 11.8% (2023), at 14.1% in rural and 8.4% in urban areas. The national statistical compendium also gives 12.9% for 2018.",
+       "ref": [
+        "ind:vio:0",
+        "doc:cgep",
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Depending on the source, early marriage is either rising or falling. Unless the survey and definition used for judgement are decided, assessments of both the distance to the SDG and the effect of donor support will vary. On either measure, it is far from the goal of elimination.",
+       "ref": [
+        "ind:vio:0",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The female labour force participation rate fell from 47.5% (2015) to 44.1% (2025), by about 0.3 points a year. Neither NDP 2030 nor the resolution on the national strategy sets a target value for this indicator.",
+       "ref": [
+        "ind:eco:0",
+        "doc:ndp",
+        "doc:gstrat"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The economic area has the largest gaps but no numerical target. Without a target, it is impossible to judge whether it is on track, and the effect of donor economic projects (about USD 11.8 million active) cannot be measured against national targets.",
+       "ref": [
+        "ind:eco:0",
+        "row:G1"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Women's economic opportunities",
+     "msg": "The share of women in work has fallen by about 7 points over 15 years, and the share of women managers has declined since 2020. The burden of housework and care is a barrier.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Female labour force participation rate and women's share of management positions",
+      "inds": [
+       "eco:0",
+       "eco:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the female labour force participation rate fell from 51.4% (2010) to 47.5% (2015) and 42.4% (2017), and has since been flat at around 44% (44.1% in 2025).",
+       "ref": [
+        "ind:eco:0"
+       ],
+       "b": "Labour force participation flat at around 44%"
+      },
+      {
+       "k": "f",
+       "t": "Women's share of management positions rose from 32.4% (2010) to 47.2% (2020), then fell to 39.8% (2023). The UN Women profile gives 42.1% for 2023, so values differ by source.",
+       "ref": [
+        "ind:eco:1",
+        "doc:cgep"
+       ],
+       "b": "Women managers 47.2% (2020) → 39.8% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "The gender employment gap is largest at ages 25–34. Women's share of IT workers fell from 40.8% (2020) to 31.9% (2022), and 45% of rural women have internet access (men 65%, 2023).",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Women in IT 40.8% → 31.9%"
+      },
+      {
+       "k": "f",
+       "t": "Care: in a 2023 pilot, just over 250 women in Bishkek registered home-based childcare centres caring for more than 4,000 children. The government review states that in 2023 women entrepreneurs opened about 150 home-based kindergartens across all regions.",
+       "ref": [
+        "doc:cgep",
+        "doc:b30"
+       ],
+       "b": "Home-based childcare pilot"
+      },
+      {
+       "k": "v",
+       "t": "The employment gap is largest in the child-rearing years (25–34), with the burden of housework and care narrowing job opportunities. Expanding childcare capacity is the entry point for the economic area.",
+       "ref": [
+        "doc:cgep",
+        "ind:eco:0"
+       ],
+       "b": "Employment gap in child-rearing years; childcare capacity is the entry point"
+      },
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "In national statistics, the 2021 employment rate was 42.4% for women and 72.5% for men, and the labour force participation rate 45.3% for women and 76.0% for men. Women's share of the labour force fell from 40.2% (2016) to 38.4% (2021). Women's unemployment rate is 1.6 points higher than men's.",
+       "ref": [
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Wages: in national statistics, women's average monthly wage in 2021 was 16,500 som, 75.1% of men's (22,000 som), a gap of 24.9%.",
+       "ref": [
+        "doc:sdgg",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On unpaid domestic work, women spend 18.1% of their day and men 3.9% (2020 time-use survey). The national statistical compendium states that pre-school coverage expanded from 10.0% (2010) to 80.9% (2021) (the age definition has not been checked).",
+       "ref": [
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The new Labour Code (January 2025) lifted occupational restrictions on women, but contains no provisions on violence and harassment, and enforcement is weak.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to projects"
+      },
+      {
+       "k": "f",
+       "t": "Main projects are UN fund projects on rural women's economic empowerment (about USD 2.3 million and about USD 1.3 million, to 2027), Swiss short-term skills training for young people and women (about USD 2.4 million, to October 2027), EBRD lending to women entrepreneurs (FINCA about USD 1.3 million, KICB about USD 0.7 million) and ADB's financial inclusion of rural women (about USD 1.3 million).",
+       "ref": [
+        "proj:XI-IATI-UNPF-MPTF00091",
+        "proj:XI-IATI-UNPF-00092002",
+        "proj:CH-4-2023-2022016710",
+        "proj:XI-IATI-EBRD-53733",
+        "proj:XI-IATI-EBRD-55272",
+        "proj:XM-DAC-46004-53319-001-LN3898"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In a 2025 article, UNDP states that it supported more than 800 women through mentoring, e-commerce incubation and women's creative labs, investing about USD 0.33 million. 56 full-time jobs (41 of them for women) were created, and 28 women's businesses moved to online sales.",
+       "ref": [
+        "doc:undp25"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Projects are concentrated at the entry points of skills and finance; no projects addressing the burden of housework and care (childcare capacity), cited as the main cause of the employment gap, are visible in the table. Nor are projects addressing the gap in ownership of assets (land and real estate).",
+       "ref": [
+        "row:G1",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 17 projects and about USD 11.8 million in the women's economic opportunities row. UN funds about USD 4.3 million (rural women's economic empowerment), Switzerland about USD 4.2 million (short-term skills training for young people and women), EBRD about USD 2 million (lending to women entrepreneurs through financial institutions), ADB about USD 1.3 million (financial inclusion of rural women).",
+       "ref": [
+        "row:G1"
+       ],
+       "b": "Economy: 17 projects, about USD 11.8 million"
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Protection from violence and early marriage",
+     "msg": "Legal penalties have been strengthened, but reported cases have increased and early marriage has risen again since 2012. There are only 16 facilities nationwide supporting survivors.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Women married before 18, and women subjected to violence by a husband or partner in the past year",
+      "inds": [
+       "vio:0",
+       "vio:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "12.8% of women experienced violence by a husband or partner in the past year (2023 survey). The 2012 Demographic and Health Survey gave 17.1%, but the definition differs slightly.",
+       "ref": [
+        "ind:vio:1"
+       ],
+       "b": "Partner violence 12.8% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "Women (aged 20–24) married before 18: 21.2% (1997), 7.8% (2012), 9.2% (2023). Rural women and girls are almost twice as likely to be affected by early and forced marriage.",
+       "ref": [
+        "ind:vio:0",
+        "doc:b30"
+       ],
+       "b": "Early marriage 7.8% (2012) → 9.2% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "According to the government review, reported domestic violence cases rose by 32.6% in 2023 over the previous year. The UN Women profile gives a 75% increase in 2023, so the figures do not match. The government review notes that only case counts exist, with no annual prevalence figures.",
+       "ref": [
+        "doc:b30",
+        "doc:cgep"
+       ],
+       "b": "Reports are rising (sources disagree: +32.6% vs +75%)"
+      },
+      {
+       "k": "f",
+       "t": "Support systems: there are 16 crisis centres nationwide, relying on unstable contracts with NGOs. Demand rose by 21.4% in 2024. The conviction rate in court is 86%, but 80% of scheduled hearings are postponed. There are about 470 domestic violence prevention committees.",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "16 crisis centres nationwide"
+      },
+      {
+       "k": "f",
+       "t": "Law: amendments to the Criminal Code and Criminal Procedure Code introduced a ban on reconciliation in rape cases, abolished the statute of limitations for sexual violence, and banned bail and probation.",
+       "ref": [
+        "doc:b30",
+        "doc:cgep"
+       ],
+       "b": "Statute of limitations for sexual violence abolished"
+      },
+      {
+       "k": "f",
+       "t": "The EU–UN Spotlight Initiative (2020–2023, about USD 7.8 million, five UN agencies, 12 municipalities in three regions) supported an amendment to the Criminal Procedure Code allowing perpetrators to be detained for up to 48 hours (April 2020) and entry into force of the law on free legal aid (August 2022). The 114 helpline received 3,534 calls in January–November 2023, and a 60-bed crisis centre opened in Bishkek.",
+       "ref": [
+        "doc:spot"
+       ],
+       "b": "Results of Spotlight (about USD 7.8 million)"
+      },
+      {
+       "k": "v",
+       "t": "The rise in reports cannot distinguish between more violence and easier reporting. There has been only one prevalence survey (2023), and national figures to measure impact are insufficient.",
+       "ref": [
+        "doc:b30",
+        "ind:vio:1"
+       ],
+       "b": "Rising reports cannot be distinguished from rising violence"
+      },
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "In national statistics, reported victims of domestic violence numbered 3,333 (2015), 7,005 (2016), 6,490 (2019) and 9,038 (2021). In 2021 women accounted for 8,587, about 95%. Domestic violence homicides rose from 4 (2017) to 28 (2021).",
+       "ref": [
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the UN Women profile, 12,001 protection orders were issued in 2024 (11,227 for women), and administrative reports rose by 61% from 2,663 to 4,298. Domestic violence court cases numbered 4,320 (2024), almost double 2022. 13,244 women sought help from crisis centres (2024), and 15 of the 16 centres nationwide are run by NGOs.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UN Women states that the rise in reports reflects both more incidents and easier reporting, and that prevention is underdeveloped and fragmented. Bride kidnapping is estimated to account for more than 20% of marriages, but only 13 cases were registered (2023). 53.2% of respondents had experienced technology-facilitated violence. The Spotlight final report states that reports in the first quarter of 2020 were 62% higher than a year earlier.",
+       "ref": [
+        "doc:cgep",
+        "doc:spot"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to projects"
+      },
+      {
+       "k": "f",
+       "t": "Main active projects are the EU's \"Act Now\" (women's and youth organisations leading efforts to end violence, about USD 2.6 million, to October 2028), the EU's youth, gender and human rights project (about USD 2 million, to June 2029), UNICEF's child protection coordination, legislation and policy (about USD 0.4 million) and Germany's prevention of violence against children and families in internal migrant settlements (about USD 0.2 million, to 2028).",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2025-PC-42828",
+        "proj:XI-IATI-EC_INTPA-2024-ACT-61908",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/002/001",
+        "proj:DE-1-202574820"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "By the end of Spotlight, domestic violence prevention committees were operating in all 12 pilot areas, with local budgets allocating a total of USD 50,700. Training materials were incorporated into curricula in the justice sector and elsewhere, and the Ministry of Labour approved the role of service providers.",
+       "ref": [
+        "doc:spot"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Laws, training and prevention committees have been absorbed into national systems, but crisis centre operating costs still depend on unstable contracts with NGOs. Operating funding to support survivors is an area most active donor projects do not cover.",
+       "ref": [
+        "doc:cgep",
+        "doc:spot",
+        "row:G3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In national statistics, complaints of forced marriage and bride kidnapping to crisis centres numbered 264 (2021). Marriage before 15 is 0.3%. Early and forced marriage are criminal offences, but UN Women writes that they persist.",
+       "ref": [
+        "doc:sdgg",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 12 projects and about USD 9 million in the protection from violence and discrimination row (EU about USD 7.3 million). Of this, about USD 2.8 million is a justice sector reform and digitalisation project in which gender is only one component.",
+       "ref": [
+        "row:G3",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63092"
+       ],
+       "b": "Violence: 12 projects, about USD 9 million (mainly EU)"
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Participation in decision-making",
+     "msg": "Women's numbers have grown in parliament and local councils, where quotas apply, but women are almost absent from appointed leadership posts.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Women's share of seats in parliament (dotted lines = SDG 50%, electoral law 30%)",
+      "inds": [
+       "dec:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Women's share of parliament fell from 23.3% (2010–2014) to 19.2% (2015–2019) and 16.5% (2020), then rose to 21.1% (2024) and 33.3% (2025).",
+       "ref": [
+        "ind:dec:0"
+       ],
+       "b": "Women in parliament 16.5% (2020) → 33.3% (2025)"
+      },
+      {
+       "k": "f",
+       "t": "Quota: the electoral law requires at least 30% of seats for women. According to UN Women, the quota applies to the 54 proportional seats but not to the 36 single-member constituency seats.",
+       "ref": [
+        "doc:b30",
+        "doc:cgep"
+       ],
+       "b": "Quota applies only to the 54 proportional seats"
+      },
+      {
+       "k": "f",
+       "t": "Women's share of local council seats rose from 10% (2016) to 37.9% (2024).",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Women in local councils 10% → 37.9%"
+      },
+      {
+       "k": "f",
+       "t": "Appointed posts: one of 21 ministers is a woman. There are no women among the 7 presidential envoys to the regions, 40 district heads or 32 mayors. Women head 16 of 452 village administrations (3.5%). 32% of women politicians reported receiving threats.",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "1 of 21 ministers; no women mayors or district heads"
+      },
+      {
+       "k": "v",
+       "t": "Numbers have grown in elected bodies with quotas but not in appointed posts without them. There is a clear difference between where numerical targets exist and where they do not.",
+       "ref": [
+        "ind:dec:0",
+        "doc:cgep"
+       ],
+       "b": "A clear gap between posts with and without quotas"
+      },
+      {
+       "k": "h",
+       "t": "Background to the gap between quotas and appointments"
+      },
+      {
+       "k": "f",
+       "t": "Quotas have been in the electoral law since 2007. The increase in women in local councils is linked to reserved seats introduced in the 2021 electoral reform: 39% in rural councils (452) and 27.7% in city councils (32). In 2024 a quota capping either sex at 70% was introduced for aksakal (elders') courts.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "There are no quotas for appointed posts, and the civil service law is largely gender-neutral. Women make up 42.1% of civil servants but only 29.4% of national political appointees and 3.3% of local political appointees. In political news coverage, men appear about seven times as often as women.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In national statistics, about one-third of the 8,477 local government employees (early 2022) are women.",
+       "ref": [
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Main projects are the Sweden-funded UN Women strategic partnership (about USD 0.7 million, to 2027), the UN Peacebuilding Fund projects \"Women and girls as agents of peace and prevention of radicalisation\" (about USD 0.5 million) and \"Women as peaceful voters and candidates\" (about USD 0.3 million), and UNDP's project for women in the Fergana Valley (about USD 0.2 million). More than 600 women were trained through 75 centres of the Central Election Commission.",
+       "ref": [
+        "proj:SE-0-SE-6-61070155-6107015501",
+        "proj:XI-IATI-UNPF-00103672",
+        "proj:XI-IATI-UNPF-00093224",
+        "proj:XM-DAC-41114-OUTPUT-01003878",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Projects focus on training candidates and voters; no support for institutional change in appointed posts without quotas (ministers, mayors, district heads) is visible in the table.",
+       "ref": [
+        "row:G4",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 12 projects and about USD 2.2 million in the participation in decision-making row (UN funds about USD 1.1 million, other bilateral donors about USD 0.9 million).",
+       "ref": [
+        "row:G4"
+       ],
+       "b": "Decision-making: 12 projects, about USD 2.2 million"
+      }
+     ]
+    },
+    {
+     "no": "2.4",
+     "h": "Legal framework and gender statistics",
+     "msg": "Gaps in gender statistics are large, and donor funding for legal framework development is the smallest of all areas.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the 217 SDG indicators, 38 (17.5%) are disaggregated by sex. National statistics cover 38 of the UN's 51 Minimum Set of Gender Indicators, with 13 missing.",
+       "ref": [
+        "doc:cgep",
+        "doc:b30"
+       ],
+       "b": "Only 17.5% of SDG indicators are sex-disaggregated"
+      },
+      {
+       "k": "f",
+       "t": "UN Women identifies data gaps in time spent on unpaid care work, vulnerability to climate impacts, use of social protection and measurement of the informal economy, and calls for gender budget lines and expenditure tracking.",
+       "ref": [
+        "doc:cgep"
+       ],
+       "b": "Data gaps in care, climate and the informal economy"
+      },
+      {
+       "k": "v",
+       "t": "Because the national strategy's target values are not available in published form and statistical gaps are large, it is hard to verify the effect of donor cooperation with national figures. Developing statistics and gender budgeting is itself an opening for support.",
+       "ref": [
+        "doc:gstrat",
+        "doc:cgep"
+       ],
+       "b": "Developing statistics and gender budgeting is an opening for support"
+      },
+      {
+       "k": "f",
+       "t": "The UN Women profile states that 65% of 85 gender indicators are available. The national statistical compendium compiles official statistics and the 2014 and 2018 MICS by sex, age, education, income and place of residence, up to end-2021.",
+       "ref": [
+        "doc:cgep",
+        "doc:sdgg"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Budget example: the Ministry of Health's maternal and child health budget was 127.7 million som (about USD 1.45 million) in 2024, 1.4% of the ministry's budget. UN Women recommends gender budget lines and expenditure tracking.",
+       "ref": [
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Projects on statistics and evidence include the UN Peacebuilding Fund's \"Building the evidence base for gender policy\" (about USD 0.3 million) and an NGO project linking MICS and education information system data (about USD 0.2 million, to January 2027).",
+       "ref": [
+        "proj:XI-IATI-UNPF-00094616",
+        "proj:XM-DAC-301-2-110317-001"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The gender assessment for the GCF–EBRD water project ranks Kyrgyzstan 95th of 146 countries (4th of 7 in the region) in the World Economic Forum's 2025 Global Gender Gap Index, with a low political empowerment score of 0.128. The government review gives 90th, so the ranking differs by the year of the source.",
+       "ref": [
+        "doc:gcf309",
+        "doc:b30"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In international indices, politics is the weakest area. Unless gaps in national statistics (violence prevalence, care time, assets) are filled, progress on the national strategy will have to be gauged through international indices.",
+       "ref": [
+        "doc:gcf309",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "As priority actions to 2030, the government review lists gender budgeting at all levels and improved methods for collecting and analysing gender indicators. On violence, it notes that only case counts are reported and that there are no prevalence survey results.",
+       "ref": [
+        "doc:b30"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 3 projects and about USD 0.5 million in the legal framework development row (UN funds, NGOs), including the project linking MICS and the education information system.",
+       "ref": [
+        "row:G5",
+        "proj:XM-DAC-301-2-110317-001"
+       ],
+       "b": "Legal framework: 3 projects, about USD 0.5 million"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "The EU, UN funds, UNICEF and Switzerland account for about 80% of active funding. Amounts per project are small and fragmented.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects mapped to strategy areas; after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the gender strategy totals 55 projects and about USD 29.9 million. By donor: EU about USD 8.5 million, UN funds about USD 6.7 million, UNICEF about USD 4.6 million, Switzerland about USD 4.2 million, EBRD about USD 2 million, other bilateral about USD 1.7 million, ADB about USD 1.3 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 55 projects, about USD 29.9 million"
+      },
+      {
+       "k": "f",
+       "t": "Three projects end by end-2026, with amounts of almost zero.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 187 projects and about USD 93.9 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 187 projects, about USD 93.9 million"
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: UN Peacebuilding Fund projects are recorded with the fund's start date (2006) as their start date, which does not reflect each project's duration. Large projects with a gender marker, such as emergency support for SMEs, are not included in the table rows because their main objective lies elsewhere.",
+       "ref": [
+        "fact:rows"
+       ],
+       "b": "UN fund projects carry the fund's start date"
+      },
+      {
+       "k": "h",
+       "t": "Main projects and division of labour"
+      },
+      {
+       "k": "f",
+       "t": "In descending order of amount: EU justice sector reform and digitalisation (about USD 2.8 million, to 2034), the EU's \"Act Now\" (about USD 2.6 million), Swiss short-term skills training (about USD 2.4 million), UN fund rural women's economic empowerment (about USD 2.3 million), the EU's youth, gender and human rights project (about USD 2 million), UNICEF's \"ADAP\" (about USD 1.8 million) and UNICEF's education system capacity strengthening (about USD 1.6 million).",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63092",
+        "proj:XI-IATI-EC_INTPA-2025-PC-42828",
+        "proj:CH-4-2023-2022016710",
+        "proj:XI-IATI-UNPF-MPTF00091",
+        "proj:XI-IATI-EC_INTPA-2024-ACT-61908",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/003/003",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/003/004"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The division of labour is clear: the EU covers violence, youth and human rights; UN funds rural women and peacebuilding; UNICEF education and children; Switzerland skills; and EBRD and ADB finance for women.",
+       "ref": [
+        "fact:by_donor",
+        "fact:rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Large projects with a gender marker but not included in the table rows include the World Bank's emergency support for micro, small and medium enterprises (about USD 25 million, to 2027) and ADB's housing finance for affordable energy-efficient housing (about USD 11.3 million and about USD 5 million, to 2032).",
+       "ref": [
+        "proj:WB-P174028",
+        "proj:XM-DAC-46004-58345-001-LN4647",
+        "proj:XM-DAC-46004-58345-001-GRNT1042"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The average per project is about USD 0.5 million: many projects, but small amounts. Large funding appears to flow as \"gender components\" within projects in health, education, finance and other sectors.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd"
+       ],
+       "b": "Large funding sits within projects in other sectors"
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Completed amounts are dominated by apportioned shares of large health, education and public finance projects; Spotlight is the only large project with gender as its main objective.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed since 2017. Earlier projects are excluded because records from major donors are missing. Even since 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the gender strategy total 187 projects and about USD 93.9 million (after pro-rata allocation, no double counting). By donor: World Bank about USD 27.3 million, United States about USD 16.6 million, UN funds about USD 15.8 million, ADB about USD 10 million, EU about USD 7 million, other bilateral about USD 5.4 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, overlaps included): protection from violence and discrimination 79 projects and about USD 43 million; cultural policy and education 55 projects and about USD 35.8 million; legal framework 29 projects and about USD 17.4 million; economy 47 projects and about USD 5.2 million; decision-making 9 projects and about USD 0.6 million.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Violence and education dominate completed projects"
+      },
+      {
+       "k": "f",
+       "t": "Large projects: the World Bank's Second Health and Social Protection Project (about USD 10.7 million, completed 2019), the UN Spotlight Fund (about USD 9.1 million and others, completed 2023), ADB's improving public financial management and governance (about USD 8.6 million, completed 2025), the World Bank's education reform (about USD 8.3 million, completed 2019) and US school meals (McGovern-Dole Program).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:WB-P126278",
+        "proj:XI-IATI-UNPF-MPTF00154",
+        "proj:XM-DAC-46004-57193-001-LN4462",
+        "proj:WB-P113350",
+        "proj:US-GOV-2-FFE1162021010",
+        "proj:US-GOV-2-FFE116201702400A",
+        "proj:US-GOV-2-FFE1162017024",
+        "proj:US-GOV-2-FFE1162012027"
+       ],
+       "b": "The large items are apportioned shares of projects in other sectors"
+      },
+      {
+       "k": "f",
+       "t": "The Spotlight budget (2020–2023) was about USD 7.79 million, of which about USD 6.71 million came from Spotlight funds. By agency: UNDP about USD 1.8 million, UN Women about USD 1.77 million, UNICEF about USD 1.48 million, UNFPA about USD 1.27 million, UNODC about USD 0.39 million.",
+       "ref": [
+        "doc:spot"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Completed projects in the cultural policy and education row total 55 projects and about USD 35.8 million, led by the World Bank (about USD 16.7 million) and the United States (about USD 12.9 million). They mainly consist of education-wide projects such as education reform, the Global Partnership for Education and school meals (McGovern-Dole Program).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:WB-P113350",
+        "proj:WB-P132490",
+        "proj:US-GOV-2-FFE1162021010"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Most of the completed projects in the legal framework development row (29 projects, about USD 17.4 million) are ADB's improving public financial management and governance (about USD 8.6 million, completed 2025) and other bilateral donors (about USD 4.8 million).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XM-DAC-46004-57193-001-LN4462"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Much of the completed amount is apportioned shares of health, education and public finance projects that include gender as one component, so funding for gender itself is smaller than the table amounts. Spotlight ended in 2023, and the violence area has been taken over by new EU projects.",
+       "ref": [
+        "fact:closed_rows",
+        "row:G3",
+        "doc:spot"
+       ],
+       "b": "New EU projects take over from Spotlight"
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "No area is without active projects, but the legal framework (about USD 0.5 million) and decision-making (about USD 2.2 million) are thin.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × active/completed cooperation"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "All five areas have active projects. Amounts: economy about USD 11.8 million, violence about USD 9 million, culture and education about USD 6.3 million, decision-making about USD 2.2 million, legal framework about USD 0.5 million.",
+       "ref": [
+        "fact:rows",
+        "fact:empty_rows"
+       ],
+       "b": "No empty areas, but the legal framework and decision-making are thin"
+      },
+      {
+       "k": "v",
+       "t": "Gender budgeting, statistics and monitoring, identified as weaknesses by the government and UN Women, fall under the \"legal framework development\" row, which is the thinnest.",
+       "ref": [
+        "row:G5",
+        "doc:cgep",
+        "doc:b30"
+       ],
+       "b": "Budgeting, statistics and monitoring, the weak points, are the thinnest"
+      },
+      {
+       "k": "v",
+       "t": "Outside the five areas of the table, climate and gender (a Beijing+30 priority) and care capacity and access to assets and credit (recommended by UN Women) are hard to see either as rows or as projects.",
+       "ref": [
+        "doc:b30",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the economy row, active funding (17 projects, about USD 11.8 million) has increased compared with completed projects (47 projects, about USD 5.2 million). The decision-making row is thin in both periods: 9 completed projects and about USD 0.6 million, and 12 active projects and about USD 2.2 million.",
+       "ref": [
+        "fact:closed_rows",
+        "fact:rows"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "In 2027 the focus will be whether the Action Plan 2025–2027 is approved and the measurement system is restored.",
+     "paras": [
+      {
+       "k": "v",
+       "t": "Institutional development (laws, quotas, conventions) has advanced, but the figures for women's employment, assets and wages have not moved. The next stage is capacity to reduce the burden of housework and care, and access to assets and credit.",
+       "ref": [
+        "ind:eco:0",
+        "doc:cgep"
+       ],
+       "b": "Next: care capacity and access to assets and credit"
+      },
+      {
+       "k": "v",
+       "t": "The national strategy's target values, monitoring of the action plan and the mandatory gender analysis are all weak, so progress cannot be measured with national figures. Approval of the Action Plan 2025–2027 and its monitoring system will be the entry point for the next round of donor support.",
+       "ref": [
+        "doc:gstrat",
+        "doc:cgep"
+       ],
+       "b": "Approval of the Action Plan 2025–2027 is the entry point"
+      },
+      {
+       "k": "v",
+       "t": "In the violence area, the national programme has lapsed, reports are rising and support facilities are few. New EU projects (running to 2028–2029) are the main pillar for now.",
+       "ref": [
+        "row:G3",
+        "tree:gender:traf",
+        "doc:cgep"
+       ],
+       "b": "On violence, EU projects are the main pillar for now"
+      },
+      {
+       "k": "v",
+       "t": "Decision-making is advancing in councils with quotas and stalled in appointed posts. Whether to extend numerical targets to appointed posts is the issue.",
+       "ref": [
+        "ind:dec:0",
+        "doc:cgep"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "On statistics, key indicators such as early marriage, management positions and parliament differ by source. Simply standardising on the National Statistical Committee's official statistics (the compendium) would stabilise judgements of the gap to target.",
+       "ref": [
+        "doc:sdgg",
+        "ind:vio:0",
+        "ind:eco:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In the economic area, building childcare and care capacity is an entry point that would act simultaneously on three gaps: employment, wages and poverty. The government has also started carer allowances and home-based childcare, so support for expanding these would be aligned with national efforts.",
+       "ref": [
+        "doc:b30",
+        "doc:cgep",
+        "row:G1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: approval of the Action Plan 2025–2027, a new domestic violence law, a successor to the Women's Entrepreneurship Programme 2022–2026, and gender lines in the 2027 budget.",
+       "ref": [
+        "doc:cgep",
+        "tree:gender:wbiz"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Women's share of seats in parliament",
+   "33.3%(2025)",
+   "SDG 50% (electoral law quota 30%)",
+   "+1.4 points/yr (2015–2025)",
+   "+3.3 points/yr",
+   "30% met; 50% out of reach",
+   "bad"
+  ],
+  [
+   "Women's share of management positions",
+   "39.8%(2023)",
+   "SDG 50%",
+   "+0.5 points/yr (2015–2023; down from 47.2% in 2020)",
+   "+1.5 points/yr",
+   "Off track",
+   "bad"
+  ],
+  [
+   "Women (aged 20–24) married before 18",
+   "9.2% (2023; UN Women, citing MICS, gives 11.8%)",
+   "SDG: eliminate (0%)",
+   "+0.1 points/yr (2012–2023; −0.2 points/yr in 2018–2023 on MICS)",
+   "−1.3 points/yr",
+   "Off track (direction of change differs by source)",
+   "bad"
+  ],
+  [
+   "Violence by a husband or partner (past year)",
+   "12.8%(2023)",
+   "SDG: eliminate (0%)",
+   "Only one survey",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Female labour force participation rate",
+   "44.1%(2025)",
+   "No target value",
+   "−0.3 points/yr (2015–2025)",
+   "—",
+   "No target",
+   "na"
+  ],
+  [
+   "Numerical targets of the National Strategy to 2030",
+   "Text not readable",
+   "—",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "G",
+   "Overall",
+   "National Strategy for Achieving Gender Equality to 2030 (Action Plan 2025–2027 is a draft)",
+   "Cabinet of Ministers Resolution No. 513 of 16 September 2022",
+   "ok",
+   "9.2",
+   "",
+   "gender"
+  ],
+  [
+   "G",
+   "Women's economic opportunities",
+   "National Programme for Support and Development of Women's Entrepreneurship 2022–2026",
+   "Listed in the SDG Voluntary National Review 2025 (legal basis not confirmed)",
+   "ok",
+   "VI (loans for women entrepreneurs)",
+   "G1",
+   "wbiz"
+  ],
+  [
+   "G",
+   "Cultural policy and education",
+   "No stand-alone programme (strategy area 2)",
+   "—",
+   "none",
+   "—",
+   "G2",
+   "G2"
+  ],
+  [
+   "G",
+   "Protection from violence and discrimination",
+   "Anti-Trafficking Programme 2022–2025",
+   "Cabinet of Ministers Decision (expired)",
+   "end",
+   "9.2 (reducing violence)",
+   "G3",
+   "traf"
+  ],
+  [
+   "G",
+   "Participation in decision-making",
+   "National Programme for Support of Women's Leadership to 2030 (Action Plan 2024–2027)",
+   "Listed in NDP 2030 and the SDG Voluntary National Review 2025",
+   "ok",
+   "9.2 (equal opportunities for women)",
+   "G4",
+   "wlead"
+  ],
+  [
+   "G",
+   "Legal framework development",
+   "No stand-alone programme (strategy area 5)",
+   "—",
+   "none",
+   "—",
+   "G5",
+   "G5"
+  ]
+ ],
+ "ten": [
+  [
+   "G",
+   "National Strategy for Achieving Gender Equality to 2030"
+  ]
+ ],
+ "ccs": [
+  [
+   "① Education, vocational training and lifelong learning",
+   [
+    "G2"
+   ]
+  ],
+  [
+   "② Women's entrepreneurship and women-led businesses",
+   [
+    "G1"
+   ]
+  ],
+  [
+   "③ Gender equality in environmental and climate strategies",
+   []
+  ],
+  [
+   "④ Eliminating violence against women and girls",
+   [
+    "G3"
+   ]
+  ],
+  [
+   "⑤ Political participation and representation",
+   [
+    "G4"
+   ]
+  ]
+ ],
+ "unread": [
+  "Text and numerical targets of the National Strategy for Achieving Gender Equality to 2030 (only the resolution text has been obtained).",
+  "Results of implementation of the Action Plan 2022–2024 (no formal monitoring was carried out).",
+  "Annual values for domestic violence prevalence (only one survey, in 2023; annually only reported case counts).",
+  "An annual published series for the gender wage gap (only UN Women's \"about 25%\").",
+  "Annual values for time spent on unpaid domestic and care work (only the 2021 time-use survey).",
+  "Annual values for women's ownership of land and assets.",
+  "National budget and spending for gender equality (there are no gender budget lines).",
+  "Documents not read: the second half of the Spotlight final report (including the challenges and responses sections) and the ILO assessment of women's entrepreneurship (2009, not opened)."
+ ]
+}

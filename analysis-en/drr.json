@@ -1,0 +1,1691 @@
+{
+ "sid": "drr",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "R": "Action Plan for Emergency Risk Reduction 2025–2030"
+  },
+  "rows": {
+   "R1": {
+    "n": "Mapping of hazard sites and structures",
+    "st": "Action Plan 1"
+   },
+   "R2": {
+    "n": "Prevention (mudflow and landslide control)",
+    "st": "Action Plan 2"
+   },
+   "R3": {
+    "n": "Technosphere safety (dams, tailings)",
+    "st": "Action Plan 3"
+   },
+   "R4": {
+    "n": "Forest investment",
+    "st": "Action Plan 4 / Forest Sector Concept to 2040"
+   },
+   "R5": {
+    "n": "Regulation and response capacity",
+    "st": "Action Plan 5 / Civil Protection Strategy to 2040"
+   },
+   "R6": {
+    "n": "Disaster risk financing",
+    "st": "Action Plan 6 / Disaster Risk Financing Strategy 2026–30"
+   }
+  }
+ },
+ "ind": {
+  "plan": {
+   "name": "① DRR planning and institutions",
+   "tag": "National and local DRR strategies",
+   "goals": [
+    [
+     "Build a national early warning system for natural hazards (National Development Programme 2030, 13.1)",
+     "No published data show progress in figures"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Share of local governments that have and implement DRR strategies",
+     "unit": "%",
+     "st": "△ About 69.1 in 2030 at the current pace",
+     "src": "UN SDG Database SG_DSR_SILS (SDG 1.5.4 / 11.b.2)",
+     "t": [
+      "National 100%"
+     ]
+    },
+    {
+     "name": "Alignment of the national DRR strategy with the Sendai Framework",
+     "unit": "points (out of 1)",
+     "st": "✓ High at 0.93 points",
+     "src": "UN SDG Database SG_DSR_LGRGSR (SDG 1.5.3 / 11.b.1)",
+     "t": [
+      "Sendai 1.0"
+     ]
+    }
+   ]
+  },
+  "loss": {
+   "name": "② Disaster damage",
+   "tag": "Deaths, people affected and economic losses",
+   "inds": [
+    {
+     "name": "Deaths and missing persons from disasters (per 100,000 people)",
+     "unit": "persons",
+     "st": "✓ Below the 2005–15 average (about 2.0) in most years",
+     "src": "UN SDG Database VC_DSR_MTMP (SDG 1.5.1 / 11.5.1)",
+     "note": "2020 (59 persons) is excluded from the chart because it includes COVID-19 deaths. Values vary widely from year to year and spike in years with major mudflows or earthquakes.",
+     "t": [
+      "Sendai benchmark"
+     ]
+    },
+    {
+     "name": "Direct economic losses from disasters",
+     "unit": "USD million",
+     "st": "△ Above average in 2021 and 2022",
+     "src": "UN SDG Database VC_DSR_GDPLS (SDG 1.5.2 / 11.5.2)",
+     "t": [
+      "Sendai benchmark"
+     ]
+    }
+   ]
+  },
+  "tech": {
+   "name": "③ Technological hazards and legacy sites",
+   "tag": "Uranium tailings and dams",
+   "goals": [
+    [
+     "Bring 16 former uranium tailings ponds and waste dumps into a safe condition (National Development Programme 2030, 13.1)",
+     "Progress on works appears only in reports of the Ministry of Emergency Situations and donor (EU, Russia, etc.) project reports. To be collected manually once a year"
+    ]
+   ],
+   "inds": []
+  }
+ },
+ "quick": {
+  "h1": "DRR has large projects in \"prevention\" and \"financing\"; hazard mapping, technosphere safety and forests are gaps",
+  "msgs": [
+   [
+    "Prevention: GCF and ADB.",
+    "Glaciers to Farms (G2F, GCF) and landslide risk management (ADB) are the large projects."
+   ],
+   [
+    "Financial preparedness overlaps with water and resilience projects.",
+    "There are many resilience projects by the World Bank, ADB and EBRD; the Disaster Risk Financing Strategy 2026–30 is just getting started."
+   ],
+   [
+    "Winter hazard advisories.",
+    "Warnings of avalanches, icing and storms continue (November)."
+   ],
+   [
+    "Gaps:",
+    "There are no donor projects for the inventory of hazard sites, technosphere safety such as dams and tailings, or forest investment. Russia is carrying out remediation of uranium tailings."
+   ]
+  ],
+  "h2": "Large projects in prevention (mudflows, landslides) and financing; hazard mapping, technosphere and forests are gaps",
+  "rows": {
+   "R1": [
+    "",
+    "No projects"
+   ],
+   "R2": [
+    "",
+    "GCF's G2F and ADB's landslide project are large"
+   ],
+   "R3": [
+    "",
+    "No donor projects (Russia remediating uranium tailings)"
+   ],
+   "R4": [
+    "",
+    "No projects"
+   ],
+   "R5": [
+    "",
+    "Many small capacity-building projects"
+   ],
+   "R6": [
+    "",
+    "Centred on resilience projects (World Bank, ADB, EBRD)"
+   ]
+  },
+  "h3": "Recent activity: \"winter warnings\", \"new landslide control methods\" and \"assessment of recovery preparedness\"",
+  "themes": [
+   [
+    "Winter hazards:",
+    "Avalanche and icing warnings and mountain road travel advisories continue."
+   ],
+   [
+    "New measures:",
+    "A new landslide control method, the first in Central Asia, was introduced (10/27). Flood protection structures are also under construction."
+   ],
+   [
+    "Cooperation:",
+    "Disaster recovery preparedness was assessed with ADB support (10/15). Cooperation also with Korea, WFP and Switzerland."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Disaster Risk Reduction Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 13.1 \"Disaster Risk Reduction\"",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Section 13.1 targets and challenges (translation on the site)",
+   "cat": "gov"
+  },
+  {
+   "id": "drrplan",
+   "t": "Action Plan for Emergency Risk Reduction 2025–2030 (Cabinet of Ministers Resolution No. 601 of 23 September 2025)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2025",
+   "scope": "Resolution text, Annex 1 (6-chapter action plan) and Annex 2 (indicator matrix) reviewed via machine translation. In Annex 3 (costs) the tables are garbled and the amounts cannot be read",
+   "cat": "gov"
+  },
+  {
+   "id": "undrr",
+   "t": "Country Disaster Risk Profile: Kyrgyz Republic",
+   "by": "UNDRR and EU (prepared by CIMA Research Foundation and ADPC)",
+   "y": "2023",
+   "scope": "Full text (figures from the national disaster database, DesInventar Sendai 1992–2022)",
+   "cat": "donor",
+   "u": "https://www.cimafoundation.org/wp-content/uploads/2023/08/Kirghizistan-risk-profile.pdf"
+  },
+  {
+   "id": "adbdrf",
+   "t": "The Enabling Environment for Disaster Risk Financing in the Kyrgyz Republic: Country Diagnostics Assessment",
+   "by": "Asian Development Bank (ADB)",
+   "y": "Feb 2025",
+   "scope": "Almost the entire PDF reviewed in the original (including chapters on loss estimates, public funds and residential disaster insurance)",
+   "cat": "donor",
+   "u": "https://www.adb.org/publications/enabling-environment-disaster-risk-financing-kyrgyz-republic"
+  },
+  {
+   "id": "ccdr",
+   "t": "Kyrgyz Republic Country Climate and Development Report (CCDR), overview page",
+   "by": "World Bank",
+   "y": "Dec 2025",
+   "scope": "Full overview page. The report itself (PDF) has not been read",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/country/kyrgyzrepublic/publication/ccdr"
+  },
+  {
+   "id": "adb51081",
+   "t": "Climate Change- and Disaster-Resilient Water Resources Sector Project – Additional Financing (project page 51081-003)",
+   "by": "Asian Development Bank (ADB)",
+   "y": "2025",
+   "scope": "Full project page",
+   "cat": "donor",
+   "u": "https://www.adb.org/projects/51081-003/main"
+  },
+  {
+   "id": "sdgdb",
+   "t": "UN SDG Database (Sendai Framework Monitor; original source: reports of the Ministry of Emergency Situations)",
+   "by": "United Nations",
+   "y": "Retrieved 2026-11-07",
+   "scope": "Each series, via the site's indicator data",
+   "cat": "donor"
+  },
+  {
+   "id": "adbatlas",
+   "t": "Atlas of Landslides in the Kyrgyz Republic (overview page)",
+   "by": "Asian Development Bank (ADB)",
+   "y": "Dec 2023",
+   "scope": "Full overview page. The atlas itself (PDF) has not been read",
+   "cat": "donor",
+   "u": "https://www.adb.org/publications/atlas-landslides-kyrgyz-republic"
+  },
+  {
+   "id": "ndc",
+   "t": "Nationally Determined Contribution (NDC), 2021 update (NDC = the country's self-determined targets for greenhouse gas reduction and adaptation)",
+   "by": "Kyrgyz Republic",
+   "y": "2021",
+   "scope": "The table \"Reducing the risk of climate-induced emergencies\" in the adaptation chapter reviewed via machine translation",
+   "cat": "gov"
+  },
+  {
+   "id": "crcp",
+   "t": "Climate Risk Country Profile: Kyrgyz Republic",
+   "by": "World Bank and ADB",
+   "y": "Jun 2021",
+   "scope": "Full PDF reviewed in the original (temperature, water, natural hazards, adaptation priorities)",
+   "cat": "donor",
+   "u": "https://www.adb.org/publications/climate-risk-country-profile-kyrgyz-republic"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Disaster damage fluctuates widely from year to year and is dominated by earthquakes and mudflows. In 1992–2022, 4,260 people died, and more than 75% of housing damage was caused by mudflows and earthquakes.",
+   "ref": [
+    "doc:undrr",
+    "ind:loss:0"
+   ],
+   "h": "Earthquakes and mudflows dominate damage"
+  },
+  {
+   "k": "f",
+   "t": "Against the national target that \"all municipalities have a local disaster risk reduction strategy\", 41.7% of municipalities were implementing one in 2024; at this pace the target will not be met by 2030.",
+   "ref": [
+    "ind:plan:0",
+    "doc:ndp"
+   ],
+   "h": "Local DRR strategies in 41.7% of municipalities"
+  },
+  {
+   "k": "f",
+   "t": "The largest structural problem is financing. The state's disaster funds total about USD 160 million, covering only about 9% of the expected losses from a rare major disaster (ADB 2025).",
+   "ref": [
+    "doc:adbdrf",
+    "tree:drrplan:drrfin"
+   ],
+   "h": "Financing is the largest structural problem"
+  },
+  {
+   "k": "f",
+   "t": "Donor funding is concentrated on preventing mudflows, landslides and floods, while technosphere safety (dams, tailings) and forest investment receive nothing. Active cooperation aligned with the disaster risk reduction strategy totals 36 projects worth about USD 130 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:empty_rows",
+    "row:R2"
+   ],
+   "h": "Funding concentrated on prevention; dams, tailings and forests are gaps"
+  },
+  {
+   "k": "v",
+   "t": "The Action Plan 2025–2030 has only just begun, and inventories, registers and regulations are concentrated in 2026–2027. Which of these steps proceed on schedule will be the entry point for the next round of support.",
+   "ref": [
+    "tree:drrplan:drrplan",
+    "doc:drrplan"
+   ],
+   "h": "The Action Plan's early steps are the entry point for support"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Disaster risk: overview",
+     "msg": "Earthquakes, mudflows and landslides cause most damage, and climate change is expected to increase the number of people exposed to floods.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "41.7",
+        "u": "%",
+        "k": "Municipalities implementing DRR strategies (2024)",
+        "ref": "ind:plan:0",
+        "hot": true
+       },
+       {
+        "v": "0.93",
+        "u": "points",
+        "k": "Alignment of the national DRR strategy with the Sendai Framework (2024)",
+        "ref": "ind:plan:1"
+       },
+       {
+        "v": "1.1",
+        "u": "persons",
+        "k": "Disaster deaths per 100,000 people (2024)",
+        "ref": "ind:loss:0"
+       },
+       {
+        "v": "145",
+        "u": "USD million+",
+        "k": "Average annual loss (modelled, floods + earthquakes)",
+        "ref": "doc:adbdrf"
+       },
+       {
+        "v": "9",
+        "u": "%",
+        "k": "Share of expected losses from a major disaster covered by state funds",
+        "ref": "doc:adbdrf",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "According to the national disaster database (1992–2022), disasters killed 4,260 people, affected about 280,000 and damaged 188,405 homes. Recorded economic losses amount to USD 362 million, but damage to assets is not included in the calculation.",
+       "ref": [
+        "doc:undrr"
+       ],
+       "b": "1992–2022: 4,260 deaths, about 190,000 homes damaged"
+      },
+      {
+       "k": "h",
+       "t": "Characteristics of damage"
+      },
+      {
+       "k": "f",
+       "t": "Earthquakes account for the largest economic losses, at about USD 182 million. 63% of affected people were affected by earthquakes and 29% by landslides. Of housing damage, mudflows account for 51% and earthquakes 25%, together over 75%. Damage peaks in spring.",
+       "ref": [
+        "doc:undrr"
+       ],
+       "b": "Over 75% of housing damage from mudflows and earthquakes"
+      },
+      {
+       "k": "f",
+       "t": "Breakdown of damage: 44% of economic losses relate to housing, 37% to infrastructure and 12% to agriculture. Damaged homes: mudflows 97,368, earthquakes 47,338, strong winds 11,271, hail 9,664, heavy rain 8,673, riverine floods 6,490. ThinkHazard! rates urban flooding, earthquakes, landslides and wildfires as \"high\" hazards, and water scarcity and extreme heat as \"medium\".",
+       "ref": [
+        "doc:undrr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data limitations: the profile cautions that the national database is still being populated and cannot be considered final. The methodology for calculating economic losses is also still being developed, and damage to assets is not estimated.",
+       "ref": [
+        "doc:undrr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Landslides: ADB's Atlas of Landslides (2023) states that rainfall patterns and high seismicity make landslides likely, and that more than 30,000 people are at imminent risk from landslides. It identifies women and marginalised groups as the most vulnerable.",
+       "ref": [
+        "doc:adbatlas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Climate impacts: the NDC (2021 update) identifies the main climate impacts on emergencies as hydrological emergencies (such as floods), intensified gravitational processes such as landslides and mudflows, and rising damage from meteorological emergencies.",
+       "ref": [
+        "doc:ndc"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the World Bank/ADB Climate Risk Country Profile (2021), mean annual temperature rose by about 1.1°C in 1960–2010. Under a high-emission scenario (RCP8.5), it is projected to rise by 5.3°C by the 2090s relative to 1986–2005, and even under a low-emission scenario (RCP2.6) by about 1.6°C by the 2050s. Glaciers in the Tien Shan and Pamirs are shrinking rapidly; peak river flows could come up to one month earlier, with higher spring flows and lower summer flows.",
+       "ref": [
+        "doc:crcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same profile puts average annual flood losses at about USD 36 million (2014, 0.5% of GDP), with about 17,000 people affected by floods each year, and cites research that landslides and mudflows kill about 30 people a year in the eastern Fergana Valley. Unstable slopes increased from 162 (1962) to 208 (2007). Women and poor rural residents are most affected by flash floods and landslides.",
+       "ref": [
+        "doc:crcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's diagnostic (2025) puts modelled average annual losses at more than USD 73 million for floods and about USD 72 million for earthquakes, together more than USD 145 million, and cites a World Bank estimate of about USD 270 million a year (more than 3.5% of GDP). A single earthquake could cause losses of USD 1.16 billion (18.6% of GDP).",
+       "ref": [
+        "doc:adbdrf"
+       ],
+       "b": "Average annual losses USD 145–270 million"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank CCDR (2025) projects that without action, real GDP would be 2–3% lower in 2040, 170,000 people would fall into poverty, and the population exposed to floods would increase by 24–38%.",
+       "ref": [
+        "doc:ccdr"
+       ],
+       "b": "Without action, GDP 2–3% lower in 2040"
+      },
+      {
+       "k": "f",
+       "t": "The CCDR overview page also notes that agricultural income could fall by around 5–10% each year, and that storms, landslides, heatwaves and droughts will become more frequent and intense.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Deaths and missing persons from disasters stood at 1.1 per 100,000 people (2024), after jumping to 5.0 in 2022. Direct economic losses were USD 17.3 million (2024).",
+       "ref": [
+        "ind:loss:0",
+        "ind:loss:1",
+        "doc:sdgdb"
+       ],
+       "b": "Deaths: 1.1 per 100,000 (2024)"
+      },
+      {
+       "k": "v",
+       "t": "Damage figures spike in years with major earthquakes or mudflows, so annual values make trends hard to judge. The gap between ADB's modelled figures and the actual losses accumulated in the database is also large.",
+       "ref": [
+        "ind:loss:0",
+        "doc:undrr",
+        "doc:adbdrf"
+       ],
+       "b": "Large year-to-year swings make trends hard to read"
+      },
+      {
+       "k": "v",
+       "t": "Since housing accounts for most losses, largely caused by mudflows and earthquakes, the effectiveness of disaster risk reduction depends on three things: \"works to stop mudflows\", \"building strength (enforcing building codes)\" and \"funding when damage occurs (insurance)\". Chapters 2, 5 and 6 of the Action Plan correspond to each of these.",
+       "ref": [
+        "doc:undrr",
+        "tree:drrplan:R2",
+        "tree:drrplan:R5",
+        "tree:drrplan:R6"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy architecture",
+     "msg": "Disaster risk reduction policy is structured as \"NDP 2030 Section 13.1 → Concept of Comprehensive Protection 2018–2030 → Action Plan 2025–2030 → sectoral strategies\".",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy architecture (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: Section 13.1 of the National Development Programme 2030 sets four targets: (1) building a national early warning system for natural hazards; (2) 100% of local governments adopting and implementing local risk reduction strategies; (3) bringing 16 tailings ponds and waste dumps from the former uranium legacy into a safe condition; and (4) achieving the final targets of the Sendai Framework for Disaster Risk Reduction.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 13.1: four targets"
+      },
+      {
+       "k": "f",
+       "t": "Tasks in Section 13.1: a large-scale inventory of mudflow and flood protection structures, revision of design standards for drainage and water conveyance structures, land for relocation from hazard zones, investment in afforestation of foothills and agroforestry in floodplains, insurance and recovery mechanisms, safety monitoring of hazardous industrial facilities and hydraulic structures, and automation of observation networks and public warning.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Inventory, standards, afforestation, insurance, warning"
+      },
+      {
+       "k": "f",
+       "t": "National concept: the Concept of Comprehensive Protection of the Population and Territory from Emergencies 2018–2030 (Government Decree No. 58 of 29 January 2018) covers four areas: prevention and risk assessment, monitoring and early warning, response and relief, and recovery.",
+       "ref": [
+        "tree:drrplan:drrconcept",
+        "tree:drrconcept:D1",
+        "tree:drrconcept:D2",
+        "tree:drrconcept:D3",
+        "tree:drrconcept:D4"
+       ],
+       "b": "Comprehensive Protection Concept 2018–2030: four areas"
+      },
+      {
+       "k": "h",
+       "t": "Structure of the national plan"
+      },
+      {
+       "k": "f",
+       "t": "Action plan: the Action Plan for Emergency Risk Reduction 2025–2030 (Cabinet of Ministers Resolution No. 601 of 23 September 2025) implements Presidential Decree No. 68 of February 2025. It has six chapters ((1) inventory of structures, (2) preventive measures, (3) technosphere safety, (4) forest investment, (5) regulation and capacity, (6) financing), plus an indicator matrix and a cost table. Relevant bodies report progress quarterly to the Ministry of Emergency Situations.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:drrplan"
+       ],
+       "b": "Action Plan 2025–2030: six chapters, quarterly reporting"
+      },
+      {
+       "k": "f",
+       "t": "Key contents of the Action Plan: an inventory of culverts, water conveyance channels and flood control structures along mudflow and flood paths, and a unified register (2025–2027); a concept for a national system to monitor technosphere safety (2026); purchase and installation of 1,000 public warning sirens; and pilot planting of protective forests in hazard zones (up to 5 ha per region).",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R1",
+        "tree:drrplan:R3",
+        "tree:drrplan:R4",
+        "tree:drrplan:R5"
+       ],
+       "b": "Inventory, monitoring concept, 1,000 sirens"
+      },
+      {
+       "k": "h",
+       "t": "Steps by Action Plan chapter"
+      },
+      {
+       "k": "f",
+       "t": "Chapter 2 (prevention): based on the inventory results, national and municipal mudflow and flood protection plans are to be prepared in 2026–2027 and implemented every year (spring and summer) in 2027–2030. Design standards for culverts and water conveyance channels are to be revised in 2027, and new standards for engineering measures for civil protection set in 2026.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter 3 (technosphere safety): inter-ministerial working groups are to be formed (2025–2026) for hazardous production facilities, environmental and radiation monitoring, energy security, hydraulic structures, sustainable cities, and transport and airports. These are followed by a monitoring system concept (2026), proposals for a database of hazardous facilities and automated monitoring (2027–2028), response procedures for man-made accidents (2026) and rules on early warning of the population (2028).",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter 5 (regulation and capacity): includes legal amendments to strengthen the liability of officials who fail to observe prevention standards (2026–2027), an inspection and supervision system (2027), public awareness activities (2026–2030), stockpiling of emergency supplies and equipment purchases, and GIS-based digital reporting to verify compliance with building codes and seismic regulations (2027–2028).",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R5"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter 6 (financing): in 2026, the Ministry of Finance and the Ministry of Emergency Situations are to approve guidelines for planning funding for protection measures, prevention and recovery by budget line. The resolution states that the plan is to be implemented within the staffing and funding of each year's budget and from other sources not prohibited by law.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R6"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Targets in the indicator matrix: 100% completion of the inventory of structures by 2030, and a phased increase from 10% to 100% in the share of ministries and municipalities funding civil protection activities.",
+       "ref": [
+        "doc:drrplan"
+       ],
+       "b": "Inventory 100%; 100% of bodies providing funding (2030)"
+      },
+      {
+       "k": "f",
+       "t": "The indicator matrix links each chapter's tasks to SDG targets (1.5 on resilience, 11.5 on reducing deaths and economic losses, 13.1 on adaptive capacity, 15 on terrestrial ecosystems). Chapter 5 includes the indicator \"share of adults who know how to protect themselves in emergencies and fires\".",
+       "ref": [
+        "doc:drrplan"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDC (2021 update) adaptation measures for emergencies: modernising hydrological and glacier monitoring, expanding agrometeorological services, developing a unified system for comprehensive monitoring and forecasting of emergencies, establishing climate disaster risk insurance mechanisms, and reducing the vulnerability of children and staff in schools and pre-school facilities. NDP 2030 Section 13.1 also lists implementation of the concept for a unified comprehensive emergency monitoring and forecasting system by 2030 among its tasks.",
+       "ref": [
+        "doc:ndc",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030, the NDC and the Action Plan are aligned on three points: monitoring and early warning, inventory of structures, and insurance. However, the \"new land for residents relocating from hazard zones\" cited by NDP 2030 does not appear in the six chapters of the translated Action Plan.",
+       "ref": [
+        "doc:ndp",
+        "doc:ndc",
+        "doc:drrplan"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Sectoral strategies: the Strategy for the Development of Civil Protection and Disaster Risk Reduction to 2040 and the Concept for the Development of the Forest Sector to 2040 have been confirmed on the site through the Voluntary National Review on the SDGs 2025. The Disaster Risk Financing Strategy 2026–2030 was reported to have been approved by the Cabinet of Ministers in June 2026.",
+       "ref": [
+        "tree:drrplan:cps",
+        "tree:drrplan:forest",
+        "tree:drrplan:drrfin"
+       ],
+       "b": "Civil Protection 2040, Forest 2040, Financing Strategy 2026–30"
+      },
+      {
+       "k": "f",
+       "t": "Note: in Annex 3 (cost estimates) of the Action Plan, the tables are garbled by machine translation, so the total and per-chapter amounts cannot be read.",
+       "ref": [
+        "doc:drrplan"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Positioning of sub-programmes",
+     "msg": "Of the Action Plan's six chapters, only three (forests, regulation and financing) have national strategies that give them concrete form, and the texts of two of these have not been verified.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Sub-programmes (active cooperation by matrix row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Chapters 1–3 (inventory, prevention, technosphere safety) are based on the Action Plan itself. Chapter 4 is given concrete form by the Forest Sector Concept, Chapter 5 by the Civil Protection Strategy and Chapter 6 by the Disaster Risk Financing Strategy.",
+       "ref": [
+        "tree:drrplan:R1",
+        "tree:drrplan:R2",
+        "tree:drrplan:R3",
+        "tree:drrplan:forest",
+        "tree:drrplan:cps",
+        "tree:drrplan:drrfin"
+       ],
+       "b": "Chapters 4–6 are given concrete form by sectoral strategies"
+      },
+      {
+       "k": "v",
+       "t": "Of the four areas of the Comprehensive Protection Concept, \"monitoring and early warning\" corresponds to NDP 2030 target (1), but the Action Plan has no dedicated chapter for it; it is split between Chapter 3 (rules on early warning of the population, 2028) and Chapter 5 (1,000 warning sirens, 2026–2027). Tracking progress requires looking at the two chapters together.",
+       "ref": [
+        "tree:drrconcept:D2",
+        "doc:drrplan",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030's \"16 uranium tailings sites\" falls under Chapter 3 (technosphere safety), but there are no active donor projects. This is where the gap between targets and implementation is widest.",
+       "ref": [
+        "doc:ndp",
+        "row:R3"
+       ],
+       "b": "16 uranium tailings sites: no active projects"
+      },
+      {
+       "k": "v",
+       "t": "The financing strategy's approval has only been confirmed through press reports, and its text has not been read. It cannot be verified how far the mechanisms recommended by ADB's diagnostic (contingent financing facilities, risk transfer, risk pooling) have been incorporated.",
+       "ref": [
+        "tree:drrplan:drrfin",
+        "doc:adbdrf"
+       ],
+       "b": "Contents of the financing strategy not verified"
+      },
+      {
+       "k": "f",
+       "t": "Reporting flow: ministries and municipalities involved in the Action Plan submit progress quarterly to the Ministry of Emergency Situations by the 5th of the following month, and the Ministry submits a summary to the Presidential Administration by the 25th of the following month. Municipal participation is described as \"by agreement\".",
+       "ref": [
+        "doc:drrplan"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "A quarterly reporting mechanism exists, but its results are not published. If the reports were published, indicator matrix values such as the inventory completion rate and the share of bodies providing funding could be tracked externally.",
+       "ref": [
+        "doc:drrplan"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: national targets and prospects for achieving the Sendai Framework",
+     "msg": "Of the four national targets, only local DRR strategies can be tracked with annual figures, and it is off track.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the period; required pace = change needed to reach the target by 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the four NDP 2030 Section 13.1 targets, only \"the share of municipalities with local DRR strategies\" can be tracked with annual figures. For the early warning system and uranium tailings targets, no published data show progress in figures.",
+       "ref": [
+        "doc:ndp",
+        "ind:plan:0"
+       ],
+       "b": "Only 1 of 4 targets can be tracked annually"
+      },
+      {
+       "k": "v",
+       "t": "Municipalities implementing local DRR strategies increased by +5.5 points/year in 2018–2024, whereas reaching 100% by 2030 requires +9.7 points/year. At this pace, the share would be about 75% in 2030.",
+       "ref": [
+        "ind:plan:0"
+       ],
+       "b": "About 75% by 2030 at this pace"
+      },
+      {
+       "k": "v",
+       "t": "Deaths and economic losses are below the Sendai Framework baseline (2005–2015 average) in most years, but exceed it in years of major disasters.",
+       "ref": [
+        "ind:loss:0",
+        "ind:loss:1"
+       ],
+       "b": "Below baseline in most years, spiking in major disaster years"
+      },
+      {
+       "k": "f",
+       "t": "Besides the four targets, the tasks in NDP 2030 Section 13.1 include state fire supervision, launching risk reduction for slow-onset hazards (such as land degradation), improving the readiness of emergency response services, and introducing post-disaster recovery mechanisms. These have no numerical targets.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "For local DRR strategies, the required pace is about 1.8 times the actual pace. Progress on the Chapter 6 indicator of the Action Plan (raising the share of municipalities and other bodies funding civil protection activities from 10% to 100%) would increase the number of municipalities that not only \"have\" but \"implement\" strategies, lifting this indicator.",
+       "ref": [
+        "ind:plan:0",
+        "doc:drrplan"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Caution is needed with the deaths and losses indicators because the national database is still being populated and does not count damage to assets. Compared with ADB's modelled average annual loss (over USD 145 million), recorded direct losses (USD 17.3 million in 2024) are far smaller, suggesting the records may capture only part of the actual damage.",
+       "ref": [
+        "doc:undrr",
+        "doc:adbdrf",
+        "ind:loss:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Action Plan's indicator matrix measures the results of prevention by direct economic losses as a share of GDP (SDG 1.5.2) and the value of physical damage. However, the baseline values cannot be read because the tables are garbled by machine translation.",
+       "ref": [
+        "doc:drrplan"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "DRR planning and institutions",
+     "msg": "The national strategy is broadly aligned with the Sendai Framework, but only 40% of municipalities have developed local strategies.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Share of municipalities implementing DRR strategies, and alignment of the national strategy with the Sendai Framework",
+      "inds": [
+       "plan:0",
+       "plan:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends"
+      },
+      {
+       "k": "f",
+       "t": "Trends: the share of local governments with and implementing DRR strategies rose from 0% (2017) to 8.7% (2018), 34.9% (2023) and 41.7% (2024).",
+       "ref": [
+        "ind:plan:0"
+       ],
+       "b": "Local DRR strategies 8.7% (2018) → 41.7% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Alignment of the national DRR strategy with the Sendai Framework rose from 0.53 points (2015) to 0.93 points (2024).",
+       "ref": [
+        "ind:plan:1"
+       ],
+       "b": "Sendai alignment 0.93 points"
+      },
+      {
+       "k": "f",
+       "t": "Data gaps: the local government series has no values between 10.1% in 2019 and 34.9% in 2023, so movements in 2020–2022 are unknown. National strategy alignment also varies from year to year, falling from 0.93 points (2018) to 0.80 points (2023) and returning to 0.93 points (2024).",
+       "ref": [
+        "ind:plan:0",
+        "ind:plan:1"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "What the indicators mean: the municipal share corresponds to SDG 1.5.4 and 11.b.2, and national strategy alignment to SDG 1.5.3 and 11.b.1; both originate in reports of the Ministry of Emergency Situations. Chapter 2 of the Action Plan also includes revising staffing standards for emergency units at fuel and energy facilities (2025–2026) and a Cabinet resolution listing the special units responding to accidents.",
+       "ref": [
+        "ind:plan:0",
+        "ind:plan:1",
+        "doc:drrplan"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On the use of public funds, ADB's diagnostic states that according to PEFA (Public Expenditure and Financial Accountability assessment), emergency funds in 2017–2019 were less than 0.15% of total budget expenditure. Of the Ministry of Emergency Situations' budget of about 3 billion som, 400–450 million som goes to operating costs and the rest to disaster response.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national framework is in place; the remaining challenges are extending it to municipalities and integrating disaster risk reduction into municipal budgets. This is why Chapter 6 of the Action Plan uses \"the share of municipalities providing funding\" as an indicator.",
+       "ref": [
+        "ind:plan:0",
+        "doc:drrplan",
+        "tree:drrplan:R6"
+       ],
+       "b": "The challenge is reaching municipalities and their budgets"
+      },
+      {
+       "k": "v",
+       "t": "The Action Plan describes municipal participation as \"by agreement\" and expects funding to come from within each year's budget. The smaller a municipality's revenue base, the less likely it is to have a budget to implement a strategy, even if it prepares one. The Chapter 6 guidelines (2026) will be the first step towards integrating disaster risk reduction into municipal budgets.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R6",
+        "ind:plan:0"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to donor projects"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the regulation and response capacity row has 21 projects worth about USD 13.8 million (WFP about USD 8.2 million, Switzerland about USD 3.8 million, UNDP about USD 1.1 million).",
+       "ref": [
+        "row:R5"
+       ],
+       "b": "Regulation and response capacity: 21 projects, about USD 13.8 million"
+      },
+      {
+       "k": "f",
+       "t": "Donor strategy priorities: according to the Climate Risk Country Profile, the World Bank Group's Country Partnership Framework aims to strengthen early warning, focusing on mountain hazards, and to improve disaster risk information and risk-informed policymaking, while ADB's country partnership strategy cites modernising flood protection infrastructure, collecting and analysing disaster data, and addressing upstream risks such as mudflows and landslides.",
+       "ref": [
+        "doc:crcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Major projects: WFP's \"resilience\" project (about USD 8.2 million, 2026–2027); Switzerland's disaster risk and climate change resilience in rural areas (about USD 2.4 million, plus a second phase and others of about USD 0.6 million each, to end-2027); and UNDP's environmental capacity development (about USD 0.9 million, to June 2027).",
+       "ref": [
+        "proj:XM-DAC-41140-KG02.04.033.CAR1",
+        "proj:CH-4-2022-2022000935",
+        "proj:CH-4-2023-2022000935",
+        "proj:CH-4-2025-2022000935",
+        "proj:XM-DAC-41114-OUTPUT-00108562"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Cooperation in this row centres on community and household preparedness and resilience. Among the site's top projects, none directly supports the core of Chapter 5 of the Action Plan: legal amendments, inspection and supervision systems, and monitoring of building code compliance.",
+       "ref": [
+        "row:R5",
+        "tree:drrplan:R5"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Disaster damage",
+     "msg": "Deaths and losses are below the baseline in most years, but losses exceeded the average in 2021 and 2022.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Disaster deaths (per 100,000 people) and direct economic losses (dotted line = Sendai Framework baseline)",
+      "inds": [
+       "loss:0",
+       "loss:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends"
+      },
+      {
+       "k": "f",
+       "t": "Trends: deaths and missing persons from disasters fell from 2.88 per 100,000 people (2010) to 0.28 (2018), rose to 5.0 in 2022 and returned to 1.1 (2024). 2020 is excluded from the chart because it includes COVID-19 deaths.",
+       "ref": [
+        "ind:loss:0"
+       ],
+       "b": "Deaths jumped to 5.0 in 2022"
+      },
+      {
+       "k": "f",
+       "t": "The 2020 value (59) is large because it includes COVID-19 deaths and cannot be compared as a Sendai Framework indicator. The disaster deaths series spikes in years with major mudflows or earthquakes.",
+       "ref": [
+        "ind:loss:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Direct economic losses were USD 24.7 million in 2021 and USD 34 million in 2022, exceeding the baseline (2005–2015 average of USD 21.2 million). They were USD 1 million in 2023 and USD 17.3 million in 2024.",
+       "ref": [
+        "ind:loss:1"
+       ],
+       "b": "Losses above baseline in 2021 and 2022"
+      },
+      {
+       "k": "h",
+       "t": "Drivers of the challenge"
+      },
+      {
+       "k": "f",
+       "t": "Inventory of structures: Chapter 1 of the Action Plan provides for an inventory of culverts (pipes, channels, siphons, bridges), water conveyance structures (dams, canals, drains, embankments) and flood control structures (such as mudflow retention basins), including those both on and off the books of ministries and municipalities. A Cabinet resolution clarifying ownership and determining funding sources to subsidise operation is planned for 2027.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The Action Plan's starting point of an inventory can be read as reflecting that unclear ownership and maintenance responsibility for structures that carry mudflows and floods lie at the root of delays in preventive works and maintenance. Only once the register exists can annual protection plans (Chapter 2) be drawn up.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R1",
+        "tree:drrplan:R2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's diagnostic estimates modelled losses at USD 680 million (about 8% of GDP) for a single flood and USD 1.16 billion (18.6% of GDP) for a single earthquake, and losses exceeding USD 1.8 billion if a 1-in-100-year earthquake and flood coincide. On an average annual basis, flood and earthquake losses are of similar size (each in the USD 70 million range).",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank CCDR (2025) lists disaster risk management as one of seven policy packages, alongside integrated irrigation and agriculture planning and resilient transport infrastructure. It states that the population exposed to floods could increase by 24–38%.",
+       "ref": [
+        "doc:ccdr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Drought: the Climate Risk Country Profile states that with 2°C of warming, a 1-in-100-year drought could occur about once every 15 years, and gives INFORM hazard scores of 6.7 for drought (global average 3.2) and 5.6 for floods (global average 4.5). Agricultural losses in 1991–2011 averaged more than USD 14 million a year, mostly from drought and water scarcity.",
+       "ref": [
+        "doc:crcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data gaps: the same profile notes that flood loss reporting tends to miss small disasters, so actual losses may be larger; that the impacts of flash floods, mudflows and landslides are under-researched and hard to predict; and that glacier monitoring is still being rebuilt.",
+       "ref": [
+        "doc:crcp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Action Plan's indicator matrix measures the results of preventive measures by the share of damage caused by disasters and the value of physical damage.",
+       "ref": [
+        "doc:drrplan"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Most damage is to housing from mudflows and earthquakes, so both preventive works (mudflow control) and mechanisms to enforce building codes determine the scale of damage.",
+       "ref": [
+        "doc:undrr",
+        "tree:drrplan:R2",
+        "tree:drrplan:R5"
+       ],
+       "b": "Both mudflow control and building codes matter"
+      },
+      {
+       "k": "h",
+       "t": "Interpreting the gap to targets"
+      },
+      {
+       "k": "v",
+       "t": "Even though recorded losses are below the baseline in many years, modelled average annual losses exceed USD 145 million. The apparent achievement of the Sendai Framework target (reduction below baseline) may partly reflect under-recording. Strengthening the database is a precondition for judging progress against targets.",
+       "ref": [
+        "ind:loss:1",
+        "doc:adbdrf",
+        "doc:undrr"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Link to donor projects"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the prevention (mudflow and landslide control) row has 11 projects worth about USD 102 million. Of this, the Green Climate Fund's regional programme \"Glaciers to Farms\" accounts for about USD 64.2 million, ADB about USD 23.4 million (landslide risk management, water resources additional financing), EBRD about USD 9 million and the EU about USD 4.1 million.",
+       "ref": [
+        "row:R2"
+       ],
+       "b": "Prevention: 11 projects, about USD 102 million"
+      },
+      {
+       "k": "f",
+       "t": "The Ministry of Emergency Situations is one of the implementing agencies of ADB's water resources additional financing (approved September 2025, USD 47 million), whose outputs include, in addition to protecting irrigation infrastructure, early warning, precipitation monitoring and improved national disaster risk management capacity. As of June 2026, 4% of the grant had been disbursed.",
+       "ref": [
+        "doc:adb51081",
+        "row:R2"
+       ],
+       "b": "ADB additional financing also covers early warning and DRR capacity"
+      },
+      {
+       "k": "f",
+       "t": "Landslides: ADB's landslide risk management sector project (about USD 7.8 million and about USD 3.8 million after pro-rata allocation, 2021–2028) is under way. ADB's atlas mentions a USD 35 million landslide risk reduction programme, but its relationship to this project on the site cannot be confirmed from the overview page.",
+       "ref": [
+        "proj:XM-DAC-46004-53022-001-GRNT0793",
+        "proj:XM-DAC-46004-53022-001-LN4085",
+        "doc:adbatlas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Large climate adaptation projects: the Green Climate Fund's \"Glaciers to Farms\" (about USD 64.2 million, 2025–2036, a regional programme for Central and West Asia), EBRD's climate-resilient water supply (about USD 9 million) and the EU's resilient water resources programme (about USD 4.1 million). UNESCO runs projects including one to reduce glacial lake outburst floods (about USD 0.5 million and about USD 0.3 million).",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "proj:XI-IATI-EBRD-49793",
+        "proj:XI-IATI-EC_INTPA-2024-PC-36751",
+        "proj:XM-DAC-41304-RAS0122395",
+        "proj:XM-DAC-41304-728RAS2002"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Most funding in the prevention row goes to climate adaptation projects for water, glaciers and agriculture; projects directly aimed at the settlement-level mudflow and flood protection works envisaged in Chapter 2 of the Action Plan are limited to a few, such as the landslide project (about USD 11.6 million).",
+       "ref": [
+        "row:R2",
+        "tree:drrplan:R2"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Disaster risk financing and technological hazards",
+     "msg": "State disaster funds are insufficient for a major disaster, and there are no figures to measure progress on the uranium tailings target.",
+     "paras": [
+      {
+       "k": "h",
+       "t": "State funds"
+      },
+      {
+       "k": "f",
+       "t": "Current funding: in 2022 the Ministry of Emergency Situations had access to an emergency reserve of 7 billion som (USD 88 million), and its own budget is about 3 billion som. Disaster funds including the state reserve total about USD 160 million, about 4% of the 2022 state budget.",
+       "ref": [
+        "doc:adbdrf"
+       ],
+       "b": "Disaster funds about USD 160 million (2022)"
+      },
+      {
+       "k": "f",
+       "t": "Funding shortfall: these funds cover only about 9% of the expected losses from a rare but severe disaster. If a 1-in-100-year earthquake and flood coincided, losses could exceed USD 1.8 billion. ADB recommends contingent financing facilities, risk transfer (such as insurance) and a risk pool for agricultural insurance.",
+       "ref": [
+        "doc:adbdrf"
+       ],
+       "b": "Covers only about 9% of expected major-disaster losses"
+      },
+      {
+       "k": "v",
+       "t": "By ADB's estimate, average annual losses (over USD 145 million modelled; about USD 270 million by World Bank estimate) are on a par with or exceed the state's disaster funds (about USD 160 million). The state can cope in an ordinary year, but a major disaster would force it to rely on budget reallocation and borrowing.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's diagnostic notes that a Stabilisation Fund (USD 250 million) also exists, but how it is capitalised is unclear. It states that state funds suffice for average losses in an ordinary year but not for rare major disasters, while its summary table also says they are \"insufficient to absorb annual disaster shocks\", so its assessment is inconsistent.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Residential disaster insurance"
+      },
+      {
+       "k": "f",
+       "t": "Mandatory housing insurance: a law of 31 July 2015 replaced post-disaster state grants and loans with mandatory housing insurance against 18 types of hazards, including earthquakes, floods, mudflows, landslides and hail. In 2007–2014, about USD 72 million in disaster loans had been provided.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "How the scheme works: it is run by the state insurance organisation, with annual premiums of 1,200 som (USD 15) in urban areas and 600 som in rural areas, and coverage caps of 1 million som (urban) and 500,000 som (rural). Vulnerable households receive subsidies of 50–100% of the premium. The insurer has no reinsurance and retains all risk itself.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Enrolment and payouts: as of November 2023, about 8% of homes had mandatory insurance (Ministry of Emergency Situations). Reasons cited include lack of title deeds, cultural factors, low trust in insurers and no penalty for non-enrolment. Payouts over five years totalled 530 claims and 42 million som, and homes in hazard zones are excluded.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's proposals: it recommends strengthening the existing law and the state insurance organisation, citing capital adequacy assessment, premium setting based on earthquake models, purchase of reinsurance, training of loss adjusters, enforcement of enrolment and parametric (automatically triggered) payouts. It also points out that many of about 94 state-owned enterprises lack disaster insurance.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Agricultural insurance: ADB's diagnostic states that the hydrometeorological service has the data and capacity to launch agricultural insurance, but much of it is still on paper or needs reformatting, and insurers do not use commercial or satellite weather data. It recommends establishing a risk pool for agricultural insurance and disaster products.",
+       "ref": [
+        "doc:adbdrf"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Hydrometeorological data underpin both early warning (NDP 2030 target (1)) and insurance. Together with the NDC's \"modernisation of hydrological and glacier monitoring\", support for observation and data digitalisation contributes to several targets at once.",
+       "ref": [
+        "doc:adbdrf",
+        "doc:ndc",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "With enrolment at about 8% and no reinsurance, losses from a major earthquake would fall almost entirely on the state budget and households. The key question is how far the Financing Strategy 2026–2030 and the NDC's \"climate disaster risk insurance mechanism\" will expand insurance coverage.",
+       "ref": [
+        "doc:adbdrf",
+        "doc:ndc",
+        "tree:drrplan:drrfin"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Technological hazards"
+      },
+      {
+       "k": "f",
+       "t": "Technological hazards: NDP 2030 aims to bring 16 tailings ponds and waste dumps from the former uranium legacy into a safe condition, but progress on works appears only in reports of the Ministry of Emergency Situations and donor project reports.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "16 uranium tailings sites: no progress figures"
+      },
+      {
+       "k": "f",
+       "t": "Chapter 3 of the Action Plan includes hydraulic structures and radiation monitoring among the working group areas. NDP 2030 Section 13.2 also lists as a task establishing continuous radioecological monitoring of former uranium sites and the health of the population and environment.",
+       "ref": [
+        "doc:drrplan",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "State funds may cover losses in an \"average year\" but cannot cope with a major earthquake. How far the Financing Strategy 2026–2030 incorporates insurance and contingent financing facilities is key to closing this gap.",
+       "ref": [
+        "doc:adbdrf",
+        "tree:drrplan:drrfin"
+       ],
+       "b": "Preparedness for major disasters depends on the financing strategy"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the disaster risk financing row has 3 projects worth about USD 12.8 million (the World Bank's Enhancing Resilience in Kyrgyzstan project and its additional financing). The technosphere safety row has none.",
+       "ref": [
+        "row:R6",
+        "row:R3"
+       ],
+       "b": "Financing about USD 12.8 million (World Bank); technosphere none"
+      },
+      {
+       "k": "f",
+       "t": "The projects in the financing row are the World Bank's Enhancing Resilience in Kyrgyzstan project (about USD 1.7 million, to June 2027) and its two additional financings (about USD 6.1 million and about USD 5 million). The project page contents could not be read, so how they relate to the financing mechanisms has not been confirmed.",
+       "ref": [
+        "proj:WB-P162635",
+        "proj:WB-P172761",
+        "proj:WB-P180365",
+        "row:R6"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data note: the site's materials state that progress on uranium tailings works appears in project reports of the EU, Russia and others, but in the site's project data, the technosphere safety row has no projects, either active or completed.",
+       "ref": [
+        "row:R3",
+        "fact:closed_rows"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding is largest from the Green Climate Fund, ADB and the World Bank, in that order, with one Green Climate Fund regional programme accounting for about half.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects aligned with strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation aligned with the disaster risk reduction strategy totals 36 projects worth about USD 130 million. By donor: Green Climate Fund about USD 64.2 million, ADB about USD 23.4 million, World Bank about USD 12.8 million, EBRD about USD 9 million, WFP about USD 8.2 million, EU about USD 4.1 million, Switzerland about USD 3.8 million, UNDP about USD 1.1 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 36 projects, about USD 130 million"
+      },
+      {
+       "k": "h",
+       "t": "Donor focus areas"
+      },
+      {
+       "k": "f",
+       "t": "Each donor's core projects: Green Climate Fund, \"Glaciers to Farms\"; ADB, landslide risk management and the water resources additional financing; World Bank, the Enhancing Resilience in Kyrgyzstan project and its additional financing; EBRD, climate-resilient water supply; WFP, its resilience project; EU, the resilient water resources programme; Switzerland, disaster risk and climate resilience in rural areas.",
+       "ref": [
+        "fact:by_donor",
+        "proj:XM-DAC-41317-FP283",
+        "proj:XM-DAC-46004-53022-001-GRNT0793",
+        "proj:WB-P172761",
+        "proj:XI-IATI-EBRD-49793",
+        "proj:XM-DAC-41140-KG02.04.033.CAR1",
+        "proj:CH-4-2022-2022000935"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Timing of completion: only two small projects end by late 2026, but WFP (December 2027), three Swiss projects (December 2027), the World Bank's Enhancing Resilience in Kyrgyzstan project and UNDP (June 2027), and UNESCO (October 2027) all end in 2027.",
+       "ref": [
+        "fact:end_2026_n",
+        "proj:XM-DAC-41140-KG02.04.033.CAR1",
+        "proj:CH-4-2022-2022000935",
+        "proj:WB-P162635",
+        "proj:XM-DAC-41114-OUTPUT-00108562",
+        "proj:XM-DAC-41304-RAS0122395"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Almost nothing ends in 2026, but a cluster of small and medium preparedness and resilience projects ends in 2027. Funding in the regulation and response capacity row could fall sharply in 2028.",
+       "ref": [
+        "row:R5",
+        "fact:rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Two projects end by late 2026, with negligible amounts.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ],
+       "b": "2 small projects end by late 2026"
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 31 projects worth about USD 12.5 million, of which ADB accounts for about USD 9.7 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 31 projects, about USD 12.5 million"
+      },
+      {
+       "k": "f",
+       "t": "Data note: the Green Climate Fund's \"Glaciers to Farms\" is a regional programme for Central and West Asia, and EBRD's \"climate-resilient water supply\" and ADB's water resources additional financing are also included in the water sector. Adding across sectors double-counts them.",
+       "ref": [
+        "row:R2"
+       ],
+       "b": "Some projects overlap with the water sector"
+      },
+      {
+       "k": "f",
+       "t": "Data note (2): of the active projects tagged to disaster risk reduction on the site, 36 are aligned with strategy rows. Projects not aligned with any row include some whose main purpose is not disaster risk reduction, such as renewable energy and SME support.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because one Green Climate Fund regional programme accounts for about half of active funding, how its Kyrgyz share is allocated substantially changes the overall picture of DRR support. When reading the donor ranking, the picture excluding this project (centred on ADB, the World Bank, EBRD and WFP) should also be considered.",
+       "ref": [
+        "proj:XM-DAC-41317-FP283",
+        "fact:by_donor"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at the time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Cooperation completed over the past decade was small, centred on ADB's water resources project and preparedness support from WHO and Switzerland.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage period: projects completed in or after 2017. Earlier projects are excluded because records for major donors are incomplete. Even from 2017, the data almost only cover ADB from 2020 onwards and UNICEF and UNDP from 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and aligned with the disaster risk reduction strategy total 31, worth about USD 12.5 million (after pro-rata allocation, without double counting). By donor: ADB about USD 9.7 million, WHO about USD 1.2 million, Switzerland about USD 1.2 million, FAO about USD 0.3 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "31 projects, about USD 12.5 million, mostly ADB"
+      },
+      {
+       "k": "f",
+       "t": "By area: disaster risk financing, 4 projects worth about USD 10.6 million (ADB's climate change- and disaster-resilient water resources project, Switzerland); regulation and response capacity, 20 projects worth about USD 1.8 million (e.g. WHO's health emergency preparedness). Hazard mapping and technosphere safety have none.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Financing about USD 10.6 million; response capacity about USD 1.8 million"
+      },
+      {
+       "k": "f",
+       "t": "Major completed projects: ADB's Climate Change- and Disaster-Resilient Water Resources Sector Project (about USD 5.5 million and about USD 4.2 million after pro-rata allocation, 2018–2025); earlier phases of Switzerland's disaster risk and climate resilience in rural areas (about USD 0.5 million and about USD 0.4 million); and WHO's support for health emergency preparedness and International Health Regulations capacity (about USD 0.2–0.3 million each year).",
+       "ref": [
+        "proj:XM-DAC-46004-51081-002-LN3746",
+        "proj:XM-DAC-46004-51081-002-GRNT0632",
+        "proj:CH-4-2022-2022000934",
+        "proj:CH-4-2024-2022000935",
+        "proj:XM-DAC-928-KG-2018-19-12.002.EU01.KGZ02",
+        "proj:XM-DAC-928-KG-2020-21-02.001.EU01.KGZ02"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Most of the 20 completed projects in the regulation and response capacity row (about USD 1.8 million) are WHO's health emergency preparedness support (about USD 1.2 million), FAO's strengthening of DRR capacity in agriculture (about USD 0.2 million) and locust outbreak preparedness.",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XM-DAC-41301-646741"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The forest investment row has 3 small completed grants (about USD 0.1 million) for agroforestry and wildfire risk management.",
+       "ref": [
+        "fact:closed_rows",
+        "row:R4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Compared with the about USD 130 million now active, DRR cooperation over the past decade was about one tenth of that. Funding has surged recently with large climate adaptation projects.",
+       "ref": [
+        "fact:closed_musd",
+        "fact:mapped_musd"
+       ],
+       "b": "Small in the past; surging recently with climate adaptation"
+      },
+      {
+       "k": "f",
+       "t": "Data note: ADB's water resources project is placed in the \"disaster risk financing\" row for the completed project but in the \"prevention\" row for the active additional financing, so the classification is inconsistent.",
+       "ref": [
+        "fact:closed_rows",
+        "row:R2",
+        "row:R6"
+       ],
+       "b": "ADB water resources project classified inconsistently"
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Two areas have no active cooperation: technosphere safety (dams, tailings) and forest investment.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Areas with no active cooperation: technosphere safety (dams, tailings) and forest investment. Hazard mapping has only one (small) FAO project.",
+       "ref": [
+        "fact:empty_rows",
+        "row:R1"
+       ],
+       "b": "Gaps: technosphere safety and forest investment"
+      },
+      {
+       "k": "f",
+       "t": "Active amounts by row: prevention about USD 102 million, regulation and response capacity about USD 13.8 million, disaster risk financing about USD 12.8 million, hazard mapping almost 0, technosphere safety and forest investment 0. The prevention row alone accounts for about 80% of the total.",
+       "ref": [
+        "fact:rows",
+        "row:R2",
+        "row:R5",
+        "row:R6",
+        "row:R1",
+        "row:R3",
+        "row:R4"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter 4 of the Action Plan envisages a draft Cabinet resolution supporting protective forests and agroforestry and soil, hydrological and risk surveys in 2026, pilot planting in hazard zones (up to 5 ha per region) in 2027, and scaled-up planting with the participation of donors and development partners in 2029–2030.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The forest chapter itself assumes donor participation. The results of the 2027 pilots will be the entry point for cooperation on scaling up from 2029.",
+       "ref": [
+        "tree:drrplan:R4",
+        "row:R4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Technosphere safety has an NDP 2030 target (16 tailings sites) and Chapter 3 of the Action Plan, yet the site's data show no projects, past or present. The first step is to check whether actual cooperation is missing from the data or whether this is a genuine gap.",
+       "ref": [
+        "row:R3",
+        "doc:ndp",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The only active project in the hazard mapping row is FAO's strengthening of capacity to assess disaster impacts on agriculture (to December 2026). The inventory and unified register under Chapter 1 of the Action Plan are planned to proceed with state budget funds in 2025–2027.",
+       "ref": [
+        "row:R1",
+        "doc:drrplan"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "2027 will test the Action Plan's inventory and regulations and the content of the financing strategy at the same time.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Under the Action Plan 2025–2030, the inventory, register, technosphere monitoring concept and revision of design standards are concentrated in 2026–2027. Whether these proceed on schedule will determine the scale of preventive works from 2028.",
+       "ref": [
+        "doc:drrplan",
+        "tree:drrplan:R1",
+        "tree:drrplan:R3"
+       ],
+       "b": "The 2026–27 steps will determine later works"
+      },
+      {
+       "k": "v",
+       "t": "Donor funding has converged on prevention through large climate adaptation projects, but uranium tailings, dam safety and forests remain gaps. The gap against the NDP 2030 target (16 tailings sites) is the largest.",
+       "ref": [
+        "fact:empty_rows",
+        "row:R2",
+        "doc:ndp"
+       ],
+       "b": "Concentrated on prevention; tailings and forests are gaps"
+      },
+      {
+       "k": "v",
+       "t": "State disaster funds cover about one tenth of the expected losses from a major disaster, and the content of the Financing Strategy 2026–2030 will determine preparedness for a major earthquake.",
+       "ref": [
+        "doc:adbdrf",
+        "tree:drrplan:drrfin"
+       ],
+       "b": "The financing strategy will determine preparedness for a major earthquake"
+      },
+      {
+       "k": "v",
+       "t": "Housing accounts for most losses, yet only about 8% of homes are insured. Expanding insurance coverage and mechanisms to enforce building codes (Chapter 5) are both direct means of reducing the burden on the state after a major earthquake, and both are areas where donor funding is almost absent.",
+       "ref": [
+        "doc:adbdrf",
+        "doc:undrr",
+        "tree:drrplan:R5"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Weak data on damage and progress is also a common challenge. Publication of the Ministry of Emergency Situations' quarterly reports and recording of asset damage in the national disaster database would allow both the Sendai Framework assessment and the Action Plan indicators to be verified externally.",
+       "ref": [
+        "doc:drrplan",
+        "doc:undrr",
+        "doc:crcp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: publication of the financing strategy text, approval of the inventory register and the technosphere monitoring concept, procurement of early warning sirens, and new figures on the share of municipalities with DRR strategies.",
+       "ref": [
+        "tree:drrplan:drrfin",
+        "doc:drrplan",
+        "ind:plan:0"
+       ],
+       "b": "Financing strategy, register, warnings and municipal share"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Municipalities implementing local DRR strategies (NDP 2030 13.1)",
+   "41.7%(2024)",
+   "100%",
+   "+5.5/yr (2018–24)",
+   "+9.7/yr",
+   "Off track (about 75%)",
+   "bad"
+  ],
+  [
+   "Alignment of the national DRR strategy with the Sendai Framework",
+   "0.93 points (2024)",
+   "1.0 points",
+   "Flat (also 0.93 in 2018)",
+   "+0.01/yr",
+   "Close",
+   "warn"
+  ],
+  [
+   "Disaster deaths and missing persons (per 100,000 people)",
+   "1.1 (2024)",
+   "Below 2.0 (2005–15 average)",
+   "2015–24 average about 1.4",
+   "—",
+   "Below in most years (5.0 in 2022)",
+   "good"
+  ],
+  [
+   "Direct economic losses from disasters",
+   "USD 17.3 million (2024)",
+   "Below USD 21.2 million (2005–15 average)",
+   "2015–24 average about USD 15.9 million",
+   "—",
+   "Below average, but above in 2021 and 2022",
+   "warn"
+  ],
+  [
+   "National early warning system (NDP 2030 13.1)",
+   "No published figure",
+   "Build",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "16 former uranium tailings ponds and waste dumps (NDP 2030 13.1)",
+   "No published figure",
+   "Make 16 sites safe",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "R",
+   "Mapping of hazard sites and structures",
+   "Action Plan Chapter 1 (inventory and unified register)",
+   "Cabinet of Ministers Resolution No. 601 of 23 September 2025",
+   "ok",
+   "—",
+   "R1",
+   "R1"
+  ],
+  [
+   "R",
+   "Prevention (mudflow and landslide control)",
+   "Action Plan Chapter 2 (planning and implementing protection measures)",
+   "Cabinet of Ministers Resolution No. 601 of 2025",
+   "ok",
+   "(4) Sendai Framework",
+   "R2",
+   "R2"
+  ],
+  [
+   "R",
+   "Technosphere safety (dams, tailings)",
+   "Action Plan Chapter 3 (technosphere monitoring system)",
+   "Cabinet of Ministers Resolution No. 601 of 2025",
+   "ok",
+   "(3) 16 uranium tailings sites",
+   "R3",
+   "R3"
+  ],
+  [
+   "R",
+   "Forest investment",
+   "Concept for the Development of the Forest Sector to 2040 (2024–2028 edition)",
+   "Cited in the Voluntary National Review on the SDGs 2025 (text not reviewed)",
+   "ok",
+   "—",
+   "R4",
+   "forest"
+  ],
+  [
+   "R",
+   "Regulation and response capacity",
+   "Strategy for the Development of Civil Protection and Disaster Risk Reduction to 2040",
+   "Cited in the Voluntary National Review on the SDGs 2025 (text not reviewed)",
+   "ok",
+   "(1) Early warning; (2) local strategies 100%",
+   "R5",
+   "cps"
+  ],
+  [
+   "R",
+   "Disaster risk financing",
+   "Disaster Risk Financing Strategy 2026–2030",
+   "Approved by the Cabinet of Ministers in June 2026 (press reports; text not reviewed)",
+   "ok",
+   "—",
+   "R6",
+   "drrfin"
+  ]
+ ],
+ "ten": [
+  [
+   "R",
+   "Action Plan for Emergency Risk Reduction 2025–2030"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Figures showing progress in building the national early warning system (NDP 2030 target)",
+  "The number of the 16 former uranium tailings ponds and waste dumps (NDP 2030 target) brought into a safe condition",
+  "Total cost and per-chapter amounts of the Action Plan 2025–2030 (the cost table is garbled by machine translation and cannot be read), and baseline values in the indicator matrix",
+  "Texts and targets of the Disaster Risk Financing Strategy 2026–2030, the Civil Protection Strategy to 2040 and the Forest Sector Concept to 2040",
+  "Published figures on disaster insurance enrolment (e.g. mandatory housing insurance) (the insurance chapter of ADB's diagnostic has not been read)",
+  "Other material not read or not verified: the project page of the World Bank's \"Enhancing Resilience in Kyrgyzstan\" project (P162635) was not used, as only the bibliographic record was available. The World Bank CCDR main PDF, the ADB landslide atlas PDF and a World Bank blog post (2023) have not been read (the browsing limit was reached)"
+ ]
+}

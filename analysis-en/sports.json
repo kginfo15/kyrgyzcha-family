@@ -1,0 +1,1094 @@
+{
+ "sid": "sports",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Sport and development"
+  },
+  "rows": {
+   "fac": {
+    "n": "Sports facilities",
+    "st": "Physical Culture and Sport Development Programme to 2030"
+   },
+   "youth": {
+    "n": "Youth and inclusion (values of sport)",
+    "st": "Physical Culture and Sport Development Programme to 2030"
+   },
+   "event": {
+    "n": "Events and the Nomad Games",
+    "st": "Physical Culture and Sport Development Programme to 2030"
+   },
+   "cult": {
+    "n": "Culture and heritage (related)",
+    "st": "Culture and Arts Development Programme 2026–30"
+   }
+  }
+ },
+ "ind": {
+  "mass": {
+   "name": "① Participation in physical activity and sport",
+   "tag": "People who exercise",
+   "goals": [
+    [
+     "People who exercise regularly from 15% to 30% or more (Physical Culture and Sport Programme)",
+     "Only in the State Agency for Physical Culture and Sport's six-monthly reports; to be entered manually once published"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Share of adults who are physically inactive (aged 18+)",
+     "unit": "%",
+     "st": "✕ Moving in the opposite direction to the target",
+     "src": "WHO GHO NCD_PAC (estimate)",
+     "t": [
+      "WHO: 15% reduction"
+     ],
+     "note": "The WHO definition is \"people not doing 150 minutes of moderate activity a week\". This is a different yardstick from the national target (people who exercise regularly).",
+     "sn": "Total",
+     "s2n": "Women"
+    }
+   ]
+  },
+  "fac": {
+   "name": "② Sports facilities",
+   "tag": "Number of facilities",
+   "goals": [
+    [
+     "3,500 sports facilities (Physical Culture and Sport Programme)",
+     "Facility numbers only in the National Statistical Committee yearbook"
+    ]
+   ],
+   "inds": []
+  }
+ },
+ "quick": {
+  "h1": "Sport has almost no donor projects; national facility construction and events dominate",
+  "msgs": [
+   [
+    "Almost no donor projects.",
+    "Only small UNESCO and Korean projects."
+   ],
+   [
+    "World Nomad Games.",
+    "The sixth Games were held in Bishkek."
+   ],
+   [
+    "Facility construction.",
+    "Sports complexes and stadiums are being built across the country."
+   ],
+   [
+    "Para sport.",
+    "Preparations for the 2028 Paralympic Games have begun (20 Oct)."
+   ]
+  ],
+  "h2": "Almost no donor projects; facilities and events are led by the state",
+  "rows": {
+   "fac": [
+    "",
+    "No projects"
+   ],
+   "youth": [
+    "",
+    "Small UNESCO project"
+   ],
+   "event": [
+    "",
+    "No donor projects"
+   ],
+   "cult": [
+    "",
+    "UNESCO and Korean cultural heritage (small)"
+   ]
+  },
+  "h3": "Recent topics: the Nomad Games and facility construction",
+  "themes": [
+   [
+    "Events:",
+    "Hosting and promotion of the World Nomad Games."
+   ],
+   [
+    "Facilities:",
+    "Village sports complexes and the transfer of stadiums."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Sport for Development Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 9.4 \"Accessible and Sustainable Healthcare\", Task 5 (healthy lifestyles, physical culture and sport)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Task 5 of Section 9.4 (translation on this site). There are no target indicators for sport",
+   "cat": "gov"
+  },
+  {
+   "id": "sp2030",
+   "t": "Programme for the Development of Physical Culture and Sport to 2030",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic (Cabinet of Ministers Decision No. 307 of 29 April 2026)",
+   "y": "2026",
+   "scope": "Full text (machine translation): situation analysis, objectives, six priority areas, expected results, phases and monitoring",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=52205&lang=ru"
+  },
+  {
+   "id": "tree",
+   "t": "National strategy on the site (tree diagram tree-sports)",
+   "by": "Checked against the legal database",
+   "y": "2026-11",
+   "scope": "The Programme and its six areas",
+   "cat": "gov"
+  },
+  {
+   "id": "uniatf2025",
+   "t": "New Kyrgyzstan investment case: NCD prevention isn't just better than cure—it's also a smart economic choice",
+   "by": "UN Inter-Agency Task Force on NCDs (UNIATF, press release)",
+   "y": "Jun 2025",
+   "scope": "Full text (press article); the full report PDF could not be opened",
+   "cat": "donor",
+   "u": "https://uniatf.who.int/about-us/news/item/16-06-2025-new-kyrgyzstan-investment-case-ncd-prevention-isn-t-just-better-than-cure-it-s-also-a-smart-economic-choice"
+  },
+  {
+   "id": "uefa",
+   "t": "Inclusive Sport for All (Tokmok)",
+   "by": "UEFA Foundation for Children",
+   "y": "Apr 2026",
+   "scope": "Full text (project description page)",
+   "cat": "donor",
+   "u": "https://uefafoundation.org/action/inclusive-sport-for-all/"
+  },
+  {
+   "id": "who",
+   "t": "WHO GHO (World Health Organization indicator database, estimates)",
+   "by": "WHO",
+   "y": "Retrieved 2026-11-07",
+   "scope": "Via the site's indicator data; share of adults who are physically inactive",
+   "cat": "donor"
+  },
+  {
+   "id": "proj",
+   "t": "Cooperation project data (World Bank, IATI and JICA project data aggregated on the site)",
+   "by": "—",
+   "y": "2026-11-24",
+   "scope": "Amounts after pro-rata allocation",
+   "cat": "donor"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "The national sport programme was adopted only in April 2026. It aims to double the share of people who exercise regularly from about 15% to 30% and to bring the number of sports facilities to 3,500.",
+   "ref": [
+    "doc:sp2030",
+    "tree:sports:sports"
+   ],
+   "h": "National programme adopted April 2026: regular exercise from 15% to 30%"
+  },
+  {
+   "k": "f",
+   "t": "Physically inactive adults increased from 16.2% (2010) to 18.6% (2022), moving in the opposite direction to the WHO target (14.5% by 2030). Among women the figure is 21.1%.",
+   "ref": [
+    "ind:mass:0"
+   ],
+   "h": "Physical inactivity keeps rising, against the WHO target"
+  },
+  {
+   "k": "v",
+   "t": "None of the Programme's five outcome indicators has annual published values, so achievement cannot be measured.",
+   "ref": [
+    "doc:sp2030"
+   ],
+   "h": "None of the five outcome indicators can be measured"
+  },
+  {
+   "k": "f",
+   "t": "There is almost no cooperation aimed at sport. Most of the 14 active projects (about USD 0.1 million) are in the culture and heritage row, and there are no projects for sports facilities or events.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:empty_rows",
+    "row:fac",
+    "row:event"
+   ],
+   "h": "Almost no cooperation for sport"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Sport at a glance",
+     "msg": "Only about 15% of the population exercises regularly, and facilities, human resources and funding are all insufficient.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "15",
+        "u": "%",
+        "k": "People who regularly do sport (Programme baseline)",
+        "ref": "doc:sp2030"
+       },
+       {
+        "v": "18.6",
+        "u": "%",
+        "k": "Physically inactive adults (2022, WHO estimate)",
+        "ref": "ind:mass:0",
+        "hot": true
+       },
+       {
+        "v": "21.1",
+        "u": "%",
+        "k": "Physically inactive women (2022, WHO estimate)",
+        "ref": "ind:mass:0",
+        "hot": true
+       },
+       {
+        "v": "3,000",
+        "u": "people",
+        "k": "Sports specialists (at the start of the Programme)",
+        "ref": "doc:sp2030"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The Programme for the Development of Physical Culture and Sport states that only about 15% of the population regularly engages in physical activity or sport, which falls short of international recommendations. Participation is particularly low among adults and rural residents.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "About 15% exercise regularly"
+      },
+      {
+       "k": "f",
+       "t": "Facilities: according to the translation of the Programme, about 115 sports facilities are in operation, more than half of which need modernisation, and many are concentrated in Bishkek and Osh.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "More than half of facilities need modernisation; concentrated in Bishkek and Osh"
+      },
+      {
+       "k": "f",
+       "t": "Human resources: there are about 3,000 specialists, but there is a shortage of qualified coaches, sports physicians, physiologists and sports managers, and staff are leaving for other sectors.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Funding: mainly from the national budget, with little private investment or extra-budgetary funding. Management relies largely on paper documents, and there is no unified system for tracking key indicators.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "Funding depends on the national budget; no system to track indicators"
+      },
+      {
+       "k": "f",
+       "t": "Cost of NCDs (non-communicable diseases): the UN Inter-Agency Task Force states that NCDs cause losses equivalent to 4% of GDP, more than 80% of which is lost productivity due to premature death.",
+       "ref": [
+        "doc:uniatf2025"
+       ],
+       "b": "NCD losses equal 4% of GDP"
+      },
+      {
+       "k": "f",
+       "t": "Note: the facility count of \"about 115\" comes from a machine translation and differs by orders of magnitude from the target of 3,500. It has not been checked against the original.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background: why participation is low"
+      },
+      {
+       "k": "f",
+       "t": "The Programme states that participation is lowest among adults and rural residents, and attributes this to infrastructure and human resource constraints and insufficient promotion of physical activity. Most facilities are concentrated in Bishkek and Osh, limiting opportunities to exercise in rural areas.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "At the same time, the Programme cites hosting the World Nomad Games, participation in the Olympic Games and Asian Games, and the development of national sports as recent positive developments, and notes engagement with the International Olympic Committee, UNESCO and the World Anti-Doping Agency.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that mortality from non-communicable diseases (NCDs) remains high and that premature death and high levels of disability are a serious concern. The promotion of sport is placed as one of the health tasks in the same Section 9.4.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The UN Inter-Agency Task Force press release gives 15-year returns on investment for national measures of 1:82 for salt reduction, 1:37 for tobacco and 1:16 for alcohol. No return-on-investment figure for physical activity measures is given in the press article.",
+       "ref": [
+        "doc:uniatf2025"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Low participation appears to result from the combined effects of the uneven geographical distribution of facilities and human resource shortages. Physical activity is one of the NCD risk factors, but in the national health debate salt, tobacco and alcohol come with return-on-investment figures, and the position of physical activity is weak.",
+       "ref": [
+        "doc:sp2030",
+        "doc:uniatf2025"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy structure",
+     "msg": "Sport sits within the health section (9.4) of the National Development Programme 2030, and the Programme for the Development of Physical Culture and Sport adopted in 2026 gives it concrete form through six priority areas.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy structure (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Top-level plan: Task 5 of Section 9.4 of the National Development Programme 2030, \"Promoting healthy lifestyles, physical culture and sport\", covers mass participation, expansion of facilities, the Olympic reserve, non-Olympic and national sports, specialists' skills and sports medicine. It sets no target indicators for sport.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 9.4 Task 5; no target indicators"
+      },
+      {
+       "k": "f",
+       "t": "Core plan: Programme for the Development of Physical Culture and Sport to 2030 (Cabinet of Ministers Decision No. 307 of 29 April 2026). It is led by the State Agency for Physical Culture and Sport under the Cabinet of Ministers. Its legal basis is the National Development Programme 2030, the Law on Physical Culture and Sport and the Law on National Sports.",
+       "ref": [
+        "doc:sp2030",
+        "tree:sports:sports"
+       ],
+       "b": "Physical Culture and Sport Development Programme (April 2026, No. 307)"
+      },
+      {
+       "k": "f",
+       "t": "Six priority areas: (1) mass participation and physical activity clubs; (2) expansion and modernisation of facilities; (3) the Olympic reserve; (4) non-Olympic, national and new sports (such as e-sports); (5) training of specialists; (6) institutionalisation of sports medicine.",
+       "ref": [
+        "doc:sp2030",
+        "tree:sports:S1",
+        "tree:sports:S2",
+        "tree:sports:S3",
+        "tree:sports:S4",
+        "tree:sports:S5",
+        "tree:sports:S6"
+       ],
+       "b": "Six priority areas"
+      },
+      {
+       "k": "f",
+       "t": "Outcome indicators (2030): participation in healthy lifestyles of 30% or more, 3,500 sports facilities, training of 1,000 specialists, a 40% increase in results at international competitions, and public–private partnership (PPP) accounting for 30% or more of investment in facilities.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "Five outcome indicators, including 30% participation and 3,500 facilities"
+      },
+      {
+       "k": "f",
+       "t": "Approach: three phases. 2026 covers institutions, human resources and digitalisation; 2027–2028 facility construction and large-scale implementation; 2029–2030 completion of construction, evaluation and preparation of a strategy to 2040. The State Agency for Physical Culture and Sport reports every six months and annually.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Inclusion: by 2030, the plan is to make sports complexes in every region accessible to persons with disabilities and to build low-cost modular facilities and community sports grounds in rural areas.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The Programme lists the budget, PPP, donor assistance and international grants as funding sources, but the amounts are \"estimates\", and the required amount cannot be read from the text.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "The required funding cannot be read from the text"
+      },
+      {
+       "k": "h",
+       "t": "Mass sport measures by age group"
+      },
+      {
+       "k": "f",
+       "t": "For children (ages 3–18), the focus is on sports sections in kindergartens and schools, with permanent clubs and teams in each school and competitions at three levels: district, regional and national. Young people (ages 19–35) are to be engaged through university and college sports sections, student leagues and an expanded range of disciplines in the Universiade (Spartakiad).",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For adults (ages 36–65), guidance for employers is to be developed based on an adult fitness survey, workplace health programmes expanded, and a legal framework created for channelling part of company profits into facilities. Competitions for specific groups, such as persons with disabilities and civil servants, are also to be held.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For older people (ages 65 and over), the \"Athlete 40+\" initiative is to be extended nationwide, with Nordic walking and yoga classes in every region. A package of measures for older people is to be developed jointly with social protection and health agencies.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Facilities, digitalisation and elite sport"
+      },
+      {
+       "k": "f",
+       "t": "For facilities, local governments are encouraged to build low-cost flat sports grounds that require no design estimates and prefabricated modular complexes for rural areas. The State Agency for Physical Culture and Sport will compile an inventory of facilities, and facilities under construction will be tracked in a project management information system.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For digitalisation, a national digital platform is to be created with an electronic competition calendar, electronic passports for athletes, coaches and referees, and public information on facilities, reducing the reporting burden.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For elite sport, the target is to secure at least 24 Olympic (Paralympic) qualification places across various sports by 2028, and the Programme also refers to developing Paralympic and Deaflympic athletes. For national sports, centres are to be opened in each district, raising the share of people practising national sports to 9.6% by 2030.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For human resources, the Programme lists analysing demand for sports physicians, psychologists and nutritionists, increasing state training quotas with the Ministry of Science, Higher Education and Innovation, training adaptive physical education instructors with the Ministry of Health, and revising the system of bonuses for coaches when athletes perform well.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The Programme sets out specific measures for mass sport, facilities, elite sport and human resources, but the cost of each and the budgets of those responsible cannot be read from the text. Much is left to local governments (sports grounds, inventories, events), so outcomes are likely to vary with local fiscal capacity.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Implementation assumptions and monitoring"
+      },
+      {
+       "k": "f",
+       "t": "The Programme lists as implementation assumptions growing public interest in sport and health awareness, a steady increase in funding from national and local budgets, active development of PPP mechanisms and growing private-sector interest. It also states that the experience sports federations have accumulated with limited resources will support implementation.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The situation analysis in the same document states that funding comes mainly from the national budget and that private investment is small, which sits uneasily with the assumption of \"active development of PPP\". The funding outlook is hard to judge from the text alone.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Monitoring is to use two sets of indicators: results measured against planned indicators, and the satisfaction of beneficiaries such as athletes, coaches and federations. Contributions to the targets of the National Development Programme 2030 are also to be reflected.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "All six areas sit within a single programme; there are no stand-alone individual plans.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of priority areas (active cooperation by table row)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "All six areas are written as chapters of the Programme for the Development of Physical Culture and Sport, and there are no stand-alone plans. The related culture and heritage area is covered by a separate Programme for the Development of Culture and Arts 2026–2030 (press reports).",
+       "ref": [
+        "tree:sports:sports"
+       ],
+       "b": "The six areas sit within one programme"
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the targets",
+     "msg": "The five national outcome indicators cannot be measured, and the international yardstick (WHO physical inactivity) is moving against the target.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to target (actual pace = average change over the period; required pace = change needed to reach the target in 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "None of the Programme's five outcome indicators has annual published values. The Programme also states that the method of counting people who exercise will change.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "No published values for the five indicators, and the counting method will change"
+      },
+      {
+       "k": "v",
+       "t": "WHO physical inactivity rose from 17.1% (2016) to 18.6% (2022), at +0.25 points a year. Reaching 14.5% in 2030 requires −0.51 points a year; the indicator is moving in the opposite direction.",
+       "ref": [
+        "ind:mass:0"
+       ],
+       "b": "Inactivity: +0.25 a year; −0.51 required"
+      },
+      {
+       "k": "v",
+       "t": "In addition to the five outcome indicators, numerical targets in the text, such as 9.6% participation in national sports and at least 24 Olympic qualification places, are spread across separate sections. As the indicator matrix (Annex 4) has not been read, they cannot be checked as a single list.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "For the target of 3,500 facilities, the Programme itself lists compiling an inventory of facilities as a measure. This suggests that the baseline has not yet been established.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Physical activity and sport participation",
+     "msg": "Physical inactivity is rising gradually among both men and women and is higher among women. There are not yet figures to compare with the national target (30%).",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Share of physically inactive adults (total and women, WHO estimates)",
+      "inds": [
+       "mass:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Physical inactivity (people aged 18 and over not doing 150 minutes of moderate activity a week) rose from 16.2% (2010) to 18.6% (2022). Among women it rose from 18.9% to 21.1%.",
+       "ref": [
+        "ind:mass:0"
+       ],
+       "b": "Inactivity 16.2% → 18.6%; women 21.1%"
+      },
+      {
+       "k": "f",
+       "t": "The WHO yardstick measures \"physically inactive people\", while the national target measures \"people who exercise regularly\"; they are different measures.",
+       "ref": [
+        "ind:mass:0",
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Programme states that in 2026–2030 local authorities will hold more than 3,000 sports events each year, and that each school will have at least two sports clubs in rural areas and at least four in urban areas.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The means of promoting mass participation are mainly events and school clubs, and mechanisms to get adults (ages 36–65) moving are limited to workplace programmes and the like. The challenge is whether these will reach adults and women, among whom inactivity is high.",
+       "ref": [
+        "doc:sp2030",
+        "ind:mass:0"
+       ],
+       "b": "The challenge is reaching adults and women, where inactivity is high"
+      },
+      {
+       "k": "f",
+       "t": "According to WHO estimates, physical inactivity increased slightly every year from 2010 to 2022, with no year of decline. Among women it is 21.1% (2022), higher than the overall 18.6%.",
+       "ref": [
+        "ind:mass:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national measures for mass participation are most concrete for children and students (school clubs, student leagues); for adults and women, among whom inactivity is high, they rely mainly on indirect measures through workplaces and events.",
+       "ref": [
+        "doc:sp2030",
+        "ind:mass:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the UN Inter-Agency Task Force press release, NCDs cause losses equivalent to 4% of national GDP, more than 80% of which are indirect costs such as lost productivity due to premature death.",
+       "ref": [
+        "doc:uniatf2025"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Reducing physical inactivity is one way to reduce NCD losses, but the national indicator for measuring the effect of physical activity (people who exercise regularly) is not published, and there is not yet a mechanism to assess it in conjunction with health indicators.",
+       "ref": [
+        "doc:uniatf2025",
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For non-Olympic sports, the Programme supports sports that are still at an early stage but attract young people, such as e-sports, triathlon and CrossFit. National sports are to be expanded with a focus on northern regions where few people practise them.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the youth and inclusion row has one project with an amount of almost zero (UNESCO's project on sport values for young people in Central Asia). The UEFA Foundation for Children is running an inclusive sport project for children with disabilities and their families in Tokmok (March 2026 to February 2027, total EUR 33,810).",
+       "ref": [
+        "row:youth",
+        "doc:uefa",
+        "proj:XM-DAC-41304-A210464041"
+       ],
+       "b": "Inclusion: only small UNESCO and UEFA Foundation projects"
+      },
+      {
+       "k": "f",
+       "t": "The UEFA Foundation project provides weekly inclusive sports sessions at a support centre in Tokmok, weekly activities with local organisations, schools and clubs, exercise for parents, family sports days and tournaments, volunteer training, and free use of community clubs for siblings. The Foundation's contribution is EUR 26,610.",
+       "ref": [
+        "doc:uefa"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Completed projects include a 2017 project on sport for persons with disabilities in rural areas and UNESCO's project on youth engagement and sport promotion (2018–2019), but the amounts are almost zero.",
+       "ref": [
+        "fact:closed_rows",
+        "proj:FI-3-2017-2017170398",
+        "proj:XM-DAC-41304-39-1393"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Sports facilities",
+     "msg": "The target of 3,500 facilities is the largest numerical target, but the current number cannot be verified and there is no cooperation.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "The facilities target is 3,500 (2030). The current number appears only in the National Statistical Committee yearbook and has not been read on the site.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "Target 3,500 facilities; current number not read"
+      },
+      {
+       "k": "f",
+       "t": "The Programme lists as funding risks budget shortfalls or delays and weak inter-agency coordination in facility construction.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Programme concentrates facility construction in Phase 2 (2027–2028) and completes it in Phase 3 (2029–2030). It also targets a PPP share of 30% or more of investment in facilities.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On inclusion, the plan is to make sports complexes in every region accessible to persons with disabilities by 2030, installing equipment for adults and children with disabilities, so that 100% of sports facilities are accessible.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The Programme identifies low private investment and extra-budgetary funding as a problem, so the target of financing 30% through PPP is far from the current situation. Achieving the facilities target depends on budget allocations in 2027–2028 and on developing public–private partnership projects.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For sports medicine, drawing on the experience of advanced sporting nations, the Programme aims to improve the quality of medical and scientific support at every stage of elite athletes' training and to take account of age, physical and psychological characteristics in training to prevent burnout among young athletes.",
+       "ref": [
+        "doc:sp2030",
+        "tree:sports:S6"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: there is no cooperation in the sports facilities row, either active or completed since 2017.",
+       "ref": [
+        "row:fac",
+        "fact:empty_rows"
+       ],
+       "b": "No cooperation for facilities"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "There is almost no donor funding aimed at sport, and most projects in the table are small culture and heritage projects.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects mapped to strategy areas; after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation totals 14 projects and about USD 0.1 million, 13 of which are in the culture and heritage row (Korea's traditional crafts and cultural tourism about USD 0.1 million, UNESCO heritage projects and others).",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor",
+        "row:cult",
+        "proj:KR-GOV-230-1550000_2023_004"
+       ],
+       "b": "Active: 14 projects, about USD 0.1 million, mostly culture and heritage"
+      },
+      {
+       "k": "f",
+       "t": "One project of about USD 0.1 million (Korea) ends by end-2026. Cooperation completed since 2017 totals 9 projects and about USD 0.2 million (including UNESCO's Silk Roads heritage project).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:closed_n",
+        "fact:closed_musd",
+        "proj:KR-GOV-230-1550000_2023_004",
+        "proj:XM-DAC-41304-549RAS4000"
+       ],
+       "b": "Completed since 2017: 9 projects, about USD 0.2 million"
+      },
+      {
+       "k": "f",
+       "t": "Period covered: projects completed since 2017. Earlier projects are excluded because records from major donors are missing. Even since 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Projects in the culture and heritage row include Korea's cultural tourism through traditional crafts and digital marketing (about USD 0.1 million, 2023–2026), the UK's strengthening of the creative sector (2025–2027) and UNESCO's regional projects on World Heritage, living heritage and cultural and creative industries. The UK and UNESCO projects are almost zero in the site's amounts after pro-rata allocation.",
+       "ref": [
+        "row:cult",
+        "proj:KR-GOV-230-1550000_2023_004",
+        "proj:GB-GOV-1-400222-427",
+        "proj:XM-DAC-41304-2210554062"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The youth and inclusion row has one project: UNESCO's project on youth well-being, sport values and integrity in Central Asia and Pakistan.",
+       "ref": [
+        "row:youth",
+        "proj:XM-DAC-41304-A210464041"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Small projects by international sports bodies such as the UEFA Foundation fall outside the site's cooperation project data (IATI and others). The site's figures may therefore understate actual international cooperation in sport.",
+       "ref": [
+        "doc:uefa",
+        "fact:mapped_musd"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Gaps by strategy area",
+     "msg": "Sports facilities and events have no active cooperation, and the amount for youth and inclusion is almost zero.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-2 Strategy areas × donors (toggle between active, completed and cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Rows with no active cooperation: sports facilities; events and the Nomad Games.",
+       "ref": [
+        "fact:empty_rows",
+        "row:fac",
+        "row:event"
+       ],
+       "b": "Empty: sports facilities and events"
+      },
+      {
+       "k": "v",
+       "t": "Although facilities are the Programme's largest numerical target (3,500), there are no donor projects, active or completed. Funding will have to come from national and local budgets, PPP and sponsors.",
+       "ref": [
+        "row:fac",
+        "doc:sp2030"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The events and Nomad Games row also has no projects, active or completed, suggesting that major international events are organised as state undertakings.",
+       "ref": [
+        "row:event",
+        "fact:empty_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Training of specialists (priority area 5) and sports medicine (priority area 6) have no corresponding rows in the site's gap table, so the presence of cooperation cannot be tracked there. They may overlap with cooperation on the health workforce or medical education, but this has not been verified.",
+       "ref": [
+        "tree:sports:S5",
+        "tree:sports:S6"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The Programme has only just begun; funding for facility construction from 2027 and the publication of indicators will be the first tests.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Sport is funded mainly from the national budget, with almost no donor funding. Funding for 3,500 facilities will have to rely on PPP and the budget.",
+       "ref": [
+        "doc:sp2030",
+        "fact:mapped_musd"
+       ],
+       "b": "Facility funding depends on the budget and PPP"
+      },
+      {
+       "k": "v",
+       "t": "Physical inactivity is an NCD risk factor, so there is scope to combine it with health cooperation on NCDs. However, the site's table shows that health cooperation on NCDs is also small.",
+       "ref": [
+        "ind:mass:0",
+        "doc:uniatf2025"
+       ],
+       "b": "Scope to combine with NCD measures"
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: the 2026 Phase 1 report (six-monthly), the new method and figures for counting people who exercise, and publication of the number of facilities.",
+       "ref": [
+        "doc:sp2030"
+       ],
+       "b": "Next to watch: Phase 1 report and publication of indicators"
+      },
+      {
+       "k": "v",
+       "t": "2026 is Phase 1 (institution building, training, starting digitalisation and pilots). Whether the six-monthly reports publish the participation rate under the new counting method and the facility inventory will be the first external measure of the Programme's progress.",
+       "ref": [
+        "doc:sp2030"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "People who regularly engage in physical activity or sport",
+   "About 15% (Programme baseline, year not stated)",
+   "30% or more",
+   "—",
+   "—",
+   "Cannot be measured (counting method also to change)",
+   "na"
+  ],
+  [
+   "Number of sports facilities",
+   "Not readable",
+   "3,500",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Training and retraining of specialists",
+   "No published value",
+   "1,000",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Results at international competitions; PPP share of investment",
+   "No published value",
+   "+40%; 30% or more",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Physically inactive adults (WHO, international target)",
+   "18.6%(2022)",
+   "14.5% (15% reduction from 2016)",
+   "+0.25 points/yr (2016–22)",
+   "−0.51 points/yr",
+   "Off track (opposite direction)",
+   "bad"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Mass participation",
+   "Programme for the Development of Physical Culture and Sport to 2030 (priority area 1)",
+   "Cabinet of Ministers Decision No. 307 of 2026",
+   "ok",
+   "",
+   "youth",
+   "S1"
+  ],
+  [
+   "2",
+   "Sports facilities",
+   "Same as above (priority area 2)",
+   "Same as above",
+   "ok",
+   "",
+   "fac",
+   "S2"
+  ],
+  [
+   "3",
+   "Olympic reserve",
+   "Same as above (priority area 3)",
+   "Same as above",
+   "ok",
+   "",
+   "event",
+   "S3"
+  ],
+  [
+   "4",
+   "Non-Olympic and national sports",
+   "Same as above (priority area 4)",
+   "Same as above",
+   "ok",
+   "",
+   "event",
+   "S4"
+  ],
+  [
+   "5",
+   "Training of specialists",
+   "Same as above (priority area 5)",
+   "Same as above",
+   "ok",
+   "",
+   "",
+   "S5"
+  ],
+  [
+   "6",
+   "Sports medicine",
+   "Same as above (priority area 6)",
+   "Same as above",
+   "ok",
+   "",
+   "",
+   "S6"
+  ],
+  [
+   "Related",
+   "Culture and heritage",
+   "Programme for the Development of Culture and Arts 2026–2030",
+   "Confirmed in press reports",
+   "ok",
+   "",
+   "cult",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Mass participation"
+  ],
+  [
+   "2",
+   "Sports facilities"
+  ],
+  [
+   "3",
+   "Olympic reserve"
+  ],
+  [
+   "4",
+   "Non-Olympic, national and new sports"
+  ],
+  [
+   "5",
+   "Training of specialists"
+  ],
+  [
+   "6",
+   "Sports medicine"
+  ],
+  [
+   "Related",
+   "Culture and heritage (separate programme)"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual values for the share of people who regularly engage in physical activity or sport (target 30% or more) (only in the State Agency for Physical Culture and Sport's six-monthly reports)",
+  "Number of sports facilities (target 3,500). The \"about 115\" in the machine translation of the Programme has not been checked against the original",
+  "Number of specialists trained, results at international competitions, and PPP share of investment in facilities",
+  "The Programme's indicator matrix (Annex 4) and the amount of funding required",
+  "Not yet checked: the UN Inter-Agency Task Force report on NCD investment returns (the PDF could not be opened; only the press article was read) and the WHO country profile on nutrition, physical activity and obesity (2013; outdated, and the PDF with figures was not read)"
+ ]
+}

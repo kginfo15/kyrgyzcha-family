@@ -1,0 +1,2094 @@
+{
+ "sid": "education",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "E": "Tasks of the Education Development Programme 2021–2040"
+  },
+  "rows": {
+   "E1": {
+    "n": "Equitable access (pre-school, school places, meals)",
+    "st": "Task 1 / State Language Programme 2026–28"
+   },
+   "E2": {
+    "n": "Quality of education (teachers, textbooks, learning)",
+    "st": "Task 2 / Concept for transition to 12-year schooling"
+   },
+   "E3": {
+    "n": "Management and financing",
+    "st": "Task 3"
+   },
+   "E4": {
+    "n": "Vocational education (TVET)",
+    "st": "Vocational Personnel Programme 2026–30 (draft)"
+   },
+   "E5": {
+    "n": "Higher and adult education",
+    "st": "Higher Education Concept to 2030 / Science and Technology Programme 2026–30 (draft)"
+   }
+  }
+ },
+ "ind": {
+  "acc": {
+   "name": "① Equitable access",
+   "tag": "Pre-school and school attendance",
+   "goals": [
+    [
+     "Schools with ramps for children with disabilities 100% (National Development Programme 2030, 9.3)",
+     "Annual figures only in Ministry of Education reports"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Participation rate in pre-school education one year before primary entry",
+     "unit": "%",
+     "st": "✕ Moving in the opposite direction to the target",
+     "src": "UN SDG Database SE_PRE_PARTN (SDG 4.2.2)",
+     "t": [
+      "National 80%"
+     ],
+     "note": "The national target covers all children aged 3–5, so it is stricter than this figure, which covers only the year before school entry. The enrolment rate for ages 3–6 (World Bank) is 38.5% (2021).",
+     "sn": "Total",
+     "s2n": "Girls"
+    },
+    {
+     "name": "Lower secondary completion rate",
+     "unit": "%",
+     "st": "✕ Pace too slow; about 94.9 even in 2030",
+     "src": "World Bank WDI SE.SEC.CMPT.LO.ZS (originally UNESCO)",
+     "t": [
+      "SDG: all"
+     ]
+    }
+   ]
+  },
+  "qual": {
+   "name": "② Quality of education",
+   "tag": "Learning outcomes and digitalisation",
+   "note": "The last international learning assessment (PISA) was in 2009, and the results of the national learning assessment (NOODU) and the National Scholarship Test (ORT) are not available via API. The targets below are to be collected manually from reports once a year.",
+   "goals": [
+    [
+     "Primary pupils at or above the basic level: mathematics 40%, reading 55% (NOODU)",
+     "Only in national learning assessment reports"
+    ],
+    [
+     "Average ORT score of 130; more than 70% of graduates above the pass mark",
+     "Only in the annual reports of the independent testing centre that administers the ORT"
+    ],
+    [
+     "98% of schools connected to high-speed internet and using it for learning; 85% of teachers with laptops for teaching",
+     "Only in Ministry of Education reports"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Primary completion rate",
+     "unit": "%",
+     "st": "✕ Moving in the opposite direction to the target",
+     "src": "World Bank WDI SE.PRM.CMPT.ZS (originally UNESCO)",
+     "t": [
+      "SDG: all"
+     ]
+    }
+   ]
+  },
+  "fin": {
+   "name": "③ Management and financing",
+   "tag": "Spending on education",
+   "inds": [
+    {
+     "name": "Government expenditure on education (% of GDP)",
+     "unit": "%",
+     "st": "✓ Above the international benchmark (4–6%)",
+     "src": "World Bank WDI SE.XPD.TOTL.GD.ZS (originally UNESCO)",
+     "t": [
+      "International 4–6%"
+     ]
+    }
+   ]
+  },
+  "high": {
+   "name": "④ Higher education and research",
+   "tag": "Universities and R&D",
+   "inds": [
+    {
+     "name": "R&D expenditure (% of GDP)",
+     "unit": "%",
+     "st": "✕ Moving in the opposite direction to the target",
+     "src": "World Bank WDI GB.XPD.RSDV.GD.ZS (originally UNESCO)",
+     "t": [
+      "National 0.5%+"
+     ]
+    },
+    {
+     "name": "Higher education enrolment (gross enrolment ratio)",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI SE.TER.ENRR (originally UNESCO)",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "EU budget support is the largest source in education; school construction and the shift to digital textbooks are national priorities",
+  "msgs": [
+   [
+    "EU budget support is the backbone.",
+    "Two education sector reform contracts are concentrated in management and financing, with funds flowing through the national budget."
+   ],
+   [
+    "The shortage of school places is a political issue.",
+    "The President and the Minister of Education and Science repeatedly raise the lack of schools, and new schools and kindergartens continue to open across the country. The number of children of returning migrants is also rising."
+   ],
+   [
+    "From textbooks to tablets.",
+    "The President has ordered the transition within five years (6 Nov). This overlaps with ADB's School Education Reform programme."
+   ],
+   [
+    "Higher education is led by the World Bank.",
+    "The higher education quality and innovation project runs to 2029. Updates to university admission rules and a review of medical university accreditation are also under way."
+   ]
+  ],
+  "h2": "Funding is concentrated in management and financing (EU) and in quality and higher education (ADB, World Bank); vocational education consists mostly of small projects",
+  "rows": {
+   "E1": [
+    "",
+    "World Bank resilience financing, WFP school meals and UNICEF. School construction itself is mainly funded from the national budget"
+   ],
+   "E2": [
+    "",
+    "Centred on ADB's school education reform; the tablet transition policy will be the future focus"
+   ],
+   "E3": [
+    "",
+    "EU reform performance contracts (budget support) are the largest"
+   ],
+   "E4": [
+    "",
+    "Mostly small projects from Switzerland, Korea, ADB and others. The national Vocational Personnel Programme is still a draft"
+   ],
+   "E5": [
+    "",
+    "Centred on the World Bank's higher education project"
+   ]
+  },
+  "h3": "Over the past two months, discussion has centred on school places, the switch to tablets and amendments to the education law",
+  "themes": [
+   [
+    "School places:",
+    "New schools continue to open nationwide, with the President and ministers checking progress. The shortage of places in Bishkek remains large."
+   ],
+   [
+    "Digitalisation:",
+    "The President has set a deadline for replacing textbooks with tablets. There are also individual initiatives such as the distribution of programming materials."
+   ],
+   [
+    "Institutions:",
+    "Reviews of the institutional framework continue, including draft amendments to the Law on Education, updated university admission rules and the treatment of teachers past retirement age."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Education Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 9.3 \"Education\" and Chapter III \"Current Situation and Achievements\" (social sector)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "The nine target indicators and ten tasks in Section 9.3, and the education paragraphs of Chapter III (translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "edu2040",
+   "t": "Education Development Programme 2021–2040",
+   "by": "Government of the Kyrgyz Republic (Government Decision of 4 May 2021)",
+   "y": "2021 (version reflecting the action plan approved in 2025)",
+   "scope": "Full text (machine translation): assessment of the current situation, achievements and challenges, goals and priorities, indicator table (base year 2020)",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1070465&lang=ru"
+  },
+  {
+   "id": "mics",
+   "t": "Multiple Indicator Cluster Survey (MICS) 2023 Statistical Snapshots",
+   "by": "National Statistical Committee and UNICEF",
+   "y": "2024",
+   "scope": "Pages on pre-school education, school attendance, completion and foundational learning checked in the original",
+   "cat": "gov",
+   "u": "https://www.unicef.org/kyrgyzstan/publications/mics-kyrgyz-republic-2023"
+  },
+  {
+   "id": "tree",
+   "t": "National strategy on the site (tree diagram tree-edu)",
+   "by": "Checked against the legal database, the Ministry of Education website and press reports",
+   "y": "2026-11",
+   "scope": "Names and status of programmes, tasks and individual plans",
+   "cat": "gov"
+  },
+  {
+   "id": "unicef2026",
+   "t": "Evidence for Action: Strengthening Public Financing to Improve Education Outcomes for Children",
+   "by": "UNICEF Kyrgyzstan Country Office",
+   "y": "Apr 2026",
+   "scope": "Full text (policy brief of about 8 pages). Only figures that could be read reliably from the charts were used",
+   "cat": "donor",
+   "u": "https://www.unicef.org/kyrgyzstan/reports/evidence-action-education"
+  },
+  {
+   "id": "etf2024",
+   "t": "Torino Process System Monitoring Report: Kyrgyzstan (2024 update)",
+   "by": "European Training Foundation (ETF)",
+   "y": "Feb 2025",
+   "scope": "About 80% of the main text (up to Section 2.3) checked in the original; the remainder not read",
+   "cat": "donor",
+   "u": "https://www.etf.europa.eu/sites/default/files/2025-02/TRP_L1_Monitoring_report_KGZ_EN_2024.pdf"
+  },
+  {
+   "id": "wb2025",
+   "t": "Kyrgyz Republic to Enhance Education Quality with Additional Financing from the World Bank",
+   "by": "World Bank (press release)",
+   "y": "Jun 2025",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2025/06/26/learning-for-the-future-project-in-the-kyrgyz-republic"
+  },
+  {
+   "id": "adb2025",
+   "t": "Validation Report: Strengthening Education System Sector Development Program (46537-002), summary page",
+   "by": "ADB Independent Evaluation Department",
+   "y": "Oct 2025",
+   "scope": "Summary page only; the full report (PDF) was not read",
+   "cat": "donor",
+   "u": "https://www.adb.org/node/1086896"
+  },
+  {
+   "id": "wdi",
+   "t": "World Bank WDI and UN SDG Database (originally from the UNESCO Institute for Statistics)",
+   "by": "World Bank and United Nations",
+   "y": "Retrieved 2026-11-07",
+   "scope": "Via the site's indicator data; series for each indicator",
+   "cat": "donor"
+  },
+  {
+   "id": "proj",
+   "t": "Cooperation project data (World Bank, IATI and JICA project data aggregated on the site)",
+   "by": "—",
+   "y": "2026-11-24",
+   "scope": "Amounts after pro-rata allocation",
+   "cat": "donor"
+  },
+  {
+   "id": "wb2020",
+   "t": "Kyrgyz Republic Learning for the Future Project (Project Appraisal Document)",
+   "by": "World Bank",
+   "y": "2020",
+   "scope": "First three-quarters or so (sector context and project description) checked in the original; the results framework table could not be read",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/195951585965681958/pdf/Kyrgyz-Republic-Learning-for-the-Future-Project.pdf"
+  },
+  {
+   "id": "ieg2017",
+   "t": "Project Performance Assessment Report: Kyrgyz Republic—Rural Education Project",
+   "by": "World Bank Independent Evaluation Group",
+   "y": "2017",
+   "scope": "First 80% or so checked in the original",
+   "cat": "donor",
+   "u": "https://ieg.worldbankgroup.org/node/18690"
+  },
+  {
+   "id": "adb2022",
+   "t": "Economic Analysis: School Education Reform Sector Development Program(52337-001)",
+   "by": "ADB",
+   "y": "2022",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.adb.org/sites/default/files/linked-documents/52337-001-ea.pdf"
+  },
+  {
+   "id": "kix2024",
+   "t": "School Education in Kyrgyzstan: Readiness for Digital Education",
+   "by": "Research team supported by GPE/KIX and IDRC",
+   "y": "Feb 2024",
+   "scope": "Full text (presentation). Chart figures that could not be matched to an item were not used",
+   "cat": "donor",
+   "u": "https://kix.taalimforum.kg/report/SCHOOL_EDUCATION_IN_KYRGYZSTAN_READINESS_FOR_DIGITAL_EDUCATION_EN.pdf"
+  },
+  {
+   "id": "erasmus2023",
+   "t": "Higher Education Profile in Kyrgyzstan",
+   "by": "National Erasmus+ Office in Kyrgyzstan (EU)",
+   "y": "2023",
+   "scope": "About 80% of the main text (up to Section 6.5) checked in the original",
+   "cat": "donor",
+   "u": "https://erasmusplus.kg/en/wp-content/uploads/Review_VPO_2023_ang.pdf"
+  },
+  {
+   "id": "innocenti2025",
+   "t": "Learning is For Everyone: Paving the pathway for inclusive education for children with disabilities in Kyrgyzstan",
+   "by": "UNICEF Innocenti – Global Office of Research and Foresight",
+   "y": "2025",
+   "scope": "About 80% of the main text checked in the original",
+   "cat": "donor",
+   "u": "https://www.eenet.org.uk/resources/docs/UNICEF-Innocenti-Learning-Is-for-Everyone-Kyrgyzstan-report-2025.pdf"
+  },
+  {
+   "id": "unicefsoc",
+   "t": "Analysis of Social Sector Spending in the Kyrgyz Republic",
+   "by": "UNICEF Kyrgyzstan Country Office",
+   "y": "Mar 2026",
+   "scope": "Full text (summary in article format); education paragraphs",
+   "cat": "donor",
+   "u": "https://www.unicef.org/kyrgyzstan/stories/analysis-social-sector-spending-kyrgyz-republic"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Pre-school education is expanding fast but remains far from the national target of 80%. Pre-school coverage of children aged 3–6 rose from 24% (2021) to 44% (2024). In the household survey, attendance at ages 3–4 is 32%, and only 14% in the poorest households.",
+   "ref": [
+    "doc:ndp",
+    "doc:mics",
+    "ind:acc:0"
+   ],
+   "h": "Pre-school is expanding fast but remains far from the 80% target"
+  },
+  {
+   "k": "f",
+   "t": "Learning outcomes are the biggest challenge. In the national learning assessment (2023), 34.3% of primary pupils reached the mathematics standard and 48.5% the reading standard, short of the 2030 targets (40% and 55%).",
+   "ref": [
+    "doc:ndp",
+    "doc:unicef2026"
+   ],
+   "h": "Learning is the main challenge: mathematics 34.3%, reading 48.5%"
+  },
+  {
+   "k": "v",
+   "t": "How money is spent matters more than how much. The government allocates 22% of its budget to education, and spending of 6.8% of GDP (2023) exceeds the international benchmark. Yet non-salary spending is thin, and less than half of the capital investment and learning-materials budgets is executed.",
+   "ref": [
+    "ind:fin:0",
+    "doc:unicef2026",
+    "doc:edu2040"
+   ],
+   "h": "Spending quality, not volume: thin non-salary spending and slow execution"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation totals 79 projects and about USD 150 million, with EU budget support (management and finance) accounting for about half. Support for vocational education is thin at about USD 5.5 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:E3",
+    "row:E4"
+   ],
+   "h": "EU budget support is about half of cooperation; vocational education is thin"
+  },
+  {
+   "k": "v",
+   "t": "R&D spending is 0.05% of GDP (2024), the furthest of all indicators from the national target of 0.5–1.0%. The national plan for higher education and science is still at draft stage.",
+   "ref": [
+    "ind:high:0",
+    "tree:edu:hec",
+    "tree:edu:sci"
+   ],
+   "h": "R&D spending is one-tenth of the target, and the plan is still a draft"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Education at a glance",
+     "msg": "Enrolment now reaches almost every child as the child population keeps growing; the challenge has shifted to capacity, facilities and low learning outcomes.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "44",
+        "u": "%",
+        "k": "Pre-school education, ages 3–6 (2024)",
+        "ref": "doc:ndp"
+       },
+       {
+        "v": "34.3",
+        "u": "%",
+        "k": "Primary pupils meeting the mathematics standard (NOODU 2023)",
+        "ref": "doc:ndp",
+        "hot": true
+       },
+       {
+        "v": "6.8",
+        "u": "%",
+        "k": "Government education expenditure, % of GDP (2023)",
+        "ref": "ind:fin:0"
+       },
+       {
+        "v": "0.05",
+        "u": "%",
+        "k": "R&D expenditure, % of GDP (2024)",
+        "ref": "ind:high:0",
+        "hot": true
+       },
+       {
+        "v": "53.9",
+        "u": "%",
+        "k": "Gross enrolment ratio in higher education (2025)",
+        "ref": "ind:high:1"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Children aged 3–17 make up 30.4% of the population, or 2,117,000 (2020). The Education Development Programme expects the load on kindergartens to peak from 2028 and on schools from 2032.",
+       "ref": [
+        "doc:edu2040"
+       ],
+       "b": "2,117,000 children aged 3–17; load peaks in kindergartens from 2028 and schools from 2032"
+      },
+      {
+       "k": "f",
+       "t": "School enrolment rose from 88.7% (2012) to 97.8% (2020) of children of the relevant age. In the household survey, attendance is 99% at primary, 98% at lower secondary and 87% at upper secondary level.",
+       "ref": [
+        "doc:edu2040",
+        "doc:mics"
+       ],
+       "b": "School enrolment 97.8% (2020); upper secondary 87%"
+      },
+      {
+       "k": "f",
+       "t": "Pre-school education (ages 3–6) rose from 24% (2021) to 44% (2024), helped by measures such as simplified procedures for opening private kindergartens.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Pre-school 24% (2021) → 44% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "School facilities: 245 schools are unsafe and need to be rebuilt, and a further 457 need major repairs. Schools running three shifts increased from 83 (2012) to 151, with 37,000 pupils studying in a third shift.",
+       "ref": [
+        "doc:edu2040"
+       ],
+       "b": "245 unsafe schools; 151 schools on three shifts"
+      },
+      {
+       "k": "f",
+       "t": "A quarter of schools (25.7%) have no clean drinking water, and 74.4% have no indoor toilets (survey from around 2020).",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The National Development Programme 2030 states that, despite higher salaries, a shortage of qualified teachers persists, especially in STEM subjects, and that academic performance is a cause for concern.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF reports that learning outcomes in Kyrgyzstan are the lowest among the former Soviet countries for which data are available. Six in ten adults fall below the minimum level of literacy and numeracy.",
+       "ref": [
+        "doc:unicef2026"
+       ],
+       "b": "Learning outcomes are the lowest among former Soviet countries (UNICEF)"
+      },
+      {
+       "k": "v",
+       "t": "The access challenge (getting every child into school) has largely been met; the next challenges are capacity and facilities that keep pace with the growing child population, and the quality of learning.",
+       "ref": [
+        "doc:edu2040",
+        "doc:ndp"
+       ],
+       "b": "Access largely achieved; capacity, facilities and quality are next"
+      },
+      {
+       "k": "h",
+       "t": "Growth in the child population versus teachers and school buildings"
+      },
+      {
+       "k": "f",
+       "t": "According to an ADB economic analysis, pupils in general education rose by 11.0% from 1,222,661 (2017) to 1,357,408 (2020), with private-school enrolment up 55.5%. Teachers increased by only 1.6%, from 80,773 to 82,055, and the pupil–teacher ratio in public schools rose from 15.35 to 16.85.",
+       "ref": [
+        "doc:adb2022"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF's financing brief states that 75% of schools teach in multiple shifts and that classes of more than 30 pupils are common. The Education Development Programme also reports that internal migration has overcrowded urban schools and that the number of three-shift schools has doubled since 2012.",
+       "ref": [
+        "doc:unicef2026",
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Growth in the child population is outpacing growth in teachers and school buildings, and shift systems and large classes are dragging down teaching quality. The Programme expects school load to peak from 2032, so the shortage of facilities will intensify.",
+       "ref": [
+        "doc:adb2022",
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Level of learning outcomes"
+      },
+      {
+       "k": "f",
+       "t": "In a 2020 World Bank document, the Human Capital Index was 0.58 (2018, ranked 76th of 157 countries). The 12.6 expected years of schooling equate to 8.4 years once adjusted for learning quality, a gap of 4.2 years. 64% of children cannot read proficiently by the end of primary school age.",
+       "ref": [
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same document reports that in the adult skills survey (PIAAC 2019), adults in Kyrgyzstan scored 247 in literacy and 243 in numeracy, about 20 points below the OECD averages (268 and 263).",
+       "ref": [
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Children spend many years in school, but what they learn has not kept up. Both child and adult learning outcomes are low, and donor assessments agree with the national assessment that the challenge in education lies in quality rather than quantity.",
+       "ref": [
+        "doc:wb2020",
+        "doc:ndp",
+        "doc:unicef2026"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy structure",
+     "msg": "Education policy is built on three tiers: National Development Programme 2030, Section 9.3 → Education Development Programme 2021–2040 → plans for each level.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy structure (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Top-level plan: Section 9.3 \"Education\" of the National Development Programme 2030 sets nine target indicators (pre-school education for ages 3–5 at 80%; school education for ages 6–17 at 98.8%; 100% of schools with ramps; 40% in mathematics and 55% in reading in the learning assessment; an average National Scholarship Test (ORT) score of 130; more than 70% of graduates above the pass mark; 98% of schools using high-speed internet for learning; 85% of teachers with laptops; and R&D spending of 0.5–1.0% of GDP) and ten tasks.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 Section 9.3: nine target indicators and ten tasks"
+      },
+      {
+       "k": "f",
+       "t": "The ten tasks cover teacher competence and motivation, new textbooks and 12-year schooling, online learning, vocational education aligned with the labour market (dual education), school meals, inclusive education, modernisation of facilities, financial transparency, high-speed internet and applied science.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Core education plan: the Education Development Programme 2021–2040 (Government Decision of 4 May 2021). It continues the reforms of the Education Development Strategy 2012–2020 (Government Decision No. 201). Measures under the previous strategy were 91% implemented overall (84.3% fully implemented).",
+       "ref": [
+        "doc:edu2040",
+        "tree:edu:edu"
+       ],
+       "b": "Education Development Programme 2021–2040 continues the previous strategy (2012–2020)"
+      },
+      {
+       "k": "f",
+       "t": "Goals and tasks: three tasks are set for 2040: (1) fair and equal access, (2) quality of education, and (3) effective management and financing. All three apply to every level from pre-school to adult education.",
+       "ref": [
+        "doc:edu2040",
+        "tree:edu:E1",
+        "tree:edu:E2",
+        "tree:edu:E3"
+       ],
+       "b": "Three tasks: access, quality, management and financing"
+      },
+      {
+       "k": "f",
+       "t": "Implementation plan: the \"Altyn Kazyk\" action plan (to 2026) was approved by Cabinet of Ministers Order No. 111-r of 25 February 2025.",
+       "ref": [
+        "doc:edu2040",
+        "tree:edu:altyn"
+       ],
+       "b": "\"Altyn Kazyk\" action plan to 2026 (approved February 2025)"
+      },
+      {
+       "k": "f",
+       "t": "Indicator table: base year 2020, with projected values for 2023, 2030 and 2040. Examples: pre-school education (ages 1–6) 22.2% → 32% (2030) → 42% (2040); average ORT score 120 → 130 (2030) → 145 (2040); share of children with disabilities studying in mainstream schools under individual plans 4% → 22% (2030).",
+       "ref": [
+        "doc:edu2040"
+       ],
+       "b": "Indicator table: ORT 120 → 130 (2030), among others"
+      },
+      {
+       "k": "f",
+       "t": "Individual plans: the Concept for the transition to 12-year school education (Cabinet of Ministers Decision No. 654 of 30 October 2024, action plan 2024–2028, first graduates in the 2036/2037 school year) and the State Language Development Programme 2026–2028 (approved by the Cabinet of Ministers in July 2026). The Vocational Personnel Programme 2026–2030, the Higher Education Development Concept to 2030 and the National Programme for Science, Higher Education, Intellectual Property and Innovation 2026–2030 are all still drafts.",
+       "ref": [
+        "tree:edu:y12",
+        "tree:edu:lang",
+        "tree:edu:prof",
+        "tree:edu:hec",
+        "tree:edu:sci"
+       ],
+       "b": "Transition to 12-year schooling decided; vocational and higher education plans are drafts"
+      },
+      {
+       "k": "f",
+       "t": "A new Law on Education was adopted in 2023.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "National target indicators appear in two places: the National Development Programme 2030 (for 2030) and the Education Development Programme (for 2030 and 2040). The ORT score of 130 (2030) is the same in both, but the pre-school targets differ in age range and value (80% for ages 3–5 versus 32% for ages 1–6).",
+       "ref": [
+        "doc:ndp",
+        "doc:edu2040"
+       ],
+       "b": "The two plans define the pre-school target differently"
+      },
+      {
+       "k": "h",
+       "t": "Systems put in place under the previous strategy"
+      },
+      {
+       "k": "f",
+       "t": "During the previous strategy, per-capita (normative) financing was introduced in all schools, vocational schools and universities. Funding for education institutions previously covered by local budgets was moved to the national budget through the regional units of the Ministry of Education and Science. Licensing and accreditation were separated, and independent, externally delegated accreditation was introduced.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For school meals, a hot-meal system was established covering 1,635 schools, and the Law on School Meals (No. 135) was adopted on 4 December 2019. A concept for inclusive education was approved, and an institute training inclusive education specialists, the first in Central Asia, was opened.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "For textbooks, the rental scheme was reintroduced in a new form and a state institution, \"Jany Kitep\", was established. For teachers, a new certification procedure and allowances linked to qualification categories were introduced.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Tools and risks identified by the Programme"
+      },
+      {
+       "k": "f",
+       "t": "The Programme positions the Education Management Information System (EMIS) as the main tool for collecting, analysing and forecasting the state of education, and calls for regular surveys and functional reviews of management.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The risks listed are slower economic growth and fiscal deficits; political instability, disasters and corruption; lack of understanding of the importance of reform and lack of local engagement; and weak management of demographic change and internal and external migration. The action plan is to be financed from the national budget and international partners.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In higher education, Presidential Decree No. 243 of 18 July 2022 granted five universities special status with broad organisational, financial and academic autonomy. The two-tier bachelor's–master's structure was introduced in the 2012/2013 academic year.",
+       "ref": [
+        "doc:erasmus2023"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The institutional framework (per-capita financing, accreditation, EMIS, the school meals law) was put in place under the previous strategy. The focus of the 2021–2040 Programme has shifted to using that framework to deliver results in learning and equity.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "School education (access and quality) has adopted plans, but the plans for vocational education, higher education and science remain drafts.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active cooperation by table row)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Task 1 (access) is covered by the state language programme and school meals, and Task 2 (quality) by the concept for transition to 12-year schooling and the action plan. Task 3 (management and financing) has no stand-alone plan and is handled in the Programme itself.",
+       "ref": [
+        "tree:edu:E1",
+        "tree:edu:E2",
+        "tree:edu:E3"
+       ],
+       "b": "Task 3 (management and financing) has no stand-alone plan"
+      },
+      {
+       "k": "f",
+       "t": "Vocational education (Vocational Personnel Programme, public consultation October 2026), higher education (concept, public consultation April 2026) and science (national programme, drafted March 2026) have not been formally adopted.",
+       "ref": [
+        "tree:edu:prof",
+        "tree:edu:hec",
+        "tree:edu:sci"
+       ],
+       "b": "The three plans for vocational, higher education and science are drafts"
+      },
+      {
+       "k": "v",
+       "t": "Of the NDP 2030 targets, R&D spending (0.5–1.0%) and the ORT are either covered by draft plans or fall outside any plan. \"Management and financing\", which receives the most donor funding, also has no stand-alone plan.",
+       "ref": [
+        "ind:high:0",
+        "row:E3",
+        "doc:ndp"
+       ],
+       "b": "The row with the largest funding and the furthest target have no adopted plan"
+      },
+      {
+       "k": "f",
+       "t": "The transition to 12-year schooling is a switch to a 6+3+3 structure; the action plan covers 2024–2028, and the first 12-year graduates will finish in the 2036/2037 school year.",
+       "ref": [
+        "tree:edu:y12"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The transition to 12-year schooling requires more teachers, textbooks and classrooms at the same time. This coincides with the facility shortfall of 245 schools needing reconstruction and 151 three-shift schools, but no cost estimate for the transition can be read from the materials on the site.",
+       "ref": [
+        "tree:edu:y12",
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The European Training Foundation cites the Education Development Programme 2040 as the overarching framework for vocational education and identifies the National Qualifications Framework (approved 2020), the Skills Development Fund (established 2020) and the regulations on dual training (2022) as related systems.",
+       "ref": [
+        "doc:etf2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF Innocenti reports that of the 12 policies reviewed, nine refer to inclusive education, while eight contain provisions for segregated special schools.",
+       "ref": [
+        "doc:innocenti2025"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Although inclusive education has national targets (100% ramps; 22% of children with disabilities studying in mainstream schools under individual plans), policy documents retain provisions for segregation, and the plans are not aligned with one another.",
+       "ref": [
+        "doc:innocenti2025",
+        "doc:edu2040"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the nine national targets",
+     "msg": "Few targets can be tracked with annual data; learning outcomes and the ORT are close but not on track, and R&D spending is the furthest from target.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to target (actual pace = average change over the period; required pace = change needed to reach the target in 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the nine targets in the National Development Programme 2030, only three have national published values that can be read from the text: pre-school education (ages 3–6), the learning assessment and the ORT pass rate. R&D spending can be tracked through international data. No annual published values were found for ramps, high-speed internet or teacher laptops.",
+       "ref": [
+        "doc:ndp",
+        "ind:high:0"
+       ],
+       "b": "Only about four of the nine targets can be tracked annually"
+      },
+      {
+       "k": "v",
+       "t": "Pre-school education grew by +6.7 points a year in 2021–2024, above the +6.0 points a year needed to reach the 80% target. However, the national figure covers ages 3–6 while the target covers ages 3–5, so the ranges differ.",
+       "ref": [
+        "doc:ndp",
+        "ind:acc:0"
+       ],
+       "b": "Pre-school: on track at current pace, but the age range differs"
+      },
+      {
+       "k": "v",
+       "t": "R&D spending has fallen from 0.12% in 2015 to 0.05% (2024). Reaching the 0.5% target requires +0.075 points a year; the indicator is moving in the opposite direction.",
+       "ref": [
+        "ind:high:0",
+        "doc:ndp"
+       ],
+       "b": "R&D spending: moving in the opposite direction"
+      },
+      {
+       "k": "v",
+       "t": "Against the international target (SDG 4.1, universal completion), the lower secondary completion rate rose from 88.0% (2015) to 93.7% (2025). At +0.57 a year, it would reach about 96.6% in 2030, short of 100%.",
+       "ref": [
+        "ind:acc:1"
+       ],
+       "b": "Lower secondary completion 93.7%; about 96.6% by 2030"
+      },
+      {
+       "k": "f",
+       "t": "The Education Development Programme's indicator table projects pre-school coverage (ages 1–6) at 32% in 2030, far below the NDP 2030 target of 80% (ages 3–5). It expects the average ORT score to rise from 120 (2020) to 130 (2030) and 145 (2040).",
+       "ref": [
+        "doc:edu2040",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Whether the pre-school target is met depends on the age range used. The national figure is 44% for ages 3–6 (2024), while the household survey gives 32% for ages 3–4 (2023); unless the measure is agreed, the assessment will vary.",
+       "ref": [
+        "doc:ndp",
+        "doc:mics"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Learning outcomes are 5.7 points short in mathematics and 6.5 points short in reading. In the 2017 learning assessment about 60% of fourth-graders did not reach the basic level, which suggests improvement by 2023, but it has not been confirmed whether the assessment design was the same.",
+       "ref": [
+        "doc:ndp",
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The targets that cannot be measured (ramps, high-speed internet, laptops) are all equipment-provision targets. The figures are said to exist in Ministry of Education reports but are not published, so they cannot be linked to the effects of donor investment in equipment.",
+       "ref": [
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Equitable access: pre-school, inclusion and facilities",
+     "msg": "Pre-school education has expanded rapidly, but rural and poor households are being left behind, and facilities and places are not keeping pace with the growing child population.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Participation in pre-school education one year before primary entry, and lower secondary completion rate",
+      "inds": [
+       "acc:0",
+       "acc:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: pre-school education (ages 3–6) rose from 24% (2021) to 44% (2024). During the previous strategy, the number of kindergartens increased from 819 (2012) to 1,648 (2020), and the number of children attending from 115,000 to 196,000.",
+       "ref": [
+        "doc:ndp",
+        "doc:edu2040"
+       ],
+       "b": "Pre-school 24% → 44%; kindergartens 819 → 1,648"
+      },
+      {
+       "k": "f",
+       "t": "Disparities: in the household survey (2023), attendance at ages 3–4 is 32%: 43% in urban and 28% in rural areas, and 54% in the richest versus 14% in the poorest households.",
+       "ref": [
+        "doc:mics"
+       ],
+       "b": "Attendance at ages 3–4 is 32%; 14% in poor households"
+      },
+      {
+       "k": "f",
+       "t": "Participation in pre-school education one year before primary entry is 92% in the household survey (2023). The UN SDG Database series falls from 86.2% (2024) to 74.9% (2025).",
+       "ref": [
+        "doc:mics",
+        "ind:acc:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Cost: UNICEF reports that while the share of the budget allocated to pre-school education has risen to 15%, only about a quarter of children aged 3–5 attend public facilities; full-day kindergartens have a high cost per child, and almost three-quarters of staff are not engaged in childcare.",
+       "ref": [
+        "doc:unicef2026"
+       ],
+       "b": "Full-day kindergartens are costly; UNICEF recommends alternative models"
+      },
+      {
+       "k": "f",
+       "t": "Facilities: kindergartens with 168,000 places serve 196,000 children, and 100 kindergartens of 280 places are lacking (around 2020). For schools, 245 need rebuilding and 457 need major repairs.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Inclusive education: the European Training Foundation reports that only 30% of the measures planned under the inclusive education concept have been implemented. The national target is 100% of schools with ramps for children with disabilities.",
+       "ref": [
+        "doc:etf2024",
+        "doc:ndp"
+       ],
+       "b": "Only 30% of the inclusive education concept has been implemented"
+      },
+      {
+       "k": "v",
+       "t": "Building full-day public kindergartens is expensive. How far lower-cost models, such as kindergartens using libraries or community facilities and home-based childcare, can be scaled up will determine progress on the 80% target and the rural gap.",
+       "ref": [
+        "doc:unicef2026",
+        "doc:wb2025"
+       ],
+       "b": "Scaling up lower-cost pre-school models is the key"
+      },
+      {
+       "k": "h",
+       "t": "Background: why pre-school expanded so quickly"
+      },
+      {
+       "k": "f",
+       "t": "In the World Bank's 2020 document, the net pre-school enrolment rate for ages 3–6 was 25% (2016), and about 4% for children under three. Urban rates were almost double rural rates, at 50% in the richest households versus 12% in the poorest.",
+       "ref": [
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the same document, the 2017 Public Expenditure Review estimated that achieving a 70% net enrolment rate for ages 3–6 by 2021 would require pre-school spending about five times the 2016 level. Pre-school's share of public education spending rose from 8.8% (2011) to 13.0% (2016).",
+       "ref": [
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "During the previous strategy, annual pre-school preparation classes (three hours a day) were created in 4,000 classes for 100,000 children aged 5.5–7 without access to pre-school education. The 2017 learning assessment showed that children who had attended pre-school scored on average 26.2 points higher.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The surge in 2021–2024 (24% → 44%) appears to be supported not only by simplified procedures for private kindergartens but also by the spread of lower-cost models such as short preparation classes and community kindergartens. Reaching the target with full-day public kindergartens alone would be difficult on cost grounds.",
+       "ref": [
+        "doc:ndp",
+        "doc:edu2040",
+        "doc:unicef2026"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Inclusive education"
+      },
+      {
+       "k": "f",
+       "t": "According to UNICEF Innocenti, in the 2023/24 school year 6,575 of 1,490,830 pupils (0.4%) were officially recognised as having a disability, of whom 54% attended special institutions and 46% mainstream schools. About 7% of children aged 2–17 are considered to have a disability, which the report says shows that identification is lagging.",
+       "ref": [
+        "doc:innocenti2025"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the same study, 13.7% of teachers and 24.8% of principals had received proper training in inclusive education. 83% of principals said their school had a ramp, but only 15% had accessible toilets and 7% had adapted play and social spaces.",
+       "ref": [
+        "doc:innocenti2025"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "According to principals' responses, more than 80% of schools already meet the national target of \"100% ramps\". However, toilets, in-classroom adaptations and teacher training lag far behind, and a target that counts only ramps cannot measure whether children with disabilities can actually learn.",
+       "ref": [
+        "doc:innocenti2025",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 15 projects and about USD 20.4 million in the access row (World Bank about USD 12.8 million; WFP school meals about USD 5.1 million). In June 2025 the World Bank approved USD 6.36 million in additional financing for Learning for the Future, to renovate unused public buildings, expand full-day childcare and pilot home-based childcare for ages 1–6 (to 2028).",
+       "ref": [
+        "row:E1",
+        "doc:wb2025"
+       ],
+       "b": "Access: about USD 20.4 million; World Bank adds USD 6.36 million for pre-school"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Learning for the Future (2020, USD 50 million) planned to establish 500 community kindergartens for about 20,000 children aged 3–5 and to train about 500 newly hired teachers. The 2025 additional financing extends this to full-day childcare and home-based childcare.",
+       "ref": [
+        "doc:wb2020",
+        "doc:wb2025",
+        "proj:WB-P170542"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Most of the World Bank amount in the access row comes from Enhancing Resilience in Kyrgyzstan and its additional financing (about USD 6.1 million, 5 million and 1.7 million). The link to education cannot be read from the project titles, and their mapping to the row needs to be verified.",
+       "ref": [
+        "row:E1",
+        "proj:WB-P172761",
+        "proj:WB-P180365",
+        "proj:WB-P162635"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "WFP's school meals project (about USD 5.1 million, 2026–2027) corresponds to the Law on School Meals and to Task 5 of NDP 2030 (quality school meals and support for schools in areas with scarce clean water).",
+       "ref": [
+        "doc:ndp",
+        "doc:edu2040",
+        "proj:XM-DAC-41140-KG02.05.044.SMP1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The EU's inclusive education and STEAM project (about USD 0.7 million, until December 2026) is the main cooperation targeting inclusive education.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2024-PC-35625"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "There is cooperation to increase places (World Bank), but the site's data show no large cooperation targeting the 245 schools needing reconstruction or the 457 needing major repairs.",
+       "ref": [
+        "row:E1",
+        "doc:edu2040"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Quality of education: learning, teachers, textbooks and digital",
+     "msg": "Learning outcomes lag behind both the national targets and other former Soviet countries, with teachers, textbooks and classroom practice cited as the causes.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "Learning assessment: in the national learning assessment (NOODU 2023), 34.3% of primary pupils could complete the tasks in mathematics and 48.5% in reading. The targets are 40% for mathematics and 55% for reading (2030).",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NOODU 2023: mathematics 34.3%, reading 48.5% (targets 40% and 55%)"
+      },
+      {
+       "k": "f",
+       "t": "Household survey (2023): 84% of pupils in grades 2–3 could read 90% of the words in a story correctly, but only 59% could answer questions on its content, and 54% could complete a number sequence. Among children aged 7–14, 69% have foundational reading skills and 57% foundational numeracy skills.",
+       "ref": [
+        "doc:mics"
+       ],
+       "b": "Grades 2–3: 84% can read, but only 59% understand"
+      },
+      {
+       "k": "f",
+       "t": "Regional differences: in the 2017 learning assessment, the share of fourth-graders below the basic level was 43% in Bishkek, 60% in regional centres and small towns, and 70% in rural schools.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "National Scholarship Test (ORT): in the 2024 results, 67.8% of graduates met the pass threshold, against a national target of more than 70%. The average score has a baseline of 120 (2020) and a target of 130 (2030).",
+       "ref": [
+        "doc:ndp",
+        "doc:edu2040"
+       ],
+       "b": "ORT pass rate 67.8% (target above 70%)"
+      },
+      {
+       "k": "f",
+       "t": "Textbooks and teachers: UNICEF reports that, because of a lack of textbooks, fewer than half of teachers can teach to the curriculum, and only 21% of teachers use computers \"often\". The textbook supply rate rose from 49.6% to 72% (during the previous strategy).",
+       "ref": [
+        "doc:unicef2026",
+        "doc:edu2040"
+       ],
+       "b": "Textbook shortages mean fewer than half of teachers can teach to the curriculum"
+      },
+      {
+       "k": "f",
+       "t": "Teachers: the average monthly teacher salary rose from 3,500 som (2012) to 17,000 som (2020), and the shortage fell to about 700 (2020). However, salaries are one-third of the Eurasian Economic Union average.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The learning targets are within reach, but without annual published values the pace cannot be measured. The ORT pass rate (67.8%) is close to the 70% target.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Learning is close to target, but the pace cannot be measured"
+      },
+      {
+       "k": "h",
+       "t": "Background: why learning outcomes are low"
+      },
+      {
+       "k": "f",
+       "t": "According to the World Bank Independent Evaluation Group, Kyrgyzstan ranked last among participating countries in mathematics, science and reading in PISA in both 2006 and 2009, scoring 331 in mathematics in 2009 (OECD average 496).",
+       "ref": [
+        "doc:ieg2017"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the 2017 learning assessment, the share of pupils below the basic level was 59.8% in reading and 60.3% in mathematics in grade 4, and 51% in reading, 64.9% in mathematics and 76.6% in science in grade 8. Girls outperformed boys in reading by 10–15 points.",
+       "ref": [
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Classroom observation (CLASS 2017, on a 7-point scale) scored emotional support at 5.7 and classroom organisation at 5.2, but instructional support was low at 2.8. In-service training is mandated at 72 hours every five years, but annual participation is about 10,000, only around 60% of the target.",
+       "ref": [
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Textbook coverage rose from an average of 74% (2014) to 80% (2017). In 2016 there were about 25 pupils per computer. UNICEF's analysis of social spending states that about 80% of education spending goes on salaries and less than 1% on learning materials.",
+       "ref": [
+        "doc:wb2020",
+        "doc:unicefsoc"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The weakness lies less in the number of teachers than in what happens in lessons (instructional support), and money is not reaching textbooks and learning materials. The learning gap is unlikely to narrow unless teacher training and learning materials are changed together.",
+       "ref": [
+        "doc:wb2020",
+        "doc:unicefsoc",
+        "doc:unicef2026"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Digital education"
+      },
+      {
+       "k": "f",
+       "t": "A GPE/KIX study (180 schools) found teacher readiness at 80% for basic computer skills but lower for online learning and content creation (62%) and digital communication (63%). 86% of pupils and 88% of teachers preferred face-to-face over remote teaching.",
+       "ref": [
+        "doc:kix2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the same study's survey, the obstacles to new initiatives cited were lack of funding (43%), low motivation of pupils and parents (39%), lack of equipment (37%), heavy workload (34%) and \"reform fatigue\" (26%).",
+       "ref": [
+        "doc:kix2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national targets (98% high-speed internet, 85% teacher laptops) concern equipment, but the study identifies teachers' skills and motivation as the problem. Distributing equipment alone is unlikely to translate into better learning.",
+       "ref": [
+        "doc:kix2024",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 20 projects and about USD 29.5 million in the quality row (ADB school education reform about USD 25 million; US learning outcomes project about USD 2.1 million).",
+       "ref": [
+        "row:E2"
+       ],
+       "b": "Quality: about USD 29.5 million (mainly ADB)"
+      },
+      {
+       "k": "f",
+       "t": "ADB's School Education Reform Sector Development Program is built around curriculum guidelines, reform of pre-service and in-service teacher training (training 10,000 teachers in STEM and functional literacy), renovation of 53 innovative schools and support for about 220 cluster schools.",
+       "ref": [
+        "doc:adb2022",
+        "proj:XM-DAC-46004-52337-001-LN4217",
+        "proj:XM-DAC-46004-52337-001-GRNT0851"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ADB's economic analysis states that general education spending fell from 2.97% of GDP (2017) to 2.84% (2020), and that spending per pupil fell by 5.6%, from 14,090 som to 13,305 som.",
+       "ref": [
+        "doc:adb2022"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Learning for the Future planned to install IT infrastructure in 1,200 schools (about 53% of the total), provide digital training to about 36,000 teachers, and support the 2023 grade 4 and grade 8 learning assessments and participation in PISA 2024.",
+       "ref": [
+        "doc:wb2020",
+        "proj:WB-P170542",
+        "proj:XI-IATI-WBTF-P170542"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The ex-post evaluation of the World Bank's Rural Education Project (2005–2011) rated its outcome \"moderately unsatisfactory\" for lack of firm evidence of improved learning. It cited as a lesson that overlapping donor pilots became a patchwork with little system-wide effect.",
+       "ref": [
+        "doc:ieg2017"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The lesson from the past is to act on systems (training, assessment, textbooks) rather than on a patchwork of pilots. The question is whether current ADB, World Bank and EU cooperation is designed so that its effects can be measured through learning assessment results.",
+       "ref": [
+        "doc:ieg2017",
+        "row:E2"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Management and financing",
+     "msg": "Education spending exceeds the international benchmark, but most of it goes on salaries, and the budgets for facilities and learning materials are executed slowly.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Government education expenditure (% of GDP)",
+      "inds": [
+       "fin:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: government education expenditure rose from 5.2% of GDP (2021) to 6.8% (2023), above the Education 2030 Framework for Action benchmark (4–6%).",
+       "ref": [
+        "ind:fin:0"
+       ],
+       "b": "Education spending at 6.8% of GDP (2023), above the 4–6% benchmark"
+      },
+      {
+       "k": "f",
+       "t": "UNICEF reports that the government allocates 22% of its budget to education, but that the increase since 2021 has gone mainly to teacher salaries. In 2023 only 44% of the capital investment budget and 38% of the learning-materials budget was spent.",
+       "ref": [
+        "doc:unicef2026"
+       ],
+       "b": "Execution: capital investment 44%, learning materials 38% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "National budget spending on education rose from 21.7 billion som (2012) to 39.9 billion som (2020). Of this, 93% goes on teacher salaries and social insurance contributions, leaving 7% for development.",
+       "ref": [
+        "doc:edu2040"
+       ],
+       "b": "93% of the education budget goes on salaries; 7% on development"
+      },
+      {
+       "k": "f",
+       "t": "(Initial) vocational education accounts for 3.9% of the total education budget (2022), about 96% of which goes on salaries.",
+       "ref": [
+        "doc:etf2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Rather than increasing the volume of money, the challenge is non-salary spending and faster execution (allocating capital budgets to local levels, opening up textbook procurement). UNICEF's recommendations point the same way.",
+       "ref": [
+        "doc:unicef2026"
+       ],
+       "b": "The challenge is non-salary spending and execution, not volume"
+      },
+      {
+       "k": "h",
+       "t": "Background: what the money is spent on"
+      },
+      {
+       "k": "f",
+       "t": "In the World Bank's 2020 document, education spending rose from 6.3% to 7.7% of GDP (2014–2016), but its share of government spending barely changed, from 18.5% to 18.9%. In 2016, 38% of non-salary recurrent spending went on school meals.",
+       "ref": [
+        "doc:wb2020"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Education Development Programme states that there is a nationwide shortfall of about 500 million som a year against the minimum standard for school education budgets, that underfunding leads to collections from parents, and that the lack of transparency in how the money collected is used causes dissatisfaction.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF recommends distributing more capital budget to local levels and strengthening district education offices' capacity to identify investments, opening textbook procurement rather than relying on a single state publisher, and introducing digital textbooks.",
+       "ref": [
+        "doc:unicef2026"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Education spending as a share of GDP is about 6.8% according to UNICEF, but ADB's figure for general education alone is about 3%; the figures vary widely depending on scope (whether pre-school, vocational and higher education are included). The assessment against the international benchmark depends on the scope used.",
+       "ref": [
+        "ind:fin:0",
+        "doc:adb2022"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 9 projects and about USD 71.5 million in the management and financing row. Almost all of it is EU budget support for education sector reform (two operations, about USD 39 million and about USD 30.5 million, running until 2028–2030).",
+       "ref": [
+        "row:E3",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-61001",
+        "proj:XI-IATI-EC_INTPA-2022-PC-15528"
+       ],
+       "b": "Management and financing: about USD 71.5 million, almost all EU budget support"
+      },
+      {
+       "k": "f",
+       "t": "EU budget support for education sector reform consists of two operations (about USD 39 million, 2021–2030; about USD 30.5 million, 2022–2028), channelled directly into the national budget. It accounts for almost the whole of the management and financing row.",
+       "ref": [
+        "row:E3",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-61001",
+        "proj:XI-IATI-EC_INTPA-2022-PC-15528"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "This row also includes UNICEF's education system capacity-strengthening project (about USD 1.6 million, 2025–2027) and a civil society project linking household survey and EMIS data.",
+       "ref": [
+        "row:E3",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/003/004"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The success of budget support should logically be measured by whether the allocation and execution of non-salary spending (learning materials and capital) improve. Those figures need to be tracked in published national budget documents and are not yet among the site's indicators.",
+       "ref": [
+        "row:E3",
+        "doc:unicef2026"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.4",
+     "h": "Vocational education (TVET)",
+     "msg": "Vocational education is losing students, its budget is almost entirely consumed by salaries, and cooperation is thin compared with the past.",
+     "paras": [
+      {
+       "k": "f",
+       "t": "Vocational education students fell from 34,400 (2018) to 28,600 (2021). There are about 32,000–35,000 state-funded places each year, many of which go unused.",
+       "ref": [
+        "doc:etf2024"
+       ],
+       "b": "Vocational students 34,400 → 28,600"
+      },
+      {
+       "k": "f",
+       "t": "In the European Training Foundation's indicators (2024), access to continuing training for adults (10 points, international average 27) and financial resources (10 points, international average 58) are particularly low. The link between learning and work is high at 75 points (international average 60).",
+       "ref": [
+        "doc:etf2024"
+       ],
+       "b": "Access to continuing training and financing are particularly low"
+      },
+      {
+       "k": "f",
+       "t": "The Education Development Programme identifies as challenges the lack of occupational standards, the lack of linkage between levels (56% of vocational schools are rural while 96% of colleges are urban), and outdated equipment.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "National target (Education Development Programme): share of initial vocational education programmes delivered through dual education 12% (2023) → 20% (2030) → 30% (2040).",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The European Training Foundation notes that the Vocational Personnel Programme 2026–2030 remains a draft and that dependence on donors is a risk to sustainability. Finalising the national plan comes first.",
+       "ref": [
+        "tree:edu:prof",
+        "doc:etf2024"
+       ],
+       "b": "Finalising the Vocational Personnel Programme comes first"
+      },
+      {
+       "k": "f",
+       "t": "The European Training Foundation notes that stricter attendance monitoring has recently increased dropout, and that because funding falls when students leave, schools are reluctant to expel them, so some students graduate without adequate skills.",
+       "ref": [
+        "doc:etf2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same report also points out that curriculum revisions require approval from several ministries and take more than a year, and that 20–30% of the initial vocational education budget comes from fee-paying courses and community service income.",
+       "ref": [
+        "doc:etf2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the same report's indicators (2024), quality and relevance for disadvantaged youth (25 points, international average 48) and for economically inactive adults (25 points, international average 43) are low.",
+       "ref": [
+        "doc:etf2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the Education Development Programme, initial vocational students number 29,000–32,000 (about 10% of 15–17-year-olds) and are flat, and vocational lyceums have been merged from 110 to 99. College students increased from 83,000 to 95,000, but only 11,600 are budget-funded while 84,300 pay their own fees.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Initial vocational education is losing students, while college growth is driven by fee-paying students. The surplus of state-funded places suggests that content does not match the labour market.",
+       "ref": [
+        "doc:etf2024",
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 10 projects and about USD 5.5 million in the vocational education row (Switzerland about USD 3.1 million; UNICEF about USD 1.8 million). Cooperation completed since 2017 totals 27 projects and about USD 62.3 million (ADB about USD 50 million; Germany about USD 11.9 million).",
+       "ref": [
+        "row:E4",
+        "fact:closed_rows"
+       ],
+       "b": "Vocational education: about USD 5.5 million active, about USD 62.3 million in the past"
+      },
+      {
+       "k": "f",
+       "t": "Most active vocational education cooperation consists of Switzerland's short-term skills development for young people and women (about USD 2.4 million, 2022–2027) and UNICEF's youth skills project (about USD 1.8 million, 2023–2027).",
+       "ref": [
+        "row:E4",
+        "proj:CH-4-2023-2022016710",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/003/003"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Among cooperation completed since 2017, the largest were ADB's Skills for Inclusive Growth programme (about USD 18 million and about USD 12 million), the Second Vocational Education and Skills Development Project (two operations totalling about USD 20 million, completed in 2019), and Germany's three vocational education and employment promotion projects (about USD 5.3 million, 3.4 million and 3.1 million).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:XM-DAC-46004-50024-002-GRNT0553",
+        "proj:XM-DAC-46004-50024-002-GRNT0552",
+        "proj:XM-DAC-46004-38298-023-GRNT0307",
+        "proj:XM-DAC-46004-38298-023-LN2902",
+        "proj:DE-1-201321512",
+        "proj:DE-1-201520204",
+        "proj:DE-1-201921345"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Since the large operations ended, funding to sustain systems such as the qualifications framework and dual education has been thin. The donor dependency risk highlighted by the European Training Foundation is materialising.",
+       "ref": [
+        "doc:etf2024",
+        "row:E4"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.5",
+     "h": "Higher education and research",
+     "msg": "University enrolment has grown, but R&D spending keeps falling and is the furthest from the national target.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-5 R&D expenditure (% of GDP) and gross enrolment ratio in higher education",
+      "inds": [
+       "high:0",
+       "high:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "R&D spending fell from 0.16% of GDP (2010) to 0.05% (2024), against a national target of 0.5–1.0%.",
+       "ref": [
+        "ind:high:0",
+        "doc:ndp"
+       ],
+       "b": "R&D spending 0.16% (2010) → 0.05% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "The gross enrolment ratio in higher education rose from 40.8% (2019) to 53.9% (2025). There are 57 universities (40 public, 17 private) with 214,000 students (around 2020).",
+       "ref": [
+        "ind:high:1",
+        "doc:edu2040"
+       ],
+       "b": "Higher education gross enrolment ratio 53.9% (2025)"
+      },
+      {
+       "k": "f",
+       "t": "The Education Development Programme identifies as challenges outdated specialisations, outdated teaching methods, corruption in higher education, weak university research and insufficient university autonomy.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Enrolment has grown, but the systems for research and quality (the higher education concept and the national science programme) are still drafts, and no pathway towards the R&D spending target can be discerned.",
+       "ref": [
+        "tree:edu:hec",
+        "tree:edu:sci",
+        "ind:high:0"
+       ],
+       "b": "No visible pathway towards the R&D spending target"
+      },
+      {
+       "k": "f",
+       "t": "According to the Erasmus+ Higher Education Profile (2023), the number of universities rose from 51 (2017) to 78 (2022), with 33 public and 45 private in 2022. Students increased from 161,406 (2017) to 231,394 (2022).",
+       "ref": [
+        "doc:erasmus2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same profile states that more than 80% of university spending is covered by tuition fees, and that state-budget places number at least 5,705 each year, with 6,000 in the 2022/2023 academic year. Funding for science is reported at 0.08% of GDP.",
+       "ref": [
+        "doc:erasmus2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Education Development Programme states that a mechanism allocating subsidised places to universities only on employer request has been introduced, seven university research institutes have been created, and memoranda on integration have been signed between six universities and 17 research institutes.",
+       "ref": [
+        "doc:edu2040"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Enrolment growth is mainly due to fee-paying students and the expansion of private universities, not to increased public funding. Combined with the decline in R&D spending (0.05%), this means the number of universities has grown while the public funding that underpins research and quality has shrunk.",
+       "ref": [
+        "doc:erasmus2023",
+        "ind:high:0",
+        "ind:high:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 25 projects and about USD 26.7 million in the higher education row (World Bank higher education quality and innovation project about USD 25 million, to 2029).",
+       "ref": [
+        "row:E5"
+       ],
+       "b": "Higher education: about USD 26.7 million (mainly World Bank)"
+      },
+      {
+       "k": "f",
+       "t": "Most of the higher education row is the World Bank's higher education quality and innovation project (about USD 25 million, 2024–2029). There are also Switzerland's medical education reform and Korean university projects.",
+       "ref": [
+        "row:E5",
+        "proj:WB-P178592"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The site's data show no cooperation aimed at moving R&D spending towards the target (0.5%). Until the national science programme (draft) is adopted, there is no clear entry point for cooperation.",
+       "ref": [
+        "row:E5",
+        "tree:edu:sci"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "The EU, the World Bank and ADB together account for about 90% of active funding.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects mapped to strategy areas; after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the education strategy totals 79 projects and about USD 150 million. By donor: EU about USD 70.5 million, World Bank about USD 39.1 million, ADB about USD 26.1 million, WFP about USD 5.1 million, UNICEF about USD 5.1 million, Switzerland about USD 4 million, United States about USD 2.1 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 79 projects, about USD 150 million"
+      },
+      {
+       "k": "f",
+       "t": "Projects ending by end-2026 are small: 13 projects and about USD 1.2 million.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ],
+       "b": "About USD 1.2 million ends by end-2026"
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 156 projects and about USD 130 million, with ADB the largest.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 156 projects, about USD 130 million"
+      },
+      {
+       "k": "f",
+       "t": "The top four projects by amount (two EU budget support operations, the World Bank higher education project and ADB school education reform) total about USD 115 million, about three-quarters of active cooperation.",
+       "ref": [
+        "fact:mapped_musd",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-61001",
+        "proj:XI-IATI-EC_INTPA-2022-PC-15528",
+        "proj:WB-P178592",
+        "proj:XM-DAC-46004-52337-001-LN4217"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Most active projects run until 2027–2030. The about USD 1.2 million ending by end-2026 consists of EU about USD 0.7 million and Korea about USD 0.5 million.",
+       "ref": [
+        "fact:end_2026_by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF has about USD 5.1 million for system strengthening, youth skills, pre-school and other areas; WFP about USD 5.1 million for school meals; and the United States a learning outcomes project (about USD 2.1 million, until September 2027).",
+       "ref": [
+        "fact:by_donor",
+        "proj:US-GOV-1-7200AA22N00008"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because funding is concentrated in budget support and loans, the effect of cooperation needs to be measured by changes in the national budget and systems rather than by the results of individual projects.",
+       "ref": [
+        "fact:by_donor",
+        "row:E3"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Vocational education was the largest area of cooperation completed over the past decade; the focus has now shifted to budget support and higher education.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed since 2017. Earlier projects are excluded because records from major donors are missing in the site's data. Even since 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the education strategy total 156 projects and about USD 130 million (after pro-rata allocation, no double counting). By donor: ADB about USD 87 million, World Bank about USD 14.4 million, Germany about USD 12.4 million, United States about USD 6.8 million, Switzerland about USD 3.4 million, UNICEF about USD 1.6 million, Japan about USD 1.4 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "156 projects, about USD 130 million; ADB the largest",
+       "jp": true,
+       "tnj": "Projects completed since 2017 and mapped to the education strategy total 156 projects and about USD 130 million (after pro-rata allocation, no double counting). By donor: ADB about USD 87 million, World Bank about USD 14.4 million, Germany about USD 12.4 million, United States about USD 6.8 million, Switzerland about USD 3.4 million, UNICEF about USD 1.6 million.",
+       "bnj": "156 projects, about USD 130 million; ADB the largest"
+      },
+      {
+       "k": "f",
+       "t": "By area: vocational education about USD 62.3 million (ADB skills development and vocational education; German vocational education and employment), quality of education about USD 26.8 million (ADB school education reform; World Bank Learning for the Future), management and financing about USD 23.2 million (ADB education system strengthening), higher education about USD 10.2 million, access about USD 6.8 million.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Vocational education was the largest area in the past (about USD 62.3 million)"
+      },
+      {
+       "k": "f",
+       "t": "ADB's Strengthening Education System Sector Development Program was rated \"successful\" in the validation by ADB's Independent Evaluation Department (October 2025). Its objective was to improve the quality of school education, in line with the Education Development Strategy 2012–2020.",
+       "ref": [
+        "doc:adb2025"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Funding for vocational education has shrunk from about USD 62.3 million to about USD 5.5 million, and ADB's focus has shifted to school education reform. Once the Vocational Personnel Programme is adopted, it will provide an entry point for the next round of cooperation.",
+       "ref": [
+        "fact:closed_rows",
+        "row:E4",
+        "tree:edu:prof"
+       ],
+       "b": "Funding for vocational education has shrunk sharply"
+      },
+      {
+       "k": "f",
+       "t": "ADB is the largest donor among projects completed since 2017, at about USD 87 million: education system strengthening (2015–2022), Skills for Inclusive Growth (2017–2025), the Second Vocational Education and Skills Development Project (2012–2019) and part of school education reform (completed December 2025).",
+       "ref": [
+        "fact:closed_by_donor",
+        "proj:XM-DAC-46004-46537-002-GRNT0408",
+        "proj:XM-DAC-46004-46537-002-GRNT0407",
+        "proj:XM-DAC-46004-52337-001-GRNT0852"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Learning for the Future appears in the site's data at about USD 10 million and is treated as completed in September 2025. The project document gives a total of USD 50 million, and the 2025 press release puts completion in 2028.",
+       "ref": [
+        "doc:wb2020",
+        "doc:wb2025",
+        "proj:WB-P170542"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: ADB school education reform appears both as active (to 2028) and as completed (December 2025), apparently because records are held per financing tranche. The World Bank's 2025 additional financing (USD 6.36 million) does not appear in the active data.",
+       "ref": [
+        "doc:wb2025",
+        "proj:XM-DAC-46004-52337-001-LN4217",
+        "proj:XM-DAC-46004-52337-001-GRNT0852"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "All five rows have active cooperation, but amounts for vocational education and pre-school places are thin.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row is without active cooperation. The thinnest is vocational education (about USD 5.5 million).",
+       "ref": [
+        "fact:empty_rows",
+        "row:E4"
+       ],
+       "b": "No empty rows; vocational education is the thinnest"
+      },
+      {
+       "k": "v",
+       "t": "Among the NDP 2030 targets, no cooperation directly aimed at R&D spending, school internet or teacher laptops can be identified from the rows of the site's table.",
+       "ref": [
+        "doc:ndp",
+        "row:E2",
+        "row:E5"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "By amount, funding is concentrated in management and financing (about USD 71.5 million), quality (about USD 29.5 million) and higher education (about USD 26.7 million), and is thin in access (about USD 20.4 million) and vocational education (about USD 5.5 million). Access, which carries many national targets (pre-school, ramps), and R&D spending, the furthest target, receive little funding.",
+       "ref": [
+        "row:E1",
+        "row:E2",
+        "row:E3",
+        "row:E4",
+        "row:E5"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Compared with the past (completed since 2017), vocational education has fallen from about USD 62.3 million to about USD 5.5 million, while management and financing has risen from about USD 23.2 million to about USD 71.5 million.",
+       "ref": [
+        "fact:closed_rows",
+        "row:E3",
+        "row:E4"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "2027 will test the results of budget support and the formal adoption of the vocational and higher education plans.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "About half of donor funding is EU budget support, and whether it can change how the national education budget is used (non-salary spending, execution) will determine its effect on facilities, textbooks and learning.",
+       "ref": [
+        "row:E3",
+        "doc:unicef2026"
+       ],
+       "b": "The key is whether budget support can change how money is spent"
+      },
+      {
+       "k": "v",
+       "t": "The three plans for vocational personnel, higher education and science remain drafts; their adoption will provide the entry point for reviving vocational education cooperation and for the R&D spending target.",
+       "ref": [
+        "tree:edu:prof",
+        "tree:edu:hec",
+        "tree:edu:sci"
+       ],
+       "b": "Formal adoption of the three plans is the entry point for the next cooperation"
+      },
+      {
+       "k": "v",
+       "t": "Pre-school education may reach its target at the current pace, but the gap for rural and poor households is large. The spread of lower-cost childcare models is the point to watch.",
+       "ref": [
+        "doc:mics",
+        "doc:wb2025"
+       ],
+       "b": "Pre-school: the rural and poverty gap is the focus"
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: approval of the three plans, the successor to the \"Altyn Kazyk\" action plan (to 2026), and new learning assessment and ORT results.",
+       "ref": [
+        "tree:edu:altyn",
+        "doc:ndp"
+       ],
+       "b": "Next to watch: plan approvals, the action plan successor and new learning results"
+      },
+      {
+       "k": "v",
+       "t": "The transition to 12-year schooling (first graduates in the 2036/2037 school year) will coincide with the growth in the child population (school load peaks from 2032), so the shortage of school buildings and teachers is expected to be most severe in the early 2030s. The absence of large cooperation targeting facilities is a medium- to long-term weakness.",
+       "ref": [
+        "tree:edu:y12",
+        "doc:edu2040",
+        "row:E1"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Pre-school education (ages 3–5; national figure covers ages 3–6)",
+   "44% (2024, ages 3–6)",
+   "80%",
+   "+6.7 points/yr (2021–24)",
+   "+6.0 points/yr",
+   "On track (different age range)",
+   "warn"
+  ],
+  [
+   "Coverage of school education (ages 6–17)",
+   "97.8% (2020, Education Development Programme baseline)",
+   "98.8%",
+   "—",
+   "—",
+   "Cannot be measured (no recent national value)",
+   "na"
+  ],
+  [
+   "Schools with ramps",
+   "No published value",
+   "100%",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Learning: mathematics (primary pupils, NOODU)",
+   "34.3%(2023)",
+   "40%",
+   "(one data point only)",
+   "+0.81 points/yr",
+   "Not reached",
+   "warn"
+  ],
+  [
+   "Learning: reading (primary pupils, NOODU)",
+   "48.5%(2023)",
+   "55%",
+   "(one data point only)",
+   "+0.93 points/yr",
+   "Not reached",
+   "warn"
+  ],
+  [
+   "Average ORT score",
+   "Not readable (baseline 120, 2020)",
+   "130",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "Graduates above the ORT pass mark",
+   "67.8%(2024)",
+   "Above 70%",
+   "(one data point only)",
+   "+0.37 points/yr",
+   "Close",
+   "warn"
+  ],
+  [
+   "Schools using high-speed internet for learning; teachers with laptops",
+   "No published value",
+   "98% / 85%",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ],
+  [
+   "R&D expenditure (% of GDP)",
+   "0.05%(2024)",
+   "0.5〜1.0%",
+   "−0.008 points/yr (2015–24)",
+   "+0.075 points/yr",
+   "Off track (opposite direction)",
+   "bad"
+  ],
+  [
+   "Lower secondary completion (SDG 4.1)",
+   "93.7%(2025)",
+   "100%",
+   "+0.57 points/yr (2015–25)",
+   "+1.26 points/yr",
+   "Off track (about 96.6%)",
+   "bad"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "State language education",
+   "State Language (Kyrgyz) Development Programme 2026–2028",
+   "Approved by the Cabinet of Ministers, July 2026 (press reports)",
+   "ok",
+   "",
+   "E1",
+   "lang"
+  ],
+  [
+   "1",
+   "School meals",
+   "Food Security and Nutrition Programme (school meals)",
+   "Law No. 135 of 2019 (school meals) and others",
+   "ok",
+   "",
+   "E1",
+   "food"
+  ],
+  [
+   "2",
+   "12-year schooling",
+   "Concept for the transition to 12-year school education",
+   "Cabinet of Ministers Decision No. 654 of 2024",
+   "ok",
+   "",
+   "E2",
+   "y12"
+  ],
+  [
+   "2",
+   "Implementation plan",
+   "\"Altyn Kazyk\" action plan to 2026",
+   "Cabinet of Ministers Order No. 111-r of 2025",
+   "ok",
+   "",
+   "E2",
+   "altyn"
+  ],
+  [
+   "3",
+   "Management and financing",
+   "No stand-alone plan (Task 3 of the Programme)",
+   "—",
+   "none",
+   "",
+   "E3",
+   "E3"
+  ],
+  [
+   "4",
+   "Vocational education",
+   "Vocational Personnel Programme 2026–2030",
+   "Public consultation, October 2026",
+   "draft",
+   "",
+   "E4",
+   "prof"
+  ],
+  [
+   "5",
+   "Higher education",
+   "Higher Education Development Concept to 2030",
+   "Public consultation, April 2026",
+   "draft",
+   "",
+   "E5",
+   "hec"
+  ],
+  [
+   "5",
+   "Science and innovation",
+   "National Programme for Science, Higher Education, Intellectual Property and Innovation 2026–2030",
+   "Drafted March 2026",
+   "draft",
+   "",
+   "E5",
+   "sci"
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Fair and equal access"
+  ],
+  [
+   "2",
+   "Quality of education"
+  ],
+  [
+   "3",
+   "Effective management and financing"
+  ],
+  [
+   "4",
+   "Vocational education"
+  ],
+  [
+   "5",
+   "Higher and adult education"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "National values since 2021 for coverage of school education (ages 6–17; national target 98.8%)",
+  "Annual values for the share of schools with ramps for children with disabilities (national target 100%)",
+  "Latest average score in the National Scholarship Test (ORT) (baseline 120 in 2020)",
+  "Annual values and trend for the learning assessment (NOODU) (only the 2023 round could be read)",
+  "Share of schools using high-speed internet for learning (target 98%) and of teachers with laptops (target 85%)",
+  "National value for pre-school education at ages 3–5 (the national figure covers ages 3–6, a different age range from the target)",
+  "Not yet checked: the second half of the European Training Foundation report, the full PDF of the ADB evaluation report, some figures in the charts of the UNICEF report (not readable, not used), the Erasmus+ Higher Education Profile, and the GPE/KIX digital education report"
+ ]
+}

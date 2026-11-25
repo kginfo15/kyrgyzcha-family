@@ -1,0 +1,1838 @@
+{
+ "sid": "digital",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "D": "Digital Transformation Concept 2024–2028",
+   "S": "Sector digitalisation (Concept, Chapter 4)"
+  },
+  "rows": {
+   "D2": {
+    "n": "Government reform, e-services, data and AI",
+    "st": "Concept, Chapter 2 / Reducing Administrative Barriers 2026–30"
+   },
+   "D3": {
+    "n": "Digital infrastructure (telecommunications and data centres)",
+    "st": "Concept, Chapter 3"
+   },
+   "dhe": {
+    "n": "Health digitalisation",
+    "st": "Regulation on the Digital Health Ecosystem"
+   },
+   "D4e": {
+    "n": "Education digitalisation",
+    "st": "Concept, Chapter 4"
+   },
+   "D4n": {
+    "n": "Energy digitalisation",
+    "st": "Concept, Chapter 4"
+   },
+   "D4j": {
+    "n": "Justice and elections digitalisation",
+    "st": "Concept, Chapter 4"
+   },
+   "fin": {
+    "n": "Financial digitalisation (for reference)",
+    "st": "(National Bank measures)"
+   }
+  }
+ },
+ "ind": {
+  "infra": {
+   "name": "(1) Digital infrastructure",
+   "tag": "Internet, broadband, 4G",
+   "inds": [
+    {
+     "name": "Share of people using the internet",
+     "unit": "%",
+     "st": "✓ On track to reach the target by 2030 at the current pace",
+     "src": "World Bank WDI IT.NET.USER.ZS (originally ITU)",
+     "t": [
+      "ITU: everyone"
+     ]
+    },
+    {
+     "name": "Fixed broadband subscriptions (per 100 people)",
+     "unit": "subscriptions",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI IT.NET.BBND.P2 (originally ITU)",
+     "note": "Use is mobile-centred, with few household fibre connections. 4G population coverage is 99.4% (2024).",
+     "t": []
+    }
+   ]
+  },
+  "gov": {
+   "name": "(2) Government digitalisation",
+   "tag": "E-government, data exchange",
+   "goals": [
+    [
+     "Digitalise government services and integrate government systems (Digital Concept, Chapter 2)",
+     "The UN E-Government ranking (EGDI, biennial) has no API, so it is to be entered manually once a year"
+    ]
+   ],
+   "inds": []
+  },
+  "it": {
+   "name": "(3) IT industry",
+   "tag": "IT services exports",
+   "inds": [
+    {
+     "name": "IT services exports",
+     "unit": "USD million",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI BX.GSR.CCIS.CD (balance of payments, originally IMF)",
+     "note": "NDP 2030 Chapter VIII makes supporting IT exports a task but sets no numerical target. Exports by High Technology Park residents are published separately.",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Digitalisation centres on EU budget support and sector projects in health and energy; infrastructure (telecommunications, data centres) is a gap",
+  "msgs": [
+   [
+    "EU budget support for digitalisation is the mainstay.",
+    "The reform contract and budget support for digitalisation (to 2034) underpin government digitalisation."
+   ],
+   [
+    "Ministry restructuring under debate.",
+    "A former prime minister questioned the abolition of the Ministry of Digital Development (6 November). The use of AI is also a recurring topic."
+   ],
+   [
+    "The National Bank advances digitalisation.",
+    "Introduction of the digital som by 2027 and changes to interbank payment rules (6 November)."
+   ],
+   [
+    "No projects for telecommunications or data centres.",
+    "No donor project corresponds to Chapter 3 of the Concept (digital infrastructure)."
+   ]
+  ],
+  "h2": "Funding goes to government digitalisation (EU) and sector projects in health and energy; telecom infrastructure is a gap",
+  "rows": {
+   "D2": [
+    "",
+    "Mainly EU reform contracts and budget support"
+   ],
+   "D3": [
+    "",
+    "No projects"
+   ],
+   "dhe": [
+    "",
+    "Part of the World Bank primary health care programme"
+   ],
+   "D4e": [
+    "",
+    "Many small projects from Korea and others"
+   ],
+   "D4n": [
+    "",
+    "World Bank and EBRD power digitalisation"
+   ],
+   "D4j": [
+    "",
+    "EU justice reform (JUST4ALL)"
+   ],
+   "fin": [
+    "",
+    "Few donor projects; the National Bank leads"
+   ]
+  },
+  "h3": "Recent news centres on AI, the digital som and digital government procedures",
+  "themes": [
+   [
+    "AI:",
+    "Policies on AI use and governance; claims that power shortages hinder development."
+   ],
+   [
+    "Finance:",
+    "A series of National Bank measures, including the digital som, instant payments and ISO certification."
+   ],
+   [
+    "Government:",
+    "Registration via Tunduk (government data exchange), cross-border electronic documents, and more."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Digitalisation Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030 (\"NDP 2030\"), Chapter VIII \"Digitalisation\" and the digital development passage of Chapter III (Current Situation and Achievements)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "The tasks of Chapter VIII and the digital development passage of Chapter III (translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "dt",
+   "t": "Digital Transformation Concept 2024–2028",
+   "by": "Kyrgyz Republic (Presidential Decree No. 90 of 5 April 2024)",
+   "y": "2024",
+   "scope": "Full text (machine translation on this site). Chapter 4 was reviewed mainly for the sections on health, education, energy, cybersecurity and elections",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=6414&lang=ru"
+  },
+  {
+   "id": "wb2024",
+   "t": "World Bank Provides Additional Support for the Kyrgyz Republic's Digital Transformation",
+   "by": "World Bank (press release)",
+   "y": "Jan 2024",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2024/01/12/world-bank-provides-additional-support-for-the-kyrgyz-republic-s-digital-transformation"
+  },
+  {
+   "id": "isr",
+   "t": "Implementation Status & Results Report: Digital CASA – Kyrgyz Republic (P160230)",
+   "by": "World Bank",
+   "y": "Jul 2025",
+   "scope": "Full text. Fibre-optic length values are not used because the baseline and current values are inconsistent",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/099072125092538370/pdf/P160230-98d67f5b-aa5e-45ef-a913-438c75515231.pdf"
+  },
+  {
+   "id": "oecd",
+   "t": "Enhancing the Competitiveness of the Trans-Caspian Transport Corridor in Central Asia: The Kyrgyz Republic",
+   "by": "OECD",
+   "y": "2025",
+   "scope": "Full text of the Kyrgyz Republic chapter. For digital, only the IT services export figures are used",
+   "cat": "donor",
+   "u": "https://www.oecd-ilibrary.org/en/publications/enhancing-the-competitiveness-of-the-trans-caspian-transport-corridor-in-central-asia_f261e7fa-en/full-report/the-kyrgyz-republic_031d8e19"
+  },
+  {
+   "id": "undp",
+   "t": "Entry points for digital transformation in Kyrgyzstan",
+   "by": "UNDP",
+   "y": "Jun 2021",
+   "scope": "Full text (interview article)",
+   "cat": "donor",
+   "u": "https://www.undp.org/node/119241"
+  },
+  {
+   "id": "nds",
+   "t": "National Development Strategy 2018–2040 (4.7 \"Taza Koom: digital transformation of the country\", Goals 15.1–15.3 and Goal 1.11)",
+   "by": "Kyrgyz Republic",
+   "y": "2018",
+   "scope": "Digital transformation section and related goals (machine translation on this site)",
+   "cat": "gov",
+   "u": "https://adam.edu.kg/media/uploads/2022/04/15/national-strategy-of-kyrgyz-republic-2018-2040.pdf"
+  },
+  {
+   "id": "infragov",
+   "t": "Kyrgyz Republic Infrastructure Governance Assessment",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "About the first three-quarters of the PDF. For digital, the summary and the recommendations table are used",
+   "cat": "donor",
+   "u": "https://thedocs.worldbank.org/en/doc/b38abeabc516d7f3ac1ea83715d8f23a-0080012023/original/Kyrgyz-Republic-InfraGov-Report.pdf"
+  },
+  {
+   "id": "mptf",
+   "t": "Annual Progress Report 2024: Joint Programme 'Bridging the Digital Health Divide'",
+   "by": "UN Joint SDG Fund (WHO, UNDP, UNICEF, UNFPA)",
+   "y": "Jan 2026",
+   "scope": "Full text. Results are self-reported by implementing agencies",
+   "cat": "donor",
+   "u": "https://mptf.undp.org/sites/default/files/documents/2026-01/kyrgyzstan_dt_hit_2024_apr.pdf"
+  },
+  {
+   "id": "kix",
+   "t": "School Education in Kyrgyzstan: Readiness for Digital Education",
+   "by": "Research team supported by GPE/KIX and IDRC (presentation)",
+   "y": "Feb 2024",
+   "scope": "All pages. Five values on teachers' skills are not used because their correspondence to indicators cannot be determined",
+   "cat": "donor",
+   "u": "https://kix.taalimforum.kg/report/SCHOOL_EDUCATION_IN_KYRGYZSTAN_READINESS_FOR_DIGITAL_EDUCATION_EN.pdf"
+  },
+  {
+   "id": "wbes2022",
+   "t": "The Electricity Sector in the Kyrgyz Republic to Improve its Efficiency with World Bank Support",
+   "by": "World Bank (press release)",
+   "y": "Jun 2022",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2022/06/23/the-electricity-sector-in-the-kyrgyz-republic-to-improve-its-efficiency-with-world-bank-support"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "92% of people use the internet (2024), and 4G LTE reaches 2,208 of 2,225 settlements. The country is on pace to meet the international goal (universal connectivity by 2030).",
+   "ref": [
+    "ind:infra:0",
+    "doc:ndp"
+   ],
+   "h": "The connectivity stage is almost complete"
+  },
+  {
+   "k": "f",
+   "t": "Neither the digital chapter of NDP 2030 nor the Digital Transformation Concept 2024–2028 has numerical targets that can be tracked annually.",
+   "ref": [
+    "doc:ndp",
+    "doc:dt"
+   ],
+   "h": "With no national numerical targets, progress cannot be measured by a national yardstick"
+  },
+  {
+   "k": "f",
+   "t": "The government cloud G-Cloud is not yet operational (July 2025), and the World Bank's Digital CASA has been extended to the end of 2025.",
+   "ref": [
+    "doc:isr"
+   ],
+   "h": "The government cloud is behind schedule"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation mapped to the digital strategy comprises 37 projects worth about USD 68.4 million, about 90% of it from the EU and the World Bank. The digital infrastructure row is empty, and health and education digitalisation each receive about USD 0.3 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "fact:empty_rows",
+    "row:dhe",
+    "row:D4e"
+   ],
+   "h": "Funding is concentrated in the EU and World Bank; infrastructure, health and education are thin"
+  },
+  {
+   "k": "v",
+   "t": "IT exports surged to USD 383 million (2024). The next stage is using government, health and education data to change services and policies, which presupposes skilled people and G-Cloud.",
+   "ref": [
+    "ind:it:0",
+    "doc:dt",
+    "doc:undp"
+   ],
+   "h": "Next comes using government, health and education data, which depends on skills and G-Cloud"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Digitalisation overview",
+     "msg": "Mobile communications and internet use have spread almost nationwide, but fixed lines remain few and IT exports are growing rapidly.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "92",
+        "u": "%",
+        "k": "Share of people using the internet (2024)",
+        "ref": "ind:infra:0"
+       },
+       {
+        "v": "7.8",
+        "u": "subscriptions",
+        "k": "Fixed broadband subscriptions per 100 people (2024)",
+        "ref": "ind:infra:1",
+        "hot": true
+       },
+       {
+        "v": "2,208",
+        "u": "/2,225",
+        "k": "Settlements reached by 4G LTE (end of 2024)",
+        "ref": "doc:ndp"
+       },
+       {
+        "v": "383",
+        "u": "USD million",
+        "k": "IT services exports (2024)",
+        "ref": "ind:it:0"
+       },
+       {
+        "v": "4",
+        "u": "billion transactions",
+        "k": "Transactions processed by the interagency data exchange system \"Tunduk\"",
+        "ref": "doc:ndp"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Telecommunications and the IT industry"
+      },
+      {
+       "k": "f",
+       "t": "The share of people using the internet rose from 30.2% (2015) to 92.0% (2024).",
+       "ref": [
+        "ind:infra:0"
+       ],
+       "b": "Internet use 30% (2015) → 92% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "At the end of 2024, 4G LTE reached 2,208 of 2,225 settlements. Average fixed and mobile internet speeds rank 87th and 70th in the world respectively.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "4G reaches 2,208 of 2,225 settlements"
+      },
+      {
+       "k": "f",
+       "t": "The share of internet users jumped from 40.5% to 62.8% in 2016–2018 and from 72.0% to 91.0% in 2020–2023. Fixed broadband stalled at around 4 subscriptions per 100 people in 2017–2021, then rose to 5.6, 6.4 and 7.8 from 2022.",
+       "ref": [
+        "ind:infra:0",
+        "ind:infra:1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Fixed broadband subscriptions went from 3.5 per 100 people (2015) to 7.8 (2024); use remains mobile-centred.",
+       "ref": [
+        "ind:infra:1"
+       ],
+       "b": "Fixed broadband: 7.8 subscriptions per 100 people"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's infrastructure governance assessment states that the cost of building digital infrastructure has risen, hindering efficient services. Internet providers have no obligation to share infrastructure, and there is no cap on bandwidth leasing prices.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same assessment states that one state-owned company monopolises the development and provision of backbone information infrastructure and another state-owned company holds a dominant position in mobile communications. The regulator, the Communications Agency, has strong influence over the market, and companies are concerned about the lack of consultation on network coverage requirements.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Revenue of High Technology Park resident companies was 11.4 billion som in 2024, almost three times the 2022 level. 95% of revenue came from exports to 60 countries.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "High Technology Park revenue 11.4 billion som, 95% from exports"
+      },
+      {
+       "k": "f",
+       "t": "IT services exports in the balance of payments rose from USD 14 million (2021) to USD 38 million (2022), USD 85 million (2023) and USD 383 million (2024).",
+       "ref": [
+        "ind:it:0"
+       ],
+       "b": "IT services exports USD 383 million (2024)"
+      },
+      {
+       "k": "h",
+       "t": "Digitalisation of government"
+      },
+      {
+       "k": "f",
+       "t": "As achievements to date, the Concept lists elections using biometric data, Tunduk, the national e-services portal and mobile app (use of digital documents, online receipt of certificates), the State Agency for Personal Data Protection, the Cybersecurity Centre and Cybersecurity Strategy, electronic document management, and automated personnel records.",
+       "ref": [
+        "doc:dt"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "At the same time, the Concept states that although government bodies have put the technical conditions in place, citizens do not yet sufficiently feel the results of digitalisation in their daily lives. In the social sphere, information systems for school and kindergarten enrolment, a national inspection information system and digital health profiles have been launched.",
+       "ref": [
+        "doc:dt"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The interagency electronic interaction system \"Tunduk\" has processed about 4 billion data exchanges and delivered more than 25 million online services.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Tunduk: about 4 billion data exchanges"
+      },
+      {
+       "k": "f",
+       "t": "In 2021 UNDP identified the main challenges as low digital literacy, the absence of planned investment in digital skills, and a shortage and outflow abroad of IT specialists.",
+       "ref": [
+        "doc:undp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "A UNDP article states that the Kyrgyz Republic ranked 96th in the Global Competitiveness Index (2019) and rose from 117th (2013) to 88th (2020) in the Global Innovation Index. The 2019 competitiveness analysis cited slow innovation, immature technology and infrastructure, a small domestic market and weak governance as obstacles.",
+       "ref": [
+        "doc:undp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Telecommunications coverage and government data exchange have advanced. The next challenges are skills and using government data to change services and policies.",
+       "ref": [
+        "doc:ndp",
+        "doc:dt",
+        "doc:undp"
+       ],
+       "b": "The next challenges are skills and data use"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Digital policy is structured as NDP 2030 Chapter VIII → the Digital Transformation Concept 2024–2028 → sector regulations and programmes, but none of these levels has numerical targets.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "National Development Programme and long-term strategy"
+      },
+      {
+       "k": "f",
+       "t": "Overarching plan: NDP 2030 Chapter VIII \"Digitalisation\" names as its purposes contributing to government efficiency, quality of life, economic growth, disaster risk management and security. Its tasks are a national information systems integrator, training in programming, cybersecurity and AI, support for IT exports (data centres and cloud), women in IT, fintech, e-commerce and personal data protection.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 Chapter VIII: skills, IT exports, fintech, etc."
+      },
+      {
+       "k": "f",
+       "t": "To attract production by international companies within the Eurasian Economic Union to the Kyrgyz Republic, the long-term strategy calls for improved customs and technical regulation practice and early introduction of a digital B2B2C platform, and also mentions smart contracts and simplified dispute resolution procedures.",
+       "ref": [
+        "doc:nds"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Long-term direction: \"Taza Koom\" in the National Development Strategy 2018–2040 aims at transparent, corruption-free governance and an information society in which citizens actively use digital technologies and services. It makes digital transformation the top priority of all government programmes and requires every document prepared under the strategy to include a digital transformation component.",
+       "ref": [
+        "doc:nds"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Goal 15.1 of the same strategy is to bring fibre-optic networks to every village and high-speed internet to all social facilities, such as hospitals, village administrations and post offices. Goal 15.2 covers digital government, local self-government, parliament and judiciary and digital services in the social sphere; Goal 15.3 covers human and institutional capacity building and partnerships.",
+       "ref": [
+        "doc:nds"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In education, Goal 1.11 aimed to connect about 140 secondary schools to the internet every year for five years, giving more than 500,000 pupils free access.",
+       "ref": [
+        "doc:nds"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Unlike other chapters, Chapter VIII has no numerical \"target indicators\".",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "The NDP digital chapter has no numerical targets"
+      },
+      {
+       "k": "h",
+       "t": "Digital Transformation Concept 2024–2028"
+      },
+      {
+       "k": "f",
+       "t": "Sector plan: the Digital Transformation Concept 2024–2028 (Presidential Decree No. 90 of 5 April 2024). As results by 2028, it lists more efficient government, simpler interaction between the state and citizens and businesses, and integration of government information systems.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:digital"
+       ],
+       "b": "Digital Transformation Concept 2024–2028"
+      },
+      {
+       "k": "f",
+       "t": "The Concept states that contribution to digitalisation will be the main indicator for assessing the performance of every government body, from the Cabinet of Ministers to village administrations, and that failure to meet targets will be grounds for accountability.",
+       "ref": [
+        "doc:dt"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter 2 (strategic goals) has five goals: government reform (\"digital first\"), integration of government information systems and data, simplification through e-services, data-driven government, and AI. For AI, it lists a computing centre of 50 petaflops (expandable up to 300) and AI in the Kyrgyz language.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D2"
+       ],
+       "b": "Chapter 2: government reform, integration, e-services, data, AI"
+      },
+      {
+       "k": "f",
+       "t": "Chapter 3 (digital infrastructure): a national data centre and the government cloud \"G-Cloud\", fibre-optic networks to all settlements, digitisation of public records, a national digital archive, and a spatial data infrastructure.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D3"
+       ],
+       "b": "Chapter 3: data centre, G-Cloud, fibre optics"
+      },
+      {
+       "k": "f",
+       "t": "The Concept states that moving to the national data centre and G-Cloud will shift from each agency building its own systems to renting capacity and services jointly, greatly reducing budgets for building and operating information systems and allowing uniform information security standards to be applied.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On fibre-optic networks, the Concept lists updating outdated land allocation rules, mandatory advance laying of last-mile fibre, infrastructure sharing among operators, and deploying fibre together with transport and energy infrastructure. It makes reserving space for telecommunications infrastructure mandatory in urban construction projects.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Chapter 4 (sectors) sets out initiatives in 18 areas: health, education, social assistance, labour, agriculture, environment and subsoil, energy, transport, legislation, judiciary, law enforcement, the military, cities, construction, disaster management, cybersecurity and personal data, sport, and elections.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D4"
+       ],
+       "b": "Chapter 4: digitalisation in 18 areas"
+      },
+      {
+       "k": "f",
+       "t": "Chapter 4 examples: in social assistance, a unified social security system where applications and documents are submitted through a single digital window, automatic eligibility determination by cross-checking with tax and pension systems, and payment of benefits into accounts. In labour, a labour market information system for vacancies and job seekers, and digital employment contracts and work record books.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D4"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In transport, a digital map of all roads, a road asset management system (RAMS) to plan maintenance budgets, GPS on road construction machinery, automated weighing and measurement, and electronic permits and shipping documents. In disaster management, integrated information management, forecasting and early warning, and wider coverage of public alerts.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D4r"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Individual plans and the previous concept"
+      },
+      {
+       "k": "f",
+       "t": "Individual plans: the Programme for Support and Development of E-commerce 2023–2026, the Open Data Concept 2022–2024 (period ended), the Programme for Reducing Administrative Barriers 2026–2030 (Cabinet Resolution No. 807 of 13 December 2025), and the Regulation on the Unified Digital Health Ecosystem (24 October 2024).",
+       "ref": [
+        "tree:digital:ecom",
+        "tree:digital:odata",
+        "tree:digital:lsbar",
+        "tree:digital:dhe"
+       ],
+       "b": "E-commerce, barrier reduction, digital health regulation"
+      },
+      {
+       "k": "f",
+       "t": "In health, the Cabinet of Ministers adopted the Regulation on the Unified Digital Health Ecosystem on 24 October 2024 (Resolution No. 640), and the Ministry of Health issued the National Digital Health Strategy 2025–2027 \"Sanarip MED 2.0\" on 30 December 2024 (Order No. 1363).",
+       "ref": [
+        "doc:mptf",
+        "tree:digital:dhe"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The previous concept, \"Digital Kyrgyzstan 2019–2023\", was a five-year plan.",
+       "ref": [
+        "doc:undp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the subprogrammes",
+     "msg": "Chapter 4 of the Concept lists initiatives broadly by sector, but national regulations and programmes that elaborate them exist only for administrative procedures, e-commerce and health.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Subprogrammes (active cooperation by table row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Chapter 2 (government) has programmes on e-commerce, open data and reducing administrative barriers, and Chapter 4 (sectors) has the health regulation. Education, energy, justice, elections and disaster management appear only in the text of the Concept, with no separate plans in the site's policy tree.",
+       "ref": [
+        "tree:digital:D2",
+        "tree:digital:D4",
+        "tree:digital:D4e",
+        "tree:digital:D4n"
+       ],
+       "b": "Elaborated plans exist for government, e-commerce and health"
+      },
+      {
+       "k": "v",
+       "t": "Because neither the Concept nor NDP 2030 has numerical targets, national documents cannot define what counts as \"achievement\". The only option is to measure against an international goal (ITU's \"universal connectivity\") instead.",
+       "ref": [
+        "doc:dt",
+        "doc:ndp",
+        "ind:infra:0"
+       ],
+       "b": "With no numerical targets, international goals serve as a proxy"
+      },
+      {
+       "k": "f",
+       "t": "Periods of the elaborated programmes: the e-commerce programme runs 2023–2026, with this year its last; the Open Data Concept ran 2022–2024 and has ended. The Programme for Reducing Administrative Barriers runs 2026–2030, and the Cabinet resolution (No. 807 of 13 December 2025) has been reported.",
+       "ref": [
+        "tree:digital:ecom",
+        "tree:digital:odata",
+        "tree:digital:lsbar"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The e-commerce and open data programmes have reached their end dates, and the site's policy tree shows no successor plans. Since the Concept 2024–2028 itself ends in 2028, whether the next plan can include numerical targets will determine whether policy becomes measurable.",
+       "ref": [
+        "tree:digital:ecom",
+        "tree:digital:odata",
+        "tree:digital:digital"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The long-term strategy had measurable targets such as \"fibre optics to every village\" and \"about 140 schools connected a year\", but these were not carried over into the Concept 2024–2028 or NDP 2030. The numerical yardstick breaks off between the overarching strategy and implementation plans.",
+       "ref": [
+        "doc:nds",
+        "doc:dt",
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for targets",
+     "msg": "There are no national numerical targets; against international goals, internet use is on pace to reach \"universal connectivity\" by 2030.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the past five years; required pace = change needed to reach the target in 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "NDP 2030 Chapter VIII and the Digital Concept 2024–2028 have no numerical targets that can be tracked annually. About the only figure in the Concept is the AI computing centre (50 petaflops), and no published figures on its progress were found.",
+       "ref": [
+        "doc:ndp",
+        "doc:dt"
+       ],
+       "b": "No national numerical targets"
+      },
+      {
+       "k": "v",
+       "t": "Internet use has risen by 5.6 percentage points a year over the past five years; 1.3 points a year would suffice to reach 100% in 2030.",
+       "ref": [
+        "ind:infra:0"
+       ],
+       "b": "Internet use is on pace to reach 100% in 2030"
+      },
+      {
+       "k": "f",
+       "t": "International data show the share of internet users roughly tripling in nine years from 30.2% in 2015. In World Bank project indicators, internet penetration went from 47% to 54%, against a target of 57%.",
+       "ref": [
+        "ind:infra:0",
+        "doc:isr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "With no national target, Goal 15.1 of the long-term strategy (high-speed internet for all social facilities) can serve as a yardstick. In the World Bank project, connected social facilities rose from 2,453 (April 2023) to 3,882, but with no published total it is unknown what share this represents.",
+       "ref": [
+        "doc:nds",
+        "doc:isr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The lack of targets not only prevents judging achievement but also makes it hard to do what the Concept itself requires: \"assess government bodies' performance by their contribution to digitalisation\". This appears to be the part of the Concept where implementation will be most tested.",
+       "ref": [
+        "doc:dt",
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Digital infrastructure (telecommunications and data centres)",
+     "msg": "Mobile and internet use reach almost everyone, but fixed lines and the government cloud are lagging.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Share of people using the internet and fixed broadband subscriptions (dotted line = ITU 2030 target)",
+      "inds": [
+       "infra:0",
+       "infra:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "Trend: the share of people using the internet rose from 64.1% (2019) to 92.0% (2024). Fixed broadband subscriptions went from 4.1 per 100 people (2019) to 7.8 (2024).",
+       "ref": [
+        "ind:infra:0",
+        "ind:infra:1"
+       ],
+       "b": "Internet use 64% → 92%; fixed broadband 4.1 → 7.8"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, 17 of 2,225 settlements were not reached by 4G LTE (end of 2024). The World Bank's announcement of additional financing expected the project to give more than 800,000 people better, cheaper internet.",
+       "ref": [
+        "doc:ndp",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to World Bank reporting, village health posts (feldsher-midwife posts) connected to broadband rose from 87 (October 2023) to 661, approaching the target of 722.",
+       "ref": [
+        "doc:isr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Digital CASA (USD 50 million approved in 2018, with USD 7 million added in 2024 for a total of USD 57 million) is building a 2,500 km national fibre-optic network, two cross-border fibre links and the government cloud G-Cloud.",
+       "ref": [
+        "doc:wb2024"
+       ],
+       "b": "Digital CASA: USD 57 million in total, 2,500 km of fibre"
+      },
+      {
+       "k": "f",
+       "t": "The July 2025 report shows 4.7 million new broadband users, exceeding the target of 3.9 million; 3,882 connected social facilities (target 3,800); and 661 village health posts (feldsher-midwife posts) connected to broadband (target 722).",
+       "ref": [
+        "doc:isr"
+       ],
+       "b": "4.7 million new users; 661 health posts"
+      },
+      {
+       "k": "f",
+       "t": "The same report shows 2.4 million direct project beneficiaries (target 1 million, 52% women), 22 partnerships established (target 20), and 80% of beneficiaries satisfied with government responses to their feedback (target 50%). Progress towards the project development objective was rated \"moderately satisfactory\" and implementation progress was upgraded to \"satisfactory\".",
+       "ref": [
+        "doc:isr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same report shows international bandwidth per user of 50 kbps (target 75 kbps) and private investment committed through the project of USD 7.82 million (target USD 8 million). 2,033 people were trained (target 1,500, 64% women), and the Digital Code was adopted in 2023.",
+       "ref": [
+        "doc:isr"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "However, G-Cloud is not yet operational, and 10 information systems have migrated to it (target 15). Because of this delay, progress towards the objective is rated \"moderately satisfactory\" and the closing date has been extended to 31 December 2025. 86% of funds (USD 43.92 million) have been disbursed.",
+       "ref": [
+        "doc:isr"
+       ],
+       "b": "G-Cloud not yet operational; project extended to end-2025"
+      },
+      {
+       "k": "f",
+       "t": "For G-Cloud, the 2024 additional financing (USD 7 million) was intended to fill a funding gap that arose from the need to increase the government cloud's data storage and processing capacity beyond plan. The implementing agency is the Ministry of Digital Development.",
+       "ref": [
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's infrastructure governance assessment states that ministry reorganisations and changes to agency structures wasted earlier investment in information systems. Procurement rules for state-owned enterprises are unclear, and many agencies entrust information system projects to other state-owned enterprises.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The assessment recommends supporting infrastructure sharing between internet and mobile operators; promoting fair competition and private investment and considering privatisation of the state-owned mobile operator; reducing excessive state intervention in mobile and broadband regulation; and setting policies on infrastructure sharing and joint deployment.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The \"internet penetration rate\" in this report is 54% (target 57%), defined differently from the 92% in international data.",
+       "ref": [
+        "doc:isr",
+        "ind:infra:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Telecom user numbers have exceeded targets, but the government cloud is lagging. Unless the data centre and G-Cloud, which Chapter 3 of the Concept treats as the foundation, are operational, government data integration under Chapter 2 will also struggle to advance.",
+       "ref": [
+        "doc:isr",
+        "doc:dt",
+        "tree:digital:D3"
+       ],
+       "b": "G-Cloud delays are a barrier to government data integration"
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Digital CASA funding consists of three loans and grants, with USD 43.92 million disbursed by June 2025. The two 2018 instruments (USD 25 million each) are 86% and 100% disbursed; of the USD 7 million 2024 additional financing, USD 1.5 million was cancelled and disbursement stands at only about 38%.",
+       "ref": [
+        "doc:isr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Digital CASA is almost the only large project funding digital infrastructure, and it was scheduled to end at the end of 2025. Institutional issues such as fibre sharing and price regulation need to be handled separately from infrastructure projects.",
+       "ref": [
+        "doc:isr",
+        "doc:infragov",
+        "row:D3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the digital infrastructure row contains no projects, either active or completed since 2017.",
+       "ref": [
+        "row:D3",
+        "fact:empty_rows"
+       ],
+       "b": "No projects in the digital infrastructure row"
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Government digitalisation and data",
+     "msg": "The data exchange foundation is in place, but redesign of government work and use of data cannot be measured with annual figures.",
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "Tunduk has operated since September 2018 and had processed more than 165 million data exchanges by June 2021 and about 4 billion by the time of NDP 2030.",
+       "ref": [
+        "doc:undp",
+        "doc:ndp"
+       ],
+       "b": "Tunduk: 165 million (2021) → about 4 billion"
+      },
+      {
+       "k": "f",
+       "t": "On AI, the Concept lists a national AI platform (a repository of models and data, start-up support, a competence centre), establishment of a national AI council and development centre, data science and machine learning education at universities, and a foundation for AI that understands and speaks Kyrgyz.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Concept prohibits requesting from citizens data already held in state information systems and charging citizens for the use of their data. Digitising paper procedures as they are is not permitted.",
+       "ref": [
+        "doc:dt"
+       ],
+       "b": "Digitising paper procedures as they are is not permitted"
+      },
+      {
+       "k": "f",
+       "t": "The Concept proposes using the personal identification number (PIN) and taxpayer identification number (TIN) as the basis for records in public and private systems, creating standards and open APIs for data interoperability, and enabling businesses to use government data within the law. Government services are to be accessible not only through the government portal but also through private apps.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D2"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "On skills, the Concept calls for a data analysis officer in every government body, digital competence requirements for civil servants with mandatory certification, and their use as recruitment criteria. UNDP identified low digital literacy and the lack of an investment plan for skills as the main challenges.",
+       "ref": [
+        "doc:dt",
+        "doc:undp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank assessment cites as problems that ICT projects are rebuilt with every ministry reorganisation and that few central government staff have technical knowledge.",
+       "ref": [
+        "doc:infragov"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The national e-government assessment (the UN E-Government ranking) is published every two years and is not yet included in the site's indicators.",
+       "ref": [
+        "tree:digital:D2"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The Concept's goals of \"fewer procedures\" and \"data-driven policy\" cannot be measured by volume figures such as transaction counts. Deciding how to measure them, such as the number of procedures or processing times, comes first.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:lsbar"
+       ],
+       "b": "Deciding how to measure, such as the number of procedures, comes first"
+      },
+      {
+       "k": "f",
+       "t": "Among tasks relating to government, NDP 2030 Chapter VIII lists ensuring the activity of the national information systems integrator and strengthening personal data protection as an element of digital transformation and public trust. On the economic side, it lists opportunities for women in IT, fintech (digital payments, crypto infrastructure, blockchain), and e-commerce and online marketplaces.",
+       "ref": [
+        "doc:ndp",
+        "tree:digital:ecom"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The OECD notes that in transport procedures too, the electronic consignment note and electronic TIR are not yet fully operational and paper documents remain. More than 60% of respondents want customs declarations to be fully electronic.",
+       "ref": [
+        "doc:oecd"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Government digitalisation has advanced in platforms such as Tunduk, but paper persists in procedures that cut across ministries and borders, such as transport documents. These are the areas where the Concept's principle of \"not digitising paper procedures as they are\" will be tested.",
+       "ref": [
+        "doc:oecd",
+        "doc:dt",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the government reform, e-services, data and AI row has 15 projects worth about USD 35.7 million (EU about USD 28.1 million in budget support and reform contracts for digitalisation; World Bank about USD 7 million for modernising tax administration and statistics).",
+       "ref": [
+        "row:D2"
+       ],
+       "b": "About USD 35.7 million for government digitalisation (led by the EU)"
+      },
+      {
+       "k": "v",
+       "t": "The government row does not yet contain any project directly targeting the Programme for Reducing Administrative Barriers 2026–2030. Since it overlaps with the second phase of the EU reform contract (2026–2034), a point to watch is whether the contract's results indicators include the programme's procedure reductions.",
+       "ref": [
+        "tree:digital:lsbar",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63136",
+        "row:D2"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Main projects in the government row: the EU's Reform Performance Contract for digitalisation (Phase 1 about USD 6 million, 2020–2028; Phase 2 about USD 10.4 million, 2026–2034); EU budget support for digitalisation Phase 2 (about USD 8.8 million, 2026–2031); EU support for institutional capacity for a fair and inclusive digital transformation (about USD 2.9 million, 2026–2029); and the World Bank's modernisation of tax administration and statistical systems (about USD 7 million, 2020–2027). The EU total in the government row is about USD 28.1 million.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2020-ACT-D-42335-00",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63136",
+        "proj:XI-IATI-EC_INTPA-2026-PC-75410",
+        "proj:XI-IATI-EC_INTPA-2026-PC-65966",
+        "proj:WB-P163711",
+        "row:D2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Smaller projects include Korea's digital capacity training and consultation centre (about USD 0.2 million) and an e-government master's programme, and a UNESCO regional project on AI ethics and data governance.",
+       "ref": [
+        "proj:KR-GOV-010-KR-GOV-051-2024010100105",
+        "proj:KR-GOV-010-KR-GOV-051-2026040101280",
+        "proj:XM-DAC-41304-A2106B4041",
+        "row:D2"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "EU funding takes the form of budget support and results-based contracts that support government reform. Without outcome yardsticks such as the number of administrative procedures or processing times, the results of such funding are also hard to demonstrate.",
+       "ref": [
+        "row:D2",
+        "tree:digital:lsbar",
+        "doc:dt"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "The IT industry and sector digitalisation",
+     "msg": "IT exports have grown rapidly, but cooperation on sector digitalisation is skewed towards energy and justice, with health and education small.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 IT services exports",
+      "inds": [
+       "it:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "The IT industry"
+      },
+      {
+       "k": "f",
+       "t": "IT services exports rose from USD 14 million in 2021 to USD 383 million in 2024. NDP 2030 makes supporting IT exports a task but sets no numerical target.",
+       "ref": [
+        "ind:it:0",
+        "doc:ndp"
+       ],
+       "b": "IT exports have surged since 2021"
+      },
+      {
+       "k": "f",
+       "t": "The OECD transport corridor report puts IT services exports at USD 9.4 million (2021) to USD 70.5 million (2023), slightly different from the international data (USD 14 million, USD 85 million).",
+       "ref": [
+        "ind:it:0",
+        "doc:oecd"
+       ],
+       "b": "IT export figures differ slightly by source"
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030 cites incentives for the High Technology Park and digital nomad visas as conditions for the IT industry. However, none of the documents read for this analysis explains why exports grew so sharply in 2024.",
+       "ref": [
+        "doc:ndp",
+        "ind:it:0"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Health digitalisation"
+      },
+      {
+       "k": "f",
+       "t": "Health: the Concept lists connecting electronic health records, e-prescriptions and a unified register of health insurance enrollees through Tunduk. Education: it lists three electronic registers of pupils, teachers and schools, and a digital textbook library.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:dhe",
+        "tree:digital:D4e"
+       ],
+       "b": "Electronic health records in health; three electronic registers in education"
+      },
+      {
+       "k": "f",
+       "t": "The UN joint programme report states that 7.1 million people have access to digital health services (self-reported by implementing agencies).",
+       "ref": [
+        "doc:mptf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The education readiness survey states that in remote areas electricity, internet connections and internet speeds are limited, and pupils without a local school also have limited contact with classmates.",
+       "ref": [
+        "doc:kix"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The health section of the Concept lists electronic health records registering consultation, test and prescription data from all health facilities regardless of ownership, medicine tracking through e-prescriptions, and automated payments by the Mandatory Health Insurance Fund with a unified register of enrollees. The education section lists three electronic registers of pupils, teachers and schools and automatic generation of grade and attendance statistics from electronic journals.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:dhe",
+        "tree:digital:D4e"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The UN joint programme \"Bridging the digital health divide\" (led by WHO, with UNDP, UNICEF and UNFPA) began in October 2024. Its 2024 report cites updating more than 400,000 patient records, training 50 health workers for the electronic maternal and child health handbook, selecting six districts for expanding telemedicine, and doubling the annual budget of the e-health centre.",
+       "ref": [
+        "doc:mptf",
+        "proj:XM-DAC-41114-OUTPUT-01002869"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same report cites as problems that funds arrived in mid-October instead of mid-August as planned, that the responsible senior official at the Ministry of Digital Development was transferred without a successor being appointed, and delays in setting up the committee.",
+       "ref": [
+        "doc:mptf"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Education digitalisation"
+      },
+      {
+       "k": "f",
+       "t": "A survey of schools' digital education readiness (2021–2023; 180 schools, 3,577 pupils, 896 teachers) found school readiness indices by language of instruction of 68% for Russian, 66% for Kyrgyz, 64% for Tajik and 60% for Uzbek. 86% of pupils and 88% of teachers prefer conventional to remote teaching.",
+       "ref": [
+        "doc:kix"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Obstacles cited in the same survey were lack of funding (43%), lack of learning devices (37%), low motivation among pupils and parents (39%) and heavy workloads (34%). Its recommendations are faster internet in mountain areas, equipment renewal, school digitalisation posts, and more digital materials in the state language and minority languages.",
+       "ref": [
+        "doc:kix"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Projects in the education row are mainly small, such as Korea's ICT teacher training and digital making education, the United Kingdom's programming in public schools, and UNESCO's support for AI-assisted learning.",
+       "ref": [
+        "proj:KR-GOV-460-0000006_2026_009",
+        "proj:KR-GOV-010-KR-GOV-051-2025070100674",
+        "proj:GB-GOV-1-400222-426",
+        "proj:XM-DAC-41304-2210184043",
+        "row:D4e"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Energy, justice and elections"
+      },
+      {
+       "k": "f",
+       "t": "Energy: electronic registers of producers and consumers, smart meters, smart grids and a digital twin of the power system. Elections: biometric voter registration and electronic voting for citizens abroad.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D4n",
+        "tree:digital:D4j"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the energy row, the World Bank's Power Sector Modernisation project (USD 50 million, approved 2022) includes large-scale installation of smart meters, communications equipment and information systems as digitalisation of the distribution network. EBRD's digitalisation of electricity supply (about USD 4.9 million) runs until 2041.",
+       "ref": [
+        "doc:wbes2022",
+        "proj:WB-P177871",
+        "proj:XI-IATI-EBRD-54885",
+        "row:D4n"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Projects in the justice and elections row: the EU's \"Justice for All\" (JUST4ALL, about USD 4.3 million, 2021–2029) and its second phase (about USD 4.7 million and about USD 2.8 million), and Korea's parliamentary digitalisation (about USD 0.5 million). The EU total in the justice and elections row is about USD 11.8 million.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2020-ACT-D-41694-00",
+        "proj:XI-IATI-EC_INTPA-2026-PC-69185",
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63092",
+        "proj:KR-GOV-010-KR-GOV-051-2023010100027",
+        "row:D4j"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Elections have used digital technology since the 2015 electoral reform, and two electoral cycles have been completed under electronic elections. The Concept lists updating voters' biometric data, a map of the needs of voters with disabilities, and online voting for citizens abroad.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D4j"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Cybersecurity and personal data: the Concept states that citizens know little about the risks of personal data handling and their rights, and lists raising awareness, strengthening the personal data protection agency, IT audit mechanisms and protection of children's personal data.",
+       "ref": [
+        "doc:dt"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the energy digitalisation row has 5 projects worth about USD 19.8 million (World Bank about USD 15 million, EBRD about USD 4.9 million), and the justice and elections row 5 projects worth about USD 12.3 million (EU about USD 11.8 million). Health has 3 projects worth about USD 0.3 million and education 9 projects worth about USD 0.3 million.",
+       "ref": [
+        "row:D4n",
+        "row:D4j",
+        "row:dhe",
+        "row:D4e"
+       ],
+       "b": "Skewed towards energy and justice; health and education are small"
+      },
+      {
+       "k": "v",
+       "t": "The amount in the energy digitalisation row is part of the Power Sector Modernisation project and overlaps with the energy sector. Cooperation whose main purpose is digital centres on government and justice.",
+       "ref": [
+        "row:D4n",
+        "row:D2",
+        "row:D4j"
+       ],
+       "b": "The energy row overlaps with power projects"
+      },
+      {
+       "k": "v",
+       "t": "Digitalisation in energy and justice is supported by large EU and World Bank projects, but of the 18 areas listed in Chapter 4 of the Concept, social assistance, labour, agriculture, transport and disaster management have neither a row in the site's table nor any notable project.",
+       "ref": [
+        "doc:dt",
+        "row:D4n",
+        "row:D4j",
+        "tree:digital:D4r"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The financial digitalisation row (for reference) has one project: Korea's technology transfer for a digital payment system (about USD 0.1 million, 2024–2029).",
+       "ref": [
+        "proj:KR-GOV-010-KR-GOV-051-2024070100315",
+        "row:fin"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overview",
+     "msg": "The EU and the World Bank account for about 90% of active funding, which goes to government digitalisation and power sector projects.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects mapped to strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the digital strategy comprises 37 projects worth about USD 68.4 million. By donor: EU about USD 39.9 million, World Bank about USD 22 million, EBRD about USD 4.9 million, Korea about USD 1.4 million, WHO about USD 0.2 million, UNDP about USD 0.1 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "37 active projects worth about USD 68.4 million"
+      },
+      {
+       "k": "f",
+       "t": "Donor focus: the EU's about USD 39.9 million goes to government (about USD 28.1 million) and justice and elections (about USD 11.8 million). The World Bank's about USD 22 million goes to energy digitalisation (about USD 15 million) and government (about USD 7 million). EBRD's about USD 4.9 million is for energy digitalisation.",
+       "ref": [
+        "fact:rows",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Five projects worth about USD 0.1 million end at the end of 2026 (Korean training, etc.).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ],
+       "b": "Little ends at the end of 2026"
+      },
+      {
+       "k": "f",
+       "t": "Of the 37 projects, many are Korean (KOICA, etc.) and UNESCO projects with small amounts (Korea about USD 1.4 million, UNESCO almost zero), centred on technical cooperation such as training, master's programmes and regional studies.",
+       "ref": [
+        "fact:by_donor",
+        "fact:mapped_n"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 comprises 11 projects worth about USD 6.1 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd"
+       ],
+       "b": "11 projects worth about USD 6.1 million completed since 2017"
+      },
+      {
+       "k": "v",
+       "t": "The number of projects is large, but many are small Korean and UNESCO training and technical cooperation projects; funding is concentrated in EU budget support and World Bank projects.",
+       "ref": [
+        "fact:by_donor",
+        "row:D2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Many EU projects are new contracts that began in 2026 and run until 2031–2034. The World Bank's Power Sector Modernisation project is scheduled to close in December 2027 and its tax administration and statistics modernisation in March 2027.",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2021-ACT-63136",
+        "proj:XI-IATI-EC_INTPA-2026-PC-75410",
+        "proj:WB-P177871",
+        "proj:WB-P163711"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "While EU funding continues into the 2030s, the World Bank's two projects end in 2027. The lack of visible successors for digital infrastructure (Digital CASA) and government (tax and statistics) will be the issue in 2027.",
+       "ref": [
+        "fact:by_donor",
+        "doc:isr",
+        "row:D2"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and evolution of support",
+     "msg": "Cooperation completed since 2017 is small, and large digital infrastructure projects are not in the records.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage: projects completed in 2017 or later. The site's data cover the main donors' projects consistently from 2017; earlier records are incomplete. Even after 2017, however, ADB data are largely limited to 2020 onwards and UNICEF and UNDP data to 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the digital strategy number 11, worth about USD 6.1 million (after pro-rata allocation, without double counting). By donor: Islamic Development Bank about USD 5.8 million, World Bank about USD 0.3 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "11 projects worth about USD 6.1 million"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): energy digitalisation 1 project worth about USD 5.8 million (a transmission line and substation project), government 5 projects worth about USD 0.3 million (open data action plan, etc.), justice and elections 4 projects.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Most completed funding was a transmission line project"
+      },
+      {
+       "k": "f",
+       "t": "Main completed projects: the World Bank's implementation of the open data action plan (about USD 0.2 million, 2017–2020), the World Bank trust fund for modernising tax administration and statistics (about USD 0.1 million), and the US digital transformation of women's businesses (2021–2024).",
+       "ref": [
+        "proj:XI-IATI-WBTF-P160933",
+        "proj:XI-IATI-WBTF-P163711",
+        "proj:US-GOV-11-SKG10022GR0054-305610",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: the largest completed item, the Islamic Development Bank's about USD 5.8 million, is a transmission line and substation project, not digitalisation cooperation. Among active projects, too, a Korean dairy cattle breeding and feed project is in the government row.",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ0023",
+        "proj:KR-GOV-240-1390000_2025_018",
+        "fact:closed_by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The World Bank's Digital CASA (USD 57 million in total, scheduled to close in December 2025) is not in the digital infrastructure row as either active or completed. Support for digital infrastructure is larger than the site's figures show.",
+       "ref": [
+        "doc:wb2024",
+        "doc:isr",
+        "row:D3"
+       ],
+       "b": "Digital CASA is not in the table rows"
+      },
+      {
+       "k": "v",
+       "t": "Completed cooperation is small both because digitalisation is a new area of cooperation and because large projects such as Digital CASA are not mapped to the table rows. The scale of past support cannot be read correctly from this table.",
+       "ref": [
+        "fact:closed_musd",
+        "doc:wb2024",
+        "row:D3"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Digital infrastructure is the only area with no active cooperation, though this partly reflects how the data are mapped.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle active / completed / cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Areas with no active cooperation: digital infrastructure (telecommunications and data centres).",
+       "ref": [
+        "fact:empty_rows",
+        "row:D3"
+       ],
+       "b": "Gap: digital infrastructure"
+      },
+      {
+       "k": "v",
+       "t": "The digital infrastructure gap is partly because Digital CASA is not mapped to the row. However, the project is scheduled to end at the end of 2025, and neither operation of G-Cloud after launch nor successor funding is in sight.",
+       "ref": [
+        "row:D3",
+        "doc:isr"
+       ],
+       "b": "G-Cloud operation and successor funding are not in sight"
+      },
+      {
+       "k": "f",
+       "t": "Chapter 4 of the Concept uses a common pattern for health, education, social assistance and labour: creating registers and information systems in each area and linking them through Tunduk to tax, pension and other systems.",
+       "ref": [
+        "doc:dt",
+        "tree:digital:D4"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the site's data, some projects, such as the World Bank trust fund for improving primary health care quality (about USD 15 million), are picked up as digital-related but are not mapped to the digital table rows.",
+       "ref": [
+        "proj:XI-IATI-WBTF-TF073291",
+        "row:dhe"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because of this common pattern, the digital components of sector cooperation (health, education, social protection) rarely show up in the digital rows' amounts. The amounts in the health and education digitalisation rows (about USD 0.3 million each) are best read as the lower bound of support for digitalisation in those areas.",
+       "ref": [
+        "doc:dt",
+        "row:dhe",
+        "row:D4e"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In Chapter 3 of the Concept, no matching active cooperation can be found in the site's data for digitisation of public records, the national digital archive or the spatial data infrastructure. The long-term strategy had also included creating a national spatial data infrastructure under Goal 15.2.",
+       "ref": [
+        "doc:dt",
+        "doc:nds",
+        "row:D3"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Health and education digitalisation have many initiatives in the Concept, yet funding is only about USD 0.3 million each.",
+       "ref": [
+        "row:dhe",
+        "row:D4e",
+        "doc:dt"
+       ],
+       "b": "Funding for health and education digitalisation is small"
+      },
+      {
+       "k": "f",
+       "t": "The Open Data Concept 2022–2024 has ended, and the site's policy tree has no successor plan. Disaster management digitalisation (Concept, Chapter 4) has no row in the site's table.",
+       "ref": [
+        "tree:digital:odata",
+        "tree:digital:D4r"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "More significant than the gaps in the table are the institutional gaps. Telecom infrastructure sharing, state-enterprise monopolies and procurement rules, cited by the World Bank assessment, are not the main purpose of any donor project.",
+       "ref": [
+        "doc:infragov",
+        "row:D3"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The connectivity stage is almost over; the next stage is operating the government cloud and using government, health and education data.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Internet use is 92% and on pace for the international goal, but national documents have no numerical targets, so progress cannot be measured by a national yardstick.",
+       "ref": [
+        "ind:infra:0",
+        "doc:ndp",
+        "doc:dt"
+       ],
+       "b": "There is no national yardstick"
+      },
+      {
+       "k": "v",
+       "t": "Getting G-Cloud running and operated is the linchpin of Chapters 2 and 3 of the Concept. Funding after Digital CASA ends is the biggest issue.",
+       "ref": [
+        "doc:isr",
+        "tree:digital:D3"
+       ],
+       "b": "G-Cloud operation and successor funding are the biggest issues"
+      },
+      {
+       "k": "v",
+       "t": "Donor funding is concentrated in government (EU) and power (World Bank), with health and education digitalisation small. Building sector electronic registers could be combined with each sector's cooperation.",
+       "ref": [
+        "row:D2",
+        "row:D4n",
+        "row:dhe",
+        "row:D4e"
+       ],
+       "b": "Health and education registers could be combined with sector cooperation"
+      },
+      {
+       "k": "v",
+       "t": "In health, the UN joint programme and the national strategy \"Sanarip MED 2.0\" have started and the institutional foundation is taking shape. Funding is small, and in education there is little cooperation addressing the equipment, skills and language gaps shown by the readiness survey.",
+       "ref": [
+        "doc:mptf",
+        "doc:kix",
+        "row:dhe",
+        "row:D4e"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The long-term strategy's \"high-speed internet for all social facilities\" could be one of the few measurable targets. Publication by the state of the denominator, so that the number of social facilities in the World Bank project can be compared against the total, would be a first step towards measuring progress.",
+       "ref": [
+        "doc:nds",
+        "doc:isr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: the Digital CASA completion report and G-Cloud launch, new UN E-Government ranking values, implementation of the Programme for Reducing Administrative Barriers, and new IT export figures.",
+       "ref": [
+        "doc:isr",
+        "tree:digital:lsbar",
+        "ind:it:0"
+       ],
+       "b": "G-Cloud, e-government ranking, barrier reduction, IT exports"
+      },
+      {
+       "k": "f",
+       "t": "UNDP identified as entry points the use of e-government at all levels, expanding e-services that empower young people, women, vulnerable groups and rural areas, and planned investment in digital skills.",
+       "ref": [
+        "doc:undp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Skills are a challenge common to NDP 2030, the Concept and UNDP, yet active cooperation centres on small Korean and UNESCO training projects. Building skills development into government, health and education digitalisation projects will be the key to the next stage.",
+       "ref": [
+        "doc:ndp",
+        "doc:dt",
+        "doc:undp",
+        "fact:by_donor"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Share of people using the internet (ITU 2030 target)",
+   "92.0%(2024)",
+   "100%",
+   "+5.6 points/year (2019–2024)",
+   "+1.3 points/year",
+   "On track",
+   "good"
+  ],
+  [
+   "Fixed broadband subscriptions",
+   "7.8 per 100 people (2024)",
+   "No target",
+   "+0.7/year (2019–2024)",
+   "—",
+   "—",
+   "na"
+  ],
+  [
+   "Digitalisation and integration of government services (Concept, Chapter 2)",
+   "No annual published figure (the UN E-Government ranking is biennial and not yet on the site)",
+   "No numerical target",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "AI computing centre (Concept, Chapter 2)",
+   "No published figure on progress",
+   "50 petaflops (up to 300)",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "IT services exports",
+   "USD 383 million (2024)",
+   "No numerical target (NDP 2030 Chapter VIII only lists support as a task)",
+   "—",
+   "—",
+   "—",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Government reform, e-services, data and AI",
+   "Digital Transformation Concept 2024–2028, Chapter 2",
+   "Presidential Decree No. 90 of 5 April 2024",
+   "ok",
+   "—",
+   "D2",
+   "D2"
+  ],
+  [
+   "1",
+   "Administrative procedures",
+   "Programme for Reducing Administrative Barriers 2026–2030",
+   "Cabinet Resolution No. 807 of 13 December 2025 (press reports)",
+   "ok",
+   "—",
+   "D2",
+   "lsbar"
+  ],
+  [
+   "1",
+   "E-commerce",
+   "Programme for Support and Development of E-commerce 2023–2026",
+   "Approved by the Cabinet of Ministers (as stated in the 2025 SDG national report)",
+   "ok",
+   "—",
+   "D2",
+   "ecom"
+  ],
+  [
+   "1",
+   "Open data",
+   "Open Data Concept 2022–2024",
+   "As stated in the 2025 SDG national report",
+   "end",
+   "—",
+   "D2",
+   "odata"
+  ],
+  [
+   "2",
+   "Digital infrastructure (telecommunications and data centres)",
+   "Concept, Chapter 3 (G-Cloud, fibre optics, archives, spatial data)",
+   "Presidential Decree No. 90 of 2024",
+   "ok",
+   "—",
+   "D3",
+   "D3"
+  ],
+  [
+   "3",
+   "Health",
+   "Regulation on the Unified Digital Health Ecosystem",
+   "Cabinet of Ministers, 24 October 2024",
+   "ok",
+   "—",
+   "dhe",
+   "dhe"
+  ],
+  [
+   "3",
+   "Education",
+   "Concept, Chapter 4 §2 (no separate plan)",
+   "Presidential Decree No. 90 of 2024",
+   "ok",
+   "—",
+   "D4e",
+   "D4e"
+  ],
+  [
+   "3",
+   "Energy",
+   "Concept, Chapter 4 §7 (no separate plan)",
+   "Presidential Decree No. 90 of 2024",
+   "ok",
+   "—",
+   "D4n",
+   "D4n"
+  ],
+  [
+   "3",
+   "Legislation, justice and elections",
+   "Concept, Chapter 4 §§9–11 and §18 (no separate plan)",
+   "Presidential Decree No. 90 of 2024",
+   "ok",
+   "—",
+   "D4j",
+   "D4j"
+  ],
+  [
+   "3",
+   "Disaster management",
+   "Concept, Chapter 4 §15 (no separate plan)",
+   "Presidential Decree No. 90 of 2024",
+   "ok",
+   "—",
+   "",
+   "D4r"
+  ],
+  [
+   "Other",
+   "Financial digitalisation (for reference)",
+   "National Bank measures (press reports)",
+   "—",
+   "none",
+   "—",
+   "fin",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Strategic goals (government reform, integration, e-services, data, AI)"
+  ],
+  [
+   "2",
+   "Digital infrastructure (data centre, government cloud, fibre optics)"
+  ],
+  [
+   "3",
+   "Sector digitalisation"
+  ],
+  [
+   "Other",
+   "Outside the Concept (finance)"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "National numerical targets for digitalisation (absent from both NDP 2030 Chapter VIII and the Digital Concept 2024–2028)",
+  "Annual national figures on progress in digitalising government services (number of e-services, number of procedures, processing times, etc.)",
+  "Values of the UN E-Government Development Index (EGDI) (biennial; not yet in the site's indicators)",
+  "Progress on individual Concept initiatives such as the AI computing centre (50 petaflops)",
+  "Current length of the fibre-optic network (values in World Bank implementation status reports are inconsistent with the baseline and cannot be used)",
+  "The national definition of internet penetration (54% in World Bank project indicators, 92% in international data)",
+  "Also unconfirmed: the UNDP Digital Development Compass, Internet Society Pulse (not opened this time), and the second half of the digital text of the World Bank's 2023 infrastructure governance assessment (only the summary and recommendations table were read)"
+ ]
+}

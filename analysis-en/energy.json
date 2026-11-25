@@ -1,0 +1,1836 @@
+{
+ "sid": "energy",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "F": "Programme on Energy Saving and Energy Efficiency Policy 2023–2027",
+   "O": "Outside the programme"
+  },
+  "rows": {
+   "F1": {
+    "n": "Legal framework and electricity tariffs",
+    "st": "Task 1 / National Energy Programme to 2035"
+   },
+   "F2": {
+    "n": "Generation, transmission and distribution",
+    "st": "Task 2 / National Energy Programme"
+   },
+   "F3": {
+    "n": "Energy efficiency in public buildings and housing",
+    "st": "Task 3"
+   },
+   "F4": {
+    "n": "Industrial energy efficiency",
+    "st": "Task 4"
+   },
+   "F5": {
+    "n": "Renewables and gasification",
+    "st": "Task 5 / Renewable Energy Development 2026–30"
+   },
+   "F6": {
+    "n": "Awareness raising",
+    "st": "Task 6"
+   },
+   "mine": {
+    "n": "Mining and natural resources",
+    "st": "(National Development Programme, Chapter 5)"
+   }
+  }
+ },
+ "ind": {
+  "re": {
+   "name": "(1) Renewable energy",
+   "tag": "Hydro, solar, wind",
+   "goals": [
+    [
+     "Generate 7.5 billion kWh a year from renewables (NDP 2030 Section 5.4)",
+     "National generation statistics are published in yearbooks but are not available via API"
+    ],
+    [
+     "Secure a reserve generating capacity of 550–700 MW (same)",
+     "No public data"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Share of renewables (hydro, etc.) in electricity generation",
+     "unit": "%",
+     "st": "✕ Moving away from the target",
+     "src": "World Bank WDI EG.ELC.FOSL.ZS (100 minus the fossil fuel share; originally IEA and Ember)",
+     "note": "Almost entirely hydropower. Falls in dry years and in years of heavy coal-fired generation (Bishkek CHP).",
+     "t": [
+      "National 92%"
+     ]
+    },
+    {
+     "name": "Share of renewables in final energy consumption",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "UN SDG Database EG_FEC_RNEW (SDG 7.2.1)",
+     "note": "Includes heating and vehicle fuel. Non-electric energy relies mainly on coal, gas and gasoline, so the share is far lower than in generation.",
+     "t": []
+    }
+   ]
+  },
+  "grid": {
+   "name": "(2) Transmission and distribution",
+   "tag": "Power losses",
+   "inds": [
+    {
+     "name": "Share of electricity lost in transmission and distribution",
+     "unit": "%",
+     "st": "✕ Moving away from the target",
+     "src": "World Bank WDI EG.ELC.LOSS.ZS (originally IEA)",
+     "note": "Includes losses from theft and ageing distribution networks. The energy efficiency programme puts low-voltage distribution losses at 11.9% in 2021.",
+     "t": [
+      "National 10%"
+     ]
+    }
+   ]
+  },
+  "eff": {
+   "name": "(3) Energy efficiency and household energy",
+   "tag": "Energy efficiency, gasification, cooking fuels",
+   "goals": [
+    [
+     "Raise the settlement gasification rate to 60% (2030, energy efficiency programme; 35% in 2020)",
+     "Annual gasification rates are only announced by Gazprom Kyrgyzstan"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Energy intensity (energy used to produce USD 1 of GDP)",
+     "unit": "MJ per USD (PPP)",
+     "st": "△ About 3.5 in 2030 at the current pace",
+     "src": "UN SDG Database EG_EGY_PRIM (SDG 7.3.1)",
+     "note": "Benchmark obtained by applying SDG 7.3's \"double the rate of improvement\" (2.6% a year) to the 2015 value. The energy efficiency programme only says \"approach the world average\" and gives no figure.",
+     "t": [
+      "SDG benchmark"
+     ]
+    },
+    {
+     "name": "Share of population with access to clean fuels and cooking technologies",
+     "unit": "%",
+     "st": "✕ Pace too slow; about 85.6 even in 2030",
+     "src": "World Bank WDI EG.CFT.ACCS.ZS (originally WHO)",
+     "note": "Cooking and heating with coal and wood persist in rural areas. Access to electricity is already 100%.",
+     "t": [
+      "SDG: everyone"
+     ]
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Large funding for generation and grids, housing efficiency and renewables in energy; the tariff system is a gap",
+  "msgs": [
+   [
+    "Power shortages persist.",
+    "Electricity consumption keeps hitting records, with some saying it hampers AI development. Winter coal supply and restrictions on fine coal make daily news."
+   ],
+   [
+    "The World Bank and GCF provide large support for renewables.",
+    "The Renewable Energy Development Project (World Bank) and the Green Climate Fund risk-mitigation facility. Construction of the largest solar power plant is also under way."
+   ],
+   [
+    "ADB and the Islamic Development Bank lead on housing efficiency.",
+    "Housing finance for energy-efficient homes and Islamic housing finance sit side by side."
+   ],
+   [
+    "There are no projects on tariffs or the legal framework.",
+    "Electricity tariff reform is a national priority, but no donor project addresses it."
+   ]
+  ],
+  "h2": "Funding is concentrated in generation and grids, housing and renewables; the tariff system and awareness raising are gaps",
+  "rows": {
+   "F1": [
+    "",
+    "No dedicated project. Tariff reform is a national priority"
+   ],
+   "F2": [
+    "",
+    "World Bank, Islamic Development Bank and EBRD support grids and generation"
+   ],
+   "F3": [
+    "",
+    "Mainly ADB and Islamic Development Bank housing finance"
+   ],
+   "F4": [
+    "",
+    "EBRD energy efficiency lending for businesses (KyrSEFF)"
+   ],
+   "F5": [
+    "",
+    "World Bank renewable energy development and GCF are large"
+   ],
+   "F6": [
+    "",
+    "No projects"
+   ],
+   "mine": [
+    "",
+    "Almost no donor projects for mining"
+   ]
+  },
+  "h3": "Recent news centres on winter power and coal, small hydro and solar, and mining",
+  "themes": [
+   [
+    "Winter power:",
+    "Electricity consumption hits records. Coal supply to thermal power plants and the ban on fine coal in Bishkek continue."
+   ],
+   [
+    "Renewables:",
+    "Small hydropower plants starting operation, procurement of panels for the country's largest solar power plant, and more."
+   ],
+   [
+    "Mining:",
+    "Coal production and price regulation, and the opening of gold mines and plants, are reported."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Energy and Natural Resources Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030 (\"NDP 2030\"), Section 5.4 \"Green Energy\" and the energy passage of Chapter III (Current Situation and Achievements)",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "The five targets, five tasks and support measures of Section 5.4, and the energy passage of Chapter III (translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "eneff",
+   "t": "Programme on Energy Saving and Energy Efficiency Policy 2023–2027",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic (Cabinet Resolution No. 328 of 29 June 2023)",
+   "y": "2023",
+   "scope": "Full text (machine translation on this site)",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1264523&lang=ru"
+  },
+  {
+   "id": "wb2024",
+   "t": "World Bank Country Manager in the Kyrgyz Republic on the Status and Future of the Energy Sector",
+   "by": "World Bank (opinion piece)",
+   "y": "Feb 2024",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/opinion/2024/02/09/world-bank-country-manager-in-the-kyrgyz-republic-on-the-status-and-future-of-the-energy-sector"
+  },
+  {
+   "id": "wb2022",
+   "t": "The Electricity Sector in the Kyrgyz Republic to Improve its Efficiency with World Bank Support",
+   "by": "World Bank (press release)",
+   "y": "Jun 2022",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2022/06/23/the-electricity-sector-in-the-kyrgyz-republic-to-improve-its-efficiency-with-world-bank-support"
+  },
+  {
+   "id": "kfw2024",
+   "t": "Improvement of the Bishkek local grid – ex post evaluation",
+   "by": "KfW (German development bank)",
+   "y": "2024",
+   "scope": "Main text of the evaluation report (PDF)",
+   "cat": "donor",
+   "u": "https://www.entwicklungsbank.kfw.de/PDF/Evaluierung/Ergebnisse-und-Publikationen/PDF-Dokumente-E-K_EN/Kirgistan_Energie_2024_E.pdf"
+  },
+  {
+   "id": "irena",
+   "t": "Renewables Readiness Assessment: The Kyrgyz Republic",
+   "by": "International Renewable Energy Agency (IRENA)",
+   "y": "Dec 2022",
+   "scope": "Summary on the landing page only. The report itself (PDF) was not read and none of its figures are used",
+   "cat": "donor",
+   "u": "https://www.irena.org/Publications/2022/Dec/RRA-Kyrgyz-Republic"
+  },
+  {
+   "id": "esmap",
+   "t": "Energy Subsidy Reform Facility Country Profile: Kyrgyz Republic",
+   "by": "World Bank ESMAP",
+   "y": "2018",
+   "scope": "Full text of the landing page (few figures)",
+   "cat": "donor",
+   "u": "https://esmap.org/energy_subsidy_reform_facility_kyrgyz_republic"
+  },
+  {
+   "id": "adbpvr",
+   "t": "Validation Report: Kyrgyz Republic Power Sector Improvement Project(Loan 2671, Grant 0218)",
+   "by": "ADB Independent Evaluation Department",
+   "y": "Dec 2020",
+   "scope": "Main text of the evaluation report (PDF)",
+   "cat": "donor",
+   "u": "https://www.adb.org/sites/default/files/evaluation-document/659021/files/pvr-2671a_6.pdf"
+  },
+  {
+   "id": "wbre2023",
+   "t": "The Kyrgyz Republic to Boost its Renewable Energy Potential with Support from the World Bank and the Green Climate Fund",
+   "by": "World Bank (press release)",
+   "y": "Jun 2023",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2023/06/28/the-kyrgyz-republic-to-boost-its-renewable-energy-potential-with-support-from-the-world-bank-and-the-green-climate-fund"
+  },
+  {
+   "id": "kmb",
+   "t": "Kambarata-1 Hydropower Plant Project (project page)",
+   "by": "World Bank",
+   "y": "2025",
+   "scope": "Full text of the project page",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/programs/kambarata-1-hpp"
+  },
+  {
+   "id": "wbdist",
+   "t": "Kyrgyz Republic: Distributional Impact of Energy Tariff Reform",
+   "by": "World Bank (Poverty and Equity)",
+   "y": "Jan 2019",
+   "scope": "Main text (PDF). The income-impact estimates are not used because the summary and main text give different values",
+   "cat": "donor",
+   "u": "https://www.merit.unu.edu/publications/uploads/1700839993.pdf"
+  },
+  {
+   "id": "btariff",
+   "t": "Household energy responses to the introduction of increasing block tariffs on residential electricity in Kyrgyzstan(Energy Policy 203)",
+   "by": "Academic journal Energy Policy (paper)",
+   "y": "2025",
+   "scope": "Abstract",
+   "cat": "paper",
+   "u": "https://ideas.repec.org/a/eee/enepol/v203y2025ics0301421525001363.html"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Of the national 2030 targets, the two that can be tracked with annual data, \"92% renewables\" and \"10% losses\", have both moved away from target over the past five years. The renewable share stands at 87.8% and losses at 18.8% (2024).",
+   "ref": [
+    "ind:re:0",
+    "ind:grid:0",
+    "doc:ndp"
+   ],
+   "h": "Both trackable targets (92% renewables, 10% losses) are moving the wrong way"
+  },
+  {
+   "k": "f",
+   "t": "Electricity consumption exceeds generation, leaving an average shortfall of 3.5 billion kWh. Hydropower supplies over 85% of generation, and winter demand is 2.5–3 times summer demand.",
+   "ref": [
+    "doc:ndp",
+    "doc:wb2022"
+   ],
+   "h": "Consumption exceeds generation, with shortages in winter"
+  },
+  {
+   "k": "f",
+   "t": "Tariffs are the largest structural problem. Tariffs recover 65% of costs, the state budget covers the rest, and the sector's accumulated debt is about 20% of GDP. The energy efficiency programme itself names low tariffs as the main barrier.",
+   "ref": [
+    "doc:wb2024",
+    "doc:wb2022",
+    "doc:eneff"
+   ],
+   "h": "Below-cost tariffs are the largest structural problem"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation mapped to the energy strategy comprises 31 projects worth about USD 166 million, concentrated in generation, transmission and distribution and in building energy efficiency; legal framework and tariffs, and awareness raising, are gaps.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:empty_rows",
+    "row:F2",
+    "row:F3"
+   ],
+   "h": "Funding is concentrated in generation, grids and building efficiency; tariffs and awareness are gaps"
+  },
+  {
+   "k": "v",
+   "t": "Nearly all of the about USD 627 million completed since 2017 went to physical assets (regional transmission, hydropower rehabilitation). Turning asset investment into better indicators requires tariff reform and systems to measure losses and gasification.",
+   "ref": [
+    "fact:closed_musd",
+    "fact:closed_rows",
+    "doc:kfw2024"
+   ],
+   "h": "Asset investment needs tariff reform and measurement systems to deliver results"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Electricity supply, demand and assets",
+     "msg": "Hydropower supplies almost all electricity, but winter shortages, ageing assets and below-cost tariffs compound one another.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "87.8",
+        "u": "%",
+        "k": "Share of renewables (almost all hydro) in generation (2024)",
+        "ref": "ind:re:0"
+       },
+       {
+        "v": "14.9",
+        "u": "billion kWh",
+        "k": "Electricity generation (2024)",
+        "ref": "doc:ndp"
+       },
+       {
+        "v": "3.5",
+        "u": "billion kWh",
+        "k": "Average electricity shortfall",
+        "ref": "doc:ndp",
+        "hot": true
+       },
+       {
+        "v": "18.8",
+        "u": "%",
+        "k": "Transmission and distribution losses (2024)",
+        "ref": "ind:grid:0",
+        "hot": true
+       },
+       {
+        "v": "65",
+        "u": "%",
+        "k": "Share of costs covered by tariffs (65 tyiyn per som)",
+        "ref": "doc:wb2024",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Supply and demand: winter shortages and imports"
+      },
+      {
+       "k": "f",
+       "t": "Hydropower plants provide over 85% of generation and thermal plants the remaining 15%. Generation in 2024 was 14.9 billion kWh, 0.2 billion kWh less than in 2021.",
+       "ref": [
+        "doc:ndp",
+        "ind:re:0"
+       ],
+       "b": "Over 85% of generation is hydro; 14.9 billion kWh in 2024"
+      },
+      {
+       "k": "f",
+       "t": "In recent years electricity consumption has exceeded generation, with shortages especially in winter. The average shortfall is 3.5 billion kWh. Households are the largest consumers, accounting for about 70%.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Consumption exceeds generation; average shortfall of 3.5 billion kWh"
+      },
+      {
+       "k": "f",
+       "t": "Winter demand is 2.5–3 times summer demand.",
+       "ref": [
+        "doc:wb2022",
+        "doc:kfw2024"
+       ],
+       "b": "Winter demand is 2.5–3 times summer demand"
+      },
+      {
+       "k": "f",
+       "t": "Since 2014, electricity consumption has exceeded domestic generation by 1.9–5.3%. In 2014 the Kyrgyz Republic turned from a net electricity exporter into a net importer. At the end of 2021, when the drought began, it imported 1.7 billion kWh at a cost of 844.8 million som.",
+       "ref": [
+        "doc:eneff",
+        "doc:esmap"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The KfW evaluation puts domestic generation at about 15.1 TWh (2021) and imports at about 1.1 TWh (2021) and about 2.5 TWh (2022). Because winter demand is 2–3 times summer demand, the country relies on imports and coal-fired generation in winter.",
+       "ref": [
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The energy efficiency programme states that per capita energy consumption by households and the non-productive sector has risen sharply. It cites higher prices for imported fuel, more household electrical appliances, and heavy use of electricity for heating, hot water and cooking.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Assets: ageing infrastructure"
+      },
+      {
+       "k": "f",
+       "t": "Installed capacity is about 3,900 MW, of which about 800 MW is the Bishkek combined heat and power plant (CHP) and most of the rest hydropower. About 60% of the transmission and distribution network is past its service life, and more than half of hydropower capacity needs repair or replacement.",
+       "ref": [
+        "doc:wb2024"
+       ],
+       "b": "About 60% of the grid is past its service life"
+      },
+      {
+       "k": "f",
+       "t": "In the national transmission company's network, 86.4% of substations and 54.8% of transmission lines are in use beyond their standard service life. Depreciation of power plant fixed assets has reached 80%.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Between 2016 and 2020, the wear rate of generation, transmission and distribution assets rose by 34.6% to 27.6%. In gas production and supply, the wear rate rose by 90% to 39.6%. Most heat supply fixed assets were commissioned 20–50 years ago.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The only new capacity commissioned in the past ten years was one 120 MW unit at Kambarata-2 hydropower plant and eight small hydropower plants totalling 21.7 MW. Rehabilitation of the Uch-Kurgan, At-Bashi and Toktogul hydropower plants is under way, and rehabilitation of Bishkek CHP-1 has been completed.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Tariffs and finances"
+      },
+      {
+       "k": "f",
+       "t": "Tariffs are among the lowest in the world, and the power sector's accumulated debt exceeds 130 billion som (about USD 1.5 billion, about 20% of GDP). Tariffs recover 65 tyiyn of every som of cost; the state budget covers the remaining 35 tyiyn.",
+       "ref": [
+        "doc:wb2022",
+        "doc:wb2024"
+       ],
+       "b": "Tariffs recover 65% of costs; accumulated debt is about 20% of GDP"
+      },
+      {
+       "k": "f",
+       "t": "Electricity tariffs were frozen for a long time, and state subsidies amounted to 2–3% of GDP every year. In May 2023 tariffs were raised for all consumers, with social protection for low-income households.",
+       "ref": [
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Tariffs have been revised in stages for some time. The 2014–2017 medium-term tariff plan raised household and commercial tariffs, and the next plan aimed at cost recovery by 2021. The World Bank and ESMAP worked with the regulator on a 2018–2023 medium-term tariff policy that envisaged gradual increases in household tariffs.",
+       "ref": [
+        "doc:adbpvr",
+        "doc:esmap"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The KfW evaluation puts the share of costs recovered by tariffs at 40–50% (2004) and 65% (2007). The long-run marginal cost (the cost of adding one kWh with new capacity) rose from about 2.3 US cents at planning to about 5.8 US cents (2022).",
+       "ref": [
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The cost-recovery ratio was the same, 65%, in 2007 (KfW) and in 2024 (World Bank). Tariffs have been raised many times, but the cost of new capacity has also risen, so the gap has not narrowed.",
+       "ref": [
+        "doc:kfw2024",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "ESMAP writes that tariff increases have been delayed by concerns about social unrest, and supports household-level impact analysis and public communication.",
+       "ref": [
+        "doc:esmap"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Apart from electricity and coal, the country depends heavily on energy imports (at the end of 2020, 93.4% of natural gas and 87.5% of gasoline were imported).",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Reliance on hydropower makes the system prone to shortages in dry years and when winter demand rises. The inability to fund asset renewal from tariff revenue lies at the root of both shortages and losses.",
+       "ref": [
+        "doc:wb2024",
+        "doc:kfw2024",
+        "ind:re:0"
+       ],
+       "b": "Hydro dependence and below-cost tariffs are the root of shortages and losses"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Energy policy is structured as NDP 2030 Section 5.4 → the National Energy Programme to 2035 and the Programme on Energy Saving and Energy Efficiency Policy 2023–2027 → Renewable Energy Development 2026–2030.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: NDP 2030 Section 5.4 \"Green Energy\" defines the top priority as \"eliminating the gap between electricity consumption and production and achieving energy independence\", and sets five targets: (1) 92% renewables in generation; (2) 7.5 billion kWh a year generated from renewables; (3) a guaranteed capacity reserve of 550–700 MW; (4) transmission losses of 10%; (5) greenhouse gas reductions (16% without international support, 44% with it).",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 Section 5.4: five targets including 92% renewables and 10% losses"
+      },
+      {
+       "k": "f",
+       "t": "The five tasks of Section 5.4 are: expanding and diversifying generation (new and rehabilitated hydropower, pumped storage, solar and wind with storage); energy efficiency and demand management (building codes, time-of-use tariffs, net metering); modernising and digitalising infrastructure (including automated metering systems); regional integration (a power exchange, interstate transmission lines); and environmental sustainability and climate adaptation.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Five tasks: generation, efficiency, modernisation, regional integration, environment"
+      },
+      {
+       "k": "f",
+       "t": "Among support measures, it lists achieving tariff self-sufficiency (cost recovery) by 2030 and reducing cross-subsidies (where some consumers' tariffs pay for cheaper tariffs for others).",
+       "ref": [
+        "doc:ndp",
+        "tree:energy:E3"
+       ],
+       "b": "Tariff cost recovery by 2030"
+      },
+      {
+       "k": "f",
+       "t": "The current-situation passage notes that a state of emergency regime for the energy sector was introduced in 2023 and the electricity tariff policy to 2030 was revised. About 30 power facilities are planned to be commissioned by 2030, the largest being the Kambar-Ata-1 (Kambarata-1) hydropower plant (1,860 MW). Exports through CASA-1000 (a power transmission project from Central Asia to South Asia) are also expected.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "About 30 facilities by 2030, including Kambar-Ata-1 (1,860 MW)"
+      },
+      {
+       "k": "f",
+       "t": "The Kambarata-1 hydropower plant would build a 261 m high dam on the Naryn River and generate about 6,000 GWh a year (about half of current supply). In June 2024 Kyrgyzstan, Kazakhstan and Uzbekistan signed a ministerial agreement. Phase 1 will be implemented by the national Ministry of Energy and Phase 2 operated by a joint venture of the three countries.",
+       "ref": [
+        "doc:kmb",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank has provided technical assistance since 2023 and set up a panel of experts on dam safety and on environmental and social issues. The draft environmental and social impact assessment was published in August 2025. Phase 1 costs about USD 500 million, and the World Bank indicates it expects to provide USD 150–200 million.",
+       "ref": [
+        "doc:kmb",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Sector national programme: the National Energy Programme to 2035 (Cabinet Resolution No. 172 of 12 April 2024; first phase 2024–2027). The site's policy tree groups it into four pillars: expanding generation, modernising the grid, restoring tariffs and finances, and regional power trade (the fourth is inferred from the scope of the strategy).",
+       "ref": [
+        "tree:energy:energy",
+        "tree:energy:E1",
+        "tree:energy:E2",
+        "tree:energy:E3",
+        "tree:energy:E4"
+       ],
+       "b": "National Energy Programme to 2035: four pillars"
+      },
+      {
+       "k": "f",
+       "t": "Energy efficiency plan: the Programme on Energy Saving and Energy Efficiency Policy 2023–2027 (Cabinet Resolution No. 328 of 29 June 2023). Its goal is to bring energy consumption per unit of GDP closer to the world average. Its three priorities are cutting transmission and distribution losses to 15%, saving 190,100 tonnes of standard fuel by 2027, and raising the share of renewables (small hydro, solar, etc.) in generation to at least 10%.",
+       "ref": [
+        "doc:eneff",
+        "tree:eneff:eneff"
+       ],
+       "b": "Efficiency programme: 15% losses, fuel savings, 10% renewables"
+      },
+      {
+       "k": "f",
+       "t": "Legal framework: energy efficiency requirements are set by the Law on Energy, the Law on the Electric Power Industry, the Law on Energy Saving, the Law on Energy Efficiency of Buildings, the Law on Technical Regulation and others. The programme points out that, under the Law on Technical Regulation, energy efficiency standards in national standards and rules have in effect lost their binding force.",
+       "ref": [
+        "doc:eneff",
+        "tree:eneff:F1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Eurasian Economic Union technical regulation \"Requirements for the energy efficiency of electrical devices\" was adopted in 2019, with entry into force postponed to 2025. The programme states that this regulation clarifies the mechanisms of energy efficiency policy and removes ambiguity over the powers of government bodies.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The six tasks of the energy efficiency programme: (1) legal framework and pricing policy; (2) energy saving in generation and distribution; (3) energy saving in the public sector, construction and housing; (4) energy saving in industry; (5) gasification and renewables; (6) awareness raising. The rows of the site's table follow these six tasks.",
+       "ref": [
+        "doc:eneff",
+        "tree:eneff:F1",
+        "tree:eneff:F6"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The previous plan (2015–2017, Government Decree No. 601) was not fully implemented. Reasons cited are the lack of mechanisms to motivate participants, insufficient investment and weak state financial support.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Financing: programme activities are to be funded through state support, private investment and public–private partnerships, and borrowing from international financial institutions, including the Green Climate Fund, and national banks. Special mechanisms such as a \"Green Energy Fund\" under the Cabinet of Ministers, and state guarantees and interest subsidies for energy efficiency loans, are also envisaged.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On tariff regulation, the programme recommends long-term tariff regulation based on return on invested capital to give utilities an incentive to cut costs, a shift to time-of-use tariffs, and the gradual elimination of cross-subsidies, including for households.",
+       "ref": [
+        "doc:eneff",
+        "tree:energy:E3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Individual plan: the Renewable Energy Development (distributed and micro-generation) programme 2026–2030 was reported to have been approved by the Cabinet of Ministers in May 2026. It covers small-scale generation such as solar and small hydro.",
+       "ref": [
+        "tree:renew:renew",
+        "tree:renew:RN1"
+       ],
+       "b": "Renewable Energy Development 2026–2030 (reported approval in May 2026)"
+      },
+      {
+       "k": "f",
+       "t": "Note: the texts of the National Energy Programme to 2035 and Renewable Energy Development 2026–2030 have not been read, so their indicator tables and target values are not covered here.",
+       "ref": [
+        "tree:energy:energy",
+        "tree:renew:renew"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the subprogrammes",
+     "msg": "Of the six tasks of the energy efficiency programme, donor funding is concentrated in generation and grids and in building efficiency, with no active cooperation on legal framework and tariffs or awareness raising.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Subprogrammes (active cooperation by table row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Task 2 (generation and grids) is elaborated by the National Energy Programme, and Task 5 (gasification and renewables) by Renewable Energy Development 2026–2030. Tasks 1, 3, 4 and 6 exist only as tasks within the energy efficiency programme; the site's policy tree has no separate national plan for them.",
+       "ref": [
+        "tree:eneff:enp",
+        "tree:eneff:renew",
+        "tree:eneff:F3"
+       ],
+       "b": "Only Tasks 2 and 5 have separate plans"
+      },
+      {
+       "k": "f",
+       "t": "Mining and natural resources fall outside the energy efficiency programme; the industrialisation chapter of NDP 2030 (5.1) prioritises the mining and processing of critical minerals and gold.",
+       "ref": [
+        "row:mine",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The structure of power companies changed in 2022, when four distribution companies were merged into the national transmission and distribution company (about 95% state-owned). The KfW evaluation states that distribution companies' revenues were pooled at the parent company and used to subsidise other businesses.",
+       "ref": [
+        "doc:kfw2024",
+        "row:F1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The ADB evaluation draws the lesson that in low-tariff countries equity financing should be used rather than on-lending to utilities.",
+       "ref": [
+        "doc:adbpvr",
+        "row:F1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030 puts \"tariff self-sufficiency\" first among its support measures, yet the Task 1 row (legal framework and tariffs) has no active cooperation. Tariff reform appears to be handled as a component of individual projects.",
+       "ref": [
+        "row:F1",
+        "doc:ndp",
+        "doc:wb2022"
+       ],
+       "b": "Tariff reform is the top priority, yet its row has no dedicated cooperation"
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the five national targets",
+     "msg": "Only two of the five targets, renewable share and losses, can be tracked with annual data, and both have moved away from target over the past five years.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the past five years; required pace = change needed to reach the target in 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the five targets in NDP 2030 Section 5.4, only \"92% renewables\" and \"10% losses\" can be tracked with annual international data. Renewable generation (7.5 billion kWh a year) appears in national yearbooks but cannot be retrieved automatically on the site, and no annual published figures were found for the capacity reserve (550–700 MW) or greenhouse gas reductions.",
+       "ref": [
+        "doc:ndp",
+        "ind:re:0",
+        "ind:grid:0"
+       ],
+       "b": "Only two of the five targets can be tracked annually"
+      },
+      {
+       "k": "v",
+       "t": "The renewable share has fallen by 0.78 percentage points a year over the past five years; reaching 92% in 2030 would require a rise of 0.70 points a year.",
+       "ref": [
+        "ind:re:0",
+        "doc:ndp"
+       ],
+       "b": "Renewables: −0.78 a year versus +0.70 a year required"
+      },
+      {
+       "k": "v",
+       "t": "Losses have risen by 0.44 percentage points a year over the past five years; reaching 10% in 2030 would require a fall of 1.47 points a year. Of the five indicators, this is furthest from its target.",
+       "ref": [
+        "ind:grid:0",
+        "doc:ndp"
+       ],
+       "b": "Losses: required pace of −1.47 points a year"
+      },
+      {
+       "k": "f",
+       "t": "The energy efficiency programme aims to cut transmission and distribution losses to 15% by 2027, while NDP 2030 targets transmission losses of 10% in 2030. The two targets differ in year and level, and neither specifies what counts as losses.",
+       "ref": [
+        "doc:eneff",
+        "doc:ndp",
+        "ind:grid:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Reaching 10% losses requires a reduction of about 9 points in six years from 18.8% in 2024. According to the ADB evaluation, transmission and distribution losses fell from 31.7% (2009) to 18% (2018), by about 14 points in nine years (1.5 points a year). The required pace is roughly the same, but losses have risen again since 2019.",
+       "ref": [
+        "ind:grid:0",
+        "doc:adbpvr"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "A 92% renewable share would mean returning to the level of the early 2010s (93%-plus). Because the share swings widely year to year with coal CHP output and water availability, new hydropower alone is not enough; efficiency measures that cut winter demand and diversification into solar and other sources are needed at the same time.",
+       "ref": [
+        "ind:re:0",
+        "doc:ndp",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Three of the five targets (renewable generation, capacity reserve, greenhouse gases) have no annual published figures. That more than half of the national targets cannot be measured indicates weak monitoring of energy sector plans. NDP 2030 itself lists introducing an energy development programme with clear targets and monitoring among its support measures.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Against international goals, the country is approaching the benchmark for SDG 7.3 (energy efficiency improvement) but is on a pace that will not reach SDG 7.1.2 (clean cooking fuels for all).",
+       "ref": [
+        "ind:eff:0",
+        "ind:eff:1"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Renewable energy and generation",
+     "msg": "The renewable share of generation is high at around 90%, but it falls in dry years and in years of heavy coal-fired generation, and is moving away from the 92% target.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Share of renewables in electricity generation (dotted line = national target of 92%)",
+      "inds": [
+       "re:0",
+       "re:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "Trend: the renewable share of generation fell from 91.8% (2010) to 85.2% in the drought year of 2015, recovered to 91.7% in 2019, dropped to 85.6% in 2021, and stood at 87.8% in 2024.",
+       "ref": [
+        "ind:re:0"
+       ],
+       "b": "Renewable share 91.7% (2019) → 87.8% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Renewables account for 29.3% (2023) of final energy consumption (including heating and vehicle fuel), up from 25.6% (2010). Non-electric energy relies mainly on coal, gas and gasoline.",
+       "ref": [
+        "ind:re:1"
+       ],
+       "b": "Renewables are 29.3% of final consumption"
+      },
+      {
+       "k": "f",
+       "t": "The site's indicator note explains that the share falls in dry years and in years when coal-fired generation (Bishkek CHP) runs more. Of installed capacity, about 800 MW is Bishkek CHP and most of the rest is hydropower.",
+       "ref": [
+        "ind:re:0",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The generation base consists of nine large power plants with 3,963.5 MW (seven hydropower plants with 3,035 MW, two thermal plants with 862 MW, and small hydropower with 66.5 MW). Hydropower generation in 2020 was 13.98 billion kWh. Hydropower potential is estimated at 143 billion kWh a year.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "Only about 10% of hydropower potential is used. Development of small-river hydropower is just 1.27%, with 22 small hydropower plants totalling 65.3 MW. When the programme was drafted, there was not a single grid-connected renewable power plant other than small hydro.",
+       "ref": [
+        "doc:eneff"
+       ],
+       "b": "Small hydropower development stands at only 1.27%"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank points to the need to diversify beyond hydropower, especially into solar and wind, and to increase installed capacity to 10,000 MW by 2050.",
+       "ref": [
+        "doc:wb2024"
+       ],
+       "b": "10,000 MW needed by 2050 (World Bank)"
+      },
+      {
+       "k": "f",
+       "t": "The IRENA assessment finds that market risks deter investment and recommends consistent, ambitious renewable targets, auctions tailored to local conditions, risk-mitigating financial instruments and the use of renewables for heat.",
+       "ref": [
+        "doc:irena"
+       ],
+       "b": "IRENA recommends auctions and risk-mitigating finance"
+      },
+      {
+       "k": "f",
+       "t": "The energy efficiency programme states that low tariffs make renewable generation uncompetitive on cost. It therefore calls for small renewable technologies in the public sector, such as heat pumps, solar water heating and biogas.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 lists studies and construction of pumped-storage plants, batteries combined with solar and wind, a study of nuclear potential, net metering (a scheme for selling surplus household solar power to the grid), and simplified permitting and grid connection for solar and wind.",
+       "ref": [
+        "doc:ndp",
+        "tree:renew:RN2"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "v",
+       "t": "The national target (92% of generation) is a share that includes large hydropower and depends on water availability. The energy efficiency programme's \"at least 10% renewables\" refers to building small hydro, solar and similar plants, and appears to be a different yardstick. The documents do not explain how the two targets relate.",
+       "ref": [
+        "doc:ndp",
+        "doc:eneff",
+        "ind:re:0"
+       ],
+       "b": "The two renewable targets use different yardsticks"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the renewables and gasification row has 4 projects worth about USD 20.1 million (of which the Green Climate Fund about USD 19.1 million). The World Bank's renewable energy development project (about USD 26.7 million) includes transmission and small hydropower and falls under the generation and grids row.",
+       "ref": [
+        "row:F5",
+        "row:F2",
+        "doc:wbre2023",
+        "proj:WB-P178286"
+       ],
+       "b": "About USD 20.1 million in the renewables and gasification row"
+      },
+      {
+       "k": "f",
+       "t": "Phase 1 of the World Bank's renewable energy development project is USD 67.7 million (approved June 2023, 2024–2028), the first stage of a phased ten-year programme worth USD 125.7 million. The Green Climate Fund provides USD 12.5 million through a risk-mitigation facility. The project combines grid strengthening, rehabilitation and construction of small and medium hydropower, and solar, adding at least 20 MW of hydropower and enabling the grid to absorb at least 100 MW of variable renewables.",
+       "ref": [
+        "doc:wbre2023",
+        "proj:WB-P178286"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the site's data, this project appears in the generation and grids row at about USD 26.7 million. The about USD 19.1 million in the renewables and gasification row is the Green Climate Fund's renewable energy risk-mitigation facility (2023–2035). Others include ADB floating solar (about USD 0.5 million) and Korea's small hydropower in Osh Region (about USD 0.1 million).",
+       "ref": [
+        "proj:WB-P178286",
+        "proj:XM-DAC-41317-FP204",
+        "proj:XM-DAC-46004-57037-008-GRNT1085",
+        "proj:KR-GOV-010-KR-GOV-051-2026070100714",
+        "row:F5"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The World Bank project is positioned as a \"bridge\" until large hydropower such as Kambarata-1 is built. 20 MW of hydropower and 100 MW of absorption capacity are small relative to the average shortfall of 3.5 billion kWh, so the renewable share target depends on the timing of large hydropower.",
+       "ref": [
+        "doc:wbre2023",
+        "doc:ndp",
+        "doc:kmb"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Transmission, distribution and power losses",
+     "msg": "Losses rose from 16.6% in 2019 to 18.8%, the furthest from the national 10% target. Ageing distribution networks and winter overloading are cited as causes.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Share of electricity lost in transmission and distribution (dotted line = national target of 10%)",
+      "inds": [
+       "grid:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "Trend: the share of electricity lost in transmission and distribution fell from 24.1% (2010) to 16.6% (2019), then rose to 18.8% (2024).",
+       "ref": [
+        "ind:grid:0"
+       ],
+       "b": "Losses 16.6% (2019) → 18.8% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "According to the ADB evaluation, transmission and distribution losses fell from 31.7% (2009) to 18% (2018), saving 2,820 GWh in 2018. Distribution losses fell from 26% to 12.7% and transmission losses from 5.7% to 5.3% (target 4.7%).",
+       "ref": [
+        "doc:adbpvr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Improved metering contributed to the decline in this period. The ADB project installed a metering data system linking 190 substations of the national transmission company and rehabilitated 118 substations. The KfW project installed meters and rehabilitated the distribution network in Bishkek.",
+       "ref": [
+        "doc:adbpvr",
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The reports read for this analysis do not explain why losses rose again after 2019. International data include estimates and need to be checked against the annual figures of the national transmission and distribution company.",
+       "ref": [
+        "ind:grid:0",
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying causes"
+      },
+      {
+       "k": "f",
+       "t": "Breakdown: losses in the national transmission company's network were 4.65% (end of 2021; the international benchmark is 4%). Losses in the low-voltage distribution network fell from 12.7% (2018) to 11.9% (2021) but remain above the 10% standard.",
+       "ref": [
+        "doc:eneff"
+       ],
+       "b": "Transmission 4.65%, low-voltage distribution 11.9% (2021)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank puts total losses at about 20% of net generation, more than twice the level of high-income countries and others. Up to 70% of distribution assets are past their service life.",
+       "ref": [
+        "doc:wb2022"
+       ],
+       "b": "Losses are about 20% of net generation (World Bank)"
+      },
+      {
+       "k": "f",
+       "t": "The Bishkek distribution network rehabilitation (KfW, 2005–2021, about EUR 35.5 million) cut commercial losses (theft, unmetered consumption, etc.) in the Bishkek area from about 23% (2006) to 0.15% (2019/2020). Technical losses, however, fell only slightly, and the number of outages missed its target. The project was rated 3 on a six-point scale (moderately successful).",
+       "ref": [
+        "doc:kfw2024"
+       ],
+       "b": "KfW: commercial losses 23% → 0.15%; technical losses remain"
+      },
+      {
+       "k": "f",
+       "t": "According to the KfW evaluation, technical losses in the Bishkek area went from about 14.4% (2006) to 11.5% (2020, World Bank data), short of the targeted reduction (35 GWh a year). Outage frequency (SAIFI) was 1,324–1,448 in 2020 against a baseline of 900 and a target of 600, meaning it actually increased. Technical loss figures differ by source even within the report.",
+       "ref": [
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The ADB project was delayed by 49 months through three extensions. The evaluation attributes the delays to government reorganisation, slow internal approvals and procurement problems, and rated the project \"less than successful\" overall. Because of low tariffs, the utility's financial rate of return was recalculated at 1.4% (after tax), far below the 7.8% at appraisal.",
+       "ref": [
+        "doc:adbpvr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The KfW evaluation states that distribution companies' revenues were pooled at the parent company and diverted to subsidise other businesses, which, together with below-cost tariffs, is a major sustainability risk. In 2022 four distribution companies were merged into the national transmission and distribution company.",
+       "ref": [
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national target refers to \"transmission losses of 10%\", but the 18.8% in international data covers transmission and distribution combined; national figures put transmission alone below 5%. Unless it is decided which figure applies, achievement of the target cannot be measured.",
+       "ref": [
+        "doc:ndp",
+        "doc:eneff",
+        "ind:grid:0"
+       ],
+       "b": "The \"10% losses\" target cannot be measured without a definition"
+      },
+      {
+       "k": "v",
+       "t": "Smart meters greatly reduced commercial losses, but technical losses can only fall with asset renewal. Funding for renewal is tied to the tariff level.",
+       "ref": [
+        "doc:kfw2024",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Power Sector Modernisation project (approved June 2022, USD 50 million, including a USD 8 million grant from Switzerland) has four components—distribution network rehabilitation, smart meters, strengthened social protection and institution building—and runs until 2028. In the site's data it appears in the generation and grids row at about USD 10 million.",
+       "ref": [
+        "doc:wb2022",
+        "proj:WB-P177871"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Other projects in the grid row: the Islamic Development Bank's transmission lines and substations in Tamga and Karakol, Issyk-Kul Region (about USD 14.6 million, 2026–2029); EBRD digitalisation of electricity supply (about USD 4.9 million); and Korea's advanced metering infrastructure in Jalal-Abad Region (about USD 4.2 million, 2026–2029).",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ1007",
+        "proj:XI-IATI-EBRD-54885",
+        "proj:KR-GOV-120-1482000_2026_010",
+        "row:F2"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Active projects target both metering digitalisation (commercial losses) and transmission lines (technical losses). As past evaluations show, however, technical losses decline in proportion to the volume of asset renewal, and renewal funding depends on tariffs and utility finances. Asset projects alone are unlikely to reach 10% by 2030.",
+       "ref": [
+        "row:F2",
+        "doc:adbpvr",
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the generation and grids row has 12 projects worth about USD 80.4 million (World Bank about USD 52 million, Islamic Development Bank about USD 14.6 million, EBRD about USD 9.6 million, Korea about USD 4.2 million).",
+       "ref": [
+        "row:F2"
+       ],
+       "b": "About USD 80.4 million in the generation and grids row"
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Energy efficiency and household energy",
+     "msg": "Energy intensity has declined, but outdated methods persist in building heating and cooking fuels, and the gasification target cannot be tracked with annual data.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Energy intensity and share of clean cooking fuels (dotted lines = SDG benchmarks)",
+      "inds": [
+       "eff:0",
+       "eff:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Trends and background"
+      },
+      {
+       "k": "f",
+       "t": "Trend: the energy used to produce USD 1 of GDP (PPP) fell from 4.91 MJ (2015) to 3.76 MJ (2023). Year-to-year swings are large; 2022 was 4.39 MJ.",
+       "ref": [
+        "ind:eff:0"
+       ],
+       "b": "Energy intensity 4.91 (2015) → 3.76 (2023)"
+      },
+      {
+       "k": "f",
+       "t": "The energy efficiency programme gives a 2020 value of 5.66 GJ per USD 1,000, above the world average of 4.77, and estimates domestic energy saving potential at 30–35% of total energy consumption.",
+       "ref": [
+        "doc:eneff"
+       ],
+       "b": "Energy saving potential of 30–35% of consumption"
+      },
+      {
+       "k": "v",
+       "t": "Although both values are per dollar, they use different source data and PPP base years and cannot be compared directly. Either way, the economy uses more energy than the world average.",
+       "ref": [
+        "doc:eneff",
+        "ind:eff:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "There are 9,780 public buildings, using about 850 GWh a year (6% of primary energy consumption). About 70–88% of their consumption is for heating, and 60% of buildings use electricity for heating. Retrofitting is estimated to require USD 1.085 billion of investment (according to a roadmap prepared with World Bank support).",
+       "ref": [
+        "doc:eneff"
+       ],
+       "b": "9,780 public buildings; retrofits need about USD 1.09 billion"
+      },
+      {
+       "k": "f",
+       "t": "Housing and communal services and households account for 83.3% (2020) of electricity supplied domestically, much of it for heating, hot water and cooking. Over 80% of buildings were built to outdated standards.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Household energy and tariffs"
+      },
+      {
+       "k": "f",
+       "t": "A World Bank analysis of the 2016 household survey found that 54.2% of the population heat with electricity and 83.0% use stoves (coal or wood); 46.8% combine both. Electric heating is low in Bishkek at 31.5% and 67.4% in other cities.",
+       "ref": [
+        "doc:wbdist"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same analysis found that 17.1% of households spent more than 10% of their budget on energy (2016), rising to 43.2% in Bishkek. It concludes that in the short term households have little room to reduce consumption or switch fuels when tariffs rise.",
+       "ref": [
+        "doc:wbdist"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "[Academic study — not national statistics] A paper using seven years of household survey data on the block tariff for household electricity introduced in January 2015 (higher above 700 kWh a month) estimates that most households were well below the threshold and little affected, but higher-income households and those in colder regions were more affected, and that the use of coal, wood and dung as supplementary fuels during the heating season increased.",
+       "ref": [
+        "doc:btariff",
+        "doc:wbdist"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Tariff increases lead some households to switch back from electricity to coal and wood. Unless energy efficiency and tariff reform are combined with gasification and building insulation, air pollution and clean fuel indicators may worsen.",
+       "ref": [
+        "doc:btariff",
+        "ind:eff:1",
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The share of people with access to clean fuels and cooking technologies rose from 70% (2010) to 82% (2024). In rural areas, cooking and heating with coal and wood persist.",
+       "ref": [
+        "ind:eff:1"
+       ],
+       "b": "Clean cooking fuels 82% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "The gasification rate rose from 22% (2014) to 35% (2020), with a plan to reach 60% in 2030.",
+       "ref": [
+        "doc:eneff"
+       ],
+       "b": "Gasification 35% (2020) → target 60% (2030)"
+      },
+      {
+       "k": "f",
+       "t": "Heat supply: district heating reaches 85% of housing in Bishkek and 35–40% in Osh. Bishkek's heat sources are CHP-1 and 74 boiler houses; heat is 250–300 Gcal/h short, and depreciation of the heat network exceeds 70%.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The gasification plan sets regional targets, such as from 57% to 74% in Bishkek, from 0% to 67% in Issyk-Kul Region and from 0% to 38% in Naryn Region. 66.2% of gas is used by households for cooking and water heating.",
+       "ref": [
+        "doc:eneff"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Industry: the energy efficiency programme lists energy audits of enterprises, introduction of the international standard ISO 50001 (energy management), and state support mechanisms for energy efficiency loans.",
+       "ref": [
+        "doc:eneff",
+        "tree:eneff:F4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The programme itself names \"socially low tariffs\" as the biggest barrier to energy efficiency. As long as tariffs stay low, users have little reason to retrofit buildings or replace equipment on their own.",
+       "ref": [
+        "doc:eneff",
+        "doc:wb2024"
+       ],
+       "b": "Low tariffs are the biggest barrier to energy efficiency"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the public buildings and housing efficiency row has 12 projects worth about USD 62.4 million (Islamic Development Bank about USD 26.7 million, ADB about USD 25.2 million, EBRD about USD 7.4 million, World Bank about USD 3.1 million). Industrial energy efficiency has 3 projects worth about USD 2.8 million.",
+       "ref": [
+        "row:F3",
+        "row:F4"
+       ],
+       "b": "About USD 62.4 million for building efficiency; about USD 2.8 million for industry"
+      },
+      {
+       "k": "f",
+       "t": "Main building efficiency projects: Islamic Development Bank affordable housing finance (about USD 26.7 million); ADB housing finance for energy-efficient homes (loan about USD 11.3 million, grant about USD 5 million); ADB greening of public buildings (loan about USD 6.7 million, grant about USD 1.7 million); EBRD Bishkek district heating network (about USD 4.7 million and about USD 2.7 million); and World Bank additional financing for heat supply improvement (about USD 1.7 million).",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ1028",
+        "proj:XM-DAC-46004-58292-001-LN4649",
+        "proj:XM-DAC-46004-58292-001-GRNT1043",
+        "proj:XM-DAC-46004-58345-001-LN4647",
+        "proj:XM-DAC-46004-58345-001-GRNT1042",
+        "proj:XI-IATI-EBRD-56980",
+        "proj:XI-IATI-EBRD-55936",
+        "proj:WB-P180748",
+        "row:F3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Industrial efficiency projects: EBRD energy efficiency financing facility (KyrSEFF III, on-lending through banks of about USD 0.8 million each) and the US Green Solutions Activity (about USD 1.2 million, 2024–2029).",
+       "ref": [
+        "proj:XI-IATI-EBRD-54971",
+        "proj:XI-IATI-EBRD-53891",
+        "proj:US-GOV-1-72011524C00001",
+        "row:F4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Building efficiency funding is mostly in the form of housing finance, and the barrier of low tariffs for households remains. Against the USD 1.085 billion said to be needed for public building retrofits, active funding in the building row is about USD 62.4 million, or around 6%.",
+       "ref": [
+        "row:F3",
+        "doc:eneff"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overview",
+     "msg": "The World Bank, the Islamic Development Bank and ADB are the largest sources of active funding, with the top three accounting for about three-quarters.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects mapped to strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the energy strategy comprises 31 projects worth about USD 166 million. By donor: World Bank about USD 55.1 million, Islamic Development Bank about USD 41.3 million, ADB about USD 25.7 million, Green Climate Fund about USD 19.1 million, EBRD about USD 18.6 million, Korea about USD 4.6 million, United States about USD 1.2 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "31 active projects worth about USD 166 million"
+      },
+      {
+       "k": "f",
+       "t": "One project ends at the end of 2026, with a very small amount.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ],
+       "b": "Almost nothing ends at the end of 2026"
+      },
+      {
+       "k": "f",
+       "t": "Donor focus: of the World Bank's about USD 55.1 million, about USD 52 million is in generation and grids. The Islamic Development Bank focuses on building efficiency (about USD 26.7 million) and grids (about USD 14.6 million). Almost all of ADB's funding (about USD 25.2 million) is for building efficiency. The Green Climate Fund focuses on renewables (about USD 19.1 million). EBRD is split between grids (about USD 9.6 million), buildings (about USD 7.4 million) and industry (about USD 1.6 million).",
+       "ref": [
+        "fact:rows",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Two rows, generation and grids (about USD 80.4 million) and building efficiency (about USD 62.4 million), account for most of the about USD 166 million in active funding (amounts by row, including overlaps).",
+       "ref": [
+        "row:F2",
+        "row:F3",
+        "fact:mapped_musd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 comprises 46 projects worth about USD 627 million, led by the EU, ADB and the World Bank.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "46 projects worth about USD 627 million completed since 2017"
+      },
+      {
+       "k": "v",
+       "t": "Most active projects continue beyond 2027, so there is no major break this year. The main question is whether tariff reform advances, rather than the size of new projects.",
+       "ref": [
+        "fact:end_2026_musd",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Most active projects are loans from international financial institutions, ending between 2027 and the 2030s. The EBRD district heating project runs until 2043. The World Bank's Power Sector Modernisation project and its Kambarata-1 technical assistance are scheduled to close in December 2027.",
+       "ref": [
+        "proj:XI-IATI-EBRD-55936",
+        "proj:WB-P177871",
+        "proj:WB-P181086",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "When the World Bank's Power Sector Modernisation project (including its social protection and institution-building components) ends in late 2027, the main pillar of cooperation supporting tariff reform will disappear. How construction of Kambarata-1 is financed will be the biggest development after 2027.",
+       "ref": [
+        "proj:WB-P177871",
+        "doc:kmb",
+        "row:F1"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and evolution of support",
+     "msg": "Almost all cooperation completed in the past decade was in generation and grids, dominated by regional transmission (CASA-1000) and hydropower plant rehabilitation.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage: projects completed in 2017 or later. The site's data cover the main donors' projects consistently from 2017; earlier records are incomplete. Even after 2017, however, ADB data are largely limited to 2020 onwards and UNICEF and UNDP data to 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the energy strategy number 46, worth about USD 627 million (after pro-rata allocation, without double counting). By donor: EU about USD 314 million, ADB about USD 120 million, World Bank about USD 87.4 million, Islamic Development Bank about USD 57.3 million, Germany about USD 45.2 million, EBRD about USD 2.1 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "46 projects worth about USD 627 million, led by the EU, ADB and the World Bank"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): generation and grids 23 projects worth about USD 607 million; public buildings and housing efficiency 8 projects worth about USD 17.4 million (World Bank heat supply improvement); industrial efficiency 9 projects worth about USD 3 million. The EU's largest project was Central Asia–South Asia transmission (completed 2023); ADB's were the rehabilitation of the Toktogul and Uch-Kurgan hydropower plants; Germany's was distribution network efficiency improvement.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "Generation and grids account for almost all, at about USD 607 million"
+      },
+      {
+       "k": "f",
+       "t": "Main completed projects: ADB Toktogul Hydropower Plant Rehabilitation Phase 2 (completed 2022), Uch-Kurgan Hydropower Plant Modernisation (completed 2025), power sector rehabilitation (completed 2020) and power sector improvement (transmission and distribution metering, completed 2019); Germany's distribution network efficiency improvement and Bishkek distribution strengthening (completed 2019–2021); World Bank heat supply improvement (completed 2025).",
+       "ref": [
+        "proj:XM-DAC-46004-46348-003-LN3212",
+        "proj:XM-DAC-46004-49240-002-LN3778",
+        "proj:XM-DAC-46004-44198-013-GRNT0294",
+        "proj:XM-DAC-46004-43456-023-GRNT0218",
+        "proj:DE-1-200765685",
+        "proj:DE-1-200466029",
+        "proj:DE-1-200770149",
+        "proj:WB-P157079"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Evaluations of completed projects: ADB's power sector improvement was rated \"less than successful\" (only one of four outcome targets, bill collection, was achieved). KfW's Bishkek distribution network rehabilitation was rated 3 on a six-point scale (moderately successful): it sharply cut commercial losses, but the billing system was not installed.",
+       "ref": [
+        "doc:adbpvr",
+        "doc:kfw2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The common lesson of the two evaluations is that low tariffs and weak utility finances jeopardise the maintenance of rehabilitated assets. Tariff and financial reform is essential to preserve the benefits of the past decade's about USD 600 million of asset investment.",
+       "ref": [
+        "doc:adbpvr",
+        "doc:kfw2024",
+        "fact:closed_musd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: the EU's Central Asia–South Asia transmission project (about USD 314 million) is regional, and it has not been confirmed whether the amount is for the Kyrgyz Republic only. Completed World Bank amounts also vary widely depending on the aggregation method (this report uses the about USD 87.4 million from the aggregation used for the site).",
+       "ref": [
+        "fact:closed_by_donor",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Past funding was concentrated in physical assets: power plants and transmission lines. Active funding has broadened to building efficiency, housing finance and renewables.",
+       "ref": [
+        "fact:closed_rows",
+        "row:F3",
+        "row:F5"
+       ],
+       "b": "Past funding went to assets; now also to building efficiency and renewables"
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Three areas have no active cooperation: legal framework and electricity tariffs, awareness raising, and mining and natural resources.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle active / completed / cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Areas with no active cooperation: legal framework and electricity tariffs, awareness raising, and mining and natural resources.",
+       "ref": [
+        "fact:empty_rows",
+        "row:F1",
+        "row:F6",
+        "row:mine"
+       ],
+       "b": "Gaps: legal framework and tariffs, awareness, mining"
+      },
+      {
+       "k": "v",
+       "t": "The legal framework and tariffs row is empty, but the World Bank's Power Sector Modernisation project has institutional reform and social protection components (it sits in the generation and grids row). The gap is better read as \"no dedicated project\" than \"no one is working on it\".",
+       "ref": [
+        "row:F1",
+        "row:F2",
+        "doc:wb2022"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The awareness row is also empty. The energy efficiency programme lists information campaigns, \"energy efficiency basics\" courses at schools and universities, and training of energy management specialists, but the site's data contain no active cooperation matching these.",
+       "ref": [
+        "row:F6",
+        "doc:eneff",
+        "tree:eneff:F6"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The mining and natural resources row also has no active projects; 3 projects worth about USD 0.5 million have been completed since 2017 (including a Green Climate Fund project on the environmental risks of mercury in mining). The industrialisation chapter of NDP 2030 prioritises the mining and processing of critical minerals and gold.",
+       "ref": [
+        "row:mine",
+        "fact:closed_rows",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Awareness and tariffs are both areas that change user behaviour and determine the effectiveness of asset projects. They do not require large funding, but have not been taken up as technical cooperation.",
+       "ref": [
+        "row:F1",
+        "row:F6"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "Asset investment continues, but loss and shortage indicators will not move unless tariff reform advances.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Both of the two trackable national targets (92% renewables, 10% losses) have moved away from target over the past five years. Asset projects alone are unlikely to reach the 2030 targets.",
+       "ref": [
+        "ind:re:0",
+        "ind:grid:0",
+        "doc:ndp"
+       ],
+       "b": "Both trackable targets are moving the wrong way"
+      },
+      {
+       "k": "v",
+       "t": "Tariff self-sufficiency (NDP 2030) and the elimination of cross-subsidies are preconditions for loss reduction, energy efficiency and renewable investment alike. The absence of a dedicated cooperation row here is the largest gap.",
+       "ref": [
+        "doc:ndp",
+        "row:F1",
+        "doc:wb2024"
+       ],
+       "b": "Tariff reform is the precondition for everything"
+      },
+      {
+       "k": "v",
+       "t": "More than half of households heat with electricity, and tariff increases may drive a return to coal and wood. Tariff reform needs to be combined with social protection, gasification and insulation.",
+       "ref": [
+        "doc:wbdist",
+        "doc:btariff",
+        "doc:wb2024"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "New funding has begun to flow into building efficiency and housing finance (Islamic Development Bank, ADB, EBRD). Compared with the about USD 1.09 billion needed to retrofit public buildings, it is still only a fraction.",
+       "ref": [
+        "row:F3",
+        "doc:eneff"
+       ],
+       "b": "Building efficiency funding covers only part of the need"
+      },
+      {
+       "k": "v",
+       "t": "The loss and gasification targets lack agreed definitions and annual published figures. Building measurement systems is itself an opportunity for support.",
+       "ref": [
+        "doc:ndp",
+        "doc:eneff",
+        "ind:grid:0"
+       ],
+       "b": "Building measurement systems is an opportunity for support"
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: winter electricity imports and the handling of the state of emergency, tariff revisions, financing developments for Kambar-Ata-1, and publication of the text of Renewable Energy Development 2026–2030.",
+       "ref": [
+        "doc:ndp",
+        "tree:renew:renew"
+       ],
+       "b": "Winter imports, tariff revisions, Kambar-Ata-1, renewables plan"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Share of renewables in electricity generation",
+   "87.8%(2024)",
+   "92%",
+   "−0.78 points/year (2019–2024)",
+   "+0.70 points/year",
+   "Off track (moving the wrong way; about 83%)",
+   "bad"
+  ],
+  [
+   "Electricity generated from renewables",
+   "National yearbook only (not retrievable automatically on the site)",
+   "7.5 billion kWh a year",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Guaranteed capacity reserve",
+   "No published figure",
+   "550–700 MW",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Power losses (transmission and distribution combined)",
+   "18.8%(2024)",
+   "10% (the national target says \"transmission\")",
+   "+0.44 points/year (2019–2024)",
+   "−1.47 points/year",
+   "Off track (moving the wrong way)",
+   "bad"
+  ],
+  [
+   "Greenhouse gas reduction",
+   "No annual published figure",
+   "16% (without support), 44% (with support)",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Energy intensity (SDG 7.3)",
+   "3.76 MJ per USD (2023)",
+   "3.31 (SDG benchmark)",
+   "−0.24/year (2018–2023)",
+   "−0.06/year",
+   "On track (large year-to-year swings)",
+   "warn"
+  ],
+  [
+   "Clean cooking fuels (SDG 7.1.2)",
+   "82%(2024)",
+   "100%",
+   "+0.8 points/year (2019–2024)",
+   "+3.0 points/year",
+   "Off track (about 87%)",
+   "bad"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Legal framework and electricity tariffs",
+   "Task 1 of the energy efficiency programme (tariff policy is also covered by the National Energy Programme to 2035)",
+   "Cabinet Resolution No. 328 of 2023",
+   "ok",
+   "Support measure (tariff self-sufficiency)",
+   "F1",
+   "F1"
+  ],
+  [
+   "2",
+   "Generation, transmission and distribution",
+   "National Energy Programme to 2035 (first phase 2024–2027)",
+   "Cabinet Resolution No. 172 of 12 April 2024",
+   "ok",
+   "(1)(3)(4)",
+   "F2",
+   "enp"
+  ],
+  [
+   "3",
+   "Energy efficiency in public buildings and housing",
+   "Task 3 of the energy efficiency programme (Roadmap for implementing energy efficiency in public buildings)",
+   "Cabinet Resolution No. 328 of 2023",
+   "ok",
+   "—",
+   "F3",
+   "F3"
+  ],
+  [
+   "4",
+   "Industrial energy efficiency",
+   "Task 4 of the energy efficiency programme",
+   "Cabinet Resolution No. 328 of 2023",
+   "ok",
+   "—",
+   "F4",
+   "F4"
+  ],
+  [
+   "5",
+   "Renewables and gasification",
+   "Renewable Energy Development (distributed and micro-generation) 2026–2030",
+   "Approved by the Cabinet of Ministers in May 2026 (press reports)",
+   "ok",
+   "(1)(2)(5)",
+   "F5",
+   "renew"
+  ],
+  [
+   "6",
+   "Awareness raising",
+   "Task 6 of the energy efficiency programme",
+   "Cabinet Resolution No. 328 of 2023",
+   "ok",
+   "—",
+   "F6",
+   "F6"
+  ],
+  [
+   "Other",
+   "Mining and natural resources",
+   "No separate national plan in the site's policy tree (critical minerals and gold are covered under NDP 2030 Section 5.1, Industrialisation)",
+   "—",
+   "none",
+   "—",
+   "mine",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Legal framework and pricing policy"
+  ],
+  [
+   "2",
+   "Energy saving in energy production and distribution"
+  ],
+  [
+   "3",
+   "Energy saving in the public sector, construction and housing"
+  ],
+  [
+   "4",
+   "Energy saving in industry"
+  ],
+  [
+   "5",
+   "Gasification and renewable energy"
+  ],
+  [
+   "6",
+   "Awareness raising"
+  ],
+  [
+   "Other",
+   "Outside the programme (mining and natural resources)"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual values of renewable electricity generation (national target 7.5 billion kWh a year) and whether the definition includes large hydropower (in national yearbooks but not retrievable automatically on the site; unconfirmed)",
+  "Published figures for the guaranteed capacity reserve (national target 550–700 MW)",
+  "Which losses (transmission only, or transmission and distribution combined) the national target of \"10% transmission losses\" refers to",
+  "Annual values of energy sector greenhouse gas emissions (national target of 16%/44% reduction)",
+  "Annual values of the settlement gasification rate (60% in 2030) (only announcements by the gas company)",
+  "Progress on fuel savings under the energy efficiency programme (190,100 tonnes of standard fuel by 2027) and on 10% renewables from small hydro, solar, etc.",
+  "Texts and indicator tables of the National Energy Programme to 2035 and Renewable Energy Development 2026–2030 (not read)",
+  "Also unconfirmed: the full PDF of IRENA's Renewables Readiness Assessment (only the summary on the landing page was read), the full ESMAP country brief on subsidy reform (only the landing page was read), the World Bank roadmap for energy efficiency in public buildings (summary only, no figures), the World Bank mining sector diagnostic, the IEA energy profile, OECD work on critical minerals, and EITI (none of these were opened this time)"
+ ]
+}

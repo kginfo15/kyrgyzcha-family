@@ -1,0 +1,1617 @@
+{
+ "spec": {
+  "pil": {
+   "1": "Peacebuilding"
+  },
+  "rows": {
+   "pve": {
+    "n": "Prevention of violent extremism",
+    "st": "Concept of State Policy in the Religious Sphere 2021–26"
+   },
+   "border": {
+    "n": "Border areas and cooperation with neighbours",
+    "st": "(National Development Programme, Chapter 2)"
+   },
+   "youth": {
+    "n": "Youth and social cohesion",
+    "st": "(National Development Programme, Chapter 2)"
+   },
+   "just": {
+    "n": "Justice, prisons and reintegration",
+    "st": "Legal Policy Concept 2023–26"
+   },
+   "women": {
+    "n": "Women, peace and human trafficking",
+    "st": "Counter-trafficking 2022–25 (expired)"
+   }
+  }
+ },
+ "ind": {
+  "sec": {
+   "name": "① Security and stability",
+   "inds": [
+    {
+     "name": "Homicides (per 100,000 people)",
+     "unit": "Persons",
+     "st": "— No target (declining trend)",
+     "src": "World Bank WDI VC.IHR.PSRC.P5 (originally UNODC, to 2020)",
+     "t": []
+    },
+    {
+     "name": "Political stability and absence of violence",
+     "unit": "Score (−2.5 to +2.5)",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WGI PV.EST",
+     "t": []
+    }
+   ]
+  },
+  "mig": {
+   "name": "② Migration and remittances",
+   "inds": [
+    {
+     "name": "Personal remittances received (% of GDP)",
+     "unit": "%",
+     "st": "— No target",
+     "src": "World Bank WDI BX.TRF.PWKR.DT.GD.ZS",
+     "t": []
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Peacebuilding support centres on the UN Peacebuilding Fund and ADB border projects",
+  "msgs": [
+   [
+    "The UN Peacebuilding Fund runs many small projects.",
+    "Prevention of extremism, youth, prisons, women and more."
+   ],
+   [
+    "Borders: ADB.",
+    "Improving border services on the Almaty–Bishkek Economic Corridor."
+   ],
+   [
+    "Returnees from conflict zones.",
+    "Discussions with UNICEF on reintegration support (4 Nov)."
+   ],
+   [
+    "The counter-trafficking programme has expired.",
+    "No successor plan is in sight."
+   ]
+  ],
+  "h2": "Borders (ADB) and small UN Peacebuilding Fund projects",
+  "rows": {
+   "pve": [
+    "",
+    "UN Peacebuilding Fund"
+   ],
+   "border": [
+    "",
+    "ADB border services; UN"
+   ],
+   "youth": [
+    "",
+    "UN Peacebuilding Fund"
+   ],
+   "just": [
+    "",
+    "UN Peacebuilding Fund (prisons and probation)"
+   ],
+   "women": [
+    "",
+    "Small UN projects"
+   ]
+  },
+  "h3": "Recent themes: \"reintegration of returnees\" and \"countering extremism\"",
+  "themes": [
+   [
+    "Returnees:",
+    "Reintegration of returnees from conflict zones (UNICEF)."
+   ],
+   [
+    "Extremism:",
+    "Public warnings about online extremism; presentations at international conferences."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "sid": "peace",
+ "title": "Kyrgyz Republic: Peacebuilding Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Chapter II \"Spiritual and Moral Development\", Section 11.2 \"Improving Public Security\" and Chapter XII \"Foreign Policy and National Security\"",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "Full text of the relevant chapters and sections (translation on this site)",
+   "cat": "gov",
+   "u": "https://stat.gov.kg/media/files/be95e086-a299-4be2-8e38-8cc8b90c15d0.pdf"
+  },
+  {
+   "id": "rel",
+   "t": "Concept of State Policy in the Religious Sphere (the text translated on the site is the 2014–2020 edition)",
+   "by": "Kyrgyz Republic",
+   "y": "2014",
+   "scope": "Full text (machine translation on this site). The title is the 2021–2026 edition, but the translated text is that of the 2014–2020 edition",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=594259&lang=ru"
+  },
+  {
+   "id": "wgi",
+   "t": "World Development Indicators (WDI) and Worldwide Governance Indicators (WGI)",
+   "by": "World Bank (homicide data originally from UNODC)",
+   "y": "2026",
+   "scope": "Each series in the site's indicator data (retrieved automatically on 2026-11-07). These are international organisation indicators, not national statistics",
+   "cat": "donor"
+  },
+  {
+   "id": "pbf",
+   "t": "UNDP in the Kyrgyz Republic: Partnership with the Peacebuilding Fund",
+   "by": "UNDP",
+   "y": "Feb 2026",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.undp.org/sites/g/files/zskgke326/files/2026-02/undp_pbf_2026.pdf"
+  },
+  {
+   "id": "pbfeval",
+   "t": "Final Evaluation of the joint project \"Communities Resilient to Violent Ideologies\"(PBF/KGZ/A-7)",
+   "by": "UN Peacebuilding Fund (UNICEF, UNFPA, UN Women)",
+   "y": "2022",
+   "scope": "About 80% of the text (summary, results, recommendations) reviewed in the original",
+   "cat": "donor",
+   "u": "https://www.un.org/peacebuilding/sites/www.un.org.peacebuilding/files/documents/pbf_kgz_a-7_final_outcome_iii_evaluation_report.pdf"
+  },
+  {
+   "id": "spot",
+   "t": "Spotlight Initiative Kyrgyzstan Final Narrative Programme Report, 2020–2023",
+   "by": "EU and United Nations",
+   "y": "2024",
+   "scope": "About 80% of the text reviewed in the original. The lessons and way-forward chapters not read",
+   "cat": "donor",
+   "u": "https://spotlightinitiative.org/sites/default/files/publication/2024-09/Spotlight%20Initiative%20Kyrgyzstan%20Final%20Annual%20Report.pdf"
+  },
+  {
+   "id": "bti",
+   "t": "BTI 2026 Country Report — Kyrgyzstan",
+   "by": "Bertelsmann Stiftung",
+   "y": "2026",
+   "scope": "Review period February 2023 – January 2025. About 90% of the text reviewed in the original. The last ~12,000 characters not read",
+   "cat": "donor",
+   "u": "https://bti-project.org/fileadmin/api/content/en/downloads/reports/country_report_2026_KGZ.pdf"
+  },
+  {
+   "id": "ypi",
+   "t": "Evaluation of the project \"Promoting Kyrgyzstan's youth cohesion and interaction towards Uzbekistan\"(PBF/IRF-258)",
+   "by": "UN Peacebuilding Fund (UNICEF, UNFPA, UNDP)",
+   "y": "2021",
+   "scope": "About 80% of the text, including the summary, results and recommendations, reviewed in the original",
+   "cat": "donor",
+   "u": "https://www.un.org/peacebuilding/sites/www.un.org.peacebuilding/files/documents/pbf_irf-258_final_ypi_evaluation_report_small_size.pdf"
+  },
+  {
+   "id": "aigul",
+   "t": "PBF Project Progress Report: Blossoming Aigul – Women CSOs sustaining peace in Kyrgyzstan",
+   "by": "UN Women, FAO and women-led organisations (Peacebuilding Fund)",
+   "y": "Nov 2024",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://mptf.undp.org/sites/default/files/documents/2024-11/gpi_annual_report_15.11.24_unw_fao_roi.pdf"
+  },
+  {
+   "id": "scd",
+   "t": "Systematic Country Diagnostic Update: From Vulnerability to Resilience (Kyrgyz Republic)",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "Summary and main text up to paragraph 48 (about 80%) reviewed in the original. The section on remittances is used",
+   "cat": "donor",
+   "u": "https://documents1.worldbank.org/curated/en/099062123120520664/pdf/BOSIB1cf4714711c50814256196431a9383d7e5012.pdf"
+  },
+  {
+   "id": "gender",
+   "t": "National Strategy for Achieving Gender Equality to 2030 (Cabinet of Ministers Resolution No. 513 of 16 September 2022)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2022",
+   "scope": "Text of the resolution (approval and reporting procedures). The strategy itself is not among the site's translations",
+   "cat": "gov",
+   "u": "https://cbd.minjust.gov.kg/api/v1/GetEdition?editionId=1189693&lang=ru"
+  },
+  {
+   "id": "whr",
+   "t": "World Happiness Report 2026 Statistical Appendix",
+   "by": "World Happiness Report (Wellbeing Research Centre, Gallup, UN SDSN and others)",
+   "y": "2026",
+   "scope": "The Kyrgyzstan row of the ranking table",
+   "cat": "donor",
+   "u": "https://files.worldhappiness.report/WHR26_Statistical_Appendix.pdf"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "The political stability and absence of violence indicator rose to −0.02 in 2025, its highest level since 2010. After falling to −0.54 in 2020, it rose sharply from −0.40 (2024).",
+   "ref": [
+    "ind:sec:1",
+    "doc:wgi"
+   ],
+   "h": "The political stability indicator reached its highest level since 2010 in 2025"
+  },
+  {
+   "k": "f",
+   "t": "Border delimitation with neighbouring countries has advanced. The border agreement with Uzbekistan was concluded in January 2023, and border delimitation with Tajikistan was completed and signed in March 2025.",
+   "ref": [
+    "doc:bti",
+    "row:border"
+   ],
+   "h": "Border delimitation with neighbours has advanced"
+  },
+  {
+   "k": "f",
+   "t": "Of the NDP 2030 social cohesion targets, two — 85% of citizens proud of the country and 95% considering that freedom of religion exists — have no annual published data, so achievement cannot be measured. Happiness ranks 66th in the world (World Happiness Report 2026), 16 places short of the top-50 target.",
+   "ref": [
+    "doc:ndp",
+    "doc:whr"
+   ],
+   "h": "No figures to measure the national social cohesion targets"
+  },
+  {
+   "k": "f",
+   "t": "Active support is recorded as 38 projects and about USD 30.7 million, but half of this is ADB's improvement of border customs services (about USD 15.3 million), and some Peacebuilding Fund projects have already ended.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "row:border",
+    "doc:pbf"
+   ],
+   "h": "The active amount includes a border customs project and completed projects"
+  },
+  {
+   "k": "v",
+   "t": "Peacebuilding support consists mainly of an accumulation of small projects through the UN Peacebuilding Fund, with investment of over USD 50 million since 2010. The national concepts (religion 2021–2026, legal policy 2023–2026) expire in 2026, and their successor plans will be the entry point for the next round of support.",
+   "ref": [
+    "doc:pbf",
+    "tree:religion:religion"
+   ],
+   "h": "Expiry of national concepts and their successors is the next issue"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Overview of peace and social stability",
+     "msg": "After the border clashes of 2021–22, border delimitation with neighbouring countries advanced, and the political stability indicator rose sharply in 2025.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "−0.02",
+        "u": "Score",
+        "k": "Political stability and absence of violence (2025, −2.5 to +2.5)",
+        "ref": "ind:sec:1"
+       },
+       {
+        "v": "1.7",
+        "u": "Persons",
+        "k": "Homicides per 100,000 people (2020)",
+        "ref": "ind:sec:0"
+       },
+       {
+        "v": "17.6",
+        "u": "%",
+        "k": "Personal remittances received, % of GDP (2024)",
+        "ref": "ind:mig:0"
+       },
+       {
+        "v": "50",
+        "u": "USD million+",
+        "k": "Peacebuilding Fund investment (since 2010)",
+        "ref": "doc:pbf"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "BTI 2026 describes the 2021 and 2022 clashes on the border with Tajikistan as \"brief but leaving deep scars\". The final report of the Spotlight Initiative states that at least 41 people died in these armed clashes.",
+       "ref": [
+        "doc:bti",
+        "doc:spot",
+        "row:border"
+       ],
+       "b": "Clashes on the border with Tajikistan in 2021–22"
+      },
+      {
+       "k": "f",
+       "t": "Borders: the border agreement with Uzbekistan was concluded in January 2023. With Tajikistan, a government working group announced in December 2024 that agreement had been reached on the entire border, and according to BTI, border delimitation was completed and signed in March 2025.",
+       "ref": [
+        "doc:bti",
+        "row:border"
+       ],
+       "b": "Border agreements: Uzbekistan 2023, Tajikistan end-2024"
+      },
+      {
+       "k": "f",
+       "t": "BTI states that there were no serious or prolonged conflicts in 2023–2024 and that ethnic and religious tensions did not surface. It nevertheless considers that social cleavages and conflict potential remain, giving conflict intensity a score of 6 (out of 10, higher is better).",
+       "ref": [
+        "doc:bti"
+       ],
+       "b": "No serious conflict in 2023–24 (BTI)"
+      },
+      {
+       "k": "h",
+       "t": "Situation in border areas"
+      },
+      {
+       "k": "f",
+       "t": "BTI describes relations with Tajikistan as the most difficult among neighbouring relations, and assesses the Kyrgyz Republic as an active partner supporting regional cooperation in Central Asia. The Kyrgyz Republic has invited Uzbekistan and Kazakhstan to jointly build the Kambarata-1 hydropower plant.",
+       "ref": [
+        "doc:bti",
+        "row:border"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The evaluation of a youth exchange project (2021) states that on 31 May 2020 a clash occurred between residents of the Uzbek enclave of Sokh and residents of a village on the Kyrgyz side, with injuries on both sides and one death on the Kyrgyz side. Small clashes between residents have also occurred in border areas.",
+       "ref": [
+        "doc:ypi",
+        "row:border"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The report of the women's civil society project \"Aigul\" describes Batken Region as an area affected by border conflicts and environmental challenges, citing water shortages and climate pressure on agriculture as sources of local insecurity.",
+       "ref": [
+        "doc:aigul",
+        "row:border",
+        "row:women"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Social cohesion"
+      },
+      {
+       "k": "f",
+       "t": "The evaluation of the youth exchange project states that self-censorship is \"still very widespread\" among both rights holders and duty bearers, and sees it as a sign of latent tension. It finds that the state administration somewhat underestimates the importance of interethnic relations, and that while project documents referred to cross-border cooperation, activities focused mainly on domestic cohesion.",
+       "ref": [
+        "doc:ypi",
+        "row:youth"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI cites, as reasons for the absence of interethnic clashes in 2023–2024, a desire not to repeat the harm of 2010 and the state's strong control over public space.",
+       "ref": [
+        "doc:bti",
+        "row:youth"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Ethnic relations: BTI states that relations between Kyrgyz and Uzbeks escalated into large-scale clashes in 1990 and 2010, the June 2010 events occurring mainly in Osh city.",
+       "ref": [
+        "doc:bti",
+        "row:youth"
+       ],
+       "b": "Interethnic clashes in 1990 and 2010"
+      },
+      {
+       "k": "f",
+       "t": "Migration: personal remittances fell from 32.6% of GDP (2021) to 17.6% (2024). BTI states that the large number of migrants returning from work in Russia has increased household hardship.",
+       "ref": [
+        "ind:mig:0",
+        "doc:bti"
+       ],
+       "b": "Remittances 32.6% (2021) → 17.6% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Systematic Country Diagnostic (SCD, 2023) states that remittances were about 33% of GDP (2021), more than 97% of them from Russia, the second-highest ratio to GDP in the world after Tonga. It states that remittances tend to decline over the long term.",
+       "ref": [
+        "doc:scd",
+        "ind:mig:0"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Border delimitation has removed one major source of tension with neighbours. Future support may shift its focus from responding to clashes to livelihoods in border areas and cooperation between communities.",
+       "ref": [
+        "row:border",
+        "ind:sec:1"
+       ],
+       "b": "Border delimitation may shift the focus of support"
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Peace and social cohesion policy is split across NDP 2030 Chapter II (spiritual and moral development), Section 11.2 (public security) and Chapter XII (foreign policy and security); there is no national plan that brings peacebuilding together.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "The NDP 2030 framework"
+      },
+      {
+       "k": "f",
+       "t": "Under the doctrine \"Spirit of the Nation – Heights of the World\", Chapter II sets out the formation of a civic identity, \"Kyrgyz Jarany\", aiming to create conditions in which all citizens, regardless of ethnicity, religion or language, feel part of the country.",
+       "ref": [
+        "doc:ndp",
+        "row:youth"
+       ],
+       "b": "Chapter II: the civic identity \"Kyrgyz Jarany\""
+      },
+      {
+       "k": "f",
+       "t": "Chapter II has three targets: 85% of citizens proud to be Kyrgyz Jarany, 95% of citizens considering freedom of religion to be ensured, and a place in the world's top 50 in the UN happiness ranking. Its tasks include building young people's civic position, strengthening freedom of religion and the principle of secularism, and developing the state language while preserving linguistic diversity.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Chapter II targets: pride 85%, freedom of religion 95%, happiness top 50"
+      },
+      {
+       "k": "f",
+       "t": "Section 11.2 lists strengthening border units against transnational crime, illegal migration and smuggling, prevention of domestic violence and extortion in schools, and countering terrorism and its financing. It has no numerical targets.",
+       "ref": [
+        "doc:ndp",
+        "row:women",
+        "row:border"
+       ],
+       "b": "Section 11.2: border security, domestic violence, counter-terrorism"
+      },
+      {
+       "k": "f",
+       "t": "Chapter XII emphasises good-neighbourly relations with neighbouring countries and regional cooperation in Central Asia, aiming by 2030 to be a reliable partner advancing national interests through a \"policy of openness, trust and peacebuilding\". On national security, it lists responses to terrorism, extremism, transnational organised crime and other threats.",
+       "ref": [
+        "doc:ndp",
+        "row:border"
+       ],
+       "b": "Chapter XII: good-neighbourly relations and a \"peacebuilding policy\""
+      },
+      {
+       "k": "h",
+       "t": "Religious policy"
+      },
+      {
+       "k": "f",
+       "t": "Section 12.2 lists as national security priorities modernisation of the defence industry, re-equipment and readiness of the armed forces, stronger civil defence, early warning and rapid response to emergencies, social security for service members and their families, and digital technologies for a secure information environment.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Religion: the site's table links the prevention of extremism row to the \"Concept of State Policy in the Religious Sphere 2021–2026\" (Presidential Decree, 2021). However, the text translated on the site is the previous 2014–2020 edition, and the text of the 2021–2026 edition has not been read.",
+       "ref": [
+        "tree:religion:religion",
+        "doc:rel",
+        "row:pve"
+       ],
+       "b": "Religious Policy Concept 2021–2026 (text not read; translation is of the previous edition)"
+      },
+      {
+       "k": "f",
+       "t": "The previous concept (2014–2020) was based on the principle of a secular state and had three pillars: state regulation of the activities of religious organisations, religious education, and prevention of religious radicalism and extremism. It required responses to extremism to be \"within the current law and proportionate to the threat\", and called for an interagency coordination council on religious policy.",
+       "ref": [
+        "doc:rel",
+        "tree:religion:R1",
+        "tree:religion:R2",
+        "tree:religion:R3"
+       ],
+       "b": "Previous concept: three pillars of regulation, religious education and prevention of extremism"
+      },
+      {
+       "k": "f",
+       "t": "The previous concept cites as background to extremism the politicisation of religion, such as the use of religion in elections; the vulnerability of young people and women to recruitment; and the vulnerability of areas without alternative information sources, with weak secular education and limited economic opportunities. It also states that the view that poverty and lack of education alone are the causes is mistaken.",
+       "ref": [
+        "doc:rel",
+        "tree:religion:R3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Implementation of the previous concept was coordinated by the State Commission for Religious Affairs and carried out by the government, ministries and regional administrations. It was to proceed in three stages (drafting an action plan, implementation and monitoring in 2015–2020, and evaluation in 2020).",
+       "ref": [
+        "doc:rel",
+        "tree:religion:R1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The previous concept also set as tasks clear criteria and transparent procedures for religious expert examinations, mechanisms to protect the experts conducting them, and stronger religious studies capacity among civil servants dealing with extremism.",
+       "ref": [
+        "doc:rel",
+        "tree:religion:R3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to BTI, a new law on freedom of religion and religious organisations was adopted by parliament at the end of 2024. It requires registration, prohibits unregistered activities, and also regulates religious dress, materials and education. BTI states that the Constitution defines the state as secular and that no conflict along religious lines was visible in 2023–2024.",
+       "ref": [
+        "doc:bti",
+        "tree:religion:R1"
+       ],
+       "b": "New law on religion at the end of 2024"
+      },
+      {
+       "k": "f",
+       "t": "UNDP documents list the national frameworks supported by the Peacebuilding Fund: the concept of national unity and interethnic relations, the civic identity concept \"Kyrgyz Jarany\", the State Programme on Countering Terrorism and Extremism (2023–2027), the religious policy concept, the youth development concept (to 2030), and the National Action Plan on UN Security Council Resolution 1325 (women, peace and security).",
+       "ref": [
+        "doc:pbf"
+       ],
+       "b": "Six national frameworks supported by the Peacebuilding Fund"
+      },
+      {
+       "k": "h",
+       "t": "The Peacebuilding Fund and national frameworks"
+      },
+      {
+       "k": "f",
+       "t": "According to UNDP documents, the Kyrgyz Republic's eligibility for Peacebuilding Fund support was formally confirmed in 2021. Recommendations of seven UN Special Rapporteurs were incorporated into the laws on countering terrorism and countering extremism.",
+       "ref": [
+        "doc:pbf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Women and peace: according to the Spotlight Initiative report, the National Gender Equality Strategy 2022–2030 and the action plan 2022–2025 were adopted in 2022. The strategy has 13 goals, 42 tasks and 197 activities, with a funding gap of less than 10%. The Aigul report states that monitoring of the National Action Plan on Resolution 1325 (2022–2024) ended in December 2024 and that the 2025–2026 plan was expected to be finalised in January–March 2025.",
+       "ref": [
+        "doc:spot",
+        "doc:aigul",
+        "row:women"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The National Strategy for Achieving Gender Equality to 2030 was approved by Cabinet of Ministers Resolution (No. 513 of 16 September 2022) together with the action plan 2022–2024. Ministries and regional administrations report progress every six months to the Ministry of Labour, Social Security and Migration, which reports to the Cabinet on the basis of annual monitoring. The Spotlight report gives the action plan period as 2022–2025, which differs from the text of the resolution.",
+       "ref": [
+        "doc:gender",
+        "doc:spot",
+        "row:women"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "In three of the five areas, national plans expire in 2025–26, and cooperation in border areas has no stand-alone national plan.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active support counted per table row; overlaps exist)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Expiries: the Concept of State Policy in the Religious Sphere (to 2026), the Legal Policy Concept (to 2026) and the counter-trafficking programme (2022–2025, expired).",
+       "ref": [
+        "tree:religion:religion",
+        "tree:trafficking:trafficking",
+        "row:just",
+        "row:women"
+       ],
+       "b": "Three plans expire in 2025–26"
+      },
+      {
+       "k": "f",
+       "t": "Active support (per row, overlaps exist): border areas and cooperation with neighbours about USD 22.6 million, prevention of extremism about USD 5.1 million, youth and social cohesion about USD 3.6 million, justice, prisons and reintegration about USD 3.2 million, women, peace and human trafficking about USD 1.4 million.",
+       "ref": [
+        "fact:rows",
+        "row:border",
+        "row:pve",
+        "row:youth",
+        "row:just",
+        "row:women"
+       ],
+       "b": "Borders USD 22.6 million; others USD 5 million or less each"
+      },
+      {
+       "k": "v",
+       "t": "The counter-trafficking programme has expired, and no successor plan has yet been confirmed. In the women and peace area, the National Gender Equality Strategy 2022–2030 and the National Action Plan on Resolution 1325 could serve as vehicles.",
+       "ref": [
+        "tree:trafficking:trafficking",
+        "doc:spot",
+        "doc:pbf"
+       ],
+       "b": "No confirmed successor for counter-trafficking"
+      },
+      {
+       "k": "f",
+       "t": "The prevention of extremism row corresponds to two national plans: the religious sphere concept and the State Programme on Countering Terrorism and Extremism (2023–2027). The existence of the latter was confirmed in UNDP documents, but its text and number have not been verified.",
+       "ref": [
+        "tree:religion:religion",
+        "doc:pbf",
+        "row:pve"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Cooperation in border areas has tasks in NDP Chapter XII (good-neighbourly relations) and Section 11.2 (border security), but no national plan addresses livelihoods or cooperation between communities in border areas. Donor border-area projects are designed according to the Peacebuilding Fund's priority framework rather than national plans.",
+       "ref": [
+        "doc:ndp",
+        "doc:ypi",
+        "row:border"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "As the June 2025 amendment to local self-government legislation (giving local governments a role in preventing social tensions) and the end-2024 law on religion show, the national framework in this area is shifting from time-bound concepts to legislative amendments. Entry points for support need to consider both the drafting of successor concepts and the application of laws.",
+       "ref": [
+        "doc:pbf",
+        "doc:bti",
+        "tree:religion:religion"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for national targets",
+     "msg": "Two of the NDP 2030 social cohesion targets have no annual published data, so their outlook cannot be measured. Happiness is 16 places short of the target. International indicators show improved security and stability.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap against targets (\"not measurable\" where there is no national numerical target or no published data)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "None of the three Chapter II targets (pride 85%, freedom of religion 95%, happiness top 50) has annual values on the site. Of these, only the happiness ranking could be confirmed, through the World Happiness Report. Section 11.2 and Chapter XII have no numerical targets.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "No figures to measure the three national targets"
+      },
+      {
+       "k": "f",
+       "t": "Happiness: in the statistical appendix of the World Happiness Report 2026, the Kyrgyz Republic ranks 66th of 147 countries (average life evaluation of 6.049 points in 2023–2025), 16 places short of the NDP target (top 50).",
+       "ref": [
+        "doc:whr",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The happiness ranking also depends on movements in other countries and is not an indicator that national policy alone can move. If it is tracked as a target, the trend in life evaluation scores should be monitored alongside the ranking.",
+       "ref": [
+        "doc:whr"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNDP documents state that in Peacebuilding Fund project areas, the share of respondents reporting a shared civic identity rose from 27.9% to 58.3% (2021–2024). These are values for project areas, not national values.",
+       "ref": [
+        "doc:pbf"
+       ],
+       "b": "Shared identity in project areas 27.9% → 58.3%"
+      },
+      {
+       "k": "f",
+       "t": "According to the same documents, trust in local governments rose by about 15% and perceptions of inclusive governance (SDG 16.7.2) by 15–20% in project pilot areas. All of these are project results in target areas, not national values.",
+       "ref": [
+        "doc:pbf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In a survey by the Aigul project in its target areas of Batken Region (November 2023, 643 respondents), 62.5% chose local governments as where they would turn in a dispute, and 81.6% considered that they could take part in local decision-making.",
+       "ref": [
+        "doc:aigul"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Indicators close to \"85% of citizens proud to be Kyrgyz Jarany\" exist only in surveys of project target areas. Regular publication of national surveys is a precondition for measuring the target.",
+       "ref": [
+        "doc:ndp",
+        "doc:pbf"
+       ],
+       "b": "Publishing national surveys is a precondition for measuring the targets"
+      },
+      {
+       "k": "v",
+       "t": "While the national targets are defined as shares of public attitudes (pride, freedom of religion), no regular national attitude survey could be found. The fact that the targets cannot be measured also means that donor project results (surveys of target areas) cannot be assessed against national targets.",
+       "ref": [
+        "doc:ndp",
+        "doc:pbf"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Security and political stability",
+     "msg": "Homicides fell to one-third between 2015 and 2020, and the political stability indicator recovered strongly in 2025 from its 2020 trough.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Political stability and absence of violence (WGI) and homicides (per 100,000 people)",
+      "inds": [
+       "sec:1",
+       "sec:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Background to the trends"
+      },
+      {
+       "k": "f",
+       "t": "Trend: political stability and absence of violence rose from −0.94 (2010) to −0.23 (2019), fell to −0.54 (2020), then stood at −0.41 to −0.47 (2021–2023), −0.40 (2024) and −0.02 (2025).",
+       "ref": [
+        "ind:sec:1"
+       ],
+       "b": "−0.54(2020)→−0.02(2025)"
+      },
+      {
+       "k": "f",
+       "t": "The Spotlight Initiative report cites as obstacles to the programme the October 2020 change of government and COVID-19, and the 2021–2022 armed clashes with Tajikistan (at least 41 deaths). It states that the responsible Deputy Prime Minister changed six times from March 2020, affecting the continuity of the steering committee.",
+       "ref": [
+        "doc:spot"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The 2020 dip in the political stability indicator coincides with the October 2020 change of government, the low level in 2021–2023 with the period of border clashes, and the sharp rise in 2025 with the year border delimitation was completed (March 2025).",
+       "ref": [
+        "ind:sec:1",
+        "doc:bti",
+        "doc:spot"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Homicides per 100,000 people fell from 16.8 (2010) to 5.1 (2015) and 1.7 (2020). The highest year, 2010, was the year of interethnic clashes centred on Osh city (BTI). International data stop at 2020.",
+       "ref": [
+        "ind:sec:0",
+        "doc:bti"
+       ],
+       "b": "Homicides 5.1 (2015) → 1.7 (2020)"
+      },
+      {
+       "k": "f",
+       "t": "BTI states that the state's monopoly on the use of force strengthened considerably in 2023–2024, scoring it 10 (out of 10) and state identity 9.",
+       "ref": [
+        "doc:bti"
+       ],
+       "b": "The state's monopoly on the use of force has strengthened (BTI)"
+      },
+      {
+       "k": "h",
+       "t": "Violence against women and institutions"
+      },
+      {
+       "k": "f",
+       "t": "Violence against women: the Spotlight Initiative report states that domestic violence cases reported to the Ministry of Internal Affairs in January–March 2020 rose by 62% over the same period of the previous year, and cites the Women, Peace and Security Index 2021/2022 ranking the Kyrgyz Republic as the least safe country for women in Central Asia.",
+       "ref": [
+        "doc:spot",
+        "row:women"
+       ],
+       "b": "Domestic violence reports up 62% in January–March 2020"
+      },
+      {
+       "k": "f",
+       "t": "Institutional changes: an April 2020 amendment of the Criminal Procedure Code allowed alleged perpetrators of domestic violence to be detained for up to 48 hours. An amendment to the law on state-guaranteed legal aid (in force August 2022) extended coverage to victims of domestic violence. A draft law on domestic, sexual and gender-based violence went through a parliamentary hearing in November 2023.",
+       "ref": [
+        "doc:spot",
+        "row:women"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Legislative review: under the Spotlight programme, 36 laws and 60 by-laws were reviewed from a gender perspective. A draft anti-discrimination law went through a hearing in October 2023 but, according to BTI, had not yet been adopted as of early 2025.",
+       "ref": [
+        "doc:spot",
+        "doc:bti",
+        "row:women"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Services: a crisis centre in Bishkek (60 beds, city budget) was opened, and the legal aid hotline 114 received 3,534 calls in January–November 2023. Domestic violence prevention committees operate in 12 pilot areas, with local budgets totalling USD 50,700. The National Statistical Committee approved a methodological framework for surveys on violence against women and introduced statistical reporting forms.",
+       "ref": [
+        "doc:spot",
+        "row:women"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Human resources: 40-hour gender-sensitive training became mandatory at three training institutions; 39 judges at the Higher School of Justice and 195 professionals and students at the Academy of the Ministry of Internal Affairs were trained. The Ministry of Health adopted guidelines on psychosocial support, and over 120 service providers were trained.",
+       "ref": [
+        "doc:spot",
+        "row:women"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Prevention and actors: in Spotlight target areas, 81% of young people said they could report child marriage in their family, compared with 58% in comparison areas. Women's councils in 12 pilot municipalities drew up action plans, and 159 council members were trained. A congress (kurultai) of 665 women from seven regions was also held.",
+       "ref": [
+        "doc:spot",
+        "row:women"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "BTI scores (out of 10): conflict intensity 6, cleavage and conflict management 6, social capital 5. BTI considers that social cleavages and conflict potential remain, noting that critical voices have gradually fallen silent and that latent divisions could resurface if the political situation changes.",
+       "ref": [
+        "doc:bti",
+        "ind:sec:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "On the indicators, security and stability have improved, but international homicide data stop at 2020, and everyday violence such as domestic violence is poorly reflected in international indicators. As the 62% rise in domestic violence reports in January–March 2020 shows, it can move differently from the political stability indicator.",
+       "ref": [
+        "ind:sec:0",
+        "doc:spot"
+       ],
+       "b": "Everyday violence is poorly reflected in international indicators"
+      },
+      {
+       "k": "v",
+       "t": "With statistical forms in place, if national domestic violence statistics are published regularly, NDP 11.2's \"minimisation of domestic violence\" can be tracked in figures. At present it is neither a national target nor an indicator.",
+       "ref": [
+        "doc:spot",
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Prevention of extremism, youth and social cohesion",
+     "msg": "Prevention of extremism and youth projects have been implemented as Peacebuilding Fund joint programmes, but evaluations point to weak systems for measuring results.",
+     "paras": [
+      {
+       "k": "h",
+       "t": "Projects on preventing extremism"
+      },
+      {
+       "k": "f",
+       "t": "\"Communities Resilient to Violent Ideologies\" (January 2018 – July 2021, about USD 2.6 million, UNICEF, UNFPA and UN Women) targeted young people and women in 12 municipalities in six regions and two cities, including schools and madrasas (religious schools).",
+       "ref": [
+        "doc:pbfeval",
+        "row:pve",
+        "proj:XI-IATI-UNPF-00108337"
+       ],
+       "b": "\"Communities Resilient to Violent Ideologies\": 12 municipalities, about USD 2.6 million"
+      },
+      {
+       "k": "f",
+       "t": "The budget breakdown was UNICEF about USD 1.36 million, UNFPA about USD 0.91 million and UN Women about USD 0.34 million. National counterparts included the Presidential Administration and the Office of the Prime Minister, the Ministry of Education and Science, state agencies for vocational education, youth and sport, and local self-government and interethnic relations, the Academy of Education, the State Commission for Religious Affairs, and local governments.",
+       "ref": [
+        "doc:pbfeval",
+        "row:pve"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the same evaluation, the project reached at least 2,507 young people and 236 women, and the Ministry of Education adopted teaching materials on gender and non-discrimination. Some local development plans included child- and youth-sensitive planning.",
+       "ref": [
+        "doc:pbfeval",
+        "row:pve"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The final evaluation rated the project \"highly relevant\" and found signs of increased self-confidence and critical thinking among young people and stronger trust in and sense of belonging to the state. However, it states that there was no agreed definition of violent extremism, no baseline or endline surveys were conducted, and it was too early to verify results.",
+       "ref": [
+        "doc:pbfeval"
+       ],
+       "b": "Evaluation: relevant, but no baseline, so results cannot be verified"
+      },
+      {
+       "k": "f",
+       "t": "The evaluation also cites unclear division of roles among the three UN agencies and staff turnover as problems. Its recommendations were to continue support for youth empowerment and build a long-term strategic framework, and to strengthen monitoring, evaluation and learning systems.",
+       "ref": [
+        "doc:pbfeval"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The project on preventing radicalisation in prisons and probation (2018–2021, led by UNODC with UNDP) supported probation reform, a monitoring centre and forensic expertise.",
+       "ref": [
+        "doc:pbf",
+        "row:just"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to UNDP documents, projects in 2017–2021 held more than 50 interagency consultations on preventing extremism, and recommendations of seven UN Special Rapporteurs were incorporated into the laws on countering terrorism and countering extremism. Projects in 2023–2026 created 23 public councils on interethnic relations and social cohesion.",
+       "ref": [
+        "doc:pbf",
+        "row:pve",
+        "row:youth"
+       ],
+       "b": "Over 50 interagency consultations; 23 councils on interethnic relations"
+      },
+      {
+       "k": "h",
+       "t": "Youth and social cohesion projects"
+      },
+      {
+       "k": "f",
+       "t": "Youth and local governments: 155 municipal staff were trained, and local governments funded 25 youth initiatives. A June 2025 legal amendment (No. 109) added the prevention of social tensions to the role of local governments.",
+       "ref": [
+        "doc:pbf",
+        "row:youth"
+       ],
+       "b": "2025 amendment gives local governments a role in preventing tensions"
+      },
+      {
+       "k": "f",
+       "t": "\"Unity and Exchange of Kyrgyz Youth with Uzbekistan\" (November 2018 – November 2020, USD 1.5 million, UNICEF, UNFPA and UNDP) involved 2,785 young people (over 70% girls), 470 parents, teachers and others, and 110 youth workers in the border areas of Osh, Jalal-Abad and Batken regions.",
+       "ref": [
+        "doc:ypi",
+        "row:youth",
+        "row:border"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The evaluation of the youth exchange project examined four municipalities in depth (Kashkar-Kyshtak, Aidarken, Kok-Serek and Kerben). It states that turnover of administrative staff after the October 2020 parliamentary elections made interviews with duty bearers difficult. COVID-19 moved activities online from early 2020, causing delays but also creating new opportunities.",
+       "ref": [
+        "doc:ypi",
+        "row:youth"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The evaluation finds \"solid evidence\" of youth empowerment, especially among girls. Changes were mainly at the individual level, and long-term impact cannot be confirmed. Cross-border activities were particularly difficult administratively. Youth exchanges continued after the project but less frequently, and the initiatives remain \"still at the pilot stage\".",
+       "ref": [
+        "doc:ypi"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to UNDP documents, projects in 2021–2024 trained over 7,000 young people, parents, educators and others, and women's participation in community meetings rose from 44.2% to 51.4%. 138 community mediators (60% of them women) were trained, \"Kyrgyz Jarany\" awareness-raising reached about 2.35 million people, and small grants totalling 7.28 million som went to 17 local initiatives.",
+       "ref": [
+        "doc:pbf",
+        "row:youth"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The \"lack of an agreed definition\" and \"lack of baseline surveys\" pointed out by the evaluations are the same problem as the absence of figures to measure national targets (such as pride 85%): neither donor support nor national plans have been able to show results in figures.",
+       "ref": [
+        "doc:pbfeval",
+        "doc:ndp"
+       ],
+       "b": "Neither donor support nor national plans show results in figures"
+      },
+      {
+       "k": "f",
+       "t": "The recommendations of the youth exchange evaluation were a regional successor project working with young people from Uzbekistan and Tajikistan, more systematic involvement of educational institutions in border areas in peacebuilding, turning pilot initiatives into mechanisms with the responsible agencies, and consideration of a national peacebuilding infrastructure.",
+       "ref": [
+        "doc:ypi",
+        "row:youth"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Both evaluations agree that \"individual change is certain, but whether it will be sustained as a system is unconfirmed\". Building a national peacebuilding infrastructure and turning pilots into mechanisms with the responsible agencies, as recommended by the youth exchange evaluation, are the challenges for the next stage.",
+       "ref": [
+        "doc:ypi",
+        "doc:pbfeval"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the prevention of extremism row in the table (about USD 5.1 million), at least about USD 4.6 million is for projects that ended by 2021 (see the caveat in 3.1). International support currently active in this area is considerably smaller than the table amount.",
+       "ref": [
+        "row:pve",
+        "doc:pbf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related support: 7 projects, about USD 5.1 million in the prevention of extremism row; 9 projects, about USD 3.6 million in the youth and social cohesion row; and 6 projects, about USD 3.2 million in the justice, prisons and reintegration row — almost all from the Peacebuilding Fund.",
+       "ref": [
+        "row:pve",
+        "row:youth",
+        "row:just",
+        "fact:rows"
+       ],
+       "b": "Extremism USD 5.1 million, youth USD 3.6 million, justice USD 3.2 million (Peacebuilding Fund)"
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Border areas and migration",
+     "msg": "As border delimitation advances, support divides into cooperation among border communities and improvement of border customs. Remittances fell from 32.6% of GDP in 2021 to 17.6%.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Personal remittances received (% of GDP)",
+      "inds": [
+       "mig:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: personal remittances were 26.4% of GDP (2010), 32.5% (2018), 32.6% (2021), 26.9% (2022), 18.9% (2023) and 17.6% (2024).",
+       "ref": [
+        "ind:mig:0"
+       ],
+       "b": "Remittances 32.6% (2021) → 17.6% (2024)"
+      },
+      {
+       "k": "h",
+       "t": "Livelihoods in border areas"
+      },
+      {
+       "k": "f",
+       "t": "Border areas: UNDP's project to strengthen cooperation with Uzbekistan (2025–2027, with UNODC and IOM) and the project on women, climate and peace in the Fergana Valley (2025–2026) are ongoing.",
+       "ref": [
+        "doc:pbf",
+        "row:border",
+        "row:women"
+       ],
+       "b": "Border cooperation projects with Uzbekistan are active"
+      },
+      {
+       "k": "f",
+       "t": "Aigul (February 2023 – August 2025, USD 1.9 million, UN Women and FAO with women-led organisations) trained 18 women's civil society organisations in 9 border municipalities of Batken Region, supported 5 local socio-economic development plans incorporating gender and climate security, trained 32 staff of 7 municipalities in gender budgeting, and provided small grants for climate adaptation such as irrigation, reservoirs and artificial glaciers.",
+       "ref": [
+        "doc:aigul",
+        "row:women",
+        "row:border"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the Aigul report, 5 local women activists stood in the local council elections of 17 November 2024. The report states that civic space has shrunk since the \"foreign representatives\" law, creating risks of inspections and intimidation and hesitancy among partners.",
+       "ref": [
+        "doc:aigul",
+        "row:women"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the Aigul report, 130 people took part in a conference of Central Asian women leaders, where women leaders from five countries adopted a resolution on gender-responsive security, climate and water management. Additional funding of USD 180,000 came from the United Kingdom, and social cohesion activities were carried out in 3 municipalities (until March 2024).",
+       "ref": [
+        "doc:aigul",
+        "row:women"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The border-area women's project combines climate adaptation such as irrigation and reservoirs with local planning and gender budgeting. In Batken Region, where water shortages are cited as a source of local insecurity, this fits the post-delimitation challenge (joint use of resources). However, the project relies mainly on small grants and is small in scale.",
+       "ref": [
+        "doc:aigul",
+        "row:border",
+        "row:women"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Migration and remittances"
+      },
+      {
+       "k": "v",
+       "t": "This indicator alone cannot show whether the fall in the remittances-to-GDP ratio is due to lower remittances or GDP growth. Reintegration of returning migrant workers is a challenge for both migration policy and peacebuilding.",
+       "ref": [
+        "ind:mig:0",
+        "doc:bti"
+       ],
+       "b": "This indicator cannot explain why the remittance ratio fell"
+      },
+      {
+       "k": "f",
+       "t": "The SCD expected remittances to decline in net terms in 2022, and the remittances-to-GDP ratio fell from 32.6% (2021) to 26.9% (2022). The SCD also states that remittances are unlikely to keep growing beyond current levels.",
+       "ref": [
+        "doc:scd",
+        "ind:mig:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The youth exchange evaluation states that the project did not sufficiently incorporate the major phenomenon of labour migration. Because of migration, the target age group was readjusted mainly to 15–18 year-olds. The SCD states that remittances and gold alone are not enough to drive future growth.",
+       "ref": [
+        "doc:ypi",
+        "doc:scd",
+        "ind:mig:0"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Relationship with donor support"
+      },
+      {
+       "k": "f",
+       "t": "Related support: 14 projects, about USD 22.6 million in the border areas and cooperation with neighbours row (ADB about USD 15.3 million (improvement of border services on the Almaty–Bishkek Economic Corridor), UN about USD 4.9 million, Switzerland about USD 1.9 million, UNDP about USD 0.4 million). This operation included a preparatory-stage project that ended in 2024 (about USD 0.3 million). As its name indicates, it targets improvement of border services and does not directly address cooperation between communities.",
+       "ref": [
+        "row:border",
+        "fact:rows",
+        "proj:XM-DAC-46004-54439-001-GRNT1039",
+        "proj:XM-DAC-46004-52256-009-GRNT0913"
+       ],
+       "b": "Borders about USD 22.6 million (ADB border services about USD 15.3 million)"
+      },
+      {
+       "k": "f",
+       "t": "Peacebuilding Fund records in the border-area row include cross-border cooperation (about USD 2.4 million) and shared prosperity through cooperation in border areas with Uzbekistan (about USD 1.1 million). Swiss cross-border cooperation (four records, about USD 1.9 million) has blank start and end dates.",
+       "ref": [
+        "proj:XI-IATI-UNPF-00097384",
+        "proj:XI-IATI-UNPF-00129737",
+        "proj:CH-4-2014002962",
+        "row:border"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Completed projects include the United States' cross-border resource allocation mechanism in the Fergana Valley (about USD 2.3 million, ended August 2025), ADB's improvement of border services in Central Asia (about USD 4.2 million, ended 2023), and the United Kingdom's youth resilience in the Kyrgyz Republic and Tajikistan (two projects, about USD 0.7 million).",
+       "ref": [
+        "proj:US-GOV-1-72011522CA00002",
+        "proj:XM-DAC-46004-46124-001-GRNT0340",
+        "proj:GB-GOV-1-300051-103",
+        "proj:GB-GOV-1-300619-103"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "After border delimitation, the challenges in border areas shift to the use of water, land and markets. Projects addressing joint use of resources, such as Aigul and the US resource allocation project, could become the model for the next round of support.",
+       "ref": [
+        "doc:aigul",
+        "row:border"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding is largest from ADB and the UN (Peacebuilding Fund), but ADB's funding is for improving border customs, and some Peacebuilding Fund projects have already ended.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects aligned with the strategy areas, after apportionment)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active support aligned with the peacebuilding strategy totals 38 projects and about USD 30.7 million. By donor: ADB about USD 15.3 million, UN (other, almost all Peacebuilding Fund) about USD 12.6 million, Switzerland about USD 1.9 million, UNDP about USD 0.6 million, other bilateral about USD 0.2 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 38 projects, about USD 30.7 million"
+      },
+      {
+       "k": "f",
+       "t": "One project ends by end-2026, with an amount of almost USD 0 (UNDP's social cohesion for sustainable peace and development, 2021 – December 2026).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ],
+       "b": "Almost nothing ends by end-2026"
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: Peacebuilding Fund projects carry the period of the fund as a whole (2006–2030), so all appear active. According to UNDP documents and evaluation reports, four projects totalling about USD 6.1 million have already ended: inclusive governance and justice reform (2017–2021), prevention of radicalisation in prisons and probation (2018–2021), Communities Resilient to Violent Ideologies (2018–2021), and youth unity and exchange with Uzbekistan (2018–2020).",
+       "ref": [
+        "doc:pbf",
+        "doc:pbfeval",
+        "doc:ypi",
+        "proj:XI-IATI-UNPF-00108334",
+        "proj:XI-IATI-UNPF-00108336",
+        "proj:XI-IATI-UNPF-00108337",
+        "proj:XI-IATI-UNPF-00113043"
+       ],
+       "b": "Completed Peacebuilding Fund projects are counted as active"
+      },
+      {
+       "k": "f",
+       "t": "According to UNDP documents, the Peacebuilding Fund has invested more than USD 50 million in the Kyrgyz Republic since 2010. Its main areas since 2016 have been social cohesion, dialogue and local peace mechanisms (about USD 5.15 million), prevention of extremism (about USD 3.53 million) and cross-border cooperation (about USD 2.07 million), totalling about USD 10.75 million for the three areas. The country's eligibility for support was formally confirmed in 2021.",
+       "ref": [
+        "doc:pbf"
+       ],
+       "b": "Peacebuilding Fund: over USD 50 million since 2010"
+      },
+      {
+       "k": "f",
+       "t": "Projects described in UNDP documents as still ongoing are strengthening national capacities for conflict prevention and peacebuilding (2023–2026, with UNESCO), strengthening the capacities of institutions and border communities for cooperation with Uzbekistan (2025–2027, with UNODC and IOM), and women, climate and peace in the Fergana Valley (2025–2026).",
+       "ref": [
+        "doc:pbf",
+        "proj:XM-DAC-41114-OUTPUT-01003941",
+        "proj:XM-DAC-41114-OUTPUT-01003878"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the about USD 12.6 million of UN funding shown as \"active\" in the table, at least about USD 6.1 million is for completed projects. Peacebuilding funding actually in operation is considerably smaller than the table amount.",
+       "ref": [
+        "fact:by_donor",
+        "doc:pbf"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Almost all funding comes from two sources: the Peacebuilding Fund (UN, about USD 12.6 million) and ADB (about USD 15.3 million). The only bilateral donors are Switzerland (about USD 1.9 million) and other bilateral (about USD 0.2 million); the United States and the United Kingdom have no active projects.",
+       "ref": [
+        "fact:by_donor"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Support completed over the past decade was small, at about USD 13.6 million, centred on border-area and youth projects.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top 5 per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed in 2017 or later. Earlier projects are excluded because records for major donors are incomplete. Even after 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Completed since 2017 and aligned with the peacebuilding strategy: 72 projects, about USD 13.6 million (after apportionment, no double counting). By donor: ADB about USD 4.5 million, United States about USD 3 million, NGOs and civil society about USD 1.5 million, UNICEF about USD 1.5 million, United Kingdom about USD 0.8 million, UNDP and World Bank about USD 0.5 million each, Switzerland about USD 0.4 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "72 projects, about USD 13.6 million"
+      },
+      {
+       "k": "f",
+       "t": "By area: border areas 40 projects, about USD 9.6 million; youth and social cohesion 20 projects, about USD 4.6 million; prevention of extremism 15 projects, about USD 0.2 million; women and peace 9 projects, about USD 0.1 million; justice and prisons 4 projects, about USD 0.1 million. The largest projects were the United States' cross-border resource allocation mechanism in the Fergana Valley (about USD 2.3 million, ended August 2025), ADB's improvement of border services in Central Asia (about USD 4.2 million, ended 2023) and UNICEF's peacebuilding and social cohesion project (about USD 1.5 million, ended 2022).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:US-GOV-1-72011522CA00002",
+        "proj:XM-DAC-46004-46124-001-GRNT0340",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/06/003/004"
+       ],
+       "b": "Border-area and youth projects were central"
+      },
+      {
+       "k": "f",
+       "t": "Donors by area: of the about USD 9.6 million for border areas, ADB about USD 4.5 million, United States about USD 2.9 million, United Kingdom about USD 0.7 million. Of the about USD 4.6 million for youth and social cohesion, UNICEF about USD 1.5 million, NGOs and civil society about USD 1.3 million, United Kingdom about USD 0.7 million, UNDP about USD 0.5 million, World Bank about USD 0.5 million (social cohesion through community-driven development, ended 2017).",
+       "ref": [
+        "fact:closed_rows",
+        "proj:WB-P132577"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The United States (about USD 3 million) and the United Kingdom (about USD 0.8 million), which carried border-area and youth projects among those completed since 2017, have no active projects aligned with the peacebuilding strategy.",
+       "ref": [
+        "fact:closed_by_donor",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The very small completed amounts for prevention of extremism, women and justice are because completed Peacebuilding Fund projects are counted as active; the actual evolution is weighted more towards \"completed\" than the table shows.",
+       "ref": [
+        "fact:closed_rows",
+        "doc:pbf"
+       ],
+       "b": "In reality, more is completed than the table shows"
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "No row in the table is empty, but excluding the ADB customs project and completed projects, active funding for peacebuilding itself is very small.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active / completed / cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row has zero active projects. However, much of the funding in the prevention of extremism and justice rows is for completed Peacebuilding Fund projects, and few projects are actually in operation.",
+       "ref": [
+        "fact:empty_rows"
+       ],
+       "b": "No empty rows"
+      },
+      {
+       "k": "v",
+       "t": "About two-thirds of the border-area row is ADB's improvement of border customs services (trade facilitation), which differs in nature from projects on cooperation between communities. Splitting the row or moving it to the transport and trade area should be considered.",
+       "ref": [
+        "row:border",
+        "proj:XM-DAC-46004-54439-001-GRNT1039",
+        "proj:XM-DAC-46004-54439-001-LN4637"
+       ],
+       "b": "The border customs project should be considered for a separate row"
+      },
+      {
+       "k": "f",
+       "t": "Active projects not mapped to any table row include the record for the Peacebuilding Fund as a whole (about USD 13.3 million), UNDP support to the Peacebuilding Fund secretariat (about USD 0.7 million, to June 2027), conflict prevention in new settlements (about USD 0.7 million), Swiss community security initiatives (about USD 0.5 million), building the evidence base for gender policy (about USD 0.3 million) and media for peace (about USD 0.3 million). The fund-wide record may overlap with individual projects.",
+       "ref": [
+        "proj:XI-IATI-UNPF-MPTF00006",
+        "proj:XI-IATI-UNPF-00108093",
+        "proj:CH-4-2011003591",
+        "proj:XI-IATI-UNPF-00095139",
+        "proj:XM-DAC-41114-OUTPUT-00117231",
+        "proj:XI-IATI-UNPF-00094616"
+       ],
+       "b": "Some projects, such as the fund-wide record, fall outside the rows"
+      },
+      {
+       "k": "f",
+       "t": "The 10 active projects, about USD 1.4 million, in the women, peace and human trafficking row comprise the UN (Peacebuilding Fund) about USD 1.1 million, UNDP about USD 0.2 million (women in the Fergana Valley) and other bilateral about USD 0.2 million (the women, peace and security component of UN Women, 2021–2027). No active project in the table addresses human trafficking itself.",
+       "ref": [
+        "row:women",
+        "fact:rows",
+        "proj:SE-0-SE-6-61070155-6107015502",
+        "proj:XM-DAC-41114-OUTPUT-01003878"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Relative to the tasks set out in national concepts and evaluations, support is hard to see for the reintegration of returning migrant workers, religious education (Pillar 2 of the religious sphere concept) and protection of victims of human trafficking. Each has a table row or a close equivalent, but there are almost no active projects.",
+       "ref": [
+        "tree:religion:R2",
+        "tree:trafficking:TR2",
+        "ind:mig:0"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "In 2027, the issues will be cooperation in border areas after delimitation and drafting successors to expiring national concepts.",
+     "paras": [
+      {
+       "k": "v",
+       "t": "With border delimitation with Uzbekistan and Tajikistan, border-area support may shift its focus from preventing clashes to cooperation on livelihoods such as water, land and markets.",
+       "ref": [
+        "doc:bti",
+        "row:border"
+       ],
+       "b": "Border-area support shifts to cooperation on livelihoods"
+      },
+      {
+       "k": "v",
+       "t": "The religious sphere concept and the Legal Policy Concept expire in 2026, and the counter-trafficking programme expired in 2025. Successor plans and the application of the new end-2024 law on religion will set the framework for support in preventing extremism and in justice.",
+       "ref": [
+        "tree:religion:religion",
+        "tree:trafficking:trafficking",
+        "doc:bti"
+       ],
+       "b": "Successors to expiring concepts will set the framework for support"
+      },
+      {
+       "k": "v",
+       "t": "Neither the national targets (pride 85%, freedom of religion 95%) nor the results of support have nationally comparable figures. Regular publication of national attitude surveys and project baseline surveys are preconditions for the next round of support.",
+       "ref": [
+        "doc:ndp",
+        "doc:pbfeval"
+       ],
+       "b": "National attitude surveys and baselines are preconditions"
+      },
+      {
+       "k": "v",
+       "t": "The evaluations' recommendations (a long-term strategic framework, baseline surveys, a national peacebuilding infrastructure) feed directly into the design of the Peacebuilding Fund's next projects. Once the way of measuring national targets is settled, project results can be linked to and presented against national targets.",
+       "ref": [
+        "doc:ypi",
+        "doc:pbfeval",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In the area of violence against women, laws and institutions (detention provisions, legal aid, statistical forms) are taking shape. Adoption of the draft law on domestic, sexual and gender-based violence and regular publication of national statistics will be the markers for measuring the next stage.",
+       "ref": [
+        "doc:spot",
+        "row:women"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "To watch next quarter: successors to the religious sphere concept, the Legal Policy Concept and the counter-trafficking programme; implementation of the border treaty with Tajikistan; approval of the Peacebuilding Fund's next projects; and trends in remittances and returnees.",
+       "ref": [
+        "tree:religion:religion",
+        "row:border",
+        "doc:pbf",
+        "ind:mig:0"
+       ],
+       "b": "Next to watch: successor plans, implementation of the border treaty, the fund's next projects"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "85% of citizens proud to be Kyrgyz Jarany (NDP Chapter II)",
+   "No published data (shared identity 58.3% in project target areas)",
+   "85%",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "95% of citizens consider freedom of religion to be ensured (NDP Chapter II)",
+   "No published data",
+   "95%",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "World top 50 in the UN happiness ranking (NDP Chapter II)",
+   "66th of 147 countries (2023–2025 average, World Happiness Report 2026)",
+   "Top 50",
+   "—",
+   "—",
+   "16 places short (whether it will be reached cannot be measured)",
+   "warn"
+  ],
+  [
+   "Political stability and absence of violence (WGI)",
+   "−0.02(2025)",
+   "No national numerical target",
+   "+0.07/yr (2015→2025)",
+   "—",
+   "Not measurable (no target)",
+   "na"
+  ],
+  [
+   "Homicides (per 100,000 people)",
+   "1.7(2020)",
+   "No national numerical target",
+   "−0.68/yr (2015→2020)",
+   "—",
+   "Not measurable (no target; series stops in 2020)",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Prevention of violent extremism (religion)",
+   "Concept of State Policy in the Religious Sphere 2021–2026",
+   "Presidential Decree, 2021",
+   "end",
+   "II",
+   "pve",
+   "religion"
+  ],
+  [
+   "1",
+   "Prevention of violent extremism (terrorism and extremism)",
+   "State Programme on Countering Terrorism and Extremism 2023–2027",
+   "(Confirmed in UNDP documents; number not confirmed)",
+   "ok",
+   "XI 11.2 and XII 12.2",
+   "pve",
+   ""
+  ],
+  [
+   "1",
+   "Border areas and cooperation with neighbours",
+   "No stand-alone plan (NDP tasks on good-neighbourly relations and border security)",
+   "—",
+   "none",
+   "XI 11.2 and XII 12.1",
+   "border",
+   ""
+  ],
+  [
+   "1",
+   "Youth and social cohesion",
+   "Civic identity concept \"Kyrgyz Jarany\" / Youth Development Concept to 2030",
+   "(Confirmed in UNDP documents; number not confirmed)",
+   "ok",
+   "II",
+   "youth",
+   ""
+  ],
+  [
+   "1",
+   "Justice, prisons and reintegration",
+   "Legal Policy Concept 2023–2026",
+   "Confirmed in the SDG Voluntary National Review 2025",
+   "end",
+   "XI 11.1",
+   "just",
+   ""
+  ],
+  [
+   "1",
+   "Women, peace and human trafficking",
+   "Counter-Trafficking Programme 2022–2025 (expired) / National Action Plan on UN Security Council Resolution 1325",
+   "Cabinet of Ministers resolution",
+   "end",
+   "XI 11.2",
+   "women",
+   "trafficking"
+  ],
+  [
+   "1",
+   "Women and peace (gender equality)",
+   "National Strategy for Achieving Gender Equality to 2030",
+   "Cabinet of Ministers Resolution No. 513 of 16 September 2022",
+   "ok",
+   "XI 11.2",
+   "women",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Peacebuilding"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Annual values for the three NDP 2030 Chapter II targets (85% of citizens proud to be Kyrgyz Jarany, 95% of citizens considering that freedom of religion exists, and a place in the top 50 of the happiness ranking (the ranking was confirmed as 66th in the World Happiness Report, but the other two have no published data))",
+  "National statistics on homicide and other crimes (international data stop at 2020)",
+  "Text of the Concept of State Policy in the Religious Sphere 2021–2026 (the site's translation is the text of the previous 2014–2020 edition)",
+  "Texts and indicators of the State Programme on Countering Terrorism and Extremism 2023–2027, the Youth Development Concept to 2030 and the National Action Plan on Resolution 1325",
+  "Results of the Counter-Trafficking Programme 2022–2025 and its successor plan",
+  "Text of the Migration Policy Concept 2021–2030 and the number of returning migrant workers",
+  "Actual implementation periods of individual Peacebuilding Fund projects (the site data carry the fund-wide period, 2006–2030)",
+  "Situation in border areas after delimitation (treaty texts, arrangements for crossing and water use)",
+  "Also not reviewed: the evaluation of the Kyrgyz–Uzbek youth exchange project (2021) and the progress report (2024) of \"Aigul\", peace maintenance by women's civil society organisations (not opened this time). The last ~12,000 characters of BTI 2026 and the lessons and way-forward chapters of the Spotlight final report were not read"
+ ],
+ "lang": "en"
+}

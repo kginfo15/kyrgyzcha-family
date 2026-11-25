@@ -1,0 +1,1828 @@
+{
+ "sid": "nutrition",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Nutrition improvement"
+  },
+  "rows": {
+   "school": {
+    "n": "School meals",
+    "st": "Food Security and Nutrition Programme"
+   },
+   "agri": {
+    "n": "Agriculture and nutrition (value chains)",
+    "st": "Food Security and Nutrition Programme"
+   },
+   "mch": {
+    "n": "Maternal and child nutrition and micronutrients",
+    "st": "Health Programme, pillar 1.7 (maternal and child health)"
+   },
+   "food": {
+    "n": "Food assistance and food security",
+    "st": "Food Security and Nutrition Programme"
+   }
+  }
+ },
+ "ind": {
+  "child": {
+   "name": "① Child growth",
+   "tag": "Stunting, wasting and overweight",
+   "inds": [
+    {
+     "name": "Stunting among children under five (short for their age)",
+     "unit": "%",
+     "st": "△ About 9.7 in 2030 at the current pace",
+     "src": "UN SDG Database SH_STA_STNT (SDG 2.2.1, UNICEF–WHO–World Bank joint estimates)",
+     "t": [
+      "WHO: halve"
+     ]
+    },
+    {
+     "name": "Wasting among children under five (thin for their height)",
+     "unit": "%",
+     "st": "△ At 3.0%, on the threshold of the target",
+     "src": "World Bank WDI SH.STA.WAST.ZS (survey years only)",
+     "t": [
+      "WHO: below 3%"
+     ]
+    },
+    {
+     "name": "Overweight among children under five",
+     "unit": "%",
+     "st": "△ About 7.2 in 2030 at the current pace",
+     "src": "World Bank WDI SH.STA.OWGH.ZS (survey years only; latest is MICS 2023)",
+     "t": [
+      "WHO: below 3%"
+     ]
+    }
+   ]
+  },
+  "mn": {
+   "name": "② Anaemia and micronutrients",
+   "tag": "Iron deficiency and birthweight",
+   "inds": [
+    {
+     "name": "Anaemia among women of reproductive age (15–49)",
+     "unit": "%",
+     "st": "✕ Flat and not approaching the target",
+     "src": "World Bank WDI SH.ANM.ALLW.ZS (originally WHO)",
+     "t": [
+      "WHO: halve"
+     ]
+    },
+    {
+     "name": "Babies born with low birthweight (below 2,500 g)",
+     "unit": "%",
+     "st": "△ About 5.5 in 2030 at the current pace",
+     "src": "World Bank WDI SH.STA.BRTW.ZS (originally UNICEF–WHO estimates)",
+     "t": [
+      "WHO: 30% reduction"
+     ]
+    }
+   ],
+   "detail": {
+    "title": "Breastfeeding and child anaemia",
+    "inds": [
+     {
+      "name": "Exclusive breastfeeding of infants under six months",
+      "unit": "%",
+      "st": "△ About 64.1 in 2030 at the current pace",
+      "src": "World Bank WDI SH.STA.BFED.ZS (survey years only; MICS 2023 value not yet reflected)",
+      "t": [
+       "WHO 70%"
+      ]
+     },
+     {
+      "name": "Anaemia among children (6–59 months)",
+      "unit": "%",
+      "st": "— No target (falling trend)",
+      "src": "World Bank WDI SH.ANM.CHLD.ZS (originally WHO, up to 2019)",
+      "t": []
+     }
+    ]
+   }
+  },
+  "food": {
+   "name": "③ Food security",
+   "tag": "People struggling to obtain food and adult obesity",
+   "note": "The text of the Food Security and Nutrition Programme 2025–2030 has not yet been obtained, so national numerical targets have not been confirmed.",
+   "inds": [
+    {
+     "name": "Share of people with moderate or severe food insecurity",
+     "unit": "%",
+     "st": "— No target (rising trend)",
+     "src": "World Bank WDI SN.ITK.MSFI.ZS (SDG 2.1.2, originally FAO)",
+     "t": [],
+     "note": "SDG 2.1 is \"end hunger by 2030\" and has no numerical benchmark. The prevalence of undernourishment is 4.8% (2024)."
+    },
+    {
+     "name": "Adult obesity (BMI 30 or above)",
+     "unit": "%",
+     "st": "✕ Moving in the opposite direction to the target",
+     "src": "WHO GHO NCD_BMI_30A (crude estimate, not age-standardised)",
+     "t": [
+      "WHO: 2010 level"
+     ],
+     "sn": "Total",
+     "s2n": "Women"
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Nutrition projects are small and centred on school meals (WFP) and agriculture",
+  "msgs": [
+   [
+    "Talks on expanding school meals.",
+    "Repeated discussions with WFP on expanding the school nutrition programme (October)."
+   ],
+   [
+    "Food Security and Nutrition Council.",
+    "The Council met (5 Nov)."
+   ],
+   [
+    "Maternal and child nutrition is thinly covered.",
+    "Only small UNICEF projects."
+   ],
+   [
+    "Overlap with agriculture projects.",
+    "ADB and World Bank agricultural value chains."
+   ]
+  ],
+  "h2": "Centred on school meals and agriculture projects; maternal and child nutrition and food assistance are thinly covered",
+  "rows": {
+   "school": [
+    "",
+    "WFP school meals"
+   ],
+   "agri": [
+    "",
+    "ADB and World Bank agriculture projects"
+   ],
+   "mch": [
+    "",
+    "Small UNICEF projects"
+   ],
+   "food": [
+    "",
+    "Small projects, including US humanitarian assistance"
+   ]
+  },
+  "h3": "Recent topics: expansion of school meals and the Food Security Council",
+  "themes": [
+   [
+    "School meals:",
+    "Talks with WFP; more schools introducing hot meals."
+   ],
+   [
+    "Food:",
+    "Switzerland and WFP donated food packages."
+   ]
+  ]
+ },
+ "proj_t": {},
+ "title": "Kyrgyz Republic Nutrition Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "nut-foodsec",
+   "t": "Food Security and Nutrition Programme 2019–2023",
+   "by": "Government of the Kyrgyz Republic (Decision No. 320 of 27 June 2019)",
+   "y": "2019",
+   "scope": "Current situation assessment (Section 1.2), nutrition challenges (Section 2.3), access direction (Chapter 5), nutrition direction (Chapter 6) and part of management (Chapter 7 onwards) checked in machine translation. Indicator matrix (Annex 3) not checked",
+   "cat": "gov",
+   "u": "https://eec.eaeunion.org/upload/medialibrary/cf4/Programma-prodbez-Kyrgyzstana.pdf"
+  },
+  {
+   "id": "nut-ndp",
+   "t": "National Development Programme 2030, Section 9.2 \"Fair Social Protection\", Section 9.3 \"Education\" and Section 9.4 \"Healthcare\"",
+   "by": "Kyrgyz Republic (Presidential Decree No. 178 of 2025)",
+   "y": "2025",
+   "scope": "All chapters searched for references to nutrition and school meals; targets and tasks of Section 9.2 and Task 5 of Section 9.3 checked (translation on this site). There are no numerical nutrition targets",
+   "cat": "gov"
+  },
+  {
+   "id": "nut-mics",
+   "t": "Multiple Indicator Cluster Survey (MICS) 2023 Statistical Snapshots",
+   "by": "National Statistical Committee and UNICEF",
+   "y": "2024",
+   "scope": "Breastfeeding (p. 23) and child nutritional status (pp. 26–27) checked in the original English version",
+   "cat": "gov",
+   "u": "https://www.unicef.org/kyrgyzstan/publications/mics-kyrgyz-republic-2023"
+  },
+  {
+   "id": "nut-nimas",
+   "t": "National Integrated Micronutrient and Anthropometry Survey 2021(NIMAS)",
+   "by": "Ministry of Health, UNICEF, WFP, FAO, WHO and others",
+   "y": "2022",
+   "scope": "Table 1 of the summary, the summary's discussion and recommendations (pp. 19–23), methods (pp. 30–32) and main tables checked in the original. Values in the regional tables not checked",
+   "cat": "gov",
+   "u": "https://groundworkhealth.org/wp-content/uploads/2023/07/NIMAS-2021_Kyrgyz-MN-Survey-Report_EN.pdf"
+  },
+  {
+   "id": "nut-fng",
+   "t": "Fill the Nutrient Gap: Kyrgyz Republic",
+   "by": "WFP (jointly with the Ministry of Water Resources, Agriculture and Processing Industry, the Ministry of Health and the Ministry of Education)",
+   "y": "Jun 2026",
+   "scope": "Launch page and the first 100,000 or so characters of the report PDF checked in the original. Regional costs (Figure 5) were read from a chart and not used",
+   "cat": "donor",
+   "u": "https://kyrgyzstan.un.org/en/node/317110"
+  },
+  {
+   "id": "nut-wfp",
+   "t": "Kyrgyz Republic | World Food Programme",
+   "by": "WFP",
+   "y": "Updated continuously (checked Nov 2026)",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.wfp.org/countries/kyrgyzstan"
+  },
+  {
+   "id": "nut-gafsp",
+   "t": "Improving food security and nutrition for a more resilient food system in Batken (project document)",
+   "by": "WFP and GAFSP",
+   "y": "Dec 2023",
+   "scope": "First half of the main text (about 100,000 characters, up to p. 17) checked in the original. Some annexes not read",
+   "cat": "donor",
+   "u": "https://www.gafspfund.org/sites/default/files/inline-files/WFP%20Kyrgyz%20Republic%20-%20Project%20document%20_22.12.2023%20%281%29.pdf"
+  }
+ ],
+ "summary": [
+  {
+   "k": "v",
+   "t": "Child stunting has been falling, but at the current pace will not reach the World Health Assembly 2030 target (8%). The UN joint estimate is 11.0% (2024), and the decline since 2015 of −0.30 a year falls short of the −0.50 a year required.",
+   "ref": [
+    "ind:child:0"
+   ],
+   "h": "Stunting is falling, but not fast enough for the 2030 target"
+  },
+  {
+   "k": "f",
+   "t": "Readings differ widely depending on the source. Stunting is 14% in MICS 2023, 7.0% in NIMAS 2021 and 11.0% in the UN joint estimate. WFP, based on MICS, writes that it \"rose from 12% to 14%\".",
+   "ref": [
+    "doc:nut-mics",
+    "doc:nut-nimas",
+    "doc:nut-fng",
+    "ind:child:0"
+   ],
+   "h": "Stunting ranges from 7% to 14% depending on the source"
+  },
+  {
+   "k": "f",
+   "t": "Anaemia and obesity are furthest from target. Anaemia among women is almost flat at 32.9% (2023), and adult obesity keeps rising, from 13.4% (2010) to 22.0% (2024).",
+   "ref": [
+    "ind:mn:0",
+    "ind:food:1"
+   ],
+   "h": "Anaemia and obesity are furthest from target"
+  },
+  {
+   "k": "f",
+   "t": "Diet quality is also a question of money. According to WFP, 43% of the population cannot afford a nutritious diet, rising to 79% in Batken Region.",
+   "ref": [
+    "doc:nut-fng",
+    "doc:nut-wfp"
+   ],
+   "h": "43% of the population cannot afford a nutritious diet"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation mapped to the strategy is small at 12 projects and about USD 14.5 million, with only about USD 0.2 million for maternal and child nutrition and micronutrients.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "row:mch"
+   ],
+   "h": "Cooperation is small at about USD 14.5 million; maternal and child nutrition is almost empty"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Nutrition at a glance",
+     "msg": "Undernutrition (wasting and stunting) and overnutrition (overweight and obesity) coexist, rooted in the quality and cost of diets.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "11.0",
+        "u": "%",
+        "k": "Stunting among children under five (2024, UN joint estimate)",
+        "ref": "ind:child:0"
+       },
+       {
+        "v": "32.9",
+        "u": "%",
+        "k": "Anaemia among women aged 15–49 (2023)",
+        "ref": "ind:mn:0",
+        "hot": true
+       },
+       {
+        "v": "22.0",
+        "u": "%",
+        "k": "Adult obesity (2024)",
+        "ref": "ind:food:1",
+        "hot": true
+       },
+       {
+        "v": "44",
+        "u": "%",
+        "k": "Exclusive breastfeeding under six months (MICS 2023)",
+        "ref": "doc:nut-mics"
+       },
+       {
+        "v": "43",
+        "u": "%",
+        "k": "People unable to afford a nutritious diet (WFP)",
+        "ref": "doc:nut-fng",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "h",
+       "t": "Undernutrition and overnutrition at the same time"
+      },
+      {
+       "k": "f",
+       "t": "Stunting among children under five fell from 17.6% (2010) to 11.0% (2024) according to the UN joint estimate.",
+       "ref": [
+        "ind:child:0"
+       ],
+       "b": "Stunting 17.6% (2010) → 11.0% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "In MICS 2023, stunting among children under five was 14%, wasting 3% and overweight 9%. Exclusive breastfeeding of infants under six months was 44%.",
+       "ref": [
+        "doc:nut-mics"
+       ],
+       "b": "MICS 2023: stunting 14%, overweight 9%, exclusive breastfeeding 44%"
+      },
+      {
+       "k": "f",
+       "t": "In NIMAS 2021, anaemia among children (6–59 months) was 20.9%, iron deficiency 47.0% and vitamin A deficiency 15.0%. Anaemia was 25.3% among non-pregnant women and 49.3% among pregnant women, and folate deficiency among women was 83.2%.",
+       "ref": [
+        "doc:nut-nimas"
+       ],
+       "b": "NIMAS 2021: anaemia in pregnant women 49.3%, folate deficiency in women 83.2%"
+      },
+      {
+       "k": "f",
+       "t": "In the same survey, 44.3% of non-pregnant women (aged 15–49) were overweight or obese (17.0% obese).",
+       "ref": [
+        "doc:nut-nimas"
+       ],
+       "b": "44.3% of women are overweight or obese"
+      },
+      {
+       "k": "f",
+       "t": "In NIMAS 2021, anaemia among adolescent girls was 14.6% and overweight or obesity 14.5%, with about 20% of girls aged 15–18 overweight or obese. Vitamin A deficiency is described as severe among children aged 6–59 months in Bishkek, among others.",
+       "ref": [
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the same survey, household food insecurity was 29.6% nationwide. In Issyk-Kul, Naryn and Chui regions almost half of households were food-insecure. The survey states that rural areas are poorer than urban areas and that their food supply is also less secure.",
+       "ref": [
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Figures cited as the current situation in the 2019 Food Security and Nutrition Programme show iron-deficiency anaemia in 37.8% of pregnant women, 34.2% of women of reproductive age and 42.6% of children. Stunting affected 13% of children under five, higher in rural (13.4%) than urban (11.8%) areas.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same Programme states that in 2017 the average intake of children aged 1–3 fell short of minimum standards by 23% for energy, 45% for protein and 40% for fat. In a 2016 Ministry of Health and WHO survey, a single restaurant meal contained 70.8–170.4% of the daily limit for trans fats and 82.9–99.0% for salt.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Diet costs and household budgets"
+      },
+      {
+       "k": "f",
+       "t": "In WFP's analysis, a nutritious diet costs 784 som a day for a family of six, while a diet meeting energy needs only costs 210 som (2025). 43% of the population (estimate for the latest 12 months) cannot afford a nutritious diet.",
+       "ref": [
+        "doc:nut-fng"
+       ],
+       "b": "A nutritious diet costs 784 som a day; 43% cannot afford it"
+      },
+      {
+       "k": "f",
+       "t": "In WFP's analysis (2025), a diet meeting energy needs only costs 210 som a day, around a quarter of a nutritious diet (784 som). Most households can meet their energy needs but cannot afford a nutritious diet.",
+       "ref": [
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "WFP states that three-quarters of the population rely on \"negative coping strategies\" to obtain food, such as borrowing or cutting back on healthcare.",
+       "ref": [
+        "doc:nut-wfp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The share of people with moderate or severe food insecurity rose from 6.3% (2017) to 7.4% (2024). The prevalence of undernourishment is 4.8% (2024).",
+       "ref": [
+        "ind:food:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The WFP–GAFSP project document (2023) states that at least two in five households (38%) cannot afford a nutritious diet and that food inflation reached 16.2% compared with March 2022. Poverty rose to 33.3% in 2021.",
+       "ref": [
+        "doc:nut-gafsp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Most households get enough energy (calories), but many cannot afford a nutritious diet. The core problem is quality and cost rather than quantity.",
+       "ref": [
+        "doc:nut-fng",
+        "ind:food:0"
+       ],
+       "b": "The core problem is quality and cost, not quantity"
+      },
+      {
+       "k": "f",
+       "t": "NIMAS covered 3,465 households (231 clusters of 15 households each), with a household response rate of 89%. Household listing took place in August–September 2021. National values can be derived, but regional values can only be confirmed from the tables.",
+       "ref": [
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The figures in the 2019 Programme and those in NIMAS 2021 and MICS 2023 cannot simply be compared because survey methods differ. Even so, several surveys share the same pattern: anaemia among children is falling while anaemia among pregnant women and adult obesity remain high.",
+       "ref": [
+        "doc:nut-foodsec",
+        "doc:nut-nimas",
+        "doc:nut-mics"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy structure",
+     "msg": "The national plan for nutrition centres on the Food Security and Nutrition Programme, with elements spread across health and education plans. NDP 2030 has no numerical nutrition targets.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy structure (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The National Development Programme 2030 has no numerical nutrition targets. The education tasks (Section 9.3) include \"providing pupils with quality school meals\" and support for school meals in areas with limited access to clean water.",
+       "ref": [
+        "doc:nut-ndp"
+       ],
+       "b": "NDP 2030 has no numerical nutrition targets; school meals appear among the education tasks"
+      },
+      {
+       "k": "h",
+       "t": "Food Security and Nutrition Programme"
+      },
+      {
+       "k": "f",
+       "t": "The Food Security and Nutrition Programme 2019–2023 (Government Decision No. 320 of 27 June 2019), based on the Law on Food Security, sets five directions: availability, economic access, nutritional status, food safety, and management and evaluation. It also includes SDG 2 indicators.",
+       "ref": [
+        "doc:nut-foodsec",
+        "tree:food:food"
+       ],
+       "b": "Food Security and Nutrition Programme 2019–2023: five directions"
+      },
+      {
+       "k": "f",
+       "t": "Under the previous programme (2015–2017), 98.9% of the 177 planned activities were implemented; the rest were not implemented owing to lack of funding. Some of the unimplemented activities were carried over to the 2019–2023 version. The Programme calls for nutrition requirements to be built into plans in the health, education, economic and social sectors.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The nutrition direction has three priorities: the policy environment (dietary guidelines, advertising regulation, budget tracking); the quality and coverage of nutrition interventions (iron and folic acid for pregnant women and adolescent girls, breastfeeding, treatment of severe malnutrition); and human resources and demand for healthy food.",
+       "ref": [
+        "doc:nut-foodsec",
+        "tree:food:F3"
+       ],
+       "b": "Three nutrition priorities: policy environment, interventions, human resources and demand"
+      },
+      {
+       "k": "f",
+       "t": "The same Programme states that achieving the SDG nutrition indicators by 2025 would require specific measures to improve the nutrition of children under five 2.5-fold and that of women of reproductive age 7-fold.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same Programme calls for analysis of the nutrition budget, reporting on the cost of nutrition-specific and nutrition-sensitive measures, and regular monitoring of spending (budgetary and extra-budgetary) on nutrition and food security. Making funding flows for nutrition visible is one of its policies.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On food regulation, it calls for legislation to ban or severely restrict advertising of foods high in saturated fat, trans fat and sugar and of breast-milk substitutes. It also includes setting up a registry of neural tube defects (congenital conditions caused by folate deficiency).",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "School meals and social protection"
+      },
+      {
+       "k": "f",
+       "t": "For school nutrition, the Programme plans to organise school meals through public–private partnership and to revise school nutrition standards.",
+       "ref": [
+        "doc:nut-foodsec",
+        "row:school"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Among its education tasks, NDP 2030 lists quality school meals for pupils and support for school meals in areas with limited access to clean water. WFP works with the national school meals programme.",
+       "ref": [
+        "doc:nut-ndp",
+        "doc:nut-gafsp",
+        "row:school"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "WFP's country page lists as its main activities support for the government's \"paid public works\" and for the \"social contract\" to help people move out of poverty, unconditional assistance for persons with disabilities, and school meals and healthy diets. WFP has operated in Kyrgyzstan since 2008.",
+       "ref": [
+        "doc:nut-wfp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The social protection section of NDP 2030 (9.2) aims to reduce child poverty to 25% and expand coverage of state benefits for children in poor families to 30%. It also lists as tasks expanding benefits for young children and children from poor households in high-mountain, remote and border areas, and identifying beneficiaries through a digital \"social passport\".",
+       "ref": [
+        "doc:nut-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "While WFP recommends strengthening social protection as a way to improve nutrition, the NDP 2030 social protection targets include no nutrition indicator. There is not yet a mechanism to measure whether expanding benefit coverage has improved diet quality.",
+       "ref": [
+        "doc:nut-ndp",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "New plans and challenges"
+      },
+      {
+       "k": "f",
+       "t": "WFP's analysis (June 2026) calls for its findings to inform the Law on Food Security, the Food Security and Nutrition Programme 2025–2030 and the national strategy for social and behaviour change communication on nutrition.",
+       "ref": [
+        "doc:nut-fng"
+       ],
+       "b": "A 2025–2030 Programme exists (referred to in the WFP report)"
+      },
+      {
+       "k": "f",
+       "t": "Note: the texts of the Food Security and Nutrition Programme 2025–2030 and the social and behaviour change communication strategy on nutrition have not been obtained, so national numerical targets have not been confirmed.",
+       "ref": [
+        "doc:nut-fng",
+        "tree:food:food"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 2019 Programme identifies as challenges weak inter-sectoral coordination, the weak role of regions and local governments, and insufficient integration of development partners' activities, and states that the current system of food security indicators does not adequately reflect reality.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same Programme states that obligations as a member of the EAEU, international treaties and commitments to achieve the SDGs need to be taken into account, and that protecting the domestic food market within the EAEU regulatory framework is also important. The problem with the rules on fortified flour is likewise a matter of alignment with the EAEU framework.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Nutrition spans agriculture, health, education and social protection, and no single ministry owns it as a whole. Because the content of the new version of the core programme is not visible, national targets can only be measured by proxy against international targets (World Health Assembly).",
+       "ref": [
+        "doc:nut-foodsec",
+        "doc:nut-fng"
+       ],
+       "b": "Cross-sectoral; national targets can only be measured by proxy against international targets"
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the sub-programmes",
+     "msg": "Three of the four rows fall under the Food Security and Nutrition Programme and maternal and child nutrition under the health programme, but the latest texts of neither can be checked.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 List of sub-programmes (active cooperation by table row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The three rows for school meals, agriculture and nutrition, and food assistance are mapped to the Food Security and Nutrition Programme (only the text of the earlier version can be checked), and maternal and child nutrition and micronutrients to the maternal and child health pillar of the health programme (estimated).",
+       "ref": [
+        "row:school",
+        "row:agri",
+        "row:food",
+        "row:mch"
+       ],
+       "b": "Three rows under the food security programme; maternal and child nutrition under the health programme"
+      },
+      {
+       "k": "f",
+       "t": "WFP's analysis was carried out jointly with three ministries: agriculture, health and education. Taking as given that nutrition is handled by separate ministries, it calls for strengthening the food system across sectors.",
+       "ref": [
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "By row: school meals correspond to \"improving school nutrition\" in the 2019 Programme and the education tasks of NDP 2030; agriculture and nutrition to the Programme's \"availability\" direction; and food assistance to its \"access\" direction and food crisis preparedness. Maternal and child nutrition spans both the Programme's nutrition direction and the maternal and child health pillar of the health programme.",
+       "ref": [
+        "doc:nut-foodsec",
+        "doc:nut-ndp",
+        "row:school",
+        "row:agri",
+        "row:food",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Maternal and child nutrition covers anaemia and micronutrients, the indicators furthest from target, yet it has neither a stand-alone national plan nor much donor funding.",
+       "ref": [
+        "row:mch",
+        "ind:mn:0"
+       ],
+       "b": "Maternal and child nutrition is thin in both planning and funding"
+      },
+      {
+       "k": "v",
+       "t": "School meals, agriculture and nutrition, and food assistance have some active cooperation. Only maternal and child nutrition, which covers the furthest indicator (anaemia), is weak in both its place in plans and its cooperation, making it the emptiest of the four rows.",
+       "ref": [
+        "row:mch",
+        "row:school",
+        "row:agri",
+        "row:food",
+        "ind:mn:0"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for the international targets (World Health Assembly)",
+     "msg": "With no national numerical targets, measured against international targets none of the seven benchmarks is on track; anaemia, obesity and overweight are moving away or not moving.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to international targets (actual pace = average change over the period; required pace = change needed to reach the target in the target year)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The National Development Programme 2030 has no numerical nutrition targets, and the targets of the 2025–2030 Food Security and Nutrition Programme have not been confirmed. The comparison is therefore made against the World Health Assembly's 2030 nutrition targets.",
+       "ref": [
+        "doc:nut-ndp",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Stunting fell by −0.30 a year in 2015–2024; the 8% target requires −0.50 a year. At this pace it would be about 9.2% in 2030.",
+       "ref": [
+        "ind:child:0"
+       ],
+       "b": "Stunting: about 9.2% in 2030 at this pace (target 8%)"
+      },
+      {
+       "k": "v",
+       "t": "Stunting is 3.0 points from target, and the required rate of decline is about 1.7 times the current rate. Accelerating the decline will require concentrating interventions on the poorest households (16% in MICS) and on regions such as Batken.",
+       "ref": [
+        "ind:child:0",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Anaemia among women fell by only −0.06 a year in 2015–2023; the 16.9% target requires −2.3 a year. It is the indicator furthest from target.",
+       "ref": [
+        "ind:mn:0"
+       ],
+       "b": "Anaemia in women: −0.06 a year; −2.3 a year required"
+      },
+      {
+       "k": "v",
+       "t": "Anaemia among women is 16 points from target, and the required rate of decline is about 37 times the current rate. This shows the target cannot be reached by extrapolating current trends. The gap will not narrow unless fortified flour, iron and folic acid supplementation and improved diet quality move together.",
+       "ref": [
+        "ind:mn:0",
+        "doc:nut-nimas",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Low birthweight fell by −0.06 a year in 2015–2020; the 4.5% target requires −0.15 a year. At this pace it would be about 5.4% in 2030. Data run only to 2020, and subsequent trends are not available from national statistics.",
+       "ref": [
+        "ind:mn:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Adult obesity keeps rising at +0.66 a year, moving away from the benchmark of \"halting at the 2010 level\".",
+       "ref": [
+        "ind:food:1"
+       ],
+       "b": "Adult obesity rising at +0.66 a year"
+      },
+      {
+       "k": "v",
+       "t": "Child overweight is 8.8%, about three times the 3% benchmark. Wasting is 3.0%, right on the threshold. The wasting target is broadly being met while the overweight target is moving further away, so the centre of gravity of the nutrition problem is shifting towards overnutrition.",
+       "ref": [
+        "ind:child:1",
+        "ind:child:2"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Exclusive breastfeeding is 44% in MICS 2023, 26 points short of the World Health Assembly target of 70%. It has barely moved from 45.6% in 2018.",
+       "ref": [
+        "doc:nut-mics"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The NDP 2030 health targets (Section 9.4) for maternal mortality and under-five mortality are closely linked to nutrition but are not nutrition targets as such. Nutrition is not set as a numerical target anywhere among the health, education, social protection and agriculture targets.",
+       "ref": [
+        "doc:nut-ndp",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The very fact that national numerical targets cannot be confirmed is a major problem. The 2019 Programme aimed to \"achieve the SDG nutrition indicators by 2025\" and stated that this required improving the nutrition of children under five 2.5-fold and of women 7-fold, but that date has passed without the indicators moving much.",
+       "ref": [
+        "doc:nut-foodsec",
+        "ind:child:0",
+        "ind:mn:0"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Child growth",
+     "msg": "Stunting has been falling, but estimates vary widely between surveys from 7% to 14%, and overweight is nearly three times the international target.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Stunting and overweight among children under five (dotted lines = World Health Assembly targets)",
+      "inds": [
+       "child:0",
+       "child:2"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: stunting (UN joint estimate) fell from 13.7% (2015) to 11.0% (2024). Since 2020 the decline has slowed, from 11.4% to 11.0%.",
+       "ref": [
+        "ind:child:0"
+       ],
+       "b": "Stunting 13.7% (2015) → 11.0% (2024); decline slowing"
+      },
+      {
+       "k": "h",
+       "t": "Differences between surveys"
+      },
+      {
+       "k": "f",
+       "t": "Survey values: 14% in MICS 2023 and 7.0% in NIMAS 2021 (6–59 months). WFP, based on MICS, writes that stunting rose from 12% to 14%, reversing earlier progress. Among the poorest fifth of households it is 16%.",
+       "ref": [
+        "doc:nut-mics",
+        "doc:nut-nimas",
+        "doc:nut-fng"
+       ],
+       "b": "MICS 14% vs NIMAS 7.0%: large differences between surveys"
+      },
+      {
+       "k": "f",
+       "t": "Wasting is 3.0% (2023), right on the World Health Assembly benchmark of \"below 3%\". It was 0.8% in NIMAS 2021.",
+       "ref": [
+        "ind:child:1",
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NIMAS 2021 measured children aged 6–59 months and found stunting at 7.0%, wasting at 0.8% and overweight or obesity at 7.3%. MICS 2023 covers children under five and found stunting at 14%, wasting at 3% and overweight at 9%. The surveys differ in the age range covered and timing.",
+       "ref": [
+        "doc:nut-nimas",
+        "doc:nut-mics"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NIMAS states that, although national stunting is low, in Batken Region it constitutes a \"medium\" public health problem. WFP's analysis based on MICS also shows a high 16% among the poorest fifth of households. There are regional and income disparities that national averages obscure.",
+       "ref": [
+        "doc:nut-nimas",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "WFP's analysis states that stunting rose between MICS 2018 and 2023 and that overweight also rose, but elsewhere states that overweight was unchanged at 9%; the report is internally inconsistent.",
+       "ref": [
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Overweight and infant and young child feeding"
+      },
+      {
+       "k": "f",
+       "t": "Overweight is 8.8% (2023), nearly three times the benchmark of below 3%. It has risen from 7.0% (2014) and 6.9% (2018) to 7.1% (2021).",
+       "ref": [
+        "ind:child:2"
+       ],
+       "b": "Child overweight 8.8%, nearly three times the 3% benchmark"
+      },
+      {
+       "k": "f",
+       "t": "Infant and young child (6–23 months) feeding: in MICS 2023, minimum dietary diversity was 63% and minimum acceptable diet 49%. In NIMAS 2021 the figures were 26.2% and 15.3% respectively.",
+       "ref": [
+        "doc:nut-mics",
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In MICS 2023, 73% of newborns began breastfeeding within one hour of birth. Early initiation is high, but exclusive breastfeeding to six months (44%) is only around 60% of that level.",
+       "ref": [
+        "doc:nut-mics"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The WFP–GAFSP project document, citing NIMAS, states that more than 70% of children aged 6–59 months do not meet minimum dietary diversity.",
+       "ref": [
+        "doc:nut-gafsp",
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 2019 Programme listed as nutrition interventions procurement of therapeutic food for children with severe malnutrition, community-based management of moderate malnutrition (WHO and UNICEF recommendations), and promotion of exclusive and continued breastfeeding.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Depending on which figure is used, the level of stunting can be read as either \"close to target\" or \"deteriorating\". The UN estimate is a smoothed model and does not reflect fluctuations in survey values. If a national target is to be set, the survey used to measure it must be decided first.",
+       "ref": [
+        "ind:child:0",
+        "doc:nut-mics",
+        "doc:nut-nimas"
+       ],
+       "b": "The survey used for measurement must be decided first"
+      },
+      {
+       "k": "v",
+       "t": "Infant and young child feeding indicators also differ widely between NIMAS and MICS (minimum acceptable diet of 15.3% versus 49%). Without checking the differences in definitions between surveys, it is impossible to judge whether child nutrition is improving or worsening.",
+       "ref": [
+        "doc:nut-nimas",
+        "doc:nut-mics"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the maternal and child nutrition and micronutrients row has 4 projects and about USD 0.2 million (including UNICEF nutrition system strengthening).",
+       "ref": [
+        "row:mch"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "UNICEF's project on strengthening a systems approach to improve nutrition outcomes (about USD 0.2 million, to 2027) accounts for almost all active funding in the maternal and child nutrition row. Support such as WHO nutrition counselling (including breastfeeding) is technical cooperation with amounts close to zero.",
+       "ref": [
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/004/002",
+        "proj:XM-DAC-928-KG-2026-27-02.002.EU01.KGZ02",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "There is no large active cooperation for stunting, overweight or breastfeeding. The gap left by past World Bank and US projects remains unfilled, and nutrition counselling within national health services (antenatal and postnatal check-ups) is the main entry point.",
+       "ref": [
+        "row:mch",
+        "fact:closed_rows",
+        "doc:nut-nimas"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Anaemia and micronutrients",
+     "msg": "Anaemia among women has barely moved for more than a decade, and fortified flour is hardly reaching households.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Anaemia among women and low birthweight (dotted lines = World Health Assembly targets)",
+      "inds": [
+       "mn:0",
+       "mn:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: anaemia among women of reproductive age went from 34.3% (2010) to 32.9% (2023), almost flat. It rose slightly from 32.6% in 2021.",
+       "ref": [
+        "ind:mn:0"
+       ],
+       "b": "Anaemia in women 34.3% (2010) → 32.9% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "In NIMAS 2021, iron deficiency among non-pregnant women was 55.9% and iron-deficiency anaemia 23.1%. Iron-deficiency anaemia among children (6–59 months) was 15.0%. WFP's country page states that 21% of children under five are anaemic.",
+       "ref": [
+        "doc:nut-nimas",
+        "doc:nut-wfp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "WFP's analysis states that anaemia among women of reproductive age is increasing and continues to rise in many regions. The WFP–GAFSP project document states that cutting back on food because of poverty leads to iron and folate deficiency and anaemia among women and children.",
+       "ref": [
+        "doc:nut-fng",
+        "doc:nut-gafsp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Babies born with low birthweight fell from 6.5% (2010) to 6.0% (2020).",
+       "ref": [
+        "ind:mn:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Low birthweight fell by 0.5 points in 2010–2020 but remains 1.5 points above the 4.5% target. The high level of anaemia among pregnant women (49.3% in NIMAS) also affects birthweight, so nutritional interventions during pregnancy address both.",
+       "ref": [
+        "ind:mn:1",
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Underlying factor: fortified foods are not reaching people"
+      },
+      {
+       "k": "f",
+       "t": "In NIMAS 2021, 98.2% of household salt was iodised, and 75.6% adequately so. By contrast, only 24.1% of flour samples were fortified with iron, and only 1.7% adequately so.",
+       "ref": [
+        "doc:nut-nimas"
+       ],
+       "b": "Only 1.7% of flour adequately fortified with iron"
+      },
+      {
+       "k": "f",
+       "t": "WFP's analysis states that flour fortification is mandatory but fewer than one-third of households consume fortified flour.",
+       "ref": [
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The Food Security Programme (2019) states that after joining the EAEU (Eurasian Economic Union), national technical regulations on fortified flour and other products lost force, and that banning imports of unfortified flour would be inconsistent with EAEU and WTO rules.",
+       "ref": [
+        "doc:nut-foodsec"
+       ],
+       "b": "Fortified flour rules lost force after EAEU accession"
+      },
+      {
+       "k": "f",
+       "t": "The same Programme states that the standards for fortified flour need to be revised. For iodised salt, NIMAS recommends amending the law to align the national standard (40±15 ppm) with the international benchmark of 15 ppm.",
+       "ref": [
+        "doc:nut-foodsec",
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NIMAS states that no meaningful difference was found in the share of fortified flour between domestic and imported products. In its recommendations it says \"only one-third of households use fortified flour\", which is worded differently from the table value (24.1% of samples).",
+       "ref": [
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to NIMAS, distribution of micronutrient powder (\"Gulazyk\") for children aged 6–24 months stopped when the Ministry of Health ceased procuring it in 2018. Use of supplements by women and children is low overall, and NIMAS recommends delivering iron and folic acid to pregnant women at antenatal and postnatal check-ups.",
+       "ref": [
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The halt in micronutrient powder distribution in 2018 coincides with the period when US and World Bank nutrition projects were ending. This suggests that measures against child anaemia have not been taken over by the national budget and health services.",
+       "ref": [
+        "doc:nut-nimas",
+        "fact:closed_rows",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NIMAS recommends enforcing flour fortification, monitoring imported flour and revising the iodisation standard.",
+       "ref": [
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 2019 Programme listed continuing iron and folic acid supplementation for pregnant women and extending it to women of reproductive age, including breastfeeding mothers and adolescent girls. WFP's analysis also recommends expanding iron and folic acid supplementation for adolescent girls.",
+       "ref": [
+        "doc:nut-foodsec",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Behind the stagnation in anaemia is the failure of fortified flour to reach households. The obligation exists but is not complied with, so enforcement of the rules (testing and imports) is key.",
+       "ref": [
+        "ind:mn:0",
+        "doc:nut-nimas",
+        "doc:nut-fng"
+       ],
+       "b": "The fortified flour obligation is not being complied with"
+      },
+      {
+       "k": "v",
+       "t": "Folate deficiency among women (83.2%) is linked to the neural tube defect problem raised in the 2019 Programme. Wider use of fortified flour addresses both anaemia and folate deficiency, and enforcing existing obligations would have a greater effect than costly new projects.",
+       "ref": [
+        "doc:nut-nimas",
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: there is no large active project dealing directly with micronutrients. The maternal and child nutrition row amounts to about USD 0.2 million.",
+       "ref": [
+        "row:mch"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The WFP–GAFSP project in Batken Region (GAFSP grant of USD 1.6 million, 2024–2026) includes a plan to deliver fortified bread from women's bakeries to 1,800 pupils in 14 schools. This project could not be identified by name in the site's cooperation project data.",
+       "ref": [
+        "doc:nut-gafsp",
+        "row:school"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Food security and diet quality",
+     "msg": "The share of people struggling to obtain food is rising slowly and adult obesity keeps increasing; the cost of a nutritious diet lies at the root of both.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Share of people with food insecurity, and adult obesity",
+      "inds": [
+       "food:0",
+       "food:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: people with moderate or severe food insecurity rose from 6.3% (2017) to 7.4% (2024).",
+       "ref": [
+        "ind:food:0"
+       ],
+       "b": "Food insecurity 6.3% → 7.4%"
+      },
+      {
+       "k": "v",
+       "t": "More people face moderate or severe food insecurity (7.4%) than are undernourished (4.8%), and the number is increasing. This suggests that while few people lack enough food, more are cutting back on or lowering the quality of what they eat, consistent with the \"negative coping strategies\" cited by WFP.",
+       "ref": [
+        "ind:food:0",
+        "doc:nut-wfp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Adult obesity rose from 13.4% (2010) to 22.0% (2024); among women from 16.5% to 25.5%.",
+       "ref": [
+        "ind:food:1"
+       ],
+       "b": "Adult obesity 13.4% → 22.0%"
+      },
+      {
+       "k": "f",
+       "t": "The adult obesity estimate (25.5% for women, 2024) and obesity among non-pregnant women aged 15–49 in NIMAS 2021 (17.0%) differ in age range and method. Including overweight, NIMAS gives 44.3%, almost one in two women.",
+       "ref": [
+        "ind:food:1",
+        "doc:nut-nimas"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 2019 Programme called for measures to curb consumption of unhealthy foods and salt, and a system to monitor disease incidence, in order to reduce nutrition-related non-communicable diseases (overweight and obesity, type 2 diabetes, cardiovascular disease).",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Regional disparities and household budgets"
+      },
+      {
+       "k": "f",
+       "t": "In WFP's analysis (January–August 2025), 41% of people nationwide cannot afford a nutritious diet. Batken Region is highest at 79% and Chui Region lowest at 27%.",
+       "ref": [
+        "doc:nut-fng"
+       ],
+       "b": "Cannot afford: Batken 79%, Chui 27%"
+      },
+      {
+       "k": "f",
+       "t": "WFP states that about 3.2 million people cannot afford a nutritious diet and 1.8 million live in poverty.",
+       "ref": [
+        "doc:nut-wfp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the WFP–GAFSP project document, 41% of the population of Batken Region is poor, a figure that would be 61% without remittances, and 15% are severely food-insecure. Batken is also the region with the highest share (79%) of people unable to afford a nutritious diet in WFP's analysis.",
+       "ref": [
+        "doc:nut-gafsp",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 2019 Programme states that in 2017 food accounted for 43% of household spending: 51.0% for the poorest fifth and 37.0% for the richest fifth. Those suffering from low-calorie, unbalanced diets are persons with disabilities, families who have lost a breadwinner, large families and landless rural residents.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 2019 Programme states that the social protection system has problems, such as some families receiving benefits for low-income households with children for more than ten years. Many rural women work in small-scale processing or kitchen gardens, and support for women's employment and self-employment would increase agricultural production and employment.",
+       "ref": [
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The regions with high food insecurity in NIMAS (Issyk-Kul, Naryn, Chui) do not match those where WFP finds many people unable to afford a nutritious diet (Batken, Osh). Besides differences in survey method and timing, this shows that food insecurity and diet cost are separate problems.",
+       "ref": [
+        "doc:nut-nimas",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "School meals"
+      },
+      {
+       "k": "f",
+       "t": "School meals: the state contributes an average of 14 som per child per day, while WFP recommends at least 30 som for ages 7–10.",
+       "ref": [
+        "doc:nut-fng",
+        "row:school"
+       ],
+       "b": "School meals: state contribution 14 som a day; 30 som recommended"
+      },
+      {
+       "k": "f",
+       "t": "According to WFP's analysis, the state contribution to school meals varies by region. The 2019 Programme listed as unresolved issues legalising good practices of using produce from school gardens and plots in school meals, and quality control of school meals.",
+       "ref": [
+        "doc:nut-fng",
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Under the WFP–GAFSP project in Batken Region, WFP buys cooperatives' wheat for three years, which women's bakeries turn into fortified bread delivered to schools. Linking local production, women's incomes and school nutrition, it aims to reach 4,500 smallholders (22,500 people including family members).",
+       "ref": [
+        "doc:nut-gafsp",
+        "row:school",
+        "row:agri"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Recommendations and regulation"
+      },
+      {
+       "k": "f",
+       "t": "WFP's recommendations: increase the school meals budget and extend the age range covered, tax sugary drinks and similar products, enforce flour fortification, provide iron and folic acid to adolescent girls, and combine cash transfers with fortified foods.",
+       "ref": [
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "WFP's recommendations address both prices (school meals, social protection) and the food environment (taxation, fortification, advertising). The 2019 Programme also listed advertising regulation, so national plans and donor recommendations point the same way; the gap lies in slow implementation.",
+       "ref": [
+        "doc:nut-fng",
+        "doc:nut-foodsec"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The simultaneous rise in obesity and food insecurity appears to reflect the spread of diets relying on cheap energy sources. Measures on price (social protection, school meals) and food regulation go hand in hand.",
+       "ref": [
+        "ind:food:0",
+        "ind:food:1",
+        "doc:nut-fng"
+       ],
+       "b": "Price measures and food regulation go hand in hand"
+      },
+      {
+       "k": "h",
+       "t": "Related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the school meals row has 3 projects and about USD 5.1 million (WFP), and the food assistance row 4 projects and about USD 1.1 million (including US emergency food assistance).",
+       "ref": [
+        "row:school",
+        "row:food"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "WFP's school meals project (about USD 5.1 million, 2026–2027) is the core of this row. FAO's assessment and improvement of the school nutrition system (to 2027) and Korea's school meals using locally produced food (implemented with WFP) show zero amounts in the data. US emergency food assistance (about USD 0.8 million, to 2027) is the core of the food assistance row.",
+       "ref": [
+        "proj:XM-DAC-41140-KG02.05.044.SMP1",
+        "proj:XM-DAC-41301-756811",
+        "proj:KR-GOV-010-KR-GOV-051-2025010100050",
+        "proj:US-GOV-1-7200GH22IO00005"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "ADB and WFP account for almost 90% of active funding, which is small in scale.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million; projects mapped to strategy areas; after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the nutrition strategy totals 12 projects and about USD 14.5 million. By donor: ADB about USD 8 million, WFP about USD 5.1 million, United States about USD 0.8 million, FAO, UNICEF and others about USD 0.2 million each.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 12 projects, about USD 14.5 million"
+      },
+      {
+       "k": "h",
+       "t": "Main active projects"
+      },
+      {
+       "k": "f",
+       "t": "The ADB amount is a climate-resilient agricultural value chain project (horticulture processing and storage) mapped to the agriculture and nutrition row. The WFP amount is the school meals project (2026–2027).",
+       "ref": [
+        "row:agri",
+        "row:school",
+        "proj:XM-DAC-46004-51276-001-GRNT0925",
+        "proj:XM-DAC-46004-51276-001-LN4413",
+        "proj:XM-DAC-41140-KG02.05.044.SMP1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The ADB project is an agricultural project supporting horticulture processing, storage and cold storage facilities and contract farming; on the site, its loan and grant of about USD 4 million each are mapped to the agriculture and nutrition row. It does not directly target nutrition outcomes.",
+       "ref": [
+        "proj:XM-DAC-46004-51276-001-GRNT0925",
+        "proj:XM-DAC-46004-51276-001-LN4413",
+        "row:agri"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Other projects include GAFSP II funded by Canada and others (about USD 0.2 million), FAO's pilot of agricultural product traceability (systems for tracing origin) (about USD 0.1 million) and food control capacity building, and WHO technical support on malnutrition prevention and food safety.",
+       "ref": [
+        "proj:CA-3-M013185003",
+        "proj:XM-DAC-41301-753651",
+        "proj:XM-DAC-41301-750709",
+        "proj:XM-DAC-928-KG-2026-27-02.002.EU01.KGZ01"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "By amount, active cooperation with nutrition itself as its objective is limited to WFP school meals and UNICEF system strengthening. More than half of the total of about USD 14.5 million is the apportioned share of the ADB agriculture project, so actual support for nutrition is even thinner than the table suggests.",
+       "ref": [
+        "fact:mapped_musd",
+        "row:agri",
+        "row:school",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "No projects end by end-2026.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The WFP school meals project and UNICEF system strengthening are scheduled to end at end-2027, and FAO and WHO technical cooperation also in 2027. By end-2027, almost no active projects directly targeting nutrition will remain.",
+       "ref": [
+        "proj:XM-DAC-41140-KG02.05.044.SMP1",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/07/004/002",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Most projects are small technical cooperation by UN agencies, and there has been no nutrition-related lending from international development finance institutions since the World Bank's agricultural productivity and nutrition improvement project ended in 2023. Fortified food testing and expansion of school meals, which require funding at scale, are hard to support through technical cooperation alone.",
+       "ref": [
+        "proj:WB-P132754",
+        "fact:by_donor",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: the Korean school meals project (implemented with WFP) shows an amount of zero, while its title refers to \"USD 900 million\". The import of the amount needs to be checked.",
+       "ref": [
+        "row:school",
+        "proj:KR-GOV-010-KR-GOV-051-2025010100050"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "If the Korean project's amount were correctly captured, the amount for the school meals row and the outlook beyond end-2027 could change substantially. Checking the data is a precondition for assessing this row.",
+       "ref": [
+        "proj:KR-GOV-010-KR-GOV-051-2025010100050",
+        "row:school"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from the site's data at time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and the evolution of support",
+     "msg": "Maternal and child nutrition was the largest area of cooperation completed over the past decade, but there have been almost no follow-on projects.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed since 2017. Projects before 2017 are excluded because records from major donors are missing. Even since 2017, records are largely available only from 2020 for ADB and from 2021 for UNICEF and UNDP.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the nutrition strategy total 36 projects and about USD 10.9 million. By donor: World Bank about USD 3.5 million, United States about USD 3.1 million, WFP about USD 1.8 million, Switzerland about USD 1.1 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "36 projects, about USD 10.9 million"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, overlaps included): maternal and child nutrition about USD 6.9 million, agriculture and nutrition about USD 3.7 million, food assistance about USD 3.2 million (including COVID-19 emergency response), school meals about USD 0.7 million.",
+       "ref": [
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The about USD 6.9 million completed in the maternal and child nutrition row breaks down into World Bank about USD 3.5 million, United States about USD 2.8 million, UNICEF about USD 0.3 million and UN about USD 0.2 million. The about USD 3.2 million in the food assistance row includes Switzerland about USD 1.1 million, WFP about USD 1.1 million and Germany about USD 0.4 million.",
+       "ref": [
+        "fact:closed_rows",
+        "row:mch",
+        "row:food"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Main completed projects"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Agricultural Productivity and Nutrition Improvement Project (about USD 3.5 million, completed 2023) falls in both the agriculture and the maternal and child nutrition rows. The US projects USAID Advancing Nutrition (about USD 1.4 million, 2018–2024) and SPRING (about USD 1.4 million, 2011–2018) were the other pillar of the maternal and child nutrition row.",
+       "ref": [
+        "proj:WB-P132754",
+        "proj:US-GOV-1-7200AA18C00070",
+        "proj:US-GOV-1-AID-OAA-A-11-00031"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Also completed were WFP emergency assistance (about USD 1.1 million, 2018–2022) and school meals (about USD 0.7 million, 2018–2022), Switzerland's COVID-19 emergency response through WFP (about USD 0.5 million and others), Germany's local food systems for healthy diets (about USD 0.4 million, completed 2020) and UNICEF's policies and standards for nutrition services (about USD 0.3 million, completed 2022).",
+       "ref": [
+        "proj:XM-DAC-41140-KG01.01.051.ACL1",
+        "proj:XM-DAC-41140-KG01.01.013.SMP1",
+        "proj:CH-4-2020001403",
+        "proj:DE-1-201775881",
+        "proj:XM-DAC-41122-Republic of Kyrgyzstan-2450/A0/06/002/002"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Support for the UN Scaling Up Nutrition (SUN) Movement (about USD 0.2 million, completed 2022) has also ended.",
+       "ref": [
+        "proj:41AAA-20163-004",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The 36 projects and about USD 10.9 million completed since 2017 are smaller than the about USD 14.5 million active. However, more than half of the active amount is the apportioned share of the ADB agriculture project, so for projects aimed at nutrition alone, the completed amount is larger.",
+       "ref": [
+        "fact:closed_musd",
+        "fact:mapped_musd",
+        "row:agri"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The main completed projects are the World Bank's Agricultural Productivity and Nutrition Improvement Project (completed 2023) and the US nutrition projects (completed 2018 and 2024).",
+       "ref": [
+        "fact:closed_rows",
+        "row:mch"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Since the World Bank and US projects ended, cooperation on maternal and child nutrition has shrunk to about USD 0.2 million. A funding gap has opened just as anaemia and stunting indicators are stagnating.",
+       "ref": [
+        "fact:closed_rows",
+        "row:mch",
+        "ind:mn:0"
+       ],
+       "b": "Maternal and child nutrition funding has shrunk to about USD 0.2 million"
+      },
+      {
+       "k": "v",
+       "t": "The food assistance row has many projects (26), but most were short emergency responses during COVID-19 or border clashes. Small emergency interventions arrive with each crisis but have not led to building nutrition systems in normal times.",
+       "ref": [
+        "fact:closed_rows",
+        "row:food"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Over the past decade, cooperation rested on two pillars: nutrition as part of agricultural projects (World Bank) and dedicated US nutrition projects. Neither has a successor, and no medium-sized or larger project with nutrition as its main objective can currently be found.",
+       "ref": [
+        "proj:WB-P132754",
+        "proj:US-GOV-1-7200AA18C00070",
+        "row:mch"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "All four rows have active projects, but amounts for maternal and child nutrition and food assistance are almost nominal.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative total)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row is without active cooperation.",
+       "ref": [
+        "fact:empty_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Maternal and child nutrition and micronutrients has 4 projects and about USD 0.2 million, and food assistance 4 projects and about USD 1.1 million; many WHO and FAO projects are technical cooperation with amounts close to zero.",
+       "ref": [
+        "row:mch",
+        "row:food"
+       ],
+       "b": "Maternal and child nutrition about USD 0.2 million; food assistance about USD 1.1 million"
+      },
+      {
+       "k": "f",
+       "t": "Active donors by row: school meals, WFP (about USD 5.1 million); agriculture and nutrition, ADB (about USD 8 million) with GAFSP II and FAO; maternal and child nutrition, UNICEF (about USD 0.2 million); food assistance, the United States (about USD 0.8 million) and GAFSP II. Every row effectively depends on a single donor.",
+       "ref": [
+        "row:school",
+        "row:agri",
+        "row:mch",
+        "row:food"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The structure means that when one donor ends, the whole row empties; when the WFP and UNICEF projects end at end-2027, the school meals and maternal and child nutrition rows risk becoming empty at the same time.",
+       "ref": [
+        "row:school",
+        "row:mch",
+        "proj:XM-DAC-41140-KG02.05.044.SMP1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "No row is empty, but there is effectively no cooperation directly aimed at anaemia and micronutrients. Fortified food testing and import monitoring, iron and folic acid supplementation, and nutrition counselling are areas that appear in plans but have no cooperation.",
+       "ref": [
+        "row:mch",
+        "doc:nut-foodsec",
+        "doc:nut-nimas"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "The next issues are what the targets of the new national plan will be measured against, and whether action on anaemia and obesity moves on both funding and regulation.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "National numerical targets are not visible, and stunting values differ widely between surveys. Which survey the 2025–2030 Programme uses and what it targets are preconditions for assessment.",
+       "ref": [
+        "doc:nut-fng",
+        "doc:nut-mics",
+        "doc:nut-nimas"
+       ],
+       "b": "The new plan's targets and measurement are preconditions for assessment"
+      },
+      {
+       "k": "v",
+       "t": "Anaemia, the furthest indicator, combines non-compliance with the fortified flour obligation and shrinking cooperation on maternal and child nutrition. This is an area where enforcement of rules and technical cooperation can be effective.",
+       "ref": [
+        "ind:mn:0",
+        "doc:nut-nimas",
+        "row:mch"
+       ],
+       "b": "Enforcement of rules and technical cooperation can work for anaemia"
+      },
+      {
+       "k": "v",
+       "t": "Obesity and food insecurity share the same root: the cost of diets. Budgets for school meals and social protection will be the test of nutrition policy.",
+       "ref": [
+        "ind:food:1",
+        "doc:nut-fng",
+        "row:school"
+       ],
+       "b": "School meals and social protection budgets are the test"
+      },
+      {
+       "k": "v",
+       "t": "Cooperation is small, and many projects directly targeting nutrition end at end-2027. Unless successors are agreed, nutrition cooperation will be almost empty from 2028.",
+       "ref": [
+        "row:school",
+        "row:mch",
+        "fact:mapped_musd"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The most promising measures lie in operating existing systems rather than in new projects. Testing fortified flour, iron and folic acid at antenatal check-ups and raising the per-meal budget for school meals are measures cited in common by the 2019 Programme, NIMAS and WFP.",
+       "ref": [
+        "doc:nut-foodsec",
+        "doc:nut-nimas",
+        "doc:nut-fng"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "On data, standardising the measurement of stunting comes first. If the new plan's targets are set without explaining the difference between MICS and NIMAS, judgements of achievement will keep shifting. The design of the next national nutrition survey is one entry point for cooperation.",
+       "ref": [
+        "doc:nut-mics",
+        "doc:nut-nimas",
+        "ind:child:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: the text and indicators of the Food Security and Nutrition Programme 2025–2030, the state contribution to school meals, a successor to WFP school meals (ending end-2027), and a new national nutrition survey.",
+       "ref": [
+        "tree:food:food",
+        "row:school"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Stunting among children under five (UN joint estimate)",
+   "11.0%(2024)",
+   "8.0% (half the 2012 level)",
+   "−0.30/yr (2015→2024)",
+   "−0.50/yr",
+   "Off track (about 9.2%)",
+   "bad"
+  ],
+  [
+   "Wasting among children under five",
+   "3.0%(2023)",
+   "Below 3%",
+   "(survey years only)",
+   "—",
+   "On the threshold",
+   "warn"
+  ],
+  [
+   "Overweight among children under five",
+   "8.8%(2023)",
+   "Below 3%",
+   "+0.2/yr (2014→2023)",
+   "−0.83/yr",
+   "Moving away",
+   "bad"
+  ],
+  [
+   "Anaemia among women (aged 15–49)",
+   "32.9%(2023)",
+   "16.9% (half the 2012 level)",
+   "−0.06/yr (2015→2023)",
+   "−2.3/yr",
+   "Off track (almost flat)",
+   "bad"
+  ],
+  [
+   "Low birthweight",
+   "6.0%(2020)",
+   "4.5% (30% reduction from 2012)",
+   "−0.06/yr (2015→2020)",
+   "−0.15/yr",
+   "Off track (about 5.4%)",
+   "bad"
+  ],
+  [
+   "Exclusive breastfeeding under six months",
+   "44%(MICS 2023)",
+   "70%",
+   "Almost flat (45.6% in 2018)",
+   "+3.7/yr",
+   "Off track",
+   "bad"
+  ],
+  [
+   "Adult obesity",
+   "22.0%(2024)",
+   "Halt at 13.4% (2025)",
+   "+0.66/yr (2015→2024)",
+   "—",
+   "Moving away",
+   "bad"
+  ],
+  [
+   "National numerical nutrition targets (Food Security and Nutrition Programme 2025–2030)",
+   "Text not obtained",
+   "—",
+   "—",
+   "—",
+   "Cannot be measured",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "School meals",
+   "Food Security and Nutrition Programme (problem 2.3, improving school nutrition) / NDP 2030 Section 9.3 tasks",
+   "Government Decision No. 320 of 2019 (text of the 2025–2030 version not obtained)",
+   "end",
+   "",
+   "school",
+   ""
+  ],
+  [
+   "1",
+   "Agriculture and nutrition",
+   "Food Security and Nutrition Programme (availability direction)",
+   "Same as above",
+   "end",
+   "",
+   "agri",
+   ""
+  ],
+  [
+   "1",
+   "Maternal and child nutrition and micronutrients",
+   "No stand-alone programme (estimated to fall under the maternal and child health pillar of the health programme)",
+   "—",
+   "none",
+   "",
+   "mch",
+   ""
+  ],
+  [
+   "1",
+   "Food assistance and food security",
+   "Food Security and Nutrition Programme (access direction)",
+   "Same as above",
+   "end",
+   "",
+   "food",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Nutrition improvement"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "National numerical nutrition targets (the text of the Food Security and Nutrition Programme 2025–2030 could not be obtained)",
+  "Reasons for the differences in stunting between MICS 2023 (14%), NIMAS 2021 (7.0%) and the UN joint estimate (11.0%)",
+  "Annual values for child anaemia since 2020 (estimates run to 2019)",
+  "Annual coverage of fortified flour and iodised salt (survey years only)",
+  "Annual values for the number of children covered by school meals and the national school meals budget",
+  "Other items not yet checked: the last 20,000 or so characters of the WFP analysis, the indicator matrix of the 2019–2023 Programme (Annex 3), the WFP Food Security Outlook 2024 PDF (could not be opened), the annexes of the WFP/GAFSP project document, and the regional tables of NIMAS"
+ ]
+}

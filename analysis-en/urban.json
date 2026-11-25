@@ -1,0 +1,1597 @@
+{
+ "sid": "urban",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "1": "Urban and regional development"
+  },
+  "rows": {
+   "plan": {
+    "n": "Urban planning and housing",
+    "st": "Integrated Socio-Economic Development of the Regions 2025–30"
+   },
+   "serv": {
+    "n": "Water, sanitation and urban services",
+    "st": "Drinking Water Supply and Sanitation Programme"
+   },
+   "bish": {
+    "n": "Bishkek transport, heating and air",
+    "st": "\"Smart and Sustainable City of Bishkek\" to 2033"
+   },
+   "reg": {
+    "n": "Regional cities and regional infrastructure",
+    "st": "Integrated Socio-Economic Development of the Regions 2025–30"
+   }
+  }
+ },
+ "ind": {
+  "home": {
+   "name": "(1) Housing",
+   "tag": "Urbanisation, inadequate housing",
+   "inds": [
+    {
+     "name": "Share of people living in urban areas",
+     "unit": "%",
+     "st": "— No target (rising slowly)",
+     "src": "World Bank WDI SP.URB.TOTL.IN.ZS",
+     "note": "The official figure is about 35%, but residents of new housing areas (novostroiki) on the outskirts of Bishkek are said not to be fully counted.",
+     "t": []
+    },
+    {
+     "name": "Urban population living in slums or inadequate housing",
+     "unit": "%",
+     "st": "— No target (falling trend)",
+     "src": "UN SDG Database EN_LND_SLUM (SDG 11.1.1, UN-Habitat)",
+     "t": []
+    }
+   ]
+  },
+  "svc": {
+   "name": "(2) Urban services",
+   "tag": "Water, air",
+   "goals": [
+    [
+     "Waste collection rate (SDG 11.6.1)",
+     "Only two data points: Bishkek 83% (2010) and Osh 80% (2018)"
+    ]
+   ],
+   "inds": [
+    {
+     "name": "Urban population using safely managed drinking water",
+     "unit": "%",
+     "st": "✕ Moving away from the target",
+     "src": "World Bank WDI SH.H2O.SMDW.UR.ZS (originally JMP)",
+     "t": [
+      "SDG: everyone"
+     ]
+    },
+    {
+     "name": "Urban PM2.5 (annual mean)",
+     "unit": "µg/m³",
+     "st": "✕ About five times the WHO guideline (5 µg)",
+     "src": "UN SDG Database EN_ATM_PM25 (SDG 11.6.2, WHO estimates)",
+     "note": "Bishkek, where coal heating increases in winter, is known as one of the world's most air-polluted cities.",
+     "t": [
+      "WHO interim 15"
+     ]
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Urban funding goes to regional city infrastructure and housing; Bishkek centres on buses and heating",
+  "msgs": [
+   [
+    "Large projects in housing finance.",
+    "Islamic Development Bank and ADB housing finance. The President is also backing state housing construction."
+   ],
+   [
+    "Buses in Bishkek.",
+    "EBRD's bus project. The city plans to buy 627 buses, and a monorail is also being considered (6 November)."
+   ],
+   [
+    "Master plans.",
+    "Master plans for every village by 2030 (6 November). Budget also allocated for the general plan of Kemin city."
+   ],
+   [
+    "Water and sanitation: World Bank and EBRD.",
+    "Financing for urban water supply and sewerage continues."
+   ]
+  ],
+  "h2": "Funding goes to housing, regional infrastructure and transport in Bishkek",
+  "rows": {
+   "plan": [
+    "",
+    "Islamic Development Bank and ADB housing finance"
+   ],
+   "serv": [
+    "",
+    "World Bank, EBRD and ADB water supply"
+   ],
+   "bish": [
+    "",
+    "EBRD buses, Chinese urban projects"
+   ],
+   "reg": [
+    "",
+    "Broad range including the Islamic Development Bank, World Bank and China"
+   ]
+  },
+  "h3": "Recent news centres on master plans, housing, and parks and courtyards in Bishkek",
+  "themes": [
+   [
+    "Planning:",
+    "Master plans for all villages; treatment of annexes to Bishkek's general plan."
+   ],
+   [
+    "Housing:",
+    "Transfer of land for state housing; rules on providing parking."
+   ],
+   [
+    "Living environment:",
+    "Improvements to large parks and courtyards; scheduled water outages."
+   ]
+  ]
+ },
+ "proj_t": {
+  "JICA-201904278": "Project for Regional Development and Tourism Promotion Utilising World Heritage Sites in Chui Region"
+ },
+ "title": "Kyrgyz Republic Urban and Regional Development Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ur-ndp",
+   "t": "National Development Programme 2030 (Presidential Decree No. 178 of 2025): III Current situation (integrated regional development, housing), 5.2 Regional Hub (urban transport), 10.4 Regional development, 13.2 Environment",
+   "by": "Kyrgyz Republic",
+   "y": "2025",
+   "scope": "The regional and housing paragraphs of III, urban transport in 5.2, 10.4, and the target indicators of 13.2, reviewed in the translation on this site",
+   "cat": "gov"
+  },
+  {
+   "id": "ur-water",
+   "t": "Programme for the Development of Drinking Water Supply and Sanitation Systems until 2026 (Government Resolution No. 330 of 12 June 2020)",
+   "by": "Government of the Kyrgyz Republic",
+   "y": "2020",
+   "scope": "Chapter 2 (current situation and problems), Chapter 4 (goals), indicators to 2026 and Chapter 7 (financing), reviewed in machine translation",
+   "cat": "gov",
+   "u": "http://www.cawater-info.net/bk/water_law/pdf/kg-330-2020.pdf"
+  },
+  {
+   "id": "ur-lsg",
+   "t": "Programme for the Development of Local Self-Government 2024–2028 (Cabinet Resolution No. 80 of 22 February 2024)",
+   "by": "Cabinet of Ministers of the Kyrgyz Republic",
+   "y": "2024",
+   "scope": "Preamble of the resolution and bibliographic information only. The text is on a paid site and has not been read",
+   "cat": "gov"
+  },
+  {
+   "id": "ur-udp",
+   "t": "Enhanced Services and Infrastructure in Cities of the Kyrgyz Republic (results report of the urban development project)",
+   "by": "World Bank",
+   "y": "Aug 2023",
+   "scope": "Full text",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/results/2023/08/30/enhanced-services-and-infrastructure-in-cities-of-the-kyrgyz-republic"
+  },
+  {
+   "id": "ur-aq",
+   "t": "Air Quality Analysis for Bishkek: PM2.5 Source Apportionment and Emission Reduction Measures (press page and report)",
+   "by": "World Bank",
+   "y": "Dec 2023",
+   "scope": "Full text of the press page, the report's summary (pp. 1–5) and parts of the main text (pp. 16 and 22). The second half of the report has not been read",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/events/2023/12/12/report-launch-air-quality-analysis-for-bishkek"
+  },
+  {
+   "id": "ur-infra",
+   "t": "Kyrgyz Republic Infrastructure Governance Assessment",
+   "by": "World Bank",
+   "y": "2023",
+   "scope": "Summary (paragraphs 1–8) reviewed in the original. The second half has not been read",
+   "cat": "donor",
+   "u": "https://thedocs.worldbank.org/en/doc/b38abeabc516d7f3ac1ea83715d8f23a-0080012023/original/Kyrgyz-Republic-InfraGov-Report.pdf"
+  },
+  {
+   "id": "ur-red",
+   "t": "Regional Economic Development Project for the Kyrgyz Republic (loan announcement, March 2020) and the announcement of additional financing for Osh Region (March 2025)",
+   "by": "World Bank",
+   "y": "2020, 2025",
+   "scope": "Full text of both announcements",
+   "cat": "donor",
+   "u": "https://www.worldbank.org/en/news/press-release/2025/03/26/world-bank-approves-additional-financing-to-boost-economic-growth-in-kyrgyz-republic-osh-region"
+  },
+  {
+   "id": "ur-hsia",
+   "t": "Health Systems in Action Insights: Kyrgyzstan 2024",
+   "by": "WHO European Observatory on Health Systems and Policies",
+   "y": "2025",
+   "scope": "Full text (only the descriptions of urban–rural differences and internal migration are used)",
+   "cat": "donor",
+   "u": "https://www.ecoi.net/en/file/local/2121521/9789289059817-eng.pdf"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Urban drinking water is deteriorating. The share of urban residents using safely managed drinking water fell from 93.1% (2016) to 81.0% (2024), moving away from the SDG of \"everyone by 2030\".",
+   "ref": [
+    "ind:svc:0"
+   ],
+   "h": "Urban drinking water is deteriorating"
+  },
+  {
+   "k": "f",
+   "t": "Air pollution in Bishkek is severe in winter, with losses estimated at 1.2% of GDP. Daily average PM2.5 in winter often exceeds 200 µg/m³, and household (coal) heating is the largest source in winter.",
+   "ref": [
+    "doc:ur-aq",
+    "ind:svc:1"
+   ],
+   "h": "Winter air pollution in Bishkek is severe"
+  },
+  {
+   "k": "f",
+   "t": "NDP 2030 has almost no numerical urban targets; the only one that can be tracked numerically is the Bishkek emissions reduction, and even that is not available from national statistics.",
+   "ref": [
+    "doc:ur-ndp"
+   ],
+   "h": "There are almost no national numerical urban targets"
+  },
+  {
+   "k": "f",
+   "t": "Active cooperation mapped to the urban and regional development strategy comprises 31 projects worth about USD 136 million, almost all from four lenders: the Islamic Development Bank, the World Bank, EBRD and ADB. Large projects target housing finance and transport and heating in Bishkek.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:by_donor",
+    "row:plan",
+    "row:bish"
+   ],
+   "h": "31 active projects worth about USD 136 million, almost all from four development banks"
+  },
+  {
+   "k": "v",
+   "t": "The national water supply and sanitation programme expires in 2026; a successor plan and investment to halt the deterioration of urban water supply will be the issues in 2027.",
+   "ref": [
+    "doc:ur-water",
+    "ind:svc:0",
+    "row:serv"
+   ],
+   "h": "The water and sanitation programme expires in 2026; its successor is the issue"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Urban and regional overview",
+     "msg": "Housing quality has improved, but urban water supply and air quality remain poor or are deteriorating.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "34.7",
+        "u": "%",
+        "k": "Share of people living in urban areas (2025)",
+        "ref": "ind:home:0"
+       },
+       {
+        "v": "6.3",
+        "u": "%",
+        "k": "Urban population living in slums or inadequate housing (2024)",
+        "ref": "ind:home:1"
+       },
+       {
+        "v": "81.0",
+        "u": "%",
+        "k": "Urban population using safely managed drinking water (2024)",
+        "ref": "ind:svc:0",
+        "hot": true
+       },
+       {
+        "v": "23.6",
+        "u": "µg/m³",
+        "k": "Urban PM2.5 annual mean (2023)",
+        "ref": "ind:svc:1",
+        "hot": true
+       },
+       {
+        "v": "15.7",
+        "u": "m²",
+        "k": "Housing floor area per person (data from the \"My Home\" programme)",
+        "ref": "doc:ur-ndp"
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "The share of people living in urban areas went from 35.1% (2015) to 34.7% (2025), almost unchanged. The urban population living in slums or inadequate housing fell from 27.8% (2010) to 6.3% (2024).",
+       "ref": [
+        "ind:home:0",
+        "ind:home:1"
+       ],
+       "b": "Urban population flat at about 35%; inadequate housing 27.8% → 6.3%"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that housing floor area per person does not exceed 15.7 m², below the UN social standard (at least 30 m²). The State Mortgage Company has focused on regional housing construction since 2023, with 435 buildings and 21,174 units (1.3 million m² in total, an estimated 68.6 billion som) under construction.",
+       "ref": [
+        "doc:ur-ndp"
+       ],
+       "b": "Housing 15.7 m² per person (UN standard 30 m²); 21,174 units under construction"
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that the 2023–2024 administrative-territorial reform merged 452 aiyl aimaks (village municipalities) into 231 and incorporated neighbouring villages into 14 cities. Bishkek city and Chui, Jalal-Abad and Issyk-Kul Regions account for most of regional GDP.",
+       "ref": [
+        "doc:ur-ndp"
+       ],
+       "b": "Administrative-territorial reform: village municipalities 452 → 231"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank states that since the early 1990s urban services have deteriorated owing to shortages of funding, capacity and management, services have failed to keep pace with rapid urbanisation, and in small towns only 25–50% of people receive waste collection. Many public buildings such as schools were built in the 1960s–70s and lack seismic resilience and energy efficiency.",
+       "ref": [
+        "doc:ur-udp"
+       ],
+       "b": "Waste collection in small towns covers 25–50%"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's infrastructure governance assessment states that basic public services were transferred to local governments in 2008, but many lack the financial, technical and organisational capacity, and water supply outside the capital frequently suffers interruptions and unsafe water.",
+       "ref": [
+        "doc:ur-infra"
+       ],
+       "b": "Services were devolved in 2008; local governments lack capacity"
+      },
+      {
+       "k": "v",
+       "t": "The official urban population is flat, but residents of new housing areas on the outskirts of Bishkek are said not to be fully counted, so demand for services may be growing faster than statistics show.",
+       "ref": [
+        "ind:home:0",
+        "doc:ur-udp"
+       ],
+       "b": "Official urban population is flat; demand may be growing faster than statistics show"
+      },
+      {
+       "k": "h",
+       "t": "Ageing infrastructure and local government capacity"
+      },
+      {
+       "k": "f",
+       "t": "According to the water supply and sanitation programme, as of 1 January 2018 there were 1,905 villages nationwide and 973 water supply networks (84 urban, 889 rural). Many facilities have exceeded their 30-year service life; water supply systems were built before 1970 in 262 villages and before 1990 in 567 villages.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Households obtain water from centralised networks (29.1%), water pumps (55.4%), wells (6.6%), springs (2.3%) and irrigation canals (6.6%) (National Statistical Committee). Women carry out 60% of water fetching, and children also take part in up to 14% of households.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's infrastructure governance assessment cites an IMF estimate that roads, water and power need additional spending of 63% of GDP (2018) over 2019–2030, while the current public investment programme covers only 3–5% of GDP a year. It also notes that project prioritisation is not standardised and is poorly linked to higher-level plans.",
+       "ref": [
+        "doc:ur-infra"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 states that republican budget funds were allocated to Jalal-Abad, Kara-Balta, Karakol, Kerben, Talas, Tokmok, Toktogul and other cities to improve urban living standards and infrastructure. At the end of 2024, an administrative reform transferring some ministerial powers to districts was piloted in Ysyk-Ata District (Chui Region) and Uzgen District (Osh Region).",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "At the root of urban problems are ageing facilities built up to the 1970s–80s and the lack of funding and technical capacity of local governments, which took on responsibility for services in 2008. The national budget works through allocations to particular cities, and no mechanism for systematically renewing cities nationwide is visible.",
+       "ref": [
+        "doc:ur-water",
+        "doc:ur-infra",
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank urban development project report states that local governments used rigid Soviet-era building codes that did not suit current market and local conditions. The project held more than 500 meetings (about 8,000 people) and produced water utility improvement plans and urban planning roadmaps.",
+       "ref": [
+        "doc:ur-udp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the water supply and sanitation programme, 8.9% of the population cannot use safe drinking water sources (they use water from open reservoirs that harms health), and about 9% use ditches or springs as drinking water sources.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy framework",
+     "msg": "Urban policy centres on NDP 2030 Section 10.4 → the Programme for Integrated Regional Development 2025–2030, with water and sanitation, housing and Bishkek handled by separate plans.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy framework (status as of November 2026)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: NDP 2030 Section 10.4 \"Regional development\" states that, under the Programme for Integrated Socio-Economic Development of the Regions 2025–2030, development will shift to follow spatial planning and regional specialisation. It lists forming urban districts (agglomerations) that include neighbouring villages around regional-level cities and introducing a spatial data infrastructure with a digital industrial map. There are no numerical targets.",
+       "ref": [
+        "doc:ur-ndp",
+        "tree:regions:regions"
+       ],
+       "b": "NDP 10.4: integrated regional development and urban districts (no numerical targets)"
+      },
+      {
+       "k": "f",
+       "t": "Next level: the Programme for the Formation and Development of Regional Growth Points 2025–2030 and the Programme of State Grants for Community Initiatives 2024–2027 follow.",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Urban transport (5.2): lists environmentally friendly public transport, expansion of electric and hybrid buses, cycle lanes and pedestrian spaces, and an electric vehicle charging network as tasks.",
+       "ref": [
+        "doc:ur-ndp"
+       ],
+       "b": "5.2: electric buses, cycle lanes, charging network"
+      },
+      {
+       "k": "f",
+       "t": "Environment (13.2): one of its four targets is a 16% reduction in harmful emissions in Bishkek through the use of enriched coal and gasification of residential areas. Tasks include gasification of Bishkek's residential areas, construction of coal enrichment plants, construction of modern landfills and improved air quality monitoring.",
+       "ref": [
+        "doc:ur-ndp"
+       ],
+       "b": "13.2: 16% reduction in harmful emissions in Bishkek"
+      },
+      {
+       "k": "f",
+       "t": "Water and sanitation: the Programme for the Development of Drinking Water Supply and Sanitation Systems until 2026 (Government Resolution No. 330 of 2020) aimed by 2026 to provide centralised water supply meeting standards in at least 95% of important cities, centralised water supply to more than 2 million rural residents, and sewerage to at least 70% of residents of district centres with village status.",
+       "ref": [
+        "doc:ur-water"
+       ],
+       "b": "Water and sanitation programme to 2026: standard-compliant supply in 95% of important cities"
+      },
+      {
+       "k": "f",
+       "t": "Housing: the housing programme \"My Home 2021–2026\" has been revised, and the State Mortgage Company has been restructured.",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Bishkek: the existence of the concept \"Smart and Sustainable City of Bishkek\" to 2033 was confirmed in the 2025 SDG national report, but its text has not been read. The four pillars in the site's policy tree (public transport, air and heating, urban infrastructure, smart city) are inferred from the scope of the concept.",
+       "ref": [
+        "tree:bishkek:bishkek",
+        "tree:bishkek:B1",
+        "tree:bishkek:B2"
+       ],
+       "b": "Bishkek concept to 2033: text not checked, pillars inferred"
+      },
+      {
+       "k": "f",
+       "t": "Local self-government: there is a Programme for the Development of Local Self-Government 2024–2028 (Cabinet Resolution No. 80 of 22 February 2024, amended by No. 808 in December 2024). Its text is on a paid site and has not been read.",
+       "ref": [
+        "doc:ur-lsg"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of each plan"
+      },
+      {
+       "k": "f",
+       "t": "The water supply and sanitation programme implements the National Development Strategy 2018–2040 and SDG 6 (clean water and sanitation), aiming to increase standard-compliant drinking water through construction, rehabilitation and modernisation of water supply and sewerage facilities. It planned water supply works in 1,184 villages by 2026.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On financing, the programme states that the republican budget lacks the funds for the required investment and that support from international donors and investors is needed. 250 million som was allocated to 89 facilities in 2018 and 500 million som to 73 facilities in 2019; by the end of 2019 works were completed at 14 sites and 48,921 people gained safe drinking water. It estimates that sewerage in 26 district centres will require 4,048 million som.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On waste, NDP 2030 Section 13.2 lists reducing generation and recycling and reuse, introducing extended producer responsibility (making manufacturers responsible for disposal) with digitalisation, building modern landfills with sorting and heat and power generation, and rehabilitating illegal dumps.",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The site's policy tree divides the Programme for Integrated Regional Development into five areas (regional industry and SMEs, agriculture and rural areas, regional infrastructure (waste, housing, etc.), tourism, and digitalisation and territorial planning). These areas are constructed from documents; the programme's text has not been read.",
+       "ref": [
+        "tree:regions:RG1",
+        "tree:regions:RG3",
+        "tree:regions:RG5"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The water and sanitation plan has concrete targets and cost estimates, but for the other plans (regional, Bishkek, housing) either the text or the targets could not be confirmed. In the urban area, water and sanitation is effectively the only plan whose content is visible.",
+       "ref": [
+        "doc:ur-water",
+        "tree:regions:regions",
+        "tree:bishkek:bishkek"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The infrastructure governance assessment states that domestically funded projects and donor-funded projects undergo separate appraisals, which can lead to duplication. It also points out that life-cycle costs including maintenance are hardly considered at the project review stage, leaving the Ministry of Finance to cover maintenance of existing facilities from the annual budget.",
+       "ref": [
+        "doc:ur-infra"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "NDP 2030 Section 10.4 envisages forming urban districts (agglomerations) based on the city halls of regional-level cities and including neighbouring aiyl aimaks, extending this to district-level cities where infrastructure, logistics and population allow. A national spatial data infrastructure is to be introduced together with a digital industrial map linked to geographic information systems.",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In a system where donor projects proceed through separate appraisals and maintenance costs are not included in plans, new facilities risk deteriorating quickly. The longer the loan, as with many urban projects (such as EBRD projects running into the 2040s), the more it matters who bears maintenance costs.",
+       "ref": [
+        "doc:ur-infra",
+        "fact:rows"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Position of the subprogrammes",
+     "msg": "All four areas have national plans, but the water and sanitation and housing plans expire in 2026, and the text of the Bishkek concept cannot be confirmed.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Subprogrammes (active cooperation by table row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Regional cities and regions and urban planning are covered by the Programme for Integrated Socio-Economic Development of the Regions 2025–2030. Water and sanitation is a plan to 2026, and housing (\"My Home\") a plan to 2026. Transport, heating and air in Bishkek fall under the concept to 2033.",
+       "ref": [
+        "tree:regions:regions",
+        "doc:ur-water",
+        "tree:bishkek:bishkek"
+       ],
+       "b": "The water and sanitation and housing plans expire in 2026"
+      },
+      {
+       "k": "v",
+       "t": "In the urban area NDP 2030 has almost no numerical targets, and the targets of individual plans (95% and 70% for water and sanitation, etc.) cannot be tracked with annual published figures either. It is one of the areas with the weakest link between targets and results.",
+       "ref": [
+        "doc:ur-ndp",
+        "doc:ur-water"
+       ],
+       "b": "The link between targets and results is weak"
+      },
+      {
+       "k": "f",
+       "t": "The strength of the documentary basis for national plans is: legislation for water and sanitation, documents for Bishkek, and press reports for urban planning and housing and for regional cities. All four pillars of the Bishkek tree are \"inferred\".",
+       "ref": [
+        "row:serv",
+        "row:bish",
+        "row:plan",
+        "row:reg"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Three of the four rows are linked to plans whose texts cannot be verified. To show which national targets donor projects serve, the texts and targets of the plans must first be confirmed.",
+       "ref": [
+        "row:plan",
+        "row:bish",
+        "row:reg"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "(To be written in the quarterly update)",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report; replaced each quarter"
+     },
+     "paras": []
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overall: outlook for targets",
+     "msg": "Against international goals, housing is improving and air quality is approaching the interim target, but urban drinking water is moving in the wrong direction.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average change over the period; required pace = change needed to reach the target in 2030; simple linear extrapolation as a guide)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "NDP 2030 has almost no numerical targets for urban and regional development (Section 10.4 lists only tasks); the only numerical target is the Bishkek emissions reduction (13.2). The table therefore focuses on SDG and WHO international goals.",
+       "ref": [
+        "doc:ur-ndp"
+       ],
+       "b": "The only national numerical target is Bishkek emissions; the table focuses on international goals"
+      },
+      {
+       "k": "v",
+       "t": "Urban drinking water fell by an average of −1.24 percentage points a year in 2015–2024; reaching everyone by 2030 would require +3.17 points a year. On the current trajectory, the gap will widen.",
+       "ref": [
+        "ind:svc:0"
+       ],
+       "b": "Drinking water: −1.24 points a year; +3.17 a year needed to reach everyone"
+      },
+      {
+       "k": "v",
+       "t": "Air quality figures differ widely by source. The WHO-estimated urban average is 23.6 µg/m³ (2023), but the World Bank puts Bishkek's 2022 annual mean at about seven times the guideline and its 2018 modelled annual mean at 51.4 µg/m³. National average estimates do not capture the depth of winter pollution in Bishkek.",
+       "ref": [
+        "ind:svc:1",
+        "doc:ur-aq"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "With almost no national numerical targets and individual plan targets that cannot be tracked with annual published figures, progress in the urban area can only be gauged from international estimates. The lack of figures to measure is itself a major problem for this area.",
+       "ref": [
+        "doc:ur-ndp",
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In terms of gaps to international goals, urban drinking water stands at 81.0% (2024), far from the target of everyone (100%) by 2030. PM2.5 is 23.6 µg/m³ (2023), still above the WHO interim target of 15 µg/m³ and the final guideline of 5 µg/m³.",
+       "ref": [
+        "ind:svc:0",
+        "ind:svc:1"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Housing (urbanisation and housing)",
+     "msg": "Inadequate housing has fallen sharply, but housing floor area per person remains about half the UN standard.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Share of people living in urban areas and urban population living in slums or inadequate housing",
+      "inds": [
+       "home:0",
+       "home:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the urban population living in slums or inadequate housing fell from 27.8% (2010) to 15.5% (2018) and 6.3% (2024) (UN-Habitat estimates). The share of people living in urban areas went from 35.3% (2010) to 34.7% (2025).",
+       "ref": [
+        "ind:home:1",
+        "ind:home:0"
+       ],
+       "b": "Inadequate housing 27.8% (2010) → 6.3% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Current issues: housing floor area per person is 15.7 m² or less, and NDP 2030 treats securing affordable housing as a strategically important task. The financial market chapter (VII) lists developing the mortgage-backed securities market and expanding mortgages through interest subsidies.",
+       "ref": [
+        "doc:ur-ndp"
+       ],
+       "b": "Floor area 15.7 m² or less; expanding mortgages is a task"
+      },
+      {
+       "k": "f",
+       "t": "Gap to target: NDP 2030 has no numerical target for housing, so no comparison with a target based on national statistics is possible.",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "UN estimates show improved housing quality, but the official urban population has stayed flat and residents of new suburban housing areas may not be fully counted, so housing indicators need careful reading.",
+       "ref": [
+        "ind:home:0",
+        "ind:home:1"
+       ],
+       "b": "Reading housing improvements requires care over how population is counted"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the urban planning and housing row has 7 projects worth about USD 46.3 million (Islamic Development Bank housing finance about USD 26.7 million, ADB finance for affordable and energy-efficient housing about USD 16.3 million, Germany's social housing about USD 3.4 million).",
+       "ref": [
+        "row:plan"
+       ],
+       "b": "Housing: 7 projects worth about USD 46.3 million"
+      },
+      {
+       "k": "h",
+       "t": "Background and causes"
+      },
+      {
+       "k": "f",
+       "t": "According to NDP 2030, the State Mortgage Company's activities have been substantially restructured, and since 2023 it has focused on regional housing construction. The financial market chapter lists expanding mortgages through new instruments such as guarantees, mortgage-backed securities and interest subsidies.",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The WHO European Observatory states that many internal migrants (about 18% of the population) cannot enrol in mandatory health insurance because they lack documents. The scale of internal mobility also affects how demand for housing and services is counted.",
+       "ref": [
+        "doc:ur-hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "While the share of inadequate housing has fallen sharply, floor area per person remains about half the UN standard. National efforts are directed at housing supply and expanding mortgages, with closing the quantitative shortfall the immediate focus.",
+       "ref": [
+        "ind:home:1",
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Main projects in the urban planning and housing row are the Islamic Development Bank's Sharia-compliant (Islamic law) affordable housing finance (about USD 26.7 million, from October 2025), ADB's strengthening of finance for affordable and energy-efficient housing (loan about USD 11.3 million, grant about USD 5 million, November 2025 – March 2032), and Germany's social housing Phase 3 (about USD 3.2 million, ending December 2026).",
+       "ref": [
+        "proj:XM-DAC-46025-ISDB-KGZ1028",
+        "proj:XM-DAC-46004-58345-001-LN4647",
+        "proj:XM-DAC-46004-58345-001-GRNT1042",
+        "proj:DE-1-201768183"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Completed projects include Germany's housing programme Phase 2 (about USD 6 million, 2017–2023) and UN support for an urban resilience (disaster-resilient city) plan for Naryn (about USD 0.2 million, 2023–2024).",
+       "ref": [
+        "proj:DE-1-201567528",
+        "proj:41120-164081"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Housing funding is concentrated in two housing finance projects that began in 2025, consistent with the national direction of expanding mortgages. The ADB project targets energy-efficient housing and may also help reduce winter heating emissions (2.3). Projects on urban planning itself (land use, master plans), however, are small.",
+       "ref": [
+        "row:plan",
+        "proj:XM-DAC-46004-58345-001-LN4647",
+        "doc:ur-aq"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In terms of housing amenities, 36.9% of the national housing floor area has water supply and 27.1% has sewerage (end of 2017). 55.3% of people fetch water from more than 100 m from their home.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The housing \"quality\" indicator (inadequate housing) has improved, but in terms of floor area, water supply and sewerage, living standards remain low. UN indicators alone do not reveal the shortfall in housing infrastructure.",
+       "ref": [
+        "ind:home:1",
+        "doc:ur-water"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Water, sanitation and urban services",
+     "msg": "Safe urban drinking water has fallen by about 12 points in eight years, and the national water and sanitation programme will expire with its targets unmeasured.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Urban population using safely managed drinking water (dotted line = SDG)",
+      "inds": [
+       "svc:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the urban population using safely managed drinking water rose from 87.9% (2010) to 93.1% (2016), then fell every year to 81.0% (2024) (originally the WHO/UNICEF Joint Monitoring Programme, JMP).",
+       "ref": [
+        "ind:svc:0"
+       ],
+       "b": "Safe urban drinking water 93.1% (2016) → 81.0% (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Current issues: the water supply and sanitation programme states that 29.1% of people nationwide and 64.1% in cities have access to centralised sewerage, that 23% of the urban population has no sewerage, and that five cities have no sewerage at all (National Statistical Committee and others, 2017–2018 figures). It estimates that rehabilitating urban water supply will require more than 20,162 million som.",
+       "ref": [
+        "doc:ur-water"
+       ],
+       "b": "Urban sewerage 64.1%; five cities have no sewerage"
+      },
+      {
+       "k": "f",
+       "t": "Waste: the World Bank states that in small towns only 25–50% of people receive waste collection. There are no annual figures for the waste collection rate (SDG 11.6.1).",
+       "ref": [
+        "doc:ur-udp"
+       ],
+       "b": "Waste collection in small towns 25–50%"
+      },
+      {
+       "k": "f",
+       "t": "Example of results: the World Bank urban development project (about USD 13.4 million) benefited 61,094 people in four small towns, extended water supply hours for about 52,000 people in two towns from 2–3 hours to 8–10 hours a day, and brought regular waste collection to 41,200 people.",
+       "ref": [
+        "doc:ur-udp"
+       ],
+       "b": "61,000 people in four towns; water supply 2–3 → 8–10 hours a day"
+      },
+      {
+       "k": "f",
+       "t": "Gap to target: the programme's 2026 targets (standard-compliant centralised supply in 95% of important cities, sewerage in 70% of district centres) are not available from national statistics (no published figures).",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The deterioration of urban drinking water appears to result from ageing water networks combined with migration into cities. With the programme expiring in 2026, the question is whether the successor plan will treat urban water supply as a separate issue.",
+       "ref": [
+        "ind:svc:0",
+        "doc:ur-water",
+        "doc:ur-infra"
+       ],
+       "b": "The question is how the successor plan treats urban water supply"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the water, sanitation and urban services row has 7 projects worth about USD 35.7 million (World Bank about USD 17.3 million, EBRD about USD 9.4 million, ADB about USD 8.1 million, EU about USD 0.9 million).",
+       "ref": [
+        "row:serv"
+       ],
+       "b": "Water and sanitation: 7 projects worth about USD 35.7 million"
+      },
+      {
+       "k": "h",
+       "t": "Background and causes"
+      },
+      {
+       "k": "f",
+       "t": "According to the water supply and sanitation programme, centralised sewerage systems fell by 21, from 117 in 2013 to 96 by the end of 2017 (as of 1 January 2018: 53 urban, 43 village). In remote cities and district centres, access to sewerage is falling year by year because of ageing infrastructure.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On water quality, many surface-water supply systems deliver water that fails microbiological standards (more than 20% of samples tested) because most treatment plants are not working. Around 30,000-plus cases of acute intestinal infections are reported every year, and measures against waterborne diseases cost more than 4.8 billion som a year.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On utility operations, only about 7% of households had water meters as of 2017, and collection against billing averages 67.8%. Of 742 rural drinking water user associations, only 68% operate with the necessary funds. State capital investment goes mainly to new buildings around Bishkek and Osh.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's infrastructure governance assessment states that water supply outside the capital is often interrupted and sometimes unsafe. In the urban development project, water utility improvement plans and electronic billing increased collection and revenue (no figures given).",
+       "ref": [
+        "doc:ur-infra",
+        "doc:ur-udp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The deterioration of urban drinking water appears to result from a combination of ageing facilities, the finances of water utilities with no meters and collection below 70%, and migration into cities. Unless tariffs, metering and utility operations improve alongside infrastructure investment, the gap to the 2030 target will not narrow.",
+       "ref": [
+        "ind:svc:0",
+        "doc:ur-water",
+        "doc:ur-udp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Main projects in the water, sanitation and urban services row are the World Bank's additional financing for rural water supply and sanitation (about USD 9 million) and climate-resilient water services (about USD 8.3 million, to 2028), EBRD's climate-resilient water supply (about USD 9 million, to 2039), and ADB's Naryn regional water supply and sanitation (loan about USD 6.8 million, grant about USD 1.3 million, 2024–2029).",
+       "ref": [
+        "proj:WB-P162840",
+        "proj:WB-P173734",
+        "proj:XI-IATI-EBRD-49793",
+        "proj:XM-DAC-46004-52256-001-LN4494",
+        "proj:XM-DAC-46004-52256-001-GRNT0971"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In waste, there are the EU's solid waste project for Osh and Jalal-Abad (about USD 0.9 million, to 2027) and EBRD's Osh solid waste (about USD 0.4 million).",
+       "ref": [
+        "proj:XI-IATI-EC_INTPA-2016-PCC-375313",
+        "proj:XI-IATI-EBRD-42471"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Part of this row's funding goes to rural and regional water supply. Projects directly addressing the deterioration of urban drinking water centre on the two climate-resilient water projects (World Bank, EBRD), and funding for turning around water utilities in cities other than Bishkek and Osh appears thin.",
+       "ref": [
+        "row:serv",
+        "proj:WB-P173734",
+        "proj:XI-IATI-EBRD-49793"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "According to the water supply and sanitation programme, 320.75 million m³ of water was delivered through pipes at the end of 2017 (187.74 million m³ to cities), with losses from leaks and other causes of 67.3 million m³. Sewerage coverage relative to housing floor area is 27.1%, and only 3% of public buildings such as rural schools and health facilities are connected to sewerage.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On waterborne diseases, 70–86% of reported typhoid cases occur in Mailuu-Suu city and Nooken District, Jalal-Abad Region. Meanwhile, the Ministry of Health reports a 76% reduction in giardiasis (diarrhoea caused by a parasite) in villages where hygiene education and other activities were carried out under the rural water supply and sanitation project in Issyk-Kul, Naryn and Talas Regions.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On affordability, the poorest households spend 0.45% of total expenditure on water; internationally, water and sewerage spending of up to 2.5% of disposable income is considered affordable.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The household burden is far below the international benchmark, leaving room to raise tariffs. However, with meters at only about 7%, volume-based charging is not possible, so tariff revisions appear to need to go hand in hand with meter installation.",
+       "ref": [
+        "doc:ur-water"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Air, heating and transport in Bishkek",
+     "msg": "Urban PM2.5 has declined, but Bishkek's winters are extremely polluted by household coal heating, and there are no figures to measure the national target.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 Urban PM2.5 annual mean (WHO estimates; dotted line = WHO interim target)",
+      "inds": [
+       "svc:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trend: the urban PM2.5 annual mean (WHO estimates) fell from 40.8 µg/m³ (2010) to 23.6 µg/m³ (2023), still about five times the WHO guideline of 5 µg/m³.",
+       "ref": [
+        "ind:svc:1"
+       ],
+       "b": "Urban PM2.5 40.8 → 23.6 µg/m³ (about five times the guideline)"
+      },
+      {
+       "k": "f",
+       "t": "Bishkek figures: the World Bank states that Bishkek's 2022 annual mean was about seven times the WHO guideline and that daily averages in recent winters often exceed 200 µg/m³. Annual means observed in 2020–2021 ranged from 30 to 64 µg/m³ depending on the monitoring network. It estimates losses at 1.2% of GDP for Bishkek alone and 5.1% for the country as a whole.",
+       "ref": [
+        "doc:ur-aq"
+       ],
+       "b": "Bishkek: over 200 µg/m³ in winter; losses 1.2% of GDP"
+      },
+      {
+       "k": "f",
+       "t": "Sources: in winter household heating is the largest source, reaching about 40% in November and January. Transport is second in every season. About 40% of residents use individual heating, and 75% of those detached houses rely on coal. The analysis estimates reductions of 29% if all coal-using households switch to clean heating, 27% if all vehicles become zero-emission, and 9% from switching the CHP plant from coal to gas.",
+       "ref": [
+        "doc:ur-aq"
+       ],
+       "b": "Household heating is the largest winter source; switching from coal cuts 29%"
+      },
+      {
+       "k": "f",
+       "t": "Institutional recommendations: promptly establish an interagency air quality coordination committee, and develop air quality standards and targets, monitoring, an emissions inventory, and national and Bishkek air quality master plans. The World Bank and partner agencies have prepared an air quality improvement project of about USD 50 million.",
+       "ref": [
+        "doc:ur-aq"
+       ],
+       "b": "Recommends an interagency coordination committee and master plans"
+      },
+      {
+       "k": "f",
+       "t": "Gap to target: NDP 2030's \"16% reduction in harmful emissions in Bishkek\" specifies neither a base year nor a measurement method, and is not available from national statistics (no published figures).",
+       "ref": [
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national target (gasification and coal enrichment) and the World Bank analysis (switching to clean heating is most effective) both focus on household heating. The difference is whether to improve coal or to stop using it.",
+       "ref": [
+        "doc:ur-ndp",
+        "doc:ur-aq"
+       ],
+       "b": "Both the state and the World Bank focus on household heating but differ on coal"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the Bishkek transport, heating and air row has 8 projects worth about USD 17.2 million (EBRD buses and district heating about USD 16.4 million, ADB about USD 0.6 million, Korea about USD 0.2 million).",
+       "ref": [
+        "row:bish"
+       ],
+       "b": "Bishkek: 8 projects worth about USD 17.2 million"
+      },
+      {
+       "k": "h",
+       "t": "Background and causes"
+      },
+      {
+       "k": "f",
+       "t": "The World Bank report puts Bishkek's 2018 modelled annual mean at 51.4 µg/m³ and observed annual means in 2020–2021 at 30–64 µg/m³ depending on the monitoring network. In summer, wind-blown dust becomes the largest source. Among heating options, heat pumps are considered the most effective clean heating.",
+       "ref": [
+        "doc:ur-aq"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The report's institutional recommendations also include an air quality policy team, standards and targets, a communication strategy, monitoring capacity and an emissions inventory. NDP 2030 Section 13.2 sets as tasks building enrichment plants for low-calorie, high-ash coal at the Kara-Keche and Min-Kush coal mines and improving air quality monitoring.",
+       "ref": [
+        "doc:ur-aq",
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In the World Bank analysis, individual heating used by about 40% of residents (mostly coal in detached houses) is the largest winter source, and switching household heating to clean methods cuts pollution by 29%. The national target is to improve coal quality, combined with gasification of residential areas. How far household heating is converted will determine winter pollution.",
+       "ref": [
+        "doc:ur-aq",
+        "doc:ur-ndp"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Content of related cooperation"
+      },
+      {
+       "k": "f",
+       "t": "Main projects in the Bishkek row are EBRD's Bishkek buses (about USD 9 million, 2021–2036), EBRD's Bishkek district heating network and district heating (about USD 4.7 million and about USD 2.7 million, from June 2026), ADB's pilot of low-carbon building retrofits in Bishkek city (about USD 0.6 million, December 2025 – 2029), and Korea's air quality improvement (about USD 0.2 million).",
+       "ref": [
+        "proj:XI-IATI-EBRD-51598",
+        "proj:XI-IATI-EBRD-55936",
+        "proj:XI-IATI-EBRD-56980",
+        "proj:XM-DAC-46004-57037-005-LN4689",
+        "proj:KR-GOV-010-KR-GOV-051-2025010100049"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In Osh, EBRD's electric public transport (about USD 5.3 million, from July 2025) falls in the regional cities row. Completed projects include EBRD's extension of Bishkek public transport (about USD 1.8 million, 2015–2025).",
+       "ref": [
+        "proj:XI-IATI-EBRD-53522",
+        "proj:XI-IATI-EBRD-47624"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Donor funding goes to buses and district heating (centralised heating networks); apart from ADB's building retrofit pilot, no project is visible that replaces individual coal heating in detached houses, the largest winter source. The about USD 50 million air quality improvement project prepared by the World Bank is also not found among the site's active projects.",
+       "ref": [
+        "row:bish",
+        "doc:ur-aq",
+        "proj:XM-DAC-46004-57037-005-LN4689"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The analysis estimates reductions of 9% from switching the CHP plant from coal to gas and 27% from making all vehicles zero-emission (no exhaust emissions). The World Bank estimates air pollution losses at 1.2% of GDP for Bishkek alone and 5.1% for the country as a whole.",
+       "ref": [
+        "doc:ur-aq"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Compared with the losses (1.2% of GDP), active funding in the Bishkek row (about USD 17.2 million) is small. There appears to be ample room to direct funding to household heating conversion as a cost-effective measure.",
+       "ref": [
+        "doc:ur-aq",
+        "row:bish"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overview",
+     "msg": "The Islamic Development Bank, the World Bank, EBRD and ADB are the largest sources of active funding, the four together accounting for about 96%.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Amounts by donor (USD million, projects mapped to strategy areas, after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the urban and regional development strategy comprises 31 projects worth about USD 136 million. By donor: Islamic Development Bank about USD 41.3 million, World Bank about USD 32.9 million, EBRD about USD 32.3 million, ADB about USD 24.9 million, Germany about USD 3.4 million, EU about USD 0.9 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "31 active projects worth about USD 136 million"
+      },
+      {
+       "k": "f",
+       "t": "Four projects worth about USD 13.4 million end at the end of 2026 (World Bank Regional Economic Development Project about USD 10 million, Germany's social housing about USD 3.4 million).",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd",
+        "fact:end_2026_by_donor"
+       ],
+       "b": "Four projects worth about USD 13.4 million end at the end of 2026"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): regional cities and regional infrastructure 18 projects worth about USD 53.7 million; urban planning and housing 7 projects worth about USD 46.3 million; water, sanitation and urban services 7 projects worth about USD 35.7 million; Bishkek transport, heating and air 8 projects worth about USD 17.2 million.",
+       "ref": [
+        "fact:rows"
+       ],
+       "b": "Regional cities about USD 53.7 million; housing about USD 46.3 million"
+      },
+      {
+       "k": "v",
+       "t": "Almost all funding is development bank lending, going to projects whose costs can be recovered through tariffs or repayments, such as housing finance, buses and district heating. Areas where cost recovery is difficult, such as waste and urban planning, have small projects or none.",
+       "ref": [
+        "fact:by_donor",
+        "row:plan",
+        "row:bish"
+       ],
+       "b": "Funding gravitates to cost-recoverable projects"
+      },
+      {
+       "k": "h",
+       "t": "Regional cities and regional infrastructure"
+      },
+      {
+       "k": "f",
+       "t": "Main projects in the largest row, regional cities and regions (18 projects worth about USD 53.7 million), are the World Bank's Regional Economic Development in Osh Region (about USD 10 million, ending December 2026) and its second phase (about USD 5.6 million, December 2027), the Islamic Development Bank's transmission lines in Issyk-Kul Region (about USD 14.6 million), EBRD's Osh electric public transport (about USD 5.3 million), and small water supply projects in Osh, Naryn and elsewhere.",
+       "ref": [
+        "row:reg",
+        "fact:rows",
+        "proj:WB-P167428",
+        "proj:WB-P175587",
+        "proj:XM-DAC-46025-ISDB-KGZ1007",
+        "proj:XI-IATI-EBRD-53522",
+        "proj:XI-IATI-EBRD-54200"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank's Regional Economic Development Project promotes agriculture, tourism, SMEs and modernisation of urban infrastructure in Osh Region (initially USD 60 million). USD 8.5 million of additional financing was approved in 2025, including restoration of Sulaiman-Too and heritage sites in Uzgen.",
+       "ref": [
+        "doc:ur-red",
+        "proj:WB-P167428"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "This row mixes regional economic development, power, transport and water supply. About 40% of urban and regional development funding sits in this row, but only part of it is directed at urban services; excluding the transmission line project, the scale is smaller.",
+       "ref": [
+        "row:reg",
+        "fact:rows"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Project types and durations"
+      },
+      {
+       "k": "f",
+       "t": "Active projects mapped to strategy rows number 31, worth about USD 136 million. Many EBRD projects are long-term loans running to 2036–2043.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "proj:XI-IATI-EBRD-51598",
+        "proj:XI-IATI-EBRD-55936",
+        "proj:XI-IATI-EBRD-56980"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "About 96% of funding is lending from four development banks, and there are almost no bilateral projects supporting capacity building for local governments and water utilities with grants. Technical cooperation is thin relative to the lack of local government capacity pointed out by the infrastructure governance assessment.",
+       "ref": [
+        "fact:by_donor",
+        "doc:ur-infra"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of amount.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from site data, as of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and evolution of support",
+     "msg": "Cooperation completed since 2017 is small, at 13 projects worth about USD 20 million, and most large projects began in 2021 or later.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Coverage: projects completed in 2017 or later. Records before 2017 are excluded because the main donors' records are incomplete. Even after 2017, ADB records are largely limited to 2020 onwards and UNICEF and UNDP records to 2021 onwards.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)"
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the urban and regional development strategy number 13, worth about USD 19.7 million (after pro-rata allocation, without double counting). By donor: World Bank about USD 11.2 million, Germany about USD 6.3 million, EBRD about USD 1.8 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "13 projects worth about USD 19.7 million"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): regional cities and regions 6 projects worth about USD 8.1 million; urban planning and housing 5 projects worth about USD 6.6 million (Germany's housing programme); water and sanitation 1 project worth about USD 3.4 million; Bishkek 2 projects worth about USD 1.8 million (EBRD public transport).",
+       "ref": [
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Completed cooperation is small compared with active (about USD 136 million) apparently because large projects such as housing finance, Bishkek buses and heating, and regional water and sanitation started recently. However, the urban development project described in the World Bank results report does not appear among the site's completed projects.",
+       "ref": [
+        "fact:closed_musd",
+        "fact:mapped_musd",
+        "doc:ur-udp"
+       ],
+       "b": "Large projects started recently; records may also be incomplete"
+      },
+      {
+       "k": "f",
+       "t": "Main completed projects are the World Bank's Central Asia Regional Links Program Phase 3 (about USD 7.9 million, 2018 – October 2026), Germany's housing programme Phase 2 (about USD 6 million), the World Bank's sustainable rural water supply and sanitation (about USD 3.4 million, 2016 – June 2026), and EBRD's extension of Bishkek public transport (about USD 1.8 million).",
+       "ref": [
+        "proj:WB-P159220",
+        "proj:DE-1-201567528",
+        "proj:WB-P154778",
+        "proj:XI-IATI-EBRD-47624"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The World Bank urban development project used about USD 13.4 million to support street lighting, energy efficiency, school seismic strengthening, water supply and waste collection in four small towns. It delivered savings of about 18,000 MWh through energy efficiency, seismic strengthening of four schools and two kindergartens (4,000 people) and 10 waste collection vehicles.",
+       "ref": [
+        "doc:ur-udp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The urban development project was one of the few projects that addressed small-town services comprehensively. Subsequent funding has shifted to large sector-specific loans such as housing finance, transport and heating, and the site's data show no project comprehensively supporting small towns.",
+       "ref": [
+        "doc:ur-udp",
+        "fact:rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The same report states that the urban development project's pilot retrofits were taken forward by a resilience project promoting school seismic strengthening (approved 2018, 40 schools) and a heat supply improvement project conducting energy audits of 21 public buildings (approved 2017).",
+       "ref": [
+        "doc:ur-udp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "All four areas have active cooperation, but waste, urban planning and smart city have almost no projects.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle active / completed / cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "No row lacks active cooperation. Waste projects are limited to small ones: the EU's Osh and Jalal-Abad project (about USD 0.9 million) and EBRD's Osh project (about USD 0.4 million).",
+       "ref": [
+        "fact:empty_rows",
+        "row:serv"
+       ],
+       "b": "No empty rows, but waste has only small projects"
+      },
+      {
+       "k": "f",
+       "t": "Data caveat: the transmission line project in Tamga and Karakol, Issyk-Kul Region (about USD 14.6 million) is mapped to the regional cities row, and statistics and customs master plan projects are mapped to the urban planning and housing row.",
+       "ref": [
+        "row:reg",
+        "row:plan"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Among projects in the urban planning row, the statistics and customs master plans are not urban planning, and UN support for the Naryn plan has ended. There are effectively no active projects addressing land use or urban master plans.",
+       "ref": [
+        "row:plan",
+        "proj:KR-GOV-010-KR-GOV-051-2025010103752",
+        "proj:WB-P114323"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Of the four pillars of the Bishkek concept, no project is mapped to the smart city pillar (urban management using digital technology).",
+       "ref": [
+        "tree:bishkek:B4",
+        "row:bish"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "In waste, only 25–50% of people in small towns receive collection, and NDP 2030 also lists modern landfills and extended producer responsibility as tasks. Yet active funding consists only of two EU and EBRD projects in Osh and Jalal-Abad (about USD 1.3 million together), making it one of the areas with the largest gap between plans, needs and funding.",
+       "ref": [
+        "doc:ur-udp",
+        "doc:ur-ndp",
+        "proj:XI-IATI-EC_INTPA-2016-PCC-375313",
+        "proj:XI-IATI-EBRD-42471"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "In 2027, successors to the national water and sanitation and housing plans and the conversion of heating in Bishkek will be tested at the same time.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Urban drinking water is the only indicator moving away from its international goal, and the water and sanitation programme expires in 2026. Whether the successor plan includes urban water supply targets and annual published figures is the first issue.",
+       "ref": [
+        "ind:svc:0",
+        "doc:ur-water"
+       ],
+       "b": "Will the successor water and sanitation plan include urban targets?"
+      },
+      {
+       "k": "v",
+       "t": "The national target for Bishkek's air (16% emissions reduction) has no measurement method; the coordination committee and emissions inventory recommended by the World Bank are prerequisites for measuring the target.",
+       "ref": [
+        "doc:ur-ndp",
+        "doc:ur-aq"
+       ],
+       "b": "A system to measure the air target is a prerequisite"
+      },
+      {
+       "k": "v",
+       "t": "Funding gravitates to cost-recoverable projects such as housing finance, buses and district heating, while waste and urban planning are thin in both national plans and funding. The lack of local government capacity (World Bank assessment) underlies this gap.",
+       "ref": [
+        "fact:rows",
+        "doc:ur-infra",
+        "doc:ur-udp"
+       ],
+       "b": "Waste and urban planning are thin in both plans and funding"
+      },
+      {
+       "k": "f",
+       "t": "To watch next quarter: successors to the water and sanitation programme and \"My Home\", publication of the text of the Bishkek concept, approval of the World Bank air quality improvement project, and the end of the Regional Economic Development Project and its successor.",
+       "ref": [
+        "doc:ur-water",
+        "tree:bishkek:bishkek",
+        "doc:ur-aq",
+        "row:reg"
+       ],
+       "b": "Successor plans, the Bishkek concept, air quality projects"
+      },
+      {
+       "k": "v",
+       "t": "Since the World Bank urban development project, no project comprehensively supporting small-town services can be found. Given the deterioration of urban water supply and low waste collection, the form of a successor combined with local government capacity building is an issue.",
+       "ref": [
+        "doc:ur-udp",
+        "ind:svc:0",
+        "doc:ur-infra"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Housing funding has thickened with two housing finance projects that began in 2025. Promoting energy-efficient housing is one of the few entry points that can address both air (heating) and housing at the same time.",
+       "ref": [
+        "row:plan",
+        "proj:XM-DAC-46004-58345-001-LN4647",
+        "doc:ur-aq"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Urban population using safely managed drinking water (SDG 6.1)",
+   "81.0%(2024)",
+   "100%(SDG)",
+   "−1.24 points/year (2015–2024)",
+   "+3.17 points/year",
+   "Moving away",
+   "bad"
+  ],
+  [
+   "Urban PM2.5 annual mean (SDG 11.6.2)",
+   "23.6µg/m³(2023)",
+   "WHO interim target 15 (final guideline 5)",
+   "−1.65/year (2015–2023)",
+   "−1.23/year (to the interim target)",
+   "On pace for the interim target (about 12); far from the guideline of 5",
+   "warn"
+  ],
+  [
+   "Urban population living in slums or inadequate housing (SDG 11.1.1)",
+   "6.3%(2024)",
+   "—",
+   "−1.54 points/year (2010–2024)",
+   "—",
+   "Still falling",
+   "good"
+  ],
+  [
+   "Harmful emissions in Bishkek (NDP 2030 Section 13.2)",
+   "No published figure",
+   "16% reduction",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ],
+  [
+   "Centralised water supply in important cities and sewerage in district centres (water and sanitation programme)",
+   "No published figure",
+   "At least 95% and at least 70% (2026)",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "Housing",
+   "Housing programme \"My Home 2021–2026\"",
+   "(legal reference number not checked)",
+   "end",
+   "— (III current situation only)",
+   "plan",
+   ""
+  ],
+  [
+   "1",
+   "Urban and territorial planning",
+   "\"Digitalisation and territorial planning\" in the Programme for Integrated Socio-Economic Development of the Regions 2025–2030",
+   "Cabinet Resolution of 25 March 2025",
+   "ok",
+   "10.4",
+   "plan",
+   "RG5"
+  ],
+  [
+   "2",
+   "Water and sanitation",
+   "Programme for the Development of Drinking Water Supply and Sanitation Systems until 2026",
+   "Government Resolution No. 330 of 12 June 2020",
+   "end",
+   "—",
+   "serv",
+   ""
+  ],
+  [
+   "2",
+   "Waste and regional infrastructure",
+   "\"Regional infrastructure\" in the Programme for Integrated Socio-Economic Development of the Regions 2025–2030",
+   "Cabinet Resolution of 25 March 2025",
+   "ok",
+   "13.2 (tasks only)",
+   "serv",
+   "RG3"
+  ],
+  [
+   "3",
+   "Bishkek transport, heating and air",
+   "Concept \"Smart and Sustainable City of Bishkek\" to 2033",
+   "Confirmed in the 2025 SDG national report (text not checked)",
+   "ok",
+   "13.2 Target 4 (16% reduction in Bishkek emissions)",
+   "bish",
+   "bishkek"
+  ],
+  [
+   "4",
+   "Regional cities and regions",
+   "Programme for Integrated Socio-Economic Development of the Regions 2025–2030",
+   "Cabinet Resolution of 25 March 2025",
+   "ok",
+   "10.4",
+   "reg",
+   "regions"
+  ],
+  [
+   "4",
+   "Local self-government",
+   "Programme for the Development of Local Self-Government 2024–2028",
+   "Cabinet Resolution No. 80 of 22 February 2024",
+   "ok",
+   "—",
+   "reg",
+   ""
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Urban planning and housing"
+  ],
+  [
+   "2",
+   "Water, sanitation and urban services"
+  ],
+  [
+   "3",
+   "Bishkek transport, heating and air"
+  ],
+  [
+   "4",
+   "Regional cities and regions"
+  ]
+ ],
+ "ccs": [],
+ "unread": [
+  "Base year, measurement method and annual values for harmful emissions in Bishkek (national target: 16% reduction)",
+  "Achievement of the water and sanitation programme's 2026 targets (standard-compliant centralised supply in 95% of important cities, sewerage in 70% of district centres)",
+  "Recent values for urban sewerage connection rates (the text has only 2017–2018 figures)",
+  "Annual values of the waste collection rate (SDG 11.6.1) (only two data points: Bishkek 2010 and Osh 2018)",
+  "Annual values of housing floor area per person and the targets of \"My Home 2021–2026\"",
+  "Population of new housing areas on the outskirts of Bishkek (said not to be included in the official urban population)",
+  "Also unconfirmed: the text of the concept \"Smart and Sustainable City of Bishkek\", the text of the Programme for the Development of Local Self-Government 2024–2028 (paid site), ADB's \"Bishkek Clean Air Action Plan: City Situation Report\" (no text on the project page and the PDF could not be opened), the second halves of the World Bank's air quality analysis and infrastructure governance assessment, and the Korea Green Growth Trust Fund report on urban green development (2015, not opened)"
+ ]
+}
