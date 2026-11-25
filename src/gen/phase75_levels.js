@@ -109,7 +109,7 @@ p74Main=function(){var h=_p75Main.apply(this,arguments);var l=p75Lv();
 var _p75Fin=p71Finish;
 p71Finish=function(){var S=P71,o=_p75Fin.apply(this,arguments);
   try{if(S&&!S.fav&&p74Story()&&p74Path()){var st=p74State();if(!st.cur){var s=p74S(),l=p75Lv();if(l>(+s.clr||0)){s.clr=l;try{saveAll();}catch(_){}if(l<5)setTimeout(function(){toast("1周クリア！難易度"+(l+1)+"「"+P75_LV[l].n+"」が開きました");},600);}}}}catch(_){}
-  try{localStorage.removeItem(P75_RKEY);}catch(_){}return o;};
+  try{if(S&&!S.fav)localStorage.removeItem(P75_RKEY);}catch(_){}return o;};
 /* ---------- レッスンの途中から再開 ---------- */
 var P75_RKEY=K.set+"_p71run";
 function p75Ctx(){return (p74Story()&&p74Path()?p74S().path:"plain")+"@"+p75Lv();}
