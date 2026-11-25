@@ -1,0 +1,2103 @@
+{
+ "sid": "health",
+ "lang": "en",
+ "spec": {
+  "pil": {
+   "A": "Pillar 1 Primary care and public health",
+   "B": "Pillar 2 Hospitals and emergency care",
+   "C": "Pillar 3 Health system foundations"
+  },
+  "rows": {
+   "A1": {
+    "n": "Primary care model (family medicine, prevention)",
+    "st": "Health Programme, Pillar 1.1"
+   },
+   "A2": {
+    "n": "Primary care–hospital linkage (referral)",
+    "st": "Pillar 1.2"
+   },
+   "A3": {
+    "n": "Primary care quality and equitable access",
+    "st": "Pillar 1.3"
+   },
+   "A4": {
+    "n": "Primary care workforce (continuing education)",
+    "st": "Pillar 1.4"
+   },
+   "A5": {
+    "n": "NCDs (heart disease, cancer, kidney disease)",
+    "st": "\"Healthy Heart\" 2025–30 / Chronic Kidney Disease 2026–30 / NCD Strategy 2027–32 (draft)"
+   },
+   "mh": {
+    "n": "Mental health",
+    "st": "Mental Health Programme 2018–2030"
+   },
+   "A6": {
+    "n": "Maternal and child health",
+    "st": "NDP 2030 Section 9.4 targets"
+   },
+   "imm": {
+    "n": "Immunization",
+    "st": "Immunization Programme 2025–2030"
+   },
+   "tb": {
+    "n": "Tuberculosis",
+    "st": "TB programme \"Tuberculosis-VI\" 2023–2026"
+   },
+   "hiv": {
+    "n": "HIV and hepatitis",
+    "st": "HIV and Hepatitis Programme 2026–2030"
+   },
+   "epi": {
+    "n": "Health emergency preparedness and disease surveillance",
+    "st": "Comprehensive Plan on Health Emergencies 2026–2030"
+   },
+   "B1": {
+    "n": "Hospital restructuring and modernization (facilities, equipment)",
+    "st": "Health Programme, Pillar 2.1"
+   },
+   "B2": {
+    "n": "Emergency care",
+    "st": "Pillar 2.2 (no stand-alone programme)"
+   },
+   "B3": {
+    "n": "Hospital management and infection control",
+    "st": "Pillar 2.3"
+   },
+   "C1": {
+    "n": "Financing and UHC (health coverage, health insurance)",
+    "st": "State Guaranteed Benefits Package / Law on the Budget of the Mandatory Health Insurance Fund"
+   },
+   "C2": {
+    "n": "Workforce and medical education",
+    "st": "Pillar 3.2 (no stand-alone strategy)"
+   },
+   "C3": {
+    "n": "Medicines and medical devices",
+    "st": "Essential Medicines List 2026–28 / Presidential Decree"
+   },
+   "C4": {
+    "n": "Digital health",
+    "st": "Digital Transformation Concept 2024–2028 (health)"
+   },
+   "C5": {
+    "n": "Health governance and monitoring",
+    "st": "Health Programme, Pillar 3.5"
+   }
+  }
+ },
+ "ind": {
+  "all": {
+   "name": "Overall",
+   "tag": "Overall target of NDP 2030 Section 9.4",
+   "inds": [
+    {
+     "name": "Life expectancy",
+     "unit": "years",
+     "st": "△ About 73.5 years in 2030 at the current pace",
+     "src": "World Bank WDI SP.DYN.LE00.IN (Statistical Committee: 72.0 years in 2023)",
+     "t": [
+      "National 75 years"
+     ]
+    }
+   ]
+  },
+  "uhc": {
+   "name": "① UHC and health financing",
+   "tag": "Health coverage and out-of-pocket spending",
+   "inds": [
+    {
+     "name": "Out-of-pocket share of health spending",
+     "unit": "%",
+     "st": "✕ Stuck at around 40%",
+     "src": "World Bank WDI SH.XPD.OOPC.CH.ZS (originally WHO Global Health Expenditure Database)",
+     "t": [
+      "WHO benchmark: 20% or less"
+     ]
+    },
+    {
+     "name": "UHC service coverage index",
+     "unit": "points (out of 100)",
+     "st": "△ Flat since 2015",
+     "src": "WHO GHO UHC_INDEX_REPORTED (SDG 3.8.1)",
+     "t": [],
+     "note": "For the national target of \"85% mandatory health insurance coverage\", no public data reporting annual actual values have yet been found (to be sought in annual reports of the Ministry of Health and the Mandatory Health Insurance Fund)."
+    }
+   ]
+  },
+  "phc": {
+   "name": "② Primary health care (PHC)",
+   "tag": "Family medicine, prevention and chronic disease management",
+   "inds": [],
+   "donor": [
+    {
+     "name": "Share of diabetes patients receiving an annual HbA1c test",
+     "who": "Results indicator of the World Bank PforR (P167598)"
+    },
+    {
+     "name": "Share of pregnant women receiving blood and urine tests in early pregnancy",
+     "who": "Results indicator of the World Bank PforR (P167598)"
+    }
+   ],
+   "note": "For the national target of \"70% coverage of prevention, early intervention and primary care\", neither the definition nor annual figures are published. Progress is tracked instead through donor results indicators (below). Donor results are updated in each Implementation Status and Results Report (ISR), so the latest version needs to be checked."
+  },
+  "ncd": {
+   "name": "③ Non-communicable diseases (NCDs)",
+   "tag": "Cardiovascular disease, cancer, diabetes, chronic respiratory disease",
+   "inds": [
+    {
+     "name": "Probability of dying from NCDs between ages 30 and 69",
+     "unit": "%",
+     "st": "✓ Approaching the SDG target (one-third reduction from 2015)",
+     "src": "UN SDG Database SH_DTH_NCOM (to 2021) / WHO GHO NCDMORT3070 (from 2022)",
+     "t": [
+      "National 30% reduction",
+      "SDG one-third reduction"
+     ],
+     "note": "The national target of a \"30% reduction\" has no stated baseline year, so 2015 is used as the baseline in this draft (to be confirmed)."
+    }
+   ],
+   "detail": {
+    "title": "Detailed NCD indicators",
+    "inds": [
+     {
+      "name": "Adult tobacco use",
+      "unit": "%",
+      "st": "△ Slightly short of the WHO target (30% reduction from 2010)",
+      "src": "World Bank WDI SH.PRV.SMOK (originally WHO)",
+      "t": [
+       "WHO 19.7%"
+      ]
+     },
+     {
+      "name": "Alcohol consumption (per capita, age 15+)",
+      "unit": "litres/year (pure alcohol)",
+      "st": "✓ Declining",
+      "src": "WHO GHO SA_0000001688",
+      "t": []
+     },
+     {
+      "name": "Diabetes prevalence (ages 20–79)",
+      "unit": "%",
+      "st": "— Only two data points",
+      "src": "World Bank WDI SH.STA.DIAB.ZS (originally IDF)",
+      "t": []
+     }
+    ],
+    "cancer": {
+     "title": "New cancer cases (2024 estimate, in descending order)",
+     "rows": [
+      "Breast cancer",
+      "Stomach cancer",
+      "Lung cancer",
+      "Colorectal cancer",
+      "Cervical cancer"
+     ],
+     "src": "IARC GLOBOCAN 2024 Kyrgyzstan fact sheet (total 8,902 cases, 5,139 deaths)"
+    }
+   }
+  },
+  "inf": {
+   "name": "④ Communicable diseases and immunization",
+   "tag": "TB, HIV and vaccines",
+   "inds": [
+    {
+     "name": "TB incidence (per 100,000)",
+     "unit": "per 100,000",
+     "st": "✕ Stalled since 2020",
+     "src": "World Bank WDI SH.TBS.INCD (originally WHO Global Tuberculosis Report)",
+     "t": [
+      "WHO 2025: halve",
+      "WHO 2030: 80% reduction"
+     ]
+    },
+    {
+     "name": "Measles vaccination coverage (ages 1–2)",
+     "unit": "%",
+     "st": "✓ At or above the 95% benchmark",
+     "src": "World Bank WDI SH.IMM.MEAS (originally WHO/UNICEF estimates)",
+     "t": [
+      "WHO 95%"
+     ]
+    }
+   ]
+  },
+  "mch": {
+   "name": "⑤ Maternal and child health",
+   "tag": "Mothers, newborns and children",
+   "inds": [
+    {
+     "name": "Maternal mortality (per 100,000 live births)",
+     "unit": "per 100,000 live births",
+     "st": "△ Large differences depending on the data source",
+     "src": "Blue: UN estimate (World Bank WDI SH.STA.MMRT) / Orange: Ministry of Health (NDP 2030 text)",
+     "t": [
+      "National 22",
+      "SDG below 70"
+     ],
+     "note": "The national target assumes measurement by Ministry of Health figures. As the counting method differs from UN estimates, both are shown side by side."
+    },
+    {
+     "name": "Under-5 mortality (per 1,000 live births)",
+     "unit": "per 1,000 live births",
+     "st": "△ Pace insufficient to reach 14.0 by 2030",
+     "src": "Blue: UN estimate (WDI SH.DYN.MORT) / Orange: national statistics (NDP 2030 text)",
+     "t": [
+      "National 14.0",
+      "SDG 25 or below"
+     ]
+    },
+    {
+     "name": "Infant mortality (per 1,000 live births)",
+     "unit": "per 1,000 live births",
+     "st": "✓ Declining",
+     "src": "National Statistical Committee of the Kyrgyz Republic open data 143 (JSON, includes regional breakdown)",
+     "t": [],
+     "note": "The same dataset includes regional figures (Bishkek and Osh cities are higher because severe cases are concentrated in their large hospitals)."
+    }
+   ]
+  }
+ },
+ "quick": {
+  "h1": "Health funding is concentrated in immunization, TB, primary care and maternal and child health; NCDs and institution-building (workforce, medicines) are the next focus",
+  "msgs": [
+   [
+    "Additional funding for primary care.",
+    "Agreement reached with the World Bank on additional financing for primary care (USD 15 million) (11/5). It tops up the existing primary care programme and is expected to continue beyond 2027."
+   ],
+   [
+    "On NCDs, national policy is ahead and funding is lagging.",
+    "Following \"Healthy Heart\" and the chronic kidney disease programme, a draft NCD Strategy 2027–2032 is under discussion (11/6). NCD projects are small."
+   ],
+   [
+    "A new funding source for hospital modernization.",
+    "The Islamic Development Bank is discussing the modernization of 3 hospitals with 850 beds (10/28–11/3), alongside Japan's equipment cooperation (southern regional core hospitals, JPY 430 million)."
+   ],
+   [
+    "Many projects end in late 2026.",
+    "Germany's sector support and maternal and child health programme, and the Global Fund's TB and HIV grants, among others, expire in December 2026. Succession is next year's focus."
+   ],
+   [
+    "Gap areas:",
+    "Mental health (68 psychiatrists nationwide), medicines (Essential Medicines List approved in October), emergency care and primary care quality. Institutions are moving, but there are no donor projects."
+   ]
+  ],
+  "h2": "Funding concentrates on immunization, TB, maternal and child health and primary care; NCDs, mental health, medicines and emergency care are close to gaps",
+  "rows": {
+   "A1": [
+    "",
+    "World Bank primary care programme is the anchor; additional financing extends it beyond 2027"
+   ],
+   "A2": [
+    "",
+    "Only one Japanese referral system pilot"
+   ],
+   "A3": [
+    "",
+    "No dedicated project (covered partly by a World Bank project)"
+   ],
+   "A4": [
+    "",
+    "Only a Swiss project in its final phase"
+   ],
+   "A5": [
+    "",
+    "About 80% of deaths, but projects are small; new strategy being prepared"
+   ],
+   "mh": [
+    "",
+    "Only one UN fund project for youth; shortage of psychiatrists prominent in the news"
+   ],
+   "A6": [
+    "Note",
+    "Germany's maternal and child health support is central, but most ends in late 2026"
+   ],
+   "imm": [
+    "",
+    "Gavi vaccine support is the largest (mostly until end-2027); declining coverage is a concern"
+   ],
+   "tb": [
+    "Note",
+    "Global Fund/UNDP and United States; both the national plan and the large GF grant expire in 2026"
+   ],
+   "hiv": [
+    "Note",
+    "Reliant on the United States (PEPFAR); active in the data, but continuation status to be confirmed"
+   ],
+   "epi": [
+    "",
+    "ADB regional health security and WHO; comprehensive plan still in draft"
+   ],
+   "B1": [
+    "",
+    "Three Japanese equipment projects plus ADB; Islamic Development Bank expected to enter"
+   ],
+   "B2": [
+    "",
+    "No projects"
+   ],
+   "B3": [
+    "",
+    "Swiss hospital autonomy and medical waste project (final phase)"
+   ],
+   "C1": [
+    "Note",
+    "Most of Germany's sector support ends in late 2026"
+   ],
+   "C2": [
+    "",
+    "Only the Swiss medical education reform; major institutional changes such as withdrawal of medical school accreditation and licensing reform"
+   ],
+   "C3": [
+    "",
+    "No dedicated project; Essential Medicines List approved and pharmacy enforcement under way"
+   ],
+   "C4": [
+    "",
+    "Only small UNDP and WHO projects; individual deployments such as AI for cancer diagnosis are moving ahead"
+   ],
+   "C5": [
+    "",
+    "Centred on Gavi health system strengthening"
+   ]
+  },
+  "h3": "Over the past seven weeks, three themes moved: the new NCD strategy, workforce and medicines reform, and new funding for hospitals",
+  "themes": [
+   [
+    "NCDs:",
+    "National policy (heart, kidney, cancer, draft NCD strategy) and regulation (ban on energy drinks) are advancing together. Projects are small, leaving ample room for donors."
+   ],
+   [
+    "Workforce and medical education:",
+    "Withdrawal of medical school accreditation, a change in the licensing authority and digital training continue the institutional overhaul. Support is limited to the Swiss medical education reform."
+   ],
+   [
+    "Medicines:",
+    "Approval of the Essential Medicines List and pharmacy enforcement. Implementation phase of the national emergency measures (Presidential Decree of June 2026)."
+   ],
+   [
+    "Hospitals:",
+    "In addition to Japan and ADB, the Islamic Development Bank is expected to enter on a large scale. Reports also mention a plan to build 42 hospitals in 2027."
+   ]
+  ]
+ },
+ "proj_t": {
+  "JICA-201903145": "Project for Strengthening the Pilot Referral System for Early Detection and Early Treatment of Non-Communicable Diseases",
+  "JICA-2561350": "Project for the Improvement of Medical Equipment in Core Hospitals in the Southern Region",
+  "JICA-2460280": "Project for the Improvement of Medical Equipment in Tertiary Hospitals in Bishkek",
+  "JICA-2260230": "Project for the Improvement of Medical Equipment in Bishkek City and Chui Region"
+ },
+ "title": "Kyrgyz Republic Health Sector Analysis Report",
+ "sub": "Policy framework, key indicators and development partner support",
+ "docs": [
+  {
+   "id": "ndp",
+   "t": "National Development Programme 2030, Section 9.4 \"Accessible and Sustainable Health Care\"",
+   "by": "Kyrgyz Republic",
+   "y": "2025",
+   "scope": "Section 9.4 targets and challenges, and the current state of the social sector (Japanese translation on this site)",
+   "cat": "gov"
+  },
+  {
+   "id": "hsia",
+   "t": "Health Systems in Action Insights: Kyrgyzstan 2024",
+   "by": "European Observatory on Health Systems and Policies (WHO Europe)",
+   "y": "December 2024",
+   "scope": "Full text read in the original (PDF hosted on ecoi.net). Figures in charts whose exact values could not be read (HIV values by care-cascade stage) were not used",
+   "cat": "donor",
+   "u": "https://www.ecoi.net/en/file/local/2121521/9789289059817-eng.pdf"
+  },
+  {
+   "id": "who2019",
+   "t": "Kyrgyzstan adopts new health strategy for 2019–2030",
+   "by": "WHO Europe (press release)",
+   "y": "January 2019",
+   "scope": "Full text",
+   "cat": "donor"
+  },
+  {
+   "id": "wb2018",
+   "t": "Program Information Document (Concept Stage): Primary Health Care Quality Improvement Program P167598",
+   "by": "World Bank",
+   "y": "2018",
+   "scope": "All 10 pages. Describes the Health Programme as a draft prior to adoption",
+   "cat": "donor"
+  },
+  {
+   "id": "who2023",
+   "t": "Strengthening primary health care financing (press release, in Russian)",
+   "by": "WHO Europe",
+   "y": "September 2023",
+   "scope": "Full text",
+   "cat": "donor"
+  },
+  {
+   "id": "whoeval",
+   "t": "WHO Country Office Evaluation: Kyrgyzstan (evaluation of 2014–2019)",
+   "by": "WHO",
+   "y": "April 2020",
+   "scope": "First half read in the original",
+   "cat": "donor"
+  },
+  {
+   "id": "kabar",
+   "t": "\"Health and prevention: priorities of Programme 2030 discussed\" (final meeting of the Joint Annual Review)",
+   "by": "Kabar",
+   "y": "October 2025",
+   "scope": "Full text",
+   "cat": "gov"
+  },
+  {
+   "id": "ccs",
+   "t": "Announcement of the signing of the WHO Country Cooperation Strategy 2024–2030, and WHO Country Office Kyrgyzstan Annual Report 2024",
+   "by": "UN Kyrgyzstan / WHO",
+   "y": "November 2023 / 2025",
+   "scope": "Announcement read in full; first half of the annual report read in the original. The PDF of the strategy itself could not be opened",
+   "cat": "donor"
+  },
+  {
+   "id": "wb2019",
+   "t": "Kyrgyz Republic to Gain Better Primary Health Care",
+   "by": "World Bank (press release)",
+   "y": "June 2019",
+   "scope": "Full text",
+   "cat": "donor"
+  },
+  {
+   "id": "mics",
+   "t": "Multiple Indicator Cluster Survey (MICS) 2023 Statistical Snapshots",
+   "by": "National Statistical Committee / UNICEF",
+   "y": "July 2024",
+   "scope": "First 16 pages read in the original",
+   "cat": "gov"
+  },
+  {
+   "id": "cdc",
+   "t": "HIV and TB Overview: Kyrgyz Republic",
+   "by": "US CDC",
+   "y": "Updated September 2026",
+   "scope": "Full text",
+   "cat": "donor"
+  },
+  {
+   "id": "unaids",
+   "t": "Joint UN Programme support to the HIV response 2022–2023",
+   "by": "UNAIDS",
+   "y": "2025",
+   "scope": "Full text",
+   "cat": "donor"
+  },
+  {
+   "id": "stat",
+   "t": "National Statistical Committee open data",
+   "by": "National Statistical Committee of the Kyrgyz Republic",
+   "y": "—",
+   "scope": "Infant mortality series",
+   "cat": "gov"
+  },
+  {
+   "id": "wdi",
+   "t": "World Bank WDI, WHO GHO and UN SDG Database (indicator data on this site)",
+   "by": "World Bank / WHO / United Nations",
+   "y": "Retrieved 2026-11-07",
+   "scope": "Series outside the indicator table, such as tobacco, alcohol, diabetes and DTP3 (compiled in the health indicator sheet of 2026-11-24)",
+   "cat": "donor"
+  }
+ ],
+ "summary": [
+  {
+   "k": "f",
+   "t": "Health outcomes continue to improve, but life expectancy, tuberculosis and out-of-pocket spending are not on track for the 2030 national targets. Life expectancy was 72.4 years in 2024, 2.6 years short of the 75-year target, and new TB cases have barely declined since 2020.",
+   "ref": [
+    "ind:all:0",
+    "ind:inf:0",
+    "doc:ndp"
+   ],
+   "h": "Health outcomes are improving, but life expectancy, TB and out-of-pocket spending are off track for 2030"
+  },
+  {
+   "k": "f",
+   "t": "Maternal and child health and NCDs are close to target, but the assessment depends on the data source. Under-5 and maternal mortality are close to target in national statistics but far from it in UN estimates.",
+   "ref": [
+    "ind:mch:0",
+    "ind:mch:1",
+    "doc:ndp"
+   ],
+   "h": "Maternal and child health and NCDs are near target, but the verdict depends on the data source"
+  },
+  {
+   "k": "f",
+   "t": "Financing is the largest structural challenge. Health spending is 5.4% of GDP and USD 302 per capita (2021), the lowest in the European Region, and patients pay about 40% of health spending out of pocket.",
+   "ref": [
+    "doc:hsia",
+    "ind:uhc:0"
+   ],
+   "h": "Financing is the largest structural challenge"
+  },
+  {
+   "k": "f",
+   "t": "Donor funding is concentrated in immunization, HIV/TB, maternal and child health and primary care, leaving gaps in primary care quality and workforce, emergency care and medicines. Active cooperation mapped to the health strategy totals 96 projects worth about USD 240 million.",
+   "ref": [
+    "fact:mapped_n",
+    "fact:mapped_musd",
+    "fact:empty_rows",
+    "row:imm",
+    "row:hiv"
+   ],
+   "h": "Donor funding concentrates on immunization, HIV/TB, MCH and primary care; PHC quality and workforce, emergency care and medicines are gaps"
+  },
+  {
+   "k": "v",
+   "t": "About USD 72 million of cooperation ends at the end of 2026. Succession arrangements for Germany's sector support and maternal and child health programme and for the Global Fund's HIV and TB grants are the key issue for 2027.",
+   "ref": [
+    "fact:end_2026_musd",
+    "fact:end_2026_by_donor"
+   ],
+   "h": "Large programmes end in late 2026; their succession is the key issue for 2027"
+  }
+ ],
+ "chapters": [
+  {
+   "no": "1",
+   "h": "Sector overview and policy framework",
+   "sections": [
+    {
+     "no": "1.1",
+     "h": "Health status and health system overview",
+     "msg": "Life expectancy and child mortality have improved, but financing and the health workforce remain the weakest in the European Region.",
+     "fig": {
+      "type": "tiles",
+      "cap": "Figure 1-1 Key figures",
+      "items": [
+       {
+        "v": "72.4",
+        "u": "years",
+        "k": "Life expectancy (2024)",
+        "ref": "ind:all:0"
+       },
+       {
+        "v": "13.1",
+        "u": "",
+        "k": "Infant mortality per 1,000 live births (2024)",
+        "ref": "ind:mch:2"
+       },
+       {
+        "v": "5.4",
+        "u": "%",
+        "k": "Health spending as % of GDP (2021)",
+        "ref": "doc:hsia"
+       },
+       {
+        "v": "42.3",
+        "u": "%",
+        "k": "Out-of-pocket share of health spending (2023)",
+        "ref": "ind:uhc:0",
+        "hot": true
+       },
+       {
+        "v": "215",
+        "u": "",
+        "k": "Physicians per 100,000 population (2021)",
+        "ref": "doc:hsia",
+        "hot": true
+       }
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Life expectancy rose from 70.7 years (2015) to 72.4 years (2024). National statistics put it at 72.0 years in 2023 (68 for men, 77 for women).",
+       "ref": [
+        "ind:all:0",
+        "doc:ndp"
+       ],
+       "b": "Life expectancy 70.7 years (2015) → 72.4 years (2024)"
+      },
+      {
+       "k": "f",
+       "t": "Infant mortality fell from 15.2 per 1,000 live births (2021) to 13.1 (2024), and maternal mortality, according to Ministry of Health figures, fell from 37.1 to 25.7 per 100,000 live births.",
+       "ref": [
+        "doc:ndp",
+        "ind:mch:2"
+       ],
+       "b": "Infant mortality 15.2 → 13.1; maternal mortality (MoH) 37.1 → 25.7"
+      },
+      {
+       "k": "f",
+       "t": "Health spending was 5.4% of GDP (2021), well below 8.5% in 2012. At USD 302 per capita (PPP), it is the lowest in the WHO European Region. Health accounted for 8.6% of government expenditure (2021).",
+       "ref": [
+        "doc:hsia"
+       ],
+       "b": "Health spending 5.4% of GDP, USD 302 per capita: lowest level in the European Region"
+      },
+      {
+       "k": "f",
+       "t": "Out-of-pocket payments accounted for 40.7% of health spending (2021). In 2014, about 13% of households incurred catastrophic health spending that strained household budgets.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "There are 215 physicians (2021) and 407 nurses (2020) per 100,000 population, among the lowest levels in the European Region. Primary care has about 3,000 vacant physician posts. The number of hospitals fell from 450 (1997) to 135 (2020).",
+       "ref": [
+        "doc:hsia"
+       ],
+       "b": "215 physicians per 100,000; about 3,000 vacant PHC physician posts"
+      },
+      {
+       "k": "f",
+       "t": "The National Development Programme 2030 notes that 40% of households face constraints in accessing health services and medicines, and identifies \"outflow of personnel and shortage of specialists\" and \"lack of an integrated approach to digitalization\" as challenges.",
+       "ref": [
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Progress has come through disease-specific programmes (immunization, maternal and child health, TB), while weak health system foundations (financing and workforce) are now the barrier to further gains.",
+       "ref": [
+        "doc:hsia",
+        "doc:ndp"
+       ],
+       "b": "Gains came from disease programmes; foundations (financing, workforce) are the next barrier"
+      },
+      {
+       "k": "h",
+       "t": "Background: financing, workforce and regional disparities"
+      },
+      {
+       "k": "f",
+       "t": "According to the WHO European Observatory, the out-of-pocket share of health spending fell from 57.2% (2016) to 40.7% (2021). Per capita, public spending was USD 161 and out-of-pocket spending USD 123 (PPP), and public health expenditure was 2.9% of GDP (2021). In 2019, health spending comprised inpatient care 31.9%, medicines 30.1% and outpatient care 26.1%.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On the workforce, physicians per 100,000 fell from 226 (2013) to 215 (2021), and nurses from 558 (2013) to 407 (2020). Only 30% of young doctors who complete training enter the public health system; the report cites harsh working conditions and punitive treatment. Family doctors make up 12% of all physicians (2021), and more than half are at retirement age, with the share higher in rural areas: 73% in Naryn Region and 75% in Issyk-Kul Region.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Regional disparities are wide: some rural areas have about 70 physicians per 100,000 (one per 1,429 people), against 225 in Bishkek and 246 in Osh. Advanced care is available only in Bishkek. Internal migrants (about 18% of the population) often cannot enrol in mandatory health insurance because they lack documents.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Labour migration abroad is substantial, with remittances equal to 25–30% of GDP, mostly from Russia. The report acknowledges emigration of health workers but notes that data on it are scarce.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "With fewer physicians, an ageing family-doctor workforce and young doctors not entering the public system, the primary care workforce is thinning, starting in rural areas. Combined with low public spending (2.9% of GDP), weaknesses in workforce and financing are reinforcing each other.",
+       "ref": [
+        "doc:hsia",
+        "doc:ndp"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.2",
+     "h": "Policy architecture",
+     "msg": "Health policy is organized in three tiers: NDP 2030 Section 9.4 → Health Programme 2019–2030 → disease-specific national programmes.",
+     "fig": {
+      "type": "policy-tree",
+      "cap": "Figure 1-2 Policy architecture (status as of November 2026)",
+      "levels": [
+       [
+        "National Development Programme 2030, Section 9.4 \"Accessible and Sustainable Health Care\"",
+        "6 targets and 5 challenges (85% health insurance coverage, life expectancy 75, maternal mortality 22, under-5 mortality 14.0, 30% reduction in premature NCD mortality, 70% coverage of prevention and primary care)"
+       ],
+       [
+        "Health Programme 2019–2030 \"Healthy Person – Prosperous Country\"",
+        "10 priority areas, grouped on this site into 3 pillars: (1) primary care and public health, (2) hospitals and emergency care, (3) health system foundations"
+       ],
+       [
+        "Disease-specific national programmes and regulations",
+        "14 plans and regulations: 8 in force, 3 drafts, 1 nearing expiry, 2 areas with no stand-alone plan (Table 1-1)"
+       ]
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Overarching plan: Section 9.4 of the National Development Programme 2030, \"Accessible and Sustainable Health Care\", sets six targets (85% health insurance coverage, life expectancy of 75 years, maternal mortality of 22, under-5 mortality of 14.0, a 30% reduction in premature NCD mortality, and 70% coverage of prevention and primary care) and five challenges.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "NDP 2030 9.4: six targets (85% insurance coverage, life expectancy 75, etc.)"
+      },
+      {
+       "k": "f",
+       "t": "Core health plan: the Programme for the Protection of Public Health and Development of the Health Care System 2019–2030 (\"Healthy Person – Prosperous Country\") (Government Resolution No. 600 of 20 December 2018, amended in 2024 by Cabinet of Ministers Resolution No. 802). It is the fourth health reform programme, following \"Manas\" (1996–2006), \"Manas Taalimi\" (2006–2010) and \"Den Sooluk\" (2012–2018). It aims to protect health, ensure access to necessary quality services, strengthen primary care and reduce financial hardship, with the goal of universal health coverage (UHC) by 2030.",
+       "ref": [
+        "doc:who2019",
+        "tree:health:hp"
+       ],
+       "b": "Health Programme 2019–2030: fourth health reform programme, targeting UHC"
+      },
+      {
+       "k": "f",
+       "t": "Content (draft just before adoption): the World Bank's 2018 information document states that the programme sets 10 priority areas: four by level of care (public health, primary care, hospitals, emergency care) and six cross-cutting areas (laboratory services, medicines and medical devices, human resources, e-health, governance, financing). Its stated objective is \"improving health outcomes and quality of services\", with costs estimated at USD 1.47 billion.",
+       "ref": [
+        "doc:wb2018"
+       ],
+       "b": "10 priority areas (4 by level of care + 6 cross-cutting)"
+      },
+      {
+       "k": "f",
+       "t": "Implementation: the programme runs in two phases, with an action plan for the first five years (2019–2023); the plan for the next phase was to build on first-phase results. It includes an indicator framework (baselines, interim and final targets) to be revised at a mid-term review after five years. As of September 2023, the Ministry of Health was preparing the 2024–2030 action plan.",
+       "ref": [
+        "doc:wb2018",
+        "doc:who2023"
+       ],
+       "b": "Two-phase implementation; 2024–2030 action plan in preparation (as of September 2023)"
+      },
+      {
+       "k": "v",
+       "t": "The policy tree on this site groups the 10 areas into three pillars, following the World Bank technical assessment (2019): (1) primary care and public health, (2) hospitals and emergency care, and (3) health system foundations. Of the 10 areas, \"public health and primary care\" form Pillar 1, \"hospitals and emergency care\" Pillar 2, and the six cross-cutting areas Pillar 3.",
+       "ref": [
+        "tree:health:hp",
+        "doc:wb2018"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Continued priorities: the WHO evaluation states that the programme carries over the priorities of the previous plan, \"Den Sooluk\" (cardiovascular disease, maternal and child health, TB, HIV), and aims for intersectoral collaboration and access to care for all, including vulnerable groups.",
+       "ref": [
+        "doc:whoeval"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Monitoring: an annual Joint Annual Review (Ministry of Health and partners) is held. At its final meeting in October 2025, the Minister of Health named \"NCD prevention\" and \"primary care development\" as the two directions underpinning the health system.",
+       "ref": [
+        "doc:kabar"
+       ],
+       "b": "Joint Annual Review (October 2025): NCD prevention and primary care as the two directions"
+      },
+      {
+       "k": "f",
+       "t": "Note: the programme text, its indicator framework, the 2024 amendment (Cabinet of Ministers Resolution No. 802) and the 2024–2030 action plan could not be found in a freely accessible source and have not been reviewed. Baselines and 2030 target values are therefore not stated.",
+       "ref": [
+        "doc:who2019"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Health financing arrangements and recent reforms"
+      },
+      {
+       "k": "f",
+       "t": "The national health insurance system is funded more than 70% from the state budget rather than contributions. The Mandatory Health Insurance Fund channels 80% of public spending through contracts with health facilities. The basic benefit (the State Guaranteed Benefits Package) is available to those registered with primary care, while additional coverage, including inpatient care and rehabilitation, applies to contributors and to people for whom the state pays contributions.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Under recent reforms, budget funds previously held by the Fund have been transferred to the Ministry of Health, and the Fund's regional branches are becoming regional departments of the Ministry. The Fund is expected to oversee quality and contracting; the report states that its role as a \"strategic purchaser\" is being undermined, and describes the impact on programme budgeting and performance indicators as \"unclear\".",
+       "ref": [
+        "doc:hsia",
+        "tree:health:mhi"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Earlier reforms introduced case-based hospital payment in 2001–2004 and revised TB payment to favour outpatient treatment. In 2020, a pilot to regulate prices of the Additional Drug Package was conducted with WHO technical support.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national target of 85% health insurance coverage will have to be pursued alongside reforms that shrink the Fund's role. Uncertainty over who manages insurance enrolment and payment appears to be one reason why no coverage rate is published.",
+       "ref": [
+        "doc:hsia",
+        "doc:ndp",
+        "tree:health:C1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In digital health, the primary care electronic database is used to monitor performance, and a mobile phone application maintained service delivery during COVID-19. Work is under way to use digital tools to strengthen the gatekeeping function and improve management of hypertension and diabetes.",
+       "ref": [
+        "doc:hsia",
+        "tree:health:C4"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.3",
+     "h": "Positioning of sub-programmes",
+     "msg": "Disease-specific programmes are concentrated in Pillar 1, while many areas in Pillars 2 and 3 have no stand-alone programme.",
+     "fig": {
+      "type": "subprog-table",
+      "cap": "Table 1-1 Sub-programmes (active cooperation by matrix row; overlaps included)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Pillar 1 (primary care and public health) contains plans for heart disease, kidney disease, mental health, immunization, TB, HIV and health emergencies. Pillar 2 (hospitals and emergency care) and Pillar 3 (health system foundations) include areas, such as emergency care, with no stand-alone programme.",
+       "ref": [
+        "tree:health:A",
+        "tree:health:B",
+        "tree:health:C"
+       ],
+       "b": "Disease plans concentrate in Pillar 1; few stand-alone plans in Pillars 2 and 3"
+      },
+      {
+       "k": "v",
+       "t": "Of the six NDP 2030 targets, \"85% health insurance coverage\" and \"70% primary care coverage\" have neither a responsible sub-programme nor annually published data. This is the widest gap between targets and implementation.",
+       "ref": [
+        "doc:ndp",
+        "tree:health:C1"
+       ],
+       "b": "85% insurance and 70% PHC coverage: no responsible plan, no published data"
+      },
+      {
+       "k": "v",
+       "t": "In communicable diseases, plans are either drafts (HIV, health emergencies) or close to expiry (TB): national plans are not yet settled despite large donor funding.",
+       "ref": [
+        "tree:health:hiv",
+        "tree:health:epi",
+        "tree:health:tb",
+        "row:hiv"
+       ],
+       "b": "Communicable disease plans are drafts or near expiry, despite large funding"
+      },
+      {
+       "k": "f",
+       "t": "Of the 14 plans and regulations in Table 1-1, 8 are in force, 3 are drafts (NCDs overall, HIV, health emergencies), 1 is nearing expiry (TB) and 2 have no stand-alone plan (maternal and child health, emergency care).",
+       "ref": [
+        "tree:health:A",
+        "tree:health:B",
+        "tree:health:C"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Plans in force are concentrated in disease-specific areas and in medicines and digital health; no plan covering health system foundations (workforce, primary care quality) appears in the table. These foundations are driven by the Health Programme 2019–2030 itself and the budget.",
+       "ref": [
+        "tree:health:hp",
+        "tree:health:C2",
+        "tree:health:A3"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "1.4",
+     "h": "Recent policy developments",
+     "msg": "In 2026, institutional changes continued in NCDs, medicines and medical education.",
+     "fig": {
+      "type": "recent",
+      "cap": "From the quarterly report (Autumn 2026 edition). Updated each quarter"
+     },
+     "paras": []
+    },
+    {
+     "no": "1.5",
+     "h": "Alignment with the WHO Country Cooperation Strategy 2024–2030",
+     "msg": "The WHO Country Cooperation Strategy has three strategic directions and seven priorities, many of them in areas with thin donor funding, such as hypertension, mental health, health emergencies and the health workforce.",
+     "fig": {
+      "type": "ccs-table",
+      "cap": "Table 1-2 WHO's seven priorities × site matrix rows × active donor funding"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "WHO and the Ministry of Health signed the Country Cooperation Strategy 2024–2030 in November 2023. It comprises three strategic directions and seven priority areas, and is aligned with the national health programme \"Healthy Person – Prosperous Country\".",
+       "ref": [
+        "doc:ccs"
+       ],
+       "b": "Signed November 2023; 3 directions and 7 priorities aligned with the national health programme"
+      },
+      {
+       "k": "f",
+       "t": "The seven priority areas are: (1) hypertension; (2) health emergency prevention, preparedness and response; (3) mental health; (4) antimicrobial resistance (AMR); (5) climate resilience and chemical safety; (6) health workforce; and (7) data and digital health. The strategy also covers primary care and health financing, immunization, HIV and TB, and road safety.",
+       "ref": [
+        "doc:ccs"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "2024 developments: a national NCD plan was adopted by the government on 12 April 2024. Three ministries signed the National Action Plan for Health Security 2024–2026 (12 areas). A health labour market analysis was conducted.",
+       "ref": [
+        "doc:ccs"
+       ],
+       "b": "2024: national NCD plan adopted; health security action plan"
+      },
+      {
+       "k": "v",
+       "t": "Of the seven priorities, mental health, the health workforce and health emergencies overlap with areas that the site's gap table shows as having little or no active donor funding. WHO technical support is the main entry point for filling these funding gaps.",
+       "ref": [
+        "row:mh",
+        "row:C2",
+        "row:A4",
+        "doc:ccs"
+       ],
+       "b": "WHO priorities such as mental health and workforce overlap with thinly funded areas"
+      },
+      {
+       "k": "f",
+       "t": "Note: the strategy document itself (a 70-page PDF) could not be opened; the priority areas were confirmed from the signing announcement and the table of contents of the annual report.",
+       "ref": [
+        "doc:ccs"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "WHO's first priority, hypertension, is consistent with the Observatory's finding that high systolic blood pressure is the largest risk factor, associated with 21.9% of deaths. Yet active donor funding in the NCD row is only about USD 1.5 million, a large mismatch between priority and funding.",
+       "ref": [
+        "doc:ccs",
+        "doc:hsia",
+        "row:A5"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "2",
+   "h": "Analysis of key indicators",
+   "sections": [
+    {
+     "no": "2.0",
+     "h": "Overview: outlook for the six national targets",
+     "msg": "Among targets trackable with annual data, premature NCD mortality is on track, life expectancy is off track, and maternal and child health depends on the data source.",
+     "fig": {
+      "type": "gap-table",
+      "cap": "Table 2-1 Gap to targets (actual pace = average annual change over the period; required pace = change needed to reach the target by 2030)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Of the six NDP 2030 targets, four can be tracked with annual data: life expectancy, under-5 mortality, maternal mortality and premature NCD mortality. No published data were found for health insurance coverage or primary care coverage.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Only 4 of the 6 targets can be tracked annually"
+      },
+      {
+       "k": "v",
+       "t": "Life expectancy is rising by +0.19 years per year, against +0.43 years per year needed to reach 75 by 2030; at the current pace it will reach only about 73.5 years.",
+       "ref": [
+        "ind:all:0",
+        "doc:ndp"
+       ],
+       "b": "Life expectancy: about 73.5 years in 2030 at current pace (target 75)"
+      },
+      {
+       "k": "v",
+       "t": "Under-5 mortality is on track according to national statistics but off track according to UN estimates. The conclusion depends on which source is used.",
+       "ref": [
+        "ind:mch:1",
+        "doc:ndp"
+       ],
+       "b": "Under-5 mortality: on track in national data, off track in UN estimates"
+      },
+      {
+       "k": "v",
+       "t": "The 2.6-year gap in life expectancy appears to be driven largely by high adult cardiovascular mortality. The age-standardized death rate from ischaemic heart disease was 390 per 100,000 (2016), about three times the WHO European Region's 120 (2019). Reaching the life expectancy target depends more on adult NCD control than on maternal and child health.",
+       "ref": [
+        "ind:all:0",
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The fact that two of the six targets (health insurance coverage and primary care coverage) cannot be measured means that progress on the health system's foundations, financing and primary care, cannot be tracked against national targets. Disease indicators can be tracked; system indicators cannot.",
+       "ref": [
+        "doc:ndp",
+        "tree:health:C1"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The international target for premature NCD mortality (SDG 3.4.1) is a one-third reduction from 2015, equivalent to 16.8%. Reading the national target (a 30% reduction) against a 2015 baseline gives 17.6%; the 2023 value of 18.3% is still slightly short of both.",
+       "ref": [
+        "ind:ncd:0",
+        "doc:wdi"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.1",
+     "h": "Maternal and child health and nutrition",
+     "msg": "Child mortality continues to fall and antenatal care and facility births are near-universal; the remaining issues are post-discharge care and inconsistent statistics.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-1 Under-5 mortality and maternal mortality (dotted lines = national and international targets)",
+      "inds": [
+       "mch:1",
+       "mch:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trends: under-5 mortality fell from 17.8 (2020) to 16.8 (2024) in UN estimates, and from 17.9 (2021) to 15.9 (2024) in national statistics. Infant mortality fell from 14.4 (2020) to 13.1 (2024).",
+       "ref": [
+        "ind:mch:1",
+        "ind:mch:2",
+        "doc:ndp",
+        "doc:stat"
+       ],
+       "b": "Under-5 mortality 16.8 (UN) / 15.9 (national), both declining"
+      },
+      {
+       "k": "f",
+       "t": "Services: 94% of women had four or more antenatal visits and facility births are close to 100% (MICS 2023). However, postnatal visits after discharge reach only 64% of mothers and 76% of newborns.",
+       "ref": [
+        "doc:mics"
+       ],
+       "b": "Antenatal care 94%, facility births near 100%; postnatal visits only 64% of mothers"
+      },
+      {
+       "k": "f",
+       "t": "Maternal mortality: the Ministry of Health figure is 25.7 (2024), close to the target of 22, but the UN estimate is 42 (2023), about twice the target. The WHO European Observatory reports 50.4 in 2020, against a Central Asian average of 24.3.",
+       "ref": [
+        "ind:mch:0",
+        "doc:ndp",
+        "doc:hsia"
+       ],
+       "b": "Maternal mortality: MoH 25.7 vs UN estimate 42, a wide gap"
+      },
+      {
+       "k": "f",
+       "t": "SDG benchmarks: under-5 mortality (SDG: 25 or below) and neonatal mortality (12 or below; 10.4 in MICS) already meet SDG levels. Maternal mortality also meets the SDG threshold of \"below 70\".",
+       "ref": [
+        "ind:mch:1",
+        "doc:mics"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "SDG levels have been met, and the national targets are set higher, aiming for \"the top tier in Central Asia\". Without an explanation of the gap between UN estimates and Ministry of Health figures (counting methods, under-reporting), assessments of achievement will remain unstable.",
+       "ref": [
+        "ind:mch:0",
+        "doc:ndp"
+       ],
+       "b": "SDGs already met; national target assessment hinges on data discrepancies"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: 12 projects worth about USD 33.5 million in the maternal and child health row (about USD 32.3 million from Germany). Most end in 2026 or 2027.",
+       "ref": [
+        "row:A6"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background and drivers"
+      },
+      {
+       "k": "f",
+       "t": "In MICS 2023, only 34% of women had eight or more antenatal visits, and visits within one week after birth reached 56% of mothers and 65% of newborns. Antenatal visit frequency and postnatal care are not as widespread as facility births.",
+       "ref": [
+        "doc:mics"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The UN estimate of maternal mortality rose from 58 (2015) to 70 (2021) and then fell to 42 (2023), rising during the COVID-19 years and then recovering; its level differs substantially from the Ministry of Health figures (37.1 in 2021, 25.7 in 2024).",
+       "ref": [
+        "ind:mch:0",
+        "doc:ndp"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In the household environment, access to safely managed drinking water is 67.3% in rural areas versus 90.8% in urban areas (2022), a gap that affects the health of rural mothers and children.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "With facility births now near-universal, the remaining scope for improvement lies in the quality and frequency of antenatal care, post-discharge care and rural living conditions. Maternal and child health is entering a phase in which the focus shifts from hospitals to community-based primary care and home visits.",
+       "ref": [
+        "doc:mics",
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: of the 12 projects worth about USD 33.5 million in the maternal and child health row, Germany accounts for about USD 32.3 million, other bilateral donors for about USD 0.8 million and UNICEF for about USD 0.4 million.",
+       "ref": [
+        "row:A6"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Because the national target (maternal mortality of 22) is defined to be measured by Ministry of Health figures, national statistics show it as \"nearly reached\". Measured by the UN estimate (42), mortality is about twice the target, and the Observatory comparison (50.4 in 2020 against a Central Asian average of 24.3) also places it above average. Reports and consultations need to state explicitly which figure is being used each time.",
+       "ref": [
+        "doc:ndp",
+        "ind:mch:0",
+        "doc:hsia"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.2",
+     "h": "Non-communicable diseases (NCDs)",
+     "msg": "Premature NCD mortality has fallen close to the national target; risk factors (tobacco, blood pressure) and disease-specific planning are the next stage.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-2 Probability of dying from NCDs between ages 30 and 69",
+      "inds": [
+       "ncd:0"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Trends: the probability of dying between ages 30 and 69 from NCDs (cardiovascular disease, cancer, diabetes, chronic respiratory disease) fell from 25.2% (2015) to 18.3% (2023), up slightly from 17.7% in 2022.",
+       "ref": [
+        "ind:ncd:0"
+       ],
+       "b": "Premature NCD mortality 25.2% (2015) → 18.3% (2023)"
+      },
+      {
+       "k": "f",
+       "t": "Risk factors: adult tobacco use is 22.2% (2024) and is not expected to meet the WHO 2025 target of 19.7%. Alcohol consumption is declining. The WHO European Observatory cites high blood pressure, diet, air pollution and smoking as the main risk factors.",
+       "ref": [
+        "doc:hsia",
+        "ind:ncd:0"
+       ],
+       "b": "Smoking 22.2%, not expected to meet WHO 2025 target of 19.7%"
+      },
+      {
+       "k": "f",
+       "t": "Cancer: about 8,900 new cases are diagnosed each year (2024 estimate), most commonly breast, stomach, lung, colorectal and cervical. The Minister of Health stated that the 2027 cancer care budget is 2.5 billion som against a requirement of 6 billion som.",
+       "ref": [
+        "doc:hsia",
+        "news:c2808869bacc"
+       ],
+       "b": "Cancer care budget: 2.5 billion som against 6 billion som needed (2027)"
+      },
+      {
+       "k": "f",
+       "t": "Plans: national plans are in place for heart disease (2025–30) and kidney disease (2026–30), and an overall NCD strategy for 2027–2032 is in draft. There is no national cancer programme. The WHO Annual Report 2024 states that \"a national NCD plan was adopted by the government on 12 April 2024\", but which document this refers to has not been confirmed.",
+       "ref": [
+        "tree:health:heart",
+        "tree:health:ckd",
+        "tree:health:onco",
+        "doc:ccs"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The national target of a \"30% reduction\" does not specify a baseline year. Against 2015 it is nearly achieved, but a later baseline would put it further away. The target definition needs to be confirmed first.",
+       "ref": [
+        "ind:ncd:0",
+        "doc:ndp"
+       ],
+       "b": "The \"30% reduction\" target has no stated baseline year"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: about USD 1.5 million is active (a Swiss project nearing completion, and WHO). Cooperation completed since 2017 totals about USD 10.6 million.",
+       "ref": [
+        "row:A5",
+        "fact:closed_rows"
+       ],
+       "b": "Active NCD cooperation is only about USD 1.5 million"
+      },
+      {
+       "k": "v",
+       "t": "Donor funding is among the lowest for the area that accounts for most deaths.",
+       "ref": [
+        "row:A5"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Risk factors and primary care"
+      },
+      {
+       "k": "f",
+       "t": "According to the Observatory, the risk factors associated with all deaths in 2021 were high systolic blood pressure 21.9%, diet 18.1%, tobacco 14.1%, high body mass index (BMI) 13.7% and air pollution 9.4%. The age-standardized death rate from ischaemic heart disease was 390 per 100,000 (2016), about three times the European Region's 120.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Smoking exceeds 50% among men, and 25.5% of boys and 8.9% of girls aged 13–15 have tried tobacco. Tobacco taxes are among the lowest in the European Region, and smoking cessation medicines are not covered by the state benefit package. Adult overweight rose from 38.3% (2000) to 48.3% (2016), and obesity from 9.6% to 16.6%.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In international data series, adult tobacco use fell from 28.1% (2010) to 22.2% (2024), per capita alcohol consumption from 4.14 L (2019) to 3.29 L (2023), while diabetes prevalence (ages 20–79) rose from 6.3% (2011) to 7.6% (2024).",
+       "ref": [
+        "doc:wdi"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "On primary care, the report notes that patients often bypass primary care and go directly to hospitals, that the gatekeeping role is weak, and that NCD and prevention efforts are insufficient. Efforts are under way to use digital tools to manage hypertension and diabetes.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Premature mortality has fallen, but the risk factors of blood pressure, obesity and smoking remain high or are increasing. Whether current gains are sustained depends on primary care's capacity to detect hypertension and keep patients on treatment; fiscal instruments such as higher tobacco taxes are not being used.",
+       "ref": [
+        "doc:hsia",
+        "ind:ncd:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: the NCD row has 6 active projects worth about USD 1.5 million, with Switzerland at about USD 1.2 million and WHO at about USD 0.3 million. Cooperation completed since 2017 comprises 30 projects worth about USD 10.6 million.",
+       "ref": [
+        "row:A5",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Alcohol consumption is 4 L per capita (2019), below the European Region's 7.8 L. Among risk factors, blood pressure, diet, tobacco and obesity weigh more heavily than alcohol.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Comparing the weight of risk factors with funding and plans, heart disease (Presidential Decree) and kidney disease plans are now in place, but areas requiring policies outside the Ministry of Health, such as tobacco taxation, diet and obesity, are barely visible in either national plans or donor projects.",
+       "ref": [
+        "doc:hsia",
+        "tree:health:heart",
+        "row:A5"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.3",
+     "h": "Communicable diseases (TB, HIV, immunization)",
+     "msg": "Immunization has recovered, but TB and HIV are furthest from international targets and remain largely donor-funded.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-3 New TB cases and measles vaccination coverage",
+      "inds": [
+       "inf:0",
+       "inf:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "TB: new cases fell from 178 per 100,000 (2015) to 131 (2020), then stayed almost flat at 128 (2024). This is the indicator furthest from the WHO targets (89 by 2025, 36 by 2030). Kyrgyzstan is one of the 30 high-burden countries for multidrug-resistant TB, with a treatment success rate for MDR-TB of 55%.",
+       "ref": [
+        "ind:inf:0",
+        "doc:cdc",
+        "doc:hsia"
+       ],
+       "b": "TB 128 (2024): furthest from the WHO 2025 target of 89"
+      },
+      {
+       "k": "f",
+       "t": "HIV: about 13,000 people are living with HIV, of whom 6,900 are on treatment (2024). The state now covers 90% of treatment costs (60% in 2021).",
+       "ref": [
+        "doc:cdc",
+        "doc:unaids"
+       ],
+       "b": "HIV: 6,900 of about 13,000 on treatment; state covers 90%"
+      },
+      {
+       "k": "f",
+       "t": "Immunization: measles coverage of 96% (2024) meets the WHO 95% benchmark, but DTP3 fell from 95% (2019) to 87% (2020) and recovered only to 90% (2022).",
+       "ref": [
+        "ind:inf:1",
+        "doc:hsia"
+       ],
+       "b": "Measles 96%; DTP3 at 90%, not fully recovered"
+      },
+      {
+       "k": "v",
+       "t": "Global Fund grants are the backbone of TB and HIV funding, and the current grant period ends at the end of 2026 (USD 27 million for 2024–2026, UNAIDS). The state's share is rising, but the scale of successor funding will determine outcomes.",
+       "ref": [
+        "doc:unaids",
+        "row:hiv"
+       ],
+       "b": "Global Fund grant period ends at the end of 2026"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: about USD 40.7 million in the HIV and hepatitis row, about USD 49.5 million in immunization (mainly Gavi) and about USD 7.7 million in TB (United States).",
+       "ref": [
+        "row:hiv",
+        "row:imm",
+        "row:tb"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background and drivers"
+      },
+      {
+       "k": "f",
+       "t": "TB treatment success rates are 81% for drug-susceptible TB (2018 cohort; regional average 75%) and 55% for MDR-TB (regional average 59%). The share of cases detected and treated fell from 78.3% (2008) to 71.3% (2017). Introduction of all-oral regimens and video-observed treatment is planned.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "The CDC reports a TB treatment success rate of 86% for 2024. HIV has not reached the UNAIDS 2025 \"95-95-95\" targets (shares of people who know their status, receive treatment and achieve viral suppression).",
+       "ref": [
+        "doc:cdc",
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In immunization, DTP3 fell from 95% (2019) to 87% (2020) and has recovered only to 90% (2022). Measles coverage recovered: 99% (2015), 92% (2020) and 96% (2024).",
+       "ref": [
+        "doc:hsia",
+        "ind:inf:1"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The flat trend in new TB cases since 2020 needs to be read alongside the declining share of cases detected and linked to treatment. Weak case detection means the numbers either fail to fall or fall only on paper.",
+       "ref": [
+        "ind:inf:0",
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: immunization row, 11 projects worth about USD 49.5 million (Gavi/Global Fund about USD 44 million, UNICEF about USD 4.6 million, WHO about USD 1 million); HIV and hepatitis row, 10 projects worth about USD 40.7 million (Global Fund about USD 24.2 million, UNDP about USD 14 million, United States about USD 2.6 million); TB row, 2 projects worth about USD 7.7 million (United States); health emergencies row, 16 projects worth about USD 17.7 million (ADB about USD 15 million).",
+       "ref": [
+        "row:imm",
+        "row:hiv",
+        "row:tb",
+        "row:epi"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The TB row has about USD 158 million in cooperation completed since 2017, but only about USD 7.7 million active. Even allowing for Global Fund TB/HIV grants also being counted in the HIV row, external funding for TB has fallen sharply.",
+       "ref": [
+        "row:tb",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "About 13,000 people are living with HIV (2024 estimate); the 6,900 on treatment represent about 53%. Even on the second \"95\" (share receiving treatment) alone, the gap to the target is large.",
+       "ref": [
+        "doc:cdc"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The state's share of HIV treatment costs rose from 60% (2021) to 90%, moving antiretroviral medicines close to full funding from the state budget. Remaining dependence on external funding appears to lie in prevention, testing and outreach to key populations. The end of the Global Fund grant period will hit this area hardest.",
+       "ref": [
+        "doc:unaids",
+        "row:hiv"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "2.4",
+     "h": "Health financing, UHC and workforce",
+     "msg": "Out-of-pocket spending is at 40% and rising again, and the health insurance target (85% coverage) has no data to measure it.",
+     "fig": {
+      "type": "indicator",
+      "cap": "Figure 2-4 Out-of-pocket share of health spending and UHC service coverage index",
+      "inds": [
+       "uhc:0",
+       "uhc:1"
+      ]
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Out-of-pocket spending: fell from 56.3% (2014) to 39.1% (2021), then rose to 42.3% (2023). The WHO benchmark is 20% or less.",
+       "ref": [
+        "ind:uhc:0"
+       ],
+       "b": "OOP 39.1% (2021) → 42.3% (2023); benchmark 20% or less"
+      },
+      {
+       "k": "f",
+       "t": "Coverage: about one-third of the population cannot make full use of the State Guaranteed Benefits Package and the Additional Drug Package. Outpatient medicines are limited to about 70 items with a 50% price subsidy. Some of the Health Insurance Fund's functions are set to move to the Ministry of Health.",
+       "ref": [
+        "doc:hsia"
+       ],
+       "b": "Outpatient medicines limited to about 70 items with 50% subsidy"
+      },
+      {
+       "k": "f",
+       "t": "The UHC service coverage index stands at 74 and has been flat since 2015.",
+       "ref": [
+        "ind:uhc:1"
+       ],
+       "b": "UHC service coverage index flat at 74"
+      },
+      {
+       "k": "f",
+       "t": "Spending on primary care is about 1% of GDP, and public primary care spending per capita is among the lowest in the WHO European Region.",
+       "ref": [
+        "doc:who2023"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Workforce: the numbers of physicians and nurses are among the lowest in the European Region, and ageing and emigration continue.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "NDP 2030 targets \"85% health insurance coverage\", but no annual coverage figures could be found, so progress cannot be measured. Building the measurement system is itself an opportunity for support.",
+       "ref": [
+        "doc:ndp"
+       ],
+       "b": "Building a system to measure insurance coverage is itself a support opportunity"
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: about USD 23.4 million in the financing and UHC row (almost entirely Germany's sector support, ending in December 2026). Workforce and medical education: about USD 1.2 million.",
+       "ref": [
+        "row:C1",
+        "row:C2"
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Background and drivers"
+      },
+      {
+       "k": "f",
+       "t": "According to the Observatory, 46% of households reported difficulty paying for health care in 2014, up from 38% in 2009. The main drivers of catastrophic spending are outpatient medicines and outpatient and inpatient care, and out-of-pocket costs are the main reason people go without medicines. Out-of-pocket payments for inpatient care are also widespread.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Health's share of government expenditure fell from 14.5% (2006) to 6.9% (2020), then recovered to 8.6% (2021). Hospital beds per 100,000 fell from 1,206 (1991) to 697 (2000) and 422 (2021), but the report still considers this too many relative to income and the young population.",
+       "ref": [
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Expanding coverage of medicines, which account for 30% of health spending, appears the most effective way to reduce out-of-pocket spending. This would require bringing health's share of government expenditure closer to its 2006 level, or reducing hospital beds and redirecting the savings to primary care and medicines.",
+       "ref": [
+        "doc:hsia",
+        "ind:uhc:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Related cooperation: primary care model row, 9 projects worth about USD 29 million (World Bank about USD 27.3 million); financing and UHC row, 6 projects worth about USD 23.4 million (Germany about USD 22.5 million, Switzerland about USD 1 million); workforce and medical education, 8 projects worth about USD 1.2 million; digital health, 3 projects worth about USD 0.3 million. The medicines and medical devices row has no active projects.",
+       "ref": [
+        "row:A1",
+        "row:C1",
+        "row:C2",
+        "row:C4",
+        "row:C3"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "Under the Additional Drug Package, the state pays 50% of the \"base price\" of listed medicines and patients pay the difference from the retail price. The Observatory notes that the lack of clarity over the scope of public coverage, for both patients and providers, is increasing the burden.",
+       "ref": [
+        "doc:hsia",
+        "tree:health:sgbp"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The UHC service coverage index remaining at 74 for eight years is consistent with service coverage not expanding while out-of-pocket payments continue to fill the gap. Together with the inability to measure insurance coverage, this means indicators of UHC progress have stalled on both national targets and international indicators.",
+       "ref": [
+        "ind:uhc:1",
+        "ind:uhc:0"
+       ]
+      },
+      {
+       "k": "f",
+       "t": "In terms of workforce composition, 64.9% of physicians are women (2019), and family doctors account for only 12% of physicians (2021). There are about 3,000 vacant primary care physician posts, and more than half of family doctors are at retirement age. If only 30% of young doctors continue to enter the public system, vacancies will grow further.",
+       "ref": [
+        "doc:hsia"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "3",
+   "h": "Development partner support",
+   "sections": [
+    {
+     "no": "3.1",
+     "h": "Overall picture",
+     "msg": "Active funding is largest from Gavi/Global Fund, Germany, Japan and the World Bank, in that order; the top four account for about three-quarters.",
+     "msgnj": "Active funding is dominated by Gavi/Global Fund and Germany, which together account for about half.",
+     "fig": {
+      "type": "donor-bar",
+      "cap": "Figure 3-1 Funding by donor (USD million; projects mapped to strategy areas; after pro-rata allocation)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Active cooperation mapped to the health strategy totals 96 projects worth about USD 240 million. By donor: Gavi/Global Fund about USD 68.1 million, Germany about USD 54.7 million, Japan about USD 30.7 million, World Bank about USD 27.3 million, ADB about USD 15.6 million, UNDP about USD 14.1 million, United States about USD 10.3 million.",
+       "ref": [
+        "fact:mapped_n",
+        "fact:mapped_musd",
+        "fact:by_donor"
+       ],
+       "b": "Active: 96 projects, about USD 240 million",
+       "jp": true,
+       "tnj": "Active cooperation mapped to the health strategy totals 96 projects worth about USD 240 million. By donor: Gavi/Global Fund about USD 68.1 million, Germany about USD 54.7 million, World Bank about USD 27.3 million, ADB about USD 15.6 million, UNDP about USD 14.1 million, United States about USD 10.3 million, Switzerland about USD 7.5 million.",
+       "bnj": "Active: 96 projects, about USD 240 million"
+      },
+      {
+       "k": "f",
+       "t": "20 projects worth about USD 72.2 million end at the end of 2026.",
+       "ref": [
+        "fact:end_2026_n",
+        "fact:end_2026_musd"
+       ],
+       "b": "20 projects, about USD 72.2 million, end in late 2026"
+      },
+      {
+       "k": "f",
+       "t": "Cooperation completed since 2017 totals 317 projects worth about USD 350 million, led by the Global Fund, Germany and the United States.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "Completed since 2017: 317 projects, about USD 350 million"
+      },
+      {
+       "k": "h",
+       "t": "Allocation by area and the outlook from 2027"
+      },
+      {
+       "k": "f",
+       "t": "By matrix row, active funding is largest in immunization (about USD 49.5 million), followed by HIV and hepatitis (about USD 40.7 million), maternal and child health (about USD 33.5 million), hospital restructuring and modernization (about USD 31.3 million), primary care model (about USD 29 million), financing and UHC (about USD 23.4 million), health emergencies (about USD 17.7 million) and TB (about USD 7.7 million).",
+       "ref": [
+        "fact:rows"
+       ],
+       "jp": true,
+       "tnj": "By matrix row, active funding is largest in immunization (about USD 49.5 million), followed by HIV and hepatitis (about USD 40.7 million), maternal and child health (about USD 33.5 million), primary care model (about USD 29 million), financing and UHC (about USD 23.4 million), health emergencies (about USD 17.7 million) and TB (about USD 7.7 million)."
+      },
+      {
+       "k": "f",
+       "t": "The about USD 72.2 million ending at the end of 2026 breaks down as Germany about USD 40.1 million, Global Fund about USD 24.2 million, UNDP about USD 6.5 million and Switzerland about USD 1.3 million.",
+       "ref": [
+        "fact:end_2026_by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Excluding projects ending in late 2026, active funding falls to about USD 167 million. Germany drops from about USD 54.7 million to about USD 14.6 million and Gavi/Global Fund from about USD 68.1 million to about USD 43.9 million (mainly immunization), leaving financing and UHC and HIV particularly thinly funded.",
+       "ref": [
+        "fact:mapped_musd",
+        "fact:end_2026_by_donor",
+        "fact:by_donor"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Funding concentrates in areas where results are easy to count, such as immunization, HIV and maternal and child health, while system areas such as the workforce, primary care quality and medicines receive little. Funding allocation does not match the largest challenges: out-of-pocket spending and the workforce.",
+       "ref": [
+        "fact:rows",
+        "fact:empty_rows",
+        "doc:hsia"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.2",
+     "h": "Active projects (by donor)",
+     "msg": "Active projects are listed by donor in descending order of value.",
+     "fig": {
+      "type": "project-table",
+      "st": "active",
+      "cap": "Table 3-1 Active projects (generated automatically from site data at the time of display)"
+     },
+     "paras": []
+    },
+    {
+     "no": "3.3",
+     "h": "Completed projects and evolution of support",
+     "msg": "Cooperation completed over the past decade was dominated by TB/HIV, health emergencies (COVID-19 response) and financing/UHC.",
+     "fig": {
+      "type": "project-table",
+      "st": "closed",
+      "cap": "Table 3-2 Projects completed since 2017 (top five per donor; expand to see the rest)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Period covered: projects completed since 2017. Counting the site data by completion year, projects of the main donors (World Bank, Global Fund, Germany, United States, Switzerland, WHO) are consistently recorded only from 2017; before that, Swiss and WHO projects are almost absent and Germany has only 0–2 projects a year. Even from 2017, however, ADB data are largely available only from 2020 and UNICEF and UNDP data only from 2021, and Japan's completed health projects are mostly not included.",
+       "ref": [
+        "fact:closed_n"
+       ],
+       "b": "Covers projects completed since 2017 (earlier records are incomplete)",
+       "tnj": "Period covered: projects completed since 2017. Counting the site data by completion year, projects of the main donors (World Bank, Global Fund, Germany, United States, Switzerland, WHO) are consistently recorded only from 2017; before that, Swiss and WHO projects are almost absent and Germany has only 0–2 projects a year. Even from 2017, however, ADB data are largely available only from 2020 and UNICEF and UNDP data only from 2021."
+      },
+      {
+       "k": "f",
+       "t": "Projects completed since 2017 and mapped to the health strategy total 317 projects worth about USD 350 million (after pro-rata allocation, no double counting). By donor: Global Fund about USD 80.1 million, Germany about USD 61.9 million, United States about USD 55.1 million, World Bank about USD 35.4 million, ADB about USD 33.3 million, UNDP about USD 26.5 million, WHO about USD 23 million, Switzerland about USD 19.5 million.",
+       "ref": [
+        "fact:closed_n",
+        "fact:closed_musd",
+        "fact:closed_by_donor"
+       ],
+       "b": "317 projects, about USD 350 million; Global Fund, Germany and United States largest"
+      },
+      {
+       "k": "f",
+       "t": "By area (by row, with overlaps): TB about USD 158 million and HIV about USD 117 million (Global Fund TB/HIV grants are counted in both), health emergencies about USD 57.6 million (including ADB emergency support for the COVID-19 response), financing and UHC about USD 43.8 million (Germany's sector support), maternal and child health about USD 32.4 million, and hospital management about USD 26.5 million.",
+       "ref": [
+        "fact:closed_rows"
+       ],
+       "b": "TB/HIV, health emergencies (COVID-19) and financing/UHC largest"
+      },
+      {
+       "k": "v",
+       "t": "Compared with active funding (largest in immunization, maternal and child health and primary care), the past decade was weighted towards TB/HIV and the COVID-19 response. TB/HIV funding is at a turning point, with the current grant period ending at the end of 2026.",
+       "ref": [
+        "fact:closed_rows",
+        "row:imm",
+        "row:A6"
+       ],
+       "b": "Past: TB/HIV and COVID-19; now: immunization, MCH and primary care"
+      },
+      {
+       "k": "f",
+       "t": "Completed cooperation in other areas: hospital management and infection control, 17 projects worth about USD 26.5 million; primary care model, 8 projects worth about USD 15 million; NCDs, 30 projects worth about USD 10.6 million; workforce and medical education, 18 projects worth about USD 3.4 million; medicines, 14 projects worth about USD 2.1 million.",
+       "ref": [
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The medicines area has had 14 projects in the past but none is active. Given that medicines account for 30% of health spending and are a main driver of out-of-pocket costs, this is a significant gap.",
+       "ref": [
+        "row:C3",
+        "fact:closed_rows",
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The health emergencies row has about USD 57.6 million in cooperation completed since 2017 (including the COVID-19 response) and about USD 17.7 million active. Emergency funding has declined since COVID-19, but ADB projects are supporting preparedness.",
+       "ref": [
+        "row:epi",
+        "fact:closed_rows"
+       ]
+      }
+     ]
+    },
+    {
+     "no": "3.4",
+     "h": "Gaps by strategy area",
+     "msg": "Four areas have no active cooperation: primary care quality, primary care workforce, emergency care and medicines.",
+     "fig": {
+      "type": "gap-matrix",
+      "cap": "Table 3-3 Strategy areas × donors (toggle between active, completed and cumulative)"
+     },
+     "paras": [
+      {
+       "k": "f",
+       "t": "Areas with no active cooperation: primary care quality, primary care workforce, emergency care and medicines.",
+       "ref": [
+        "fact:empty_rows",
+        "row:A3",
+        "row:A4",
+        "row:B2",
+        "row:C3"
+       ],
+       "b": "Gaps: PHC quality and workforce, emergency care, medicines"
+      },
+      {
+       "k": "f",
+       "t": "Of these four gaps, three (primary care quality, primary care workforce and emergency care) also have no cooperation completed since 2017. Medicines has 14 completed projects worth about USD 2.1 million.",
+       "ref": [
+        "row:A3",
+        "row:A4",
+        "row:B2",
+        "row:C3",
+        "fact:closed_rows"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "The primary care workforce gap coincides with more than half of family doctors being at retirement age and only 30% of young doctors entering the public system. This appears to be the area with the widest mismatch between the funding gap and the size of the challenge.",
+       "ref": [
+        "row:A4",
+        "doc:hsia"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "Emergency care has no stand-alone national plan (Table 1-1) and no active or completed cooperation. It is the only area in the health matrix where both plans and funding are absent, and it needs to start with building the institutional framework.",
+       "ref": [
+        "row:B2",
+        "tree:health:B2",
+        "fact:empty_rows"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "no": "4",
+   "h": "Conclusions and points to watch",
+   "sections": [
+    {
+     "no": "4",
+     "h": "Conclusions and points to watch",
+     "msg": "2027 will test both donor successor funding and the formal adoption of national plans at the same time.",
+     "fig": {
+      "type": "watch"
+     },
+     "paras": [
+      {
+       "k": "v",
+       "t": "Large cooperation programmes for HIV and TB (Global Fund) and for financing and maternal and child health (Germany) end in late 2026, and the scale of their successors will directly affect communicable disease and out-of-pocket indicators.",
+       "ref": [
+        "fact:end_2026_by_donor",
+        "ind:uhc:0",
+        "ind:inf:0"
+       ],
+       "b": "Successors to large programmes will drive communicable disease and OOP indicators"
+      },
+      {
+       "k": "v",
+       "t": "Three national plans, for HIV and hepatitis, health emergencies and NCDs, are still in draft; whether they are formally adopted will be the entry point for donors' next round of support.",
+       "ref": [
+        "tree:health:hiv",
+        "tree:health:epi",
+        "tree:health:A5"
+       ],
+       "b": "Formal adoption of HIV, health emergency and NCD plans is the entry point for support"
+      },
+      {
+       "k": "v",
+       "t": "The gap areas (primary care quality and workforce, emergency care, medicines) are being addressed through the national budget, presidential decrees and components of other projects. Here, technical cooperation on institution-building is likely to be in greater demand than funding.",
+       "ref": [
+        "fact:empty_rows",
+        "tree:health:med26"
+       ],
+       "b": "Gap areas are likely to call for technical cooperation on institution-building"
+      },
+      {
+       "k": "v",
+       "t": "Reaching the life expectancy target depends on adult NCDs, especially hypertension control, yet NCDs and the primary care workforce receive the least funding. In planning successor funding, the question is whether the centre of gravity can shift from disease-specific areas to primary care foundations.",
+       "ref": [
+        "ind:all:0",
+        "doc:hsia",
+        "row:A5",
+        "row:A4"
+       ]
+      },
+      {
+       "k": "v",
+       "t": "On indicators, building systems to measure the two targets of health insurance coverage and primary care coverage is the first requirement, regardless of funding levels. Targets that cannot be measured make it hard for donors to demonstrate results and are unlikely to become entry points for support.",
+       "ref": [
+        "doc:ndp",
+        "tree:health:C1"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "gap": [
+  [
+   "Life expectancy",
+   "72.4 years (2024)",
+   "75 years",
+   "+0.19 years/yr",
+   "+0.43 years/yr",
+   "Off track (about 73.5 years)",
+   "bad"
+  ],
+  [
+   "Under-5 mortality (UN estimate)",
+   "16.8(2024)",
+   "14.0",
+   "−0.25/yr",
+   "−0.47/yr",
+   "Off track (about 15.3)",
+   "bad"
+  ],
+  [
+   "Under-5 mortality (national statistics)",
+   "15.9(2024)",
+   "14.0",
+   "−0.67/yr",
+   "−0.32/yr",
+   "On track",
+   "good"
+  ],
+  [
+   "Maternal mortality (MoH)",
+   "25.7(2024)",
+   "22",
+   "(two data points only)",
+   "−0.62/yr",
+   "Close",
+   "warn"
+  ],
+  [
+   "Premature NCD mortality (ages 30–69)",
+   "18.3%(2023)",
+   "17.6% (assuming a 30% reduction from a 2015 baseline)",
+   "−0.86/yr",
+   "−0.10/yr",
+   "On track",
+   "good"
+  ],
+  [
+   "Health insurance coverage / primary care coverage",
+   "Not available from national statistics (no published data)",
+   "85% / 70%",
+   "—",
+   "—",
+   "Not measurable",
+   "na"
+  ]
+ ],
+ "subs": [
+  [
+   "1",
+   "NCDs (heart)",
+   "\"Healthy Heart\" 2025–2030",
+   "Presidential Decree No. 314 (2025)",
+   "ok",
+   "⑤",
+   "A5",
+   "heart"
+  ],
+  [
+   "1",
+   "NCDs (kidney)",
+   "Chronic Kidney Disease Programme 2026–2030",
+   "Cabinet of Ministers Resolution No. 618 (September 2026)",
+   "ok",
+   "⑤",
+   "A5",
+   "ckd"
+  ],
+  [
+   "1",
+   "NCDs (overall)",
+   "NCD Strategy 2027–2032",
+   "Draft (discussed in November 2026)",
+   "draft",
+   "⑤",
+   "A5",
+   ""
+  ],
+  [
+   "1",
+   "Cancer",
+   "Regulation on the provision of cancer care",
+   "Cabinet of Ministers Resolution No. 762 (2024) (no national cancer programme)",
+   "ok",
+   "⑤",
+   "A5",
+   "onco"
+  ],
+  [
+   "1",
+   "Mental health",
+   "Mental Health Programme 2018–2030",
+   "Government Resolution No. 119 (2018)",
+   "ok",
+   "—",
+   "mh",
+   "mh"
+  ],
+  [
+   "1",
+   "Immunization",
+   "Immunization Programme 2025–2030",
+   "Cabinet of Ministers Resolution No. 90 (2025)",
+   "ok",
+   "④⑥",
+   "imm",
+   "imm"
+  ],
+  [
+   "1",
+   "TB",
+   "\"Tuberculosis-VI\" 2023–2026",
+   "Cabinet of Ministers Resolution No. 119 (2023)",
+   "end",
+   "—",
+   "tb",
+   "tb"
+  ],
+  [
+   "1",
+   "HIV and hepatitis",
+   "HIV and Hepatitis Programme 2026–2030",
+   "Public consultation, September 2025",
+   "draft",
+   "—",
+   "hiv",
+   "hiv"
+  ],
+  [
+   "1",
+   "Health emergencies",
+   "Comprehensive Plan on Infectious Diseases and Health Emergencies 2026–2030",
+   "Public consultation, February 2026",
+   "draft",
+   "—",
+   "epi",
+   "epi"
+  ],
+  [
+   "1",
+   "Maternal and child health",
+   "No stand-alone programme (launch of the \"Umut\" prenatal screening programme 2026–2030 reported)",
+   "—",
+   "none",
+   "③④",
+   "A6",
+   ""
+  ],
+  [
+   "2",
+   "Emergency care",
+   "No stand-alone programme",
+   "—",
+   "none",
+   "—",
+   "B2",
+   ""
+  ],
+  [
+   "3",
+   "Financing and UHC",
+   "State Guaranteed Benefits Package / Law on the Budget of the Mandatory Health Insurance Fund",
+   "Cabinet of Ministers Resolution No. 493 (2023), among others",
+   "ok",
+   "①",
+   "C1",
+   "sgbp"
+  ],
+  [
+   "3",
+   "Medicines",
+   "Emergency measures on medicines / Essential Medicines List 2026–28",
+   "Presidential Decree No. 202 (2026), among others",
+   "ok",
+   "—",
+   "C3",
+   "med26"
+  ],
+  [
+   "3",
+   "Digital health",
+   "Health chapter of the Digital Transformation Concept 2024–2028",
+   "Presidential Decree No. 90 (2024)",
+   "ok",
+   "—",
+   "C4",
+   "dt"
+  ]
+ ],
+ "ten": [
+  [
+   "1",
+   "Public health and primary care"
+  ],
+  [
+   "2",
+   "Hospitals and emergency care"
+  ],
+  [
+   "3",
+   "Six cross-cutting areas (laboratory services, medicines and medical devices, human resources, e-health, governance, financing)"
+  ]
+ ],
+ "ccs": [
+  [
+   "① Hypertension",
+   [
+    "A5"
+   ]
+  ],
+  [
+   "② Health emergency prevention, preparedness and response",
+   [
+    "epi"
+   ]
+  ],
+  [
+   "③ Mental health",
+   [
+    "mh"
+   ]
+  ],
+  [
+   "④ Antimicrobial resistance (AMR)",
+   [
+    "epi"
+   ]
+  ],
+  [
+   "⑤ Climate resilience and chemical safety",
+   []
+  ],
+  [
+   "⑥ Health workforce",
+   [
+    "C2",
+    "A4"
+   ]
+  ],
+  [
+   "⑦ Data and digital health",
+   [
+    "C4"
+   ]
+  ]
+ ],
+ "unread": [
+  "Annual published figures for mandatory health insurance coverage (national target 85%)",
+  "Definition and annual values of coverage of prevention, early intervention and primary care (national target 70%)",
+  "The indicator framework of the Health Programme 2019–2030 (baselines and 2030 targets) and the content of the 2024 amendment (the text is on a paid-access site and could not be read)",
+  "Numerical targets of the TB programme \"Tuberculosis-VI\"",
+  "Reasons for the gap between UN estimates and Ministry of Health figures on maternal mortality",
+  "Number of health workers emigrating abroad (the Observatory also notes data are scarce)",
+  "Other items not yet verified: the WHO Country Cooperation Strategy PDF, the 2023 IHR Joint External Evaluation scores (PDF not obtained), the NCD investment case report (broken link), and MICS stunting and breastfeeding figures (available only from the summary; not used)"
+ ]
+}
