@@ -112,10 +112,10 @@ p74Main=function(){
     var curc=nb?nb.c:-1;
     S.ch.forEach(function(ch){var ct=P.story&&P.story[ch.c+1]?P.story[ch.c+1].t.replace(/^[^　]+　/,""):P74_BOSS[ch.c].t+"の地",open=P83_OPEN[ch.c]!=null?P83_OPEN[ch.c]:ch.c===curc;
       var td=ch.themes.filter(function(x){return x.done;}).length;
-      h+='<div class="p83-ch'+(open?" open":"")+'"><button type="button" class="p83-chh" data-act="p83ch" data-val="'+ch.c+'"><small>第'+(ch.c+1)+'章</small><b>'+esc(ct)+'</b><span>'+(ch.beat?'✓ クリア':td+' / '+ch.themes.length)+'</span><i>'+(open?'−':'＋')+'</i></button>';
+      h+='<div class="p83-ch'+(open?" open":"")+'"><button type="button" class="p83-chh" data-act="p83ch" data-val="'+ch.c+'">'+(typeof p84Row==="function"?'<span class="p84-tt"><span class="p84-tl"><small>第'+(ch.c+1)+'章</small><b>'+esc(ct)+'</b>'+p84Clear(ch)+'</span>'+p84Row(ch)+'</span>':'<small>第'+(ch.c+1)+'章</small><b>'+esc(ct)+'</b><span>'+(ch.beat?'✓ クリア':td+' / '+ch.themes.length)+'</span>')+'<i>'+(open?'−':'＋')+'</i></button>';
       if(open){
         ch.themes.forEach(function(x){var st2=x.done?"d":(c&&x.i===c.i?"c":"");
-          h+='<button type="button" class="p83-row '+st2+'" data-act="p71go" data-val="'+x.i+'"><span class="p83-dot">'+(x.done?'✓':'')+'</span><span class="p83-rtx"><b>'+esc(x.cat)+'</b><small>'+(x.done?P.verb:'完了 '+x.ld+' / '+x.ln)+(st2==="c"?' ・ いまここ':'')+'</small></span></button>';});
+          h+='<button type="button" class="p83-row '+st2+'" data-act="p71go" data-val="'+x.i+'">'+(x.done&&typeof p84Stamp==="function"?'<span class="p83-dot p84d">'+p84Stamp(true,x.i-ch.from,p84Ink(),false)+'</span>':'<span class="p83-dot">'+(x.done?'✓':'')+'</span>')+'<span class="p83-rtx"><b>'+esc(x.cat)+'</b><small>'+(x.done?P.verb:'完了 '+x.ld+' / '+x.ln)+(st2==="c"?' ・ いまここ':'')+'</small></span></button>';});
         h+='<div class="p83-boss'+(ch.beat?" beat":"")+'"><small>'+(P.ev?'この章の大きな出来事':'ボス')+'</small><b>'+esc(p74BossName(P,ch.c))+'</b><span>'+(ch.beat?P.verb+'！':'この章のテーマを全部終えると'+(P.ev?'クリア':'倒せます'))+'</span></div>';}
       h+='</div>';});
   }else if(v==="story"&&P.story){h+=p74StoryTab(P,S);
