@@ -29,11 +29,11 @@ async function p50Flush(){
   if(!P50.coll||P50.busy)return;
   P50.busy=true;clearTimeout(P50.timer);
   try{
-    var pl=p50Payloads(),ids=Object.keys(pl),changed=false;
+    var pl=p50Payloads(),ids=Object.keys(pl),changed=false,tooBig="";
     for(var i=0;i<ids.length;i++){
       var id=ids[i],s=JSON.stringify(pl[id]);
       if(s===P50.sent[id])continue;
-      if(s.length>250000){P50.err="データが大きすぎて一部を保存できませんでした";continue;}
+      if(s.length>250000){tooBig="データが大きすぎて一部を保存できませんでした";continue;}
       var t=Date.now();
       try{await P50.coll.doc(id).set({t:t,v:s});}
       catch(e){
@@ -43,7 +43,7 @@ async function p50Flush(){
       P50.sent[id]=s;P50.meta[id]=t;changed=true;
     }
     if(changed){lset(P50.metaKey,P50.meta);P50.lastAt=Date.now();}
-    P50.state="cloud";P50.err="";
+    P50.state="cloud";P50.err=tooBig;
   }catch(e){
     var c=e&&e.code;
     P50.state=(c==="revoked"||c==="not_granted"||c==="invalid_argument")?"local":"error";
@@ -64,6 +64,8 @@ async function p50Init(){
     var snap=await P50.coll.get(),adopted=false;
     snap.docs.forEach(function(d){
       if(!d.exists)return;var body=d.data(),id=d.id;if(!body||typeof body.v!=="string")return;
+      /* 設定の中の p85（AIコーチの到達テストの履歴など）は、どちらが新しくても足し合わせる */
+      if(id==="settings"&&typeof p85MergeSettings==="function"){try{p85MergeSettings(JSON.parse(body.v));}catch(_){}}
       var local=JSON.stringify(p50Payloads()[id]);
       if(body.v===local){P50.sent[id]=body.v;P50.meta[id]=body.t;return;}
       if((body.t||0)>(P50.meta[id]||0)||/^lg\d/.test(id)){try{p50Adopt(id,JSON.parse(body.v));P50.sent[id]=body.v;P50.meta[id]=body.t;adopted=true;}catch(_){}}
