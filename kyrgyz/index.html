@@ -18347,95 +18347,487 @@ var css=document.createElement("style");css.textContent=
 document.head.appendChild(css);
 })();
 
-/* ===== Phase85：育てるモード（学習の進み具合に合わせてマナスが成長する） =====
+/* ===== Phase85：育てるモードの絵（動物・鳥・竜・卵・小物） =====
+   すべてこのアプリのために描いたオリジナルの線画（既存のキャラクターや写真をなぞっていない）。
+   どれも「足もとの中心が (0,0)、右向き」の座標で描き、呼ぶ側で位置と大きさを決める。
+   線の色・太さは phase74 の絵とそろえる（#2B2233、1.6）。 */
+var PG_O=' stroke="#2B2233" stroke-width="1.6" stroke-linejoin="round"';
+function pgSh(c,k){try{return p74Shade(c,k);}catch(_){return c;}}
+function pgL(a,b,t){return a+(b-a)*t;}
+function pgN(v){return (+v).toFixed(1);}
+/* 目（大きくてつやのある目。子どもほど大きい） */
+function pgEye(x,y,r,col){
+  return '<ellipse cx="'+pgN(x)+'" cy="'+pgN(y)+'" rx="'+pgN(r*.82)+'" ry="'+pgN(r)+'" fill="'+(col||"#2B2233")+'"/>'+
+    '<circle cx="'+pgN(x-r*.28)+'" cy="'+pgN(y-r*.38)+'" r="'+pgN(r*.36)+'" fill="#fff"/><circle cx="'+pgN(x+r*.3)+'" cy="'+pgN(y+r*.34)+'" r="'+pgN(r*.16)+'" fill="#fff" opacity=".9"/>';
+}
+/* シルダク（フェルトのじゅうたん）風の渦の模様：x,y から幅 w に並べる */
+function pgCurl(x,y,w,c){var s="",n=Math.max(1,Math.round(w/10));for(var i=0;i<n;i++){var cx=x+(i+.5)*w/n;s+='<path d="M'+pgN(cx-4)+' '+pgN(y+2)+'q0-5 4-5q4 0 4 4q0 3-3 3" fill="none" stroke="'+c+'" stroke-width="1.5" stroke-linecap="round"/>';}return s;}
+/* 房かざり（チャチク） */
+function pgTassel(x,y,c){return '<path d="M'+pgN(x)+' '+pgN(y)+'v4" stroke="#2B2233" stroke-width="1"/><path d="M'+pgN(x-2.6)+' '+pgN(y+4)+'h5.2l1 7h-7.2z" fill="'+(c||"#E2483B")+'"'+PG_O.replace("1.6","1")+'/>';}
+/* 小さなカルパク（白いフェルトの帽子。つばは黒） */
+function pgKalpak(x,y,s,c){s=s||1;return '<g transform="translate('+pgN(x)+' '+pgN(y)+') scale('+s+')"><path d="M-9 0q1-16 9-20q8 4 9 20z" fill="'+(c||"#F4F1E6")+'"'+PG_O+'/><path d="M-10 0q10-4 20 0l-1 3q-9-3-18 0z" fill="#2B2233"/><path d="M-4 -8q4 2 8 0" stroke="#B3202B" stroke-width="1.2" fill="none"/></g>';}
+function pgCrown(x,y,s,c){s=s||1;c=c||"#F2C230";return '<g transform="translate('+pgN(x)+' '+pgN(y)+') scale('+s+')"><path d="M-9 0l-2-11 6 5 5-9 5 9 6-5-2 11z" fill="'+c+'"'+PG_O+'/><circle cx="0" cy="-4" r="1.8" fill="#E2483B"/></g>';}
+function pgFlowers(x,y,s){s=s||1;var cs=["#F48FB1","#FFD34D","#FFFFFF","#B39DDB","#F48FB1"],h="";for(var i=0;i<5;i++){var a=-150+i*30,px=Math.cos(a*Math.PI/180)*10,py=Math.sin(a*Math.PI/180)*6;h+='<circle cx="'+pgN(px)+'" cy="'+pgN(py)+'" r="3.4" fill="'+cs[i]+'"'+PG_O.replace("1.6","1")+'/><circle cx="'+pgN(px)+'" cy="'+pgN(py)+'" r="1.1" fill="#E8A33D"/>';}return '<g transform="translate('+pgN(x)+' '+pgN(y)+') scale('+s+')"><path d="M-11 0q11-9 22 0" stroke="#5E9E4A" stroke-width="2" fill="none"/>'+h+'</g>';}
+/* トゥマル（三角のお守り） */
+function pgTumar(x,y,c){return '<path d="M'+pgN(x-4)+' '+pgN(y)+'h8l-4 7z" fill="'+(c||"#E8B923")+'"'+PG_O.replace("1.6","1.1")+'/><circle cx="'+pgN(x)+'" cy="'+pgN(y+2.4)+'" r="1.2" fill="#B3202B"/>';}
+function pgBell(x,y){return '<path d="M'+pgN(x-3.4)+' '+pgN(y+4)+'q0-7 3.4-7t3.4 7z" fill="#F2C230"'+PG_O.replace("1.6","1.1")+'/><circle cx="'+pgN(x)+'" cy="'+pgN(y+4.6)+'" r="1.1" fill="#2B2233"/>';}
+/* 星のしるし（ひたいなど） */
+function pgStarMark(x,y,r,c){var p="";for(var i=0;i<10;i++){var a=-90+i*36,rr=i%2?r*.45:r;p+=(i?"L":"M")+pgN(x+Math.cos(a*Math.PI/180)*rr)+" "+pgN(y+Math.sin(a*Math.PI/180)*rr);}return '<path d="'+p+'z" fill="'+(c||"#FFE27A")+'"/>';}
+
+/* ---------- 四つ足の動物（犬・猫・うさぎ・ヤク・天馬・ユキヒョウ・竜） ----------
+   o.a：育ちぐあい 0〜1（子どもは頭が大きく足が短い）
+   o.col 体の色、o.bel おなか・口もとの色、o.ear 耳の形、o.tail しっぽの形、o.sn 鼻先の長さ、o.leg 足の長さ
+   o.fluff ヤクの長い毛、o.spots ユキヒョウの模様、o.mane たてがみの色、o.wing 翼の大きさ 0〜1、o.horn 角の長さ、o.spike 背中のとげ
+   o.acc：かざり {scarf:色, bell:1, tumar:色, cloth:色, bags:1, kalpak:1, crown:色, flowers:1, cape:色, armor:色, mark:色, tassels:1} */
+function pgQ(o){
+  var a=o.a||0,ac=o.acc||{},c=o.col||"#C9A27A",bl=o.bel||pgSh(c,.5),dk=pgSh(c,-.28),s="";
+  var L=pgL(34,66,a)*(o.len||1),Hb=pgL(24,30,a)*(o.bh||1),leg=pgL(9,19,a)*(o.leg||1),R=pgL(17,14.5,a)*(o.head||1);
+  var by=-(leg+Hb/2)+2,neckUp=o.neck?R*.9*o.neck:0;
+  var hx=L/2+R*.25+(o.neck?R*.2:0),hy=by-Hb/2-R*.38-neckUp;
+  var lw=pgL(7,9.5,a)*(o.lw||1),paw=o.hoof?"#3A2E2A":bl;
+  var legs=function(far){var col=far?dk:c,off=far?5:0,h="";
+    [-L*.3,L*.27].forEach(function(lx){lx+=off;h+='<rect x="'+pgN(lx-lw/2)+'" y="'+pgN(by)+'" width="'+pgN(lw)+'" height="'+pgN(-by-1)+'" rx="'+pgN(lw/2)+'" fill="'+col+'"'+PG_O+'/>'+
+      '<ellipse cx="'+pgN(lx+1.4)+'" cy="-2" rx="'+pgN(lw*.66)+'" ry="3" fill="'+(far?pgSh(paw,-.2):paw)+'"'+PG_O+'/>';});return h;};
+  /* 光の輪（伝説の姿） */
+  if(ac.aura)s+='<ellipse cx="'+pgN(L*.1)+'" cy="'+pgN(by-6)+'" rx="'+pgN(L*.9)+'" ry="'+pgN(Hb*1.6)+'" fill="'+ac.aura+'" opacity=".22"/>';
+  /* マント（体の後ろ） */
+  if(ac.cape)s+='<path d="M'+pgN(L*.32)+' '+pgN(by-Hb*.45)+'q-'+pgN(L*.5)+' -6 -'+pgN(L*.9)+' '+pgN(Hb*.2)+'q8 '+pgN(Hb*.5)+' 2 '+pgN(Hb*.9)+'q'+pgN(L*.4)+' -4 '+pgN(L*.7)+' -'+pgN(Hb*.6)+'z" fill="'+ac.cape+'"'+PG_O+'/>';
+  /* 奥の翼 */
+  if(o.wing)s+=pgWing(-L*.05+4,by-Hb*.4,o.wing*pgL(.6,1.25,a),o.wcol||"#F4F1E6",1);
+  s+=legs(1);
+  /* しっぽ */
+  var tx=-L/2+2,ty=by-Hb*.1,t=o.tail;
+  if(t==="cat")s+='<path d="M'+pgN(tx)+' '+pgN(ty)+'q-14 -2 -12 -'+pgN(16+a*8)+'q1 -6 6 -6" fill="none" stroke="#2B2233" stroke-width="'+pgN(lw+1.6)+'" stroke-linecap="round"/><path d="M'+pgN(tx)+' '+pgN(ty)+'q-14 -2 -12 -'+pgN(16+a*8)+'q1 -6 6 -6" fill="none" stroke="'+c+'" stroke-width="'+pgN(lw-1.4)+'" stroke-linecap="round"/>';
+  else if(t==="dog")s+='<path d="M'+pgN(tx)+' '+pgN(ty)+'q-12 -6 -8 -'+pgN(14+a*6)+'q4 -6 8 0" fill="none" stroke="#2B2233" stroke-width="'+pgN(lw*.8+1.6)+'" stroke-linecap="round"/><path d="M'+pgN(tx)+' '+pgN(ty)+'q-12 -6 -8 -'+pgN(14+a*6)+'q4 -6 8 0" fill="none" stroke="'+c+'" stroke-width="'+pgN(lw*.8-1.4)+'" stroke-linecap="round"/>';
+  else if(t==="pom")s+='<circle cx="'+pgN(tx-2)+'" cy="'+pgN(ty-3)+'" r="'+pgN(5+a*2)+'" fill="'+(o.tcol||"#FFFFFF")+'"'+PG_O+'/>';
+  else if(t==="horse")s+='<path d="M'+pgN(tx+2)+' '+pgN(ty-4)+'q-16 2 -16 '+pgN(18+a*8)+'q8 -4 10 -10q2 8 6 10q-2-12 4-18z" fill="'+(o.mane||dk)+'"'+PG_O+'/>';
+  else if(t==="yak")s+='<path d="M'+pgN(tx+1)+' '+pgN(ty-2)+'q-8 4 -9 '+pgN(14+a*6)+'" stroke="#2B2233" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M'+pgN(tx+1)+' '+pgN(ty-2)+'q-8 4 -9 '+pgN(14+a*6)+'" stroke="'+c+'" stroke-width="2" fill="none"/><path d="M'+pgN(tx-11)+' '+pgN(ty+10+a*6)+'q-4 8 2 12q6-4 4-12z" fill="'+(o.tcol||pgSh(c,-.15))+'"'+PG_O+'/>';
+  else if(t==="leo"){var tw=lw+3+a*2;s+='<path d="M'+pgN(tx)+' '+pgN(ty)+'q-'+pgN(18+a*10)+' 4 -'+pgN(16+a*8)+' -'+pgN(20+a*10)+'q2 -8 9 -6" fill="none" stroke="#2B2233" stroke-width="'+pgN(tw+3)+'" stroke-linecap="round"/><path d="M'+pgN(tx)+' '+pgN(ty)+'q-'+pgN(18+a*10)+' 4 -'+pgN(16+a*8)+' -'+pgN(20+a*10)+'q2 -8 9 -6" fill="none" stroke="'+c+'" stroke-width="'+pgN(tw)+'" stroke-linecap="round"/><path d="M'+pgN(tx-14-a*6)+' '+pgN(ty-2)+'h3M'+pgN(tx-18-a*8)+' '+pgN(ty-12-a*5)+'h3" stroke="'+(o.spotc||dk)+'" stroke-width="3" stroke-linecap="round"/>';}
+  else if(t==="drag")s+='<path d="M'+pgN(tx+2)+' '+pgN(ty-4)+'q-'+pgN(14+a*10)+' 2 -'+pgN(18+a*12)+' '+pgN(10)+'l-2 -6l-6 4l6 4" fill="'+c+'"'+PG_O+'/><path d="M'+pgN(tx+2)+' '+pgN(ty+4)+'q-'+pgN(12+a*8)+' 4 -'+pgN(18+a*12)+' '+pgN(2)+'" fill="none"'+PG_O+'/>';
+  /* 体 */
+  s+='<ellipse cx="0" cy="'+pgN(by)+'" rx="'+pgN(L/2)+'" ry="'+pgN(Hb/2)+'" fill="'+c+'"'+PG_O+'/>';
+  s+='<ellipse cx="'+pgN(L*.06)+'" cy="'+pgN(by+Hb*.2)+'" rx="'+pgN(L*.32)+'" ry="'+pgN(Hb*.24)+'" fill="'+bl+'"/>';
+  s+='<ellipse cx="'+pgN(-L*.12)+'" cy="'+pgN(by-Hb*.26)+'" rx="'+pgN(L*.22)+'" ry="'+pgN(Hb*.12)+'" fill="#fff" opacity=".22"/>';
+  if(o.spots){for(var i=0;i<6;i++){var sx=-L*.36+i*L*.13,sy=by-Hb*.18+(i%2?Hb*.22:0);s+='<circle cx="'+pgN(sx)+'" cy="'+pgN(sy)+'" r="'+pgN(2.6+a)+'" fill="none" stroke="'+(o.spotc||dk)+'" stroke-width="1.8" stroke-dasharray="3 1.6"/>';}}
+  if(o.stars){[[-.25,-.1],[.05,-.25],[.22,.05],[-.05,.12]].forEach(function(p){s+=pgStarMark(L*p[0],by+Hb*p[1],2.4+a,"#FFE9A8");});}
+  /* ヤクの長い毛（おなかの下のすだれ） */
+  if(o.fluff){var fb=by+Hb*.3,fl=pgL(5,13,a)*o.fluff,p='M'+pgN(-L*.46)+' '+pgN(by)+'Q'+pgN(-L*.5)+' '+pgN(fb+fl)+' '+pgN(-L*.38)+' '+pgN(fb+fl);
+    for(var j=0;j<6;j++){var x1=-L*.38+(j+.5)*L*.13,x2=-L*.38+(j+1)*L*.13;p+='L'+pgN(x1)+' '+pgN(fb+fl-4)+'L'+pgN(x2)+' '+pgN(fb+fl+(j%2?1:-1));}
+    p+='Q'+pgN(L*.5)+' '+pgN(fb+fl)+' '+pgN(L*.46)+' '+pgN(by)+'z';s+='<path d="'+p+'" fill="'+(o.fcol||dk)+'"'+PG_O+'/>';}
+  if(o.spike){for(var k=0;k<5;k++){var kx=-L*.3+k*L*.14,ky=by-Hb/2+1+Math.abs(k-2)*.6;s+='<path d="M'+pgN(kx-3.4)+' '+pgN(ky+2)+'l3.4 -'+pgN(5+a*3)+'l3.4 '+pgN(5+a*3)+'z" fill="'+(o.spcol||"#F2C230")+'"'+PG_O.replace("1.6","1.2")+'/>';}}
+  s+=legs(0);
+  /* 背中のかざり：鞍敷き（シルダク風）・荷物 */
+  if(ac.cloth){var cw=L*.5,cx0=-L*.28,cy0=by-Hb*.48;s+='<path d="M'+pgN(cx0)+' '+pgN(cy0)+'q'+pgN(cw/2)+' -5 '+pgN(cw)+' 0l2 '+pgN(Hb*.62)+'q-'+pgN(cw/2+1)+' 4 -'+pgN(cw+4)+' 0z" fill="'+ac.cloth+'"'+PG_O+'/>'+pgCurl(cx0+2,cy0+Hb*.24,cw-4,"#F2D28A")+'<path d="M'+pgN(cx0-1)+' '+pgN(cy0+Hb*.62-3)+'q'+pgN(cw/2)+' 4 '+pgN(cw+3)+' 0" stroke="#F2D28A" stroke-width="1.6" fill="none"/>';
+    if(ac.tassels)s+=pgTassel(cx0-1,cy0+Hb*.6,"#E2483B")+pgTassel(cx0+cw+2,cy0+Hb*.6,"#E2483B")+pgTassel(cx0+cw/2,cy0+Hb*.66,"#F2C230");}
+  if(ac.bags)s+='<path d="M'+pgN(-L*.2)+' '+pgN(by-Hb*.2)+'h'+pgN(L*.3)+'v'+pgN(Hb*.55)+'q-'+pgN(L*.15)+' 5 -'+pgN(L*.3)+' 0z" fill="#B0773C"'+PG_O+'/><path d="M'+pgN(-L*.2)+' '+pgN(by-Hb*.02)+'h'+pgN(L*.3)+'" stroke="#7A4E26" stroke-width="2"/><rect x="'+pgN(-L*.3)+'" y="'+pgN(by-Hb*.8)+'" width="'+pgN(L*.46)+'" height="'+pgN(Hb*.3)+'" rx="4" fill="#E8D5A8"'+PG_O+'/><path d="M'+pgN(-L*.3)+' '+pgN(by-Hb*.65)+'h'+pgN(L*.46)+'" stroke="#B3202B" stroke-width="2"/>';
+  if(ac.armor)s+='<path d="M'+pgN(L*.18)+' '+pgN(by-Hb*.4)+'q'+pgN(L*.22)+' 0 '+pgN(L*.3)+' '+pgN(Hb*.35)+'q-'+pgN(L*.1)+' '+pgN(Hb*.3)+' -'+pgN(L*.26)+' '+pgN(Hb*.3)+'z" fill="'+ac.armor+'"'+PG_O+'/><circle cx="'+pgN(L*.36)+'" cy="'+pgN(by)+'" r="2.4" fill="#E2483B"/>';
+  /* 手前の翼 */
+  if(o.wing)s+=pgWing(-L*.05,by-Hb*.3,o.wing*pgL(.6,1.25,a),o.wcol||"#F4F1E6",0);
+  /* 首（長い首の動物）とたてがみ */
+  if(o.neck){s+='<path d="M'+pgN(L*.22)+' '+pgN(by-Hb*.35)+'Q'+pgN(hx-R*.6)+' '+pgN(hy+R*.2)+' '+pgN(hx-R*.4)+' '+pgN(hy-R*.2)+'L'+pgN(hx+R*.2)+' '+pgN(hy+R*.4)+'Q'+pgN(L*.48)+' '+pgN(by-Hb*.1)+' '+pgN(L*.46)+' '+pgN(by+Hb*.1)+'z" fill="'+c+'"'+PG_O+'/>';
+    if(o.mane)s+='<path d="M'+pgN(hx-R*.5)+' '+pgN(hy-R*.6)+'q-'+pgN(R*.9)+' '+pgN(R*.6)+' -'+pgN(R*1.2)+' '+pgN(R*1.9)+'q4 -2 6 -1q-4 '+pgN(R*.4)+' -2 '+pgN(R*.9)+'q'+pgN(R*.7)+' -'+pgN(R*.9)+' '+pgN(R*1.2)+' -'+pgN(R*2.4)+'z" fill="'+o.mane+'"'+PG_O+'/>';}
+  /* 首かざり */
+  var nx=L*.36+(o.neck?R*.2:0),ny=by-Hb*.3-(o.neck?neckUp*.45:0);
+  if(ac.scarf)s+='<path d="M'+pgN(nx-R*.35)+' '+pgN(ny-R*.55)+'q'+pgN(R*.5)+' '+pgN(R*.3)+' '+pgN(R*.9)+' '+pgN(R*.1)+'l1 '+pgN(R*.4)+'q-'+pgN(R*.5)+' '+pgN(R*.25)+' -'+pgN(R*1.0)+' -'+pgN(R*.05)+'z" fill="'+ac.scarf+'"'+PG_O+'/><path d="M'+pgN(nx-R*.2)+' '+pgN(ny-R*.15)+'l-5 9l5 -2l2 5z" fill="'+ac.scarf+'"'+PG_O.replace("1.6","1.2")+'/>';
+  if(ac.bell)s+=pgBell(nx+R*.2,ny-R*.1);
+  if(ac.tumar)s+=pgTumar(nx+R*.05,ny-R*.05,ac.tumar);
+  /* 頭 */
+  var hr=o.hlong?R*1.15:R;
+  if(ac.cape&&0)s+="";
+  /* 角（ヤク・竜） */
+  if(o.horn){var hl=o.horn*pgL(.3,1,a)*R;s+='<path d="M'+pgN(hx-R*.55)+' '+pgN(hy-R*.5)+'q-'+pgN(hl*.7)+' -'+pgN(hl*.1)+' -'+pgN(hl*.8)+' -'+pgN(hl*.9)+'q'+pgN(hl*.45)+' '+pgN(hl*.25)+' '+pgN(hl*.95)+' '+pgN(hl*.6)+'z" fill="'+(o.hcol||"#F1E6C8")+'"'+PG_O+'/><path d="M'+pgN(hx+R*.45)+' '+pgN(hy-R*.62)+'q'+pgN(hl*.5)+' -'+pgN(hl*.2)+' '+pgN(hl*.55)+' -'+pgN(hl*.95)+'q-'+pgN(hl*.1)+' '+pgN(hl*.55)+' -'+pgN(hl*.7)+' '+pgN(hl*.75)+'z" fill="'+(o.hcol||"#F1E6C8")+'"'+PG_O+'/>';}
+  /* 耳（頭の後ろ側） */
+  var e=o.ear,ein=o.ein||"#F4B6B6";
+  if(e==="rab"){var el=pgL(R*1.0,R*1.5,a);s+='<g transform="rotate(-18 '+pgN(hx-R*.35)+' '+pgN(hy-R*.6)+')"><ellipse cx="'+pgN(hx-R*.35)+'" cy="'+pgN(hy-R*.6-el*.5)+'" rx="'+pgN(R*.3)+'" ry="'+pgN(el*.55)+'" fill="'+c+'"'+PG_O+'/><ellipse cx="'+pgN(hx-R*.35)+'" cy="'+pgN(hy-R*.6-el*.5)+'" rx="'+pgN(R*.14)+'" ry="'+pgN(el*.42)+'" fill="'+ein+'"/></g>'+
+    '<g transform="rotate(12 '+pgN(hx+R*.15)+' '+pgN(hy-R*.7)+')"><ellipse cx="'+pgN(hx+R*.15)+'" cy="'+pgN(hy-R*.7-el*.5)+'" rx="'+pgN(R*.3)+'" ry="'+pgN(el*.55)+'" fill="'+c+'"'+PG_O+'/><ellipse cx="'+pgN(hx+R*.15)+'" cy="'+pgN(hy-R*.7-el*.5)+'" rx="'+pgN(R*.14)+'" ry="'+pgN(el*.42)+'" fill="'+ein+'"/></g>';}
+  else if(e==="cat"||e==="horse"||e==="drag"){var ew=e==="horse"?.28:.42,eh=e==="horse"?.75:.85;
+    [[-.55,-.55,-1],[.2,-.82,1]].forEach(function(p){var bx=hx+R*p[0],byy=hy+R*p[1];s+='<path d="M'+pgN(bx-R*ew)+' '+pgN(byy+R*.15)+'L'+pgN(bx+p[2]*R*.08)+' '+pgN(byy-R*eh)+'L'+pgN(bx+R*ew)+' '+pgN(byy+R*.05)+'z" fill="'+c+'"'+PG_O+'/>'+(e==="cat"?'<path d="M'+pgN(bx-R*ew*.5)+' '+pgN(byy+R*.05)+'L'+pgN(bx+p[2]*R*.06)+' '+pgN(byy-R*eh*.65)+'L'+pgN(bx+R*ew*.5)+' '+pgN(byy)+'z" fill="'+ein+'"/>':'');});}
+  else if(e==="round"){s+='<circle cx="'+pgN(hx-R*.6)+'" cy="'+pgN(hy-R*.68)+'" r="'+pgN(R*.3)+'" fill="'+c+'"'+PG_O+'/><circle cx="'+pgN(hx+R*.18)+'" cy="'+pgN(hy-R*.92)+'" r="'+pgN(R*.3)+'" fill="'+c+'"'+PG_O+'/><circle cx="'+pgN(hx-R*.6)+'" cy="'+pgN(hy-R*.68)+'" r="'+pgN(R*.14)+'" fill="'+dk+'"/><circle cx="'+pgN(hx+R*.18)+'" cy="'+pgN(hy-R*.92)+'" r="'+pgN(R*.14)+'" fill="'+dk+'"/>';}
+  else if(e==="yak"){s+='<ellipse cx="'+pgN(hx-R*.95)+'" cy="'+pgN(hy-R*.15)+'" rx="'+pgN(R*.38)+'" ry="'+pgN(R*.18)+'" transform="rotate(-20 '+pgN(hx-R*.95)+' '+pgN(hy-R*.15)+')" fill="'+c+'"'+PG_O+'/>';}
+  /* 頭の丸 */
+  s+='<ellipse cx="'+pgN(hx)+'" cy="'+pgN(hy)+'" rx="'+pgN(hr)+'" ry="'+pgN(R)+'" fill="'+c+'"'+PG_O+'/>';
+  /* 垂れ耳（頭の手前） */
+  if(e==="dog")s+='<path d="M'+pgN(hx-R*.55)+' '+pgN(hy-R*.75)+'q-'+pgN(R*.7)+' '+pgN(R*.1)+' -'+pgN(R*.62)+' '+pgN(R*1.15)+'q'+pgN(R*.35)+' '+pgN(R*.25)+' '+pgN(R*.65)+' -'+pgN(R*.15)+'z" fill="'+(o.ecol||dk)+'"'+PG_O+'/>';
+  /* 前髪（ヤク） */
+  if(o.fluff)s+='<path d="M'+pgN(hx-R*.8)+' '+pgN(hy-R*.4)+'q'+pgN(R*.6)+' -'+pgN(R*.9)+' '+pgN(R*1.5)+' -'+pgN(R*.45)+'l-3 5l-3 -3l-3 5l-3 -3l-3 4z" fill="'+(o.fcol||dk)+'"'+PG_O.replace("1.6","1.2")+'/>';
+  /* 顔：鼻先・鼻・目・ほお・口 */
+  var sn=o.sn||.5,mx=hx+R*.55,my=hy+R*.34;
+  s+='<ellipse cx="'+pgN(mx+R*.12*sn)+'" cy="'+pgN(my)+'" rx="'+pgN(R*(.28+.32*sn))+'" ry="'+pgN(R*.3)+'" fill="'+(o.snc||bl)+'"'+(sn>.6?PG_O.replace("1.6","1.2"):"")+'/>';
+  var nsx=mx+R*(.25+.42*sn),nsy=my-R*.12;
+  s+=o.hoof?'<ellipse cx="'+pgN(nsx-R*.08)+'" cy="'+pgN(nsy+R*.1)+'" rx="'+pgN(R*.07)+'" ry="'+pgN(R*.1)+'" fill="#2B2233"/>':'<ellipse cx="'+pgN(nsx)+'" cy="'+pgN(nsy)+'" rx="'+pgN(R*.13)+'" ry="'+pgN(R*.09)+'" fill="'+(o.nose||"#2B2233")+'"/>';
+  s+='<path d="M'+pgN(nsx-R*.25)+' '+pgN(nsy+R*.2)+'q'+pgN(R*.12)+' '+pgN(R*.1)+' '+pgN(R*.22)+' 0q'+pgN(R*.1)+' '+pgN(R*.1)+' '+pgN(R*.2)+' 0" stroke="#2B2233" stroke-width="1.2" fill="none" stroke-linecap="round"/>';
+  var er=R*pgL(.27,.19,a);
+  if(o.closed)s+='<path d="M'+pgN(hx-R*.12)+' '+pgN(hy-R*.05)+'q'+pgN(er)+' -'+pgN(er)+' '+pgN(er*2)+' 0M'+pgN(hx+R*.36)+' '+pgN(hy-R*.1)+'q'+pgN(er)+' -'+pgN(er)+' '+pgN(er*2)+' 0" stroke="#2B2233" stroke-width="1.8" fill="none" stroke-linecap="round"/>';
+  else s+=pgEye(hx+R*.02,hy-R*.08,er,o.eyec)+pgEye(hx+R*.52,hy-R*.12,er*.92,o.eyec);
+  if(o.brow)s+='<path d="M'+pgN(hx-R*.2)+' '+pgN(hy-R*.42)+'l'+pgN(R*.4)+' '+pgN(R*.1)+'M'+pgN(hx+R*.35)+' '+pgN(hy-R*.42)+'l'+pgN(R*.35)+' -'+pgN(R*.05)+'" stroke="#2B2233" stroke-width="1.6" stroke-linecap="round"/>';
+  s+='<ellipse cx="'+pgN(hx-R*.3)+'" cy="'+pgN(hy+R*.3)+'" rx="'+pgN(R*.17)+'" ry="'+pgN(R*.1)+'" fill="#F28B8B" opacity=".55"/>';
+  if(ac.mark)s+=pgStarMark(hx+R*.25,hy-R*.62,R*.2,ac.mark);
+  /* 頭のかざり */
+  if(ac.kalpak)s+=pgKalpak(hx-R*.05,hy-R*.78,R/14);
+  if(ac.crown)s+=pgCrown(hx-R*.05,hy-R*.82,R/13,ac.crown);
+  if(ac.flowers)s+=pgFlowers(hx-R*.1,hy-R*.8,R/14);
+  if(ac.ribbon)s+='<path d="M'+pgN(hx-R*.55)+' '+pgN(hy-R*.85)+'l-6 -5v10zM'+pgN(hx-R*.55)+' '+pgN(hy-R*.85)+'l6 -5v10z" fill="'+ac.ribbon+'"'+PG_O.replace("1.6","1.2")+'/><circle cx="'+pgN(hx-R*.55)+'" cy="'+pgN(hy-R*.85)+'" r="2" fill="'+ac.ribbon+'"'+PG_O.replace("1.6","1")+'/>';
+  return s;
+}
+/* 翼（羽を重ねた形）。x,y：つけ根、k：大きさ、far：奥の翼 */
+function pgWing(x,y,k,c,far){
+  var d=far?pgSh(c,-.18):c,s='<g transform="translate('+pgN(x)+' '+pgN(y)+') scale('+k.toFixed(2)+')'+(far?' rotate(-14)':'')+'">';
+  s+='<path d="M0 0q-6 -26 -30 -34q-4 6 -2 10q-8 -2 -12 0q2 8 8 12q-8 0 -10 4q8 8 20 8q-6 2 -6 6q14 4 32 -6z" fill="'+d+'"'+PG_O+'/>';
+  s+='<path d="M-6 -8q-10 -12 -22 -16M-8 -2q-12 -4 -26 -4M-6 4q-12 2 -22 6" stroke="'+pgSh(c,-.3)+'" stroke-width="1.2" fill="none"/>';
+  return s+'</g>';
+}
+/* 卵（a：0＝丸い卵、1＝ひびが入る） */
+function pgEgg(c,spot,crack){
+  var s='<ellipse cx="0" cy="-17" rx="14" ry="18" fill="'+c+'"'+PG_O+'/><ellipse cx="-5" cy="-24" rx="4" ry="6" fill="#fff" opacity=".45"/>';
+  s+='<circle cx="5" cy="-12" r="2.6" fill="'+spot+'"/><circle cx="-4" cy="-8" r="1.8" fill="'+spot+'"/><circle cx="2" cy="-26" r="2" fill="'+spot+'"/>';
+  if(crack)s+='<path d="M-12 -18l5 3l3 -5l4 5l4 -4l3 3" stroke="#2B2233" stroke-width="1.4" fill="none" stroke-linejoin="round"/>';
+  return s;
+}
+/* ---------- 鳥（イヌワシ・伝説の大鳥） ----------
+   o.a 育ちぐあい、o.col 体、o.bel 胸、o.head 頭の色、o.spread 翼を広げる、o.hood 狩りの目かくし帽（トモゴ）、o.fuzz ひなの綿毛 */
+function pgBird(o){
+  var a=o.a||0,ac=o.acc||{},c=o.col||"#6E4A22",bl=o.bel||"#B0773C",hc=o.head||"#D8A24A",s="";
+  var H=pgL(26,52,a),W=pgL(22,30,a),R=pgL(11,10,a);
+  if(ac.aura)s+='<ellipse cx="0" cy="'+pgN(-H*.6)+'" rx="'+pgN(W*2.2)+'" ry="'+pgN(H*.9)+'" fill="'+ac.aura+'" opacity=".22"/>';
+  /* 広げた翼 */
+  if(o.spread){var k=pgL(.8,1.6,a);[[-1,1],[1,0]].forEach(function(p){s+='<g transform="translate(0 '+pgN(-H*.62)+') scale('+(p[0]*k).toFixed(2)+' '+k.toFixed(2)+')"><path d="M2 0q12 -30 44 -34q-2 6 -6 8q8 0 12 2q-4 6 -10 8q6 2 8 6q-6 4 -14 4q4 4 2 8q-20 2 -36 -2z" fill="'+(p[1]?pgSh(c,-.18):c)+'"'+PG_O+'/><path d="M10 -8q14 -10 28 -16M10 -2q16 -4 30 -6M10 4q12 0 22 -2" stroke="'+pgSh(c,-.35)+'" stroke-width="1.1" fill="none"/>'+(o.wtip?'<path d="M40 -30q4 4 4 8M46 -20q2 4 0 8" stroke="'+o.wtip+'" stroke-width="3" stroke-linecap="round"/>':'')+'</g>';});}
+  /* しっぽ */
+  s+='<path d="M-6 '+pgN(-H*.18)+'l-10 '+pgN(H*.2)+'h22z" fill="'+pgSh(c,-.1)+'"'+PG_O+'/>';
+  /* 足 */
+  s+='<path d="M-5 '+pgN(-H*.12)+'v'+pgN(H*.1)+'M5 '+pgN(-H*.12)+'v'+pgN(H*.1)+'" stroke="#E8A33D" stroke-width="3.4" stroke-linecap="round"/><path d="M-9 -1h8M1 -1h8" stroke="#2B2233" stroke-width="2.2" stroke-linecap="round"/>';
+  /* 体 */
+  if(o.fuzz)s+='<path d="M'+pgN(-W*.55)+' '+pgN(-H*.45)+'q-6 -2 -4 -8q-6 -6 0 -10q0 -8 8 -8q4 -8 12 -4q8 -4 12 4q8 0 8 8q6 4 0 10q2 6 -4 8q0 10 -16 10t-16 -10z" fill="'+c+'"'+PG_O+'/>';
+  else s+='<path d="M0 '+pgN(-H)+'q'+pgN(W*.62)+' 0 '+pgN(W*.62)+' '+pgN(H*.45)+'q0 '+pgN(H*.42)+' -'+pgN(W*.62)+' '+pgN(H*.42)+'q-'+pgN(W*.62)+' 0 -'+pgN(W*.62)+' -'+pgN(H*.42)+'q0 -'+pgN(H*.45)+' '+pgN(W*.62)+' -'+pgN(H*.45)+'z" fill="'+c+'"'+PG_O+'/><path d="M0 '+pgN(-H*.72)+'q'+pgN(W*.36)+' 0 '+pgN(W*.36)+' '+pgN(H*.3)+'q0 '+pgN(H*.26)+' -'+pgN(W*.36)+' '+pgN(H*.26)+'q-'+pgN(W*.36)+' 0 -'+pgN(W*.36)+' -'+pgN(H*.26)+'q0 -'+pgN(H*.3)+' '+pgN(W*.36)+' -'+pgN(H*.3)+'z" fill="'+bl+'"/>';
+  /* たたんだ翼 */
+  if(!o.spread&&!o.fuzz)s+='<path d="M'+pgN(-W*.5)+' '+pgN(-H*.75)+'q-6 '+pgN(H*.35)+' 4 '+pgN(H*.62)+'q'+pgN(W*.4)+' -'+pgN(H*.1)+' '+pgN(W*.4)+' -'+pgN(H*.45)+'q-2 -'+pgN(H*.2)+' -'+pgN(W*.4)+' -'+pgN(H*.17)+'z" fill="'+pgSh(c,-.12)+'"'+PG_O+'/>';
+  if(ac.tumar)s+=pgTumar(W*.1,-H*.8,ac.tumar);
+  /* 頭 */
+  var hx=W*.12,hy=-H-R*.55;
+  s+='<circle cx="'+pgN(hx)+'" cy="'+pgN(hy)+'" r="'+pgN(R)+'" fill="'+(o.fuzz?c:hc)+'"'+PG_O+'/>';
+  s+='<path d="M'+pgN(hx+R*.6)+' '+pgN(hy-R*.15)+'q'+pgN(R*.8)+' -'+pgN(R*.1)+' '+pgN(R*.75)+' '+pgN(R*.65)+'q-'+pgN(R*.2)+' -'+pgN(R*.15)+' -'+pgN(R*.75)+' '+pgN(R*.05)+'z" fill="#F2C230"'+PG_O.replace("1.6","1.3")+'/>';
+  if(o.hood)s+='<path d="M'+pgN(hx-R*1.02)+' '+pgN(hy+R*.1)+'q0 -'+pgN(R*1.2)+' '+pgN(R*1.02)+' -'+pgN(R*1.2)+'t'+pgN(R*.9)+' '+pgN(R*.9)+'l-'+pgN(R*.2)+' '+pgN(R*.3)+'z" fill="#7A4E26"'+PG_O+'/><path d="M'+pgN(hx-R*.2)+' '+pgN(hy-R*1.15)+'l2 -5l2 5" fill="#B3202B" stroke="#2B2233" stroke-width="1"/>'+pgCurl(hx-R*.8,hy-R*.6,R*1.4,"#F2D28A");
+  else s+=pgEye(hx+R*.28,hy-R*.12,R*pgL(.36,.26,a),o.eyec);
+  if(!o.hood&&o.brow)s+='<path d="M'+pgN(hx-R*.1)+' '+pgN(hy-R*.45)+'l'+pgN(R*.65)+' '+pgN(R*.12)+'" stroke="#2B2233" stroke-width="2" stroke-linecap="round"/>';
+  if(ac.crown)s+=pgCrown(hx,hy-R*.95,R/11,ac.crown);
+  if(ac.mark)s+=pgStarMark(hx-R*.2,hy-R*.55,R*.22,ac.mark);
+  return s;
+}
+/* コムズ（3本の弦の楽器） */
+function pgKomuz(x,y,s,r){s=s||1;return '<g transform="translate('+pgN(x)+' '+pgN(y)+') rotate('+(r||-40)+') scale('+s+')"><path d="M0 -8q9 0 9 12q0 12 -9 14q-9 -2 -9 -14q0 -12 9 -12z" fill="#B0773C"'+PG_O+'/><rect x="-2" y="-40" width="4" height="34" rx="2" fill="#8A5A2B"'+PG_O.replace("1.6","1.2")+'/><path d="M-1 -38v54M0 -38v54M1 -38v54" stroke="#F4F1E6" stroke-width=".5"/><circle cx="0" cy="6" r="2.4" fill="#5A3A22"/></g>';}
+
+/* ===== Phase85：育てるモードの仲間（10種類） =====
+   どの仲間も10段階。段階5（6つ目）で「進化の道」を2つから選ぶ（マナスだけは物語どおり1本道）。
+   仲間の形：{id,name,sub,brAt,br:{a:{n,x},b:{n,x}},t(i,b),x(i,b),bg(i,b),fig(i,b),c(i,b)}
+     i＝段階 0〜9、b＝選んだ道 "a"/"b"（選ぶ前は null）。
+   文化の言葉（タイガン・トゥルパル・トモゴ・アルプ・カラ・クシュ・アジダール・コムズ・アクン・シルダク・トゥマル）は
+   キルギスの暮らしや昔話に実際にある言葉。動物の姿や「〜の道」の中身はこのアプリの創作（そう書いてある）。 */
+var PGR_KINDS={},PGR_ORDER=[];
+function pgrAdd(k){PGR_KINDS[k.id]=k;PGR_ORDER.push(k.id);}
+/* 背景（240×140） */
+var PGB={
+  steppe:function(k){return M6.steppe(k||"day");},
+  meadow:function(){var s=M6.steppe("day"),cs=["#F48FB1","#FFD34D","#FFFFFF","#B39DDB"];for(var i=0;i<26;i++){var x=(i*37)%236+2,y=96+((i*13)%40);s+='<circle cx="'+x+'" cy="'+y+'" r="1.8" fill="'+cs[i%4]+'"/>';}return s;},
+  snow:function(k){return M6.sky(k||"day")+M6.mts(k||"day")+'<path d="M0 92q60-12 120-4t120-4v56H0z" fill="#F4F8FB"/><path d="M0 112q80-10 240 0v28H0z" fill="#E3EDF4"/>'+[[30,20],[80,40],[150,16],[200,44],[120,60],[60,70],[220,80]].map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="1.6" fill="#fff" opacity=".9"/>';}).join("");},
+  high:function(k){return M6.sky(k||"day")+'<path d="M0 90l40-58 22 26 30-46 34 52 30-30 40 40 44-30v56H0z" fill="#8EA6BC"/><path d="M40 32l-12 16 8-2 4 6 6-6 6 2zM92 12l-14 20 9-3 5 7 6-7 8 3zM196 60l-8 10 6-1 3 4 4-4 5 1z" fill="#fff"/>'+M6.grass(k||"day");},
+  sky:function(k){var s=M6.sky(k||"day")+'<path d="M0 120q40-14 80-6t80-6 80 6v26H0z" fill="#9FB7C9" opacity=".7"/>',op=k==="night"?".28":".92";
+    [[40,40,1],[170,28,1.2],[110,96,1.4],[214,90,.9]].forEach(function(c){s+='<g transform="translate('+c[0]+' '+c[1]+') scale('+c[2]+')" fill="#fff" opacity="'+op+'"><ellipse cx="0" cy="0" rx="18" ry="7"/><ellipse cx="-9" cy="-4" rx="9" ry="7"/><ellipse cx="7" cy="-6" rx="10" ry="8"/></g>';});return s;},
+  cliff:function(k){return M6.sky(k||"day")+M6.mts(k||"day")+'<path d="M0 100q30-6 60-2l30 2v40H0z" fill="#9AA4AE"/><path d="M150 140v-40q30-10 90-6v46z" fill="#9AA4AE"/><path d="M60 98q60 10 90 2v40H60z" fill="#8DBF6A"/>';},
+  yurt:function(n){return M6.yurtIn(n);}
+};
+/* 図を置く：x＝足もとの中心、y＝地面、s＝大きさ */
+function pgPut(svg,x,y,s){return '<g transform="translate('+x+' '+y+') scale('+s.toFixed(3)+')">'+svg+'</g>';}
+var PGA=[0,.14,.28,.42,.56,.7,.82,.92,1,1];/* 段階ごとの育ちぐあい */
+/* 動物の仲間を作る共通の形 */
+function pgrAnimal(d){
+  var pick=function(arr,arrA,arrB,i,b){return i<5?arr[i]:(b==="b"?arrB:arrA)[i-5];};
+  return {id:d.id,name:d.name,sub:d.sub,brAt:5,br:d.br,
+    t:function(i,b){return pick(d.T,d.Ta,d.Tb,i,b);},
+    x:function(i,b){return pick(d.X,d.Xa,d.Xb,i,b);},
+    bg:function(i,b){return d.bg(i,b);},
+    fig:function(i,b){var sc=(d.sc?d.sc(i,b):1.0+.042*i);return pgPut(d.draw(i,b),d.x||120,d.y||132,sc);},
+    c:function(i,b){var sc=(d.sc?d.sc(i,b):1.0+.042*i);return [d.x||120,(d.y||132)-(d.h||40)*sc];}};
+}
+/* ---------------- 1) マナス（物語どおりの1本道） ---------------- */
+(function(){
+  var P=null;try{P74_PATHS.forEach(function(x){if(x.id==="manas")P=x;});}catch(_){}
+  if(!P||typeof M6==="undefined")return;
+  var S=function(k){return P.st[k];},N=P74_NPC;
+  var C=m6(N.chiyirdy,{beld:"#2B2233"}),AL=m6(P.al[2].o,{braid:"#E8B923"}),KN=m6(N.kanykey,{beld:"#3A2A4A"}),BK=P.al[1].o;
+  var mate=function(c){return {hand:"spear",off:"none",head:"kalpak",body:{type:"chapan",c:c,t:"#E8D5A8"},hair:"#2B2233"};};
+  var AK="#F2EEE4",AKM="#8A6A4A";/* アク・クラ：白っぽい灰色の馬（phase76_manas と同じ色） */
+  var st=[
+   {t:"ゆりかごのマナス",bg:function(){return M6.yurtIn()+M6.P(m6(C,{face:"joy",look:"d"}),62,134,100);},
+    fig:function(){return M6.beshik(142,130,2.6)+M6.spark(170,56,.9,"#FFD34D")+M6.heart(118,52,.8);},c:[142,92],
+    x:"物語では、ジャクプとチユルドゥの夫婦が長いあいだ祈りつづけて、やっと生まれた男の子がマナスです。ゆりかごは「ベシク（бешик）」と呼ばれる木のゆりかごです。"},
+   {t:"少年マナス",bg:function(){return M6.steppe("day")+M6.yurt(206,104,.8)+M6.sheep(168,128,.9,1)+M6.sheep(196,134,.8,1);},
+    fig:function(){return M6.P(m6(S(0),{face:"laugh",pose:"wave"}),104,136,100);},c:[104,84],
+    x:"遊牧の暮らしでは、子どもも羊や馬の世話を手伝いました。物語の少年マナスも、草原で元気に育ちます。"},
+   {t:"力自慢の少年",bg:function(){return M6.steppe("day")+M6.yurt(214,104,.7);},
+    fig:function(){return M6.P(m6(S(1),{pose:"wave",face:"laugh",hand:"none"}),108,136,104)+M6.rock(138,74,.95)+M6.sweat(96,46)+M6.lines(176,60,3,1);},c:[112,80],
+    x:"物語では、少年マナスは力が強く、元気にあふれていて、まわりの大人をおどろかせます。"},
+   {t:"馬を乗りこなす少年",bg:function(){return M6.steppe("day")+M6.yurt(30,100,.6);},
+    fig:function(){return M6.horse(128,130,1.08,AK,{mane:AKM,run:1,rider:m6(S(1),{face:"joy"})})+M6.lines(46,70,4,-1);},c:[134,66],
+    x:"とても小さいころから、すぐれた馬に乗れるようになったと語られます。愛馬アク・クラ（Аккула）は、物語の中で何度も活やくします。"},
+   {t:"若き勇者",bg:function(){return M6.steppe("dawn")+M6.eagle(190,30,.85);},
+    fig:function(){return M6.P(m6(S(2),{face:"determined",look:"r"}),116,138,124);},c:[116,72],
+    x:"弓と馬は、草原で暮らす人々にとって大切な道具でした。物語の若いマナスも、勇者として名を知られていきます。"},
+   {t:"四十人の仲間の長",bg:function(){return M6.steppe("day")+M6.flag(206,118,"#B3202B")+M6.P(mate("#6B8E4E"),34,124,74)+M6.P(mate("#C7823E"),62,128,80)+M6.P(mate("#5E4A7E"),176,128,80,{flip:1})+M6.P(mate("#3E6E4A"),204,124,74,{flip:1});},
+    fig:function(){return M6.P(m6(S(3),{face:"determined",pose:"fist"}),120,138,124);},c:[120,72],
+    x:"物語では、マナスは若いうちに「四十人の仲間（кырк чоро）」をつくります。仲間たちは一生マナスを助け、最後までともに戦ったと語られます。"},
+   {t:"アルマンベトの友",bg:function(){return M6.steppe("dusk")+M6.P(m6(AL,{face:"smile"}),168,136,116,{flip:1});},
+    fig:function(){return M6.P(m6(S(4),{face:"smile",pose:"fist"}),88,136,120);},c:[88,72],
+    x:"別の国で育った勇者アルマンベト（Алмамбет）が、長い旅のすえに仲間に加わります。二人は兄弟のような友になります。"},
+   {t:"カヌケイの夫",bg:function(){return M6.steppe("day")+M6.yurt(210,104,.85)+M6.P(m6(KN,{face:"smile"}),164,136,110,{flip:1});},
+    fig:function(){return M6.P(m6(S(5),{face:"smile"}),90,136,120);},c:[90,72],
+    x:"妻カヌケイ（Каныкей）は、かしこく、人をもてなす心をもった女性として描かれます。夫が人々をまとめる戦いにも、自分から力を貸しました。"},
+   {t:"民のかしら",bg:function(){return M6.steppe("day")+M6.yurt(26,100,.6)+M6.yurt(66,96,.5)+M6.yurt(218,100,.6)+M6.P(m6(BK,{face:"smile"}),200,134,78,{flip:1});},
+    fig:function(){return M6.horse(118,132,1.15,AK,{mane:AKM,rider:m6(S(6),{face:"determined"})})+M6.flag(60,128,"#B3202B");},c:[122,62],
+    x:"マナスたちの大きな目的は、ばらばらになっていた部族をまとめ、一つの民にすることでした。知恵のある相談役バカイ（Бакай）も、マナスを支えます。"},
+   {t:"英雄マナス",bg:function(){return M6.steppe("dawn")+M6.speed(120,70,"#F2D28A")+M6.eagle(40,28,.85)+M6.flag(214,122,"#B3202B");},
+    fig:function(){return M6.horse(120,134,1.25,AK,{mane:AKM,run:1,rider:m6(S(8),{face:"determined",olpok:1})});},c:[124,58],
+    x:"白い戦衣アク・オルポクを着て愛馬アク・クラに乗り、仲間をひきいて大遠征（Чоң казат）に出る英雄の姿です。2013年、「マナス」の三部作はユネスコの無形文化遺産に登録されました。"}];
+  pgrAdd({id:"manas",name:"マナス",sub:"キルギスの英雄叙事詩の主人公。物語どおりに育つ",brAt:0,
+    t:function(i){return st[i].t;},x:function(i){return st[i].x;},bg:function(i){return st[i].bg();},fig:function(i){return st[i].fig();},c:function(i){return st[i].c;}});
+})();
+
+/* ---------------- 2) おじさん ---------------- */
+(function(){
+  if(typeof M6==="undefined")return;
+  var base={hand:"none",off:"none",head:"kalpak",body:{type:"chapan",c:"#5E7F9A",t:"#E8D5A8"},beard:"#5A3A22",hair:"#5A3A22"};
+  var fur={hand:"none",off:"none",head:"kalpak",body:{type:"chapan",c:"#7A1F2B",t:"#E8B923",fur:1},beard:"#5A3A22",hair:"#5A3A22"};
+  var gray=function(o){return m6(o,{beard:"#D8D8D8",hair:"#D8D8D8"});};
+  var O=function(i,b){if(i<4)return base;var o=fur;if(i>=7)o=m6(fur,{body:{type:"chapan",c:b==="b"?"#3E3A7A":"#5A4A2A",t:"#E8B923",fur:1}});if(i>=8)o=gray(o);return o;};
+  var draw=function(i,b){
+    if(i===0)return M6.P(m6(base,{head:"none",body:{type:"chapan",c:"#9FB7C9",t:"#E8EEF4"},face:"sleep",pose:"none"}),120,136,106)+M6.zz(148,40)+M6.zz(162,26);
+    if(i===1)return M6.P(m6(base,{pose:"both",face:"laugh"}),120,136,108);
+    if(i===2)return M6.P(m6(base,{hand:"whip",face:"smile",pose:"wave"}),110,136,108);
+    if(i===3)return M6.horse(124,132,1.05,"#8A5A2B",{mane:"#2B2233",rider:m6(base,{face:"joy"})});
+    if(i===4)return M6.P(m6(O(4),{face:"smile",pose:"hip"}),118,136,116);
+    if(b!=="b"){/* 鷹匠の道 */
+      if(i===5)return M6.P(m6(O(5),{face:"joy",pose:"wave"}),112,136,116)+pgPut(pgBird({a:.1,fuzz:1,col:"#F4F1EA"}),150,82,.7);
+      if(i===6)return M6.P(m6(O(6),{face:"determined",pose:"wave"}),110,136,118)+pgPut(pgBird({a:.7,col:"#6E4A22",hood:1}),150,78,.62);
+      if(i===7)return M6.horse(118,132,1.1,"#5A3A22",{mane:"#2B2233",rider:m6(O(7),{face:"determined"})})+pgPut(pgBird({a:.8,col:"#6E4A22",spread:1}),168,48,.55);
+      if(i===8)return M6.P(m6(O(8),{face:"laugh",pose:"wave"}),106,136,120)+pgPut(pgBird({a:.9,col:"#6E4A22",acc:{tumar:"#E8B923"}}),146,74,.66)+M6.flag(176,132,"#B3202B")+pgTumar(106,96,"#E8B923");
+      return M6.P(m6(O(9),{face:"determined",pose:"wave",aura:"#FFD34D"}),104,136,124)+pgPut(pgBird({a:1,col:"#6E4A22",spread:1,acc:{aura:"#FFD34D"}}),150,66,.8);}
+    /* 語り手の道 */
+    if(i===5)return M6.P(m6(O(5),{face:"smile",pose:"hold"}),114,136,116)+pgKomuz(118,104,1,-50);
+    if(i===6)return M6.P(m6(O(6),{face:"laugh",pose:"hold"}),114,136,118)+pgKomuz(118,104,1,-50)+M6.note(150,50)+M6.note(76,40);
+    if(i===7)return M6.fire(160,128,1)+M6.P(m6(O(7),{face:"joy",pose:"hold"}),104,136,118)+pgKomuz(108,104,1,-50)+M6.note(70,40)+M6.note(140,34);
+    if(i===8)return M6.P(m6(O(8),{face:"determined",pose:"both"}),114,136,120)+M6.note(60,40)+M6.note(170,30)+M6.note(186,60);
+    return M6.P(m6(O(9),{face:"laugh",pose:"both",aura:"#B39DDB"}),116,136,126)+M6.note(56,30)+M6.note(180,24)+M6.note(196,56)+M6.spark(40,60,1,"#FFD34D");
+  };
+  var bgs=function(i,b){
+    if(i===0)return M6.yurtIn(1);if(i===1)return M6.steppe("dawn")+M6.yurt(200,100,.8);
+    if(i===2)return M6.steppe("day")+M6.sheep(170,128,.9,1)+M6.sheep(200,134,.8,1);if(i<5)return M6.steppe("day")+M6.yurt(30,100,.6);
+    if(b==="b")return i>=7?M6.yurtIn(1):M6.steppe(i===5?"day":"dusk")+M6.yurt(206,100,.7);
+    return i===9?M6.steppe("dawn")+M6.speed(120,70,"#F2D28A"):PGB.high(i===7?"dusk":"day");
+  };
+  var T=["ねぼすけのおじさん","早起きのおじさん","羊飼いのおじさん","馬に乗るおじさん","草原の名人"],
+      X=["朝が苦手なおじさん。まだユルトの中で寝ています。","朝日をあびて、大きくのびをするようになりました。","羊の世話をまかされて、むちを持って草原へ。","馬に乗って、草原をぐるりと見まわります。","毛皮のえりのチャパン（長い上着）を着るようになりました。そろそろ進む道を選ぶころです。"],
+      Ta=["鷹匠の見習い","鷹匠","狩りの名人","祭りの名鷹匠","伝説の鷹匠"],
+      Xa=["イヌワシのひなを育て始めました。","腕にイヌワシをのせて歩きます。ワシの頭には目かくしの帽子「トモゴ（томого）」。","馬の上からワシを放ちます。","祭りでワシの腕前を見せ、お守りのトゥマルをもらいました。","ひげは白くなっても、ワシとの息はぴったり。草原で知らない人はいません。"],
+      Tb=["コムズを習うおじさん","歌うおじさん","宴の語り手","名高いアクン","伝説の語り手"],
+      Xb=["3本の弦の楽器コムズ（комуз）を習い始めました。","コムズをひきながら、楽しい歌をうたいます。","たき火の前で、昔話を語って聞かせます。","その場で歌を作って歌い返す歌い手「アクン（акын）」として知られるようになりました。","ひげは白くなっても声はよく通り、聞く人を夢中にさせます。"];
+  pgrAdd({id:"oji",name:"おじさん",sub:"ねぼすけのおじさんが、草原の名人に",brAt:5,
+    br:{a:{n:"鷹匠の道",x:"イヌワシと狩りをする「ブルクチュ（бүркүтчү）」をめざします。"},b:{n:"語り手の道",x:"コムズをひいて歌い、物語を語る人をめざします。"}},
+    t:function(i,b){return i<5?T[i]:(b==="b"?Tb:Ta)[i-5];},x:function(i,b){return i<5?X[i]:(b==="b"?Xb:Xa)[i-5];},
+    bg:bgs,fig:draw,c:function(i){return i===0?[120,100]:[116,74];}});
+})();
+
+/* ---------------- 3〜10) 動物と伝説の生きもの ---------------- */
+(function(){
+  if(typeof M6==="undefined")return;
+  /* かざりを段階に合わせて足していく */
+  var acc=function(i,list){var o={};list.forEach(function(x){if(i>=x[0])o[x[1]]=x[2];});return o;};
+  var mix=function(a,b){var o={};for(var k in a)o[k]=a[k];for(var j in b)o[j]=b[j];return o;};
+
+  /* 犬（タイガン） */
+  pgrAdd(pgrAnimal({id:"dog",name:"犬",sub:"子犬から、草原の頼もしい犬に",h:44,
+    br:{a:{n:"狩りの犬（タイガン）",x:"キルギスの足の速い猟犬「タイガン（тайган）」の道。細い体で風のように走ります。"},b:{n:"守りの犬",x:"羊の群れとユルトを守る、大きくてやさしい犬の道。"}},
+    T:["子犬","よちよち子犬","元気な子犬","若い犬","草原の犬"],
+    X:["ころころの子犬が仲間になりました。","短い足で、一生けんめい歩きます。","赤いスカーフをもらいました。","首に鈴をつけました。歩くとちりんと鳴ります。","ぐんと大きくなりました。そろそろ進む道を選ぶころです。"],
+    Ta:["狩りの見習い","風の足の犬","ワシと組む犬","草原一の狩り犬","伝説のタイガン"],
+    Xa:["体がすらりと細くなり、足が長くなりました。青い上着をもらいました。","草原を風のように走ります。","キルギスでは、イヌワシと犬がいっしょに狩りに出ることもあります。","首にお守りのトゥマル。だれよりも速く走ります。","金色の光をまとう、伝説のタイガンです。"],
+    Tb:["羊の番犬","ユルトの守り","群れのリーダー","村の英雄","伝説の守り犬"],
+    Xb:["シルダク（フェルトのじゅうたん）の模様の背かけをもらって、羊の番をします。","房かざりが増えました。ユルトをしっかり守ります。","小さなカルパクをかぶって、群れの先頭を歩きます。","お守りのトゥマルをもらった、村の人気者です。","大きな体でみんなを守る、伝説の守り犬です。"],
+    bg:function(i,b){return i>=5&&b!=="b"?(i===9?PGB.steppe("dawn")+M6.speed(120,70,"#F2D28A"):PGB.steppe(i===7?"dusk":"day")+(i===7?M6.eagle(60,30,.8):"")):PGB.steppe("day")+M6.yurt(206,100,.75)+(i>=5?M6.sheep(40,128,.8)+M6.sheep(62,134,.7):"");},
+    draw:function(i,b){var o={a:PGA[i],col:"#E8D2B0",bel:"#FFF6E6",ear:"dog",tail:"dog",sn:.9,leg:1.1,ecol:"#B98B5E",closed:i===1,acc:acc(i,[[2,"scarf","#B3202B"],[3,"bell",1]])};
+      if(i>=5&&b!=="b")o=mix(o,{col:"#E2C9A2",leg:1.4,len:1.12,bh:.85,sn:1.15,head:.9,acc:mix({scarf:"#B3202B"},acc(i,[[5,"cloth","#2C5D8F"],[8,"tumar","#E8B923"],[9,"aura","#FFD34D"],[9,"mark","#FFE27A"]]))});
+      if(i>=5&&b==="b")o=mix(o,{col:"#D9B88E",bel:"#FFF1DE",bh:1.18,len:1.05,head:1.08,ecol:"#7A5A3A",acc:mix({bell:1},acc(i,[[5,"cloth","#B3202B"],[6,"tassels",1],[7,"kalpak",1],[8,"tumar","#E8B923"],[9,"aura","#FFB84D"]]))});
+      return pgQ(o);}}));
+
+  /* 猫 */
+  pgrAdd(pgrAnimal({id:"cat",name:"猫",sub:"ユルトでくらす子猫が、ふしぎな猫に",h:38,
+    br:{a:{n:"ユルトの守り猫",x:"ユルトの家族を見守る、たのもしい猫の道。"},b:{n:"星の猫",x:"夜空の星に親しむ、ふしぎな猫の道（このアプリの創作）。"}},
+    T:["子猫","ねむい子猫","遊ぶ子猫","若い猫","ユルトの猫"],
+    X:["小さな子猫が仲間になりました。","まるくなって、すやすやねむります。","赤いリボンをもらって、毛糸で遊びます。","首に鈴をつけました。","しっぽがすらりと長くなりました。そろそろ進む道を選ぶころです。"],
+    Ta:["ユルトの見張り番","カルパクの猫","宴の人気者","ユルトの守り神","伝説の守り猫"],
+    Xa:["小さなカルパクをかぶって、天窓トゥンドゥクの下で家族を見守ります。","ユルトのすみずみまで見まわります。","青いシルダクの背かけで、宴の人気者に。","お守りのトゥマルと赤いマント。","ユルトのみんなを守る、伝説の猫です。"],
+    Tb:["夜空を見る猫","星のしるしの猫","月夜の猫","星を集める猫","伝説の星の猫"],
+    Xb:["毛の色が夜空のように深くなりました。","ひたいに星のしるしがあらわれました。","むらさきのスカーフをなびかせ、月夜を歩きます。","夜空色のマントをまといます。","星の冠をいただく、伝説の猫です。"],
+    bg:function(i,b){return i>=5&&b==="b"?PGB.steppe("night"):PGB.yurt(i===1);},
+    draw:function(i,b){var o={a:PGA[i],col:"#F2A65A",bel:"#FFF1DE",ear:"cat",tail:"cat",sn:.35,closed:i===1,acc:acc(i,[[2,"ribbon","#E2483B"],[3,"bell",1]])};
+      if(i>=5&&b!=="b")o.acc=mix(o.acc,acc(i,[[5,"kalpak",1],[7,"cloth","#2C5D8F"],[8,"tumar","#E8B923"],[8,"cape","#B3202B"],[9,"aura","#FFD34D"]]));
+      if(i>=5&&b==="b")o=mix(o,{col:"#3E4A7A",bel:"#8FA0D8",eyec:"#2B2233",stars:i>=6,acc:acc(i,[[6,"mark","#FFE27A"],[7,"scarf","#B39DDB"],[8,"cape","#2A2350"],[9,"crown","#FFE27A"],[9,"aura","#B39DDB"]])});
+      return pgQ(o);}}));
+
+  /* うさぎ */
+  pgrAdd(pgrAnimal({id:"rabbit",name:"うさぎ",sub:"ちいさなうさぎが、季節の主に",h:44,
+    br:{a:{n:"雪うさぎ",x:"冬の天山で、雪のように白くなるうさぎの道。"},b:{n:"花うさぎ",x:"春の草原で、花にかこまれるうさぎの道。"}},
+    T:["子うさぎ","ねむい子うさぎ","はねる子うさぎ","若いうさぎ","草原のうさぎ"],
+    X:["ちいさな子うさぎが仲間になりました。","耳をたたんで、すやすやねむります。","ぴょんぴょん。黄色いスカーフをもらいました。","耳がのびて、遠くの音も聞こえます。","足が強くなりました。そろそろ進む道を選ぶころです。"],
+    Ta:["白くなるうさぎ","雪原のうさぎ","吹雪のうさぎ","雪山の主","伝説の雪うさぎ"],
+    Xa:["毛が雪のように白くなってきました。","赤いスカーフで雪原をかけます。","お守りのトゥマルで吹雪もへっちゃら。","銀の冠をいただく雪山の主。","光る雪をまとう、伝説のうさぎです。"],
+    Tb:["花をつむうさぎ","花かざりのうさぎ","春をよぶうさぎ","草原の花の主","伝説の花うさぎ"],
+    Xb:["花の冠をかぶりました。","草原の花にかこまれてはねまわります。","ピンクのリボンで、春の草原をはねます。","シルダクの背かけと花の冠。","花の光につつまれる、伝説のうさぎです。"],
+    bg:function(i,b){return i>=5?(b==="b"?PGB.meadow():PGB.snow("day")):PGB.steppe("day");},
+    draw:function(i,b){var o={a:PGA[i],col:"#D8BFA0",bel:"#FFF6E6",ear:"rab",tail:"pom",sn:.3,leg:.8,closed:i===1,acc:acc(i,[[2,"scarf","#F2C230"]])};
+      if(i>=5&&b!=="b")o=mix(o,{col:i===5?"#EFE8DE":"#F8F8F6",bel:"#FFFFFF",ein:"#F4C6C6",acc:mix({scarf:"#B3202B"},acc(i,[[7,"tumar","#E8B923"],[8,"crown","#DCE3EA"],[9,"aura","#BFE8FF"],[9,"mark","#BFE8FF"]]))});
+      if(i>=5&&b==="b")o=mix(o,{col:"#F6E6DA",bel:"#FFFFFF",acc:acc(i,[[5,"flowers",1],[7,"ribbon","#F48FB1"],[8,"cloth","#B3202B"],[9,"aura","#F48FB1"]])});
+      return pgQ(o);}}));
+
+  /* ヤク */
+  pgrAdd(pgrAnimal({id:"yak",name:"ヤク",sub:"ふわふわの子ヤクが、天山の大ヤクに",h:46,
+    sc:function(i){return i===9?1.5:.98+.045*i;},
+    br:{a:{n:"荷運びのヤク",x:"高い山の道で、荷物を運んで人を助けるヤクの道。"},b:{n:"祭りのヤク",x:"きれいなかざりをつけて、祭りで人気者になるヤクの道。"}},
+    T:["子ヤク","ふわふわの子ヤク","角が出た子ヤク","若いヤク","高原のヤク"],
+    X:["ふわふわの子ヤクが仲間になりました。キルギスの高い山の牧草地では、ヤクが飼われています。","長い毛がのびてきました。","小さな角が生えてきました。","首に鈴をつけました。","がっしりした体になりました。そろそろ進む道を選ぶころです。"],
+    Ta:["荷物を運ぶヤク","峠をこえるヤク","山の道案内","キャラバンの先頭","天山の大ヤク"],
+    Xa:["背中に荷物をのせて歩きます。","寒い峠も、長い毛で平気です。","お守りのトゥマルをつけて、山道を案内します。","キャラバン（荷物を運ぶ隊）の先頭を歩きます。","山のように大きくなった、伝説の大ヤクです。"],
+    Tb:["かざりのヤク","祭りのヤク","房かざりのヤク","草原の人気者","伝説の大ヤク"],
+    Xb:["赤いシルダクの背かけをもらいました。","房かざりをゆらして、祭りに出かけます。","頭に花かざり。","みんなが会いに来る人気者です。","山のように大きくなった、伝説の大ヤクです。"],
+    bg:function(i,b){return i===9?PGB.high("dawn"):PGB.high("day");},
+    draw:function(i,b){var o={a:PGA[i],col:"#7E6656",bel:"#9A8474",snc:"#B09A88",ear:"yak",tail:"yak",sn:.75,horn:1.5,fluff:1,fcol:"#4A3A32",hoof:1,len:1.15,bh:1.25,leg:.85,head:1.08,acc:acc(i,[[3,"bell",1]])};
+      if(i>=5&&b!=="b")o.acc=mix(o.acc,acc(i,[[5,"bags",1],[7,"tumar","#E8B923"],[9,"aura","#FFD34D"]]));
+      if(i>=5&&b==="b")o.acc=mix(o.acc,acc(i,[[5,"cloth","#B3202B"],[6,"tassels",1],[7,"flowers",1],[9,"aura","#F48FB1"]]));
+      if(i===9)o.hcol="#FFF3C8";
+      return pgQ(o);}}));
+
+  /* 天馬（トゥルパル） */
+  pgrAdd(pgrAnimal({id:"tulpar",name:"天馬トゥルパル",sub:"子馬に翼が生えて、空をかける名馬に",h:62,
+    br:{a:{n:"白いトゥルパル",x:"白い体に金のたてがみ。英雄を乗せて空をかける道。"},b:{n:"夜空のトゥルパル",x:"星をまとい、夜空をわたる道（このアプリの創作）。"}},
+    T:["子馬","走る子馬","翼が生えた子馬","空を見上げる若駒","翼の若駒"],
+    X:["トゥルパル（тулпар）は、キルギスなど中央アジアの物語に出てくる、翼のある名馬です。まずは小さな子馬から。","長い足で、草原を走りまわります。","背中に小さな翼が生えてきました。","翼が大きくなり、空にあこがれます。","いよいよ飛べそう。そろそろ進む道を選ぶころです。"],
+    Ta:["白い翼の馬","風をきる天馬","雲をこえる天馬","英雄の天馬","伝説のアク・トゥルパル"],
+    Xa:["たてがみが金色にかがやきます。","赤い鞍敷きをつけて、風をきって飛びます。","お守りのトゥマルをつけて、雲の上へ。","英雄を乗せるのにふさわしい姿です。","「アク（白い）」の名をもつ、伝説の天馬です。"],
+    Tb:["夜空の若駒","星をまとう天馬","月をわたる天馬","夜明けをつげる天馬","伝説の夜空のトゥルパル"],
+    Xb:["体が夜空の色に変わりました。","体に星がまたたきます。","ひたいに星のしるし。月をわたって飛びます。","夜空色のマントをなびかせます。","星の冠をいただく、伝説の天馬です。"],
+    bg:function(i,b){return i<2?PGB.steppe("day"):(b==="b"&&i>=5?PGB.sky("night"):PGB.sky(i===9?"dawn":"day"));},
+    draw:function(i,b){var o={a:PGA[i],col:"#F4F1EA",bel:"#FFFFFF",mane:"#C9D3DD",ear:"horse",tail:"horse",sn:.9,neck:1,leg:1.4,hoof:1,wing:[0,0,.35,.55,.75,1,1,1,1,1.1][i],wcol:"#FFFFFF",acc:{}};
+      if(i>=5&&b!=="b")o=mix(o,{mane:"#F2C230",wcol:"#FFF8E6",acc:acc(i,[[6,"cloth","#B3202B"],[7,"tumar","#E8B923"],[8,"armor","#F2C230"],[9,"aura","#FFD34D"],[9,"mark","#FFE27A"]])});
+      if(i>=5&&b==="b")o=mix(o,{col:"#2E3A66",bel:"#4A5A8E",mane:"#B39DDB",wcol:"#8FA0D8",stars:i>=6,acc:acc(i,[[7,"mark","#FFE27A"],[8,"cape","#2A2350"],[9,"crown","#FFE27A"],[9,"aura","#B39DDB"]])});
+      return pgQ(o);}}));
+
+  /* ユキヒョウ */
+  pgrAdd(pgrAnimal({id:"leopard",name:"ユキヒョウ",sub:"天山の子ユキヒョウが、山の王に",h:40,
+    br:{a:{n:"山の王",x:"天山の岩山を治める、強いユキヒョウの道。"},b:{n:"雪の精",x:"雪と氷の光をまとう、ふしぎなユキヒョウの道（このアプリの創作）。"}},
+    T:["子ユキヒョウ","ねむい子ユキヒョウ","雪であそぶ子","若いユキヒョウ","岩山のユキヒョウ"],
+    X:["ユキヒョウ（илбирс）は天山などの高い山にすむ動物で、キルギスの大切なシンボルです。","太いしっぽを抱いて、まるくなってねむります。","雪の上をころころ転がって遊びます。","太くて長いしっぽで、岩の上でもバランスをとります。","たくましくなりました。そろそろ進む道を選ぶころです。"],
+    Ta:["岩山の若者","雪山の狩人","峰の守り手","天山の王","伝説のユキヒョウ"],
+    Xa:["首にお守りのトゥマル。岩から岩へ、軽々ととび移ります。","雪山を見わたして、えものをさがします。","赤いマントをなびかせて、峰を守ります。","金の冠をいただく、天山の王です。","金色の光をまとう、伝説のユキヒョウです。"],
+    Tb:["雪の子","氷のひとみ","吹雪をまとう者","雪の精霊","伝説の雪の精"],
+    Xb:["毛が雪のように白く光りはじめました。","ひとみが氷の色になりました。","体に雪の結晶がきらめきます。","ひたいに光のしるし。","雪の冠をいただく、伝説の雪の精です。"],
+    bg:function(i,b){return i>=5&&b==="b"?PGB.snow("night"):PGB.snow(i===9?"dawn":"day");},
+    draw:function(i,b){var o={a:PGA[i],col:"#E6E2DA",bel:"#FFFFFF",ear:"round",tail:"leo",sn:.45,spots:1,spotc:"#5A5560",eyec:"#3E5E7A",closed:i===1,acc:{}};
+      if(i>=5&&b!=="b")o.acc=acc(i,[[5,"tumar","#E8B923"],[7,"cape","#B3202B"],[8,"crown","#F2C230"],[9,"aura","#FFD34D"]]);
+      if(i>=5&&b==="b")o=mix(o,{col:"#EEF6FB",spotc:"#8FB8D8",eyec:"#2F7FB8",stars:i>=7,acc:acc(i,[[6,"scarf","#8FB8D8"],[8,"mark","#BFE8FF"],[9,"crown","#DCEFFF"],[9,"aura","#BFE8FF"]])});
+      return pgQ(o);}}));
+
+  /* イヌワシ */
+  pgrAdd(pgrAnimal({id:"eagle",x:105,name:"イヌワシ",sub:"卵からかえって、大空の王者に",h:56,
+    sc:function(i){return i===0?1.5:1.05+.045*i;},
+    br:{a:{n:"狩りのワシ（ブルクト）",x:"鷹匠といっしょに狩りをする、イヌワシ「ブルクト（бүркүт）」の道。"},b:{n:"天空の大鳥",x:"キルギスの昔話の大きな鳥「アルプ・カラ・クシュ（Алп кара куш）」をめざす道。"}},
+    T:["イヌワシの卵","ふわふわのひな","大きなひな","若いワシ","大空のワシ"],
+    X:["岩山の巣に、イヌワシの卵がひとつ。","卵からかえった、ふわふわのひなです。","よく食べて、ぐんぐん大きくなります。","茶色の羽が生えそろいました。","翼を広げて、はじめて大空へ。そろそろ進む道を選ぶころです。"],
+    Ta:["鷹匠のワシ","狩りに出るワシ","お守りのワシ","祭りの名ワシ","伝説のブルクト"],
+    Xa:["目かくしの帽子「トモゴ（томого）」をかぶり、出番を待ちます。","トモゴを外して、大空へまい上がります。","胸にお守りのトゥマル。","祭りのワシの腕くらべで、みんなをおどろかせます。","金色の光をまとう、伝説のイヌワシです。"],
+    Tb:["黒い翼の若鳥","嵐をよぶ翼","山より大きな影","天をめぐる大鳥","伝説のアルプ・カラ・クシュ"],
+    Xb:["羽が夜のように黒くなってきました。","翼の先が金色に光ります。","広げた翼が、山に大きな影を落とします。","ひたいに光のしるし。","昔話に出てくる大きな鳥のような、伝説の姿です。"],
+    bg:function(i,b){return i<3?PGB.cliff("day"):(b==="b"&&i>=5?PGB.sky(i>=8?"dusk":"day"):PGB.cliff(i===9?"dawn":"day"));},
+    draw:function(i,b){
+      if(i===0)return pgEgg("#F4ECD8","#B0773C",0);
+      if(i<3)return pgBird({a:i===1?0:.2,fuzz:1,col:"#F4F1EA"});
+      var o={a:PGA[i],col:"#6E4A22",bel:"#9A6A3A",head:"#D8A24A",spread:i===4,acc:{}};
+      if(i>=5&&b!=="b")o=mix(o,{hood:i===5,spread:i===6||i===9,brow:1,acc:acc(i,[[7,"tumar","#E8B923"],[9,"aura","#FFD34D"]])});
+      if(i>=5&&b==="b")o=mix(o,{col:"#2E2A3A",bel:"#4A3F5A",head:"#5A4A6A",spread:i!==5,brow:1,wtip:i>=6?"#F2C230":"",acc:acc(i,[[8,"mark","#FFE27A"],[9,"aura","#B39DDB"]])});
+      return pgBird(o);}}));
+
+  /* 竜（アジダール） */
+  pgrAdd(pgrAnimal({id:"dragon",name:"竜アジダール",sub:"卵から生まれた子竜が、伝説の竜に",h:44,
+    sc:function(i){return i===0?1.5:1.0+.042*i;},
+    br:{a:{n:"山の竜",x:"岩と水晶の力をもつ、大地の竜の道。"},b:{n:"天の竜",x:"雲と光をまとう、空の竜の道。"}},
+    T:["ふしぎな卵","竜の赤ちゃん","よちよち子竜","翼の生えた子竜","若い竜"],
+    X:["アジダール（ажыдаар）は、キルギスの昔話に出てくる竜です。この仲間は、それをもとにしたこのアプリだけの竜。まずはふしぎな卵から。","卵からかえった、竜の赤ちゃんです。","背中に小さなとげが出てきました。","小さな翼が生えてきました。","角がのびて、たくましくなりました。そろそろ進む道を選ぶころです。"],
+    Ta:["岩の竜","水晶の竜","山をまもる竜","大地の竜","伝説の山の竜"],
+    Xa:["うろこが岩のようにかたくなりました。","背中のとげが水晶に変わりました。","お守りのトゥマルを首に。","金の冠をいただく、大地の竜です。","水晶の光をまとう、伝説の竜です。"],
+    Tb:["雲の竜","光の竜","虹をわたる竜","天の竜王","伝説の天の竜"],
+    Xb:["体が雲のように白くなりました。","角と背中のとげが金色に光ります。","大きな翼で、虹をわたって飛びます。","金の冠をいただく、天の竜王です。","光の輪をまとう、伝説の竜です。"],
+    bg:function(i,b){return i>=5&&b==="b"?PGB.sky(i===9?"dawn":"day"):PGB.high(i===9?"dusk":"day");},
+    draw:function(i,b){
+      if(i===0)return pgEgg("#9ED0A6","#5E9E6A",0);
+      var o={a:PGA[i],col:"#6FAF7A",bel:"#E8E2B0",ear:"drag",tail:"drag",sn:.8,horn:i>=4?1:.5,spike:i>=2,wing:[0,0,0,.35,.55,.75,.85,1,1,1.1][i],wcol:"#9ED0A6",hcol:"#F1E6C8",closed:i===1,acc:{}};
+      if(i>=5&&b!=="b")o=mix(o,{col:"#7E8C78",bel:"#C9CDB0",spcol:"#8FE0E8",wcol:"#A9B8A0",acc:acc(i,[[7,"tumar","#E8B923"],[8,"crown","#F2C230"],[9,"aura","#8FE0E8"]])});
+      if(i>=5&&b==="b")o=mix(o,{col:"#F4F1EA",bel:"#FFF6D8",spcol:"#F2C230",wcol:"#FFF6D8",hcol:"#F2C230",acc:acc(i,[[8,"crown","#F2C230"],[9,"aura","#FFD34D"],[9,"mark","#FFE27A"]])});
+      return pgQ(o);}}));
+})();
+
+/* ===== Phase85：育てるモード（学習の進み具合に合わせて仲間が成長する） =====
    ・設定でオン／オフを切りかえる（settings.pGr.on）。オフのときは、これまでの画面とまったく同じ。
    ・成長ポイントは、いまある学習記録から計算するだけ（新しい学習記録は作らない）：
        解いた問題 1問 = 1点（appHist.days の studiedWords + composeCount）
        覚えた単語 1語 = 3点（p47Known）
        学習した日 1日 = 10点
-   ・10段階（PGR_KINDS.manas.st）。各段階の中に5つの小さな段階があり、上がるたびに光の星が増える。
+   ・仲間は10種類（phase85_grow_kinds.js の PGR_KINDS）。一度に育てるのは1人。
+     仲間ごとの記録 settings.pGr.own[id] = {acc:ためたポイント, since:育て始めたときの合計, seen:見せた段階, br:選んだ道}
+     育てていない仲間は、育ったところで止まって待っている（切りかえても消えない）。
+   ・10段階。各段階の中に5つの小さな段階があり、上がるたびに光の星が増える。段階5で「進化の道」を2つから選ぶ。
    ・進化したときは全画面の演出（暗転 → 光 → 白いフラッシュ → 新しい姿と称号）。
-     出すのは「この起動中に勉強してポイントが増え、新しい段階に入ったあと、ホームに戻ったとき」だけ。
-     開いただけで毎回出ることがないように、見せた段階は settings.pGr.seen（クラウド保存）に記録する。
-   ・絵はすべてこのアプリのオリジナル（phase74_art の p74Person、phase76_manga の M6 の部品を組み立てる）。
-     服装・持ち物は phase74_hist／phase76_manas と同じ（資料は HANDOVER の phase76 の欄）。
-   ・あとから「育てる相手」（動物など）を足すときは PGR_KINDS に同じ形で足す（settings.pGr.k で選ぶ）。 */
+     出すのは「この起動中に勉強してポイントが増え、新しい段階に入ったあと、ホームが見えているとき」だけ。
+     まだ見せていない進化は settings.pGr.pend に入れておき、ほかの画面が開いていないときに出す。 */
 
 /* ---------- 記録 ---------- */
+var PGR_T=[0,30,150,400,800,1400,2300,3500,5200,7500];/* 1日20問ほどで、1日目・3日目・9日目・18日目・1か月…5か月半で最後の姿 */
 function pGrSt(){
   if(!settings.pGr||typeof settings.pGr!=="object"||Array.isArray(settings.pGr))settings.pGr={};
-  var s=settings.pGr;if(!s.k||!PGR_KINDS[s.k])s.k="manas";
-  /* こわれた値を直す */
-  if(s.seen!=null&&!isFinite(+s.seen))s.seen=null;else if(s.seen!=null)s.seen=+s.seen;
+  var s=settings.pGr;if(!s.k||!PGR_KINDS[s.k])s.k=PGR_KINDS.manas?"manas":PGR_ORDER[0];
+  if(!s.own||typeof s.own!=="object"||Array.isArray(s.own)){s.own={};}
+  /* 前の形（マナスだけ）からの引っこし：これまでの学習は全部マナスのもの */
+  if(!s.own.manas&&PGR_KINDS.manas)s.own.manas={acc:0,since:0,seen:(s.seen!=null&&isFinite(+s.seen))?+s.seen:null};
+  delete s.seen;
+  Object.keys(s.own).forEach(function(k){var o=s.own[k];
+    if(!PGR_KINDS[k]||!o||typeof o!=="object"){delete s.own[k];return;}
+    o.acc=isFinite(+o.acc)?Math.max(0,+o.acc):0;
+    if(o.since!=null&&!isFinite(+o.since))o.since=null;else if(o.since!=null)o.since=+o.since;
+    if(o.seen!=null&&!isFinite(+o.seen))o.seen=null;else if(o.seen!=null)o.seen=+o.seen;
+    if(o.br!=="a"&&o.br!=="b")delete o.br;});
+  if(!s.own[s.k])s.own[s.k]={acc:0,since:null,seen:null};
   if(s.base&&(typeof s.base!=="object"||typeof s.base.d!=="string"||!isFinite(+s.base.p)))delete s.base;
-  if(s.pend&&(typeof s.pend!=="object"||!isFinite(+s.pend.from)||!isFinite(+s.pend.to)))delete s.pend;
+  if(s.pend&&(typeof s.pend!=="object"||!PGR_KINDS[s.pend.k]||!isFinite(+s.pend.from)||!isFinite(+s.pend.to)))delete s.pend;
   return s;
 }
 function pGrOn(){return !!(settings.pGr&&settings.pGr.on);}
-/* 成長ポイント（内訳つき） */
+/* 学習記録から計算した合計ポイント（内訳つき） */
 function pGrPts(){
   var days=(appHist&&appHist.days)||{},q=0,d=0;
   Object.keys(days).forEach(function(k){var c=0;try{c=p48DayCount(k);}catch(_){}if(c>0){q+=c;d++;}});
   var w=0;try{w=p47KnownCount();}catch(_){}
   return {q:q,w:w,d:d,p:q+w*3+d*10};
 }
-/* 今日ふえたポイント：今日はじめて見たときの値（settings.pGr.base）との差。
-   はじめて見たのが勉強のあとでも数えられるように、今日の問題数から逆算した値と小さいほうを使う */
+/* 仲間ごとのポイント：ためた分＋（いま育てていれば）育て始めてから増えた分 */
+function pGrKP(k,T){
+  var s=pGrSt(),o=s.own[k];if(!o)return 0;if(T==null)T=pGrPts().p;
+  if(s.k===k){if(o.since==null)o.since=T;return o.acc+Math.max(0,T-o.since);}
+  return o.acc;
+}
+/* 今日ふえたポイント：今日はじめて見たときの合計（settings.pGr.base）との差 */
 function pGrToday(P){
   var s=pGrSt(),k=todayKey(),c=0;try{c=p48DayCount(k);}catch(_){}
   var est=P.p-c-(c>0?10:0);
   if(!s.base||s.base.d!==k){s.base={d:k,p:est};}
   else if(est<s.base.p)s.base.p=est;
-  return Math.max(0,P.p-s.base.p);
+  return Math.max(0,Math.min(P.p-s.base.p,pGrKP(s.k,P.p)));
 }
-
-/* ---------- 育てる相手（いまはマナスだけ） ---------- */
-/* 次の段階に必要なポイント。1日に20問ほど解くと、およそ 1日目・3日目・9日目・18日目・1か月・…・5か月半で最後の姿 */
-var PGR_T=[0,30,150,400,800,1400,2300,3500,5200,7500];
-var PGR_KINDS={};
-(function(){
-  var P=null;try{P74_PATHS.forEach(function(x){if(x.id==="manas")P=x;});}catch(_){}
-  if(!P||typeof M6==="undefined")return;
-  var S=function(k){return P.st[k];},N=P74_NPC;
-  var C=m6(N.chiyirdy,{beld:"#2B2233"}),AL=m6(P.al[2].o,{braid:"#E8B923"}),KN=m6(N.kanykey,{beld:"#3A2A4A"}),BK=P.al[1].o;
-  var mate=function(c,h){return {hand:"spear",off:"none",head:h||"kalpak",body:{type:"chapan",c:c,t:"#E8D5A8"},hair:"#2B2233"};};
-  var AK="#F2EEE4",AKM="#8A6A4A";/* アク・クラ：白っぽい灰色の馬（phase76_manas と同じ色） */
-  PGR_KINDS.manas={name:"マナス",
-    /* bg：背景とまわりの人（姿の後ろ）、fig：主人公だけ（進化の演出でも使う）、c：星を置く中心 */
-    st:[
-     {t:"ゆりかごのマナス",bg:function(){return M6.yurtIn()+M6.P(m6(C,{face:"joy",look:"d"}),66,130,104);},
-      fig:function(){return M6.beshik(138,128,2.2)+M6.spark(160,62,.8,"#FFD34D");},c:[138,96],
-      x:"物語では、ジャクプとチユルドゥの夫婦が長いあいだ祈りつづけて、やっと生まれた男の子がマナスです。ゆりかごは「ベシク（бешик）」と呼ばれる木のゆりかごです。"},
-     {t:"少年マナス",bg:function(){return M6.steppe("day")+M6.yurt(206,104,.8)+M6.sheep(160,128,.9,1)+M6.sheep(186,134,.8,1);},
-      fig:function(){return M6.P(m6(S(0),{face:"smile",pose:"wave"}),96,134,84);},c:[96,92],
-      x:"遊牧の暮らしでは、子どもも羊や馬の世話を手伝いました。物語の少年マナスも、草原で元気に育ちます。"},
-     {t:"力自慢の少年",bg:function(){return M6.steppe("day")+M6.yurt(210,104,.7);},
-      fig:function(){return M6.P(m6(S(1),{pose:"wave",face:"laugh",hand:"none"}),106,134,92)+M6.rock(132,80,.8)+M6.sweat(96,52);},c:[110,84],
-      x:"物語では、少年マナスは力が強く、元気にあふれていて、まわりの大人をおどろかせます。"},
-     {t:"馬を乗りこなす少年",bg:function(){return M6.steppe("day")+M6.yurt(36,100,.6);},
-      fig:function(){return M6.horse(130,128,.95,AK,{mane:AKM,run:1,rider:m6(S(1),{face:"joy"})});},c:[136,74],
-      x:"とても小さいころから、すぐれた馬に乗れるようになったと語られます。愛馬アク・クラ（Аккула）は、物語の中で何度も活やくします。"},
-     {t:"若き勇者",bg:function(){return M6.steppe("dawn")+M6.eagle(186,34,.8);},
-      fig:function(){return M6.P(m6(S(2),{face:"determined",look:"r"}),110,134,112);},c:[110,76],
-      x:"弓と馬は、草原で暮らす人々にとって大切な道具でした。物語の若いマナスも、勇者として名を知られていきます。"},
-     {t:"四十人の仲間の長",bg:function(){return M6.steppe("day")+M6.flag(200,118,"#B3202B")+M6.P(mate("#6B8E4E"),40,124,74)+M6.P(mate("#C7823E"),66,128,78)+M6.P(mate("#5E4A7E"),170,128,78,{flip:1})+M6.P(mate("#3E6E4A"),196,124,74,{flip:1});},
-      fig:function(){return M6.P(m6(S(3),{face:"determined",pose:"fist"}),118,136,112);},c:[118,76],
-      x:"物語では、マナスは若いうちに「四十人の仲間（кырк чоро）」をつくります。仲間たちは一生マナスを助け、最後までともに戦ったと語られます。"},
-     {t:"アルマンベトの友",bg:function(){return M6.steppe("dusk")+M6.P(m6(AL,{face:"smile"}),164,134,104,{flip:1});},
-      fig:function(){return M6.P(m6(S(4),{face:"smile"}),86,134,108);},c:[86,76],
-      x:"別の国で育った勇者アルマンベト（Алмамбет）が、長い旅のすえに仲間に加わります。二人は兄弟のような友になります。"},
-     {t:"カヌケイの夫",bg:function(){return M6.steppe("day")+M6.yurt(206,104,.85)+M6.P(m6(KN,{face:"smile"}),160,134,100,{flip:1});},
-      fig:function(){return M6.P(m6(S(5),{face:"smile"}),88,134,108);},c:[88,76],
-      x:"妻カヌケイ（Каныкей）は、かしこく、人をもてなす心をもった女性として描かれます。夫が人々をまとめる戦いにも、自分から力を貸しました。"},
-     {t:"民のかしら",bg:function(){return M6.steppe("day")+M6.yurt(30,100,.6)+M6.yurt(70,96,.5)+M6.yurt(214,100,.6)+M6.P(m6(BK,{face:"smile"}),196,132,70,{flip:1});},
-      fig:function(){return M6.horse(118,130,1,AK,{mane:AKM,rider:m6(S(6),{face:"determined"})});},c:[122,70],
-      x:"マナスたちの大きな目的は、ばらばらになっていた部族をまとめ、一つの民にすることでした。知恵のある相談役バカイ（Бакай）も、マナスを支えます。"},
-     {t:"英雄マナス",bg:function(){return M6.steppe("dawn")+M6.speed(120,70,"#F2D28A")+M6.eagle(46,30,.8)+M6.flag(212,122,"#B3202B");},
-      fig:function(){return M6.horse(120,132,1.08,AK,{mane:AKM,run:1,rider:m6(S(8),{face:"determined",olpok:1})});},c:[124,66],
-      x:"白い戦衣アク・オルポクを着て愛馬アク・クラに乗り、仲間をひきいて大遠征（Чоң казат）に出る英雄の姿です。2013年、「マナス」の三部作はユネスコの無形文化遺産に登録されました。"}
-    ]};
-})();
-function pGrKind(){return PGR_KINDS[pGrSt().k]||PGR_KINDS.manas;}
+function pGrKind(k){return PGR_KINDS[k||pGrSt().k]||PGR_KINDS[PGR_ORDER[0]];}
 /* いまの段階：{i:段階, sub:小段階0〜4, frac:次の段階までの割合, need:あと何点} */
 function pGrStage(p){
   var i=0;for(var j=0;j<PGR_T.length;j++)if(p>=PGR_T[j])i=j;
@@ -18443,26 +18835,39 @@ function pGrStage(p){
   var a=PGR_T[i],b=PGR_T[i+1],f=(p-a)/(b-a);
   return {i:i,sub:Math.min(4,Math.floor(f*5)),frac:f,need:b-p,last:0};
 }
+/* 選んだ道（まだなら null）。段階が分かれ道より前なら関係ない */
+function pGrBr(k){var o=pGrSt().own[k];return o&&o.br||null;}
 
 /* ---------- 絵 ---------- */
 /* 光の星（小さな段階の数だけ、主人公のまわりに置く） */
-function pGrStars(St,n){var c=St.c||[120,80],pos=[[-46,-30],[44,-38],[-56,10],[54,6],[0,-56]],s="";
+function pGrStars(c,n){var pos=[[-46,-30],[44,-38],[-56,10],[54,6],[0,-56]],s="";
   for(var i=0;i<n;i++){s+=M6.spark(c[0]+pos[i][0],c[1]+pos[i][1],1.1,"#FFD34D");}return s;}
-function pGrScene(i,sub){var K=pGrKind(),St=K.st[i];if(!St)return "";var b="";
-  try{b=St.bg()+St.fig()+pGrStars(St,sub||0);}catch(e){b=M6.steppe("day");}
-  return M6.svg(b);}
+/* 場面の絵：背景＋後ろの光＋主人公＋星。主人公のまわりを少し大きく切りぬく */
+function pGrScene(k,i,sub,b){
+  var K=pGrKind(k);if(b===undefined)b=pGrBr(K.id);var body="",c=[120,80];
+  try{c=K.c(i,b||"a");
+    var glow='<defs><radialGradient id="pgrgl'+i+K.id+'"><stop offset="0" stop-color="#FFF6D6" stop-opacity="'+(i===9?.85:.5)+'"/><stop offset="1" stop-color="#FFF6D6" stop-opacity="0"/></radialGradient></defs><ellipse cx="'+c[0]+'" cy="'+c[1]+'" rx="'+(i===9?92:70)+'" ry="'+(i===9?66:52)+'" fill="url(#pgrgl'+i+K.id+')"/>';
+    body=K.bg(i,b||"a")+glow+'<g class="pgr-hf">'+K.fig(i,b||"a")+'</g>'+pGrStars(c,sub||0)+(i===9?M6.spark(c[0]-70,c[1]-40,1.2,"#FFE27A")+M6.spark(c[0]+72,c[1]-30,1,"#FFE27A"):"");
+  }catch(e){body=M6.steppe("day");}
+  /* ふつうは主人公のまわりを少し大きく切りぬく。背の高い姿（天馬・馬に乗る姿など）は切らずに全体を見せる */
+  var tall=c[1]<82,x=tall?0:Math.max(0,Math.min(48,c[0]-96)),vb=tall?"0 0 240 140":x+" 23 192 117";
+  return '<svg class="p76-svg" viewBox="'+vb+'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+body+'</svg>';
+}
 /* 主人公だけの絵（背景なし）。中心のまわりを切りぬいて大きく見せる */
-function pGrFigSvg(i){var St=pGrKind().st[i],b="",c=St.c||[120,80];try{b=St.fig();}catch(_){}
-  return '<svg class="p76-svg" viewBox="'+(c[0]-75)+' 0 150 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="overflow:visible">'+b+'</svg>';}
+function pGrFigSvg(k,i,b){var K=pGrKind(k);if(b===undefined)b=pGrBr(K.id);var s="",c=[120,80];try{c=K.c(i,b||"a");s=K.fig(i,b||"a");}catch(_){}
+  /* 中心 c から足もと（y≒136）までの高さで、切りぬく大きさを決める（小さな子どもの姿も大きく見える） */
+  var hg=Math.max(70,Math.min(150,(136-c[1])*2.3)),w=hg*1.15;
+  return '<svg class="p76-svg" viewBox="'+(c[0]-w/2).toFixed(1)+' '+(138-hg).toFixed(1)+' '+w.toFixed(1)+' '+hg.toFixed(1)+'" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+s+'</svg>';}
+function pGrTitle(k,i){var K=pGrKind(k),b=pGrBr(K.id);return (K.brAt&&i>=K.brAt&&!b)?"進化の道を選ぼう":K.t(i,b||"a");}
 
 /* ---------- ホームの小さなカード ---------- */
 function pGrCard(){
-  if(!pGrOn()||!pGrKind().st)return "";
-  var P=pGrPts(),G=pGrStage(P.p),St=pGrKind().st[G.i],t=pGrToday(P);
-  var dots="";for(var k=0;k<5;k++)dots+='<i class="'+(k<G.sub||G.last?"on":"")+'"></i>';
+  if(!pGrOn())return "";
+  var s=pGrSt(),K=pGrKind(),P=pGrPts(),kp=pGrKP(K.id,P.p),G=pGrStage(kp),t=pGrToday(P);
+  var dots="";for(var j=0;j<5;j++)dots+='<i class="'+(j<G.sub||G.last?"on":"")+'"></i>';
   return '<button type="button" class="pgr-card" data-act="pgropen" aria-label="育てるモードを開く">'+
-    '<span class="pgr-cimg">'+pGrScene(G.i,G.sub)+'</span>'+
-    '<span class="pgr-ctx"><small>育てるモード　第'+(G.i+1)+'段階</small><b>'+esc(St.t)+'</b>'+
+    '<span class="pgr-cimg">'+pGrScene(K.id,G.i,G.sub)+'</span>'+
+    '<span class="pgr-ctx"><small>'+esc(K.name)+'　第'+(G.i+1)+'段階</small><b>'+esc(pGrTitle(K.id,G.i))+'</b>'+
     '<span class="pgr-bar"><i style="width:'+Math.round(G.frac*100)+'%"></i></span>'+
     '<span class="pgr-cline"><span class="pgr-dots">'+dots+'</span><em>'+(G.last?'最後の姿です':'進化まで あと '+G.need.toLocaleString())+'</em></span>'+
     '<span class="pgr-today'+(t>0?' up':'')+'">今日 +'+t.toLocaleString()+'</span></span></button>';
@@ -18480,76 +18885,108 @@ if(typeof renderHome==="function"){
 }
 
 /* ---------- 育てるモードの画面（下から出るページ） ---------- */
+function pGrChoiceHtml(K,cls){
+  var h='<div class="pgr-choose'+(cls?' '+cls:'')+'">';
+  ["a","b"].forEach(function(b){h+='<button type="button" class="pgr-cho" data-act="pgrbr" data-val="'+b+'"><span class="pgr-choimg">'+pGrFigSvg(K.id,K.brAt+1,b)+'</span><b>'+esc(K.br[b].n)+'</b><small>'+esc(K.br[b].x)+'</small></button>';});
+  return h+'</div>';
+}
 function pGrPageHtml(){
-  var K=pGrKind(),P=pGrPts(),G=pGrStage(P.p),St=K.st[G.i],t=pGrToday(P);
-  var h='<div class="pgr-hero">'+pGrScene(G.i,G.sub)+'</div>';
-  h+='<div class="pgr-name"><small>第'+(G.i+1)+'段階 / 全'+K.st.length+'段階</small><b>'+esc(St.t)+'</b></div>';
+  var s=pGrSt(),K=pGrKind(),P=pGrPts(),kp=pGrKP(K.id,P.p),G=pGrStage(kp),t=pGrToday(P),b=pGrBr(K.id);
+  var needBr=K.brAt&&G.i>=K.brAt&&!b;
+  var h='<div class="pgr-hero">'+pGrScene(K.id,G.i,G.sub)+'</div>';
+  h+='<div class="pgr-name"><small>'+esc(K.name)+'　第'+(G.i+1)+'段階 / 全10段階'+(b&&K.brAt?'　'+esc(K.br[b].n):'')+'</small><b>'+esc(pGrTitle(K.id,G.i))+'</b></div>';
   h+='<div class="pgr-gauge"><div class="pgr-bar big"><i style="width:'+Math.round(G.frac*100)+'%"></i></div>'+
      '<div class="pgr-gl"><span>'+(G.last?'最後の姿まで育ちました':'次の進化まで あと <b>'+G.need.toLocaleString()+'</b> ポイント')+'</span><span class="pgr-today'+(t>0?' up':'')+'">今日 +'+t.toLocaleString()+'</span></div></div>';
-  h+='<p class="pgr-desc">'+esc(St.x)+'</p>';
+  if(needBr)h+='<div class="pgr-h">進化の道を選んでください</div>'+pGrChoiceHtml(K);
+  else h+='<p class="pgr-desc">'+esc(K.x(G.i,b||"a"))+'</p>';
+  if(K.brAt&&!b&&G.i<K.brAt)h+='<p class="pgr-note">第'+(K.brAt+1)+'段階で、進化の道を2つから選べます（'+esc(K.br.a.n)+'／'+esc(K.br.b.n)+'）。</p>';
+  /* これまでの姿 */
+  h+='<div class="pgr-h">これまでの姿</div><div class="pgr-gal">';
+  for(var i=0;i<10;i++){var open=i<=G.i,unk=K.brAt&&i>=K.brAt&&!b;
+    h+='<div class="pgr-gi'+(open&&!unk?"":" lock")+(i===G.i?" now":"")+'">'+(open&&!unk?pGrScene(K.id,i,0):pGrFigSvg(K.id,i,b||"a"))+'<b>'+(i+1)+'. '+(open&&!unk?esc(K.t(i,b||"a")):'？？？')+'</b>'+(open?'':'<small>'+PGR_T[i].toLocaleString()+' ポイントで</small>')+'</div>';}
+  h+='</div>';
+  /* 育てる仲間を選ぶ */
+  h+='<div class="pgr-h">育てる仲間を選ぶ<small>10種類</small></div><p class="pgr-note">切りかえても、前の仲間は育ったところで待っています。新しい仲間は、選んだ日からの学習で育ちます。</p><div class="pgr-kinds">';
+  PGR_ORDER.forEach(function(id){var KK=PGR_KINDS[id],o=s.own[id],kg=pGrStage(o?pGrKP(id,P.p):0);
+    h+='<button type="button" class="pgr-kd'+(id===K.id?" on":"")+'" data-act="pgrkind" data-val="'+id+'"><span class="pgr-kdimg">'+pGrFigSvg(id,o?kg.i:0,o&&o.br||"a")+'</span><b>'+esc(KK.name)+'</b><small>'+(id===K.id?'育てています':o?'第'+(kg.i+1)+'段階で待っています':esc(KK.sub))+'</small></button>';});
+  h+='</div>';
   h+='<div class="pgr-h">成長ポイント<small>合計 '+P.p.toLocaleString()+'</small></div><div class="pgr-sum">'+
      '<div><b>'+P.q.toLocaleString()+'</b><span>解いた問題</span><small>1問 = 1</small></div>'+
      '<div><b>'+P.w.toLocaleString()+'</b><span>覚えた単語</span><small>1語 = 3</small></div>'+
      '<div><b>'+P.d.toLocaleString()+'</b><span>学習した日</span><small>1日 = 10</small></div></div>';
   h+='<p class="pgr-note">どの練習をしても、ポイントは同じように増えます。光の星は、段階の中で少し育つたびに1つずつ増えます（5つで次の段階が近い合図）。</p>';
-  h+='<div class="pgr-h">これまでの姿</div><div class="pgr-gal">';
-  K.st.forEach(function(s,i){var open=i<=G.i;
-    h+='<div class="pgr-gi'+(open?"":" lock")+(i===G.i?" now":"")+'">'+(open?pGrScene(i,0):pGrFigSvg(i))+'<b>'+(i+1)+'. '+(open?esc(s.t):'？？？')+'</b>'+(open?'':'<small>'+PGR_T[i].toLocaleString()+' ポイントで</small>')+'</div>';});
-  h+='</div>';
   h+='<button type="button" class="pgr-off" data-act="pgroff">育てるモードをやめる（通常のホームにもどす）</button>';
   h+='<p class="pgr-note">やめても、学習の記録と育ったようすはそのまま残ります。設定からいつでも、もう一度オンにできます。</p>';
   return h;
 }
 function pGrSheet(){var m=document.getElementById("pgrpage");if(!m){m=document.createElement("div");m.id="pgrpage";document.body.appendChild(m);}return m;}
-function pGrOpen(){
-  var m=pGrSheet();
+function pGrOpen(keep){
+  var m=pGrSheet(),pb=m.querySelector(".pgr-pb"),y=keep&&pb?pb.scrollTop:0;
   m.innerHTML='<div class="pgr-mask" data-act="pgrclose"></div><div class="pgr-panel" role="dialog" aria-modal="true" aria-label="育てるモード"><div class="pgr-ph"><b>育てるモード</b><button type="button" class="pgr-x" data-act="pgrclose" aria-label="閉じる"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="pgr-pb">'+pGrPageHtml()+'</div></div>';
   m.className="show";document.body.classList.add("pgr-open");
+  if(y){var nb=m.querySelector(".pgr-pb");if(nb)nb.scrollTop=y;}
 }
 function pGrClose(){var m=pGrSheet();m.className="";m.innerHTML="";document.body.classList.remove("pgr-open");}
 
 /* ---------- 進化の演出 ---------- */
-var PGR_T0=null;/* クラウドを読み終えたときのポイント（これより増えた＝この起動中に勉強した） */
-function pGrEvolve(from,to,first){
-  var K=pGrKind(),St=K.st[to];if(!St)return;
+var PGR_T0=null;/* クラウドを読み終えたときの合計ポイント（これより増えた＝この起動中に勉強した） */
+var PGR_TM=[],PGR_EV=null;
+function pGrEvolve(k,from,to,first){
+  var K=pGrKind(k);if(!K)return;
   var m=document.getElementById("pgrevo");if(!m){m=document.createElement("div");m.id="pgrevo";document.body.appendChild(m);}
+  var choose=!first&&K.brAt&&to>=K.brAt&&!pGrBr(K.id);
+  PGR_EV={k:K.id,from:from,to:to,first:first};
   var burst="";for(var i=0;i<18;i++){burst+='<span style="transform:rotate('+(i*20)+'deg)"><i style="animation-delay:'+(i%3*.06).toFixed(2)+'s"></i></span>';}
   var lead=first?(K.name+'が、あなたの学習の仲間になりました'):(K.name+'のようすが……！');
   m.innerHTML='<div class="pgr-ebg"></div><div class="pgr-rays"></div>'+
-    '<div class="pgr-efig"><div class="pgr-eold">'+pGrFigSvg(first?to:from)+'</div><div class="pgr-enew">'+pGrFigSvg(to)+'</div><div class="pgr-burst">'+burst+'</div></div>'+
+    '<div class="pgr-efig"><div class="pgr-eold">'+pGrFigSvg(K.id,first?to:from)+'</div><div class="pgr-enew"></div><div class="pgr-burst">'+burst+'</div></div>'+
     '<div class="pgr-flash"></div><div class="pgr-elead">'+esc(lead)+'</div>'+
-    '<div class="pgr-etx"><small>'+(first?'いまの姿':'進化！　第'+(to+1)+'段階')+'</small><b>'+esc(St.t)+'</b><p>'+esc(St.x)+'</p>'+
-    '<button type="button" class="pgr-ebtn" data-act="pgrevook">つづける</button><button type="button" class="pgr-elink" data-act="pgrevopage">育つようすを見る</button></div>';
+    (choose?'<div class="pgr-echo"><b>どちらの姿に進化させる？</b><small>一度選ぶと、この仲間はその道で育ちます</small>'+pGrChoiceHtml(K,"dark")+'</div>':'')+
+    '<div class="pgr-etx"></div>';
+  pGrEvoFill();
   m.className="show s1";document.body.classList.add("pgr-open");
-  var go=function(c){if(m.className.indexOf("show")<0||m.className.indexOf("s4")>=0)return;m.className="show "+c;};
-  var reduce=false;try{reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(_){}
-  PGR_TM.forEach(clearTimeout);
-  if(reduce||first){PGR_TM=[setTimeout(function(){go("s4");},first?900:50)];}
-  else{PGR_TM=[setTimeout(function(){go("s2");},1500),setTimeout(function(){go("s3");},3300),setTimeout(function(){go("s4");},3600)];}
-  try{if(navigator.vibrate&&!first)setTimeout(function(){navigator.vibrate([30,40,60]);},3300);}catch(_){}
+  PGR_TM.forEach(clearTimeout);PGR_TM=[];
+  if(choose){PGR_TM=[setTimeout(function(){pGrGo("sc");},1400)];return;}/* 道を選ぶまで待つ */
+  pGrRun(first);
 }
-var PGR_TM=[];
-function pGrEvoClose(){PGR_TM.forEach(clearTimeout);PGR_TM=[];var m=document.getElementById("pgrevo");if(m){m.className="";m.innerHTML="";}document.body.classList.remove("pgr-open");}
+/* 新しい姿と文を入れる（道を選んだあとにも呼ぶ） */
+function pGrEvoFill(){
+  var m=document.getElementById("pgrevo"),E=PGR_EV;if(!m||!E)return;var K=pGrKind(E.k),b=pGrBr(K.id)||"a";
+  var nw=m.querySelector(".pgr-enew");if(nw)nw.innerHTML=pGrFigSvg(K.id,E.to,b);
+  var tx=m.querySelector(".pgr-etx");if(tx)tx.innerHTML='<small>'+(E.first?esc(K.name)+'　第'+(E.to+1)+'段階':'進化！　第'+(E.to+1)+'段階')+'</small><b>'+esc(K.t(E.to,b))+'</b><p>'+esc(K.x(E.to,b))+'</p>'+
+    '<button type="button" class="pgr-ebtn" data-act="pgrevook">つづける</button><button type="button" class="pgr-elink" data-act="pgrevopage">育つようすを見る</button>';
+}
+function pGrGo(c){var m=document.getElementById("pgrevo");if(!m||m.className.indexOf("show")<0||m.className.indexOf("s4")>=0)return;m.className="show "+c;}
+function pGrRun(first){
+  PGR_TM.forEach(clearTimeout);
+  var reduce=false;try{reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(_){}
+  if(reduce||first){PGR_TM=[setTimeout(function(){pGrGo("s4");},first?900:50)];return;}
+  PGR_TM=[setTimeout(function(){pGrGo("s2");},first===0?200:1500),setTimeout(function(){pGrGo("s3");},first===0?2000:3300),setTimeout(function(){pGrGo("s4");},first===0?2300:3600)];
+  try{if(navigator.vibrate)setTimeout(function(){navigator.vibrate([30,40,60]);},first===0?2000:3300);}catch(_){}
+}
+function pGrEvoClose(){PGR_TM.forEach(clearTimeout);PGR_TM=[];PGR_EV=null;var m=document.getElementById("pgrevo");if(m){m.className="";m.innerHTML="";}document.body.classList.remove("pgr-open");}
+
 /* 段階が上がったかを確かめる（どの画面でも）。
    この起動中に勉強してポイントが増えて上がったときは「まだ見せていない進化」settings.pGr.pend に入れる。
    開いただけ（クラウドから記録が届いただけ）で上がったときは、演出なしで記録だけ合わせる。 */
 var PGR_BUSY="#p48modal.show,#pgrevo.show,#p81sheet.show,#pgrpage.show,#p70page.show,#p72g.show,#onboardHost:not(:empty)";
 function pGrCheck(){
   try{
-    if(!pGrOn()||!pGrKind().st)return;
+    if(!pGrOn())return;
     if(typeof p83Cloud==="function"&&!p83Cloud())return;/* クラウドを読み終えるまで待つ */
-    var s=pGrSt(),P=pGrPts(),G=pGrStage(P.p),ch=false;
+    var s=pGrSt(),P=pGrPts(),o=s.own[s.k],G=pGrStage(pGrKP(s.k,P.p)),ch=false;
     if(PGR_T0===null)PGR_T0=P.p;
-    if(s.seen==null){s.seen=G.i;ch=true;}
-    else if(G.i>s.seen){
-      if(P.p>PGR_T0)s.pend={from:s.pend?s.pend.from:s.seen,to:G.i};
-      s.seen=G.i;ch=true;
-    }else if(G.i<s.seen){s.seen=G.i;delete s.pend;ch=true;}/* 記録を戻したとき */
+    if(o.seen==null){o.seen=G.i;ch=true;}
+    else if(G.i>o.seen){
+      if(P.p>PGR_T0)s.pend={k:s.k,from:(s.pend&&s.pend.k===s.k)?s.pend.from:o.seen,to:G.i};
+      o.seen=G.i;ch=true;
+    }else if(G.i<o.seen){o.seen=G.i;delete s.pend;ch=true;}/* 記録を戻したとき */
     if(ch){try{saveAll();}catch(_){}}
     pGrShowPend();
   }catch(_){}
 }
 /* まだ見せていない進化を、ホームが見えていて、ほかの画面（お祝い・冒険・文法書など）が開いていないときに出す */
+var PGR_WAIT=0;
 function pGrShowPend(){
   var s=pGrSt();if(!s.pend||!pGrOn())return;
   if(ui.bnav!=="home"||document.querySelector(PGR_BUSY))return;
@@ -18557,10 +18994,10 @@ function pGrShowPend(){
   setTimeout(function(){PGR_WAIT=0;
     if(!s.pend||ui.bnav!=="home"||document.querySelector(PGR_BUSY))return;/* 直前にお祝いなどが開いたら、次の機会に */
     var e=s.pend;delete s.pend;try{saveAll();}catch(_){}
-    pGrEvolve(+e.from,+e.to,false);
+    if(e.k!==s.k)return;
+    pGrEvolve(e.k,+e.from,+e.to,false);
   },700);
 }
-var PGR_WAIT=0;
 (function(){
   var r=render;render=function(){var o=r.apply(this,arguments);setTimeout(pGrCheck,0);return o;};
   /* クラウドを読み終えた時点のポイントを覚える */
@@ -18569,29 +19006,45 @@ var PGR_WAIT=0;
   setInterval(function(){if(pGrOn()&&!document.hidden)pGrCheck();},1500);
 })();
 
-/* ---------- ボタン ---------- */
+/* ---------- 切りかえ ---------- */
 function pGrSetOn(v){
   var s=pGrSt();s.on=v?1:0;
-  if(v){var G=pGrStage(pGrPts().p);s.seen=G.i;}
+  if(v){var o=s.own[s.k];if(o.since==null)o.since=pGrPts().p;o.seen=pGrStage(pGrKP(s.k)).i;}
   try{saveAll();}catch(_){}
+}
+/* 育てる仲間を変える：いまの仲間のポイントをためておき、新しい仲間は今の合計から数え始める */
+function pGrSwitch(id){
+  var s=pGrSt();if(!PGR_KINDS[id]||id===s.k)return false;var T=pGrPts().p,cur=s.own[s.k];
+  cur.acc=pGrKP(s.k,T);cur.since=null;
+  var fresh=!s.own[id];if(fresh)s.own[id]={acc:0,since:T,seen:0};else s.own[id].since=T;
+  s.k=id;delete s.pend;try{saveAll();}catch(_){}
+  return true;
 }
 document.addEventListener("click",function(e){
   var el=e.target.closest&&e.target.closest("[data-act]");if(!el)return;
   var a=el.getAttribute("data-act");
   if(a.indexOf("pgr")!==0)return;
   e.stopImmediatePropagation();e.preventDefault();
+  var v=el.getAttribute("data-val");
   if(a==="pgropen"){pGrOpen();return;}
   if(a==="pgrclose"){pGrClose();try{render();}catch(_){}return;}
-  if(a==="pgrtog"){var on=!pGrOn();pGrSetOn(on);render();if(on)pGrEvolve(0,pGrStage(pGrPts().p).i,true);return;}
-  if(a==="pgron"){pGrSetOn(1);try{if(typeof p81Close==="function")p81Close();}catch(_){}ui.bnav="home";render();pGrEvolve(0,pGrStage(pGrPts().p).i,true);return;}
+  if(a==="pgrtog"){var on=!pGrOn();pGrSetOn(on);render();if(on)pGrEvolve(pGrSt().k,0,pGrStage(pGrKP(pGrSt().k)).i,true);return;}
+  if(a==="pgron"){pGrSetOn(1);try{if(typeof p81Close==="function")p81Close();}catch(_){}ui.bnav="home";render();pGrEvolve(pGrSt().k,0,pGrStage(pGrKP(pGrSt().k)).i,true);return;}
   if(a==="pgroff"){pGrSetOn(0);pGrClose();render();return;}
   if(a==="pgrevook"){pGrEvoClose();try{render();}catch(_){}return;}
   if(a==="pgrevopage"){pGrEvoClose();pGrOpen();return;}
+  if(a==="pgrkind"){if(pGrSwitch(v)){pGrClose();render();var s=pGrSt();pGrEvolve(s.k,0,pGrStage(pGrKP(s.k)).i,true);}return;}
+  if(a==="pgrbr"&&(v==="a"||v==="b")){var s2=pGrSt();s2.own[s2.k].br=v;try{saveAll();}catch(_){}
+    var m=document.getElementById("pgrevo");
+    if(m&&m.className.indexOf("show")>=0&&PGR_EV){pGrEvoFill();var ch=m.querySelector(".pgr-echo");if(ch)ch.remove();m.className="show s1";pGrRun(0);}/* 選んだら、すぐ進化の光へ */
+    else{pGrOpen(1);}
+    return;}
 },true);
-/* 演出の途中で画面を押したら、最後（新しい姿）まで飛ばす */
+/* 演出の途中で画面を押したら、最後（新しい姿）まで飛ばす（道を選ぶ画面のときは飛ばさない） */
 document.addEventListener("click",function(e){
   var m=document.getElementById("pgrevo");if(!m||m.className.indexOf("show")<0)return;
   if(e.target.closest&&e.target.closest("[data-act]"))return;
+  if(m.querySelector(".pgr-echo"))return;
   if(m.className.indexOf("s4")<0){PGR_TM.forEach(clearTimeout);m.className="show s4";}
 },true);
 
@@ -18600,7 +19053,7 @@ if(typeof p62SettingsUI==="function"){
   var _pGrSetUI=p62SettingsUI;
   p62SettingsUI=function(){
     var h=String(_pGrSetUI.apply(this,arguments)),i=h.lastIndexOf('</div>');
-    return h.slice(0,i)+'<button type="button" class="p63-tog" data-act="pgrtog"><span><b>育てるモード（マナスが育つ）</b><small>勉強するほどマナスが成長し、ホームに今の姿が出ます。オフにすると、ふつうのホームにもどります</small></span><i class="'+(pGrOn()?"on":"")+'"></i></button>'+h.slice(i);
+    return h.slice(0,i)+'<button type="button" class="p63-tog" data-act="pgrtog"><span><b>育てるモード（マナスや動物が育つ）</b><small>勉強するほど仲間が成長し、ホームに今の姿が出ます。オフにすると、ふつうのホームにもどります</small></span><i class="'+(pGrOn()?"on":"")+'"></i></button>'+h.slice(i);
   };
 }
 /* 使い方のページ：続ける気持ちを高めたい人への案内 */
@@ -18608,7 +19061,7 @@ if(typeof p81GuideHtml==="function"){
   var _pGrGuide=p81GuideHtml;
   p81GuideHtml=function(){
     var h=String(_pGrGuide.apply(this,arguments)),i=h.indexOf('<div class="p81-gh">');if(i<0)return h;
-    var c='<div class="p81-g"><div class="p81-gwho">続ける楽しみがほしい人</div><div class="p81-gmode">'+p81Ic("sun",20)+'<b>育てるモード</b></div><p>どのモードで勉強しても、解いた問題・覚えた単語・学習した日の数に合わせて、英雄マナスがゆりかごの赤ちゃんから少しずつ育ちます。ホームに今の姿が出て、新しい段階に入ると進化の場面が見られます。'+(pGrOn()?'<br><b>いまオンになっています。</b>':'')+'</p>'+(pGrOn()?'':'<button type="button" class="p81-gbtn" data-act="pgron">育てるモードをオンにする '+p81Ic("go",15)+'</button>')+'</div>';
+    var c='<div class="p81-g"><div class="p81-gwho">続ける楽しみがほしい人</div><div class="p81-gmode">'+p81Ic("sun",20)+'<b>育てるモード</b></div><p>どのモードで勉強しても、解いた問題・覚えた単語・学習した日の数に合わせて、仲間が10段階で育ちます。仲間は、英雄マナス・おじさん・犬・猫・うさぎ・ヤク・天馬トゥルパル・ユキヒョウ・イヌワシ・竜の10種類から選べます。途中で進化の道を2つから選ぶこともできます。'+(pGrOn()?'<br><b>いまオンになっています。</b>':'')+'</p>'+(pGrOn()?'':'<button type="button" class="p81-gbtn" data-act="pgron">育てるモードをオンにする '+p81Ic("go",15)+'</button>')+'</div>';
     return h.slice(0,i)+c+h.slice(i);
   };
 }
@@ -18641,6 +19094,19 @@ if(typeof p81GuideHtml==="function"){
   '.pgr-gi.now{border:2px solid var(--accent)}.pgr-gi.lock svg{filter:brightness(0) contrast(0);opacity:.55}'+
   '.pgr-off{display:block;width:100%;margin:18px 0 0;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}'+
   'body.pgr-open{overflow:hidden}'+
+  /* 主人公にやわらかい光のふち */
+  '.pgr-hf{filter:drop-shadow(0 0 3px rgba(255,246,214,.9))}'+
+  /* 仲間を選ぶ */
+  '.pgr-kinds{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pgr-kd{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 8px 8px;font:inherit;text-align:left;cursor:pointer;min-height:44px}'+
+  '.pgr-kd.on{border:2px solid var(--accent)}.pgr-kdimg{display:block;width:100%;height:72px;line-height:0}.pgr-kdimg svg{width:100%;height:100%}.pgr-kd b{font-size:14px}.pgr-kd small{font-size:11.5px;color:var(--muted);line-height:1.4}'+
+  /* 進化の道を選ぶ */
+  '.pgr-choose{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 6px}.pgr-cho{display:flex;flex-direction:column;gap:3px;border:1.5px solid var(--accent);background:var(--card);color:var(--ink);border-radius:14px;padding:8px;font:inherit;text-align:left;cursor:pointer}'+
+  '.pgr-choimg{display:block;height:96px;line-height:0}.pgr-choimg svg{width:100%;height:100%}.pgr-cho b{font-size:14.5px}.pgr-cho small{font-size:12px;line-height:1.5;color:var(--muted)}'+
+  '.pgr-echo{position:absolute;left:0;right:0;bottom:0;padding:16px 16px calc(20px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto;opacity:0;pointer-events:none;transition:opacity .5s;text-align:center}'+
+  '#pgrevo.sc .pgr-echo{opacity:1;pointer-events:auto}#pgrevo.sc .pgr-elead{opacity:0}#pgrevo.sc .pgr-efig{top:24%}#pgrevo.sc .pgr-rays{opacity:.4}'+
+  '.pgr-echo>b{display:block;font-size:20px;margin-bottom:2px}.pgr-echo>small{display:block;font-size:12.5px;color:#C9C2DA;margin-bottom:10px}'+
+  '.pgr-choose.dark .pgr-cho{background:rgba(255,255,255,.08);border-color:#E8B923;color:#fff}.pgr-choose.dark .pgr-cho small{color:#D9D2EA}'+
+  '@media (max-height:620px){.pgr-choimg{height:64px}.pgr-echo>b{font-size:17px}}'+
   /* 進化の演出（s1 前の姿 → s2 光に包まれる → s3 白いフラッシュ → s4 新しい姿） */
   '#pgrevo{display:none}#pgrevo.show{display:block;position:fixed;inset:0;z-index:230;overflow:hidden;color:#fff}'+
   '.pgr-ebg{position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,#2A2140 0%,#0B0912 70%);animation:pgrFade .6s ease}'+
@@ -18672,7 +19138,7 @@ if(typeof p81GuideHtml==="function"){
   '@media (prefers-reduced-motion:reduce){.pgr-rays,.pgr-eold,.pgr-enew,.pgr-burst i{animation:none!important}.pgr-burst{display:none}}'+
   /* 高さの低い画面（小さいスマホ・横向き）：絵を小さくし、説明はその中でスクロール */
   '@media (max-height:620px){.pgr-efig{width:min(80vw,400px,34vh)}#pgrevo.s4 .pgr-efig{top:20%}.pgr-etx b{font-size:24px;margin:2px 0 4px}.pgr-etx p{font-size:13px;line-height:1.6;margin:0 0 10px;max-height:22vh;overflow-y:auto}.pgr-ebtn{min-height:46px}}'+
-  '@media (max-height:420px){#pgrevo.s4 .pgr-efig{left:25%;top:50%;width:min(44vw,60vh)}.pgr-etx{left:50%;right:0;bottom:auto;top:50%;transform:translateY(-50%)!important;padding:0 16px}#pgrevo.s4 .pgr-etx{transform:translateY(-50%)!important}.pgr-etx p{max-height:34vh}}'+
+  '@media (max-height:420px){#pgrevo.s4 .pgr-efig{left:25%;top:50%;width:min(44vw,60vh)}.pgr-etx{left:50%;right:0;bottom:auto;top:50%;transform:translateY(-50%)!important;padding:0 16px}#pgrevo.s4 .pgr-etx{transform:translateY(-50%)!important}.pgr-etx p{max-height:34vh}#pgrevo.sc .pgr-efig{opacity:0}}'+
   /* とても狭い画面 */
   '@media (max-width:350px){.pgr-cimg{width:96px}.pgr-etx b{font-size:26px}}';
   document.head.appendChild(st);
