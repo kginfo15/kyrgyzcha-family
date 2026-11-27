@@ -57,6 +57,8 @@ function coachLog(o){
     var s=(typeof o.s==="number"&&o.s>=0)?Math.min(P85_MAX_SEC,Math.round(o.s)):p85Elapsed();
     var g=(o.g&&o.g.length)?o.g.filter(Boolean).map(String):0,w=(o.w&&o.w.length)?o.w.filter(Boolean).map(String):0;
     var e=[t,String(o.m),String(o.id||""),o.ok?1:0,s,g&&g.length?g:0,w&&w.length?w:0];
+    /* まちがえたときだけ、問題の中身 [問題文, 正解, 選んだ答え, 理由] を8番目に残す（講義の「あなたがまちがえた問題」に使う） */
+    if(!o.ok&&o.x&&typeof o.x==="object"){var cut=function(v,n){return String(v==null?"":v).replace(/<[^>]*>/g,"").slice(0,n);};e.push([cut(o.x.s,140),cut(o.x.a,40),cut(o.x.p,40),cut(o.x.r,80)]);}
     var m=p85Month(t);(P85.log[m]||(P85.log[m]=[])).push(e);
     /* 次の問題（2段階の穴埋めの②など）は、いま答えた時刻から数える */
     P85.mark=Date.now();P85.hid=0;
@@ -79,10 +81,21 @@ p71Grade=function(x,ok){
     var S=P71,w=WMAP[x.id],g=[];
     if(x.c&&x.c.forms&&w){var lab=x.c.forms.lab[x.c.forms.key]||"";try{g=p72Topics(w,lab,x.c.f);}catch(_){}if(lab)g.push("f:"+lab);}
     var m=S&&S.fav?(S.gp?"gp":"fav"):"lesson";
-    coachLog({m:m,id:x.id,ok:ok,g:g,w:ok?[]:[x.id],kind:x.t});
+    var cx=null;try{cx=ok?null:p85LessonCtx(S,x,w);}catch(_){}
+    coachLog({m:m,id:x.id,ok:ok,g:g,w:ok?[]:[x.id],kind:x.t,x:cx});
   }catch(_){}
   return r;
 };
+/* まちがえた問題の中身：意味を選ぶ問題・穴埋め（意味／形）・文字を並べて書く問題 */
+function p85WordTxt(id){var w=WMAP[id];return w?(w.accent||w.word):String(id||"");}
+function p85LessonCtx(S,x,w){
+  var c=x.c,sent=c&&c.f?c.f.toks.map(function(t,i){return i===c.f.a?"＿＿":(i>c.f.a&&i<=c.f.z?"":t);}).join("").replace(/\u0301/g,""):"";
+  if(c&&c.forms&&S.picked2!=null){var fm=c.forms,pl=fm.lab[p71N(S.picked2)]||"";
+    return {s:sent+(c.ja?"（"+c.ja+"）":""),a:p71Plain(c.f.surface),p:S.picked2,r:"正解の形："+(fm.lab[fm.key]||"")+(pl?"／選んだ形："+pl:"")};}
+  if(c)return {s:sent+(c.ja?"（"+c.ja+"）":""),a:w?(w.accent||w.word):"",p:p85WordTxt(S.picked),r:"意味の取りちがえ"};
+  if(x.m)return {s:w?"「"+w.meaning+"」を書く・聞き取る":"",a:x.ans||"",p:S.picked||"",r:"つづり・聞き取り"};
+  return {s:w?"「"+w.meaning+"」にあたる言葉":"",a:w?(w.accent||w.word):"",p:p85WordTxt(S.picked),r:"意味の取りちがえ"};
+}
 /* レッスンの終わりにまとめて呼ばれる answer() は、1問ずつ記録ずみなので数えない */
 var _p85Finish=p71Finish;
 p71Finish=function(){P85.skip++;try{return _p85Finish.apply(this,arguments);}finally{P85.skip--;}};
@@ -106,7 +119,8 @@ window.addEventListener("click",function(e){
     var el=e.target&&e.target.closest?e.target.closest('[data-act="p58pick"]'):null;if(!el)return;
     var T=ui.p58;if(!T||T.done)return;var it=T.items[T.pos];if(!it)return;
     var ok=(+el.getAttribute("data-val"))===it.ans,c=it.cid&&CMAP[it.cid];
-    coachLog({m:"test",id:it.kind==="vocab"?it.id:(it.cid||""),ok:ok,g:["t:"+it.sec].concat(it.kind==="gram"&&c&&c.grammarPoint?[String(c.grammarPoint).slice(0,40)]:[]),w:(!ok&&it.kind==="vocab")?[it.id]:[]});
+    coachLog({m:"test",id:it.kind==="vocab"?it.id:(it.cid||""),ok:ok,g:["t:"+it.sec].concat(it.kind==="gram"&&c&&c.grammarPoint?[String(c.grammarPoint).slice(0,40)]:[]),w:(!ok&&it.kind==="vocab")?[it.id]:[],
+      x:it.kind==="gram"?{s:it.sent+(it.ja?"（"+it.ja+"）":""),a:it.correct,p:it.opts[+el.getAttribute("data-val")],r:"到達テスト・文法"}:(it.kind==="vocab"?{s:"「"+(WMAP[it.id]||{}).meaning+"」",a:p85WordTxt(it.id),p:"",r:"到達テスト・語彙"}:null)});
   }catch(_){}
 },true);
 /* ---- 画面が変わるたびに「問題が出た時刻」を更新する ---- */
@@ -770,3 +784,283 @@ p50Adopt=function(docId,obj){
   if(docId==="settings"&&before)settings.p85=p85MergeP85(before,settings.p85);
   return r;
 };
+
+/* ===== PHASE85 手順6：まちがいの分析と、自分専用の講義 =====
+   2026-11-27 Yuta の追加の要望：「解けなかった問題を裏で分析し、学ぶべき所を取り出して提案。集めたデータで講義を作る」。
+   ・分析はアプリの中の計算（通信なし・すぐ）。開いたとき・画面を描くときに、この30日の1問ごとの記録から数える。
+   ・弱点のまとまり（キー）：
+       "g:章ID"   文法解説書の章（レッスンの形の問題・章の練習・到達テストの文法タグから）
+       "t:p1〜p4" 検定（ТРКИ）の試験形式のパート、"t:rd" 読解、"t:au" 聴解、"t:gr" 語の形
+       "w:分類"   言葉の分類（単語帳の category）。形の問題（f: のタグ）は文法として数え、ここには入れない
+   ・優先の点数 ＝ まちがいの数（新しいほど重い：10日で半分）×（1－正答率）。まちがいが2回以上、正答率85%未満だけ。
+     最近3回続けて正解していれば「回復中」として点数を下げる。
+   ・講義：①やさしい解説（解説書の章から。理由つき）②あなたがまちがえた問題と正しい答え ③覚え方のコツ（取りちがえた組み合わせ・
+     覚える1文・間隔をあけた確認）④確認の問題。「AIで深める」は押したときだけ Claude が書く（ロシア語は問題文の語だけを使う）。
+   ・間隔をあけた確認：講義を開いた日を settings.p85.lr[キー]={d:日付, s:段階} に残し、1日後・3日後・7日後に、まだ弱点なら
+     「今日やること」に「講義の確認」を出す。その日にそのまとまりの問題を3問以上解くと次の段階へ進む。 */
+var P85_TP={1:"語の意味と使い分け",2:"名詞・代名詞の格",3:"動詞（体・移動・活用）",4:"文のつなぎ方"};
+var P85_TCH={2:"cases",3:"aspect",4:"conj",gr:"cases"};/* 検定のパートを説明する解説書の章 */
+var P85_GAP=[1,3,7];
+function p85Plain(s){return String(s||"").replace(/<[^>]*>/g,"").replace(/\u0301/g,"").trim().toLowerCase();}
+function p85WordByText(t){
+  if(!P85.wx){P85.wx={};try{VOCAB.forEach(function(w){var k=p85Plain(w.word);if(k&&!P85.wx[k])P85.wx[k]=w.id;});}catch(_){}}
+  return P85.wx[p85Plain(t)]||null;
+}
+function p85Keys(e){
+  var ks=[],g=e[5]||[],m=e[1],form=false;
+  g.forEach(function(t){if(p85IsCh(t))ks.push("g:"+t);if(/^f:/.test(t))form=true;});
+  if(m==="trki"){
+    var p=g.filter(function(t){return /^trki-p\d$/.test(t);})[0];
+    if(p)ks.push("t:p"+p.slice(6));else if(g.indexOf("trki-rd")>=0)ks.push("t:rd");else if(g.indexOf("trki-au")>=0||g.indexOf("trki-hs")>=0)ks.push("t:au");else if(g.indexOf("trki-gr")>=0)ks.push("t:gr");
+  }
+  if(m!=="gp"&&m!=="compose"&&!form){
+    var wid=WMAP[e[2]]?e[2]:null;if(!wid){var mm=/^trki:vo:(.+)$/.exec(e[2]);if(mm&&WMAP[mm[1]])wid=mm[1];}
+    if(!wid&&e[6]&&WMAP[e[6][0]])wid=e[6][0];
+    if(wid)ks.push("w:"+(WMAP[wid].category||"その他"));
+  }
+  return ks;
+}
+function p85KeyName(k){
+  var t=k.slice(2);
+  if(k[0]==="g")return p85ChName(t)||t;
+  if(k[0]==="t")return t==="rd"?"検定の読解":(t==="au"?"検定の聴解":(t==="gr"?"検定の語の形（語尾）":"検定 "+(P85_TP[t.slice(1)]||t)));
+  return "言葉（"+t+"）";
+}
+function p85KeyKind(k){return k[0]==="g"?"文法":(k[0]==="t"?"検定":"言葉");}
+/* 弱点のまとまりを、優先の高い順に */
+function p85Weak(days){
+  if(P85.wkCache&&P85.wkCache.at===P85.logN()&&P85.wkCache.d===todayKey())return P85.wkCache.r;
+  var now=Date.now()/1000,B={};
+  p85Recent(days||30).forEach(function(e){
+    var ks=p85Keys(e);if(!ks.length)return;var wt=Math.pow(0.5,(now-e[0])/86400/10);
+    ks.forEach(function(k){var b=B[k]||(B[k]={k:k,n:0,ok:0,miss:0,wm:0,wk:0,all:[],bad:[],ids:{}});
+      b.n++;b.ok+=e[3];b.all.push(e);
+      if(!e[3]){b.miss++;b.wm+=wt;if(now-e[0]<7*86400)b.wk++;b.bad.push(e);(e[6]||[]).forEach(function(id){if(WMAP[id])b.ids[id]=(b.ids[id]||0)+1;});
+        if(k[0]==="w"&&WMAP[e[2]])b.ids[e[2]]=(b.ids[e[2]]||0)+(e[6]&&e[6].indexOf(e[2])>=0?0:1);}
+    });
+  });
+  var r=Object.keys(B).map(function(k){return B[k];}).filter(function(b){return b.miss>=2&&b.ok/b.n<0.85;}).map(function(b){
+    b.pct=Math.round(b.ok/b.n*100);b.score=b.wm*(1-b.ok/b.n);
+    var last=b.all.slice(-3);b.rec=last.length===3&&last.every(function(e){return e[3];});if(b.rec)b.score*=0.4;
+    b.why="この30日、"+b.n+"問中"+b.ok+"問正解（"+b.pct+"%）。まちがいは"+b.miss+"回"+(b.wk?"で、うち"+b.wk+"回はこの1週間":"")+"。"+(b.rec?"最近は3回続けて正解していて、回復中です。":"");
+    return b;}).sort(function(a,b){return b.score-a.score;});
+  P85.wkCache={at:P85.logN(),d:todayKey(),r:r};
+  return r;
+}
+P85.logN=function(){var n=0;Object.keys(P85.log).forEach(function(m){n+=P85.log[m].length;});return n;};
+function p85WeakGet(k){return p85Weak().filter(function(b){return b.k===k;})[0]||null;}
+
+/* ---- 講義の中身 ---- */
+function p85Guide(id){return (window.P72_GUIDE||[]).filter(function(c){return c.id===id;})[0]||null;}
+/* 章の本文から「やさしく」の部分、まちがえやすい所、最初の例文を取り出す */
+function p85GuideParts(id){
+  var g=p85Guide(id);if(!g)return null;var b=String(g.b||""),secs=b.split("<h4>");
+  var easy="",ei=-1;secs.forEach(function(s,i){if(ei<0&&/^やさしく<\/h4>/.test(s)){easy=s.replace(/^やさしく<\/h4>/,"");ei=i;}});
+  /* 「やさしく」が短い章は、次の見出しの部分（例文の前まで）も入れる */
+  if(ei>=0&&easy.replace(/<[^>]*>/g,"").length<200&&secs[ei+1]&&!/^例文/.test(secs[ei+1]))easy+="<h4>"+secs[ei+1];
+  if(!easy)easy=(secs[0]&&secs[0].trim())?secs[0]:(secs[1]||"").replace(/^[^<]*<\/h4>/,"");
+  var notes=[],re=/<p class="p72-n">([\s\S]*?)<\/p>/g,m;while((m=re.exec(b))&&notes.length<3)notes.push(m[1]);
+  var eg=/<p class="p72-eg">([\s\S]*?)<\/p>/.exec(b),eg2=/<ul class="p72-ex"><li><b>([\s\S]*?)<\/b><span>([\s\S]*?)<\/span>/.exec(b);
+  return {t:g.t,easy:easy,notes:notes,eg:eg?eg[1]:(eg2?eg2[1]+"<br>"+eg2[2]:"")};
+}
+/* まちがえた問題（同じ問題は新しい1回だけ。あとで正解したかも見る） */
+function p85Mistakes(b){
+  var seen={},out=[];
+  b.bad.slice().reverse().forEach(function(e){var k=e[7]?e[7][0]+"|"+e[7][2]:e[2];if(seen[k])return;seen[k]=1;
+    var later=b.all.some(function(x){return x[2]===e[2]&&x[0]>e[0]&&x[3];});out.push({e:e,x:e[7]||null,fixed:later});});
+  return out;
+}
+/* 覚え方のコツ（記録から計算） */
+function p85Tips(b,M){
+  var tips=[],pairs={},forms={};
+  b.bad.forEach(function(e){var x=e[7];if(!x||!x[1]||!x[2])return;
+    var fm=/正解の形：([^／]*)(?:／選んだ形：(.*))?/.exec(x[3]||"");
+    if(fm&&fm[2]){var fk=fm[2]+"→"+fm[1];forms[fk]=(forms[fk]||0)+1;}
+    else{var pk=p85Plain(x[1])+"｜"+p85Plain(x[2]);if(p85Plain(x[1])!==p85Plain(x[2]))pairs[pk]=(pairs[pk]||{a:x[1],p:x[2],n:0}),pairs[pk].n++;}
+  });
+  Object.keys(forms).sort(function(a,c){return forms[c]-forms[a];}).slice(0,2).forEach(function(k){var f=k.split("→");
+    tips.push("<b>形の取りちがえ</b>：正しくは「"+esc(f[1])+"」の所で「"+esc(f[0])+"」を選んだことが"+forms[k]+"回あります。どちらの形になるかは、文の中の前置詞や動詞などが決めています。問題文で、形を決めている語に印をつけてから選びましょう。");});
+  Object.keys(pairs).sort(function(a,c){return pairs[c].n-pairs[a].n;}).slice(0,2).forEach(function(k){var P=pairs[k],ia=p85WordByText(P.a),ip=p85WordByText(P.p);
+    tips.push("<b>まぎらわしい組み合わせ</b>："+esc(P.a)+(ia?"（"+esc(WMAP[ia].meaning)+"）":"")+" と "+esc(P.p)+(ip?"（"+esc(WMAP[ip].meaning)+"）":"")+(P.n>1?" を"+P.n+"回":" を")+"取りちがえました。2つを並べて、ちがいを1つ言えるようにすると混ざりにくくなります。");});
+  if(b.k[0]==="g"){var G=p85GuideParts(b.k.slice(2));if(G&&G.eg)tips.push("<b>この1文を覚える</b>：ルールより、正しい例文を1つ丸ごと覚えるほうが形は残ります。声に出して3回読みましょう。<div class=\"p72-eg\">"+G.eg+"</div>");}
+  if(b.k[0]==="w")tips.push("<b>言葉の覚え方</b>：意味だけでなく、例文の中で覚えると思い出しやすくなります。下の「まちがえた言葉だけ練習」で、思い出せるか確かめましょう。");
+  if(b.k==="t:rd")tips.push("<b>読解のコツ</b>：先に質問を読んで、何を探すかを決めてから本文を読みます。答えを選んだら、その根拠になる文を本文の中で指させるか確かめます。知らない語があっても、前後の文から意味を推測して先へ進みます。");
+  if(b.k==="t:au")tips.push("<b>聴解のコツ</b>：1回目は「だれが・どこで・何をするか」の全体だけをつかみ、2回目で数字・時刻・場所を聞き取ります。選択肢は聞く前に読んでおきます。");
+  tips.push("<b>間をあけて確認</b>：今日この講義を読んだら、1日後・3日後・7日後に確認の問題をもう一度解きます。忘れかけたころに思い出すと、記憶が長く残ります。「今日やること」に自動で出ます。");
+  return tips;
+}
+function p85Lec(k){
+  var b=p85WeakGet(k);
+  if(!b){/* もう弱点ではない（回復した）ときも、記録があれば講義は見られるようにする */
+    var all=p85Recent(30).filter(function(e){return p85Keys(e).indexOf(k)>=0;});
+    b={k:k,n:all.length,ok:all.filter(function(e){return e[3];}).length,all:all,bad:all.filter(function(e){return !e[3];}),ids:{},wk:0,miss:0};
+    b.bad.forEach(function(e){(e[6]||[]).forEach(function(id){if(WMAP[id])b.ids[id]=1;});});
+    b.pct=b.n?Math.round(b.ok/b.n*100):0;b.why=b.n?"この30日、"+b.n+"問中"+b.ok+"問正解（"+b.pct+"%）。今は弱点の一覧から外れています。":"まだ記録がありません。";b.gone=1;
+  }
+  return b;
+}
+function p85LecHtml(k){
+  var b=p85Lec(k),M=p85Mistakes(b),h='',ic=function(n,s){return typeof p81Ic==="function"?p81Ic(n,s):"";};
+  h+='<div class="p85c-lhead"><span class="p85c-tag">'+p85KeyKind(k)+'</span><b>'+esc(p85KeyName(k))+'</b><small>'+esc(b.why)+'</small></div>';
+  /* ① やさしい解説 */
+  var ch=k[0]==="g"?k.slice(2):(k[0]==="t"?P85_TCH[k.slice(2).replace(/^p/,"")]||P85_TCH[k.slice(2)]:null),G=ch?p85GuideParts(ch):null;
+  h+='<div class="p85c-lsec"><b>① やさしい解説</b>';
+  if(G){h+=(k[0]==="t"?'<p class="p85c-fnote">検定のこの部分は、解説書の「'+esc(String(G.t).replace(/（.*$/,""))+'」の内容が土台です。</p>':'')+'<div class="p85c-lbody">'+G.easy+'</div>';
+    if(G.notes.length)h+='<div class="p85c-lnote"><b>まちがえやすい所</b>'+G.notes.map(function(n){return '<p>'+n.replace(/^まちがえやすい所[：:]\s*/,"")+'</p>';}).join("")+'</div>';
+    h+='<button type="button" class="p85c-lmore" data-act="p85lguide" data-val="'+esc(ch)+'">解説書でこの章をぜんぶ読む '+ic("go",14)+'</button>';}
+  else{
+    var ids=Object.keys(b.ids).slice(0,8);
+    if(ids.length)h+='<p class="p85c-fnote">まちがえた言葉の意味と使い方です。</p>'+ids.map(function(id){var w=WMAP[id];return '<div class="p85c-lw"><b>'+esc(w.accent||w.word)+'</b><span>'+esc(w.meaning)+'</span>'+(w.simpleExp?'<small>'+esc(w.simpleExp)+'</small>':'')+(w.exRu?'<div class="p72-eg">'+esc(w.exRu)+'<br>'+esc(w.exJa||"")+'</div>':'')+'</div>';}).join("");
+    else if(k==="t:rd")h+='<p>読解の問題は、本文の中に答えの根拠が必ずあります。まちがえたときは「本文のどの文を見れば分かったか」を探すと、次に同じ形の質問が来たときに速く見つけられます。</p>';
+    else if(k==="t:au")h+='<p>聴解の問題は、細かい語を全部聞き取れなくても解けるように作られています。だれが話しているか、何を頼んでいるか、という全体の流れをまずつかみます。</p>';
+    else if(k==="t:p1")h+='<p>このパートは、意味の近い言葉の中から、文に合うものを選ぶ問題です。似た言葉は、いっしょに使う語（どの前置詞・どの格と使うか）で区別できることが多いです。</p>';
+    else h+='<p class="p85c-fnote">この分野の解説はまだありません。下のまちがえた問題と正しい答えを見比べてください。</p>';
+  }
+  h+='</div>';
+  /* ② まちがえた問題 */
+  h+='<div class="p85c-lsec"><b>② あなたがまちがえた問題</b>';
+  var shown=M.filter(function(o){return o.x||WMAP[o.e[2]];}).slice(0,6);
+  if(!shown.length)h+='<p class="p85c-fnote">まちがえた問題の文は、この機能を入れた日から残ります。次にまちがえたときから、ここに出ます。</p>';
+  shown.forEach(function(o){var x=o.x,w=WMAP[o.e[2]];
+    h+='<div class="p85c-lq">'+(x?'<div class="p85c-lqs">'+esc(x[0])+'</div><div class="p85c-lqa"><span class="ok">○ '+esc(x[1])+'</span>'+(x[2]?'<span class="ng">× '+esc(x[2])+'</span>':'')+'</div>'+(x[3]&&!/^(意味の取りちがえ|到達テスト・|つづり)/.test(x[3])?'<small>'+esc(x[3])+'</small>':''):
+      '<div class="p85c-lqs">'+esc(w.accent||w.word)+' ＝ '+esc(w.meaning)+'</div>')+(o.fixed?'<em class="p85c-fixed">そのあと正解しました</em>':'')+'</div>';});
+  if(M.length>shown.length&&shown.length)h+='<p class="p85c-fnote">ほかに '+(M.length-shown.length)+' 問あります。</p>';
+  h+='</div>';
+  /* ③ 覚え方のコツ */
+  h+='<div class="p85c-lsec"><b>③ 覚え方のコツ</b><ul class="p85c-ltips">'+p85Tips(b,M).map(function(t){return '<li>'+t+'</li>';}).join("")+'</ul></div>';
+  /* ④ 確認の問題 */
+  h+='<div class="p85c-lsec"><b>④ 確認の問題</b><p class="p85c-fnote">読んだら、すぐに解いて確かめましょう。</p><div class="p85c-lbtns">';
+  var gpOk=false;if(ch){try{gpOk=!!(window.P82_Q&&P82_Q[ch]&&P82_Q[ch].length)||p77GpSteps(ch).length>0;}catch(_){}}
+  if(gpOk&&k[0]==="g")h+='<button type="button" class="p47-btn primary" data-act="p85lgo" data-val="gp:'+esc(ch)+'">この文法の問題を解く</button>';
+  if(k[0]==="t")h+='<button type="button" class="p47-btn primary" data-act="p85lgo" data-val="tk:'+esc(k.slice(2))+'">検定のこの分野を解く</button>';
+  if(Object.keys(b.ids).length)h+='<button type="button" class="p47-btn'+(k[0]==="w"?" primary":"")+'" data-act="p85lgo" data-val="wd:'+esc(k)+'">まちがえた言葉だけ練習（'+Math.min(20,Object.keys(b.ids).length)+'語）</button>';
+  if(gpOk&&k[0]==="t")h+='<button type="button" class="p47-btn" data-act="p85lgo" data-val="gp:'+esc(ch)+'">解説書の章の問題を解く</button>';
+  h+='</div></div>';
+  /* AIで深める */
+  var S=p85Set(),c=(S.lec||{})[k];
+  h+='<div class="p85c-ai" id="p85lai"><b>AIで深める</b>'+(c&&c.ai?'<p>'+esc(c.ai).replace(/\n/g,"<br>")+'</p><small>Claude（AI）が、あなたのまちがい方を読んで書いた説明です。まちがいがあるかもしれません。</small><button type="button" class="p85c-airedo" data-act="p85lai" data-val="'+esc(k)+'">書き直してもらう</button>':
+    '<p class="p85c-fnote">Claudeが、あなたのまちがい方に合わせて「なぜその答えになるのか」を説明します。押したときだけ使います。</p><button type="button" class="p47-btn" data-act="p85lai" data-val="'+esc(k)+'">AIに説明してもらう</button><p class="p85c-aiwait"></p>')+'</div>';
+  return h;
+}
+async function p85LecAI(k){
+  if(P85.lecBusy)return;var b=p85Lec(k),M=p85Mistakes(b).filter(function(o){return o.x;}).slice(0,6);
+  var box=function(t){var e=document.querySelector("#p85lai .p85c-aiwait");if(e)e.textContent=t;};
+  var s=null;try{s=await p55Sample();}catch(_){}
+  if(!s){box("AIの説明は、Claudeのページとして開いたときに使えます。");return;}
+  if(!M.length){box("まちがえた問題の文がまだ残っていないので、説明できません。次にまちがえたあとで押してください。");return;}
+  P85.lecBusy=k;box("考えています…");
+  var data={分野:p85KeyName(k),正答率:b.pct,まちがえた問題:M.map(function(o){return {問題文:o.x[0],正解:o.x[1],選んだ答え:o.x[2],メモ:o.x[3]};})};
+  var prompt="あなたは日本人の初心者にロシア語を教える先生です。次は、ある学習者がまちがえた問題です。\n"+JSON.stringify(data)+"\n\n"+
+    "日本語で、この人のためだけの短い講義を書いてください。ルール：\n1. まず、まちがえ方に共通する原因を1つ、やさしい言葉で言う。\n2. 次に、問題ごとに「なぜ正解はその形・その語になるのか」を、性・格・体などの理由まで1〜2文で説明する。専門用語には短い言い換えをつける。\n3. 最後に、次に同じ問題が来たときの見分け方を1つ。\n4. ロシア語は、上の問題文・正解・選んだ答えに出てくる語だけを使う。新しいロシア語の文や単語は作らない。\n5. 見出し記号（#）・表・絵文字は使わない。全体で400字くらいまで。\n6. "+(typeof P55_SAFE==="string"?P55_SAFE:"")+"\n講義の文だけを返してください。";
+  try{
+    var r=await s(prompt),t=String(r&&r.text||"").replace(/^#+\s*/gm,"").trim().slice(0,1200);if(!t)throw {};
+    var S=p85Set();if(!S.lec||typeof S.lec!=="object")S.lec={};S.lec[k]={ai:t,at:Date.now()};
+    var ks=Object.keys(S.lec).sort(function(a,c){return S.lec[a].at-S.lec[c].at;});while(ks.length>8)delete S.lec[ks.shift()];
+    try{saveAll();}catch(_){}P85.lecBusy=null;if(P85.lecOpen===k)p85OpenLec(k,1);
+  }catch(e){P85.lecBusy=null;box(typeof p55ErrMsg==="function"?p55ErrMsg(e):"うまく書けませんでした。もう一度押してください。");}
+}
+/* ---- 間隔をあけた確認 ---- */
+function p85Lr(){var S=p85Set();if(!S.lr||typeof S.lr!=="object")S.lr={};return S.lr;}
+function p85DayAdd(key,n){var d=new Date(key+"T00:00:00");d.setDate(d.getDate()+n);return todayKey(d);}
+function p85LecRead(k){var L=p85Lr(),r=L[k],t=todayKey();if(!r||r.s>=P85_GAP.length){L[k]={d:t,s:0};try{saveAll();}catch(_){}}}
+/* 確認の日が来ていて、まだ弱点のもの。その日以降にそのまとまりを3問以上解いていたら次の段階へ */
+function p85LecDue(){
+  var L=p85Lr(),t=todayKey(),out=[],ch=false;
+  Object.keys(L).forEach(function(k){var r=L[k];if(!r||r.s>=P85_GAP.length)return;
+    var due=p85DayAdd(r.d,P85_GAP[r.s]);if(t<due)return;
+    var from=Math.floor(new Date(due+"T00:00:00").getTime()/1000),n=p85Recent(10).filter(function(e){return e[0]>=from&&p85Keys(e).indexOf(k)>=0;}).length;
+    if(n>=3){r.s++;ch=true;return;}
+    if(p85WeakGet(k))out.push({k:k,step:r.s,day:P85_GAP[r.s]});
+    else{r.s=P85_GAP.length;ch=true;}
+  });
+  if(ch){try{saveAll();}catch(_){}}
+  return out;
+}
+/* ---- 画面 ---- */
+function p85Sheet(title,body){
+  var m=document.getElementById("p85sheet");if(!m){m=document.createElement("div");m.id="p85sheet";document.body.appendChild(m);}
+  m.innerHTML='<div class="p81-mask" data-act="p85exclose"></div><div class="p81-panel" role="dialog" aria-modal="true" aria-label="'+esc(title)+'"><div class="p81-ph"><b>'+esc(title)+'</b><button type="button" class="p81-x" data-act="p85exclose" aria-label="閉じる">'+(typeof p81Ic==="function"?p81Ic("x",18):"✕")+'</button></div><div class="p81-pb">'+body+'</div></div>';
+  m.className="show";document.body.classList.add("p81-open");return m;
+}
+function p85OpenLec(k,keep){
+  var pb=document.querySelector("#p85sheet .p81-pb"),top=keep&&pb?pb.scrollTop:0;
+  P85.lecOpen=k;if(!keep)p85LecRead(k);
+  var m=p85Sheet("あなた専用の講義",p85LecHtml(k));
+  try{if(typeof p72Wrap==="function")p72Wrap(m);}catch(_){}
+  var nb=m.querySelector(".p81-pb");if(nb)nb.scrollTop=top;
+}
+function p85WeakListHtml(){
+  var W=p85Weak().slice(0,6),h='<p class="p85c-fnote">この30日の答えから、まちがいが多く、最近まちがえたものほど上に並べています。押すと、その弱点のためだけの講義が開きます。</p>';
+  if(!W.length)return h+'<div class="p85c-empty">今は目立つ弱点はありません。問題を解くと、まちがえ方からここに弱点が出ます。</div>';
+  var L=p85Lr();
+  h+='<div class="p81-box">'+W.map(function(b,i){var r=L[b.k],st=r&&r.s<P85_GAP.length?"確認 "+(r.s+1)+"/"+P85_GAP.length:"";
+    return '<button type="button" class="p85c-it" data-act="p85lec" data-val="'+esc(b.k)+'"><span class="p85c-num">'+(i+1)+'</span><span class="p85c-itx"><b>'+esc(p85KeyName(b.k))+'</b><em>'+p85KeyKind(b.k)+' ・ 正答率 '+b.pct+'%'+(st?' ・ '+st:'')+(b.rec?' ・ 回復中':'')+'</em><small>'+esc(b.why)+'</small></span><span class="p85c-go">'+(typeof p81Ic==="function"?p81Ic("go",16):"›")+'</span></button>';}).join("")+'</div>';
+  return h;
+}
+function p85OpenWeakList(){P85.lecOpen=null;p85Sheet("弱点と講義",p85WeakListHtml());}
+function p85LecGo(v){
+  var i=v.indexOf(":"),kind=v.slice(0,i),arg=v.slice(i+1);
+  p85CloseExam();
+  if(kind==="gp"){p77GpStart(arg);return;}
+  if(kind==="wd"){var b=p85Lec(arg),ids=Object.keys(b.ids).sort(function(a,c){return b.ids[c]-b.ids[a];}).slice(0,20);if(!ids.length){toast("練習する言葉がありません");return;}
+    ui.mixQueue=null;clearTransientUI();ui.bnav="wordbook";ui.view="word";ui.learnOpen=true;startSessionFromIds(ids,p85KeyName(arg));return;}
+  if(kind==="tk"){var sec=/^p\d$/.test(arg)?"ex:"+arg.slice(1):arg;/* "ex:N" は試験形式のパートNだけ（phase86 が対応） */
+    var click=function(a,val){var x=document.createElement("button");x.type="button";x.style.display="none";x.setAttribute("data-act",a);if(val)x.setAttribute("data-val",val);document.body.appendChild(x);try{x.click();}finally{x.remove();}};
+    render();click("p86open");click("p86prac",sec);return;}
+}
+document.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest("[data-act]");if(!el)return;var a=el.getAttribute("data-act");
+  if(["p85lec","p85weak","p85lgo","p85lai","p85lguide"].indexOf(a)<0)return;
+  e.stopImmediatePropagation();e.preventDefault();var v=el.getAttribute("data-val")||"";
+  if(a==="p85weak"){p85OpenWeakList();return;}
+  if(a==="p85lec"){p85OpenLec(v);return;}
+  if(a==="p85lgo"){p85LecGo(v);return;}
+  if(a==="p85lguide"){p85CloseExam();render();try{p72GuideOpen(v);}catch(_){}return;}
+  if(a==="p85lai"){var S=p85Set();if(S.lec&&S.lec[v]&&S.lec[v].ai){delete S.lec[v];p85OpenLec(v,1);}p85LecAI(v);return;}
+},true);
+/* 「今日やること」：苦手の項目を講義につなぐ。確認の日が来たものを先に出す */
+var _p85Plan3=p85Plan;
+p85Plan=function(){
+  var items=_p85Plan3.apply(this,arguments);
+  try{
+    var W=p85Weak(),due=p85LecDue(),it=null,per=p85SecPerQ(),todayN=function(k){return p85TodayLog().filter(function(e){return p85Keys(e).indexOf(k)>=0;}).length;};
+    if(due.length){var d=due[0],b=p85WeakGet(d.k);
+      it={k:"lec",act:"lec:"+d.k,title:"講義の確認："+p85KeyName(d.k),amt:"読みなおし2分＋確認の問題 ・ 約"+Math.max(3,Math.round(2+10*per/60))+"分",
+        why:"講義を読んでから"+d.day+"日たちました。忘れかけた今もう一度解くと、記憶が長く残ります。"+(b?"いまの正答率は"+b.pct+"%です。":""),done:todayN(d.k)>=3};}
+    else if(W.length){var w=W[0],rd=p85Lr()[w.k];
+      it={k:"lec",act:"lec:"+w.k,title:"弱点の講義："+p85KeyName(w.k),amt:"読む3分＋確認の問題 ・ 約"+Math.max(4,Math.round(3+10*per/60))+"分",
+        why:w.why+"あなたのまちがえた問題から作った講義で、理由とコツを確かめてから解きます。",done:!!(rd&&rd.d===todayKey())&&todayN(w.k)>=5};}
+    if(it){var i=items.map(function(x){return x.k;}).indexOf("weak");if(i<0)i=items.map(function(x){return x.k;}).indexOf("weakw");
+      if(i>=0)items[i]=it;else if(items.length<3)items.push(it);else{var j=items.map(function(x){return x.k;}).indexOf("compose");items[j>=0?j:items.length-1]=it;}}
+  }catch(_){}
+  return items;
+};
+var _p85Go3=p85Go;
+p85Go=function(v){if(String(v).indexOf("lec:")===0){p85OpenLec(v.slice(4));return;}return _p85Go3.apply(this,arguments);};
+/* 記録の画面：「弱点と講義」への入口 */
+var _p85Card3=p85Card;
+p85Card=function(){var h=_p85Card3(),W=[];try{W=p85Weak();}catch(_){}
+  return h+'<button type="button" class="p85c-weakb" data-act="p85weak"><span><b>弱点と講義</b><small>'+(W.length?"いちばんの弱点："+esc(p85KeyName(W[0].k))+(W.length>1?" ほか"+(W.length-1)+"つ":""):"まちがえた問題から、あなた専用の講義を作ります")+'</small></span>'+(typeof p81Ic==="function"?p81Ic("go",16):"›")+'</button>';};
+/* 2台の端末：講義の確認の段階は進んでいるほう、AIの説明は新しいほう */
+var _p85MergeP85b=p85MergeP85;
+p85MergeP85=function(a,b){var o=_p85MergeP85b(a,b);a=a||{};b=b||{};
+  var lr={};[a.lr||{},b.lr||{}].forEach(function(src){Object.keys(src).forEach(function(k){var x=src[k];if(!x)return;if(!lr[k]||x.d>lr[k].d||(x.d===lr[k].d&&x.s>lr[k].s))lr[k]=x;});});o.lr=lr;
+  var lc={};[a.lec||{},b.lec||{}].forEach(function(src){Object.keys(src).forEach(function(k){if(!lc[k]||(src[k]&&(src[k].at||0)>(lc[k].at||0)))lc[k]=src[k];});});o.lec=lc;
+  return o;};
+(function(){
+  var css='.p85c-lhead{margin:0 0 6px}.p85c-lhead b{display:block;font-size:18px;font-weight:800;line-height:1.4;margin-top:6px}.p85c-lhead small{display:block;font-size:13px;color:var(--muted);line-height:1.6;margin-top:4px}'+
+    '.p85c-tag{display:inline-block;font-size:11.5px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 9px}'+
+    '.p85c-lsec{margin-top:18px}.p85c-lsec>b{display:block;font-size:15px;font-weight:800;margin-bottom:6px}.p85c-lbody{font-size:14px;line-height:1.8}.p85c-lbody p{margin:6px 0}'+
+    '.p85c-lbody table{max-width:100%;font-size:13px}.p85c-lbody,.p85c-lsec{overflow-wrap:anywhere}.p85c-lbody .p72-t{display:block;overflow-x:auto}'+
+    '.p85c-lnote{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:13.5px;line-height:1.7}.p85c-lnote b{font-size:13px;color:#C77700}.p85c-lnote p{margin:4px 0 0}'+
+    '.p85c-lmore{display:flex;align-items:center;gap:4px;border:0;background:none;color:var(--accent);font:inherit;font-size:13.5px;font-weight:700;padding:10px 0;min-height:44px;cursor:pointer}'+
+    '.p85c-lw{padding:10px 0;border-top:1px solid var(--line)}.p85c-lw:first-of-type{border-top:0}.p85c-lw>b{font-size:16px;margin-right:8px}.p85c-lw>span{font-size:14px}.p85c-lw>small{display:block;font-size:13px;color:var(--muted);line-height:1.6;margin-top:2px}.p85c-lw .p72-eg{margin:6px 0 0}'+
+    '.p85c-lq{padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:8px}.p85c-lqs{font-size:14.5px;line-height:1.6}'+
+    '.p85c-lqa{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:4px;font-size:14px;font-weight:700}.p85c-lqa .ok{color:var(--accent)}.p85c-lqa .ng{color:#D9480F;text-decoration:line-through;text-decoration-thickness:1px}'+
+    '.p85c-lq small{display:block;font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:4px}.p85c-fixed{display:inline-block;font-style:normal;font-size:11.5px;font-weight:700;color:var(--accent);margin-top:4px}'+
+    '.p85c-ltips{margin:0;padding-left:18px}.p85c-ltips li{font-size:13.5px;line-height:1.75;margin:6px 0}.p85c-ltips .p72-eg{margin:6px 0 0}'+
+    '.p85c-lbtns{display:flex;flex-direction:column;gap:8px}.p85c-lbtns .p47-btn{width:100%}.p85c-empty{padding:18px 14px;border:1px dashed var(--line);border-radius:12px;font-size:13.5px;color:var(--muted);line-height:1.7}'+
+    '.p85c-weakb{display:flex;align-items:center;gap:10px;width:100%;margin-top:8px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:left;cursor:pointer;font:inherit;min-height:56px}.p85c-weakb *{pointer-events:none}'+
+    '.p85c-weakb span{flex:1;min-width:0;display:flex;flex-direction:column}.p85c-weakb b{font-size:14.5px}.p85c-weakb small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
+})();
