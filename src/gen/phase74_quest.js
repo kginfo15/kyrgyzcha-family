@@ -127,9 +127,11 @@ p71Result=function(){
   var fn=p74FoeName(P,ti);g+='<p>'+(P.ev?'「'+esc(fn)+'」へ 1歩前進。'+(dead?'<b>「'+esc(fn)+'」をクリア！</b>':'完了 '+x.ld+' / '+x.ln+' レッスン'):(sk?'技「'+esc(sk)+'」！ ':'')+esc(fn)+'に 1 ダメージ。'+(dead?'<b>'+esc(fn)+'を'+P.verb+'！</b>':'完了 '+x.ld+' / '+x.ln+' レッスン'))+'</p>'+(dead?'':p74Bar(x.ln-x.ld,x.ln,"red"));
   var news=[];
   if(A){
-    for(var i=A.gear;i<B.gear;i++)news.push('<li><span>装備</span>'+esc(P.gear[i])+'</li>');
+    if(typeof p85NewGear==="function")g+=p85NewGear(P,A.gear,B.gear);/* 新しい装備は絵つきのカード（phase85） */
+    else for(var i=A.gear;i<B.gear;i++)news.push('<li><span>装備</span>'+esc(P.gear[i])+'</li>');
     for(var j=A.skills;j<B.skills;j++)news.push('<li><span>技</span>'+esc(P.sk[j])+'</li>');
-    for(var k=A.allies;k<B.allies;k++)news.push('<li><span>仲間</span>'+esc(P.al[k].n)+'（'+esc(P.al[k].r)+'）が仲間になった！</li>');
+    if(typeof p85NewAlly==="function")g+=p85NewAlly(P,A.allies,B.allies);/* 新しい仲間も絵つきのカード（phase85） */
+    else for(var k=A.allies;k<B.allies;k++)news.push('<li><span>仲間</span>'+esc(P.al[k].n)+'（'+esc(P.al[k].r)+'）が仲間になった！</li>');
     for(var b=0;b<B.ch.length;b++)if(B.ch[b].beat&&!(A.ch[b]&&A.ch[b].beat))g+='<div class="p74-bossko">'+p74Svg(p74BossArt(P,b),"p74-bimg"+(P.ev?"":" ko"))+'<b>'+(P.ev?'「'+esc(p74BossName(P,b))+'」をクリア！':'ボス「'+esc(p74BossName(P,b))+'」を'+P.verb+'！')+'</b></div>';
     if(B.stage>A.stage)g+='<div class="p74-up">'+p74Hero(P,B.stage,"p74-big")+'<b>「'+esc(P.titles[B.stage])+'」になった！</b></div>';
   }

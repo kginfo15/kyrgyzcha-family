@@ -42,7 +42,7 @@ function p84Face(v){
 function p84Stamp(on,i,ink,pop){
   if(!on)return '<span class="p84-s off" aria-hidden="true"></span>';
   var rot=((i*47)%17)-8;/* 少しずつ傾けて、手で押した感じに */
-  return '<span class="p84-s on'+(pop?' pop':'')+'" style="--ink:'+ink+';--r:'+rot+'deg" aria-hidden="true"><svg viewBox="0 0 40 40">'+p84Face(i%4)+'</svg></span>';
+  return '<span class="p84-s on'+(pop?' pop':'')+'" style="--ink:'+ink+';--r:'+rot+'deg" aria-hidden="true"><svg viewBox="0 0 40 40">'+(typeof p85StampArt==="function"?p85StampArt(i%4):p84Face(i%4))+'</svg></span>';
 }
 function p84Ink(){var l=1;try{l=p75Lv();}catch(_){}return P84_INK[Math.max(0,Math.min(4,(l||1)-1))];}
 

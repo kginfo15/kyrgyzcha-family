@@ -103,6 +103,7 @@ p74Main=function(){
   if(c){h+='<button type="button" class="p83-go" data-act="p71go" data-val="'+c.i+'"><b>次のレッスンへ</b><small>テーマ「'+esc(c.cat)+'」 ・ 完了 '+c.ld+' / '+c.ln+'</small></button>';}
   else h+='<div class="p83-goal">この道はすべてクリアしました！</div>';
   if(nb)h+='<p class="p83-goal">次の目標：'+(P.ev?'':'ボス')+'「'+esc(p74BossName(P,nb.c))+'」'+(P.ev?'をクリア':'を倒す')+'（あと '+(nb.need-nb.done)+' テーマ）</p>';
+  if(typeof p85NextHtml==="function")h+=p85NextHtml(P,S);/* 次のごほうびの予告（phase85） */
   h+='<div class="p83-links">'+(P.story?'<button type="button" data-act="p74ri" data-val="'+Math.min(st,8)+'">物語を読む</button>':'')+'<button type="button" data-act="p74choose">道を変える</button><button type="button" data-act="p75lv">難易度</button></div>';
   /* タブは4つ（装備・技・仲間は「集めたもの」にまとめる） */
   var v=P74_VIEW||"map";if(v==="gear"||v==="skill"||v==="ally")v="got";
@@ -121,11 +122,12 @@ p74Main=function(){
   }else if(v==="story"&&P.story){h+=p74StoryTab(P,S);
   }else if(v==="ex"&&P.hist){h+=p74ExTab(P,S);
   }else{
+    if(typeof p85GearHtml==="function")h+=p85GearHtml(P,S);else{
     h+='<div class="p83-sub">装備 <small>'+S.gear+' / '+P.gear.length+'</small></div><div class="p74-list">'+P.gear.map(function(g,i){var on=i<S.gear;var how=i===0?"はじめの持ち物":(i%2?"第"+((i+1)/2)+"章"+(P.ev?"の出来事を半分クリア":"の敵を半分倒す"):"第"+(i/2)+"章"+(P.ev?"をクリア":"のボスを倒す"));
-      return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'★':'？')+'</span><span><b>'+(on?esc(g):'？？？')+'</b><small>'+how+'</small></span></div>';}).join("")+'</div>';
-    h+='<div class="p83-sub">技 <small>'+S.skills+' / '+P.sk.length+'</small></div><div class="p74-list">'+P.sk.map(function(k,i){var on=i<S.skills;return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'✦':'？')+'</span><span><b>'+(on?esc(k):'？？？')+'</b><small>'+(P.ev?'「':'ボス「')+esc(p74BossName(P,i))+(P.ev?'」をクリアすると覚える':'」を倒すと覚える')+'</small></span></div>';}).join("")+'</div>';
+      return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'★':'？')+'</span><span><b>'+(on?esc(g):'？？？')+'</b><small>'+how+'</small></span></div>';}).join("")+'</div>';}
+    h+='<div class="p83-sub">技 <small>'+S.skills+' / '+P.sk.length+'</small></div><div class="p74-list p83-sk" style="--pc:'+P.color+'">'+P.sk.map(function(k,i){var on=i<S.skills;return '<div class="p74-li'+(on?"":" off")+'"><span class="p74-gi">'+(on?'✦':'？')+'</span><span><b>'+(on?esc(k):'？？？')+'</b><small>'+(P.ev?'「':'ボス「')+esc(p74BossName(P,i))+(P.ev?'」をクリアすると覚える':'」を倒すと覚える')+'</small></span></div>';}).join("")+'</div>';
     var need=[1,2,4,6,8];
-    h+='<div class="p83-sub">仲間 <small>'+S.allies+' / '+P.al.length+'</small></div><div class="p74-allies">'+P.al.map(function(a,i){var on=i<S.allies;return '<div class="p74-ac'+(on?"":" off")+'">'+p74AllyArt(a,"p74-aimg2")+'<b>'+(on?esc(a.n):'？？？')+'</b><small>'+(on?esc(a.r):(P.ev?need[i]+'つの章をクリアすると仲間に':'ボスを'+need[i]+'体倒すと仲間に'))+'</small></div>';}).join("")+'</div>';
+    h+='<div class="p83-sub">仲間 <small>'+S.allies+' / '+P.al.length+'</small></div><div class="p74-allies" style="--pc:'+P.color+'">'+P.al.map(function(a,i){var on=i<S.allies;return '<div class="p74-ac'+(on?"":" off")+'">'+p74AllyArt(a,"p74-aimg2")+'<b>'+(on?esc(a.n):'？？？')+'</b><small>'+(on?esc(a.r):(P.ev?need[i]+'つの章をクリアすると仲間に':'ボスを'+need[i]+'体倒すと仲間に'))+'</small></div>';}).join("")+'</div>';
   }
   h+='<div class="p74-foot"><button type="button" data-act="p74plain">ストーリーなしにする</button></div>';
   return h;
