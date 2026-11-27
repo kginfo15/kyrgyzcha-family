@@ -66,7 +66,7 @@ async function p50Init(){
       if(!d.exists)return;var body=d.data(),id=d.id;if(!body||typeof body.v!=="string")return;
       var local=JSON.stringify(p50Payloads()[id]);
       if(body.v===local){P50.sent[id]=body.v;P50.meta[id]=body.t;return;}
-      if((body.t||0)>(P50.meta[id]||0)){try{p50Adopt(id,JSON.parse(body.v));P50.sent[id]=body.v;P50.meta[id]=body.t;adopted=true;}catch(_){}}
+      if((body.t||0)>(P50.meta[id]||0)||/^lg\d/.test(id)){try{p50Adopt(id,JSON.parse(body.v));P50.sent[id]=body.v;P50.meta[id]=body.t;adopted=true;}catch(_){}}
     });
     clearTimeout(to);
     lset(P50.metaKey,P50.meta);
@@ -80,7 +80,7 @@ async function p50Init(){
 setTimeout(p50Init,0);
 /* ---- バックアップ（書き出し・読み込み） ---- */
 exportData=async function(){
-  var data={appVersion:APP_VERSION,dataVersion:DATA_VERSION,exportedAt:new Date().toISOString(),settings:settings,vocabProgress:progress,composeProgress:cprogress,knownWords:p47Known,streak:appHist.streak,learningHistory:appHist.days,totals:appHist.totals};
+  var data={appVersion:APP_VERSION,dataVersion:DATA_VERSION,exportedAt:new Date().toISOString(),settings:settings,vocabProgress:progress,composeProgress:cprogress,knownWords:p47Known,streak:appHist.streak,learningHistory:appHist.days,totals:appHist.totals,coachLog:(typeof P85!=="undefined"?P85.log:undefined)};
   var json=JSON.stringify(data,null,2),name=(P47_LANG==="ky"?"kyrgyz":"russian")+"_backup_"+todayKey()+".json";
   try{
     var dl=window.claude&&window.claude.use?await window.claude.use("downloads"):null;
@@ -97,7 +97,7 @@ importData=function(){
       if(d.vocabProgress)progress=d.vocabProgress;if(d.composeProgress)cprogress=d.composeProgress;
       if(d.settings)Object.keys(d.settings).forEach(function(k){settings[k]=d.settings[k];});
       if(d.knownWords){p47Known=d.knownWords;lset(P47_KNOWN_KEY,p47Known);}
-      if(d.streak)appHist.streak=d.streak;if(d.learningHistory)appHist.days=d.learningHistory;if(d.totals)appHist.totals=d.totals;
+      if(d.coachLog&&typeof p85Merge==="function"){Object.keys(d.coachLog).forEach(function(m){p85Merge(m,d.coachLog[m]);});p85SaveLocal();}if(d.streak)appHist.streak=d.streak;if(d.learningHistory)appHist.days=d.learningHistory;if(d.totals)appHist.totals=d.totals;
       saveAll();render();toast("バックアップを読み込みました");}catch(e){toast("ファイルを読み込めませんでした");}};
     r.readAsText(f);};
   inp.click();

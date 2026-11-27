@@ -91,6 +91,8 @@ p71Render=function(){
 function p82Pick(i){
   var S=P71,x=S&&S.steps[S.pos];if(!x||x.t!=="gq"||S.picked!==null)return;
   S.picked=x.opts[i];var ok=S.picked===x.q[2];
+  /* phase85 のコーチ用の記録（章の練習も1問ずつ残す） */
+  try{if(typeof coachLog==="function")coachLog({m:"gp",id:x.id,ok:ok,g:[String(x.id).split(":")[1]||""],w:[]});}catch(_){}
   if(!x.again){if(ok)S.ok++;else S.ng++;}
   if(!ok){S.mist[x.id]=1;if(!x.again){var cp={t:"gq",id:x.id,q:x.q,opts:shuffle(x.opts.slice()),again:1};S.steps.push(cp);}}
   try{speak(p82Full(x.q));}catch(_){}
