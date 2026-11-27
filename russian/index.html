@@ -17559,6 +17559,135 @@ p85Go=function(v){
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
 })();
 
+/* ===== PHASE85 手順4：週次レポート =====
+   週は月曜〜日曜。数字は 1問ごとの記録（P85.log）と日ごとの記録（appHist.days の newWords）から、開いたときに計算する。
+   AIのひとこと：終わった週だけ、レポートを開いたときに Claude（sample）に数字を渡して2〜3文を書いてもらう。
+     書いてもらった文は settings.p85.wk["週の月曜"] = {ai:文, at:時刻} に残す（2回目からはすぐ出る。12週分まで）。
+     通信できないときや AI が使えないときは、数字のまとめだけを出す。
+   ホーム：新しい週になって、先週のレポートをまだ開いていなければ「先週のレポート」の帯を出す（settings.p85.wkSeen）。 */
+function p85Monday(d){d=new Date(d||Date.now());d.setHours(0,0,0,0);var w=(d.getDay()+6)%7;d.setDate(d.getDate()-w);return d;}
+function p85WkKey(d){return todayKey(p85Monday(d));}
+function p85WkRange(key){var a=new Date(key+"T00:00:00"),b=new Date(a);b.setDate(b.getDate()+7);return [a,b];}
+function p85InRange(a,b){var x=Math.floor(a.getTime()/1000),y=Math.floor(b.getTime()/1000),out=[];
+  Object.keys(P85.log).sort().forEach(function(m){P85.log[m].forEach(function(e){if(e[0]>=x&&e[0]<y)out.push(e);});});return out;}
+function p85ShiftKey(key,weeks){var d=new Date(key+"T00:00:00");d.setDate(d.getDate()+7*weeks);return todayKey(d);}
+function p85ChStats(list){var st={};list.forEach(function(e){if(!e[5])return;var seen={};e[5].forEach(function(g){if(!p85IsCh(g)||seen[g])return;seen[g]=1;var r=st[g]||(st[g]={n:0,ok:0});r.n++;r.ok+=e[3];});});return st;}
+/* 1週間分のまとめ */
+function p85Week(key){
+  var R=p85WkRange(key),L=p85InRange(R[0],R[1]),P=p85InRange(new Date(p85ShiftKey(key,-1)+"T00:00:00"),R[0]);
+  var sum=function(l){var n=l.length,ok=0,s=0;l.forEach(function(e){ok+=e[3];s+=e[4];});return {n:n,ok:ok,s:s,pct:n?Math.round(ok/n*100):null};};
+  var A=sum(L),B=sum(P),daysMin=[],studied=0,newW=0;
+  for(var i=0;i<7;i++){var d=new Date(R[0]);d.setDate(d.getDate()+i);var k=todayKey(d),s=0;L.forEach(function(e){if(todayKey(new Date(e[0]*1000))===k)s+=e[4];});daysMin.push(Math.round(s/60));if(s>0)studied++;var r=appHist.days[k];if(r)newW+=r.newWords||0;}
+  /* 伸びた点：文法の章（今週 vs その前の2週間）、まちがえていた言葉が今週は正解 */
+  var cur=p85ChStats(L),before=p85ChStats(p85InRange(new Date(p85ShiftKey(key,-2)+"T00:00:00"),R[0])),up=[];
+  Object.keys(cur).forEach(function(g){var c=cur[g],b=before[g];if(c.n>=3&&b&&b.n>=3){var d=Math.round(c.ok/c.n*100)-Math.round(b.ok/b.n*100);if(d>=10)up.push({id:g,from:Math.round(b.ok/b.n*100),to:Math.round(c.ok/c.n*100)});}});
+  up.sort(function(a,b){return (b.to-b.from)-(a.to-a.from);});
+  var wrongBefore={},okNow={},wrongNow={};
+  p85InRange(new Date(p85ShiftKey(key,-4)+"T00:00:00"),R[0]).forEach(function(e){if(!e[3]&&e[6])e[6].forEach(function(id){wrongBefore[id]=1;});});
+  L.forEach(function(e){if(WMAP[e[2]]){if(e[3])okNow[e[2]]=1;else wrongNow[e[2]]=1;}});
+  var fixed=Object.keys(wrongBefore).filter(function(id){return okNow[id]&&!wrongNow[id]&&WMAP[id];});
+  /* 次の重点：今週いちばん低い章、今週2回以上まちがえた言葉 */
+  var weak=Object.keys(cur).filter(function(g){return cur[g].n>=3;}).map(function(g){return {id:g,n:cur[g].n,pct:Math.round(cur[g].ok/cur[g].n*100)};}).filter(function(r){return r.pct<80;}).sort(function(a,b){return a.pct-b.pct;});
+  var wc={};L.forEach(function(e){if(!e[3]&&e[6])e[6].forEach(function(id){wc[id]=(wc[id]||0)+1;});});
+  var often=Object.keys(wc).filter(function(id){return wc[id]>=2&&WMAP[id];}).sort(function(a,b){return wc[b]-wc[a];});
+  return {key:key,A:A,B:B,daysMin:daysMin,studied:studied,newW:newW,up:up,fixed:fixed,weak:weak,often:often,done:R[1].getTime()<=Date.now()};
+}
+function p85WkLabel(key){var R=p85WkRange(key),e=new Date(R[1]);e.setDate(e.getDate()-1);return (R[0].getMonth()+1)+"/"+R[0].getDate()+"〜"+(e.getMonth()+1)+"/"+e.getDate();}
+function p85WkHtml(key){
+  var W=p85Week(key),S=p85Set(),cache=(S.wk||{})[key],h='';
+  var diffPct=(W.A.pct!=null&&W.B.pct!=null)?W.A.pct-W.B.pct:null,diffMin=Math.round((W.A.s-W.B.s)/60);
+  var thisWk=p85WkKey();
+  h+='<div class="p85-wnav"><button type="button" class="p85-wb" data-act="p85wk" data-val="'+p85ShiftKey(key,-1)+'" aria-label="前の週">‹</button><b>'+p85WkLabel(key)+(key===thisWk?'（今週・途中）':'')+'</b>'+
+     '<button type="button" class="p85-wb" data-act="p85wk" data-val="'+p85ShiftKey(key,1)+'"'+(key>=thisWk?' disabled':'')+' aria-label="次の週">›</button></div>';
+  if(!W.A.n){return h+'<p class="p85-empty">この週は記録がありません。</p>';}
+  h+='<div class="p85-grid p85-wgrid"><div><span>学習時間</span><b>'+Math.round(W.A.s/60)+'<small> 分</small></b><i>'+(W.B.n?(diffMin>=0?'先週より +'+diffMin+'分':'先週より '+diffMin+'分'):'先週の記録なし')+'</i></div>'+
+     '<div><span>正答率</span><b>'+W.A.pct+'<small> %</small></b><i>'+(diffPct==null?'先週の記録なし':(diffPct>=0?'先週より +'+diffPct+'ポイント':'先週より '+diffPct+'ポイント'))+'</i></div></div>';
+  h+='<div class="p85-wfacts"><span><b>'+W.A.n+'</b> 問</span><span><b>'+W.studied+'</b> / 7 日</span><span>新しい言葉 <b>'+W.newW+'</b> 語</span></div>';
+  try{h+=p60Cols(W.daysMin,["月","火","水","木","金","土","日"],key===thisWk?((new Date().getDay()+6)%7):-1)+'<p class="p85-wcap">1日ごとの学習時間（分）</p>';}catch(_){}
+  var good=[];
+  W.up.slice(0,2).forEach(function(u){good.push('文法「'+esc(p85ChName(u.id))+'」の正答率が '+u.from+'% → '+u.to+'% に上がりました');});
+  if(W.fixed.length)good.push('前にまちがえていた言葉 '+W.fixed.length+' 語を、今週は正解できました（'+W.fixed.slice(0,3).map(function(id){return esc(WMAP[id].accent||WMAP[id].word);}).join("、")+(W.fixed.length>3?' など':'')+'）');
+  if(diffPct!=null&&diffPct>=5)good.push('全体の正答率が先週より '+diffPct+' ポイント上がりました');
+  if(W.studied>=5)good.push('7日のうち '+W.studied+' 日学習できました');
+  if(!good.length)good.push('今週は '+W.A.n+' 問解き、'+W.newW+' 語の新しい言葉を習いました');
+  var next=[];
+  if(W.weak.length)next.push('文法「'+esc(p85ChName(W.weak[0].id))+'」（今週 '+W.weak[0].pct+'%）。解説を読み直してから章の練習を');
+  if(W.often.length)next.push('2回以上まちがえた言葉 '+W.often.length+' 語（'+W.often.slice(0,3).map(function(id){return esc(WMAP[id].accent||WMAP[id].word);}).join("、")+'）');
+  try{var EP=p85ExamPlan();if(EP&&EP.st!=="done")next.push(esc(EP.x.name||"試験")+'まで '+EP.days+' 日。新しい言葉は1日 '+EP.need+' 語のペースで'+(EP.st==="late"||EP.st==="tight"?'（今は少し遅れています）':''));}catch(_){}
+  if(W.studied<4)next.push('短い時間でも、学習する日を増やす（15分コースでも大丈夫です）');
+  h+='<div class="p85-wsec"><b>伸びた点</b><ul>'+good.map(function(x){return '<li>'+x+'</li>';}).join("")+'</ul></div>';
+  h+='<div class="p85-wsec"><b>次の週の重点</b><ul>'+next.slice(0,3).map(function(x){return '<li>'+x+'</li>';}).join("")+'</ul></div>';
+  /* AIのひとこと（終わった週だけ） */
+  if(W.done){
+    h+='<div class="p85-ai" id="p85ai"><b>AIのひとこと</b>'+(cache&&cache.ai?'<p>'+esc(cache.ai)+'</p><small>AI（Claude）が数字を読んで書いた文です。まちがうことがあります。</small><button type="button" class="p85-airedo" data-act="p85ai" data-val="'+key+'">書き直してもらう</button>':'<p class="p85-aiwait">'+(P85.aiBusy===key?'考えています…':'')+'</p>')+'</div>';
+  }
+  return h;
+}
+/* AIに渡すのは数字だけ（名前やメールなどは渡さない） */
+async function p85AskAI(key){
+  if(P85.aiBusy)return;var W=p85Week(key);if(!W.A.n||!W.done)return;
+  var s=null;try{s=await p55Sample();}catch(_){}
+  var box=function(t){var b=document.querySelector("#p85ai .p85-aiwait");if(b)b.textContent=t;};
+  if(!s){box("AIのひとことは、Claudeのページとして開いたときに出ます。");return;}
+  P85.aiBusy=key;box("考えています…");
+  var data={週:p85WkLabel(key),学習時間_分:Math.round(W.A.s/60),先週の学習時間_分:Math.round(W.B.s/60),解いた問題:W.A.n,正答率:W.A.pct,先週の正答率:W.B.pct,学習した日数:W.studied,新しく習った言葉:W.newW,
+    伸びた文法:W.up.slice(0,2).map(function(u){return p85ChName(u.id)+" "+u.from+"%→"+u.to+"%";}),前にまちがえて今週正解した言葉の数:W.fixed.length,
+    苦手な文法:W.weak.slice(0,2).map(function(r){return p85ChName(r.id)+" "+r.pct+"%";}),よくまちがえた言葉の数:W.often.length};
+  try{var EP=p85ExamPlan();if(EP)data.試験={名前:EP.x.name,残り日数:EP.days,必要なペース_1日:EP.need,今のペース_1日:EP.pace,状況:P85_ST[EP.st][0]};}catch(_){}
+  var prompt="あなたは日本人のロシア語学習者を支えるコーチです。次は、この人の1週間の学習の記録（数字）です。\n"+JSON.stringify(data)+"\n\n"+
+    "日本語で、2〜3文のひとことを書いてください。ルール：\n1. 数字を1つ以上そのまま使い、よかった点を1つ具体的に言う。\n2. 来週いちばん大事なことを1つ、すぐできる形で言う。\n3. 大げさなほめ言葉、命令口調、絵文字、「！」の連発は使わない。やさしい言葉で。\n4. 記録にないことは書かない。\n5. "+(typeof P55_SAFE==="string"?P55_SAFE:"")+"\n前置きや見出しは書かず、ひとことの文だけを返してください。";
+  try{
+    var r=await s(prompt),t=String(r&&r.text||"").trim().slice(0,400);
+    if(!t)throw {};
+    var S=p85Set();if(!S.wk)S.wk={};S.wk[key]={ai:t,at:Date.now()};
+    var ks=Object.keys(S.wk).sort();while(ks.length>12)delete S.wk[ks.shift()];
+    try{saveAll();}catch(_){}
+    P85.aiBusy=null;if(P85.wkOpen===key)p85OpenWeek(key);
+  }catch(e){P85.aiBusy=null;box(typeof p55ErrMsg==="function"?p55ErrMsg(e):"うまく書けませんでした。もう一度開いてください。");}
+}
+function p85OpenWeek(key){
+  key=key||p85ShiftKey(p85WkKey(),-1);P85.wkOpen=key;
+  var S=p85Set();if(key===p85ShiftKey(p85WkKey(),-1)&&S.wkSeen!==key){S.wkSeen=key;try{saveAll();}catch(_){}}
+  var m=document.getElementById("p85sheet");if(!m){m=document.createElement("div");m.id="p85sheet";document.body.appendChild(m);}
+  m.innerHTML='<div class="p81-mask" data-act="p85exclose"></div><div class="p81-panel" role="dialog" aria-modal="true" aria-label="週次レポート"><div class="p81-ph"><b>週次レポート</b><button type="button" class="p81-x" data-act="p85exclose" aria-label="閉じる">'+(typeof p81Ic==="function"?p81Ic("x",18):"✕")+'</button></div><div class="p81-pb">'+p85WkHtml(key)+'</div></div>';
+  m.className="show";document.body.classList.add("p81-open");
+  var W=p85Week(key),c=(S.wk||{})[key];if(W.done&&W.A.n&&!(c&&c.ai)&&P85.aiBusy!==key)p85AskAI(key);
+}
+document.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest("[data-act]");if(!el)return;var a=el.getAttribute("data-act");
+  if(a!=="p85week"&&a!=="p85wk"&&a!=="p85ai")return;
+  e.stopImmediatePropagation();e.preventDefault();var v=el.getAttribute("data-val");
+  if(a==="p85week"){p85OpenWeek(v||null);return;}
+  if(a==="p85wk"){if(el.disabled)return;p85OpenWeek(v);return;}
+  if(a==="p85ai"){var S=p85Set();if(S.wk)delete S.wk[v];p85OpenWeek(v);return;}
+},true);
+/* ホーム：先週のレポートをまだ開いていなければ帯を出す */
+var _p85HomeHtml2=p85HomeHtml;
+p85HomeHtml=function(){
+  var h=_p85HomeHtml2(),S=p85Set(),last=p85ShiftKey(p85WkKey(),-1);
+  if(S.wkSeen===last)return h;
+  var R=p85WkRange(last);if(!p85InRange(R[0],R[1]).length)return h;
+  return h.replace('<div class="p81-box">','<button type="button" class="p85-wkb" data-act="p85week" data-val="'+last+'"><b>先週のレポートができました</b><span>'+p85WkLabel(last)+' ・ 学習時間と伸びた点</span>'+(typeof p81Ic==="function"?p81Ic("go",16):"›")+'</button><div class="p81-box">');
+};
+/* 記録の画面：「1問ごとの記録」の下に週次レポートと試験の計画への入口 */
+var _p85Card=p85Card;
+p85Card=function(){
+  return _p85Card()+'<div class="p85-links"><button type="button" class="p47-btn" data-act="p85week" data-val="'+p85WkKey()+'">週次レポート</button><button type="button" class="p47-btn" data-act="p85exam">試験までの計画</button></div>';
+};
+(function(){
+  var css='.p85-wnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 12px}.p85-wnav b{font-size:15px}'+
+    '.p85-wb{width:44px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:20px;cursor:pointer}.p85-wb[disabled]{opacity:.35;cursor:default}'+
+    '.p85-wgrid{border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}'+
+    '.p85-wfacts{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:12px 2px}.p85-wfacts b{color:var(--ink);font-weight:800}.p85-wcap{font-size:12px;color:var(--muted);margin:2px 2px 0;text-align:center}'+
+    '.p85-wsec{margin-top:16px}.p85-wsec>b{font-size:14px}.p85-wsec ul{margin:6px 0 0;padding-left:20px}.p85-wsec li{font-size:13.5px;line-height:1.7;margin:3px 0}'+
+    '.p85-ai{margin-top:16px;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--card)}.p85-ai>b{font-size:14px}.p85-ai p{font-size:14px;line-height:1.8;margin:6px 0 0}.p85-ai small{display:block;font-size:11.5px;color:var(--muted);margin-top:8px}'+
+    '.p85-aiwait{color:var(--muted)}.p85-airedo{margin-top:8px;border:0;background:none;color:var(--accent);font:inherit;font-size:12.5px;padding:6px 0;cursor:pointer}'+
+    '.p85-wkb{display:flex;align-items:center;gap:8px;width:100%;margin:0 0 8px;padding:11px 14px;border-radius:12px;border:1px solid var(--accent);background:var(--card);color:var(--ink);text-align:left;cursor:pointer;font:inherit}.p85-wkb *{pointer-events:none}'+
+    '.p85-wkb b{font-size:14px;white-space:nowrap}.p85-wkb span{flex:1;min-width:0;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+
+    '.p85-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.p85-links .p47-btn{font-size:13px;padding:11px 6px}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
+})();
+
 /* ===== Phase85 データ：ТРКИ-1（B1）対策のオリジナル問題 =====
    ・公式の試験の形（語彙・文法は4パート、読解と聴解は3択）に合わせて書き下ろした問題です。
      本物の過去問・公式サンプルの文は使っていません。
