@@ -18793,8 +18793,12 @@ function judge(lv,o){
 
 /* ---------- 始める ---------- */
 function steps(list){return list.map(function(it){return {it:it,opts:shuffle([it.a].concat(it.w))};});}
+/* "ex:2" のように「分野:パート番号」で、試験形式の1つのパートだけを出す（AI学習コーチの確認問題から使う）。"ex" だけなら全パート */
+function kindList(lv,k){var m=/^ex:([1-4])$/.exec(k||"");if(m)return items(lv,"ex").filter(function(it){return it.part===+m[1];});return k==="today"?items(lv):items(lv,k);}
+function kindName(k){var m=/^ex:([1-4])$/.exec(k||"");return m?SECN.ex+"　"+PART[+m[1]].split("　")[0]:SECN[k];}
 function startPrac(sec){
   var lv=curLv(),list;
+  if(!/^(today|ex|vo|gr|rd|au|hs|ex:[1-4])$/.test(sec||""))sec="today";
   if(sec==="today"){
     /* 復習の日が来た問題を全分野から → 足りなければ単語・文法・試験形式の続き */
     var all=items(lv).filter(function(it){return it.sec!=="rd"&&it.sec!=="au";});
@@ -18802,7 +18806,7 @@ function startPrac(sec){
     var rest=10-list.length,secs=["ex","gr","vo","hs"],i=0;
     while(rest>0&&i<20){var s=secs[i%secs.length];var nx=queue(items(lv,s).filter(function(it){return list.indexOf(it)<0&&!due(it);}),1);if(nx.length){list.push(nx[0]);rest--;}i++;}
   }else if(sec==="rd"||sec==="au")list=textQueue(items(lv,sec),1);
-  else list=queue(items(lv,sec),10);
+  else list=queue(kindList(lv,sec),10);
   if(!list.length){toast("問題がありません");return;}
   V={view:"q",mode:"prac",kind:sec,steps:steps(list),pos:0,picked:null,ok:0,ng:0,again:{}};
   qStart();draw();
@@ -18921,9 +18925,9 @@ function resHtml(){
   }
   var tot=V.ok+V.ng,miss2=[],seen={};
   V.steps.forEach(function(x){if(V.again[x.it.id]&&!seen[x.it.id]){seen[x.it.id]=1;miss2.push(x.it);}});
-  var li=V.kind==="today"?items(curLv()):items(curLv(),V.kind),so=sum(li);
+  var li=kindList(curLv(),V.kind),so=sum(li);
   h+='<div class="p86-done"><h3>おつかれさまでした</h3><p>1回目で正解 '+V.ok+' / '+tot+'問</p></div>';
-  h+='<div class="p86-card"><div class="p86-ch">'+(V.kind==="today"?L.code+' 全体':SECN[V.kind])+'の定着 '+pct(so.solid,so.n)+'%</div>'+sbar(so)+'<p class="p86-mut">定着 '+so.solid+'・練習中 '+so.learn+'・まだ '+(so.n-so.solid-so.learn)+'（全 '+so.n+'問）'+(V.kind!=="today"?'　'+lap(li).lap+'周目 '+lap(li).done+' / '+li.length:'')+'</p></div>';
+  h+='<div class="p86-card"><div class="p86-ch">'+(V.kind==="today"?L.code+' 全体':kindName(V.kind))+'の定着 '+pct(so.solid,so.n)+'%</div>'+sbar(so)+'<p class="p86-mut">定着 '+so.solid+'・練習中 '+so.learn+'・まだ '+(so.n-so.solid-so.learn)+'（全 '+so.n+'問）'+(V.kind!=="today"?'　'+lap(li).lap+'周目 '+lap(li).done+' / '+li.length:'')+'</p></div>';
   if(miss2.length){h+='<div class="p86-h">見直しておきたい問題（明日もう一度出ます）</div>';miss2.forEach(function(it){
     h+='<div class="p86-rv"><div class="p86-q '+(it.t==="hear"?"":"p71-sent")+'">'+esc(it.t==="gap"?full(it):it.t==="hear"?it.say:it.q+' → '+it.a)+'</div><p class="p86-ja">'+esc(it.t==="gap"?it.j:it.t==="hear"?it.a:it.qj)+'</p></div>';});}
   h+='<div class="p86-nav2"><button type="button" class="p86-sub" data-act="p86home">トップへ</button><button type="button" class="p86-main" data-act="p86prac" data-val="'+V.kind+'">続けてもう1回</button></div>';
