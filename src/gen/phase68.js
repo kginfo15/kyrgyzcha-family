@@ -174,7 +174,7 @@ async function p68MakeChunks(){
   if(s){
     var prompt="あなたは日本人の"+P55_LANG_JA+"学習者（"+pLvRange()+"）の先生です。次の単語リストから、2〜3語を組み合わせた自然で短いチャンク（よく一緒に使う語のかたまり・2〜6語のフレーズ）を6つ作ってください。\n"+
       "単語："+ws.map(function(w){return w.word+"（"+w.meaning+"）";}).join("、")+"\n"+
-      "条件：日常でそのまま使える表現。語尾は正しく変化させる。"+(P47_LANG==="ru"?"ロシア語にはアクセント記号（́）を付ける。":"")+"\n"+
+      "条件：日常でそのまま使える表現。"+P55_SAFE+"語尾は正しく変化させる。"+(P47_LANG==="ru"?"ロシア語にはアクセント記号（́）を付ける。":"")+"\n"+
       "出力はJSONの配列だけ（説明やマークダウンは書かない）。各要素は {\"ru\":\""+P55_LANG_JA+"のチャンク\",\"kana\":\"カタカナ読み\",\"ja\":\"日本語訳\",\"words\":[\"使ったリストの単語\"]}";
     try{var r=await s(prompt,{cache:false,modelTier:"quick"});var t=String(r.text||"");var m=t.match(/\[[\s\S]*\]/);var arr=m?JSON.parse(m[0]):[];
       arr=arr.filter(function(c){return c&&c.ru&&c.ja;}).slice(0,8).map(function(c){return {ru:String(c.ru),kana:String(c.kana||""),ja:String(c.ja),words:(c.words||[]).map(String).slice(0,4)};});

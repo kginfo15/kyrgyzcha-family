@@ -49,6 +49,9 @@ var P55_SC=[
   {k:"free",t:"自由に話す",role:"親しい友達",art:"chat"}
 ];
 var P55={sample:undefined};
+/* AIに作らせる文の共通ルール（2026-11-27）：家族（子どもも）が使うので、
+   政治・宗教・民族への意見や、実在の政治家の話題は出さない。会話・お話・チャンク・ふりかえりの全部に付ける */
+var P55_SAFE="家族や子どもも使うアプリです。政治・宗教・民族・戦争について、良い悪いの意見や評価を言わない。実在の政治家や政党の名前は出さない。学習者がそうした話題を出したら、意見は言わずに、やさしく日常の話題（食べ物・家族・天気・趣味など）にもどす。こわい話・暴力・大人向けの話題も使わない。";
 async function p55Sample(){if(P55.sample!==undefined)return P55.sample;try{P55.sample=(window.claude&&window.claude.use)?await window.claude.use("sample"):null;}catch(_){P55.sample=null;}return P55.sample;}
 function p55ErrMsg(e){var c=e&&e.code;return {rate_limited:"少し時間をおいてからもう一度試してください",not_granted:"AIの利用が許可されていません",not_declared:"このページではAIを使えません",sampling_disabled:"AIが使えない設定になっています",session_expired:"ページを開き直してください",refused:"その内容には答えられませんでした",prompt_too_large:"会話が長くなりすぎました。新しく始めてください"}[c]||"うまく応答できませんでした。もう一度試してください";}
 function p55Rules(sc){
@@ -58,7 +61,8 @@ function p55Rules(sc){
     "3. 学習者の"+P55_LANG_JA+"に間違いがあれば、さらに次の行に「💡 」から始めて、正しい言い方と日本語の短い説明を1行で書く。間違いがなければこの行は書かない。\n"+
     "4. 学習者が日本語で書いたら、それを"+P55_LANG_JA+"でどう言うかを教えてから会話を続ける。\n5. 毎回、相手が答えやすい質問で終える。絵文字・マークダウンは使わない（💡だけ使う）。\n"+
     (known?"6. 可能なら学習者が覚えた単語を使う："+known+"\n":"")+
-    (P47_LANG==="ru"?"7. ロシア語にはアクセント記号（́）を付ける。\n":"");
+    (P47_LANG==="ru"?"7. ロシア語にはアクセント記号（́）を付ける。\n":"")+
+    "8. "+P55_SAFE+"\n";
 }
 async function p55Send(text){
   var T=ui.p55t;if(!T||T.busy)return;
@@ -81,7 +85,7 @@ async function p55Report(){
   T.busy=true;T.report="";render();
   var tr=T.msgs.map(function(m){return (m.role==="user"?"学習者: ":"相手: ")+m.content;}).join("\n");
   try{
-    var r=await s("次は"+P55_LANG_JA+"学習者（"+pLvRange()+"）の会話練習の記録です。日本語で短いふりかえりを書いてください。\n形式：\nよかった点：（1行）\n直すとよい表現：（誤→正 を最大3つ、各1行。なければ「特になし」）\n次に使える表現：（"+P55_LANG_JA+"の文を2つ、日本語訳付き）\nマークダウン記号は使わない。\n\n"+tr,{cache:false,modelTier:"quick",onText:function(o){var el=document.getElementById("p55rep");if(el)el.textContent=o.text;}});
+    var r=await s("次は"+P55_LANG_JA+"学習者（"+pLvRange()+"）の会話練習の記録です。日本語で短いふりかえりを書いてください。\n形式：\nよかった点：（1行）\n直すとよい表現：（誤→正 を最大3つ、各1行。なければ「特になし」）\n次に使える表現：（"+P55_LANG_JA+"の文を2つ、日本語訳付き）\nマークダウン記号は使わない。"+P55_SAFE+"\n\n"+tr,{cache:false,modelTier:"quick",onText:function(o){var el=document.getElementById("p55rep");if(el)el.textContent=o.text;}});
     T.report=r.text;
   }catch(e){T.report=p55ErrMsg(e);}
   T.busy=false;saveUI();render();
@@ -163,7 +167,7 @@ async function p55AiStory(){
   var R=ui.p55r||(ui.p55r={});R.busy=true;render();
   var words=shuffle(VOCAB.filter(function(w){return p47IsKnown(w.id)||(progress[w.id]&&progress[w.id].status!=="new");})).slice(0,25).map(function(w){return w.word;});
   try{
-    var v=await s.json("日本人の"+P55_LANG_JA+"学習者（A2）向けに、日常の短いお話を"+P55_LANG_JA+"で7文書いてください。やさしい語彙だけを使い、できるだけ次の単語を使うこと："+(words.join(", ")||"基本語")+"。"+(P47_LANG==="ru"?"アクセント記号を付けること。":"")+
+    var v=await s.json("日本人の"+P55_LANG_JA+"学習者（A2）向けに、日常の短いお話を"+P55_LANG_JA+"で7文書いてください。やさしい語彙だけを使い、できるだけ次の単語を使うこと："+(words.join(", ")||"基本語")+"。"+(P47_LANG==="ru"?"アクセント記号を付けること。":"")+P55_SAFE+
       'JSONだけを返す：{"title":"日本語のタイトル","sentences":[{"t":"'+P55_LANG_JA+'の文","ja":"日本語訳"}]}',{modelTier:"quick",cache:false});
     if(v&&v.sentences&&v.sentences.length){R.story={title:v.title||"AIのお話",src:"ai",sentences:v.sentences.slice(0,10)};}
   }catch(e){toast(p55ErrMsg(e));}
