@@ -29,7 +29,7 @@ if(!window.P86_LG)return;
 var LV={
   A1:{code:"ТЭУ",name:"入門レベル",cefr:"A1",pass:66,passNote:"公開されている要項に合格の％が見つからなかったため、ほかのレベルと同じ66%を目安にしています。",
       exam:"文法・語彙 70問50分／聴解 25問30分／読解 30問／作文 1題40分／会話 3課題25分（公開されている練習用の要項より）",
-      mock:{ex:10,vo:8,gr:7,rd:2,au:2,hs:4,min:30}},
+      mock:{ex:10,vo:8,gr:7,rd:3,au:3,hs:4,min:35}},
   A2:{code:"ТБУ",name:"基礎レベル",cefr:"A2",pass:75,passNote:"公開されている要項では、各部門75%以上で合格です（1部門だけ70%でも可）。",
       exam:"文法・語彙 110問50分／読解 30問50分／聴解 30問30分／作文 2題50分／会話 50分（公開されている要項より）",
       mock:{ex:12,vo:9,gr:9,rd:2,au:2,hs:4,min:35}},
@@ -137,13 +137,15 @@ function rec(){
 }
 function st(id){var s=rec().s[id];return Array.isArray(s)&&s.length>=5?s:null;}
 function save(){try{saveAll();}catch(_){}}
-function mark(it,ok,sec){
+function mark(it,ok,sec,pk){
   var r=rec(),t=today(),s=(st(it.id)||[0,0,0,t,t]).slice();
   /* 正解で箱が上がるのは「はじめて」か「復習の日が来た」ときだけ。同じ日に何周しても定着にはならない */
   var fresh=!s[0]||s[3]<=t;
   s[0]++;if(ok){s[1]++;if(fresh){s[2]=Math.min(INT.length-1,s[2]+1);s[3]=t+INT[s[2]];}}else{s[2]=1;s[3]=t+1;}s[4]=t;
   r.s[it.id]=s;save();
-  try{if(typeof coachLog==="function")coachLog({m:"trki",id:"trki:"+it.id,ok:ok?1:0,s:sec,g:["trki-"+it.sec,"trki-"+it.lv].concat(it.part?["trki-p"+it.part]:[]),w:it.wid&&!ok?[it.wid]:[]});}catch(_){}
+  try{if(typeof coachLog==="function")coachLog(Object.assign({m:"trki",id:"trki:"+it.id,ok:ok?1:0,s:sec,g:["trki-"+it.sec,"trki-"+it.lv].concat(it.part?["trki-p"+it.part]:[]),w:it.wid&&!ok?[it.wid]:[]},
+      /* まちがえたときは、AI学習コーチの「自分専用の講義」に出す材料（問題・正解・選んだ答え・理由）も渡す */
+      !ok&&pk!==undefined?{x:{s:it.t==="gap"?it.s:(it.t==="hear"?it.q+"（"+it.say+"）":it.q),a:it.a,p:pk,r:String(it.x||"").replace(/<[^>]*>/g,"")}}:{}));}catch(_){}
 }
 /* 状態：0=まだ 1=練習中 2=定着 */
 function stat(it){var s=st(it.id);if(!s||!s[0])return 0;return s[2]>=SOLID?2:1;}
@@ -385,7 +387,7 @@ function onPick(i){
   if(V.mode==="mock"){V.ans[V.pos]=o;draw();return;}
   if(V.picked!==null)return;
   V.picked=o;var ok=o===x.it.a;
-  if(!x.again){if(ok)V.ok++;else V.ng++;mark(x.it,ok,qSec());}
+  if(!x.again){if(ok)V.ok++;else V.ng++;mark(x.it,ok,qSec(),o);}
   if(!ok&&!x.again){V.again[x.it.id]=1;V.steps.push({it:x.it,opts:shuffle(x.opts.slice()),again:1});}
   if(x.it.t==="gap")try{speak(full(x.it));}catch(_){}
   draw();
@@ -401,7 +403,7 @@ function finishMock(){
   r.sec=Math.round((Date.now()-V.t0)/1000);
   var per=na?Math.min(120,Math.round(r.sec/na)):0;
   V.steps.forEach(function(x,i){var c=CAT[x.it.sec],ok=V.ans[i]===x.it.a;r[c][1]++;if(ok)r[c][0]++;
-    if(V.ans[i]!==undefined)mark(x.it,ok,per);});
+    if(V.ans[i]!==undefined)mark(x.it,ok,per,V.ans[i]);});
   var R=rec();R.mk.unshift({lv:V.lv,d:Date.now(),lg:r.lg,rd:r.rd,au:r.au,sec:r.sec});R.mk=R.mk.slice(0,30);save();
   V.res=r;V.view="res";draw();
 }
