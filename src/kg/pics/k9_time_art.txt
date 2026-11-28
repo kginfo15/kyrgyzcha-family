@@ -1,0 +1,18 @@
+# 2026-11-28 「速さ」と「時」の言葉：ロシア語版と同じ描き直した絵（phase92_art_time.js）を使う。書式「ID art:キー」
+1-044 art:t_posle
+1-046 art:t_seychas
+1-069 art:s_1
+1-343 art:x_fast
+1-345 art:t_pozzhe
+1-386 art:w2_slowplease
+1-797 art:t_srazu
+1-798 art:w2_slow
+2-159 art:t_skoro
+2-164 art:t_potom
+2-166 art:t_skoro
+2-365 art:t_prezhde
+1-942 art:t_eshchyo
+1-944 art:t_eshchyo
+1-954 art:t_ranshe
+1-956 art:t_davno
+1-963 art:x_fast
