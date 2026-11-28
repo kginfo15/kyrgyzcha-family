@@ -247,7 +247,7 @@ function p83Kids(root){
 }
 function p83KidsBtn(m){
   var row=m.querySelector(".p72-tagrow")||m.querySelector(".p71-tag");if(!row||m.querySelector(".p83-kbtn"))return;
-  var b='<button type="button" class="p83-kbtn'+(settings.p83Kids?" on":"")+'" data-act="p83kids" aria-pressed="'+(settings.p83Kids?"true":"false")+'">'+(settings.p83Kids?'ふりがな ON':'ふりがな')+'</button>';
+  var b='<button type="button" class="p83-kbtn'+(settings.p83Kids?" on":"")+'" data-act="p83kids" aria-pressed="'+(settings.p83Kids?"true":"false")+'">'+(settings.p83Kids?'日本語ふりがな ON':'日本語ふりがな')+'</button>';
   if(row.classList.contains("p72-tagrow")){var fav=row.querySelector(".p72-fav");if(fav)fav.insertAdjacentHTML("beforebegin",b);else row.insertAdjacentHTML("beforeend",b);}
   else row.insertAdjacentHTML("afterend",'<div class="p83-krow">'+b+'</div>');
 }

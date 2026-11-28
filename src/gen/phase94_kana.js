@@ -55,23 +55,71 @@ function accOf(tok){
     var w=tok.toLowerCase(),c=0;for(var j=0;j<w.length;j++)if(VOW.indexOf(w[j])>=0){c++;if(c===nv&&w.slice(0,j).replace(/[^а-яё]/g,"").slice(0,2)===b.replace(/́/g,"").slice(0,2))return w.slice(0,j+1)+AC+w.slice(j+1);}}
   return tok;
 }
+/* 単語帳に登録してある読み（VOCAB.kana）と、例文の読み（P67_KANA）を、語ごとの読みの表にする。
+   変化した形（врачу́ など）も、例文の読みに出てくれば登録どおりの読みになる */
+var RD=null;
+function rkKey(t){return String(t||"").replace(/́/g,"").toLowerCase().replace(/ё/g,"е").replace(/^[^а-я]+|[^а-я]+$/g,"");}
+function rkToks(t){return String(t||"").match(/[А-Яа-яЁё́]+(?:-[А-Яа-яЁё́]+)?/g)||[];}
+function rkAlign(ru,kn,pri){var a=rkToks(ru),b=String(kn||"").replace(/[。、．，,.!?！？「」]/g," ").split(/\s+/).filter(Boolean);
+  if(!a.length||a.length!==b.length)return;a.forEach(function(t,i){var k=rkKey(t);if(k&&(!RD[k]||pri))RD[k]=b[i];});}
+function rdMap(){if(RD)return RD;RD={};
+  try{Object.keys(window.P67_KANA||{}).forEach(function(k){rkAlign(k,P67_KANA[k],false);});}catch(_){}
+  /* 単語帳の読みを優先：まず句（Добрый день など）、最後に1語の見出し語（いちばん優先） */
+  try{(window.VOCAB||[]).forEach(function(w){if(w.kana&&/\s/.test(String(w.word).trim()))rkAlign(w.accent||w.word,w.kana,true);});}catch(_){}
+  try{(window.VOCAB||[]).forEach(function(w){if(w.kana&&!/\s/.test(String(w.word).trim()))rkAlign(w.accent||w.word,w.kana,true);});}catch(_){}
+  return RD;}
 var KC={};
-window.ruKana=function(tok){var k=String(tok||"");if(KC[k]!==undefined)return KC[k];var r="";try{r=kanaOf(accOf(k));}catch(_){}KC[k]=r;return r;};
-window.ruKanaApply=function(root,sel){
-  if(!root)return;var els=root.querySelectorAll(sel);
-  [].forEach.call(els,function(el){if(el.closest(".rk-done"))return;el.classList.add("rk-done");
-    var tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),list=[],n;while((n=tw.nextNode())){if(/[А-Яа-яЁё]/.test(n.nodeValue)&&!(n.parentNode&&n.parentNode.closest("rt,ruby,button.p71-spk")))list.push(n);}
-    list.forEach(function(tn){var s=tn.nodeValue,f=document.createDocumentFragment(),last=0,re=/[А-Яа-яЁё́]+(?:-[А-Яа-яЁё́]+)?/g,m;
-      while((m=re.exec(s))){if(m.index>last)f.appendChild(document.createTextNode(s.slice(last,m.index)));
-        var kn=ruKana(m[0]),rb=document.createElement("ruby");rb.className="rk";rb.appendChild(document.createTextNode(m[0]));
-        if(kn){var rt=document.createElement("rt");rt.textContent=kn;rb.appendChild(rt);}f.appendChild(rb);last=m.index+m[0].length;}
-      if(last<s.length)f.appendChild(document.createTextNode(s.slice(last)));tn.parentNode.replaceChild(f,tn);});});
+window.ruKana=function(tok){var k=String(tok||"");if(KC[k]!==undefined)return KC[k];var r=rdMap()[rkKey(k)]||"";if(!r){try{r=kanaOf(accOf(k));}catch(_){}}KC[k]=r;return r;};
+/* 画面のロシア語に読みを付ける。読みは CSS で表示するので、文字の中身（textContent）は変わらない（読み上げ・辞書引きに影響しない） */
+var RK_SKIP="rt,ruby,script,style,textarea,input,select,svg,title,option,[contenteditable],.rk-no,.p83-f";
+/* 1語が色分けなどで2つの要素に分かれているとき（врач<em>у</em>）は、語全体の読みを前の部分に付け、うしろの部分には付けない */
+var RK_IN=/^(B|EM|I|U|STRONG|SPAN|MARK|SMALL|A|RUBY|SUB|SUP|S)$/;
+function rkSib(node,dir){var cur=node,s=dir<0?cur.previousSibling:cur.nextSibling;
+  while(!s&&cur.parentNode&&cur.parentNode.nodeType===1&&RK_IN.test(cur.parentNode.tagName)){cur=cur.parentNode;s=dir<0?cur.previousSibling:cur.nextSibling;}
+  return s?String(s.textContent||""):"";}
+var RK_W=/[А-Яа-яЁё́]/;
+function rkNode(tn){var s=tn.nodeValue,f=document.createDocumentFragment(),last=0,re=/[А-Яа-яЁё́]+(?:-[А-Яа-яЁё́]+)?/g,m;
+  var pv=rkSib(tn,-1),nx=rkSib(tn,1),fromPrev=RK_W.test(pv.slice(-1)),intoNext=RK_W.test(nx.charAt(0));
+  while((m=re.exec(s))){if(m.index>last)f.appendChild(document.createTextNode(s.slice(last,m.index)));
+    var w=m[0],end=m.index+w.length;
+    if(/^[А-ЯЁ]{2,}$/.test(w)||m.index===0&&fromPrev){f.appendChild(document.createTextNode(w));last=end;continue;}
+    var full=w;if(end===s.length&&intoNext)full=w+(nx.match(/^[А-Яа-яЁё́]+/)||[""])[0];
+    var kn=ruKana(full),rb=document.createElement("ruby");rb.className="rk";rb.appendChild(document.createTextNode(w));
+    var rt=document.createElement("rt");rt.setAttribute("data-k",kn||"");rb.appendChild(rt);f.appendChild(rb);last=end;}
+  if(last<s.length)f.appendChild(document.createTextNode(s.slice(last)));tn.parentNode.replaceChild(f,tn);}
+window.ruKanaApply=function(root){
+  if(!root||!root.nodeType)return;if(root.nodeType===3){if(root.parentNode&&/[А-Яа-яЁё]/.test(root.nodeValue)&&!root.parentNode.closest(RK_SKIP))rkNode(root);return;}
+  if(root.nodeType!==1||root.closest(RK_SKIP))return;
+  var tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null),list=[],n;
+  while((n=tw.nextNode())){if(/[А-Яа-яЁё]/.test(n.nodeValue)&&n.parentNode&&!n.parentNode.closest(RK_SKIP))list.push(n);}
+  list.forEach(rkNode);
 };
+function rkOn(){try{return !!settings.ruKana;}catch(_){return false;}}
+function rkOff(){[].forEach.call(document.querySelectorAll("ruby.rk"),function(r){var p=r.parentNode;if(!p)return;p.replaceChild(document.createTextNode(r.firstChild?r.firstChild.nodeValue:""),r);p.normalize();});}
+/* 画面が書きかわるたびに、新しく出たロシア語に読みを付ける */
+var rkQ=[],rkT=0;
+var rkObs=new MutationObserver(function(ms){if(!rkOn())return;ms.forEach(function(m){[].forEach.call(m.addedNodes,function(n){rkQ.push(n);});});
+  if(!rkT)rkT=requestAnimationFrame(function(){rkT=0;var q=rkQ;rkQ=[];if(!rkOn())return;q.forEach(function(n){if(n.isConnected)ruKanaApply(n);});});});
+function rkStart(){if(!rkOn())return;ruKanaApply(document.body);}
+try{rkObs.observe(document.body,{childList:true,subtree:true});}catch(_){}
+setTimeout(rkStart,0);
+window.ruKanaBtn=function(){var on=rkOn();return '<button type="button" class="rk-btn'+(on?' on':'')+'" data-act="rukana" aria-pressed="'+on+'">'+(on?'ロシア語の読み ON':'ロシア語の読み')+'</button>';};
+window.ruKanaToggle=function(){settings.ruKana=rkOn()?0:1;try{saveAll();}catch(_){}
+  if(rkOn())rkStart();else rkOff();
+  [].forEach.call(document.querySelectorAll(".rk-btn"),function(b){b.outerHTML=ruKanaBtn();});
+  try{toast(rkOn()?"ロシア語の上にカタカナの読みを出します（単語帳の読み）":"ロシア語の読みを消しました");}catch(_){}};
+document.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="rukana"]'):null;if(!el)return;e.stopImmediatePropagation();e.preventDefault();ruKanaToggle();},true);
+/* 日本語のふりがな（こどもモード）のボタンのとなりに、ロシア語の読みのボタンを置く。ボタンの名前で区別できるようにする */
+if(typeof p83KidsBtn==="function"){var _kb=p83KidsBtn;p83KidsBtn=function(m){var r=_kb.apply(this,arguments);try{var k=m.querySelector(".p83-kbtn");if(k&&!m.querySelector(".rk-btn"))k.insertAdjacentHTML("afterend",ruKanaBtn());}catch(_){}return r;};}
+/* 設定画面 */
+if(typeof renderSettings==="function"){var _rs=renderSettings;renderSettings=function(){var h=String(_rs.apply(this,arguments));
+  return '<div class="p83-setrow"><div><b>ロシア語の読み（カタカナ）</b><small>ロシア語の上に、単語帳に登録してある読み方をカタカナで出します。日本語のふりがな（こどもモード）とは別に切りかえられます。</small></div>'+ruKanaBtn()+'</div>'+h;};}
 (function(){var c=document.createElement("style");c.textContent=
- 'ruby.rk{ruby-position:over;ruby-align:center}ruby.rk rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:0;line-height:1.1}'+
+ 'ruby.rk{ruby-position:over;ruby-align:center}ruby.rk rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:0;line-height:1.1}ruby.rk rt::before{content:attr(data-k);white-space:nowrap}'+
+ '.p72-tagrow{flex-wrap:wrap}.p83-kbtn,.rk-btn{white-space:nowrap}.rk-btn{display:inline-flex;align-items:center;min-height:36px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--muted);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;margin-left:6px}.rk-btn.on{border-color:var(--accent,#0a84ff);color:var(--accent,#0a84ff);background:rgba(10,132,255,.08)}'+
  '.p86-kana{display:inline-flex;align-items:center;gap:4px;margin-left:auto;padding:4px 12px;min-height:36px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--muted);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}'+
  '.p86-kana.on{border-color:var(--accent,#0a84ff);color:var(--accent,#0a84ff);background:rgba(10,132,255,.08)}'+
- '.p86-tagrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}.p86-tagrow .p86-tag{margin:0}'+
+ '.p86-tagrow .rk-btn{margin-left:auto}.p86-tagrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}.p86-tagrow .p86-tag{margin:0}'+
  '.p86-orow{display:flex;align-items:stretch;gap:6px}.p86-orow .p86-opt{flex:1;min-width:0}.p86-orow .p71-spk{flex:none;align-self:center}'+
  '.p86-nsbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 8px;padding:6px 10px;border:1px dashed var(--line);border-radius:12px;font-size:12.5px;color:var(--muted)}';
  document.head.appendChild(c);})();

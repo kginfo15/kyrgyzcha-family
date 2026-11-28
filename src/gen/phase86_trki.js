@@ -345,8 +345,7 @@ function playBtn(key){
 function qHtml(){
   var x=V.steps[V.pos],it=x.it,prac=V.mode==="prac",done=prac&&V.picked!==null,ok=done&&V.picked===it.a,sel=!prac?V.ans[V.pos]:null;
   var tag=(x.again?'もう一度・':'')+SECN[it.sec]+(it.part?'　'+PART[it.part].split("　")[0]:'')+(prac&&!x.again&&due(it)?'　<em class="p86-rv1">復習</em>':'');
-  var kn=!!settings.p86Kana;
-  var h='<div class="p86-tagrow"><div class="p86-tag">'+tag+'</div><button type="button" class="p86-kana'+(kn?' on':'')+'" data-act="p86kana" aria-pressed="'+kn+'">'+(kn?'読みがな ON':'読みがな')+'</button></div>';
+  var h='<div class="p86-tagrow"><div class="p86-tag">'+tag+'</div>'+(window.ruKanaBtn?ruKanaBtn():'')+'</div>';
   /* 文字で見るモード（音なし）のときは、いつも上に出して、音が出ない理由が分かるようにする */
   if(typeof nsOn==="function"&&nsOn())h+='<div class="p86-nsbar"><span>いまは「文字で見る」モードなので、自動では音が出ません。</span>'+nsBtn()+'</div>';
   if(it.t==="gap"){
@@ -1008,8 +1007,6 @@ function draw(){
   m.className="show";document.body.classList.add("p86-on");
   try{p72Wrap(m);}catch(_){}
   try{linkWords(m);}catch(_){}
-  /* 読みがな：問題文・選択肢・本文のロシア語の上にカタカナ */
-  try{if(settings.p86Kana&&V.view==="q"&&window.ruKanaApply)ruKanaApply(m.querySelector(".p86-scroll"),".p86-q,.p86-opt>span,.p86-body,.p86-tt,.p86-full");}catch(_){}
   /* 練習の聞き取り問題は、出たときに1回自動で読む（模試は回数制限があるので自動では読まない） */
   try{if(V.view==="q"&&V.mode==="prac"&&V.picked===null){var ix=V.steps[V.pos].it;if(ix.t==="hear"&&typeof autoSay==="function")autoSay("p86:"+V.pos+":"+ix.id,null,function(){play();});}}catch(_){}
   var sc=m.querySelector(".p86-scroll"),key=V.view+"/"+(V.pos||0)+"/"+(V.picked!==null&&V.picked!==undefined?1:0);
@@ -1069,7 +1066,6 @@ document.addEventListener("click",function(e){
   if(a==="p86open"){open();return;}
   if(a==="p86solid"){solidOpen();return;}
   if(a==="p86solx"){solidClose();return;}
-  if(a==="p86kana"){settings.p86Kana=settings.p86Kana?0:1;try{saveAll();}catch(_){}if(V)draw();return;}
   /* 解説の「くわしく読む」：文法書の章を、練習の上に重ねて開く（✕で練習に戻る） */
   if(a==="p86guide"){document.body.classList.add("p72-gup");try{p72GuideOpen(v);}catch(_){}return;}
   if(!V)return;
