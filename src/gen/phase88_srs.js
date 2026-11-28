@@ -138,11 +138,34 @@ function p88Stats(){
 }
 function p88Html(){
   var S=p88Set(),on=!S.off,f=on?p88Forecast():null,st=p88Stats(),c=S.c,h='';
-  h+='<div class="p88-lead">復習の間隔を、<b>単語ごと・あなたごと</b>に合わせます。覚えている単語の復習を減らし、忘れそうな単語に時間を回すしくみです。</div>';
+  /* ---- かんたんな説明（初めて見る人向け。結論→数え方→目安→できること の順） ---- */
+  var per=20;try{per=p85SecPerQ();}catch(_){}
+  var save=(on&&f&&f.b>f.a)?Math.round((f.b-f.a)*per/60):0;
+  h+='<div class="p88-lead"><b>短くなるのは「復習」の時間です。</b>もう覚えている単語は出す間隔をどんどん空け、忘れかけた単語だけを出します。新しい単語を覚える時間は変わりません。</div>';
   if(on&&f&&(f.a||f.b)){
-    h+='<div class="p81-box p88-num"><div><span>次の30日の復習（目安）</span><b>'+f.a+'<small> 回</small></b></div><div><span>前の固定の間隔なら</span><b>'+f.b+'<small> 回</small></b></div></div>'+
-       (f.a>f.b?'<div class="p88-note">あなたの記録では予想より忘れやすいので、前の方式より早めに復習を出しています（忘れてから覚え直すより短くすみます）。</div>':'')+'<div class="p88-note">全部正解した場合の計算です。まちがえた単語は前の方式ほど最初からやり直さないので、実際の差はこれより大きくなることがあります。</div>';
+    h+='<div class="p81-box p88-num"><div><span>次の30日の復習（目安）</span><b>'+f.a+'<small> 回</small></b></div><div><span>前の方式なら</span><b>'+f.b+'<small> 回</small></b></div></div>'+
+       (save>0?'<div class="p88-save">この30日で、復習の時間が <b>約'+save+'分</b> 少なくなる見込みです</div>':'')+
+       (f.a>f.b?'<div class="p88-note">あなたの記録では予想より忘れやすいので、前の方式より早めに復習を出しています（忘れてから覚え直すより短くすみます）。</div>':'')+
+       '<div class="p88-note">全部正解したと仮定した計算です（1問 約'+per+'秒で計算）。何時間短くなったかを実際に測った数字ではありません。</div>';
+  }else if(on){h+='<div class="p88-note">単語をいくつか学ぶと、ここに「次の30日の復習回数」と、前の方式との差が出ます。</div>';}
+  /* 勉強時間の数え方 */
+  h+='<div class="p81-h" style="margin-top:16px">勉強時間の数え方</div><div class="p81-box p88-me">'+
+     '<div>問題が画面に出てから<b>答えるまでの時間だけ</b>を数えます。</div>'+
+     '<div>ほかのアプリを開いていた時間は引きます。1問は長くても<b>2分まで</b>です。</div>'+
+     '<div>解説を読む時間や、文法書を読む時間は入りません。</div></div>';
+  /* レベルまでの目安（検定対策の「合格まで」と同じ数字。ロシア語版だけ） */
+  if(typeof P47_LANG==="undefined"||P47_LANG==="ru"){
+    var tot=0;try{tot=p85Totals().s;}catch(_){}
+    h+='<div class="p81-h" style="margin-top:16px">レベルまでにかかる時間の目安</div><div class="p81-box p88-lv">'+
+       [["入門","A1","ТЭУ",150],["基礎","A2","ТБУ",350],["第1レベル","B1","ТРКИ-1",700]].map(function(r){return '<div><span>'+r[0]+'（'+r[1]+'・'+r[2]+'）</span><b>約'+r[3]+'時間</b></div>';}).join("")+
+       '</div><div class="p88-note">はじめてからの合計の目安です（一般的な学習時間の目安をもとにした大まかな数字で、人によって大きく変わります）。いまのあなたの合計は <b>'+(function(){try{return p85HM(tot);}catch(_){return Math.round(tot/60)+"分";}})()+'</b> です。</div>';
   }
+  /* 自分でできること */
+  h+='<div class="p81-h" style="margin-top:16px">もっと短くするためにできること</div><div class="p81-box p88-me">'+
+     '<div><b>1. 毎日すこしずつ</b>：週末にまとめて2時間より、毎日15分のほうが少ない時間で長く覚えていられます。</div>'+
+     '<div><b>2. 復習の日を飛ばさない</b>：期限を大きく過ぎると忘れてしまい、覚え直しに時間がかかります。</div>'+
+     '<div><b>3. 答えを見る前に思い出す</b>：「わからない」をすぐ押さず、数秒だけ思い出そうとすると記憶に残ります。</div></div>';
+  h+='<div class="p81-h" style="margin-top:22px">くわしい設定</div>';
   /* 目標の覚えている率（時間と確実さの交換） */
   h+='<div class="p81-h" style="margin-top:16px">どれくらい確実に覚えておく？</div><div class="p88-seg" role="group" aria-label="目標">'+
      [[0.85,"時間を優先","85%"],[0.9,"ふつう","90%"],[0.95,"確実さを優先","95%"]].map(function(o){return '<button type="button" class="'+(S.r===o[0]?"on":"")+'" data-act="p88r" data-val="'+o[0]+'"><b>'+o[1]+'</b><small>'+o[2]+'</small></button>';}).join("")+'</div>'+
@@ -199,6 +222,8 @@ if(typeof p87PlanHtml==="function"){
     '.p88-lead{font-size:14.5px;line-height:1.75;padding:2px 2px 12px}'+
     '.p88-num{display:grid;grid-template-columns:1fr 1fr}.p88-num>div{padding:12px 14px;display:flex;flex-direction:column;gap:2px}.p88-num>div+div{border-left:1px solid var(--line)}'+
     '.p88-num span{font-size:12px;color:var(--muted);font-weight:600}.p88-num b{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums}.p88-num>div+div b{color:var(--muted)}.p88-num small{font-size:13px;font-weight:600;color:var(--muted)}'+
+    '.p88-save{margin-top:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--accent);font-size:14px;line-height:1.6}.p88-save b{font-size:17px;color:var(--accent)}'+
+    '.p88-lv>div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:9px 14px;font-size:13.5px}.p88-lv>div+div{border-top:1px solid var(--line)}.p88-lv b{font-variant-numeric:tabular-nums;white-space:nowrap}'+
     '.p88-note{font-size:12.5px;line-height:1.7;color:var(--muted);padding:8px 2px 0}'+
     '.p88-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.p88-seg button{min-height:52px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font:inherit;padding:6px 4px}'+
     '.p88-seg button b{font-size:13.5px}.p88-seg button small{font-size:12px;color:var(--muted)}.p88-seg button.on{border:2px solid var(--accent)}.p88-seg button.on small{color:var(--accent);font-weight:700}'+
@@ -208,3 +233,13 @@ if(typeof p87PlanHtml==="function"){
     '.p88-w p{margin:6px 0 4px;font-size:13.5px;line-height:1.75}.p88-w small{font-size:12px;color:var(--muted);font-weight:600}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
 })();
+
+/* 記録の画面の「勉強時間」カードの下にも入口を置く（ロシア語版でだけカードが出る） */
+if(typeof p85TimeCard==="function"){
+  var _p88Time=p85TimeCard;
+  p85TimeCard=function(){
+    var h=String(_p88Time.apply(this,arguments)),i=h.lastIndexOf("</div>");
+    var btn='<button type="button" class="p81-row p88-from" data-act="p88open"><span class="p81-rtx"><b>勉強時間を短くするしくみ</b><small>どう短くなるか・数え方・レベルまでの目安</small></span><span class="p81-rgo">'+p81Ic("go",16)+'</span></button>';
+    return i>=0?h.slice(0,i)+btn+h.slice(i):h+btn;
+  };
+}
