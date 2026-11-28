@@ -32,6 +32,7 @@ function pGrSt(){
     if(o.v!=null&&!(o.v>=0&&o.v<=3&&Math.floor(o.v)===+o.v))delete o.v;
     if(o.nm!=null){if(typeof o.nm!=="string")delete o.nm;else{o.nm=o.nm.replace(/[<>&"\u0000-\u001f]/g,"").trim().slice(0,12);if(!o.nm)delete o.nm;}}
     if(o.done!=null&&!(isFinite(+o.done)&&+o.done>=0))delete o.done;});
+  if(s.vs!=null&&!(isFinite(+s.vs)&&+s.vs>=0))delete s.vs;
   if(!s.own[s.k])s.own[s.k]={acc:0,since:null,seen:null};
   if(!s.xm||typeof s.xm!=="object"||Array.isArray(s.xm))s.xm={};
   Object.keys(s.xm).forEach(function(mo){var X=s.xm[mo];if(!/^\d{4}-\d{2}$/.test(mo)||!X||typeof X!=="object"||Array.isArray(X)){delete s.xm[mo];return;}
@@ -169,6 +170,7 @@ function pGrPageHtml(){
   h+='<div class="pgr-name"><small>'+esc(K.name)+'　第'+(G.i+1)+'段階 / 全10段階'+(b&&K.brAt?'　'+esc(K.br[b].n):'')+'</small><b>'+esc(pGrTitle(K.id,G.i))+'</b></div>';
   h+='<div class="pgr-gauge"><div class="pgr-bar big"><i style="width:'+Math.round(G.frac*100)+'%"></i></div>'+
      '<div class="pgr-gl"><span>'+(G.last?'最後の姿まで育ちました':'次の進化まで あと <b>'+G.need.toLocaleString()+'</b> ポイント')+'</span><span class="pgr-today'+(t>0?' up':'')+'">今日 +'+t.toLocaleString()+'</span></div></div>';
+  try{h+=pGrVilHtml();}catch(_){}
   if(G.last)h+='<div class="pgr-re"><p>最後の姿まで育ちました。別の姿も見てみたいときは、第1段階から育て直せます（毛色などの個性も新しく決まります）。</p><button type="button" data-act="pgrre">最初から育て直す</button></div>';
   if(needBr)h+='<div class="pgr-h">進化の道を選んでください</div>'+pGrChoiceHtml(K);
   else h+='<p class="pgr-desc">'+esc(K.x(G.i,b||"a"))+'</p>';
@@ -303,6 +305,65 @@ function pGrSwitch(id){
   s.k=id;delete s.pend;try{saveAll();}catch(_){}
   return true;
 }
+/* ---------- 村づくり（2026-11-28 Yuta の要望） ----------
+   はじめは何もない草原。成長ポイントの合計（どの仲間を育てていても、育て直しても減らない）で、
+   薪・石・羊の毛…と1つずつ物が手に入り、材料がそろうと たき火・囲い・ユルタ が建ち、馬や畑がふえて村が豊かになる。
+   物は3Dの牧場に自動で置かれる（phase93 の VILB）。u は、それを作るのに使った材料（使った材料は牧場から消える）。
+   キルギス語の言葉（кийиз フェルト・кереге 格子の壁・уук 屋根の棒・түндүк 天窓・эшик 扉・очок かまど・селкинчек ブランコ・шырдак じゅうたん）は実際の言葉。 */
+var PGR_VIL=[
+  {g:"草原で野宿",L:[
+    {id:"wood",p:10,n:"薪",x:"草原で拾った枯れ枝。火をおこすのに使います。"},
+    {id:"stone",p:30,n:"石",x:"火のまわりをかこむ石。"},
+    {id:"fire",p:60,n:"たき火（очок）",x:"石でかこんだ火。夜も明るく、あたたかくなりました。",u:["wood","stone"]},
+    {id:"sheep",p:100,n:"羊が1頭",x:"はじめての家畜。羊は毛も乳もくれる、遊牧の暮らしの宝です。"},
+    {id:"poles",p:150,n:"柳の枝",x:"川べりで切った、しなやかな枝。"},
+    {id:"pen",p:220,n:"羊の囲い",x:"枝を組んだ囲い。夜も羊が迷子になりません。",u:["poles"]}]},
+  {g:"ユルタを建てる",L:[
+    {id:"wool",p:300,n:"羊の毛",x:"春に刈った羊の毛。"},
+    {id:"felt",p:400,n:"フェルト（кийиз）",x:"羊の毛に湯をかけ、巻いて転がし、力でかためて作る布。ユルタの壁と屋根をおおいます。",u:["wool"]},
+    {id:"kerege",p:520,n:"格子の壁（кереге）",x:"木を格子に組んだ、のび縮みする壁。たためば馬で運べます。"},
+    {id:"uuk",p:650,n:"屋根の棒（уук）",x:"壁から天窓へ、放射状にかける赤い棒。"},
+    {id:"tunduk",p:800,n:"天窓（түндүк）",x:"屋根のてっぺんの丸い木の枠。キルギスの国旗の真ん中にもえがかれています。"},
+    {id:"door",p:950,n:"扉（эшик）",x:"模様を彫った木の扉。"},
+    {id:"yurt1",p:1100,n:"はじめてのユルタ",x:"材料がそろって、ユルタが建ちました！",u:["felt","kerege","uuk","tunduk","door"]}]},
+  {g:"牧場と畑",L:[
+    {id:"horse",p:1300,n:"馬が1頭",x:"草原の暮らしに馬は欠かせません。"},
+    {id:"sheep2",p:1500,n:"羊がふえた",x:"羊が4頭になりました。"},
+    {id:"field",p:1750,n:"畑",x:"土を耕して、小麦の種をまきました。"},
+    {id:"stream",p:2000,n:"小川",x:"山の雪どけ水を引いた小川。畑と家畜に水をやれます。"},
+    {id:"wheat",p:2300,n:"小麦が実った",x:"畑が金色になりました。"},
+    {id:"flag",p:2650,n:"キルギスの国旗",x:"赤地に太陽とトゥンドゥク。村の真ん中に立てました。"}]},
+  {g:"村になる",L:[
+    {id:"horse2",p:3000,n:"馬がふえた",x:"馬が3頭になりました。"},
+    {id:"yurt2",p:3400,n:"2つ目のユルタ",x:"家族がふえて、ユルタがもう1つ建ちました。"},
+    {id:"perch",p:3850,n:"ワシの止まり木",x:"鷹匠のイヌワシが休む木。"},
+    {id:"trees",p:4300,n:"トウヒの林",x:"天山に多い、まっすぐなトウヒの木を植えました。"},
+    {id:"yak",p:4800,n:"ヤク",x:"高い山でも元気なヤクが仲間入り。"},
+    {id:"swing",p:5300,n:"ブランコ（селкинчек）",x:"お祭りのときに若者が乗る、大きなブランコ。"}]},
+  {g:"豊かな村",L:[
+    {id:"bees",p:5900,n:"はちの巣箱",x:"花の多い草原のはちみつは、キルギスの名物です。"},
+    {id:"apples",p:6600,n:"りんごの木",x:"実のなる木がそだちました。"},
+    {id:"yurt3",p:7400,n:"お客さまのユルタ",x:"遠くから来たお客さまをもてなす、3つ目のユルタ。"},
+    {id:"rug",p:8200,n:"広場のシルダク（шырдак）",x:"色フェルトを縫い合わせた模様のじゅうたんを、広場に広げました。"},
+    {id:"fest",p:9000,n:"村のお祭り",x:"旗飾りをつけて、みんなでお祝い。豊かな村になりました！"}]}];
+function pGrVilAll(){var a=[];PGR_VIL.forEach(function(G){G.L.forEach(function(x){a.push(x);});});return a;}
+/* いま手に入っている物：{got:[物], has:{id:1}, used:{id:1}, next:次の物かnull, prevP} */
+function pGrVil(T){if(T==null)T=pGrPts().p;var all=pGrVilAll(),got=[],has={},used={},next=null,prevP=0;
+  all.forEach(function(x){if(T>=x.p){got.push(x);has[x.id]=1;(x.u||[]).forEach(function(u){used[u]=1;});prevP=x.p;}else if(!next)next=x;});
+  return {got:got,has:has,used:used,next:next,prevP:prevP,T:T,all:all};}
+function pGrVilHtml(){var s=pGrSt(),V=pGrVil(),n=V.got.length,seen=+s.vs||0,h='';
+  var fresh=seen<n?V.got.slice(seen):[];window.PGR_VFRESH=fresh.map(function(x){return x.id;});
+  h+='<div class="pgr-h">村づくり<small>'+n+' / '+V.all.length+'</small></div>';
+  if(fresh.length){h+='<div class="pgr-vnew"><b>新しく手に入った！</b>'+fresh.slice(-6).map(function(x){return esc(x.n);}).join('・')+(fresh.length>6?' ほか':'')+'<small>牧場に置きました</small></div>';s.vs=n;try{saveAll();}catch(_){}}
+  else if(s.vs!==n){s.vs=n;try{saveAll();}catch(_){}}
+  if(V.next){var f=Math.max(0,Math.min(1,(V.T-V.prevP)/Math.max(1,V.next.p-V.prevP)));
+    h+='<div class="pgr-vnext"><span>次に手に入る：<b>'+esc(V.next.n)+'</b></span><div class="pgr-bar"><i style="width:'+Math.round(f*100)+'%"></i></div><small>あと '+(V.next.p-V.T).toLocaleString()+' ポイント（どの仲間を育てていても、勉強した分だけ村が育ちます）</small></div>';}
+  else h+='<div class="pgr-vnext"><b>村が完成しました！</b><small>ここまで勉強を続けた、あなたの村です。</small></div>';
+  if(!n)h+='<p class="pgr-note">いまは何もない草原です。勉強すると、薪や石から1つずつ物が手に入り、材料がそろうとユルタが建ちます。</p>';
+  h+='<details class="pgr-vlist"><summary>村づくりの順番を見る</summary>';
+  PGR_VIL.forEach(function(G){h+='<div class="pgr-vg">'+esc(G.g)+'</div><ul>';G.L.forEach(function(x){var ok=V.has[x.id];
+    h+='<li class="'+(ok?'ok':'')+'"><b>'+(ok?'✓ ':'')+esc(x.n)+'</b><span>'+(ok?esc(x.x)+(V.used[x.id]?'（材料に使いました）':''):x.p.toLocaleString()+' ポイントで')+'</span></li>';});h+='</ul>';});
+  return h+'</details>';}
 /* 最後まで育てた仲間を、第1段階から育て直す（名前は残す。毛色などの個性は新しく決まる） */
 function pGrRestart(){
   var s=pGrSt(),o=s.own[s.k],T=pGrPts().p;if(!o||!pGrStage(pGrKP(s.k,T)).last)return false;
@@ -381,6 +442,10 @@ if(typeof p81GuideHtml==="function"){
   '.pgr-x{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}'+
   '.pgr-pb{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:4px 16px calc(24px + env(safe-area-inset-bottom))}'+
   '.pgr-hero{border-radius:14px;overflow:hidden;line-height:0;border:1px solid var(--line)}.pgr-hero svg{width:100%;height:auto}'+
+  '.pgr-vnew{margin:10px 0 4px;padding:10px 12px;border-radius:14px;background:rgba(242,194,48,.2);font-size:14px;line-height:1.6}.pgr-vnew b{display:block;font-size:15px}.pgr-vnew small{display:block;color:var(--muted);font-size:12px}'+
+  '.pgr-vnext{margin:6px 0;font-size:14px;line-height:1.6}.pgr-vnext .pgr-bar{margin:4px 0}.pgr-vnext small{display:block;color:var(--muted);font-size:12px}'+
+  '.pgr-vlist{margin:6px 0 4px;font-size:13.5px}.pgr-vlist summary{cursor:pointer;font-weight:700;padding:6px 0}.pgr-vg{font-weight:800;margin:8px 0 2px;font-size:13px}'+
+  '.pgr-vlist ul{list-style:none;margin:0;padding:0}.pgr-vlist li{padding:5px 0;border-bottom:1px solid var(--line,#ddd);color:var(--muted)}.pgr-vlist li.ok{color:inherit}.pgr-vlist li b{display:block;font-size:13.5px}.pgr-vlist li span{font-size:12px}'+
   '.pgr-nm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:14px}.pgr-nm b{font-size:16px}.pgr-nm small{color:var(--muted);font-weight:700;font-size:12px}'+
   '.pgr-nm button,.pgr-re button{border:1.5px solid var(--line,#ddd);background:var(--card,#fff);color:inherit;border-radius:99px;padding:6px 14px;font-size:13.5px;font-weight:700;cursor:pointer}'+
   '.pgr-nm input{flex:1;min-width:0;max-width:220px;font-size:16px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--line,#ccc);background:var(--card,#fff);color:inherit}'+
