@@ -22106,29 +22106,90 @@ function p90ChDone(){
   var c=null;try{c=p85Crs();}catch(_){}
   return function(id){var r=st[id];if(r&&r.n>=5&&r.ok/r.n>=0.6)return true;return !!(c&&typeof p85ChDone==="function"&&p85ChDone(c,id));};
 }
+/* ---------- いまのレベルと残り時間（2026-11-28 Yuta：「会話や解いた問題の数などを総合して正確に計算し、A1に達したかを判定。残り時間を毎日積算」） ----------
+   レベルごと（A1・A2・B1）に、次の材料から「達成度」を出す。
+   ① 学んだ範囲＝単語60%＋文法書の章40%
+      単語：習った語を、覚えている強さ（復習の間隔・記憶の安定度）で0.5〜1に重みづけ。
+      章：読んだ・練習した章。章の問題の正答率が分かれば、それで重みづけ。
+   ② 身についている度合い（0〜1）：材料がある分だけ、量に応じた重みで平均（材料がないうちは 0.75 と仮に置く）
+      ・問題の正答率（60日、そのレベルの単語・章・検定の問題。50%→0、90%以上→1）
+      ・話す・書く（瞬間作文を声や文字で答えた正答率と、3文作文で正しく書けた文の割合）
+   ③ 達成度＝①×(0.6＋0.4×②)。到達テスト・ミニ模試があれば、その結果（合格ライン66%で1）と半分ずつ。
+   判定：テストが合格ライン以上 かつ 達成度80%以上 → 「到達」（確定）。テストなしで達成度85%以上 → 「ほぼ到達（テストで確定）」。
+   時間：A1 150・A2 350・B1 700時間の目安を、下のレベルから積み上げる（下のレベルが8割未満なら上は割り引く）。
+   自分のペース：毎日の推定を settings.p85.lvh {日付:[位置h, 記録した勉強h]} に残し、記録が5時間以上たまったら
+   「記録した時間 ÷ 進んだ位置」で残り時間を0.6〜2倍に補正。材料が少ないうちは幅を広く出す。 */
+function p90Clamp(x,a,b){return Math.max(a,Math.min(b,x));}
+function p90WordStr(p){if(!p||!p.status||p.status==="new")return 0;var st=(p.fs&&p.fs.s)||p.intervalDays||1,bad=(p.wrongCount||0)>(p.correctCount||0)?0.8:1;return (0.5+0.5*Math.min(1,st/21))*bad;}
+function p90Ev(){
+  /* 60日分の記録をレベルごとに数える */
+  var chs=(window.P72_GUIDE||[]).map(function(g){return g.id;}),chLv={};chs.forEach(function(id,i){chLv[id]=P90_CHLV(i);});
+  var E={A1:{q:[0,0],o:[0,0],ch:{}},A2:{q:[0,0],o:[0,0],ch:{}},B1:{q:[0,0],o:[0,0],ch:{}}},from=Date.now()/1000-60*86400;
+  var add=function(lv,k,ok){var b=E[lv];if(b){b[k][0]+=ok;b[k][1]++;}};
+  Object.keys(P85.log).forEach(function(m){P85.log[m].forEach(function(e){if(e[0]<from)return;var md=e[1],ok=e[3]?1:0,g=e[5]||[];
+    if(md==="compose"){var c=CMAP[e[2]];var lv=c&&E[c.level]?c.level:"A1";add(lv,"o",ok);if(lv!=="A1"&&E.A1.o[1]<40)add("A1","o",ok);return;}
+    if(md==="write")return;
+    if(md==="gp"){g.forEach(function(id){var lv=chLv[id];if(lv){add(lv,"q",ok);var r=E[lv].ch[id]||(E[lv].ch[id]=[0,0]);r[0]+=ok;r[1]++;}});return;}
+    if(md==="trki"){var t=g.filter(function(x){return /^trki-(A1|A2|B1)$/.test(x);})[0];add(t?t.slice(5):"A1","q",ok);return;}
+    if(md==="test"){var tl=null;g.forEach(function(x){var mm=/^t:.*?(A1|A2|B1)/.exec(x);if(mm)tl=mm[1];});var w=WMAP[e[2]];add(tl||(w&&w.level)||"A1","q",ok);return;}
+    var w2=WMAP[e[2]];if(w2&&E[w2.level])add(w2.level,"q",ok);
+  });});
+  /* 3文作文：正しく書けた文の割合（いまのレベルに入れる。どのレベルの文かは決められないので A1 と A2 に） */
+  try{(settings.psw&&settings.psw.h||[]).forEach(function(r){var d=new Date((r.d||"")+"T00:00:00").getTime()/1000;if(d&&d<from)return;(r.s||[]).forEach(function(x){add("A1","o",x[2]?1:0);add("A2","o",x[2]?1:0);});});}catch(_){}
+  return {E:E,chLv:chLv,chs:chs};
+}
 function p90Level(){
-  var by={A1:[0,0],A2:[0,0],B1:[0,0]};
-  try{VOCAB.forEach(function(w){var b=by[w.level];if(!b)return;b[1]++;var p=progress[w.id];if(p&&p.status&&p.status!=="new")b[0]++;});}catch(_){}
-  var chs=(window.P72_GUIDE||[]).map(function(g){return g.id;}),done=p90ChDone(),cb={A1:[0,0],A2:[0,0],B1:[0,0]};
-  chs.forEach(function(id,i){var l=P90_CHLV(i);cb[l][1]++;if(done(id))cb[l][0]++;});
+  var EV=p90Ev(),E=EV.E,by={A1:[0,0,0],A2:[0,0,0],B1:[0,0,0]};
+  try{VOCAB.forEach(function(w){var b=by[w.level];if(!b)return;b[1]++;var st=p90WordStr(progress[w.id]);if(st>0){b[0]++;b[2]+=st;}});}catch(_){}
+  var done=p90ChDone(),cb={A1:[0,0,0],A2:[0,0,0],B1:[0,0,0]};
+  EV.chs.forEach(function(id){var lv=EV.chLv[id],b=cb[lv];b[1]++;var r=E[lv].ch[id],d=done(id);
+    if(d||(r&&r[1])){b[0]++;b[2]+=(r&&r[1]>=4)?p90Clamp(0.4+0.6*r[0]/r[1],0,1):(d?0.85:0.5);}});
   var T=(settings.p85&&settings.p85.tests)||[],mk=(settings.p86&&settings.p86.mk)||[],pass=66;
-  var out=[],prevH=0,cur=null,conf="中";
+  var qs=function(a){return a[1]?p90Clamp((a[0]/a[1]-0.5)/0.4,0,1):null;};
+  var out=[],prevH=0;
   P90_LV.forEach(function(L){
-    var lv=L[0],w=by[lv][1]?by[lv][0]/by[lv][1]:0,g=cb[lv][1]?cb[lv][0]/cb[lv][1]:0;
-    var tp=null;T.forEach(function(t){if(t.lv===lv)tp=t.pct;});
-    mk.forEach(function(m){if((m.lv||"B1")===lv&&m.lg){var tot=0,ok=0;["lg","rd","au"].forEach(function(c){if(m[c]){ok+=m[c][0];tot+=m[c][1];}});if(tot){var p=Math.round(ok/tot*100);if(tp==null||p>tp)tp=p;}}});
-    var tst=tp==null?w:Math.min(1,tp/pass),f=Math.min(1,w*0.5+g*0.2+tst*0.3);
-    out.push({lv:lv,f:f,w:w,g:g,tp:tp,h0:prevH,h1:L[1],col:L[2],nW:by[lv][0],tW:by[lv][1],nG:cb[lv][0],tG:cb[lv][1]});prevH=L[1];
+    var lv=L[0],w=by[lv][1]?by[lv][2]/by[lv][1]:0,g=cb[lv][1]?cb[lv][2]/cb[lv][1]:0,cov=0.6*w+0.4*g;
+    var tp=null,td=null;T.forEach(function(t){if(t.lv===lv){tp=t.pct;td=t.d;}});
+    mk.forEach(function(m){if((m.lv||"B1")===lv&&m.lg){var tot=0,ok=0;["lg","rd","au"].forEach(function(c){if(m[c]){ok+=m[c][0];tot+=m[c][1];}});if(tot){var pp=Math.round(ok/tot*100);if(tp==null||pp>tp){tp=pp;td=m.d?todayKey(new Date(m.d)):td;}}}});
+    var q=E[lv].q,o=E[lv].o,Q=qs(q),O=qs(o),eq=Math.min(1,q[1]/60),eo=Math.min(1,o[1]/30);
+    /* 身についている度合い：仮の値 0.75（重み0.5）に、材料を量の重みで足す */
+    var K=(0.75*0.5+(Q!=null?Q*eq:0)+(O!=null?O*eo*0.8:0))/(0.5+(Q!=null?eq:0)+(O!=null?eo*0.8:0));
+    var f0=cov*(0.6+0.4*K),Tt=tp==null?null:Math.min(1,tp/pass),f=Tt==null?f0:0.5*f0+0.5*Tt;
+    f=p90Clamp(f,0,1);
+    var st=(Tt!=null&&tp>=pass&&f>=0.8)?"reached":(f>=0.85?"almost":"working");
+    out.push({lv:lv,f:f,cov:cov,K:K,w:w,g:g,Q:Q,O:O,nq:q[1],okq:q[0],no:o[1],oko:o[0],tp:tp,td:td,st:st,h0:prevH,h1:L[1],col:L[2],nW:by[lv][0],tW:by[lv][1],nG:cb[lv][0],tG:cb[lv][1]});prevH=L[1];
   });
-  /* いまの位置（時間）：下のレベルから順に積み上げる。下のレベルが8割未満なら、上のレベルはその割合までしか数えない */
-  var pos=0,gate=1;out.forEach(function(o){var ff=o.f*gate;pos+=(o.h1-o.h0)*ff;gate=Math.min(gate,o.f/0.8);o.eff=ff;});
-  pos=Math.round(pos);
-  cur=out.filter(function(o){return pos<o.h1;})[0]||out[out.length-1];
-  var tested=out.filter(function(o){return o.tp!=null;}).length;conf=tested?(cur.tp!=null?"高め":"中"):"低い";
-  var D=p85DaySecs(14),s=0,days=0;D.forEach(function(x){s+=x.s;if(x.n)days++;});var pace=Math.round(s/60/14); /* 1日平均の分（休んだ日もふくむ） */
-  var remain=Math.max(0,cur.h1-pos),dayN=pace>0?Math.ceil(remain*60/pace):null;
+  /* 位置（時間）：下から積み上げ。テストで「到達」と決まったレベルは満点として数える */
+  var pos=0,gate=1;out.forEach(function(o){var fx=o.st==="reached"?1:o.f,ff=fx*gate;pos+=(o.h1-o.h0)*ff;gate=Math.min(gate,fx/0.8);o.eff=ff;});
+  var cur=out.filter(function(o){return o.st!=="reached"&&pos<o.h1;})[0]||out.filter(function(o){return o.st!=="reached";})[0]||out[out.length-1];
+  if(pos<cur.h0)pos=cur.h0;pos=Math.round(pos*10)/10;
+  /* 確かさ：そのレベルの問題の数とテスト */
+  var recent=cur.td&&(Date.now()-new Date(cur.td+"T00:00:00").getTime())<45*86400000;
+  var conf=(cur.tp!=null&&recent&&cur.nq>=60)?"高め":((cur.nq>=40||cur.tp!=null)?"中":"低い"),spread={"高め":0.12,"中":0.25,"低い":0.4}[conf];
+  /* 勉強した時間と、毎日の推定の記録 */
   var tot=0;try{tot=Math.round(p85Totals().s/3600*10)/10;}catch(_){}
-  return {L:out,pos:pos,cur:cur,remain:remain,pace:pace,dayN:dayN,conf:conf,logged:tot,pct:Math.round((pos-cur.h0)/(cur.h1-cur.h0)*100)};
+  var H=p90Hist(pos,tot),fac=1,facN="";
+  var ks=Object.keys(H).sort();if(ks.length>=2){var a=H[ks[0]],dl=tot-a[1],dp=pos-a[0];if(dl>=5&&dp>0.5){fac=p90Clamp(dl/dp,0.6,2);facN=Math.round(dl*10)/10+"時間の勉強で、位置が"+Math.round(dp*10)/10+"時間ぶん進みました";}}
+  var remain0=Math.max(0,cur.h1-pos),remain=Math.round(remain0*fac),lo=Math.round(remain*(1-spread)),hi=Math.round(remain*(1+spread));
+  var D=p85DaySecs(14),s=0;D.forEach(function(x){s+=x.s;});var pace=Math.round(s/60/14);
+  var dayN=pace>0&&remain>0?Math.ceil(remain*60/pace):null;
+  /* 昨日の推定とくらべる */
+  var yk=ks.filter(function(k){return k<todayKey();}).slice(-1)[0],dy=null;
+  if(yk&&H[yk][2]!=null&&H[yk][3]===cur.lv)dy=Math.round((remain-H[yk][2])*10)/10;
+  var t=todayKey();if(H[t]){H[t][2]=remain;H[t][3]=cur.lv;}
+  return {L:out,pos:Math.round(pos),cur:cur,remain:remain,lo:lo,hi:hi,fac:fac,facN:facN,pace:pace,dayN:dayN,conf:conf,logged:tot,dy:dy,hist:H,
+    pct:Math.max(0,Math.min(100,Math.round((pos-cur.h0)/(cur.h1-cur.h0)*100)))};
+}
+/* 毎日の推定を残す（1日1件、今日の分は上書き。120日分） */
+/* 2台の端末：毎日の推定は日付ごとに、勉強時間の多いほう */
+if(typeof p85MergeP85==="function"){var _p90Merge=p85MergeP85;p85MergeP85=function(a,b){var o=_p90Merge.apply(this,arguments);try{var A=(a&&a.lvh)||{},B=(b&&b.lvh)||{},H={};
+  [A,B].forEach(function(src){Object.keys(src).forEach(function(k){var r=src[k];if(Array.isArray(r)&&(!H[k]||(r[1]||0)>(H[k][1]||0)))H[k]=r;});});if(Object.keys(H).length)o.lvh=H;}catch(_){}return o;};}
+function p90Hist(pos,tot){
+  var S=settings.p85||(settings.p85={});if(!S.lvh||typeof S.lvh!=="object")S.lvh={};var H=S.lvh,t=todayKey(),old=H[t];
+  H[t]=[Math.round(pos*10)/10,tot,old?old[2]:null,old?old[3]:null];
+  var ks=Object.keys(H).sort();while(ks.length>120)delete H[ks.shift()];
+  if(!old||Math.abs(old[0]-H[t][0])>=1||Math.abs(old[1]-tot)>=0.5){clearTimeout(P90.hs);P90.hs=setTimeout(function(){try{saveAll();}catch(_){}},1500);}
+  return H;
 }
 /* 色つきの細い棒（A1 緑・A2 青・B1 紫、0〜700時間） */
 function p90Bar(P,big){
@@ -22179,14 +22240,26 @@ p85HomeHtml=function(){
 
 /* ---------- 現在地のシート ---------- */
 function p90Html(){
-  var P=p90Level(),h='';
+  var P=p90Level(),h='',ST={reached:["到達","ok"],almost:["ほぼ到達","warn"],working:["学習中",""]};
   h+='<div class="p90-now"><div><span>いまの現在地</span><b style="color:'+P.cur.col+'">'+P.cur.lv+' <small>'+P.pct+'%</small></b></div><div><span>'+P.cur.lv+'まで</span><b>'+(P.remain>0?'約'+P.remain+'<small>時間</small>':'到達')+'</b></div><div><span>このペースで</span><b>'+(P.remain<=0?'—':(P.dayN?'約'+P.dayN+'<small>日</small>':'—'))+'</b></div></div>';
   h+=p90Bar(P,true)+'<div class="p90-scale"><span>0</span><span style="left:'+(150/7)+'%">A1 150h</span><span style="left:'+(350/7)+'%">A2 350h</span><span style="right:0">B1 700h</span></div>';
-  h+='<p class="p85c-fnote">いまの位置は、学習時間に直すと約'+P.pos+'時間ぶんです（記録した勉強時間は'+P.logged+'時間。記録を始める前の勉強もふくめて、身についた量から推定しています）。'+
-    (P.pace?'この14日の平均は1日'+P.pace+'分です。':'この14日の記録がないので、日数は出せません。')+'推定の確かさ：<b>'+P.conf+'</b>'+(P.conf==="低い"?'（到達テストを受けると確かになります）':'')+'。目安で、合格を約束するものではありません。</p>';
-  h+='<div class="p85c-lsec"><b>レベルごとの達成度</b>'+P.L.map(function(o){return '<div class="p90-lv"><div class="p90-lvt"><b style="color:'+o.col+'">'+o.lv+'</b><span>'+Math.round(o.f*100)+'%</span></div><span class="p90-one"><i style="width:'+Math.round(o.f*100)+'%;background:'+o.col+'"></i></span>'+
-    '<small>単語 '+o.nW+' / '+o.tW+' ・ 文法書の章 '+o.nG+' / '+o.tG+' ・ テスト '+(o.tp!=null?o.tp+'%（合格ライン66%）':'まだ')+'</small></div>';}).join("")+
-    '<p class="p85c-fnote">達成度＝単語50%＋文法書の章20%＋テスト30%（テストがないときは単語の割合で代わりにします）。時間の目安は A1 約150・A2 約350・B1 約700時間で、試験対策モードの「合格までの目標」と同じです。</p></div>';
+  h+='<div class="p90-est"><p>'+(P.remain>0?P.cur.lv+'まで <b>約'+P.remain+'時間</b>（幅をみて'+P.lo+'〜'+P.hi+'時間）':P.cur.lv+'に到達しています')+(P.dy!=null&&P.dy!==0?'<span class="p90-dy '+(P.dy<0?"dn":"up")+'">昨日より '+(P.dy<0?'':'+')+P.dy+'時間</span>':'')+'</p>'+
+    '<p class="p85c-fnote" style="margin:4px 0 0">推定の確かさ：<b>'+P.conf+'</b>。'+(P.conf==="低い"?'まだ材料が少ないので、幅を広くとっています。'+P.cur.lv+'の問題を解き、到達テストを受けると確かになります。':P.conf==="中"?'到達テストかミニ模試を受けると、もっと確かになります。':'最近のテストと、たくさんの問題の結果から出しています。')+
+    ' いまの位置は学習時間に直すと約'+P.pos+'時間ぶんで、記録した勉強時間は'+P.logged+'時間です。'+(P.pace?'この14日の平均は1日'+P.pace+'分。':'')+'目安で、合格を約束するものではありません。</p></div>';
+  if(P.hist&&Object.keys(P.hist).length>=2)h+=p90HistChart(P);
+  h+='<div class="p85c-lsec"><b>レベルごとの判定</b>'+P.L.map(function(o){var st=(o.st==="working"&&o.f<0.05)?["これから",""]:ST[o.st],pc=function(x){return x==null?'—':Math.round(x*100)+'%';};
+    return '<div class="p90-lv"><div class="p90-lvt"><b style="color:'+o.col+'">'+o.lv+'</b>'+(st[0]?'<em class="p90-st '+st[1]+'">'+st[0]+'</em>':'')+'<span>'+Math.round(o.f*100)+'%</span></div><span class="p90-one"><i style="width:'+Math.round(o.f*100)+'%;background:'+o.col+'"></i></span>'+
+      '<details class="p90-why"><summary>内訳を見る</summary><dl>'+
+      '<dt>学んだ範囲 '+pc(o.cov)+'</dt><dd>単語 '+o.nW+' / '+o.tW+'語（覚えている強さで重みづけ '+pc(o.w)+'）・ 文法書の章 '+o.nG+' / '+o.tG+'（'+pc(o.g)+'）</dd>'+
+      '<dt>身についている度合い '+pc(o.K)+'</dt><dd>問題の正答率：'+(o.nq?Math.round(o.okq/o.nq*100)+'%（'+o.nq+'問）':'まだ')+'<br>話す・書く：'+(o.no?Math.round(o.oko/o.no*100)+'%（'+o.no+'文）':'まだ')+(o.nq+o.no<20?'<br><small>材料が少ないので、仮の値を多めに使っています。</small>':'')+'</dd>'+
+      '<dt>テスト '+(o.tp!=null?o.tp+'%':'まだ')+'</dt><dd>'+(o.tp!=null?'到達テスト・ミニ模試のいちばん新しい結果（合格ライン66%）。'+(o.td?'（'+esc(String(o.td).slice(5).replace("-","/"))+'）':''):'到達テストかミニ模試を受けると、判定に入ります。')+'</dd>'+
+      '<dt>判定</dt><dd>'+(o.st==="reached"?'テストが合格ラインを超え、達成度も80%以上なので「到達」です。':o.st==="almost"?'達成度は85%を超えています。到達テストで合格ライン（66%）を超えると「到達」になります。':'達成度が85%に届くと「ほぼ到達」、そのうえでテストが合格ラインを超えると「到達」です。')+'</dd></dl></details></div>';}).join("")+
+    '<details class="p90-why p90-how"><summary>計算のしかた</summary><ol>'+
+    '<li><b>学んだ範囲</b>＝単語60%＋文法書の章40%。単語は、復習の間隔が長い（よく覚えている）ほど重く数えます。章は、章の問題の正答率で重みづけします。</li>'+
+    '<li><b>身についている度合い</b>＝問題の正答率（50%で0、90%以上で満点）と、話す・書く練習（瞬間作文を声や文字で答えた結果、3文作文の添削）。材料が少ないうちは仮の値（75%）を多めに使います。</li>'+
+    '<li><b>達成度</b>＝学んだ範囲 ×（0.6＋0.4×身についている度合い）。到達テストかミニ模試があれば、その結果と半分ずつにします。</li>'+
+    '<li><b>時間</b>：A1 約150・A2 約350・B1 約700時間の目安を下から積み上げます。下のレベルが8割に届くまでは、上のレベルを割り引きます。</li>'+
+    '<li><b>あなたのペース</b>：毎日の推定を記録し、勉強時間が5時間以上たまったら、実際に進んだ速さで残り時間を補正します'+(P.facN?'（いまは'+P.facN+'。補正 ×'+(Math.round(P.fac*100)/100)+'）':'（まだ補正していません）')+'。</li></ol></details></div>';
   h+='<div class="p85c-lsec"><b>今日の勉強の組み立て方（根拠）</b><ul class="p85c-ltips">'+
     '<li><b>復習を先に、間をあけて</b>：同じ時間でも、間をあけて復習するほうが長く覚えています（Cepeda ほか 2006、分散学習の研究のまとめ）。復習の日は、単語ごとの記憶の強さから決めます。</li>'+
     '<li><b>読むより、思い出す</b>：読み返すより、問題を解いて思い出すほうが1週間後によく覚えています（Roediger & Karpicke 2006）。どの項目も、解く形にしています。</li>'+
@@ -22197,6 +22270,13 @@ function p90Html(){
     '<p class="p85c-fnote">参考：キルギス語は、英語を話す人にとって「むずかしめ」の言語とされています（米国国務省の語学研修所 FSI の分類）。日本語を話す人にとっても、格の変化がある分、時間がかかります。</p></div>';
   h+='<div class="p85c-lsec"><b>外のAIで会話の練習</b><p class="p85c-fnote" style="margin-top:0">ChatGPT などに貼りつける、今日のあなた用の会話練習の文を作ります。</p><button type="button" class="p47-btn primary p85c-wide" data-act="p90talk">会話練習の文を作る</button></div>';
   return h;
+}
+/* 残り時間の移りかわり（毎日の推定。いまのレベルの日だけ） */
+function p90HistChart(P){
+  var ks=Object.keys(P.hist).sort().filter(function(k){var r=P.hist[k];return r[2]!=null&&r[3]===P.cur.lv;}).slice(-30);if(ks.length<2)return "";
+  var v=ks.map(function(k){return P.hist[k][2];}),mx=Math.max.apply(null,v),mn=Math.min.apply(null,v),W=300,Hh=56,rg=Math.max(1,mx-mn);
+  var pts=v.map(function(x,i){return [Math.round(i/(v.length-1)*W*10)/10,Math.round((4+(mx-x)/rg*(Hh-8))*10)/10];});
+  return '<div class="p90-hist"><small>'+P.cur.lv+'までの残り時間（毎日の推定、'+ks.length+'日分）：'+v[0]+'時間 → '+v[v.length-1]+'時間</small><svg viewBox="0 0 '+W+' '+Hh+'" preserveAspectRatio="none" role="img" aria-label="残り時間の移りかわり"><polyline points="'+pts.map(function(p){return p.join(",");}).join(" ")+'" fill="none" stroke="'+P.cur.col+'" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></div>';
 }
 function p90Open(){p85Sheet("いまの現在地",p90Html());}
 
@@ -22272,6 +22352,10 @@ if(typeof p87PlanHtml==="function"){var _p90Plan87=p87PlanHtml;p87PlanHtml=funct
     '.p90-why{display:block;border:0;background:none;color:var(--accent);font:inherit;font-size:12.5px;font-weight:700;padding:8px 0 0;cursor:pointer}'+
     '.p90-now{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.p90-now>div{min-width:0}.p90-now span{display:block;font-size:11.5px;color:var(--muted);font-weight:700}.p90-now b{display:block;font-size:24px;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums;white-space:nowrap}.p90-now b small{font-size:12px;font-weight:700;color:var(--muted);margin-left:1px}'+
     '.p90-scale{position:relative;height:16px;font-size:10.5px;color:var(--muted)}.p90-scale span{position:absolute;top:0;white-space:nowrap}.p90-scale span:nth-child(2),.p90-scale span:nth-child(3){transform:translateX(-50%)}'+
+    '.p90-est{margin:10px 0 4px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card)}.p90-est>p:first-child{margin:0;font-size:14px;line-height:1.6}.p90-dy{display:inline-block;margin-left:8px;font-size:12px;font-weight:800;padding:1px 8px;border-radius:999px}.p90-dy.dn{color:#22A06B;background:color-mix(in srgb,#22A06B 12%,transparent)}.p90-dy.up{color:#C77700;background:color-mix(in srgb,#C77700 12%,transparent)}'+
+    '.p90-st{font-style:normal;font-size:11.5px;font-weight:800;padding:0 8px;border-radius:999px;border:1px solid currentColor;margin-left:8px;color:var(--muted)}.p90-st.ok{color:#22A06B}.p90-st.warn{color:#C77700}.p90-lvt{align-items:center}.p90-lvt>span{margin-left:auto}'+
+    '.p90-why{margin-top:6px}.p90-why summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--accent);padding:4px 0;min-height:24px}.p90-why dl{margin:4px 0 0}.p90-why dt{font-size:12.5px;font-weight:800;margin-top:6px}.p90-why dd{margin:2px 0 0;font-size:12.5px;line-height:1.65;color:var(--muted)}.p90-how ol{margin:6px 0 0;padding-left:20px}.p90-how li{font-size:12.5px;line-height:1.7;color:var(--muted);margin:4px 0}.p90-how li b{color:var(--ink)}'+
+    '.p90-hist{margin:10px 0 0}.p90-hist small{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}.p90-hist svg{display:block;width:100%;height:64px}'+
     '.p90-lv{padding:8px 0}.p90-lvt{display:flex;justify-content:space-between;font-size:14px}.p90-lvt span{font-weight:800;font-variant-numeric:tabular-nums}.p90-one{display:block;height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:5px 0 4px}.p90-one i{display:block;height:100%;border-radius:4px}.p90-lv small{font-size:12px;color:var(--muted)}'+
     '.p90-ta{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:inherit;font-size:13px;line-height:1.6;padding:10px 12px;resize:vertical}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
