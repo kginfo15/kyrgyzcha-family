@@ -17935,9 +17935,11 @@ function p85DaySecs(n){
   return out;
 }
 function p85Mins(sec){return Math.round(sec/60);}
+/* 1日の目標（100日コース中はコースの時間） */
+function p85Goal(){try{var c=p85Crs();if(c)return c.min;}catch(_){}return p85Set().min;}
 function p85TimeHome(){
   var S=p85Set(),D=p85DaySecs(7),t=D[6].s,w=0;D.forEach(function(x){w+=x.s;});
-  var m=p85Mins(t),goal=S.min,pct=Math.min(100,Math.round(m/goal*100));
+  var m=p85Mins(t),goal=p85Goal(),pct=Math.min(100,Math.round(m/goal*100));
   return '<button type="button" class="p85c-tline" data-act="p85time" aria-label="今日の勉強 '+m+'分、目標'+goal+'分。この7日 '+p85HM(w)+'"><span class="p85c-tl1">今日の勉強</span><b>'+m+'<small>分</small></b>'+
     '<span class="p85c-tbar" aria-hidden="true"><i style="width:'+pct+'%"></i></span><span class="p85c-tl2">'+(m>=goal?'目標達成':'目標 '+goal+'分')+'<span class="p85c-w7"> ・ 7日 '+p85HM(w)+'</span></span></button>';
 }
@@ -17961,7 +17963,7 @@ function p85TimeChart(D,goal){
   return s+'</svg>';
 }
 function p85TimeCard(){
-  var S=p85Set(),goal=S.min,D=p85DaySecs(14),today=D[13],w7=0,p7=0,days7=0,hit=0;
+  var S=p85Set(),goal=p85Goal(),D=p85DaySecs(14),today=D[13],w7=0,p7=0,days7=0,hit=0;
   D.forEach(function(x,i){if(i>=7){w7+=x.s;if(x.n)days7++;if(p85Mins(x.s)>=goal)hit++;}else p7+=x.s;});
   var T=p85Totals(),m=p85Mins(today.s),pct=Math.min(100,Math.round(m/goal*100)),diff=p85Mins(w7)-p85Mins(p7);
   var h='<div class="p60-h" id="p85time">勉強時間<small>実際に解いた時間だけ</small></div><div class="p60-list p85c-time">';
@@ -17974,7 +17976,7 @@ function p85TimeCard(){
   var by={},from=Math.floor(D[7].d.getTime()/1000);p85Recent(8).forEach(function(e){if(e[0]>=from)by[e[1]]=(by[e[1]]||0)+e[4];});
   var rows=P85_TMODE.map(function(r){var s=0;r[2].forEach(function(k){s+=by[k]||0;});return {name:r[1],s:s};}).filter(function(r){return r.s>=30;}).sort(function(a,b){return b.s-a.s;});
   if(rows.length){var mx=rows[0].s;h+='<div class="p85c-tsub">この7日の内訳</div>'+rows.map(function(r){return '<div class="p85c-trow2"><span>'+r.name+'</span><i><b style="width:'+Math.max(3,Math.round(r.s/mx*100))+'%"></b></i><em>'+p85HM(r.s)+'</em></div>';}).join("");}
-  h+='<p class="p85c-tnote">問題が画面に出てから答えるまでの時間だけを数えます。ほかのアプリを開いていた時間は引き、1問は長くても2分までにしています。目標はホームの「今日やること」で選んだ時間（15・30・60分）です。</p>';
+  h+='<p class="p85c-tnote">問題が画面に出てから答えるまでの時間だけを数えます。ほかのアプリを開いていた時間は引き、1問は長くても2分までにしています。目標はホームの「今日やること」で選んだ時間（100日コース中はコースの時間）です。</p>';
   return h+'</div>';
 }
 /* 記録の画面：いちばん上に勉強時間。「1問ごとの記録」からは時間を外す（同じ数字を2回出さない） */
@@ -18006,6 +18008,234 @@ document.addEventListener("click",function(e){
     '.p85c-trow2{display:flex;align-items:center;gap:10px;padding:5px 14px;font-size:13px}.p85c-trow2>span{flex:0 0 76px;white-space:nowrap}.p85c-trow2>i{flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden;display:block}.p85c-trow2>i>b{display:block;height:100%;background:var(--accent);border-radius:4px}'+
     '.p85c-trow2>em{flex:0 0 auto;font-style:normal;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}'+
     '.p85c-tnote{font-size:11.5px;color:var(--muted);line-height:1.6;margin:10px 14px 8px}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
+})();
+
+/* ===== PHASE85 手順8：100日コース（AIメンター） =====
+   2026-11-28 Yuta：「毎日100日続ければかなりのレベルに確実に届く構成を。AIサポート・AIメンターのように」。
+   ・届くレベルは時間で決まる（試験対策モードの「合格までの道のり」と同じ目安：A1約150時間・A2約350時間・B1約700時間）。
+     1日30分=50時間 / 60分=100時間 / 90分=150時間 / 120分=200時間。「100%」は約束せず、届く見込みを正直に出す。
+   ・道のり：文法書の全章を1〜75日目に順番どおり（約2日に1章：読む→章の練習）、新しい単語は85日目までに目標の語数、
+     検定の問題集は毎日10問（50日目からは週1回ミニ模試）、忘れかけの復習と弱点の講義、25・50・75・100日目は到達テストで節目。
+   ・settings.p85.course = {start:"YYYY-MM-DD", min:30|60|90|120, at:作った時刻, rd:{章ID:読んだ日}, ai:{d:日付, t:文}}
+   ・遅れ：予定の量と今の量を比べ、残りの日数で割り直した「1日の量」を出す。選んだ時間の1.5倍を超えるなら正直に伝える。 */
+var P85_CRS={
+  30:{h:50,lv:"A1",words:450,goal:"A1の前半（あいさつ・数・家族・場所の文が言える）",trki:1},
+  60:{h:100,lv:"A1",words:913,goal:"A1のほとんど（ТЭУ＝入門の合格ラインの手前）",trki:2},
+  90:{h:150,lv:"A1",words:913,goal:"ТЭУ（A1・入門）合格の目安",trki:3},
+  120:{h:200,lv:"A2",words:1383,goal:"A1合格と、A2（ТБУ）の途中まで",trki:3}
+};
+var P85_CMS=[25,50,75,100];
+function p85Crs(){var S=p85Set(),c=S.course;return (c&&c.start&&P85_CRS[c.min])?c:null;}
+function p85CDay(c){c=c||p85Crs();if(!c)return 0;var a=new Date(c.start+"T00:00:00"),t=new Date(todayKey()+"T00:00:00");return Math.round((t-a)/86400000)+1;}
+function p85Chs(){return (window.P72_GUIDE||[]).map(function(g){return g.id;});}
+/* 章 i の予定日（1〜75日目に均等） */
+function p85ChDay(i,n){return Math.floor(i*75/n)+1;}
+function p85ChDone(c,id){
+  var rd=c.rd&&c.rd[id];if(!rd)return false;
+  var has=false;try{has=!!(window.P82_Q&&P82_Q[id]&&P82_Q[id].length);}catch(_){}
+  if(!has)return true;
+  var from=Math.floor(new Date(c.start+"T00:00:00").getTime()/1000),n=0,ok=0;
+  Object.keys(P85.log).forEach(function(m){P85.log[m].forEach(function(e){if(e[0]>=from&&e[1]==="gp"&&e[5]&&e[5].indexOf(id)>=0){n++;ok+=e[3];}});});
+  return n>=8;
+}
+function p85CWords(c){
+  var lvs=P85_CRS[c.min].lv==="A2"?["A1","A2"]:["A1"],n=0;
+  Object.keys(progress).forEach(function(id){var w=WMAP[id],p=progress[id];if(w&&p&&p.status&&p.status!=="new"&&lvs.indexOf(w.level)>=0)n++;});return n;
+}
+function p85CSince(c){var from=Math.floor(new Date(c.start+"T00:00:00").getTime()/1000),o={s:0,trki:0,days:{}};
+  Object.keys(P85.log).forEach(function(m){P85.log[m].forEach(function(e){if(e[0]>=from){o.s+=e[4];if(e[1]==="trki")o.trki++;o.days[todayKey(new Date(e[0]*1000))]=1;}});});o.nd=Object.keys(o.days).length;return o;}
+/* コースの状態（予定と実際） */
+function p85CState(){
+  var c=p85Crs();if(!c)return null;var C=P85_CRS[c.min],d=Math.max(1,p85CDay(c)),dd=Math.min(d,100),ch=p85Chs(),n=ch.length;
+  var chDue=ch.filter(function(id,i){return p85ChDay(i,n)<=dd;}),chDone=ch.filter(function(id){return p85ChDone(c,id);});
+  var next=ch.filter(function(id){return !p85ChDone(c,id);})[0]||null;
+  var w=p85CWords(c),wPlan=Math.round(C.words*Math.min(1,dd/85)),wLeft=Math.max(0,C.words-w),dLeft=Math.max(1,85-dd+1);
+  var perDay=Math.ceil(wLeft/dLeft),base=Math.ceil(C.words/85);
+  var S=p85CSince(c),hPlan=c.min*dd/60,hNow=S.s/3600;
+  /* 遅れは「昨日までの予定」とくらべる（今日の分はまだやっていなくてよい） */
+  var chPrev=ch.filter(function(id,i){return p85ChDay(i,n)<dd;}).length,wPrev=Math.round(C.words*Math.min(1,(dd-1)/85));
+  var chBehind=Math.max(0,chPrev-chDone.length),wBehind=wPrev-w;
+  var st=d>100?"done":((chBehind>=3||wBehind>base*4)?"late":((chBehind>=1||wBehind>base*1.5)?"tight":"ok"));
+  var over=perDay>base*1.5&&dd<85;
+  return {c:c,C:C,d:d,dd:dd,ch:ch,chDue:chDue,chDone:chDone,next:next,w:w,wPlan:wPlan,perDay:perDay,base:base,S:S,hPlan:hPlan,hNow:hNow,st:st,over:over,chBehind:chBehind,wBehind:wBehind};
+}
+var P85_CST={ok:["予定どおり","ok"],tight:["少し遅れ","warn"],late:["遅れています","ng"],done:["100日を終えました","ok"]};
+/* 今日のメニュー（コース中は「今日やること」をこれに置きかえる） */
+function p85CPlan(base){
+  var X=p85CState(),items=[],per=p85SecPerQ(),todayL=p85TodayLog();if(!X)return base;
+  var c=X.c,t=todayKey(),dn=function(k){return todayL.filter(function(e){return e[1]===k;}).length;};
+  /* 節目の到達テスト */
+  var ms=P85_CMS.filter(function(m){return X.d>=m&&X.d<m+7;})[0];
+  if(ms){var md=p85DayAdd(c.start,ms-1),took=(p85Set().tests||[]).some(function(r){return r.d>=md;});
+    if(!took)items.push({k:"test",act:"test:"+X.C.lv,title:ms+"日目の節目：到達テスト（"+X.C.lv+"）",amt:"約15分",sec:900,why:"ここまでの伸びを数字で確かめます。結果は100日コースの画面に残り、開始時とくらべられます。",done:false});}
+  /* 文法書の章 */
+  if(X.next){var i=X.ch.indexOf(X.next),g=p85Guide(X.next),rd=c.rd&&c.rd[X.next],sched=p85ChDay(i,X.ch.length);
+    if(sched<=Math.min(X.dd+1,100)||X.chBehind>0){
+      items.push({k:"ch",act:"ch:"+X.next,title:"文法書 "+(i+1)+"章「"+p85ChName(X.next)+"」"+(rd?"の練習":"を読む"),amt:rd?"10問 ・ 約"+Math.max(3,Math.round(10*per/60))+"分":"読む 約10分 ＋ 練習10問",
+        sec:rd?10*per:600+10*per,why:(rd?"読んだ章を、すぐに問題で確かめます。8問以上解くと、この章は終わりです。":"100日で全"+X.ch.length+"章を順番に読みます。今日は"+(i+1)+"章目です。")+(X.chBehind>0?"予定より"+X.chBehind+"章遅れているので、この章から追いつきましょう。":""),done:false});}}
+  else if(X.dd<=100)items.push({k:"ch",act:"guide",title:"文法書の見直し",amt:"約10分",why:"全部の章を終えました。弱点の講義に出た章を読み直すと、仕上げになります。",done:false});
+  /* 新しい言葉 */
+  if(X.dd<=85&&X.w<X.C.words){var ln=Math.max(1,Math.ceil(X.perDay/6)),dl=p85LessonsToday();
+    items.push({k:"new",act:"new",title:"新しい言葉 "+X.perDay+"語",amt:ln+"レッスン ・ 約"+Math.round(ln*20*per/60)+"分",sec:ln*20*per,
+      why:"目標の"+X.C.words.toLocaleString()+"語のうち "+X.w.toLocaleString()+"語まで来ました。85日目までに終えるには、1日"+X.perDay+"語です。",done:dl>=ln,ln:ln});}
+  /* 復習か弱点の講義（基本の提案から取る） */
+  var rv=base.filter(function(x){return x.k==="lec";})[0]||base.filter(function(x){return x.k==="rev";})[0];if(rv)items.push(rv);
+  /* 検定の問題集 */
+  if(window.P86_LG&&X.d>=1){var mk=(settings.p86&&settings.p86.mk)||[],lastMk=mk[0]?mk[0].d:0;
+    if(X.d>=50&&Date.now()-lastMk>6*86400000)items.push({k:"mock",act:"trki",title:"検定のミニ模試（週1回）",amt:"約35分",why:"50日目からは、週に1回本番の形で解いて、合格ライン（66%）との差を確かめます。",done:false});
+    else items.push({k:"trki",act:"trkitoday",title:"検定の問題集 今日の10問",amt:"10問 ・ 約"+Math.max(3,Math.round(10*per*1.5/60))+"分",why:"毎日10問ずつ回すと、100日で約1,000問。目標は問題集を"+X.C.trki+"周です。",done:dn("trki")>=10});}
+  return items.slice(0,4);
+}
+var _p85Plan8=p85Plan;
+p85Plan=function(){var b=_p85Plan8.apply(this,arguments);try{if(p85Crs()&&P47_LANG==="ru")return p85CPlan(b);}catch(_){}return b;};
+var _p85Go8=p85Go;
+p85Go=function(v){v=String(v);
+  if(v.indexOf("ch:")===0){var id=v.slice(3),c=p85Crs();if(c&&c.rd&&c.rd[id]){p77GpStart(id);}else{try{p72GuideOpen(id);}catch(_){}}return;}
+  if(v==="guide"){try{p72GuideOpen(null);}catch(_){}return;}
+  if(v==="trkitoday"){var ck=function(a){var x=document.createElement("button");x.type="button";x.style.display="none";x.setAttribute("data-act",a);document.body.appendChild(x);try{x.click();}finally{x.remove();}};ck("p86open");ck("p86today");return;}
+  return _p85Go8.apply(this,arguments);};
+/* 文法書の章を開いたら「読んだ」にする（コース中だけ） */
+if(typeof p72GuideOpen==="function"){var _p85GOpen=p72GuideOpen;p72GuideOpen=function(id){var r=_p85GOpen.apply(this,arguments);try{var c=p85Crs();if(c&&id&&p85Guide(id)){if(!c.rd)c.rd={};if(!c.rd[id]){c.rd[id]=todayKey();saveAll();}}}catch(_){}return r;};}
+/* ---- メンターのひとこと（計算。AIが使えるときは1日1回AIが書く） ---- */
+function p85CTip(X){
+  var y=p85DaySecs(2)[0],ym=p85Mins(y.s),c=X.c,t="";
+  if(X.d>100)return "100日おつかれさまでした。最後の到達テストで、開始時からの伸びを確かめましょう。";
+  if(X.d===1)t="今日から100日コースです。最初の目標は、毎日「今日やること」を上から順に終えることです。";
+  else if(!y.n)t="昨日はお休みでした。1日休んでも、今日いつもの分をやれば取り戻せます。";
+  else t="昨日は"+ym+"分"+(ym>=c.min?"、目標どおりでした。":"でした（目標は"+c.min+"分）。");
+  if(X.st==="late")t+=X.over?"いまのままでは100日目に届きません。1日の時間を増やすか、コースを"+(c.min>30?"短い時間のものに":"立て直す")+"のがおすすめです。":"遅れを取り戻すため、今日は文法書の章を1つ多めに進めましょう。";
+  else if(X.st==="tight")t+="少し遅れています。今日の分を終えれば、ほぼ予定に戻ります。";
+  else if(X.d>1)t+="予定どおりです。この調子で続けましょう。";
+  return t;
+}
+/* 節目（25・50・75・100日目から1週間）の振り返り。まだ書いていなければ、その日のひとことの代わりにAIが書く */
+function p85CMile(X){return P85_CMS.filter(function(m){return X.d>=m&&X.d<m+7&&!(X.c.rv&&X.c.rv[m]);})[0]||0;}
+async function p85CAIMile(s,X,m){
+  var c=X.c,T=p85Set().tests||[],first=T.filter(function(x){return x.d<=p85DayAdd(c.start,6);})[0],last=T.slice(-1)[0];
+  var data={節目:m+"日目",一日の目標_分:c.min,開始からの勉強_時間:Math.round(X.hNow*10)/10,予定の勉強_時間:Math.round(X.hPlan*10)/10,学習した日数:X.S.nd,
+    文法書:X.chDone.length+"/"+X.ch.length+"章",単語:X.w+"/"+X.C.words+"語",検定の問題:X.S.trki,
+    開始時の到達テスト:first?first.lv+" "+first.pct+"%":"なし",最新の到達テスト:last?last.lv+" "+last.pct+"%":"なし",いちばんの弱点:(p85Weak()[0]?p85KeyName(p85Weak()[0].k):"なし"),目標:X.C.goal};
+  var prompt="あなたは日本人のキルギス語学習者を支えるメンターです。この人は100日コースの"+m+"日目の節目に来ました。記録の数字：\n"+JSON.stringify(data)+"\n\n"+
+    "日本語で4〜5文の振り返りを書いてください。ルール：\n1. ここまでで伸びたことを、数字を使って1つか2つ。\n2. 予定とくらべてどうか、正直に。\n3. 次の25日でいちばん大事なことを1つ、具体的に。\n4. 責めない。大げさなほめ言葉・命令口調・絵文字は使わない。合格を約束しない。記録にないことは書かない。\n5. "+(typeof P55_SAFE==="string"?P55_SAFE:"")+"\n振り返りの文だけを返してください。";
+  var r=await s(prompt),tx=String(r&&r.text||"").trim().slice(0,600);
+  if(tx){if(!c.rv)c.rv={};c.rv[m]={d:todayKey(),t:tx};c.ai={d:todayKey(),t:m+"日目の振り返りを書きました。100日コースの画面で読めます。"};try{saveAll();}catch(_){}}
+}
+async function p85CAI(){
+  var c=p85Crs();if(!c||P85.cBusy)return;var t=todayKey();if(c.ai&&c.ai.d===t)return;
+  var s=null;try{s=await p55Sample();}catch(_){}if(!s)return;P85.cBusy=1;
+  var X=p85CState(),y=p85DaySecs(2)[0],mm=p85CMile(X);
+  if(mm){try{await p85CAIMile(s,X,mm);var e2=document.querySelector(".p85c-mentor span");if(e2&&c.ai)e2.textContent=c.ai.t;}catch(_){}P85.cBusy=0;return;}
+  var data={何日目:X.d,一日の目標_分:c.min,昨日の勉強_分:p85Mins(y.s),昨日の問題数:y.n,開始からの勉強_時間:Math.round(X.hNow*10)/10,予定の勉強_時間:Math.round(X.hPlan*10)/10,
+    文法書:X.chDone.length+"/"+X.ch.length+"章（予定 "+X.chDue.length+"章）",単語:X.w+"/"+X.C.words+"語（予定 "+X.wPlan+"語）",状況:P85_CST[X.st][0],
+    弱点:(p85Weak()[0]?p85KeyName(p85Weak()[0].k):"なし"),目標:X.C.goal};
+  var prompt="あなたは日本人のキルギス語学習者に毎日声をかけるメンターです。この人は100日コースの途中です。記録の数字：\n"+JSON.stringify(data)+"\n\n"+
+    "日本語で2〜3文のひとことを書いてください。ルール：\n1. 数字を1つ使って、昨日のことに具体的にふれる。\n2. 今日いちばん大事なことを1つ、すぐできる形で言う。\n3. 遅れていても責めない。大げさなほめ言葉・命令口調・絵文字は使わない。\n4. 記録にないことは書かない。合格を約束しない。\n5. "+(typeof P55_SAFE==="string"?P55_SAFE:"")+"\nひとことの文だけを返してください。";
+  try{var r=await s(prompt),tx=String(r&&r.text||"").trim().slice(0,300);if(tx){c.ai={d:t,t:tx};try{saveAll();}catch(_){}
+      var el=document.querySelector(".p85c-mentor span");if(el)el.textContent=tx;}}catch(_){}
+  P85.cBusy=0;
+}
+function p85CMsg(X){var c=X.c;return (c.ai&&c.ai.d===todayKey())?{t:c.ai.t,ai:1}:{t:p85CTip(X),ai:0};}
+/* ---- ホーム：見出しの下の小さな文字を「100日コース ◯日目」に。メンターのひとことは2行まで ---- */
+var _p85HomeHtml8=p85HomeHtml;
+p85HomeHtml=function(){
+  var h=_p85HomeHtml8.apply(this,arguments);
+  try{var X=p85CState(),i=h.indexOf('<button type="button" class="p85c-exb'),j=i>=0?h.indexOf('</button>',i)+9:-1;
+    if(X){var st=P85_CST[X.st],sub='<button type="button" class="p85c-exb '+st[1]+'" data-act="p85course">100日コース '+(X.d>100?"完了":X.d+"日目")+' ・ '+st[0]+' ›</button>';
+      if(i>=0)h=h.slice(0,i)+sub+h.slice(j);
+      /* コース中は1日の時間はコースで決まるので、15/30/60分の切りかえは出さない（変えるときはコースの画面から） */
+      h=h.replace(/<div class="p85c-mins"[\s\S]*?<\/div>/,"");
+      var M=p85CMsg(X),k=h.indexOf('<button type="button" class="p85c-tline"');
+      if(k>=0)h=h.slice(0,k)+'<button type="button" class="p85c-mentor" data-act="p85course"><b>'+(M.ai?"AIメンター":"メンター")+'</b><span>'+esc(M.t)+'</span></button>'+h.slice(k);
+      if(!M.ai)setTimeout(p85CAI,400);}
+    else if(i>=0&&!p85Set().exam)h=h.slice(0,i)+'<button type="button" class="p85c-exb" data-act="p85course">100日コースを始める（毎日やることを案内します） ›</button>'+h.slice(j);
+  }catch(_){}
+  return h;
+};
+/* ---- コースの画面 ---- */
+function p85CBar(lab,v,goal,plan,txt){var p=Math.min(100,Math.round(v/Math.max(1,goal)*100)),q=Math.min(100,Math.round(plan/Math.max(1,goal)*100));
+  return '<div class="p85c-cr"><div class="p85c-crt"><b>'+lab+'</b><span>'+txt+'</span></div><div class="p85c-cbar"><i style="width:'+p+'%"></i><u style="left:'+q+'%" title="予定"></u></div></div>';}
+function p85CourseHtml(edit){
+  var c=p85Crs(),S=p85Set();
+  if(!c||edit){
+    var cur=c?c.min:(S.min>=60?60:60);
+    var h='<p class="p85c-fnote" style="margin-top:0">1日の時間を決めると、100日分の予定を作ります。毎日「今日やること」に、その日の分（文法書の章・新しい言葉・復習・検定の問題集）が出ます。</p>';
+    h+='<div class="p85c-csel" role="radiogroup" aria-label="1日の時間">'+[30,60,90,120].map(function(m){var C=P85_CRS[m];return '<button type="button" role="radio" aria-checked="'+(m===cur)+'" class="p85c-copt'+(m===cur?" on":"")+'" data-act="p85cmin" data-val="'+m+'"><b>1日'+(m<60?m+"分":(m/60)+"時間")+'</b><span>100日で約'+C.h+'時間</span><em>'+esc(C.goal)+'</em></button>';}).join("")+'</div>';
+    h+='<div class="p85c-honest"><b>正直な見積もり</b><p>A1（入門）までは約150時間、A2までは約350時間、B1までは約700時間が目安です（試験対策モードの「合格までの道のり」と同じ数字）。100日でB1に届くには1日7時間が必要なので、このコースでは目指しません。毎日の分をこなせば上の見込みに届くように組みますが、合格を100%約束するものではありません。本番の作文と会話は、瞬間作文で別に練習してください。</p></div>';
+    h+='<label class="p85c-cdate"><span>始める日</span><input type="date" id="p85cstart" value="'+esc(c?c.start:todayKey())+'"></label><p class="p85c-err" id="p85cerr"></p>';
+    h+='<div class="p85c-fbtn">'+(c?'<button type="button" class="p47-btn" data-act="p85course">もどる</button>':'')+'<button type="button" class="p47-btn primary" data-act="p85cgo" data-val="'+cur+'">'+(c?"この内容で組み直す":"100日コースを始める")+'</button></div>';
+    if(c)h+='<button type="button" class="p85c-lmore" data-act="p85cstop" style="color:var(--muted)">コースをやめる（記録は消えません）</button>';
+    return h;
+  }
+  var X=p85CState(),st=P85_CST[X.st],M=p85CMsg(X),pd=Math.min(100,X.d);
+  var h='<div class="p85c-chead"><div class="p85c-cday"><b>'+(X.d>100?"完了":X.d)+'</b><span>'+(X.d>100?"100日":"/ 100日目")+'</span></div><div><span class="p85c-cst '+st[1]+'">'+st[0]+'</span><p>1日'+(c.min<60?c.min+"分":(c.min/60)+"時間")+'のコース ・ 目標：'+esc(X.C.goal)+'</p></div></div>';
+  h+='<div class="p85c-cbar big"><i style="width:'+pd+'%"></i></div>';
+  h+='<div class="p85c-ai"><b>'+(M.ai?"AIメンターのひとこと":"メンターのひとこと")+'</b><p>'+esc(M.t)+'</p>'+(M.ai?'<small>Claude（AI）が、あなたの記録の数字を読んで書きました。</small>':'')+'</div>';
+  h+='<div class="p85c-lsec"><b>進み具合</b><p class="p85c-fnote" style="margin:0 0 6px">細い線が、今日までの予定の位置です。</p>'+
+    p85CBar("文法書",X.chDone.length,X.ch.length,X.chDue.length,X.chDone.length+' / '+X.ch.length+'章（予定 '+X.chDue.length+'章）')+
+    p85CBar("単語",X.w,X.C.words,X.wPlan,X.w.toLocaleString()+' / '+X.C.words.toLocaleString()+'語（予定 '+X.wPlan.toLocaleString()+'語）')+
+    p85CBar("勉強時間",X.hNow,X.C.h,X.hPlan,p85HM(X.S.s)+' / 約'+X.C.h+'時間（予定 '+p85HM(X.hPlan*3600)+'）')+
+    p85CBar("検定の問題集",X.S.trki,1000,Math.min(1000,X.dd*10),X.S.trki.toLocaleString()+' / 約1,000問（予定 '+Math.min(1000,X.dd*10).toLocaleString()+'問）')+'</div>';
+  if(X.over)h+='<div class="p85c-lnote"><b>このままでは届きません</b><p>残りの単語を85日目までに終えるには1日'+X.perDay+'語（予定の'+Math.round(X.perDay/X.base*10)/10+'倍）が必要です。1日の時間を増やすか、短い時間のコースに組み直すと、無理なく続けられます。</p></div>';
+  /* 節目 */
+  var T=p85Set().tests||[];
+  h+='<div class="p85c-lsec"><b>節目の到達テスト</b>'+P85_CMS.map(function(m){var md=p85DayAdd(c.start,m-1),r=T.filter(function(x){return x.d>=md;})[0],first=T.filter(function(x){return x.d<=c.start;}).slice(-1)[0];
+    var rv=c.rv&&c.rv[m];
+    return '<div class="p85c-crow"><span>'+m+'日目<small>'+md.slice(5).replace("-","/")+'</small></span><em>'+(r?r.lv+' '+r.pct+'%':(X.d>=m?'まだ受けていません':'これから'))+'</em></div>'+
+      (rv?'<div class="p85c-rv"><p>'+esc(rv.t)+'</p><small>AIメンターの振り返り（'+esc(rv.d.slice(5).replace("-","/"))+'）</small></div>':'');}).join("")+'</div>';
+  /* 道のり */
+  var ph=[[1,25],[26,50],[51,75]].map(function(r){var names=X.ch.map(function(id,i){return {d:p85ChDay(i,X.ch.length),i:i,id:id};}).filter(function(o){return o.d>=r[0]&&o.d<=r[1];});
+    return '<li><b>'+r[0]+'〜'+r[1]+'日目</b>：文法書 '+(names.length?(names[0].i+1)+'〜'+(names[names.length-1].i+1)+'章（'+names.map(function(o){return esc(p85ChName(o.id));}).join("・")+'）':'')+'</li>';}).join("");
+  h+='<div class="p85c-lsec"><b>100日の流れ</b><ul class="p85c-ltips">'+ph+
+    '<li><b>76〜100日目</b>：新しい章はなく、復習・模試・弱点の仕上げ。新しい言葉は85日目までに目標の語数を終えます。</li>'+
+    '<li><b>毎日</b>：新しい言葉、忘れかけの復習か弱点の講義、検定の問題集10問（50日目からは週1回ミニ模試）。25・50・75・100日目は到達テスト。</li></ul></div>';
+  h+='<div class="p85c-fbtn" style="margin-top:14px"><button type="button" class="p47-btn" data-act="p85cedit">時間を変える・組み直す</button></div>';
+  return h;
+}
+function p85OpenCourse(edit){p85Sheet("100日コース",p85CourseHtml(edit));}
+document.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest("[data-act]");if(!el)return;var a=el.getAttribute("data-act");
+  if(["p85course","p85cedit","p85cmin","p85cgo","p85cstop"].indexOf(a)<0)return;
+  e.stopImmediatePropagation();e.preventDefault();var v=el.getAttribute("data-val");
+  if(a==="p85course"){p85OpenCourse(false);return;}
+  if(a==="p85cedit"){p85OpenCourse(true);return;}
+  if(a==="p85cmin"){document.querySelectorAll("#p85sheet .p85c-copt").forEach(function(b){var on=b===el;b.classList.toggle("on",on);b.setAttribute("aria-checked",on);});var g=document.querySelector('#p85sheet [data-act="p85cgo"]');if(g)g.setAttribute("data-val",v);return;}
+  if(a==="p85cgo"){var m=+v,d=(document.getElementById("p85cstart")||{}).value||todayKey(),er=document.getElementById("p85cerr");
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(d)){if(er)er.textContent="始める日を選んでください。";return;}
+    var lim=p85DayAdd(todayKey(),-99);if(d<lim){if(er)er.textContent="100日より前の日は選べません。";return;}
+    if(d>p85DayAdd(todayKey(),30)){if(er)er.textContent="始める日は30日後までにしてください。";return;}
+    var S=p85Set(),old=(S.course&&S.course.start)?S.course:{};S.course={start:d,min:P85_CRS[m]?m:60,at:Date.now(),rd:old.rd||{}};S.min=m>=60?60:30;
+    try{saveAll();}catch(_){}p85OpenCourse(false);try{render();}catch(_){}return;}
+  if(a==="p85cstop"){var S2=p85Set();if(!el.getAttribute("data-sure")){el.setAttribute("data-sure","1");el.textContent="もう一度押すと、コースをやめます";return;}
+    S2.course={stop:1,at:Date.now()};/* 消さずに「やめた」を残す：2台目の端末のコースより新しいので、足し合わせでも戻らない */try{saveAll();}catch(_){}p85CloseExam();render();toast("100日コースをやめました");return;}
+},true);
+/* 記録の画面にも入口 */
+var _p85Card8=p85Card;
+p85Card=function(){var h=_p85Card8(),X=null;try{X=p85CState();}catch(_){}
+  return h+'<button type="button" class="p85c-weakb" data-act="p85course"><span><b>100日コース</b><small>'+(X?(X.d>100?"100日を終えました":X.d+"日目 ・ "+P85_CST[X.st][0]):"毎日やることを案内します")+'</small></span>'+(typeof p81Ic==="function"?p81Ic("go",16):"›")+'</button>';};
+/* 2台の端末：コースは新しく作ったほう、読んだ章は足し合わせ、AIのひとことは新しい日付のほう */
+var _p85MergeP85c=p85MergeP85;
+p85MergeP85=function(a,b){var o=_p85MergeP85c(a,b);a=a||{};b=b||{};var ca=a.course,cb=b.course;
+  if(ca&&cb){var w=(cb.at||0)>=(ca.at||0)?cb:ca,x=w===cb?ca:cb,c={};Object.keys(w).forEach(function(k){c[k]=w[k];});
+    if(w.start===x.start){c.rd={};[x.rd||{},w.rd||{}].forEach(function(r){Object.keys(r).forEach(function(k){if(!c.rd[k]||r[k]<c.rd[k])c.rd[k]=r[k];});});
+      if(x.ai&&(!c.ai||x.ai.d>c.ai.d))c.ai=x.ai;
+      if(x.rv){c.rv={};[x.rv||{},w.rv||{}].forEach(function(r){Object.keys(r).forEach(function(k){c.rv[k]=r[k];});});}}
+    o.course=c;}
+  else if(ca||cb)o.course=cb||ca;
+  return o;};
+(function(){
+  var css='.p85c-mentor{display:flex;gap:8px;align-items:flex-start;width:100%;margin:0 0 8px;padding:8px 12px;border:0;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer}.p85c-mentor *{pointer-events:none}'+
+    '.p85c-mentor b{flex:0 0 auto;font-size:11.5px;color:var(--accent);font-weight:800;margin-top:1px}.p85c-mentor span{flex:1;min-width:0;font-size:12.5px;line-height:1.55;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'+
+    '.p85c-csel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.p85c-copt{display:flex;flex-direction:column;gap:2px;text-align:left;padding:12px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;cursor:pointer;min-height:96px}.p85c-copt *{pointer-events:none}'+
+    '.p85c-copt.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}.p85c-copt b{font-size:15px}.p85c-copt span{font-size:12px;color:var(--muted)}.p85c-copt em{font-style:normal;font-size:12.5px;line-height:1.5;color:var(--accent);font-weight:700;margin-top:2px}'+
+    '.p85c-honest{padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);margin-bottom:12px}.p85c-honest b{font-size:13.5px}.p85c-honest p{font-size:13px;line-height:1.75;color:var(--muted);margin:4px 0 0}'+
+    '.p85c-cdate{display:block}.p85c-cdate span{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px}.p85c-cdate input{width:100%;box-sizing:border-box;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:16px;min-height:44px}'+
+    '.p85c-chead{display:flex;align-items:center;gap:14px}.p85c-cday{display:flex;flex-direction:column;align-items:center;min-width:74px}.p85c-cday b{font-size:40px;font-weight:800;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}.p85c-cday span{font-size:12px;color:var(--muted);margin-top:4px}'+
+    '.p85c-chead p{font-size:13px;line-height:1.6;color:var(--muted);margin:4px 0 0}.p85c-cst{display:inline-block;font-size:12px;font-weight:800;padding:2px 10px;border-radius:999px;border:1px solid currentColor}.p85c-cst.ok{color:var(--accent)}.p85c-cst.warn{color:#C77700}.p85c-cst.ng{color:#D9480F}'+
+    '.p85c-cbar{position:relative;height:8px;border-radius:4px;background:var(--line);margin-top:6px}.p85c-cbar i{display:block;height:100%;border-radius:4px;background:var(--accent)}.p85c-cbar u{position:absolute;top:-3px;width:2px;height:14px;background:var(--ink);margin-left:-1px;border-radius:1px}.p85c-cbar.big{height:10px;margin:14px 0 4px}'+
+    '.p85c-cr{padding:8px 0}.p85c-crt{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.p85c-crt b{font-size:14px}.p85c-crt span{font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}'+
+    '.p85c-rv{padding:4px 0 10px}.p85c-rv p{font-size:13.5px;line-height:1.75;margin:0}.p85c-rv small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px}'+
+    '.p85c-crow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14px}.p85c-crow:first-of-type{border-top:0}.p85c-crow small{margin-left:8px;font-size:12px;color:var(--muted)}.p85c-crow em{font-style:normal;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
 })();
 
