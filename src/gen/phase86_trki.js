@@ -822,7 +822,7 @@ document.addEventListener("nschange",function(){if(V&&document.body.classList.co
 function draw(){
   var m=el();document.body.classList.add("p70-noscroll");try{p72PopClose();p72Theme();}catch(_){}
   var body,head,foot='';
-  if(V.view==="top"){head='<div class="p86-th"><button type="button" class="p86-back" data-act="p86close" aria-label="もどる">‹</button><b>ロシア語検定 対策</b></div>';body=topHtml();}
+  if(V.view==="top"){head='<div class="p86-th"><button type="button" class="p86-back" data-act="p86close" aria-label="もどる">‹</button><b>ロシア語検定 対策</b></div>';body=(typeof window.p90LevelLine==="function"?window.p90LevelLine("trki"):"")+topHtml();}
   else if(V.view==="q"){head=headHtml();body=qHtml();foot='<div class="p86-foot">'+footHtml()+'</div>';}
   else {head='<div class="p86-th"><button type="button" class="p86-back" data-act="p86home" aria-label="もどる">‹</button><b>ロシア語検定 対策</b></div>';body=resHtml();}
   m.innerHTML='<div class="p86-wrap">'+head+'<div class="p86-scroll">'+body+'</div>'+foot+'</div>';

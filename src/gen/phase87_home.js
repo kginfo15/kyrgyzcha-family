@@ -24,7 +24,7 @@ function p87Main(){
   var play='<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
   var st='<span class="p87-streak'+(streak>0?" on":"")+'">'+streak+'<small>日連続</small></span>';
   if(p87Coach()){
-    var S=p85Set(),D=p85DaySecs(1),m=p85Mins(D[0].s),goal=S.min,pct=Math.min(100,Math.round(m/goal*100));
+    var S=p85Set(),D=p85DaySecs(1),m=p85Mins(D[0].s),goal=(typeof p85Goal==="function"?p85Goal():S.min),pct=Math.min(100,Math.round(m/goal*100));
     var N=p87Next(),it=N.it,h='<div class="p87-main">';
     h+='<button type="button" class="p87-time" data-act="p85time"><span>今日の勉強</span><b>'+m+'</b><span>/ '+goal+'分</span>'+st+'</button>';
     h+='<div class="p87-bar"><i style="width:'+pct+'%"></i></div>';
