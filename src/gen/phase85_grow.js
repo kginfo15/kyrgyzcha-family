@@ -27,7 +27,11 @@ function pGrSt(){
     o.acc=isFinite(+o.acc)?Math.max(0,+o.acc):0;
     if(o.since!=null&&!isFinite(+o.since))o.since=null;else if(o.since!=null)o.since=+o.since;
     if(o.seen!=null&&!isFinite(+o.seen))o.seen=null;else if(o.seen!=null)o.seen=+o.seen;
-    if(o.br!=="a"&&o.br!=="b")delete o.br;});
+    if(o.br!=="a"&&o.br!=="b")delete o.br;
+    /* 2026-11-28：毛色などの個性 v（0〜3）・名前 nm（12文字まで）・最後まで育てて育て直した回数 done */
+    if(o.v!=null&&!(o.v>=0&&o.v<=3&&Math.floor(o.v)===+o.v))delete o.v;
+    if(o.nm!=null){if(typeof o.nm!=="string")delete o.nm;else{o.nm=o.nm.replace(/[<>&"\u0000-\u001f]/g,"").trim().slice(0,12);if(!o.nm)delete o.nm;}}
+    if(o.done!=null&&!(isFinite(+o.done)&&+o.done>=0))delete o.done;});
   if(!s.own[s.k])s.own[s.k]={acc:0,since:null,seen:null};
   if(!s.xm||typeof s.xm!=="object"||Array.isArray(s.xm))s.xm={};
   Object.keys(s.xm).forEach(function(mo){var X=s.xm[mo];if(!/^\d{4}-\d{2}$/.test(mo)||!X||typeof X!=="object"||Array.isArray(X)){delete s.xm[mo];return;}
@@ -160,9 +164,12 @@ function pGrPageHtml(){
   var s=pGrSt(),K=pGrKind(),P=pGrPts(),kp=pGrKP(K.id,P.p),G=pGrStage(kp),t=pGrToday(P),b=pGrBr(K.id);
   var needBr=K.brAt&&G.i>=K.brAt&&!b;
   var h='<div class="pgr-hero">'+pGrScene(K.id,G.i,G.sub)+'</div>';
+  var nm=pGrName(K.id),dn=+(s.own[K.id]&&s.own[K.id].done)||0;
+  h+='<div class="pgr-nm">'+(nm?'<span>名前：<b>'+esc(nm)+'</b></span><button type="button" data-act="pgrnm">変える</button>':'<button type="button" data-act="pgrnm">名前をつける</button>')+(dn?'<small>'+(dn+1)+'代目</small>':'')+'</div>';
   h+='<div class="pgr-name"><small>'+esc(K.name)+'　第'+(G.i+1)+'段階 / 全10段階'+(b&&K.brAt?'　'+esc(K.br[b].n):'')+'</small><b>'+esc(pGrTitle(K.id,G.i))+'</b></div>';
   h+='<div class="pgr-gauge"><div class="pgr-bar big"><i style="width:'+Math.round(G.frac*100)+'%"></i></div>'+
      '<div class="pgr-gl"><span>'+(G.last?'最後の姿まで育ちました':'次の進化まで あと <b>'+G.need.toLocaleString()+'</b> ポイント')+'</span><span class="pgr-today'+(t>0?' up':'')+'">今日 +'+t.toLocaleString()+'</span></div></div>';
+  if(G.last)h+='<div class="pgr-re"><p>最後の姿まで育ちました。別の姿も見てみたいときは、第1段階から育て直せます（毛色などの個性も新しく決まります）。</p><button type="button" data-act="pgrre">最初から育て直す</button></div>';
   if(needBr)h+='<div class="pgr-h">進化の道を選んでください</div>'+pGrChoiceHtml(K);
   else h+='<p class="pgr-desc">'+esc(K.x(G.i,b||"a"))+'</p>';
   if(K.brAt&&!b&&G.i<K.brAt)h+='<p class="pgr-note">第'+(K.brAt+1)+'段階で、進化の道を2つから選べます（'+esc(K.br.a.n)+'／'+esc(K.br.b.n)+'）。</p>';
@@ -174,7 +181,7 @@ function pGrPageHtml(){
   /* 育てる仲間を選ぶ */
   h+='<div class="pgr-h">育てる仲間を選ぶ<small>10種類</small></div><p class="pgr-note">仲間ごとに育ち方は別々です。新しい仲間は第1段階から始まり、ポイントはいま選んでいる仲間にだけ入ります。前の仲間は育ったところのまま牧場で待っていて、もう一度選べば続きから育てられます。</p><div class="pgr-kinds">';
   PGR_ORDER.forEach(function(id){var KK=PGR_KINDS[id],o=s.own[id],kg=pGrStage(o?pGrKP(id,P.p):0);
-    h+='<button type="button" class="pgr-kd'+(id===K.id?" on":"")+'" data-act="pgrkind" data-val="'+id+'"><span class="pgr-kdimg">'+pGrFigSvg(id,o?kg.i:0,o&&o.br||"a")+'</span><b>'+esc(KK.name)+'</b><small>'+(id===K.id?'育てています':o?'第'+(kg.i+1)+'段階で待っています':esc(KK.sub))+'</small></button>';});
+    h+='<button type="button" class="pgr-kd'+(id===K.id?" on":"")+'" data-act="pgrkind" data-val="'+id+'"><span class="pgr-kdimg">'+pGrFigSvg(id,o?kg.i:0,o&&o.br||"a")+'</span><b>'+esc(o&&o.nm?o.nm+'（'+KK.name+'）':KK.name)+'</b><small>'+(id===K.id?'育てています':o?'第'+(kg.i+1)+'段階で待っています':esc(KK.sub))+'</small></button>';});
   h+='</div>';
   h+='<div class="pgr-h">成長ポイント<small>合計 '+P.p.toLocaleString()+'</small></div><div class="pgr-sum">'+
      '<div><b>'+P.q.toLocaleString()+'</b><span>解いた問題</span><small>1問 = 1</small></div>'+
@@ -292,10 +299,19 @@ function pGrSetOn(v){
 function pGrSwitch(id){
   var s=pGrSt();if(!PGR_KINDS[id]||id===s.k)return false;var T=pGrPts().p,cur=s.own[s.k];
   cur.acc=pGrKP(s.k,T);cur.since=null;
-  var fresh=!s.own[id];if(fresh)s.own[id]={acc:0,since:T,seen:0};else s.own[id].since=T;
+  var fresh=!s.own[id];if(fresh)s.own[id]={acc:0,since:T,seen:0,v:Math.floor(Math.random()*4)};else s.own[id].since=T;
   s.k=id;delete s.pend;try{saveAll();}catch(_){}
   return true;
 }
+/* 最後まで育てた仲間を、第1段階から育て直す（名前は残す。毛色などの個性は新しく決まる） */
+function pGrRestart(){
+  var s=pGrSt(),o=s.own[s.k],T=pGrPts().p;if(!o||!pGrStage(pGrKP(s.k,T)).last)return false;
+  s.own[s.k]={acc:0,since:T,seen:0,v:Math.floor(Math.random()*4),done:(+o.done||0)+1};if(o.nm)s.own[s.k].nm=o.nm;
+  delete s.pend;try{saveAll();}catch(_){}return true;
+}
+function pGrName(k){var o=pGrSt().own[k||pGrSt().k];return o&&o.nm||"";}
+function pGrSetName(v){var s=pGrSt(),o=s.own[s.k];if(!o)return;v=String(v||"").replace(/[<>&"\u0000-\u001f]/g,"").trim().slice(0,12);if(v)o.nm=v;else delete o.nm;try{saveAll();}catch(_){}}
+document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target&&e.target.id==="pgrnmin"){e.preventDefault();pGrSetName(e.target.value);pGrOpen(1);}},true);
 document.addEventListener("click",function(e){
   var el=e.target.closest&&e.target.closest("[data-act]");if(!el)return;
   var a=el.getAttribute("data-act");
@@ -309,6 +325,11 @@ document.addEventListener("click",function(e){
   if(a==="pgroff"){pGrSetOn(0);pGrClose();render();return;}
   if(a==="pgrevook"){pGrEvoClose();try{render();}catch(_){}return;}
   if(a==="pgrevopage"){pGrEvoClose();pGrOpen();return;}
+  if(a==="pgrnm"){var bx=document.querySelector("#pgrpage .pgr-nm");if(bx){bx.innerHTML='<input id="pgrnmin" maxlength="12" autocomplete="off" placeholder="名前（12文字まで）" value="'+esc(pGrName())+'"><button type="button" data-act="pgrnmok">決定</button>';var inp=document.getElementById("pgrnmin");try{inp.focus();}catch(_){}}return;}
+  if(a==="pgrnmok"){var inp2=document.getElementById("pgrnmin");if(inp2)pGrSetName(inp2.value);pGrOpen(1);return;}
+  if(a==="pgrre"){var rb=document.querySelector("#pgrpage .pgr-re");if(rb)rb.innerHTML='<p><b>本当に第1段階から育て直しますか？</b>いまの姿と進化の道はリセットされます（名前と、ほかの仲間はそのまま。いままでの学習の記録も消えません）。</p><button type="button" class="pgr-reyes" data-act="pgreyes">育て直す</button><button type="button" data-act="pgreno">やめる</button>';return;}
+  if(a==="pgreno"){pGrOpen(1);return;}
+  if(a==="pgreyes"){if(pGrRestart()){pGrClose();render();var s3=pGrSt();pGrEvolve(s3.k,0,0,true);}return;}
   if(a==="pgrkind"){if(pGrSwitch(v)){pGrClose();render();var s=pGrSt();pGrEvolve(s.k,0,pGrStage(pGrKP(s.k)).i,true);}return;}
   if(a==="pgrbr"&&(v==="a"||v==="b")){var s2=pGrSt();s2.own[s2.k].br=v;try{saveAll();}catch(_){}
     var m=document.getElementById("pgrevo");
@@ -360,6 +381,10 @@ if(typeof p81GuideHtml==="function"){
   '.pgr-x{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}'+
   '.pgr-pb{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:4px 16px calc(24px + env(safe-area-inset-bottom))}'+
   '.pgr-hero{border-radius:14px;overflow:hidden;line-height:0;border:1px solid var(--line)}.pgr-hero svg{width:100%;height:auto}'+
+  '.pgr-nm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 2px 0;font-size:14px}.pgr-nm b{font-size:16px}.pgr-nm small{color:var(--muted);font-weight:700;font-size:12px}'+
+  '.pgr-nm button,.pgr-re button{border:1.5px solid var(--line,#ddd);background:var(--card,#fff);color:inherit;border-radius:99px;padding:6px 14px;font-size:13.5px;font-weight:700;cursor:pointer}'+
+  '.pgr-nm input{flex:1;min-width:0;max-width:220px;font-size:16px;padding:7px 10px;border-radius:10px;border:1.5px solid var(--line,#ccc);background:var(--card,#fff);color:inherit}'+
+  '.pgr-re{margin:10px 0;padding:10px 12px;border-radius:14px;background:rgba(242,194,48,.14)}.pgr-re p{margin:0 0 8px;font-size:13.5px;line-height:1.6}.pgr-re p b{display:block}.pgr-re button{margin-right:8px}.pgr-re .pgr-reyes{background:#B3202B;color:#fff;border-color:#B3202B}'+
   '.pgr-name{margin:12px 2px 6px}.pgr-name small{display:block;font-size:12.5px;color:var(--muted);font-weight:700}.pgr-name b{font-size:22px}'+
   '.pgr-gl{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;margin-top:6px}.pgr-gl b{color:var(--accent)}'+
   '.pgr-desc{font-size:14.5px;line-height:1.8;margin:12px 2px}'+
