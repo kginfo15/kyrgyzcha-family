@@ -203,6 +203,10 @@ function p71Explain(x,w){
   if(w.detailExp&&w.detailExp!==c.why)h+='<p class="p71-det">'+esc(w.detailExp)+'</p>';
   if(fm&&Object.keys(fm.lab).length){var rows=fm.opts.filter(function(o){return fm.lab[p71N(o)];});
     if(rows.length>1)h+='<div class="p71-tbl"><div class="p71-tblh">選択肢の見分け方</div>'+rows.map(function(o){var k=p71N(o);return '<div class="'+(k===fm.key?"on":"")+'"><b>'+esc(o)+'</b><span>'+esc(fm.lab[k])+'</span></div>';}).join("")+'</div>';}
+  /* 検定対策と同じ「なぜこの形？」と、文の単語の意味と働き（ロシア語版のみ） */
+  if(typeof trkiWhy==="function"){try{var tk=c.f.toks.slice();tk[c.f.z]="＿";
+    h+=trkiWhy({s:tk.join(""),a:surf,w:fm?fm.opts.filter(function(o){return p71N(o)!==fm.key;}):[],j:c.ja,noMeaning:true});}catch(_){}}
+  if(typeof sayAllBtn==="function")h+=sayAllBtn(p71Plain(c.f.toks.join("")));
   return h+'</div>';
 }
 function p71Render(){

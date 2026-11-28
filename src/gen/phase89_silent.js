@@ -37,3 +37,28 @@ window.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.
  '.p52-card>.p73-fav+.p52-tag,.p52-card>.p52-bm+.p52-tag{display:block;margin-top:44px!important}'+
  '.ns-note{font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}';
  document.head.appendChild(c);})();
+
+/* ===== 自動の読み上げ（音を出すモードのとき） =====
+   次の問題に進んだら、単語の問題は自動で1回読む。穴埋めは答えが分かってしまうので読まない（答えたあとに「文全体を聞く」ボタン）。
+   設定の「自動音声」（settings.autoSpeak）がオフのとき、文字で見るモードのときは読まない。
+   iPhone では、画面を押した直後でないと読み上げが始まらないことがあるため、「次へ」を押したその流れの中で読む。 */
+var AUTO_KEY=null;
+function autoOk(){try{return settings.autoSpeak!==false&&!nsOn();}catch(_){return false;}}
+function autoSay(key,text,fn){if(!autoOk()||AUTO_KEY===key)return;AUTO_KEY=key;try{if(fn)fn();else speak(text);}catch(_){}}
+function sayAllBtn(text){return '<button type="button" class="say-all" data-act="p71say" data-val="'+esc(String(text).replace(/́/g,""))+'"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8q3 4 0 8M18.5 5.5q5 6.5 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>文全体を聞く</span></button>';}
+/* 単語クイズ（4択）：新しい単語・「意味はどれ？」・「聞こえた単語の意味は？」は出たときに読む（「ロシア語でどう言う？」は答えになるので読まない） */
+if(typeof p52Render==="function"){var _nsP52=p52Render;p52Render=function(s){var h=_nsP52.apply(this,arguments);
+  try{var q=s&&s.p52,w=q&&WMAP[q.id];
+    if(w&&(q.type==="intro"||/^(meaning|listen)$/.test(q.type)&&q.pick===null))autoSay("p52:"+q.id+":"+(s.pos||0)+":"+q.type,w.accent||w.word);
+    else if(w&&q.type==="reverse"&&q.pick!==null)autoSay("p52a:"+q.id+":"+(s.pos||0),w.accent||w.word);}catch(_){}
+  return h;};}
+/* 一歩レッスン：新しい言葉のカードは読む。「絵と意味に合う言葉は？」は答えになるので、答えたあとに正解の言葉を読む */
+if(typeof p71Render==="function"){var _nsP71=p71Render;p71Render=function(){var r=_nsP71.apply(this,arguments);
+  try{var S=P71,x=S&&!S.confirm&&S.steps[S.pos];if(x&&!x.m){var w=WMAP[x.id];
+    if(x.t==="card"&&w)autoSay("p71c:"+S.pos+":"+x.id,w.accent||w.word);
+    else if(x.t==="pick"&&w&&S.picked!==null)autoSay("p71p:"+S.pos+":"+x.id,w.accent||w.word);}}catch(_){}
+  return r;};}
+(function(){var c=document.createElement("style");c.textContent=
+ '.say-all{display:inline-flex;align-items:center;gap:6px;margin:6px 0 2px;padding:6px 14px;min-height:40px;border:1px solid var(--accent,#0a84ff);border-radius:999px;background:none;color:var(--accent,#0a84ff);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer}'+
+ '.p86x .p86-why{text-align:left}.p86x{margin-top:8px}';
+ document.head.appendChild(c);})();

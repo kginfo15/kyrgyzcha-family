@@ -79,7 +79,10 @@ p71Render=function(){
     '<div class="p71-paper"><div class="p71-sent">'+p82Sent(q,done,ok)+'</div><div class="p71-ja">'+esc(q[1])+'</div>'+(done?p71Spk(p82Full(q)):'')+(done?p71Stamp(ok):'')+'</div>'+
     '<div class="p71-opts">'+x.opts.map(function(o,i){var st=done?(o===q[2]?"right":(o===S.picked?"wrong":"dim")):"";
       return '<div class="p71-orow"><button type="button" class="p71-opt '+st+'" data-act="p82pick" data-val="'+i+'"><span>'+esc(o)+'</span></button>'+p71Spk(p71Plain(o),"p71-ospk")+'</div>';}).join("")+'</div>';
-  if(done)h+='<div class="p71-exp"><p><b>'+(ok?'正解':'正解は '+esc(q[2]))+'</b></p><p class="p71-det">'+esc(q[4])+'</p><p class="p82-full">'+esc(p82Full(q))+'</p></div>';
+  if(done)h+='<div class="p71-exp"><p><b>'+(ok?'正解':'正解は '+esc(q[2]))+'</b></p><p class="p71-det"><b>この問題のポイント</b>　'+esc(q[4])+'</p>'+
+    /* 検定対策と同じ「なぜこの形？」（この問題で見ること・手がかり・形の作り方・ほかの選択肢がだれの形か）と、文の単語の意味と働き */
+    (typeof trkiWhy==="function"?trkiWhy({s:q[0],a:q[2],w:q[3],j:q[1],noMeaning:true}):'')+
+    '<p class="p82-full">'+esc(p82Full(q))+'</p>'+(typeof sayAllBtn==="function"?sayAllBtn(p82Full(q)):'')+'</div>';
   h+='</div>';
   var foot=done?'<button type="button" class="p71-main" data-act="p71next">次へ</button>':'<div class="p71-wait">選んでください</div>';
   m.innerHTML='<div class="p71-wrap">'+p71Head()+'<div class="p71-scroll">'+h+'</div><div class="p71-foot">'+foot+'</div></div>';
