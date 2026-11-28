@@ -20406,7 +20406,8 @@ function pgrAnimal(d){
 /* ===== Phase85：育てるモード（学習の進み具合に合わせて仲間が成長する） =====
    ・設定でオン／オフを切りかえる（settings.pGr.on）。オフのときは、これまでの画面とまったく同じ。
    ・成長ポイントは、いまある学習記録から計算するだけ（新しい学習記録は作らない）：
-       解いた問題 1問 = 1点（appHist.days の studiedWords + composeCount）
+       解いた問題 1問 = 1点（appHist.days の studiedWords + composeCount ＋ 文法書の練習・到達テスト・検定対策。下の pGrXSync）
+       文法書の章を読む 1章 = 5点
        覚えた単語 1語 = 3点（p47Known）
        学習した日 1日 = 10点
    ・仲間は10種類（phase85_grow_kinds.js の PGR_KINDS）。一度に育てるのは1人。
@@ -20433,17 +20434,54 @@ function pGrSt(){
     if(o.seen!=null&&!isFinite(+o.seen))o.seen=null;else if(o.seen!=null)o.seen=+o.seen;
     if(o.br!=="a"&&o.br!=="b")delete o.br;});
   if(!s.own[s.k])s.own[s.k]={acc:0,since:null,seen:null};
+  if(!s.xm||typeof s.xm!=="object"||Array.isArray(s.xm))s.xm={};
+  Object.keys(s.xm).forEach(function(mo){var X=s.xm[mo];if(!/^\d{4}-\d{2}$/.test(mo)||!X||typeof X!=="object"||Array.isArray(X)){delete s.xm[mo];return;}
+    Object.keys(X).forEach(function(dd){if(!/^\d{2}$/.test(dd)||!isFinite(+X[dd])||+X[dd]<0)delete X[dd];else X[dd]=Math.min(5000,Math.floor(+X[dd]));});});
+  if(!s.rc||typeof s.rc!=="object"||Array.isArray(s.rc))s.rc={};
+  Object.keys(s.rc).forEach(function(id){if(typeof s.rc[id]!=="string")delete s.rc[id];});
   if(s.base&&(typeof s.base!=="object"||typeof s.base.d!=="string"||!isFinite(+s.base.p)))delete s.base;
   if(s.pend&&(typeof s.pend!=="object"||!PGR_KINDS[s.pend.k]||!isFinite(+s.pend.from)||!isFinite(+s.pend.to)))delete s.pend;
   return s;
 }
 function pGrOn(){return !!(settings.pGr&&settings.pGr.on);}
-/* 学習記録から計算した合計ポイント（内訳つき） */
+/* ---------- ほかのモードの学習（2026-11-28 追加） ----------
+   appHist.days（単語カード・4択・レッスン・冒険・お気に入り・聞き流し・瞬間作文）に入らない学習も数える：
+     文法書の章の練習（coachLog の m:"gp" で id が "gq:" のもの）・到達テスト（m:"test"）・検定対策（m:"trki"）＝ 1問1点
+     文法書の章を読む（開いて20秒以上）＝ 1章5点（同じ章は1回だけ。100日コースの「読む」もここで数える）
+   1問ごとの記録（P85.log）は端末に2か月分しか残らないので、数えた結果を settings.pGr.xm = {"YYYY-MM":{"日":問題数}} に
+   残し、日ごとに大きいほうを使う（減らない・2台の端末で数えても二重にならない）。読んだ章は settings.pGr.rc = {章ID:日付}。 */
+var PGR_XN=-1,PGR_XO=null,PGR_RU=!(typeof P47_LANG!=="undefined"&&P47_LANG==="ky");
+function pGrXSync(){
+  var s=pGrSt(),L=(typeof P85!=="undefined"&&P85&&P85.log)||{},ch=false;
+  var n=0;Object.keys(L).forEach(function(m){n+=(L[m]||[]).length;});
+  if(n!==PGR_XN||s.xm!==PGR_XO){PGR_XN=n;PGR_XO=s.xm;Object.keys(L).forEach(function(m){var cnt={};
+    (L[m]||[]).forEach(function(e){if(!Array.isArray(e))return;var md=e[1],id=String(e[2]||"");
+      if(md==="trki"||md==="test"||(md==="gp"&&id.indexOf("gq:")===0)){var k=todayKey(new Date(e[0]*1000));cnt[k]=(cnt[k]||0)+1;}});
+    Object.keys(cnt).forEach(function(k){var mo=k.slice(0,7),dd=k.slice(8),X=s.xm[mo]||(s.xm[mo]={});if(!(X[dd]>=cnt[k])){X[dd]=cnt[k];ch=true;}});});}
+  /* 100日コースで読んだ章（settings.p85.course.rd）も読んだ章に入れる */
+  try{var rd=settings.p85&&settings.p85.course&&settings.p85.course.rd;if(rd&&typeof rd==="object")Object.keys(rd).forEach(function(id){if(!s.rc[id]&&pGrIsCh(id)&&typeof rd[id]==="string"){s.rc[id]=rd[id];ch=true;}});}catch(_){}
+  if(ch){try{saveAll();}catch(_){}}
+}
+/* その日のほかのモードの問題数 */
+function pGrXDay(k){var s=pGrSt(),X=s.xm[k.slice(0,7)];return X&&X[k.slice(8)]||0;}
+/* 文法書の章を読んだ：開いて20秒たっても同じ章が開いていたら1回だけ記録 */
+function pGrIsCh(id){return (window.P72_GUIDE||[]).some(function(g){return g&&g.id===id;});}
+function pGrReadMark(id){var s=pGrSt();if(!id||s.rc[id]||!pGrIsCh(id))return;s.rc[id]=todayKey();try{saveAll();}catch(_){}}
+var PGR_RT=null;
+if(typeof p72GuideRender==="function"){var _pgrGR=p72GuideRender;p72GuideRender=function(){var r=_pgrGR.apply(this,arguments);
+  try{var id=typeof P72G!=="undefined"&&P72G&&P72G.id;clearTimeout(PGR_RT);
+    if(id&&!pGrSt().rc[id])PGR_RT=setTimeout(function(){try{var g=document.getElementById("p72g");if(P72G&&P72G.id===id&&g&&g.classList.contains("show"))pGrReadMark(id);}catch(_){}},20000);}catch(_){}
+  return r;};}
+/* 学習記録から計算した合計ポイント（内訳つき）
+   q：解いた問題（全部のモード）, x：そのうち文法書の練習・到達テスト・検定対策, r：読んだ章, w：覚えた単語, d：学習した日 */
 function pGrPts(){
-  var days=(appHist&&appHist.days)||{},q=0,d=0;
-  Object.keys(days).forEach(function(k){var c=0;try{c=p48DayCount(k);}catch(_){}if(c>0){q+=c;d++;}});
-  var w=0;try{w=p47KnownCount();}catch(_){}
-  return {q:q,w:w,d:d,p:q+w*3+d*10};
+  try{pGrXSync();}catch(_){}
+  var s=pGrSt(),days=(appHist&&appHist.days)||{},q=0,x=0,d=0,seen={};
+  Object.keys(days).forEach(function(k){var c=0;try{c=p48DayCount(k);}catch(_){}if(c>0){q+=c;seen[k]=1;}});
+  Object.keys(s.xm).forEach(function(mo){var X=s.xm[mo];Object.keys(X).forEach(function(dd){var c=+X[dd]||0;if(c>0){x+=c;seen[mo+"-"+dd]=1;}});});
+  d=Object.keys(seen).length;q+=x;
+  var r=Object.keys(s.rc).length,w=0;try{w=p47KnownCount();}catch(_){}
+  return {q:q,x:x,r:r,w:w,d:d,p:q+w*3+d*10+r*5};
 }
 /* 仲間ごとのポイント：ためた分＋（いま育てていれば）育て始めてから増えた分 */
 function pGrKP(k,T){
@@ -20453,8 +20491,9 @@ function pGrKP(k,T){
 }
 /* 今日ふえたポイント：今日はじめて見たときの合計（settings.pGr.base）との差 */
 function pGrToday(P){
-  var s=pGrSt(),k=todayKey(),c=0;try{c=p48DayCount(k);}catch(_){}
-  var est=P.p-c-(c>0?10:0);
+  var s=pGrSt(),k=todayKey(),c=0;try{c=p48DayCount(k);}catch(_){}var dq=c>0||pGrXDay(k)>0;c+=pGrXDay(k);
+  Object.keys(s.rc).forEach(function(id){if(s.rc[id]===k)c+=5;});
+  var est=P.p-c-(dq?10:0);
   if(!s.base||s.base.d!==k){s.base={d:k,p:est};}
   else if(est<s.base.p)s.base.p=est;
   return Math.max(0,Math.min(P.p-s.base.p,pGrKP(s.k,P.p)));
@@ -20544,9 +20583,19 @@ function pGrPageHtml(){
   h+='</div>';
   h+='<div class="pgr-h">成長ポイント<small>合計 '+P.p.toLocaleString()+'</small></div><div class="pgr-sum">'+
      '<div><b>'+P.q.toLocaleString()+'</b><span>解いた問題</span><small>1問 = 1</small></div>'+
+     '<div><b>'+P.r.toLocaleString()+'</b><span>読んだ文法の章</span><small>1章 = 5</small></div>'+
      '<div><b>'+P.w.toLocaleString()+'</b><span>覚えた単語</span><small>1語 = 3</small></div>'+
      '<div><b>'+P.d.toLocaleString()+'</b><span>学習した日</span><small>1日 = 10</small></div></div>';
-  h+='<p class="pgr-note">どの練習をしても、ポイントは同じように増えます。光の星は、段階の中で少し育つたびに1つずつ増えます（5つで次の段階が近い合図）。</p>';
+  h+='<div class="pgr-h">何をすると育つ？</div><table class="pgr-how"><tbody>'+
+     '<tr><th>単語カード・4択・レッスン・冒険・お気に入り・聞き流し</th><td>1問 +1</td></tr>'+
+     '<tr><th>瞬間作文</th><td>1問 +1</td></tr>'+
+     '<tr><th>文法書の章の練習・到達テスト'+(PGR_RU?'・検定対策（ТРКИ）':'')+'</th><td>1問 +1</td></tr>'+
+     '<tr><th>文法書の章を読む（開いて20秒。同じ章は1回だけ）</th><td>1章 +5</td></tr>'+
+     '<tr><th>単語が「覚えた」になる</th><td>1語 +3</td></tr>'+
+     '<tr><th>その日に1問でも解く</th><td>1日 +10</td></tr>'+
+     '</tbody></table>';
+  h+='<p class="pgr-note">100日コース・今日やること・弱点の講義から始めた練習も、上のどれかとして同じように数えます（同じ問題を二重には数えません）。どのモードで勉強しても、育ち方は同じです。'+(P.x?'このうち文法書の練習・到達テスト'+(PGR_RU?'・検定対策':'')+'で解いた問題は '+P.x.toLocaleString()+' 問です。':'')+'</p>';
+  h+='<p class="pgr-note">光の星は、段階の中で少し育つたびに1つずつ増えます（5つで次の段階が近い合図）。</p>';
   h+='<button type="button" class="pgr-off" data-act="pgroff">育てるモードをやめる（通常のホームにもどす）</button>';
   h+='<p class="pgr-note">やめても、学習の記録と育ったようすはそのまま残ります。設定からいつでも、もう一度オンにできます。</p>';
   return h;
@@ -20693,7 +20742,7 @@ if(typeof p81GuideHtml==="function"){
   var _pGrGuide=p81GuideHtml;
   p81GuideHtml=function(){
     var h=String(_pGrGuide.apply(this,arguments)),i=h.indexOf('<div class="p81-gh">');if(i<0)return h;
-    var c='<div class="p81-g"><div class="p81-gwho">続ける楽しみがほしい人</div><div class="p81-gmode">'+p81Ic("sun",20)+'<b>育てるモード</b></div><p>どのモードで勉強しても、解いた問題・覚えた単語・学習した日の数に合わせて、仲間が10段階で育ちます。仲間は、英雄マナス・おじさん・犬・猫・うさぎ・ヤク・天馬トゥルパル・ユキヒョウ・イヌワシ・竜の10種類から選べます。途中で進化の道を2つから選ぶこともできます。'+(pGrOn()?'<br><b>いまオンになっています。</b>':'')+'</p>'+(pGrOn()?'':'<button type="button" class="p81-gbtn" data-act="pgron">育てるモードをオンにする '+p81Ic("go",15)+'</button>')+'</div>';
+    var c='<div class="p81-g"><div class="p81-gwho">続ける楽しみがほしい人</div><div class="p81-gmode">'+p81Ic("sun",20)+'<b>育てるモード</b></div><p>どのモードで勉強しても（100日コース・文法書・到達テスト'+(PGR_RU?"・検定対策":"")+'も）、解いた問題・読んだ文法の章・覚えた単語・学習した日の数に合わせて、仲間が10段階で育ちます。仲間は、英雄マナス・おじさん・犬・猫・うさぎ・ヤク・天馬トゥルパル・ユキヒョウ・イヌワシ・竜の10種類から選べます。途中で進化の道を2つから選ぶこともできます。'+(pGrOn()?'<br><b>いまオンになっています。</b>':'')+'</p>'+(pGrOn()?'':'<button type="button" class="p81-gbtn" data-act="pgron">育てるモードをオンにする '+p81Ic("go",15)+'</button>')+'</div>';
     return h.slice(0,i)+c+h.slice(i);
   };
 }
@@ -20720,7 +20769,7 @@ if(typeof p81GuideHtml==="function"){
   '.pgr-gl{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;margin-top:6px}.pgr-gl b{color:var(--accent)}'+
   '.pgr-desc{font-size:14.5px;line-height:1.8;margin:12px 2px}'+
   '.pgr-h{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;font-weight:700;color:var(--muted);margin:16px 2px 6px}.pgr-h small{font-size:12.5px}'+
-  '.pgr-sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pgr-sum div{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 8px;text-align:center;display:flex;flex-direction:column;gap:1px}.pgr-sum b{font-size:19px}.pgr-sum span{font-size:12.5px}.pgr-sum small{font-size:11.5px;color:var(--muted)}'+
+  '.pgr-sum{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.pgr-how{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5}.pgr-how th{text-align:left;font-weight:normal;padding:7px 6px 7px 2px;border-bottom:1px solid var(--line)}.pgr-how td{white-space:nowrap;text-align:right;font-weight:700;color:var(--accent,#C9821E);padding:7px 2px;border-bottom:1px solid var(--line)}.pgr-sum div{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:10px 8px;text-align:center;display:flex;flex-direction:column;gap:1px}.pgr-sum b{font-size:19px}.pgr-sum span{font-size:12.5px}.pgr-sum small{font-size:11.5px;color:var(--muted)}'+
   '.pgr-note{font-size:13px;line-height:1.7;color:var(--muted);margin:10px 2px}'+
   '.pgr-gal{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pgr-gi{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:6px;display:flex;flex-direction:column;gap:3px}.pgr-gi svg{width:100%;height:auto;border-radius:8px}.pgr-gi b{font-size:13px}.pgr-gi small{font-size:11.5px;color:var(--muted)}'+
   '.pgr-gi.now{border:2px solid var(--accent)}.pgr-gi.lock svg{filter:brightness(0) contrast(0);opacity:.55}'+
