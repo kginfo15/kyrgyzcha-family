@@ -26,7 +26,7 @@ function p90Sec(it,per){
   var k=it.k;
   if(k==="rev"){var n=+String(it.act).split(":")[1]||10;return n*per;}
   if(k==="new")return (it.ln||1)*20*per;
-  if(k==="test")return 900;if(k==="mock")return 2100;if(k==="compose")return 300;
+  if(k==="test")return 900;if(k==="mock")return 2100;if(k==="compose")return 300;if(k==="talk"||k==="listen")return 600;
   if(k==="trki")return Math.round(10*per*1.5);
   if(k==="ch")return /を読む/.test(it.title)?600+10*per:10*per;
   if(k==="lec")return 180+10*per;
@@ -35,7 +35,7 @@ function p90Sec(it,per){
 function p90Fit(items){
   var min=p90Today();if(!min||!items||!items.length)return items;
   var B=min*60,per=p85SecPerQ(),acc=p85Acc14(),due=0;try{due=p85DueIds().length;}catch(_){}
-  var pri={test:0,rev:1,lec:2,weak:2,weakw:2,ch:2,new:3,trki:4,mock:4,compose:5};
+  var pri={test:0,rev:1,lec:2,weak:2,weakw:2,ch:2,new:3,trki:4,mock:4,compose:5,talk:4,listen:5};
   var L=items.map(function(it,i){var o={};for(var k in it)o[k]=it[k];o._i=i;o._p=pri[it.k]!=null?pri[it.k]:4;return o;});
   /* R6：10分以下の日は、復習（なければいちばん上）だけ */
   if(min<=10){var r=L.filter(function(x){return x.k==="rev";})[0]||L.filter(function(x){return !x.done;})[0]||L[0];L=[r];}
@@ -57,7 +57,8 @@ function p90Fit(items){
   /* 時間が余るときは足す：まぜた問題（検定10問）→ 新しい言葉を増やす（1日8レッスンまで）→ 瞬間作文 */
   if(min>10){
     var has=function(k){return out.some(function(x){return x.k===k;});},todayT=0;try{todayT=p85TodayLog().filter(function(e){return e[1]==="trki";}).length;}catch(_){}
-    var sT=Math.round(10*per*1.5);if(B-used>=sT&&window.P86_LG&&!has("trki")&&!has("mock")){out.push({k:"trki",act:(typeof p85Crs==="function"&&p85Crs())?"trkitoday":"trki",title:"検定の問題集 10問（分野がまざった問題）",amt:"10問 ・ 約"+Math.round(sT/60)+"分",why:"種類のちがう問題をまぜて解くと、本番で見分ける力がつきます。",done:todayT>=10});used+=sT;}
+    var sT=Math.round(10*per*1.5);var noT=false;try{noT=typeof p85Crs==="function"&&p85Crs()&&p85Pur()==="talk";}catch(_){}
+    if(B-used>=sT&&window.P86_LG&&!noT&&!has("trki")&&!has("mock")){out.push({k:"trki",act:(typeof p85Crs==="function"&&p85Crs())?"trkitoday":"trki",title:"検定の問題集 10問（分野がまざった問題）",amt:"10問 ・ 約"+Math.round(sT/60)+"分",why:"種類のちがう問題をまぜて解くと、本番で見分ける力がつきます。",done:todayT>=10});used+=sT;}
     /* 正答率が低い日は、新しい言葉より先に弱点の講義（解いて確かめる）を足す */
     if(newF<1){try{p85Weak().slice(0,3).forEach(function(b){var act="lec:"+b.k,sL=180+10*per;if(B-used<sL||out.some(function(x){return x.act===act;}))return;
       out.push({k:"lec",act:act,title:"弱点の講義："+p85KeyName(b.k),amt:"読む3分＋確認の問題 ・ 約"+Math.round(sL/60)+"分",why:b.why,done:false});used+=sL;});}catch(_){}}
@@ -69,7 +70,7 @@ function p90Fit(items){
     if(B-used>=300&&!has("compose")){out.push({k:"compose",act:"compose",title:"瞬間作文（話す練習）",amt:"10文 ・ 約5分",why:"日本語を見てすぐロシア語で言う練習です。",done:false});used+=300;}
   }
   /* R5：やる順番＝復習でウォームアップ → 頭を使うもの（章・講義・テスト）→ 新しい言葉 → まぜた問題 */
-  var ord={rev:0,test:1,ch:1,lec:1,weak:1,weakw:1,new:2,compose:3,trki:4,mock:4};
+  var ord={rev:0,test:1,ch:1,lec:1,weak:1,weakw:1,new:2,compose:3,talk:3,listen:3,trki:4,mock:4};
   out.sort(function(a,b){return (ord[a.k]!=null?ord[a.k]:3)-(ord[b.k]!=null?ord[b.k]:3);});
   P90.fit={min:min,used:Math.round(used/60),note:note,drop:Math.max(0,items.length-out.filter(function(x){return x._i!=null;}).length)};
   return out;
