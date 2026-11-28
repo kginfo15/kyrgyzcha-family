@@ -183,7 +183,7 @@ function p72InfoHtml(tok,ctx,full){
   if(rows.length)h+='<div class="p72-prow">'+rows.map(function(q){return '<div><span>'+q[0]+'</span><div>'+q[1]+'</div></div>';}).join("")+'</div>';
   if(full&&w&&w.simpleExp)h+='<div class="p72-pnote">'+esc(w.simpleExp)+'</div>';
   if(r.guess)h+='<div class="p72-mut">※ つづりから推測しました</div>';
-  if(full&&w){var fav=progress[w.id]&&progress[w.id].favorite;h+='<button type="button" class="p72-pfav'+(fav?" on":"")+'" data-act="p72wfav" data-val="'+w.id+'">'+(fav?'★ 単語をお気に入りに登録ずみ':'☆ この単語をお気に入りに入れる')+'</button>';}
+  if(full&&w){var fav=progress[w.id]&&progress[w.id].favorite;h+='<button type="button" class="p72-pfav'+(fav?" on":"")+'" data-act="p72wfav" data-val="'+w.id+'">'+(fav?'★ 単語をお気に入りに登録ずみ':'☆ この単語をお気に入りに入れる')+'</button>';h+='<button type="button" class="p72-pdict" data-act="p72wdict" data-val="'+w.id+'">辞書でくわしく見る（例文・変化表）</button>';}
   return h;
 }
 /* ---------- 単語ポップアップ ---------- */
@@ -570,6 +570,7 @@ window.addEventListener("click",function(e){
   e.stopImmediatePropagation();e.preventDefault();
   if(a==="p72w"){if(P72_POPEL===el)p72PopClose();else p72Pop(el);}
   else if(a==="p72popx")p72PopClose();
+  else if(a==="p72wdict"){p72PopClose();document.body.classList.add("p72-dictup");ui.searchDetailId=v;ui.sheet="worddetail";try{saveUI();}catch(_){}renderSheetHost();}
   else if(a==="p72say"){try{speak(v);}catch(_){}el.classList.add("say");setTimeout(function(){el.classList.remove("say");},700);}
   else if(a==="p72wfav"){var p=P(v);p.favorite=!p.favorite;try{saveAll();}catch(_){}toast(p.favorite?"単語をお気に入りに入れました":"単語をお気に入りから外しました");var cur=P72_POPEL;if(cur){P72_POPEL=null;p72Pop(cur);}}
   else if(a==="p72favq")p72FavToggle();
@@ -631,3 +632,7 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(document
 '.p72-prow{margin-top:6px;border-top:1px solid var(--line);padding-top:6px}.p72-prow>div{display:flex;gap:8px;padding:2px 0;font-size:13px}.p72-prow>div>span{flex:none;width:28px;color:var(--muted);font-size:12px;padding-top:1px}.p72-prow small{display:block;color:var(--muted);font-size:12px;line-height:1.55}.p72-pnote{margin-top:6px;font-size:12.5px;color:var(--muted);line-height:1.6;background:rgba(127,127,127,.08);border-radius:8px;padding:6px 8px}.p72-pb i{font-style:normal;color:var(--muted)}',
 '.p72-gnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px}.p72-gnav button{flex:1;min-width:0;min-height:44px;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:12.5px}.p72-gnav span{flex:1}.p72-gnote{margin-top:14px;text-align:center}'
 ].join("");document.head.appendChild(st);}catch(_){}})();
+
+/* 単語ポップアップから開いた辞書は、検定・レッスンなどの全画面の上に出す。辞書を閉じたら元に戻す */
+if(typeof renderSheetHost==="function"){var _p72RSH=renderSheetHost;renderSheetHost=function(){if(ui.sheet!=="worddetail")document.body.classList.remove("p72-dictup");return _p72RSH.apply(this,arguments);};}
+(function(){var c=document.createElement("style");c.textContent='body.p72-dictup .sheetwrap{z-index:250}.p72-pdict{display:block;width:100%;margin-top:6px;min-height:40px;border:1px solid var(--line);background:none;color:var(--accent,#0a84ff);border-radius:10px;font:inherit;font-size:13px;cursor:pointer}';document.head.appendChild(c);})();

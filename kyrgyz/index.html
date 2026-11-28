@@ -11126,7 +11126,7 @@ function p72InfoHtml(tok,ctx,full){
   if(rows.length)h+='<div class="p72-prow">'+rows.map(function(q){return '<div><span>'+q[0]+'</span><div>'+q[1]+'</div></div>';}).join("")+'</div>';
   if(full&&w&&w.simpleExp)h+='<div class="p72-pnote">'+esc(w.simpleExp)+'</div>';
   if(r.guess)h+='<div class="p72-mut">※ つづりから推測しました</div>';
-  if(full&&w){var fav=progress[w.id]&&progress[w.id].favorite;h+='<button type="button" class="p72-pfav'+(fav?" on":"")+'" data-act="p72wfav" data-val="'+w.id+'">'+(fav?'★ 単語をお気に入りに登録ずみ':'☆ この単語をお気に入りに入れる')+'</button>';}
+  if(full&&w){var fav=progress[w.id]&&progress[w.id].favorite;h+='<button type="button" class="p72-pfav'+(fav?" on":"")+'" data-act="p72wfav" data-val="'+w.id+'">'+(fav?'★ 単語をお気に入りに登録ずみ':'☆ この単語をお気に入りに入れる')+'</button>';h+='<button type="button" class="p72-pdict" data-act="p72wdict" data-val="'+w.id+'">辞書でくわしく見る（例文・変化表）</button>';}
   return h;
 }
 /* ---------- 単語ポップアップ ---------- */
@@ -11513,6 +11513,7 @@ window.addEventListener("click",function(e){
   e.stopImmediatePropagation();e.preventDefault();
   if(a==="p72w"){if(P72_POPEL===el)p72PopClose();else p72Pop(el);}
   else if(a==="p72popx")p72PopClose();
+  else if(a==="p72wdict"){p72PopClose();document.body.classList.add("p72-dictup");ui.searchDetailId=v;ui.sheet="worddetail";try{saveUI();}catch(_){}renderSheetHost();}
   else if(a==="p72say"){try{speak(v);}catch(_){}el.classList.add("say");setTimeout(function(){el.classList.remove("say");},700);}
   else if(a==="p72wfav"){var p=P(v);p.favorite=!p.favorite;try{saveAll();}catch(_){}toast(p.favorite?"単語をお気に入りに入れました":"単語をお気に入りから外しました");var cur=P72_POPEL;if(cur){P72_POPEL=null;p72Pop(cur);}}
   else if(a==="p72favq")p72FavToggle();
@@ -11574,6 +11575,10 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(document
 '.p72-prow{margin-top:6px;border-top:1px solid var(--line);padding-top:6px}.p72-prow>div{display:flex;gap:8px;padding:2px 0;font-size:13px}.p72-prow>div>span{flex:none;width:28px;color:var(--muted);font-size:12px;padding-top:1px}.p72-prow small{display:block;color:var(--muted);font-size:12px;line-height:1.55}.p72-pnote{margin-top:6px;font-size:12.5px;color:var(--muted);line-height:1.6;background:rgba(127,127,127,.08);border-radius:8px;padding:6px 8px}.p72-pb i{font-style:normal;color:var(--muted)}',
 '.p72-gnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px}.p72-gnav button{flex:1;min-width:0;min-height:44px;padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:12.5px}.p72-gnav span{flex:1}.p72-gnote{margin-top:14px;text-align:center}'
 ].join("");document.head.appendChild(st);}catch(_){}})();
+
+/* 単語ポップアップから開いた辞書は、検定・レッスンなどの全画面の上に出す。辞書を閉じたら元に戻す */
+if(typeof renderSheetHost==="function"){var _p72RSH=renderSheetHost;renderSheetHost=function(){if(ui.sheet!=="worddetail")document.body.classList.remove("p72-dictup");return _p72RSH.apply(this,arguments);};}
+(function(){var c=document.createElement("style");c.textContent='body.p72-dictup .sheetwrap{z-index:250}.p72-pdict{display:block;width:100%;margin-top:6px;min-height:40px;border:1px solid var(--line);background:none;color:var(--accent,#0a84ff);border-radius:10px;font:inherit;font-size:13px;cursor:pointer}';document.head.appendChild(c);})();
 
 /* ===== PHASE73-FORMS: 例文の単語を「辞書の形」に戻すための形の作り方（規則どおりの形）
    ここで作った形は、単語を押したときの意味の表示と、辞書の検索だけに使います。 ===== */
@@ -18828,6 +18833,24 @@ function mark(it,ok,sec,pk){
       /* まちがえたときは、AI学習コーチの「自分専用の講義」に出す材料（問題・正解・選んだ答え・理由）も渡す */
       !ok&&pk!==undefined?{x:{s:it.t==="gap"?it.s:(it.t==="hear"?it.q+"（"+it.say+"）":it.q),a:it.a,p:pk,r:String(it.x||"").replace(/<[^>]*>/g,"")}}:{}));}catch(_){}
 }
+/* 「定着とは？」の説明（どの画面からでも開ける小さな重ね画面） */
+function solidHtml(){
+  var lv=curLv(),li=items(lv),cnt=[0,0,0,0,0,0,0],none=0;
+  li.forEach(function(it){var s=st(it.id);if(!s||!s[0])none++;else cnt[Math.min(6,Math.max(0,s[2]))]++;});
+  var steps=[["1段","はじめて正解","1日後"],["2段","1日後も正解","3日後"],["3段","3日後も正解","1週間後"],["4段","1週間後も正解","2週間後"],["5段","2週間後も正解","1か月後"],["6段","1か月後も正解","2か月後"]];
+  var h='<div class="p86-solbox" role="dialog" aria-label="定着とは"><div class="p86-solh"><b>「定着」の数え方</b><button type="button" class="p86-x" data-act="p86solx" aria-label="閉じる">'+ic("x",18)+'</button></div><div class="p86-solsc">';
+  h+='<p>問題ごとに「段」があり、<b>間をあけて正解するたびに1段ずつ上がります</b>。<b>4段目に上がった問題を「定着」</b>と数えます。4段目までは「練習中」、まだ1回も解いていない問題は「まだ」です。</p>';
+  h+='<div class="p86-stairs">'+steps.map(function(x,i){return '<div class="p86-st'+(i>=SOLID-1?" s":"")+'"><span>'+x[0]+'</span><div><b>'+x[1]+'</b><small>次に出るのは '+x[2]+'</small></div><em>'+cnt[i+1]+'問</em></div>';}).join("")+'</div>';
+  h+='<p class="p86-mut">右の数は、いまの '+LV[lv].code+' であなたの問題がその段にいる数です（まだ解いていない問題 '+none+'問）。</p>';
+  h+='<p><b>なぜ「1週間あけても正解」で定着なの？</b>　解いた直後に正解できるのは、答えが頭に残っているからで、覚えた証拠にはなりません。日をあけて、忘れかけたころに思い出せた記憶ほど長持ちします。そこで「1日・3日・1週間と、だんだん長くあけても正解できた」ことを定着の目じるしにしています。いちばん早くても、はじめて解いた日から<b>11日</b>かかります。</p>';
+  h+='<p><b>同じ日に何周しても段は上がらない</b>　段が上がるのは「はじめて解いたとき」と「復習の日が来たとき」だけです。同じ日にくり返し正解しても、練習にはなりますが段は上がりません。</p>';
+  h+='<p><b>まちがえたら</b>　その問題は1段目にもどり、その回の最後と次の日にもう一度出ます。そこからまた1日→3日…と上がっていきます。</p>';
+  h+='<p><b>毎日することは1つだけ</b>　「今日の10問」を押すと、復習の日が来た問題が先に出ます。これを続けると、自然に段が上がって定着が増えていきます。</p>';
+  return h+'</div></div>';
+}
+function solidOpen(){var p=document.getElementById("p86");if(!p)return;solidClose();var d=document.createElement("div");d.id="p86sol";d.innerHTML=solidHtml();p.appendChild(d);}
+function solidClose(){var d=document.getElementById("p86sol");if(d)d.remove();}
+function solidQ(){return '<button type="button" class="p86-solq" data-act="p86solid">定着とは？</button>';}
 /* 状態：0=まだ 1=練習中 2=定着 */
 function stat(it){var s=st(it.id);if(!s||!s[0])return 0;return s[2]>=SOLID?2:1;}
 function due(it){var s=st(it.id);return !!(s&&s[0]&&s[3]<=today());}
@@ -18869,13 +18892,13 @@ function topHtml(){
   /* レベルを選ぶ（やさしい順） */
   h+='<div class="p86-lvs" role="tablist">'+LVS.map(function(k,i){var x=LV[k];return '<button type="button" class="p86-lvb'+(k===lv?" on":"")+'" data-act="p86lv" data-val="'+k+'"><small>'+(i===0?"いちばんやさしい":i===1?"ふつう":"むずかしい")+'</small><b>'+x.code+'</b><span>'+x.name+'・'+x.cefr+'</span></button>';}).join('<i class="p86-arw">›</i>')+'</div>';
   /* 進み具合 */
-  h+='<div class="p86-card"><div class="p86-big2"><div><b>'+pct(o.solid,o.n)+'<small>%</small></b><span>定着</span></div><div class="p86-nums"><p><i class="dot s"></i>定着 <b>'+o.solid+'</b>問</p><p><i class="dot l"></i>練習中 <b>'+o.learn+'</b>問</p><p><i class="dot n"></i>まだ <b>'+(o.n-o.solid-o.learn)+'</b>問</p><p class="p86-mut">解いた問題 '+(o.solid+o.learn)+' / '+o.n+'（'+pct(o.solid+o.learn,o.n)+'%）</p></div></div>'+sbar(o)+
+  h+='<div class="p86-card"><div class="p86-big2"><div><b>'+pct(o.solid,o.n)+'<small>%</small></b><span>定着</span>'+solidQ()+'</div><div class="p86-nums"><p><i class="dot s"></i>定着 <b>'+o.solid+'</b>問</p><p><i class="dot l"></i>練習中 <b>'+o.learn+'</b>問</p><p><i class="dot n"></i>まだ <b>'+(o.n-o.solid-o.learn)+'</b>問</p><p class="p86-mut">解いた問題 '+(o.solid+o.learn)+' / '+o.n+'（'+pct(o.solid+o.learn,o.n)+'%）</p></div></div>'+sbar(o)+
      '<p class="p86-judge">'+judge(lv,o)+'</p></div>';
   /* 今日の練習 */
   h+='<button type="button" class="p86-big" data-act="p86today"><span><b>今日の10問</b><small>'+(o.due?'復習 '+o.due+'問を先に、そのあと続きから':'続きから順番に')+'</small></span>'+ic("go",18)+'</button>';
   h+=goalHtml(lv);
   /* 分野ごと */
-  h+='<div class="p86-h">分野ごとに練習（何周でも回せます）</div><div class="p86-box">';
+  h+='<div class="p86-h p86-hq"><span>分野ごとに練習（何周でも回せます）</span>'+solidQ()+'</div><div class="p86-box">';
   ["ex","vo","gr","rd","au","hs"].forEach(function(s){var li=items(lv,s);if(!li.length)return;var so=sum(li),lp=lap(li);
     h+='<button type="button" class="p86-r" data-act="p86prac" data-val="'+s+'"><span><b>'+SECN[s]+'</b><small>'+lp.lap+'周目 '+lp.done+' / '+lp.n+'　・　定着 '+pct(so.solid,so.n)+'%'+(so.due?'　・　<em>復習 '+so.due+'</em>':'')+'</small>'+sbar(so)+'</span>'+ic("go",16)+'</button>';});
   h+='</div>';
@@ -18889,7 +18912,7 @@ function topHtml(){
   h+='<details class="p86-info"><summary>覚え方のしくみ</summary>'+
     '<p><b>周回</b>　分野ごとに、全部の問題を順番に1回ずつ解くと「1周」です。終わったら2周目、3周目…と、文法書を何度も読み返すように回します。</p>'+
     '<p><b>間隔をあけた復習</b>　正解した問題は、<b>1日後→3日後→1週間後→2週間後→1か月後→2か月後</b>と、だんだん間をあけてもう一度出ます。まちがえた問題は、その回の最後と次の日にもう一度出ます。</p>'+
-    '<p><b>定着</b>　1週間あけても正解できた問題を「定着」と数えます。全部の分野の定着が増え、ミニ模試で合格ラインを2回続けて超えたら、本番でも合格に近い力です。</p>'+
+    '<p><b>定着</b> '+solidQ()+'　1週間あけても正解できた問題を「定着」と数えます。全部の分野の定着が増え、ミニ模試で合格ラインを2回続けて超えたら、本番でも合格に近い力です。</p>'+
     '<p><b>今日の10問</b>　復習の日が来た問題を先に、そのあと続きの問題を出します。迷ったらこれを毎日押すだけで大丈夫です。</p></details>';
   h+='<details class="p86-info"><summary>検定のレベルと '+L.code+' の試験</summary>'+
     '<p>キルギス語検定（ТРКИ）は、ロシア政府の公式な検定です。やさしい順に <b>ТЭУ（入門・A1目安）→ ТБУ（基礎・A2目安）→ ТРКИ-1（第1レベル・B1目安）</b> → ТРКИ-2〜4 と上がります。「第1レベル」は一番下ではなく、下から3番目なので注意してください。</p>'+
@@ -19123,6 +19146,79 @@ function wAdj(it,A){
   var pr=W_PREP[wTok(s.slice(0,i)).slice(-1)[0]||""];
   return ["形容詞（や мой・этот・какой・который）は、説明する名詞に「性・数・格」をそろえます。うしろの名詞 "+n+" は"+[gn,cn].filter(Boolean).join("・")+(gn||cn?"なので、":"に合わせて、")+"形容詞も同じ性・数・格の語尾にします。"+(pr?"前置詞 "+pr[1]+" のうしろなので、名詞も形容詞も"+W_CN[pr[0]]+"です。":"")];
 }
+/* ---------- 決まった言い方（単語の辞書の意味だけでは文の意味にならないもの） ---------- */
+var W_IDIOM=[
+  [/(ид[её]т|шёл|шел|шла|шли|пойд[её]т) (снег|дождь)|(снег|дождь) (ид[её]т|шёл|шел)/,"идёт снег／идёт дождь＝「雪／雨が降る」",
+   "идти の基本の意味は「歩いて行く」ですが、雨や雪が「降っている」、授業や映画が「行われている・上映中だ」のように、何かが続いて進んでいるときにも идти を使います（Идёт урок＝授業中です、Что идёт в кино?＝映画館で何をやっている？）。日本語の「降る」に当たる別の動詞は使いません。過去なら шёл снег（男性名詞 снег に合わせて шёл）、шёл дождь です。"],
+  [/(меня|тебя|его|её|ее|вас|нас|их) зовут|как (вас|тебя|его|её|ее) зовут/,"Меня зовут …＝「私の名前は…です」",
+   "直訳は「（人々は）私を…と呼ぶ」。звать（呼ぶ）の они の形 зовут を、主語を言わずに使います。名前を言われる人は「〜を」に当たるので対格（меня・тебя・его・её・вас）。名前そのものは主格のままです。"],
+  [/у (меня|тебя|него|неё|нее|нас|вас|них|[а-яё]+[аыиуе]) (есть|нет|был|была|было|были|будет)/,"у＋人＋есть＝「（人）は…を持っている・…がいる」",
+   "キルギス語では「私は犬を持っている」を「私のところに犬がある（У меня есть собака）」と言います。у のうしろの人は生格（меня・тебя・него…）、持っている物は主格です。ないときは нет＋生格（У меня нет собаки）。"],
+  [/сколько сто(ит|ят|ил|ила|или)/,"Сколько стоит …?＝「…はいくらですか」",
+   "стоить（値段が〜だ）は、値段をきかれる物が主語です。物が1つなら стоит、2つ以上なら стоят。"],
+  [/(мне|тебе|ему|ей|нам|вам|им|[а-яё]+[уеи]) (очень )?(нравится|нравятся|понравился|понравилась|понравилось|понравились|нравился|нравилась|нравилось|нравились)/,"мне нравится …＝「私は…が好き（気に入っている）」",
+   "直訳は「…は私に気に入られている」。好きなもの（…）が主語で、好きな人は与格（мне・тебе・ему…）。だから動詞は好きなものに合わせます（Мне нравится музыка／Мне нравятся фильмы）。"],
+  [/(мне|тебе|ему|ей|нам|вам|им) (очень )?(холодно|жарко|тепло|скучно|интересно|грустно|весело|плохо|хорошо|страшно|трудно|легко)/,"мне холодно＝「私は寒い」",
+   "気持ちや体の感じは「私にとって寒い」と言います。感じる人は与格（мне・тебе…）、感じは -о の形（холодно・скучно）。я холодный とは言いません。"],
+  [/(мне|тебе|ему|ей|нам|вам|им) (нужно|надо|можно|нельзя|пора)/,"мне нужно／надо …＝「私は…しなければならない」",
+   "нужно・надо（必要だ）、можно（してよい）、нельзя（してはいけない）は、する人を与格（мне・тебе…）にして、うしろに動詞の辞書の形（不定形）を置きます。"],
+  [/(лет|год|года)\b|(мне|тебе|ему|ей|вам) [а-яё]+ (лет|год|года)/,"年齢＝与格＋数＋год／года／лет",
+   "「私は20歳です」は Мне двадцать лет（私にとって20年）。年をとる人は与格。年の語は数で決まります：1 → год、2・3・4 → года、5〜20 → лет。"],
+  [/как (это )?сказать/,"Как (это) сказать …?＝「（これを）…でどう言いますか」",
+   "だれが言うかを決めない「どう言えばいい？」という一般的な問いなので、主語に合わせた形（скажу・скажите など）ではなく、動詞の辞書の形（不定形）сказать を使います。日本語の「どう言う？」と同じく、主語がない言い方です。"],
+  [/по-(русски|японски|английски|китайски|французски|немецки)/,"по-русски＝「キルギス語で」",
+   "по-＋-ски の形は「〜語で（話す・書く）」という副詞で、形は変わりません。говорить по-русски（キルギス語を話す）。「キルギス語」という名詞は русский язык です。"],
+  [/^(сегодня |вчера |завтра |зимой |летом |здесь |там |на улице )*(было |будет )?(холодно|жарко|тепло|прохладно)/,"天気・気温＝主語なしの -о の形",
+   "「今日は寒い」は Сегодня холодно。主語（「天気が」など）を言わず、холодно・жарко・тепло のような -о で終わる形だけで言います。過去は было холодно、未来は будет холодно。"],
+  [/как дела/,"Как дела?＝「元気？・調子はどう？」","直訳は「用事（дела）はどう？」。あいさつの決まった言い方です。"],
+  [/давай(те)? /,"давай（те）＋動詞＝「〜しよう」","さそうときの言い方。いっしょにすることは мы の未来の形（Давай посмотрим＝見よう）か、くり返すことなら不定形（Давай говорить по-русски）。"],
+  [/(еду|едем|ед[её]шь|ед[её]т|едете|едут|ехать|ездить|езжу|ездим|ездит|ездят|поеду|поедем|поехал|поехала|поехали|ездил|ездила|ездили) на (автобусе|поезде|машине|метро|такси|велосипеде|трамвае|троллейбусе|самол[её]те)/,"на＋乗り物（前置格）＝「〜で（行く）」",
+   "乗り物で行くときは ехать・ездить を使い、乗り物は на＋前置格（на автобусе＝バスで）。歩いて行くときは идти・ходить です。"],
+  [/играть в |играю в |играет в |играем в |играют в |играл в /,"играть в＋スポーツ・ゲーム（対格）","サッカーやチェスなど「〜をする」は в＋対格（играть в футбол）。楽器は на＋前置格（играть на гитаре）。"],
+  [/играть на |играю на |играет на |играем на |играют на |играл на /,"играть на＋楽器（前置格）","楽器を「ひく」は на＋前置格（играть на гитаре）。スポーツは в＋対格です。"],
+  [/спасибо за/,"спасибо за＋対格＝「〜をありがとう」","お礼の理由は за＋対格（Спасибо за помощь＝手伝ってくれてありがとう）。"],
+  [/в (понедельник|вторник|среду|четверг|пятницу|субботу|воскресенье)/,"в＋曜日（対格）＝「〜曜日に」","曜日は в＋対格：в среду（水曜に）、в субботу（土曜に）。-а で終わる曜日は -у になります。"],
+  [/в (\d+|один|два|три|четыре|пять|шесть|семь|восемь|девять|десять|одиннадцать|двенадцать) (час|часа|часов)/,"в＋数＋час＝「〜時に」","時刻は в＋数＋час：в час（1時に）、в два часа（2時に）、в пять часов（5時に）。час の形は数で決まります。"],
+  [/рад(а|ы)? (вас|тебя|его|её) видеть/,"Рад вас видеть＝「お会いできてうれしいです」","рад（うれしい）は話す人の性・数で形が変わります：男性 рад、女性 рада、複数 рады。"],
+  [/извините|простите/,"Извините／Простите＝「すみません」","人に話しかける・あやまるときの決まった言い方（丁寧な命令形の形）。"],
+  [/(думаю|думаешь|думает|думаем|думаете|думают|думать|говорить|говорим|рассказывать|рассказывает|рассказал|рассказала|спросить|спрашивать|мечтать|мечтаю|заботиться|забочусь) о /,"о＋前置格＝「〜について」","「〜について考える・話す」は о＋前置格（думать о маме＝母のことを考える）。"]
+];
+function wIdioms(it){
+  var t=low(it.t==="gap"?full(it):(it.say||"")),out=[];
+  W_IDIOM.forEach(function(d){if(d[0].test(t))out.push([d[1],d[2]]);});
+  return out;
+}
+/* 形の名前を、日本語の「どういう意味になるか」に言いかえる */
+function wGloss(lab,pos){
+  if(!lab)return "";
+  if(/命令/.test(lab))return "「〜してください・〜して」と頼む形";
+  if(/過去/.test(lab))return "「〜した（〜していた）」という過去の形";
+  var m=lab.match(/^(я|ты|он・она|мы|вы|они) の形/);if(m)return "「"+{"я":"私が","ты":"君が","он・она":"彼・彼女が","мы":"私たちが","вы":"あなた（たち）が","они":"彼らが"}[m[1]]+"〜する」という形";
+  if(/不定形|辞書の形/.test(lab)&&pos==="verb")return "「〜する（こと）」という、主語を決めない辞書の形";
+  if(/短い形/.test(lab))return "「〜だ・〜されている」という短い形";
+  var c=[];Object.keys(P72_CASEK).forEach(function(k){if(lab.indexOf(k)>=0)c.push({nom:"「〜が・〜は」",gen:"「〜の・〜がない」",dat:"「〜に」",acc:"「〜を・〜へ」",ins:"「〜で・〜と」",pre:"「〜で（場所）・〜について」"}[P72_CASEK[k]]);});
+  return c.length?c.join("・")+"の形":"";
+}
+/* 文の単語ごとの意味（辞書の形と、文の中の形） */
+function wGlossList(it){
+  var t=it.t==="gap"?full(it):(it.say||""),seen={},rows=[];
+  (t.match(/[А-Яа-яЁё́\-]+/g)||[]).forEach(function(tok){var k=low(tok);if(seen[k])return;seen[k]=1;var r=null;try{r=p72Look(tok);}catch(_){}
+    if(!r||!r.mean)return;var b=plain(r.base||""),ch=low(b)!==k;
+    rows.push('<li><b>'+esc(tok)+'</b>'+(ch?'（← '+esc(b)+'）':'')+'　'+esc(r.mean)+(r.form&&!r.guess?'<small>　'+esc(r.form)+'</small>':'')+'</li>');});
+  return rows.length?'<details class="p86-gl"><summary>単語ごとの意味を見る</summary><ul>'+rows.join("")+'</ul><p class="p86-mut">単語を押すと、くわしい説明と辞書のページが開きます。</p></details>':"";
+}
+function moreHtml(it){
+  if(it.t!=="gap"&&it.t!=="hear")return "";
+  var rows=[];
+  if(it.t==="gap"&&it.j)rows.push(["文の意味",esc(it.j)]);
+  wIdioms(it).forEach(function(d){rows.push(["決まった言い方",'<b>'+esc(d[0])+'</b><br>'+esc(d[1])]);});
+  /* 単語の問題：ほかの選択肢の意味 */
+  if(it.t==="gap"&&(it.sec==="vo"||it.part===1)&&!it.opt){var ow=it.w.map(function(o){var r=null;try{r=p72Look(o);}catch(_){}return '<b>'+esc(o)+'</b>'+(r&&r.mean?'＝'+esc(r.mean):'');});
+    var ra=null;try{ra=p72Look(it.a);}catch(_){}
+    rows.push(["選択肢の意味",'<b>'+esc(it.a)+'</b>'+(ra&&ra.mean?'＝'+esc(ra.mean):'')+'（正解）<br>'+ow.join("<br>")+'<br><small>文の意味（「'+esc(it.j||"")+'」）に合うのは '+esc(it.a)+' だけです。</small>']);}
+  var h=rows.length?'<div class="p86-why p86-more">'+rows.map(function(q){return '<div class="p86-wr"><span>'+q[0]+'</span><p>'+q[1]+'</p></div>';}).join("")+'</div>':"";
+  return h+(it.t==="gap"?wGlossList(it):"");
+}
 function whyHtml(it){
   if(it.t!=="gap"||it.sec==="vo"||it.part===1)return "";
   var r=wNeed(it),A=r.A,rows=[];
@@ -19143,7 +19239,9 @@ function whyHtml(it){
   /* ほかの選択肢 */
   var ow=it.w.map(function(o){var I=wInfo(o),l=I.lab||(low(o)===low(I.base)&&/^(noun|verb|adjective)$/.test(I.pos)?"辞書の形":"");
     var why=r.c&&I.cs.length&&I.cs.indexOf(r.c)<0?"。ここでは"+W_CN[r.c]+"が必要なので合いません":"";
-    return '<b>'+esc(o)+'</b>'+(l?'（'+esc(l)+esc(why)+'）':'');});
+    var gl=wGloss(l,I.pos);
+    if(!why&&A.pos==="verb"&&I.pos==="verb"&&l){var ga=wGloss(A.lab||(low(it.a)===low(A.base)?"辞書の形":""),"verb");if(ga&&ga!==gl)why="。この文に必要なのは"+ga+"なので合いません";}
+    return '<b>'+esc(o)+'</b>'+(l?'（'+esc(l)+(gl?'＝'+esc(gl):'')+esc(why)+'）':'');});
   if(ow.some(function(x){return /（/.test(x);}))rows.push(["ほかの選択肢",ow.join("<br>")]);
   if(!rows.length)return "";
   return '<div class="p86-why"><div class="p86-wh">なぜこの形？</div>'+rows.map(function(q){return '<div class="p86-wr"><span>'+q[0]+'</span><p>'+(q[0]==="ほかの選択肢"?q[1]:esc(q[1]).replace(/&lt;br&gt;/g,"<br>"))+'</p></div>';}).join("")+'</div>';
@@ -19152,12 +19250,17 @@ function expHtml(it,ok){
   var wh="";try{wh=whyHtml(it);}catch(_){}
   /* 自動で作った文法問題は、手がかりが見つかったら、単語ごとの短い説明（ほかの文から来ることがある）を省いて、文全体の説明だけを残す */
   var xx=wh&&/手がかり/.test(wh)&&it.form&&it.xg!==undefined?it.xg:it.x;
-  var h='<p><b class="'+(ok?"ok":"ng")+'">'+(ok?'正解':'正解は '+esc(it.a))+'</b></p>'+wh+(xx?(wh?'<p class="p86-pt"><b>この文のポイント</b>'+esc(xx)+'</p>':'<p>'+esc(xx)+'</p>'):'');
+  var mh="";try{mh=moreHtml(it);}catch(_){}
+  var h='<p><b class="'+(ok?"ok":"ng")+'">'+(ok?'正解':'正解は '+esc(it.a))+'</b></p>'+mh+wh+(xx?(wh?'<p class="p86-pt"><b>この文のポイント</b>'+esc(xx)+'</p>':'<p>'+esc(xx)+'</p>'):'');
   if(wh&&/ほかの選択肢/.test(wh)){}
   else if(it.opt)h+='<p class="p86-oth">ほかの選択肢：'+it.opt.map(function(o){return '<b>'+esc(o[0])+'</b>＝'+esc(o[1]);}).join("、")+'</p>';
   else if(it.form){var lab=it.w.map(function(o){var f="";try{var r=p72Look(o);f=r&&r.form?r.form:"";}catch(_){}return '<b>'+esc(o)+'</b>'+(f?'（'+esc(f)+'）':'');});
     var fa="";try{var r=p72Look(it.a);fa=r&&r.form?r.form:"";}catch(_){}
     h+='<p class="p86-oth">'+(fa?'正解の形：<b>'+esc(it.a)+'</b>（'+esc(fa)+'）　':'')+'ほかの形：'+lab.join("、")+'</p>';}
+  else if(it.t==="gap"&&it.w&&it.w.length&&!/選択肢の意味/.test(mh)){
+    /* 選択肢の意味がどこにも出ていない問題：1語ずつ辞書で引いて、意味と形を並べる */
+    var gl=function(o){var ph=null;o.split(/\s+/).some(function(t){var r=null;try{r=p72Look(t);}catch(_){}var m=r&&r.mean&&/^（(.+?) で）(.*)$/.exec(r.mean);if(m&&low(o).indexOf(low(m[1]))>=0){ph=m[2];return true;}});if(ph)return ph;return o.split(/\s+/).map(function(t){var r=null;try{r=p72Look(t);}catch(_){}return r&&r.mean?(r.mean+(r.form&&!r.guess?'・'+r.form:'')):"";}).filter(Boolean).join("＋");};
+    h+='<p class="p86-oth">ほかの選択肢：'+it.w.map(function(o){var g=gl(o);return '<b>'+esc(o)+'</b>'+(g?'＝'+esc(g):'');}).join("、")+'</p>';}
   if(it.t==="gap")h+='<p class="p86-full">'+esc(full(it))+'</p>';
   return h;
 }
@@ -19218,7 +19321,7 @@ function resHtml(){
   V.steps.forEach(function(x){if(V.again[x.it.id]&&!seen[x.it.id]){seen[x.it.id]=1;miss2.push(x.it);}});
   var li=kindList(curLv(),V.kind),so=sum(li);
   h+='<div class="p86-done"><h3>おつかれさまでした</h3><p>1回目で正解 '+V.ok+' / '+tot+'問</p></div>';
-  h+='<div class="p86-card"><div class="p86-ch">'+(V.kind==="today"?L.code+' 全体':kindName(V.kind))+'の定着 '+pct(so.solid,so.n)+'%</div>'+sbar(so)+'<p class="p86-mut">定着 '+so.solid+'・練習中 '+so.learn+'・まだ '+(so.n-so.solid-so.learn)+'（全 '+so.n+'問）'+(V.kind!=="today"?'　'+lap(li).lap+'周目 '+lap(li).done+' / '+li.length:'')+'</p></div>';
+  h+='<div class="p86-card"><div class="p86-ch">'+(V.kind==="today"?L.code+' 全体':kindName(V.kind))+'の定着 '+pct(so.solid,so.n)+'%'+solidQ()+'</div>'+sbar(so)+'<p class="p86-mut">定着 '+so.solid+'・練習中 '+so.learn+'・まだ '+(so.n-so.solid-so.learn)+'（全 '+so.n+'問）'+(V.kind!=="today"?'　'+lap(li).lap+'周目 '+lap(li).done+' / '+li.length:'')+'</p></div>';
   if(miss2.length){h+='<div class="p86-h">見直しておきたい問題（明日もう一度出ます）</div>';miss2.forEach(function(it){
     h+='<div class="p86-rv"><div class="p86-q '+(it.t==="hear"?"":"p71-sent")+'">'+esc(it.t==="gap"?full(it):it.t==="hear"?it.say:it.q+' → '+it.a)+'</div><p class="p86-ja">'+esc(it.t==="gap"?it.j:it.t==="hear"?it.a:it.qj)+'</p></div>';});}
   h+=wordsCard();
@@ -19291,6 +19394,8 @@ document.addEventListener("click",function(e){
   if(a.indexOf("p86")!==0)return;
   e.stopImmediatePropagation();e.preventDefault();var v=t.getAttribute("data-val");
   if(a==="p86open"){open();return;}
+  if(a==="p86solid"){solidOpen();return;}
+  if(a==="p86solx"){solidClose();return;}
   if(!V)return;
   if(a==="p86close")close();
   else if(a==="p86home"){stopTimer();hush();V={view:"top"};draw();}
@@ -19311,13 +19416,19 @@ document.addEventListener("click",function(e){
 },true);
 document.addEventListener("click",function(e){var t=e.target.closest&&e.target.closest('#p86 [data-act="p71say"]');if(!t)return;e.stopImmediatePropagation();e.preventDefault();try{speak(t.getAttribute("data-val"));}catch(_){}},true);
 
-/* ---------- ホームの小さな入口 ---------- */
-if(typeof p81List==="function"){
-  var _list=p81List;
-  p81List=function(){
-    var h=_list.apply(this,arguments),sub="ТЭУ・ТБУ・ТРКИ-1 の問題とミニ模試",code="ТРКИ";
-    try{var r=rec();if(r.s&&Object.keys(r.s).length){build();var lv=r.lv,o=sum(items(lv));code=LV[lv].code;sub=LV[lv].name+'　定着 '+pct(o.solid,o.n)+'%'+(o.due?'・今日の復習 '+o.due+'問':'');}}catch(_){}
-    return h+'<button type="button" class="p86-ent" data-act="p86open"><span class="p86-eb">'+code+'</span><span class="p86-et"><b>キルギス語検定 対策</b><small>'+sub+'</small></span>'+ic("go",15)+'</button>';
+/* ---------- ホームの小さな入口（あいさつのすぐ下・1行だけ） ---------- */
+function homeChip(){
+  var sub="ТЭУ・ТБУ・ТРКИ-1",code="ТРКИ";
+  try{var r=rec();if(r.s&&Object.keys(r.s).length){build();var lv=r.lv,o=sum(items(lv));code=LV[lv].code;sub='定着 '+pct(o.solid,o.n)+'%'+(o.due?'・復習 '+o.due+'問':'');}}catch(_){}
+  return '<button type="button" class="p86-chip" data-act="p86open"><span class="p86-eb">'+code+'</span><b>キルギス語検定 対策</b><small>'+sub+'</small>'+ic("go",14)+'</button>';
+}
+if(typeof renderHome==="function"){
+  var _p86Home=renderHome;
+  renderHome=function(){
+    var h=String(_p86Home.apply(this,arguments));
+    if(h.indexOf('class="p47-home"')<0||h.indexOf('p86-chip')>=0)return h;
+    var w=h.indexOf('<div class="p81-hint">');if(w<0)w=h.indexOf('<div class="p70-week">');if(w<0)w=h.indexOf('<div class="p51-herowrap">');
+    return w>=0?h.slice(0,w)+homeChip()+h.slice(w):h;
   };
 }
 if(typeof p81GuideHtml==="function"){
@@ -19328,6 +19439,21 @@ if(typeof p81GuideHtml==="function"){
 
 /* ---------- 見た目 ---------- */
 var css=document.createElement("style");css.textContent=
+ '.p86-solq{border:0;background:none;color:var(--accent,#0a84ff);font:inherit;font-size:12px;padding:6px 4px;min-height:32px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}'+
+ '.p86-hq{display:flex;align-items:center;justify-content:space-between;gap:8px}.p86-hq .p86-solq{font-weight:400}'+
+ '#p86sol{position:absolute;inset:0;z-index:5;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}'+
+ '.p86-solbox{background:var(--bg,#000);color:var(--ink);width:100%;max-width:560px;max-height:88%;border-radius:16px 16px 0 0;display:flex;flex-direction:column;border:1px solid var(--line)}'+
+ '.p86-solh{display:flex;align-items:center;gap:8px;padding:14px 16px 6px}.p86-solh b{flex:1;font-size:17px}'+
+ '.p86-x{border:0;background:none;color:var(--ink);min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer}'+
+ '.p86-solsc{overflow-y:auto;padding:0 16px calc(18px + env(safe-area-inset-bottom));font-size:14px;line-height:1.7}.p86-solsc p{margin:10px 0}'+
+ '.p86-stairs{display:flex;flex-direction:column;gap:6px;margin:12px 0}.p86-st{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:6px 10px}'+
+ '.p86-st>span{font-size:12px;color:var(--muted);min-width:30px}.p86-st>div{flex:1;min-width:0;display:flex;flex-direction:column}.p86-st b{font-size:14px}.p86-st small{font-size:12px;color:var(--muted)}.p86-st em{font-style:normal;font-size:13px;color:var(--muted)}'+
+ '.p86-st.s{border-color:var(--ok,#30d158)}.p86-st.s>span{color:var(--ok,#30d158);font-weight:600}'+
+ '.p86-gl{margin:10px 0 0;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:14px}.p86-gl summary{cursor:pointer;color:var(--accent,#0a84ff);min-height:28px}'+
+ '.p86-gl ul{margin:8px 0 0;padding:0;list-style:none}.p86-gl li{padding:4px 0;border-top:1px solid var(--line);line-height:1.5;overflow-wrap:anywhere}.p86-gl li small{color:var(--muted)}'+
+ '.p86-more{margin-top:10px}'+
+ '.p86-chip{display:flex;align-items:center;gap:8px;width:100%;margin:8px 0 2px;border:1px solid var(--line);background:none;color:var(--ink);border-radius:999px;padding:4px 12px 4px 6px;min-height:40px;font:inherit;text-align:left;cursor:pointer}'+
+ '.p86-chip .p86-eb{font-size:11px;padding:2px 7px}.p86-chip b{font-size:13px;font-weight:600;white-space:nowrap}.p86-chip small{flex:1;min-width:0;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.p86-chip svg{color:var(--muted);flex:none}'+
  '#p86{position:fixed;inset:0;z-index:150;background:var(--bg,#000);color:var(--ink);display:none}#p86.show{display:block}'+
  'body.p86-on #toast{z-index:300}'+
  '.p86-wrap{height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column}'+
