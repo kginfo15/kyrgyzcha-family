@@ -889,6 +889,49 @@ function p85Tips(b,M){
   tips.push("<b>間をあけて確認</b>：今日この講義を読んだら、1日後・3日後・7日後に確認の問題をもう一度解きます。忘れかけたころに思い出すと、記憶が長く残ります。「今日やること」に自動で出ます。");
   return tips;
 }
+/* 章の例文（「例文」の見出しの下）を最大4つ。太字の語は残す */
+function p85GuideEx(id){
+  var g=p85Guide(id);if(!g)return [];var b=String(g.b||""),out=[],re=/<li><b>([\s\S]*?)<\/b><span>([\s\S]*?)<\/span>/g,m;
+  while((m=re.exec(b))&&out.length<4){var ru=m[1].replace(/<(?!\/?(b|strong|u)\b)[^>]*>/g,""),ja=m[2].replace(/<[^>]*>/g,"");if(/[А-Яа-яЁё]/.test(ru))out.push({ru:ru,ja:esc(ja)});}
+  return out;
+}
+/* 文法の用語の言いかえ（講義の中に出てきたものだけ） */
+var P85_TERMS=[
+  ["性","名詞のグループ分け。男性・女性・中性の3つ。人の性別とは関係なく、ふつうは語の終わりの文字で決まります（-а・-я で終われば女性、子音で終われば男性、-о・-е は中性）。"],
+  ["格","文の中での役目に合わせて、名詞の終わりが変わること。日本語の「は・の・に・を・で」の代わりを、語の終わりがします。"],
+  ["主格","「〜は・〜が」。辞書にのっている形そのまま。"],
+  ["生格","「〜の」。ほかに「〜がない（нет）」「2・3・4のあと」「у（〜のところに）のあと」などでも使います。"],
+  ["与格","「〜に」。あげる相手・話す相手、「〜にとって」。"],
+  ["対格","「〜を」。動作の相手。к（〜へ）のような方向にも使います。"],
+  ["造格","「〜で（道具）」「〜と一緒に（с のあと）」「〜として・〜になる」。"],
+  ["前置格","「〜で（場所）・〜について」。в・на・о のあとだけで使う形。"],
+  ["完了体","動作を1回で「やり終える」ことを表す動詞の形。"],
+  ["不完了体","動作の途中・くり返し・習慣を表す動詞の形。"],
+  ["不定形","動詞の辞書の形（-ть で終わることが多い）。"],
+  ["命令形","「〜して」「〜してください」と頼む形。"],
+  ["前置詞","名詞の前に置く小さな語（в・на・с・к など）。日本語の「で・に・と・へ」にあたり、うしろの名詞の格を決めます。"],
+  ["語尾","語のいちばん終わりの部分。ここが変わって、性・数・格や、だれがするかを表します。"],
+  ["一致","形容詞などの語尾を、名詞の性・数・格にそろえること。"],
+  ["単数","1つのもの。"],["複数","2つ以上のもの。"]
+];
+function p85Terms(html){var t=String(html).replace(/<[^>]*>/g,"");return P85_TERMS.filter(function(r){return t.indexOf(r[0])>=0&&!(r[0]==="格"&&!/[^主生与対造置]格/.test(t))&&!(r[0]==="性"&&!/(男性|女性|中性|性・|の性)/.test(t));}).slice(0,10);}
+/* まちがえた1問の解説：なぜ正解の形か（検定対策と同じしくみ）・選んだ答えの意味・正しい文の読み上げ */
+function p85MistakeWhy(o){
+  var x=o.x,raw=String(x[0]||""),m=/^([\s\S]*?)（([^（）]*)）\s*$/.exec(raw),sen=(m?m[1]:raw).trim(),ja=m?m[2]:"",h="";
+  var blank=/＿+/.test(sen),full=blank?sen.replace(/＿+/,x[1]):"";
+  var memo=String(x[3]||"").trim(),fm=/正解の形：([^／]*)(?:／選んだ形：(.*))?/.exec(memo);
+  if(ja)h+='<div class="p85c-lqr"><span>文の意味</span><p>'+esc(ja)+'</p></div>';
+  if(fm)h+='<div class="p85c-lqr"><span>形のちがい</span><p>正解の <b>'+esc(x[1])+'</b> は「'+esc(fm[1])+'」'+(fm[2]?'、あなたが選んだ <b>'+esc(x[2])+'</b> は「'+esc(fm[2])+'」':'')+'です。同じ語でも、文の中での役目によって終わりの形が変わります。</p></div>';
+  else if(memo&&!/^(意味の取りちがえ|到達テスト・|つづり)/.test(memo))h+='<div class="p85c-lqr"><span>この問題のポイント</span><p>'+esc(memo)+'</p></div>';
+  var why="";if(blank&&typeof window.trkiWhy==="function"&&/[А-Яа-яЁё]/.test(x[1])){try{why=window.trkiWhy({s:sen.replace(/＿+/,"＿"),a:x[1],w:x[2]?[x[2]]:[],j:ja,noMeaning:true,open:true});}catch(_){}}
+  if(why&&/p86-w|p86-gl/.test(why))h+=why;
+  else if(/^意味の取りちがえ|到達テスト・語彙/.test(memo)||!blank){
+    var ia=p85WordByText(x[1]),ip=x[2]?p85WordByText(x[2]):null,row=function(t,id){var w=id&&WMAP[id];return '<b>'+esc(t)+'</b>'+(w?'＝'+esc(w.meaning)+(w.simpleExp?'<br><small>'+esc(w.simpleExp)+'</small>':''):'');};
+    if(ia||ip)h+='<div class="p85c-lqr"><span>2つの言葉</span><p>○ '+row(x[1],ia)+(x[2]?'<br>× '+row(x[2],ip):'')+'</p></div><p class="p85c-fnote">意味の近い言葉や、つづりの似た言葉は混ざりやすいものです。2つを並べて、ちがいを1つ言えるようにしておきましょう。</p>';}
+  if(full){h+='<div class="p85c-lqr"><span>正しい文</span><p class="p85c-lexru">'+esc(full)+'</p></div>'+(typeof sayAllBtn==="function"?sayAllBtn(full):"");}
+  if(!h)h='<p class="p85c-fnote">この問題には、くわしい解説を作れる情報が残っていません。①の解説と見比べてください。</p>';
+  return h;
+}
 function p85Lec(k){
   var b=p85WeakGet(k);
   if(!b){/* もう弱点ではない（回復した）ときも、記録があれば講義は見られるようにする */
@@ -902,28 +945,32 @@ function p85Lec(k){
 function p85LecHtml(k){
   var b=p85Lec(k),M=p85Mistakes(b),h='',ic=function(n,s){return typeof p81Ic==="function"?p81Ic(n,s):"";};
   h+='<div class="p85c-lhead"><span class="p85c-tag">'+p85KeyKind(k)+'</span><b>'+esc(p85KeyName(k))+'</b><small>'+esc(b.why)+'</small></div>';
+  h+='<p class="p85c-lhint">ロシア語の単語を押すと、意味と読み方が出ます。</p>';
   /* ① やさしい解説 */
   var ch=k[0]==="g"?k.slice(2):(k[0]==="t"?P85_TCH[k.slice(2).replace(/^p/,"")]||P85_TCH[k.slice(2)]:null),G=ch?p85GuideParts(ch):null;
   h+='<div class="p85c-lsec"><b>① やさしい解説</b>';
   if(G){h+=(k[0]==="t"?'<p class="p85c-fnote">検定のこの部分は、解説書の「'+esc(String(G.t).replace(/（.*$/,""))+'」の内容が土台です。</p>':'')+'<div class="p85c-lbody">'+G.easy+'</div>';
     if(G.notes.length)h+='<div class="p85c-lnote"><b>まちがえやすい所</b>'+G.notes.map(function(n){return '<p>'+n.replace(/^まちがえやすい所[：:]\s*/,"")+'</p>';}).join("")+'</div>';
+    var EX=p85GuideEx(ch);if(EX.length)h+='<div class="p85c-lex"><b>例文で見る</b><p class="p85c-fnote" style="margin:2px 0 6px">スピーカーで読み上げます。太字の語が、この文法の形です。</p>'+EX.map(function(e){return '<div class="p85c-lexr"><div><span class="p85c-lexru">'+e.ru+'</span><small>'+e.ja+'</small></div>'+(typeof p71Spk==="function"?p71Spk(p85Plain(e.ru.replace(/<[^>]*>/g,""))):"")+'</div>';}).join("")+'</div>';
     h+='<button type="button" class="p85c-lmore" data-act="p85lguide" data-val="'+esc(ch)+'">解説書でこの章をぜんぶ読む '+ic("go",14)+'</button>';}
   else{
     var ids=Object.keys(b.ids).slice(0,8);
-    if(ids.length)h+='<p class="p85c-fnote">まちがえた言葉の意味と使い方です。</p>'+ids.map(function(id){var w=WMAP[id];return '<div class="p85c-lw"><b>'+esc(w.accent||w.word)+'</b><span>'+esc(w.meaning)+'</span>'+(w.simpleExp?'<small>'+esc(w.simpleExp)+'</small>':'')+(w.exRu?'<div class="p72-eg">'+esc(w.exRu)+'<br>'+esc(w.exJa||"")+'</div>':'')+'</div>';}).join("");
+    if(ids.length)h+='<p class="p85c-fnote">まちがえた言葉の意味と使い方です。スピーカーで発音を聞けます。</p>'+ids.map(function(id){var w=WMAP[id],sp=typeof p71Spk==="function"?p71Spk:function(){return "";};return '<div class="p85c-lw"><div class="p85c-lwh"><b>'+esc(w.accent||w.word)+'</b>'+sp(w.word)+'</div><span>'+esc(w.meaning)+'</span>'+(w.simpleExp?'<small>'+esc(w.simpleExp)+'</small>':'')+(w.exRu?'<div class="p72-eg p85c-lwe"><div><span class="p85c-lexru">'+esc(w.exRu)+'</span><small>'+esc(w.exJa||"")+'</small></div>'+sp(w.exRu)+'</div>':'')+'</div>';}).join("");
     else if(k==="t:rd")h+='<p>読解の問題は、本文の中に答えの根拠が必ずあります。まちがえたときは「本文のどの文を見れば分かったか」を探すと、次に同じ形の質問が来たときに速く見つけられます。</p>';
     else if(k==="t:au")h+='<p>聴解の問題は、細かい語を全部聞き取れなくても解けるように作られています。だれが話しているか、何を頼んでいるか、という全体の流れをまずつかみます。</p>';
     else if(k==="t:p1")h+='<p>このパートは、意味の近い言葉の中から、文に合うものを選ぶ問題です。似た言葉は、いっしょに使う語（どの前置詞・どの格と使うか）で区別できることが多いです。</p>';
     else h+='<p class="p85c-fnote">この分野の解説はまだありません。下のまちがえた問題と正しい答えを見比べてください。</p>';
   }
+  /* 出てきたことば（文法の用語）を、初めての人向けに言いかえる */
+  var GL=p85Terms(h);if(GL.length)h+='<details class="p85c-terms"><summary>この講義に出てくる用語（'+GL.length+'）</summary><dl>'+GL.map(function(t){return '<dt>'+t[0]+'</dt><dd>'+t[1]+'</dd>';}).join("")+'</dl></details>';
   h+='</div>';
   /* ② まちがえた問題 */
-  h+='<div class="p85c-lsec"><b>② あなたがまちがえた問題</b>';
+  h+='<div class="p85c-lsec"><b>② あなたがまちがえた問題</b><p class="p85c-fnote" style="margin:2px 0 6px">押すと、なぜその答えになるのか、選んだ答えのどこがちがったのかが開きます。</p>';
   var shown=M.filter(function(o){return o.x||WMAP[o.e[2]];}).slice(0,6);
   if(!shown.length)h+='<p class="p85c-fnote">まちがえた問題の文は、この機能を入れた日から残ります。次にまちがえたときから、ここに出ます。</p>';
   shown.forEach(function(o){var x=o.x,w=WMAP[o.e[2]];
-    h+='<div class="p85c-lq">'+(x?'<div class="p85c-lqs">'+esc(x[0])+'</div><div class="p85c-lqa"><span class="ok">○ '+esc(x[1])+'</span>'+(x[2]?'<span class="ng">× '+esc(x[2])+'</span>':'')+'</div>'+(x[3]&&!/^(意味の取りちがえ|到達テスト・|つづり)/.test(x[3])?'<small>'+esc(x[3])+'</small>':''):
-      '<div class="p85c-lqs">'+esc(w.accent||w.word)+' ＝ '+esc(w.meaning)+'</div>')+(o.fixed?'<em class="p85c-fixed">そのあと正解しました</em>':'')+'</div>';});
+    if(!x){h+='<div class="p85c-lq"><div class="p85c-lqs">'+esc(w.accent||w.word)+' ＝ '+esc(w.meaning)+'</div>'+(o.fixed?'<em class="p85c-fixed">そのあと正解しました</em>':'')+'</div>';return;}
+    h+='<details class="p85c-lq"><summary><div class="p85c-lqs">'+esc(x[0])+'</div><div class="p85c-lqa"><span class="ok">○ '+esc(x[1])+'</span>'+(x[2]?'<span class="ng">× '+esc(x[2])+'</span>':'')+'</div>'+(o.fixed?'<em class="p85c-fixed">そのあと正解しました</em>':'')+'<span class="p85c-lqmore">解説を見る</span></summary><div class="p85c-lqx">'+p85MistakeWhy(o)+'</div></details>';});
   if(M.length>shown.length&&shown.length)h+='<p class="p85c-fnote">ほかに '+(M.length-shown.length)+' 問あります。</p>';
   h+='</div>';
   /* ③ 覚え方のコツ */
@@ -986,7 +1033,11 @@ function p85OpenLec(k,keep){
   var pb=document.querySelector("#p85sheet .p81-pb"),top=keep&&pb?pb.scrollTop:0;
   P85.lecOpen=k;if(!keep)p85LecRead(k);
   var m=p85Sheet("あなた専用の講義",p85LecHtml(k));
-  try{if(typeof p72Wrap==="function")p72Wrap(m);}catch(_){}
+  /* ロシア語の単語を押すと、意味・形・読み上げの小さな窓が出る（文法書と同じしくみ） */
+  try{m.querySelectorAll(".p85c-lbody,.p85c-lnote,.p85c-lexru,.p85c-lqs,.p85c-lqa,.p85c-lw,.p85c-ltips,.p85c-lqr p").forEach(function(e){e.classList.add("p72-gru");});
+    if(typeof p72Wrap==="function")p72Wrap(m);
+    /* 語尾だけの「-а」「-ой」などは単語ではないので、押せないふつうの文字にもどす */
+    m.querySelectorAll("#p85sheet .p72-w").forEach(function(sp){var v=sp.getAttribute("data-val")||"";if(/^-|-$/.test(v))sp.replaceWith(document.createTextNode(sp.textContent));});}catch(_){}
   var nb=m.querySelector(".p81-pb");if(nb)nb.scrollTop=top;
 }
 function p85WeakListHtml(){
@@ -1076,6 +1127,39 @@ function p85DaySecs(n){
   return out;
 }
 function p85Mins(sec){return Math.round(sec/60);}
+/* ---- 読んでいる時間（2026-11-28 Yuta：講義や文法書を読む時間も勉強時間に。ただし開きっぱなしは数えない） ----
+   弱点の講義・文法書（解説書）が開いていて、画面が見えていて、最後の操作（タッチ・スクロール・キー）から1分以内のときだけ、5秒ずつ足す。
+   1分なにもしなければ止まり、また触れば再開する。日ごとの秒を settings.p85.rt {"YYYY-MM-DD":秒} に（120日分）。 */
+var P85_IDLE=60000,P85_RTICK=5;
+P85.act=Date.now();P85.racc=0;
+["pointerdown","touchstart","keydown","wheel"].forEach(function(ev){document.addEventListener(ev,function(){P85.act=Date.now();},{capture:true,passive:true});});
+document.addEventListener("scroll",function(){P85.act=Date.now();},{capture:true,passive:true});
+function p85Reading(){
+  try{var sh=document.getElementById("p85sheet");if(sh&&/show/.test(sh.className)&&P85.lecOpen)return "lec";}catch(_){}
+  try{if(typeof P72G!=="undefined"&&P72G){var g=document.getElementById("p72g");if(g&&g.innerHTML)return "guide";}}catch(_){}
+  return "";
+}
+function p85Rt(){var S=p85Set();if(!S.rt||typeof S.rt!=="object")S.rt={};return S.rt;}
+function p85RtFlush(){
+  if(!P85.racc)return;var R=p85Rt(),k=todayKey();R[k]=(R[k]||0)+P85.racc;P85.racc=0;
+  var ks=Object.keys(R).sort();while(ks.length>120)delete R[ks.shift()];
+  try{saveAll();}catch(_){}
+}
+setInterval(function(){
+  if(document.visibilityState!=="visible"){p85RtFlush();return;}
+  if(!p85Reading()||Date.now()-P85.act>P85_IDLE){p85RtFlush();return;}
+  P85.racc+=P85_RTICK;
+  /* 問題の画面の上で読んでいたぶんは、その問題の「答えるまでの秒」には入れない（2回数えない） */
+  if(P85.mark)P85.mark+=P85_RTICK*1000;
+  if(P85.racc>=30)p85RtFlush();
+},P85_RTICK*1000);
+window.addEventListener("pagehide",p85RtFlush);
+function p85RtDay(k){var R=p85Set().rt;return (R&&R[k])||0;}
+function p85RtSince(k0){var R=p85Set().rt||{},s=0;Object.keys(R).forEach(function(k){if(k>=k0)s+=R[k]||0;});return s+(P85.racc||0);}
+var _p85DaySecsR=p85DaySecs;
+p85DaySecs=function(n){var out=_p85DaySecsR.apply(this,arguments),t=todayKey();out.forEach(function(x){var r=p85RtDay(x.k)+(x.k===t?(P85.racc||0):0);x.r=r;x.s+=r;});return out;};
+var _p85TotalsR=p85Totals;
+p85Totals=function(){var t=_p85TotalsR.apply(this,arguments);try{t.s+=p85RtSince("0000");}catch(_){}return t;};
 /* 1日の目標（100日コース中はコースの時間） */
 function p85Goal(){try{var c=p85Crs();if(c)return c.min;}catch(_){}return p85Set().min;}
 function p85TimeHome(){
@@ -1107,7 +1191,7 @@ function p85TimeCard(){
   var S=p85Set(),goal=p85Goal(),D=p85DaySecs(14),today=D[13],w7=0,p7=0,days7=0,hit=0;
   D.forEach(function(x,i){if(i>=7){w7+=x.s;if(x.n)days7++;if(p85Mins(x.s)>=goal)hit++;}else p7+=x.s;});
   var T=p85Totals(),m=p85Mins(today.s),pct=Math.min(100,Math.round(m/goal*100)),diff=p85Mins(w7)-p85Mins(p7);
-  var h='<div class="p60-h" id="p85time">勉強時間<small>実際に解いた時間だけ</small></div><div class="p60-list p85c-time">';
+  var h='<div class="p60-h" id="p85time">勉強時間<small>解いた時間と読んだ時間</small></div><div class="p60-list p85c-time">';
   h+='<div class="p85c-tnow"><div><span>今日</span><b>'+m+'<small> 分</small></b></div><div class="p85c-tgoal"><span>'+(m>=goal?'今日の目標（'+goal+'分）を達成しました':'目標 '+goal+'分まで あと '+(goal-m)+'分')+'</span><span class="p85c-tbar big"><i style="width:'+pct+'%"></i></span></div></div>';
   h+='<div class="p85c-t3"><div><span>この7日</span><b>'+p85HM(w7)+'</b><em>'+(p7||w7?(diff>=0?'前の7日 +'+diff+'分':'前の7日 '+diff+'分'):'')+'</em></div>'+
      '<div><span>1日平均</span><b>'+p85Mins(w7/7)+'分</b><em>目標達成 '+hit+' / 7日</em></div>'+
@@ -1115,9 +1199,10 @@ function p85TimeCard(){
   h+='<div class="p85c-tsub">直近14日</div><div class="p85c-tchart">'+p85TimeChart(D,goal)+'</div>';
   /* この7日の内訳 */
   var by={},from=Math.floor(D[7].d.getTime()/1000);p85Recent(8).forEach(function(e){if(e[0]>=from)by[e[1]]=(by[e[1]]||0)+e[4];});
-  var rows=P85_TMODE.map(function(r){var s=0;r[2].forEach(function(k){s+=by[k]||0;});return {name:r[1],s:s};}).filter(function(r){return r.s>=30;}).sort(function(a,b){return b.s-a.s;});
+  var rd7=0;D.slice(7).forEach(function(x){rd7+=x.r||0;});
+  var rows=P85_TMODE.map(function(r){var s=0;r[2].forEach(function(k){s+=by[k]||0;});return {name:r[1],s:s};}).concat([{name:"講義・文法書を読む",s:rd7}]).filter(function(r){return r.s>=30;}).sort(function(a,b){return b.s-a.s;});
   if(rows.length){var mx=rows[0].s;h+='<div class="p85c-tsub">この7日の内訳</div>'+rows.map(function(r){return '<div class="p85c-trow2"><span>'+r.name+'</span><i><b style="width:'+Math.max(3,Math.round(r.s/mx*100))+'%"></b></i><em>'+p85HM(r.s)+'</em></div>';}).join("");}
-  h+='<p class="p85c-tnote">問題が画面に出てから答えるまでの時間だけを数えます。ほかのアプリを開いていた時間は引き、1問は長くても2分までにしています。目標はホームの「今日やること」で選んだ時間（100日コース中はコースの時間）です。</p>';
+  h+='<p class="p85c-tnote">問題は、画面に出てから答えるまでの時間を数えます（ほかのアプリを開いていた時間は引き、1問は長くても2分まで）。弱点の講義と文法書は、読んでいる時間も数えます。ただし1分なにも操作しないと止まり、画面に触れるとまた数え始めます。目標はホームの「今日やること」で選んだ時間（100日コース中はコースの時間）です。</p>';
   return h+'</div>';
 }
 /* 記録の画面：いちばん上に勉強時間。「1問ごとの記録」からは時間を外す（同じ数字を2回出さない） */
@@ -1148,6 +1233,12 @@ document.addEventListener("click",function(e){
     '.p85c-goal{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4;opacity:.7}.p85c-bar2{fill:var(--accent);opacity:.45}.p85c-txon{fill:var(--accent);font-weight:700}'+
     '.p85c-trow2{display:flex;align-items:center;gap:10px;padding:5px 14px;font-size:13px}.p85c-trow2>span{flex:0 0 76px;white-space:nowrap}.p85c-trow2>i{flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden;display:block}.p85c-trow2>i>b{display:block;height:100%;background:var(--accent);border-radius:4px}'+
     '.p85c-trow2>em{flex:0 0 auto;font-style:normal;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}'+
+    '.p85c-lhint{font-size:12px;color:var(--muted);margin:6px 0 0}.p85c-lex{margin:12px 0 4px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--accent) 6%,var(--card));border:1px solid var(--line)}.p85c-lex>b{font-size:13.5px}'+
+    '.p85c-lexr{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--line)}.p85c-lexr:first-of-type{border-top:0}.p85c-lexr>div{flex:1;min-width:0}.p85c-lexru{display:block;font-size:16px;line-height:1.6}.p85c-lexr small,.p85c-lwe small{display:block;font-size:12.5px;color:var(--muted);line-height:1.5}'+
+    '.p85c-lwh{display:flex;align-items:center;gap:6px}.p85c-lwe{display:flex;align-items:center;gap:8px}.p85c-lwe>div{flex:1;min-width:0}'+
+    '.p85c-terms{margin:10px 0 2px;border:1px solid var(--line);border-radius:12px;background:var(--card)}.p85c-terms summary{cursor:pointer;padding:10px 12px;font-size:13px;font-weight:700;color:var(--accent);min-height:24px}.p85c-terms dl{margin:0;padding:0 12px 10px}.p85c-terms dt{font-size:13px;font-weight:800;margin-top:8px}.p85c-terms dd{margin:2px 0 0;font-size:12.5px;line-height:1.65;color:var(--muted)}'+
+    'details.p85c-lq>summary{list-style:none;cursor:pointer}details.p85c-lq>summary::-webkit-details-marker{display:none}.p85c-lqmore{display:block;width:fit-content;margin-top:6px;font-size:12px;font-weight:700;color:var(--accent)}.p85c-lqmore::after{content:" ▾"}details.p85c-lq[open] .p85c-lqmore::after{content:" ▴"}details.p85c-lq[open] .p85c-lqmore{color:var(--muted)}'+
+    '.p85c-lqx{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}.p85c-lqr{margin:0 0 8px}.p85c-lqr>span{display:block;font-size:11.5px;font-weight:800;color:var(--muted);margin-bottom:2px}.p85c-lqr p{margin:0;font-size:13.5px;line-height:1.75}.p85c-lqx .p86x{margin:4px 0 8px}'+
     '.p85c-tnote{font-size:11.5px;color:var(--muted);line-height:1.6;margin:10px 14px 8px}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
 })();
@@ -1207,7 +1298,7 @@ function p85CWords(c){
   Object.keys(progress).forEach(function(id){var w=WMAP[id],p=progress[id];if(w&&p&&p.status&&p.status!=="new"&&lvs.indexOf(w.level)>=0)n++;});return n;
 }
 function p85CSince(c){var from=Math.floor(new Date(c.start+"T00:00:00").getTime()/1000),o={s:0,trki:0,cmp:0,days:{}};
-  Object.keys(P85.log).forEach(function(m){P85.log[m].forEach(function(e){if(e[0]>=from){o.s+=e[4];if(e[1]==="trki")o.trki++;if(e[1]==="compose")o.cmp++;o.days[todayKey(new Date(e[0]*1000))]=1;}});});o.nd=Object.keys(o.days).length;return o;}
+  Object.keys(P85.log).forEach(function(m){P85.log[m].forEach(function(e){if(e[0]>=from){o.s+=e[4];if(e[1]==="trki")o.trki++;if(e[1]==="compose")o.cmp++;o.days[todayKey(new Date(e[0]*1000))]=1;}});});try{var k0=c.start,R=p85Set().rt||{};Object.keys(R).forEach(function(k){if(k>=k0&&R[k]){o.s+=R[k];o.days[k]=1;}});}catch(_){}o.nd=Object.keys(o.days).length;return o;}
 /* コースの状態（予定と実際） */
 function p85CState(){
   var c=p85Crs();if(!c)return null;var C=P85_CRS[c.min],d=Math.max(1,p85CDay(c)),dd=Math.min(d,100),ch=p85Chs(),n=ch.length;
