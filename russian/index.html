@@ -11333,9 +11333,11 @@ function p72Look(tok,ctx){
   var n=p71N(tok);if(!n)return null;
   if(ctx&&ctx.w&&ctx.hit)return {id:ctx.w.id,base:ctx.w.accent||ctx.w.word,mean:ctx.w.meaning,form:ctx.lab||""};
   var ix=p72Index(),hs=ix[n]||[],r=null;
-  hs.forEach(function(h){if(!r||(!r.id&&h.id))r=h;});
+  /* 辞書にある語（id）の最初の候補を選ぶ（前からの決まり）。id がなければ意味のついた候補。形の名前がなければ、同じ語のほかの候補から借りる */
+  hs.forEach(function(h){if(!r||(!r.id&&h.id)||(!r.id&&!h.id&&!r.mean&&h.mean))r=h;});
+  if(r&&!r.form){var rb=p71N(r.base||"");hs.forEach(function(h){if(!r.form&&h.form&&p71N(h.base||"")===rb&&(h.id||null)===(r.id||null))r={id:r.id,base:r.base,mean:r.mean,form:h.form,g:r.g||h.g};});}
   if(r){var w=r.id&&WMAP[r.id];var o={id:r.id,base:r.base,mean:w?w.meaning:(r.mean||P72_FN[n]||""),form:r.form||"",g:r.g||null};
-    if(w&&p71N(w.word)!==n&&!o.form){o.form=p72FormName(w,tok);}if(P72_FN[n]&&!w)o.mean=P72_FN[n];return o;}
+    if(w&&p71N(w.word)!==n&&!o.form){o.form=p72FormName(w,tok);}if(o.form)o.form=o.form.split("・").filter(function(x,k,a){return a.indexOf(x)===k;}).join("・");if(P72_FN[n]&&!w)o.mean=P72_FN[n];return o;}
   if(P72_FN[n])return {id:null,base:tok,mean:P72_FN[n],form:""};
   /* 語幹で探す（最後の手段） */
   if(n.length>=5){var best=null;for(var cut=1;cut<=3&&!best;cut++){var s=n.slice(0,n.length-cut);if(s.length<4)break;
@@ -18485,7 +18487,7 @@ var P86_LG=[
 ];
 
 /* 単語帳の見出し語から自動では引けない形（問題文の単語タップ用。書式は phase73_extra と同じ） */
-var P86_EX=("поговорила|поговори́ть|少し話す|女性・過去\nпоговорил|поговори́ть|少し話す|男性・過去\nразговаривал|разгова́ривать|話す・会話する|男性・過去\nразговаривать|разгова́ривать|話す・会話する|不定形（辞書の形）\nвазу|ва́за|花びん|対格\nучительница|учи́тельница|先生（女性）|主格\nучительницу|учи́тельница|先生（女性）|対格\nучительницы|учи́тельница|先生（女性）|生格\nучительнице|учи́тельница|先生（女性）|与格・前置格\nотцом|оте́ц|父|造格\nмоими|мой|私の|複数・造格\nнашими|наш|私たちの|複数・造格\nлюдьми|лю́ди|人々|造格（特別な形）\nтобой|ты|君|造格\nскажет|сказа́ть|言う|он・она の形（未来）\nанну|А́нна|アンナ（人の名前）|対格\nанны|А́нна|アンナ（人の名前）|生格\nдевушка|де́вушка|若い女性・女の子|主格\nвспышки|вспы́шка|フラッシュ|生格\nолег|Оле́г|オレグ（人の名前）|主格\nолегу|Оле́г|オレグ（人の名前）|与格\nмаксим|Макси́м|マクシム（人の名前）|主格\nмаксима|Макси́м|マクシム（人の名前）|生格\nсоколова|Соколо́ва|ソコロワ（名字）|主格\nволге|Во́лга|ヴォルガ川（地名）|前置格\nказани|Каза́нь|カザン（地名）|生格・前置格\nказань|Каза́нь|カザン（地名）|主格・対格\nнебольшая|небольшо́й|小さな|女性・主格\nуважаемые|уважа́емый|親愛なる・尊敬する（手紙の書き出し）|複数・主格\nчитатели|чита́тель|読者・図書館の利用者|複数・主格\nчитальном|чита́льный|閲覧の（читальный зал＝閲覧室）|男性の前置格\nчитальный|чита́льный|閲覧の（читальный зал＝閲覧室）|男性・主格・対格\nпонимание|понима́ние|理解（спасибо за понимание＝ご理解に感謝）|対格\nотличная|отли́чный|すばらしい・最高の|女性・主格\nкупаться|купа́ться|泳ぐ・水浴びする|不定形（辞書の形）\nвагон-ресторан|ваго́н-рестора́н|食堂車|主格\nтретьего|тре́тий|3番目の|男性の生格\nдвенадцатого|двена́дцатый|12番目の|男性の生格\nсожалению|сожале́ние|残念（к сожалению＝残念ながら）|与格\nалло|алло́|もしもし（電話で）|形は変わらない\nлена|Ле́на|レナ（人の名前）|主格\nлену|Ле́на|レナ（人の名前）|対格\nигорь|И́горь|イーゴリ（人の名前）|主格\nскольких|ско́лько|いくつ（до скольких＝何時まで）|生格\nподнимется|подня́ться|上がる|он・она の形（未来）\nожидается|ожида́ться|予想される・見こまれる|он・она の形\nсаша|Са́ша|サーシャ（人の名前）|主格\nсаше|Са́ша|サーシャ（人の名前）|与格\nнеинтересно|неинтере́сно|つまらない|副詞\nпетров|Петро́в|ペトロフ（名字）|主格\nкабинет|кабине́т|部屋・診察室|主格・対格\nкабинете|кабине́т|部屋・診察室|前置格\nиван|Ива́н|イワン（人の名前）|主格\nмария|Мари́я|マリア（人の名前）|主格\nмарии|Мари́я|マリア（人の名前）|生格\nкэн|Кэн|ケン（人の名前）|主格\nосаки|Оса́ка|大阪（地名）|生格\nромашка|рома́шка|カモミール（ここでは店の名前）|主格\nпожаловать|пожа́ловать|（добро пожаловать＝ようこそ）|決まった言い方\nсевер|се́вер|北（ここではホテルの名前）|主格\nотъезда|отъе́зд|出発|生格\nосвободить|освободи́ть|空ける|不定形（辞書の形）\nпозавтракать|поза́втракать|朝食をとる|不定形（辞書の形）\nзаказывать|зака́зывать|注文する|不定形（辞書の形）\nоля|О́ля|オリャ（人の名前）|主格\nоле|О́ля|オリャ（人の名前）|与格\nпетербурге|Петербу́рг|ペテルブルク（地名）|前置格\nжалко|жа́лко|残念だ・さびしい（мне жалко＝私はさびしい）|副詞\nкатя|Ка́тя|カーチャ（人の名前）|主格\nкате|Ка́тя|カーチャ（人の名前）|与格\nспортивный|спорти́вный|スポーツの|男性・主格\nклуб|клуб|クラブ|主格\nклубе|клуб|クラブ|前置格\nзанятия|заня́тие|授業・クラス|複数・主格\nзанятие|заня́тие|授業・クラス|主格・対格\nзанятий|заня́тие|授業・クラス|複数・生格\nнина|Ни́на|ニーナ（人の名前）|主格\nсашу|Са́ша|サーシャ（人の名前）|対格\nновосибирск|Новосиби́рск|ノヴォシビルスク（地名）|主格・対格\nзадерживается|заде́рживаться|遅れる|он・она の形\nвылета|вы́лет|（飛行機の）出発|生格\nобъявлению|объявле́ние|広告・お知らせ|与格\nяблочного|я́блочный|りんごの|男性の生格\nчья|чей|だれの|女性の形\nчьё|чей|だれの|中性の形\nновосибирске|Новосиби́рск|ノヴォシビルスク（地名）|前置格\nновосибирска|Новосиби́рск|ノヴォシビルスク（地名）|生格\nмаксимом|Макси́м|マクシム（人の名前）|造格\nолега|Оле́г|オレグ（人の名前）|生格\nразговариваем|разгова́ривать|話す・会話する|мы の形\nразговаривают|разгова́ривать|話す・会話する|они の形\nспортивном|спорти́вный|スポーツの|男性の前置格").split("\n").map(function(l){return l.split("|");});
+var P86_EX=("поговорила|поговори́ть|少し話す|女性・過去\nпоговорил|поговори́ть|少し話す|男性・過去\nразговаривал|разгова́ривать|話す・会話する|男性・過去\nразговаривать|разгова́ривать|話す・会話する|不定形（辞書の形）\nвазу|ва́за|花びん|対格\nучительница|учи́тельница|先生（女性）|主格\nучительницу|учи́тельница|先生（女性）|対格\nучительницы|учи́тельница|先生（女性）|生格\nучительнице|учи́тельница|先生（女性）|与格・前置格\nотцом|оте́ц|父|造格\nмоими|мой|私の|複数・造格\nнашими|наш|私たちの|複数・造格\nлюдьми|лю́ди|人々|造格（特別な形）\nтобой|ты|君|造格\nскажет|сказа́ть|言う|он・она の形（未来）\nанну|А́нна|アンナ（人の名前）|対格\nанны|А́нна|アンナ（人の名前）|生格\nдевушка|де́вушка|若い女性・女の子|主格\nвспышки|вспы́шка|フラッシュ|生格\nолег|Оле́г|オレグ（人の名前）|主格\nолегу|Оле́г|オレグ（人の名前）|与格\nмаксим|Макси́м|マクシム（人の名前）|主格\nмаксима|Макси́м|マクシム（人の名前）|生格\nсоколова|Соколо́ва|ソコロワ（名字）|主格\nволге|Во́лга|ヴォルガ川（地名）|前置格\nказани|Каза́нь|カザン（地名）|生格・前置格\nказань|Каза́нь|カザン（地名）|主格・対格\nнебольшая|небольшо́й|小さな|女性・主格\nуважаемые|уважа́емый|親愛なる・尊敬する（手紙の書き出し）|複数・主格\nчитатели|чита́тель|読者・図書館の利用者|複数・主格\nчитальном|чита́льный|閲覧の（читальный зал＝閲覧室）|男性の前置格\nчитальный|чита́льный|閲覧の（читальный зал＝閲覧室）|男性・主格・対格\nпонимание|понима́ние|理解（спасибо за понимание＝ご理解に感謝）|対格\nотличная|отли́чный|すばらしい・最高の|女性・主格\nкупаться|купа́ться|泳ぐ・水浴びする|不定形（辞書の形）\nвагон-ресторан|ваго́н-рестора́н|食堂車|主格\nтретьего|тре́тий|3番目の|男性の生格\nдвенадцатого|двена́дцатый|12番目の|男性の生格\nсожалению|сожале́ние|残念（к сожалению＝残念ながら）|与格\nалло|алло́|もしもし（電話で）|形は変わらない\nлена|Ле́на|レナ（人の名前）|主格\nлену|Ле́на|レナ（人の名前）|対格\nигорь|И́горь|イーゴリ（人の名前）|主格\nскольких|ско́лько|いくつ（до скольких＝何時まで）|生格\nподнимется|подня́ться|上がる|он・она の形（未来）\nожидается|ожида́ться|予想される・見こまれる|он・она の形\nсаша|Са́ша|サーシャ（人の名前）|主格\nсаше|Са́ша|サーシャ（人の名前）|与格\nнеинтересно|неинтере́сно|つまらない|副詞\nпетров|Петро́в|ペトロフ（名字）|主格\nкабинет|кабине́т|部屋・診察室|主格・対格\nкабинете|кабине́т|部屋・診察室|前置格\nиван|Ива́н|イワン（人の名前）|主格\nмария|Мари́я|マリア（人の名前）|主格\nмарии|Мари́я|マリア（人の名前）|生格\nкэн|Кэн|ケン（人の名前）|主格\nосаки|Оса́ка|大阪（地名）|生格\nромашка|рома́шка|カモミール（ここでは店の名前）|主格\nпожаловать|пожа́ловать|（добро пожаловать＝ようこそ）|決まった言い方\nсевер|се́вер|北（ここではホテルの名前）|主格\nотъезда|отъе́зд|出発|生格\nосвободить|освободи́ть|空ける|不定形（辞書の形）\nпозавтракать|поза́втракать|朝食をとる|不定形（辞書の形）\nзаказывать|зака́зывать|注文する|不定形（辞書の形）\nоля|О́ля|オリャ（人の名前）|主格\nоле|О́ля|オリャ（人の名前）|与格\nпетербурге|Петербу́рг|ペテルブルク（地名）|前置格\nжалко|жа́лко|残念だ・さびしい（мне жалко＝私はさびしい）|副詞\nкатя|Ка́тя|カーチャ（人の名前）|主格\nкате|Ка́тя|カーチャ（人の名前）|与格\nспортивный|спорти́вный|スポーツの|男性・主格\nклуб|клуб|クラブ|主格\nклубе|клуб|クラブ|前置格\nзанятия|заня́тие|授業・クラス|複数・主格\nзанятие|заня́тие|授業・クラス|主格・対格\nзанятий|заня́тие|授業・クラス|複数・生格\nнина|Ни́на|ニーナ（人の名前）|主格\nсашу|Са́ша|サーシャ（人の名前）|対格\nновосибирск|Новосиби́рск|ノヴォシビルスク（地名）|主格・対格\nзадерживается|заде́рживаться|遅れる|он・она の形\nвылета|вы́лет|（飛行機の）出発|生格\nобъявлению|объявле́ние|広告・お知らせ|与格\nяблочного|я́блочный|りんごの|男性の生格\nвыходные|выходны́е|週末・休日（в выходные＝週末に）|複数・主格・対格\nзапрещено|запрещено|禁止されている（掲示の決まった言い方）|中性の短い形\nчья|чей|だれの|女性の形\nчьё|чей|だれの|中性の形\nновосибирске|Новосиби́рск|ノヴォシビルスク（地名）|前置格\nновосибирска|Новосиби́рск|ノヴォシビルスク（地名）|生格\nмаксимом|Макси́м|マクシム（人の名前）|造格\nолега|Оле́г|オレグ（人の名前）|生格\nразговариваем|разгова́ривать|話す・会話する|мы の形\nразговаривают|разгова́ривать|話す・会話する|они の形\nспортивном|спорти́вный|スポーツの|男性の前置格").split("\n").map(function(l){return l.split("|");});
 if(window.P73_EX&&typeof P47_LANG!=="undefined"&&P47_LANG!=="ky")P86_EX.forEach(function(q){P73_EX.push(q);});
 
 /* ---------- 読解：3択（本文はオリジナル。人物・店・町の名前は架空） ---------- */
@@ -19136,6 +19138,7 @@ function topHtml(){
      '<p class="p86-judge">'+judge(lv,o)+'</p></div>';
   /* 今日の練習 */
   h+='<button type="button" class="p86-big" data-act="p86today"><span><b>今日の10問</b><small>'+(o.due?'復習 '+o.due+'問を先に、そのあと続きから':'続きから順番に')+'</small></span>'+ic("go",18)+'</button>';
+  h+=goalHtml(lv);
   /* 分野ごと */
   h+='<div class="p86-h">分野ごとに練習（何周でも回せます）</div><div class="p86-box">';
   ["ex","vo","gr","rd","au","hs"].forEach(function(s){var li=items(lv,s);if(!li.length)return;var so=sum(li),lp=lap(li);
@@ -19160,6 +19163,28 @@ function topHtml(){
     '<p>このアプリの問題は、本番の形に合わせて書き下ろしたものと、アプリの単語帳・瞬間作文から自動で作ったものです（本物の過去問ではありません）。作文と会話の部門はまだありません。「その他の練習」のAI会話で補ってください。</p>'+
     '<p class="p86-mut">試験の形は公開されている要項にもとづく目安です。最新の実施要項は、受験する試験会場で確かめてください。</p></details>';
   return h;
+}
+/* ---------- 合格までの道のり（目標3つと、時間の目安） ----------
+   時間の目安は、日本語が母語の人がロシア語を学ぶときによく言われる学習時間をもとにした「おおよそ」です（単語・文法・会話の学習もふくむ累計）。 */
+var GOAL_H={A1:150,A2:350,B1:700},GOAL_LAP=3,GOAL_SOLID=80,GOAL_MOCK=2;
+function goalHtml(lv){
+  var L=LV[lv],secs=["ex","vo","gr","rd","au","hs"].filter(function(s){return items(lv,s).length;}),all=items(lv),o=sum(all);
+  /* 周回：全分野のうち、いちばん遅れている分野の「終わった周＋いまの周の進み」 */
+  var lp=Math.min.apply(null,secs.map(function(s){var x=lap(items(lv,s));return (x.lap-1)+(x.n?x.done/x.n:0);}));
+  var sp=pct(o.solid,o.n),ms=rec().mk.filter(function(x){return (x.lv||"B1")===lv;}),run=0;
+  for(var i=0;i<ms.length;i++){if(["lg","rd","au"].every(function(c){return pct(ms[i][c][0],ms[i][c][1])>=L.pass;}))run++;else break;}
+  var lapH=Math.round(all.length*20/3600*10)/10,setH=Math.round(lapH*GOAL_LAP*1.5),hh=GOAL_H[lv],mo=Math.round(hh*2/30);
+  function row(lab,v,goal,txt){var p=Math.min(100,Math.round(v/goal*100));return '<div class="p86-gr"><div class="p86-gt"><b>'+lab+'</b><span>'+txt+'</span></div><div class="p86-bar"><i style="width:'+p+'%"></i></div></div>';}
+  return '<div class="p86-card p86-goal"><div class="p86-ch">'+L.code+' 合格までの道のり</div>'+
+    row("① 全分野を"+GOAL_LAP+"周",lp,GOAL_LAP,(Math.floor(lp*10)/10)+' / '+GOAL_LAP+'周')+
+    row("② 定着 "+GOAL_SOLID+"%",sp,GOAL_SOLID,sp+'% / '+GOAL_SOLID+'%')+
+    row("③ ミニ模試で全部門合格を"+GOAL_MOCK+"回続けて",run,GOAL_MOCK,run+' / '+GOAL_MOCK+'回')+
+    '<p class="p86-mut">3つそろえば、'+L.code+' の選択問題（語彙・文法・読解・聴解）は合格ラインに届く力の目安です。</p>'+
+    '<details class="p86-info p86-gi"><summary>何周・何時間かかる？</summary>'+
+    '<p><b>この問題集</b>　'+all.length+'問。1周は約'+lapH+'時間（1問20秒で計算）。'+GOAL_LAP+'周と復習で、約'+setH+'時間です。</p>'+
+    '<p><b>なぜ3周？</b>　1周目は「知る」、2周目は「思い出せる」、3周目は「迷わず選べる」ようにするためです。復習は1日・3日・1週間…と間をあけて自動で出るので、3周するころには多くの問題が「定着」になります。</p>'+
+    '<p><b>勉強時間の目安（このレベルまでの合計）</b>　'+L.code+' までは、単語・文法・聞き取りの学習もふくめて<b>約'+hh+'時間</b>です（1日30分なら約'+mo+'か月、1日1時間ならその半分）。日本語が母語の人がロシア語を学ぶときによく言われる時間をもとにした、おおよその数字です。</p>'+
+    '<p><b>この問題集だけでは足りないところ</b>　本番には作文と会話の部門もあり、それぞれ合格ラインが必要です。このアプリの瞬間作文（書く・言う練習）も並行して進めてください。</p></details></div>';
 }
 function judge(lv,o){
   var L=LV[lv],m=lastMock(lv);
@@ -19260,9 +19285,139 @@ function qHtml(){
   return h;
 }
 /* 解説：正解の理由＋ほかの選択肢がなぜちがうか（単語＝意味、形＝形の名前） */
+/* ---------- 「なぜこの形？」の説明（文の中の手がかり → 形の作り方 → ほかの選択肢がちがう理由） ----------
+   文の中から「形を決めている手がかり」（前置詞・нет・数・動詞・主語・時を表す語・うしろの名詞）を探し、
+   見つかったときだけ書きます（あてずっぽうの説明は出しません）。問題ごとの説明（it.x）は「この文のポイント」として残します。 */
+var W_CJ={nom:"主格（〜が・〜は）",gen:"生格（〜の・〜がない・数のあと）",dat:"与格（〜に）",acc:"対格（〜を・〜へ）",ins:"造格（〜で・〜と・〜として）",pre:"前置格（〜で〔場所〕・〜について）"};
+var W_PREP={"о":["pre","о（〜について）"],"об":["pre","об（〜について）"],"обо":["pre","обо（〜について）"],"при":["pre","при（〜のときに・〜のそばで）"],
+  "у":["gen","у（〜のところに）"],"из":["gen","из（〜の中から）"],"от":["gen","от（〜から：人や場所から離れて）"],"до":["gen","до（〜まで）"],"без":["gen","без（〜なしで）"],"для":["gen","для（〜のために）"],
+  "после":["gen","после（〜のあとで）"],"около":["gen","около（〜の近くに）"],"кроме":["gen","кроме（〜をのぞいて）"],"мимо":["gen","мимо（〜のそばを通って）"],"напротив":["gen","напротив（〜の向かいに）"],"среди":["gen","среди（〜の中で）"],"вокруг":["gen","вокруг（〜のまわりに）"],"из-за":["gen","из-за（〜のせいで）"],
+  "к":["dat","к（〜のほうへ・〜のところへ）"],"ко":["dat","ко（〜のほうへ）"],"по":["dat","по（〜にそって・〜で〔電話・テレビなど〕）"],
+  "через":["acc","через（〜を通って・〜後に）"],"про":["acc","про（〜について）"],
+  "между":["ins","между（〜のあいだに）"],"над":["ins","над（〜の上のほうに）"],"перед":["ins","перед（〜の前に）"]};
+var W_PRON={"меня":["я","gen・acc"],"мне":["я","dat・pre"],"мной":["я","ins"],"тебя":["ты","gen・acc"],"тебе":["ты","dat・pre"],"тобой":["ты","ins"],
+  "его":["он","gen・acc"],"него":["он","gen・acc"],"ему":["он","dat"],"нему":["он","dat"],"им":["он／они","ins／dat"],"ним":["он／они","ins／dat"],"нём":["он","pre"],
+  "её":["она","gen・acc"],"нее":["она","gen・acc"],"неё":["она","gen・acc"],"ей":["она","dat・ins"],"ней":["она","dat・ins・pre"],
+  "нас":["мы","gen・acc・pre"],"нам":["мы","dat"],"нами":["мы","ins"],"вас":["вы","gen・acc・pre"],"вам":["вы","dat"],"вами":["вы","ins"],
+  "их":["они","gen・acc"],"них":["они","gen・acc・pre"],"ими":["они","ins"],"ними":["они","ins"],"себя":["себя","gen・acc"],"себе":["себя","dat・pre"],"собой":["себя","ins"],
+  "я":["я","nom"],"ты":["ты","nom"],"он":["он","nom"],"она":["она","nom"],"мы":["мы","nom"],"вы":["вы","nom"],"они":["они","nom"]};
+Object.keys(W_PRON).forEach(function(k){var e=k.replace(/ё/g,"е");if(!W_PRON[e])W_PRON[e]=W_PRON[k];});
+var W_CN={nom:"主格",gen:"生格",dat:"与格",acc:"対格",ins:"造格",pre:"前置格"};
+function wTok(s){return (low(s).match(/[а-яё\-]+/g)||[]);}
+function wInfo(form){var o=null;try{o=p72Look(form);}catch(_){}var n=low(form),pr=W_PRON[n];
+  var cs=[];if(pr)cs=pr[1].split(/[・／]/);else if(o&&o.form&&!o.guess)Object.keys(P72_CASEK).forEach(function(c){if(o.form.indexOf(c)>=0)cs.push(P72_CASEK[c]);});
+  var w=o&&o.id&&window.WMAP?WMAP[o.id]:null;
+  return {o:o,w:w,cs:cs,lab:pr?(pr[0]+" の"+pr[1].split(/[・／]/).map(function(c){return W_CN[c]||c;}).join("・")):(o&&o.form&&!o.guess&&w&&/^(noun|verb|adjective|pronoun|number)$/.test(w.pos)?o.form.split("・").filter(function(x,k,a){return a.indexOf(x)===k;}).join("・"):""),base:o?plain(o.base||""):"",pos:w?w.pos:(pr?"pronoun":""),pl:/複数/.test(o&&o.form||"")&&!/(^|・)(主格|生格|与格|対格|造格|前置格)(・|$)/.test(o&&o.form||"")};}
+/* 空欄の前の語（前置詞・数・нет）と、文の中の動詞・主語・時の語から「どの形が必要か」を決める */
+function wNeed(it){
+  var s=low(it.s),i=s.indexOf("＿"),bef=wTok(s.slice(0,i)),aft=wTok(s.slice(i+1)),p1=bef[bef.length-1]||"",p2=bef[bef.length-2]||"",all=bef.concat(aft);
+  var A=wInfo(it.a),r={A:A,aft:aft};
+  /* 前置詞（空欄のすぐ前、または「前置詞＋形容詞＋＿」） */
+  var prep=W_PREP[p1]||W_PREP[p2]&&!W_PREP[p1]&&/(ой|ом|ем|ую|юю|ые|ие|ых|их|ым|им|ей|ий|ый|ое|ее|ая|яя|его|ему|ого|ому|ими|ыми|мой|моей|моём|твоём|нашем|вашем|этом|этой|том|той)$/.test(p1)&&W_PREP[p2];
+  var pw=W_PREP[p1]?p1:p2;
+  if(prep&&A.cs.indexOf(prep[0])>=0){r.c=prep[0];r.why="前置詞 "+prep[1]+" のうしろは、いつも"+W_CJ[prep[0]]+"です。";return r;}
+  if((p1==="в"||p1==="на"||p1==="во"||((p2==="в"||p2==="на")&&!W_PREP[p1]))&&(A.cs.indexOf("pre")>=0||A.cs.indexOf("acc")>=0)){
+    var mv=all.some(function(t){return /^(ид|ход|шё|шл|пош|пойд|ех|ед|езж|поех|поед|приех|прид|пришё|пришл|вернул|возвращ|лет|полет|бега|кла|полож|поста|пове|сес|сяд|сад|спеш|опазд|опозд)/.test(t);});
+    if(A.cs.indexOf("acc")>=0&&(mv||A.cs.indexOf("pre")<0)){r.c="acc";r.why="в・на には2つの使い方があります。「どこへ（行き先）」なら対格、「どこで（場所）」なら前置格。この文は"+(mv?"行く・来る・置くなどの動き（行き先）":"行き先")+"なので対格です。";return r;}
+    if(A.cs.indexOf("pre")>=0){r.c="pre";r.why="в・на には2つの使い方があります。「どこへ（行き先）」なら対格、「どこで（場所）」なら前置格。この文は「どこで」（いる・住む・働く場所など）なので前置格です。";return r;}}
+  if((p1==="с"||p1==="со"||p2==="с"&&!W_PREP[p1])&&A.cs.indexOf("ins")>=0){r.c="ins";r.why="с が「〜と一緒に・〜入りの」の意味のとき、うしろは造格です（「〜から」の意味なら生格）。";return r;}
+  if((p1==="с"||p1==="со")&&A.cs.indexOf("gen")>=0&&A.cs.indexOf("ins")<0){r.c="gen";r.why="с が「〜から」（с японского＝日本語から、с работы＝仕事から）の意味のとき、うしろは生格です（「〜と一緒に」なら造格）。";return r;}
+  if((p1==="за"||p1==="под")&&A.cs.indexOf("ins")>=0){r.c="ins";r.why=p1+"（"+(p1==="за"?"〜のうしろに・〜を取りに":"〜の下に")+"）で「どこに」を言うときは造格です（「どこへ」なら対格）。";return r;}
+  if((p1==="за"||p1==="под")&&A.cs.indexOf("acc")>=0){r.c="acc";r.why=p1+" で「どこへ」や「〜のお礼に・〜の間に」を言うときは対格です。";return r;}
+  /* 数・量のあと */
+  var num=p1;if(/^(один|одна|одно)$/.test(num)&&A.cs.indexOf("nom")>=0){r.c="nom";r.why="1（один・одна・одно）のあとは、名詞は主格（辞書の形）のままです。";return r;}
+  if(/^(два|две|три|четыре|оба|обе|полтора)$/.test(num)&&A.cs.indexOf("gen")>=0){r.c="gen";r.why="2・3・4（два／две／три／четыре）のあとは、名詞は「単数の生格」になります。数の数え方の決まりで、意味とは関係ありません。";return r;}
+  if(/^(пять|шесть|семь|восемь|девять|десять|одиннадцать|двенадцать|тринадцать|четырнадцать|пятнадцать|шестнадцать|семнадцать|восемнадцать|девятнадцать|двадцать|тридцать|сорок|пятьдесят|шестьдесят|семьдесят|восемьдесят|девяносто|сто|двести|триста|сколько|много|мало|несколько|немного)$/.test(num)&&A.cs.indexOf("gen")>=0){
+    r.c="gen";r.why="5以上の数（20・100 などもふくむ）や сколько（いくつ）・много（たくさん）・несколько（いくつか）のあとは、名詞は「複数の生格」になります。";return r;}
+  if(/^(лет|года|год)$/.test(it.a.toLowerCase())&&/\d|два|три|пять|двадцать|сто/.test(s)){r.c="gen";r.why="年数・年齢は、最後の数字で形が決まります。1 → год、2・3・4 → года、5〜20 と 0 → лет。";return r;}
+  if(bef.some(function(t){return /^(сколько|много|мало|несколько|немного)$/.test(t);})&&A.cs.indexOf("gen")>=0&&A.pl){r.c="gen";r.why="сколько（いくつ）・много（たくさん）・несколько（いくつか）のように「数・量」をたずねたり言ったりする語があると、数えるものは「複数の生格」になります。";return r;}
+  if(/^(утром|днём|днем|вечером|ночью|весной|летом|осенью|зимой)$/.test(low(it.a))){r.c="ins";r.why="утром（朝に）・днём（昼に）・вечером（夜に）・летом（夏に）・зимой（冬に）は、「〜に（時）」を表す造格の形で、前置詞なしで使います。";return r;}
+  /* нет／не было のあと */
+  if(bef.indexOf("нет")>=0||/не (было|будет)/.test(s.slice(0,i))){if(A.cs.indexOf("gen")>=0){r.c="gen";r.why="нет（〜がない）、не было（なかった）、не будет（ないだろう）のあとは、ない物・いない人を生格で言います。";return r;}}
+  /* 与格をとる言い方 */
+  if(A.cs.indexOf("dat")>=0&&all.some(function(t){return /^(звон|позвон|помога|помог|помож|дар|подар|отвеч|ответ|совет|посовет|меша|помеша|вер|нрав|понрав|нужн|нужен|надо|нельзя|можно|холодно|тепло|жарко|скучно|интересно|весело|грустно|плохо|хорошо|лет|года|год|пиш|напиш|напомн|звонит|обеща|пообещ|покаж|показ|объясн|скаж|сказ|говор|дай|дайте|дам|дал|приш|пришл|посла|отправ|улыба|рад)/.test(t);})){
+    r.c="dat";r.why="「だれに」（電話する・あげる・言う・見せる・手伝う相手）や、「〜にとって」（好き・必要・寒い・〜歳）は与格で言います。日本語の「〜に」とほぼ同じ感覚です。";return r;}
+  /* 「〜を」をとる動詞のあとの代名詞（Меня зовут…、Я жду вас…） */
+  if(A.cs.indexOf("acc")>=0&&W_PRON[low(it.a)]&&!prep&&all.some(function(t){return /^(зов|позов|люб|жд|подожд|вид|увид|зна|понима|поним|слуша|спрос|спраш|прош|попрос|поздрав|благодар|встреч|встрет|ищ|иска|найд|нашёл|нашл|помн|запомн|забыл|забуд|пригла|приглас|провод|провож|отвез|отвоз|отвед|вед|вез|бер|брал|взял|возьм|целу|обним|слыш|услыш|узна|узнал)/.test(t);})){
+    r.c="acc";r.why=(all.indexOf("зовут")>=0?"Меня зовут… は「（人は）私を…と呼ぶ」という言い方です。呼ばれる人は「〜を」に当たるので対格（меня・тебя・его・её・вас）になります。":"この文の動詞は「〜を」をとる動詞（待つ・見る・知る・愛する・招く など）です。「〜を」に当たる人は対格で言います。");return r;}
+  /* 造格をとる動詞 */
+  if(A.cs.indexOf("ins")>=0&&all.some(function(t){return /^(стал|стан|стать|работа|занима|интерес|увлека|был|была|были|будет|буду|являет|горд|доволен|довольн|пользу|пиш|ед|ест)/.test(t);})){
+    r.c="ins";r.why="стать（〜になる）・работать（〜として働く）・заниматься（〜をする）・интересоваться（〜に興味がある）や、道具・手段（ペンで書く、スプーンで食べる、カードで払う）は造格で言います。";return r;}
+  if(A.cs.indexOf("ins")>=0&&!prep){r.c="ins";r.why="前置詞なしの造格は「〜で（道具・手段）」や「〜として」を表します。";return r;}
+  if(A.cs.indexOf("acc")>=0&&!prep&&A.cs.indexOf("nom")<0&&A.pos==="noun"&&!/^(в|на|во|с|со|за|под)$/.test(p1)){r.c="acc";r.why="動詞が直接はたらきかける相手（〜を）は対格です。";return r;}
+  if(A.cs.length===1&&A.cs[0]==="gen"&&!prep&&/^[а-яё]+$/.test(p1)&&!W_PREP[p1]&&!/^(в|на|во|с|со|за|под|и|а|но|не|это|что|как)$/.test(p1)&&A.pos==="noun"){r.c="gen";r.why="名詞のうしろにつけて「〜の」（持ち主・部分）を言うときは生格です。";return r;}
+  return r;
+}
+var W_SUBJ={"я":"я","ты":"ты","он":"он・она","она":"он・она","оно":"он・она","мы":"мы","вы":"вы","они":"они"};
+function wVerb(it,A){
+  var s=low(it.s),i=s.indexOf("＿"),toks=wTok(s),bef=wTok(s.slice(0,i)),lab=A.lab||"",out=[];
+  /* 主語は、空欄と同じ節（コンマで区切られた部分）の中の я・ты・он… */
+  var cl=s.split(/[,;—]/),pos0=0,ci=0;for(var q=0;q<cl.length;q++){if(i>=pos0&&i<=pos0+cl[q].length){ci=q;break;}pos0+=cl[q].length+1;}
+  var ct=wTok(cl[ci]||s),subj=null;ct.forEach(function(t,k){if(W_SUBJ[t]&&!subj&&!W_PREP[ct[k-1]||""]&&!/^(с|со)$/.test(ct[k-1]||""))subj=t;});
+  if(/の形$/.test(lab)&&!/命令/.test(lab)){var who=lab.replace(/ の形.*/,"");
+    if(subj&&W_SUBJ[subj].indexOf(who.split("・")[0])>=0)out.push("主語が "+subj+" なので、動詞は "+who+" の形にします。ロシア語の動詞は、主語（я・ты・он／она・мы・вы・они）ごとに語尾が変わります。");
+    else out.push("動詞は主語に合わせて語尾が変わります。この文の主語に合うのは "+who+" の形です。");}
+  var a=low(it.a),past=/過去/.test(lab)||/(л|ла|ло|ли|лся|лась|лось|лись|ёл|ог|ёк|ёз)$/.test(a)&&!/の形$/.test(lab),
+    pe=!past?"":/(ли|лись)$/.test(a)?"複数・вы（-ли）":/(ла|лась)$/.test(a)?"女性ひとり（-ла）":/(ло|лось)$/.test(a)?"中性（-ло）":"男性ひとり（-л）";
+  if(pe==="中性（-ло）"&&/(пять|шесть|семь|восемь|девять|десять|двадцать|сто|много|несколько|мало)/.test(s))out.push("5以上の数や много（たくさん）・несколько（いくつか）が主語のときは、動詞は中性・単数（-ло）にするのが決まりです。");
+  else if(pe){out.push("過去形は、主語の性と数で語尾が決まります（男性ひとり -л、女性ひとり -ла、中性 -ло、複数・вы -ли）。"+
+    (subj==="я"||subj==="ты"?"主語の "+subj+" は男性なら -л、女性なら -ла。この文は "+pe+" の形です。":subj?"主語は "+subj+" なので "+pe+" の形です。":"この文の主語に合わせて "+pe+" の形です。"));}
+  /* 同じ動詞の完了体・不完了体が並んでいるとき */
+  var pair=it.w.filter(function(o){var x=low(o);return x!==a&&(a.length>x.length?a.slice(-x.length)===x:x.slice(-a.length)===a)&&Math.abs(a.length-x.length)<=4;});
+  if(pair.length&&pe){var perf=a.length>low(pair[0]).length;
+    out.push("選択肢に同じ動詞の完了体と不完了体があります。"+(perf?"答えは完了体：1回で終わったこと・その結果（〜し終えた）や、次々に起きたことを言うときに使います。":"答えは不完了体：その動作をしていた（続いていた）こと・くり返し・「〜したことがある」を言うときに使います。"));}
+  if(!/命令/.test(lab)&&A.pos==="verb"&&/(ите|йте|ьте)$/.test(a)&&!/の形/.test(lab)||/(^|[^а-яё])(пожалуйста)/.test(s)&&/(и|й|ь)$/.test(a)&&!/ть$/.test(a)&&A.pos==="verb")lab=lab+"命令";
+  if(a!=="есть"&&(/不定形/.test(lab)||it.a===A.base&&/(ть|ти|чь|ться|тись)$/.test(a))){
+    var t=bef.slice(-3).join(" ");
+    if(/буд/.test(t))out.push("буду・будешь など（未来を作る быть）のうしろの動詞は、辞書の形（不定形）のままです。");
+    else if(/мог|мож|хоч|хот|над|нужн|нельз|можн|люб|умею|уме|нач|конч|стал|пора|чтобы|реш|забыл|забуд|прош|попрос|сов|прид|ид|пошл|пойд/.test(t))out.push("「できる（мочь）・したい（хотеть）・必要だ（надо・нужно）・好きだ（любить）・始める・〜するために（чтобы）」などのうしろの動詞は、辞書の形（不定形）のままです。主語に合わせて形を変えるのは、前の語のほうです。");
+    else if(/^(как|что|где|куда|когда|зачем|почему)$/.test(bef[0]||""))out.push("「как это сказать?（どう言えばいい？）」のように、主語を言わずに「〜すればいいか」とたずねる文では、動詞は辞書の形（不定形）を使います。");}
+  if(/命令/.test(lab))out.push("「〜してください」と頼む文なので命令形です。вы や知らない人には -те のついた形を使います。");
+  if(bef.some(function(t){return t==="давай"||t==="давайте";})&&/мы/.test(lab))out.push("давай（давайте）＋мы の形（未来）で「一緒に〜しよう」とさそう言い方になります。");
+  var cs0=cl[ci]||s;
+  if(/(вчера|назад|прошл)/.test(cs0))out.push("вчера（昨日）・〜назад（〜前）・в прошлом…（この前の）のように、過去の時を表す語があります。");
+  if(/(завтра|скоро|потом|через|следующ|будущ)/.test(cs0))out.push("завтра（明日）・скоро（もうすぐ）・через（〜後に）のように、これからの時を表す語があります。");
+  if(/(каждый|каждую|каждое|часто|обычно|всегда|иногда|долго|редко)/.test(cs0))out.push("каждый（毎〜）・часто（よく）・всегда（いつも）・долго（長いあいだ）のような、くり返しや続く時間を表す語があるときは、不完了体を使います。");
+  return out;
+}
+function wAdj(it,A){
+  var s=low(it.s),i=s.indexOf("＿"),aft=wTok(s.slice(i+1)),n=aft[0];if(!n)return [];
+  var N=wInfo(n);if(!N.o||!N.w||N.w.pos!=="noun")return [];
+  var g=null;try{var gi=p72GenderInfo(N.w,N.o.g);g=gi&&gi.g;}catch(_){}
+  var cn=N.cs.map(function(c){return W_CN[c];}).join("・"),gn=N.pl?"複数":(g?P72_GNAME[g].replace("名詞",""):"");
+  var pr=W_PREP[wTok(s.slice(0,i)).slice(-1)[0]||""];
+  return ["形容詞（や мой・этот・какой・который）は、説明する名詞に「性・数・格」をそろえます。うしろの名詞 "+n+" は"+[gn,cn].filter(Boolean).join("・")+(gn||cn?"なので、":"に合わせて、")+"形容詞も同じ性・数・格の語尾にします。"+(pr?"前置詞 "+pr[1]+" のうしろなので、名詞も形容詞も"+W_CN[pr[0]]+"です。":"")];
+}
+function whyHtml(it){
+  if(it.t!=="gap"||it.sec==="vo"||it.part===1)return "";
+  var r=wNeed(it),A=r.A,rows=[];
+  if(r.c){rows.push(["形を決める手がかり",r.why]);
+    var e="";if(A.w&&A.w.pos==="noun"){var g=null;try{var gi=p72GenderInfo(A.w,A.o.g);g=gi&&gi.g;}catch(_){}
+      if(g&&P72_END[r.c]){var t=P72_END[r.c][A.pl?"p":"s"][g]||"";if(t)e=plain(A.base)+" は"+P72_GNAME[g]+"。"+W_CN[r.c]+(A.pl?"の複数":"")+"の作り方："+t;}}
+    else if(W_PRON[low(it.a)])e=W_PRON[low(it.a)][0]+" の"+W_CN[r.c]+"は "+it.a+"（代名詞は形を1つずつ覚えます）。";
+    if(e)rows.push(["形の作り方",e]);}
+  else if(A.pos==="verb"){var v=wVerb(it,A);if(v.length)rows.push(["形を決める手がかり",v.join("<br>")]);}
+  else if(!it.w.concat([it.a]).some(function(o){return /短い形/.test(wInfo(o).lab);})&&(A.pos==="adjective"||/^(мо|тво|наш|ваш|эт|как|котор|чь|чей|сво|весь|вс)/.test(low(it.a)))){var a=wAdj(it,A);if(a.length)rows.push(["形を決める手がかり",a[0]]);}
+  /* 前置詞のあとの н（к нему、у неё、с ними） */
+  if(W_PRON[low(it.a)]&&/^н/.test(low(it.a))&&it.w.some(function(o){return low(o)===low(it.a).slice(1)||low(o)==="её"&&low(it.a)==="неё";}))
+    rows.push(["前置詞のあとの н","он・она・оно・они の形（его・ему・её・ей・им・их など）は、前置詞のすぐあとでは頭に н がつきます（к нему、у неё、с ними）。前置詞がなければ н はつきません。"]);
+  /* 短い形（〜だ・〜されている）は主語にそろえる */
+  if(it.w.concat([it.a]).some(function(o){return /短い形/.test(wInfo(o).lab);})){var sb=wTok(it.s).map(wInfo).filter(function(I){return I.w&&I.w.pos==="noun";})[0];
+    if(sb){var sg=null;try{var gi2=p72GenderInfo(sb.w,sb.o.g);sg=gi2&&gi2.g;}catch(_){}
+      rows.push(["形を決める手がかり","短い形（「〜だ」「〜されている」）は、主語の性・数にそろえます（男性は語尾なし、女性 -а、中性 -о、複数 -ы／-и）。主語 "+plain(sb.o.base)+" は"+(sb.pl?"複数":sg?P72_GNAME[sg]:"")+"なので、この形です。"]);}}
+  /* ほかの選択肢 */
+  var ow=it.w.map(function(o){var I=wInfo(o),l=I.lab||(low(o)===low(I.base)&&/^(noun|verb|adjective)$/.test(I.pos)?"辞書の形":"");
+    var why=r.c&&I.cs.length&&I.cs.indexOf(r.c)<0?"。ここでは"+W_CN[r.c]+"が必要なので合いません":"";
+    return '<b>'+esc(o)+'</b>'+(l?'（'+esc(l)+esc(why)+'）':'');});
+  if(ow.some(function(x){return /（/.test(x);}))rows.push(["ほかの選択肢",ow.join("<br>")]);
+  if(!rows.length)return "";
+  return '<div class="p86-why"><div class="p86-wh">なぜこの形？</div>'+rows.map(function(q){return '<div class="p86-wr"><span>'+q[0]+'</span><p>'+(q[0]==="ほかの選択肢"?q[1]:esc(q[1]).replace(/&lt;br&gt;/g,"<br>"))+'</p></div>';}).join("")+'</div>';
+}
 function expHtml(it,ok){
-  var h='<p><b class="'+(ok?"ok":"ng")+'">'+(ok?'正解':'正解は '+esc(it.a))+'</b></p><p>'+esc(it.x||"")+'</p>';
-  if(it.opt)h+='<p class="p86-oth">ほかの選択肢：'+it.opt.map(function(o){return '<b>'+esc(o[0])+'</b>＝'+esc(o[1]);}).join("、")+'</p>';
+  var wh="";try{wh=whyHtml(it);}catch(_){}
+  var h='<p><b class="'+(ok?"ok":"ng")+'">'+(ok?'正解':'正解は '+esc(it.a))+'</b></p>'+wh+(it.x?(wh?'<p class="p86-pt"><b>この文のポイント</b>'+esc(it.x)+'</p>':'<p>'+esc(it.x)+'</p>'):'');
+  if(wh&&/ほかの選択肢/.test(wh)){}
+  else if(it.opt)h+='<p class="p86-oth">ほかの選択肢：'+it.opt.map(function(o){return '<b>'+esc(o[0])+'</b>＝'+esc(o[1]);}).join("、")+'</p>';
   else if(it.form){var lab=it.w.map(function(o){var f="";try{var r=p72Look(o);f=r&&r.form?r.form:"";}catch(_){}return '<b>'+esc(o)+'</b>'+(f?'（'+esc(f)+'）':'');});
     var fa="";try{var r=p72Look(it.a);fa=r&&r.form?r.form:"";}catch(_){}
     h+='<p class="p86-oth">'+(fa?'正解の形：<b>'+esc(it.a)+'</b>（'+esc(fa)+'）　':'')+'ほかの形：'+lab.join("、")+'</p>';}
@@ -19282,6 +19437,25 @@ function footHtml(){
     (last?'<button type="button" class="p86-main" data-act="p86fin">採点する</button>':'<button type="button" class="p86-main" data-act="p86next">'+(V.ans[V.pos]!==undefined?'次へ':'あとで答える')+'</button>')+'</div>';
 }
 
+/* ---------- この回に出てきた単語（単語帳の id）：まちがえた問題の語を先に ---------- */
+function sessWords(){
+  if(!V||!V.steps)return [];var ids=[],bad={};
+  if(V.mode==="mock")V.steps.forEach(function(x,i){if(V.ans[i]!==x.it.a)bad[x.it.id]=1;});else Object.keys(V.again||{}).forEach(function(k){bad[k]=1;});
+  var its=[];V.steps.forEach(function(x){if(its.indexOf(x.it)<0)its.push(x.it);});
+  its.sort(function(a,b){return (bad[b.id]?1:0)-(bad[a.id]?1:0);});
+  its.forEach(function(it){
+    if(it.wid&&window.WMAP&&WMAP[it.wid])ids.push(it.wid);
+    var t=[it.t==="gap"?full(it):"",it.say||"",it.t==="gap"?"":(it.q||"")+" "+(it.a||"")].join(" ");
+    if(it.txt&&!ids.__t){ids.__t={};}
+    if(it.txt&&!ids.__t[it.txt.id]){ids.__t[it.txt.id]=1;t+=" "+(it.txt.tx||"")+" "+(it.txt.ln||[]).map(function(l){return l[1];}).join(" ");}
+    (t.match(/[А-Яа-яЁё\u0301\-]+/g)||[]).forEach(function(tok){var r=null;try{r=p72Look(tok);}catch(_){}if(r&&r.id&&!r.guess&&window.WMAP&&WMAP[r.id])ids.push(r.id);});});
+  var out=[];ids.forEach(function(id){if(out.indexOf(id)<0)out.push(id);});return out.slice(0,60);
+}
+function wordsCard(){
+  var n=sessWords().length;if(!n)return "";
+  return '<div class="p86-card p86-wl"><div class="p86-ch">出てきた単語をもう一周する？</div><p class="p86-mut">この回の問題に出てきた単語 '+n+'語（まちがえた問題の単語が先）を、単語カードで1周できます。やるかどうかは自由です。ここで覚えた単語は、ふだんの単語学習と同じように「学習した単語」として記録されます。</p>'+
+    '<button type="button" class="p86-sub p86-wlb" data-act="p86words">'+n+'語を1周する</button></div>';
+}
 /* ---------- 結果 ---------- */
 function resHtml(){
   var h='',lv=V.lv||curLv(),L=LV[lv];
@@ -19299,6 +19473,7 @@ function resHtml(){
           '<p class="p86-ja">'+esc(it.t==="gap"?it.j:it.t==="hear"?"":it.qj)+(it.txt?'（'+esc(it.txt.t)+'）':'')+'</p>'+
           '<p>あなたの答え：<b class="ng">'+(o.a===undefined?'（答えていない）':esc(o.a))+'</b>　正解：<b class="ok">'+esc(it.a)+'</b></p>'+expHtml(it,true).replace(/^<p><b class="ok">正解<\/b><\/p>/,"")+'</div>';});
     }else h+='<div class="p86-card"><p>全問正解です！</p></div>';
+    h+=wordsCard();
     h+='<button type="button" class="p86-big" data-act="p86home"><span><b>トップへ</b><small>弱い部門の練習から続けましょう</small></span>'+ic("go",18)+'</button>';
     return h;
   }
@@ -19309,6 +19484,7 @@ function resHtml(){
   h+='<div class="p86-card"><div class="p86-ch">'+(V.kind==="today"?L.code+' 全体':kindName(V.kind))+'の定着 '+pct(so.solid,so.n)+'%</div>'+sbar(so)+'<p class="p86-mut">定着 '+so.solid+'・練習中 '+so.learn+'・まだ '+(so.n-so.solid-so.learn)+'（全 '+so.n+'問）'+(V.kind!=="today"?'　'+lap(li).lap+'周目 '+lap(li).done+' / '+li.length:'')+'</p></div>';
   if(miss2.length){h+='<div class="p86-h">見直しておきたい問題（明日もう一度出ます）</div>';miss2.forEach(function(it){
     h+='<div class="p86-rv"><div class="p86-q '+(it.t==="hear"?"":"p71-sent")+'">'+esc(it.t==="gap"?full(it):it.t==="hear"?it.say:it.q+' → '+it.a)+'</div><p class="p86-ja">'+esc(it.t==="gap"?it.j:it.t==="hear"?it.a:it.qj)+'</p></div>';});}
+  h+=wordsCard();
   h+='<div class="p86-nav2"><button type="button" class="p86-sub" data-act="p86home">トップへ</button><button type="button" class="p86-main" data-act="p86prac" data-val="'+V.kind+'">続けてもう1回</button></div>';
   return h;
 }
@@ -19383,6 +19559,8 @@ document.addEventListener("click",function(e){
   else if(a==="p86home"){stopTimer();hush();V={view:"top"};draw();}
   else if(a==="p86lv"){if(LV[v]){rec().lv=v;save();V={view:"top"};draw();}}
   else if(a==="p86today")startPrac("today");
+  else if(a==="p86words"){var ws=sessWords();if(!ws.length){toast("単語が見つかりませんでした");return;}close();
+    try{ui.bnav="wordbook";ui.view="word";ui.learnOpen=true;startSessionFromIds(ws,"検定の問題に出てきた単語",undefined,{type:"all",allLevels:true});}catch(_){toast("単語の学習を開けませんでした");}}
   else if(a==="p86prac")startPrac(v);
   else if(a==="p86mock")startMock();
   else if(a==="p86pick")onPick(+v);
@@ -19460,6 +19638,7 @@ var css=document.createElement("style");css.textContent=
  '.p86-opts{display:flex;flex-direction:column;gap:8px;margin:12px 0 0}'+
  '.p86-opt{width:100%;text-align:left;min-height:52px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:17px;cursor:pointer}.p86-opt.ja{font-size:15px;line-height:1.5}'+
  '.p86-opt.sel{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.p86-opt.right{border-color:#2e9c5a;background:rgba(46,156,90,.12)}.p86-opt.wrong{border-color:#d9534f;background:rgba(217,83,79,.12)}.p86-opt.dim{opacity:.5}'+
+ '.p86-goal .p86-gr{margin:8px 0}.p86-gt{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;margin-bottom:4px}.p86-gt b{font-weight:600}.p86-gt span{color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}.p86-gi{margin-top:8px}.p86-goal .p86-bar{display:block}.p86-wl .p86-wlb{width:100%;margin-top:8px}.p86-why{margin:8px 0;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--card2)}.p86-wh{font-size:13px;font-weight:800;color:var(--accent);margin-bottom:4px}.p86-wr{display:flex;gap:10px;padding:6px 0;border-top:1px solid var(--line)}.p86-wr:first-of-type{border-top:none}.p86-wr span{flex:0 0 5.5em;font-size:12px;font-weight:700;color:var(--muted);padding-top:2px}.p86-wr p{margin:0!important;font-size:14px!important;line-height:1.7;min-width:0;overflow-wrap:anywhere}.p86-pt b{display:block;font-size:12px;color:var(--muted)}'+
  '.p86-exp{margin:12px 0 0;border-left:3px solid var(--accent);background:var(--card);border-radius:0 12px 12px 0;padding:10px 14px}.p86-exp p{font-size:14.5px;line-height:1.75;margin:4px 0}.p86-exp b{font-size:inherit}.p86-exp p:first-child b{font-size:16px}.p86-full{font-weight:600}.p86-oth{font-size:13.5px!important;color:var(--muted)}.p86-oth b{color:var(--ink)}'+
  '.p86-foot{padding:10px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}'+
  '.p86-main{flex:1;width:100%;min-height:52px;border-radius:14px;border:0;background:var(--accent);color:#fff;font:inherit;font-size:16px;font-weight:700;cursor:pointer}'+

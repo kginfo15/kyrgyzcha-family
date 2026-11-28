@@ -125,9 +125,11 @@ function p72Look(tok,ctx){
   var n=p71N(tok);if(!n)return null;
   if(ctx&&ctx.w&&ctx.hit)return {id:ctx.w.id,base:ctx.w.accent||ctx.w.word,mean:ctx.w.meaning,form:ctx.lab||""};
   var ix=p72Index(),hs=ix[n]||[],r=null;
-  hs.forEach(function(h){if(!r||(!r.id&&h.id))r=h;});
+  /* 辞書にある語（id）の最初の候補を選ぶ（前からの決まり）。id がなければ意味のついた候補。形の名前がなければ、同じ語のほかの候補から借りる */
+  hs.forEach(function(h){if(!r||(!r.id&&h.id)||(!r.id&&!h.id&&!r.mean&&h.mean))r=h;});
+  if(r&&!r.form){var rb=p71N(r.base||"");hs.forEach(function(h){if(!r.form&&h.form&&p71N(h.base||"")===rb&&(h.id||null)===(r.id||null))r={id:r.id,base:r.base,mean:r.mean,form:h.form,g:r.g||h.g};});}
   if(r){var w=r.id&&WMAP[r.id];var o={id:r.id,base:r.base,mean:w?w.meaning:(r.mean||P72_FN[n]||""),form:r.form||"",g:r.g||null};
-    if(w&&p71N(w.word)!==n&&!o.form){o.form=p72FormName(w,tok);}if(P72_FN[n]&&!w)o.mean=P72_FN[n];return o;}
+    if(w&&p71N(w.word)!==n&&!o.form){o.form=p72FormName(w,tok);}if(o.form)o.form=o.form.split("・").filter(function(x,k,a){return a.indexOf(x)===k;}).join("・");if(P72_FN[n]&&!w)o.mean=P72_FN[n];return o;}
   if(P72_FN[n])return {id:null,base:tok,mean:P72_FN[n],form:""};
   /* 語幹で探す（最後の手段） */
   if(n.length>=5){var best=null;for(var cut=1;cut<=3&&!best;cut++){var s=n.slice(0,n.length-cut);if(s.length<4)break;
