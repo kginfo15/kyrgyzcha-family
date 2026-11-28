@@ -11776,7 +11776,11 @@ window.addEventListener("click",function(e){
   if(pop&&!(e.target.closest&&e.target.closest("#p72pop"))&&a!=="p72w"){p72PopClose();e.stopImmediatePropagation();e.preventDefault();return;}
   if(!/^p72/.test(a)){if(a==="p71again"&&P71&&P71.fav){e.stopImmediatePropagation();e.preventDefault();p72FavStart();}return;}
   e.stopImmediatePropagation();e.preventDefault();
-  if(a==="p72w"){if(P72_POPEL===el)p72PopClose();else p72Pop(el);}
+  if(a==="p72w"){
+    /* 文法書の解説文・変化表・単語ごとの説明の中の語は、押すと辞書のページを直接開く（例文そのものは今までどおり意味の小窓） */
+    if(el.closest(".p72-art")&&!el.closest(".p72-exru,.p72-gru,.p71-sent")){var lk=null;try{lk=p72Look(v);}catch(_){}
+      if(lk&&lk.id&&!lk.guess){p72PopClose();document.body.classList.add("p72-dictup");ui.searchDetailId=lk.id;ui.sheet="worddetail";try{saveUI();}catch(_){}renderSheetHost();return;}}
+    if(P72_POPEL===el)p72PopClose();else p72Pop(el);}
   else if(a==="p72popx")p72PopClose();
   else if(a==="p72wdict"){p72PopClose();document.body.classList.add("p72-dictup");ui.searchDetailId=v;ui.sheet="worddetail";try{saveUI();}catch(_){}renderSheetHost();}
   else if(a==="p72say"){try{speak(v);}catch(_){}el.classList.add("say");setTimeout(function(){el.classList.remove("say");},700);}
