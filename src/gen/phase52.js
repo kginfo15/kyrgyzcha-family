@@ -46,11 +46,12 @@ function p52Render(s){
     h+='<div class="p52-foot"><div class="p52-hint">次に出てきたときにクイズで確認します</div><button type="button" class="p52-next" data-act="p52next">覚えた、次へ'+p47Icon("chev",18)+'</button></div></div>';
     return h;
   }
-  var lab={meaning:"意味はどれ？",reverse:p47L().name+"でどう言う？",listen:"聞こえた単語の意味は？"}[q.type];
+  var lab={meaning:"意味はどれ？",reverse:p47L().name+"でどう言う？",listen:nsOn()?"意味はどれ？（聞き取り問題を文字で）":"聞こえた単語の意味は？"}[q.type];
   h+='<div class="p52-card">'+bm+'<div class="p52-tag">'+lab+'</div>';
   if(q.type==="meaning")h+='<div class="p52-q">'+esc(w.accent||w.word)+'</div><button type="button" class="p52-spk big" data-act="say" data-say="'+esc(w.accent||w.word)+'">'+P52_SPK+'</button>';
   else if(q.type==="reverse")h+='<div class="p52-q ja">'+esc(p52Short(w.meaning))+'</div>';
-  else h+='<button type="button" class="p52-listen" data-act="say" data-say="'+esc(w.accent||w.word)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button>';
+  else if(nsOn())h+='<div class="p52-q">'+esc(w.accent||w.word)+'</div><div class="ns-wrap">'+nsBtn()+'</div>';
+  else h+='<button type="button" class="p52-listen" data-act="say" data-say="'+esc(w.accent||w.word)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button><div class="ns-wrap">'+nsBtn()+'</div>';
   h+='</div><div class="p52-opts">';
   q.opts.forEach(function(oid,i){
     var o=WMAP[oid],txt=q.type==="reverse"?(o.accent||o.word):p52Short(o.meaning),cls="";

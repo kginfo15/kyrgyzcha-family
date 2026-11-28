@@ -80,7 +80,8 @@ function renderP58(){
     else{h+='<div class="p52-tag">'+p47L().name+'でどう言う？</div><div class="p52-q ja">'+esc(p52Short(w.meaning))+'</div>';opts=it.opts.map(function(o){return WMAP[o].accent||WMAP[o].word;});}}
   else if(it.kind==="gram"){h+='<div class="p52-tag">正しい形はどれ？</div><div class="p53-cloze">'+esc(it.sent).replace("＿＿＿",'<span class="p53-blank">？</span>')+'</div><div class="p53-clozeja">'+esc(it.ja)+'</div>';opts=it.opts;}
   else{var c=CMAP[it.cid];
-    if(it.mode==="listen")h+='<div class="p52-tag">聞こえた文の意味は？</div><button type="button" class="p52-listen" data-act="say" data-say="'+esc(c.accent||c.ru)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button>';
+    if(it.mode==="listen"&&nsOn())h+='<div class="p52-tag">文の意味は？（聞き取り問題を文字で）</div><div class="p58-sent">'+esc(c.accent||c.ru)+'</div><div class="ns-wrap">'+nsBtn()+'</div>';
+    else if(it.mode==="listen")h+='<div class="p52-tag">聞こえた文の意味は？</div><button type="button" class="p52-listen" data-act="say" data-say="'+esc(c.accent||c.ru)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button><div class="ns-wrap">'+nsBtn()+'</div>';
     else h+='<div class="p52-tag">文の意味は？</div><div class="p58-sent">'+esc(c.accent||c.ru)+'</div>';
     opts=it.opts.map(function(o){return CMAP[o].ja;});}
   h+='</div><div class="p52-opts">'+opts.map(function(t,i){return '<button type="button" class="p52-opt" data-act="p58pick" data-val="'+i+'"><span class="p52-n">'+(i+1)+'</span><span class="p52-t">'+esc(t)+'</span></button>';}).join("")+'</div>';

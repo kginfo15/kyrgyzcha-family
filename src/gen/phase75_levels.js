@@ -39,8 +39,9 @@ function p75Render(m,S,x){
   if(S._said!==S.pos&&(x.m==="hear"||x.m==="dict")){S._said=S.pos;setTimeout(function(){try{speak(w.accent||w.word);}catch(_){}},250);}
   var big='<button type="button" class="p75-play" data-act="p75say" aria-label="もう一度聞く"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8q3 4 0 8M18.5 5.5q5 6.5 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><small>もう一度聞く</small></button>';
   var tag='<div class="p71-tag">'+(x.rev?'おさらい・':'')+'難易度'+S.lv+' ・ ';
+  var NS=nsOn();
   if(x.m==="hear"){
-    h='<div class="p71-body">'+tag+'聞こえた言葉の意味は？</div><div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean"><b>'+esc(w.accent||w.word)+'</b></div>':big)+(done?p71Stamp(S.picked===x.id?1:0):'')+'</div><div class="p71-opts">'+
+    h='<div class="p71-body">'+tag+(NS?'言葉の意味は？（聞き取りを文字で）':'聞こえた言葉の意味は？')+'</div><div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean"><b>'+esc(w.accent||w.word)+'</b></div>':NS?'<div class="ns-text">'+esc(w.accent||w.word)+'</div>':big)+'<div class="ns-wrap">'+nsBtn()+'</div>'+(done?p71Stamp(S.picked===x.id?1:0):'')+'</div><div class="p71-opts">'+
       x.opts.map(function(o,i){var st=done?(o===x.id?"right":(o===S.picked?"wrong":"dim")):"";var W=WMAP[o];
         return '<div class="p71-orow"><button type="button" class="p71-opt '+st+'" data-act="p71pick" data-val="'+i+'"><span>'+esc(W.meaning||"")+'</span>'+(done&&(o===x.id||o===S.picked)?'<small>'+esc(W.accent||W.word)+'</small>':'')+'</button></div>';}).join("")+'</div></div>';
     foot=done?'<button type="button" class="p71-main" data-act="p71next">次へ</button>':'<div class="p71-wait">選んでください</div>';
@@ -48,9 +49,9 @@ function p75Render(m,S,x){
     S.cur=x;var b=p75Built(S),ok=done&&p75Eq(S.picked,x.ans);
     var q='';
     if(x.m==="type")q='<div class="p71-q">'+p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>'+(done?p71Stamp(ok?1:0):'')+'</div>';
-    else if(x.m==="dict")q='<div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>':big)+(done?p71Stamp(ok?1:0):'')+'</div>';
+    else if(x.m==="dict")q='<div class="p71-q">'+(done||NS?p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>':big)+(done?p71Stamp(ok?1:0):'')+'<div class="ns-wrap">'+nsBtn()+'</div></div>';
     else{var c=x.c;q='<div class="p71-paper"><div class="p71-sent">'+p71Sentence(c,done?p71Plain(c.f.surface):null,done?(ok?"ok":"ng"):"")+'</div><div class="p71-ja">'+esc(c.ja)+'</div>'+(done?p71Spk(p71Plain(c.f.toks.join("")))+p71Stamp(ok?1:0):(p71N(c.f.surface)!==p71N(w.word)?'<p class="p75-hint">使う言葉：<b>'+esc(w.accent||w.word)+'</b>（'+esc(w.meaning||"")+'）を、文に合う形にして書きます</p>':'<p class="p75-hint">空欄の意味：<b>'+esc(w.meaning||"")+'</b></p>'))+'</div>';}
-    h='<div class="p71-body">'+tag+(x.m==="type"?'絵と意味に合う言葉を書こう':x.m==="dict"?'聞こえた言葉を書こう':'空欄に入る形を書こう')+'</div>'+q+
+    h='<div class="p71-body">'+tag+(x.m==="type"?'絵と意味に合う言葉を書こう':x.m==="dict"?(NS?'絵と意味に合う言葉を書こう（聞き取りを文字で）':'聞こえた言葉を書こう'):'空欄に入る形を書こう')+'</div>'+q+
       '<div class="p75-ans'+(done?(ok?" ok":" ng"):"")+'">'+(b?esc(b).replace(/ /g,"&nbsp;"):'<span>下の文字をタップ</span>')+'</div>';
     if(!done){h+='<div class="p75-tiles">'+x.tiles.map(function(t,i){var u=(S.inp||[]).indexOf(i)>=0;return '<button type="button" class="p75-tile'+(u?" used":"")+'" data-act="p75tile" data-val="'+i+'"'+(u?" disabled":"")+'>'+(t===" "?"␣":esc(t))+'</button>';}).join("")+'</div>'+
       '<div class="p75-row"><button type="button" class="p75-sm" data-act="p75back">1文字けす</button><button type="button" class="p75-sm" data-act="p75clear">全部けす</button></div><p class="p71-small">余分な文字も混ざっています。アクセント記号は気にしなくて大丈夫です。</p>';

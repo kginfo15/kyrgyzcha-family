@@ -141,7 +141,10 @@ function mark(it,ok,sec,pk){
   var r=rec(),t=today(),s=(st(it.id)||[0,0,0,t,t]).slice();
   /* 正解で箱が上がるのは「はじめて」か「復習の日が来た」ときだけ。同じ日に何周しても定着にはならない */
   var fresh=!s[0]||s[3]<=t;
+  /* 聴解を「文字で見る」で解いたときは、耳で聞き取れた証拠にならないので段は上げない（周回の回数には数える） */
+  var nsx=(it.sec==="au"||it.t==="hear")&&typeof nsOn==="function"&&nsOn();if(nsx&&ok)fresh=false;
   s[0]++;if(ok){s[1]++;if(fresh){s[2]=Math.min(INT.length-1,s[2]+1);s[3]=t+INT[s[2]];}}else{s[2]=1;s[3]=t+1;}s[4]=t;
+  if(nsx&&ok&&s[3]<=t)s[3]=t+1;
   r.s[it.id]=s;save();
   try{if(typeof coachLog==="function")coachLog(Object.assign({m:"trki",id:"trki:"+it.id,ok:ok?1:0,s:sec,g:["trki-"+it.sec,"trki-"+it.lv].concat(it.part?["trki-p"+it.part]:[]),w:it.wid&&!ok?[it.wid]:[]},
       /* まちがえたときは、AI学習コーチの「自分専用の講義」に出す材料（問題・正解・選んだ答え・理由）も渡す */
@@ -221,7 +224,7 @@ function topHtml(){
   h+='<div class="p86-h">ミニ模試（本番を小さくした形・'+M.min+'分）</div><button type="button" class="p86-big p86-big2b" data-act="p86mock"><span><b>'+L.code+' のミニ模試を受ける</b><small>'+(m?'前回：'+["lg","rd","au"].map(function(c){var p=pct(m[c][0],m[c][1]);return CATN[c]+' '+p+'%';}).join('・'):'まだ受けていません')+'</small></span>'+ic("go",18)+'</button>';
   var ms=rec().mk.filter(function(x){return (x.lv||"B1")===lv;});
   if(ms.length>1){h+='<div class="p86-box p86-hist">';ms.slice(0,6).forEach(function(x){var d=new Date(x.d);
-    h+='<div class="p86-hr"><span>'+(d.getMonth()+1)+'/'+d.getDate()+'</span>'+["lg","rd","au"].map(function(c){var p=pct(x[c][0],x[c][1]);return '<em class="'+(p>=L.pass?"ok":"ng")+'">'+CATN[c].slice(0,2)+' '+p+'%</em>';}).join("")+'</div>';});h+='</div>';}
+    h+='<div class="p86-hr"><span>'+(d.getMonth()+1)+'/'+d.getDate()+'</span>'+["lg","rd","au"].map(function(c){var p=pct(x[c][0],x[c][1]);return '<em class="'+(p>=L.pass?"ok":"ng")+'">'+CATN[c].slice(0,2)+' '+p+'%</em>';}).join("")+(x.ns?'<em class="ns-mk">聴解は文字</em>':'')+'</div>';});h+='</div>';}
   /* 説明 */
   h+='<details class="p86-info"><summary>覚え方のしくみ</summary>'+
     '<p><b>周回</b>　分野ごとに、全部の問題を順番に1回ずつ解くと「1周」です。終わったら2周目、3周目…と、文法書を何度も読み返すように回します。</p>'+
@@ -325,10 +328,13 @@ function textHtml(it,done){
   var t=it.txt,prac=V.mode==="prac";
   if(it.sec==="rd")return '<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div><div class="p71-sent p86-body p86-rdb">'+esc(t.tx).replace(/\n/g,"<br>")+'</div>'+
       (prac?'<details class="p86-tr"><summary>日本語訳を見る</summary><p>'+esc(t.j).replace(/\n/g,"<br>")+'</p></details>':'')+'</div>';
-  var key=t.id,h='<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div>'+playBtn(key)+
+  if(nsOn())return '<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div><div class="p71-sent p86-body">'+t.ln.map(function(l){return (l[0]?'<b>'+esc(l[0])+'：</b>':'')+esc(l[1]);}).join("<br>")+'</div>'+nsNote()+'<div class="ns-wrap">'+nsBtn()+'</div>'+
+      (done&&prac?'<details class="p86-tr"><summary>日本語訳を見る</summary><p>'+esc(t.j).replace(/\n/g,"<br>")+'</p></details>':'')+'</div>';
+  var key=t.id,h='<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div>'+playBtn(key)+'<div class="ns-wrap">'+nsBtn()+'</div>'+
     (done&&prac?'<details class="p86-tr"><summary>聞いた内容（ロシア語と訳）</summary><div class="p71-sent p86-body">'+t.ln.map(function(l){return (l[0]?'<b>'+esc(l[0])+'：</b>':'')+esc(l[1]);}).join("<br>")+'</div><p>'+esc(t.j).replace(/\n/g,"<br>")+'</p></details>':'');
   return h+'</div>';
 }
+function nsNote(){return '<p class="ns-note">聞き取りの代わりに文字で読んでいます。この回は周回には数えますが、聴解の「定着」には数えません。</p>';}
 /* 聴解の再生ボタン：模試では2回まで（本番は2回流れるレベルと1回のレベルがある） */
 function playBtn(key){
   var used=V.mode==="mock"?(V.plays[key]||0):0,can=V.mode!=="mock"||used<2;
@@ -345,7 +351,7 @@ function qHtml(){
       (prac?(done||!it.hideJ?'<div class="p86-ja">'+esc(it.j)+'</div>':'<details class="p86-tr p86-trs"><summary>訳を見る</summary><p>'+esc(it.j)+'</p></details>'):(!it.hideJ&&it.j?'<div class="p86-ja">'+esc(it.j)+'</div>':''))+
       (done?p71Spk(full(it)):'')+'</div>';
   }else if(it.t==="hear"){
-    h+='<div class="p86-txt">'+playBtn(it.id)+(done?'<div class="p71-sent p86-body">'+esc(it.say)+'</div>':'')+'</div><div class="p86-paper"><div class="p86-q p86-qj">'+esc(it.q)+'</div></div>';
+    h+='<div class="p86-txt">'+(nsOn()?'<div class="p71-sent p86-body">'+esc(it.say)+'</div>'+nsNote():playBtn(it.id)+(done?'<div class="p71-sent p86-body">'+esc(it.say)+'</div>':''))+'<div class="ns-wrap">'+nsBtn()+'</div></div><div class="p86-paper"><div class="p86-q p86-qj">'+esc(it.q)+'</div></div>';
   }else{
     h+=textHtml(it,done)+'<div class="p86-paper"><div class="p71-sent p86-q">'+esc(it.q)+'</div>'+(prac?'<div class="p86-ja">'+esc(it.qj)+'</div>':'')+'</div>';
   }
@@ -775,7 +781,7 @@ function resHtml(){
     ["lg","rd","au"].forEach(function(c){if(!r[c][1])return;var p=pct(r[c][0],r[c][1]),need=Math.max(0,Math.ceil(r[c][1]*L.pass/100)-r[c][0]);
       h+='<div class="p86-row3"><div class="p86-rl"><b>'+CATN[c]+'</b><small>'+r[c][0]+' / '+r[c][1]+'問</small></div><div class="p86-rr"><div class="p86-bar"><i style="width:'+p+'%"></i><u style="left:'+L.pass+'%"></u></div><span class="p86-mk"><b class="'+(p>=L.pass?"ok":"ng")+'">'+p+'%</b></span></div></div>'+
         (need?'<p class="p86-need">'+CATN[c]+'はあと <b>'+need+'問</b> 正解すれば合格ラインです。</p>':'');});
-    h+='<p class="p86-mut">かかった時間 '+mmss(r.sec*1000)+'　（本番は作文・会話もあり、それぞれ合格ラインが必要です）</p></div>';
+    h+='<p class="p86-mut">かかった時間 '+mmss(r.sec*1000)+'　（本番は作文・会話もあり、それぞれ合格ラインが必要です）</p>'+((V.nsUsed||nsOn())?'<p class="p86-mut">※ 今回は聴解を文字で読んで解きました。聴解の点は、耳で聞いたときの力とは別の目安として見てください。</p>':'')+'</div>';
     var miss=V.steps.map(function(x,i){return {x:x,a:V.ans[i]};}).filter(function(o){return o.a!==o.x.it.a;});
     if(miss.length){h+='<div class="p86-h">まちがえた問題の説明（'+miss.length+'問）　※明日の練習でもう一度出ます</div>';
       miss.forEach(function(o){var it=o.x.it;
@@ -811,6 +817,7 @@ function linkWords(m){
       if(hit)t.parentNode.replaceChild(fr,t);});
   });
 }
+document.addEventListener("nschange",function(){if(V&&document.body.classList.contains("p86-on")){if(V.mode==="mock"&&nsOn())V.nsUsed=1;hush();if(V)V.playing=0;draw();}});
 /* ---------- 描く ---------- */
 function draw(){
   var m=el();document.body.classList.add("p70-noscroll");try{p72PopClose();p72Theme();}catch(_){}
@@ -851,7 +858,7 @@ function finishMock(){
   var per=na?Math.min(120,Math.round(r.sec/na)):0;
   V.steps.forEach(function(x,i){var c=CAT[x.it.sec],ok=V.ans[i]===x.it.a;r[c][1]++;if(ok)r[c][0]++;
     if(V.ans[i]!==undefined)mark(x.it,ok,per,V.ans[i]);});
-  var R=rec();R.mk.unshift({lv:V.lv,d:Date.now(),lg:r.lg,rd:r.rd,au:r.au,sec:r.sec});R.mk=R.mk.slice(0,30);save();
+  var R=rec();R.mk.unshift({lv:V.lv,d:Date.now(),lg:r.lg,rd:r.rd,au:r.au,sec:r.sec,ns:V.nsUsed||nsOn()?1:0});R.mk=R.mk.slice(0,30);save();
   V.res=r;V.view="res";draw();
 }
 /* 聴解の再生：1文ずつ、少し間をあけて読む */
@@ -923,6 +930,7 @@ if(typeof p81GuideHtml==="function"){
 /* ---------- 見た目 ---------- */
 var css=document.createElement("style");css.textContent=
  '.p86-dl{display:inline;border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;line-height:inherit;text-decoration:underline dotted;text-decoration-color:var(--accent,#0a84ff);text-underline-offset:3px;cursor:pointer;-webkit-user-select:text;user-select:text}.p86-dl:active{color:var(--accent,#0a84ff)}'+
+ '.ns-mk{font-style:normal;font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 5px}'+
  '.p86-solq{border:0;background:none;color:var(--accent,#0a84ff);font:inherit;font-size:12px;padding:6px 4px;min-height:32px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}'+
  '.p86-hq{display:flex;align-items:center;justify-content:space-between;gap:8px}.p86-hq .p86-solq{font-weight:400}'+
  '#p86sol{position:absolute;inset:0;z-index:5;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}'+

@@ -5672,11 +5672,12 @@ function p52Render(s){
     h+='<div class="p52-foot"><div class="p52-hint">次に出てきたときにクイズで確認します</div><button type="button" class="p52-next" data-act="p52next">覚えた、次へ'+p47Icon("chev",18)+'</button></div></div>';
     return h;
   }
-  var lab={meaning:"意味はどれ？",reverse:p47L().name+"でどう言う？",listen:"聞こえた単語の意味は？"}[q.type];
+  var lab={meaning:"意味はどれ？",reverse:p47L().name+"でどう言う？",listen:nsOn()?"意味はどれ？（聞き取り問題を文字で）":"聞こえた単語の意味は？"}[q.type];
   h+='<div class="p52-card">'+bm+'<div class="p52-tag">'+lab+'</div>';
   if(q.type==="meaning")h+='<div class="p52-q">'+esc(w.accent||w.word)+'</div><button type="button" class="p52-spk big" data-act="say" data-say="'+esc(w.accent||w.word)+'">'+P52_SPK+'</button>';
   else if(q.type==="reverse")h+='<div class="p52-q ja">'+esc(p52Short(w.meaning))+'</div>';
-  else h+='<button type="button" class="p52-listen" data-act="say" data-say="'+esc(w.accent||w.word)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button>';
+  else if(nsOn())h+='<div class="p52-q">'+esc(w.accent||w.word)+'</div><div class="ns-wrap">'+nsBtn()+'</div>';
+  else h+='<button type="button" class="p52-listen" data-act="say" data-say="'+esc(w.accent||w.word)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button><div class="ns-wrap">'+nsBtn()+'</div>';
   h+='</div><div class="p52-opts">';
   q.opts.forEach(function(oid,i){
     var o=WMAP[oid],txt=q.type==="reverse"?(o.accent||o.word):p52Short(o.meaning),cls="";
@@ -6397,7 +6398,8 @@ function renderP58(){
     else{h+='<div class="p52-tag">'+p47L().name+'でどう言う？</div><div class="p52-q ja">'+esc(p52Short(w.meaning))+'</div>';opts=it.opts.map(function(o){return WMAP[o].accent||WMAP[o].word;});}}
   else if(it.kind==="gram"){h+='<div class="p52-tag">正しい形はどれ？</div><div class="p53-cloze">'+esc(it.sent).replace("＿＿＿",'<span class="p53-blank">？</span>')+'</div><div class="p53-clozeja">'+esc(it.ja)+'</div>';opts=it.opts;}
   else{var c=CMAP[it.cid];
-    if(it.mode==="listen")h+='<div class="p52-tag">聞こえた文の意味は？</div><button type="button" class="p52-listen" data-act="say" data-say="'+esc(c.accent||c.ru)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button>';
+    if(it.mode==="listen"&&nsOn())h+='<div class="p52-tag">文の意味は？（聞き取り問題を文字で）</div><div class="p58-sent">'+esc(c.accent||c.ru)+'</div><div class="ns-wrap">'+nsBtn()+'</div>';
+    else if(it.mode==="listen")h+='<div class="p52-tag">聞こえた文の意味は？</div><button type="button" class="p52-listen" data-act="say" data-say="'+esc(c.accent||c.ru)+'">'+P52_SPK.replace('width="20" height="20"','width="40" height="40"')+'<span>タップして聞く</span></button><div class="ns-wrap">'+nsBtn()+'</div>';
     else h+='<div class="p52-tag">文の意味は？</div><div class="p58-sent">'+esc(c.accent||c.ru)+'</div>';
     opts=it.opts.map(function(o){return CMAP[o].ja;});}
   h+='</div><div class="p52-opts">'+opts.map(function(t,i){return '<button type="button" class="p52-opt" data-act="p58pick" data-val="'+i+'"><span class="p52-n">'+(i+1)+'</span><span class="p52-t">'+esc(t)+'</span></button>';}).join("")+'</div>';
@@ -13411,8 +13413,9 @@ function p75Render(m,S,x){
   if(S._said!==S.pos&&(x.m==="hear"||x.m==="dict")){S._said=S.pos;setTimeout(function(){try{speak(w.accent||w.word);}catch(_){}},250);}
   var big='<button type="button" class="p75-play" data-act="p75say" aria-label="もう一度聞く"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8q3 4 0 8M18.5 5.5q5 6.5 0 13" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><small>もう一度聞く</small></button>';
   var tag='<div class="p71-tag">'+(x.rev?'おさらい・':'')+'難易度'+S.lv+' ・ ';
+  var NS=nsOn();
   if(x.m==="hear"){
-    h='<div class="p71-body">'+tag+'聞こえた言葉の意味は？</div><div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean"><b>'+esc(w.accent||w.word)+'</b></div>':big)+(done?p71Stamp(S.picked===x.id?1:0):'')+'</div><div class="p71-opts">'+
+    h='<div class="p71-body">'+tag+(NS?'言葉の意味は？（聞き取りを文字で）':'聞こえた言葉の意味は？')+'</div><div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean"><b>'+esc(w.accent||w.word)+'</b></div>':NS?'<div class="ns-text">'+esc(w.accent||w.word)+'</div>':big)+'<div class="ns-wrap">'+nsBtn()+'</div>'+(done?p71Stamp(S.picked===x.id?1:0):'')+'</div><div class="p71-opts">'+
       x.opts.map(function(o,i){var st=done?(o===x.id?"right":(o===S.picked?"wrong":"dim")):"";var W=WMAP[o];
         return '<div class="p71-orow"><button type="button" class="p71-opt '+st+'" data-act="p71pick" data-val="'+i+'"><span>'+esc(W.meaning||"")+'</span>'+(done&&(o===x.id||o===S.picked)?'<small>'+esc(W.accent||W.word)+'</small>':'')+'</button></div>';}).join("")+'</div></div>';
     foot=done?'<button type="button" class="p71-main" data-act="p71next">次へ</button>':'<div class="p71-wait">選んでください</div>';
@@ -13420,9 +13423,9 @@ function p75Render(m,S,x){
     S.cur=x;var b=p75Built(S),ok=done&&p75Eq(S.picked,x.ans);
     var q='';
     if(x.m==="type")q='<div class="p71-q">'+p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>'+(done?p71Stamp(ok?1:0):'')+'</div>';
-    else if(x.m==="dict")q='<div class="p71-q">'+(done?p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>':big)+(done?p71Stamp(ok?1:0):'')+'</div>';
+    else if(x.m==="dict")q='<div class="p71-q">'+(done||NS?p71Pic(x.id)+'<div class="p71-mean">'+esc(w.meaning||"")+'</div>':big)+(done?p71Stamp(ok?1:0):'')+'<div class="ns-wrap">'+nsBtn()+'</div></div>';
     else{var c=x.c;q='<div class="p71-paper"><div class="p71-sent">'+p71Sentence(c,done?p71Plain(c.f.surface):null,done?(ok?"ok":"ng"):"")+'</div><div class="p71-ja">'+esc(c.ja)+'</div>'+(done?p71Spk(p71Plain(c.f.toks.join("")))+p71Stamp(ok?1:0):(p71N(c.f.surface)!==p71N(w.word)?'<p class="p75-hint">使う言葉：<b>'+esc(w.accent||w.word)+'</b>（'+esc(w.meaning||"")+'）を、文に合う形にして書きます</p>':'<p class="p75-hint">空欄の意味：<b>'+esc(w.meaning||"")+'</b></p>'))+'</div>';}
-    h='<div class="p71-body">'+tag+(x.m==="type"?'絵と意味に合う言葉を書こう':x.m==="dict"?'聞こえた言葉を書こう':'空欄に入る形を書こう')+'</div>'+q+
+    h='<div class="p71-body">'+tag+(x.m==="type"?'絵と意味に合う言葉を書こう':x.m==="dict"?(NS?'絵と意味に合う言葉を書こう（聞き取りを文字で）':'聞こえた言葉を書こう'):'空欄に入る形を書こう')+'</div>'+q+
       '<div class="p75-ans'+(done?(ok?" ok":" ng"):"")+'">'+(b?esc(b).replace(/ /g,"&nbsp;"):'<span>下の文字をタップ</span>')+'</div>';
     if(!done){h+='<div class="p75-tiles">'+x.tiles.map(function(t,i){var u=(S.inp||[]).indexOf(i)>=0;return '<button type="button" class="p75-tile'+(u?" used":"")+'" data-act="p75tile" data-val="'+i+'"'+(u?" disabled":"")+'>'+(t===" "?"␣":esc(t))+'</button>';}).join("")+'</div>'+
       '<div class="p75-row"><button type="button" class="p75-sm" data-act="p75back">1文字けす</button><button type="button" class="p75-sm" data-act="p75clear">全部けす</button></div><p class="p71-small">余分な文字も混ざっています。アクセント記号は気にしなくて大丈夫です。</p>';
@@ -19061,7 +19064,10 @@ function mark(it,ok,sec,pk){
   var r=rec(),t=today(),s=(st(it.id)||[0,0,0,t,t]).slice();
   /* 正解で箱が上がるのは「はじめて」か「復習の日が来た」ときだけ。同じ日に何周しても定着にはならない */
   var fresh=!s[0]||s[3]<=t;
+  /* 聴解を「文字で見る」で解いたときは、耳で聞き取れた証拠にならないので段は上げない（周回の回数には数える） */
+  var nsx=(it.sec==="au"||it.t==="hear")&&typeof nsOn==="function"&&nsOn();if(nsx&&ok)fresh=false;
   s[0]++;if(ok){s[1]++;if(fresh){s[2]=Math.min(INT.length-1,s[2]+1);s[3]=t+INT[s[2]];}}else{s[2]=1;s[3]=t+1;}s[4]=t;
+  if(nsx&&ok&&s[3]<=t)s[3]=t+1;
   r.s[it.id]=s;save();
   try{if(typeof coachLog==="function")coachLog(Object.assign({m:"trki",id:"trki:"+it.id,ok:ok?1:0,s:sec,g:["trki-"+it.sec,"trki-"+it.lv].concat(it.part?["trki-p"+it.part]:[]),w:it.wid&&!ok?[it.wid]:[]},
       /* まちがえたときは、AI学習コーチの「自分専用の講義」に出す材料（問題・正解・選んだ答え・理由）も渡す */
@@ -19141,7 +19147,7 @@ function topHtml(){
   h+='<div class="p86-h">ミニ模試（本番を小さくした形・'+M.min+'分）</div><button type="button" class="p86-big p86-big2b" data-act="p86mock"><span><b>'+L.code+' のミニ模試を受ける</b><small>'+(m?'前回：'+["lg","rd","au"].map(function(c){var p=pct(m[c][0],m[c][1]);return CATN[c]+' '+p+'%';}).join('・'):'まだ受けていません')+'</small></span>'+ic("go",18)+'</button>';
   var ms=rec().mk.filter(function(x){return (x.lv||"B1")===lv;});
   if(ms.length>1){h+='<div class="p86-box p86-hist">';ms.slice(0,6).forEach(function(x){var d=new Date(x.d);
-    h+='<div class="p86-hr"><span>'+(d.getMonth()+1)+'/'+d.getDate()+'</span>'+["lg","rd","au"].map(function(c){var p=pct(x[c][0],x[c][1]);return '<em class="'+(p>=L.pass?"ok":"ng")+'">'+CATN[c].slice(0,2)+' '+p+'%</em>';}).join("")+'</div>';});h+='</div>';}
+    h+='<div class="p86-hr"><span>'+(d.getMonth()+1)+'/'+d.getDate()+'</span>'+["lg","rd","au"].map(function(c){var p=pct(x[c][0],x[c][1]);return '<em class="'+(p>=L.pass?"ok":"ng")+'">'+CATN[c].slice(0,2)+' '+p+'%</em>';}).join("")+(x.ns?'<em class="ns-mk">聴解は文字</em>':'')+'</div>';});h+='</div>';}
   /* 説明 */
   h+='<details class="p86-info"><summary>覚え方のしくみ</summary>'+
     '<p><b>周回</b>　分野ごとに、全部の問題を順番に1回ずつ解くと「1周」です。終わったら2周目、3周目…と、文法書を何度も読み返すように回します。</p>'+
@@ -19245,10 +19251,13 @@ function textHtml(it,done){
   var t=it.txt,prac=V.mode==="prac";
   if(it.sec==="rd")return '<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div><div class="p71-sent p86-body p86-rdb">'+esc(t.tx).replace(/\n/g,"<br>")+'</div>'+
       (prac?'<details class="p86-tr"><summary>日本語訳を見る</summary><p>'+esc(t.j).replace(/\n/g,"<br>")+'</p></details>':'')+'</div>';
-  var key=t.id,h='<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div>'+playBtn(key)+
+  if(nsOn())return '<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div><div class="p71-sent p86-body">'+t.ln.map(function(l){return (l[0]?'<b>'+esc(l[0])+'：</b>':'')+esc(l[1]);}).join("<br>")+'</div>'+nsNote()+'<div class="ns-wrap">'+nsBtn()+'</div>'+
+      (done&&prac?'<details class="p86-tr"><summary>日本語訳を見る</summary><p>'+esc(t.j).replace(/\n/g,"<br>")+'</p></details>':'')+'</div>';
+  var key=t.id,h='<div class="p86-txt"><div class="p86-tt">'+esc(t.t)+'</div>'+playBtn(key)+'<div class="ns-wrap">'+nsBtn()+'</div>'+
     (done&&prac?'<details class="p86-tr"><summary>聞いた内容（キルギス語と訳）</summary><div class="p71-sent p86-body">'+t.ln.map(function(l){return (l[0]?'<b>'+esc(l[0])+'：</b>':'')+esc(l[1]);}).join("<br>")+'</div><p>'+esc(t.j).replace(/\n/g,"<br>")+'</p></details>':'');
   return h+'</div>';
 }
+function nsNote(){return '<p class="ns-note">聞き取りの代わりに文字で読んでいます。この回は周回には数えますが、聴解の「定着」には数えません。</p>';}
 /* 聴解の再生ボタン：模試では2回まで（本番は2回流れるレベルと1回のレベルがある） */
 function playBtn(key){
   var used=V.mode==="mock"?(V.plays[key]||0):0,can=V.mode!=="mock"||used<2;
@@ -19265,7 +19274,7 @@ function qHtml(){
       (prac?(done||!it.hideJ?'<div class="p86-ja">'+esc(it.j)+'</div>':'<details class="p86-tr p86-trs"><summary>訳を見る</summary><p>'+esc(it.j)+'</p></details>'):(!it.hideJ&&it.j?'<div class="p86-ja">'+esc(it.j)+'</div>':''))+
       (done?p71Spk(full(it)):'')+'</div>';
   }else if(it.t==="hear"){
-    h+='<div class="p86-txt">'+playBtn(it.id)+(done?'<div class="p71-sent p86-body">'+esc(it.say)+'</div>':'')+'</div><div class="p86-paper"><div class="p86-q p86-qj">'+esc(it.q)+'</div></div>';
+    h+='<div class="p86-txt">'+(nsOn()?'<div class="p71-sent p86-body">'+esc(it.say)+'</div>'+nsNote():playBtn(it.id)+(done?'<div class="p71-sent p86-body">'+esc(it.say)+'</div>':''))+'<div class="ns-wrap">'+nsBtn()+'</div></div><div class="p86-paper"><div class="p86-q p86-qj">'+esc(it.q)+'</div></div>';
   }else{
     h+=textHtml(it,done)+'<div class="p86-paper"><div class="p71-sent p86-q">'+esc(it.q)+'</div>'+(prac?'<div class="p86-ja">'+esc(it.qj)+'</div>':'')+'</div>';
   }
@@ -19695,7 +19704,7 @@ function resHtml(){
     ["lg","rd","au"].forEach(function(c){if(!r[c][1])return;var p=pct(r[c][0],r[c][1]),need=Math.max(0,Math.ceil(r[c][1]*L.pass/100)-r[c][0]);
       h+='<div class="p86-row3"><div class="p86-rl"><b>'+CATN[c]+'</b><small>'+r[c][0]+' / '+r[c][1]+'問</small></div><div class="p86-rr"><div class="p86-bar"><i style="width:'+p+'%"></i><u style="left:'+L.pass+'%"></u></div><span class="p86-mk"><b class="'+(p>=L.pass?"ok":"ng")+'">'+p+'%</b></span></div></div>'+
         (need?'<p class="p86-need">'+CATN[c]+'はあと <b>'+need+'問</b> 正解すれば合格ラインです。</p>':'');});
-    h+='<p class="p86-mut">かかった時間 '+mmss(r.sec*1000)+'　（本番は作文・会話もあり、それぞれ合格ラインが必要です）</p></div>';
+    h+='<p class="p86-mut">かかった時間 '+mmss(r.sec*1000)+'　（本番は作文・会話もあり、それぞれ合格ラインが必要です）</p>'+((V.nsUsed||nsOn())?'<p class="p86-mut">※ 今回は聴解を文字で読んで解きました。聴解の点は、耳で聞いたときの力とは別の目安として見てください。</p>':'')+'</div>';
     var miss=V.steps.map(function(x,i){return {x:x,a:V.ans[i]};}).filter(function(o){return o.a!==o.x.it.a;});
     if(miss.length){h+='<div class="p86-h">まちがえた問題の説明（'+miss.length+'問）　※明日の練習でもう一度出ます</div>';
       miss.forEach(function(o){var it=o.x.it;
@@ -19731,6 +19740,7 @@ function linkWords(m){
       if(hit)t.parentNode.replaceChild(fr,t);});
   });
 }
+document.addEventListener("nschange",function(){if(V&&document.body.classList.contains("p86-on")){if(V.mode==="mock"&&nsOn())V.nsUsed=1;hush();if(V)V.playing=0;draw();}});
 /* ---------- 描く ---------- */
 function draw(){
   var m=el();document.body.classList.add("p70-noscroll");try{p72PopClose();p72Theme();}catch(_){}
@@ -19771,7 +19781,7 @@ function finishMock(){
   var per=na?Math.min(120,Math.round(r.sec/na)):0;
   V.steps.forEach(function(x,i){var c=CAT[x.it.sec],ok=V.ans[i]===x.it.a;r[c][1]++;if(ok)r[c][0]++;
     if(V.ans[i]!==undefined)mark(x.it,ok,per,V.ans[i]);});
-  var R=rec();R.mk.unshift({lv:V.lv,d:Date.now(),lg:r.lg,rd:r.rd,au:r.au,sec:r.sec});R.mk=R.mk.slice(0,30);save();
+  var R=rec();R.mk.unshift({lv:V.lv,d:Date.now(),lg:r.lg,rd:r.rd,au:r.au,sec:r.sec,ns:V.nsUsed||nsOn()?1:0});R.mk=R.mk.slice(0,30);save();
   V.res=r;V.view="res";draw();
 }
 /* 聴解の再生：1文ずつ、少し間をあけて読む */
@@ -19843,6 +19853,7 @@ if(typeof p81GuideHtml==="function"){
 /* ---------- 見た目 ---------- */
 var css=document.createElement("style");css.textContent=
  '.p86-dl{display:inline;border:0;background:none;padding:0;margin:0;font:inherit;color:inherit;line-height:inherit;text-decoration:underline dotted;text-decoration-color:var(--accent,#0a84ff);text-underline-offset:3px;cursor:pointer;-webkit-user-select:text;user-select:text}.p86-dl:active{color:var(--accent,#0a84ff)}'+
+ '.ns-mk{font-style:normal;font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 5px}'+
  '.p86-solq{border:0;background:none;color:var(--accent,#0a84ff);font:inherit;font-size:12px;padding:6px 4px;min-height:32px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;white-space:nowrap}'+
  '.p86-hq{display:flex;align-items:center;justify-content:space-between;gap:8px}.p86-hq .p86-solq{font-weight:400}'+
  '#p86sol{position:absolute;inset:0;z-index:5;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}'+
@@ -21122,6 +21133,39 @@ if(typeof p85TimeCard==="function"){
     return i>=0?h.slice(0,i)+btn+h.slice(i):h+btn;
   };
 }
+
+/* ===== PHASE89: 音を出せないとき（電車の中など）に、聞き取り問題を「文字で見る」に切りかえる =====
+   settings.noSound が true のあいだ：
+   ・聞き取り問題は、音の代わりにキルギス語の文字を出して解く（単語クイズ・到達テスト・難易度の練習・検定対策）
+   ・読み上げ（speak／speakUtterance）は鳴らさない
+   ・切りかえボタン（nsBtn）は、聞き取り問題の画面にいつも出す。押すたびに 音あり ⇄ 文字で見る が入れかわる
+   記録：単語クイズ・練習はふつうに数える。検定対策の聴解だけは「耳で聞き取れた」証拠にならないので、
+   文字で解いた回は周回には数えるが「定着」の段は上げない（phase86 側で処理）。 */
+function nsOn(){try{return !!settings.noSound;}catch(_){return false;}}
+function nsBtn(){
+  return nsOn()
+    ?'<button type="button" class="ns-btn on" data-act="nsToggle"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8q3 4 0 8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>文字で見ています　<b>音で聞くにもどす</b></span></button>'
+    :'<button type="button" class="ns-btn" data-act="nsToggle"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg><span>音を出せないときは　<b>文字で見る</b></span></button>';
+}
+/* 読み上げを止める */
+if(typeof speak==="function"){var _nsSpeak=speak;speak=function(){if(nsOn()){try{speechSynthesis.cancel();}catch(_){}return;}return _nsSpeak.apply(this,arguments);};}
+if(typeof speakUtterance==="function"){var _nsSpeakU=speakUtterance;speakUtterance=function(){if(nsOn())return Promise.resolve();return _nsSpeakU.apply(this,arguments);};}
+function nsToggle(){
+  settings.noSound=!nsOn();try{saveAll();}catch(_){}
+  if(settings.noSound){try{speechSynthesis.cancel();}catch(_){}}
+  toast(settings.noSound?"文字で見るモードにしました（音は出ません）":"音で聞くモードにもどしました");
+  try{document.dispatchEvent(new CustomEvent("nschange"));}catch(_){}
+  var p71=document.getElementById("p71");
+  if(typeof P71!=="undefined"&&P71&&p71&&p71.classList.contains("show")){try{p71Render();}catch(_){}}
+  else{try{render();}catch(_){}}
+}
+window.addEventListener("click",function(e){var el=e.target&&e.target.closest?e.target.closest('[data-act="nsToggle"]'):null;if(!el)return;e.stopImmediatePropagation();e.preventDefault();nsToggle();},true);
+(function(){var c=document.createElement("style");c.textContent=
+ '.ns-btn{display:inline-flex;align-items:center;gap:6px;margin:8px auto 0;padding:6px 12px;min-height:36px;border:1px solid var(--line);border-radius:999px;background:none;color:var(--muted);font:inherit;font-size:12.5px;cursor:pointer;max-width:100%;text-align:left}'+
+ '.ns-btn b{color:var(--accent,#0a84ff);font-weight:700}.ns-btn.on{border-color:var(--accent,#0a84ff)}.ns-btn svg{flex:none}'+
+ '.ns-wrap{display:flex;justify-content:center}.ns-text{font-size:clamp(22px,6.5vw,28px);font-weight:800;line-height:1.4;text-align:center;overflow-wrap:anywhere;margin:6px 0}'+
+ '.ns-note{font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}';
+ document.head.appendChild(c);})();
 
 /* ===== init ===== */
 try{ if(!ui.view)ui.view="word"; if(!ui.bnav)ui.bnav="home"; applyDisplayPrefs(); render(); }catch(err){ showFatal((err&&err.stack)||err); }
