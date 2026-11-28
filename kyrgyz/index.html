@@ -17005,8 +17005,8 @@ function p85Card(){
   if(!all.length){
     return h+'<div class="p85c-empty">まだ記録がありません。今日から、問題を1問解くごとに「正解か・何秒かかったか・どの言葉と文法か」を記録します。</div></div>';
   }
-  h+='<div class="p85c-grid"><div><span>今日</span><b>'+T.n+'<small> 問</small></b><em>'+(T.n?T.pct+'% 正解':'まだ')+'</em><i>'+p85Min(T.s)+'</i></div>'+
-     '<div><span>この7日</span><b>'+W.n+'<small> 問</small></b><em>'+W.pct+'% 正解</em><i>'+p85Min(W.s)+'</i></div></div>';
+  h+='<div class="p85c-grid"><div><span>今日</span><b>'+T.n+'<small> 問</small></b><em>'+(T.n?T.pct+'% 正解':'まだ')+'</em></div>'+
+     '<div><span>この7日</span><b>'+W.n+'<small> 問</small></b><em>'+W.pct+'% 正解</em></div></div>';
   /* よくまちがえる言葉（この7日） */
   var bad={};all.forEach(function(e){if(!e[3]&&e[6])e[6].forEach(function(id){bad[id]=(bad[id]||0)+1;});});
   var top=Object.keys(bad).filter(function(id){return WMAP[id];}).sort(function(a,b){return bad[b]-bad[a];}).slice(0,5);
@@ -17910,6 +17910,91 @@ p85MergeP85=function(a,b){var o=_p85MergeP85b(a,b);a=a||{};b=b||{};
     '.p85c-lbtns{display:flex;flex-direction:column;gap:8px}.p85c-lbtns .p47-btn{width:100%}.p85c-empty{padding:18px 14px;border:1px dashed var(--line);border-radius:12px;font-size:13.5px;color:var(--muted);line-height:1.7}'+
     '.p85c-weakb{display:flex;align-items:center;gap:10px;width:100%;margin-top:8px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-align:left;cursor:pointer;font:inherit;min-height:56px}.p85c-weakb *{pointer-events:none}'+
     '.p85c-weakb span{flex:1;min-width:0;display:flex;flex-direction:column}.p85c-weakb b{font-size:14.5px}.p85c-weakb small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}';
+  try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
+})();
+
+/* ===== PHASE85 手順7：勉強時間を見やすく（2026-11-28 Yuta：「何分勉強したかは重要な指標。トップにも、大きくならずに」） =====
+   ・数えるのは1問ごとの記録の秒（問題が出てから答えるまで。画面を離れた時間は引き、1問2分まで）。
+   ・1日の目標＝「今日やること」で選んだ時間（settings.p85.min：15/30/60分）。
+   ・ホーム：「今日やること」の見出しの下に1行だけ（今日の分・目標までの細い棒・この7日の合計）。押すと記録の画面の「勉強時間」へ。
+   ・記録の画面のいちばん上：「勉強時間」カード（今日／この7日／累計、直近14日の棒グラフと目標の線、この7日の内訳）。 */
+function p85DaySecs(n){
+  var out=[],idx={};for(var i=n-1;i>=0;i--){var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-i);var k=todayKey(d);idx[k]=out.length;out.push({k:k,d:d,s:0,n:0});}
+  p85Recent(n+1).forEach(function(e){var k=todayKey(new Date(e[0]*1000));if(idx[k]!=null){out[idx[k]].s+=e[4];out[idx[k]].n++;}});
+  return out;
+}
+function p85Mins(sec){return Math.round(sec/60);}
+function p85TimeHome(){
+  var S=p85Set(),D=p85DaySecs(7),t=D[6].s,w=0;D.forEach(function(x){w+=x.s;});
+  var m=p85Mins(t),goal=S.min,pct=Math.min(100,Math.round(m/goal*100));
+  return '<button type="button" class="p85c-tline" data-act="p85time" aria-label="今日の勉強 '+m+'分、目標'+goal+'分。この7日 '+p85HM(w)+'"><span class="p85c-tl1">今日の勉強</span><b>'+m+'<small>分</small></b>'+
+    '<span class="p85c-tbar" aria-hidden="true"><i style="width:'+pct+'%"></i></span><span class="p85c-tl2">'+(m>=goal?'目標達成':'目標 '+goal+'分')+'<span class="p85c-w7"> ・ 7日 '+p85HM(w)+'</span></span></button>';
+}
+var _p85HomeHtml7=p85HomeHtml;
+p85HomeHtml=function(){
+  var h=_p85HomeHtml7.apply(this,arguments);
+  try{var a=h.indexOf('<button type="button" class="p85c-wkb"'),b=h.indexOf('<div class="p81-box">'),i=(a>=0&&(b<0||a<b))?a:b;if(i>=0)h=h.slice(0,i)+p85TimeHome()+h.slice(i);}catch(_){}
+  return h;
+};
+var P85_TMODE=[["lesson","レッスン",["lesson","fav"]],["card","単語の復習",["card","quiz"]],["gp","文法の練習",["gp"]],["trki","検定対策",["trki"]],["compose","瞬間作文",["compose"]],["test","到達テスト",["test"]]];
+function p85TimeChart(D,goal){
+  var W=340,H=150,L=8,R=8,T=18,B=24,n=D.length,cw=(W-L-R)/n,max=Math.max(goal,1);D.forEach(function(x){max=Math.max(max,p85Mins(x.s));});
+  max=Math.ceil(max/10)*10||10;var y=function(v){return T+(H-T-B)*(1-v/max);},wd="日月火水木金土",s='<svg class="p85c-chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="直近14日の勉強時間">';
+  s+='<line class="p85c-gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+y(0)+'" y2="'+y(0)+'"/>';
+  var gy=y(goal);s+='<line class="p85c-goal" x1="'+L+'" x2="'+(W-R)+'" y1="'+gy+'" y2="'+gy+'"/><text class="p85c-tx" x="'+(W-R)+'" y="'+(gy-4)+'" text-anchor="end">目標 '+goal+'分</text>';
+  D.forEach(function(x,i){var m=p85Mins(x.s),bx=L+i*cw+cw*0.18,bw=cw*0.64,last=i===n-1,top=y(m);
+    if(m>0)s+='<rect class="'+(last?"p85c-bar1":"p85c-bar2")+'" x="'+bx.toFixed(1)+'" y="'+top.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+(y(0)-top).toFixed(1)+'" rx="3"><title>'+(x.d.getMonth()+1)+'/'+x.d.getDate()+' '+m+'分</title></rect>';
+    else if(x.n)s+='<rect class="p85c-bar2" x="'+bx.toFixed(1)+'" y="'+(y(0)-2)+'" width="'+bw.toFixed(1)+'" height="2" rx="1"/>';
+    if(last&&m>0)s+='<text class="p85c-tv" x="'+(bx+bw/2).toFixed(1)+'" y="'+(top-5).toFixed(1)+'" text-anchor="middle">'+m+'</text>';
+    s+='<text class="p85c-tx'+(last?' p85c-txon':'')+'" x="'+(bx+bw/2).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle">'+(last?"今日":wd[x.d.getDay()])+'</text>';});
+  return s+'</svg>';
+}
+function p85TimeCard(){
+  var S=p85Set(),goal=S.min,D=p85DaySecs(14),today=D[13],w7=0,p7=0,days7=0,hit=0;
+  D.forEach(function(x,i){if(i>=7){w7+=x.s;if(x.n)days7++;if(p85Mins(x.s)>=goal)hit++;}else p7+=x.s;});
+  var T=p85Totals(),m=p85Mins(today.s),pct=Math.min(100,Math.round(m/goal*100)),diff=p85Mins(w7)-p85Mins(p7);
+  var h='<div class="p60-h" id="p85time">勉強時間<small>実際に解いた時間だけ</small></div><div class="p60-list p85c-time">';
+  h+='<div class="p85c-tnow"><div><span>今日</span><b>'+m+'<small> 分</small></b></div><div class="p85c-tgoal"><span>'+(m>=goal?'今日の目標（'+goal+'分）を達成しました':'目標 '+goal+'分まで あと '+(goal-m)+'分')+'</span><span class="p85c-tbar big"><i style="width:'+pct+'%"></i></span></div></div>';
+  h+='<div class="p85c-t3"><div><span>この7日</span><b>'+p85HM(w7)+'</b><em>'+(p7||w7?(diff>=0?'前の7日 +'+diff+'分':'前の7日 '+diff+'分'):'')+'</em></div>'+
+     '<div><span>1日平均</span><b>'+p85Mins(w7/7)+'分</b><em>目標達成 '+hit+' / 7日</em></div>'+
+     '<div><span>累計</span><b>'+p85HM(T.s)+'</b><em>'+T.days+'日 学習</em></div></div>';
+  h+='<div class="p85c-tsub">直近14日</div><div class="p85c-tchart">'+p85TimeChart(D,goal)+'</div>';
+  /* この7日の内訳 */
+  var by={},from=Math.floor(D[7].d.getTime()/1000);p85Recent(8).forEach(function(e){if(e[0]>=from)by[e[1]]=(by[e[1]]||0)+e[4];});
+  var rows=P85_TMODE.map(function(r){var s=0;r[2].forEach(function(k){s+=by[k]||0;});return {name:r[1],s:s};}).filter(function(r){return r.s>=30;}).sort(function(a,b){return b.s-a.s;});
+  if(rows.length){var mx=rows[0].s;h+='<div class="p85c-tsub">この7日の内訳</div>'+rows.map(function(r){return '<div class="p85c-trow2"><span>'+r.name+'</span><i><b style="width:'+Math.max(3,Math.round(r.s/mx*100))+'%"></b></i><em>'+p85HM(r.s)+'</em></div>';}).join("");}
+  h+='<p class="p85c-tnote">問題が画面に出てから答えるまでの時間だけを数えます。ほかのアプリを開いていた時間は引き、1問は長くても2分までにしています。目標はホームの「今日やること」で選んだ時間（15・30・60分）です。</p>';
+  return h+'</div>';
+}
+/* 記録の画面：いちばん上に勉強時間。「1問ごとの記録」からは時間を外す（同じ数字を2回出さない） */
+var _p85Stats7=renderP48Stats;
+renderP48Stats=function(){
+  var h=String(_p85Stats7.apply(this,arguments));
+  if(P47_LANG!=="ru")return h;
+  try{var j=h.indexOf('今週のまとめ'),i=j>=0?h.lastIndexOf('<div class="p60-h"',j):-1;var c=p85TimeCard();h=i>=0?h.slice(0,i)+c+h.slice(i):c+h;}catch(_){}
+  return h;
+};
+document.addEventListener("click",function(e){
+  var el=e.target.closest&&e.target.closest('[data-act="p85time"]');if(!el)return;
+  e.stopImmediatePropagation();e.preventDefault();
+  try{clearTransientUI();}catch(_){}ui.bnav="stats";ui.learnOpen=false;render();
+  setTimeout(function(){var t=document.getElementById("p85time");if(t)try{t.scrollIntoView({block:"start"});}catch(_){}},30);
+},true);
+(function(){
+  var css='.p85c-tline{display:flex;align-items:center;gap:8px;width:100%;margin:0 0 8px;padding:7px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer;min-height:40px}.p85c-tline *{pointer-events:none}'+
+    '.p85c-tl1{font-size:12px;color:var(--muted);font-weight:700;white-space:nowrap}.p85c-tline>b{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}.p85c-tline>b small{font-size:11px;font-weight:700;color:var(--muted);margin-left:1px}'+
+    '.p85c-tbar{flex:1;min-width:30px;height:6px;border-radius:3px;background:var(--line);overflow:hidden;display:block}.p85c-tbar i{display:block;height:100%;background:var(--accent);border-radius:3px}.p85c-tbar.big{height:8px;flex:none;width:100%;margin-top:6px}'+
+    '.p85c-tl2{font-size:11.5px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}@media(max-width:360px){.p85c-w7{display:none}}'+
+    '.p85c-time{padding:2px 0 4px}.p85c-tnow{display:flex;align-items:flex-end;gap:14px;padding:12px 14px 12px}.p85c-tnow>div:first-child span{display:block;font-size:12px;color:var(--muted);font-weight:700}'+
+    '.p85c-tnow>div:first-child b{display:block;font-size:34px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}.p85c-tnow>div:first-child b small{font-size:14px;color:var(--muted);font-weight:700}'+
+    '.p85c-tgoal{flex:1;min-width:0;padding-bottom:5px}.p85c-tgoal>span:first-child{display:block;font-size:12.5px;color:var(--muted);line-height:1.4}'+
+    '.p85c-t3{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.p85c-t3>div{padding:10px 10px 10px 14px;min-width:0}.p85c-t3>div+div{border-left:1px solid var(--line);padding-left:10px}'+
+    '.p85c-t3 span{display:block;font-size:11.5px;color:var(--muted);font-weight:700}.p85c-t3 b{display:block;font-size:17px;font-weight:800;margin-top:1px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.p85c-t3 em{display:block;font-style:normal;font-size:11px;color:var(--muted);margin-top:1px;line-height:1.35}'+
+    '.p85c-tsub{font-size:12px;font-weight:700;color:var(--muted);padding:12px 14px 2px}.p85c-tchart{padding:0 8px}'+
+    '.p85c-goal{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 4;opacity:.7}.p85c-bar2{fill:var(--accent);opacity:.45}.p85c-txon{fill:var(--accent);font-weight:700}'+
+    '.p85c-trow2{display:flex;align-items:center;gap:10px;padding:5px 14px;font-size:13px}.p85c-trow2>span{flex:0 0 76px;white-space:nowrap}.p85c-trow2>i{flex:1;height:8px;border-radius:4px;background:var(--line);overflow:hidden;display:block}.p85c-trow2>i>b{display:block;height:100%;background:var(--accent);border-radius:4px}'+
+    '.p85c-trow2>em{flex:0 0 auto;font-style:normal;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}'+
+    '.p85c-tnote{font-size:11.5px;color:var(--muted);line-height:1.6;margin:10px 14px 8px}';
   try{var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);}catch(_){}
 })();
 
