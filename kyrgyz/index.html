@@ -18782,7 +18782,7 @@ function build(){
         if(m&&d.length===2){
           var cap=/^[А-ЯЁ]/.test(sf);var fit=function(s){return cap?s.charAt(0).toUpperCase()+s.slice(1):s;};
           add({id:"gr:"+c.id,lv:lv,sec:"gr",t:"gap",s:ru.slice(0,m.index+m[1].length)+"＿"+ru.slice(m.index+m[0].length),h:plain(b.base),j:c.ja,a:sf,w:d.map(fit),
-            x:(b.why||"")+(c.gEasy?"　"+c.gEasy:""),unit:c.unit,form:1,ord:n++});
+            x:(b.why||"")+(c.gEasy?"　"+c.gEasy:""),xg:c.gEasy||"",unit:c.unit,form:1,ord:n++});
         }
       }
       /* 短い文を聞く問題：同じユニットのほかの文の訳を、まちがいの選択肢にする */
@@ -19150,7 +19150,9 @@ function whyHtml(it){
 }
 function expHtml(it,ok){
   var wh="";try{wh=whyHtml(it);}catch(_){}
-  var h='<p><b class="'+(ok?"ok":"ng")+'">'+(ok?'正解':'正解は '+esc(it.a))+'</b></p>'+wh+(it.x?(wh?'<p class="p86-pt"><b>この文のポイント</b>'+esc(it.x)+'</p>':'<p>'+esc(it.x)+'</p>'):'');
+  /* 自動で作った文法問題は、手がかりが見つかったら、単語ごとの短い説明（ほかの文から来ることがある）を省いて、文全体の説明だけを残す */
+  var xx=wh&&/手がかり/.test(wh)&&it.form&&it.xg!==undefined?it.xg:it.x;
+  var h='<p><b class="'+(ok?"ok":"ng")+'">'+(ok?'正解':'正解は '+esc(it.a))+'</b></p>'+wh+(xx?(wh?'<p class="p86-pt"><b>この文のポイント</b>'+esc(xx)+'</p>':'<p>'+esc(xx)+'</p>'):'');
   if(wh&&/ほかの選択肢/.test(wh)){}
   else if(it.opt)h+='<p class="p86-oth">ほかの選択肢：'+it.opt.map(function(o){return '<b>'+esc(o[0])+'</b>＝'+esc(o[1]);}).join("、")+'</p>';
   else if(it.form){var lab=it.w.map(function(o){var f="";try{var r=p72Look(o);f=r&&r.form?r.form:"";}catch(_){}return '<b>'+esc(o)+'</b>'+(f?'（'+esc(f)+'）':'');});
