@@ -172,7 +172,7 @@ function pGrPageHtml(){
     h+='<div class="pgr-gi'+(open&&!unk?"":" lock")+(i===G.i?" now":"")+'">'+(open&&!unk?pGrScene(K.id,i,0):pGrFigSvg(K.id,i,b||"a"))+'<b>'+(i+1)+'. '+(open&&!unk?esc(K.t(i,b||"a")):'？？？')+'</b>'+(open?'':'<small>'+PGR_T[i].toLocaleString()+' ポイントで</small>')+'</div>';}
   h+='</div>';
   /* 育てる仲間を選ぶ */
-  h+='<div class="pgr-h">育てる仲間を選ぶ<small>10種類</small></div><p class="pgr-note">切りかえても、前の仲間は育ったところで待っています。新しい仲間は、選んだ日からの学習で育ちます。</p><div class="pgr-kinds">';
+  h+='<div class="pgr-h">育てる仲間を選ぶ<small>10種類</small></div><p class="pgr-note">仲間ごとに育ち方は別々です。新しい仲間は第1段階から始まり、ポイントはいま選んでいる仲間にだけ入ります。前の仲間は育ったところのまま牧場で待っていて、もう一度選べば続きから育てられます。</p><div class="pgr-kinds">';
   PGR_ORDER.forEach(function(id){var KK=PGR_KINDS[id],o=s.own[id],kg=pGrStage(o?pGrKP(id,P.p):0);
     h+='<button type="button" class="pgr-kd'+(id===K.id?" on":"")+'" data-act="pgrkind" data-val="'+id+'"><span class="pgr-kdimg">'+pGrFigSvg(id,o?kg.i:0,o&&o.br||"a")+'</span><b>'+esc(KK.name)+'</b><small>'+(id===K.id?'育てています':o?'第'+(kg.i+1)+'段階で待っています':esc(KK.sub))+'</small></button>';});
   h+='</div>';
